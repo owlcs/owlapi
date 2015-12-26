@@ -1,10 +1,11 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
@@ -52,7 +53,7 @@ public class OwlStringTools {
      * @return string or null
      * @see #translate(String, OWLOntologyManager)
      */
-    public static String translate(Set<OWLAxiom> axioms, OWLOntologyManager translationManager) {
+    public static String translate(Collection<OWLAxiom> axioms, OWLOntologyManager translationManager) {
         if (axioms.isEmpty()) {
             return "";
         }
@@ -81,7 +82,7 @@ public class OwlStringTools {
      * @return set of axioms or null
      * @see #translate(Set,OWLOntologyManager)
      */
-    public static Set<OWLAxiom> translate(@Nullable String axioms, OWLOntologyManager translationManager) {
+    public static Collection<OWLAxiom> translate(@Nullable String axioms, OWLOntologyManager translationManager) {
         if (axioms == null || axioms.isEmpty()) {
             return Collections.emptySet();
         }
@@ -90,7 +91,7 @@ public class OwlStringTools {
             OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms);
             OWLOntology ontology = translationManager.createOntology();
             p.parse(documentSource, ontology, translationManager.getOntologyLoaderConfiguration());
-            return asSet(ontology.axioms());
+            return asList(ontology.axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException | OWLParserException e) {
             throw new OWLRuntimeException(e);
         }

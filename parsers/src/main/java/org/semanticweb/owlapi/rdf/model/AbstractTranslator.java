@@ -1028,7 +1028,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!useStrongTyping) {
             return;
         }
-        if (!OWLDocumentFormatImpl.isMissingType(entity, ont)) {
+        if (!OWLDocumentFormat.isMissingType(entity, ont)) {
             return;
         }
         addTriple(entity, RDF_TYPE.getIRI(), entity.getEntityType().getIRI());

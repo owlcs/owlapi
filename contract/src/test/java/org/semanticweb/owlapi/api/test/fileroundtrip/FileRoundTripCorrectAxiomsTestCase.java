@@ -34,7 +34,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     protected OWLClass classC = Class(iri("C"));
 
     protected void assertEqualsSet(String ontology, OWLAxiom... axioms) {
-        assertEquals(asSet(ontologyFromClasspathFile(ontology).axioms()), Sets.newHashSet(axioms));
+        assertEquals(asUnorderedSet(ontologyFromClasspathFile(ontology).axioms()), Sets.newHashSet(axioms));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         OWLNamedIndividual object = NamedIndividual(IRI("http://Example.com#myLocation"));
         OWLAxiom ax = ObjectPropertyAssertion(predicate, subject, object);
         assertTrue(ontology.containsAxiom(ax, EXCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
-        Set<OWLAxiom> axioms = asSet(ontology.axiomsIgnoreAnnotations(ax, EXCLUDED));
+        Set<OWLAxiom> axioms = asUnorderedSet(ontology.axiomsIgnoreAnnotations(ax, EXCLUDED));
         assertEquals(1, axioms.size());
         OWLAxiom theAxiom = axioms.iterator().next();
         assertTrue(theAxiom.isAnnotated());

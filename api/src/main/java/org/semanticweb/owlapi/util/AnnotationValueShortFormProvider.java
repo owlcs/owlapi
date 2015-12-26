@@ -184,11 +184,6 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         return preferredLanguageMap;
     }
 
-    @Override
-    public void dispose() {
-        // nothing to dispose of
-    }
-
     private static class AnnotationLanguageFilter implements OWLObjectVisitor {
 
         private final OWLAnnotationProperty prop;

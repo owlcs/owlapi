@@ -444,8 +444,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
             OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
             if (prop.isAnonymous()) {
-                throw new ExceptionBuilder().withKeyword(
-                    "Inverse construct uses nested object property expression, but object property only is allowed")
+                throw new ExceptionBuilder()
+                    .withKeyword(
+                        "Inverse construct uses nested object property expression, but object property only is allowed")
                     .build();
             }
             if (brackets) {
@@ -758,9 +759,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
             String lit = unquoteLiteral(tok);
-            if (peekToken().equals("^")) {
+            if ("^".equals(peekToken())) {
                 consumeToken();
-                if (!peekToken().equals("^")) {
+                if (!"^".equals(peekToken())) {
                     throw new ExceptionBuilder().withKeyword("^").build();
                 }
                 consumeToken();
@@ -1476,7 +1477,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         String s = peekToken();
         if (isIndividualName(s)) {
             return parseIIndividualObject();
-        } else if (s.equals("?")) {
+        } else if ("?".equals(s)) {
             return parseIVariable();
         } else {
             consumeToken();
@@ -1508,7 +1509,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     private SWRLDArgument parseDObject() {
         String s = peekToken();
-        if (s.equals("?")) {
+        if ("?".equals(s)) {
             return parseDVariable();
         } else {
             try {
@@ -1794,11 +1795,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     public List<OWLObjectPropertyExpression> parseObjectPropertyChain() {
         String delim = "o";
         List<OWLObjectPropertyExpression> properties = new ArrayList<>();
-        while (delim.equals("o")) {
+        while ("o".equals(delim)) {
             OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
             properties.add(prop);
             delim = peekToken();
-            if (delim.equals("o")) {
+            if ("o".equals(delim)) {
                 consumeToken();
             }
         }
@@ -1834,7 +1835,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Map<String, IRI> map = new HashMap<>(2);
         String prefixName = consumeToken();
         // Handle legacy = character if necessart
-        if (peekToken().equals("=")) {
+        if ("=".equals(peekToken())) {
             // Legacy
             consumeToken();
         }
@@ -2218,9 +2219,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         @Override
         @Nullable
         public OWLClass getOWLClass(String name) {
-            if (name.equals("Thing") || name.equals("owl:Thing")) {
+            if ("Thing".equals(name) || "owl:Thing".equals(name)) {
                 return df.getOWLThing();
-            } else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
+            } else if ("Nothing".equals(name) || "owl:Nothing".equals(name)) {
                 return df.getOWLNothing();
             } else if (classNames.contains(name)) {
                 return df.getOWLClass(getIRI(name));
@@ -2276,7 +2277,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     protected IRI getIRI(String inputName) {
         String name = inputName;
-        boolean fullIRI = name.equals("<");
+        boolean fullIRI = "<".equals(name);
         if (fullIRI) {
             name = consumeToken();
             consumeToken();
@@ -2474,7 +2475,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             String sep = kw;
             List<OWLObjectPropertyExpression> chain = new ArrayList<>();
             chain.add(prop);
-            while (sep.equals("o")) {
+            while ("o".equals(sep)) {
                 OWLObjectPropertyExpression chainProp = parseObjectPropertyExpression(false);
                 chain.add(chainProp);
                 sep = consumeToken();

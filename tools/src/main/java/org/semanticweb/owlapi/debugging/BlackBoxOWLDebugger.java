@@ -176,7 +176,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 continue;
             }
             // Keep track of the number of axioms that have been added
-            for (OWLEntity curObj : asSet(ax.signature())) {
+            for (OWLEntity curObj : asList(ax.signature())) {
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                     int added = expandWithReferencingAxioms(curObj, expansionLimit);
                     axiomsAdded += added;
@@ -231,7 +231,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int expandWithReferencingAxioms(OWLEntity obj, int limit) {
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        Set<OWLAxiom> expansionAxioms = asSet(getOWLOntology().referencingAxioms(obj, INCLUDED));
+        Set<OWLAxiom> expansionAxioms = asUnorderedSet(getOWLOntology().referencingAxioms(obj, INCLUDED));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }

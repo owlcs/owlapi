@@ -43,8 +43,8 @@ public class OBOFormatParser {
      */
     protected OBOFormatParser(MyStream s) {
         stream = s;
-        Caffeine<String, String> builder = Caffeine.newBuilder()
-            .maximumWeight(8388608).weigher((String key, String value) -> key.length());
+        Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608)
+            .weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
             builder.recordStats();
         }
@@ -266,17 +266,15 @@ public class OBOFormatParser {
         String path = inputPath;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path.startsWith("https:"))) {
             // path is not absolue then guess it.
-            if (location != null) {
-                if (location instanceof URL) {
-                    URL url = (URL) location;
-                    String p = url.toString();
-                    int index = p.lastIndexOf('/');
-                    path = p.substring(0, index + 1) + path;
-                } else {
-                    File f = new File(location.toString());
-                    f = new File(f.getParent(), path);
-                    path = f.toURI().toString();
-                }
+            if (location instanceof URL) {
+                URL url = (URL) location;
+                String p = url.toString();
+                int index = p.lastIndexOf('/');
+                path = p.substring(0, index + 1) + path;
+            } else {
+                File f = new File(location.toString());
+                f = new File(f.getParent(), path);
+                path = f.toURI().toString();
             }
         }
         return path;
@@ -455,7 +453,9 @@ public class OBOFormatParser {
      *         parser exception
      */
     public void parseHeaderFrame(Frame h) {
-        while (parseHeaderClauseNl(h)) {}
+        while (parseHeaderClauseNl(h)) {
+            // repeat while more available
+        }
     }
 
     /**
@@ -559,8 +559,9 @@ public class OBOFormatParser {
                 f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException("Could not add frame " + f
-                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
+                throw new OBOFormatParserException(
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
+                    stream.line);
             }
         } else {
             error("Expected a [Term] frame, but found unknown stanza type.");
@@ -696,8 +697,9 @@ public class OBOFormatParser {
                 f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException("Could not add frame " + f
-                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
+                throw new OBOFormatParserException(
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
+                    stream.line);
             }
         } else {
             error("Expected a [Typedef] frame, but found unknown stanza type.");
@@ -729,7 +731,7 @@ public class OBOFormatParser {
      */
     public Clause parseTypedefFrameClause() {
         String t = getParseTag();
-        if (t.equals("is_metadata")) {
+        if ("is_metadata".equals(t)) {
             LOG.info("is_metadata DEPRECATED; switching to is_metadata_tag");
             t = OboFormatTag.TAG_IS_METADATA_TAG.getTag();
         }
@@ -1027,13 +1029,13 @@ public class OBOFormatParser {
     // ----------------------------------------
     private boolean parseDeprecatedSynonym(String tag, Clause cl) {
         String scope;
-        if (tag.equals("exact_synonym")) {
+        if ("exact_synonym".equals(tag)) {
             scope = OboFormatTag.TAG_EXACT.getTag();
-        } else if (tag.equals("narrow_synonym")) {
+        } else if ("narrow_synonym".equals(tag)) {
             scope = OboFormatTag.TAG_NARROW.getTag();
-        } else if (tag.equals("broad_synonym")) {
+        } else if ("broad_synonym".equals(tag)) {
             scope = OboFormatTag.TAG_BROAD.getTag();
-        } else if (tag.equals("related_synonym")) {
+        } else if ("related_synonym".equals(tag)) {
             scope = OboFormatTag.TAG_RELATED.getTag();
         } else {
             return false;
@@ -1112,7 +1114,9 @@ public class OBOFormatParser {
 
     private boolean parseZeroOrMoreXrefs(Clause cl) {
         if (parseXref(cl)) {
-            while (stream.consume(",") && parseXref(cl)) {}
+            while (stream.consume(",") && parseXref(cl)) {
+                // repeat while more available
+            }
         }
         return true;
     }
@@ -1173,7 +1177,9 @@ public class OBOFormatParser {
 
     private void parseZeroOrMoreQuals(Clause cl) {
         if (parseQual(cl)) {
-            while (stream.consume(",") && parseQual(cl)) {}
+            while (stream.consume(",") && parseQual(cl)) {
+                // repeat while more available
+            }
         }
     }
 
@@ -1408,16 +1414,16 @@ public class OBOFormatParser {
     }
 
     private static String mapDeprecatedTag(String tag) {
-        if (tag.equals("inverse_of_on_instance_level")) {
+        if ("inverse_of_on_instance_level".equals(tag)) {
             return OboFormatTag.TAG_INVERSE_OF.getTag();
         }
-        if (tag.equals("xref_analog")) {
+        if ("xref_analog".equals(tag)) {
             return OboFormatTag.TAG_XREF.getTag();
         }
-        if (tag.equals("xref_unknown")) {
+        if ("xref_unknown".equals(tag)) {
             return OboFormatTag.TAG_XREF.getTag();
         }
-        if (tag.equals("instance_level_is_transitive")) {
+        if ("instance_level_is_transitive".equals(tag)) {
             return OboFormatTag.TAG_IS_TRANSITIVE.getTag();
         }
         return tag;

@@ -46,11 +46,11 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
             df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        Collection<OWLAxiom> axioms = asSet(
+        Collection<OWLAxiom> axioms = asUnorderedSet(
             ont.axioms(Filters.subAnnotationWithSub, propP, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), propQ));
         assertTrue(contains(sup(axioms.stream()), propR));
-        axioms = asSet(
+        axioms = asUnorderedSet(
             ont.axioms(Filters.subAnnotationWithSub, propP, EXCLUDED));
         assertTrue(contains(sup(axioms.stream()), propQ));
         assertTrue(contains(sup(axioms.stream()), propR));

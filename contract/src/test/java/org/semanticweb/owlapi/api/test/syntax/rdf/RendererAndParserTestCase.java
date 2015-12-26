@@ -87,9 +87,9 @@ public class RendererAndParserTestCase extends TestBase {
         OWLOntology ontA = getOWLOntology();
         ontA.add(axioms.build());
         OWLOntology ontB = roundTrip(ontA);
-        Set<OWLLogicalAxiom> aMinusB = asSet(ontA.logicalAxioms());
+        Set<OWLLogicalAxiom> aMinusB = asUnorderedSet(ontA.logicalAxioms());
         aMinusB.removeAll(asList(ontB.axioms()));
-        Set<OWLLogicalAxiom> bMinusA = asSet(ontB.logicalAxioms());
+        Set<OWLLogicalAxiom> bMinusA = asUnorderedSet(ontB.logicalAxioms());
         bMinusA.removeAll(asList(ontA.axioms()));
         StringBuilder msg = new StringBuilder();
         if (aMinusB.isEmpty() && bMinusA.isEmpty()) {

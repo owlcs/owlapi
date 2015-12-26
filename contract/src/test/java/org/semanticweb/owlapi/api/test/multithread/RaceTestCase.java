@@ -70,9 +70,6 @@ public class RaceTestCase {
         if (r.callback.failed()) {
             r.callback.diagnose();
             fail("Failed after " + repetitions + " repetition(s).");
-        } else {
-            System.out.println("No race condition found in " + totalRepetitions
-                + " repetitiions");
         }
     }
 
@@ -158,16 +155,12 @@ public class RaceTestCase {
 
             @Override
             public void diagnose() {
-                List<OWLSubClassOfAxiom> axiomsFound = asList(ontology
-                    .subClassAxiomsForSubClass(x));
-                System.out.println(
-                    "Expected getSubClassAxiomsForSubClass to return " + counter
-                        + " axioms but it only found " + axiomsFound.size());
+                List<OWLSubClassOfAxiom> axiomsFound = asList(ontology.subClassAxiomsForSubClass(x));
+                System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
+                    + " axioms but it only found " + axiomsFound.size());
                 for (int i = 0; i < counter.get(); i++) {
-                    OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x,
-                        createMiddleClass(i));
-                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe)
-                        && ontology.containsAxiom(checkMe)) {
+                    OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x, createMiddleClass(i));
+                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe) && ontology.containsAxiom(checkMe)) {
                         System.out.println(checkMe.toString()
                             + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
                         return;
@@ -177,8 +170,7 @@ public class RaceTestCase {
 
             @Override
             public void race() {
-                asList(ontology.subClassAxiomsForSubClass(
-                    factory.getOWLClass(IRI.create(A_CLASS))));
+                asList(ontology.subClassAxiomsForSubClass(factory.getOWLClass(IRI.create(A_CLASS))));
             }
 
             public OWLClass createMiddleClass(int i) {

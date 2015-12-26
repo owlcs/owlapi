@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 
@@ -54,7 +54,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, desc);
-        Set<OWLClass> clses = asSet(ax.namedClasses());
+        Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertEquals(1, clses.size());
         assertTrue(clses.contains(clsA));
     }
@@ -65,7 +65,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLNothing(), desc);
-        Set<OWLClass> clses = asSet(ax.namedClasses());
+        Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLThing());
         assertTrue(ax.containsOWLNothing());
@@ -77,7 +77,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLThing(), desc);
-        Set<OWLClass> clses = asSet(ax.namedClasses());
+        Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLNothing());
         assertTrue(ax.containsOWLThing());

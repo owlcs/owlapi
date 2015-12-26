@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.profiles;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,7 +34,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2ELProfile implements OWLProfile {
 
-    protected static final Set<IRI> ALLOWED_DATATYPES = asSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
+    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i
+        .getIRI()));
 
     @Override
     public String getName() {

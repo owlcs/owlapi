@@ -19,7 +19,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -95,7 +94,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         o.add(Declaration(c));
         o.add(Declaration(d));
         OWLOntology roundtripped = roundTrip(o, new ManchesterSyntaxDocumentFormat());
-        assertEquals(asSet(o.axioms()), asSet(roundtripped.axioms()));
+        assertEquals(asUnorderedSet(o.axioms()), asUnorderedSet(roundtripped.axioms()));
     }
 
     @Test(expected = ParserException.class)
@@ -145,7 +144,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             + "Rule: \n xsd:decimal(?<urn:swrl#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl#p>, ?<urn:swrl#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl#p>)";
         OWLOntology o = loadOntologyFromString(inputManSyntax);
         OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
-        assertEquals(asSet(o.logicalAxioms()), asSet(o1.logicalAxioms()));
+        assertEquals(asUnorderedSet(o.logicalAxioms()), asUnorderedSet(o1.logicalAxioms()));
     }
 
     @Test
@@ -166,7 +165,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
         OWLOntology o = loadOntologyFromString(inputManSyntax);
         OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
-        assertEquals(asSet(o.logicalAxioms()), asSet(o1.logicalAxioms()));
+        assertEquals(asUnorderedSet(o.logicalAxioms()), asUnorderedSet(o1.logicalAxioms()));
     }
 
     @Test
@@ -176,12 +175,11 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             + "Class: Person\n Annotations:  rdfs:comment \"Represents the set of all people.\"\n"
             + "Class: Man\n Annotations: rdfs:comment \"States that every man is a person.\"\n SubClassOf:  Person";
         OWLOntology o = loadOntologyFromString(input);
-        Set<OWLAxiom> axioms = asSet(o.axioms());
         OWLClass person = Class(IRI("http://example.com/owl/families/Person"));
         OWLClass man = Class(IRI("http://example.com/owl/families/Man"));
-        assertTrue(axioms.contains(Declaration(person)));
-        assertTrue(axioms.contains(Declaration(man)));
-        assertTrue(axioms.contains(SubClassOf(man, person)));
+        assertTrue(o.containsAxiom(Declaration(person)));
+        assertTrue(o.containsAxiom(Declaration(man)));
+        assertTrue(o.containsAxiom(SubClassOf(man, person)));
     }
 
     public static final @Nonnull String NS = "http://protege.org/ontologies/Test.owl";

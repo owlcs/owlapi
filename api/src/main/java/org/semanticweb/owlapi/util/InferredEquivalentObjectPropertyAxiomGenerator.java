@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 
@@ -28,12 +28,13 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @since 2.1.0
  */
 public class InferredEquivalentObjectPropertyAxiomGenerator
-        extends InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
+    extends InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
 
     @Override
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLEquivalentObjectPropertiesAxiom> result) {
-        Set<OWLObjectPropertyExpression> equivProps = asSet(reasoner.getEquivalentObjectProperties(entity).entities());
+        Set<OWLEquivalentObjectPropertiesAxiom> result) {
+        Set<OWLObjectPropertyExpression> equivProps = asUnorderedSet(reasoner.getEquivalentObjectProperties(entity)
+            .entities());
         equivProps.add(entity);
         result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
     }

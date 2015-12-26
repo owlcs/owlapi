@@ -36,9 +36,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Management Group
  * @since 3.0.0
  */
-public class IRI
-    implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm,
-    org.apache.commons.rdf.api.IRI {
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive,
+    HasShortForm, org.apache.commons.rdf.api.IRI {
 
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
@@ -196,7 +195,7 @@ public class IRI
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return remainder.equals("PlainLiteral") && Namespaces.RDF.inNamespace(namespace);
+        return "PlainLiteral".equals(remainder) && Namespaces.RDF.inNamespace(namespace);
     }
 
     /**

@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -272,7 +272,7 @@ public class OWLObjectComponentCollectorTestCase {
     public void testAssertion() {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
         Set<OWLObject> components = testsubject.getComponents(object);
-        Set<String> strings = asSet(components.stream().map(Object::toString));
+        Set<String> strings = asUnorderedSet(components.stream().map(Object::toString));
         strings.forEach(s -> {
             if (!expected.contains(s)) {
                 System.out.println("OWLObjectComponentCollectorTestCase.testAssertion() " + s);

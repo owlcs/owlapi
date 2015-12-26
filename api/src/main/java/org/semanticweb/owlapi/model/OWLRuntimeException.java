@@ -26,7 +26,9 @@ import javax.annotation.Nullable;
 public class OWLRuntimeException extends RuntimeException implements Serializable {
 
     /** Default constructor. */
-    public OWLRuntimeException() {}
+    public OWLRuntimeException() {
+        super();
+    }
 
     /**
      * @param message

@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.*;
 import java.util.*;
@@ -602,12 +602,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         SetOntologyID setID = (SetOntologyID) change;
         OWLOntology existingOntology = ontologiesByID.get(setID.getNewOntologyID());
         OWLOntology o = setID.getOntology();
-        if (existingOntology != null && !o.equals(existingOntology)) {
-            if (!asSet(o.axioms()).equals(asSet(existingOntology.axioms()))) {
-                LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}", existingOntology);
-                LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}", o);
-                throw new OWLOntologyRenameException(setID.getChangeData(), setID.getNewOntologyID());
-            }
+        if (existingOntology != null && !o.equals(existingOntology) && !o.equalAxioms(existingOntology)) {
+            LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}", existingOntology);
+            LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}", o);
+            throw new OWLOntologyRenameException(setID.getChangeData(), setID.getNewOntologyID());
         }
         renameOntology(setID.getOriginalOntologyID(), setID.getNewOntologyID());
         resetImportsClosureCache();

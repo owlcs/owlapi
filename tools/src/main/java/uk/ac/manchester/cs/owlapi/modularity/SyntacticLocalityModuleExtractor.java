@@ -487,9 +487,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 for (OWLClassExpression ce : toBeSuClassedNow) {
                     Set<OWLClass> suClasses;
                     if (superVsSub) {
-                        suClasses = asSet(reasoner.getSuperClasses(ce, true).entities());
+                        suClasses = asUnorderedSet(reasoner.getSuperClasses(ce, true).entities());
                     } else {
-                        suClasses = asSet(reasoner.getSubClasses(ce, true).entities());
+                        suClasses = asUnorderedSet(reasoner.getSubClasses(ce, true).entities());
                     }
                     for (OWLClass suClass : suClasses) {
                         if (!classesInSig.contains(suClass) && !suClassesToBeAdded.contains(suClass)) {

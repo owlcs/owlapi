@@ -106,7 +106,6 @@ public class RioRenderer extends RDFRendererBase {
             pm.copyPrefixesFrom(prefixFormat);
             pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }
-        // base = "";
     }
 
     @Override

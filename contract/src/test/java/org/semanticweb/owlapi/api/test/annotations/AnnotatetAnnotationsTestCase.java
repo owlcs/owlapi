@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -61,7 +61,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
             +
             "    <owl:NamedIndividual rdf:about=\"urn:n:a#b\"/></rdf:RDF>";
         OWLOntology ont = loadOntologyFromString(input);
-        assertEquals(axioms, asSet(ont.logicalAxioms()));
+        assertEquals(axioms, asUnorderedSet(ont.logicalAxioms()));
     }
 
     @Test

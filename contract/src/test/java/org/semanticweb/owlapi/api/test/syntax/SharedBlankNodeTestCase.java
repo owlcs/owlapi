@@ -87,10 +87,12 @@ public class SharedBlankNodeTestCase extends TestBase {
             "AnnotationAssertion(rdfs:comment _:genid1 \"E\"))";
         OWLOntology o1 = loadOntologyFromString(input);
         OWLOntology o2 = loadOntologyFromString(input);
-        Set<OWLAnnotationValue> values1 = asSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
-            a -> a instanceof OWLAnonymousIndividual));
-        Set<OWLAnnotationValue> values2 = asSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
-            a -> a instanceof OWLAnonymousIndividual));
+        Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
+            .getValue()).filter(
+                a -> a instanceof OWLAnonymousIndividual));
+        Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
+            .getValue()).filter(
+                a -> a instanceof OWLAnonymousIndividual));
         assertEquals(values1.toString(), values1.size(), 1);
         assertEquals(values1.toString(), values2.size(), 1);
         assertNotEquals(values1, values2);
@@ -101,10 +103,12 @@ public class SharedBlankNodeTestCase extends TestBase {
         String input = "<?xml version=\"1.0\"?>\r\n<rdf:RDF xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:Class rdf:about=\"http://E\"><rdfs:comment><rdf:Description><rdfs:comment>E</rdfs:comment></rdf:Description></rdfs:comment></owl:Class></rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(input);
         OWLOntology o2 = loadOntologyFromString(input);
-        Set<OWLAnnotationValue> values1 = asSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
-            a -> a instanceof OWLAnonymousIndividual));
-        Set<OWLAnnotationValue> values2 = asSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
-            a -> a instanceof OWLAnonymousIndividual));
+        Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
+            .getValue()).filter(
+                a -> a instanceof OWLAnonymousIndividual));
+        Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
+            .getValue()).filter(
+                a -> a instanceof OWLAnonymousIndividual));
         assertEquals(values1.toString(), values1.size(), 1);
         assertEquals(values1.toString(), values2.size(), 1);
         assertNotEquals(values1, values2);

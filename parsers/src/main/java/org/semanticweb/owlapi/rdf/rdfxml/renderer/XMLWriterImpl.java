@@ -240,8 +240,8 @@ public class XMLWriterImpl implements XMLWriter {
         }
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
             if (!curPrefix.isEmpty()) {
-                writeAttribute("xmlns:" + curPrefix, verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(
-                    curPrefix)));
+                writeAttribute("xmlns:" + curPrefix,
+                    verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
             }
         }
     }
@@ -345,7 +345,7 @@ public class XMLWriterImpl implements XMLWriter {
                     if (textContent != null) {
                         writer.write("\n\n\n");
                         for (String token : Splitter.on('\n').split(verifyNotNull(textContent))) {
-                            if (!token.equals("\n")) {
+                            if (!"\n".equals(token)) {
                                 insertIndentation();
                             }
                             writer.write(token);

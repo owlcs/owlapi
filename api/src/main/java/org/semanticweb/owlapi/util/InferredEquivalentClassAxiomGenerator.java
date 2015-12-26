@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 
@@ -33,9 +33,9 @@ public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGen
 
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLEquivalentClassesAxiom> result) {
-        Set<OWLClassExpression> equivalentClasses = asSet(reasoner.getEquivalentClasses(entity).entities(),
-                OWLClassExpression.class);
+        Set<OWLEquivalentClassesAxiom> result) {
+        Set<OWLClassExpression> equivalentClasses = asUnorderedSet(reasoner.getEquivalentClasses(entity).entities(),
+            OWLClassExpression.class);
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
             result.add(dataFactory.getOWLEquivalentClassesAxiom(equivalentClasses));

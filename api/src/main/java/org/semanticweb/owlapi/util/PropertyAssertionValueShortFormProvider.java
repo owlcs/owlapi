@@ -55,8 +55,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *        the ontology container
      */
     public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties,
-        Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-        OWLOntologySetProvider ontologySetProvider) {
+        Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider) {
         this(properties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
     }
 
@@ -86,8 +85,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *        providing the short form of the individual.
      */
     public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties,
-        Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-        OWLOntologySetProvider ontologySetProvider, ShortFormProvider alternateShortFormProvider) {
+        Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider,
+        ShortFormProvider alternateShortFormProvider) {
         this.properties = checkNotNull(properties, "properties cannot be null");
         this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
         this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
@@ -187,7 +186,4 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     public Map<OWLDataPropertyExpression, List<String>> getPreferredLanguageMap() {
         return preferredLanguageMap;
     }
-
-    @Override
-    public void dispose() {}
 }

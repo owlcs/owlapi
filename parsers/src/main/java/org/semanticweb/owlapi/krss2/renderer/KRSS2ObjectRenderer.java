@@ -17,7 +17,7 @@ import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -287,10 +287,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     public void visit(OWLOntology ontology) {
         reset();
         for (OWLClass eachClass : asList(ontology.classesInSignature())) {
-            if (ignoreDeclarations) {
-                if (ontology.axioms(eachClass).count() == 1 && ontology.declarationAxioms(eachClass).count() == 1) {
-                    continue;
-                }
+            if (ignoreDeclarations && ontology.axioms(eachClass).count() == 1 && ontology.declarationAxioms(eachClass)
+                .count() == 1) {
+                continue;
             }
             boolean primitive = !isDefined(eachClass, ontology);
             writeOpenBracket();
@@ -334,16 +333,14 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             }
         }
         for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
-            if (ignoreDeclarations) {
-                if (ontology.axioms(property, EXCLUDED).count() == 1
-                    && ontology.declarationAxioms(property).count() == 1) {
-                    continue;
-                }
+            if (ignoreDeclarations && ontology.axioms(property, EXCLUDED).count() == 1
+                && ontology.declarationAxioms(property).count() == 1) {
+                continue;
             }
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> streamp = equivalent(
                 ontology.equivalentObjectPropertiesAxioms(property));
-            Collection<OWLObjectPropertyExpression> properties = asSet(streamp);
+            Collection<OWLObjectPropertyExpression> properties = asList(streamp);
             boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
@@ -367,7 +364,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     // we only allow for either right or left identity axiom,
                     // otherwise it is
                     // expressed via role-inclusion axioms
-                    Set<OWLSubPropertyChainOfAxiom> chainAxioms = getPropertyChainSubPropertyAxiomsFor(property);
+                    Collection<OWLSubPropertyChainOfAxiom> chainAxioms = getPropertyChainSubPropertyAxiomsFor(property);
                     if (chainAxioms.size() == 1) {
                         OWLSubPropertyChainOfAxiom axiom = chainAxioms.iterator().next();
                         if (isLeftIdentityAxiom(axiom, property)) {
@@ -454,11 +451,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             }
         }
         for (OWLNamedIndividual individual : sortOptionally(ontology.individualsInSignature())) {
-            if (ignoreDeclarations) {
-                if (ontology.axioms(individual, EXCLUDED).count() == 1
-                    && ontology.declarationAxioms(individual).count() == 1) {
-                    continue;
-                }
+            if (ignoreDeclarations && ontology.axioms(individual, EXCLUDED).count() == 1
+                && ontology.declarationAxioms(individual).count() == 1) {
+                continue;
             }
             writeOpenBracket();
             write(DEFINE_INDIVIDUAL);
@@ -648,13 +643,12 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     protected static boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
-            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain().iterator();
-            if (chain.hasNext()) {
-                if (chain.next().isOWLObjectProperty()) {
-                    if (chain.hasNext() && chain.next().equals(property)) {
-                        return !chain.hasNext();
-                    }
-                }
+            List<OWLObjectPropertyExpression> propertyChain = axiom.getPropertyChain();
+            if (propertyChain.size() < 3) {
+                return false;
+            }
+            if (propertyChain.get(0).isOWLObjectProperty() && propertyChain.get(1).equals(property)) {
+                return propertyChain.size() > 2;
             }
         }
         return false;
@@ -662,21 +656,20 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     protected static boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
-            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain().iterator();
-            if (chain.hasNext()) {
-                if (chain.next().equals(property)) {
-                    if (chain.hasNext()) {
-                        chain.next();
-                        return !chain.hasNext();
-                    }
-                }
+            List<OWLObjectPropertyExpression> propertyChain = axiom.getPropertyChain();
+            if (propertyChain.size() < 2) {
+                return false;
+            }
+            if (propertyChain.get(0).equals(property)) {
+                return propertyChain.size() > 2;
             }
         }
         return false;
     }
 
-    protected Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression property) {
-        return asSet(ont.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF).filter(a -> a.getSuperProperty().equals(property)));
+    protected Collection<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxiomsFor(
+        OWLPropertyExpression property) {
+        return asList(ont.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF).filter(a -> a.getSuperProperty().equals(property)));
     }
 
     protected void reset() {

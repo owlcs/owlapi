@@ -214,7 +214,4 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     public String getShortForm(OWLEntity entity) {
         return getShortForm(entity.getIRI());
     }
-
-    @Override
-    public void dispose() {}
 }

@@ -24,7 +24,9 @@ package org.semanticweb.owlapi.model;
 public class OWLOntologyCreationException extends OWLException {
 
     /** Default constructor. */
-    public OWLOntologyCreationException() {}
+    public OWLOntologyCreationException() {
+        super();
+    }
 
     /**
      * @param message

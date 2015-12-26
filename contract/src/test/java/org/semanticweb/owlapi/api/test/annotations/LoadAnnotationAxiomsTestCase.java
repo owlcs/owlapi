@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -61,24 +61,19 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
 
     private void reload(OWLOntology ontology, OWLDocumentFormat format)
         throws OWLOntologyStorageException, OWLOntologyCreationException {
-        Set<OWLAxiom> annotationAxioms = new HashSet<>();
-        Set<OWLAxiom> axioms = asSet(ontology.axioms());
-        for (OWLAxiom ax : axioms) {
-            if (ax.isAnnotationAxiom()) {
-                annotationAxioms.add(ax);
-            }
-        }
+        Set<OWLAxiom> axioms = asUnorderedSet(ontology.axioms());
+        Set<OWLAxiom> annotationAxioms = asUnorderedSet(axioms.stream().filter(OWLAxiom::isAnnotationAxiom));
         OWLOntologyLoaderConfiguration withAnnosConfig = new OWLOntologyLoaderConfiguration();
         OWLOntology reloadedWithAnnoAxioms = reload(ontology, format, withAnnosConfig);
-        Set<OWLAxiom> axioms2 = asSet(reloadedWithAnnoAxioms.axioms());
+        Set<OWLAxiom> axioms2 = asUnorderedSet(reloadedWithAnnoAxioms.axioms());
         assertEquals(axioms, axioms2);
         OWLOntologyLoaderConfiguration withoutAnnosConfig = new OWLOntologyLoaderConfiguration()
             .setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format, withoutAnnosConfig);
-        assertFalse(axioms.equals(asSet(reloadedWithoutAnnoAxioms.axioms())));
+        assertFalse(axioms.equals(asUnorderedSet(reloadedWithoutAnnoAxioms.axioms())));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
-        assertEquals(axiomsMinusAnnotationAxioms, asSet(reloadedWithoutAnnoAxioms.axioms()));
+        assertEquals(axiomsMinusAnnotationAxioms, asUnorderedSet(reloadedWithoutAnnoAxioms.axioms()));
     }
 
     private OWLOntology reload(OWLOntology ontology, OWLDocumentFormat format,

@@ -459,7 +459,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.sameIndividualAxioms(indB), ax));
         assertTrue(contains(ont.sameIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> equivalent = asSet(equivalent(ont.sameIndividualAxioms(indA)));
+        Collection<OWLObject> equivalent = asUnorderedSet(equivalent(ont.sameIndividualAxioms(indA)));
         assertTrue(equivalent.contains(indB));
         assertTrue(equivalent.contains(indC));
     }
@@ -478,7 +478,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.differentIndividualAxioms(indB), ax));
         assertTrue(contains(ont.differentIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> different = asSet(different(ont.differentIndividualAxioms(indA)));
+        Collection<OWLObject> different = asUnorderedSet(different(ont.differentIndividualAxioms(indA)));
         assertTrue(different.contains(indB));
         assertTrue(different.contains(indC));
     }

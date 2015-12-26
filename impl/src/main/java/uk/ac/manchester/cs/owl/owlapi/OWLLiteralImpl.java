@@ -118,21 +118,13 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return Integer.parseInt(literal.get());
     }
 
+    static boolean asBoolean(String s) {
+        return Boolean.parseBoolean(s) || "1".equals(s.trim());
+    }
+
     @Override
     public boolean parseBoolean() {
-        if (literal.get().equals("0")) {
-            return false;
-        }
-        if (literal.get().equals("1")) {
-            return true;
-        }
-        if (literal.get().equals("true")) {
-            return true;
-        }
-        if (literal.get().equals("false")) {
-            return false;
-        }
-        return false;
+        return asBoolean(literal.get());
     }
 
     @Override

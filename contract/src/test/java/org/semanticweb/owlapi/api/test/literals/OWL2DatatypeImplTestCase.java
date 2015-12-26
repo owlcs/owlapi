@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 import java.util.HashSet;
@@ -198,7 +198,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
 
     @Test
     public void getSignature() {
-        assertEquals(asSet(plainLiteral.signature()), singleton(plainLiteral));
+        assertEquals(asUnorderedSet(plainLiteral.signature()), singleton(plainLiteral));
     }
 
     @Test

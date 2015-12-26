@@ -56,23 +56,23 @@ public class ProfileValidationTestCase extends TestBase {
         OWLNamedIndividual dl = df.getOWLNamedIndividual(dlIRI);
         OWLDataProperty rdfXMLPremiseOntologyProperty = df.getOWLDataProperty(premiseIRI);
         for (OWLClassAssertionAxiom ax : asList(
-                testCasesOntology.classAssertionAxioms(profileIdentificationTestClass))) {
+            testCasesOntology.classAssertionAxioms(profileIdentificationTestClass))) {
             OWLIndividual ind = ax.getIndividual();
-            Collection<OWLLiteral> vals = asSet(
-                    values(testCasesOntology.dataPropertyAssertionAxioms(ind), rdfXMLPremiseOntologyProperty));
+            Collection<OWLLiteral> vals = asUnorderedSet(
+                values(testCasesOntology.dataPropertyAssertionAxioms(ind), rdfXMLPremiseOntologyProperty));
             if (vals.size() != 1) {
                 continue;
             }
             String ontologySerialisation = vals.iterator().next().getLiteral();
             OWLOntology ontology = loadOntologyFromString(ontologySerialisation);
             // FULL?
-            Collection<OWLIndividual> finder = asSet(
-                    values(testCasesOntology.objectPropertyAssertionAxioms(ind), speciesProperty));
+            Collection<OWLIndividual> finder = asUnorderedSet(
+                values(testCasesOntology.objectPropertyAssertionAxioms(ind), speciesProperty));
             if (finder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), true);
             }
-            Collection<OWLIndividual> negativeFinder = asSet(
-                    negValues(testCasesOntology.negativeObjectPropertyAssertionAxioms(ind), speciesProperty));
+            Collection<OWLIndividual> negativeFinder = asUnorderedSet(
+                negValues(testCasesOntology.negativeObjectPropertyAssertionAxioms(ind), speciesProperty));
             if (negativeFinder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), false);
             }

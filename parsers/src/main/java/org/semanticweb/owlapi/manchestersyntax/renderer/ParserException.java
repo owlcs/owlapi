@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class ParserException extends OWLParserException {
 
     /** The current token. */
-    private String currentToken;
+    private final String currentToken;
     /** The line number. */
     private final int lineNumber;
     /** The column number. */
@@ -40,21 +40,21 @@ public class ParserException extends OWLParserException {
     /** The token sequence. */
     private final List<String> tokenSequence;
     /** The class name expected. */
-    private boolean classNameExpected = false;
+    private final boolean classNameExpected;
     /** The object property name expected. */
-    private boolean objectPropertyNameExpected = false;
+    private final boolean objectPropertyNameExpected;
     /** The data property name expected. */
-    private boolean dataPropertyNameExpected = false;
+    private final boolean dataPropertyNameExpected;
     /** The individual name expected. */
-    private boolean individualNameExpected = false;
+    private final boolean individualNameExpected;
     /** The datatype name expected. */
-    private boolean datatypeNameExpected = false;
+    private final boolean datatypeNameExpected;
     /** The integer expected. */
-    private boolean integerExpected = false;
+    private boolean integerExpected;
     /** The annotation property expected. */
-    private boolean annotationPropertyExpected = false;
+    private final boolean annotationPropertyExpected;
     /** The ontology name expected. */
-    private boolean ontologyNameExpected = false;
+    private boolean ontologyNameExpected;
     /** The expected keywords. */
     private final Set<String> expectedKeywords = new LinkedHashSet<>();
     /** The start pos. */
@@ -91,12 +91,12 @@ public class ParserException extends OWLParserException {
      *        the expected keywords
      */
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
-            boolean ontologyNameExpected, boolean classNameExpected, boolean objectPropertyNameExpected,
-            boolean dataPropertyNameExpected, boolean individualNameExpected, boolean datatypeNameExpected,
-            boolean annotationPropertyExpected, boolean integerExpected, Set<String> expectedKeywords) {
+        boolean ontologyNameExpected, boolean classNameExpected, boolean objectPropertyNameExpected,
+        boolean dataPropertyNameExpected, boolean individualNameExpected, boolean datatypeNameExpected,
+        boolean annotationPropertyExpected, boolean integerExpected, Set<String> expectedKeywords) {
         this(tokenSequence, startPos, lineNumber, columnNumber, classNameExpected, objectPropertyNameExpected,
-                dataPropertyNameExpected, individualNameExpected, datatypeNameExpected, annotationPropertyExpected,
-                expectedKeywords);
+            dataPropertyNameExpected, individualNameExpected, datatypeNameExpected, annotationPropertyExpected,
+            expectedKeywords);
         this.ontologyNameExpected = ontologyNameExpected;
         this.integerExpected = integerExpected;
     }
@@ -128,10 +128,9 @@ public class ParserException extends OWLParserException {
      *        the expected keywords
      */
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
-            boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
-            boolean individualNameExpected, boolean datatypeNameExpected, boolean annotationPropertyExpected,
-            @Nullable Set<String> expectedKeywords) {
-        currentToken = tokenSequence.iterator().next();
+        boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
+        boolean individualNameExpected, boolean datatypeNameExpected, boolean annotationPropertyExpected,
+        @Nullable Set<String> expectedKeywords) {
         currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;
         this.lineNumber = lineNumber;
@@ -175,12 +174,12 @@ public class ParserException extends OWLParserException {
      *        the keywords
      */
     public ParserException(List<String> tokenSeqence, int startPos, int lineNumber, int columnNumber,
-            boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
-            boolean individualNameExpected, boolean datatypeNameExpected, boolean annotationPropertyExpected,
-            String... keywords) {
+        boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
+        boolean individualNameExpected, boolean datatypeNameExpected, boolean annotationPropertyExpected,
+        String... keywords) {
         this(tokenSeqence, startPos, lineNumber, columnNumber, classNameExpected, objectPropertyNameExpected,
-                dataPropertyNameExpected, individualNameExpected, datatypeNameExpected, annotationPropertyExpected,
-                CollectionFactory.createSet(keywords));
+            dataPropertyNameExpected, individualNameExpected, datatypeNameExpected, annotationPropertyExpected,
+            CollectionFactory.createSet(keywords));
     }
 
     /**
@@ -198,9 +197,9 @@ public class ParserException extends OWLParserException {
      *        the start pos
      */
     public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber, boolean integerExpected,
-            int startPos) {
+        int startPos) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false,
-                new HashSet<String>());
+            new HashSet<String>());
         this.integerExpected = integerExpected;
     }
 
@@ -219,7 +218,7 @@ public class ParserException extends OWLParserException {
      *        the keywords
      */
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
-            String... keywords) {
+        String... keywords) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
     }
 
@@ -229,9 +228,9 @@ public class ParserException extends OWLParserException {
      */
     public ParserException(ParserException delegate) {
         this(delegate.tokenSequence, delegate.startPos, delegate.lineNumber, delegate.columnNumber,
-                delegate.ontologyNameExpected, delegate.classNameExpected, delegate.objectPropertyNameExpected,
-                delegate.dataPropertyNameExpected, delegate.individualNameExpected, delegate.datatypeNameExpected,
-                delegate.annotationPropertyExpected, delegate.integerExpected, delegate.expectedKeywords);
+            delegate.ontologyNameExpected, delegate.classNameExpected, delegate.objectPropertyNameExpected,
+            delegate.dataPropertyNameExpected, delegate.individualNameExpected, delegate.datatypeNameExpected,
+            delegate.annotationPropertyExpected, delegate.integerExpected, delegate.expectedKeywords);
     }
 
     /**

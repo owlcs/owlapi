@@ -13,7 +13,7 @@
 package com.clarkparsia.owlapi.modularity.locality;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -160,7 +160,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          */
         public Set<OWLClassExpression> replaceBottom(Stream<? extends OWLClassExpression> exps) {
             checkNotNull(exps, "exps cannot be null");
-            return asSet(exps.map(this::replaceBottom));
+            return asUnorderedSet(exps.map(this::replaceBottom));
         }
 
         /**

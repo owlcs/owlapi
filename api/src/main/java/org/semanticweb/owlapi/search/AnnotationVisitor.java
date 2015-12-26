@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.search;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 
@@ -21,7 +21,7 @@ class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
 
     @Override
     public Set<C> doDefault(Object object) {
-        return asSet(((HasAnnotations) object).annotations().map(this::get));
+        return asUnorderedSet(((HasAnnotations) object).annotations().map(this::get));
     }
 
     private C get(OWLAnnotation a) {

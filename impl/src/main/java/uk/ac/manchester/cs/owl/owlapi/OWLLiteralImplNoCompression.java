@@ -108,13 +108,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean parseBoolean() {
-        if (literal.equals("1") || literal.equalsIgnoreCase("true")) {
-            return true;
-        }
-        if (literal.equals("0") || literal.equalsIgnoreCase("false")) {
-            return false;
-        }
-        return Boolean.parseBoolean(literal);
+        return OWLLiteralImpl.asBoolean(literal);
     }
 
     @Override

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -77,7 +77,7 @@ public interface OWLDocumentFormat extends Serializable {
         if (ontology.isDeclared(entity, Imports.INCLUDED)) {
             return false;
         }
-        Set<OWLOntology> transitiveImports = asSet(ontology.imports());
+        Set<OWLOntology> transitiveImports = asUnorderedSet(ontology.imports());
         if (!transitiveImports.contains(ontology)) {
             // See if the entity should be declared in an imported ontology
             for (OWLOntology importedOntology : transitiveImports) {
@@ -101,7 +101,7 @@ public interface OWLDocumentFormat extends Serializable {
      * @return collection of IRIS used in illegal punnings
      */
     static Collection<IRI> determineIllegalPunnings(boolean add, Collection<OWLEntity> signature,
-            Collection<IRI> punnedEntities) {
+        Collection<IRI> punnedEntities) {
         if (!add) {
             return Collections.emptySet();
         }

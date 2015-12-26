@@ -29,7 +29,9 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
     private long timeOut = Long.MAX_VALUE;
 
     /** Default constructor. */
-    public SimpleConfiguration() {}
+    public SimpleConfiguration() {
+        super();
+    }
 
     /**
      * @param progressMonitor

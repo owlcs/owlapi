@@ -106,11 +106,11 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
         OWLImportsDeclaration declB = manager.getOWLDataFactory()
             .getOWLImportsDeclaration(b);
         manager.applyChange(new AddImport(ontA, declB));
-        Set<IRI> directImportsDocuments = asSet(ontA.directImportsDocuments());
+        Set<IRI> directImportsDocuments = asUnorderedSet(ontA.directImportsDocuments());
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
         OWLOntology ontB = manager.createOntology(b);
-        directImportsDocuments = asSet(ontA.directImportsDocuments());
+        directImportsDocuments = asUnorderedSet(ontA.directImportsDocuments());
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
         assertEquals(1, ontA.directImports().count());

@@ -475,18 +475,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
                 .filter(ax -> OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype()))
                 .filter(ax -> ax.getObject().getLiteral().equals(iriString))
                 .forEach(axioms::add);
-            axioms(AxiomType.ANNOTATION_ASSERTION).forEach(ax -> {
-                if (ax.getSubject().equals(owlEntity)) {
-                    axioms.add(ax);
-                } else if (ax.getValue().asLiteral().isPresent()) {
-                    Optional<OWLLiteral> lit = ax.getValue().asLiteral();
-                    if (OWL2Datatype.XSD_ANY_URI.matches(lit.get().getDatatype())) {
-                        if (lit.get().getLiteral().equals(owlEntity.toString())) {
-                            axioms.add(ax);
-                        }
-                    }
-                }
-            });
+            axioms(AxiomType.ANNOTATION_ASSERTION).forEach(ax -> examineAssertion(owlEntity, axioms, ax));
             return axioms.stream();
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
@@ -500,6 +489,19 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             return axioms.stream();
         }
         return empty();
+    }
+
+    protected void examineAssertion(OWLPrimitive owlEntity, Set<OWLAxiom> axioms, OWLAnnotationAssertionAxiom ax) {
+        if (ax.getSubject().equals(owlEntity)) {
+            axioms.add(ax);
+        } else {
+            ax.getValue().asLiteral().ifPresent(lit -> {
+                if (OWL2Datatype.XSD_ANY_URI.matches(lit.getDatatype())
+                    && lit.getLiteral().equals(owlEntity.toString())) {
+                    axioms.add(ax);
+                }
+            });
+        }
     }
 
     // OWLAxiomIndex

@@ -34,6 +34,7 @@ import org.obolibrary.oboformat.parser.XrefExpander;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -59,7 +60,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         Collection<String> remarks = headerFrame.getTagValues(OboFormatTag.TAG_REMARK, String.class);
         OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(m1);
         OWLOntology owlOntology = obo2Owl.convert(obo);
-        Set<String> comments = asSet(owlOntology.annotations(df.getRDFSComment()).map(OWLAnnotation::getValue)
+        Set<String> comments = asUnorderedSet(owlOntology.annotations(df.getRDFSComment()).map(OWLAnnotation::getValue)
             .filter(a -> a instanceof OWLLiteral).map(a -> ((OWLLiteral) a).getLiteral()));
         // check that all remarks have been translated to rdfs:comment
         assertEquals(remarks.size(), comments.size());
@@ -373,7 +374,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         List<OWLEquivalentClassesAxiom> equivalentClassesAxioms = asList(gciOntology.axioms(EQUIVALENT_CLASSES));
         // assertEquals(2, equivalentClassesAxioms.size());
         for (OWLEquivalentClassesAxiom eca : equivalentClassesAxioms) {
-            Set<OWLClassExpression> ces = asSet(eca.classExpressions());
+            Set<OWLClassExpression> ces = asUnorderedSet(eca.classExpressions());
             OWLClass clst4 = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_4");
             OWLObjectPropertyExpression p = df.getOWLObjectProperty("http://purl.obolibrary.org/obo/", "RO_0002104");
             OWLClassExpression cet4 = df.getOWLObjectSomeValuesFrom(p, clst4);
@@ -416,19 +417,18 @@ public class BasicsTestCase extends OboFormatTestBasics {
                     .toQuotedString() + " <http://purl.obolibrary.org/obo/TEST_4>))))",
             outputOntology.subClassAxiomsForSubClass(cls).iterator().next().toString());
         cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_4");
-        Set<OWLEquivalentClassesAxiom> ecas = asSet(outputOntology.equivalentClassesAxioms(cls));
         AtomicBoolean ok = new AtomicBoolean(false);
-        for (OWLEquivalentClassesAxiom eca : ecas) {
-            eca.classExpressions().filter(ce -> ce instanceof OWLObjectIntersectionOf)
-                .flatMap(x -> ((OWLObjectIntersectionOf) x).operands())
-                .filter(y -> y instanceof OWLObjectSomeValuesFrom)
-                .map(y -> ((OWLObjectSomeValuesFrom) y).getProperty().toString()).forEach(pStr -> {
-                    assertEquals(BFO51.toQuotedString(), pStr);
-                    ok.set(true);
-                });
-            assertTrue(ok.get());
-            writeOWL(ontology);
-        }
+        outputOntology.equivalentClassesAxioms(cls)
+            .flatMap(OWLEquivalentClassesAxiom::classExpressions)
+            .filter(ce -> ce instanceof OWLObjectIntersectionOf)
+            .flatMap(x -> ((OWLObjectIntersectionOf) x).operands())
+            .filter(y -> y instanceof OWLObjectSomeValuesFrom)
+            .map(y -> ((OWLObjectSomeValuesFrom) y).getProperty().toString()).forEach(pStr -> {
+                assertEquals(BFO51.toQuotedString(), pStr);
+                ok.set(true);
+            });
+        assertTrue(ok.get());
+        writeOWL(ontology);
     }
 
     @Test
@@ -819,18 +819,14 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLOntology ontology = convert(parseOBOFile("obsolete_term_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
         OWLAnnotationSubject subj = IRI.create("http://purl.obolibrary.org/obo/XX_0000034");
-        Set<OWLAnnotationAssertionAxiom> aas = asSet(ontology.annotationAssertionAxioms(subj));
-        boolean okDeprecated = false;
-        for (OWLAnnotationAssertionAxiom aa : aas) {
-            if (aa.getProperty().getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI())) {
-                OWLLiteral v = (OWLLiteral) aa.getValue();
-                if (v.isBoolean()) {
-                    if (v.parseBoolean()) {
-                        okDeprecated = true;
-                    }
-                }
-            }
-        }
+        boolean okDeprecated = Searcher.annotationObjects(
+            ontology.annotationAssertionAxioms(subj),
+            df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED))
+            .map(OWLAnnotation::getValue)
+            .map(x -> (OWLLiteral) x)
+            .filter(OWLLiteral::isBoolean)
+            .filter(OWLLiteral::parseBoolean)
+            .findAny().isPresent();
         assertTrue(okDeprecated);
         // CONVERT TO OWL FILE
         writeOWL(ontology, new RDFXMLDocumentFormat());
@@ -1092,8 +1088,8 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertNotNull(owlAxiomString);
         OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(m1);
         OWLOntology converted = obo2Owl.convert(obo);
-        Set<OWLEquivalentClassesAxiom> originalEqAxioms = asSet(original.axioms(EQUIVALENT_CLASSES));
-        Set<OWLEquivalentClassesAxiom> convertedEqAxioms = asSet(converted.axioms(EQUIVALENT_CLASSES));
+        Set<OWLEquivalentClassesAxiom> originalEqAxioms = asUnorderedSet(original.axioms(EQUIVALENT_CLASSES));
+        Set<OWLEquivalentClassesAxiom> convertedEqAxioms = asUnorderedSet(converted.axioms(EQUIVALENT_CLASSES));
         assertEquals(originalEqAxioms, convertedEqAxioms);
     }
 }

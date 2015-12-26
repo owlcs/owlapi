@@ -2,7 +2,6 @@ package org.obolibrary.obo2owl;
 
 import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 import java.io.IOException;
@@ -373,45 +372,37 @@ public class OWLAPIObo2Owl {
      *        the ontology
      */
     protected void postProcess(OWLOntology ontology) {
-        IRI pIRI = null;
-        Set<OWLAnnotation> collect = asSet(ontology.annotations());
-        for (OWLAnnotation ann : collect) {
-            if (Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation.sameIRI(ann.getProperty())) {
-                OWLAnnotationValue v = ann.getValue();
-                if (v instanceof OWLLiteral) {
-                    String rel = ((OWLLiteral) v).getLiteral();
-                    pIRI = oboIdToIRI(rel);
-                } else {
-                    pIRI = (IRI) v;
-                }
-                break;
-            }
+        OWLAnnotationProperty p = fac.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation);
+        Optional<String> findAny = ontology.annotations().filter(a -> a.getProperty().equals(p))
+            .map(a -> a.getValue().asLiteral())
+            .filter(Optional::isPresent).map(x -> x.get().getLiteral()).findAny();
+        if (!findAny.isPresent()) {
+            return;
         }
-        if (pIRI != null) {
-            OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
-            Set<OWLAxiom> rmAxioms = new HashSet<>();
-            Set<OWLAxiom> newAxioms = new HashSet<>();
-            ontology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(eca -> {
-                AtomicInteger numNamed = new AtomicInteger();
-                Set<OWLClassExpression> xs = new HashSet<>();
-                eca.classExpressions().forEach(x -> {
-                    if (x instanceof OWLClass) {
-                        xs.add(x);
-                        numNamed.incrementAndGet();
-                    } else {
-                        // anonymous class expressions are 'prefixed' with view
-                        // property
-                        xs.add(fac.getOWLObjectSomeValuesFrom(vp, x));
-                    }
-                });
-                if (numNamed.get() == 1) {
-                    rmAxioms.add(eca);
-                    newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
+        IRI pIRI = oboIdToIRI(findAny.get());
+        OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
+        Set<OWLAxiom> rmAxioms = new HashSet<>();
+        Set<OWLAxiom> newAxioms = new HashSet<>();
+        ontology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(eca -> {
+            AtomicInteger numNamed = new AtomicInteger();
+            Set<OWLClassExpression> xs = new HashSet<>();
+            eca.classExpressions().forEach(x -> {
+                if (x instanceof OWLClass) {
+                    xs.add(x);
+                    numNamed.incrementAndGet();
+                } else {
+                    // anonymous class expressions are 'prefixed' with view
+                    // property
+                    xs.add(fac.getOWLObjectSomeValuesFrom(vp, x));
                 }
             });
-            ontology.remove(rmAxioms);
-            ontology.add(newAxioms);
-        }
+            if (numNamed.get() == 1) {
+                rmAxioms.add(eca);
+                newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
+            }
+        });
+        ontology.remove(rmAxioms);
+        ontology.add(newAxioms);
     }
 
     /**

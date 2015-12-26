@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +35,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2RLProfile implements OWLProfile {
 
-    protected static final Set<IRI> ALLOWED_DATATYPES = asSet(OWL2Datatype.RL_DATATYPES.stream().map(i -> i.getIRI()));
+    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(OWL2Datatype.RL_DATATYPES.stream().map(i -> i
+        .getIRI()));
     @Nonnull private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
     @Nonnull private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
     @Nonnull private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();

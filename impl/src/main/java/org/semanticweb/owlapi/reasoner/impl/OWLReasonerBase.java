@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,7 +56,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(this::handleRawOntologyChanges);
-        reasonerAxioms = asSet(rootOntology.importsClosure()
+        reasonerAxioms = asUnorderedSet(rootOntology.importsClosure()
             .flatMap(o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
             .map(OWLAxiom::getAxiomWithoutAnnotations));
     }

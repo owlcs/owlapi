@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -62,9 +62,6 @@ public class OWLObjectPropertyManager {
         simpleDirty = true;
         partialOrderingDirty = true;
     }
-
-    /** clear the object and its resources. */
-    public void dispose() {}
 
     /**
      * An object property expression PE is composite in Ax if Ax contains an
@@ -193,12 +190,8 @@ public class OWLObjectPropertyManager {
             // Produce a map of the transitive reflexive closure of this
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> rtcMap = new HashMap<>();
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> propertyHierarchy = getPropertyHierarchy();
-            for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
-                Set<OWLObjectPropertyExpression> processed = new HashSet<>();
-                Set<OWLObjectPropertyExpression> rtc = new HashSet<>();
-                getReflexiveTransitiveClosure(prop, propertyHierarchy, rtc, processed);
-                rtcMap.put(prop, rtc);
-            }
+            getReferencedProperties().forEach(prop -> rtcMap.put(prop,
+                getReflexiveTransitiveClosure(prop, propertyHierarchy, new HashSet<>(), new HashSet<>())));
             reflexiveTransitiveClosure.clear();
             reflexiveTransitiveClosure.putAll(rtcMap);
             reflexiveTransitiveClosureDirty = false;
@@ -245,19 +238,14 @@ public class OWLObjectPropertyManager {
     public Set<OWLObjectPropertyExpression> getNonSimpleProperties() {
         if (simpleDirty) {
             nonSimpleProperties.clear();
-            Set<OWLObjectPropertyExpression> props = getReferencedProperties();
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosureMap = getHierarchyReflexiveTransitiveClosure();
-            for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
-                if (isComposite(prop)) {
-                    // Supers are not simple
-                    Set<OWLObjectPropertyExpression> rtc = reflexiveTransitiveClosureMap.get(prop);
-                    props.removeAll(rtc);
-                    nonSimpleProperties.add(prop);
-                    nonSimpleProperties.addAll(rtc);
-                }
-            }
+            getReferencedProperties().filter(this::isComposite).forEach(prop -> {
+                // Supers are not simple
+                nonSimpleProperties.add(prop);
+                nonSimpleProperties.addAll(reflexiveTransitiveClosureMap.get(prop));
+            });
             nonSimpleProperties
-                .addAll(asSet(nonSimpleProperties.stream().map(p -> p.getInverseProperty().getSimplified())));
+                .addAll(asList(nonSimpleProperties.stream().map(p -> p.getInverseProperty().getSimplified())));
             simpleDirty = false;
         }
         return nonSimpleProperties;
@@ -273,12 +261,8 @@ public class OWLObjectPropertyManager {
                 getPropertyHierarchy());
             axioms(SUB_PROPERTY_CHAIN_OF).forEach(ax -> ax.getPropertyChain().forEach(p -> map(map, ax, p)));
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> ordering = new HashMap<>();
-            for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
-                Set<OWLObjectPropertyExpression> processed = new HashSet<>();
-                Set<OWLObjectPropertyExpression> rtc = new HashSet<>();
-                getReflexiveTransitiveClosure(prop, map, rtc, processed);
-                ordering.put(prop, rtc);
-            }
+            getReferencedProperties().forEach(
+                prop -> ordering.put(prop, getReflexiveTransitiveClosure(prop, map, new HashSet<>(), new HashSet<>())));
             partialOrdering.putAll(ordering);
             partialOrderingDirty = false;
         }
@@ -305,9 +289,9 @@ public class OWLObjectPropertyManager {
         return getPropertyPartialOrdering().get(propA.getSimplified()).contains(propB.getSimplified());
     }
 
-    private Set<OWLObjectPropertyExpression> getReferencedProperties() {
-        return asSet(ontologies().flatMap(OWLOntology::objectPropertiesInSignature)
-            .map(OWLObjectPropertyExpression::getSimplified));
+    private Stream<OWLObjectPropertyExpression> getReferencedProperties() {
+        return ontologies().flatMap(OWLOntology::objectPropertiesInSignature)
+            .map(OWLObjectPropertyExpression::getSimplified);
     }
 
     /**
@@ -315,8 +299,8 @@ public class OWLObjectPropertyManager {
      *        ontologies to search
      * @return sets of equivalent properties
      */
-    public static Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties(
-        Stream<OWLOntology> ontologies) {
+    public static Collection<Set<OWLObjectPropertyExpression>>
+        getEquivalentObjectProperties(Stream<OWLOntology> ontologies) {
         checkNotNull(ontologies, "ontologies cannot be null");
         Set<Set<OWLObjectPropertyExpression>> result = new HashSet<>();
         Set<OWLObjectPropertyExpression> processed = new HashSet<>();
@@ -431,23 +415,24 @@ public class OWLObjectPropertyManager {
     }
 
     // Util methods
-    private static void getReflexiveTransitiveClosure(OWLObjectPropertyExpression prop,
-        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
-        Set<OWLObjectPropertyExpression> rtc, Set<OWLObjectPropertyExpression> processed) {
+    private static Set<OWLObjectPropertyExpression> getReflexiveTransitiveClosure(OWLObjectPropertyExpression prop,
+        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map, Set<OWLObjectPropertyExpression> rtc,
+        Set<OWLObjectPropertyExpression> processed) {
         checkNotNull(prop, "prop cannot be null");
         checkNotNull(map, "map cannot be null");
         checkNotNull(rtc, "rtc cannot be null");
         checkNotNull(processed, "processed cannot be null");
         if (processed.contains(prop)) {
-            return;
+            return rtc;
         }
         rtc.add(prop);
         processed.add(prop);
         Set<OWLObjectPropertyExpression> supers = map.get(prop);
         if (supers == null) {
-            return;
+            return rtc;
         }
         supers.forEach(sup -> getReflexiveTransitiveClosure(sup, map, rtc, processed));
+        return rtc;
     }
 
     private static Set<OWLObjectPropertyExpression> getKeyValue(OWLObjectPropertyExpression key,

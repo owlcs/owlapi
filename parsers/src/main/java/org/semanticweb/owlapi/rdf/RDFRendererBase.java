@@ -64,7 +64,7 @@ public abstract class RDFRendererBase {
     @Nonnull protected final OWLOntology ontology;
     protected final OWLDataFactory df;
     protected RDFGraph graph;
-    @Nonnull protected final Set<IRI> prettyPrintedTypes = asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
+    @Nonnull protected final Set<IRI> prettyPrintedTypes = asUnorderedSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
         OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY, OWL_RESTRICTION, OWL_THING, OWL_NOTHING, OWL_ONTOLOGY,
         OWL_ANNOTATION_PROPERTY, OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION).map(a -> a.getIRI()));
     private final OWLDocumentFormat format;
@@ -482,7 +482,7 @@ public abstract class RDFRendererBase {
             }
         });
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
-            && OWLDocumentFormatImpl.isMissingType(entity, ontology)) {
+            && OWLDocumentFormat.isMissingType(entity, ontology)) {
             axioms.add(df.getOWLDeclarationAxiom(entity));
         }
         createGraph(axioms.stream());
@@ -584,7 +584,6 @@ public abstract class RDFRendererBase {
                         if (triple.getObject() instanceof RDFResource) {
                             // Should be another list
                             currentNode = triple.getObject();
-                            // toJavaList(triple.getObject(), list);
                         }
                     }
                 }

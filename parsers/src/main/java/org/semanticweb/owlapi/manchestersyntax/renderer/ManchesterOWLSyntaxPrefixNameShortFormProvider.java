@@ -101,9 +101,4 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
     public static String getShortForm(IRI iri) {
         return iri.toQuotedString();
     }
-
-    @Override
-    public void dispose() {
-        prefixManager.dispose();
-    }
 }

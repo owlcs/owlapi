@@ -13,7 +13,7 @@
 package com.clarkparsia.owlapi.modularity.locality;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -337,9 +337,9 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
-            Collection<OWLClassExpression> rhs = asSet(axiom.classExpressions(), OWLClassExpression.class);
+            Collection<OWLClassExpression> rhs = asList(axiom.classExpressions(), OWLClassExpression.class);
             if (localityCls == LocalityClass.BOTTOM_BOTTOM) {
-                // TODO (TS): "!signature.contains(lhs)" is not enough
+                // TODO (TS): signature not containing lhs is not enough
                 // because lhs could be bot
                 if (!getSignature().contains(lhs)) {
                     for (OWLClassExpression desc : rhs) {
@@ -355,7 +355,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             } else {
                 // case TOP_BOTTOM:
                 // case TOP_TOP:
-                // TODO (TS): "!signature.contains(lhs)" is not enough
+                // TODO (TS): signature not containing lhs is not enough
                 // because lhs could be top
                 if (!getSignature().contains(lhs)) {
                     boolean topEquivDescFound = false;
@@ -1321,9 +1321,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = ce.getCardinality() == 0;
                     break;
                 case TOP_TOP:
-                    // isTopEquivalent =
-                    // !signature.contains(desc.getProperty().getNamedProperty())
-                    // && (desc.getCardinality() <= 1);
                     isTopEquivalent = ce.getCardinality() == 0
                         || !signature.contains(ce.getProperty().getNamedProperty()) && isTopEquivalent(ce.getFiller());
                     break;

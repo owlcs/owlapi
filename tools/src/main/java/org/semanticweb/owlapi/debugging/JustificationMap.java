@@ -74,13 +74,13 @@ public class JustificationMap {
 
     private void buildChildren(OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
-        Set<OWLAxiom> result = asSet(seed.signature().flatMap(this::getAxiomsByLHS));
+        List<OWLAxiom> result = asList(seed.signature().flatMap(this::getAxiomsByLHS));
         usedAxioms.addAll(result);
         rootAxioms.addAll(result);
         buildChildren(result);
     }
 
-    private void buildChildren(Set<OWLAxiom> axiomSet) {
+    private void buildChildren(Collection<OWLAxiom> axiomSet) {
         List<Set<OWLAxiom>> axiomChildren = new ArrayList<>();
         for (OWLAxiom ax : axiomSet) {
             Set<OWLAxiom> children = build(ax);
@@ -94,7 +94,7 @@ public class JustificationMap {
         usedAxioms.add(parentAxiom);
         OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
         parentAxiom.accept(extractor);
-        return asSet(
+        return asUnorderedSet(
             extractor.getRHS().stream().flatMap(o -> o.signature()).flatMap(this::getAxiomsByLHS)
                 .filter(usedAxioms::add));
     }

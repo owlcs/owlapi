@@ -13,10 +13,10 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 
@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.*;
 public class SimpleRootClassChecker implements RootClassChecker {
 
     @Nonnull private final Collection<OWLOntology> ontologies;
-
     // Rules for determining if a class is a direct subclass of Thing
     // 1) It isn't referenced by ANY subclass axiom or equivalent class axioms
     // 2) It is reference only by subclass axioms, but doesn't appear on the LHS
@@ -117,7 +116,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
      */
     private class RootClassCheckerHelper implements OWLAxiomVisitorEx<Boolean> {
 
-        private boolean isRoot;
+        private Boolean isRoot;
         private OWLClass cls;
 
         RootClassCheckerHelper() {}
@@ -127,7 +126,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
             // a root class. This means if the class isn't referenced
             // by any equivalent class axioms or subclass axioms then
             // we correctly identify it as a root
-            isRoot = true;
+            isRoot = Boolean.TRUE;
             this.cls = cls;
             return this;
         }
@@ -135,28 +134,29 @@ public class SimpleRootClassChecker implements RootClassChecker {
         @Override
         public Boolean visit(OWLSubClassOfAxiom axiom) {
             if (axiom.getSubClass().equals(cls)) {
-                isRoot = check(axiom.getSuperClass());
+                isRoot = Boolean.valueOf(check(axiom.getSuperClass()));
             }
             return isRoot;
         }
 
         @Override
         public Boolean visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLClassExpression> descs = asSet(axiom.classExpressions());
-            if (!descs.contains(cls)) {
+            if (!contains(axiom.classExpressions(), cls)) {
                 return isRoot;
             }
             boolean check = false;
-            for (OWLClassExpression desc : descs) {
+            Iterator<OWLClassExpression> it = axiom.classExpressions().iterator();
+            while (it.hasNext()) {
+                OWLClassExpression desc = it.next();
                 if (!desc.equals(cls)) {
                     check = check(desc);
                     if (check) {
-                        isRoot = false;
+                        isRoot = Boolean.FALSE;
                         return isRoot;
                     }
                 }
             }
-            isRoot = check;
+            isRoot = Boolean.valueOf(check);
             return isRoot;
         }
     }

@@ -188,11 +188,8 @@ public class XMLWriterNamespaceManager {
      */
     public String getDefaultPrefix() {
         for (Map.Entry<String, String> e : prefixNamespaceMap.entrySet()) {
-            if (!e.getKey().isEmpty()) {
-                // if the default has a blank entry then skip it
-                if (e.getValue().equals(defaultNamespace)) {
-                    return e.getKey();
-                }
+            if (!e.getKey().isEmpty() && e.getValue().equals(defaultNamespace)) {
+                return e.getKey();
             }
         }
         return "";

@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.*;
@@ -39,6 +40,29 @@ public class OWLAPIStreamUtils {
         Set<T> set = new LinkedHashSet<>();
         add(set, s.map(x -> (T) x));
         return set;
+    }
+
+    /**
+     * @param s
+     *        stream to turn to set. The stream is consumed by this operation.
+     * @return set including all elements in the stream
+     */
+    public static <T> Set<T> asUnorderedSet(Stream<T> s) {
+        return s.collect(toSet());
+    }
+
+    /**
+     * @param s
+     *        stream to turn to set. The stream is consumed by this operation.
+     * @param type
+     *        force return type to be exactly T
+     * @param <T>
+     *        type of return collection
+     * @return set including all elements in the stream
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Set<T> asUnorderedSet(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
+        return s.map(x -> (T) x).collect(toSet());
     }
 
     /**

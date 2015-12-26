@@ -58,10 +58,10 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax3);
         o.getOWLOntologyManager().addAxiom(o, ax4);
         assertTrue(contains(o.axioms(AxiomType.SUB_OBJECT_PROPERTY), ax));
-        Collection<OWLAxiom> axioms = asSet(o.axioms(
+        Collection<OWLAxiom> axioms = asUnorderedSet(o.axioms(
             Filters.subObjectPropertyWithSuper, d, INCLUDED));
         assertTrue(contains(sub(axioms.stream()), c));
-        axioms = asSet(o.axioms(Filters.subObjectPropertyWithSub, c, INCLUDED));
+        axioms = asUnorderedSet(o.axioms(Filters.subObjectPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
         assertTrue(contains(domain(o.objectPropertyDomainAxioms(c)), x));
         assertTrue(contains(equivalent(o.equivalentObjectPropertiesAxioms(c)),
@@ -87,7 +87,7 @@ public class SearcherTestCase extends TestBase {
         assertTrue(contains(o.axioms(AxiomType.SUB_DATA_PROPERTY), ax));
         assertTrue(contains(sub(o.axioms(Filters.subDataPropertyWithSuper, d,
             INCLUDED)), c));
-        Collection<OWLAxiom> axioms = asSet(o.axioms(
+        Collection<OWLAxiom> axioms = asUnorderedSet(o.axioms(
             Filters.subDataPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
         assertTrue(contains(domain(o.dataPropertyDomainAxioms(c)), x));

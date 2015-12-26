@@ -66,7 +66,4 @@ public class QNameShortFormProvider implements ShortFormProvider {
         String prefix = namespaceUtil.getPrefix(namespace);
         return entity.getIRI().prefixedBy(prefix + ':');
     }
-
-    @Override
-    public void dispose() {}
 }

@@ -47,11 +47,9 @@ public class TurtleRenderer extends RDFRendererBase {
     private final Set<RDFResource> pending;
     private final String base;
     private final OWLDocumentFormat format;
-
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    @Nonnull protected final Stack<Integer> tabs = new Stack<>();
-
+    @Nonnull protected final Deque<Integer> tabs = new LinkedList<>();
     int level = 0;
 
     /**

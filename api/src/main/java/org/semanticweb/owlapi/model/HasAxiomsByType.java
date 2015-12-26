@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
@@ -27,6 +28,22 @@ import java.util.stream.Stream;
  */
 @FunctionalInterface
 public interface HasAxiomsByType {
+
+    /**
+     * Compare the axioms inside this object with the axioms inside the other
+     * object, shortcutting by type - won't merge all axioms in a large lump for
+     * comparisons only
+     * 
+     * @param o
+     *        other object to compare
+     * @return true if the two objects contain the same axioms
+     */
+    default boolean equalAxioms(HasAxiomsByType o) {
+        // using collect(toSet()) to avoid ordering issues and avoid
+        // LinkedHashSet cost
+        return AxiomType.AXIOM_TYPES.stream().allMatch(
+            t -> axioms(t).collect(toSet()).equals(o.axioms(t).collect(toSet())));
+    }
 
     /**
      * Gets the axioms which are of the specified type.

@@ -215,7 +215,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     private int expandWithReferencingAxioms(OWLEntity obj, int limit) {
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        Set<OWLAxiom> expansionAxioms = asSet(getOntology().referencingAxioms(obj, INCLUDED));
+        Set<OWLAxiom> expansionAxioms = asUnorderedSet(getOntology().referencingAxioms(obj, INCLUDED));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }
@@ -395,7 +395,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
     private void removeDeclarations() {
-        debuggingAxioms = asSet(debuggingAxioms.stream().filter(ax -> !(ax instanceof OWLDeclarationAxiom)));
+        debuggingAxioms = asUnorderedSet(debuggingAxioms.stream().filter(ax -> !(ax instanceof OWLDeclarationAxiom)));
     }
 
     @Override

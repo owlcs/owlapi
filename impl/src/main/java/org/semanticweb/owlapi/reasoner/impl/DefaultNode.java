@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -131,7 +131,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Override
     public Set<E> getEntitiesMinus(E e) {
-        return asSet(entities.stream().filter(i -> !i.equals(e)));
+        return asUnorderedSet(entities.stream().filter(i -> !i.equals(e)));
     }
 
     @Override
@@ -140,7 +140,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         if (topEntity.isPresent()) {
             return getEntitiesMinus(topEntity.get());
         }
-        return asSet(entities.stream());
+        return asUnorderedSet(entities.stream());
     }
 
     @Override
@@ -149,7 +149,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         if (bottomEntity.isPresent()) {
             return getEntitiesMinus(bottomEntity.get());
         }
-        return asSet(entities.stream());
+        return asUnorderedSet(entities.stream());
     }
 
     @Override
@@ -191,7 +191,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
             return false;
         }
         @SuppressWarnings("unchecked") Node<E> other = (Node<E>) obj;
-        return entities.equals(asSet(other.entities()));
+        return entities.equals(asUnorderedSet(other.entities()));
     }
 
     @Override

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -42,10 +42,10 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
 
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        return asSet(
-                Stream.of(
-                        getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).flatMap(
-                                ax -> ax.getProperty().signature()),
+        return asUnorderedSet(
+            Stream.of(
+                getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).flatMap(
+                    ax -> ax.getProperty().objectPropertiesInSignature()),
                 getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).map(ax -> ax.getProperty().asOWLDataProperty()),
                 getOntology().annotationPropertiesInSignature(Imports.INCLUDED)).flatMap(x -> x));
     }
@@ -54,6 +54,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
      * @return entities with invalid qnames
      */
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
-        return asSet(getEntitiesThatRequireNamespaces().stream().filter(e -> !e.getIRI().getRemainder().isPresent()));
+        return asUnorderedSet(getEntitiesThatRequireNamespaces().stream().filter(e -> !e.getIRI().getRemainder()
+            .isPresent()));
     }
 }

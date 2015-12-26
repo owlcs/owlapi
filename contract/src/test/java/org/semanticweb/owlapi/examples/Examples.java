@@ -905,7 +905,7 @@ public class Examples extends TestBase {
         // Let's get all properties for all individuals
         ont.individualsInSignature().forEach(i -> ont.objectPropertiesInSignature().forEach(p -> {
             NodeSet<OWLNamedIndividual> individualValues = reasoner.getObjectPropertyValues(i, p);
-            Set<OWLNamedIndividual> values = asSet(individualValues.entities());
+            Set<OWLNamedIndividual> values = asUnorderedSet(individualValues.entities());
             // System.out.println("The property values for "+p+" for
             // individual "+i+" are: ");
             // for (OWLNamedIndividual ind : values) {
@@ -1304,8 +1304,7 @@ public class Examples extends TestBase {
         // folder and maps their IRIs to their locations in this folder We
         // specify a directory/folder where the ontologies are located. In this
         // case we've just specified the tmp directory.
-        @Nonnull
-        File file = folder.newFolder();
+        @Nonnull File file = folder.newFolder();
         // We can also specify a flag to indicate whether the directory should
         // be searched recursively.
         OWLOntologyIRIMapper autoIRIMapper = new AutoIRIMapper(file, false);

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 
@@ -63,7 +62,7 @@ public class ManchesterImportTestCase extends TestBase {
         OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
         OWLOntology iriImport = managerTest.loadOntology(IRI(str));
-        assertEquals(asSet(manualImport.axioms()), asSet(iriImport.axioms()));
+        assertTrue(manualImport.equalAxioms(iriImport));
         assertEquals(manualImport.getOntologyID(), iriImport.getOntologyID());
     }
 

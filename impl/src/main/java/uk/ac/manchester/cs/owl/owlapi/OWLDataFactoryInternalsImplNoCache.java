@@ -146,7 +146,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
             if (datatype.isString()) {
                 literal = getOWLLiteral(lexicalValue);
             } else if (datatype.isBoolean()) {
-                literal = getOWLLiteral(isBooleanTrueValue(lexicalValue.trim()));
+                literal = getOWLLiteral(OWLLiteralImpl.asBoolean(lexicalValue.trim()));
             } else if (datatype.isFloat()) {
                 literal = parseFloat(lexicalValue, datatype);
             } else if (datatype.isDouble()) {
@@ -183,7 +183,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     }
 
     protected OWLLiteral parseFloat(String lexicalValue, OWLDatatype datatype) {
-        if (lexicalValue.trim().equals("-0.0")) {
+        if ("-0.0".equals(lexicalValue.trim())) {
             // according to some W3C test, this needs to be
             // different from 0.0; Java floats disagree
             return negativeFloatZero;
@@ -208,10 +208,6 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
             return new OWLLiteralImpl(lexicalValue, lang, datatype);
         }
         return new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
-    }
-
-    private static boolean isBooleanTrueValue(String lexicalValue) {
-        return lexicalValue.equals("1") || lexicalValue.equals("true");
     }
 
     @Override

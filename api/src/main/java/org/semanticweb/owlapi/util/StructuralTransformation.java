@@ -282,8 +282,8 @@ public class StructuralTransformation implements Serializable {
         public Set<OWLAxiom> visit(OWLDisjointUnionAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<>();
             axioms.addAll(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
-                df.getOWLObjectUnionOf(asSet(axiom.classExpressions()))).accept(this));
-            axioms.addAll(df.getOWLDisjointClassesAxiom(asSet(axiom.classExpressions())).accept(this));
+                df.getOWLObjectUnionOf(axiom.classExpressions())).accept(this));
+            axioms.addAll(df.getOWLDisjointClassesAxiom(axiom.classExpressions()).accept(this));
             return axioms;
         }
 

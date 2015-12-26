@@ -462,7 +462,8 @@ public class StructuralReasoner extends OWLReasonerBase {
     public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) {
         ensurePrepared();
         Set<OWLLiteral> literals = new HashSet<>();
-        Set<OWLDataProperty> superProperties = asSet(Stream.concat(getSuperDataProperties(pe, false).entities(),
+        Set<OWLDataProperty> superProperties = asUnorderedSet(Stream.concat(getSuperDataProperties(pe, false)
+            .entities(),
             getEquivalentDataProperties(pe).entities()));
         getRootOntology().importsClosure().flatMap(o -> o.dataPropertyAssertionAxioms(ind)).forEach(ax -> {
             if (superProperties.contains(ax.getProperty().asOWLDataProperty())) {
@@ -513,7 +514,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         if (inds.isEmpty()) {
             inds.add(ind);
         }
-        return new OWLNamedIndividualNodeSet(asSet(inds.stream().map(this::getSameIndividuals)));
+        return new OWLNamedIndividualNodeSet(asUnorderedSet(inds.stream().map(this::getSameIndividuals)));
     }
 
     protected OWLDataFactory getDataFactory() {
@@ -646,7 +647,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         protected abstract Stream<? extends T> getEntitiesInSignature(OWLAxiom ax);
 
         Set<T> getEntitiesInSignature(Set<OWLAxiom> axioms) {
-            return asSet(axioms.stream().flatMap(this::getEntitiesInSignature));
+            return asUnorderedSet(axioms.stream().flatMap(this::getEntitiesInSignature));
         }
 
         public void computeHierarchy() {
@@ -654,7 +655,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             pm.reasonerTaskBusy();
             nodeCache.clear();
             Map<T, Collection<T>> cache = new HashMap<>();
-            Set<T> entities = asSet(getRootOntology().importsClosure().flatMap(this::getEntities));
+            Set<T> entities = asUnorderedSet(getRootOntology().importsClosure().flatMap(this::getEntities));
             classificationSize = entities.size();
             pm.reasonerTaskProgressChanged(0, classificationSize);
             updateForSignature(entities, cache);
@@ -1163,7 +1164,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLClass> getChildren(OWLClass parent) {
             Collection<OWLClass> result = new HashSet<>();
-            for (OWLAxiom ax : asSet(getRootOntology().referencingAxioms(parent, INCLUDED))) {
+            for (OWLAxiom ax : asUnorderedSet(getRootOntology().referencingAxioms(parent, INCLUDED))) {
                 if (ax instanceof OWLSubClassOfAxiom) {
                     OWLSubClassOfAxiom sca = (OWLSubClassOfAxiom) ax;
                     if (!sca.getSubClass().isAnonymous()) {

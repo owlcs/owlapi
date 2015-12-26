@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 
@@ -69,7 +69,7 @@ public class ParsersStorersTestCase extends TestBase {
     }
 
     public void test(OWLStorerFactory s, OWLParserFactory p, OWLDocumentFormat ontologyFormat, boolean expectParse,
-            boolean expectRoundtrip) throws Exception {
+        boolean expectRoundtrip) throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();
         s.createStorer().storeOntology(ont(), target, ontologyFormat);
         OWLOntology o = getAnonymousOWLOntology();
@@ -85,14 +85,14 @@ public class ParsersStorersTestCase extends TestBase {
             }
         }
         boolean condition = o.containsAxiom(object)
-                || o.containsAxiom(object, Imports.EXCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS)
-                || object instanceof OWLObjectPropertyAssertionAxiom
-                        && o.containsAxiom(((OWLObjectPropertyAssertionAxiom) object).getSimplified());
+            || o.containsAxiom(object, Imports.EXCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS)
+            || object instanceof OWLObjectPropertyAssertionAxiom
+                && o.containsAxiom(((OWLObjectPropertyAssertionAxiom) object).getSimplified());
         if (!condition) {
             if (expectRoundtrip) {
                 // check bnodes
                 String axiom = object.toString().replace("_:id", "");
-                for (OWLAxiom ax : asSet(o.axioms())) {
+                for (OWLAxiom ax : asUnorderedSet(o.axioms())) {
                     if (!condition) {
                         String a = ax.toString().replaceAll("_:genid[0-9]+", "");
                         condition = axiom.equals(a);
@@ -101,7 +101,7 @@ public class ParsersStorersTestCase extends TestBase {
                 if (!condition) {
                     System.out.println(target.toString());
                     System.out.println(ontologyFormat + " " + axiom);
-                    for (OWLAxiom ax : asSet(o.axioms())) {
+                    for (OWLAxiom ax : asUnorderedSet(o.axioms())) {
                         String a = ax.toString().replaceAll("_:genid[0-9]+", "");
                         System.out.println(ontologyFormat + " parsed " + a);
                     }
@@ -117,7 +117,7 @@ public class ParsersStorersTestCase extends TestBase {
     public void testManchesterSyntax() throws Exception {
         boolean logicalAxiom = object.isLogicalAxiom();
         test(new ManchesterSyntaxStorerFactory(), new ManchesterOWLSyntaxOntologyParserFactory(),
-                new ManchesterSyntaxDocumentFormat(), logicalAxiom, logicalAxiom);
+            new ManchesterSyntaxDocumentFormat(), logicalAxiom, logicalAxiom);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ParsersStorersTestCase extends TestBase {
     @Test
     public void testFSS() throws Exception {
         test(new FunctionalSyntaxStorerFactory(), new OWLFunctionalSyntaxOWLParserFactory(),
-                new FunctionalSyntaxDocumentFormat(), true, true);
+            new FunctionalSyntaxDocumentFormat(), true, true);
     }
 
     @Test

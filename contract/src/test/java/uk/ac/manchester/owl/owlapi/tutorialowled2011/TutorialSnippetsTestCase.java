@@ -14,7 +14,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -53,9 +53,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings({ "javadoc" })
 public class TutorialSnippetsTestCase {
 
-    @Nonnull
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    @Nonnull @Rule public TemporaryFolder temporaryFolder = new TemporaryFolder();
     private static final @Nonnull Logger LOG = LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
     private static final @Nonnull String KOALA = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
@@ -638,8 +636,9 @@ public class TutorialSnippetsTestCase {
         // We now add all subclasses (direct and indirect) of the chosen
         // classes.
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
-        Set<OWLEntity> seedSig = asSet(sig.stream().filter(e -> e.isOWLClass()).flatMap(e -> reasoner.getSubClasses(e
-            .asOWLClass(), false).entities()));
+        Set<OWLEntity> seedSig = asUnorderedSet(sig.stream().filter(e -> e.isOWLClass()).flatMap(e -> reasoner
+            .getSubClasses(e
+                .asOWLClass(), false).entities()));
         seedSig.addAll(sig);
         // We now extract a locality-based module. STAR provides the smallest
         // ones

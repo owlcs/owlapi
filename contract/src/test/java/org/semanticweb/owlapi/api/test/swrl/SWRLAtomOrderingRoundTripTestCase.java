@@ -118,7 +118,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         StringDocumentTarget documentTarget = new StringDocumentTarget();
         ont.saveOntology(ontologyFormat, documentTarget);
         OWLOntology ont2 = loadOntologyFromString(documentTarget);
-        Set<SWRLRule> rules = asSet(ont2.axioms(AxiomType.SWRL_RULE));
+        Set<SWRLRule> rules = asUnorderedSet(ont2.axioms(AxiomType.SWRL_RULE));
         assertThat(rules.size(), is(1));
         SWRLRule parsedRule = rules.iterator().next();
         assertThat(parsedRule, is(equalTo(rule)));

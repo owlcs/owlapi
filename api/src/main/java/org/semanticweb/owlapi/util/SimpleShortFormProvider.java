@@ -37,9 +37,4 @@ public class SimpleShortFormProvider implements ShortFormProvider, Serializable 
     public String getShortForm(OWLEntity entity) {
         return uriShortFormProvider.getShortForm(entity.getIRI());
     }
-
-    @Override
-    public void dispose() {
-        // Nothing to do here
-    }
 }

@@ -2,7 +2,7 @@ package org.obolibrary.oboformat;
 
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.Set;
@@ -162,7 +162,7 @@ public class LoadAnonymousTestCase extends TestBase {
             df.getOWLAnnotationAssertionAxiom(iao0000115, uo1.getIRI(), literal(
                 "A unit which is a standard measure of the distance between two points."), singleton(Annotation(
                     hasDbXref, literal))));
-        assertEquals(expected, asSet(ontology.axioms()));
+        assertEquals(expected, asUnorderedSet(ontology.axioms()));
     }
 
     private static OWLLiteral literal(String s) {

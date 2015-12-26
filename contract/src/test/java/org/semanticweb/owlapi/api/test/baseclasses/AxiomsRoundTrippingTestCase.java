@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -197,7 +197,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
                 Declaration(propA),
                 Declaration(propB),
                 Declaration(propC)),
-            () -> singleton(DisjointClasses(asSet(Stream.generate(() -> createClass()).limit(1000)))),
+            () -> singleton(DisjointClasses(asUnorderedSet(Stream.generate(() -> createClass()).limit(1000)))),
             () -> singleton(SubClassOf(clsB, ObjectSomeValuesFrom(op.getInverseProperty(), clsA))),
             () -> singleton(SubDataPropertyOf(dp, dq)),
             () -> singleton(DataPropertyAssertion(dp, ind, Literal(33.3))),
@@ -232,7 +232,8 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             } ,
             () -> singleton(InverseFunctionalObjectProperty(op)),
             () -> singleton(IrreflexiveObjectProperty(op)),
-            () -> singleton(DifferentIndividuals(asSet(Stream.generate(() -> createIndividual()).limit(1000)))),
+            () -> singleton(DifferentIndividuals(asUnorderedSet(Stream.generate(() -> createIndividual()).limit(
+                1000)))),
             () -> Sets.newHashSet(AnnotationAssertion(apropA, clsA.getIRI(), Literal("abc", "en")), Declaration(clsA)),
             () -> Sets.newHashSet(
                 AnnotationAssertion(apropA, iriA, Literal("abc", "en")),

@@ -4,11 +4,7 @@ import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
@@ -94,12 +90,12 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
 
         @Override
         public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
-            return df.getOWLObjectIntersectionOf(asSet(ce.operands().map(o -> o.accept(this))));
+            return df.getOWLObjectIntersectionOf(ce.operands().map(o -> o.accept(this)));
         }
 
         @Override
         public OWLClassExpression visit(OWLObjectUnionOf ce) {
-            return df.getOWLObjectUnionOf(asSet(ce.operands().map(o -> o.accept(this))));
+            return df.getOWLObjectUnionOf(ce.operands().map(o -> o.accept(this)));
         }
 
         @Override
@@ -275,10 +271,12 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
 
     @Nullable
     protected IRI valFromOneOf(Object filler) {
-        Set<OWLIndividual> inds = asSet(((OWLObjectOneOf) filler).individuals(), OWLIndividual.class);
-        if (inds.size() == 1) {
-            OWLIndividual ind = inds.iterator().next();
-            if (ind instanceof OWLNamedIndividual) {
+        Iterator<? extends OWLIndividual> inds = ((OWLObjectOneOf) filler).individuals()
+            .filter(x -> x instanceof OWLNamedIndividual).iterator();
+        if (inds.hasNext()) {
+            OWLIndividual ind = inds.next();
+            // more than one value? Then cannot select a value
+            if (!inds.hasNext()) {
                 return ((OWLNamedObject) ind).getIRI();
             }
         }

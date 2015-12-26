@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 
@@ -49,7 +49,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidDifferentIndividuals()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
         OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
@@ -65,7 +65,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidDisjointObjectProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
@@ -110,7 +110,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     protected void checkSingletonDisjointFixup(OWLClass e1, OWLDisjointClassesAxiom wrongAxiom) {
-        Set<OWLClassExpression> classExpressions = asSet(wrongAxiom.classExpressions());
+        Set<OWLClassExpression> classExpressions = asUnorderedSet(wrongAxiom.classExpressions());
         assertEquals("should have two members", 2, classExpressions.size());
         assertTrue("contains e1", classExpressions.contains(e1));
         if (!e1.isOWLThing()) {
@@ -123,7 +123,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidDisjointDataProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
         OWLDataProperty e2 = DataProperty(IRI("urn:test2"));
@@ -143,7 +143,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidSameIndividuals()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
         OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
@@ -159,7 +159,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentClasses()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLClass e1 = Class(IRI("urn:test1"));
         OWLClass e2 = Class(IRI("urn:test2"));
@@ -179,7 +179,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentObjectProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
@@ -199,7 +199,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentDataProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
         OWLDataProperty e2 = DataProperty(IRI("urn:test2"));

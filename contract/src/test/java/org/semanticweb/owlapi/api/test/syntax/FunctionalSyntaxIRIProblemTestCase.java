@@ -12,9 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -35,7 +34,7 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         OWLClass a = Class(IRI("http://example.org/A_A"));
         OWLClass b = Class(IRI("http://example.org/A_B"));
         ontology.add(Declaration(p), Declaration(a), Declaration(b),
-                SubClassOf(b, df.getOWLObjectSomeValuesFrom(p, a)));
+            SubClassOf(b, df.getOWLObjectSomeValuesFrom(p, a)));
         OWLOntology loadOntology = roundTrip(ontology, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat functionalFormat = new FunctionalSyntaxDocumentFormat();
         functionalFormat.asPrefixOWLOntologyFormat().setPrefix("example", "http://example.org/");
@@ -48,8 +47,8 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);
         assertEquals(ontology, loadOntology3);
-        assertEquals(asSet(ontology.axioms()), asSet(loadOntology.axioms()));
-        assertEquals(asSet(ontology.axioms()), asSet(loadOntology2.axioms()));
-        assertEquals(asSet(ontology.axioms()), asSet(loadOntology3.axioms()));
+        assertTrue(ontology.equalAxioms(loadOntology));
+        assertTrue(ontology.equalAxioms(loadOntology2));
+        assertTrue(ontology.equalAxioms(loadOntology3));
     }
 }

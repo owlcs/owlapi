@@ -60,18 +60,13 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void shouldLoad() throws Exception {
-        @Nonnull
-        File importsBothNameAndVersion = folder.newFile("tempimportsNameAndVersion.owl");
-        @Nonnull
-        File importsBothNameAndOther = folder.newFile("tempimportsNameAndOther.owl");
-        @Nonnull
-        File ontologyByName = folder.newFile("tempmain.owl");
-        @Nonnull
-        File ontologyByVersion = folder.newFile("tempversion.owl");
-        @Nonnull
-        File ontologyByOtherPath = folder.newFile("tempother.owl");
+        @Nonnull File importsBothNameAndVersion = folder.newFile("tempimportsNameAndVersion.owl");
+        @Nonnull File importsBothNameAndOther = folder.newFile("tempimportsNameAndOther.owl");
+        @Nonnull File ontologyByName = folder.newFile("tempmain.owl");
+        @Nonnull File ontologyByVersion = folder.newFile("tempversion.owl");
+        @Nonnull File ontologyByOtherPath = folder.newFile("tempother.owl");
         OWLOntology ontology = getOWLOntology(
-                new OWLOntologyID(optional(IRI.create(ontologyByName)), optional(IRI.create(ontologyByVersion))));
+            new OWLOntologyID(optional(IRI.create(ontologyByName)), optional(IRI.create(ontologyByVersion))));
         ontology.saveOntology(IRI.create(ontologyByName));
         ontology.saveOntology(IRI.create(ontologyByVersion));
         ontology.saveOntology(IRI.create(ontologyByOtherPath));
@@ -98,8 +93,8 @@ public class ImportsTestCase extends TestBase {
     public void shouldNotLoadWrong() throws OWLOntologyCreationException {
         m.createOntology(IRI.create("urn:test"));
         StringDocumentSource documentSource = new StringDocumentSource("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\">\n"
-                + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test\"/></owl:Ontology></rdf:RDF>");
+            + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\">\n"
+            + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test\"/></owl:Ontology></rdf:RDF>");
         OWLOntology o = m.loadOntologyFromOntologyDocument(documentSource);
         assertTrue(o.getOntologyID().toString(), o.isAnonymous());
         assertFalse(o.getOntologyID().getDefaultDocumentIRI().isPresent());
@@ -110,11 +105,11 @@ public class ImportsTestCase extends TestBase {
         OWLOntology baseOnt = getOWLOntology(IRI("http://semanticweb.org/ontologies/base"));
         IRI importedIRI = IRI("http://semanticweb.org/ontologies/imported");
         OWLOntology importedOnt = getOWLOntology(importedIRI);
-        Set<OWLOntology> preImportsClosureCache = asSet(baseOnt.importsClosure());
+        Set<OWLOntology> preImportsClosureCache = asUnorderedSet(baseOnt.importsClosure());
         assertTrue(preImportsClosureCache.contains(baseOnt));
         assertFalse(preImportsClosureCache.contains(importedOnt));
         baseOnt.applyChange(new AddImport(baseOnt, df.getOWLImportsDeclaration(importedIRI)));
-        Set<OWLOntology> postImportsClosureCache = asSet(baseOnt.importsClosure());
+        Set<OWLOntology> postImportsClosureCache = asUnorderedSet(baseOnt.importsClosure());
         assertTrue(postImportsClosureCache.contains(baseOnt));
         assertTrue(postImportsClosureCache.contains(importedOnt));
     }
@@ -122,12 +117,12 @@ public class ImportsTestCase extends TestBase {
     @Test(expected = UnloadableImportException.class)
     public void shouldThrowExceptionWithDefaultImportsconfig() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-                + "    <owl:Ontology rdf:about=\"http://www.semanticweb.org/fake/ontologies/2012/8/1\">\n"
-                + "        <owl:imports rdf:resource=\"http://localhost:1\"/>\n" + "    </owl:Ontology>\n"
-                + "</rdf:RDF>";
+            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+            + "    <owl:Ontology rdf:about=\"http://www.semanticweb.org/fake/ontologies/2012/8/1\">\n"
+            + "        <owl:imports rdf:resource=\"http://localhost:1\"/>\n" + "    </owl:Ontology>\n"
+            + "</rdf:RDF>";
         loadOntologyFromString(input);
     }
 
@@ -158,16 +153,16 @@ public class ImportsTestCase extends TestBase {
         IRI bobsOntologyName = IRI.create(ns + "subject-bob");
         OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(ns + "subject-bob#subjectOnImmunosuppressantA2");
         m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"),
-                IRI.create(new File(ontologyDirectory, "subject-amy.ttl"))));
+            IRI.create(new File(ontologyDirectory, "subject-amy.ttl"))));
         m.getIRIMappers()
-                .add(new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(ontologyDirectory, "subject-bob.ttl"))));
+            .add(new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(ontologyDirectory, "subject-bob.ttl"))));
         m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"),
-                IRI.create(new File(ontologyDirectory, "subject-sue.ttl"))));
+            IRI.create(new File(ontologyDirectory, "subject-sue.ttl"))));
         m.getIRIMappers().add(new SimpleIRIMapper(IRI.create("http://www.w3.org/2013/12/FDA-TA/core"),
-                IRI.create(new File(ontologyDirectory, "core.ttl"))));
+            IRI.create(new File(ontologyDirectory, "core.ttl"))));
         OWLOntology topLevelImport = m.loadOntologyFromOntologyDocument(new File(ontologyDirectory, "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...",
-                topLevelImport.containsEntityInSignature(bobsIndividual, INCLUDED));
+            topLevelImport.containsEntityInSignature(bobsIndividual, INCLUDED));
     }
 
     /**
@@ -193,8 +188,8 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void shouldRemapImport() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n"
-                + "<Ontology  ontologyIRI=\"http://protege.org/ontologies/TestFunnyPizzaImport.owl\">\n"
-                + "    <Import>http://test.org/TestPizzaImport.owl</Import>\n" + "</Ontology>";
+            + "<Ontology  ontologyIRI=\"http://protege.org/ontologies/TestFunnyPizzaImport.owl\">\n"
+            + "    <Import>http://test.org/TestPizzaImport.owl</Import>\n" + "</Ontology>";
         IRI testImport = IRI.create("http://test.org/TestPizzaImport.owl");
         IRI remap = IRI.create("urn:test:mockImport");
         StringDocumentSource source = new StringDocumentSource(input);
@@ -210,11 +205,11 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void shouldRemapImportRdfXML() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#\"\n" + "     xml:base=\"urn:test\"\n"
-                + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-                + "    <owl:Ontology rdf:about=\"urn:test\">\n"
-                + "        <owl:imports rdf:resource=\"http://test.org/TestPizzaImport.owl\"/>\n"
-                + "    </owl:Ontology>\n" + "</rdf:RDF>";
+            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+            + "    <owl:Ontology rdf:about=\"urn:test\">\n"
+            + "        <owl:imports rdf:resource=\"http://test.org/TestPizzaImport.owl\"/>\n"
+            + "    </owl:Ontology>\n" + "</rdf:RDF>";
         IRI testImport = IRI.create("http://test.org/TestPizzaImport.owl");
         IRI remap = IRI.create("urn:test:mockImport");
         StringDocumentSource source = new StringDocumentSource(input);
@@ -229,8 +224,7 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testImportOntologyByLocation() throws Exception {
-        @Nonnull
-        File f = folder.newFile("a.owl");
+        @Nonnull File f = folder.newFile("a.owl");
         createOntologyFile(IRI("http://a.com"), f);
         // have to load an ontology for it to get a document IRI
         OWLOntology a = m.loadOntologyFromOntologyDocument(f);

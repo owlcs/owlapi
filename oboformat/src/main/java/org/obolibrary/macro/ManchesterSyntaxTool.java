@@ -38,18 +38,7 @@ public class ManchesterSyntaxTool {
     @Nonnull protected final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
     @Nonnull private final OWLDataFactory dataFactory;
     @Nonnull private final AdvancedEntityChecker entityChecker;
-    @Nonnull private final ShortFormProvider shortFormProvider = new ShortFormProvider() {
-
-        @Override
-        public void dispose() {
-            // do nothing
-        }
-
-        @Override
-        public String getShortForm(OWLEntity entity) {
-            return iriShortFormProvider.getShortForm(entity.getIRI());
-        }
-    };
+    @Nonnull private final ShortFormProvider shortFormProvider = e -> iriShortFormProvider.getShortForm(e.getIRI());
     private final AtomicBoolean disposed = new AtomicBoolean(false);
 
     /**
@@ -77,7 +66,7 @@ public class ManchesterSyntaxTool {
     public ManchesterSyntaxTool(OWLOntology inputOntology, @Nullable Collection<OWLOntology> auxiliaryOntologies) {
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
-        Set<OWLOntology> ontologies = asSet(inputOntology.importsClosure());
+        Set<OWLOntology> ontologies = asUnorderedSet(inputOntology.importsClosure());
         if (auxiliaryOntologies != null) {
             auxiliaryOntologies.forEach(o -> add(ontologies, o.importsClosure()));
         }
@@ -280,9 +269,9 @@ public class ManchesterSyntaxTool {
         @Nullable
         protected IRI getIRIByLabel(String label) {
             for (OWLOntology o : ontologies) {
-                Optional<OWLAnnotationAssertionAxiom> anyMatch = o.axioms(AxiomType.ANNOTATION_ASSERTION).filter(
-                    aa -> isMatchingLabel(label, aa.getValue(), aa.getProperty())
-                        && aa.getSubject().isIRI()).findAny();
+                Optional<OWLAnnotationAssertionAxiom> anyMatch = o.axioms(AxiomType.ANNOTATION_ASSERTION)
+                    .filter(aa -> isMatchingLabel(label, aa.getValue(), aa.getProperty()) && aa.getSubject().isIRI())
+                    .findAny();
                 if (anyMatch.isPresent()) {
                     return (IRI) anyMatch.get().getSubject();
                 }
@@ -338,10 +327,10 @@ public class ManchesterSyntaxTool {
         protected OWLNamedIndividual getOWLIndividual(IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLNamedIndividual c = o.getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(iri);
-                for (OWLDeclarationAxiom da : asSet(o.declarationAxioms(c))) {
-                    if (da.getEntity() instanceof OWLNamedIndividual) {
-                        return (OWLNamedIndividual) da.getEntity();
-                    }
+                Optional<OWLDeclarationAxiom> found = o.declarationAxioms(c)
+                    .filter(da -> da.getEntity().isOWLNamedIndividual()).findAny();
+                if (found.isPresent()) {
+                    return found.get().getEntity().asOWLNamedIndividual();
                 }
             }
             return null;

@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -209,7 +209,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
             return false;
         }
         NodeSet<?> other = (NodeSet<?>) obj;
-        return nodes.equals(asSet(other.nodes()));
+        return nodes.equals(asUnorderedSet(other.nodes()));
     }
 
     @Override

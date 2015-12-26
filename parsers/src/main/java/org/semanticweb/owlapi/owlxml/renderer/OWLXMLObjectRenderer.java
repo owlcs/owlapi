@@ -56,7 +56,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         });
         render(ontology.annotations());
         // treat declarations separately from other axioms
-        Set<OWLEntity> declared = asSet(ontology.signature());
+        Set<OWLEntity> declared = asUnorderedSet(ontology.signature());
         ontology.axioms(AxiomType.DECLARATION).sorted().forEach(ax -> {
             ax.accept(this);
             declared.remove(ax.getEntity());

@@ -198,7 +198,7 @@ abstract class OWLElementHandler<O> {
             return handler.getIRI(value);
         } else if (localName.equals(ABBREVIATED_IRI_ATTRIBUTE.getShortForm())) {
             return handler.getAbbreviatedIRI(value);
-        } else if (localName.equals("URI")) {
+        } else if ("URI".equals(localName)) {
             // Legacy
             return handler.getIRI(value);
         }
@@ -464,7 +464,7 @@ abstract class AbstractDataCardinalityRestrictionElementHandler
 
     @Override
         void attribute(String localName, String value) {
-        if (localName.equals("cardinality")) {
+        if ("cardinality".equals(localName)) {
             cardinality = Integer.parseInt(value);
         }
     }
@@ -739,7 +739,7 @@ abstract class AbstractOWLObjectCardinalityElementHandler extends AbstractClassE
 
     @Override
         void attribute(String localName, String value) {
-        if (localName.equals("cardinality")) {
+        if ("cardinality".equals(localName)) {
             cardinality = Integer.parseInt(value);
         }
     }
@@ -1550,7 +1550,7 @@ class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     @Override
         void attribute(String localName, String value) {
         super.attribute(localName, value);
-        if (localName.equals("facet")) {
+        if ("facet".equals(localName)) {
             facetIRI = handler.getIRI(value);
         }
     }
@@ -1657,7 +1657,7 @@ class OWLDatatypeFacetRestrictionElementHandler extends OWLElementHandler<OWLFac
 
     @Override
         void attribute(String localName, String value) {
-        if (localName.equals("facet")) {
+        if ("facet".equals(localName)) {
             facet = OWLFacet.getFacet(IRI.create(value));
         }
     }
@@ -1988,7 +1988,7 @@ class OWLInverseObjectPropertiesAxiomElementHandler extends AbstractOWLObjectPro
     @Override
         OWLAxiom createAxiom() {
         Set<OWLObjectPropertyExpression> props = getOperands();
-        if (props.size() > 2 || props.size() < 1) {
+        if (props.size() > 2 || props.isEmpty()) {
             ensureNotNull(null, "Expected 2 object property expression elements");
         }
         Iterator<OWLObjectPropertyExpression> it = props.iterator();
@@ -2051,7 +2051,7 @@ class OWLLiteralElementHandler extends OWLElementHandler<OWLLiteral> {
         void attribute(String localName, String value) {
         if (localName.equals(DATATYPE_IRI.getShortForm())) {
             iri = handler.getIRI(value);
-        } else if (localName.equals("lang")) {
+        } else if ("lang".equals(localName)) {
             lang = value;
         }
     }
@@ -2059,8 +2059,7 @@ class OWLLiteralElementHandler extends OWLElementHandler<OWLLiteral> {
     @Override
         void endElement() {
         if (iri != null && !(iri.isPlainLiteral() || iri.equals(OWL2Datatype.RDF_LANG_STRING.getIRI()))) {
-            literal = df.getOWLLiteral(getText(),
-                df.getOWLDatatype(verifyNotNull(iri)));
+            literal = df.getOWLLiteral(getText(), df.getOWLDatatype(verifyNotNull(iri)));
         } else {
             literal = df.getOWLLiteral(getText(), lang);
         }
@@ -2909,12 +2908,12 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
 
     @Override
         void attribute(String localName, String value) {
-        if (localName.equals("ontologyIRI")) {
+        if ("ontologyIRI".equals(localName)) {
             OWLOntologyID newID = new OWLOntologyID(optional(IRI.create(value)),
                 handler.getOntology().getOntologyID().getVersionIRI());
             handler.getOWLOntologyManager().applyChange(new SetOntologyID(handler.getOntology(), newID));
         }
-        if (localName.equals("versionIRI")) {
+        if ("versionIRI".equals(localName)) {
             OWLOntologyID newID = new OWLOntologyID(handler.getOntology().getOntologyID().getOntologyIRI(),
                 optional(IRI.create(value)));
             handler.getOWLOntologyManager().applyChange(new SetOntologyID(handler.getOntology(), newID));

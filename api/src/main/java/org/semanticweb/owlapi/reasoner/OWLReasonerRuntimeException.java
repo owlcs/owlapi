@@ -24,7 +24,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLReasonerRuntimeException extends OWLRuntimeException {
 
     /** Default constructor. */
-    public OWLReasonerRuntimeException() {}
+    public OWLReasonerRuntimeException() {
+        super();
+    }
 
     /**
      * @param cause

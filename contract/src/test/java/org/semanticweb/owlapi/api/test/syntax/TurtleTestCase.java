@@ -218,12 +218,12 @@ public class TurtleTestCase extends TestBase {
             OWLOntology ontology = loadOntologyFromString(input);
             OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
             equal(ontology, o);
-            Set<OWLSubClassOfAxiom> axioms = asSet(o.axioms(AxiomType.SUBCLASS_OF));
+            Set<OWLSubClassOfAxiom> axioms = asUnorderedSet(o.axioms(AxiomType.SUBCLASS_OF));
             assertEquals(1, axioms.size());
             OWLAnnotation next = axioms.iterator().next().annotations().iterator().next();
             assertTrue(next.getValue() instanceof OWLAnonymousIndividual);
             OWLAnonymousIndividual ind = (OWLAnonymousIndividual) next.getValue();
-            Set<OWLAxiom> anns = asSet(o.axioms().filter(ax -> contains(ax.anonymousIndividuals(), ind)));
+            Set<OWLAxiom> anns = asUnorderedSet(o.axioms().filter(ax -> contains(ax.anonymousIndividuals(), ind)));
             assertEquals(3, anns.size());
         } finally {
             AnonymousIndividualProperties.resetToDefault();

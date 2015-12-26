@@ -13,11 +13,11 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -120,8 +120,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
         @Override
         public SWRLRule visit(SWRLRule node) {
-            Set<SWRLAtom> nodebody = asSet(node.body().map(a -> (SWRLAtom) a.accept(this)));
-            Set<SWRLAtom> nodehead = asSet(node.head().map(a -> (SWRLAtom) a.accept(this)));
+            List<SWRLAtom> nodebody = asList(node.body().map(a -> (SWRLAtom) a.accept(this)));
+            List<SWRLAtom> nodehead = asList(node.head().map(a -> (SWRLAtom) a.accept(this)));
             return new SWRLRuleImpl(nodebody, nodehead, NO_ANNOTATIONS);
         }
 

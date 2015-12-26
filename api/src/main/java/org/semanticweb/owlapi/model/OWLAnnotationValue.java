@@ -51,20 +51,4 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
     default Optional<OWLLiteral> asLiteral() {
         return emptyOptional();
     }
-
-    /**
-     * @return if the value is an IRI, return an optional containing it. Return
-     *         Optional.absent otherwise.
-     */
-    default Optional<IRI> asIRI() {
-        return emptyOptional();
-    }
-
-    /**
-     * @return if the value is an anonymous, return an optional containing it.
-     *         Return Optional.absent otherwise.
-     */
-    default Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return emptyOptional();
-    }
 }

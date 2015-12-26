@@ -44,5 +44,7 @@ public interface ShortFormProvider {
      * Disposes of the short form proivider. This frees any resources and clears
      * any caches.
      */
-    void dispose();
+    default void dispose() {
+        // nothing to dispose
+    }
 }

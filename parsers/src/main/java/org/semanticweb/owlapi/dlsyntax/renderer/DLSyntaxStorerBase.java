@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -81,7 +81,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     private void write(OWLOntology ont, OWLEntity entity, Stream<? extends OWLAxiom> axioms, PrintWriter writer) {
-        write(ont, entity, asSet(axioms), writer);
+        write(ont, entity, asList(axioms), writer);
     }
 
     protected void writeAxiom(@Nullable OWLEntity subject, OWLAxiom axiom, PrintWriter writer) {

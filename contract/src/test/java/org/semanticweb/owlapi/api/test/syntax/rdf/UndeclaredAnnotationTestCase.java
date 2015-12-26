@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,11 +30,10 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             + "    <rdf:Description rdf:about=\"&ns;test\"><ns:rel><rdf:Description ns:pred =\"Not visible\"/></ns:rel></rdf:Description>\n"
             + "</rdf:RDF>";
         OWLOntology oo = loadOntologyFromString(input);
-        @Nonnull
-        RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo.getFormat();
+        @Nonnull RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo.getFormat();
         assertEquals("Should have no unparsed triples", 0, format
             .getOntologyLoaderMetaData().getUnparsedTriples().size());
-        Set<OWLAnnotationAssertionAxiom> annotationAxioms = asSet(oo
+        Set<OWLAnnotationAssertionAxiom> annotationAxioms = asUnorderedSet(oo
             .axioms(AxiomType.ANNOTATION_ASSERTION));
         assertEquals("annotation axiom count should be 2", 2,
             annotationAxioms.size());
@@ -42,12 +41,11 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             .getOWLAnnotationProperty("http://example.com/ns#rel");
         OWLAnnotationProperty predProperty = df
             .getOWLAnnotationProperty("http://example.com/ns#pred");
-        Set<OWLAnonymousIndividual> anonymousIndividualSet = asSet(oo
+        Set<OWLAnonymousIndividual> anonymousIndividualSet = asUnorderedSet(oo
             .anonymousIndividuals());
         assertEquals("should be one anonymous individual", 1,
             anonymousIndividualSet.size());
-        @Nonnull
-        OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet
+        @Nonnull OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet
             .iterator().next();
         OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(
             relProperty, IRI.create("http://example.com/ns#test"),

@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 
@@ -98,12 +98,12 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ont = createOntology();
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        Set<OWLAxiom> o1axioms = stripSimpleDeclarations(asSet(o1.axioms()));
-        assertEquals(stripSimpleDeclarations(asSet(ont.axioms())), o1axioms);
-        assertEquals(o1axioms, stripSimpleDeclarations(asSet(o2.axioms())));
+        Set<OWLAxiom> o1axioms = stripSimpleDeclarations(asUnorderedSet(o1.axioms()));
+        assertEquals(stripSimpleDeclarations(asUnorderedSet(ont.axioms())), o1axioms);
+        assertEquals(o1axioms, stripSimpleDeclarations(asUnorderedSet(o2.axioms())));
     }
 }
