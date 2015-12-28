@@ -254,7 +254,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         while (change) {
             change = false;
             loopNumber++;
-            LOGGER.info("  Loop {}", loopNumber);
+            LOGGER.info("  Loop {}", Integer.valueOf(loopNumber));
             for (int i = 0; i < q2.length; i++) {
                 if (q2[i]) {
                     if (!sle.isLocal(ontologyAxiomSet.getAxiom(i), signature)) {
@@ -312,7 +312,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             change = false;
             loopNumber++;
             if (verbose) {
-                LOGGER.info("  Loop {}", loopNumber);
+                LOGGER.info("  Loop {}", Integer.valueOf(loopNumber));
             }
             HashSet<OWLAxiom> q2remove = new HashSet<>();
             for (OWLAxiom ax : q2) {
@@ -396,8 +396,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     ontology.differentIndividualAxioms(entity.asOWLNamedIndividual()));
                 enrichedModule.addAll(differentIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
-                    differentIndividualAxioms.forEach(a -> LOGGER.info("  Added different individual axiom:   {}",
-                        minusOntologyURI(a.toString())));
+                    differentIndividualAxioms.forEach(
+                        a -> LOGGER.info("  Added different individual axiom:   {}", minusOntologyURI(a.toString())));
                 }
             }
         }
@@ -468,40 +468,51 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         assert reasoner != null;
         Set<OWLClass> superOrSubClasses = new HashSet<>();
         if (superOrSubClassLevel < 0) {
-            for (OWLClassExpression ent : classesInSig) {
-                NodeSet<OWLClass> nodes;
-                if (superVsSub) {
-                    nodes = reasoner.getSuperClasses(ent, false);
-                } else {
-                    nodes = reasoner.getSubClasses(ent, false);
-                }
-                add(superOrSubClasses, nodes.entities());
-            }
+            negativeLevel(superVsSub, reasoner, classesInSig, superOrSubClasses);
         } else if (superOrSubClassLevel > 0) {
-            Queue<OWLClass> toBeSuClassedNow;
-            Queue<OWLClass> toBeSuClassedNext = new LinkedList<>(classesInSig);
-            Queue<OWLClass> suClassesToBeAdded = new LinkedList<>();
-            for (int i = 0; i < superOrSubClassLevel; i++) {
-                toBeSuClassedNow = toBeSuClassedNext;
-                toBeSuClassedNext = new LinkedList<>();
-                for (OWLClassExpression ce : toBeSuClassedNow) {
-                    Set<OWLClass> suClasses;
-                    if (superVsSub) {
-                        suClasses = asUnorderedSet(reasoner.getSuperClasses(ce, true).entities());
-                    } else {
-                        suClasses = asUnorderedSet(reasoner.getSubClasses(ce, true).entities());
-                    }
-                    for (OWLClass suClass : suClasses) {
-                        if (!classesInSig.contains(suClass) && !suClassesToBeAdded.contains(suClass)) {
-                            toBeSuClassedNext.add(suClass);
-                            suClassesToBeAdded.add(suClass);
-                        }
-                    }
-                }
-            }
-            superOrSubClasses.addAll(suClassesToBeAdded);
+            positiveLevel(superOrSubClassLevel, superVsSub, reasoner, classesInSig, superOrSubClasses);
         }
         return superOrSubClasses;
+    }
+
+    protected static void positiveLevel(int superOrSubClassLevel, boolean superVsSub, OWLReasoner reasoner,
+        Set<OWLClass> classesInSig, Set<OWLClass> superOrSubClasses) {
+        Queue<OWLClass> toBeSuClassedNow;
+        Queue<OWLClass> toBeSuClassedNext = new LinkedList<>(classesInSig);
+        Queue<OWLClass> suClassesToBeAdded = new LinkedList<>();
+        for (int i = 0; i < superOrSubClassLevel; i++) {
+            toBeSuClassedNow = toBeSuClassedNext;
+            toBeSuClassedNext = new LinkedList<>();
+            processLayer(superVsSub, reasoner, classesInSig, toBeSuClassedNow, toBeSuClassedNext, suClassesToBeAdded);
+        }
+        superOrSubClasses.addAll(suClassesToBeAdded);
+    }
+
+    protected static void processLayer(boolean superVsSub, OWLReasoner reasoner, Set<OWLClass> classesInSig,
+        Queue<OWLClass> toBeSuClassedNow, Queue<OWLClass> toBeSuClassedNext, Queue<OWLClass> suClassesToBeAdded) {
+        for (OWLClassExpression ce : toBeSuClassedNow) {
+            Stream<OWLClass> suClasses;
+            if (superVsSub) {
+                suClasses = reasoner.getSuperClasses(ce, true).entities();
+            } else {
+                suClasses = reasoner.getSubClasses(ce, true).entities();
+            }
+            suClasses.filter(c -> !classesInSig.contains(c) && suClassesToBeAdded.add(c))
+                .forEach(toBeSuClassedNext::add);
+        }
+    }
+
+    protected static void negativeLevel(boolean superVsSub, OWLReasoner reasoner, Set<OWLClass> classesInSig,
+        Set<OWLClass> superOrSubClasses) {
+        for (OWLClassExpression ent : classesInSig) {
+            NodeSet<OWLClass> nodes;
+            if (superVsSub) {
+                nodes = reasoner.getSuperClasses(ent, false);
+            } else {
+                nodes = reasoner.getSubClasses(ent, false);
+            }
+            add(superOrSubClasses, nodes.entities());
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.profiles;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.profiles.Profiles.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -16,10 +16,10 @@ public class ProfileBase extends TestBase {
         try {
             o = loadOntologyFromString(in);
             assertTrue("empty ontology", o.axioms().count() > 0);
-            assertEquals(el, OWL2_EL.checkOntology(o).isInProfile());
-            assertEquals(ql, OWL2_QL.checkOntology(o).isInProfile());
-            assertEquals(rl, OWL2_RL.checkOntology(o).isInProfile());
-            assertEquals(dl, OWL2_DL.checkOntology(o).isInProfile());
+            assertTrue(el == OWL2_EL.checkOntology(o).isInProfile());
+            assertTrue(ql == OWL2_QL.checkOntology(o).isInProfile());
+            assertTrue(rl == OWL2_RL.checkOntology(o).isInProfile());
+            assertTrue(dl == OWL2_DL.checkOntology(o).isInProfile());
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

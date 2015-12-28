@@ -48,8 +48,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N> implements
-    OWLObjectVisitor, SWRLObjectVisitor {
+public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N>
+    implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
@@ -338,8 +338,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSuperProperty(), OWL_PROPERTY_CHAIN_AXIOM.getIRI(), axiom
-            .getPropertyChain().stream());
+        addSingleTripleAxiom(axiom, axiom.getSuperProperty(), OWL_PROPERTY_CHAIN_AXIOM.getIRI(),
+            axiom.getPropertyChain().stream());
     }
 
     @Override
@@ -686,10 +686,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), BUILT_IN_ATOM.getIRI());
         addTriple(node, BUILT_IN.getIRI(), node.getPredicate());
-        addTriple(getResourceNode(node.getPredicate()), getPredicateNode(RDF_TYPE.getIRI()), getResourceNode(
-            BUILT_IN_CLASS.getIRI()));
-        addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getIRI()), translateList(new ArrayList<>(node
-            .getArguments())));
+        addTriple(getResourceNode(node.getPredicate()), getPredicateNode(RDF_TYPE.getIRI()),
+            getResourceNode(BUILT_IN_CLASS.getIRI()));
+        addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getIRI()),
+            translateList(new ArrayList<>(node.getArguments())));
     }
 
     @Override
@@ -843,6 +843,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      *        type needed
      * @return mapped node, or null if the node is absent
      */
+    @SuppressWarnings("unchecked")
     public <T extends N> T getMappedNode(OWLObject object) {
         return (T) nodeMap.get(object);
     }
@@ -972,8 +973,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private OWLLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i), manager.getOWLDataFactory()
-            .getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
+        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i),
+            manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
     private void processIfAnonymous(Stream<? extends OWLIndividual> inds, @Nullable OWLAxiom root) {

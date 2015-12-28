@@ -72,7 +72,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
             }
         }
-        return clses.size();
+        return Integer.valueOf(clses.size());
     }
 
     @Override

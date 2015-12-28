@@ -45,7 +45,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         checkNotNull(axiom, "axiom cannot be null");
         try {
             printWriter.write("Axiom: " + renderer.render(axiom) + "\n");
-            int expSize = checkNotNull(explanations.size());
+            int expSize = explanations.size();
             if (expSize == 0) {
                 printWriter.write("Explanation: AXIOM IS NOT ENTAILED!\n");
                 return;

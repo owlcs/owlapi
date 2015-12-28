@@ -37,7 +37,7 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), literal ? 65536 : 0, getLang()));
+        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(literal ? 65536 : 0), getLang()));
     }
 
     @Override

@@ -367,8 +367,8 @@ public class OWLObjectPropertyManager {
         checkNotNull(processed, "processed cannot be null");
         checkNotNull(stackProps, "stackProps cannot be null");
         processed.add(prop);
-        indexMap.put(prop, index);
-        lowlinkMap.put(prop, index);
+        indexMap.put(prop, Integer.valueOf(index));
+        lowlinkMap.put(prop, Integer.valueOf(index));
         stack.push(prop);
         stackProps.add(prop);
         ontologies.flatMap(ont -> ont.objectSubPropertyAxiomsForSubProperty(prop))
@@ -406,7 +406,8 @@ public class OWLObjectPropertyManager {
 
     protected static void putIndex(OWLObjectPropertyExpression prop, Map<OWLObjectPropertyExpression, Integer> indexMap,
         Map<OWLObjectPropertyExpression, Integer> lowlinkMap, OWLObjectPropertyExpression supProp) {
-        lowlinkMap.put(prop, Math.min(lowlinkMap.get(prop), indexMap.get(supProp)));
+        lowlinkMap.put(prop,
+            Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(), indexMap.get(supProp).intValue())));
     }
 
     protected static void put(OWLObjectPropertyExpression prop, Map<OWLObjectPropertyExpression, Integer> lowlinkMap,

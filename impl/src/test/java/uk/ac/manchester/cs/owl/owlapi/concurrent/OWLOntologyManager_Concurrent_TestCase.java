@@ -63,13 +63,13 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     private void mockAndAddOntologyFactory() throws OWLOntologyCreationException {
         OWLOntologyFactory ontologyFactory = mock(OWLOntologyFactory.class);
-        when(ontologyFactory.canCreateFromDocumentIRI(any(IRI.class))).thenReturn(true);
-        when(ontologyFactory.canAttemptLoading(any(OWLOntologyDocumentSource.class))).thenReturn(true);
+        when(ontologyFactory.canCreateFromDocumentIRI(any(IRI.class))).thenReturn(Boolean.TRUE);
+        when(ontologyFactory.canAttemptLoading(any(OWLOntologyDocumentSource.class))).thenReturn(Boolean.TRUE);
         final OWLOntology owlOntology = new OWLOntologyImpl(manager, new OWLOntologyID());
         when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyID.class), any(IRI.class),
             any(OWLOntologyFactory.OWLOntologyCreationHandler.class))).thenAnswer(i -> notify(3, i, owlOntology));
-        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class), any(
-            OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
+        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class),
+            any(OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
                 .thenAnswer(i -> notify(2, i, owlOntology));
         manager.setOntologyFactories(Collections.singleton(ontologyFactory));
     }
@@ -81,7 +81,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     private void mockAndAddOntologyStorer() {
         OWLStorer storer = mock(OWLStorer.class);
-        when(storer.canStoreOntology(any(OWLDocumentFormat.class))).thenReturn(true);
+        when(storer.canStoreOntology(any(OWLDocumentFormat.class))).thenReturn(Boolean.TRUE);
         OWLStorerFactory storerFactory = mock(OWLStorerFactory.class);
         when(storerFactory.createStorer()).thenReturn(storer);
         when(storerFactory.getFormatFactory()).thenReturn(mock(OWLDocumentFormatFactory.class));
@@ -645,8 +645,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     protected OWLMutableOntology mockOntology() {
         OWLMutableOntology mock = mock(OWLMutableOntology.class);
-        when(mock.getOntologyID()).thenReturn(new OWLOntologyID(optional(IRI.create("urn:mock:ontology")),
-            emptyOptional()));
+        when(mock.getOntologyID())
+            .thenReturn(new OWLOntologyID(optional(IRI.create("urn:mock:ontology")), emptyOptional()));
         return mock;
     }
 

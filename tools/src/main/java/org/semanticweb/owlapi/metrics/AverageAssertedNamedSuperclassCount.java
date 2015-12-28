@@ -69,7 +69,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
                 }
             }
         }
-        return (double) total / count;
+        return Double.valueOf((double) total / count);
     }
 
     @Override

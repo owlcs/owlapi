@@ -97,15 +97,15 @@ public class AbstractRenderer {
     }
 
     protected void pushTab(int size) {
-        tabs.add(0, size);
+        tabs.add(0, Integer.valueOf(size));
     }
 
     protected void incrementTab(int increment) {
         int base = 0;
         if (!tabs.isEmpty()) {
-            base = tabs.get(0);
+            base = tabs.get(0).intValue();
         }
-        tabs.add(0, base + increment);
+        tabs.add(0, Integer.valueOf(base + increment));
     }
 
     protected void popTab() {
@@ -113,7 +113,7 @@ public class AbstractRenderer {
     }
 
     protected void writeTab() {
-        int tab = tabs.get(0);
+        int tab = tabs.get(0).intValue();
         for (int i = 0; i < tab; i++) {
             write(" ");
         }

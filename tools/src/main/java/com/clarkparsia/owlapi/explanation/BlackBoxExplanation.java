@@ -254,7 +254,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         Set<OWLAxiom> axiomWindow = new HashSet<>();
         Object[] axioms = debuggingAxioms.toArray();
         LOGGER.info("Fast pruning: ");
-        LOGGER.info("     - Window size: {}", fastPruningWindowSize);
+        LOGGER.info("     - Window size: {}", Integer.valueOf(fastPruningWindowSize));
         int windowCount = debuggingAxioms.size() / fastPruningWindowSize;
         for (int currentWindow = 0; currentWindow < windowCount; currentWindow++) {
             axiomWindow.clear();
@@ -350,22 +350,22 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         } else {
             expandWithDefiningAxioms((OWLClass) unsatClass, expansionLimit);
         }
-        LOGGER.info("Initial axiom count: {}", debuggingAxioms.size());
+        LOGGER.info("Initial axiom count: {}", Integer.valueOf(debuggingAxioms.size()));
         int totalAdded = 0;
         int expansionCount = 0;
         while (isSatisfiable(unsatClass)) {
-            LOGGER.info("Expanding axioms (expansion {})", expansionCount);
+            LOGGER.info("Expanding axioms (expansion {})", Integer.valueOf(expansionCount));
             expansionCount++;
             int numberAdded = expandAxioms();
             totalAdded += numberAdded;
-            LOGGER.info("    ... expanded by {}", numberAdded);
+            LOGGER.info("    ... expanded by {}", Integer.valueOf(numberAdded));
             if (numberAdded == 0) {
                 LOGGER.info("ERROR! Cannot find SOS axioms!");
                 debuggingAxioms.clear();
                 return;
             }
         }
-        LOGGER.info("Total number of axioms added: {}", totalAdded);
+        LOGGER.info("Total number of axioms added: {}", Integer.valueOf(totalAdded));
     }
 
     /**
@@ -377,21 +377,21 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
      *         the oWL exception
      */
     protected void pruneUntilMinimal(OWLClassExpression unsatClass) throws OWLException {
-        LOGGER.info("FOUND CLASH! Pruning {} axioms...", debuggingAxioms.size());
+        LOGGER.info("FOUND CLASH! Pruning {} axioms...", Integer.valueOf(debuggingAxioms.size()));
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
         fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
         performFastPruning(unsatClass);
-        LOGGER.info("... end of fast pruning. Axioms remaining: {}", debuggingAxioms.size());
-        LOGGER.info("Performed {} satisfiability tests during fast pruning", satTestCount);
+        LOGGER.info("... end of fast pruning. Axioms remaining: {}", Integer.valueOf(debuggingAxioms.size()));
+        LOGGER.info("Performed {} satisfiability tests during fast pruning", Integer.valueOf(satTestCount));
         int totalSatTests = satTestCount;
         resetSatisfiabilityTestCounter();
         LOGGER.info("Slow pruning...");
         performSlowPruning(unsatClass);
         LOGGER.info("... end of slow pruning");
-        LOGGER.info("Performed {} satisfiability tests during slow pruning", satTestCount);
+        LOGGER.info("Performed {} satisfiability tests during slow pruning", Integer.valueOf(satTestCount));
         totalSatTests += satTestCount;
-        LOGGER.info("Total number of satisfiability tests performed: {}", totalSatTests);
+        LOGGER.info("Total number of satisfiability tests performed: {}", Integer.valueOf(totalSatTests));
     }
 
     private void removeDeclarations() {

@@ -83,9 +83,8 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         datatypesByURI = buildCache();
         individualsByURI = buildCache();
         annotationPropertiesByURI = buildCache();
-        Caffeine<Object, Object> annotationsCacheBuilder = Caffeine.newBuilder()
-            .maximumSize(512)
-            .expireAfterAccess(2, TimeUnit.MINUTES);
+        Caffeine<Object, Object> annotationsCacheBuilder = Caffeine.newBuilder().maximumSize(512).expireAfterAccess(2,
+            TimeUnit.MINUTES);
         if (logger.isDebugEnabled()) {
             annotationsCacheBuilder.recordStats();
         }
@@ -205,7 +204,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         if (logger.isDebugEnabled()) {
             int n = annotationsCount.incrementAndGet();
             if (n % 1000 == 0) {
-                logger.debug("{}: Annotations Cache stats: {}", n, annotationsCache.stats());
+                logger.debug("{}: Annotations Cache stats: {}", Integer.valueOf(n), annotationsCache.stats());
             }
         }
         return annotation;

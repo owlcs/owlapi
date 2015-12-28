@@ -51,13 +51,14 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
         parameterMap.put(key, value);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Serializable getParameter(Serializable key, Serializable defaultValue) {
+    public <T> T getParameter(Serializable key, T defaultValue) {
         Serializable val = parameterMap.get(key);
         if (val == null) {
             return defaultValue;
         }
-        return val;
+        return (T) val;
     }
 
     @Override

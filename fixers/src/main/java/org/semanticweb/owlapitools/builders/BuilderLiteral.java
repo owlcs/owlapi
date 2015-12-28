@@ -83,7 +83,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      */
     public BuilderLiteral withValue(int arg) {
         clear();
-        intValue = arg;
+        intValue = Integer.valueOf(arg);
         return this;
     }
 
@@ -114,7 +114,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      */
     public BuilderLiteral withValue(boolean arg) {
         clear();
-        booleanValue = arg;
+        booleanValue = Boolean.valueOf(arg);
         return this;
     }
 
@@ -125,7 +125,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      */
     public BuilderLiteral withValue(double arg) {
         clear();
-        doubleValue = arg;
+        doubleValue = Double.valueOf(arg);
         return this;
     }
 
@@ -136,7 +136,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      */
     public BuilderLiteral withValue(float arg) {
         clear();
-        floatValue = arg;
+        floatValue = Float.valueOf(arg);
         return this;
     }
 

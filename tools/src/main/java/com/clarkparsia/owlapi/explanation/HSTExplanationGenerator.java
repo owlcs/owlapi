@@ -103,7 +103,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, @Nonnegative int maxExplanations) {
         OWLAPIPreconditions.checkNotNegative(maxExplanations, "max explanations cannot be negative");
-        Object max = maxExplanations == 0 ? "all" : maxExplanations;
+        Object max = maxExplanations == 0 ? "all" : Integer.valueOf(maxExplanations);
         LOGGER.info("Get {} explanation(s) for: {}", max, unsatClass);
         try {
             Set<OWLAxiom> firstMups = getExplanation(unsatClass);
@@ -213,7 +213,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      */
     private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
         Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
-        LOGGER.info("MUPS {}: {}", allMups.size(), mups);
+        LOGGER.info("MUPS {}: {}", Integer.valueOf(allMups.size()), mups);
         if (progressMonitor.isCancelled()) {
             return;
         }
@@ -227,10 +227,10 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             OWLAxiom axiom = orderedMups.get(0);
             orderedMups.remove(0);
             if (allMups.size() == maxExplanations) {
-                LOGGER.info("Computed {} explanations", maxExplanations);
+                LOGGER.info("Computed {} explanations", Integer.valueOf(maxExplanations));
                 return;
             }
-            LOGGER.info("Removing axiom: {} {} more removed: {}", axiom, currentPathContents.size(),
+            LOGGER.info("Removing axiom: {} {} more removed: {}", axiom, Integer.valueOf(currentPathContents.size()),
                 currentPathContents);
             // Removal may have dereferenced some entities, if so declarations
             // are added
@@ -291,8 +291,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *         the oWL exception
      */
     private List<OWLAxiom> recurse(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
-        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations,
-        List<OWLAxiom> orderedMups, OWLAxiom axiom) throws OWLException {
+        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations, List<OWLAxiom> orderedMups,
+        OWLAxiom axiom) throws OWLException {
         Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups, currentPathContents);
         // Generate a new node - i.e. a new justification set
         if (newMUPS.contains(axiom)) {

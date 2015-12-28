@@ -19,16 +19,15 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * @deprecated use {@link org.semanticweb.owlapi.formats.KRSS2DocumentFormat}
  */
 @Deprecated
-public class KRSS2OntologyFormat extends
-        org.semanticweb.owlapi.formats.KRSS2DocumentFormat implements
-        OWLOntologyFormat {
+public class KRSS2OntologyFormat extends org.semanticweb.owlapi.formats.KRSS2DocumentFormat
+    implements OWLOntologyFormat {
 
     /** ignore ontology iri parameter */
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
     /** @return true if ontology iri is ignored */
     public boolean isIgnoreOntologyURI() {
-        return (Boolean) getParameter(IGNORE_ONTOLOGYURI, false);
+        return ((Boolean) getParameter(IGNORE_ONTOLOGYURI, Boolean.FALSE)).booleanValue();
     }
 
     /**
@@ -36,6 +35,6 @@ public class KRSS2OntologyFormat extends
      *        ignore ontology iri
      */
     public void setIgnoreOntologyURI(boolean ignore) {
-        setParameter(IGNORE_ONTOLOGYURI, ignore);
+        setParameter(IGNORE_ONTOLOGYURI, Boolean.valueOf(ignore));
     }
 }

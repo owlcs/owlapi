@@ -489,44 +489,22 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             broadcastImpendingChanges(changes);
-            boolean rollbackRequested = false;
-            boolean allNoOps = true;
+            AtomicBoolean rollbackRequested = new AtomicBoolean(false);
+            AtomicBoolean allNoOps = new AtomicBoolean(true);
             // list of changes applied successfully. These are the changes that
             // will be reverted in case of a rollback
             List<OWLOntologyChange> appliedChanges = new ArrayList<>();
             fireBeginChanges(changes.size());
-            for (OWLOntologyChange change : changes) {
-                // once rollback is requested by a failed change, do not carry
-                // out any more changes
-                if (!rollbackRequested) {
-                    assert change != null;
-                    ChangeApplied enactChangeApplication = enactChangeApplication(change);
-                    if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
-                        rollbackRequested = true;
-                    }
-                    if (enactChangeApplication == ChangeApplied.SUCCESSFULLY) {
-                        allNoOps = false;
-                        appliedChanges.add(change);
-                    }
-                    fireChangeApplied(change);
-                }
-            }
-            if (rollbackRequested) {
-                for (OWLOntologyChange c : appliedChanges) {
-                    ChangeApplied enactChangeApplication = enactChangeApplication(c.reverseChange());
-                    if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
-                        // rollback could not complete, throw an exception
-                        throw new OWLRuntimeException(
-                            "Rollback of changes unsuccessful: Change " + c + " could not be rolled back");
-                    }
-                }
+            actuallyApply(changes, rollbackRequested, allNoOps, appliedChanges);
+            if (rollbackRequested.get()) {
+                rollBack(appliedChanges);
             }
             fireEndChanges();
             broadcastChanges(changes);
-            if (rollbackRequested) {
+            if (rollbackRequested.get()) {
                 return ChangeApplied.UNSUCCESSFULLY;
             }
-            if (allNoOps) {
+            if (allNoOps.get()) {
                 return ChangeApplied.NO_OPERATION;
             }
             return ChangeApplied.SUCCESSFULLY;
@@ -536,6 +514,36 @@ public class OWLOntologyManagerImpl
             return ChangeApplied.UNSUCCESSFULLY;
         } finally {
             writeLock.unlock();
+        }
+    }
+
+    protected void actuallyApply(List<? extends OWLOntologyChange> changes, AtomicBoolean rollbackRequested,
+        AtomicBoolean allNoOps, List<OWLOntologyChange> appliedChanges) {
+        for (OWLOntologyChange change : changes) {
+            // once rollback is requested by a failed change, do not carry
+            // out any more changes
+            if (!rollbackRequested.get()) {
+                assert change != null;
+                ChangeApplied enactChangeApplication = enactChangeApplication(change);
+                if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
+                    rollbackRequested.set(true);
+                }
+                if (enactChangeApplication == ChangeApplied.SUCCESSFULLY) {
+                    allNoOps.set(false);
+                    appliedChanges.add(change);
+                }
+                fireChangeApplied(change);
+            }
+        }
+    }
+
+    protected void rollBack(List<OWLOntologyChange> appliedChanges) {
+        for (OWLOntologyChange c : appliedChanges) {
+            if (enactChangeApplication(c.reverseChange()) == ChangeApplied.UNSUCCESSFULLY) {
+                // rollback could not complete, throw an exception
+                throw new OWLRuntimeException(
+                    "Rollback of changes unsuccessful: Change " + c + " could not be rolled back");
+            }
         }
     }
 
@@ -648,14 +656,7 @@ public class OWLOntologyManagerImpl
             if (ontology != null) {
                 throw new OWLOntologyAlreadyExistsException(ontologyID);
             }
-            IRI documentIRI = getDocumentIRIFromMappers(ontologyID);
-            if (documentIRI == null) {
-                if (!ontologyID.isAnonymous()) {
-                    documentIRI = ontologyID.getDefaultDocumentIRI().orElse(null);
-                } else {
-                    documentIRI = IRI.generateDocumentIRI();
-                }
-            }
+            IRI documentIRI = computeDocumentIRI(ontologyID);
             if (documentIRIsByID.values().contains(documentIRI)) {
                 throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
             }
@@ -669,6 +670,18 @@ public class OWLOntologyManagerImpl
         } finally {
             writeLock.unlock();
         }
+    }
+
+    protected IRI computeDocumentIRI(OWLOntologyID ontologyID) {
+        IRI documentIRI = getDocumentIRIFromMappers(ontologyID);
+        if (documentIRI == null) {
+            if (!ontologyID.isAnonymous()) {
+                documentIRI = ontologyID.getDefaultDocumentIRI().orElse(null);
+            } else {
+                documentIRI = IRI.generateDocumentIRI();
+            }
+        }
+        return documentIRI;
     }
 
     @Override

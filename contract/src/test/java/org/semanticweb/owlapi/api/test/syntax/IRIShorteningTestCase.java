@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.regex.Matcher;
@@ -34,7 +34,7 @@ public class IRIShorteningTestCase extends TestBase {
 
     public void matchExact(String output, String text, boolean expected) {
         String message = "should " + (expected ? "" : "not ") + "contain" + text + " - " + output;
-        assertEquals(message, expected, output.contains(text));
+        assertTrue(message, expected == output.contains(text));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class IRIShorteningTestCase extends TestBase {
     public void shouldOutputURNsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = m.createOntology(IRI.create("urn:ontology:test"));
         o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:p"),
-                df.getOWLNamedIndividual("urn:test"), df.getOWLNamedIndividual("urn:other:test")));
+            df.getOWLNamedIndividual("urn:test"), df.getOWLNamedIndividual("urn:other:test")));
         equal(o, roundTrip(o));
     }
 }

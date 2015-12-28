@@ -36,7 +36,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     @Override
     protected Integer recomputeMetric() {
-        return (int) getOntology().importsClosure().count();
+        return Integer.valueOf((int) getOntology().importsClosure().count());
     }
 
     @Override

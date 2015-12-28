@@ -25,22 +25,23 @@ import org.semanticweb.owlapi.model.*;
  */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
-    @Nonnull private static final Integer _1 = 1;
+    @Nonnull private static final Integer _1 = Integer.valueOf(1);
+    @Nonnull private static final Integer _0 = Integer.valueOf(0);
 
     @Override
     public Integer doDefault(Object o) {
-        return 0;
+        return _0;
     }
 
-    int counter(Stream<? extends OWLObject> stream) {
-        return stream.mapToInt(o -> o.accept(this).intValue()).max().orElse(0);
+    Integer counter(Stream<? extends OWLObject> stream) {
+        return Integer.valueOf(stream.mapToInt(o -> o.accept(this).intValue()).max().orElse(0));
     }
 
     @Override
     public Integer visit(OWLSubClassOfAxiom axiom) {
         int subClassModalDepth = axiom.getSubClass().accept(this).intValue();
         int superClassModalDepth = axiom.getSuperClass().accept(this).intValue();
-        return Math.max(subClassModalDepth, superClassModalDepth);
+        return Integer.valueOf(Math.max(subClassModalDepth, superClassModalDepth));
     }
 
     @Override
@@ -65,12 +66,12 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLObjectSomeValuesFrom ce) {
-        return 1 + ce.getFiller().accept(this).intValue();
+        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
     public Integer visit(OWLObjectAllValuesFrom ce) {
-        return 1 + ce.getFiller().accept(this).intValue();
+        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
@@ -85,7 +86,7 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLObjectMinCardinality ce) {
-        return 1 + ce.getFiller().accept(this).intValue();
+        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
@@ -95,12 +96,12 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLObjectExactCardinality ce) {
-        return 1 + ce.getFiller().accept(this).intValue();
+        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
     public Integer visit(OWLObjectMaxCardinality ce) {
-        return 1 + ce.getFiller().accept(this).intValue();
+        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override

@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,11 +29,11 @@ public class NoOpLock_TestCase {
 
     @Test
     public void shouldReturn_true_When_tryLock() {
-        assertThat(lock.tryLock(), is(true));
+        assertTrue(lock.tryLock() == true);
     }
 
     @Test
     public void shouldReturn_true_When_tryLockWithTimeOut() {
-        assertThat(lock.tryLock(3, TimeUnit.MILLISECONDS), is(true));
+        assertTrue(lock.tryLock(3, TimeUnit.MILLISECONDS) == true);
     }
 }

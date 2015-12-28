@@ -37,7 +37,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), literal * 65536, getLang()));
+        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(literal * 65536), getLang()));
     }
 
     @Override

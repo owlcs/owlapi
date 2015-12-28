@@ -157,7 +157,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), specificHash(), getLang()));
+        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
     }
 
     private int specificHash() {

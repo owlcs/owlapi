@@ -31,8 +31,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2QLProfile implements OWLProfile {
 
-    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i
-        .getIRI()));
+    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(
+        OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
     @Nonnull private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
     @Nonnull private final OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
 
@@ -120,8 +120,8 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce)).forEach(ce -> violations.add(
-                new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
+            axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce))
+                .forEach(ce -> violations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
         }
 
         @Override
@@ -173,8 +173,8 @@ public class OWL2QLProfile implements OWLProfile {
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
             if (axiom.getClassExpression().isAnonymous()) {
-                violations.add(
-                    new UseOfNonAtomicClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
+                violations
+                    .add(new UseOfNonAtomicClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
             }
         }
 
@@ -240,7 +240,7 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return ce.getFiller().isOWLThing();
+            return Boolean.valueOf(ce.getFiller().isOWLThing());
         }
 
         @Override
@@ -269,17 +269,17 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return !ce.operands().anyMatch(e -> !e.accept(this));
+            return Boolean.valueOf(!ce.operands().anyMatch(e -> e.accept(this) == Boolean.FALSE));
         }
 
         @Override
         public Boolean visit(OWLObjectComplementOf ce) {
-            return isOWL2QLSubClassExpression(ce.getOperand());
+            return Boolean.valueOf(isOWL2QLSubClassExpression(ce.getOperand()));
         }
 
         @Override
         public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return !ce.getFiller().isAnonymous();
+            return Boolean.valueOf(!ce.getFiller().isAnonymous());
         }
 
         @Override

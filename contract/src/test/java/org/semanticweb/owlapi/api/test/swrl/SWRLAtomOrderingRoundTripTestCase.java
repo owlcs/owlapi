@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.api.test.swrl;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
@@ -75,8 +75,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
             + "                    </rdf:Description>\n" + "                </rdf:first>\n"
             + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
             + "            </rdf:Description>\n" + "        </swrl:head>\n" + "    </rdf:Description>\n"
-            + "    <rdf:Description>\n"
-            + "        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Imp\"/>\n"
+            + "    <rdf:Description>\n" + "        <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Imp\"/>\n"
             + "        <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">:i62, :i61</rdfs:comment>\n"
             + "        <swrl:body>\n" + "            <rdf:Description>\n"
             + "                <rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#AtomList\"/>\n"
@@ -99,8 +98,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
             + "                        <swrl:builtin rdf:resource=\"http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select\"/>\n"
             + "                    </rdf:Description>\n" + "                </rdf:first>\n"
             + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
-            + "            </rdf:Description>\n" + "        </swrl:head>\n" + "    </rdf:Description>\n"
-            + "</rdf:RDF>";
+            + "            </rdf:Description>\n" + "        </swrl:head>\n" + "    </rdf:Description>\n" + "</rdf:RDF>";
         OWLOntology o = loadOntologyFromString(in, IRI.create("urn:test"), new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
         assertFalse(string, string.contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"));
@@ -119,7 +117,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         ont.saveOntology(ontologyFormat, documentTarget);
         OWLOntology ont2 = loadOntologyFromString(documentTarget);
         Set<SWRLRule> rules = asUnorderedSet(ont2.axioms(AxiomType.SWRL_RULE));
-        assertThat(rules.size(), is(1));
+        assertTrue(rules.size() == 1);
         SWRLRule parsedRule = rules.iterator().next();
         assertThat(parsedRule, is(equalTo(rule)));
         List<SWRLAtom> originalBody = new ArrayList<>(body);

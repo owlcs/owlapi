@@ -1347,17 +1347,17 @@ public class OWLAPIOwl2Obo {
                     OWLObjectExactCardinality card = (OWLObjectExactCardinality) ce;
                     r = getIdentifier(card.getProperty());
                     cls2 = getIdentifier(card.getFiller());
-                    exact = card.getCardinality();
+                    exact = Integer.valueOf(card.getCardinality());
                 } else if (ce instanceof OWLObjectMinCardinality) {
                     OWLObjectMinCardinality card = (OWLObjectMinCardinality) ce;
                     r = getIdentifier(card.getProperty());
                     cls2 = getIdentifier(card.getFiller());
-                    min = card.getCardinality();
+                    min = Integer.valueOf(card.getCardinality());
                 } else if (ce instanceof OWLObjectMaxCardinality) {
                     OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) ce;
                     r = getIdentifier(card.getProperty());
                     cls2 = getIdentifier(card.getFiller());
-                    max = card.getCardinality();
+                    max = Integer.valueOf(card.getCardinality());
                 } else if (ce instanceof OWLObjectAllValuesFrom) {
                     OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) ce;
                     OWLClassExpression filler = all.getFiller();
@@ -1369,7 +1369,7 @@ public class OWLAPIOwl2Obo {
                         OWLObjectComplementOf restriction = (OWLObjectComplementOf) filler;
                         r = getIdentifier(all.getProperty());
                         cls2 = getIdentifier(restriction.getOperand());
-                        exact = 0;
+                        exact = Integer.valueOf(0);
                     }
                 } else if (ce instanceof OWLObjectIntersectionOf) {
                     // either a min-max or a some-all combination
@@ -1381,12 +1381,12 @@ public class OWLAPIOwl2Obo {
                                 OWLObjectMinCardinality card = (OWLObjectMinCardinality) operand;
                                 r = getIdentifier(card.getProperty());
                                 cls2 = getIdentifier(card.getFiller());
-                                min = card.getCardinality();
+                                min = Integer.valueOf(card.getCardinality());
                             } else if (operand instanceof OWLObjectMaxCardinality) {
                                 OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) operand;
                                 r = getIdentifier(card.getProperty());
                                 cls2 = getIdentifier(card.getFiller());
-                                max = card.getCardinality();
+                                max = Integer.valueOf(card.getCardinality());
                             } else if (operand instanceof OWLObjectAllValuesFrom) {
                                 OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) operand;
                                 r = getIdentifier(all.getProperty());
@@ -1589,28 +1589,9 @@ public class OWLAPIOwl2Obo {
             if (prop.isDeprecated()) {
                 isDeprecated = true;
             } else if (Obo2OWLConstants.IRI_IAO_0000231.equals(prop.getIRI())) {
-                OWLAnnotationValue value = axiom.getValue();
-                Optional<IRI> asIRI = value.asIRI();
-                if (asIRI.isPresent()) {
-                    isMerged = Obo2OWLConstants.IRI_IAO_0000227.equals(asIRI.get());
-                } else {
-                    unrelatedAxioms.add(axiom);
-                }
+                isMerged = handleIAO227(isMerged, unrelatedAxioms, axiom);
             } else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop.getIRI())) {
-                OWLAnnotationValue value = axiom.getValue();
-                Optional<OWLLiteral> asLiteral = value.asLiteral();
-                if (asLiteral.isPresent()) {
-                    replacedBy = asLiteral.get().getLiteral();
-                } else {
-                    // fallback: also check for an IRI
-                    Optional<IRI> asIRI = value.asIRI();
-                    if (asIRI.isPresent()) {
-                        // translate IRI to OBO style ID
-                        replacedBy = getIdentifier(asIRI.get());
-                    } else {
-                        unrelatedAxioms.add(axiom);
-                    }
-                }
+                replacedBy = handleIAO10001(replacedBy, unrelatedAxioms, axiom);
             } else {
                 unrelatedAxioms.add(axiom);
             }
@@ -1622,6 +1603,35 @@ public class OWLAPIOwl2Obo {
             result = emptyOptional();
         }
         return result;
+    }
+
+    protected static boolean handleIAO227(boolean isMerged, final Set<OWLAnnotationAssertionAxiom> unrelatedAxioms,
+        OWLAnnotationAssertionAxiom axiom) {
+        OWLAnnotationValue value = axiom.getValue();
+        Optional<IRI> asIRI = value.asIRI();
+        if (asIRI.isPresent()) {
+            return Obo2OWLConstants.IRI_IAO_0000227.equals(asIRI.get());
+        }
+        unrelatedAxioms.add(axiom);
+        return isMerged;
+    }
+
+    @Nullable
+    protected static String handleIAO10001(@Nullable String replacedBy,
+        final Set<OWLAnnotationAssertionAxiom> unrelatedAxioms, OWLAnnotationAssertionAxiom axiom) {
+        OWLAnnotationValue value = axiom.getValue();
+        Optional<OWLLiteral> asLiteral = value.asLiteral();
+        if (asLiteral.isPresent()) {
+            return asLiteral.get().getLiteral();
+        }
+        // fallback: also check for an IRI
+        Optional<IRI> asIRI = value.asIRI();
+        if (asIRI.isPresent()) {
+            // translate IRI to OBO style ID
+            return getIdentifier(asIRI.get());
+        }
+        unrelatedAxioms.add(axiom);
+        return replacedBy;
     }
 
     /**

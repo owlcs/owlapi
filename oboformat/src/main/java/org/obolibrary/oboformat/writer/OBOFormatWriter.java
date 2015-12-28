@@ -29,6 +29,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gnu.trove.map.hash.TObjectIntHashMap;
+
 /**
  * The Class OBOFormatWriter.
  * 
@@ -38,34 +40,43 @@ import org.slf4j.LoggerFactory;
 public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
-    @Nonnull private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
-    @Nonnull private static final Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
+    @Nonnull private static final TObjectIntHashMap<String> TAGSPRIORITIES = buildTagsPriorities();
+    @Nonnull private static final TObjectIntHashMap<String> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
     private static final Comparator<Frame> framesComparator = Comparator.comparing(Frame::getId);
-    private static final Map<String, Integer> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
+    private static final TObjectIntHashMap<String> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
     private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
-    private static final Comparator<String> headerTagsComparator = Comparator.comparing(
-        OBOFormatWriter::getHeaderPriority);
+    private static final Comparator<String> headerTagsComparator = Comparator
+        .comparingInt(OBOFormatWriter::getHeaderPriority);
     /**
      * This comparator sorts clauses with the same tag in the specified write
      * order.
      */
     private static final Comparator<Clause> clauseComparator = (o1, o2) -> compare(o1, o2);
-    private static Comparator<String> termsTagsComparator = Comparator.comparing(OBOFormatWriter::getPriority);
-    private static Comparator<String> typeDefTagsComparator = Comparator.comparing(OBOFormatWriter::getTypedefPriority);
+    private static Comparator<String> termsTagsComparator = Comparator.comparingInt(OBOFormatWriter::getPriority);
+    private static Comparator<String> typeDefTagsComparator = Comparator
+        .comparingInt(OBOFormatWriter::getTypedefPriority);
     private static Comparator<Clause> clauseListComparator = Comparator.comparing(Clause::getTag, termsTagsComparator)
         .thenComparing(clauseComparator);
     private boolean isCheckStructure = true;
 
-    private static Integer getHeaderPriority(String s) {
-        return HEADERTAGSPRIORITIES.getOrDefault(s, Integer.valueOf(10000));
+    private static int getHeaderPriority(String s) {
+        return actualGet(s, HEADERTAGSPRIORITIES);
     }
 
-    private static Integer getPriority(String s) {
-        return TAGSPRIORITIES.getOrDefault(s, Integer.valueOf(10000));
+    protected static int actualGet(String s, TObjectIntHashMap<String> map) {
+        int i = map.get(s);
+        if (i == map.getNoEntryValue()) {
+            return 10000;
+        }
+        return i;
     }
 
-    private static Integer getTypedefPriority(String s) {
-        return TYPEDEFTAGSPRIORITIES.getOrDefault(s, Integer.valueOf(10000));
+    private static int getPriority(String s) {
+        return actualGet(s, TAGSPRIORITIES);
+    }
+
+    private static int getTypedefPriority(String s) {
+        return actualGet(s, TYPEDEFTAGSPRIORITIES);
     }
 
     /**
@@ -369,16 +380,16 @@ public class OBOFormatWriter {
         String idref = xref.getIdref();
         int colonPos = idref.indexOf(':');
         if (colonPos > 0) {
-            sb.append(escapeOboString(idref.substring(0, colonPos), EscapeMode.xref));
+            sb.append(escapeOboString(idref.substring(0, colonPos), EscapeMode.XREF));
             sb.append(':');
-            sb.append(escapeOboString(idref.substring(colonPos + 1), EscapeMode.xref));
+            sb.append(escapeOboString(idref.substring(colonPos + 1), EscapeMode.XREF));
         } else {
-            sb.append(escapeOboString(idref, EscapeMode.xref));
+            sb.append(escapeOboString(idref, EscapeMode.XREF));
         }
         String annotation = xref.getAnnotation();
         if (annotation != null) {
             sb.append(" \"");
-            sb.append(escapeOboString(annotation, EscapeMode.quotes));
+            sb.append(escapeOboString(annotation, EscapeMode.QUOTES));
             sb.append('"');
         }
         appendQualifiers(sb, clause);
@@ -396,7 +407,7 @@ public class OBOFormatWriter {
             if (i == 1) {
                 sb.append('"');
             }
-            sb.append(escapeOboString(value, EscapeMode.quotes));
+            sb.append(escapeOboString(value, EscapeMode.QUOTES));
             if (i == 1) {
                 sb.append('"');
             }
@@ -435,9 +446,9 @@ public class OBOFormatWriter {
         while (iterator.hasNext() && i < 3) {
             String value = iterator.next().toString();
             if (i == 2) {
-                sb.append('"').append(escapeOboString(value, EscapeMode.quotes)).append('"');
+                sb.append('"').append(escapeOboString(value, EscapeMode.QUOTES)).append('"');
             } else {
-                sb.append(escapeOboString(value, EscapeMode.simple)).append(' ');
+                sb.append(escapeOboString(value, EscapeMode.SIMPLE)).append(' ');
             }
             i++;
         }
@@ -456,7 +467,7 @@ public class OBOFormatWriter {
                 sb.append('"');
             }
             String value = valuesIterator.next().toString();
-            sb.append(escapeOboString(value, EscapeMode.quotes));
+            sb.append(escapeOboString(value, EscapeMode.QUOTES));
             if (first) {
                 sb.append('"');
             }
@@ -472,8 +483,9 @@ public class OBOFormatWriter {
         // to write []
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
-        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag()) || OboFormatTag.TAG_SYNONYM.getTag().equals(
-            clause.getTag()) || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
+        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
+            || OboFormatTag.TAG_SYNONYM.getTag().equals(clause.getTag())
+            || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
             || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clause.getTag())) {
             sb.append(" []");
         }
@@ -491,17 +503,17 @@ public class OBOFormatWriter {
             String idref = current.getIdref();
             int colonPos = idref.indexOf(':');
             if (colonPos > 0) {
-                sb.append(escapeOboString(idref.substring(0, colonPos), EscapeMode.xrefList));
+                sb.append(escapeOboString(idref.substring(0, colonPos), EscapeMode.XREFLIST));
                 sb.append(':');
-                sb.append(escapeOboString(idref.substring(colonPos + 1), EscapeMode.xrefList));
+                sb.append(escapeOboString(idref.substring(colonPos + 1), EscapeMode.XREFLIST));
             } else {
-                sb.append(escapeOboString(idref, EscapeMode.xrefList));
+                sb.append(escapeOboString(idref, EscapeMode.XREFLIST));
             }
             String annotation = current.getAnnotation();
             if (annotation != null) {
                 sb.append(' ');
                 sb.append('"');
-                sb.append(escapeOboString(annotation, EscapeMode.quotes));
+                sb.append(escapeOboString(annotation, EscapeMode.QUOTES));
                 sb.append('"');
             }
             if (xrefsIterator.hasNext()) {
@@ -548,17 +560,17 @@ public class OBOFormatWriter {
         // write property
         // TODO replace toString() method
         String property = it.next().toString();
-        sb.append(escapeOboString(property, EscapeMode.simple));
+        sb.append(escapeOboString(property, EscapeMode.SIMPLE));
         // write value and optional type
         while (it.hasNext()) {
             sb.append(' ');
             String val = it.next().toString(); // TODO replace toString() method
             if (val.contains(" ") || !val.contains(":")) {
                 sb.append('"');
-                sb.append(escapeOboString(val, EscapeMode.quotes));
+                sb.append(escapeOboString(val, EscapeMode.QUOTES));
                 sb.append('"');
             } else {
-                sb.append(escapeOboString(val, EscapeMode.simple));
+                sb.append(escapeOboString(val, EscapeMode.SIMPLE));
             }
         }
         appendQualifiers(sb, clause);
@@ -629,9 +641,9 @@ public class OBOFormatWriter {
                     idsLabel.append(label);
                 }
             }
-            EscapeMode mode = EscapeMode.most;
+            EscapeMode mode = EscapeMode.MOST;
             if (OboFormatTag.TAG_COMMENT.getTag().equals(clause.getTag())) {
-                mode = EscapeMode.parenthesis;
+                mode = EscapeMode.PARENTHESIS;
             }
             sb.append(escapeOboString(value, mode));
             if (valuesIterator.hasNext()) {
@@ -682,7 +694,7 @@ public class OBOFormatWriter {
                 QualifierValue qv = qvsIterator.next();
                 sb.append(qv.getQualifier());
                 sb.append("=\"");
-                sb.append(escapeOboString(qv.getValue(), EscapeMode.quotes));
+                sb.append(escapeOboString(qv.getValue(), EscapeMode.QUOTES));
                 sb.append('"');
                 if (qvsIterator.hasNext()) {
                     sb.append(", ");
@@ -694,66 +706,35 @@ public class OBOFormatWriter {
 
     /** The Enum EscapeMode. */
     private enum EscapeMode {
-        /** all except xref and xrefList. */
-        most,
-        /** simple + parenthesis. */
-        parenthesis,
-        /** simple + quotes. */
-        quotes,
-        /** simple + comma + colon. */
-        xref,
-        /** xref + closing brackets. */
-        xrefList,
-        /** newline and backslash. */
-        simple
+        //@formatter:off
+        /** all except xref and xrefList. */    MOST, 
+        /** simple + parenthesis. */            PARENTHESIS, 
+        /** simple + quotes. */                 QUOTES, 
+        /** simple + comma + colon. */          XREF, 
+        /** xref + closing brackets. */         XREFLIST, 
+        /** newline and backslash. */           SIMPLE
+        //@formatter:on
     }
 
     private static CharSequence escapeOboString(String in, EscapeMode mode) {
-        boolean modfied = false;
-        StringBuilder sb = new StringBuilder();
-        int length = in.length();
-        for (int i = 0; i < length; i++) {
-            char c = in.charAt(i);
-            if (c == '\n') {
-                modfied = true;
-                sb.append("\\n");
-            } else if (c == '\\') {
-                modfied = true;
-                sb.append("\\\\");
-            } else if (c == '"' && (mode == EscapeMode.most || mode == EscapeMode.quotes)) {
-                modfied = true;
-                sb.append("\\\"");
-            } else if (c == '{' && (mode == EscapeMode.most || mode == EscapeMode.parenthesis)) {
-                modfied = true;
-                sb.append("\\{");
-            }
-            // removed for compatibility with OBO-Edit
-            // else if (c == '}' && (mode == EscapeMode.most || mode ==
-            // EscapeMode.parenthesis)) {
-            // modfied = true;
-            // sb.append("\\}");
-            // }
-            else if (c == ',' && (mode == EscapeMode.xref || mode == EscapeMode.xrefList)) {
-                modfied = true;
-                sb.append("\\,");
-            } else if (c == ':' && (mode == EscapeMode.xref || mode == EscapeMode.xrefList)) {
-                modfied = true;
-                sb.append("\\:");
-            } else if (c == ']' && mode == EscapeMode.xrefList) {
-                modfied = true;
-                sb.append("\\]");
-            } else {
-                sb.append(c);
-            }
+        String replace = in.replace("\n", "\\n").replace("\\", "\\\\");
+        if (mode == EscapeMode.MOST || mode == EscapeMode.QUOTES) {
+            replace = replace.replace("\"", "\\\"");
         }
-        if (modfied) {
-            return sb;
+        if (mode == EscapeMode.MOST || mode == EscapeMode.PARENTHESIS) {
+            replace = replace.replace("{", "\\{").replace("}", "\\}");
         }
-        return in;
+        if (mode == EscapeMode.XREF || mode == EscapeMode.XREFLIST) {
+            replace = replace.replace(",", "\\,").replace(":", "\\:");
+        }
+        if (mode == EscapeMode.XREFLIST) {
+            replace = replace.replace("[", "\\[").replace("]", "\\]");
+        }
+        return replace;
     }
 
-    private static Map<String, Integer> buildHeaderTagsPriorities() {
-        Map<String, Integer> table = new HashMap<>();
+    private static TObjectIntHashMap<String> buildHeaderTagsPriorities() {
+        TObjectIntHashMap<String> table = new TObjectIntHashMap<>();
         table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
         table.put(OboFormatTag.TAG_DATA_VERSION.getTag(), 10);
         table.put(OboFormatTag.TAG_DATE.getTag(), 15);
@@ -778,8 +759,8 @@ public class OBOFormatWriter {
         return table;
     }
 
-    private static Map<String, Integer> buildTagsPriorities() {
-        Map<String, Integer> table = new HashMap<>();
+    private static TObjectIntHashMap<String> buildTagsPriorities() {
+        TObjectIntHashMap<String> table = new TObjectIntHashMap<>();
         table.put(OboFormatTag.TAG_ID.getTag(), 5);
         table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
         table.put(OboFormatTag.TAG_NAME.getTag(), 15);
@@ -807,8 +788,8 @@ public class OBOFormatWriter {
         return table;
     }
 
-    private static Map<String, Integer> buildTypeDefTagsPriorities() {
-        Map<String, Integer> table = new HashMap<>();
+    private static TObjectIntHashMap<String> buildTypeDefTagsPriorities() {
+        TObjectIntHashMap<String> table = new TObjectIntHashMap<>();
         table.put(OboFormatTag.TAG_ID.getTag(), 5);
         table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
         table.put(OboFormatTag.TAG_NAME.getTag(), 15);

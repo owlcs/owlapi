@@ -50,6 +50,7 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), getLiteral().hashCode() * 65536, getLang()));
+        return hash(object.hashIndex(),
+            Stream.of(getDatatype(), Integer.valueOf(getLiteral().hashCode() * 65536), getLang()));
     }
 }

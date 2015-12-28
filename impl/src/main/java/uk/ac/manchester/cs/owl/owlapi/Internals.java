@@ -116,32 +116,32 @@ public class Internals implements Serializable {
 
         @Override
         public Boolean visit(OWLClass cls) {
-            return owlClassReferences.containsKey(cls);
+            return Boolean.valueOf(owlClassReferences.containsKey(cls));
         }
 
         @Override
         public Boolean visit(OWLObjectProperty property) {
-            return owlObjectPropertyReferences.containsKey(property);
+            return Boolean.valueOf(owlObjectPropertyReferences.containsKey(property));
         }
 
         @Override
         public Boolean visit(OWLDataProperty property) {
-            return owlDataPropertyReferences.containsKey(property);
+            return Boolean.valueOf(owlDataPropertyReferences.containsKey(property));
         }
 
         @Override
         public Boolean visit(OWLNamedIndividual individual) {
-            return owlIndividualReferences.containsKey(individual);
+            return Boolean.valueOf(owlIndividualReferences.containsKey(individual));
         }
 
         @Override
         public Boolean visit(OWLDatatype datatype) {
-            return owlDatatypeReferences.containsKey(datatype);
+            return Boolean.valueOf(owlDatatypeReferences.containsKey(datatype));
         }
 
         @Override
         public Boolean visit(OWLAnnotationProperty property) {
-            return owlAnnotationPropertyReferences.containsKey(property);
+            return Boolean.valueOf(owlAnnotationPropertyReferences.containsKey(property));
         }
     }
 
@@ -850,8 +850,7 @@ public class Internals implements Serializable {
      * @return logical axioms
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
-        return LOGICAL_AXIOM_TYPES.stream()
-            .map(type -> axiomsByType.values(type, OWLLogicalAxiom.class))
+        return LOGICAL_AXIOM_TYPES.stream().map(type -> axiomsByType.values(type, OWLLogicalAxiom.class))
             .flatMap(x -> x);
     }
 
@@ -1350,7 +1349,7 @@ public class Internals implements Serializable {
      * @return true if reference is contained
      */
     public boolean containsReference(OWLEntity entity) {
-        return entity.accept(refChecker);
+        return entity.accept(refChecker).booleanValue();
     }
 
     /**

@@ -44,10 +44,10 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration config) {
         try (Reader r = DocumentSources.wrapInputAsReader(source, config);
-                BufferedReader reader = new BufferedReader(r)) {
+            BufferedReader reader = new BufferedReader(r)) {
             StringBuilder sb = new StringBuilder();
             String line;
             int lineCount = 1;
@@ -58,8 +58,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 sb.append('\n');
                 if (!foundMagicNumber) {
                     String trimmedLine = line.trim();
-                    if (!trimmedLine.isEmpty()
-                            && !trimmedLine.startsWith(COMMENT_START_CHAR)) {
+                    if (!trimmedLine.isEmpty() && !trimmedLine.startsWith(COMMENT_START_CHAR)) {
                         // Non-empty line, that is not a comment. The
                         // trimmed line MUST start with our magic
                         // number if we are going to parse the rest of
@@ -72,34 +71,30 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                             // Non-empty line that is NOT a comment. We
                             // cannot possibly parse this.
                             int startCol = line.indexOf(trimmedLine) + 1;
-                            String msg = String
-                                    .format("Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
-                                            trimmedLine, lineCount, startCol);
-                            throw new ManchesterOWLSyntaxParserException(msg,
-                                    lineCount, startCol);
+                            String msg = String.format(
+                                "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
+                                trimmedLine, Integer.valueOf(lineCount), Integer.valueOf(startCol));
+                            throw new ManchesterOWLSyntaxParserException(msg, lineCount, startCol);
                         }
                     }
                 }
                 lineCount++;
             }
             String s = sb.toString();
-            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
-                    new OWLAPIConfigProvider(), ontology
-                            .getOWLOntologyManager().getOWLDataFactory());
+            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(),
+                ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.setOntologyLoaderConfiguration(config);
             parser.setStringToParse(s);
             return parser.parseOntology(ontology);
         } catch (ParserException e) {
-            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e,
-                    e.getLineNumber(), e.getColumnNumber());
+            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, e.getLineNumber(), e.getColumnNumber());
         } catch (OWLOntologyInputSourceException | IOException e) {
-            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, 1,
-                    1);
+            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, 1, 1);
         }
     }
 
     private static boolean startsWithMagicNumber(String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
-                || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
+            || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }
 }

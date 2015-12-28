@@ -94,14 +94,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             }
             LOGGER.info("Calling the Reasoner");
             isLocal = reasoner.isEntailed(axiom);
-            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", isLocal);
+            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", Boolean.valueOf(isLocal));
         }
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
             LOGGER.info("Calling the Reasoner");
             isLocal = reasoner.isEntailed(axiom);
-            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", isLocal);
+            LOGGER.info("DONE Calling the Reasoner. isLocal = {}", Boolean.valueOf(isLocal));
         }
     }
 

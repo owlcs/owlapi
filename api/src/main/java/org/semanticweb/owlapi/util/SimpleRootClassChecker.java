@@ -79,7 +79,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
     @Override
     public boolean isRootClass(OWLClass cls) {
         return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls))
-            .anyMatch(ax -> !ax.accept(checker.setOWLClass(cls)));
+            .anyMatch(ax -> !ax.accept(checker.setOWLClass(cls)).booleanValue());
     }
 
     private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {
@@ -95,12 +95,12 @@ public class SimpleRootClassChecker implements RootClassChecker {
         @Override
         public Boolean visit(OWLClass ce) {
             namedSuper = true;
-            return namedSuper;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return ce.operands().anyMatch(op -> op.accept(this));
+            return Boolean.valueOf(ce.operands().anyMatch(op -> op.accept(this).booleanValue()));
         }
     }
 

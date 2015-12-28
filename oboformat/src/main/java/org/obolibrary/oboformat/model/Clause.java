@@ -1,9 +1,6 @@
 package org.obolibrary.oboformat.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,10 +9,14 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Sets;
+
 /** Clause. */
 public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
+    private static final Set<?> trueValues = Sets.newHashSet(Boolean.TRUE, "true");
+    private static final Set<?> falseValues = Sets.newHashSet(Boolean.FALSE, "false");
     @Nullable protected String tag;
     @Nonnull protected List<Object> values = new ArrayList<>();
     @Nonnull protected Collection<Xref> xrefs = new ArrayList<>();
@@ -393,16 +394,18 @@ public class Clause {
         if (c1 == null || c1.isEmpty()) {
             return c2 == null || c2.isEmpty();
         }
-        if (c2 == null) {
+        if (c2 == null || c1.size() != c2.size()) {
             return false;
         }
-        if (c1.size() != c2.size()) {
-            return false;
-        }
-        // xrefs are stored as lists to preserve order, but order is not import
-        // for comparisons
+        return checkContents(c1, c2);
+    }
+
+    protected static boolean checkContents(Collection<?> c1, Collection<?> c2) {
+        // xrefs are stored as lists to preserve order, but order is not
+        // important for comparisons
+        Set<?> s = new HashSet<>(c2);
         for (Object x : c1) {
-            if (!c2.contains(x)) {
+            if (!s.contains(x)) {
                 return false;
             }
         }
@@ -479,17 +482,8 @@ public class Clause {
             Object v1 = getValue();
             Object v2 = other.getValue();
             if (v1 != v2 && !v1.equals(v2)) {
-                if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
-                    // special case - OK
-                } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
-                    // special case - OK
-                } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
-                    // special case - OK
-                } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
-                    // special case - OK
-                } else {
-                    return false;
-                }
+                return trueValues.contains(v1) && trueValues.contains(v2)
+                    || falseValues.contains(v1) && falseValues.contains(v2);
             }
         } catch (FrameStructureException e) {
             // this cannot happen as it's already been tested

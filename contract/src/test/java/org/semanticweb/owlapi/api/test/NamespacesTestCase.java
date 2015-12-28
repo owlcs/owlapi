@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.EnumSet;
 
@@ -28,14 +28,12 @@ public class NamespacesTestCase extends TestBase {
 
     @Test
     public void shouldFindInNamespace() {
-        EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL,
-                Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
+        EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
         for (Namespaces n : Namespaces.values()) {
             IRI iri = IRI.create(n.getPrefixIRI(), "test");
             boolean reservedVocabulary = iri.isReservedVocabulary();
-            assertEquals(iri + " reserved? Should be " + reserved.contains(n)
-                    + " but is " + reservedVocabulary, reservedVocabulary,
-                    reserved.contains(n));
+            assertTrue(iri + " reserved? Should be " + reserved.contains(n) + " but is " + reservedVocabulary,
+                reservedVocabulary == reserved.contains(n));
         }
     }
 
@@ -47,8 +45,7 @@ public class NamespacesTestCase extends TestBase {
         XSDVocabulary v = XSDVocabulary.parseShortName(s);
         // then
         assertEquals(XSDVocabulary.STRING, v);
-        assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df),
-                df.getOWLDatatype(v));
+        assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df), df.getOWLDatatype(v));
     }
 
     @Test(expected = IllegalArgumentException.class)

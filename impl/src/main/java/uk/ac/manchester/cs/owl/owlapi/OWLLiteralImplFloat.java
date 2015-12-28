@@ -37,7 +37,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), (int) literal * 65536, getLang()));
+        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf((int) literal * 65536), getLang()));
     }
 
     @Override

@@ -114,6 +114,15 @@ public interface OWLDocumentFormat extends Serializable {
                 punnings.put(e.getIRI(), e.getEntityType());
             }
         }
+        return computeIllegals(punnings);
+    }
+
+    /**
+     * @param punnings
+     *        input punnings
+     * @return illegal punnings
+     */
+    static Collection<IRI> computeIllegals(Multimap<IRI, EntityType<?>> punnings) {
         Collection<IRI> illegals = new HashSet<>();
         for (IRI i : punnings.keySet()) {
             Collection<EntityType<?>> puns = punnings.get(i);
@@ -153,9 +162,11 @@ public interface OWLDocumentFormat extends Serializable {
      *        key for the new entry
      * @param defaultValue
      *        value for the new entry
+     * @param <T>
+     *        type
      * @return the value
      */
-    Serializable getParameter(Serializable key, Serializable defaultValue);
+    <T> T getParameter(Serializable key, T defaultValue);
 
     /**
      * Determines if this format is an instance of a format that uses prefixes

@@ -130,8 +130,8 @@ public class RioRenderer extends RDFRendererBase {
             throw new OWLRuntimeException(e);
         }
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("pendingNodes={}", pendingNodes.size());
-            LOGGER.trace("renderedStatements={}", renderedStatements.size());
+            LOGGER.trace("pendingNodes={}", Integer.valueOf(pendingNodes.size()));
+            LOGGER.trace("renderedStatements={}", Integer.valueOf(renderedStatements.size()));
         }
         pendingNodes.clear();
         renderedStatements.clear();
@@ -168,7 +168,7 @@ public class RioRenderer extends RDFRendererBase {
         pendingNodes.add(node);
         final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("triples.size()={}", triples.size());
+            LOGGER.trace("triples.size()={}", Integer.valueOf(triples.size()));
             if (!triples.isEmpty()) {
                 LOGGER.trace("triples={}", triples);
             }

@@ -151,11 +151,12 @@ public class MapPointer<K, V extends OWLAxiom> {
             return this;
         }
         assert visitor != null;
+        assert type != null;
         if (visitor instanceof InitVisitor) {
             i.getAxiomsByType().forEach(type, ax -> putInternal(ax.accept((InitVisitor<K>) visitor), (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
-            i.getAxiomsByType().forEach(type, ax -> ax.accept((InitCollectionVisitor<K>) visitor).forEach(
-                key -> putInternal(key, (V) ax)));
+            i.getAxiomsByType().forEach(type,
+                ax -> ax.accept((InitCollectionVisitor<K>) visitor).forEach(key -> putInternal(key, (V) ax)));
         }
         return this;
     }
@@ -335,9 +336,9 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        key to look up
      * @return true if there are values for key
      */
-    public synchronized Boolean containsKey(K key) {
+    public synchronized boolean containsKey(K key) {
         init();
-        return Boolean.valueOf(map.containsKey(key));
+        return map.containsKey(key);
     }
 
     /**

@@ -147,7 +147,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), specificHash() * 65536, getLang()));
+        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
     }
 
     private int specificHash() {

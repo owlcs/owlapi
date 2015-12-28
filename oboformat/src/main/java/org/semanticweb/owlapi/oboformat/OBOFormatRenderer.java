@@ -84,7 +84,7 @@ public class OBOFormatRenderer implements OWLRenderer {
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
             oboFormatWriter
-                .setCheckStructure((Boolean) format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE));
+                .setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
             oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

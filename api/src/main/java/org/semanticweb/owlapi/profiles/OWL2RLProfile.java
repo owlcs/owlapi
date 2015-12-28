@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2RLProfile implements OWLProfile {
 
-    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(OWL2Datatype.RL_DATATYPES.stream().map(i -> i
-        .getIRI()));
+    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(
+        OWL2Datatype.RL_DATATYPES.stream().map(i -> i.getIRI()));
     @Nonnull private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
     @Nonnull private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
     @Nonnull private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
@@ -107,8 +107,8 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            axiom.classExpressions().filter(ce -> !isOWL2RLEquivalentClassExpression(ce)).forEach(ce -> violations.add(
-                new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
+            axiom.classExpressions().filter(ce -> !isOWL2RLEquivalentClassExpression(ce))
+                .forEach(ce -> violations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
         }
 
         @Override
@@ -118,8 +118,8 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            axiom.classExpressions().filter(ce -> !isOWL2RLEquivalentClassExpression(ce)).forEach(
-                ce -> violations.add(new UseOfNonEquivalentClassExpression(getCurrentOntology(), axiom, ce)));
+            axiom.classExpressions().filter(ce -> !isOWL2RLEquivalentClassExpression(ce))
+                .forEach(ce -> violations.add(new UseOfNonEquivalentClassExpression(getCurrentOntology(), axiom, ce)));
         }
 
         @Override
@@ -202,22 +202,22 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return !ce.isOWLThing();
+            return Boolean.valueOf(!ce.isOWLThing());
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return !ce.operands().anyMatch(op -> !isOWL2RLSubClassExpression(op));
+            return Boolean.valueOf(!ce.operands().anyMatch(op -> !isOWL2RLSubClassExpression(op)));
         }
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
-            return !ce.operands().anyMatch(op -> !isOWL2RLSubClassExpression(op));
+            return Boolean.valueOf(!ce.operands().anyMatch(op -> !isOWL2RLSubClassExpression(op)));
         }
 
         @Override
         public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller());
+            return Boolean.valueOf(ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller()));
         }
 
         @Override
@@ -256,18 +256,18 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return !ce.isOWLThing();
+            return Boolean.valueOf(!ce.isOWLThing());
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return !ce.operands().anyMatch(e -> !e.accept(this).booleanValue());
+            return Boolean.valueOf(!ce.operands().anyMatch(e -> !e.accept(this).booleanValue()));
         }
 
         // XXX difference in subclass and superclass - correct?
         @Override
         public Boolean visit(OWLObjectComplementOf ce) {
-            return isOWL2RLSubClassExpression(ce.getOperand());
+            return Boolean.valueOf(isOWL2RLSubClassExpression(ce.getOperand()));
         }
 
         @Override
@@ -282,8 +282,8 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectMaxCardinality ce) {
-            return (ce.getCardinality() == 0 || ce.getCardinality() == 1)
-                && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller()));
+            return Boolean.valueOf((ce.getCardinality() == 0 || ce.getCardinality() == 1)
+                && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller())));
         }
 
         @Override
@@ -298,7 +298,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLDataMaxCardinality ce) {
-            return ce.getCardinality() == 0 || ce.getCardinality() == 1;
+            return Boolean.valueOf(ce.getCardinality() == 0 || ce.getCardinality() == 1);
         }
     }
 
@@ -322,12 +322,12 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return !ce.isOWLThing();
+            return Boolean.valueOf(!ce.isOWLThing());
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            return !ce.operands().anyMatch(e -> !e.accept(this).booleanValue());
+            return Boolean.valueOf(!ce.operands().anyMatch(e -> !e.accept(this).booleanValue()));
         }
 
         @Override

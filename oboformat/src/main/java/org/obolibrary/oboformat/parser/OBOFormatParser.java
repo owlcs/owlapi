@@ -375,23 +375,7 @@ public class OBOFormatParser {
             for (String tag : f.getTags()) {
                 OboFormatTag tagconstant = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
-                if (c != null && OboFormatTag.TERM_FRAMES.contains(tagconstant)) {
-                    if (c.getValues().size() > 1) {
-                        String error = checkRelation(c.getValue(String.class), tag, f.getId(), doc);
-                        if (error != null) {
-                            danglingReferences.add(error);
-                        }
-                        error = checkClassReference(c.getValue2(String.class), tag, f.getId(), doc);
-                        if (error != null) {
-                            danglingReferences.add(error);
-                        }
-                    } else {
-                        String error = checkClassReference(c.getValue(String.class), tag, f.getId(), doc);
-                        if (error != null) {
-                            danglingReferences.add(error);
-                        }
-                    }
-                }
+                validate(doc, danglingReferences, f, tag, tagconstant, c);
             }
         }
         // check typedef frames
@@ -399,33 +383,59 @@ public class OBOFormatParser {
             for (String tag : f.getTags()) {
                 OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
-                if (c != null) {
-                    if (OboFormatTag.TYPEDEF_FRAMES.contains(tagConstant)) {
-                        String error = checkRelation(c.getValue(String.class), tag, f.getId(), doc);
-                        if (error != null) {
-                            danglingReferences.add(error);
-                        }
-                    } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
-                        || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
-                        || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
-                        String error = checkRelation(c.getValue().toString(), tag, f.getId(), doc);
-                        if (error != null) {
-                            danglingReferences.add(error);
-                        }
-                        error = checkRelation(c.getValue2().toString(), tag, f.getId(), doc);
-                        if (error != null) {
-                            danglingReferences.add(error);
-                        }
-                    } else if (tagConstant == OboFormatTag.TAG_DOMAIN || tagConstant == OboFormatTag.TAG_RANGE) {
-                        String error = checkClassReference(c.getValue().toString(), tag, f.getId(), doc);
-                        if (error != null) {
-                            danglingReferences.add(error);
-                        }
-                    }
-                }
+                validate1(doc, danglingReferences, f, tag, tagConstant, c);
             }
         }
         return danglingReferences;
+    }
+
+    protected void validate1(OBODoc doc, List<String> danglingReferences, Frame f, String tag,
+        @Nullable OboFormatTag tagConstant, @Nullable Clause c) {
+        if (c != null) {
+            if (OboFormatTag.TYPEDEF_FRAMES.contains(tagConstant)) {
+                String error = checkRelation(c.getValue(String.class), tag, f.getId(), doc);
+                if (error != null) {
+                    danglingReferences.add(error);
+                }
+            } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
+                || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
+                || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
+                String error = checkRelation(c.getValue().toString(), tag, f.getId(), doc);
+                if (error != null) {
+                    danglingReferences.add(error);
+                }
+                error = checkRelation(c.getValue2().toString(), tag, f.getId(), doc);
+                if (error != null) {
+                    danglingReferences.add(error);
+                }
+            } else if (tagConstant == OboFormatTag.TAG_DOMAIN || tagConstant == OboFormatTag.TAG_RANGE) {
+                String error = checkClassReference(c.getValue().toString(), tag, f.getId(), doc);
+                if (error != null) {
+                    danglingReferences.add(error);
+                }
+            }
+        }
+    }
+
+    protected void validate(OBODoc doc, List<String> danglingReferences, Frame f, String tag,
+        @Nullable OboFormatTag tagconstant, @Nullable Clause c) {
+        if (c != null && OboFormatTag.TERM_FRAMES.contains(tagconstant)) {
+            if (c.getValues().size() > 1) {
+                String error = checkRelation(c.getValue(String.class), tag, f.getId(), doc);
+                if (error != null) {
+                    danglingReferences.add(error);
+                }
+                error = checkClassReference(c.getValue2(String.class), tag, f.getId(), doc);
+                if (error != null) {
+                    danglingReferences.add(error);
+                }
+            } else {
+                String error = checkClassReference(c.getValue(String.class), tag, f.getId(), doc);
+                if (error != null) {
+                    danglingReferences.add(error);
+                }
+            }
+        }
     }
 
     @Nullable
@@ -519,7 +529,8 @@ public class OBOFormatParser {
         if (rest.startsWith("[Term]")) {
             parseTermFrame(obodoc);
         } else if (rest.startsWith("[Instance]")) {
-            LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: {}", stream.getLineNo());
+            LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: {}",
+                Integer.valueOf(stream.getLineNo()));
             while (!stream.eof()) {
                 stream.advanceLine();
             }
@@ -1214,9 +1225,9 @@ public class OBOFormatParser {
     // ----------------------------------------
     private void parseBoolean(Clause cl) {
         if (stream.consume("true")) {
-            cl.setValue(true);
+            cl.setValue(Boolean.TRUE);
         } else if (stream.consume("false")) {
-            cl.setValue(false);
+            cl.setValue(Boolean.FALSE);
         } else {
             error("Could not parse boolean value.");
         }
@@ -1438,6 +1449,6 @@ public class OBOFormatParser {
     }
 
     private void warn(String message) {
-        LOG.warn("LINE: {} {}  LINE:\n{}", stream.lineNo, message, stream.line);
+        LOG.warn("LINE: {} {}  LINE:\n{}", Integer.valueOf(stream.lineNo), message, stream.line);
     }
 }

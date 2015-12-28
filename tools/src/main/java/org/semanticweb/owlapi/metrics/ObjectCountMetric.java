@@ -63,7 +63,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
 
     @Override
     public Integer recomputeMetric() {
-        return getObjects().size();
+        return Integer.valueOf(getObjects().size());
     }
 
     /**

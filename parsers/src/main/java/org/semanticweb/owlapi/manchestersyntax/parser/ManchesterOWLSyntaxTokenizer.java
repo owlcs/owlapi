@@ -48,25 +48,25 @@ public class ManchesterOWLSyntaxTokenizer {
      */
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
-        skip.add(' ');
-        skip.add('\n');
-        skip.add('\r');
-        skip.add('\t');
-        commentDelimiters.add('#');
-        commentDelimiters.add('*');
-        delims.add('(');
-        delims.add(')');
-        delims.add('[');
-        delims.add(']');
-        delims.add(',');
-        delims.add('{');
-        delims.add('}');
-        delims.add('^');
-        delims.add('@');
-        delims.add('<');
-        delims.add('>');
-        delims.add('=');
-        delims.add('?');
+        skip.add(Character.valueOf(' '));
+        skip.add(Character.valueOf('\n'));
+        skip.add(Character.valueOf('\r'));
+        skip.add(Character.valueOf('\t'));
+        commentDelimiters.add(Character.valueOf('#'));
+        commentDelimiters.add(Character.valueOf('*'));
+        delims.add(Character.valueOf('('));
+        delims.add(Character.valueOf(')'));
+        delims.add(Character.valueOf('['));
+        delims.add(Character.valueOf(']'));
+        delims.add(Character.valueOf(','));
+        delims.add(Character.valueOf('{'));
+        delims.add(Character.valueOf('}'));
+        delims.add(Character.valueOf('^'));
+        delims.add(Character.valueOf('@'));
+        delims.add(Character.valueOf('<'));
+        delims.add(Character.valueOf('>'));
+        delims.add(Character.valueOf('='));
+        delims.add(Character.valueOf('?'));
     }
 
     /**
@@ -109,12 +109,12 @@ public class ManchesterOWLSyntaxTokenizer {
             } else if (ch == '<') {
                 // Potentially the start of an IRI
                 readIRI();
-            } else if (skip.contains(ch)) {
+            } else if (skip.contains(Character.valueOf(ch))) {
                 consumeToken();
-            } else if (commentDelimiters.contains(ch)) {
+            } else if (commentDelimiters.contains(Character.valueOf(ch))) {
                 consumeToken();
                 readComment();
-            } else if (delims.contains(ch)) {
+            } else if (delims.contains(Character.valueOf(ch))) {
                 consumeToken();
                 sb.append(ch);
                 if (ch != '@') {

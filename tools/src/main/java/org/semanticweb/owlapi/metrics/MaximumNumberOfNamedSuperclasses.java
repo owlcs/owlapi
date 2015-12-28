@@ -16,8 +16,8 @@ import static org.semanticweb.owlapi.search.Searcher.equivalent;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.OptionalLong;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -49,16 +49,12 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
     @Override
     public Integer recomputeMetric() {
-        AtomicLong count = new AtomicLong();
         Set<OWLClass> processedClasses = new HashSet<>();
-        getOntologies().forEach(o -> o.classesInSignature().filter(processedClasses::add).forEach(cls -> {
-            long curCount = equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
-                .filter(d -> !d.isAnonymous()).count();
-            if (curCount > count.get()) {
-                count.set(curCount);
-            }
-        }));
-        return count.intValue();
+        OptionalLong max = getOntologies().flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add)
+            .mapToLong(cls -> equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
+                .filter(d -> !d.isAnonymous()).count()))
+            .max();
+        return Integer.valueOf((int) max.orElse(0L));
     }
 
     @Override

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -216,8 +217,7 @@ public abstract class RDFRendererBase {
      */
     private void renderEntities(Stream<? extends OWLEntity> entities, String bannerText, Collection<IRI> illegalPuns) {
         AtomicBoolean firstRendering = new AtomicBoolean(true);
-        sortOptionally(entities).stream()
-            .filter(e -> createGraph(e, illegalPuns))
+        sortOptionally(entities).stream().filter(e -> createGraph(e, illegalPuns))
             .forEach(e -> render(e, firstRendering, bannerText));
     }
 
@@ -267,8 +267,7 @@ public abstract class RDFRendererBase {
 
     private void renderUntypedIRIAnnotationAssertions() {
         Collection<IRI> annotatedIRIs = new HashSet<>();
-        ontology.axioms(ANNOTATION_ASSERTION)
-            .filter(ax -> ax.getSubject().isIRI())
+        ontology.axioms(ANNOTATION_ASSERTION).filter(ax -> ax.getSubject().isIRI())
             .forEach(ax -> addIfUntyped(ax.getSubject(), annotatedIRIs));
         if (!annotatedIRIs.isEmpty()) {
             writeBanner(ANNOTATED_IRIS_BANNER_TEXT);
@@ -290,8 +289,7 @@ public abstract class RDFRendererBase {
 
     protected void renderAnon(OWLAnonymousIndividual anonInd) {
         List<OWLAxiom> axioms = new ArrayList<>();
-        if (ontology.referencingAxioms(anonInd)
-            .filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom))
+        if (ontology.referencingAxioms(anonInd).filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom))
             .noneMatch(ax -> shouldNotRender(anonInd, axioms, ax))) {
             createGraph(axioms.stream());
             renderAnonRoots();
@@ -358,8 +356,7 @@ public abstract class RDFRendererBase {
     }
 
     protected void renderOntologyHeader() {
-        RDFTranslator translator = new RDFTranslator(
-            ontology.getOWLOntologyManager(), ontology,
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences);
         graph = translator.getGraph();
         RDFResource ontologyHeaderNode = createOntologyHeaderNode(translator);
@@ -405,82 +402,7 @@ public abstract class RDFRendererBase {
             add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(), EXCLUDED));
         }
         add(axioms, ontology.declarationAxioms(entity));
-        entity.accept(new OWLEntityVisitor() {
-
-            @Override
-            public void visit(OWLClass cls) {
-                add(axioms, ontology.axioms(cls).filter(this::threewayDisjoint));
-                add(axioms, ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().equals(cls)));
-            }
-
-            @Override
-            public void visit(OWLDatatype datatype) {
-                add(axioms, ontology.datatypeDefinitions(datatype));
-                createGraph(axioms.stream());
-            }
-
-            @Override
-            public void visit(OWLNamedIndividual individual) {
-                add(axioms, ontology.axioms(individual)
-                    .filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom)));
-                // for object property assertion axioms where the property is
-                // anonymous and the individual is the object, the renderer will
-                // save the simplified version of the axiom.
-                // As they will have subject and object inverted, we need to
-                // collect them here, otherwise the triple will not be included
-                // because the subject will not match
-                add(axioms, ontology.referencingAxioms(individual).filter(ax -> inverse(ax, individual)));
-            }
-
-            @Override
-            public void visit(OWLDataProperty property) {
-                add(axioms, ontology.axioms(property).filter(this::threewayDisjointData));
-            }
-
-            @Override
-            public void visit(OWLObjectProperty property) {
-                add(axioms, ontology.axioms(property).filter(this::threewayDisjointObject));
-                add(axioms, ontology.axioms(SUB_PROPERTY_CHAIN_OF)
-                    .filter(ax -> ax.getSuperProperty().equals(property)));
-                OWLObjectInverseOf inverse = df.getOWLObjectInverseOf(property);
-                add(axioms, ontology.axioms(inverse));
-            }
-
-            @Override
-            public void visit(OWLAnnotationProperty property) {
-                add(axioms, ontology.axioms(property));
-            }
-
-            boolean threewayDisjoint(OWLAxiom ax) {
-                if (ax instanceof OWLDisjointClassesAxiom) {
-                    OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
-                    if (disjAx.classExpressions().count() > 2) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            boolean inverse(OWLAxiom ax, OWLNamedIndividual i) {
-                if (ax instanceof OWLObjectPropertyAssertionAxiom) {
-                    OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
-                    if (candidate.getProperty().isAnonymous() && candidate.getObject().equals(i)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            boolean threewayDisjointData(OWLAxiom ax) {
-                return !(ax instanceof OWLDisjointDataPropertiesAxiom
-                    && ((OWLDisjointDataPropertiesAxiom) ax).properties().count() > 2);
-            }
-
-            boolean threewayDisjointObject(OWLAxiom ax) {
-                return !(ax instanceof OWLDisjointObjectPropertiesAxiom
-                    && ((OWLDisjointObjectPropertiesAxiom) ax).properties().count() > 2);
-            }
-        });
+        entity.accept(new GraphVisitor(ontology, axioms, this::createGraph));
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
             && OWLDocumentFormat.isMissingType(entity, ontology)) {
             axioms.add(df.getOWLDeclarationAxiom(entity));
@@ -502,6 +424,92 @@ public abstract class RDFRendererBase {
         return new RDFResourceBlankNode(id, isIndividual, needId);
     }
 
+    static final class GraphVisitor implements OWLEntityVisitor {
+
+        private final List<OWLAxiom> axioms;
+        private OWLOntology ontology;
+        private Consumer<Stream<OWLAxiom>> graphCreation;
+
+        GraphVisitor(OWLOntology ontology, List<OWLAxiom> axioms, Consumer<Stream<OWLAxiom>> graphCreation) {
+            this.axioms = axioms;
+            this.ontology = ontology;
+            this.graphCreation = graphCreation;
+        }
+
+        @Override
+        public void visit(OWLClass cls) {
+            add(axioms, ontology.axioms(cls).filter(this::threewayDisjoint));
+            add(axioms, ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().equals(cls)));
+        }
+
+        @Override
+        public void visit(OWLDatatype datatype) {
+            add(axioms, ontology.datatypeDefinitions(datatype));
+            graphCreation.accept(axioms.stream());
+        }
+
+        @Override
+        public void visit(OWLNamedIndividual individual) {
+            add(axioms, ontology.axioms(individual).filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom)));
+            // for object property assertion axioms where the property is
+            // anonymous and the individual is the object, the renderer will
+            // save the simplified version of the axiom.
+            // As they will have subject and object inverted, we need to
+            // collect them here, otherwise the triple will not be included
+            // because the subject will not match
+            add(axioms, ontology.referencingAxioms(individual).filter(ax -> inverse(ax, individual)));
+        }
+
+        @Override
+        public void visit(OWLDataProperty property) {
+            add(axioms, ontology.axioms(property).filter(this::threewayDisjointData));
+        }
+
+        @Override
+        public void visit(OWLObjectProperty property) {
+            add(axioms, ontology.axioms(property).filter(this::threewayDisjointObject));
+            add(axioms, ontology.axioms(SUB_PROPERTY_CHAIN_OF).filter(ax -> ax.getSuperProperty().equals(property)));
+            OWLObjectInverseOf inverse = ontology.getOWLOntologyManager().getOWLDataFactory()
+                .getOWLObjectInverseOf(property);
+            add(axioms, ontology.axioms(inverse));
+        }
+
+        @Override
+        public void visit(OWLAnnotationProperty property) {
+            add(axioms, ontology.axioms(property));
+        }
+
+        boolean threewayDisjoint(OWLAxiom ax) {
+            if (ax instanceof OWLDisjointClassesAxiom) {
+                OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
+                if (disjAx.classExpressions().count() > 2) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        static boolean inverse(OWLAxiom ax, OWLNamedIndividual i) {
+            if (ax instanceof OWLObjectPropertyAssertionAxiom) {
+                OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
+                if (candidate.getProperty().isAnonymous() && candidate.getObject().equals(i)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        boolean threewayDisjointData(OWLAxiom ax) {
+            return !(ax instanceof OWLDisjointDataPropertiesAxiom
+                && ((OWLDisjointDataPropertiesAxiom) ax).properties().count() > 2);
+        }
+
+        boolean threewayDisjointObject(OWLAxiom ax) {
+            return !(ax instanceof OWLDisjointObjectPropertiesAxiom
+                && ((OWLDisjointObjectPropertiesAxiom) ax).properties().count() > 2);
+        }
+    }
+
     private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
 
         public SequentialBlankNodeRDFTranslator() {
@@ -516,7 +524,7 @@ public abstract class RDFRendererBase {
             if (isIndividual) {
                 OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
                 needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-                key = anonymousIndividual.getID().getID();
+                return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
             } else if (key instanceof OWLAxiom) {
                 isIndividual = true;
                 needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);

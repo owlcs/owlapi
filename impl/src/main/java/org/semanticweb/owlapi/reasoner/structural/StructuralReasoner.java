@@ -318,8 +318,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                     result.addAllNodes(getSuperClasses(axiom.getRange(), false).nodes());
                 }
             });
-            getInverseObjectProperties(pe).entities().flatMap(ontology::objectPropertyDomainAxioms)
-                .forEach(axiom -> {
+            getInverseObjectProperties(pe).entities().flatMap(ontology::objectPropertyDomainAxioms).forEach(axiom -> {
                 result.addNode(getEquivalentClasses(axiom.getDomain()));
                 if (!direct) {
                     result.addAllNodes(getSuperClasses(axiom.getDomain(), false).nodes());
@@ -462,9 +461,8 @@ public class StructuralReasoner extends OWLReasonerBase {
     public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) {
         ensurePrepared();
         Set<OWLLiteral> literals = new HashSet<>();
-        Set<OWLDataProperty> superProperties = asUnorderedSet(Stream.concat(getSuperDataProperties(pe, false)
-            .entities(),
-            getEquivalentDataProperties(pe).entities()));
+        Set<OWLDataProperty> superProperties = asUnorderedSet(
+            Stream.concat(getSuperDataProperties(pe, false).entities(), getEquivalentDataProperties(pe).entities()));
         getRootOntology().importsClosure().flatMap(o -> o.dataPropertyAssertionAxioms(ind)).forEach(ax -> {
             if (superProperties.contains(ax.getProperty().asOWLDataProperty())) {
                 literals.add(ax.getObject());
@@ -779,8 +777,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                 }
             }
             pm.reasonerTaskProgressChanged(processed.size(), classificationSize);
-            indexMap.put(entity, index);
-            lowlinkMap.put(entity, index);
+            indexMap.put(entity, Integer.valueOf(index));
+            lowlinkMap.put(entity, Integer.valueOf(index));
             index += 1;
             stack.push(entity);
             stackEntities.add(entity);
@@ -796,9 +794,11 @@ public class StructuralReasoner extends OWLReasonerBase {
                 if (!indexMap.containsKey(superEntity)) {
                     tarjan(superEntity, index, stack, indexMap, lowlinkMap, result, processed, stackEntities, cache,
                         childrenOfTop, parentsOfBottom);
-                    lowlinkMap.put(entity, Math.min(lowlinkMap.get(entity), lowlinkMap.get(superEntity)));
+                    lowlinkMap.put(entity, Integer
+                        .valueOf(Math.min(lowlinkMap.get(entity).intValue(), lowlinkMap.get(superEntity).intValue())));
                 } else if (stackEntities.contains(superEntity)) {
-                    lowlinkMap.put(entity, Math.min(lowlinkMap.get(entity), indexMap.get(superEntity)));
+                    lowlinkMap.put(entity, Integer
+                        .valueOf(Math.min(lowlinkMap.get(entity).intValue(), indexMap.get(superEntity).intValue())));
                 }
             }
             if (lowlinkMap.get(entity).equals(indexMap.get(entity))) {

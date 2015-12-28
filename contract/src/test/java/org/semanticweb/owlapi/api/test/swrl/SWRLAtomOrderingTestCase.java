@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.api.test.swrl;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.when;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
@@ -17,9 +16,10 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.SWRLAtom;
 
 import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
@@ -30,30 +30,22 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
  */
 @SuppressWarnings("javadoc")
 @RunWith(MockitoJUnitRunner.class)
-public class SWRLAtomOrderingTestCase {
+public class SWRLAtomOrderingTestCase extends TestBase {
 
-    @Mock
     protected SWRLAtom atomA;
-    @Mock
     protected SWRLAtom atomB;
-    @Mock
     protected SWRLAtom atomC;
-    @Mock
     protected SWRLAtom atomD;
     private SWRLRuleImpl rule;
     private final @Nonnull Set<SWRLAtom> body = new LinkedHashSet<>();
 
     @Before
     public void setUp() {
-        when(atomA.compareTo(atomB)).thenReturn(-1);
-        when(atomA.compareTo(atomC)).thenReturn(-1);
-        when(atomB.compareTo(atomC)).thenReturn(-1);
-        when(atomC.compareTo(atomB)).thenReturn(1);
-        when(atomC.compareTo(atomA)).thenReturn(1);
-        when(atomB.compareTo(atomA)).thenReturn(1);
-        when(atomA.compareTo(atomA)).thenReturn(0);
-        when(atomB.compareTo(atomB)).thenReturn(0);
-        when(atomC.compareTo(atomC)).thenReturn(0);
+        OWLClass predicate = df.getOWLClass(iri("a"));
+        atomA = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("i"))));
+        atomB = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("j"))));
+        atomC = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("k"))));
+        atomD = df.getSWRLClassAtom(predicate, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri("l"))));
         body.add(atomC);
         body.add(atomB);
         body.add(atomA);

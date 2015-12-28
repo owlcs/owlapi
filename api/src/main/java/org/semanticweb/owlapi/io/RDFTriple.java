@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import gnu.trove.map.hash.THashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -66,7 +66,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         OWL_ANNOTATED_TARGET.getIRI()
         );
     //@formatter:on
-    static final THashMap<IRI, Integer> specialPredicateRanks = initMap();
+    static final TObjectIntHashMap<IRI> specialPredicateRanks = initMap();
 
     /**
      * @param subject
@@ -159,9 +159,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
             // To ensure future compatibility, the Commons RDF getter
             // methods are also called on this rather than using the fields.
             Triple triple = (Triple) obj;
-            return getSubject().equals(triple.getSubject()) &&
-                getPredicate().equals(triple.getPredicate()) &&
-                getObject().equals(triple.getObject());
+            return getSubject().equals(triple.getSubject()) && getPredicate().equals(triple.getPredicate())
+                && getObject().equals(triple.getObject());
         }
         return false;
     }
@@ -171,12 +170,12 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         return String.format("%s %s %s.", subject, predicate, object);
     }
 
-    static THashMap<IRI, Integer> initMap() {
-        THashMap<IRI, Integer> predicates = new THashMap<>();
+    static TObjectIntHashMap<IRI> initMap() {
+        TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
         ORDERED_URIS.forEach(iri -> predicates.put(iri, nextId.getAndIncrement()));
         Stream.of(OWLRDFVocabulary.values())
-            .forEach(iri -> predicates.computeIfAbsent(iri.getIRI(), i -> nextId.getAndIncrement()));
+            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId.getAndIncrement()));
         return predicates;
     }
 
@@ -197,17 +196,17 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
 
     private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
         IRI predicateIRI = predicate.getIRI();
-        Integer specialPredicateRank = specialPredicateRanks.get(predicateIRI);
+        int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
         IRI otherPredicateIRI = otherPredicate.getIRI();
-        Integer otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
-        if (specialPredicateRank != null) {
-            if (otherSpecialPredicateRank != null) {
-                return specialPredicateRank.compareTo(otherSpecialPredicateRank);
+        int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
+        if (specialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
+                return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
             } else {
                 return -1;
             }
         } else {
-            if (otherSpecialPredicateRank != null) {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
                 return +1;
             } else {
                 return predicateIRI.compareTo(otherPredicateIRI);

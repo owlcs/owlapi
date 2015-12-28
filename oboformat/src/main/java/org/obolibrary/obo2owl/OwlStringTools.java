@@ -7,7 +7,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -80,7 +79,7 @@ public class OwlStringTools {
      * @param translationManager
      *        translationManager
      * @return set of axioms or null
-     * @see #translate(Set,OWLOntologyManager)
+     * @see #translate(Collection,OWLOntologyManager)
      */
     public static Collection<OWLAxiom> translate(@Nullable String axioms, OWLOntologyManager translationManager) {
         if (axioms == null || axioms.isEmpty()) {

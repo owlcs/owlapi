@@ -116,8 +116,8 @@ public class TurtleRenderer extends RDFRendererBase {
         return bufferLength;
     }
 
-    private int getIndent() {
-        return getCurrentPos() - lastNewLineIndex;
+    private Integer getIndent() {
+        return Integer.valueOf(getCurrentPos() - lastNewLineIndex);
     }
 
     private void writeAsURI(String s) {
@@ -175,7 +175,7 @@ public class TurtleRenderer extends RDFRendererBase {
         write("\n");
         int tabIndent = 0;
         if (!tabs.isEmpty()) {
-            tabIndent = tabs.peek();
+            tabIndent = tabs.peek().intValue();
         }
         for (int i = 1; i < tabIndent; i++) {
             write(" ");

@@ -63,13 +63,13 @@ public class SmallSet<T> extends AbstractSet<T> {
             return false;
         }
         int oHash = o.hashCode();
-        if (element1 != null && oHash == element1.hashCode() && o.equals(element1)) {
+        if (checkMatch(o, oHash, element1)) {
             element1 = null;
             return true;
-        } else if (element2 != null && oHash == element2.hashCode() && o.equals(element2)) {
+        } else if (checkMatch(o, oHash, element2)) {
             element2 = null;
             return true;
-        } else if (element3 != null && oHash == element3.hashCode() && o.equals(element3)) {
+        } else if (checkMatch(o, oHash, element3)) {
             element3 = null;
             return true;
         } else {
@@ -83,14 +83,11 @@ public class SmallSet<T> extends AbstractSet<T> {
             return false;
         }
         int oHash = o.hashCode();
-        if (element1 != null && oHash == element1.hashCode() && o.equals(element1)) {
-            return true;
-        } else if (element2 != null && oHash == element2.hashCode() && o.equals(element2)) {
-            return true;
-        } else if (element3 != null && oHash == element3.hashCode() && o.equals(element3)) {
-            return true;
-        }
-        return false;
+        return checkMatch(o, oHash, element1) || checkMatch(o, oHash, element2) || checkMatch(o, oHash, element3);
+    }
+
+    protected boolean checkMatch(Object o, int oHash, @Nullable T element) {
+        return element != null && oHash == element.hashCode() && o.equals(element);
     }
 
     @Override
