@@ -260,9 +260,8 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.assDPlain(), new String[] { plain, DP, I, DPI, II, adp, plain, "\"string\"@en" });
         map.put(b.dDom(), new String[] { DP, DPI, dpdomain });
         map.put(b.bigRule(),
-            new String[] { FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE, diffvar2, DP, VAR1, CI,
-                DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI, classvar2, IRII, I, rule, DTI, II,
-                DPI });
+            new String[] { FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE, diffvar2, DP, VAR1, CI, DT,
+                BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI, classvar2, IRII, I, rule, DTI, II, DPI });
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
@@ -271,13 +270,8 @@ public class OWLObjectComponentCollectorTestCase {
     @Test
     public void testAssertion() {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
-        Set<OWLObject> components = testsubject.getComponents(object);
+        Collection<OWLObject> components = testsubject.getComponents(object);
         Set<String> strings = asUnorderedSet(components.stream().map(Object::toString));
-        strings.forEach(s -> {
-            if (!expected.contains(s)) {
-                System.out.println("OWLObjectComponentCollectorTestCase.testAssertion() " + s);
-            }
-        });
         assertEquals(expected, strings);
     }
 }

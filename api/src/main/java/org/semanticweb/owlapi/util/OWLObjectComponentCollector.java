@@ -12,11 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -25,9 +22,15 @@ import org.semanticweb.owlapi.model.*;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLObjectComponentCollector implements OWLObjectVisitor {
+// XXX all special cases in this class look a lot like bugs.
+public class OWLObjectComponentCollector extends AbstractCollectorEx<OWLObject> {
 
-    private final Set<OWLObject> result = new HashSet<>();
+    /**
+     * Default constructor
+     */
+    public OWLObjectComponentCollector() {
+        super(new HashSet<>());
+    }
 
     /**
      * A convenience method that obtains the components of an OWL object. Note
@@ -38,570 +41,110 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
      *        The object whose components are to be obtained.
      * @return The component of the specified object.
      */
-    public Set<OWLObject> getComponents(OWLObject object) {
-        checkNotNull(object, "object cannot be null");
-        result.clear();
-        object.accept(this);
-        return getResult();
+    public Collection<OWLObject> getComponents(OWLObject object) {
+        return object.accept(this);
     }
 
-    /**
-     * @return the resulting owl objects
-     */
-    public Set<OWLObject> getResult() {
-        return CollectionFactory.copyMutable(result);
-    }
-
-    private void process(Stream<? extends OWLObject> objects) {
-        objects.forEach(o -> o.accept(this));
-    }
-
-    /**
-     * Handles an object. By default, this method adds the object to the result
-     * collection. This method may be overriden to do something else.
-     * 
-     * @param obj
-     *        The object being added.
-     */
-    protected void handleObject(OWLObject obj) {
-        checkNotNull(obj, "obj cannot be null");
-        result.add(obj);
-    }
-
-    @Override
-    public void visit(OWLOntology ontology) {
-        process(ontology.axioms());
-    }
-
-    @Override
-    public void visit(OWLClass ce) {
-        handleObject(ce);
-        ce.getIRI().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectProperty property) {
-        handleObject(property);
-        property.getIRI().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectInverseOf property) {
-        handleObject(property);
-        property.getInverse().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataProperty property) {
-        handleObject(property);
-        property.getIRI().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDatatype node) {
-        handleObject(node);
-        node.getIRI().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectIntersectionOf ce) {
-        handleObject(ce);
-        ce.operands().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLObjectUnionOf ce) {
-        handleObject(ce);
-        process(ce.operands());
-    }
-
-    @Override
-    public void visit(OWLObjectComplementOf ce) {
-        handleObject(ce);
-        ce.getOperand().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectSomeValuesFrom ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectAllValuesFrom ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectHasValue ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectMinCardinality ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectExactCardinality ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectMaxCardinality ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-        ce.getFiller().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectHasSelf ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectOneOf ce) {
-        handleObject(ce);
-        process(ce.individuals());
-    }
-
-    @Override
-    public void visit(OWLDataSomeValuesFrom ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataAllValuesFrom ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataHasValue ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataMinCardinality ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataExactCardinality ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataMaxCardinality ce) {
-        handleObject(ce);
-        ce.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubClass().accept(this);
-        axiom.getSuperClass().accept(this);
-    }
-
-    @Override
-    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubject().accept(this);
-        axiom.getProperty().accept(this);
-        axiom.getObject().accept(this);
-    }
-
-    @Override
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.classExpressions());
-    }
-
-    @Override
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        handleObject(axiom);
-        axiom.getDomain().accept(this);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.properties());
-    }
-
-    @Override
-    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubject().accept(this);
-        axiom.getProperty().accept(this);
-        axiom.getObject().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.individuals());
-    }
-
-    @Override
-    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.properties());
-    }
-
-    @Override
-    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.properties());
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        handleObject(axiom);
-        axiom.getRange().accept(this);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubject().accept(this);
-        axiom.getProperty().accept(this);
-        axiom.getObject().accept(this);
-    }
-
-    @Override
-    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubProperty().accept(this);
-        axiom.getSuperProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDisjointUnionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getOWLClass().accept(this);
-        process(axiom.classExpressions());
-    }
-
-    @Override
-    public void visit(OWLDeclarationAxiom axiom) {
-        handleObject(axiom);
-        axiom.getEntity().accept(this);
-    }
-
-    @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubject().accept(this);
-        axiom.getAnnotation().accept(this);
-    }
-
-    @Override
-    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataPropertyRangeAxiom axiom) {
-        handleObject(axiom);
-        axiom.getRange().accept(this);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.properties());
-    }
-
-    @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getClassExpression().accept(this);
-        axiom.getIndividual().accept(this);
-    }
-
-    @Override
-    public void visit(OWLEquivalentClassesAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.classExpressions());
-    }
-
-    @Override
-    public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubject().accept(this);
-        axiom.getProperty().accept(this);
-        axiom.getObject().accept(this);
-    }
-
-    @Override
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-    }
-
     @Override
-    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
+    public Collection<OWLObject> doDefault(Object object) {
+        if (object instanceof OWLObject) {
+            objects.add((OWLObject) object);
+        }
+        return super.doDefault(object);
     }
 
     @Override
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubProperty().accept(this);
-        axiom.getSuperProperty().accept(this);
+    public Collection<OWLObject> visit(OWLOntology ontology) {
+        ontology.axioms().forEach(a -> a.accept(this));
+        return super.visit(ontology);
     }
 
     @Override
-    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
+    public Collection<OWLObject> visit(OWLLiteral l) {
+        objects.add(l);
+        l.getDatatype().accept(this);
+        return objects;
     }
 
     @Override
-    public void visit(OWLSameIndividualAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.individuals());
+    public Collection<OWLObject> visit(OWLAnnotation l) {
+        return objects;
     }
 
     @Override
-    public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        handleObject(axiom);
-        axiom.getPropertyChain().forEach(o -> o.accept(this));
-        axiom.getSuperProperty().accept(this);
+    public Collection<OWLObject> visit(OWLAnnotationAssertionAxiom l) {
+        objects.add(l);
+        l.getSubject().accept(this);
+        l.getAnnotation().accept(this);
+        return objects;
     }
-
-    @Override
-    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        handleObject(axiom);
-        process(axiom.properties());
-    }
-
-    @Override
-    public void visit(SWRLRule rule) {
-        handleObject(rule);
-        process(rule.body());
-        process(rule.head());
-    }
-
-    @Override
-    public void visit(OWLDataComplementOf node) {
-        handleObject(node);
-        node.getDataRange().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataOneOf node) {
-        handleObject(node);
-        process(node.values());
-    }
-
-    @Override
-    public void visit(OWLDatatypeRestriction node) {
-        handleObject(node);
-        node.getDatatype().accept(this);
-        process(node.facetRestrictions());
-    }
-
-    @Override
-    public void visit(OWLLiteral node) {
-        handleObject(node);
-        node.getDatatype().accept(this);
-    }
-
-    @Override
-    public void visit(OWLFacetRestriction node) {
-        handleObject(node);
-        node.getFacetValue().accept(this);
-    }
-
-    @Override
-    public void visit(OWLHasKeyAxiom axiom) {
-        handleObject(axiom);
-        axiom.getClassExpression().accept(this);
-        axiom.objectPropertyExpressions().forEach(o -> o.accept(this));
-        axiom.dataPropertyExpressions().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getDomain().accept(this);
-    }
-
-    @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        handleObject(axiom);
-        axiom.getProperty().accept(this);
-        axiom.getRange().accept(this);
-    }
-
-    @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        handleObject(axiom);
-        axiom.getSubProperty().accept(this);
-        axiom.getSuperProperty().accept(this);
-    }
-
-    @Override
-    public void visit(OWLDataIntersectionOf node) {
-        handleObject(node);
-        node.operands().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLDataUnionOf node) {
-        handleObject(node);
-        node.operands().forEach(o -> o.accept(this));
-    }
-
-    @Override
-    public void visit(OWLNamedIndividual individual) {
-        handleObject(individual);
-        individual.getIRI().accept(this);
-    }
-
-    @Override
-    public void visit(OWLAnnotationProperty property) {
-        handleObject(property);
-        property.getIRI().accept(this);
-    }
-
-    @Override
-    public void visit(OWLAnonymousIndividual individual) {
-        handleObject(individual);
-    }
-
-    @Override
-    public void visit(IRI iri) {
-        handleObject(iri);
-    }
-
-    @Override
-    public void visit(OWLAnnotation node) {}
 
     @Override
-    public void visit(SWRLClassAtom node) {
-        handleObject(node);
-        node.getPredicate().accept(this);
-        node.getArgument().accept(this);
+    public Collection<OWLObject> visit(SWRLVariable node) {
+        objects.add(node);
+        return objects;
     }
 
     @Override
-    public void visit(SWRLDataRangeAtom node) {
-        handleObject(node);
-        node.getPredicate().accept(this);
-        node.getArgument().accept(this);
+    public Collection<OWLObject> visit(SWRLBuiltInAtom node) {
+        objects.add(node);
+        node.allArguments().forEach(a -> a.accept(this));
+        return objects;
     }
 
     @Override
-    public void visit(SWRLObjectPropertyAtom node) {
-        handleObject(node);
-        node.getPredicate().accept(this);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
+    public Collection<OWLObject> visit(OWLDataSomeValuesFrom ce) {
+        objects.add(ce);
+        return ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLDataPropertyAtom node) {
-        handleObject(node);
-        node.getPredicate().accept(this);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
+    public Collection<OWLObject> visit(OWLDataAllValuesFrom ce) {
+        objects.add(ce);
+        return ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLBuiltInAtom node) {
-        handleObject(node);
-        node.getArguments().forEach(o -> o.accept(this));
+    public Collection<OWLObject> visit(OWLDataHasValue ce) {
+        objects.add(ce);
+        return ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLVariable node) {
-        handleObject(node);
+    public Collection<OWLObject> visit(OWLDataMinCardinality ce) {
+        objects.add(ce);
+        return ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLIndividualArgument node) {
-        handleObject(node);
-        node.getIndividual().accept(this);
+    public Collection<OWLObject> visit(OWLDataMaxCardinality ce) {
+        objects.add(ce);
+        return ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLLiteralArgument node) {
-        handleObject(node);
-        node.getLiteral().accept(this);
+    public Collection<OWLObject> visit(OWLDataExactCardinality ce) {
+        objects.add(ce);
+        return ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLSameIndividualAtom node) {
-        handleObject(node);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
+    public Collection<OWLObject> visit(OWLDataPropertyDomainAxiom ce) {
+        objects.add(ce);
+        return ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLDifferentIndividualsAtom node) {
-        handleObject(node);
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
+    public Collection<OWLObject> visit(SWRLDifferentIndividualsAtom node) {
+        objects.add(node);
+        node.allArguments().forEach(a -> a.accept(this));
+        return objects;
     }
 
     @Override
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        handleObject(axiom);
-        axiom.getDatatype().accept(this);
-        axiom.getDataRange().accept(this);
+    public Collection<OWLObject> visit(SWRLSameIndividualAtom node) {
+        objects.add(node);
+        node.allArguments().forEach(a -> a.accept(this));
+        return objects;
     }
 }
