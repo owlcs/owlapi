@@ -34,7 +34,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 public abstract class OWLOntologyChangeData implements HasSignature, Serializable {
 
     /** Default constructor for serialization purposes. */
-    protected OWLOntologyChangeData() {}
+    protected OWLOntologyChangeData() {
+        super();
+    }
 
     /**
      * Accepts a visit from an {@link OWLOntologyChangeDataVisitor}.

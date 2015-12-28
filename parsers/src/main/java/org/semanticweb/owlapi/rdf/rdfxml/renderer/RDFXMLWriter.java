@@ -118,7 +118,9 @@ public class RDFXMLWriter {
      *        owlObject
      */
     @SuppressWarnings("unused")
-    public void writeOWLObject(OWLObject owlObject) {}
+    public void writeOWLObject(OWLObject owlObject) {
+        // nothing to do here
+    }
 
     /**
      * @param value

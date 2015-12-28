@@ -65,7 +65,9 @@ public class Clause {
      *             variable.
      */
     @Deprecated
-    public Clause() {}
+    public Clause() {
+        super();
+    }
 
     /**
      * @param value

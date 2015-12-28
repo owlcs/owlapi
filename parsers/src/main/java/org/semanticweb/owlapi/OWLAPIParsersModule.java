@@ -33,7 +33,9 @@ import com.google.inject.Provides;
 public class OWLAPIParsersModule extends AbstractModule {
 
     @Override
-    protected void configure() {}
+    protected void configure() {
+        // nothing to configure here
+    }
 
     /**
      * @param df
@@ -44,7 +46,7 @@ public class OWLAPIParsersModule extends AbstractModule {
      */
     @Provides
     public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df,
-            Provider<OWLOntologyLoaderConfiguration> provider) {
+        Provider<OWLOntologyLoaderConfiguration> provider) {
         return new ManchesterOWLSyntaxParserImpl(provider, df);
     }
 }

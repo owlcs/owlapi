@@ -674,7 +674,9 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     @Override
-    public void visit(OWLDatatypeRestriction node) {}
+    public void visit(OWLDatatypeRestriction node) {
+        // XXX complete
+    }
 
     @Override
     public void visit(OWLLiteral node) {
@@ -682,7 +684,9 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     @Override
-    public void visit(OWLFacetRestriction node) {}
+    public void visit(OWLFacetRestriction node) {
+        // XXX complete
+    }
 
     @Override
     public void visit(OWLObjectProperty property) {

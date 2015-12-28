@@ -67,6 +67,62 @@ import info.aduna.iteration.CloseableIteration;
  */
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
+    static final class StatementIterator implements Iterator<Statement> {
+
+        private final CloseableIteration<Statement, ? extends OpenRDFException> statements;
+
+        StatementIterator(CloseableIteration<Statement, ? extends OpenRDFException> statements) {
+            this.statements = statements;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Cannot remove statements using this iterator");
+        }
+
+        @Override
+        public Statement next() {
+            Statement nextStatement = null;
+            try {
+                nextStatement = this.statements.next();
+                if (nextStatement != null) {
+                    return nextStatement;
+                } else {
+                    throw new NoSuchElementException("No more statements in this iterator");
+                }
+            } catch (OpenRDFException e) {
+                throw new OWLRuntimeException("Found exception while iterating", e);
+            } finally {
+                if (nextStatement == null) {
+                    try {
+                        this.statements.close();
+                    } catch (OpenRDFException e) {
+                        throw new OWLRuntimeException(e);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            boolean result = false;
+            try {
+                result = this.statements.hasNext();
+                return result;
+            } catch (OpenRDFException e) {
+                throw new OWLRuntimeException("Found exception while iterating", e);
+            } finally {
+                if (!result) {
+                    try {
+                        this.statements.close();
+                    } catch (OpenRDFException e) {
+                        throw new OWLRuntimeException(e);
+                    }
+                }
+            }
+        }
+    }
+
     private final Map<String, String> namespaces = new LinkedHashMap<>();
     @Nonnull private final Iterator<Statement> statementIterator;
     @Nonnull private final IRI documentIRI;
@@ -129,55 +185,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      */
     public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
         documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
-        statementIterator = new Iterator<Statement>() {
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException("Cannot remove statements using this iterator");
-            }
-
-            @Override
-            public Statement next() {
-                Statement nextStatement = null;
-                try {
-                    nextStatement = statements.next();
-                    if (nextStatement != null) {
-                        return nextStatement;
-                    } else {
-                        throw new NoSuchElementException("No more statements in this iterator");
-                    }
-                } catch (OpenRDFException e) {
-                    throw new OWLRuntimeException("Found exception while iterating", e);
-                } finally {
-                    if (nextStatement == null) {
-                        try {
-                            statements.close();
-                        } catch (OpenRDFException e) {
-                            throw new OWLRuntimeException(e);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public boolean hasNext() {
-                boolean result = false;
-                try {
-                    result = statements.hasNext();
-                    return result;
-                } catch (OpenRDFException e) {
-                    throw new OWLRuntimeException("Found exception while iterating", e);
-                } finally {
-                    if (!result) {
-                        try {
-                            statements.close();
-                        } catch (OpenRDFException e) {
-                            throw new OWLRuntimeException(e);
-                        }
-                    }
-                }
-            }
-        };
+        statementIterator = new StatementIterator(statements);
     }
 
     /**

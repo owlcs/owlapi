@@ -19,38 +19,41 @@ package org.semanticweb.owlapi.util;
  *         Informatics Group
  * @since 2.0.0
  */
+@SuppressWarnings("unused")
 public interface ProgressMonitor {
 
     /** start of the process. */
-    void setStarted();
+    default void setStarted() {}
 
     /**
      * @param size
      *        size of the process
      */
-    void setSize(long size);
+    default void setSize(long size) {}
 
     /**
      * @param progress
      *        new progress
      */
-    void setProgress(long progress);
+    default void setProgress(long progress) {}
 
     /**
      * @param message
      *        the message to be displayed
      */
-    void setMessage(String message);
+    default void setMessage(String message) {}
 
     /**
      * @param b
      *        true if the state is indeterminate
      */
-    void setIndeterminate(boolean b);
+    default void setIndeterminate(boolean b) {}
 
     /** progress completed. */
-    void setFinished();
+    default void setFinished() {}
 
     /** @return true if the process has been cancelled */
-    boolean isCancelled();
+    default boolean isCancelled() {
+        return false;
+    }
 }

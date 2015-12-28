@@ -16,10 +16,14 @@ class NoOpLock implements Lock, Serializable {
     public static final NoOpCondition NO_OP_CONDITION = new NoOpCondition();
 
     @Override
-    public void lock() {}
+    public void lock() {
+        // nothing to do
+    }
 
     @Override
-    public void lockInterruptibly() {}
+    public void lockInterruptibly() {
+        // nothing to do
+    }
 
     @Override
     public boolean tryLock() {
@@ -32,7 +36,9 @@ class NoOpLock implements Lock, Serializable {
     }
 
     @Override
-    public void unlock() {}
+    public void unlock() {
+        // nothing to do
+    }
 
     @Override
     public Condition newCondition() {
@@ -41,13 +47,19 @@ class NoOpLock implements Lock, Serializable {
 
     private static class NoOpCondition implements Condition, Serializable {
 
-        public NoOpCondition() {}
+        public NoOpCondition() {
+            // nothing to do
+        }
 
         @Override
-        public void await() {}
+        public void await() {
+            // nothing to do
+        }
 
         @Override
-        public void awaitUninterruptibly() {}
+        public void awaitUninterruptibly() {
+            // nothing to do
+        }
 
         @Override
         public long awaitNanos(long nanosTimeout) {
@@ -65,9 +77,13 @@ class NoOpLock implements Lock, Serializable {
         }
 
         @Override
-        public void signal() {}
+        public void signal() {
+            // nothing to do
+        }
 
         @Override
-        public void signalAll() {}
+        public void signalAll() {
+            // nothing to do
+        }
     }
 }

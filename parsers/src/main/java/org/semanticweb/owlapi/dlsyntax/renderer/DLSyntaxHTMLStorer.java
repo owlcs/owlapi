@@ -74,7 +74,9 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @SuppressWarnings("unused")
-    protected void writeEntity(OWLEntity entity, PrintWriter writer) {}
+    protected void writeEntity(OWLEntity entity, PrintWriter writer) {
+        // nothing to do here
+    }
 
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {

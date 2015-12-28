@@ -17,28 +17,4 @@ package org.semanticweb.owlapi.util;
  *         Informatics Group
  * @since 2.0.0
  */
-public class NullProgressMonitor implements ProgressMonitor {
-
-    @Override
-    public void setStarted() {}
-
-    @Override
-    public void setSize(long size) {}
-
-    @Override
-    public void setProgress(long progress) {}
-
-    @Override
-    public void setMessage(String message) {}
-
-    @Override
-    public void setIndeterminate(boolean b) {}
-
-    @Override
-    public void setFinished() {}
-
-    @Override
-    public boolean isCancelled() {
-        return false;
-    }
-}
+public class NullProgressMonitor implements ProgressMonitor {}

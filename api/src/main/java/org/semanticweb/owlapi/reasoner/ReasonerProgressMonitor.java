@@ -31,6 +31,7 @@ import java.io.Serializable;
  *         Management Group
  * @since 3.0.0
  */
+@SuppressWarnings("unused")
 public interface ReasonerProgressMonitor extends Serializable {
 
     /**
@@ -70,7 +71,7 @@ public interface ReasonerProgressMonitor extends Serializable {
      * @param taskName
      *        The name of the task
      */
-    void reasonerTaskStarted(String taskName);
+    default void reasonerTaskStarted(String taskName) {}
 
     /**
      * Indicates that a previosly started task has now stopped. This method will
@@ -79,7 +80,7 @@ public interface ReasonerProgressMonitor extends Serializable {
      * Note that this method may be called from a thread that is not the event
      * dispatch thread.
      */
-    void reasonerTaskStopped();
+    default void reasonerTaskStopped() {}
 
     /**
      * Indicates that the reasoner is part way through a particular task, for
@@ -95,7 +96,7 @@ public interface ReasonerProgressMonitor extends Serializable {
      * @param max
      *        The total size of the task
      */
-    void reasonerTaskProgressChanged(int value, int max);
+    default void reasonerTaskProgressChanged(int value, int max) {}
 
     /**
      * Indicates that the reasoner is busy performing a task whose size cannot
@@ -106,5 +107,5 @@ public interface ReasonerProgressMonitor extends Serializable {
      * Note that this method may be called from a thread that is not the event
      * dispatch thread.
      */
-    void reasonerTaskBusy();
+    default void reasonerTaskBusy() {}
 }

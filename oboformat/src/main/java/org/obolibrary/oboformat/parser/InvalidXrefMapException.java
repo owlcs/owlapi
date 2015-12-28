@@ -4,7 +4,9 @@ package org.obolibrary.oboformat.parser;
 public class InvalidXrefMapException extends OBOFormatException {
 
     /** Instantiates a new invalid xref map exception. */
-    public InvalidXrefMapException() {}
+    public InvalidXrefMapException() {
+        super();
+    }
 
     /**
      * Instantiates a new invalid xref map exception.

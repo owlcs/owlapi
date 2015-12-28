@@ -19,7 +19,9 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * Provides an entity URI conversion strategy which converts entity URIs to a
@@ -78,62 +80,5 @@ public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverter
         iri = IRI.create(base, name);
         entityNameMap.put(entity, iri);
         return iri;
-    }
-
-    private static class OWLEntityFragmentProvider implements OWLEntityVisitor {
-
-        private String name;
-        private int classCount = 0;
-        private int objectPropertyCount = 0;
-        private int dataPropertyCount = 0;
-        private int individualCount = 0;
-        private int annotationPropertyCount = 0;
-        private int datatypeCount = 0;
-
-        OWLEntityFragmentProvider() {}
-
-        public String getName(OWLEntity entity) {
-            if (entity.isBuiltIn()) {
-                return entity.getIRI().toString();
-            }
-            entity.accept(this);
-            return name;
-        }
-
-        @Override
-        public void visit(OWLClass cls) {
-            classCount++;
-            name = "C" + classCount;
-        }
-
-        @Override
-        public void visit(OWLDatatype datatype) {
-            datatypeCount++;
-            name = "dt" + datatypeCount;
-        }
-
-        @Override
-        public void visit(OWLNamedIndividual individual) {
-            individualCount++;
-            name = "i" + individualCount;
-        }
-
-        @Override
-        public void visit(OWLDataProperty property) {
-            dataPropertyCount++;
-            name = "dp" + dataPropertyCount;
-        }
-
-        @Override
-        public void visit(OWLObjectProperty property) {
-            objectPropertyCount++;
-            name = "op" + objectPropertyCount;
-        }
-
-        @Override
-        public void visit(OWLAnnotationProperty property) {
-            annotationPropertyCount++;
-            name = "ap" + annotationPropertyCount;
-        }
     }
 }

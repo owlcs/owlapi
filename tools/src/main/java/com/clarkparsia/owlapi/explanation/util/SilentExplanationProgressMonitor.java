@@ -12,10 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation.util;
 
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.OWLAxiom;
-
 /**
  * The Class SilentExplanationProgressMonitor.
  * 
@@ -23,17 +19,4 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  *         Group
  * @since 2.2.0
  */
-public class SilentExplanationProgressMonitor implements
-        ExplanationProgressMonitor {
-
-    @Override
-    public void foundExplanation(Set<OWLAxiom> axioms) {}
-
-    @Override
-    public boolean isCancelled() {
-        return false;
-    }
-
-    @Override
-    public void foundAllExplanations() {}
-}
+public class SilentExplanationProgressMonitor implements ExplanationProgressMonitor {}

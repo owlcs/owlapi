@@ -35,7 +35,7 @@ public class StructuralTransformationTestCase {
         this.expected = expected;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
@@ -55,8 +55,8 @@ public class StructuralTransformationTestCase {
             "[Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test#i>))]");
         map.put(b.dDp(), "[DisjointDataProperties(<urn:test#dp> <urn:test#iri> )]");
         map.put(b.dOp(), "[DisjointObjectProperties(<urn:test#iri> <urn:test#op> )]");
-        map.put(b.eDp(), "[DisjointDataProperties(<urn:test#dp> <urn:test#iri> )]");
-        map.put(b.eOp(), "[DisjointObjectProperties(<urn:test#iri> <urn:test#op> )]");
+        map.put(b.eDp(), "[EquivalentDataProperties(<urn:test#dp> <urn:test#iri> )]");
+        map.put(b.eOp(), "[EquivalentObjectProperties(<urn:test#iri> <urn:test#op> )]");
         map.put(b.fdp(), "[SubClassOf(owl:Thing DataMaxCardinality(1 <urn:test#dp> rdfs:Literal))]");
         map.put(b.fop(), "[SubClassOf(owl:Thing ObjectMaxCardinality(1 <urn:test#op> owl:Thing))]");
         map.put(b.ifp(), "[SubClassOf(owl:Thing ObjectMaxCardinality(1 InverseOf(<urn:test#op>) owl:Thing))]");

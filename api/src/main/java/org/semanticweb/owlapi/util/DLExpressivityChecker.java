@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.io.Serializable;
 import java.util.*;
-
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -31,6 +29,11 @@ import com.google.common.base.Joiner;
  */
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
+    private static final List<Construct> order = Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
+    /**
+     * A comparator that orders DL constucts to produce a traditional DL name.
+     */
+    private static final Comparator<Construct> constructComparator = Comparator.comparing(order::indexOf);
     private final Set<Construct> constructs;
     private final List<OWLOntology> ontologies;
 
@@ -96,24 +99,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         constructs.add(AL);
         ontologies.stream().flatMap(OWLOntology::logicalAxioms).forEach(ax -> ax.accept(this));
         pruneConstructs();
-        List<Construct> cons = new ArrayList<>(constructs);
-        Collections.sort(cons, new ConstructComparator());
-        return cons;
-    }
-
-    /**
-     * A comparator that orders DL constucts to produce a traditional DL name.
-     */
-    private static class ConstructComparator implements Comparator<Construct>, Serializable {
-
-        private final List<Construct> order = Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
-
-        ConstructComparator() {}
-
-        @Override
-        public int compare(@Nullable Construct o1, @Nullable Construct o2) {
-            return order.indexOf(o1) - order.indexOf(o2);
-        }
+        return asList(constructs.stream().sorted(constructComparator));
     }
 
     // Property expression

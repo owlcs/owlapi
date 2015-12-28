@@ -201,7 +201,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static class RIOAnonymousNodeChecker implements AnonymousNodeChecker {
 
-        public RIOAnonymousNodeChecker() {}
+        RIOAnonymousNodeChecker() {}
 
         @Override
         public boolean isAnonymousNode(final IRI iri) {

@@ -14,7 +14,9 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
  * Simple visitor that grabs any labels on an entity.
@@ -29,15 +31,6 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     protected @Nullable String result = null;
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {}
-
-    @Override
-    public void visit(IRI iri) {}
-
-    @Override
-    public void visit(OWLLiteral literal) {}
-
-    @Override
     public void visit(OWLAnnotation node) {
         /*
          * If it's a label, grab it as the result. Note that if there are
@@ -48,24 +41,6 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
             result = c.getLiteral();
         }
     }
-
-    @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {}
-
-    @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {}
-
-    @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {}
-
-    @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {}
-
-    @SuppressWarnings("unused")
-    public void visit(OWLAnnotationProperty property) {}
-
-    @SuppressWarnings("unused")
-    public void visit(OWLAnnotationValue value) {}
 
     public @Nullable String getResult() {
         return result;

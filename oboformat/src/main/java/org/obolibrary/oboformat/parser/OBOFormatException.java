@@ -6,7 +6,9 @@ import org.semanticweb.owlapi.io.OWLParserException;
 public class OBOFormatException extends OWLParserException {
 
     /** Instantiates a new oBO format exception. */
-    public OBOFormatException() {}
+    public OBOFormatException() {
+        super();
+    }
 
     /**
      * Instantiates a new oBO format exception.

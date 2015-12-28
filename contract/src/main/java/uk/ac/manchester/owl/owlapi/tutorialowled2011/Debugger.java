@@ -49,8 +49,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 @SuppressWarnings("javadoc")
 public class Debugger {
 
-    private final @Nonnull OWLOntology ontology;
-    private final @Nonnull OWLDebugger debugger;
+    @Nonnull private final OWLOntology ontology;
+    @Nonnull private final OWLDebugger debugger;
     private final OWLReasoner checker;
 
     public Debugger(OWLOntologyManager manager, OWLOntology ontology, OWLReasonerFactory reasonerFactory) {
@@ -66,7 +66,7 @@ public class Debugger {
         renderer.header();
         /* Collect the unsatisfiable classes that aren't bottom. */
         Set<OWLClass> unsatisfiables = asSet(
-                ontology.classesInSignature().filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing()));
+            ontology.classesInSignature().filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing()));
         writer.println("<h1>Ontology Debugging Report</h1>");
         writer.println("<br>Ontology: " + ontology.getOntologyID() + "<br>");
         if (unsatisfiables.isEmpty()) {

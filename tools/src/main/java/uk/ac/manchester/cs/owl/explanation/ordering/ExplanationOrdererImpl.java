@@ -202,8 +202,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             if (ont != null) {
                 man.removeOntology(verifyNotNull(ont));
             }
-            ont = man.createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART
-                .incrementAndGet()));
+            ont = man
+                .createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
                 changes.add(new AddAxiom(verifyNotNull(ont), ax));
@@ -372,7 +372,9 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
 
         @Override
-        public void visit(SWRLRule rule) {}
+        public void visit(SWRLRule rule) {
+            // SWRL rules not supported
+        }
     }
 
     /** A visitor that indexes axioms by their left and right hand sides. */

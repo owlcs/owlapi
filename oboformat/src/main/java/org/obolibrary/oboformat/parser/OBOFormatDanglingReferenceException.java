@@ -4,7 +4,9 @@ package org.obolibrary.oboformat.parser;
 public class OBOFormatDanglingReferenceException extends OBOFormatException {
 
     /** Instantiates a new oBO format dangling reference exception. */
-    public OBOFormatDanglingReferenceException() {}
+    public OBOFormatDanglingReferenceException() {
+        super();
+    }
 
     /**
      * Instantiates a new oBO format dangling reference exception.

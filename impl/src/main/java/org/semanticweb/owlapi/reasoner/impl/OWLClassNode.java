@@ -50,7 +50,9 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
     }
 
     /** Default constructor. */
-    public OWLClassNode() {}
+    public OWLClassNode() {
+        super();
+    }
 
     @Override
     protected Optional<OWLClass> getTopEntity() {

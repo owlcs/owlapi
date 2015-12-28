@@ -228,8 +228,8 @@ public class TripleHandlers {
                     // C(a)
                     OWLIndividual ind = consumer.translateIndividual(s);
                     OWLClassExpression ce = consumer.translatorAccessor.translateClassExpression(o);
-                    consumer.addAxiom(consumer.getDataFactory().getOWLClassAssertionAxiom(ce, ind,
-                        consumer.getPendingAnnotations()));
+                    consumer.addAxiom(
+                        consumer.getDataFactory().getOWLClassAssertionAxiom(ce, ind, consumer.getPendingAnnotations()));
                 }
             } else {
                 TriplePredicateHandler handler = predicates.get(p);
@@ -933,7 +933,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, OWLLiteral o) {}
+        public void handleTriple(IRI s, IRI p, OWLLiteral o) {
+            // nothing to do here
+        }
 
         @Override
         public boolean canHandleStreaming(IRI s, IRI p, OWLLiteral o) {
@@ -985,7 +987,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
 
         @Override
         public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
@@ -1036,7 +1040,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
     }
 
     static class TPAnnotatedPropertyHandler extends AbstractTriplePredicateHandler {
@@ -1053,7 +1059,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
     }
 
     static class TPAnnotatedSourceHandler extends AbstractTriplePredicateHandler {
@@ -1070,7 +1078,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
     }
 
     static class TPAnnotatedTargetHandler extends AbstractTriplePredicateHandler {
@@ -1087,7 +1097,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
     }
 
     static class TPComplementOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
@@ -1121,7 +1133,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
 
         @Override
         public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
@@ -1400,7 +1414,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
 
         @Override
         public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
@@ -1430,27 +1446,30 @@ public class TripleHandlers {
             if (!consumer.getConfiguration().isIgnoredImport(o)) {
                 OWLOntologyManager man = consumer.getOWLOntologyManager();
                 man.makeLoadImportRequest(id, consumer.getConfiguration());
-                OWLOntology io = man.getImportedOntology(id);
-                if (io != null) {
-                    OWLDocumentFormat importedOntologyFormat = io.getFormat();
-                    if (importedOntologyFormat instanceof AbstractRDFPrefixDocumentFormat && io.isAnonymous()) {
-                        if (consumer.getConfiguration().getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
-                            // We should have just included the triples rather
-                            // than imported them. So,
-                            // we remove the imports statement, add the axioms
-                            // from the imported ontology to
-                            // out importing ontology and remove the imported
-                            // ontology.
-                            // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
-                            man.applyChange(new RemoveImport(consumer.getOntology(), id));
-                            io.importsDeclarations().forEach(d -> addImport(man, d));
-                            io.annotations().forEach(ann -> addOntAnn(man, ann));
-                            io.axioms().forEach(this::add);
-                            man.removeOntology(io);
-                        }
-                    }
-                }
+                handleImportingRDFGraphRatherThanOntology(id, man, man.getImportedOntology(id));
                 consumer.importsClosureChanged();
+            }
+        }
+
+        protected void handleImportingRDFGraphRatherThanOntology(OWLImportsDeclaration id, OWLOntologyManager man,
+            @Nullable OWLOntology io) {
+            if (io != null) {
+                OWLDocumentFormat importedOntologyFormat = io.getFormat();
+                if (importedOntologyFormat instanceof AbstractRDFPrefixDocumentFormat && io.isAnonymous()
+                    && consumer.getConfiguration().getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
+                    // We should have just included the triples rather
+                    // than imported them. So,
+                    // we remove the imports statement, add the axioms
+                    // from the imported ontology to
+                    // out importing ontology and remove the imported
+                    // ontology.
+                    // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
+                    man.applyChange(new RemoveImport(consumer.getOntology(), id));
+                    io.importsDeclarations().forEach(d -> addImport(man, d));
+                    io.annotations().forEach(ann -> addOntAnn(man, ann));
+                    io.axioms().forEach(this::add);
+                    man.removeOntology(io);
+                }
             }
         }
     }
@@ -1533,7 +1552,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
 
         @Override
         public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
@@ -1549,7 +1570,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
 
         @Override
         public boolean canHandle(IRI s, IRI p, IRI o) {
@@ -1576,7 +1599,9 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {}
+        public void handleTriple(IRI s, IRI p, IRI o) {
+            // nothing to do here
+        }
     }
 
     static class TPOneOfHandler extends AbstractNamedEquivalentClassAxiomHandler {

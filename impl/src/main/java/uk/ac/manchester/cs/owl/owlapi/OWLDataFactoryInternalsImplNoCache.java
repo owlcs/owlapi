@@ -43,7 +43,9 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     }
 
     @Override
-    public void purge() {}
+    public void purge() {
+        // nothing to purge
+    }
 
     @Override
     public OWLClass getOWLClass(IRI iri) {

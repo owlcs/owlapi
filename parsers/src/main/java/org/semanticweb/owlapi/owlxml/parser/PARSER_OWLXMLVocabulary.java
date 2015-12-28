@@ -964,7 +964,9 @@ class OWLUnionOfElementHandler extends OWLElementHandler<OWLClassExpression> {
     }
 
     @Override
-        void endElement() {}
+        void endElement() {
+        // nothing to do here
+    }
 
     @Override
         OWLClassExpression getOWLObject() {
@@ -2904,7 +2906,9 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     }
 
     @Override
-        void startElement(String name) {}
+        void startElement(String name) {
+        // nothing to do here
+    }
 
     @Override
         void attribute(String localName, String value) {
@@ -2929,10 +2933,14 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     }
 
     @Override
-        void handleChild(AbstractOWLDataRangeHandler h) {}
+        void handleChild(AbstractOWLDataRangeHandler h) {
+        // nothing to do here
+    }
 
     @Override
-        void handleChild(AbstractClassExpressionElementHandler h) {}
+        void handleChild(AbstractClassExpressionElementHandler h) {
+        // nothing to do here
+    }
 
     @Override
         void handleChild(OWLAnnotationElementHandler h) {
@@ -2940,7 +2948,9 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     }
 
     @Override
-        void endElement() {}
+        void endElement() {
+        // nothing to do here
+    }
 
     @Override
         OWLOntology getOWLObject() {
@@ -2948,7 +2958,9 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     }
 
     @Override
-        void setParentHandler(OWLElementHandler<?> handler) {}
+        void setParentHandler(OWLElementHandler<?> handler) {
+        // nothing to do here
+    }
 }
 
 class OWLImportsHandler extends OWLElementHandler<OWLOntology> {

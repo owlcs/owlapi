@@ -768,7 +768,9 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLOntology ontology) {}
+    public void visit(OWLOntology ontology) {
+        // nothing to do here
+    }
 
     @Override
     public void visit(OWLObjectInverseOf property) {

@@ -24,11 +24,6 @@ public class SmallSet<T> extends AbstractSet<T> {
     T element3;
 
     /**
-     * default constructor
-     */
-    public SmallSet() {}
-
-    /**
      * @param collection
      *        collection to copy
      */

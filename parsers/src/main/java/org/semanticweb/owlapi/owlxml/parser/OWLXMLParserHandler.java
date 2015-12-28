@@ -322,10 +322,14 @@ class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void startDocument() {}
+    public void startDocument() {
+        // nothing to do here
+    }
 
     @Override
-    public void endDocument() {}
+    public void endDocument() {
+        // nothing to do here
+    }
 
     @Override
     public void characters(@Nullable char[] ch, int start, int length) throws SAXException {

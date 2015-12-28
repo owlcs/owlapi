@@ -32,7 +32,9 @@ public interface ExplanationProgressMonitor {
      * @return {@code true} if the process has been cancelled, or {@code false}
      *         if the process hasn't been cancelled.
      */
-    boolean isCancelled();
+    default boolean isCancelled() {
+        return false;
+    }
 
     /**
      * Called when an explanation has been found.
@@ -40,8 +42,8 @@ public interface ExplanationProgressMonitor {
      * @param axioms
      *        The axioms that constitute the explanation
      */
-    void foundExplanation(Set<OWLAxiom> axioms);
+    default void foundExplanation(@SuppressWarnings("unused") Set<OWLAxiom> axioms) {}
 
     /** Called when all explanations have been found. */
-    void foundAllExplanations();
+    default void foundAllExplanations() {}
 }

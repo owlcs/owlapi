@@ -387,35 +387,38 @@ public class OWLAPIOwl2Obo {
             return;
         }
         String view = viewRel;
-        // OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
         Set<OWLAxiom> rmAxioms = new HashSet<>();
         Set<OWLAxiom> newAxioms = new HashSet<>();
-        getOWLOntology().axioms(AxiomType.EQUIVALENT_CLASSES).forEach(eca -> {
-            AtomicInteger numNamed = new AtomicInteger();
-            Set<OWLClassExpression> xs = new HashSet<>();
-            eca.classExpressions().forEach(x -> {
-                if (x instanceof OWLClass) {
-                    xs.add(x);
-                    numNamed.incrementAndGet();
-                } else if (x instanceof OWLObjectSomeValuesFrom) {
-                    OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x).getProperty();
-                    if (!view.equals(getIdentifier(p))) {
-                        LOG.error("Expected: {} got: {} in {}", view, p, eca);
-                    }
-                    xs.add(((OWLObjectSomeValuesFrom) x).getFiller());
-                } else {
-                    LOG.error("Unexpected: {}", eca);
-                }
-            });
-            if (numNamed.get() == 1) {
-                rmAxioms.add(eca);
-                newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
-            } else {
-                LOG.error("ECA did not fit expected pattern: {}", eca);
-            }
-        });
+        getOWLOntology().axioms(AxiomType.EQUIVALENT_CLASSES)
+            .forEach(eca -> preprocessEquivalents(view, rmAxioms, newAxioms, eca));
         getOWLOntology().remove(rmAxioms);
         getOWLOntology().add(newAxioms);
+    }
+
+    protected void preprocessEquivalents(String view, Set<OWLAxiom> rmAxioms, Set<OWLAxiom> newAxioms,
+        OWLEquivalentClassesAxiom eca) {
+        AtomicInteger numNamed = new AtomicInteger();
+        Set<OWLClassExpression> xs = new HashSet<>();
+        eca.classExpressions().forEach(x -> {
+            if (x instanceof OWLClass) {
+                xs.add(x);
+                numNamed.incrementAndGet();
+            } else if (x instanceof OWLObjectSomeValuesFrom) {
+                OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x).getProperty();
+                if (!view.equals(getIdentifier(p))) {
+                    LOG.error("Expected: {} got: {} in {}", view, p, eca);
+                }
+                xs.add(((OWLObjectSomeValuesFrom) x).getFiller());
+            } else {
+                LOG.error("Unexpected: {}", eca);
+            }
+        });
+        if (numNamed.get() == 1) {
+            rmAxioms.add(eca);
+            newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
+        } else {
+            LOG.error("ECA did not fit expected pattern: {}", eca);
+        }
     }
 
     protected void add(@Nullable Frame f) {

@@ -52,7 +52,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected ErrorHandler errorHandler = new ErrorHandler() {
 
         @Override
-        public void warning(@Nullable SAXParseException exception) {}
+        public void warning(@Nullable SAXParseException exception) {
+            // nothing to do here
+        }
 
         @Override
         public void fatalError(@Nullable SAXParseException exception) throws SAXException {
@@ -60,7 +62,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
 
         @Override
-        public void error(@Nullable SAXParseException exception) {}
+        public void error(@Nullable SAXParseException exception) {
+            // nothing to do here
+        }
     };
     /** Stack of base IRIs. */
     protected final LinkedList<IRI> baseIRIs = new LinkedList<>();
@@ -124,14 +128,20 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
                 @Override
                 public void externalEntityDecl(@Nullable String name, @Nullable String publicId,
-                    @Nullable String systemId) {}
+                    @Nullable String systemId) {
+                    // nothing to do here
+                }
 
                 @Override
-                public void elementDecl(@Nullable String name, @Nullable String model) {}
+                public void elementDecl(@Nullable String name, @Nullable String model) {
+                    // nothing to do here
+                }
 
                 @Override
                 public void attributeDecl(@Nullable String eName, @Nullable String aName, @Nullable String type,
-                    @Nullable String mode, @Nullable String value) {}
+                    @Nullable String mode, @Nullable String value) {
+                    // nothing to do here
+                }
             };
             SAXParsers.initParserWithOWLAPIStandards(handler).parse(source, this);
             inputConsumer.endModel();

@@ -33,7 +33,7 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
 
     private static class OWLAxiomHashingStrategy implements HashingStrategy<OWLAxiom> {
 
-        public OWLAxiomHashingStrategy() {}
+        OWLAxiomHashingStrategy() {}
 
         /**
          * Computes a hash code for the specified object. Implementers can use

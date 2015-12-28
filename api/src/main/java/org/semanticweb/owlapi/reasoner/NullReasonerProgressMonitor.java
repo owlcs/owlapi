@@ -22,18 +22,4 @@ import java.io.Serializable;
  *         Management Group
  * @since 3.0.0
  */
-public class NullReasonerProgressMonitor implements ReasonerProgressMonitor,
-        Serializable {
-
-    @Override
-    public void reasonerTaskStarted(String taskName) {}
-
-    @Override
-    public void reasonerTaskStopped() {}
-
-    @Override
-    public void reasonerTaskProgressChanged(int value, int max) {}
-
-    @Override
-    public void reasonerTaskBusy() {}
-}
+public class NullReasonerProgressMonitor implements ReasonerProgressMonitor, Serializable {}

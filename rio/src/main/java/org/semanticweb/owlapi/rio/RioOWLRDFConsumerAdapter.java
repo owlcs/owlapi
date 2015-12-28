@@ -84,7 +84,9 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     }
 
     @Override
-    public void handleComment(@Nullable String comment) {}
+    public void handleComment(@Nullable String comment) {
+        // nothing to do here
+    }
 
     @Override
     public void handleNamespace(@Nullable String prefix, @Nullable String uri) {

@@ -462,9 +462,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         restore();
     }
 
-    private void writeBinaryOrNaryList(
-        ManchesterOWLSyntax binaryKeyword,
-        Stream<? extends OWLObject> stream,
+    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, Stream<? extends OWLObject> stream,
         ManchesterOWLSyntax naryKeyword) {
         List<? extends OWLObject> objects = asList(stream);
         if (objects.size() == 2) {
@@ -911,7 +909,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     @Override
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {}
+    public void visit(OWLDatatypeDefinitionAxiom axiom) {
+        // XXX unsupported
+    }
 
     protected void writeAnnotations(Iterator<OWLAnnotation> annoIt) {
         if (!annoIt.hasNext()) {
@@ -936,5 +936,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     // Ontology
     @Override
-    public void visit(OWLOntology ontology) {}
+    public void visit(OWLOntology ontology) {
+        // nothing to do here
+    }
 }
