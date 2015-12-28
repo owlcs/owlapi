@@ -36,11 +36,6 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 307;
     }

@@ -27,12 +27,16 @@ import java.util.stream.Stream;
  *        property expression
  */
 public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
-    extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
-    HasDomain<OWLClassExpression> {
+    extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut, HasDomain<OWLClassExpression> {
 
     @Override
     default Stream<?> components() {
         return Stream.of(getProperty(), getDomain(), annotations());
+    }
+
+    @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getProperty(), getDomain());
     }
 
     @Override

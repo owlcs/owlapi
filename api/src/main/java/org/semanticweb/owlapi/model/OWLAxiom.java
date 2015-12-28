@@ -12,9 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
+
+import javax.annotation.Nullable;
 
 /**
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in
@@ -98,8 +102,17 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return {@code true} if {@code axiom} without annotations is equal to
      *         this axiom without annotations otherwise {@code false}.
      */
-    default boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
-        return getAxiomWithoutAnnotations().equals(axiom.getAxiomWithoutAnnotations());
+    default boolean equalsIgnoreAnnotations(@Nullable OWLAxiom axiom) {
+        if (axiom == null) {
+            return false;
+        }
+        if (this == axiom) {
+            return true;
+        }
+        if (typeIndex() != axiom.typeIndex()) {
+            return false;
+        }
+        return equalStreams(componentsWithoutAnnotations(), axiom.componentsWithoutAnnotations());
     }
 
     /**

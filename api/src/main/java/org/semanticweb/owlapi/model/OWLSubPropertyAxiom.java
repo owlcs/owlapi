@@ -30,6 +30,11 @@ public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends OW
     }
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getSubProperty(), getSuperProperty());
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return Stream.of(annotations(), getSubProperty(), getSuperProperty());
     }

@@ -29,12 +29,16 @@ import java.util.stream.Stream;
  *        object
  */
 public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
-    extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut, HasSubject<OWLIndividual>, HasProperty<P>,
-    HasObject<O> {
+    extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut, HasSubject<OWLIndividual>, HasProperty<P>, HasObject<O> {
 
     @Override
     default Stream<?> components() {
         return Stream.of(getSubject(), getProperty(), getObject(), annotations());
+    }
+
+    @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getSubject(), getProperty(), getObject());
     }
 
     @Override

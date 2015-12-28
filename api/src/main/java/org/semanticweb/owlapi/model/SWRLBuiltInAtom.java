@@ -30,11 +30,6 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 659;
     }

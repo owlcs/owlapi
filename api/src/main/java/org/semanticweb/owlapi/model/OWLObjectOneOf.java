@@ -34,11 +34,6 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 229;
     }

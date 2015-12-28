@@ -28,12 +28,16 @@ import java.util.stream.Stream;
  *        property expression
  */
 public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange>
-    extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
-    HasRange<R> {
+    extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut, HasRange<R> {
 
     @Override
     default Stream<?> components() {
         return Stream.of(getProperty(), getRange(), annotations());
+    }
+
+    @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getProperty(), getRange());
     }
 
     @Override

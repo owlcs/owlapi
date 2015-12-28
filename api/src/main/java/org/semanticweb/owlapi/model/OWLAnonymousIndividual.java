@@ -31,11 +31,6 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 859;
     }

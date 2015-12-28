@@ -21,16 +21,10 @@ import java.util.stream.Stream;
  * @param <F>
  *        value
  */
-public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends
-    OWLRestriction, HasFiller<F> {
+public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends OWLRestriction, HasFiller<F> {
 
     @Override
     default Stream<?> components() {
         return Stream.of(getProperty(), getFiller());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
     }
 }

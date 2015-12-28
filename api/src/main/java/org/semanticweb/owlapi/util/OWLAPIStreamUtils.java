@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.HasComponents;
@@ -119,9 +118,9 @@ public class OWLAPIStreamUtils {
      * @return true if any element in the stream is added to the collection
      */
     public static <T> boolean add(Collection<? super T> c, Stream<T> s) {
-        AtomicBoolean b = new AtomicBoolean(false);
-        s.forEach(x -> b.compareAndSet(false, c.add(x)));
-        return b.get();
+        int size = c.size();
+        s.forEach(c::add);
+        return c.size() != size;
     }
 
     /**

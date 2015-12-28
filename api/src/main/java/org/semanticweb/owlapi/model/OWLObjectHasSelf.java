@@ -31,11 +31,6 @@ public interface OWLObjectHasSelf extends OWLRestriction, OWLObjectRestriction {
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 233;
     }

@@ -32,6 +32,11 @@ public interface OWLNaryClassAxiom
     }
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(classExpressions());
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return Stream.of(annotations(), classExpressions());
     }

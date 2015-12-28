@@ -21,17 +21,12 @@ import java.util.stream.Stream;
  * @param <F>
  *        value
  */
-public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
-    OWLQuantifiedRestriction<F>, HasCardinality {
+public interface OWLCardinalityRestriction<F extends OWLPropertyRange>
+    extends OWLQuantifiedRestriction<F>, HasCardinality {
 
     @Override
     default Stream<?> components() {
         return Stream.of(getProperty(), Integer.valueOf(getCardinality()), getFiller());
-    }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
     }
 
     /**

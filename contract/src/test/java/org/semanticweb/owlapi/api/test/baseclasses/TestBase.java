@@ -74,8 +74,8 @@ public abstract class TestBase {
 
     protected OWLOntology ontologyFromClasspathFile(String fileName, OWLOntologyLoaderConfiguration configuration) {
         try {
-            return m1.loadOntologyFromOntologyDocument(new StreamDocumentSource(
-                getClass().getResourceAsStream('/' + fileName)), configuration);
+            return m1.loadOntologyFromOntologyDocument(
+                new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName)), configuration);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -95,14 +95,9 @@ public abstract class TestBase {
         }
     }
 
-    @Nonnull
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-    @Nonnull
-    @Rule
-    public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
+    @Nonnull @Rule public TemporaryFolder folder = new TemporaryFolder();
+    @Rule public ExpectedException expectedException = ExpectedException.none();
+    @Nonnull @Rule public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
     protected @Nonnull OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     protected static @Nonnull OWLDataFactory df;
     protected static @Nonnull OWLOntologyManager masterManager;
@@ -111,8 +106,8 @@ public abstract class TestBase {
 
     @BeforeClass
     public static void setupManagers() {
-        df = OWLManager.getOWLDataFactory();
         masterManager = OWLManager.createOWLOntologyManager();
+        df = masterManager.getOWLDataFactory();
     }
 
     @Before
@@ -478,8 +473,8 @@ public abstract class TestBase {
 
     protected OWLOntology loadOntologyFromString(StringDocumentTarget input, OWLDocumentFormat f)
         throws OWLOntologyCreationException {
-        return setupManager().loadOntologyFromOntologyDocument(
-            new StringDocumentSource(input.toString(), "string:ontology", f, null));
+        return setupManager()
+            .loadOntologyFromOntologyDocument(new StringDocumentSource(input.toString(), "string:ontology", f, null));
     }
 
     protected OWLOntology loadOntologyStrict(StringDocumentTarget o) throws OWLOntologyCreationException {

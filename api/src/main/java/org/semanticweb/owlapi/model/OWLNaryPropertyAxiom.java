@@ -33,6 +33,11 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends O
     }
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(properties());
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return Stream.of(annotations(), properties());
     }

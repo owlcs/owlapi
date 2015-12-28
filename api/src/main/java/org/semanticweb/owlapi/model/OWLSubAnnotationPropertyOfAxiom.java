@@ -34,6 +34,11 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     }
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getSubProperty(), getSuperProperty());
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return Stream.of(annotations(), getSubProperty(), getSuperProperty());
     }

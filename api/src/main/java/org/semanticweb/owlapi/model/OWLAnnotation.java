@@ -28,6 +28,11 @@ import java.util.stream.Stream;
 public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty> {
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getProperty(), getValue());
+    }
+
+    @Override
     default Stream<?> components() {
         return Stream.of(getProperty(), getValue(), annotations());
     }

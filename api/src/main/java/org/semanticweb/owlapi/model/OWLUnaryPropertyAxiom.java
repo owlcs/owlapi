@@ -22,12 +22,16 @@ import java.util.stream.Stream;
  *        <P>
  *        property expression
  */
-public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends
-    OWLPropertyAxiom, HasProperty<P> {
+public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom, HasProperty<P> {
 
     @Override
     default Stream<?> components() {
         return Stream.of(getProperty(), annotations());
+    }
+
+    @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getProperty());
     }
 
     @Override

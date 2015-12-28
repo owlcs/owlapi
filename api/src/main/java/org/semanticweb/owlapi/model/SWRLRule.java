@@ -33,6 +33,11 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     }
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(body(), head());
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return Stream.of(annotations(), body(), head());
     }

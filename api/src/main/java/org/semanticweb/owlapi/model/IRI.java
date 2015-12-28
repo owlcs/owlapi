@@ -506,11 +506,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     @Override
-    public Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     public int hashIndex() {
         return 863;
     }

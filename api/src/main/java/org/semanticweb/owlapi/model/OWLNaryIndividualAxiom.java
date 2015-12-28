@@ -32,6 +32,11 @@ public interface OWLNaryIndividualAxiom
     }
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(individuals());
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return Stream.of(annotations(), individuals());
     }

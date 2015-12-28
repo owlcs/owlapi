@@ -64,11 +64,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
         return 1;
     }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since
     // OWLOntology is the de facto standard used in the code and

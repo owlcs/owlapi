@@ -27,11 +27,6 @@ public interface SWRLIndividualArgument extends SWRLIArgument {
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 677;
     }

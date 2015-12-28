@@ -28,9 +28,4 @@ public interface OWLLogicalEntity extends OWLEntity {
     default Stream<?> components() {
         return Stream.of(getIRI());
     }
-
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
 }

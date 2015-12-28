@@ -27,6 +27,11 @@ public interface OWLAnnotationAssertionAxiom
     extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
 
     @Override
+    default Stream<?> componentsWithoutAnnotations() {
+        return Stream.of(getSubject(), getProperty(), getValue());
+    }
+
+    @Override
     default Stream<?> components() {
         return Stream.of(getSubject(), getProperty(), getValue(), annotations());
     }

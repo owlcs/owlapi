@@ -31,11 +31,6 @@ public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI, Seri
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 661;
     }

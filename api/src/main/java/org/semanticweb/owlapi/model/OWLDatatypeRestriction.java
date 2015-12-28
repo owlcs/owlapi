@@ -34,11 +34,6 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
     }
 
     @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
-    @Override
     default int hashIndex() {
         return 271;
     }

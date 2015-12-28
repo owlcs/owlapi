@@ -30,11 +30,6 @@ public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression
         return Stream.of(operands());
     }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
     /**
      * @return the class expressions
      * @deprecated use the stream method

@@ -29,11 +29,6 @@ public interface OWLNaryDataRange extends OWLDataRange {
         return Stream.of(operands());
     }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
     /**
      * @return the data ranges
      * @deprecated use the stream method

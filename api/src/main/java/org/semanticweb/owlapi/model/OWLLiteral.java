@@ -58,11 +58,6 @@ public interface OWLLiteral
         return 4008;
     }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
-
     /**
      * Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
      * Note that literals that are abbreviated in the functional syntax (and
