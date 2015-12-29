@@ -35,6 +35,15 @@ import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 @SuppressWarnings("javadoc")
 public class Utf8TestCase extends TestBase {
 
+    private static final String INVALID_UTF8 = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
+        + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
+        + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+        + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+        + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+        + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+        + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
+        + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+
     @Test
     public void testUTF8roundTrip() throws Exception {
         String onto = "Ontology(<http://protege.org/UTF8.owl>" + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
@@ -52,14 +61,7 @@ public class Utf8TestCase extends TestBase {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
-        String onto = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
-            + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
-            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+        String onto = INVALID_UTF8;
         ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         try {
@@ -76,14 +78,7 @@ public class Utf8TestCase extends TestBase {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        String onto = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
-            + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
-            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+        String onto = INVALID_UTF8;
         ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
         m.loadOntologyFromOntologyDocument(in);
     }
@@ -102,14 +97,7 @@ public class Utf8TestCase extends TestBase {
             + "<owl:Ontology rdf:about=\"#\" />\n"
             + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
         OWLOntology o2 = loadOntologyFromString(onto2);
-        String onto1 = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
-            + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
-            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+        String onto1 = INVALID_UTF8;
         OWLOntology o1 = loadOntologyFromString(onto1);
         equal(o1, o2);
     }
