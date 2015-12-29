@@ -743,43 +743,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 o.negativeDataPropertyAssertionAxioms(individual))
             .flatMap(x -> x).sorted(ooc).collect(toList());
         if (!assertions.isEmpty()) {
-            fireSectionRenderingPrepared(FACTS.toString());
-            writeSection(FACTS);
-            writeSpace();
-            writeOntologiesList(o);
-            incrementTab(1);
-            writeNewLine();
-            fireSectionRenderingStarted(FACTS.toString());
-            for (Iterator<OWLPropertyAssertionAxiom<?, ?>> it = assertions.iterator(); it.hasNext();) {
-                OWLPropertyAssertionAxiom<?, ?> ax = it.next();
-                fireSectionItemPrepared(FACTS.toString());
-                Iterator<OWLAnnotation> annos = ax.annotations().iterator();
-                boolean isNotEmpty = annos.hasNext();
-                if (isNotEmpty) {
-                    writeAnnotations(annos);
-                    pushTab(getIndent() + 1);
-                }
-                if (ax instanceof OWLNegativeDataPropertyAssertionAxiom
-                    || ax instanceof OWLNegativeObjectPropertyAssertionAxiom) {
-                    write(NOT);
-                    writeSpace();
-                }
-                ax.getProperty().accept(this);
-                writeSpace();
-                writeSpace();
-                ax.getObject().accept(this);
-                if (isNotEmpty) {
-                    popTab();
-                }
-                fireSectionItemFinished(FACTS.toString());
-                if (it.hasNext()) {
-                    write(",");
-                    writeNewLine();
-                }
-            }
-            popTab();
-            writeNewLine();
-            writeNewLine();
+            handleAssertions(assertions);
         }
         if (!isFiltered(AxiomType.SAME_INDIVIDUAL)) {
             Collection<OWLIndividual> inds = sortedCollection();
@@ -809,6 +773,46 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         writeEntitySectionEnd(INDIVIDUAL.toString());
         return axioms;
+    }
+
+    protected void handleAssertions(List<OWLPropertyAssertionAxiom<?, ?>> assertions) {
+        fireSectionRenderingPrepared(FACTS.toString());
+        writeSection(FACTS);
+        writeSpace();
+        writeOntologiesList(o);
+        incrementTab(1);
+        writeNewLine();
+        fireSectionRenderingStarted(FACTS.toString());
+        for (Iterator<OWLPropertyAssertionAxiom<?, ?>> it = assertions.iterator(); it.hasNext();) {
+            OWLPropertyAssertionAxiom<?, ?> ax = it.next();
+            fireSectionItemPrepared(FACTS.toString());
+            Iterator<OWLAnnotation> annos = ax.annotations().iterator();
+            boolean isNotEmpty = annos.hasNext();
+            if (isNotEmpty) {
+                writeAnnotations(annos);
+                pushTab(getIndent() + 1);
+            }
+            if (ax instanceof OWLNegativeDataPropertyAssertionAxiom
+                || ax instanceof OWLNegativeObjectPropertyAssertionAxiom) {
+                write(NOT);
+                writeSpace();
+            }
+            ax.getProperty().accept(this);
+            writeSpace();
+            writeSpace();
+            ax.getObject().accept(this);
+            if (isNotEmpty) {
+                popTab();
+            }
+            fireSectionItemFinished(FACTS.toString());
+            if (it.hasNext()) {
+                write(",");
+                writeNewLine();
+            }
+        }
+        popTab();
+        writeNewLine();
+        writeNewLine();
     }
 
     /**

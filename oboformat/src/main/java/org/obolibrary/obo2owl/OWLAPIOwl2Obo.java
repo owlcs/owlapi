@@ -246,110 +246,7 @@ public class OWLAPIOwl2Obo {
         setObodoc(new OBODoc());
         preProcess();
         tr(getOWLOntology());
-        OWLAxiomVisitor visitor = new OWLAxiomVisitor() {
-
-            @Override
-            public void visit(OWLDeclarationAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLSubClassOfAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLDisjointClassesAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLEquivalentClassesAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLClassAssertionAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLEquivalentObjectPropertiesAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLSubAnnotationPropertyOfAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLSubObjectPropertyOfAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLObjectPropertyRangeAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLFunctionalObjectPropertyAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLSymmetricObjectPropertyAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLAsymmetricObjectPropertyAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLObjectPropertyDomainAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLInverseFunctionalObjectPropertyAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLInverseObjectPropertiesAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLDisjointObjectPropertiesAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLReflexiveObjectPropertyAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLTransitiveObjectPropertyAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void visit(OWLSubPropertyChainOfAxiom ax) {
-                tr(ax);
-            }
-
-            @Override
-            public void doDefault(Object o) {
-                if (!(o instanceof OWLAnnotationAssertionAxiom)) {
-                    error((OWLAxiom) o, false);
-                }
-            }
-        };
+        OWLAxiomVisitor visitor = new Translator();
         getOWLOntology().axioms().forEach(ax -> ax.accept(visitor));
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
             String axiomString = OwlStringTools.translate(untranslatableAxioms, manager);
@@ -1550,6 +1447,111 @@ public class OWLAPIOwl2Obo {
             }
             if (addClause) {
                 replacedByFrame.addClause(new Clause(OboFormatTag.TAG_ALT_ID, altId));
+            }
+        }
+    }
+
+    class Translator implements OWLAxiomVisitor {
+
+        @Override
+        public void visit(OWLDeclarationAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLSubClassOfAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLDisjointClassesAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLEquivalentClassesAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLClassAssertionAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLEquivalentObjectPropertiesAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLSubAnnotationPropertyOfAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLSubObjectPropertyOfAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLObjectPropertyRangeAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLFunctionalObjectPropertyAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLSymmetricObjectPropertyAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLAsymmetricObjectPropertyAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLObjectPropertyDomainAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLInverseFunctionalObjectPropertyAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLInverseObjectPropertiesAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLDisjointObjectPropertiesAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLReflexiveObjectPropertyAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLTransitiveObjectPropertyAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void visit(OWLSubPropertyChainOfAxiom ax) {
+            tr(ax);
+        }
+
+        @Override
+        public void doDefault(Object o) {
+            if (!(o instanceof OWLAnnotationAssertionAxiom)) {
+                error((OWLAxiom) o, false);
             }
         }
     }

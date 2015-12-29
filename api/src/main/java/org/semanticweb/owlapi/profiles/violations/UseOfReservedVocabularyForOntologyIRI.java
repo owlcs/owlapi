@@ -48,13 +48,13 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
     }
 
     @Override
-    public String toString() {
-        return toString("Use of reserved vocabulary for ontology IRI: %s", getExpression());
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+        return visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
+    public String toString() {
+        return toString("Use of reserved vocabulary for ontology IRI: %s", getExpression());
     }
 
     @Override
