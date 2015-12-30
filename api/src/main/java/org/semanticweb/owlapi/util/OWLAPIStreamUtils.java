@@ -12,6 +12,31 @@ import org.semanticweb.owlapi.model.OWLObject;
 /** A few util methods for common stream operations. */
 public class OWLAPIStreamUtils {
 
+    /**
+     * Class for pairwise partition
+     * 
+     * @param <T>
+     *        type
+     */
+    public static class Pair<T> {
+
+        /** First element. */
+        public final T i;
+        /** Second element. */
+        public final T j;
+
+        /**
+         * @param i
+         *        first
+         * @param j
+         *        second
+         */
+        public Pair(T i, T j) {
+            this.i = i;
+            this.j = j;
+        }
+    }
+
     private OWLAPIStreamUtils() {}
 
     /**
@@ -171,6 +196,7 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
+    @SuppressWarnings("unchecked")
     public static int compareIterators(Iterator<?> set1, Iterator<?> set2) {
         while (set1.hasNext() && set2.hasNext()) {
             Object o1 = set1.next();
@@ -302,5 +328,129 @@ public class OWLAPIStreamUtils {
         } else {
             streams.add(Stream.of(o));
         }
+    }
+
+    /**
+     * @param size
+     *        size of matrix
+     * @return a stream of coordinates for a triangular matrix of size
+     *         {@code size}. For input 3, the values are (1,2), (1,3), (2,3)
+     */
+    public static Stream<int[]> pairs(int size) {
+        List<int[]> values = new ArrayList<>((size * size - size) / 2);
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                values.add(new int[] { i, j });
+            }
+        }
+        return values.stream();
+    }
+
+    /**
+     * @param size
+     *        size of matrix
+     * @return a stream of coordinates for a symmetric matrix of size
+     *         {@code size}, excluding main diagonal. For input 3, the values
+     *         are (1,2), (1,3), (2,3), (2,1),(3,1), (3,2)
+     */
+    public static Stream<int[]> allPairs(int size) {
+        List<int[]> values = new ArrayList<>(size * size - size);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (i != j) {
+                    values.add(new int[] { i, j });
+                }
+            }
+        }
+        return values.stream();
+    }
+
+    /**
+     * @param input
+     *        collection to partition
+     * @return a stream of elements for a triangular matrix of size
+     *         {@code l.size()}, where l is the list corresponding to the input
+     *         collection. For input of length 3, the values are
+     *         (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3))
+     */
+    public static <T> Stream<Pair<T>> pairs(Collection<T> input) {
+        List<T> l;
+        if (input instanceof List) {
+            l = (List<T>) input;
+        } else {
+            l = new ArrayList<>(input);
+        }
+        int size = l.size();
+        List<Pair<T>> values = new ArrayList<>((size * size - size) / 2);
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                values.add(pair(l.get(i), l.get(j)));
+            }
+        }
+        return values.stream();
+    }
+
+    /**
+     * @param input
+     *        collection to partition
+     * @return a stream of coordinates for a symmetric matrix of size
+     *         {@code l.size()}, where l is the list corresponding to the input
+     *         collection, excluding main diagonal. For input 3, the values are
+     *         (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3)),
+     *         (l.get(2),l.get(1)),(l.get(3),l.get(1)), (l.get(3),l.get(2))
+     */
+    public static <T> Stream<Pair<T>> allPairs(Collection<T> input) {
+        List<T> l;
+        if (input instanceof List) {
+            l = (List<T>) input;
+        } else {
+            l = new ArrayList<>(input);
+        }
+        int size = l.size();
+        List<Pair<T>> values = new ArrayList<>(size * size - size);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (i != j) {
+                    values.add(pair(l.get(i), l.get(j)));
+                }
+            }
+        }
+        return values.stream();
+    }
+
+    /**
+     * @param input
+     *        collection to partition
+     * @return a stream of elements for a triangular matrix of size
+     *         {@code l.size()}, where l is the list corresponding to the input
+     *         collection. For input of length 3, the values are
+     *         (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3))
+     */
+    public static <T> Stream<Pair<T>> pairs(Stream<T> input) {
+        return pairs(asList(input));
+    }
+
+    /**
+     * @param input
+     *        collection to partition
+     * @return a stream of coordinates for a symmetric matrix of size
+     *         {@code l.size()}, where l is the list corresponding to the input
+     *         collection, excluding main diagonal. For input 3, the values are
+     *         (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3)),
+     *         (l.get(2),l.get(1)),(l.get(3),l.get(1)), (l.get(3),l.get(2))
+     */
+    public static <T> Stream<Pair<T>> allPairs(Stream<T> input) {
+        return allPairs(asList(input));
+    }
+
+    /**
+     * @param i
+     *        first
+     * @param j
+     *        second
+     * @return pair of (i,j)
+     */
+    public static <T> Pair<T> pair(T i, T j) {
+        return new Pair<>(i, j);
     }
 }

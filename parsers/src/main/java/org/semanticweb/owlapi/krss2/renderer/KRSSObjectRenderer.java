@@ -18,7 +18,7 @@ import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -288,8 +288,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    protected void flattenProperties(List<OWLObjectPropertyExpression> props,
-        @Nullable KRSSVocabulary junctor) {
+    protected void flattenProperties(List<OWLObjectPropertyExpression> props, @Nullable KRSSVocabulary junctor) {
         int size = props.size();
         if (size == 0) {
             return;
@@ -347,8 +346,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass),
-                    OWLClassExpression.class)), AND);
+                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)), AND);
                 writeCloseBracket();
                 writeln();
             } else {
@@ -398,21 +396,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> classes = asList(axiom.classExpressions());
-        int size = classes.size();
-        if (size <= 1) {
-            return;
-        }
-        for (int i = 0; i < size; i++) {
-            for (int j = i + 1; j < size; j++) {
-                writeOpenBracket();
-                write(DISJOINT);
-                write(classes.get(i));
-                write(classes.get(j));
-                writeCloseBracket();
-                writeln();
-            }
-        }
+        pairs(axiom.classExpressions()).forEach(v -> {
+            writeOpenBracket();
+            write(DISJOINT);
+            write(v.i);
+            write(v.j);
+            writeCloseBracket();
+            writeln();
+        });
     }
 
     @Override
@@ -427,21 +418,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
-        int size = individuals.size();
-        if (size <= 1) {
-            return;
-        }
-        for (int i = 0; i < size; i++) {
-            for (int j = i + 1; j < size; j++) {
-                writeOpenBracket();
-                write(DISTINCT);
-                write(individuals.get(i));
-                write(individuals.get(j));
-                writeCloseBracket();
-                writeln();
-            }
-        }
+        pairs(axiom.individuals()).forEach(v -> {
+            writeOpenBracket();
+            write(DISTINCT);
+            write(v.i);
+            write(v.j);
+            writeCloseBracket();
+            writeln();
+        });
     }
 
     @Override
@@ -486,21 +470,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
-        int size = individuals.size();
-        if (size <= 1) {
-            return;
-        }
-        for (int i = 0; i < size; i++) {
-            for (int j = i + 1; j < size; j++) {
-                writeOpenBracket();
-                write(EQUAL);
-                write(individuals.get(i));
-                write(individuals.get(j));
-                writeCloseBracket();
-                writeln();
-            }
-        }
+        pairs(axiom.individuals()).forEach(v -> {
+            writeOpenBracket();
+            write(EQUAL);
+            write(v.i);
+            write(v.j);
+            writeCloseBracket();
+            writeln();
+        });
     }
 
     @Override

@@ -27,7 +27,7 @@ public class KRSS2OntologyFormat extends org.semanticweb.owlapi.formats.KRSS2Doc
 
     /** @return true if ontology iri is ignored */
     public boolean isIgnoreOntologyURI() {
-        return ((Boolean) getParameter(IGNORE_ONTOLOGYURI, Boolean.FALSE)).booleanValue();
+        return getParameter(IGNORE_ONTOLOGYURI, Boolean.FALSE).booleanValue();
     }
 
     /**

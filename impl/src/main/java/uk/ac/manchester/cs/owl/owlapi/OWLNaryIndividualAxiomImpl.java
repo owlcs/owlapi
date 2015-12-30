@@ -24,8 +24,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
-import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -52,40 +50,5 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     @Override
     public Stream<OWLIndividual> individuals() {
         return individuals.stream();
-    }
-
-    @Override
-    public void forEach(OWLPairwiseVoidVisitor<OWLIndividual> visitor) {
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            for (int j = i + 1; j < individuals.size(); j++) {
-                visitor.visit(individuals.get(i), individuals.get(j));
-            }
-        }
-    }
-
-    @Override
-    public boolean anyMatch(OWLPairwiseBooleanVisitor<OWLIndividual> visitor) {
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            for (int j = i + 1; j < individuals.size(); j++) {
-                boolean b = visitor.visit(individuals.get(i), individuals.get(j));
-                if (b) {
-                    return b;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean allMatch(OWLPairwiseBooleanVisitor<OWLIndividual> visitor) {
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            for (int j = i + 1; j < individuals.size(); j++) {
-                boolean b = visitor.visit(individuals.get(i), individuals.get(j));
-                if (!b) {
-                    return b;
-                }
-            }
-        }
-        return true;
     }
 }
