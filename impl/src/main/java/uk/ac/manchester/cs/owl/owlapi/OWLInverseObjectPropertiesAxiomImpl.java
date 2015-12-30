@@ -14,7 +14,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -22,7 +26,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -47,19 +50,20 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
      */
     public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first, OWLObjectPropertyExpression second,
         Collection<OWLAnnotation> annotations) {
-        super(new TreeSet<>(Arrays.asList(checkNotNull(first, "first cannot be null"),
-            checkNotNull(second, "second cannot be null"))), annotations);
+        super(new TreeSet<>(
+            Arrays.asList(checkNotNull(first, "first cannot be null"), checkNotNull(second, "second cannot be null"))),
+            annotations);
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
+    public Collection<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
         return CollectionFactory.createSet((OWLInverseObjectPropertiesAxiom) this);
     }
 
     @Override
-    public Set<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs() {
+    public Collection<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs() {
         return asPairwiseAxioms();
     }
 
@@ -87,21 +91,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     }
 
     @Override
-    public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
+    public Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second.getInverseProperty().getSimplified(),
-            NO_ANNOTATIONS));
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first.getInverseProperty().getSimplified(),
-            NO_ANNOTATIONS));
+        axs.add(
+            new OWLSubObjectPropertyOfAxiomImpl(first, second.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+        axs.add(
+            new OWLSubObjectPropertyOfAxiomImpl(second, first.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
-    }
-
-    @Override
-    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
-        T t = visitor.visit(first, second);
-        if (t != null) {
-            return CollectionFactory.createSet(t);
-        }
-        return Collections.emptyList();
     }
 }

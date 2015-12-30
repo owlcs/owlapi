@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +22,11 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
+import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -76,20 +80,6 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
         Set<P> props = new TreeSet<>(properties);
         props.remove(property);
         return props;
-    }
-
-    @Override
-    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, P> visitor) {
-        List<T> l = new ArrayList<>();
-        for (int i = 0; i < properties.size() - 1; i++) {
-            for (int j = i + 1; j < properties.size(); j++) {
-                T t = visitor.visit(properties.get(i), properties.get(j));
-                if (t != null) {
-                    l.add(t);
-                }
-            }
-        }
-        return l;
     }
 
     @Override

@@ -14,14 +14,18 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
+import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -48,20 +52,6 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     @Override
     public Stream<OWLIndividual> individuals() {
         return individuals.stream();
-    }
-
-    @Override
-    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, OWLIndividual> visitor) {
-        List<T> l = new ArrayList<>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            for (int j = i + 1; j < individuals.size(); j++) {
-                T t = visitor.visit(individuals.get(i), individuals.get(j));
-                if (t != null) {
-                    l.add(t);
-                }
-            }
-        }
-        return l;
     }
 
     @Override

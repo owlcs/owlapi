@@ -14,9 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -24,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -57,28 +55,19 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     }
 
     @Override
-    public Set<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
-        Set<OWLEquivalentClassesAxiom> result = new HashSet<>();
-        for (int i = 0; i < classExpressions.size() - 1; i++) {
-            OWLClassExpression ceI = classExpressions.get(i);
-            OWLClassExpression ceJ = classExpressions.get(i + 1);
-            result.add(new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays.asList(ceI, ceJ)), NO_ANNOTATIONS));
+    public Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
+        if (classExpressions.size() == 2) {
+            return CollectionFactory.createSet(this);
         }
-        return result;
+        return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
-    public Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs() {
+    public Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs() {
         if (classExpressions.size() == 2) {
-            return Collections.singleton(this);
+            return CollectionFactory.createSet(this);
         }
-        Set<OWLEquivalentClassesAxiom> result = new HashSet<>();
-        for (int i = 0; i < classExpressions.size() - 1; i++) {
-            OWLClassExpression indI = classExpressions.get(i);
-            OWLClassExpression indJ = classExpressions.get(i + 1);
-            result.add(new OWLEquivalentClassesAxiomImpl(Arrays.asList(indI, indJ), annotations));
-        }
-        return result;
+        return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), annotations));
     }
 
     private static boolean named(OWLClassExpression d) {
@@ -106,16 +95,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     }
 
     @Override
-    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        Set<OWLSubClassOfAxiom> result = new HashSet<>();
-        for (int i = 0; i < classExpressions.size(); i++) {
-            for (int j = 0; j < classExpressions.size(); j++) {
-                if (i != j) {
-                    result.add(new OWLSubClassOfAxiomImpl(classExpressions.get(i), classExpressions.get(j),
-                        NO_ANNOTATIONS));
-                }
-            }
-        }
-        return result;
+    public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
+        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(a, b, NO_ANNOTATIONS));
     }
 }

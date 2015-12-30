@@ -12,8 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Represents an axiom that contains two or more operands that could also be
@@ -28,6 +32,14 @@ import java.util.Set;
 public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
 
     /**
+     * @return a stream of all operands for this n-ary axiom. This provides a
+     *         platform for common operations across different types, e.g., this
+     *         will be the properties() stream for a DisjointObjectProperties,
+     *         or a classExpressions() stream for a DisjointClasses.
+     */
+    Stream<C> operands();
+
+    /**
      * Gets this axiom as a set of pairwise axioms. Note that annotations on
      * this axiom will not be copied to each axiom returned in the set of
      * pairwise axioms.<br>
@@ -37,16 +49,55 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
      * 
      * @return This axiom as a set of pairwise axioms.
      */
-    Set<? extends OWLNaryAxiom<C>> asPairwiseAxioms();
+    Collection<? extends OWLAxiom> asPairwiseAxioms();
 
     /**
      * @param <T>
      *        type returned by visitor
      * @param visitor
-     *        visitor to apply to all pairwise elements in this axiom
+     *        visitor to apply to all pairwise elements in this axiom; pairs are
+     *        not ordered, i.e., only (i,j) will be considered, for i!=j; (j, i)
+     *        is not considered.
      * @return collection of all visitor return values that are not null
      */
-    <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor);
+    default <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor) {
+        List<T> l = new ArrayList<>();
+        List<C> list = asList(operands());
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                T t = visitor.visit(list.get(i), list.get(j));
+                if (t != null) {
+                    l.add(t);
+                }
+            }
+        }
+        return l;
+    }
+
+    /**
+     * @param <T>
+     *        type returned by visitor
+     * @param visitor
+     *        visitor to apply to all pairwise elements in this axiom; pairs are
+     *        ordered, i.e., (i, j) and (j, i) will be considered. (i,i) is
+     *        skipped.
+     * @return collection of all visitor return values that are not null
+     */
+    default <T> Collection<T> walkAllPairwise(OWLPairwiseVisitor<T, C> visitor) {
+        List<T> l = new ArrayList<>();
+        List<C> list = asList(operands());
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.size(); j++) {
+                if (i != j) {
+                    T t = visitor.visit(list.get(i), list.get(j));
+                    if (t != null) {
+                        l.add(t);
+                    }
+                }
+            }
+        }
+        return l;
+    }
 
     /**
      * @param visitor
@@ -80,5 +131,5 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
      * 
      * @return This axiom as a set of pairwise axioms, annotations included.
      */
-    Set<? extends OWLNaryAxiom<C>> splitToAnnotatedPairs();
+    Collection<? extends OWLAxiom> splitToAnnotatedPairs();
 }

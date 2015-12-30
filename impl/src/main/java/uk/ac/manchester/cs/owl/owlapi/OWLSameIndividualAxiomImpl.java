@@ -58,7 +58,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         for (int i = 0; i < individuals.size() - 1; i++) {
             OWLIndividual indI = individuals.get(i);
             OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
+            result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), NO_ANNOTATIONS));
         }
         return result;
     }

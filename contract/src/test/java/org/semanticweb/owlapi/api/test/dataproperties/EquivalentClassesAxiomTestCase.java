@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
+import java.util.Collection;
 import java.util.Set;
 
 import org.junit.Test;
@@ -89,7 +90,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
         OWLClass clsB = Class(iri("B"));
         OWLClass clsC = Class(iri("C"));
         OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, clsB, clsC);
-        Set<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
+        Collection<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
         assertEquals(6, scas.size());
         assertTrue(scas.contains(SubClassOf(clsA, clsB)));
         assertTrue(scas.contains(SubClassOf(clsB, clsA)));

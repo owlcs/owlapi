@@ -59,6 +59,11 @@ public interface OWLNaryClassAxiom
      */
     Stream<OWLClassExpression> classExpressions();
 
+    @Override
+    default Stream<OWLClassExpression> operands() {
+        return classExpressions();
+    }
+
     /**
      * A convenience method that obtains the class expression returned by the
      * {@link #getClassExpressions()} method as a list of class expressions.

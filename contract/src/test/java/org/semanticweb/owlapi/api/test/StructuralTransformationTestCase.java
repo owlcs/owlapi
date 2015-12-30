@@ -112,9 +112,10 @@ public class StructuralTransformationTestCase {
             "[DataPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#i> \"string\"@en)]");
         map.put(b.dDom(),
             "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test#c>), SubClassOf(<http://www.semanticweb.org/ontology#X1> DataAllValuesFrom(<urn:test#dp> DataComplementOf(rdfs:Literal))), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
-        map.put(b.dc(), "[SubClassOf(owl:Thing ObjectComplementOf(<urn:test#iri>))]");
+        map.put(b.dc(),
+            "[SubClassOf(owl:Thing ObjectComplementOf(<urn:test#iri>)), SubClassOf(owl:Thing ObjectComplementOf(<urn:test#c>))]");
         map.put(b.du(),
-            "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test#c>), SubClassOf(owl:Thing ObjectComplementOf(<urn:test#iri>)), SubClassOf(<http://www.semanticweb.org/ontology#X1> <urn:test#iri>), SubClassOf(owl:Thing <urn:test#c>), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
+            "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test#c>), SubClassOf(owl:Thing ObjectComplementOf(<urn:test#iri>)), SubClassOf(<http://www.semanticweb.org/ontology#X1> <urn:test#iri>), SubClassOf(owl:Thing <urn:test#c>), SubClassOf(owl:Thing ObjectComplementOf(<urn:test#c>)), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
         map.put(b.ec(), "[SubClassOf(owl:Thing <urn:test#c>), SubClassOf(owl:Thing <urn:test#iri>)]");
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));

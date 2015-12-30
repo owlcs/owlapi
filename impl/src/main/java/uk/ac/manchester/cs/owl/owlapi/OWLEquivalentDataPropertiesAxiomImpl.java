@@ -14,15 +14,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -57,41 +55,23 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     }
 
     @Override
-    public Set<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms() {
-        Set<OWLEquivalentDataPropertiesAxiom> result = new HashSet<>();
-        for (int i = 0; i < properties.size() - 1; i++) {
-            for (int j = i + 1; j < properties.size(); j++) {
-                result.add(new OWLEquivalentDataPropertiesAxiomImpl(
-                    new HashSet<>(Arrays.asList(properties.get(i), properties.get(j))), NO_ANNOTATIONS));
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs() {
+    public Collection<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms() {
         if (properties.size() == 2) {
-            return Collections.singleton(this);
+            return CollectionFactory.createSet(this);
         }
-        Set<OWLEquivalentDataPropertiesAxiom> result = new HashSet<>();
-        for (int i = 0; i < properties.size() - 1; i++) {
-            OWLDataPropertyExpression indI = properties.get(i);
-            OWLDataPropertyExpression indJ = properties.get(i + 1);
-            result.add(new OWLEquivalentDataPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
-        }
-        return result;
+        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
-    public Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
-        Set<OWLSubDataPropertyOfAxiom> result = new HashSet<>();
-        for (int i = 0; i < properties.size(); i++) {
-            for (int j = 0; j < properties.size(); j++) {
-                if (i != j) {
-                    result.add(new OWLSubDataPropertyOfAxiomImpl(properties.get(i), properties.get(j), NO_ANNOTATIONS));
-                }
-            }
+    public Collection<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs() {
+        if (properties.size() == 2) {
+            return CollectionFactory.createSet(this);
         }
-        return result;
+        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+    }
+
+    @Override
+    public Collection<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
+        return walkAllPairwise((a, b) -> new OWLSubDataPropertyOfAxiomImpl(a, b, NO_ANNOTATIONS));
     }
 }

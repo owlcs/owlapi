@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -90,10 +91,10 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     boolean containsOWLThing();
 
     @Override
-        Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
+        Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
     @Override
-        Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
+        Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

@@ -14,9 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -57,44 +54,23 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     }
 
     @Override
-    public Set<OWLDisjointClassesAxiom> asPairwiseAxioms() {
+    public Collection<OWLDisjointClassesAxiom> asPairwiseAxioms() {
         if (classExpressions.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        Set<OWLDisjointClassesAxiom> result = new HashSet<>();
-        for (int i = 0; i < classExpressions.size() - 1; i++) {
-            for (int j = i + 1; j < classExpressions.size(); j++) {
-                result.add(new OWLDisjointClassesAxiomImpl(
-                    new HashSet<>(Arrays.asList(classExpressions.get(i), classExpressions.get(j))),
-                    NO_ANNOTATIONS));
-            }
-        }
-        return result;
+        return walkPairwise((a, b) -> new OWLDisjointClassesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
-    public Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs() {
+    public Collection<OWLDisjointClassesAxiom> splitToAnnotatedPairs() {
         if (classExpressions.size() == 2) {
-            return Collections.singleton(this);
+            return CollectionFactory.createSet(this);
         }
-        Set<OWLDisjointClassesAxiom> result = new HashSet<>();
-        for (int i = 0; i < classExpressions.size() - 1; i++) {
-            OWLClassExpression indI = classExpressions.get(i);
-            OWLClassExpression indJ = classExpressions.get(i + 1);
-            result.add(new OWLDisjointClassesAxiomImpl(Arrays.asList(indI, indJ), annotations));
-        }
-        return result;
+        return walkPairwise((a, b) -> new OWLDisjointClassesAxiomImpl(Arrays.asList(a, b), annotations));
     }
 
     @Override
-    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        Set<OWLSubClassOfAxiom> result = new HashSet<>();
-        for (int i = 0; i < classExpressions.size() - 1; i++) {
-            for (int j = i + 1; j < classExpressions.size(); j++) {
-                result.add(new OWLSubClassOfAxiomImpl(classExpressions.get(i),
-                    classExpressions.get(j).getObjectComplementOf(), NO_ANNOTATIONS));
-            }
-        }
-        return result;
+    public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
+        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(a, b.getObjectComplementOf(), NO_ANNOTATIONS));
     }
 }

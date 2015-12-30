@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +23,11 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
+import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
+import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -65,20 +68,6 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             result.remove(d);
         }
         return result;
-    }
-
-    @Override
-    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, OWLClassExpression> visitor) {
-        List<T> l = new ArrayList<>();
-        for (int i = 0; i < classExpressions.size() - 1; i++) {
-            for (int j = i + 1; j < classExpressions.size(); j++) {
-                T t = visitor.visit(classExpressions.get(i), classExpressions.get(j));
-                if (t != null) {
-                    l.add(t);
-                }
-            }
-        }
-        return l;
     }
 
     @Override

@@ -55,6 +55,11 @@ public interface OWLNaryIndividualAxiom
      */
     Stream<OWLIndividual> individuals();
 
+    @Override
+    default Stream<OWLIndividual> operands() {
+        return individuals();
+    }
+
     /**
      * Gets the individuals returned by {@link #getIndividuals()} as a list.
      * 

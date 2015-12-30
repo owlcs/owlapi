@@ -232,7 +232,7 @@ public abstract class TestBase {
                 if (ax instanceof OWLEquivalentClassesAxiom) {
                     OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
                     if (ax2.classExpressions().count() > 2) {
-                        Set<OWLEquivalentClassesAxiom> pairs = ax2.splitToAnnotatedPairs();
+                        Collection<OWLEquivalentClassesAxiom> pairs = ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
                             axioms2.removeAll(pairs);
@@ -241,7 +241,7 @@ public abstract class TestBase {
                 } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
                     OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
                     if (ax2.properties().count() > 2) {
-                        Set<OWLEquivalentDataPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
+                        Collection<OWLEquivalentDataPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
                             axioms2.removeAll(pairs);
@@ -250,7 +250,7 @@ public abstract class TestBase {
                 } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
                     OWLEquivalentObjectPropertiesAxiom ax2 = (OWLEquivalentObjectPropertiesAxiom) ax;
                     if (ax2.properties().count() > 2) {
-                        Set<OWLEquivalentObjectPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
+                        Collection<OWLEquivalentObjectPropertiesAxiom> pairs = ax2.splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
                             axioms1.remove(ax);
                             axioms2.removeAll(pairs);

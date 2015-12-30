@@ -56,6 +56,11 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends O
      */
     Stream<P> properties();
 
+    @Override
+    default Stream<P> operands() {
+        return properties();
+    }
+
     /**
      * @param property
      *        the property to skip

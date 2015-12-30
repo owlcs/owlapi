@@ -12,14 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -54,31 +55,19 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     @Override
-    public Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms() {
-        Set<OWLDifferentIndividualsAxiom> result = new HashSet<>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            for (int j = i + 1; j < individuals.size(); j++) {
-                OWLIndividual indI = individuals.get(i);
-                OWLIndividual indJ = individuals.get(j);
-                result.add(
-                    new OWLDifferentIndividualsAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
-            }
+    public Collection<OWLDifferentIndividualsAxiom> asPairwiseAxioms() {
+        if (individuals.size() == 2) {
+            return CollectionFactory.createSet(this);
         }
-        return result;
+        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
-    public Set<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs() {
+    public Collection<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs() {
         if (individuals.size() == 2) {
-            return Collections.singleton(this);
+            return CollectionFactory.createSet(this);
         }
-        Set<OWLDifferentIndividualsAxiom> result = new HashSet<>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            OWLIndividual indI = individuals.get(i);
-            OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLDifferentIndividualsAxiomImpl(Arrays.asList(indI, indJ), annotations));
-        }
-        return result;
+        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b), annotations));
     }
 
     @Override
@@ -87,17 +76,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     @Override
-    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        List<OWLClassExpression> nominalsList = new ArrayList<>();
-        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(i)));
-        Set<OWLSubClassOfAxiom> result = new HashSet<>();
-        for (int i = 0; i < nominalsList.size() - 1; i++) {
-            for (int j = i + 1; j < nominalsList.size(); j++) {
-                OWLClassExpression ceI = nominalsList.get(i);
-                OWLClassExpression ceJ = nominalsList.get(j).getObjectComplementOf();
-                result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
-            }
-        }
-        return result;
+    public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
+        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(a),
+            new OWLObjectOneOfImpl(b).getObjectComplementOf(), NO_ANNOTATIONS));
     }
 }

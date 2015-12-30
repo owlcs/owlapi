@@ -14,14 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -56,28 +54,18 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     }
 
     @Override
-    public Set<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms() {
-        Set<OWLDisjointObjectPropertiesAxiom> result = new HashSet<>();
-        for (int i = 0; i < properties.size() - 1; i++) {
-            for (int j = i + 1; j < properties.size(); j++) {
-                result.add(new OWLDisjointObjectPropertiesAxiomImpl(
-                    Arrays.asList(properties.get(i), properties.get(j)), NO_ANNOTATIONS));
-            }
+    public Collection<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms() {
+        if (properties.size() == 2) {
+            return CollectionFactory.createSet(this);
         }
-        return result;
+        return walkPairwise((a, b) -> new OWLDisjointObjectPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
-    public Set<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs() {
+    public Collection<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs() {
         if (properties.size() == 2) {
-            return Collections.singleton(this);
+            return CollectionFactory.createSet(this);
         }
-        Set<OWLDisjointObjectPropertiesAxiom> result = new HashSet<>();
-        for (int i = 0; i < properties.size() - 1; i++) {
-            OWLObjectPropertyExpression indI = properties.get(i);
-            OWLObjectPropertyExpression indJ = properties.get(i + 1);
-            result.add(new OWLDisjointObjectPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
-        }
-        return result;
+        return walkPairwise((a, b) -> new OWLDisjointObjectPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
     }
 }
