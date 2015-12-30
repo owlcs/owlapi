@@ -198,6 +198,7 @@
 							!sun.misc,
 							!com.google.inject.internal.*;resolution:=optional,
 							org.openrdf*;version="[4.0,5.0)",
+							info.aduna.iteration;version="[4.0,5.0)",
 							*
 						</Import-Package>
 					</instructions>
