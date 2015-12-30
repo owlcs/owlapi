@@ -597,32 +597,36 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             case BOT:
                 return extractUnnestedModule(enrichedSig, LocalityClass.BOTTOM_BOTTOM);
             case STAR:
-                boolean[] subOnt = ontologyAxiomSet.getSubset(true);
-                boolean nextStepNecessary = true;
-                boolean inFirstStep = true;
-                LocalityClass localityClass = LocalityClass.BOTTOM_BOTTOM;
-                Set<OWLEntity> seedSig = new HashSet<>(enrichedSig);
-                while (nextStepNecessary) {
-                    outputSignature("\nExtracting " + localityClass + " module for the following seed signature: ",
-                        enrichedSig);
-                    int previousModuleSize = ontologyAxiomSet.subsetCardinality(subOnt);
-                    seedSig = new HashSet<>(enrichedSig);
-                    subOnt = extractLogicalAxioms(subOnt, seedSig, localityClass);
-                    if (ontologyAxiomSet.subsetCardinality(subOnt) == previousModuleSize && !inFirstStep) {
-                        nextStepNecessary = false;
-                    }
-                    inFirstStep = false;
-                    if (localityClass == LocalityClass.BOTTOM_BOTTOM) {
-                        localityClass = LocalityClass.TOP_TOP;
-                    } else {
-                        localityClass = LocalityClass.BOTTOM_BOTTOM;
-                    }
-                }
-                Set<OWLAxiom> moduleAsSet = ontologyAxiomSet.toSet(subOnt);
-                return enrich(moduleAsSet, seedSig);
+                return extractStar(enrichedSig);
             default:
                 throw new OWLRuntimeException("Unsupported module type: " + moduleType);
         }
+    }
+
+    protected Set<OWLAxiom> extractStar(Set<OWLEntity> enrichedSig) {
+        boolean[] subOnt = ontologyAxiomSet.getSubset(true);
+        boolean nextStepNecessary = true;
+        boolean inFirstStep = true;
+        LocalityClass localityClass = LocalityClass.BOTTOM_BOTTOM;
+        Set<OWLEntity> seedSig = new HashSet<>(enrichedSig);
+        while (nextStepNecessary) {
+            outputSignature("\nExtracting " + localityClass + " module for the following seed signature: ",
+                enrichedSig);
+            int previousModuleSize = ontologyAxiomSet.subsetCardinality(subOnt);
+            seedSig = new HashSet<>(enrichedSig);
+            subOnt = extractLogicalAxioms(subOnt, seedSig, localityClass);
+            if (ontologyAxiomSet.subsetCardinality(subOnt) == previousModuleSize && !inFirstStep) {
+                nextStepNecessary = false;
+            }
+            inFirstStep = false;
+            if (localityClass == LocalityClass.BOTTOM_BOTTOM) {
+                localityClass = LocalityClass.TOP_TOP;
+            } else {
+                localityClass = LocalityClass.BOTTOM_BOTTOM;
+            }
+        }
+        Set<OWLAxiom> moduleAsSet = ontologyAxiomSet.toSet(subOnt);
+        return enrich(moduleAsSet, seedSig);
     }
 
     @Override

@@ -30,8 +30,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class ManchesterOWLSyntaxParserErrorsTestCase {
 
-    @Mock
-    protected @Nonnull OWLEntityChecker entityChecker;
+    @Mock protected @Nonnull OWLEntityChecker entityChecker;
     private ParserWrapper parser;
 
     @Before
@@ -484,9 +483,9 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     private void checkForExceptionAtEOF(String input) {
-        checkForExceptionAt(input, input.length(), ManchesterOWLSyntaxTokenizer.EOF);
+        checkForExceptionAt(input, input.length(), ManchesterOWLSyntaxTokenizer.EOFTOKEN);
         String trimmedInput = input.trim();
-        checkForExceptionAt(trimmedInput, trimmedInput.length(), ManchesterOWLSyntaxTokenizer.EOF);
+        checkForExceptionAt(trimmedInput, trimmedInput.length(), ManchesterOWLSyntaxTokenizer.EOFTOKEN);
     }
 
     private class ParserWrapper {

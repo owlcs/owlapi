@@ -13,11 +13,11 @@
 package org.semanticweb.owlapi.metrics;
 
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -49,27 +49,23 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
     @Override
     public Double recomputeMetric() {
-        int total = 0;
-        int count = 0;
+        AtomicInteger total = new AtomicInteger();
+        AtomicInteger count = new AtomicInteger();
         Set<OWLClass> processedClasses = new HashSet<>();
-        for (OWLOntology ont : asList(getOntologies())) {
-            for (OWLClass cls : asList(ont.classesInSignature())) {
-                if (processedClasses.add(cls)) {
-                    count++;
-                    int prevTotal = total;
-                    for (OWLClassExpression desc : asList(
-                        sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class))) {
-                        if (!desc.isAnonymous()) {
-                            total++;
-                        }
-                    }
-                    if (prevTotal == total) {
-                        total++;
-                    }
-                }
-            }
+        getOntologies().forEach(ont -> ont.classesInSignature().filter(processedClasses::add)
+            .forEach(cls -> processClass(total, count, ont, cls)));
+        return Double.valueOf((double) total.get() / count.get());
+    }
+
+    protected void processClass(AtomicInteger total, AtomicInteger count, OWLOntology ont, OWLClass cls) {
+        count.incrementAndGet();
+        int sup = (int) sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class).filter(c -> !c.isAnonymous())
+            .count();
+        if (sup == 0) {
+            total.incrementAndGet();
+        } else {
+            total.addAndGet(sup);
         }
-        return Double.valueOf((double) total / count);
     }
 
     @Override

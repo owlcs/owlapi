@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.vocab.*;
  */
 public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser {
 
+    private static final String INFINITY = "Infinity";
     // This parser was built by hand! After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct
     // this parser by hand. The error messages that this parser generates
@@ -79,7 +80,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Nonnull protected DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
-    private final boolean allowEmptyFrameSections = false;
+    private static final boolean ALLOWEMPTYFRAMESECTIONS = false;
     private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
     private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<>(
@@ -387,7 +388,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     public OWLClassExpression parseClassExpression() {
         OWLClassExpression desc = parseUnion();
         if (!eof(consumeToken())) {
-            throw new ExceptionBuilder().withKeyword(EOF).build();
+            throw new ExceptionBuilder().withKeyword(EOFTOKEN).build();
         }
         return desc;
     }
@@ -788,7 +789,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (tok.endsWith("f") || tok.endsWith("F")) {
                 try {
                     // this extra F might qualify as Float a Double INF/-INF
-                    float f = Float.parseFloat(tok.replace("INF", "Infinity").replace("inf", "Infinity"));
+                    float f = Float.parseFloat(tok.replace("INF", INFINITY).replace("inf", INFINITY));
                     return df.getOWLLiteral(asFloat(f), OWL2Datatype.XSD_FLOAT);
                 } catch (@SuppressWarnings("unused") NumberFormatException e) {
                     // Ignore - not interested
@@ -824,7 +825,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private static String asFloat(float f) {
-        return Float.toString(f).replace("Infinity", "INF");
+        return Float.toString(f).replace(INFINITY, "INF");
     }
 
     private int parseInteger() {
@@ -1172,7 +1173,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private boolean isEmptyFrameSection(Map<ManchesterOWLSyntax, ?> parsers) {
-        if (!allowEmptyFrameSections) {
+        if (!ALLOWEMPTYFRAMESECTIONS) {
             return false;
         }
         String next = peekToken();
@@ -2037,26 +2038,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         while (true) {
             String section = peekToken();
             if (IMPORT.matches(section)) {
-                consumeToken();
-                tok = peekToken();
-                Optional<IRI> importedIRI = emptyOptional();
-                if (tok.startsWith("<")) {
-                    importedIRI = optional(parseIRI());
-                } else if (isOntologyName(tok)) {
-                    consumeToken();
-                    OWLOntology ont = getOntology(tok);
-                    if (ont != null) {
-                        importedIRI = ont.getOntologyID().getOntologyIRI();
-                    }
-                } else {
-                    consumeToken();
-                    throw new ExceptionBuilder().withOnto().withKeyword("<$ONTOLOGYYURI$>").build();
-                }
-                if (!importedIRI.isPresent()) {
-                    throw new ExceptionBuilder().withOnto().withKeyword("Imported IRI is null").build();
-                }
-                IRI importedOntologyIRI = importedIRI.get();
-                imports.add(df.getOWLImportsDeclaration(importedOntologyIRI));
+                handleImport(imports);
             } else if (ANNOTATIONS.matches(section)) {
                 consumeToken();
                 annotations.addAll(parseAnnotationList());
@@ -2069,6 +2051,30 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
         }
         return new ManchesterOWLSyntaxOntologyHeader(ontologyIRI, versionIRI, annotations, imports);
+    }
+
+    protected void handleImport(Set<OWLImportsDeclaration> imports) {
+        String tok;
+        consumeToken();
+        tok = peekToken();
+        Optional<IRI> importedIRI = emptyOptional();
+        if (tok.startsWith("<")) {
+            importedIRI = optional(parseIRI());
+        } else if (isOntologyName(tok)) {
+            consumeToken();
+            OWLOntology ont = getOntology(tok);
+            if (ont != null) {
+                importedIRI = ont.getOntologyID().getOntologyIRI();
+            }
+        } else {
+            consumeToken();
+            throw new ExceptionBuilder().withOnto().withKeyword("<$ONTOLOGYYURI$>").build();
+        }
+        if (!importedIRI.isPresent()) {
+            throw new ExceptionBuilder().withOnto().withKeyword("Imported IRI is null").build();
+        }
+        IRI importedOntologyIRI = importedIRI.get();
+        imports.add(df.getOWLImportsDeclaration(importedOntologyIRI));
     }
 
     protected class ExceptionBuilder {
@@ -2204,12 +2210,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (index < 0) {
             index = 0;
         }
-        while (index < tokens.size() && seq.size() < 4 && !seq.contains(EOF)) {
+        while (index < tokens.size() && seq.size() < 4 && !seq.contains(EOFTOKEN)) {
             seq.add(tokens.get(index).getToken());
             index++;
         }
         if (seq.isEmpty()) {
-            seq.add(EOF);
+            seq.add(EOFTOKEN);
         }
         return seq;
     }
@@ -2679,7 +2685,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
         @Override
         public OWLAxiom createAxiom(OWLClass s, Set<OWLClassExpression> o, Set<OWLAnnotation> anns) {
-            // o.add(s);
             return df.getOWLDisjointClassesAxiom(o, anns);
         }
 

@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 public class ManchesterOWLSyntaxTokenizer {
 
     /** EOF. */
-    @Nonnull public static final String EOF = "|EOF|";
+    @Nonnull public static final String EOFTOKEN = "|EOF|";
     @Nonnull protected final Set<Character> skip = new HashSet<>();
     protected final Set<Character> commentDelimiters = new HashSet<>();
     protected final Set<Character> delims = new HashSet<>();
@@ -75,7 +75,7 @@ public class ManchesterOWLSyntaxTokenizer {
      * @return true if EOF
      */
     public static boolean eof(String s) {
-        return EOF.equals(s);
+        return EOFTOKEN.equals(s);
     }
 
     private void reset() {
@@ -97,37 +97,42 @@ public class ManchesterOWLSyntaxTokenizer {
         int bufferLen = buffer.length();
         char lastChar = ' ';
         while (pos < bufferLen) {
-            char ch = readChar();
-            if (ch == ESCAPE_CHAR) {
-                lastChar = ch;
-                ch = readChar();
-            }
-            if (ch == '\"' && lastChar != '\\') {
-                readString('\"', true);
-            } else if (ch == '\'' && lastChar != '\\') {
-                readString('\'', true);
-            } else if (ch == '<') {
-                // Potentially the start of an IRI
-                readIRI();
-            } else if (skip.contains(Character.valueOf(ch))) {
-                consumeToken();
-            } else if (commentDelimiters.contains(Character.valueOf(ch))) {
-                consumeToken();
-                readComment();
-            } else if (delims.contains(Character.valueOf(ch))) {
-                consumeToken();
-                sb.append(ch);
-                if (ch != '@') {
-                    consumeToken();
-                }
-            } else {
-                sb.append(ch);
-            }
-            lastChar = ch;
+            lastChar = handleChar(lastChar);
         }
         consumeToken();
-        tokens.add(new Token(EOF, pos, col, row));
+        tokens.add(new Token(EOFTOKEN, pos, col, row));
         return new ArrayList<>(tokens);
+    }
+
+    protected char handleChar(char last) {
+        char lastChar = last;
+        char ch = readChar();
+        if (ch == ESCAPE_CHAR) {
+            lastChar = ch;
+            ch = readChar();
+        }
+        if (ch == '\"' && lastChar != '\\') {
+            readString('\"', true);
+        } else if (ch == '\'' && lastChar != '\\') {
+            readString('\'', true);
+        } else if (ch == '<') {
+            // Potentially the start of an IRI
+            readIRI();
+        } else if (skip.contains(Character.valueOf(ch))) {
+            consumeToken();
+        } else if (commentDelimiters.contains(Character.valueOf(ch))) {
+            consumeToken();
+            readComment();
+        } else if (delims.contains(Character.valueOf(ch))) {
+            consumeToken();
+            sb.append(ch);
+            if (ch != '@') {
+                consumeToken();
+            }
+        } else {
+            sb.append(ch);
+        }
+        return ch;
     }
 
     private void consumeToken() {
@@ -157,17 +162,7 @@ public class ManchesterOWLSyntaxTokenizer {
             char ch = readChar();
             if (ch == ESCAPE_CHAR) {
                 int j = pos + 1;
-                if (j < buffer.length()) {
-                    char escapedChar = readChar();
-                    if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
-                        sb.append(escapedChar);
-                    } else {
-                        sb.append(ch);
-                        sb.append(escapedChar);
-                    }
-                } else {
-                    sb.append('\\');
-                }
+                handleEscapeChar(ch, j);
             } else if (ch == terminator) {
                 if (appendTerminator) {
                     sb.append(ch);
@@ -180,6 +175,20 @@ public class ManchesterOWLSyntaxTokenizer {
         consumeToken();
     }
 
+    protected void handleEscapeChar(char ch, int j) {
+        if (j < buffer.length()) {
+            char escapedChar = readChar();
+            if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
+                sb.append(escapedChar);
+            } else {
+                sb.append(ch);
+                sb.append(escapedChar);
+            }
+        } else {
+            sb.append('\\');
+        }
+    }
+
     private void readIRI() {
         sb = new StringBuilder("<");
         int startPos1 = pos;
@@ -190,12 +199,12 @@ public class ManchesterOWLSyntaxTokenizer {
                 pos = startPos1;
                 sb = new StringBuilder("<");
                 consumeToken();
-                break;
+                return;
             } else if (ch == '>') {
                 // End of IRI
                 sb.append('>');
                 consumeToken();
-                break;
+                return;
             } else {
                 sb.append(ch);
             }
@@ -216,7 +225,7 @@ public class ManchesterOWLSyntaxTokenizer {
     /** Token. */
     public static class Token {
 
-        @Nonnull private final String token;
+        @Nonnull private final String currentToken;
         private final int pos;
         private final int col;
         private final int row;
@@ -232,7 +241,7 @@ public class ManchesterOWLSyntaxTokenizer {
          *        row
          */
         public Token(String token, int pos, int col, int row) {
-            this.token = token;
+            currentToken = token;
             this.pos = pos;
             this.col = col;
             this.row = row;
@@ -242,7 +251,7 @@ public class ManchesterOWLSyntaxTokenizer {
          * @return token
          */
         public String getToken() {
-            return token;
+            return currentToken;
         }
 
         /**
@@ -268,7 +277,7 @@ public class ManchesterOWLSyntaxTokenizer {
 
         @Override
         public String toString() {
-            return token + " [" + pos + ", " + col + ", " + row + ']';
+            return currentToken + " [" + pos + ", " + col + ", " + row + ']';
         }
     }
 }

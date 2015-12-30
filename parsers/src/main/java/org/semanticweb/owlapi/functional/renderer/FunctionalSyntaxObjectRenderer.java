@@ -42,6 +42,39 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
+    class AxiomRetriever implements OWLEntityVisitorEx<Stream<? extends OWLAxiom>> {
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLClass cls) {
+            return ont.axioms(cls, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
+            return ont.axioms(individual, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
+            return ont.axioms(datatype, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
+    }
+
     @Nonnull private DefaultPrefixManager defaultPrefixManager;
     private PrefixManager prefixManager;
     protected final OWLOntology ont;
@@ -203,8 +236,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeSortedEntities("Named Individuals", "Individual", ontology.individualsInSignature(EXCLUDED),
             writtenAxioms);
         signature.forEach(e -> writeAxioms(e, writtenAxioms));
-        sortOptionally(ontology.axioms().filter(ax -> !writtenAxioms.contains(ax)))
-            .forEach(this::acceptAndReturn);
+        sortOptionally(ontology.axioms().filter(ax -> !writtenAxioms.contains(ax))).forEach(this::acceptAndReturn);
         writeCloseBracket();
         flush();
     }
@@ -281,10 +313,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms, Set<OWLAxiom> alreadyWrittenAxioms) {
         writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity) + ")");
         writeReturn();
-        annotationAssertionAxioms.stream()
-            .filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
-        axiomsForEntity.stream().filter(this::shouldWrite)
-            .filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
+        annotationAssertionAxioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
+        axiomsForEntity.stream().filter(this::shouldWrite).filter(alreadyWrittenAxioms::add)
+            .forEach(this::acceptAndReturn);
         writeReturn();
     }
 
@@ -300,38 +331,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private Stream<? extends OWLAxiom> getUnsortedAxiomsForEntity(OWLEntity entity) {
-        return entity.accept(new OWLEntityVisitorEx<Stream<? extends OWLAxiom>>() {
-
-            @Override
-            public Stream<? extends OWLAxiom> visit(OWLClass cls) {
-                return ont.axioms(cls, EXCLUDED);
-            }
-
-            @Override
-            public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
-                return ont.axioms(property, EXCLUDED);
-            }
-
-            @Override
-            public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
-                return ont.axioms(property, EXCLUDED);
-            }
-
-            @Override
-            public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
-                return ont.axioms(individual, EXCLUDED);
-            }
-
-            @Override
-            public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
-                return ont.axioms(datatype, EXCLUDED);
-            }
-
-            @Override
-            public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
-                return ont.axioms(property, EXCLUDED);
-            }
-        });
+        return entity.accept(new AxiomRetriever());
     }
 
     private String getIRIString(OWLEntity entity) {
@@ -344,23 +344,16 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private void writeAxioms(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         writeAnnotations(entity, alreadyWrittenAxioms);
-        List<? extends OWLAxiom> axs = sortOptionally(getUnsortedAxiomsForEntity(entity));
-        Set<OWLAxiom> writtenAxioms = new HashSet<>();
-        for (OWLAxiom ax : axs) {
-            if (alreadyWrittenAxioms.contains(ax)) {
-                continue;
-            }
-            if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
-                continue;
-            }
-            if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-                && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2) {
-                continue;
-            }
+        List<OWLAxiom> writtenAxioms = new ArrayList<>();
+        Stream<? extends OWLAxiom> stream = getUnsortedAxiomsForEntity(entity).filter(alreadyWrittenAxioms::contains)
+            .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS))
+            .filter(ax -> ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
+                && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2);
+        sortOptionally(stream).forEach(ax -> {
             ax.accept(this);
             writtenAxioms.add(ax);
             writeReturn();
-        }
+        });
         alreadyWrittenAxioms.addAll(writtenAxioms);
     }
 
@@ -385,10 +378,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         Collection<OWLDeclarationAxiom> axioms = sortOptionally(ont.declarationAxioms(entity));
         axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
         // if multiple illegal declarations already exist, they have already
-        // been outputted
-        // the renderer cannot take responsibility for removing them
-        // It should not add declarations for illegally punned entities here,
-        // though
+        // been outputted the renderer cannot take responsibility for removing
+        // them. It should not add declarations for illegally punned entities
+        // here, though
         if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn() && !illegals.contains(entity.getIRI())
             && !ont.isDeclared(entity, Imports.INCLUDED)) {
             OWLDeclarationAxiom declaration = ont.getOWLOntologyManager().getOWLDataFactory()

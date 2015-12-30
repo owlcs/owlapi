@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.io;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -29,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
 
-    private boolean includeStackTraceInMessage = true;
+    private final boolean includeStackTraceInMessage;
     private final IRI documentIRI;
     private final Map<OWLParser, OWLParserException> exceptions;
 
@@ -42,7 +44,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      *        the configuration object
      */
     public UnparsableOntologyException(IRI documentIRI, Map<OWLParser, OWLParserException> exceptions,
-            OWLOntologyLoaderConfiguration config) {
+        OWLOntologyLoaderConfiguration config) {
         super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
         includeStackTraceInMessage = config.isReportStackTrace();
         this.documentIRI = documentIRI;
@@ -55,7 +57,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         msg.append("Problem parsing ");
         msg.append(documentIRI);
         msg.append(
-                "\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
+            "\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
         int counter = 1;
         for (OWLParser parser : exceptions.keySet()) {
             msg.append(counter);
@@ -78,26 +80,29 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
                 msg.append("    Stack trace:\n");
                 Throwable current = exception;
                 // print up to five nested causes
-                boolean moreStackTraces = true;
-                for (int i = 0; i < 5 && moreStackTraces; i++) {
-                    msg.append(current.getMessage());
-                    StackTraceElement[] stackTrace = current.getStackTrace();
-                    for (int stackDepth = 0; stackDepth < 10 && stackDepth < stackTrace.length; stackDepth++) {
-                        StackTraceElement element = stackTrace[stackDepth];
-                        msg.append("        ");
-                        msg.append(element);
-                        msg.append('\n');
-                    }
-                    if (current.getCause() != null && current.getCause() != current) {
-                        current = current.getCause();
-                    } else {
-                        moreStackTraces = false;
-                    }
+                for (int i = 0; i < 5 && current != null; i++) {
+                    current = addFrame(msg, current);
                 }
                 msg.append("\n\n");
             }
         }
         return msg.toString();
+    }
+
+    @Nullable
+    protected Throwable addFrame(StringBuilder msg, Throwable current) {
+        msg.append(current.getMessage());
+        StackTraceElement[] stackTrace = current.getStackTrace();
+        for (int stackDepth = 0; stackDepth < 10 && stackDepth < stackTrace.length; stackDepth++) {
+            StackTraceElement element = stackTrace[stackDepth];
+            msg.append("        ");
+            msg.append(element);
+            msg.append('\n');
+        }
+        if (current.getCause() != null && current.getCause() != current) {
+            return current.getCause();
+        }
+        return null;
     }
 
     /**

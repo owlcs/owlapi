@@ -126,25 +126,30 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
                     break;
                 }
             }
-            if (!earlyTermination) {
-                // Generate a new node - i.e. a new justification set
-                Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());
-                if (!newMUPS.isEmpty()) {
-                    // We have a new justification set, and a new node
-                    if (!allMups.contains(newMUPS)) {
-                        // Entirely new justification set
-                        allMups.add(newMUPS);
-                        constructHittingSetTree(newMUPS, allMups, satPaths, currentPathContents);
-                    }
-                } else {
-                    // End of current path - add it to the list of paths
-                    satPaths.add(new HashSet<>(currentPathContents));
-                }
-            }
+            handleLateTermination(allMups, satPaths, currentPathContents, earlyTermination);
             // Back track - go one level up the tree and run for the next axiom
             currentPathContents.remove(axiom);
             // Done with the axiom that was removed. Add it back in
             man.applyChange(new AddAxiom(ontology, axiom));
+        }
+    }
+
+    protected void handleLateTermination(Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
+        Set<OWLAxiom> currentPathContents, boolean earlyTermination) throws OWLException {
+        if (!earlyTermination) {
+            // Generate a new node - i.e. a new justification set
+            Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());
+            if (!newMUPS.isEmpty()) {
+                // We have a new justification set, and a new node
+                if (!allMups.contains(newMUPS)) {
+                    // Entirely new justification set
+                    allMups.add(newMUPS);
+                    constructHittingSetTree(newMUPS, allMups, satPaths, currentPathContents);
+                }
+            } else {
+                // End of current path - add it to the list of paths
+                satPaths.add(new HashSet<>(currentPathContents));
+            }
         }
     }
 }

@@ -305,25 +305,18 @@ public class OWLOntologyManagerImpl
             // been recorded, based on the mappers, but an ontology has not
             // been stored in ontologiesByID
             if (result == null) {
-                IRI documentIRI = getDocumentIRIFromMappers(id);
-                if (documentIRI == null) {
-                    if (!id.isAnonymous()) {
-                        documentIRI = id.getDefaultDocumentIRI().orElse(null);
-                    } else {
-                        documentIRI = IRI.generateDocumentIRI();
-                    }
-                    Collection<IRI> existingDocumentIRIs = documentIRIsByID.values();
-                    while (existingDocumentIRIs.contains(documentIRI)) {
-                        documentIRI = IRI.generateDocumentIRI();
-                    }
-                }
-                if (documentIRIsByID.values().contains(documentIRI)) {
-                    throw new OWLRuntimeException(new OWLOntologyDocumentAlreadyExistsException(documentIRI));
-                }
+                checkDocumentIRI(id);
             }
             return result;
         } finally {
             readLock.unlock();
+        }
+    }
+
+    protected void checkDocumentIRI(OWLOntologyID id) {
+        IRI documentIRI = getDocumentIRIFromMappers(id);
+        if (documentIRI != null && documentIRIsByID.values().contains(documentIRI)) {
+            throw new OWLRuntimeException(new OWLOntologyDocumentAlreadyExistsException(documentIRI));
         }
     }
 

@@ -132,12 +132,11 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         header();
         write("<h1>").write(ontology.getOntologyID().toString()).write("</h1>\n");
         write("<div><div class='box'>\n");
-        ontology.importsDeclarations().forEach(d -> {
-            write("Imports: ").write(d.getIRI()).write("\n");
-        });
+        ontology.importsDeclarations().forEach(d -> write("Imports: ").write(d.getIRI()).write("\n"));
         write("<h2>Classes</h2>\n").writeCollection(ontology.classesInSignature());
-        write("</div>\n<div class='box'>\n<h2>Properties</h2>\n").writeCollection(ontology
-            .objectPropertiesInSignature()).writeCollection(ontology.dataPropertiesInSignature());
+        write("</div>\n<div class='box'>\n<h2>Properties</h2>\n")
+            .writeCollection(ontology.objectPropertiesInSignature())
+            .writeCollection(ontology.dataPropertiesInSignature());
         write("</div>\n<div class='box'>\n<h2>Individuals</h2>\n").writeCollection(ontology.individualsInSignature())
             .write("</div>");
         write("<div><div class='box'><h2>Axioms</h2>\n");
