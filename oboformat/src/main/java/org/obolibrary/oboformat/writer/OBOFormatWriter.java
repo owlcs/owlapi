@@ -102,15 +102,14 @@ public class OBOFormatWriter {
         set.add(OboFormatTag.TAG_INTERSECTION_OF.getTag());
         set.add(OboFormatTag.TAG_UNION_OF.getTag());
         set.add(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
-        // removed to be compatible with OBO-Edit
-        // set.add( OboFormatTag.TAG_REPLACED_BY.getTag());
+        // removed OboFormatTag.TAG_REPLACED_BY to be compatible with OBO-Edit
         set.add(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
         set.add(OboFormatTag.TAG_DOMAIN.getTag());
         set.add(OboFormatTag.TAG_RANGE.getTag());
         set.add(OboFormatTag.TAG_INVERSE_OF.getTag());
         set.add(OboFormatTag.TAG_TRANSITIVE_OVER.getTag());
-        // removed to be compatible with OBO-Edit
-        // set.add( OboFormatTag.TAG_HOLDS_OVER_CHAIN.getTag());
+        // removed OboFormatTag.TAG_HOLDS_OVER_CHAIN to be compatible with
+        // OBO-Edit
         set.add(OboFormatTag.TAG_EQUIVALENT_TO_CHAIN.getTag());
         set.add(OboFormatTag.TAG_DISJOINT_OVER.getTag());
         return set;

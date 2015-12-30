@@ -306,15 +306,7 @@ public class OBOFormatParser {
                     OBOFormatParser parser = new OBOFormatParser();
                     OBODoc doc = parser.parseURL(path);
                     imports.add(doc);
-                } /*
-                   * else{ //build a proxy document which reference import path
-                   * as ontology id Frame importHeaer = new
-                   * Frame(FrameType.HEADER); Clause ontologyCl = new Clause();
-                   * ontologyCl.setTag(OboFormatTag.TAG_ONTOLOGY.getTag());
-                   * ontologyCl.setValue(path);
-                   * importHeaer.addClause(ontologyCl);
-                   * doc.setHeaderFrame(importHeaer); }
-                   */
+                }
             }
             obodoc.setImportedOBODocs(imports);
         }
@@ -629,17 +621,11 @@ public class OBOFormatParser {
             // unfortunately OE does not prohibit this, so subsets with spaces
             // frequently escape. We should either allow spaces in the spec
             // (with complicates parsing) or forbid them and reject all obo
-            // documents
-            // that do not conform. Unfortunately that would limit the utility
-            // of
-            // this parser, so for now we allow spaces. We may make it strict
-            // again
-            // when community is sufficiently forewarned.
+            // documents that do not conform. Unfortunately that would limit
+            // the utility of this parser, so for now we allow spaces. We may
+            // make it strict again when community is sufficiently forewarned.
             // (alternatively we may add smarts to OE to translate the spaces to
-            // underscores,
-            // so it's a one-off translation)
-            //
-            // return parseIdRef(cl);
+            // underscores, so it's a one-off translation)
             parseUnquotedString(cl);
         } else if (tag == OboFormatTag.TAG_SYNONYM) {
             parseSynonym(cl);
@@ -1172,9 +1158,12 @@ public class OBOFormatParser {
         return true;
     }
 
-    // ----------------------------------------
-    // Qualifier Value blocks - e.g. {a="1",b="foo", ...}
-    // ----------------------------------------
+    /**
+     * Qualifier Value blocks - e.g. {a="1",b="foo", ...}
+     * 
+     * @param cl
+     *        clause
+     */
     private void parseQualifierBlock(Clause cl) {
         if (stream.consume("{")) {
             parseZeroOrMoreQuals(cl);

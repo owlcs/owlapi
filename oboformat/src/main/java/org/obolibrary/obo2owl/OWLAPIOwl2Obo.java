@@ -415,7 +415,7 @@ public class OWLAPIOwl2Obo {
                         prop = ex.asOWLObjectProperty();
                     }
                 } else {
-                    disjointFrom = getIdentifier(ex); // getIdentifier(ex);
+                    disjointFrom = getIdentifier(ex);
                 }
             }
             if (trObjectProperty(prop, tag, disjointFrom, ax.annotations())) {
@@ -663,7 +663,7 @@ public class OWLAPIOwl2Obo {
             error("ranges using top or bottom entities are not translatable to OBO.", ax, false);
             return;
         }
-        String range = getIdentifier(owlRange); // getIdentifier(ax.getRange());
+        String range = getIdentifier(owlRange);
         if (range != null && trObjectProperty(prop, OboFormatTag.TAG_RANGE.getTag(), range, ax.annotations())) {
             return;
         }
@@ -1095,7 +1095,6 @@ public class OWLAPIOwl2Obo {
      * @return the ontology id
      */
     public static String getOntologyId(IRI iriObj) {
-        // String id = getIdentifier(ontology.getOntologyID().getOntologyIRI());
         String iri = iriObj.toString();
         String id;
         if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
@@ -1106,12 +1105,6 @@ public class OWLAPIOwl2Obo {
         } else {
             id = iri;
         }
-        // int index = iri.lastIndexOf("/");
-        // id = iri.substring(index+1);
-        // index = id.lastIndexOf(".owl");
-        // if(index>0){
-        // id = id.substring(0, index);
-        // }
         return id;
     }
 
@@ -1774,10 +1767,6 @@ public class OWLAPIOwl2Obo {
     public static String getIdentifier(IRI iriId) {
         String iri = iriId.toString();
         // canonical IRIs
-        // if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
-        // String canonicalId = iri.replace("http://purl.obolibrary.org/obo/",
-        // "");
-        // }
         String id = getId(iri);
         String[] s = id.split("#_");
         // table 5.9.2 row 2 - NonCanonical-Prefixed-ID
@@ -1787,23 +1776,10 @@ public class OWLAPIOwl2Obo {
         // row 3 - Unprefixed-ID
         s = id.split("#");
         if (s.length > 1) {
-            // prefixURI = prefixURI + s[0] + "#";
-            // if(!(s[1].contains("#") || s[1].contains("_"))){
             String prefix = "";
             if ("owl".equals(s[0]) || "rdf".equals(s[0]) || "rdfs".equals(s[0])) {
                 prefix = s[0] + ':';
             }
-            // TODO: the following implements behavior in current spec, but this
-            // leads to undesirable results
-            // else if (baseOntology != null) {
-            // String oid = getOntologyId(baseOntology); // OBO-style ID
-            // if (oid.equals(s[0]))
-            // prefix = "";
-            // else {
-            // return iri;
-            // }
-            // //prefix = s[0];
-            // }
             return prefix + s[1];
         }
         // row 1 - Canonical-Prefixed-ID

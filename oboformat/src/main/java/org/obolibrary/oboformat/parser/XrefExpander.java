@@ -81,8 +81,6 @@ public class XrefExpander {
      */
     public final void setUp() {
         // required for translation of IDs
-        // obo2owl = new Obo2Owl();
-        // obo2owl.setObodoc(sourceOBODoc);
         Map<String, String> relationsUseByIdSpace = new HashMap<>();
         Frame headerFrame = sourceOBODoc.getHeaderFrame();
         if (headerFrame != null) {
@@ -98,21 +96,12 @@ public class XrefExpander {
                 }
                 if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag())) {
                     addRule(parts[0], new EquivalenceExpansion());
-                    // addMacro(idSpace,"is_specific_equivalent_of","Class: ?X
-                    // EquivalentTo: ?Y and "+oboIdToIRI(parts[1])+" some
-                    // "+oboIdToIRI(parts[2]));
                 } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
                     addRule(idSpace, new GenusDifferentiaExpansion(parts[1], parts[2]));
-                    // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
-                    // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
-                    // "+oboIdToIRI(parts[2]));
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];
                 } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
                     addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
-                    // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
-                    // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
-                    // "+oboIdToIRI(parts[2]));
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];
                 } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag())) {
@@ -137,10 +126,8 @@ public class XrefExpander {
                     if (relation != null) {
                         // See 4.4.2
                         // "In addition, any Typedef frames for relations used
-                        // in a
-                        // header macro
-                        // are also copied into the corresponding bridge
-                        // ontology
+                        // in a header macro are also copied into the
+                        // corresponding bridge ontology
                         Frame tdf = sourceOBODoc.getTypedefFrame(relation);
                         if (tdf != null) {
                             try {

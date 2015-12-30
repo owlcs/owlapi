@@ -462,18 +462,6 @@ public class Clause {
         if (!collectionsEquals(xrefs, other.getXrefs())) {
             return false;
         }
-        // if (xrefs != null) {
-        // if (other.getXrefs() == null) {
-        // return false;
-        // }
-        // if (!xrefs.equals(other.getXrefs())) {
-        // return false;
-        // }
-        // } else {
-        // if (other.getXrefs() != null && other.getXrefs().size() > 0) {
-        // return false;
-        // }
-        // }
         return collectionsEquals(qualifierValues, other.getQualifierValues());
     }
 
