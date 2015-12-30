@@ -266,26 +266,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    Collection<OWLDataPropertyExpression> disjs = asList(axiom.properties());
-                    int size = disjs.size();
-                    if (size == 1) {
-                        // XXX actually being here means the axiom is not OWL 2
-                        // conformant
-                        isLocal = true;
-                    } else {
-                        boolean nonBottomEquivPropFound = false;
-                        for (OWLDataPropertyExpression dpe : disjs) {
-                            if (getSignature().contains(dpe.asOWLDataProperty())) {
-                                if (nonBottomEquivPropFound) {
-                                    isLocal = false;
-                                    return;
-                                } else {
-                                    nonBottomEquivPropFound = true;
-                                }
-                            }
-                        }
-                    }
-                    isLocal = true;
+                    isLocal = checkIfLocalProperties(axiom);
                     break;
                 case TOP_TOP:
                     isLocal = false;
@@ -295,32 +276,32 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
+        protected boolean checkIfLocalProperties(OWLNaryPropertyAxiom<? extends OWLPropertyExpression> axiom) {
+            Collection<? extends OWLPropertyExpression> disjs = asList(axiom.properties());
+            int size = disjs.size();
+            if (size > 1) {
+                boolean nonBottomEquivPropFound = false;
+                for (OWLPropertyExpression dpe : disjs) {
+                    if (dpe.isOWLDataProperty() && getSignature().contains(dpe.asOWLDataProperty())
+                        || dpe.isOWLObjectProperty() && getSignature().contains(dpe.asOWLObjectProperty())) {
+                        if (nonBottomEquivPropFound) {
+                            return false;
+                        } else {
+                            nonBottomEquivPropFound = true;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         // BUGFIX (TS): Added the case where it *is* local
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    Collection<OWLObjectPropertyExpression> disjs = asList(axiom.properties());
-                    int size = disjs.size();
-                    if (size == 1) {
-                        // XXX actually being here means the axiom is not OWL 2
-                        // conformant
-                        isLocal = true;
-                    } else {
-                        boolean nonBottomEquivPropFound = false;
-                        for (OWLObjectPropertyExpression ope : disjs) {
-                            if (getSignature().contains(ope.getNamedProperty())) {
-                                if (nonBottomEquivPropFound) {
-                                    isLocal = false;
-                                    return;
-                                } else {
-                                    nonBottomEquivPropFound = true;
-                                }
-                            }
-                        }
-                    }
-                    isLocal = true;
+                    isLocal = checkIfLocalProperties(axiom);
                     break;
                 case TOP_TOP:
                     isLocal = false;
@@ -589,21 +570,12 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_BOTTOM:
                     // Axiom is local iff at least one prop in the chain is
                     // bot-equiv
-                    for (OWLObjectPropertyExpression ope : axiom.getPropertyChain()) {
-                        if (!getSignature().contains(ope.getNamedProperty())) {
-                            isLocal = true;
-                            return;
-                        }
-                    }
-                    isLocal = false;
+                    isLocal = axiom.getPropertyChain().stream()
+                        .anyMatch(ope -> !getSignature().contains(ope.getNamedProperty()));
                     break;
                 case TOP_TOP:
                     // Axiom is local iff RHS is top-equiv
-                    if (!getSignature().contains(axiom.getSuperProperty().getNamedProperty())) {
-                        isLocal = true;
-                    } else {
-                        isLocal = false;
-                    }
+                    isLocal = !getSignature().contains(axiom.getSuperProperty().getNamedProperty());
                     break;
                 default:
                     break;
@@ -1158,8 +1130,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             switch (getLocality()) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = ce.getCardinality() == 0 && !signature.contains(ce.getProperty()
-                        .asOWLDataProperty());
+                    isTopEquivalent = ce.getCardinality() == 0
+                        && !signature.contains(ce.getProperty().asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isTopEquivalent = false;
@@ -1272,9 +1244,9 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             switch (getLocality()) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = ce.getCardinality() == 0 && (!signature.contains(ce.getProperty()
-                        .getNamedProperty())
-                        || bottomEvaluator.isBottomEquivalent(ce.getFiller(), getSignature(), getLocality()));
+                    isTopEquivalent = ce.getCardinality() == 0
+                        && (!signature.contains(ce.getProperty().getNamedProperty())
+                            || bottomEvaluator.isBottomEquivalent(ce.getFiller(), getSignature(), getLocality()));
                     break;
                 case TOP_TOP:
                     isTopEquivalent = ce.getCardinality() == 0

@@ -44,6 +44,31 @@ import org.xml.sax.helpers.LocatorImpl;
  */
 public class RDFParser extends DefaultHandler implements IRIProvider {
 
+    class DeclarationHandler implements DeclHandler {
+
+        @Override
+        public void internalEntityDecl(@Nullable String name, @Nullable String value) {
+            consumer.addPrefix(checkNotNull(name), checkNotNull(value));
+        }
+
+        @Override
+        public void externalEntityDecl(@Nullable String name, @Nullable String publicId,
+            @Nullable String systemId) {
+            // nothing to do here
+        }
+
+        @Override
+        public void elementDecl(@Nullable String name, @Nullable String model) {
+            // nothing to do here
+        }
+
+        @Override
+        public void attributeDecl(@Nullable String eName, @Nullable String aName, @Nullable String type,
+            @Nullable String mode, @Nullable String value) {
+            // nothing to do here
+        }
+    }
+
     private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     @Nonnull protected static final Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
@@ -119,30 +144,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             baseIRI = IRI.create(new URI(source.getSystemId()));
             consumer = inputConsumer;
             inputConsumer.startModel(getBaseIRI());
-            DeclHandler handler = new DeclHandler() {
-
-                @Override
-                public void internalEntityDecl(@Nullable String name, @Nullable String value) {
-                    consumer.addPrefix(checkNotNull(name), checkNotNull(value));
-                }
-
-                @Override
-                public void externalEntityDecl(@Nullable String name, @Nullable String publicId,
-                    @Nullable String systemId) {
-                    // nothing to do here
-                }
-
-                @Override
-                public void elementDecl(@Nullable String name, @Nullable String model) {
-                    // nothing to do here
-                }
-
-                @Override
-                public void attributeDecl(@Nullable String eName, @Nullable String aName, @Nullable String type,
-                    @Nullable String mode, @Nullable String value) {
-                    // nothing to do here
-                }
-            };
+            DeclHandler handler = new DeclarationHandler();
             SAXParsers.initParserWithOWLAPIStandards(handler).parse(source, this);
             inputConsumer.endModel();
         } catch (URISyntaxException e) {

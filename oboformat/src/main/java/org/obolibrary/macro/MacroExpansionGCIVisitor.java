@@ -78,15 +78,8 @@ public class MacroExpansionGCIVisitor {
             inputOntology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(axiom -> axiom.accept(visitor));
             inputOntology.axioms(AxiomType.CLASS_ASSERTION).forEach(axiom -> axiom.accept(visitor));
             inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).forEach(this::expand);
-            // .forEach(ax-> System.out.println("not removing" + ax)) ;
         }
 
-        // private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {
-        // if (!ax.equals(exAx)) {
-        // newAxioms.add(exAx);
-        // rmAxioms.add(ax);
-        // }
-        // }
         public Set<OWLAxiom> getNewAxioms() {
             return newAxioms;
         }
@@ -123,6 +116,42 @@ public class MacroExpansionGCIVisitor {
 
     private class GCIVisitor extends AbstractMacroExpansionVisitor {
 
+        class ClassVisitor extends AbstractMacroExpansionVisitor.AbstractClassExpressionVisitorEx {
+
+            private Set<OWLAxiom> newAxioms;
+
+            public ClassVisitor(Set<OWLAxiom> newAxioms) {
+                this.newAxioms = newAxioms;
+            }
+
+            @Override
+            @Nullable
+            protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler, OWLObjectPropertyExpression p) {
+                OWLClassExpression gciRHS = expandObject(filler, p);
+                if (gciRHS != null) {
+                    OWLClassExpression gciLHS = df.getOWLObjectSomeValuesFrom(p, filler);
+                    OWLEquivalentClassesAxiom ax = df.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
+                        expansionMarkingAnnotations);
+                    newAxioms.add(ax);
+                }
+                return gciRHS;
+            }
+
+            @Override
+            @Nullable
+            protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
+                OWLObjectPropertyExpression p) {
+                OWLClassExpression gciRHS = expandObject(filler, p);
+                if (gciRHS != null) {
+                    OWLClassExpression gciLHS = df.getOWLObjectHasValue(p, filler);
+                    OWLEquivalentClassesAxiom ax = df.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
+                        expansionMarkingAnnotations);
+                    newAxioms.add(ax);
+                }
+                return gciRHS;
+            }
+        }
+
         final Set<OWLAnnotation> expansionMarkingAnnotations;
 
         GCIVisitor(OWLOntology inputOntology, Set<OWLAxiom> newAxioms) {
@@ -133,36 +162,7 @@ public class MacroExpansionGCIVisitor {
                 expansionMarkingAnnotations = EMPTY_ANNOTATIONS;
             }
             rangeVisitor = dataVisitor;
-            classVisitor = new AbstractMacroExpansionVisitor.AbstractClassExpressionVisitorEx() {
-
-                @Override
-                @Nullable
-                protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
-                    OWLObjectPropertyExpression p) {
-                    OWLClassExpression gciRHS = expandObject(filler, p);
-                    if (gciRHS != null) {
-                        OWLClassExpression gciLHS = df.getOWLObjectSomeValuesFrom(p, filler);
-                        OWLEquivalentClassesAxiom ax = df.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
-                            expansionMarkingAnnotations);
-                        newAxioms.add(ax);
-                    }
-                    return gciRHS;
-                }
-
-                @Override
-                @Nullable
-                protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
-                    OWLObjectPropertyExpression p) {
-                    OWLClassExpression gciRHS = expandObject(filler, p);
-                    if (gciRHS != null) {
-                        OWLClassExpression gciLHS = df.getOWLObjectHasValue(p, filler);
-                        OWLEquivalentClassesAxiom ax = df.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
-                            expansionMarkingAnnotations);
-                        newAxioms.add(ax);
-                    }
-                    return gciRHS;
-                }
-            };
+            classVisitor = new ClassVisitor(newAxioms);
             rebuild(inputOntology);
         }
     }

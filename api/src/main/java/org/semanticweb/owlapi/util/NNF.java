@@ -26,9 +26,64 @@ import org.semanticweb.owlapi.model.*;
  */
 public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
-    protected boolean negated;
-    protected final OWLDataFactory df;
-    protected final OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor = new OWLClassExpressionVisitorEx<OWLClassExpression>() {
+    class DataVisitor implements OWLDataRangeVisitorEx<OWLDataRange> {
+
+        @Override
+        public OWLDataRange visit(OWLDatatype node) {
+            if (negated) {
+                return df.getOWLDataComplementOf(node);
+            }
+            return node;
+        }
+
+        @Override
+        public OWLDataRange visit(OWLDataComplementOf node) {
+            if (negated) {
+                return node.getDataRange();
+            }
+            return node;
+        }
+
+        @Override
+        public OWLDataRange visit(OWLDataOneOf node) {
+            if (node.values().count() == 1) {
+                if (negated) {
+                    return df.getOWLDataComplementOf(node);
+                }
+                return node;
+            }
+            return df.getOWLDataUnionOf(node.values().map(df::getOWLDataOneOf)).accept(this);
+        }
+
+        @Override
+        public OWLDataRange visit(OWLDataIntersectionOf node) {
+            Stream<OWLDataRange> ops = node.operands().map(p -> p.accept(this));
+            if (negated) {
+                return df.getOWLDataUnionOf(ops);
+            }
+            return df.getOWLDataIntersectionOf(ops);
+        }
+
+        @Override
+        public OWLDataRange visit(OWLDataUnionOf node) {
+            Stream<OWLDataRange> ops = node.operands().map(p -> p.accept(this));
+            if (negated) {
+                // Flip to an intersection
+                return df.getOWLDataIntersectionOf(ops);
+            }
+            return df.getOWLDataUnionOf(ops);
+        }
+
+        @Override
+        public OWLDataRange visit(OWLDatatypeRestriction node) {
+            if (negated) {
+                return df.getOWLDataComplementOf(node);
+            }
+            return node;
+        }
+    }
+
+    class ClassVisitor implements OWLClassExpressionVisitorEx<OWLClassExpression> {
 
         private OWLClassExpression getNegation(OWLClassExpression classExpression) {
             return df.getOWLObjectComplementOf(classExpression);
@@ -232,63 +287,12 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
             }
             return df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
         }
-    };
-    protected final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor = new OWLDataRangeVisitorEx<OWLDataRange>() {
+    }
 
-        @Override
-        public OWLDataRange visit(OWLDatatype node) {
-            if (negated) {
-                return df.getOWLDataComplementOf(node);
-            }
-            return node;
-        }
-
-        @Override
-        public OWLDataRange visit(OWLDataComplementOf node) {
-            if (negated) {
-                return node.getDataRange();
-            }
-            return node;
-        }
-
-        @Override
-        public OWLDataRange visit(OWLDataOneOf node) {
-            if (node.values().count() == 1) {
-                if (negated) {
-                    return df.getOWLDataComplementOf(node);
-                }
-                return node;
-            }
-            return df.getOWLDataUnionOf(node.values().map(df::getOWLDataOneOf)).accept(this);
-        }
-
-        @Override
-        public OWLDataRange visit(OWLDataIntersectionOf node) {
-            Stream<OWLDataRange> ops = node.operands().map(p -> p.accept(this));
-            if (negated) {
-                return df.getOWLDataUnionOf(ops);
-            }
-            return df.getOWLDataIntersectionOf(ops);
-        }
-
-        @Override
-        public OWLDataRange visit(OWLDataUnionOf node) {
-            Stream<OWLDataRange> ops = node.operands().map(p -> p.accept(this));
-            if (negated) {
-                // Flip to an intersection
-                return df.getOWLDataIntersectionOf(ops);
-            }
-            return df.getOWLDataUnionOf(ops);
-        }
-
-        @Override
-        public OWLDataRange visit(OWLDatatypeRestriction node) {
-            if (negated) {
-                return df.getOWLDataComplementOf(node);
-            }
-            return node;
-        }
-    };
+    protected boolean negated;
+    protected final OWLDataFactory df;
+    protected final OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor = new ClassVisitor();
+    protected final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor = new DataVisitor();
 
     /**
      * @param datafactory

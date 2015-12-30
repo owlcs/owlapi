@@ -289,9 +289,6 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDeclarationAxiom axiom) {}
-
-    @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         write(axiom.individuals(), keyword("!="));
     }
@@ -627,9 +624,6 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLNamedIndividual individual) {
         write("<span class='in'>" + labelFor(individual) + "</span>");
     }
-
-    @Override
-    public void visit(SWRLRule rule) {}
 
     public String keyword(String str) {
         return "<span class='key'>" + str + "</span>";

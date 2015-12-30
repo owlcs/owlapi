@@ -1901,38 +1901,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private void processDeclaredEntities(OWLDeclarationAxiom ax) {
-        ax.getEntity().accept(new OWLEntityVisitor() {
-
-            @Override
-            public void visit(OWLAnnotationProperty property) {
-                annotationPropertyNames.add(pm.getShortForm(property.getIRI()));
-            }
-
-            @Override
-            public void visit(OWLDatatype datatype) {
-                dataTypeNames.add(pm.getShortForm(datatype.getIRI()));
-            }
-
-            @Override
-            public void visit(OWLNamedIndividual individual) {
-                individualNames.add(pm.getShortForm(individual.getIRI()));
-            }
-
-            @Override
-            public void visit(OWLDataProperty property) {
-                dataPropertyNames.add(pm.getShortForm(property.getIRI()));
-            }
-
-            @Override
-            public void visit(OWLObjectProperty property) {
-                objectPropertyNames.add(pm.getShortForm(property.getIRI()));
-            }
-
-            @Override
-            public void visit(OWLClass cls) {
-                classNames.add(pm.getShortForm(cls.getIRI()));
-            }
-        });
+        ax.getEntity().accept(new AddNames());
     }
 
     @Override
@@ -1946,20 +1915,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         while (true) {
             String section = peekToken();
             if (ONTOLOGY.matches(section)) {
-                ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
-                for (OWLImportsDeclaration decl : header.getImportsDeclarations()) {
-                    assert decl != null;
-                    imports.add(new AddImport(ont, decl));
-                    ont.getOWLOntologyManager().makeLoadImportRequest(decl, getOntologyLoaderConfiguration());
-                    OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
-                    if (imported != null) {
-                        imported.axioms(AxiomType.DECLARATION).forEach(this::processDeclaredEntities);
-                    }
-                }
-                for (OWLAnnotation anno : header.getAnnotations()) {
-                    ontologyAnnotations.add(new AddOntologyAnnotation(ont, anno));
-                }
-                ontologyID = header.getOntologyID();
+                ontologyID = handleOntology(ont, imports, ontologyAnnotations);
             } else if (DISJOINT_CLASSES.matches(section)) {
                 axioms.addAll(parseDisjointClasses());
             } else if (EQUIVALENT_CLASSES.matches(section)) {
@@ -2020,6 +1976,26 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return format;
     }
 
+    protected OWLOntologyID handleOntology(OWLOntology ont, Set<AddImport> imports,
+        Set<AddOntologyAnnotation> ontologyAnnotations) {
+        OWLOntologyID ontologyID;
+        ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
+        for (OWLImportsDeclaration decl : header.getImportsDeclarations()) {
+            assert decl != null;
+            imports.add(new AddImport(ont, decl));
+            ont.getOWLOntologyManager().makeLoadImportRequest(decl, getOntologyLoaderConfiguration());
+            OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
+            if (imported != null) {
+                imported.axioms(AxiomType.DECLARATION).forEach(this::processDeclaredEntities);
+            }
+        }
+        for (OWLAnnotation anno : header.getAnnotations()) {
+            ontologyAnnotations.add(new AddOntologyAnnotation(ont, anno));
+        }
+        ontologyID = header.getOntologyID();
+        return ontologyID;
+    }
+
     private ManchesterOWLSyntaxOntologyHeader parseOntologyHeader(boolean toEOF) {
         String tok = consumeToken();
         if (!ONTOLOGY.matches(tok)) {
@@ -2075,6 +2051,39 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
         IRI importedOntologyIRI = importedIRI.get();
         imports.add(df.getOWLImportsDeclaration(importedOntologyIRI));
+    }
+
+    class AddNames implements OWLEntityVisitor {
+
+        @Override
+        public void visit(OWLAnnotationProperty property) {
+            annotationPropertyNames.add(pm.getShortForm(property.getIRI()));
+        }
+
+        @Override
+        public void visit(OWLDatatype datatype) {
+            dataTypeNames.add(pm.getShortForm(datatype.getIRI()));
+        }
+
+        @Override
+        public void visit(OWLNamedIndividual individual) {
+            individualNames.add(pm.getShortForm(individual.getIRI()));
+        }
+
+        @Override
+        public void visit(OWLDataProperty property) {
+            dataPropertyNames.add(pm.getShortForm(property.getIRI()));
+        }
+
+        @Override
+        public void visit(OWLObjectProperty property) {
+            objectPropertyNames.add(pm.getShortForm(property.getIRI()));
+        }
+
+        @Override
+        public void visit(OWLClass cls) {
+            classNames.add(pm.getShortForm(cls.getIRI()));
+        }
     }
 
     protected class ExceptionBuilder {

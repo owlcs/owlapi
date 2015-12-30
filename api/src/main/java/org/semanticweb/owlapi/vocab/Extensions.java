@@ -14,18 +14,14 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  * the format of an input file.
  */
 public enum Extensions {
-    /** RDF/XML, common extensions: owl, rdf, rdfs */
-    RDFXML(RDFXMLDocumentFormat.class, ".owl", ".rdf",
-            ".rdfs"), /** OWL/XML, common extensions: xml, owl, rdf */
-    OWLXML(OWLXMLDocumentFormat.class, ".xml", ".owl",
-            ".rdf"), /** Turtle, common extensions: ttl, owl */
-    TURTLE(TurtleDocumentFormat.class, ".ttl",
-            ".owl"), /** OBO, common extensions: obo */
-    OBO(OBODocumentFormat.class,
-            ".obo"), /** Manchester OWL syntax, common extensions: omn, owl */
-    MANCHESTERSYNTAX(ManchesterSyntaxDocumentFormat.class, ".omn",
-            ".owl"), /** Functional sytax, common extensions: fss, owl */
-    FUNCTIONALSYNTAX(FunctionalSyntaxDocumentFormat.class, ".fss", ".owl");
+    //@formatter:off
+    /** RDF/XML, common extensions: owl, rdf, rdfs */           RDFXML              (RDFXMLDocumentFormat.class,            ".owl", ".rdf", ".rdfs"), 
+    /** OWL/XML, common extensions: xml, owl, rdf */            OWLXML              (OWLXMLDocumentFormat.class,            ".xml", ".owl", ".rdf"), 
+    /** Turtle, common extensions: ttl, owl */                  TURTLE              (TurtleDocumentFormat.class,            ".ttl", ".owl"), 
+    /** OBO, common extensions: obo */                          OBO                 (OBODocumentFormat.class,               ".obo"), 
+    /** Manchester OWL syntax, common extensions: omn, owl */   MANCHESTERSYNTAX    (ManchesterSyntaxDocumentFormat.class,  ".omn", ".owl"), 
+    /** Functional sytax, common extensions: fss, owl */        FUNCTIONALSYNTAX    (FunctionalSyntaxDocumentFormat.class,  ".fss", ".owl");
+    //@formatter:off
 
     private List<String> extensions;
     private Class<? extends OWLDocumentFormat> documentFormat;

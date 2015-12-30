@@ -1376,41 +1376,48 @@ public class OBOFormatParser {
         }
         String ret = r.substring(0, i);
         if (hasEscapedChars) {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < ret.length(); j++) {
-                char c = ret.charAt(j);
-                if (c == '\\') {
-                    int next = j + 1;
-                    if (next < ret.length()) {
-                        char nextChar = ret.charAt(next);
-                        switch (nextChar) {
-                            case 'n':// newline
-                                sb.append('\n');
-                                break;
-                            case 'W':// single space
-                                sb.append(' ');
-                                break;
-                            case 't':// tab
-                                sb.append('\n');
-                                break;
-                            default:
-                                // assume that any char after a backlash is an
-                                // escaped char.
-                                // spec for this optional behavior
-                                // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
-                                sb.append(nextChar);
-                                break;
-                        }
-                        j += 1;// skip the next char
-                    }
-                } else {
-                    sb.append(c);
-                }
-            }
-            ret = sb.toString();
+            ret = handleEscapedChars(ret);
         }
         stream.advance(i);
         return stringCache.get(ret);
+    }
+
+    protected String handleEscapedChars(String ret) {
+        StringBuilder sb = new StringBuilder();
+        for (int j = 0; j < ret.length(); j++) {
+            char c = ret.charAt(j);
+            if (c == '\\') {
+                int next = j + 1;
+                if (next < ret.length()) {
+                    char nextChar = ret.charAt(next);
+                    handleNextChar(sb, nextChar);
+                    j += 1;// skip the next char
+                }
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    protected void handleNextChar(StringBuilder sb, char nextChar) {
+        switch (nextChar) {
+            case 'n':// newline
+                sb.append('\n');
+                break;
+            case 'W':// single space
+                sb.append(' ');
+                break;
+            case 't':// tab
+                sb.append('\n');
+                break;
+            default:
+                // assume that any char after a backlash is an escaped char.
+                // spec for this optional behavior
+                // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
+                sb.append(nextChar);
+                break;
+        }
     }
 
     private static String mapDeprecatedTag(String tag) {

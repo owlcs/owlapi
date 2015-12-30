@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.util.OWLObjectWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.StructureWalker;
 
@@ -31,6 +32,41 @@ import org.semanticweb.owlapi.util.StructureWalker;
  * @author ignazio
  */
 public class OWLOntologyProfileWalker extends OWLOntologyWalker {
+
+    class ProfileWalker extends StructureWalker<OWLOntology> {
+
+        ProfileWalker(OWLObjectWalker<OWLOntology> owlObjectWalker) {
+            super(owlObjectWalker);
+        }
+
+        @Override
+        public void visit(OWLAnnotationAssertionAxiom axiom) {
+            process(axiom);
+            if (axiom.getSubject().isIRI()) {
+                // do not visit anonymous nodes from annotations
+                axiom.getSubject().accept(this);
+            }
+            axiom.getAnnotation().accept(this);
+        }
+
+        @Override
+        public void visit(OWLAnnotation node) {
+            process(node);
+            node.getProperty().accept(this);
+            // only visit IRIs
+            if (node.getValue().isIRI()) {
+                node.getValue().accept(this);
+            }
+        }
+
+        @Override
+        public void visit(OWLDeclarationAxiom axiom) {
+            process(axiom);
+            walkerCallback.setAxiom(axiom);
+            // do not visit entities from declarations, only their IRIs
+            axiom.getEntity().getIRI().accept(this);
+        }
+    }
 
     /**
      * @param objects
@@ -46,35 +82,6 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
      */
     public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
         super(objects);
-        setStructureWalker(new StructureWalker<OWLOntology>(this) {
-
-            @Override
-            public void visit(OWLAnnotationAssertionAxiom axiom) {
-                process(axiom);
-                if (axiom.getSubject().isIRI()) {
-                    // do not visit anonymous nodes from annotations
-                    axiom.getSubject().accept(this);
-                }
-                axiom.getAnnotation().accept(this);
-            }
-
-            @Override
-            public void visit(OWLAnnotation node) {
-                process(node);
-                node.getProperty().accept(this);
-                // only visit IRIs
-                if (node.getValue().isIRI()) {
-                    node.getValue().accept(this);
-                }
-            }
-
-            @Override
-            public void visit(OWLDeclarationAxiom axiom) {
-                process(axiom);
-                walkerCallback.setAxiom(axiom);
-                // do not visit entities from declarations, only their IRIs
-                axiom.getEntity().getIRI().accept(this);
-            }
-        });
+        setStructureWalker(new ProfileWalker(this));
     }
 }
