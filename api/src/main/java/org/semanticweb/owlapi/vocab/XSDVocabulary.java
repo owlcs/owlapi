@@ -59,6 +59,7 @@ public enum XSDVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     /** NAME. */                 NAME            ("Name"),
     /** NCNAME. */               NCNAME          ("NCName"),
     /** NMTOKEN. */              NMTOKEN         ("NMTOKEN"),
+    /** NMTOKENS. */             NMTOKENS        ("NMTOKENS"),
     /** ID. */                   ID              ("ID"),
     /** IDREF. */                IDREF           ("IDREF"),
     /** IDREFS. */               IDREFS          ("IDREFS"),
