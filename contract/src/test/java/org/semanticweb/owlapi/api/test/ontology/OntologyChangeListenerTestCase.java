@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
@@ -23,13 +23,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -49,45 +43,44 @@ public class OntologyChangeListenerTestCase extends TestBase {
         final Set<OWLAxiom> impendingRemovals = new HashSet<>();
         final Set<OWLAxiom> additions = new HashSet<>();
         final Set<OWLAxiom> removals = new HashSet<>();
-        ont.getOWLOntologyManager().addImpendingOntologyChangeListener(
-                new ImpendingOWLOntologyChangeListener() {
+        ont.getOWLOntologyManager().addImpendingOntologyChangeListener(new ImpendingOWLOntologyChangeListener() {
 
-                    private static final long serialVersionUID = 40000L;
+            private static final long serialVersionUID = 40000L;
 
-                    @Override
-                    public
-                            void
-                            handleImpendingOntologyChanges(
-                                    @Nonnull List<? extends OWLOntologyChange> impendingChanges) {
-                        for (OWLOntologyChange change : impendingChanges) {
-                            if (change.isAddAxiom()) {
-                                impendingAdditions.add(change.getAxiom());
-                            } else if (change.isRemoveAxiom()) {
-                                impendingRemovals.add(change.getAxiom());
-                            }
-                        }
+            @Override
+            public void handleImpendingOntologyChanges(@Nonnull List<? extends OWLOntologyChange> impendingChanges) {
+                for (OWLOntologyChange change : impendingChanges) {
+                    if (change.isAddAxiom()) {
+                        impendingAdditions.add(change.getAxiom());
+                    } else if (change.isRemoveAxiom()) {
+                        impendingRemovals.add(change.getAxiom());
                     }
-                });
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
+                }
+            }
+        });
+        ont.getOWLOntologyManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
 
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        for (OWLOntologyChange change : changes) {
-                            if (change.isAddAxiom()) {
-                                additions.add(change.getAxiom());
-                            } else if (change.isRemoveAxiom()) {
-                                removals.add(change.getAxiom());
-                            }
-                        }
+            @Override
+            public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
+                for (OWLOntologyChange change : changes) {
+                    if (change.isAddAxiom()) {
+                        additions.add(change.getAxiom());
+                    } else if (change.isRemoveAxiom()) {
+                        removals.add(change.getAxiom());
                     }
-                });
+                }
+            }
+        });
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(additions.contains(ax));
         assertTrue(impendingAdditions.contains(ax));
         ont.getOWLOntologyManager().removeAxiom(ont, ax);
         assertTrue(removals.contains(ax));
+        assertTrue(impendingRemovals.contains(ax));
+        // test that no op changes are not broadcasted
+        removals.clear();
+        ont.getOWLOntologyManager().removeAxiom(ont, ax);
+        assertFalse(removals.contains(ax));
         assertTrue(impendingRemovals.contains(ax));
     }
 }
