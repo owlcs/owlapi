@@ -491,9 +491,10 @@ public class OWLOntologyManagerImpl
             actuallyApply(changes, rollbackRequested, allNoOps, appliedChanges);
             if (rollbackRequested.get()) {
                 rollBack(appliedChanges);
+                appliedChanges.clear();
             }
             fireEndChanges();
-            broadcastChanges(changes);
+            broadcastChanges(appliedChanges);
             if (rollbackRequested.get()) {
                 return ChangeApplied.UNSUCCESSFULLY;
             }
