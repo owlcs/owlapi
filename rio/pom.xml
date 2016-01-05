@@ -9,7 +9,7 @@
 		<version>5.0.0-ALPHA-SNAPSHOT</version>
 	</parent>
 	<artifactId>owlapi-rio</artifactId>
-	<name>OWLAPI :: Sesame Rio module</name>
+	<name>OWLAPI :: Sesame Rio</name>
 	<description>Extends OWLAPI to export ontologies to any Sesame Rio RDFHandler, including databases and in-memory RDF statement collections.</description>
 	
 	<properties>
