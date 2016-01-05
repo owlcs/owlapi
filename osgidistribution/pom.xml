@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-osgidistribution</artifactId>
 	<packaging>bundle</packaging>
-	<name>OWLAPI OSGi and Compatibility Distribution</name>
+	<name>OWLAPI :: OSGi and Compatibility Distribution</name>
 
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>

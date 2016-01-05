@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-distribution</artifactId>
 	<packaging>bundle</packaging>
-	<name>OWLAPI Distribution</name>
+	<name>OWLAPI :: Distribution</name>
 
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
