@@ -16,7 +16,7 @@ public class AxiomWrapper {
     private boolean used = true;
     private boolean searchspace;
     private boolean module;
-    private @Nullable OntologyAtom atom;
+    @Nullable private OntologyAtom atom;
 
     /**
      * @param axiom

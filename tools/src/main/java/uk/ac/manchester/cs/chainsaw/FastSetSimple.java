@@ -10,69 +10,16 @@ import java.util.Arrays;
 import javax.annotation.Nullable;
 
 /** @author ignazio */
-public class FastSetSimple implements FastSet {
+public class FastSetSimple extends AbstractFastSet {
 
-    private static final int limit = 5;
-
-    @Override
-    public String toString() {
-        StringBuilder b = new StringBuilder();
-        b.append('[');
-        if (size() > 0) {
-            b.append(get(0));
-        }
-        for (int i = 1; i < size(); i++) {
-            b.append(',');
-            b.append(' ');
-            b.append(get(i));
-        }
-        b.append(']');
-        return b.toString();
-    }
-
-    protected @Nullable int[] values;
+    @Nullable protected int[] values;
     protected int size = 0;
-    protected static final int defaultSize = 16;
+    protected static final int DEFAULTSIZE = 16;
 
-    @SuppressWarnings("null")
-    protected int insertionIndex(int key) {
-        assert values != null;
-        if (key < values[0]) {
-            return -1;
-        }
-        if (key > values[size - 1]) {
-            return -size - 1;
-        }
-        int lowerbound = 0;
-        if (size < limit) {
-            for (; lowerbound < size; lowerbound++) {
-                if (values[lowerbound] > key) {
-                    return -lowerbound - 1;
-                }
-                if (values[lowerbound] == key) {
-                    return lowerbound;
-                }
-            }
-            return -lowerbound - 1;
-        }
-        int upperbound = size - 1;
-        while (lowerbound <= upperbound) {
-            int delta = upperbound - lowerbound;
-            int intermediate = lowerbound + delta / 2;
-            if (values[intermediate] == key) {
-                return intermediate;
-            }
-            if (values[intermediate] < key) {
-                lowerbound = intermediate + 1;
-            } else {
-                upperbound = intermediate - 1;
-            }
-        }
-        return -lowerbound - 1;
+    /** Default constructor. */
+    public FastSetSimple() {
+        super();
     }
-
-    /** default constructor */
-    public FastSetSimple() {}
 
     /**
      * @param c1
@@ -82,7 +29,7 @@ public class FastSetSimple implements FastSet {
      */
     @SuppressWarnings("null")
     public FastSetSimple(FastSetSimple c1, FastSetSimple c2) {
-        values = new int[(c1.size + c2.size) / defaultSize * defaultSize + defaultSize];
+        values = new int[(c1.size + c2.size) / DEFAULTSIZE * DEFAULTSIZE + DEFAULTSIZE];
         int i = 0;
         int j = 0;
         int index = 0;
@@ -117,6 +64,43 @@ public class FastSetSimple implements FastSet {
         }
     }
 
+    @SuppressWarnings("null")
+    protected int insertionIndex(int key) {
+        assert values != null;
+        if (key < values[0]) {
+            return -1;
+        }
+        if (key > values[size - 1]) {
+            return -size - 1;
+        }
+        int lowerbound = 0;
+        if (size < LIMIT) {
+            for (; lowerbound < size; lowerbound++) {
+                if (values[lowerbound] > key) {
+                    return -lowerbound - 1;
+                }
+                if (values[lowerbound] == key) {
+                    return lowerbound;
+                }
+            }
+            return -lowerbound - 1;
+        }
+        int upperbound = size - 1;
+        while (lowerbound <= upperbound) {
+            int delta = upperbound - lowerbound;
+            int intermediate = lowerbound + delta / 2;
+            if (values[intermediate] == key) {
+                return intermediate;
+            }
+            if (values[intermediate] < key) {
+                lowerbound = intermediate + 1;
+            } else {
+                upperbound = intermediate - 1;
+            }
+        }
+        return -lowerbound - 1;
+    }
+
     @Override
     public int get(int i) {
         if (values != null) {
@@ -126,13 +110,13 @@ public class FastSetSimple implements FastSet {
     }
 
     protected void init() {
-        values = new int[defaultSize];
+        values = new int[DEFAULTSIZE];
         size = 0;
     }
 
     @SuppressWarnings("null")
     @Override
-    public void add(int e) {
+    public boolean add(int e) {
         int pos = -1;
         if (values == null) {
             init();
@@ -143,13 +127,13 @@ public class FastSetSimple implements FastSet {
             pos = insertionIndex(e);
         }
         if (pos > -1) {
-            return;
+            return false;
         }
         int i = -pos - 1;
         // i is now the insertion point
         if (i >= values.length || size >= values.length) {
             // no space left, increase
-            values = Arrays.copyOf(values, values.length + defaultSize);
+            values = Arrays.copyOf(values, 2 * values.length);
         }
         // size ensured, shift and insert now
         for (int j = size - 1; j >= i; j--) {
@@ -158,6 +142,7 @@ public class FastSetSimple implements FastSet {
         values[i] = e;
         // increase used size
         size++;
+        return true;
     }
 
     @SuppressWarnings("null")
@@ -174,7 +159,7 @@ public class FastSetSimple implements FastSet {
             return;
         }
         int newsize = size + c.size();
-        int[] merge = new int[newsize / defaultSize * defaultSize + defaultSize];
+        int[] merge = new int[newsize / DEFAULTSIZE * DEFAULTSIZE + DEFAULTSIZE];
         int i = 0;
         int j = 0;
         int index = 0;
@@ -220,9 +205,7 @@ public class FastSetSimple implements FastSet {
     @Override
     public boolean contains(int o) {
         if (values != null) {
-            int i = insertionIndex(o);
-            boolean toReturn = i > -1;
-            return toReturn;
+            return insertionIndex(o) > -1;
         }
         return false;
     }
@@ -332,34 +315,6 @@ public class FastSetSimple implements FastSet {
         return containsAny(f);
     }
 
-    @Override
-    public boolean equals(@Nullable Object arg0) {
-        if (arg0 == null) {
-            return false;
-        }
-        if (this == arg0) {
-            return true;
-        }
-        if (arg0 instanceof FastSet) {
-            FastSet arg = (FastSet) arg0;
-            if (size != arg.size()) {
-                return false;
-            }
-            for (int i = 0; i < size(); i++) {
-                if (arg.get(i) != get(i)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
     @SuppressWarnings("null")
     @Override
     public void removeAt(int i) {
@@ -389,8 +344,7 @@ public class FastSetSimple implements FastSet {
             return;
         }
         if (end < -1 || end < i || end > size || i < -1 || i > size) {
-            throw new IllegalArgumentException("illegal arguments: " + i + " " + end
-                + " size: " + size);
+            throw new IllegalArgumentException("illegal arguments: " + i + " " + end + " size: " + size);
         }
         if (size == 1 || i == 0 && end == size) {
             values = null;
@@ -435,5 +389,13 @@ public class FastSetSimple implements FastSet {
         } else {
             Arrays.sort(values, 0, originalsize);
         }
+    }
+
+    @Override
+    public void completeSet(int value) {
+        for (int i = 0; i <= value; i++) {
+            add(i);
+        }
+        // XXX notice: these sets go to negative numbers. Is this the best way?
     }
 }

@@ -17,9 +17,18 @@ public class Atom {
 
     private final Collection<OWLAxiom> axioms;
     // XXX cache properly
-    private @Nullable List<OWLEntity> signature;
-    private @Nullable Collection<OWLEntity> label;
+    @Nullable private List<OWLEntity> signature;
+    @Nullable private Collection<OWLEntity> label;
     private int hashcode;
+
+    /**
+     * @param axioms
+     *        build an atom out of a set of axioms
+     */
+    public Atom(Collection<OWLAxiom> axioms) {
+        this.axioms = axioms;
+        hashcode = this.axioms.hashCode();
+    }
 
     /**
      * @param ax
@@ -35,15 +44,6 @@ public class Atom {
             signature = new ArrayList<>();
             axioms.forEach(ax -> add(signature, ax.signature()));
         }
-    }
-
-    /**
-     * @param axioms
-     *        build an atom out of a set of axioms
-     */
-    public Atom(Collection<OWLAxiom> axioms) {
-        this.axioms = axioms;
-        hashcode = this.axioms.hashCode();
     }
 
     /** @return signature for the atom */

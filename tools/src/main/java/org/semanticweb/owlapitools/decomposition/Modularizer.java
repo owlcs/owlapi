@@ -22,13 +22,23 @@ public class Modularizer {
     private Queue<OWLEntity> workQueue;
 
     /**
+     * @param c
+     *        the clocality checker
+     */
+    public Modularizer(LocalityChecker c) {
+        checker = c;
+        sig = c.getSignature();
+        sigIndex = new SigIndex(checker);
+    }
+
+    /**
      * update SIG wrt the axiom signature
      * 
      * @param axiom
      *        axiom
      */
     private void addAxiomSig(AxiomWrapper axiom) {
-        axiom.getAxiom().signature().filter(p -> sig.add(p)).forEach(p -> workQueue.add(p));
+        axiom.getAxiom().signature().filter(sig::add).forEach(workQueue::add);
     }
 
     /**
@@ -91,8 +101,7 @@ public class Modularizer {
         // main cycle
         while (!workQueue.isEmpty()) {
             // for all the axioms that contains entity in their signature
-            Collection<AxiomWrapper> axioms = sigIndex.getAxioms(workQueue
-                .poll());
+            Collection<AxiomWrapper> axioms = sigIndex.getAxioms(workQueue.poll());
             this.addNonLocal(axioms, false);
         }
     }
@@ -118,16 +127,6 @@ public class Modularizer {
         for (int i = 0; i < size; i++) {
             args.get(i).setInSearchSpace(false);
         }
-    }
-
-    /**
-     * @param c
-     *        the clocality checker
-     */
-    public Modularizer(LocalityChecker c) {
-        checker = c;
-        sig = c.getSignature();
-        sigIndex = new SigIndex(checker);
     }
 
     /**
@@ -191,8 +190,7 @@ public class Modularizer {
      * @param type
      *        type
      */
-    public void extract(List<AxiomWrapper> axioms, Signature signature,
-        ModuleType type) {
+    public void extract(List<AxiomWrapper> axioms, Signature signature, ModuleType type) {
         boolean topLocality = type == ModuleType.TOP;
         sig = signature;
         checker.setSignatureValue(sig);

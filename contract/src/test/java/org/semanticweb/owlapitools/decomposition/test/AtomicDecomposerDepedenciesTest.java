@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 
 import uk.ac.manchester.cs.atomicdecomposition.Atom;
-import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposerOWLAPITOOLS;
+import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposition;
 
 @SuppressWarnings("javadoc")
@@ -20,7 +20,7 @@ public class AtomicDecomposerDepedenciesTest {
         // given
         OWLOntology o = getOntology();
         assertEquals(3, o.getAxiomCount());
-        AtomicDecomposition ad = new AtomicDecomposerOWLAPITOOLS(o);
+        AtomicDecomposition ad = new AtomicDecompositionImpl(o);
         assertEquals(3, ad.getAtoms().size());
         Atom atom = ad.getBottomAtoms().iterator().next();
         assertNotNull(atom);

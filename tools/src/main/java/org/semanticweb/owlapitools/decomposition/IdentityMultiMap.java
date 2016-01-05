@@ -1,12 +1,7 @@
 package org.semanticweb.owlapitools.decomposition;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -44,9 +39,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     private Collection<V> createCollection() {
-        Collection<V> toReturn = Collections
-                .newSetFromMap(new IdentityHashMap<V, Boolean>());
-        return toReturn;
+        return Collections.newSetFromMap(new IdentityHashMap<V, Boolean>());
     }
 
     /**

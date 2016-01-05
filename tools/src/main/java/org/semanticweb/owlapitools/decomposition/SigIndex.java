@@ -17,19 +17,25 @@ import com.google.common.collect.Multimap;
 public class SigIndex {
 
     /** map between entities and axioms that contains them in their signature */
-    private Multimap<OWLEntity, AxiomWrapper> Base = LinkedHashMultimap
-        .create();
+    private Multimap<OWLEntity, AxiomWrapper> base = LinkedHashMultimap.create();
     /** locality checker */
     private LocalityChecker checker;
     /** sets of axioms non-local wrt the empty signature */
-    private List<AxiomWrapper> NonLocalTrue = new ArrayList<>();
-    private List<AxiomWrapper> NonLocalFalse = new ArrayList<>();
+    private List<AxiomWrapper> nonLocalTrue = new ArrayList<>();
+    private List<AxiomWrapper> nonLocalFalse = new ArrayList<>();
     /** empty signature to test the non-locality */
     private Signature emptySig = new Signature();
     /** number of registered axioms */
     private int nRegistered = 0;
 
-    // access to statistics
+    /**
+     * @param c
+     *        locality checker
+     */
+    public SigIndex(LocalityChecker c) {
+        checker = c;
+    }    // access to statistics
+
     /** @return number of ever processed axioms */
     public int nProcessedAx() {
         return nRegistered;
@@ -48,19 +54,11 @@ public class SigIndex {
         checker.setSignatureValue(emptySig);
         if (!checker.local(ax.getAxiom())) {
             if (top) {
-                NonLocalFalse.add(ax);
+                nonLocalFalse.add(ax);
             } else {
-                NonLocalTrue.add(ax);
+                nonLocalTrue.add(ax);
             }
         }
-    }
-
-    /**
-     * @param c
-     *        locality checker
-     */
-    public SigIndex(LocalityChecker c) {
-        checker = c;
     }
 
     // work with axioms
@@ -71,7 +69,7 @@ public class SigIndex {
      *        axiom
      */
     private void registerAx(AxiomWrapper ax) {
-        ax.getAxiom().signature().forEach(p -> Base.put(p, ax));
+        ax.getAxiom().signature().forEach(p -> base.put(p, ax));
         // check whether the axiom is non-local
         checkNonLocal(ax, false);
         checkNonLocal(ax, true);
@@ -85,10 +83,10 @@ public class SigIndex {
      *        axiom
      */
     private void unregisterAx(AxiomWrapper ax) {
-        ax.getAxiom().signature().forEach(p -> Base.remove(p, ax));
+        ax.getAxiom().signature().forEach(p -> base.remove(p, ax));
         // remove from the non-locality
-        NonLocalFalse.remove(ax);
-        NonLocalTrue.remove(ax);
+        nonLocalFalse.remove(ax);
+        nonLocalTrue.remove(ax);
     }
 
     /**
@@ -119,9 +117,9 @@ public class SigIndex {
 
     /** clear internal structures */
     public void clear() {
-        Base.clear();
-        NonLocalFalse.clear();
-        NonLocalTrue.clear();
+        base.clear();
+        nonLocalFalse.clear();
+        nonLocalTrue.clear();
     }
 
     // get the set by the index
@@ -134,7 +132,7 @@ public class SigIndex {
      * @return collection of axioms referring the entity
      */
     public Collection<AxiomWrapper> getAxioms(OWLEntity entity) {
-        return Base.get(entity);
+        return base.get(entity);
     }
 
     /**
@@ -145,6 +143,6 @@ public class SigIndex {
      * @return collection of non local axioms
      */
     public Collection<AxiomWrapper> getNonLocal(boolean top) {
-        return top ? NonLocalFalse : NonLocalTrue;
+        return top ? nonLocalFalse : nonLocalTrue;
     }
 }

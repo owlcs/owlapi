@@ -10,8 +10,7 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.*;
 
 /** syntactic locality checker for DL axioms */
-public class SyntacticLocalityChecker implements OWLAxiomVisitor,
-    LocalityChecker {
+public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecker {
 
     private Signature sig = new Signature();
     /** top evaluator */
@@ -21,24 +20,22 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor,
     /** remember the axiom locality value here */
     boolean isLocal;
 
+    /** init c'tor */
+    public SyntacticLocalityChecker() {
+        TopEval = new TopEquivalenceEvaluator(this);
+        BotEval = new BotEquivalenceEvaluator(this);
+    }
+
     /** @return true iff EXPR is top equivalent */
     @Override
     public boolean isTopEquivalent(OWLObject expr) {
-        final boolean topEquivalent = TopEval.isTopEquivalent(expr);
-        return topEquivalent;
+        return TopEval.isTopEquivalent(expr);
     }
 
     /** @return true iff EXPR is bottom equivalent */
     @Override
     public boolean isBotEquivalent(OWLObject expr) {
-        final boolean botEquivalent = BotEval.isBotEquivalent(expr);
-        return botEquivalent;
-    }
-
-    /** init c'tor */
-    public SyntacticLocalityChecker() {
-        TopEval = new TopEquivalenceEvaluator(this);
-        BotEval = new BotEquivalenceEvaluator(this);
+        return BotEval.isBotEquivalent(expr);
     }
 
     @Override
@@ -194,50 +191,42 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor,
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
-        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
-            || isTopEquivalent(p1) && isTopEquivalent(p2);
+        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty())
-            || isBotEquivalent(axiom.getSubProperty());
+        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty())
-            || isBotEquivalent(axiom.getSubProperty());
+        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getDomain())
-            || isBotEquivalent(axiom.getProperty());
+        isLocal = isTopEquivalent(axiom.getDomain()) || isBotEquivalent(axiom.getProperty());
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getDomain())
-            || isBotEquivalent(axiom.getProperty());
+        isLocal = isTopEquivalent(axiom.getDomain()) || isBotEquivalent(axiom.getProperty());
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getRange())
-            || isBotEquivalent(axiom.getProperty());
+        isLocal = isTopEquivalent(axiom.getRange()) || isBotEquivalent(axiom.getProperty());
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getRange())
-            || isBotEquivalent(axiom.getProperty());
+        isLocal = isTopEquivalent(axiom.getRange()) || isBotEquivalent(axiom.getProperty());
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        isLocal = isBotEquivalent(axiom.getProperty())
-            || isTopEquivalent(axiom.getProperty());
+        isLocal = isBotEquivalent(axiom.getProperty()) || isTopEquivalent(axiom.getProperty());
     }
 
     /** as BotRole is irreflexive, the only local axiom is topEquivalent(R) */
@@ -253,8 +242,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor,
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        isLocal = isBotEquivalent(axiom.getProperty())
-            || isTopEquivalent(axiom.getProperty());
+        isLocal = isBotEquivalent(axiom.getProperty()) || isTopEquivalent(axiom.getProperty());
     }
 
     @Override
@@ -279,8 +267,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor,
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        isLocal = isBotEquivalent(axiom.getSubClass())
-            || isTopEquivalent(axiom.getSuperClass());
+        isLocal = isBotEquivalent(axiom.getSubClass()) || isTopEquivalent(axiom.getSuperClass());
     }
 
     @Override
