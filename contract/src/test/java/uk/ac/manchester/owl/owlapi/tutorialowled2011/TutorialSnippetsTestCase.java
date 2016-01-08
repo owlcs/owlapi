@@ -14,7 +14,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,8 +48,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposition;
-import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
@@ -616,42 +614,9 @@ public class TutorialSnippetsTestCase {
         seedSig.addAll(sig);
         // We now extract a locality-based module. STAR provides the smallest
         // ones
-        Set<OWLAxiom> mod = getTraditionalModule(m, o, seedSig);
-        assertNotNull(mod);
-    }
-
-    @Test
-    public void testModularizationWithAtomicDecomposition() throws OWLException {
-        OWLOntologyManager m = create();
-        OWLOntology o = loadPizzaOntology(m);
-        // extract a module for all toppings.
-        // start by creating a signature that consists of "Quokka".
-        OWLClass quokkaCls = df.getOWLClass(KOALA_IRI + "#Quokka");
-        Set<OWLEntity> sig = new HashSet<>();
-        sig.add(quokkaCls);
-        // We now add all subclasses (direct and indirect) of the chosen
-        // classes.
-        OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
-        Set<OWLEntity> seedSig = asUnorderedSet(sig.stream().filter(e -> e.isOWLClass())
-            .flatMap(e -> reasoner.getSubClasses(e.asOWLClass(), false).entities()));
-        seedSig.addAll(sig);
-        // We now extract a locality-based module. STAR provides the smallest
-        // ones
-        Set<OWLAxiom> mod = getADModule(o, sig);
-        assertNotNull(mod);
-        assertEquals(mod, getTraditionalModule(m, o, seedSig));
-    }
-
-    protected Set<OWLAxiom> getTraditionalModule(OWLOntologyManager m, OWLOntology o, Set<OWLEntity> seedSig) {
         SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(m, o, ModuleType.STAR);
         Set<OWLAxiom> mod = sme.extract(seedSig);
-        return mod;
-    }
-
-    protected Set<OWLAxiom> getADModule(OWLOntology o, Set<OWLEntity> sig) {
-        AtomicDecomposition ad = new AtomicDecompositionImpl(o);
-        Set<OWLAxiom> mod = asSet(ad.getModule(sig.stream(), false, ModuleType.STAR));
-        return mod;
+        assertNotNull(mod);
     }
 
     @Test

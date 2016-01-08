@@ -1405,51 +1405,6 @@ public class Examples extends TestBase {
     }
 
     /**
-     * This example shows how to extract modules.
-     * 
-     * @throws Exception
-     *         exception
-     */
-    @Test
-    public void shouldExtractADModules() throws Exception {
-        // Create our manager
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        // Load the Koala ontology
-        OWLOntology ont = load(man);
-        // We want to extract a module for all toppings. We therefore have to
-        // generate a seed signature that contains "Quokka" and its
-        // subclasses. We start by creating a signature that consists of
-        // "Quokka".
-        OWLClass toppingCls = df.getOWLClass(ont.getOntologyID().getOntologyIRI().get() + "#Quokka");
-        Set<OWLEntity> sig = new HashSet<OWLEntity>();
-        sig.add(toppingCls);
-        // We now add all subclasses (direct and indirect) of the chosen
-        // classes. Ideally, it should be done using a DL reasoner, in order to
-        // take inferred subclass relations into account. We are using the
-        // structural reasoner of the OWL API for simplicity.
-        Set<OWLEntity> seedSig = new HashSet<OWLEntity>();
-        OWLReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
-        for (OWLEntity ent : sig) {
-            seedSig.add(ent);
-            if (OWLClass.class.isAssignableFrom(ent.getClass())) {
-                NodeSet<OWLClass> subClasses = reasoner.getSubClasses((OWLClass) ent, false);
-                seedSig.addAll(asList(subClasses.entities()));
-            }
-        }
-        // We now extract a locality-based module. For most reuse purposes, the
-        // module type should be STAR -- this yields the smallest possible
-        // locality-based module. These modules guarantee that all entailments
-        // of the original ontology that can be formulated using only terms from
-        // the seed signature or the module will also be entailments of the
-        // module. In easier words, the module preserves all knowledge of the
-        // ontology about the terms in the seed signature or the module.
-        SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(man, ont, ModuleType.STAR);
-        IRI moduleIRI = IRI.create("urn:test:QuokkaModule.owl");
-        OWLOntology mod = sme.extractAsOntology(seedSig, moduleIRI);
-        // The module can now be saved as usual
-    }
-
-    /**
      * The following example uses entities and axioms that are used in the OWL
      * Primer. The purpose of this example is to illustrate some of the methods
      * of creating class expressions and various types of axioms. Typically, an
