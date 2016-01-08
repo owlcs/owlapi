@@ -98,7 +98,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private static final String SIG_CANNOT_BE_NULL = "sig cannot be null";
         private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
         private boolean isLocal;
-        private Collection<? extends OWLEntity> signature;
+        private Collection<OWLEntity> signature;
         private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
         /** Instantiates a new axiom locality visitor. */
@@ -107,7 +107,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             bottomEvaluator.setTopEvaluator(topEvaluator);
         }
 
-        protected Collection<? extends OWLEntity> getSignature() {
+        protected Collection<OWLEntity> getSignature() {
             return verifyNotNull(signature);
         }
 
@@ -120,7 +120,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
          *        the sig
          * @return true, if is local
          */
-        public boolean isLocal(OWLAxiom axiom, Collection<? extends OWLEntity> sig) {
+        public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> sig) {
             signature = checkNotNull(sig, SIG_CANNOT_BE_NULL);
             isLocal = false;
             checkNotNull(axiom, "axiom cannot be null").accept(this);
@@ -706,7 +706,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private static final String DESC_CANNOT_BE_NULL = "desc cannot be null";
         private boolean isBottomEquivalent;
         private LocalityClass localityCls;
-        private Collection<? extends OWLEntity> signature;
+        private Collection<OWLEntity> signature;
         private TopEquivalenceEvaluator topEvaluator;
 
         /** Instantiates a new bottom equivalence evaluator. */
@@ -735,15 +735,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
          *        the locality
          * @return true, if is bottom equivalent
          */
-        public boolean isBottomEquivalent(OWLClassExpression desc, Collection<? extends OWLEntity> sig,
-            LocalityClass locality) {
+        public boolean isBottomEquivalent(OWLClassExpression desc, Collection<OWLEntity> sig, LocalityClass locality) {
             localityCls = checkNotNull(locality, "locality cannot be null");
             signature = checkNotNull(sig, "sig cannot be null");
             checkNotNull(desc, DESC_CANNOT_BE_NULL).accept(this);
             return isBottomEquivalent;
         }
 
-        protected Collection<? extends OWLEntity> getSignature() {
+        protected Collection<OWLEntity> getSignature() {
             return verifyNotNull(signature);
         }
 
@@ -1047,7 +1046,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private BottomEquivalenceEvaluator bottomEvaluator;
         private boolean isTopEquivalent;
         private LocalityClass localityCls;
-        private Collection<? extends OWLEntity> signature;
+        private Collection<OWLEntity> signature;
 
         /** Instantiates a new top equivalence evaluator. */
         TopEquivalenceEvaluator() {}
@@ -1057,7 +1056,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isTopEquivalent;
         }
 
-        protected Collection<? extends OWLEntity> getSignature() {
+        protected Collection<OWLEntity> getSignature() {
             return verifyNotNull(signature);
         }
 
@@ -1076,8 +1075,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
          *        the locality
          * @return true, if is top equivalent
          */
-        public boolean isTopEquivalent(OWLClassExpression desc, Collection<? extends OWLEntity> sig,
-            LocalityClass locality) {
+        public boolean isTopEquivalent(OWLClassExpression desc, Collection<OWLEntity> sig, LocalityClass locality) {
             localityCls = checkNotNull(locality, "locality cannot be null");
             signature = checkNotNull(sig, "sig cannot be null");
             checkNotNull(desc, "desc cannot be null").accept(this);
@@ -1362,7 +1360,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     @Override
-    public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
+    public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
         return axiomVisitor.isLocal(axiom, signature);
     }
 }

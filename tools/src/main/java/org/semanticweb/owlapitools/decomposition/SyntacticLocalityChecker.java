@@ -73,18 +73,19 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
         // axiom is local iff all the elements are either top- or bot-local
         Boolean pos = null;
         for (OWLObject arg : args) {
-            if (pos == null) {	// setup polarity of an equivalence
+            if (pos == null) {
+                // setup polarity of an equivalence
                 if (isTopEquivalent(arg)) {
-                    pos = true;
+                    pos = Boolean.TRUE;
                 } else if (isBotEquivalent(arg)) {
-                    pos = false;
+                    pos = Boolean.FALSE;
                 } else {
                     return false;
                 }
             } else {
-                if (pos && !isTopEquivalent(arg)) {
+                if (pos.booleanValue() && !isTopEquivalent(arg)) {
                     return false;
-                } else if (!pos && !isBotEquivalent(arg)) {
+                } else if (!pos.booleanValue() && !isBotEquivalent(arg)) {
                     return false;
                 }
             }
@@ -100,7 +101,8 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
             OWLObject arg = it.next();
             if (!isBotEquivalent(arg)) {
                 if (hasNBE) {
-                    return false;		// non-local
+                    // non-local
+                    return false;
                 } else {
                     hasNBE = true;
                 }
@@ -128,11 +130,14 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
         isLocal = false;
         boolean lhsIsTopEq;
         if (isTopEquivalent(axiom.getOWLClass())) {
-            lhsIsTopEq = true;	// need to check (2)
+            // need to check (2)
+            lhsIsTopEq = true;
         } else if (isBotEquivalent(axiom.getOWLClass())) {
-            lhsIsTopEq = false;	// need to check (1)
+            // need to check (1)
+            lhsIsTopEq = false;
         } else {
-            return;				// neither (1) nor (2)
+            // neither (1) nor (2)
+            return;
         }
         boolean topEqDesc = false;
         for (OWLClassExpression p : asList(axiom.classExpressions())) {

@@ -15,6 +15,7 @@ package com.clarkparsia.owlapi.modularity.locality;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -110,7 +111,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         private OWLAxiom newAxiom;
         private OWLClassExpression newClassExpression;
-        private Set<? extends OWLEntity> signature;
+        private Collection<OWLEntity> signature;
 
         BottomReplacer() {}
 
@@ -130,7 +131,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          *        the sig
          * @return the modified OWL axiom
          */
-        public OWLAxiom replaceBottom(OWLAxiom axiom, Set<? extends OWLEntity> sig) {
+        public OWLAxiom replaceBottom(OWLAxiom axiom, Collection<OWLEntity> sig) {
             reset(checkNotNull(sig, "sig cannot be null"));
             checkNotNull(axiom, "axiom cannot be null").accept(this);
             return getResult();
@@ -169,7 +170,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          * @param s
          *        the signature
          */
-        public void reset(Set<? extends OWLEntity> s) {
+        public void reset(Collection<OWLEntity> s) {
             signature = checkNotNull(s, "s cannot be null");
             newAxiom = null;
         }
@@ -329,7 +330,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     @Override
-    public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
+    public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
         LOGGER.info("Replacing axiom by Bottom");
         OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"),
             checkNotNull(signature, "signature cannot be null"));

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -31,5 +31,5 @@ public interface LocalityEvaluator {
      * @return {@code true} if the axiom is local w.r.t. the signature;
      *         {@code false} otherwise
      */
-    boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature);
+    boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature);
 }

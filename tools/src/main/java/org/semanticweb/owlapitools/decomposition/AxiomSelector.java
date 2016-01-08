@@ -3,7 +3,6 @@ package org.semanticweb.owlapitools.decomposition;
 import static org.semanticweb.owlapi.model.AxiomType.LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -17,14 +16,15 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  */
 public class AxiomSelector {
 
+    private AxiomSelector() {}
+
     /**
      * @param o
      *        the ontology to filter
      * @return list of declarations and logical axioms
      */
     public static List<OWLAxiom> selectAxioms(OWLOntology o) {
-        return asList(
-            LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES.stream().flatMap(type -> o.axioms(type, Imports.INCLUDED)));
+        return asList(LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES.stream().flatMap(type -> o.axioms(type, Imports.INCLUDED)));
     }
 
     /**
@@ -33,10 +33,6 @@ public class AxiomSelector {
      * @return axioms wrapped as AxiomWrapper
      */
     public static List<AxiomWrapper> wrap(List<OWLAxiom> o) {
-        List<AxiomWrapper> axioms = new ArrayList<>();
-        for (OWLAxiom ax : o) {
-            axioms.add(new AxiomWrapper(ax));
-        }
-        return axioms;
+        return asList(o.stream().map(AxiomWrapper::new));
     }
 }

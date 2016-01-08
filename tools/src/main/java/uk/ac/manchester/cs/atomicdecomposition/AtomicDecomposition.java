@@ -2,11 +2,14 @@ package uk.ac.manchester.cs.atomicdecomposition;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
+
+import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /** The atomic decomposition graph */
 public interface AtomicDecomposition {
@@ -37,7 +40,7 @@ public interface AtomicDecomposition {
      * @return Atom containing axiom
      */
     @Nullable
-    Atom getAtomForAxiom(OWLAxiom axiom);
+        Atom getAtomForAxiom(OWLAxiom axiom);
 
     /** @return map between entities and atoms referencing them */
     Map<OWLEntity, Set<Atom>> getTermBasedIndex();
@@ -100,4 +103,15 @@ public interface AtomicDecomposition {
      * @return dependents set for atom; it includes atom
      */
     Set<Atom> getDependents(Atom atom, boolean direct);
+
+    /**
+     * @param signature
+     *        signature for the module to extract
+     * @param useSemantics
+     *        true if semantic extraction should be used
+     * @param moduletype
+     *        type of module
+     * @return module stream
+     */
+    Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics, ModuleType moduletype);
 }

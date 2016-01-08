@@ -22,7 +22,9 @@ public class Signature {
     private boolean topRLocality = false;
 
     /** empty signature */
-    public Signature() {}
+    public Signature() {
+        super();
+    }
 
     /**
      * @param sig

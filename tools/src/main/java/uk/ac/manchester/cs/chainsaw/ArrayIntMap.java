@@ -3,6 +3,9 @@ package uk.ac.manchester.cs.chainsaw;
 import java.util.ArrayList;
 import java.util.List;
 
+import gnu.trove.list.TIntList;
+import gnu.trove.list.array.TIntArrayList;
+
 /** a multimap for int to collection of int values. */
 public class ArrayIntMap {
 
@@ -10,7 +13,7 @@ public class ArrayIntMap {
 
     /**
      * @param key
-     *            key
+     *        key
      * @param value
      *        value
      */
@@ -33,7 +36,7 @@ public class ArrayIntMap {
      * connected, returns an immutable empty set
      * 
      * @param key
-     *            key
+     *        key
      * @return the set of values connected with the key
      */
     public FastSet get(int key) {
@@ -47,8 +50,8 @@ public class ArrayIntMap {
     }
 
     /** @return the set of keys */
-    public List<Integer> keySet() {
-        List<Integer> toReturn = new ArrayList<>();
+    public TIntList keySet() {
+        TIntList toReturn = new TIntArrayList();
         for (int i = 0; i < map.size(); i++) {
             if (map.get(i) != null) {
                 toReturn.add(i);
@@ -58,21 +61,21 @@ public class ArrayIntMap {
     }
 
     /** @return all values in the map */
-    public List<Integer> getAllValues() {
-        List<Integer> list = new ArrayList<>();
+    public TIntList getAllValues() {
+        TIntList toReturn = new TIntArrayList();
         for (FastSet f : map) {
             if (f != null) {
                 for (int i = 0; i < f.size(); i++) {
-                    list.add(f.get(i));
+                    toReturn.add(f.get(i));
                 }
             }
         }
-        return list;
+        return toReturn;
     }
 
     /**
      * @param k
-     *            key
+     *        key
      * @return true if k is a key for the map
      */
     public boolean containsKey(int k) {
