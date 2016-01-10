@@ -31,7 +31,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
      * @param operands
      *        operands
      */
-    public OWLObjectUnionOfImpl(Stream<? extends OWLClassExpression> operands) {
+    public OWLObjectUnionOfImpl(Stream<OWLClassExpression> operands) {
         super(operands);
     }
 

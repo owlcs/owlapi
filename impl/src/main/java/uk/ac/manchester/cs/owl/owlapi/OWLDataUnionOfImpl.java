@@ -29,7 +29,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
      * @param operands
      *        operands
      */
-    public OWLDataUnionOfImpl(Collection<? extends OWLDataRange> operands) {
+    public OWLDataUnionOfImpl(Collection<OWLDataRange> operands) {
         super(operands);
     }
 
@@ -37,7 +37,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
      * @param operands
      *        operands
      */
-    public OWLDataUnionOfImpl(Stream<? extends OWLDataRange> operands) {
+    public OWLDataUnionOfImpl(Stream<OWLDataRange> operands) {
         super(operands);
     }
 }

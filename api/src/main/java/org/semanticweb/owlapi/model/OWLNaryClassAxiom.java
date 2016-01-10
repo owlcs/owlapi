@@ -23,8 +23,8 @@ import java.util.stream.Stream;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryClassAxiom
-    extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>, OWLSubClassOfAxiomSetShortCut {
+public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>,
+    OWLSubClassOfAxiomSetShortCut, HasOperands<OWLClassExpression> {
 
     @Override
     default Stream<?> components() {

@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asListNullsForbidden;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -32,19 +32,19 @@ import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
     implements OWLNaryBooleanClassExpression {
 
-    @Nonnull private final List<? extends OWLClassExpression> operands;
+    @Nonnull private final List<OWLClassExpression> operands;
 
     /**
      * @param operands
      *        operands
      */
-    public OWLNaryBooleanClassExpressionImpl(Stream<? extends OWLClassExpression> operands) {
+    public OWLNaryBooleanClassExpressionImpl(Stream<OWLClassExpression> operands) {
         checkNotNull(operands, "operands cannot be null");
         this.operands = sortOptionally(asListNullsForbidden(operands.distinct()));
     }
 
     @Override
-    public Stream<? extends OWLClassExpression> operands() {
+    public Stream<OWLClassExpression> operands() {
         return operands.stream();
     }
 }

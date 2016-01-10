@@ -12,35 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
+ * An interface to objects that have a collection of operands.
+ * 
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group
+ * @param <T>
+ *        operand type
+ * @since 5.0.0
  */
-public interface OWLNaryDataRange extends OWLDataRange, HasOperands<OWLDataRange> {
-
-    @Override
-    default Stream<?> components() {
-        return Stream.of(operands());
-    }
+@FunctionalInterface
+public interface HasOperands<T extends OWLObject> {
 
     /**
-     * @return the data ranges
-     * @deprecated use the stream method
+     * Gets the operands - e.g., the individuals in a sameAs axiom, or the
+     * classes in an equivalent classes axiom.
+     * 
+     * @return The operands.
      */
-    @Deprecated
-    default Set<OWLDataRange> getOperands() {
-        return asSet(operands());
-    }
-
-    /**
-     * @return the data ranges
-     */
-    @Override
-        Stream<OWLDataRange> operands();
+    Stream<T> operands();
 }

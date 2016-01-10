@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression {
+public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression, HasOperands<OWLClassExpression> {
 
     @Override
     default Stream<?> components() {
@@ -35,14 +35,15 @@ public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression
      * @deprecated use the stream method
      */
     @Deprecated
-    default Set<? extends OWLClassExpression> getOperands() {
+    default Set<OWLClassExpression> getOperands() {
         return asSet(operands());
     }
 
     /**
      * @return the class expressions
      */
-    Stream<? extends OWLClassExpression> operands();
+    @Override
+        Stream<OWLClassExpression> operands();
 
     /**
      * Gets the class expressions returned by {@link #getOperands()} as a list

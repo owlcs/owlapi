@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
@@ -30,20 +31,20 @@ import org.semanticweb.owlapi.model.OWLNaryDataRange;
  */
 public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLNaryDataRange {
 
-    @Nonnull private final List<? extends OWLDataRange> operands;
+    @Nonnull private final List<OWLDataRange> operands;
 
-    protected OWLNaryDataRangeImpl(Collection<? extends OWLDataRange> operands) {
-        Collection<? extends OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
+    protected OWLNaryDataRangeImpl(Collection<OWLDataRange> operands) {
+        Collection<OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
         this.operands = sortOptionally(ops.stream().distinct());
     }
 
-    protected OWLNaryDataRangeImpl(Stream<? extends OWLDataRange> operands) {
-        Stream<? extends OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
+    protected OWLNaryDataRangeImpl(Stream<OWLDataRange> operands) {
+        Stream<OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
         this.operands = sortOptionally(ops.distinct());
     }
 
     @Override
-    public Stream<? extends OWLDataRange> operands() {
+    public Stream<OWLDataRange> operands() {
         return operands.stream();
     }
 }

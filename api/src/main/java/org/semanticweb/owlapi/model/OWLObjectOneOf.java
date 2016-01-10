@@ -26,7 +26,7 @@ import java.util.stream.Stream;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
+public interface OWLObjectOneOf extends OWLAnonymousClassExpression, HasOperands<OWLIndividual> {
 
     @Override
     default Stream<?> components() {
@@ -57,7 +57,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * @deprecated use the stream method
      */
     @Deprecated
-    default Set<? extends OWLIndividual> getIndividuals() {
+    default Set<OWLIndividual> getIndividuals() {
         return asSet(individuals());
     }
 
@@ -68,7 +68,12 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * @return The individiauls that are the values of this {@code ObjectOneOf}
      *         class expression.
      */
-    Stream<? extends OWLIndividual> individuals();
+    Stream<OWLIndividual> individuals();
+
+    @Override
+    default Stream<OWLIndividual> operands() {
+        return individuals();
+    }
 
     /**
      * Simplifies this enumeration to a union of singleton nominals.

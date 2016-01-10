@@ -32,13 +32,13 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
  */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
-    @Nonnull private final List<? extends OWLIndividual> values;
+    @Nonnull private final List<OWLIndividual> values;
 
     /**
      * @param values
      *        values for oneof
      */
-    public OWLObjectOneOfImpl(Stream<? extends OWLIndividual> values) {
+    public OWLObjectOneOfImpl(Stream<OWLIndividual> values) {
         checkNotNull(values, "values cannot be null");
         this.values = sortOptionally(asListNullsForbidden(values.distinct()));
     }
@@ -60,7 +60,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     }
 
     @Override
-    public Stream<? extends OWLIndividual> individuals() {
+    public Stream<OWLIndividual> individuals() {
         return values.stream();
     }
 

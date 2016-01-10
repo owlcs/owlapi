@@ -6,8 +6,6 @@ import javax.annotation.Nullable;
 
 /**
  * An ontology atom including module and dependencies information.
- * 
- * @author ignazio
  */
 public class OntologyAtom {
 
@@ -25,9 +23,7 @@ public class OntologyAtom {
 
     /** remove all atoms in AllDepAtoms from DepAtoms */
     public void filterDep() {
-        for (OntologyAtom p : allDependencies) {
-            dependencies.remove(p);
-        }
+        dependencies.removeAll(allDependencies);
     }
 
     /**
@@ -75,9 +71,7 @@ public class OntologyAtom {
      *        axioms to add to the atom
      */
     public void addAxioms(Collection<AxiomWrapper> axs) {
-        for (AxiomWrapper ax : axs) {
-            addAxiom(ax);
-        }
+        axs.forEach(this::addAxiom);
     }
 
     /**

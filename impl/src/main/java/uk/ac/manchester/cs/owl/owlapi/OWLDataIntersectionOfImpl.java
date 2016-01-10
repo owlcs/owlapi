@@ -29,7 +29,7 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
      * @param operands
      *        operands
      */
-    public OWLDataIntersectionOfImpl(Collection<? extends OWLDataRange> operands) {
+    public OWLDataIntersectionOfImpl(Collection<OWLDataRange> operands) {
         super(operands);
     }
 
@@ -37,7 +37,7 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
      * @param operands
      *        operands
      */
-    public OWLDataIntersectionOfImpl(Stream<? extends OWLDataRange> operands) {
+    public OWLDataIntersectionOfImpl(Stream<OWLDataRange> operands) {
         super(operands);
     }
 }

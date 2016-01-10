@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLNaryIndividualAxiom
-    extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut {
+    extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut, HasOperands<OWLIndividual> {
 
     @Override
     default Stream<?> components() {

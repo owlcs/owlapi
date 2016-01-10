@@ -1,8 +1,11 @@
 package org.semanticweb.owlapitools.decomposition;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * Wrapper around an OWLAxiom to hold attributes such as used, included in a
@@ -24,6 +27,16 @@ public class AxiomWrapper {
      */
     public AxiomWrapper(OWLAxiom axiom) {
         this.axiom = axiom;
+    }
+
+    /**
+     * @return signature of the axiom, or empty if no axiom is set
+     */
+    public Stream<OWLEntity> signature() {
+        if (axiom != null) {
+            return axiom.signature();
+        }
+        return Stream.empty();
     }
 
     /** @return wrapped axiom */

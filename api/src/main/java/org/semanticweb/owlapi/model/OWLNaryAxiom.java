@@ -27,7 +27,7 @@ import java.util.stream.Stream;
  *        class of contained objects
  * @since 3.0.0
  */
-public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
+public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands<C> {
 
     /**
      * @return a stream of all operands for this n-ary axiom. This provides a
@@ -35,7 +35,8 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
      *         will be the properties() stream for a DisjointObjectProperties,
      *         or a classExpressions() stream for a DisjointClasses.
      */
-    Stream<C> operands();
+    @Override
+        Stream<C> operands();
 
     /**
      * Gets this axiom as a set of pairwise axioms. Note that annotations on

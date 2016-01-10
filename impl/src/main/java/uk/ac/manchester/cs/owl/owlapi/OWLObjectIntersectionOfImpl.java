@@ -31,7 +31,7 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
      * @param operands
      *        operands
      */
-    public OWLObjectIntersectionOfImpl(Stream<? extends OWLClassExpression> operands) {
+    public OWLObjectIntersectionOfImpl(Stream<OWLClassExpression> operands) {
         super(operands);
     }
 

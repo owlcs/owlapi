@@ -207,12 +207,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLDataIntersectionOf getOWLDataIntersectionOf(Stream<? extends OWLDataRange> dataRanges) {
-        return new OWLDataIntersectionOfImpl(dataRanges);
+        return new OWLDataIntersectionOfImpl(dataRanges.map(x -> x));
     }
 
     @Override
     public OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges) {
-        return new OWLDataUnionOfImpl(dataRanges);
+        return new OWLDataUnionOfImpl(dataRanges.map(x -> x));
     }
 
     @Override
@@ -242,7 +242,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLObjectIntersectionOf getOWLObjectIntersectionOf(Stream<? extends OWLClassExpression> operands) {
-        return new OWLObjectIntersectionOfImpl(operands);
+        return new OWLObjectIntersectionOfImpl(operands.map(x -> x));
     }
 
     @Override
@@ -358,7 +358,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values) {
-        return new OWLObjectOneOfImpl(values);
+        return new OWLObjectOneOfImpl(values.map(x -> x));
     }
 
     @Override
@@ -433,7 +433,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands) {
-        return new OWLObjectUnionOfImpl(operands);
+        return new OWLObjectUnionOfImpl(operands.map(x -> x));
     }
 
     @Override
@@ -741,11 +741,10 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-        Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations) {
+        Stream<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations) {
         checkNotNull(owlClass, "owlClass cannot be null");
-        checkIterableNotNull(classExpressions, "classExpressions cannot be null", true);
         checkAnnotations(annotations);
-        return new OWLDisjointUnionAxiomImpl(owlClass, classExpressions, annotations);
+        return new OWLDisjointUnionAxiomImpl(owlClass, classExpressions.map(x -> x), annotations);
     }
 
     @Override

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model.axiomproviders;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -47,6 +48,32 @@ public interface DisjointUnionAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint union axiom with annotations
      */
+    default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
+        Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations) {
+        return getOWLDisjointUnionAxiom(owlClass, classExpressions.stream(), annotations);
+    }
+
+    /**
+     * @param owlClass
+     *        left hand side of the axiom.
+     * @param classExpressions
+     *        right hand side of the axiom. Cannot be null or contain nulls.
+     * @return a disjoint union axiom
+     */
+    default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
+        Stream<? extends OWLClassExpression> classExpressions) {
+        return getOWLDisjointUnionAxiom(owlClass, classExpressions, Collections.emptySet());
+    }
+
+    /**
+     * @param owlClass
+     *        left hand side of the axiom. Cannot be null.
+     * @param classExpressions
+     *        right hand side of the axiom. Cannot be null or contain nulls.
+     * @param annotations
+     *        A set of annotations. Cannot be null or contain nulls.
+     * @return a disjoint union axiom with annotations
+     */
     OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-        Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations);
+        Stream<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations);
 }

@@ -25,7 +25,8 @@ import java.util.stream.Stream;
  *        <P>
  *        property expression
  */
-public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom, OWLNaryAxiom<P> {
+public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
+    extends OWLPropertyAxiom, OWLNaryAxiom<P>, HasOperands<P> {
 
     @Override
     default Stream<?> components() {
