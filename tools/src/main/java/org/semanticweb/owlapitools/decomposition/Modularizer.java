@@ -19,7 +19,13 @@ public class Modularizer {
     /** pointer to a sig index; if not NULL then use optimized algo */
     private final SigIndex sigIndex;
     /** queue of unprocessed entities */
-    private Queue<OWLEntity> workQueue;
+    private Deque<OWLEntity> workQueue;
+    /** number of locality check calls */
+    private long nChecks = 0;
+    /** number of non-local axioms */
+    private long nNonLocal = 0;
+    /** true if no atoms are processed ATM */
+    private boolean noAtomsProcessing = true;
 
     /**
      * @param c
@@ -59,8 +65,13 @@ public class Modularizer {
      *        axiom
      * @return true iff an AXiom is non-local
      */
-    private boolean isNonLocal(OWLAxiom ax) {
-        return !checker.local(ax);
+    private boolean isNonLocal(AxiomWrapper ax) {
+        boolean b = !checker.local(ax.getAxiom());
+        ++nChecks;
+        if (b) {
+            ++nNonLocal;
+        }
+        return b;
     }
 
     /**
@@ -70,7 +81,7 @@ public class Modularizer {
      *        true if locality check is not to be performed
      */
     private void addNonLocal(AxiomWrapper ax, boolean noCheck) {
-        if (noCheck || isNonLocal(ax.getAxiom())) {
+        if (noCheck || isNonLocal(ax)) {
             addAxiomToModule(ax);
         }
     }
@@ -86,6 +97,11 @@ public class Modularizer {
     private void addNonLocal(Collection<AxiomWrapper> AxSet, boolean noCheck) {
         for (AxiomWrapper q : AxSet) {
             if (!q.isInModule() && q.isInSearchSpace()) {
+                String replace = q.getAxiom().toString().replace(
+                    "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#", "");
+                if (replace.equals("ClassAssertion(<Degree> <BA>)")) {
+                    System.out.println("Modularizer.addNonLocal() " + replace);
+                }
                 this.addNonLocal(q, noCheck);
             }
         }
@@ -97,36 +113,28 @@ public class Modularizer {
         workQueue.addAll(sig.getSignature());
         // add all the axioms that are non-local wrt given value of a
         // top-locality
-        this.addNonLocal(sigIndex.getNonLocal(sig.topCLocal()), true);
+        addNonLocal(sigIndex.getNonLocal(sig.topCLocal()), true);
         // main cycle
         while (!workQueue.isEmpty()) {
             // for all the axioms that contains entity in their signature
             Collection<AxiomWrapper> axioms = sigIndex.getAxioms(workQueue.poll());
-            this.addNonLocal(axioms, false);
+            addNonLocal(axioms, false);
         }
     }
 
     /**
      * extract module wrt presence of a sig index
      * 
-     * @param args
+     * @param list
      *        axioms
      */
-    private void extractModule(List<AxiomWrapper> args) {
+    private void extractModule(Collection<AxiomWrapper> list) {
         module.clear();
         // clear the module flag in the input
-        final int size = args.size();
-        for (int i = 0; i < size; i++) {
-            AxiomWrapper p = args.get(i);
-            p.setInModule(false);
-            if (p.isUsed()) {
-                p.setInSearchSpace(true);
-            }
-        }
+        list.forEach(p -> p.setInModule(false));
+        list.stream().filter(p -> p.isUsed()).forEach(p -> p.setInSearchSpace(true));
         extractModuleQueue();
-        for (int i = 0; i < size; i++) {
-            args.get(i).setInSearchSpace(false);
-        }
+        list.forEach(p -> p.setInSearchSpace(false));
     }
 
     /**
@@ -140,6 +148,38 @@ public class Modularizer {
         sigIndex.clear();
         sigIndex.preprocessOntology(axioms);
         workQueue = new ArrayDeque<>(axioms.size());
+        nChecks += 2 * axioms.size();
+    }
+
+    /**
+     * extract module wrt SIGNATURE and TYPE from the set of axioms
+     * 
+     * @param axioms
+     *        axiom
+     * @param signature
+     *        signature
+     * @param type
+     *        type
+     */
+    public void extract(List<AxiomWrapper> axioms, Signature signature, ModuleType type) {
+        boolean topLocality = type == ModuleType.TOP;
+        sig = signature;
+        checker.setSignatureValue(sig);
+        sig.setLocality(topLocality);
+        extractModule(axioms);
+        if (type != ModuleType.STAR) {
+            return;
+        }
+        // here there is a star: do the cycle until stabilization
+        int size;
+        do {
+            size = module.size();
+            List<AxiomWrapper> oldModule = new ArrayList<>(module);
+            topLocality = !topLocality;
+            sig = signature;
+            sig.setLocality(topLocality);
+            extractModule(oldModule);
+        } while (size != module.size());
     }
 
     /**
@@ -168,6 +208,21 @@ public class Modularizer {
         return checker;
     }
 
+    /** @return the last computed module */
+    public Collection<AxiomWrapper> getModule() {
+        return module;
+    }
+
+    /** get number of checks made */
+    long getNChecks() {
+        return nChecks;
+    }
+
+    /** get number of axioms that were local */
+    long getNNonLocal() {
+        return nNonLocal;
+    }
+
     /**
      * @param axiom
      *        axiom
@@ -178,43 +233,5 @@ public class Modularizer {
      */
     public void extract(AxiomWrapper axiom, Signature signature, ModuleType type) {
         this.extract(Collections.singletonList(axiom), signature, type);
-    }
-
-    /**
-     * extract module wrt SIGNATURE and TYPE from the set of axioms
-     * 
-     * @param axioms
-     *        axiom
-     * @param signature
-     *        signature
-     * @param type
-     *        type
-     */
-    public void extract(List<AxiomWrapper> axioms, Signature signature, ModuleType type) {
-        boolean topLocality = type == ModuleType.TOP;
-        sig = signature;
-        checker.setSignatureValue(sig);
-        sig.setLocality(topLocality);
-        extractModule(axioms);
-        if (type != ModuleType.STAR) {
-            return;
-        }
-        // here there is a star: do the cycle until stabilization
-        int size;
-        List<AxiomWrapper> oldModule = new ArrayList<>();
-        do {
-            size = module.size();
-            oldModule.clear();
-            oldModule.addAll(module);
-            topLocality = !topLocality;
-            sig = signature;
-            sig.setLocality(topLocality);
-            extractModule(oldModule);
-        } while (size != module.size());
-    }
-
-    /** @return the last computed module */
-    public List<AxiomWrapper> getModule() {
-        return module;
     }
 }

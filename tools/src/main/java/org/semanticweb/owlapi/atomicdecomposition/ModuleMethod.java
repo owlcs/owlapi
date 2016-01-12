@@ -17,7 +17,7 @@ package org.semanticweb.owlapi.atomicdecomposition;
  * modularisation and atomic decomposition, as implemented in
  * FaCT++/OWLAPITOOLS.
  */
-public enum ModuleType {
+public enum ModuleMethod {
     /** Standard syntactic modules. */
     SYNTACTIC_STANDARD,
     /** Syntactic modules with counting. */

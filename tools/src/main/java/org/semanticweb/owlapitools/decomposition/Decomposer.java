@@ -68,6 +68,7 @@ public class Decomposer {
                 modularizer.extract(p, new Signature(p.getAxiom().signature()), type);
                 if (modularizer.isTautology(p.getAxiom(), type)) {
                     tautologies.add(p);
+                    System.out.println("Decomposer.removeTautologies() " + p.getAxiom());
                     p.setUsed(false);
                 }
             }
@@ -91,7 +92,7 @@ public class Decomposer {
     private OntologyAtom buildModule(Signature sig, OntologyAtom parent) {
         // build a module for a given signature
         modularizer.extract(parent.getModule(), sig, type);
-        List<AxiomWrapper> Module = modularizer.getModule();
+        Collection<AxiomWrapper> Module = modularizer.getModule();
         // if module is empty (empty bottom atom) -- do nothing
         if (Module.isEmpty()) {
             return null;

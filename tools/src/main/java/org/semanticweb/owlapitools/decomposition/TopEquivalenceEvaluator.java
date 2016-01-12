@@ -20,7 +20,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // non-empty Concept/Data expression
-    // / @return true iff C^I is non-empty
+    /** @return true iff C^I is non-empty */
     private boolean isBotDistinct(OWLObject C) {
         // TOP is non-empty
         if (isTopEquivalent(C)) {
@@ -32,7 +32,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // cardinality of a concept/data expression interpretation
-    // / @return true if #C^I > n
+    /** @return true if #C^I > n */
     private boolean isCardLargerThan(OWLObject C, int n) {
         if (n == 0) {
             return isBotDistinct(C);
@@ -45,13 +45,13 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // QCRs
-    // / @return true iff (>= n R.C) is topEq
-    private boolean isMinTopEquivalent(int n, OWLObject R, OWLObject C) {
+    /** @return true iff (>= n R.C) is topEq */
+    private boolean isMinTopEquivalent(int n, OWLPropertyExpression R, OWLPropertyRange C) {
         return n == 0 || isTopEquivalent(R) && isCardLargerThan(C, n - 1);
     }
 
-    // / @return true iff (<= n R.C) is topEq
-    private boolean isMaxTopEquivalent(int n, OWLObject R, OWLObject C) {
+    /** @return true iff (<= n R.C) is topEq */
+    private boolean isMaxTopEquivalent(int n, OWLPropertyExpression R, OWLPropertyRange C) {
         return localityChecker.isBotEquivalent(R) || localityChecker.isBotEquivalent(C);
     }
 
@@ -143,8 +143,8 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     @Override
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
-        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
-            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
+        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n, expr
+            .getProperty(), expr.getFiller());
     }
 
     // ported from: public void visit(ConceptDataValue expr) {
@@ -181,8 +181,8 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     @Override
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
-        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
-            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
+        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n, expr
+            .getProperty(), expr.getFiller());
     }
 
     // ported from: public void visit(ObjectRoleName expr) {

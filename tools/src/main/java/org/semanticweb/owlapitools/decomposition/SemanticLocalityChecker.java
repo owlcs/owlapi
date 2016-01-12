@@ -223,17 +223,17 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         isLocal = Kernel.isEntailed(axiom);
     }
 
-    @Override
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal = Kernel.isEntailed(axiom);
-    }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         isLocal = Kernel.isEntailed(axiom);
     }
+    @Override
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        isLocal = Kernel.isEntailed(axiom);
+    }
 
-    // Domain(R) = C is tautology iff ER.Top [= C
+    /** Domain(R) = C is tautology iff ER.Top [= C */
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
         isLocal = true;
@@ -250,7 +250,7 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         }
     }
 
-    // Range(R) = C is tautology iff ER.~C is unsatisfiable
+    /** Range(R) = C is tautology iff ER.~C is unsatisfiable */
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         isLocal = true;
@@ -312,22 +312,25 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
         isLocal = Kernel.isEntailed(axiom);
     }
 
-    // for top locality, this might be local
+    /** for top locality, this might be local */
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         isLocal = Kernel.isEntailed(axiom);
     }
 
+    /** R(i,j) holds if {i} [= \ER.{j} */
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         isLocal = Kernel.isEntailed(axiom);
     }
 
+    /** !R(i,j) holds if {i} [= \AR.!{j}=!\ER.{j} */
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         isLocal = Kernel.isEntailed(axiom);
     }
 
+    /** R(i,v) holds if {i} [= \ER.{v} */
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         isLocal = Kernel.isEntailed(axiom);
@@ -336,41 +339,6 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         isLocal = Kernel.isEntailed(axiom);
-    }
-
-    @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void visit(OWLHasKeyAxiom axiom) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void visit(SWRLRule rule) {
-        // TODO Auto-generated method stub
     }
 
     @Override
