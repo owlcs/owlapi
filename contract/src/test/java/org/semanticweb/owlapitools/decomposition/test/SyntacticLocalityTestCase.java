@@ -367,7 +367,7 @@ public class SyntacticLocalityTestCase {
         // signature intersects
         test(axiom, false, s);
         // signature does not intersect
-        test(axiom, true, p);
+        test(axiom, false, p);
     }
 
     @Test
