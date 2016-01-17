@@ -19,7 +19,8 @@ public class AxiomWrapper {
     private boolean used = true;
     private boolean searchspace;
     private boolean module;
-    @Nullable private OntologyAtom atom;
+    private OntologyAtom atom;
+    private int id;
 
     /**
      * @param axiom
@@ -27,6 +28,19 @@ public class AxiomWrapper {
      */
     public AxiomWrapper(OWLAxiom axiom) {
         this.axiom = axiom;
+    }
+
+    /**
+     * @param id
+     *        id for the wrapper
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /** @return id */
+    public int getId() {
+        return id;
     }
 
     /**

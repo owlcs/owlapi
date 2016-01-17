@@ -37,6 +37,11 @@ public class Modularizer {
         sigIndex = new SigIndex(checker);
     }
 
+    /** @return the signature */
+    public Signature getSignature() {
+        return sig;
+    }
+
     /**
      * update SIG wrt the axiom signature
      * 

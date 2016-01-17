@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapitools.decomposition.AtomList;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
@@ -114,4 +115,7 @@ public interface AtomicDecomposition {
      * @return module stream
      */
     Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics, ModuleType moduletype);
+
+    /** @return atom list */
+    AtomList getAtomList();
 }

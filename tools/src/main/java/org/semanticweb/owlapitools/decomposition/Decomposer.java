@@ -39,8 +39,20 @@ public class Decomposer {
      */
     public Decomposer(List<AxiomWrapper> axioms, LocalityChecker c) {
         this.axioms = axioms;
-        modularizer = new Modularizer(c);
-        modularizer.preprocessOntology(axioms);
+        modularizer = buildModulariser(axioms, c);
+    }
+
+    /**
+     * @param axioms
+     *        axioms
+     * @param c
+     *        locality checker
+     * @return new modularizer
+     */
+    public static Modularizer buildModulariser(List<AxiomWrapper> axioms, LocalityChecker c) {
+        Modularizer m = new Modularizer(c);
+        m.preprocessOntology(axioms);
+        return m;
     }
 
     /** @return the modularizer for this decomposer */

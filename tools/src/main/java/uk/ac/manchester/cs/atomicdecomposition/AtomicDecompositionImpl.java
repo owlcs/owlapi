@@ -225,8 +225,13 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     @Override
+    public AtomList getAtomList() {
+        return decomposer.getAOS();
+    }
+
+    @Override
     public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics, ModuleType moduletype) {
-        return decomposer.getModule(signature, useSemantics, moduletype).stream().map(AxiomWrapper::getAxiom)
-            .filter(ax -> ax != null);
+        return decomposer.getModule(signature, useSemantics, moduletype).stream().map(AxiomWrapper::getAxiom).filter(
+            ax -> ax != null);
     }
 }
