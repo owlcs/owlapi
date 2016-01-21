@@ -530,8 +530,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         manager.
      */
     default OWLOntology createOntology(IRI ontologyIRI, Collection<OWLOntology> ontologies,
-        boolean copyLogicalAxiomsOnly)
-            throws OWLOntologyCreationException {
+        boolean copyLogicalAxiomsOnly) throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies.stream(), copyLogicalAxiomsOnly);
     }
 
@@ -928,10 +927,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @param ontology
      *        The ontology whose format it to be obtained.
      * @return The format of the ontology.
-     * @throws UnknownOWLOntologyException
-     *         If the specified ontology is not managed by this manager.
      */
-    OWLDocumentFormat getOntologyFormat(OWLOntology ontology);
+    @Nullable
+        OWLDocumentFormat getOntologyFormat(OWLOntology ontology);
 
     /**
      * Sets the format for the specified ontology.
