@@ -46,11 +46,6 @@ public class SigIndex {
             if (top) {
                 topNonLocal.add(ax);
             } else {
-                String replace = ax.getAxiom().toString().replace(
-                    "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#", "");
-                if (replace.equals("ClassAssertion(<Degree> <BA>)")) {
-                    System.out.println("Modularizer.addAxiomToModule() " + replace);
-                }
                 bottomNonLocal.add(ax);
             }
         }

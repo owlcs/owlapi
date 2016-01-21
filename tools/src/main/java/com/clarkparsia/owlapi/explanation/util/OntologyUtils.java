@@ -27,6 +27,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 /** Some ontology utils methods. */
 public final class OntologyUtils {
 
+    private static final String AXIOM_CANNOT_BE_NULL = "axiom cannot be null";
+    private static final String ONTOLOGIES_CANNOT_BE_NULL = "ontologies cannot be null";
+
     private OntologyUtils() {}
 
     /**
@@ -64,8 +67,8 @@ public final class OntologyUtils {
      */
     public static Set<OWLOntology> removeAxiom(OWLAxiom axiom, Stream<OWLOntology> ontologies) {
         Set<OWLOntology> modifiedOnts = new HashSet<>();
-        checkNotNull(axiom, "axiom cannot be null");
-        checkNotNull(ontologies, "ontologies cannot be null");
+        checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
+        checkNotNull(ontologies, ONTOLOGIES_CANNOT_BE_NULL);
         ontologies.filter(o -> o.containsAxiom(axiom)).forEach(ont -> {
             modifiedOnts.add(ont);
             ont.remove(axiom);
@@ -87,8 +90,8 @@ public final class OntologyUtils {
     @Deprecated
     public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) {
         checkNotNull(manager, "manager cannot be null");
-        checkNotNull(axiom, "axiom cannot be null");
-        checkNotNull(ontologies, "ontologies cannot be null");
+        checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
+        checkNotNull(ontologies, ONTOLOGIES_CANNOT_BE_NULL);
         addAxiom(axiom, ontologies.stream());
     }
 
@@ -101,8 +104,8 @@ public final class OntologyUtils {
      *        the ontologies to add the axiom to
      */
     public static void addAxiom(OWLAxiom axiom, Stream<OWLOntology> ontologies) {
-        checkNotNull(axiom, "axiom cannot be null");
-        checkNotNull(ontologies, "ontologies cannot be null");
+        checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
+        checkNotNull(ontologies, ONTOLOGIES_CANNOT_BE_NULL);
         ontologies.forEach(o -> o.add(axiom));
     }
 }

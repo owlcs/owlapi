@@ -13,28 +13,28 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
 
     private Signature sig = new Signature();
     /** top evaluator */
-    TopEquivalenceEvaluator TopEval;
+    TopEquivalenceEvaluator topEval;
     /** bottom evaluator */
-    BotEquivalenceEvaluator BotEval;
+    BotEquivalenceEvaluator botEval;
     /** remember the axiom locality value here */
     boolean isLocal;
 
     /** init c'tor */
     public SyntacticLocalityChecker() {
-        TopEval = new TopEquivalenceEvaluator(this);
-        BotEval = new BotEquivalenceEvaluator(this);
+        topEval = new TopEquivalenceEvaluator(this);
+        botEval = new BotEquivalenceEvaluator(this);
     }
 
     /** @return true iff EXPR is top equivalent */
     @Override
     public boolean isTopEquivalent(OWLObject expr) {
-        return TopEval.isTopEquivalent(expr);
+        return topEval.isTopEquivalent(expr);
     }
 
     /** @return true iff EXPR is bottom equivalent */
     @Override
     public boolean isBotEquivalent(OWLObject expr) {
-        return BotEval.isBotEquivalent(expr);
+        return botEval.isBotEquivalent(expr);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
      * set a new value of a signature (without changing a locality parameters)
      */
     @Override
-    public void setSignatureValue(Signature Sig) {
-        sig = Sig;
+    public void setSignatureValue(Signature sig) {
+        this.sig = sig;
     }
 
     // set fields

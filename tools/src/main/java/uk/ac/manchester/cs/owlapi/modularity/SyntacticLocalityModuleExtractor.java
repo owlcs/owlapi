@@ -462,7 +462,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the classes in sig
      * @return the sets the
      */
-    static Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel, boolean superVsSub, @Nullable OWLReasoner reasoner,
+    static Set<OWLClass> superOrSubClasses(int superOrSubClassLevel, boolean superVsSub, @Nullable OWLReasoner reasoner,
         Set<OWLClass> classesInSig) {
         checkNotNull(reasoner);
         assert reasoner != null;
@@ -538,10 +538,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             }
         }
         if (superClassLevel != 0) {
-            enrichedSig.addAll(SuperOrSubClasses(superClassLevel, true, reasoner, classesInSig));
+            enrichedSig.addAll(superOrSubClasses(superClassLevel, true, reasoner, classesInSig));
         }
         if (subClassLevel != 0) {
-            enrichedSig.addAll(SuperOrSubClasses(subClassLevel, false, reasoner, classesInSig));
+            enrichedSig.addAll(superOrSubClasses(subClassLevel, false, reasoner, classesInSig));
         }
         return enrichedSig;
     }

@@ -52,8 +52,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private final OWLReasonerFactory reasonerFactory;
     private final Set<OWLAxiom> temporaryAxioms = new HashSet<>();
     private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
-    private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
-    private int expansionLimit = initialExpansionLimit;
+    private int expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     private int fastPruningWindowSize = 0;
     // Creation of debugging ontology and satisfiability testing
@@ -89,7 +88,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         expandedWithDefiningAxioms.clear();
         expandedWithReferencingAxioms.clear();
         temporaryAxioms.clear();
-        expansionLimit = initialExpansionLimit;
+        expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     }
 
     @Override

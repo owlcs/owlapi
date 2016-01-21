@@ -80,7 +80,6 @@ public class Decomposer {
                 modularizer.extract(p, new Signature(p.getAxiom().signature()), type);
                 if (modularizer.isTautology(p.getAxiom(), type)) {
                     tautologies.add(p);
-                    System.out.println("Decomposer.removeTautologies() " + p.getAxiom());
                     p.setUsed(false);
                 }
             }
@@ -104,20 +103,20 @@ public class Decomposer {
     private OntologyAtom buildModule(Signature sig, OntologyAtom parent) {
         // build a module for a given signature
         modularizer.extract(parent.getModule(), sig, type);
-        Collection<AxiomWrapper> Module = modularizer.getModule();
+        Collection<AxiomWrapper> module = modularizer.getModule();
         // if module is empty (empty bottom atom) -- do nothing
-        if (Module.isEmpty()) {
+        if (module.isEmpty()) {
             return null;
         }
         // check if the module corresponds to a PARENT one; modules are the same
         // iff their sizes are the same
-        if (parent != rootAtom && Module.size() == parent.getModule().size()) {
+        if (parent != rootAtom && module.size() == parent.getModule().size()) {
             return parent;
         }
         // create new atom with that module
         assert atomList != null;
         OntologyAtom atom = atomList.newAtom();
-        atom.setModule(Module);
+        atom.setModule(module);
         return atom;
     }
 
@@ -235,9 +234,9 @@ public class Decomposer {
     public Collection<AxiomWrapper> getModule(Stream<OWLEntity> signature, boolean useSemantics,
         ModuleType moduletype) {
         // init signature
-        Signature Sig = new Signature(signature);
-        Sig.setLocality(false);
-        modularizer.extract(axioms, Sig, moduletype);
+        Signature sig = new Signature(signature);
+        sig.setLocality(false);
+        modularizer.extract(axioms, sig, moduletype);
         return modularizer.getModule();
     }
 }

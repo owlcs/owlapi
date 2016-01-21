@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
@@ -84,7 +83,7 @@ public class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    public void testDeep() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void testDeep() throws OWLOntologyCreationException {
         OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
         assertEquals(m1, copy.getOWLOntologyManager());
@@ -94,7 +93,5 @@ public class MoveOntologyTestCase extends TestBase {
         assertNotNull(m1.getOntologyFormat(o));
         assertEquals(asSet(o.annotations()), asSet(copy.annotations()));
         assertEquals(asSet(o.importsDeclarations()), asSet(copy.importsDeclarations()));
-        copy.annotations().forEach(System.out::println);
-        copy.saveOntology(System.out);
     }
 }

@@ -94,19 +94,14 @@ public class Modularizer {
     /**
      * add all the non-local axioms from given axiom-set AxSet
      * 
-     * @param AxSet
+     * @param axSet
      *        collection of axioms
      * @param noCheck
      *        true if locality check is not to be performed
      */
-    private void addNonLocal(Collection<AxiomWrapper> AxSet, boolean noCheck) {
-        for (AxiomWrapper q : AxSet) {
+    private void addNonLocal(Collection<AxiomWrapper> axSet, boolean noCheck) {
+        for (AxiomWrapper q : axSet) {
             if (!q.isInModule() && q.isInSearchSpace()) {
-                String replace = q.getAxiom().toString().replace(
-                    "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#", "");
-                if (replace.equals("ClassAssertion(<Degree> <BA>)")) {
-                    System.out.println("Modularizer.addNonLocal() " + replace);
-                }
                 this.addNonLocal(q, noCheck);
             }
         }

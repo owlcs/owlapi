@@ -23,35 +23,35 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     /**
      * non-empty Concept/Data expression
      * 
-     * @param C
+     * @param c
      *        class
      * @return true iff C^I is non-empty
      */
-    private boolean isBotDistinct(OWLObject C) {
+    private boolean isBotDistinct(OWLObject c) {
         // TOP is non-empty
-        if (localityChecker.isTopEquivalent(C)) {
+        if (localityChecker.isTopEquivalent(c)) {
             return true;
         }
         // built-in DT are non-empty
         // FIXME!! that's it for now
-        return C instanceof OWLDatatype;
+        return c instanceof OWLDatatype;
     }
 
     /**
      * cardinality of a concept/data expression interpretation
      * 
      * @return true if #C^I > n
-     * @param C
+     * @param c
      *        class
      * @param n
      *        cardinality
      */
-    private boolean isCardLargerThan(OWLObject C, int n) {
+    private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
-            return isBotDistinct(C);
+            return isBotDistinct(c);
         }
-        if (C instanceof OWLDatatype) {
-            return ((OWLDatatype) C).isBuiltIn() && !((OWLDatatype) C).getBuiltInDatatype().isFinite();
+        if (c instanceof OWLDatatype) {
+            return ((OWLDatatype) c).isBuiltIn() && !((OWLDatatype) c).getBuiltInDatatype().isFinite();
         }
         // FIXME!! try to be more precise
         return false;
@@ -60,14 +60,14 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     /**
      * @param n
      *        cardinality
-     * @param R
+     * @param r
      *        property
-     * @param C
+     * @param c
      *        class
      * @return true iff (<= n R.C) is botEq
      */
-    private boolean isMaxBotEquivalent(int n, OWLPropertyExpression R, OWLPropertyRange C) {
-        return isBotEquivalent(R) && isCardLargerThan(C, n);
+    private boolean isMaxBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
+        return isBotEquivalent(r) && isCardLargerThan(c, n);
     }
 
     /**
@@ -75,14 +75,14 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
      * 
      * @param n
      *        cardinality
-     * @param R
+     * @param r
      *        property
-     * @param C
+     * @param c
      *        class
      * @return true iff (>= n R.C) is botEq
      */
-    private boolean isMinBotEquivalent(int n, OWLPropertyExpression R, OWLPropertyRange C) {
-        return n > 0 && (isBotEquivalent(R) || isBotEquivalent(C));
+    private boolean isMinBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
+        return n > 0 && (isBotEquivalent(r) || isBotEquivalent(c));
     }
 
     /**
@@ -101,74 +101,61 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
         return isBotEq;
     }
 
-    // concept expressions
-    // ported from: public void visit(ConceptName expr) {
     @Override
     public void visit(OWLClass expr) {
         isBotEq = !getSignature().topCLocal() && !getSignature().contains(expr);
     }
 
-    // ported from: public void visit(ConceptNot expr) {
     @Override
     public void visit(OWLObjectComplementOf expr) {
         isBotEq = localityChecker.isTopEquivalent(expr.getOperand());
     }
 
-    // ported from:public void visit(ConceptAnd expr) {
     @Override
     public void visit(OWLObjectIntersectionOf expr) {
         isBotEq = expr.operands().anyMatch(this::isBotEquivalent);
     }
 
-    // ported from: public void visit(ConceptOr expr) {
     @Override
     public void visit(OWLObjectUnionOf expr) {
         isBotEq = !expr.operands().anyMatch(p -> !isBotEquivalent(p));
     }
 
-    // ported from: public void visit(ConceptOneOf expr) {
     @Override
     public void visit(OWLObjectOneOf expr) {
         isBotEq = expr.individuals().count() == 0;
     }
 
-    // ported from: public void visit(ConceptObjectSelf expr) {
     @Override
     public void visit(OWLObjectHasSelf expr) {
         isBotEq = isBotEquivalent(expr.getProperty());
     }
 
-    // ported from: public void visit(ConceptObjectValue expr) {
     @Override
     public void visit(OWLObjectHasValue expr) {
         isBotEq = isBotEquivalent(expr.getProperty());
     }
 
-    // ported from: public void visit(ConceptObjectExists expr) {
     @Override
     public void visit(OWLObjectSomeValuesFrom expr) {
         isBotEq = isMinBotEquivalent(1, expr.getProperty(), expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptObjectForall expr) {
     @Override
     public void visit(OWLObjectAllValuesFrom expr) {
         isBotEq = localityChecker.isTopEquivalent(expr.getProperty()) && isBotEquivalent(expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptObjectMinCardinality expr) {
     @Override
     public void visit(OWLObjectMinCardinality expr) {
         isBotEq = isMinBotEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptObjectMaxCardinality expr) {
     @Override
     public void visit(OWLObjectMaxCardinality expr) {
         isBotEq = isMaxBotEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptObjectExactCardinality expr) {
     @Override
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
@@ -176,38 +163,32 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
             .getProperty(), expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptDataValue expr) {
     @Override
     public void visit(OWLDataHasValue expr) {
         isBotEq = isBotEquivalent(expr.getProperty());
     }
 
-    // ported from: public void visit(ConceptDataExists expr) {
     @Override
     public void visit(OWLDataSomeValuesFrom expr) {
         isBotEq = isMinBotEquivalent(1, expr.getProperty(), expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptDataForall expr) {
     @Override
     public void visit(OWLDataAllValuesFrom expr) {
         isBotEq = localityChecker.isTopEquivalent(expr.getProperty()) && !localityChecker.isTopEquivalent(expr
             .getFiller());
     }
 
-    // ported from: public void visit(ConceptDataMinCardinality expr) {
     @Override
     public void visit(OWLDataMinCardinality expr) {
         isBotEq = isMinBotEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptDataMaxCardinality expr) {
     @Override
     public void visit(OWLDataMaxCardinality expr) {
         isBotEq = isMaxBotEquivalent(expr.getCardinality(), expr.getProperty(), expr.getFiller());
     }
 
-    // ported from: public void visit(ConceptDataExactCardinality expr) {
     @Override
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
@@ -215,45 +196,36 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
             .getProperty(), expr.getFiller());
     }
 
-    // object role expressions
-    // ported from: public void visit(ObjectRoleName expr) {
     @Override
     public void visit(OWLObjectProperty expr) {
         isBotEq = !getSignature().topRLocal() && !getSignature().contains(expr);
     }
 
-    // ported from: public void visit(ObjectRoleInverse expr) {
     @Override
     public void visit(OWLObjectInverseOf expr) {
         isBotEq = isBotEquivalent(expr.getInverse());
     }
 
-    // data role expressions
-    // ported from: public void visit(DataRoleName expr) {
     @Override
     public void visit(OWLDataProperty expr) {
         isBotEq = !getSignature().topRLocal() && !getSignature().contains(expr);
     }
 
-    // ported from: public void visit(Datatype<?> arg)
     @Override
     public void visit(OWLDatatype node) {
         isBotEq = node.isBottomEntity();
     }
 
-    // ported from: public void visit(Literal<?> arg) {
     @Override
     public void visit(OWLLiteral node) {
         isBotEq = false;
     }
 
-    // ported from: public void visit(DataNot expr) {
     @Override
     public void visit(OWLDataComplementOf node) {
         isBotEq = localityChecker.isTopEquivalent(node.getDataRange());
     }
 
-    // ported from: public void visit(DataOneOf arg) {
     @Override
     public void visit(OWLDataOneOf node) {
         isBotEq = node.values().count() == 0;

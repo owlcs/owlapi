@@ -35,8 +35,8 @@ public class OntologyAtom {
     public void buildAllDepAtoms(Set<OntologyAtom> checked) {
         // first gather all dep atoms from all known dep atoms
         for (OntologyAtom p : dependencies) {
-            Set<OntologyAtom> Dep = p.getAllDepAtoms(checked);
-            allDependencies.addAll(Dep);
+            Set<OntologyAtom> dep = p.getAllDepAtoms(checked);
+            allDependencies.addAll(dep);
         }
         // now filter them out from known dep atoms
         filterDep();
