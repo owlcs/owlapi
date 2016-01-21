@@ -14,11 +14,14 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
 /**
@@ -36,8 +39,8 @@ public class MoveOntologyTestCase extends TestBase {
         + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
         + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
         + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-        + "    <owl:Ontology rdf:about=\"urn:test\"/>\n" + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n"
-        + "        <owl:equivalentClass>\n"
+        + "    <owl:Ontology rdf:about=\"urn:testcopy\"><owl:imports rdf:resource=\"urn:test\"/></owl:Ontology>\n"
+        + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n" + "        <owl:equivalentClass>\n"
         + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
         + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
         + "        <rdfs:label >datatype definition</rdfs:label>\n"
@@ -46,38 +49,46 @@ public class MoveOntologyTestCase extends TestBase {
         + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
         + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
 
+    @Before
+    public void setUp() throws OWLOntologyCreationException {
+        m.createOntology(IRI.create("urn:test"));
+    }
+
     @Test
     public void testMove() throws OWLOntologyCreationException {
-        OWLOntology o = loadOntologyFromString(s);
-        OWLOntologyManager m2 = o.getOWLOntologyManager();
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
-        assertFalse(m2.contains(o));
+        assertFalse(m.contains(o));
         assertTrue(m1.contains(copy));
-        assertNull(m2.getOntologyFormat(o));
+        assertEquals(o.getAnnotations(), copy.getAnnotations());
+        expectedException.expect(UnknownOWLOntologyException.class);
+        m.getOntologyFormat(o);
     }
 
     @Test
     public void testShallow() throws OWLOntologyCreationException {
-        OWLOntology o = loadOntologyFromString(s);
-        OWLOntologyManager m2 = o.getOWLOntologyManager();
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW);
         assertEquals(m1, copy.getOWLOntologyManager());
-        assertTrue(m2.contains(o));
+        assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
-        assertNotNull(m2.getOntologyFormat(o));
+        assertNotNull(m.getOntologyFormat(o));
+        assertEquals(o.getAnnotations(), copy.getAnnotations());
+        assertEquals(o.getImportsDeclarations(), copy.getImportsDeclarations());
     }
 
     @Test
     public void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o = loadOntologyFromString(s);
-        OWLOntologyManager m2 = o.getOWLOntologyManager();
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
         assertEquals(m1, copy.getOWLOntologyManager());
-        assertTrue(m2.contains(o));
+        assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
-        assertNotNull(m2.getOntologyFormat(o));
+        assertNotNull(m.getOntologyFormat(o));
         assertNotNull(m1.getOntologyFormat(o));
+        assertEquals(o.getAnnotations(), copy.getAnnotations());
+        assertEquals(o.getImportsDeclarations(), copy.getImportsDeclarations());
     }
 }

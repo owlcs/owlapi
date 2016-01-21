@@ -52,8 +52,8 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyManagerImpl
-    implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
+public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler,
+    Serializable {
 
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyManagerImpl.class);
@@ -291,9 +291,9 @@ public class OWLOntologyManagerImpl
             OWLOntology result = ontologiesByID.get(ontologyID);
             if (result == null) {
                 for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-                    if (ontologyIRI.equals(nextOntologyID.getVersionIRI().orNull())
-                        || ontologyIRI.equals(nextOntologyID.getOntologyIRI().orNull())
-                        || ontologyIRI.equals(nextOntologyID.getDefaultDocumentIRI().orNull())) {
+                    if (ontologyIRI.equals(nextOntologyID.getVersionIRI().orNull()) || ontologyIRI.equals(nextOntologyID
+                        .getOntologyIRI().orNull()) || ontologyIRI.equals(nextOntologyID.getDefaultDocumentIRI()
+                            .orNull())) {
                         result = ontologiesByID.get(nextOntologyID);
                     }
                 }
@@ -507,10 +507,10 @@ public class OWLOntologyManagerImpl
      *         {@code false}.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        OWLOntologyLoaderConfiguration ontologyConfig = ontologyConfigurationsByOntologyID
-            .get(change.getOntology().getOntologyID());
-        if (ontologyConfig != null && !ontologyConfig.isLoadAnnotationAxioms() && change.isAddAxiom()
-            && change.getAxiom() instanceof OWLAnnotationAxiom) {
+        OWLOntologyLoaderConfiguration ontologyConfig = ontologyConfigurationsByOntologyID.get(change.getOntology()
+            .getOntologyID());
+        if (ontologyConfig != null && !ontologyConfig.isLoadAnnotationAxioms() && change.isAddAxiom() && change
+            .getAxiom() instanceof OWLAnnotationAxiom) {
             return false;
         }
         return true;
@@ -576,8 +576,8 @@ public class OWLOntologyManagerImpl
                     ChangeApplied enactChangeApplication = enactChangeApplication(c.reverseChange());
                     if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
                         // rollback could not complete, throw an exception
-                        throw new OWLRuntimeException(
-                            "Rollback of changes unsuccessful: Change " + c + " could not be rolled back");
+                        throw new OWLRuntimeException("Rollback of changes unsuccessful: Change " + c
+                            + " could not be rolled back");
                     }
                 }
                 appliedChanges.clear();
@@ -698,8 +698,8 @@ public class OWLOntologyManagerImpl
                 if (!change.getOntology().getAxioms().equals(existingOntology.getAxioms())) {
                     LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}", existingOntology);
                     LOGGER.error("OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}", change.getOntology());
-                    throw new OWLOntologyRenameException(change.getChangeData(),
-                        ((SetOntologyID) change).getNewOntologyID());
+                    throw new OWLOntologyRenameException(change.getChangeData(), ((SetOntologyID) change)
+                        .getNewOntologyID());
                 }
             }
             renameOntology(setID.getOriginalOntologyID(), setID.getNewOntologyID());
@@ -733,7 +733,11 @@ public class OWLOntologyManagerImpl
         readLock.lock();
         try {
             OWLOntologyID ontologyID = ontology.getOntologyID();
-            return ontologyFormatsByOntology.get(ontologyID);
+            OWLDocumentFormat format = ontologyFormatsByOntology.get(ontologyID);
+            if (format == null) {
+                throw new UnknownOWLOntologyException(ontologyID);
+            }
+            return format;
         } finally {
             readLock.unlock();
         }
@@ -855,6 +859,10 @@ public class OWLOntologyManagerImpl
                 for (OWLAnnotation a : toCopy.getAnnotations()) {
                     assert a != null;
                     applyChange(new AddOntologyAnnotation(toReturn, a));
+                }
+                for (OWLImportsDeclaration a : toCopy.getImportsDeclarations()) {
+                    assert a != null;
+                    applyChange(new AddImport(toReturn, a));
                 }
             }
             // toReturn now initialized
@@ -1647,8 +1655,8 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             for (OWLOntologyLoaderListener listener : new ArrayList<>(loaderListeners)) {
-                listener.startedLoadingOntology(
-                    new OWLOntologyLoaderListener.LoadingStartedEvent(ontologyID, documentIRI, imported));
+                listener.startedLoadingOntology(new OWLOntologyLoaderListener.LoadingStartedEvent(ontologyID,
+                    documentIRI, imported));
             }
         } finally {
             writeLock.unlock();
@@ -1659,8 +1667,8 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             for (OWLOntologyLoaderListener listener : new ArrayList<>(loaderListeners)) {
-                listener.finishedLoadingOntology(
-                    new OWLOntologyLoaderListener.LoadingFinishedEvent(ontologyID, documentIRI, imported, ex));
+                listener.finishedLoadingOntology(new OWLOntologyLoaderListener.LoadingFinishedEvent(ontologyID,
+                    documentIRI, imported, ex));
             }
         } finally {
             writeLock.unlock();
