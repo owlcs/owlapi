@@ -48,8 +48,8 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyManagerImpl
-    implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
+public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler,
+    Serializable {
 
     private static final String BADLISTENER = "BADLY BEHAVING LISTENER: {} has been removed";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyManagerImpl.class);
@@ -279,8 +279,8 @@ public class OWLOntologyManagerImpl
             if (result != null) {
                 return result;
             }
-            java.util.Optional<Entry<OWLOntologyID, OWLOntology>> findAny = ontologiesByID.entrySet().stream()
-                .filter(o -> o.getKey().match(iri)).findAny();
+            java.util.Optional<Entry<OWLOntologyID, OWLOntology>> findAny = ontologiesByID.entrySet().stream().filter(
+                o -> o.getKey().match(iri)).findAny();
             return findAny.isPresent() ? findAny.get().getValue() : null;
         } finally {
             readLock.unlock();
@@ -294,8 +294,8 @@ public class OWLOntologyManagerImpl
         try {
             OWLOntology result = ontologiesByID.get(id);
             if (result == null && !id.isAnonymous()) {
-                java.util.Optional<OWLOntologyID> findAny = ids()
-                    .filter(o -> o.matchOntology(id.getOntologyIRI().get())).findAny();
+                java.util.Optional<OWLOntologyID> findAny = ids().filter(o -> o.matchOntology(id.getOntologyIRI()
+                    .get())).findAny();
                 if (findAny.isPresent()) {
                     result = ontologiesByID.get(findAny.get());
                 }
@@ -446,10 +446,10 @@ public class OWLOntologyManagerImpl
      *         {@code false}.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        OWLOntologyLoaderConfiguration ontologyConfig = ontologyConfigurationsByOntologyID
-            .get(change.getOntology().getOntologyID());
-        if (ontologyConfig != null && !ontologyConfig.isLoadAnnotationAxioms() && change.isAddAxiom()
-            && change.getAxiom() instanceof OWLAnnotationAxiom) {
+        OWLOntologyLoaderConfiguration ontologyConfig = ontologyConfigurationsByOntologyID.get(change.getOntology()
+            .getOntologyID());
+        if (ontologyConfig != null && !ontologyConfig.isLoadAnnotationAxioms() && change.isAddAxiom() && change
+            .getAxiom() instanceof OWLAnnotationAxiom) {
             return false;
         }
         return true;
@@ -535,8 +535,8 @@ public class OWLOntologyManagerImpl
         for (OWLOntologyChange c : appliedChanges) {
             if (enactChangeApplication(c.reverseChange()) == ChangeApplied.UNSUCCESSFULLY) {
                 // rollback could not complete, throw an exception
-                throw new OWLRuntimeException(
-                    "Rollback of changes unsuccessful: Change " + c + " could not be rolled back");
+                throw new OWLRuntimeException("Rollback of changes unsuccessful: Change " + c
+                    + " could not be rolled back");
             }
         }
     }
@@ -583,8 +583,8 @@ public class OWLOntologyManagerImpl
                     // then the import does not refer to a known IRI for
                     // ontologies; check for a document IRI to find the ontology
                     // id corresponding to the file location
-                    documentIRIsByID.entrySet().stream().filter(o -> o.getValue().equals(iri)).findAny()
-                        .ifPresent(o -> ontologyIDsByImportsDeclaration.put(addImportDeclaration, o.getKey()));
+                    documentIRIsByID.entrySet().stream().filter(o -> o.getValue().equals(iri)).findAny().ifPresent(
+                        o -> ontologyIDsByImportsDeclaration.put(addImportDeclaration, o.getKey()));
                 }
             } else {
                 // Remove the mapping from declaration to ontology
@@ -636,7 +636,11 @@ public class OWLOntologyManagerImpl
         readLock.lock();
         try {
             OWLOntologyID ontologyID = ontology.getOntologyID();
-            return ontologyFormatsByOntology.get(ontologyID);
+            OWLDocumentFormat format = ontologyFormatsByOntology.get(ontologyID);
+            if (format == null) {
+                throw new UnknownOWLOntologyException(ontologyID);
+            }
+            return format;
         } finally {
             readLock.unlock();
         }
@@ -726,6 +730,7 @@ public class OWLOntologyManagerImpl
                     OWLOntology o = createOntology(toCopy.getOntologyID());
                     AxiomType.AXIOM_TYPES.forEach(t -> addAxioms(o, toCopy.axioms(t)));
                     toCopy.annotations().forEach(a -> applyChange(new AddOntologyAnnotation(o, a)));
+                    toCopy.importsDeclarations().forEach(a -> applyChange(new AddImport(o, a)));
                     toReturn = o;
                     break;
                 default:
@@ -803,8 +808,8 @@ public class OWLOntologyManagerImpl
     private OWLOntology getOntologyByDocumentIRI(IRI iri) {
         readLock.lock();
         try {
-            java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream()
-                .filter(o -> iri.equals(o.getValue())).findAny();
+            java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream().filter(o -> iri
+                .equals(o.getValue())).findAny();
             if (findAny.isPresent()) {
                 return getOntology(findAny.get().getKey());
             }
@@ -870,8 +875,8 @@ public class OWLOntologyManagerImpl
                 LOGGER.error(
                     "Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
             }
-            fireStartedLoadingEvent(new OWLOntologyID(optional(ontologyIRI), emptyOptional()),
-                documentSource.getDocumentIRI(), loadCount.get() > 0);
+            fireStartedLoadingEvent(new OWLOntologyID(optional(ontologyIRI), emptyOptional()), documentSource
+                .getDocumentIRI(), loadCount.get() > 0);
             loadCount.incrementAndGet();
             broadcastChanges.set(false);
             Exception ex = null;
@@ -1520,8 +1525,8 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             for (OWLOntologyLoaderListener listener : new ArrayList<>(loaderListeners)) {
-                listener.startedLoadingOntology(
-                    new OWLOntologyLoaderListener.LoadingStartedEvent(ontologyID, documentIRI, imported));
+                listener.startedLoadingOntology(new OWLOntologyLoaderListener.LoadingStartedEvent(ontologyID,
+                    documentIRI, imported));
             }
         } finally {
             writeLock.unlock();
@@ -1533,8 +1538,8 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             for (OWLOntologyLoaderListener listener : new ArrayList<>(loaderListeners)) {
-                listener.finishedLoadingOntology(
-                    new OWLOntologyLoaderListener.LoadingFinishedEvent(ontologyID, documentIRI, imported, ex));
+                listener.finishedLoadingOntology(new OWLOntologyLoaderListener.LoadingFinishedEvent(ontologyID,
+                    documentIRI, imported, ex));
             }
         } finally {
             writeLock.unlock();
