@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
 /**
@@ -63,8 +62,7 @@ public class MoveOntologyTestCase extends TestBase {
         assertFalse(m.contains(o));
         assertTrue(m1.contains(copy));
         assertEquals(o.getAnnotations(), copy.getAnnotations());
-        expectedException.expect(UnknownOWLOntologyException.class);
-        m.getOntologyFormat(o);
+        assertNull(m.getOntologyFormat(o));
     }
 
     @Test

@@ -727,17 +727,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         }
     }
 
-    @Nonnull
     @Override
     public OWLDocumentFormat getOntologyFormat(@Nonnull OWLOntology ontology) {
         readLock.lock();
         try {
             OWLOntologyID ontologyID = ontology.getOntologyID();
-            OWLDocumentFormat format = ontologyFormatsByOntology.get(ontologyID);
-            if (format == null) {
-                throw new UnknownOWLOntologyException(ontologyID);
-            }
-            return format;
+            return ontologyFormatsByOntology.get(ontologyID);
         } finally {
             readLock.unlock();
         }
