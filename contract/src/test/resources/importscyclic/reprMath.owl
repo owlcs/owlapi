@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF 
+   xml:base = "http://sweet.jpl.nasa.gov/2.3/reprMath.owl"
+   xmlns:mrela2= "http://sweet.jpl.nasa.gov/2.3/relaMath.owl#"
+   xmlns:owl = "http://www.w3.org/2002/07/owl#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <owl:Ontology rdf:about="">
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaMath.owl"/>
+  </owl:Ontology>
+  <owl:Class rdf:about="#Interval"/>
+  <mrela2:Interval rdf:about="#NormalizedRange">
+    <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</mrela2:hasLowerBound>
+  </mrela2:Interval>
+      <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#D"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#C"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#B"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#A"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#Interval"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#MonthRange"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#SizeRange_micron"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#PrecipitationRange_cm"/>
+    <owl:Class rdf:about="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#TemperatureRange"/>
+
+
+    <owl:Class rdf:about="#CloudDrop">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#test"/>
+        <owl:hasValue>
+          <mrela2:SizeRange_micron>
+            <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#double">200</mrela2:hasLowerBound>
+            <mrela2:hasUpperBound rdf:datatype="http://www.w3.org/2001/XMLSchema#double">500</mrela2:hasUpperBound>
+          </mrela2:SizeRange_micron>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RainDrop">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#test"/>
+        <owl:hasValue>
+          <mrela2:SizeRange_micron>
+            <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#double">500</mrela2:hasLowerBound>
+          </mrela2:SizeRange_micron>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  
+  
+  <!-- Climate zones -->
+  <owl:Class rdf:ID="A">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaMath.owl#test"/>
+        <owl:hasValue>
+          <mrela2:TemperatureRange>
+            <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18</mrela2:hasLowerBound>
+          </mrela2:TemperatureRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Individuals -->
+  <mrela2:A rdf:ID="Af">
+    <owl:sameAs rdf:resource="#TropicalRainForestClimate"/>
+    <mrela2:test>
+      <mrela2:PrecipitationRange_cm>
+        <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</mrela2:hasLowerBound>
+      </mrela2:PrecipitationRange_cm>
+    </mrela2:test>
+  </mrela2:A>
+  <mrela2:A rdf:ID="TropicalRainForestClimate"/>
+
+  <mrela2:A rdf:ID="Am">
+    <owl:sameAs rdf:resource="#TropicalMonsoonClimate"/>
+    <mrela2:test>
+      <mrela2:MonthRange>
+        <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</mrela2:hasLowerBound>
+      </mrela2:MonthRange>
+    </mrela2:test>
+  </mrela2:A>
+
+  <mrela2:B rdf:ID="BSh">
+    <owl:sameAs rdf:resource="#HotLowLatitudeSteppeClimate"/>
+    <mrela2:test>
+      <mrela2:TemperatureRange>
+        <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18</mrela2:hasLowerBound>
+      </mrela2:TemperatureRange>
+    </mrela2:test>
+  </mrela2:B>
+
+  <mrela2:B rdf:ID="BWh">
+    <owl:sameAs rdf:resource="#HotLowLatitudeDesertClimate"/>
+    <mrela2:test>
+      <mrela2:TemperatureRange>
+        <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18</mrela2:hasLowerBound>
+      </mrela2:TemperatureRange>
+    </mrela2:test>
+  </mrela2:B>
+
+  <mrela2:C rdf:ID="Cfa">
+    <mrela2:test>
+      <mrela2:TemperatureRange>
+        <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">22</mrela2:hasLowerBound>
+      </mrela2:TemperatureRange>
+    </mrela2:test>
+  </mrela2:C>
+
+  <mrela2:C rdf:ID="Cfb">
+    <mrela2:test>
+      <mrela2:MonthRange>
+        <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</mrela2:hasLowerBound>
+      </mrela2:MonthRange>
+    </mrela2:test>
+  </mrela2:C>
+
+  <mrela2:C rdf:ID="Cfc">
+    <mrela2:test>
+      <mrela2:MonthRange>
+        <mrela2:hasLowerBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</mrela2:hasLowerBound>
+        <mrela2:hasUpperBound rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</mrela2:hasUpperBound>
+      </mrela2:MonthRange>
+    </mrela2:test>
+  </mrela2:C>
+
+
+</rdf:RDF>

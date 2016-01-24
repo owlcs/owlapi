@@ -41,12 +41,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 public class OWLOntologyManager_Concurrent_TestCase {
 
     private OWLOntologyManager manager;
-    @Mock
-    private Lock readLock, writeLock;
-    @Mock
-    private OWLDataFactory dataFactory;
-    @Mock
-    private ReadWriteLock readWriteLock;
+    @Mock private Lock readLock, writeLock;
+    @Mock private OWLDataFactory dataFactory;
+    @Mock private ReadWriteLock readWriteLock;
     private OWLOntology ontology;
 
     @Before
@@ -56,8 +53,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
         manager = new OWLOntologyManagerImpl(dataFactory, readWriteLock);
         mockAndAddOntologyFactory();
         mockAndAddOntologyStorer();
-        ontology = manager.createOntology();
         IRI iri = IRI.create("http://owlapi/ont");
+        ontology = manager.createOntology(iri);
         manager.setOntologyDocumentIRI(ontology, iri);
         reset(readLock, writeLock, readWriteLock);
     }

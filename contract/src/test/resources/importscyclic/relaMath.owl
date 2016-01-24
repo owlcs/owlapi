@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF 
+   xml:base = "http://sweet.jpl.nasa.gov/2.3/relaMath.owl"
+   xmlns:math = "http://sweet.jpl.nasa.gov/2.3/reprMath.owl"
+   xmlns:owl = "http://www.w3.org/2002/07/owl#"
+   xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <owl:Ontology rdf:about="">
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/reprMath.owl"/>
+  </owl:Ontology>
+  <owl:DatatypeProperty rdf:about="#hasLowerBound"/>
+    <owl:DatatypeProperty rdf:about="#hasLowerBound">
+    <owl:equivalentProperty rdf:resource="#lowerBound"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="#lowerBound"/>
+  <owl:DatatypeProperty rdf:about="#upperBound"/>
+  <owl:DatatypeProperty rdf:about="#hasUpperBound"/>
+  <owl:ObjectProperty rdf:about="#test"/>
+  
+</rdf:RDF>

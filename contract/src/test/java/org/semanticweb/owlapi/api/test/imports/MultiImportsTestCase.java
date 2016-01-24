@@ -26,6 +26,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.profiles.Profiles;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
@@ -37,8 +39,8 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 @SuppressWarnings("javadoc")
 public class MultiImportsTestCase extends TestBase {
 
-    @Nonnull
-    public static final File RESOURCES;
+    @Nonnull public static final File RESOURCES;
+
     static {
         File f = new File("contract/src/test/resources/");
         if (f.exists()) {
@@ -48,33 +50,40 @@ public class MultiImportsTestCase extends TestBase {
             if (f.exists()) {
                 RESOURCES = f;
             } else {
-                throw new OWLRuntimeException(
-                        "MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+                throw new OWLRuntimeException("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
             }
         }
     }
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(
-                new AutoIRIMapper(new File(RESOURCES, "imports"), true));
+        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
         m.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
     }
 
     @Test
     public void testCyclicImports() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(
-                new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        m.loadOntologyFromOntologyDocument(new File(RESOURCES,
-                "/importscyclic/D.owl"));
+        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        m.loadOntologyFromOntologyDocument(new File(RESOURCES, "/importscyclic/D.owl"));
     }
 
     @Test
     public void testCyclicImports2() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(
-                new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
-                "importscyclic/D.owl")));
+        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES, "importscyclic/D.owl")));
+    }
+
+    @Test
+    public void shouldNotCreateIllegalPunning() throws OWLOntologyCreationException {
+        m.getIRIMappers().add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
+            "importscyclic/relaMath.owl")));
+        OWLProfileReport checkOntology = Profiles.OWL2_DL.checkOntology(o);
+        assertTrue(checkOntology.toString(), checkOntology.isInProfile());
+        for (OWLOntology ont : o.getDirectImports()) {
+            assertTrue(ont.getAnnotationPropertiesInSignature().toString(), ont.getAnnotationPropertiesInSignature()
+                .isEmpty());
+        }
     }
 
     @Test
@@ -84,26 +93,18 @@ public class MultiImportsTestCase extends TestBase {
         File ontologyDirectory = new File(RESOURCES, "importNoOntology");
         String ns = "http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/";
         IRI bobsOntologyName = IRI.create(ns + "subject-bob");
-        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(IRI
-                .create(ns + "subject-bob#subjectOnImmunosuppressantA2"));
-        m.getIRIMappers()
-                .add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"), IRI
-                        .create(new File(ontologyDirectory, "subject-amy.ttl"))));
-        m.getIRIMappers().add(
-                new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(
-                        ontologyDirectory, "subject-bob.ttl"))));
-        m.getIRIMappers()
-                .add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"), IRI
-                        .create(new File(ontologyDirectory, "subject-sue.ttl"))));
-        m.getIRIMappers().add(
-                new SimpleIRIMapper(IRI
-                        .create("http://www.w3.org/2013/12/FDA-TA/core"), IRI
-                        .create(new File(ontologyDirectory, "core.ttl"))));
-        OWLOntology topLevelImport = m
-                .loadOntologyFromOntologyDocument(new File(ontologyDirectory,
-                        "subjects.ttl"));
-        assertTrue("Individuals about Bob are missing...",
-                topLevelImport.containsEntityInSignature(bobsIndividual,
-                        INCLUDED));
+        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(IRI.create(ns
+            + "subject-bob#subjectOnImmunosuppressantA2"));
+        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"), IRI.create(new File(ontologyDirectory,
+            "subject-amy.ttl"))));
+        m.getIRIMappers().add(new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(ontologyDirectory,
+            "subject-bob.ttl"))));
+        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"), IRI.create(new File(ontologyDirectory,
+            "subject-sue.ttl"))));
+        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create("http://www.w3.org/2013/12/FDA-TA/core"), IRI.create(
+            new File(ontologyDirectory, "core.ttl"))));
+        OWLOntology topLevelImport = m.loadOntologyFromOntologyDocument(new File(ontologyDirectory, "subjects.ttl"));
+        assertTrue("Individuals about Bob are missing...", topLevelImport.containsEntityInSignature(bobsIndividual,
+            INCLUDED));
     }
 }

@@ -39,12 +39,9 @@ public class TurtleTestCase extends TestBase {
         m.loadOntologyFromOntologyDocument(uri);
     }
 
-    @Nonnull
-    private final IRI iri = IRI.create("urn:testliterals");
-    @Nonnull
-    private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
-    @Nonnull
-    private final IRI s = IRI.create("urn:test#s");
+    @Nonnull private final IRI iri = IRI.create("urn:testliterals");
+    @Nonnull private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
+    @Nonnull private final IRI s = IRI.create("urn:test#s");
 
     @Test
     public void shouldParseFixedQuotesLiterals1() throws OWLOntologyCreationException {
@@ -285,14 +282,17 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void missingDeclaration() throws OWLOntologyCreationException {
+    public void whenMissingClassDeclarationCausesIllegalPunningAssertionsShouldBeFixedAfterParsing()
+        throws OWLOntologyCreationException {
         // given
         String input = "<urn:test#fm2.owl> rdf:type owl:Ontology.\n <urn:test#numberOfPads> rdf:type owl:ObjectProperty ;\n rdfs:domain <urn:test#Settlement> .";
         // when
         OWLOntology o = loadOntologyFromString(input);
         // then
+        // Parsed as annotation domain, fixed in post parsing to object property
+        // domain
         for (OWLLogicalAxiom ax : o.getLogicalAxioms()) {
-            assertTrue(ax instanceof OWLAnnotationAssertionAxiom);
+            assertTrue(ax instanceof OWLObjectPropertyDomainAxiom);
         }
     }
 

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
@@ -39,11 +40,14 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.OWLAnnotationPropertyTransformer;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
 
@@ -1010,29 +1014,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             Exception ex = null;
             OWLOntologyID idOfLoadedOntology = new OWLOntologyID();
             try {
-                for (OWLOntologyFactory factory : ontologyFactories) {
-                    if (factory.canLoad(documentSource)) {
-                        try {
-                            // Note - there is no need to add the ontology here,
-                            // because it will be added
-                            // when the ontology is created.
-                            OWLOntology ontology = factory.loadOWLOntology(this, documentSource, this, configuration);
-                            idOfLoadedOntology = ontology.getOntologyID();
-                            // Store the ontology to the document IRI mapping
-                            documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
-                            ontologyConfigurationsByOntologyID.put(ontology.getOntologyID(), configuration);
-                            if (ontology instanceof HasTrimToSize) {
-                                ((HasTrimToSize) ontology).trimToSize();
-                            }
-                            return ontology;
-                        } catch (OWLOntologyRenameException e) {
-                            // We loaded an ontology from a document and the
-                            // ontology turned out to have an IRI the same
-                            // as a previously loaded ontology
-                            throw new OWLOntologyAlreadyExistsException(e.getOntologyID(), e);
-                        }
-                    }
+                OWLOntology ontology = actualParse(documentSource, configuration);
+                if (ontology != null) {
+                    idOfLoadedOntology = ontology.getOntologyID();
+                    return ontology;
                 }
+            } catch (OWLOntologyRenameException e) {
+                // We loaded an ontology from a document and the
+                // ontology turned out to have an IRI the same
+                // as a previously loaded ontology
+                ex = e;
+                throw new OWLOntologyAlreadyExistsException(e.getOntologyID(), e);
             } catch (UnloadableImportException e) {
                 ex = e;
                 throw e;
@@ -1056,6 +1048,77 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             throw new OWLOntologyFactoryNotFoundException(documentSource.getDocumentIRI());
         } finally {
             writeLock.unlock();
+        }
+    }
+
+    protected OWLOntology actualParse(OWLOntologyDocumentSource documentSource,
+        OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+        for (OWLOntologyFactory factory : ontologyFactories) {
+            if (factory.canLoad(documentSource)) {
+                // Note - there is no need to add the ontology here,
+                // because it will be added
+                // when the ontology is created.
+                OWLOntology ontology = factory.loadOWLOntology(this, documentSource, this, configuration);
+                fixIllegalPunnings(ontology);
+                // Store the ontology to the document IRI mapping
+                documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
+                ontologyConfigurationsByOntologyID.put(ontology.getOntologyID(), configuration);
+                if (ontology instanceof HasTrimToSize) {
+                    ((HasTrimToSize) ontology).trimToSize();
+                }
+                return ontology;
+            }
+        }
+        return null;
+    }
+
+    protected void fixIllegalPunnings(OWLOntology o) {
+        Collection<IRI> illegals = OWLDocumentFormatImpl.determineIllegalPunnings(true, o.getSignature(INCLUDED), o
+            .getPunnedIRIs(INCLUDED));
+        Multimap<IRI, OWLDeclarationAxiom> illegalDeclarations = HashMultimap.create();
+        Set<OWLDeclarationAxiom> declarations = o.getAxioms(AxiomType.DECLARATION, INCLUDED);
+        for (OWLDeclarationAxiom d : declarations) {
+            if (illegals.contains(d.getEntity().getIRI())) {
+                illegalDeclarations.put(d.getEntity().getIRI(), d);
+            }
+        }
+        Map<OWLEntity, OWLEntity> replacementMap = new HashMap<>();
+        for (Map.Entry<IRI, Collection<OWLDeclarationAxiom>> e : illegalDeclarations.asMap().entrySet()) {
+            if (e.getValue().size() == 1) {
+                // One declaration only: illegal punning comes from use or from
+                // defaulting of types
+                OWLDeclarationAxiom correctDeclaration = e.getValue().iterator().next();
+                // currently we only know how to fix the incorrect defaulting of
+                // properties to annotation properties
+                OWLEntity entity = correctDeclaration.getEntity();
+                if (entity.isOWLDataProperty() || entity.isOWLObjectProperty()) {
+                    OWLAnnotationProperty wrongProperty = dataFactory.getOWLAnnotationProperty(entity.getIRI());
+                    replacementMap.put(wrongProperty, entity);
+                }
+            } else {
+                // Multiple declarations: bad data. Cannot be repaired
+                // automatically.
+                LOGGER.error("Illegal redeclarations of entities: reuse of entity {} in punning not allowed {}", e
+                    .getKey(), e.getValue());
+            }
+        }
+        for (OWLOntology ont : o.getImportsClosure()) {
+            for (OWLEntity e : replacementMap.keySet()) {
+                if (ont.containsEntityInSignature(e)) {
+                    // then all axioms referring the annotation property
+                    // must be rebuilt.
+                    List<OWLAxiomChange> list = new ArrayList<>();
+                    for (OWLAxiom ax : ont.getAxioms()) {
+                        if (ax.getSignature().contains(e)) {
+                            list.add(new RemoveAxiom(ont, ax));
+                            OWLAnnotationPropertyTransformer changer = new OWLAnnotationPropertyTransformer(
+                                replacementMap, dataFactory);
+                            list.add(new AddAxiom(ont, changer.transformObject(ax)));
+                        }
+                    }
+                    o.getOWLOntologyManager().applyChanges(list);
+                }
+            }
         }
     }
 
