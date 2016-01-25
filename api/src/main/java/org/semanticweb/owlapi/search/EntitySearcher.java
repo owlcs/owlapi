@@ -554,15 +554,13 @@ public class EntitySearcher {
     }
 
     protected static <P extends OWLPropertyExpression> OWLAxiomSearchFilter subPropertiesFilter(P e) {
-        OWLAxiomSearchFilter filter = null;
         if (e.isDataPropertyExpression()) {
-            filter = subDataPropertyWithSuper;
+            return subDataPropertyWithSuper;
         }
         if (e.isObjectPropertyExpression()) {
-            filter = subObjectPropertyWithSuper;
+            return subObjectPropertyWithSuper;
         }
-        filter = subAnnotationWithSuper;
-        return filter;
+        return subAnnotationWithSuper;
     }
 
     /**
@@ -641,19 +639,17 @@ public class EntitySearcher {
     @Nonnull
     public static <P extends OWLPropertyExpression> Collection<P> getSuperProperties(@Nonnull P e,
         @Nonnull OWLOntology ontology) {
-        return Searcher.sub(ontology.filterAxioms(superPropertiesFilter(e), e, EXCLUDED));
+        return Searcher.sup(ontology.filterAxioms(superPropertiesFilter(e), e, EXCLUDED));
     }
 
     protected static <P extends OWLPropertyExpression> OWLAxiomSearchFilter superPropertiesFilter(P e) {
-        OWLAxiomSearchFilter filter = null;
         if (e.isDataPropertyExpression()) {
-            filter = subDataPropertyWithSub;
+            return subDataPropertyWithSub;
         }
         if (e.isObjectPropertyExpression()) {
-            filter = subObjectPropertyWithSub;
+            return subObjectPropertyWithSub;
         }
-        filter = subAnnotationWithSub;
-        return filter;
+        return subAnnotationWithSub;
     }
 
     /**
@@ -706,7 +702,7 @@ public class EntitySearcher {
         Collection<P> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
-            collection.addAll(getSubProperties(e, o));
+            collection.addAll(getSuperProperties(e, o));
         }
         return collection;
     }
