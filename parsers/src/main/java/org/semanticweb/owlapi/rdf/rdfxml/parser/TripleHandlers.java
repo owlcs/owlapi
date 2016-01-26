@@ -52,8 +52,7 @@ public class TripleHandlers {
     static class HandlerAccessor {
 
         /** Handlers for built in types */
-        @Nonnull
-        private final Map<IRI, BuiltInTypeHandler> builtInTypes;
+        @Nonnull private final Map<IRI, BuiltInTypeHandler> builtInTypes;
         /**
          * Handler for triples that denote nodes which represent axioms. i.e.
          * owl:AllDisjointClasses owl:AllDisjointProperties owl:AllDifferent
@@ -62,11 +61,9 @@ public class TripleHandlers {
          * axioms should be in the ontology before annotations on the annotated
          * versions of these axioms are parsed.
          */
-        @Nonnull
-        protected final Map<IRI, BuiltInTypeHandler> axiomTypes;
+        @Nonnull protected final Map<IRI, BuiltInTypeHandler> axiomTypes;
         /** Handlers for build in predicates */
-        @Nonnull
-        protected final Map<IRI, TriplePredicateHandler> predicates;
+        @Nonnull protected final Map<IRI, TriplePredicateHandler> predicates;
         /**
          * Handlers for general literal triples (i.e. triples which have
          * predicates that are not part of the built in OWL/RDFS/RDF vocabulary.
@@ -82,13 +79,10 @@ public class TripleHandlers {
          */
         protected final List<ResourceTripleHandler> resources;
         /** The inverse of handler. */
-        @Nonnull
-        protected final TPInverseOfHandler inverseOf;
+        @Nonnull protected final TPInverseOfHandler inverseOf;
         /** The non built in type handler. */
-        @Nonnull
-        private final TPTypeHandler nonBuiltInTypes;
-        @Nonnull
-        protected final OWLRDFConsumer consumer;
+        @Nonnull private final TPTypeHandler nonBuiltInTypes;
+        @Nonnull protected final OWLRDFConsumer consumer;
 
         HandlerAccessor(@Nonnull OWLRDFConsumer r) {
             consumer = r;
@@ -579,14 +573,10 @@ public class TripleHandlers {
 
     static class AbstractTripleHandler {
 
-        @Nonnull
-        protected final OWLRDFConsumer consumer;
-        @Nonnull
-        private final ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
-        @Nonnull
-        private final DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
-        @Nonnull
-        private final IndividualMatcher individualMatcher = new IndividualMatcher();
+        @Nonnull protected final OWLRDFConsumer consumer;
+        @Nonnull private final ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
+        @Nonnull private final DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
+        @Nonnull private final IndividualMatcher individualMatcher = new IndividualMatcher();
         protected final OWLDataFactory df;
 
         protected AbstractTripleHandler(@Nonnull OWLRDFConsumer consumer) {
@@ -989,7 +979,7 @@ public class TripleHandlers {
             OWLAnnotation anno = df.getOWLAnnotation(prop, value);
             OWLAnnotationSubject annoSubject;
             if (isAnonymous(subject)) {
-                annoSubject = df.getOWLAnonymousIndividual(subject.toString());
+                annoSubject = consumer.getOWLAnonymousIndividual(subject.toString());
             } else {
                 annoSubject = subject;
             }
@@ -2713,7 +2703,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        OWLLiteral target(IRI subject) {
+            OWLLiteral target(IRI subject) {
             OWLLiteral target = consumer.getLiteralObject(subject, OWL_TARGET_VALUE.getIRI(), true);
             if (target == null) {
                 target = consumer.getLiteralObject(subject, DeprecatedVocabulary.OWL_OBJECT, true);
@@ -2725,7 +2715,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        IRI property(IRI subject) {
+            IRI property(IRI subject) {
             IRI property = consumer.getResourceObject(subject, OWL_ASSERTION_PROPERTY.getIRI(), true);
             if (property == null) {
                 property = consumer.getResourceObject(subject, DeprecatedVocabulary.OWL_PREDICATE, true);
@@ -2737,7 +2727,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        IRI source(IRI subject) {
+            IRI source(IRI subject) {
             IRI source = consumer.getResourceObject(subject, OWL_SOURCE_INDIVIDUAL.getIRI(), true);
             if (source == null) {
                 source = consumer.getResourceObject(subject, DeprecatedVocabulary.OWL_SUBJECT, true);
@@ -2777,7 +2767,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        Object target(IRI subject) {
+            Object target(IRI subject) {
             Object target = consumer.getResourceObject(subject, OWL_TARGET_INDIVIDUAL.getIRI(), true);
             if (target == null) {
                 target = consumer.getLiteralObject(subject, OWL_TARGET_VALUE.getIRI(), true);
@@ -2792,7 +2782,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        IRI property(IRI subject) {
+            IRI property(IRI subject) {
             IRI property = consumer.getResourceObject(subject, OWL_ASSERTION_PROPERTY.getIRI(), true);
             if (property == null) {
                 property = consumer.getResourceObject(subject, DeprecatedVocabulary.RDF_PREDICATE, true);
@@ -2801,7 +2791,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        IRI source(IRI subject) {
+            IRI source(IRI subject) {
             IRI source = consumer.getResourceObject(subject, OWL_SOURCE_INDIVIDUAL.getIRI(), true);
             if (source == null) {
                 source = consumer.getResourceObject(subject, DeprecatedVocabulary.RDF_SUBJECT, true);

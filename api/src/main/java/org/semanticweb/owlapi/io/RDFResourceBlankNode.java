@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.NodeID;
 public class RDFResourceBlankNode extends RDFResource {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final IRI resource;
+    @Nonnull private final IRI resource;
     private final boolean isIndividual;
     private final boolean forceIdOutput;
 
@@ -56,6 +55,18 @@ public class RDFResourceBlankNode extends RDFResource {
      */
     public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId) {
         this(NodeID.nodeId(anonId), isIndividual, forceId);
+    }
+
+    /**
+     * Create an RDFResource that is anonymous
+     * 
+     * @param isIndividual
+     *        true if this is an individual
+     * @param forceId
+     *        true if the id should be outputted
+     */
+    public RDFResourceBlankNode(boolean isIndividual, boolean forceId) {
+        this(NodeID.nextFreshNodeId(), isIndividual, forceId);
     }
 
     @Override

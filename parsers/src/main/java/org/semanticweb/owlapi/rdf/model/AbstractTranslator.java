@@ -586,7 +586,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLLiteral node) {
-        nodeMap.put(node, getLiteralNode(node));
+        if (!nodeMap.containsKey(node)) {
+            nodeMap.put(node, getLiteralNode(node));
+        }
     }
 
     @Override
@@ -738,19 +740,22 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(@Nonnull SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
-        nodeMap.put(node, nodeMap.get(node.getIndividual()));
+        if (!nodeMap.containsKey(node)) {
+            nodeMap.put(node, nodeMap.get(node.getIndividual()));
+        }
     }
 
     @Override
     public void visit(@Nonnull SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
-        nodeMap.put(node, nodeMap.get(node.getLiteral()));
+        if (!nodeMap.containsKey(node)) {
+            nodeMap.put(node, nodeMap.get(node.getLiteral()));
+        }
     }
 
     // Methods to add triples
     /** Maps Objects to nodes. */
-    @Nonnull
-    private final Map<OWLObject, N> nodeMap = new HashMap<>();
+    @Nonnull private final Map<OWLObject, N> nodeMap = new HashMap<>();
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subject, @Nonnull IRI pred,
         @Nonnull OWLObject obj) {
@@ -908,6 +913,17 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Nonnull
     protected abstract R getAnonymousNode(@Nonnull Object key);
 
+    /**
+     * Gets a fresh anonymous resource.
+     * 
+     * @param key
+     *        A key for the resource. Each call will create a new node; nodes
+     *        cannot clash.
+     * @return The resource
+     */
+    @Nonnull
+    protected abstract R getAnonymousNodeForExpressions(@Nonnull Object key);
+
     @Nonnull
     protected abstract L getLiteralNode(@Nonnull OWLLiteral literal);
 
@@ -969,8 +985,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         for (int i = listSize; i >= 0; i--) {
             R anonNode = getAnonymousNode(list.subList(i, listSize));
             addTriple(anonNode, getPredicateNode(RDF_TYPE.getIRI()), getResourceNode(listType));
-            @Nonnull
-            OWLObject obj = list.get(i);
+            @Nonnull OWLObject obj = list.get(i);
             addTriple(anonNode, getPredicateNode(RDF_FIRST.getIRI()), getNode(obj));
             addTriple(anonNode, getPredicateNode(RDF_REST.getIRI()), main);
             main = anonNode;
@@ -1011,8 +1026,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         }
     }
 
-    @Nonnull
-    private final Set<OWLIndividual> currentIndividuals = new HashSet<>();
+    @Nonnull private final Set<OWLIndividual> currentIndividuals = new HashSet<>();
 
     private void processIfAnonymous(@Nonnull OWLIndividual ind, @Nullable OWLAxiom root) {
         if (!currentIndividuals.contains(ind)) {
@@ -1116,8 +1130,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /** Visits entities and returns their RDF type. */
     private static class OWLEntityTypeProvider implements OWLEntityVisitorEx<IRI> {
 
-        @Nonnull
-        public static final OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
+        @Nonnull public static final OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
 
         @Override
         public IRI visit(OWLClass cls) {

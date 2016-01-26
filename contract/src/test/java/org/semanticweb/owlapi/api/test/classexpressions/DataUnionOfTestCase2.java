@@ -19,14 +19,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
@@ -40,19 +33,21 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLDatatype dt = Datatype(IRI("file:/c/test.owlapi#SSN"));
-        OWLFacetRestriction fr = FacetRestriction(OWLFacet.PATTERN,
-                Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
-        OWLDataRange dr = DatatypeRestriction(
-                Datatype(IRI("http://www.w3.org/2001/XMLSchema#string")), fr);
-        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr),
-                dt);
+        OWLFacetRestriction fr = FacetRestriction(OWLFacet.PATTERN, Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+        OWLDataRange dr = DatatypeRestriction(Datatype(IRI("http://www.w3.org/2001/XMLSchema#string")), fr);
+        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), dt);
         // here I negate dr
-        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt),
-                dr);
+        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt), dr);
         // here I negate dt
         OWLDataUnionOf union = DataUnionOf(disj1, disj2);
         OWLDataProperty prop = DataProperty(iri("prop"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(prop, union);
         return singleton(ax);
+    }
+
+    @Override
+    public void testRDFJSON() throws Exception {
+        System.out.println("DataUnionOfTestCase2.testRDFJSON() " + saveOntology(getOnt()));
+        super.testRDFJSON();
     }
 }

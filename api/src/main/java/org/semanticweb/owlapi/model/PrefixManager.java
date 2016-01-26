@@ -34,7 +34,7 @@ public interface PrefixManager extends Serializable {
      * @return the prefix comparator currently used by the prefix manager
      */
     @Nonnull
-    StringComparator getPrefixComparator();
+        StringComparator getPrefixComparator();
 
     /**
      * @param comparator
@@ -50,7 +50,7 @@ public interface PrefixManager extends Serializable {
      *         prefix.
      */
     @Nullable
-    String getDefaultPrefix();
+        String getDefaultPrefix();
 
     /**
      * Determines if this manager knows about a given prefix name and it
@@ -77,7 +77,7 @@ public interface PrefixManager extends Serializable {
      *         this prefix, or the prefix name doesn't exist.
      */
     @Nullable
-    String getPrefix(@Nonnull String prefixName);
+        String getPrefix(@Nonnull String prefixName);
 
     /**
      * Gets a map that maps prefix names to prefixes.
@@ -87,7 +87,7 @@ public interface PrefixManager extends Serializable {
      *         mappings
      */
     @Nonnull
-    Map<String, String> getPrefixName2PrefixMap();
+        Map<String, String> getPrefixName2PrefixMap();
 
     /**
      * Gets the URI for a given prefix IRI. The prefix IRI must have a prefix
@@ -102,7 +102,7 @@ public interface PrefixManager extends Serializable {
      *         prefix managed by this manager.
      */
     @Nonnull
-    IRI getIRI(@Nonnull String prefixIRI);
+        IRI getIRI(@Nonnull String prefixIRI);
 
     /**
      * Gets the prefix IRI given a IRI (URI).
@@ -113,7 +113,7 @@ public interface PrefixManager extends Serializable {
      *         cannot be generated.
      */
     @Nullable
-    String getPrefixIRI(@Nonnull IRI iri);
+        String getPrefixIRI(@Nonnull IRI iri);
 
     /**
      * Gets the prefix names that have a mapping in this prefix manager.
@@ -121,7 +121,7 @@ public interface PrefixManager extends Serializable {
      * @return The prefix names as a set of strings.
      */
     @Nonnull
-    Set<String> getPrefixNames();
+        Set<String> getPrefixNames();
 
     /**
      * Sets the default namespace. This will also bind the prefix name ":" to
@@ -131,7 +131,7 @@ public interface PrefixManager extends Serializable {
      *        The namespace to be used as the default namespace. Note that the
      *        value may be {@code null} in order to clear the default namespace.
      */
-    void setDefaultPrefix(@Nonnull String defaultPrefix);
+    void setDefaultPrefix(@Nullable String defaultPrefix);
 
     /**
      * Adds a prefix name to prefix mapping

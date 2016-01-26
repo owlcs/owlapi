@@ -21,7 +21,7 @@
 	<properties>
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sesame.version>2.7.12</sesame.version>
+		<sesame.version>2.7.16</sesame.version>
 		<!-- remove this line for releases, if the release process fails because of missing javadoc jars -->
 		<no-javadoc>true</no-javadoc>
 	</properties>

@@ -29,11 +29,9 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
  *         Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends
-    AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    @Nonnull
-    private RDFGraph graph = new RDFGraph();
+    @Nonnull private RDFGraph graph = new RDFGraph();
 
     /**
      * @param manager
@@ -43,8 +41,7 @@ public class RDFTranslator extends
      * @param useStrongTyping
      *        true if strong typing is required
      */
-    public RDFTranslator(@Nonnull OWLOntologyManager manager,
-        @Nonnull OWLOntology ontology, boolean useStrongTyping,
+    public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology, boolean useStrongTyping,
         IndividualAppearance occurrences) {
         super(manager, ontology, useStrongTyping, occurrences);
     }
@@ -57,12 +54,9 @@ public class RDFTranslator extends
     }
 
     @Override
-    protected void addTriple(@Nonnull RDFResource subject,
-        @Nonnull RDFResourceIRI pred, @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject,
-            "subject cannot be null"), checkNotNull(pred,
-                "pred cannot be null"), checkNotNull(object,
-                    "object cannot be null")));
+    protected void addTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI pred, @Nonnull RDFNode object) {
+        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"), checkNotNull(pred,
+            "pred cannot be null"), checkNotNull(object, "object cannot be null")));
     }
 
     @Override
@@ -73,6 +67,12 @@ public class RDFTranslator extends
                 true, multipleOccurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
         }
         return new RDFResourceBlankNode(System.identityHashCode(key), false, false);
+    }
+
+    @Override
+    protected RDFResource getAnonymousNodeForExpressions(Object key) {
+        checkNotNull(key, "key cannot be null");
+        return new RDFResourceBlankNode(false, false);
     }
 
     @Override

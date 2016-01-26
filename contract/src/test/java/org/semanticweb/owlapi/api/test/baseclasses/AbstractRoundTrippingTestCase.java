@@ -12,21 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.NQuadsDocumentFormat;
-import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.TrigDocumentFormat;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.formats.*;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -40,8 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
-    @Nonnull
-    private final OWLOntology ont = createOntology();
+    @Nonnull private final OWLOntology ont = createOntology();
 
     @Nonnull
     protected abstract OWLOntology createOntology();
@@ -107,13 +95,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
-    public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        assertEquals(stripSimpleDeclarations(ont.getAxioms()),
-                stripSimpleDeclarations(o1.getAxioms()));
-        assertEquals(stripSimpleDeclarations(o1.getAxioms()),
-                stripSimpleDeclarations(o2.getAxioms()));
+        equal(ont, o1);
+        equal(o1, o2);
     }
 }

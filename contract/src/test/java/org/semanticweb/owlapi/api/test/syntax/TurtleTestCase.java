@@ -235,6 +235,7 @@ public class TurtleTestCase extends TestBase {
             + "  :prov [\n prov:gen :FMDomain ;\n prov:att :DM .\n ]\n ] .\n" + ":ManagementType rdf:type owl:Class .\n"
             + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
             + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
+        System.out.println("TurtleTestCase.shouldRoundTripAxiomAnnotation() " + input);
         OWLOntology ontology = loadOntologyFromString(input);
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
@@ -248,7 +249,7 @@ public class TurtleTestCase extends TestBase {
                 anns.add(ax);
             }
         }
-        assertEquals(3, anns.size());
+        assertEquals(1, anns.size());
     }
 
     @Test

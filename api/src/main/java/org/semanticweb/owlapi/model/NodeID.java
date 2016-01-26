@@ -32,8 +32,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     private static final String SHARED_NODE_ID_PREFIX = "genid-nodeid-";
     private static final String PREFIX = "_:";
     private static final String PREFIX_NODE = PREFIX + NODE_ID_PREFIX;
-    private static final String PREFIX_SHARED_NODE = PREFIX
-        + SHARED_NODE_ID_PREFIX;
+    private static final String PREFIX_SHARED_NODE = PREFIX + SHARED_NODE_ID_PREFIX;
 
     /**
      * @param id
@@ -53,6 +52,14 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     @Nonnull
     public static IRI nodeId(int id) {
         return IRI.create(PREFIX_NODE + Integer.toString(id));
+    }
+
+    /**
+     * @return IRI with fresh node id
+     */
+    @Nonnull
+    public static IRI nextFreshNodeId() {
+        return IRI.create(PREFIX_NODE + COUNTER.incrementAndGet());
     }
 
     /**
@@ -90,8 +97,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      *         anonymous node
      */
     public static boolean isAnonymousNodeIRI(String uri) {
-        return uri != null && uri.startsWith(PREFIX)
-            && uri.contains(NODE_ID_PREFIX);
+        return uri != null && uri.startsWith(PREFIX) && uri.contains(NODE_ID_PREFIX);
     }
 
     /**
@@ -104,8 +110,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      *         anonymous node
      */
     public static boolean isAnonymousNodeIRI(IRI iri) {
-        return iri != null && iri.getNamespace().startsWith(PREFIX)
-            && iri.getNamespace().contains(NODE_ID_PREFIX);
+        return iri != null && iri.getNamespace().startsWith(PREFIX) && iri.getNamespace().contains(NODE_ID_PREFIX);
     }
 
     /**
@@ -141,8 +146,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
         return getNodeID(nextAnonymousIRI());
     }
 
-    @Nonnull
-    private final String id;
+    @Nonnull private final String id;
 
     private NodeID(String id) {
         if (id.startsWith(PREFIX)) {
