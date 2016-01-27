@@ -39,17 +39,12 @@ import com.google.common.collect.Sets;
  */
 public class RDFGraph implements Serializable {
 
-    private static final Set<IRI> skippedPredicates = Sets
-        .newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+    private static final Set<IRI> skippedPredicates = Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
-    @Nonnull
-    private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<>();
-    @Nonnull
-    private final Set<RDFTriple> triples = new HashSet<>();
-    @Nonnull
-    private final Map<RDFNode, RDFNode> remappedNodes = new HashMap<>();
+    @Nonnull private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
+    @Nonnull private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<>();
+    @Nonnull private final Set<RDFTriple> triples = new HashSet<>();
+    @Nonnull private final Map<RDFNode, RDFNode> remappedNodes = new HashMap<>();
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any
@@ -107,8 +102,8 @@ public class RDFGraph implements Serializable {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = new HashMap<>();
         Map<RDFNode, List<RDFTriple>> sharers = new HashMap<>();
         for (RDFTriple t : triples) {
-            if (t.getObject().isAnonymous()
-                && notInSkippedPredicates(t.getPredicate())) {
+            if (t.getObject().isAnonymous() && !t.getObject().isIndividual() && notInSkippedPredicates(t
+                .getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
                     list = new ArrayList<>(2);
@@ -121,8 +116,8 @@ public class RDFGraph implements Serializable {
             if (e.getValue().size() > 1) {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
-                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(
-                        IRI.create(NodeID.nextAnonymousIRI()), e.getKey().isIndividual(), e.getKey().shouldOutputId());
+                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(IRI.create(NodeID.nextAnonymousIRI()), e
+                        .getKey().isIndividual(), e.getKey().shouldOutputId());
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }
@@ -156,8 +151,7 @@ public class RDFGraph implements Serializable {
         rootAnonymousNodes.clear();
         for (RDFTriple triple : triples) {
             if (triple.getSubject() instanceof RDFResourceBlankNode) {
-                rootAnonymousNodes.add((RDFResourceBlankNode) triple
-                    .getSubject());
+                rootAnonymousNodes.add((RDFResourceBlankNode) triple.getSubject());
             }
         }
         for (RDFTriple triple : triples) {
