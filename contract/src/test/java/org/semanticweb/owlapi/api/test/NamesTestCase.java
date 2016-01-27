@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.*;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.krss1.parser.KRSSOWLParser;
@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import com.google.common.base.Optional;
 
 @SuppressWarnings({ "javadoc", })
-public class NamesTestCase {
+public class NamesTestCase extends TestBase {
 
     @Test
     public void shoudReturnRightName() throws OWLOntologyCreationException {
@@ -117,7 +117,7 @@ public class NamesTestCase {
         assertEquals("OWLXMLParser", new OWLXMLParser().getName());
         assertEquals("RDFXMLParser", new RDFXMLParser().getName());
         assertEquals("TurtleOntologyParser", new TurtleOntologyParser().getName());
-        OWLOntology createOntology = OWLManager.createOWLOntologyManager().createOntology();
+        OWLOntology createOntology = m.createOntology();
         assertEquals("Average number of named superclasses", new AverageAssertedNamedSuperclassCount(createOntology)
             .getName());
         assertEquals("Axiom", new AxiomCount(createOntology).getName());

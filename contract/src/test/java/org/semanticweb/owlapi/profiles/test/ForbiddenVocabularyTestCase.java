@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -98,7 +97,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
 
     @Test
     public void shouldCauseViolationsWithUseOfPropertyInChain() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
+        OWLOntology o = m.createOntology();
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasFather a:hasBrother )
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
@@ -132,7 +131,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
 
     @Test
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
+        OWLOntology o = m.createOntology();
         OWLObjectProperty father = df.getOWLObjectProperty(IRI("urn:test:hasFather"));
         OWLObjectProperty brother = df.getOWLObjectProperty(IRI("urn:test:hasBrother"));
         OWLObjectProperty child = df.getOWLObjectProperty(IRI("urn:test:hasChild"));
@@ -154,8 +153,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         }
     }
 
-    @Nonnull
-    String input1 = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://purl.org/net/social-reality#\"\n"
+    @Nonnull String input1 = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://purl.org/net/social-reality#\"\n"
         + "     xml:base=\"http://purl.org/net/social-reality\"\n"
         + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
         + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
@@ -211,8 +209,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         + "                    </owl:Restriction>\n" + "                </owl:intersectionOf>\n"
         + "            </owl:Class>\n" + "        </rdfs:subClassOf>\n" + "    </owl:Class>\n"
         + "    <owl:Class rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"/>\n" + "</rdf:RDF>";
-    @Nonnull
-    String input2 = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://purl.org/net/roles#\"\n"
+    @Nonnull String input2 = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://purl.org/net/roles#\"\n"
         + "     xml:base=\"http://purl.org/net/roles\"\n"
         + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
         + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
@@ -384,8 +381,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
 
     @Test
     public void shouldNotCauseViolationsInput1() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new ByteArrayInputStream(
-            input1.getBytes()));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new ByteArrayInputStream(input1.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());
@@ -393,8 +389,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
 
     @Test
     public void shouldNotCauseViolationsInput2() throws OWLOntologyCreationException {
-        OWLOntology o = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new ByteArrayInputStream(
-            input2.getBytes()));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new ByteArrayInputStream(input2.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
         assertTrue(violations.isEmpty());

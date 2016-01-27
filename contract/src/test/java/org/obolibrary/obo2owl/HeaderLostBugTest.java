@@ -5,16 +5,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("javadoc")
 public class HeaderLostBugTest extends OboFormatTestBasics {
@@ -29,8 +23,7 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
         OWLOntology ontology = convertOBOFile("header_lost_bug.obo");
         IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/test.owl");
         Set<OWLAnnotation> ontAnns = ontology.getAnnotations();
-        Set<OWLAnnotationAssertionAxiom> axioms = ontology
-                .getAnnotationAssertionAxioms(ontologyIRI);
+        Set<OWLAnnotationAssertionAxiom> axioms = ontology.getAnnotationAssertionAxioms(ontologyIRI);
         // two tags in the header of the obo file are translated as annotation
         // assertions, so the axioms
         // should have two axioms in count.
@@ -43,11 +36,8 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
         OWLOntology ontology = convert(parseOBOFile(fn));
         StringDocumentTarget target = new StringDocumentTarget();
         try {
-            ontology.getOWLOntologyManager().saveOntology(ontology,
-                    new RDFXMLDocumentFormat(), target);
-            return OWLManager.createOWLOntologyManager()
-                    .loadOntologyFromOntologyDocument(
-                            new StringDocumentSource(target));
+            ontology.getOWLOntologyManager().saveOntology(ontology, new RDFXMLDocumentFormat(), target);
+            return m.loadOntologyFromOntologyDocument(new StringDocumentSource(target));
         } catch (OWLException e) {
             throw new OWLRuntimeException(e);
         }

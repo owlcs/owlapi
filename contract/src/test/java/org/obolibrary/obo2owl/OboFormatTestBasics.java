@@ -11,7 +11,6 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
@@ -92,14 +91,13 @@ public class OboFormatTestBasics extends TestBase {
 
     @Nonnull
     protected OWLOntology parseOWLFile(String fn) throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // TODO replace
-        return manager.loadOntologyFromOntologyDocument(getInputStream(fn));
+        return m.loadOntologyFromOntologyDocument(getInputStream(fn));
     }
 
     @Nonnull
     protected OWLOntology convert(OBODoc obodoc) {
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(setupManager());
         OWLOntology ontology;
         try {
             ontology = bridge.convert(obodoc);
@@ -123,7 +121,7 @@ public class OboFormatTestBasics extends TestBase {
 
     @Nonnull
     protected OBODoc convert(@Nonnull OWLOntology ontology, boolean strictness) {
-        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m);
         bridge.setStrictConversion(strictness);
         return bridge.convert(ontology);
     }

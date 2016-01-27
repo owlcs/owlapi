@@ -27,119 +27,63 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "javadoc", "null" })
-public class SerializationTest {
+public class SerializationTest extends TestBase {
 
-    @Nonnull
-    private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
-    @Nonnull
-    OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
-    @Nonnull
-    OWLDataPropertyExpression dp = DF.getOWLDataProperty(IRI.create("urn:dp"));
-    @Nonnull
-    OWLObjectPropertyExpression op = DF.getOWLObjectProperty(IRI
-            .create("urn:op"));
-    @Nonnull
-    IRI iri = IRI.create("urn:iri");
-    @Nonnull
-    OWLLiteral owlliteral = DF.getOWLLiteral(true);
-    @Nonnull
-    OWLAnnotationSubject as = IRI.create("urn:i");
-    @Nonnull
-    OWLDatatype owldatatype = DF.getOWLDatatype(owl2datatype.getIRI());
-    @Nonnull
-    OWLDataRange dr = DF.getOWLDatatypeRestriction(owldatatype);
-    @Nonnull
-    OWLAnnotationProperty ap = DF
-            .getOWLAnnotationProperty(IRI.create("urn:ap"));
-    @Nonnull
-    OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
-    @Nonnull
-    OWLAnnotation owlannotation = DF.getOWLAnnotation(ap, owlliteral);
-    @Nonnull
-    String string = "testString";
-    @Nonnull
-    OWLClassExpression c = DF.getOWLClass(IRI.create("urn:classexpression"));
-    @Nonnull
-    PrefixManager prefixmanager = new DefaultPrefixManager();
-    @Nonnull
-    OWLIndividual ai = DF.getOWLAnonymousIndividual();
-    @Nonnull
-    OWLAnnotationValue owlannotationvalue = owlliteral;
-    @Nonnull
-    Set<OWLObjectPropertyExpression> setop = new HashSet<>();
-    @Nonnull
-    Set<OWLAnnotation> setowlannotation = new HashSet<>();
-    @Nonnull
-    Set<OWLDataPropertyExpression> setdp = new HashSet<>();
-    @Nonnull
-    List<OWLObjectPropertyExpression> listowlobjectpropertyexpression = new ArrayList<>();
-    @Nonnull
-    Set<OWLIndividual> setowlindividual = new HashSet<>();
-    @Nonnull
-    Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
-    @Nonnull
-    OWLFacetRestriction[] lowlfacetrestriction = { DF.getOWLFacetRestriction(
-            owlfacet, 1) };
-    @Nonnull
-    OWLFacetRestriction[] nulllowlfacetrestriction = { DF
-            .getOWLFacetRestriction(owlfacet, 1) };
-    @Nonnull
-    Set<OWLClassExpression> setowlclassexpression = new HashSet<>();
-    @Nonnull
-    Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<>();
-    @Nonnull
-    OWLPropertyExpression[] owlpropertyexpression = {};
+    @Nonnull private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
+    @Nonnull OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
+    @Nonnull OWLDataPropertyExpression dp = DF.getOWLDataProperty(IRI.create("urn:dp"));
+    @Nonnull OWLObjectPropertyExpression op = DF.getOWLObjectProperty(IRI.create("urn:op"));
+    @Nonnull IRI iri = IRI.create("urn:iri");
+    @Nonnull OWLLiteral owlliteral = DF.getOWLLiteral(true);
+    @Nonnull OWLAnnotationSubject as = IRI.create("urn:i");
+    @Nonnull OWLDatatype owldatatype = DF.getOWLDatatype(owl2datatype.getIRI());
+    @Nonnull OWLDataRange dr = DF.getOWLDatatypeRestriction(owldatatype);
+    @Nonnull OWLAnnotationProperty ap = DF.getOWLAnnotationProperty(IRI.create("urn:ap"));
+    @Nonnull OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
+    @Nonnull OWLAnnotation owlannotation = DF.getOWLAnnotation(ap, owlliteral);
+    @Nonnull String string = "testString";
+    @Nonnull OWLClassExpression c = DF.getOWLClass(IRI.create("urn:classexpression"));
+    @Nonnull PrefixManager prefixmanager = new DefaultPrefixManager();
+    @Nonnull OWLIndividual ai = DF.getOWLAnonymousIndividual();
+    @Nonnull OWLAnnotationValue owlannotationvalue = owlliteral;
+    @Nonnull Set<OWLObjectPropertyExpression> setop = new HashSet<>();
+    @Nonnull Set<OWLAnnotation> setowlannotation = new HashSet<>();
+    @Nonnull Set<OWLDataPropertyExpression> setdp = new HashSet<>();
+    @Nonnull List<OWLObjectPropertyExpression> listowlobjectpropertyexpression = new ArrayList<>();
+    @Nonnull Set<OWLIndividual> setowlindividual = new HashSet<>();
+    @Nonnull Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
+    @Nonnull OWLFacetRestriction[] lowlfacetrestriction = { DF.getOWLFacetRestriction(owlfacet, 1) };
+    @Nonnull OWLFacetRestriction[] nulllowlfacetrestriction = { DF.getOWLFacetRestriction(owlfacet, 1) };
+    @Nonnull Set<OWLClassExpression> setowlclassexpression = new HashSet<>();
+    @Nonnull Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<>();
+    @Nonnull OWLPropertyExpression[] owlpropertyexpression = {};
 
     @Test
     public void testrun() throws Exception {
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         m.getIRIMappers().add(new AutoIRIMapper(new File("."), false));
-        OWLOntology o = m.loadOntologyFromOntologyDocument(getClass()
-                .getResourceAsStream("/pizza.owl"));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/pizza.owl"));
         m.addAxiom(o, DF.getOWLDeclarationAxiom(DF.getOWLClass(iri)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLClass(string, prefixmanager)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLClass(string, prefixmanager)));
         m.addAxiom(o, DF.getOWLEquivalentClassesAxiom(DF.getOWLClass(iri), c));
         m.addAxiom(o, DF.getOWLDisjointClassesAxiom(DF.getOWLClass(iri), c));
         m.addAxiom(o, DF.getOWLSubObjectPropertyOfAxiom(op, op));
-        m.addAxiom(o, DF.getOWLSubPropertyChainOfAxiom(
-                listowlobjectpropertyexpression, op));
+        m.addAxiom(o, DF.getOWLSubPropertyChainOfAxiom(listowlobjectpropertyexpression, op));
         m.addAxiom(o, DF.getOWLEquivalentObjectPropertiesAxiom(setop));
         m.addAxiom(o, DF.getOWLDisjointObjectPropertiesAxiom(setop));
         m.addAxiom(o, DF.getOWLInverseObjectPropertiesAxiom(op, op));
         m.addAxiom(o, DF.getOWLObjectPropertyDomainAxiom(op, c));
         m.addAxiom(o, DF.getOWLObjectPropertyRangeAxiom(op, c));
         m.addAxiom(o, DF.getOWLFunctionalObjectPropertyAxiom(op));
-        m.addAxiom(o,
-                DF.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue));
+        m.addAxiom(o, DF.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue));
         m.applyChange(new AddImport(o, DF.getOWLImportsDeclaration(iri)));
         m.addAxiom(o, DF.getOWLAnnotationPropertyDomainAxiom(ap, iri));
         m.addAxiom(o, DF.getOWLAnnotationPropertyRangeAxiom(ap, iri));
@@ -164,101 +108,37 @@ public class SerializationTest {
         m.addAxiom(o, DF.getOWLObjectPropertyAssertionAxiom(op, ai, ai));
         m.addAxiom(o, DF.getOWLNegativeObjectPropertyAssertionAxiom(op, ai, ai));
         m.addAxiom(o, DF.getOWLDataPropertyAssertionAxiom(dp, ai, owlliteral));
-        m.addAxiom(o,
-                DF.getOWLNegativeDataPropertyAssertionAxiom(dp, ai, owlliteral));
-        m.addAxiom(
-                o,
-                DF.getOWLInverseObjectPropertiesAxiom(op,
-                        DF.getOWLObjectInverseOf(op)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLDataExactCardinality(1, dp)));
-        m.addAxiom(o,
-                DF.getOWLSubClassOfAxiom(c, DF.getOWLDataMaxCardinality(1, dp)));
-        m.addAxiom(o,
-                DF.getOWLSubClassOfAxiom(c, DF.getOWLDataMinCardinality(1, dp)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLObjectExactCardinality(1, op)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLObjectMaxCardinality(1, op)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLObjectMinCardinality(1, op)));
-        m.addAxiom(
-                o,
-                DF.getOWLDataPropertyRangeAxiom(dp,
-                        DF.getOWLDatatype(string, prefixmanager)));
-        m.addAxiom(
-                o,
-                DF.getOWLDataPropertyAssertionAxiom(dp, ai,
-                        DF.getOWLLiteral(string, owldatatype)));
-        m.addAxiom(
-                o,
-                DF.getOWLDataPropertyRangeAxiom(dp,
-                        DF.getOWLDataOneOf(owlliteral)));
-        m.addAxiom(o,
-                DF.getOWLDataPropertyRangeAxiom(dp, DF.getOWLDataUnionOf(dr)));
-        m.addAxiom(
-                o,
-                DF.getOWLDataPropertyRangeAxiom(dp,
-                        DF.getOWLDataIntersectionOf(dr)));
-        m.addAxiom(o,
-                DF.getOWLDataPropertyRangeAxiom(dp, DF
-                        .getOWLDatatypeRestriction(owldatatype, owlfacet,
-                                owlliteral)));
-        m.addAxiom(
-                o,
-                DF.getOWLDataPropertyRangeAxiom(
-                        dp,
-                        DF.getOWLDatatypeRestriction(owldatatype,
-                                DF.getOWLFacetRestriction(owlfacet, 1))));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(
-                        c,
-                        DF.getOWLObjectIntersectionOf(c,
-                                DF.getOWLClass(string, prefixmanager))));
-        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c,
-                DF.getOWLDataSomeValuesFrom(dp, dr)));
-        m.addAxiom(o,
-                DF.getOWLSubClassOfAxiom(c, DF.getOWLDataAllValuesFrom(dp, dr)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLDataHasValue(dp, owlliteral)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLObjectComplementOf(DF.getOWLClass(iri))));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLObjectOneOf(DF.getOWLNamedIndividual(iri))));
-        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c,
-                DF.getOWLObjectAllValuesFrom(op, c)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLObjectSomeValuesFrom(op, c)));
-        m.addAxiom(o,
-                DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectHasValue(op, ai)));
-        m.addAxiom(
-                o,
-                DF.getOWLSubClassOfAxiom(c,
-                        DF.getOWLObjectUnionOf(DF.getOWLClass(iri))));
-        m.addAxiom(
-                o,
-                DF.getOWLAnnotationAssertionAxiom(iri,
-                        DF.getOWLAnnotation(ap, owlannotationvalue)));
-        m.addAxiom(o, DF.getOWLAnnotationAssertionAxiom(DF
-                .getOWLNamedIndividual(iri).getIRI(), DF.getOWLAnnotation(ap,
-                owlannotationvalue)));
+        m.addAxiom(o, DF.getOWLNegativeDataPropertyAssertionAxiom(dp, ai, owlliteral));
+        m.addAxiom(o, DF.getOWLInverseObjectPropertiesAxiom(op, DF.getOWLObjectInverseOf(op)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLDataExactCardinality(1, dp)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLDataMaxCardinality(1, dp)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLDataMinCardinality(1, dp)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectExactCardinality(1, op)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectMaxCardinality(1, op)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectMinCardinality(1, op)));
+        m.addAxiom(o, DF.getOWLDataPropertyRangeAxiom(dp, DF.getOWLDatatype(string, prefixmanager)));
+        m.addAxiom(o, DF.getOWLDataPropertyAssertionAxiom(dp, ai, DF.getOWLLiteral(string, owldatatype)));
+        m.addAxiom(o, DF.getOWLDataPropertyRangeAxiom(dp, DF.getOWLDataOneOf(owlliteral)));
+        m.addAxiom(o, DF.getOWLDataPropertyRangeAxiom(dp, DF.getOWLDataUnionOf(dr)));
+        m.addAxiom(o, DF.getOWLDataPropertyRangeAxiom(dp, DF.getOWLDataIntersectionOf(dr)));
+        m.addAxiom(o, DF.getOWLDataPropertyRangeAxiom(dp, DF.getOWLDatatypeRestriction(owldatatype, owlfacet,
+            owlliteral)));
+        m.addAxiom(o, DF.getOWLDataPropertyRangeAxiom(dp, DF.getOWLDatatypeRestriction(owldatatype, DF
+            .getOWLFacetRestriction(owlfacet, 1))));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectIntersectionOf(c, DF.getOWLClass(string,
+            prefixmanager))));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLDataSomeValuesFrom(dp, dr)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLDataAllValuesFrom(dp, dr)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLDataHasValue(dp, owlliteral)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectComplementOf(DF.getOWLClass(iri))));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectOneOf(DF.getOWLNamedIndividual(iri))));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectAllValuesFrom(op, c)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectSomeValuesFrom(op, c)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectHasValue(op, ai)));
+        m.addAxiom(o, DF.getOWLSubClassOfAxiom(c, DF.getOWLObjectUnionOf(DF.getOWLClass(iri))));
+        m.addAxiom(o, DF.getOWLAnnotationAssertionAxiom(iri, DF.getOWLAnnotation(ap, owlannotationvalue)));
+        m.addAxiom(o, DF.getOWLAnnotationAssertionAxiom(DF.getOWLNamedIndividual(iri).getIRI(), DF.getOWLAnnotation(ap,
+            owlannotationvalue)));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(out);
         stream.writeObject(m);
@@ -268,10 +148,8 @@ public class SerializationTest {
         ObjectInputStream inStream = new ObjectInputStream(in);
         OWLOntologyManager copy = (OWLOntologyManager) inStream.readObject();
         for (OWLOntology onto : copy.getOntologies()) {
-            OWLOntology original = m.getOntology(onto.getOntologyID()
-                    .getOntologyIRI().get());
-            assertEquals("Troubles with ontology " + onto.getOntologyID(),
-                    original.getAxioms(), onto.getAxioms());
+            OWLOntology original = m.getOntology(onto.getOntologyID().getOntologyIRI().get());
+            assertEquals("Troubles with ontology " + onto.getOntologyID(), original.getAxioms(), onto.getAxioms());
         }
     }
 }

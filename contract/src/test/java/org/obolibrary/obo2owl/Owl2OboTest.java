@@ -4,10 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.obolibrary.oboformat.model.OBODoc;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class Owl2OboTest extends OboFormatTestBasics {
@@ -22,8 +20,7 @@ public class Owl2OboTest extends OboFormatTestBasics {
     @Test
     public void testIRTsConversion() throws Exception {
         IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/test.owl");
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.createOntology(ontologyIRI);
+        OWLOntology ontology = m.createOntology(ontologyIRI);
         convert(ontology);
         String ontId = OWLAPIOwl2Obo.getOntologyId(ontology);
         assertEquals("test", ontId);

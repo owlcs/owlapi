@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -30,10 +29,8 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics {
     public void testConversion() throws Exception {
         OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true);
         Frame headerFrame = obo.getHeaderFrame();
-        Collection<String> remarks = headerFrame.getTagValues(
-                OboFormatTag.TAG_REMARK, String.class);
-        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(
-                OWLManager.createOWLOntologyManager());
+        Collection<String> remarks = headerFrame.getTagValues(OboFormatTag.TAG_REMARK, String.class);
+        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(m);
         OWLOntology owlOntology = obo2Owl.convert(obo);
         Set<OWLAnnotation> annotations = owlOntology.getAnnotations();
         Set<String> comments = new HashSet<>();
@@ -51,12 +48,10 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics {
         assertEquals(remarks.size(), comments.size());
         assertTrue(comments.containsAll(remarks));
         assertTrue(remarks.containsAll(comments));
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
-                OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m);
         OBODoc oboRoundTrip = owl2Obo.convert(owlOntology);
         Frame headerFrameRoundTrip = oboRoundTrip.getHeaderFrame();
-        Collection<String> remarksRoundTrip = headerFrameRoundTrip
-                .getTagValues(OboFormatTag.TAG_REMARK, String.class);
+        Collection<String> remarksRoundTrip = headerFrameRoundTrip.getTagValues(OboFormatTag.TAG_REMARK, String.class);
         assertEquals(remarks.size(), remarksRoundTrip.size());
         assertTrue(remarksRoundTrip.containsAll(remarks));
         assertTrue(remarks.containsAll(remarksRoundTrip));

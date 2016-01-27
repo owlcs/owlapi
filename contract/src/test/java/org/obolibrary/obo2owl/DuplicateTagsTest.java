@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
@@ -19,8 +18,7 @@ public class DuplicateTagsTest extends OboFormatTestBasics {
     public void test() throws Exception {
         OWLOntology owl = parseOWLFile("duplicate-def.ofn");
         final List<Clause> duplicates = new ArrayList<>();
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
-                OWLManager.createOWLOntologyManager()) {
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m) {
 
             @Override
             protected boolean handleDuplicateClause(Frame frame, Clause clause) {

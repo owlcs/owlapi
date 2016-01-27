@@ -29,44 +29,47 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
-    @Nonnull private final OWLOntology ont = createOntology();
+    private OWLOntology ont;
 
     @Nonnull
     protected abstract OWLOntology createOntology();
 
     @Nonnull
     protected OWLOntology getOnt() {
+        if (ont == null) {
+            ont = createOntology();
+        }
         return ont;
     }
 
     @Test
     public void testRDFXML() throws Exception {
-        roundTripOntology(ont);
+        roundTripOntology(getOnt());
     }
 
     @Test
     public void testRDFJSON() throws Exception {
-        roundTripOntology(ont, new RDFJsonDocumentFormat());
+        roundTripOntology(getOnt(), new RDFJsonDocumentFormat());
     }
 
     @Test
     public void testOWLXML() throws Exception {
-        roundTripOntology(ont, new OWLXMLDocumentFormat());
+        roundTripOntology(getOnt(), new OWLXMLDocumentFormat());
     }
 
     @Test
     public void testFunctionalSyntax() throws Exception {
-        roundTripOntology(ont, new FunctionalSyntaxDocumentFormat());
+        roundTripOntology(getOnt(), new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
     public void testTurtle() throws Exception {
-        roundTripOntology(ont, new TurtleDocumentFormat());
+        roundTripOntology(getOnt(), new TurtleDocumentFormat());
     }
 
     @Test
     public void testManchesterOWLSyntax() throws Exception {
-        roundTripOntology(ont, new ManchesterSyntaxDocumentFormat());
+        roundTripOntology(getOnt(), new ManchesterSyntaxDocumentFormat());
     }
 
     @Override
@@ -76,30 +79,30 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void testTrig() throws Exception {
-        roundTripOntology(ont, new TrigDocumentFormat());
+        roundTripOntology(getOnt(), new TrigDocumentFormat());
     }
 
     @Test
     public void testJSONLD() throws Exception {
-        roundTripOntology(ont, new RDFJsonLDDocumentFormat());
+        roundTripOntology(getOnt(), new RDFJsonLDDocumentFormat());
     }
 
     @Test
     public void testNTriples() throws Exception {
-        roundTripOntology(ont, new NTriplesDocumentFormat());
+        roundTripOntology(getOnt(), new NTriplesDocumentFormat());
     }
 
     @Test
     public void testNQuads() throws Exception {
-        roundTripOntology(ont, new NQuadsDocumentFormat());
+        roundTripOntology(getOnt(), new NQuadsDocumentFormat());
     }
 
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
         OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        equal(ont, o1);
+        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(getOnt(), new FunctionalSyntaxDocumentFormat());
+        equal(getOnt(), o1);
         equal(o1, o2);
     }
 }

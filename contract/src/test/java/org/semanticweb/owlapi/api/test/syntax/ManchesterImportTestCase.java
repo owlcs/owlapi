@@ -20,7 +20,7 @@ import java.io.File;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -29,14 +29,12 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 @SuppressWarnings("javadoc")
-public class ManchesterImportTestCase {
+public class ManchesterImportTestCase extends TestBase {
 
-    @Nonnull
-    private final String str = "http://owlapitestontologies.com/thesuperont";
-    @Nonnull
-    private final String superpath = "/imports/thesuperont.omn";
-    @Nonnull
-    private static final File RESOURCES;
+    @Nonnull private final String str = "http://owlapitestontologies.com/thesuperont";
+    @Nonnull private final String superpath = "/imports/thesuperont.omn";
+    @Nonnull private static final File RESOURCES;
+
     static {
         File f = new File("contract/src/test/resources/");
         if (f.exists()) {
@@ -46,8 +44,7 @@ public class ManchesterImportTestCase {
             if (f.exists()) {
                 RESOURCES = f;
             } else {
-                throw new OWLRuntimeException(
-                        "ManchesterImportTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+                throw new OWLRuntimeException("ManchesterImportTestCase: NO RESOURCE FOLDER ACCESSIBLE");
             }
         }
     }
@@ -60,9 +57,8 @@ public class ManchesterImportTestCase {
     }
 
     private static OWLOntologyManager getManager() {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        AutoIRIMapper mapper = new AutoIRIMapper(
-                new File(RESOURCES, "imports"), true);
+        OWLOntologyManager manager = setupManager();
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
         manager.getIRIMappers().add(mapper);
         return manager;
     }
@@ -80,8 +76,7 @@ public class ManchesterImportTestCase {
     @Test
     public void testEquivalentLoading() throws OWLOntologyCreationException {
         OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport = managerStart
-                .loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+        OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
         OWLOntology iriImport = managerTest.loadOntology(IRI(str));
         assertEquals(manualImport.getAxioms(), iriImport.getAxioms());

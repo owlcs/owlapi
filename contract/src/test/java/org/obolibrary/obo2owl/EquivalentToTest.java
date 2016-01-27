@@ -2,12 +2,7 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.Collection;
 import java.util.Set;
 
@@ -20,7 +15,6 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -37,12 +31,10 @@ public class EquivalentToTest extends OboFormatTestBasics {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("equivtest.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        Set<OWLEquivalentClassesAxiom> ecas = ontology
-                .getAxioms(AxiomType.EQUIVALENT_CLASSES);
+        Set<OWLEquivalentClassesAxiom> ecas = ontology.getAxioms(AxiomType.EQUIVALENT_CLASSES);
         assertEquals(2, ecas.size());
         // CONVERT BACK TO OBO
-        OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(
-                OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(m);
         OBODoc obodoc = owl2obo.convert(ontology);
         checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
@@ -54,8 +46,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
         w.write(obodoc, bw);
         bw.close();
         OBOFormatParser p = new OBOFormatParser();
-        obodoc = p.parse(new BufferedReader(new InputStreamReader(
-                new ByteArrayInputStream(os.toByteArray()))));
+        obodoc = p.parse(new BufferedReader(new InputStreamReader(new ByteArrayInputStream(os.toByteArray()))));
         checkOBODoc(obodoc);
     }
 

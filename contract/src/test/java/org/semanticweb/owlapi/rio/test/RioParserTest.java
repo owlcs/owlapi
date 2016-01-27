@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
@@ -36,7 +35,6 @@ public class RioParserTest extends TestBase {
         // .createOWLOntologyManager(
         // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
         // storerRegistry, parserRegistry);
-        m = OWLManager.createOWLOntologyManager();
         m.getOntologyParsers().set(new RioRDFXMLParserFactory());
         // testOntologyKoala =
         // testManager.loadOntologyFromOntologyDocument(this.getClass().getResourceAsStream("/koala.owl"));
@@ -92,7 +90,7 @@ public class RioParserTest extends TestBase {
      * @return stream
      */
     @Nonnull
-    StreamDocumentSource getStream(String name) {
+        StreamDocumentSource getStream(String name) {
         return new StreamDocumentSource(getClass().getResourceAsStream(name));
     }
 
@@ -121,8 +119,7 @@ public class RioParserTest extends TestBase {
         RioParserImpl rioParser = new RioParserImpl(new RioRDFXMLDocumentFormatFactory());
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
-        OWLOntology rioOntologyPrimer = OWLManager.createOWLOntologyManager().createOntology(IRI.create(
-            "http://example.com/owl/families"));
+        OWLOntology rioOntologyPrimer = m1.createOntology(IRI.create("http://example.com/owl/families"));
         OWLDocumentFormat rioOntologyFormat = rioParser.parse(getStream("/rioParserTest1-minimal.rdf"),
             rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLDocumentFormat(), rioOntologyFormat);

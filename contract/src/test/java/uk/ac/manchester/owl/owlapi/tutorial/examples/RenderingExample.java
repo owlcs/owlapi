@@ -14,11 +14,10 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
@@ -31,7 +30,7 @@ import uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSyntaxStorerFactory
  *         Group
  * @since 2.0.0
  */
-public class RenderingExample {
+public class RenderingExample extends TestBase {
 
     /**
      * @param inputOntology
@@ -43,31 +42,26 @@ public class RenderingExample {
      * @throws OWLOntologyStorageException
      *         OWLOntologyStorageException
      */
-    public void render(@Nonnull String inputOntology,
-            @Nonnull String outputOntology)
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void render(@Nonnull String inputOntology, @Nonnull String outputOntology)
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // A simple example of how to load and save an ontology
         /* Get an Ontology Manager */
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI inputDocumentIRI = IRI.create(inputOntology);
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology from a document IRI */
-        OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(inputDocumentIRI);
+        OWLOntology ontology = m.loadOntologyFromOntologyDocument(inputDocumentIRI);
         /* Report information about the ontology */
         System.out.println("Ontology Loaded...");
         System.out.println("Document IRI: " + inputDocumentIRI);
         System.out.println("Logical IRI : " + ontology.getOntologyID());
-        System.out.println("Format      : "
-                + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : " + m.getOntologyFormat(ontology));
         /* Register the ontology storer with the manager */
-        manager.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
+        m.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         /* Save using a different format */
         System.out.println("Storing     : " + outputDocumentIRI);
-        manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(),
-                outputDocumentIRI);
+        m.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
         /* Remove the ontology from the manager */
-        manager.removeOntology(ontology);
+        m.removeOntology(ontology);
         System.out.println("Done");
     }
 }

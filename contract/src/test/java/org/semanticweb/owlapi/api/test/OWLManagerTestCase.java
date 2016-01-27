@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -19,14 +20,13 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @SuppressWarnings("javadoc")
-public class OWLManagerTestCase {
+public class OWLManagerTestCase extends TestBase {
 
-    private OWLOntologyManager manager;
     private OWLOntology ontology;
+    OWLOntologyManager manager = OWLManager.createConcurrentOWLOntologyManager();
 
     @Before
     public void setUp() throws OWLOntologyCreationException {
-        manager = OWLManager.createOWLOntologyManager();
         ontology = manager.createOntology();
     }
 

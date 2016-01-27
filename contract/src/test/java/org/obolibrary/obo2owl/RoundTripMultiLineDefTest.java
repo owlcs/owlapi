@@ -9,14 +9,7 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
@@ -30,27 +23,21 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
         // add source frame that contains at least one new line
         Frame sourceFrame = new Frame(FrameType.TERM);
         sourceFrame.setId("CARO:0000049");
-        sourceFrame
-                .addClause(new Clause(
-                        OboFormatTag.TAG_DEF,
-                        "Sequential hermaphroditic organism that produces\ngametes first of the male sex, and then later of the\nfemale sex."));
+        sourceFrame.addClause(new Clause(OboFormatTag.TAG_DEF,
+            "Sequential hermaphroditic organism that produces\ngametes first of the male sex, and then later of the\nfemale sex."));
         oboDocSource.addTermFrame(sourceFrame);
         // convert to OWL and retrieve def
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
-                OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(m);
         OWLOntology owlOntology = bridge.convert(oboDocSource);
-        OWLDataFactory factory = owlOntology.getOWLOntologyManager()
-                .getOWLDataFactory();
+        OWLDataFactory factory = owlOntology.getOWLOntologyManager().getOWLDataFactory();
         // IRI
         IRI iri = bridge.oboIdToIRI("CARO:0000049");
         OWLClass c = factory.getOWLClass(iri);
         // Def
-        OWLAnnotationProperty defProperty = factory
-                .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115
-                        .getIRI());
+        OWLAnnotationProperty defProperty = factory.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115
+            .getIRI());
         int counter = 0;
-        for (OWLAnnotationAssertionAxiom ax : owlOntology
-                .getAnnotationAssertionAxioms(c.getIRI())) {
+        for (OWLAnnotationAssertionAxiom ax : owlOntology.getAnnotationAssertionAxioms(c.getIRI())) {
             if (ax.getProperty().equals(defProperty)) {
                 counter++;
                 assertTrue(ax.getValue() instanceof OWLLiteral);
@@ -61,12 +48,10 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
         }
         assertEquals(1, counter);
         // convert back to OBO
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
-                OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m);
         OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
         Frame convertedFrame = convertedOboDoc.getTermFrame("CARO:0000049");
-        String convertedDef = convertedFrame.getTagValue(OboFormatTag.TAG_DEF,
-                String.class);
+        String convertedDef = convertedFrame.getTagValue(OboFormatTag.TAG_DEF, String.class);
         // check that round trip still contains newlines
         assertTrue(convertedDef.indexOf('\n') > 0);
     }

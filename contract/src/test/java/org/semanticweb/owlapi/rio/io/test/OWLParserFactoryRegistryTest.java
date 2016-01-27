@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory;
@@ -15,24 +15,14 @@ import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
-import org.semanticweb.owlapi.rio.RioBinaryRdfParserFactory;
-import org.semanticweb.owlapi.rio.RioJsonLDParserFactory;
-import org.semanticweb.owlapi.rio.RioJsonParserFactory;
-import org.semanticweb.owlapi.rio.RioN3ParserFactory;
-import org.semanticweb.owlapi.rio.RioNQuadsParserFactory;
-import org.semanticweb.owlapi.rio.RioNTriplesParserFactory;
-import org.semanticweb.owlapi.rio.RioRDFXMLParserFactory;
-import org.semanticweb.owlapi.rio.RioRDFaParserFactory;
-import org.semanticweb.owlapi.rio.RioTrigParserFactory;
-import org.semanticweb.owlapi.rio.RioTrixParserFactory;
-import org.semanticweb.owlapi.rio.RioTurtleParserFactory;
+import org.semanticweb.owlapi.rio.*;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings("javadoc")
-public class OWLParserFactoryRegistryTest {
+public class OWLParserFactoryRegistryTest extends TestBase {
 
     @Test
     public void setUp() {
@@ -60,15 +50,13 @@ public class OWLParserFactoryRegistryTest {
         factories.add(RioRDFXMLParserFactory.class);
         factories.add(RioTrixParserFactory.class);
         factories.add(RioRDFaParserFactory.class);
-        PriorityCollection<OWLParserFactory> ontologyParsers = OWLManager
-                .createOWLOntologyManager().getOntologyParsers();
+        PriorityCollection<OWLParserFactory> ontologyParsers = m.getOntologyParsers();
         Set<Class<? extends OWLParserFactory>> found = new HashSet<>();
         for (OWLParserFactory p : ontologyParsers) {
             found.add(p.getClass());
         }
         for (Class<? extends OWLParserFactory> p : factories) {
-            assertTrue("Expected among parsers: " + p.getSimpleName(),
-                    found.contains(p));
+            assertTrue("Expected among parsers: " + p.getSimpleName(), found.contains(p));
         }
     }
 }

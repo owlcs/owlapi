@@ -12,7 +12,6 @@ import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 
 /**
  * @author cjm unmappable expressions should be handled gracefully. in
@@ -24,12 +23,10 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
 
     @Test
     public void testConvert() throws Exception {
-        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
-                OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m);
         bridge.setMuteUntranslatableAxioms(true);
         OBODoc doc = bridge.convert(parseOWLFile("nesting.owl"));
-        assertEquals("untranslatable axiom count", 1, bridge
-                .getUntranslatableAxioms().size());
+        assertEquals("untranslatable axiom count", 1, bridge.getUntranslatableAxioms().size());
         OBODoc obodoc = doc;
         // checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
@@ -41,8 +38,7 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
     private static void checkOBODoc(@Nonnull OBODoc obodoc) {
         // OBODoc tests
         Frame tf = obodoc.getTermFrame("x1"); // TODO - may change
-        @SuppressWarnings("null")
-        Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
+        @SuppressWarnings("null") Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         assertTrue(cs.size() != 1);
         // there should NEVER be a situation with single intersection tags
         // TODO - add validation step prior to saving

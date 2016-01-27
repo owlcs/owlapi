@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.rio.model.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings("javadoc")
-public class OWLOntologyStorerFactoryRegistryTest {
+public class OWLOntologyStorerFactoryRegistryTest extends TestBase {
 
     // XXX originally it was 19 storers, I cannot find which ones are missing.
     private static final int EXPECTED_STORERS = 18;
@@ -20,8 +20,7 @@ public class OWLOntologyStorerFactoryRegistryTest {
     public void setUp() {
         // XXX refactor this to be able to check what ontology storers would be
         // injected before creating an OWLOntologyManager
-        PriorityCollection<OWLStorerFactory> ontologyStorers = OWLManager
-                .createOWLOntologyManager().getOntologyStorers();
+        PriorityCollection<OWLStorerFactory> ontologyStorers = m.getOntologyStorers();
         assertEquals(EXPECTED_STORERS, ontologyStorers.size());
     }
 }
