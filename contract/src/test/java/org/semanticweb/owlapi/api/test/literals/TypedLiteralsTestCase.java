@@ -58,7 +58,7 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
         Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
         replacements.put(Literal(true), Literal(false));
         replacements.put(Literal(3), Literal(4));
-        List<OWLOntologyChange> results = replacer.changeIRI(replacements);
+        List<OWLOntologyChange> results = replacer.changeLiterals(replacements);
         assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(4)))));
         assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
         assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
