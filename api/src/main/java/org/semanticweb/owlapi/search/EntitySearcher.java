@@ -281,6 +281,12 @@ public class EntitySearcher {
      * @since 3.2
      */
     public static <P extends OWLPropertyExpression> Stream<P> getSubProperties(P e, OWLOntology ontology) {
+        if (e.isObjectPropertyExpression()) {
+            return Searcher.sub(ontology.axioms(subObjectPropertyWithSuper, e, EXCLUDED));
+        }
+        if (e.isDataPropertyExpression()) {
+            return Searcher.sub(ontology.axioms(subDataPropertyWithSuper, e, EXCLUDED));
+        }
         return Searcher.sub(ontology.axioms(subAnnotationWithSuper, e, EXCLUDED));
     }
 
@@ -317,6 +323,12 @@ public class EntitySearcher {
      * @since 3.2
      */
     public static <P extends OWLPropertyExpression> Stream<P> getSuperProperties(P e, OWLOntology ontology) {
+        if (e.isObjectPropertyExpression()) {
+            return Searcher.sup(ontology.axioms(subObjectPropertyWithSub, e, EXCLUDED));
+        }
+        if (e.isDataPropertyExpression()) {
+            return Searcher.sup(ontology.axioms(subDataPropertyWithSub, e, EXCLUDED));
+        }
         return Searcher.sup(ontology.axioms(subAnnotationWithSub, e, EXCLUDED));
     }
 
