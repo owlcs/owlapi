@@ -47,10 +47,8 @@ import com.google.common.collect.Iterables;
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    protected OWLOntologyManager manager;
-    @Nonnull
-    protected OWLOntologyID ontologyID;
+    @Nonnull protected OWLOntologyManager manager;
+    @Nonnull protected OWLOntologyID ontologyID;
 
     @Override
     protected int index() {
@@ -1098,10 +1096,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (ax.getObject().getDatatype().getIRI().equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
-                    if (ax.getObject().equals(owlEntity)) {
-                        axioms.add(ax);
-                    }
+                if (ax.getObject().equals(owlEntity)) {
+                    axioms.add(ax);
                 }
             }
             for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
@@ -1109,9 +1105,25 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
                     axioms.add(ax);
                 }
             }
+            for (AxiomType<?> t : AxiomType.AXIOM_TYPES) {
+                for (OWLAxiom ax : getAxioms(t)) {
+                    if (hasLiteralInAnnotations(owlEntity, ax)) {
+                        axioms.add(ax);
+                    }
+                }
+            }
             return axioms;
         }
         return CollectionFactory.emptySet();
+    }
+
+    protected boolean hasLiteralInAnnotations(OWLPrimitive owlEntity, OWLAxiom ax) {
+        for (OWLAnnotation ann : ax.getAnnotations()) {
+            if (ann.getValue().equals(owlEntity)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // OWLAxiomIndex

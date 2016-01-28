@@ -74,7 +74,7 @@ public class OWLLiteralReplacer {
      *        map of literals to change
      * @return list of changes
      */
-    public List<OWLOntologyChange> changeIRI(@Nonnull Map<OWLLiteral, OWLLiteral> literalToLiteralMap) {
+    public List<OWLOntologyChange> changeLiterals(@Nonnull Map<OWLLiteral, OWLLiteral> literalToLiteralMap) {
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(Collections.<OWLEntity, IRI> emptyMap(),
             owlOntologyManager.getOWLDataFactory(), literalToLiteralMap);

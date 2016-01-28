@@ -12,25 +12,28 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLLiteralReplacer;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
+@SuppressWarnings("javadoc")
 public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
+
+    OWLDataProperty prop = DataProperty(iri("p"));
+    OWLNamedIndividual ind = NamedIndividual(iri("i"));
 
     @Nonnull
     @Override
@@ -44,10 +47,22 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
         return axioms;
     }
 
-    private void addAxiomForLiteral(@Nonnull OWLLiteral lit,
-            @Nonnull Set<OWLAxiom> axioms) {
-        OWLDataProperty prop = DataProperty(iri("p"));
-        OWLNamedIndividual ind = NamedIndividual(iri("i"));
+    private void addAxiomForLiteral(@Nonnull OWLLiteral lit, @Nonnull Set<OWLAxiom> axioms) {
         axioms.add(DataPropertyAssertion(prop, ind, lit));
+    }
+
+    @Test
+    public void shouldReplaceLiterals() {
+        OWLOntology o = getOnt();
+        OWLLiteralReplacer replacer = new OWLLiteralReplacer(o.getOWLOntologyManager(), Collections.singleton(o));
+        Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
+        replacements.put(Literal(true), Literal(false));
+        replacements.put(Literal(3), Literal(4));
+        List<OWLOntologyChange> results = replacer.changeIRI(replacements);
+        assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(4)))));
+        assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
+        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
+        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(true)))));
+        assertEquals(4, results.size());
     }
 }
