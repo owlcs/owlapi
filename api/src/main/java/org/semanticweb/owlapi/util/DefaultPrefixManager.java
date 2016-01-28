@@ -107,8 +107,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     }
 
     @Override
-    public void setDefaultPrefix(String defaultPrefix) {
-        checkNotNull(defaultPrefix, "defaultPrefix cannot be null");
+    public void setDefaultPrefix(@Nullable String defaultPrefix) {
+        if (defaultPrefix == null) {
+            String prefixToUnregister = prefix2NamespaceMap.get(":");
+            if (prefixToUnregister != null) {
+                unregisterNamespace(prefixToUnregister);
+            }
+            return;
+        }
         setPrefix(":", defaultPrefix);
     }
 

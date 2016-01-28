@@ -48,8 +48,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N>
-    implements OWLObjectVisitor, SWRLObjectVisitor {
+public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N> implements
+    OWLObjectVisitor, SWRLObjectVisitor {
 
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
@@ -338,8 +338,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSuperProperty(), OWL_PROPERTY_CHAIN_AXIOM.getIRI(),
-            axiom.getPropertyChain().stream());
+        addSingleTripleAxiom(axiom, axiom.getSuperProperty(), OWL_PROPERTY_CHAIN_AXIOM.getIRI(), axiom
+            .getPropertyChain().stream());
     }
 
     @Override
@@ -575,7 +575,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLLiteral node) {
-        nodeMap.put(node, getLiteralNode(node));
+        if (!nodeMap.containsKey(node)) {
+            nodeMap.put(node, getLiteralNode(node));
+        }
     }
 
     @Override
@@ -686,10 +688,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), BUILT_IN_ATOM.getIRI());
         addTriple(node, BUILT_IN.getIRI(), node.getPredicate());
-        addTriple(getResourceNode(node.getPredicate()), getPredicateNode(RDF_TYPE.getIRI()),
-            getResourceNode(BUILT_IN_CLASS.getIRI()));
-        addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getIRI()),
-            translateList(new ArrayList<>(node.getArguments())));
+        addTriple(getResourceNode(node.getPredicate()), getPredicateNode(RDF_TYPE.getIRI()), getResourceNode(
+            BUILT_IN_CLASS.getIRI()));
+        addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getIRI()), translateList(new ArrayList<>(node
+            .getArguments())));
     }
 
     @Override
@@ -724,14 +726,18 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(SWRLIndividualArgument node) {
-        node.getIndividual().accept(this);
-        nodeMap.put(node, nodeMap.get(node.getIndividual()));
+        if (!nodeMap.containsKey(node)) {
+            node.getIndividual().accept(this);
+            nodeMap.put(node, nodeMap.get(node.getIndividual()));
+        }
     }
 
     @Override
     public void visit(SWRLLiteralArgument node) {
-        node.getLiteral().accept(this);
-        nodeMap.put(node, nodeMap.get(node.getLiteral()));
+        if (!nodeMap.containsKey(node)) {
+            node.getLiteral().accept(this);
+            nodeMap.put(node, nodeMap.get(node.getLiteral()));
+        }
     }
 
     // Methods to add triples
@@ -893,6 +899,16 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      */
     protected abstract R getAnonymousNode(Object key);
 
+    /**
+     * Gets a fresh anonymous resource.
+     * 
+     * @param key
+     *        A key for the resource. Each call will create a new node; nodes
+     *        cannot clash.
+     * @return The resource
+     */
+    protected abstract R getAnonymousNodeForExpressions(Object key);
+
     protected abstract L getLiteralNode(OWLLiteral literal);
 
     protected abstract void addTriple(R subject, P pred, N object);
@@ -973,8 +989,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private OWLLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i),
-            manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
+        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i), manager.getOWLDataFactory()
+            .getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
     private void processIfAnonymous(Stream<? extends OWLIndividual> inds, @Nullable OWLAxiom root) {
@@ -985,10 +1001,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                sortOptionally(ont.axioms(ind)).stream().filter(ax -> root == null || !root.equals(ax))
-                    .forEach(ax -> ax.accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
-                    .forEach(ax -> ax.accept(this));
+                sortOptionally(ont.axioms(ind)).stream().filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax
+                    .accept(this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
+                    this));
             }
             currentIndividuals.remove(ind);
         }
@@ -999,8 +1015,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
                 sortOptionally(ont.axioms(ind)).forEach(ax -> ax.accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
-                    .forEach(ax -> ax.accept(this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
+                    this));
             }
             currentIndividuals.remove(ind);
         }

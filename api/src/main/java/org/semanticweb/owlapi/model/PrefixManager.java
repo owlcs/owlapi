@@ -140,7 +140,7 @@ public interface PrefixManager extends Serializable {
      *        The namespace to be used as the default namespace. Note that the
      *        value may be {@code null} in order to clear the default namespace.
      */
-    void setDefaultPrefix(String defaultPrefix);
+    void setDefaultPrefix(@Nullable String defaultPrefix);
 
     /**
      * Adds a prefix name to prefix mapping.

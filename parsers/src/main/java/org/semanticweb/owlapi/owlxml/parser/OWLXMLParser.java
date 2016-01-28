@@ -41,15 +41,15 @@ public class OWLXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             InputSource isrc = getInputSource(documentSource, configuration);
-            OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology,
-                    configuration);
+            OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
             SAXParsers.initParserWithOWLAPIStandards(null).parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
+            format.setDefaultPrefix(handler.getBase().toString());
             return format;
         } catch (SAXException | IOException | OWLOntologyInputSourceException e) {
             // General exception

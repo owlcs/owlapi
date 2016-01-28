@@ -57,8 +57,8 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
 
     @Override
     protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"),
-            checkNotNull(pred, "pred cannot be null"), checkNotNull(object, "object cannot be null")));
+        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"), checkNotNull(pred,
+            "pred cannot be null"), checkNotNull(object, "object cannot be null")));
     }
 
     @Override
@@ -69,6 +69,12 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
                 true, multipleOccurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
         }
         return new RDFResourceBlankNode(System.identityHashCode(key), false, false);
+    }
+
+    @Override
+    protected RDFResource getAnonymousNodeForExpressions(Object key) {
+        checkNotNull(key, "key cannot be null");
+        return new RDFResourceBlankNode(false, false);
     }
 
     @Override

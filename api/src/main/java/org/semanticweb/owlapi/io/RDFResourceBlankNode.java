@@ -64,6 +64,18 @@ public class RDFResourceBlankNode extends RDFResource implements org.apache.comm
         this(NodeID.nodeId(anonId), isIndividual, forceId);
     }
 
+    /**
+     * Create an RDFResource that is anonymous
+     * 
+     * @param isIndividual
+     *        true if this is an individual
+     * @param forceId
+     *        true if the id should be outputted
+     */
+    public RDFResourceBlankNode(boolean isIndividual, boolean forceId) {
+        this(NodeID.nextFreshNodeId(), isIndividual, forceId);
+    }
+
     @Override
     public boolean isIndividual() {
         return isIndividual;
