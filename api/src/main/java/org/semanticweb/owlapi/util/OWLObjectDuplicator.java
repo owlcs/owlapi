@@ -27,11 +27,10 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
 
-    @Nonnull
-    private final OWLDataFactory dataFactory;
+    @Nonnull private final OWLDataFactory dataFactory;
     private Object obj;
-    @Nonnull
-    private final Map<OWLEntity, IRI> replacementMap;
+    @Nonnull private final Map<OWLEntity, IRI> replacementMap;
+    @Nonnull private final Map<OWLLiteral, OWLLiteral> replacementLiterals;
     protected RemappingIndividualProvider anonProvider;
 
     /**
@@ -57,12 +56,31 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      *        used to "rename" entities.
      */
     public OWLObjectDuplicator(@Nonnull OWLDataFactory dataFactory, @Nonnull Map<IRI, IRI> iriReplacementMap) {
+        this(dataFactory, iriReplacementMap, Collections.<OWLLiteral, OWLLiteral> emptyMap());
+    }
+
+    /**
+     * Creates an object duplicator that duplicates objects using the specified
+     * data factory and uri replacement map.
+     * 
+     * @param dataFactory
+     *        The data factory to be used for the duplication.
+     * @param iriReplacementMap
+     *        The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be
+     *        used to "rename" entities.
+     * @param literals
+     *        replacement literals
+     */
+    public OWLObjectDuplicator(@Nonnull OWLDataFactory dataFactory, @Nonnull Map<IRI, IRI> iriReplacementMap,
+        @Nonnull Map<OWLLiteral, OWLLiteral> literals) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
+        checkNotNull(literals, "literals cannot be null");
+        replacementLiterals = new HashMap<>(literals);
         replacementMap = new HashMap<>();
         for (Map.Entry<IRI, IRI> e : iriReplacementMap.entrySet()) {
-            @Nonnull
-            IRI iri = e.getKey();
+            @Nonnull IRI iri = e.getKey();
             IRI repIRI = e.getValue();
             replacementMap.put(dataFactory.getOWLClass(iri), repIRI);
             replacementMap.put(dataFactory.getOWLObjectProperty(iri), repIRI);
@@ -86,9 +104,29 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      */
     public OWLObjectDuplicator(@Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
         @Nonnull OWLDataFactory dataFactory) {
+        this(entityIRIReplacementMap, dataFactory, Collections.<OWLLiteral, OWLLiteral> emptyMap());
+    }
+
+    /**
+     * Creates an object duplicator that duplicates objects using the specified
+     * data factory and uri replacement map.
+     * 
+     * @param dataFactory
+     *        The data factory to be used for the duplication.
+     * @param entityIRIReplacementMap
+     *        The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be
+     *        used to "rename" entities.
+     * @param literals
+     *        replacement literals
+     */
+    public OWLObjectDuplicator(@Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
+        @Nonnull OWLDataFactory dataFactory, @Nonnull Map<OWLLiteral, OWLLiteral> literals) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         anonProvider = new RemappingIndividualProvider(this.dataFactory);
         replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
+        checkNotNull(literals, "literals cannot be null");
+        replacementLiterals = new HashMap<>(literals);
     }
 
     /**
@@ -599,6 +637,11 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     @Override
     public void visit(@Nonnull OWLLiteral node) {
+        OWLLiteral l = replacementLiterals.get(node);
+        if (l != null) {
+            obj = l;
+            return;
+        }
         node.getDatatype().accept(this);
         OWLDatatype dt = getLastObject();
         if (node.hasLang()) {
