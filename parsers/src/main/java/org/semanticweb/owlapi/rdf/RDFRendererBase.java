@@ -187,7 +187,7 @@ public abstract class RDFRendererBase {
 
     private void renderOntologyComponents() {
         renderInOntologySignatureEntities(OWLDocumentFormat.determineIllegalPunnings(shouldInsertDeclarations(),
-            asList(ontology.signature()), ontology.getPunnedIRIs(INCLUDED)));
+            ontology.signature(), ontology.getPunnedIRIs(INCLUDED)));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
@@ -217,8 +217,8 @@ public abstract class RDFRendererBase {
      */
     private void renderEntities(Stream<? extends OWLEntity> entities, String bannerText, Collection<IRI> illegalPuns) {
         AtomicBoolean firstRendering = new AtomicBoolean(true);
-        sortOptionally(entities).stream().filter(e -> createGraph(e, illegalPuns))
-            .forEach(e -> render(e, firstRendering, bannerText));
+        sortOptionally(entities).stream().filter(e -> createGraph(e, illegalPuns)).forEach(e -> render(e,
+            firstRendering, bannerText));
     }
 
     private void render(OWLEntity entity, AtomicBoolean firstRendering, String bannerText) {
@@ -267,8 +267,8 @@ public abstract class RDFRendererBase {
 
     private void renderUntypedIRIAnnotationAssertions() {
         Collection<IRI> annotatedIRIs = new HashSet<>();
-        ontology.axioms(ANNOTATION_ASSERTION).filter(ax -> ax.getSubject().isIRI())
-            .forEach(ax -> addIfUntyped(ax.getSubject(), annotatedIRIs));
+        ontology.axioms(ANNOTATION_ASSERTION).filter(ax -> ax.getSubject().isIRI()).forEach(ax -> addIfUntyped(ax
+            .getSubject(), annotatedIRIs));
         if (!annotatedIRIs.isEmpty()) {
             writeBanner(ANNOTATED_IRIS_BANNER_TEXT);
             sortOptionally(annotatedIRIs).forEach(this::renderIRI);
@@ -289,8 +289,8 @@ public abstract class RDFRendererBase {
 
     protected void renderAnon(OWLAnonymousIndividual anonInd) {
         List<OWLAxiom> axioms = new ArrayList<>();
-        if (ontology.referencingAxioms(anonInd).filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom))
-            .noneMatch(ax -> shouldNotRender(anonInd, axioms, ax))) {
+        if (ontology.referencingAxioms(anonInd).filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom)).noneMatch(
+            ax -> shouldNotRender(anonInd, axioms, ax))) {
             createGraph(axioms.stream());
             renderAnonRoots();
         }
@@ -381,8 +381,8 @@ public abstract class RDFRendererBase {
     }
 
     private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode, RDFTranslator translator) {
-        ontology.importsDeclarations()
-            .forEach(decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(), decl.getIRI()));
+        ontology.importsDeclarations().forEach(decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(),
+            decl.getIRI()));
     }
 
     private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode, RDFTranslator translator) {
@@ -469,8 +469,8 @@ public abstract class RDFRendererBase {
         public void visit(OWLObjectProperty property) {
             add(axioms, ontology.axioms(property).filter(this::threewayDisjointObject));
             add(axioms, ontology.axioms(SUB_PROPERTY_CHAIN_OF).filter(ax -> ax.getSuperProperty().equals(property)));
-            OWLObjectInverseOf inverse = ontology.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLObjectInverseOf(property);
+            OWLObjectInverseOf inverse = ontology.getOWLOntologyManager().getOWLDataFactory().getOWLObjectInverseOf(
+                property);
             add(axioms, ontology.axioms(inverse));
         }
 
@@ -500,13 +500,13 @@ public abstract class RDFRendererBase {
         }
 
         boolean threewayDisjointData(OWLAxiom ax) {
-            return !(ax instanceof OWLDisjointDataPropertiesAxiom
-                && ((OWLDisjointDataPropertiesAxiom) ax).properties().count() > 2);
+            return !(ax instanceof OWLDisjointDataPropertiesAxiom && ((OWLDisjointDataPropertiesAxiom) ax).properties()
+                .count() > 2);
         }
 
         boolean threewayDisjointObject(OWLAxiom ax) {
-            return !(ax instanceof OWLDisjointObjectPropertiesAxiom
-                && ((OWLDisjointObjectPropertiesAxiom) ax).properties().count() > 2);
+            return !(ax instanceof OWLDisjointObjectPropertiesAxiom && ((OWLDisjointObjectPropertiesAxiom) ax)
+                .properties().count() > 2);
         }
     }
 
@@ -563,8 +563,8 @@ public abstract class RDFRendererBase {
 
     protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : graph.getTriplesForSubject(node)) {
-            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
-                && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
+            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && triple
+                .getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
                 toJavaList(node, items);
                 return items.stream().noneMatch(RDFNode::isLiteral);

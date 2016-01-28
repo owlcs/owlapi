@@ -36,10 +36,15 @@ import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
+import org.semanticweb.owlapi.util.OWLAnnotationPropertyTransformer;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
 
@@ -916,6 +921,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                     // because it will be added
                     // when the ontology is created.
                     OWLOntology ontology = factory.loadOWLOntology(this, documentSource, this, configuration);
+                    fixIllegalPunnings(ontology);
                     // Store the ontology to the document IRI mapping
                     documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
                     ontologyConfigurationsByOntologyID.put(ontology.getOntologyID(), configuration);
@@ -932,6 +938,47 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             }
         }
         return null;
+    }
+
+    protected void fixIllegalPunnings(OWLOntology o) {
+        Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(true, o.signature(Imports.INCLUDED), o
+            .getPunnedIRIs(Imports.INCLUDED));
+        Multimap<IRI, OWLDeclarationAxiom> illegalDeclarations = HashMultimap.create();
+        o.axioms(AxiomType.DECLARATION, Imports.INCLUDED).filter(d -> illegals.contains(d.getEntity().getIRI()))
+            .forEach(d -> illegalDeclarations.put(d.getEntity().getIRI(), d));
+        Map<OWLEntity, OWLEntity> replacementMap = new HashMap<>();
+        for (Map.Entry<IRI, Collection<OWLDeclarationAxiom>> e : illegalDeclarations.asMap().entrySet()) {
+            if (e.getValue().size() == 1) {
+                // One declaration only: illegal punning comes from use or from
+                // defaulting of types
+                OWLDeclarationAxiom correctDeclaration = e.getValue().iterator().next();
+                // currently we only know how to fix the incorrect defaulting of
+                // properties to annotation properties
+                OWLEntity entity = correctDeclaration.getEntity();
+                if (entity.isOWLDataProperty() || entity.isOWLObjectProperty()) {
+                    OWLAnnotationProperty wrongProperty = dataFactory.getOWLAnnotationProperty(entity.getIRI());
+                    replacementMap.put(wrongProperty, entity);
+                }
+            } else {
+                // Multiple declarations: bad data. Cannot be repaired
+                // automatically.
+                LOGGER.error("Illegal redeclarations of entities: reuse of entity {} in punning not allowed {}", e
+                    .getKey(), e.getValue());
+            }
+        }
+        OWLAnnotationPropertyTransformer changer = new OWLAnnotationPropertyTransformer(replacementMap, dataFactory);
+        List<OWLAxiomChange> list = new ArrayList<>();
+        o.importsClosure().forEach(ont -> {
+            for (OWLEntity e : replacementMap.keySet()) {
+                // all axioms referring the annotation property
+                // must be rebuilt.
+                ont.referencingAxioms(e).forEach(ax -> {
+                    list.add(new RemoveAxiom(ont, ax));
+                    list.add(new AddAxiom(ont, changer.transformObject(ax)));
+                });
+            }
+        });
+        o.getOWLOntologyManager().applyChanges(list);
     }
 
     @Override

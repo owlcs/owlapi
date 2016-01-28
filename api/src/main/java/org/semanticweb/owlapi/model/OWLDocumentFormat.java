@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
@@ -100,20 +101,17 @@ public interface OWLDocumentFormat extends Serializable {
      *        declarations will be added.
      * @return collection of IRIS used in illegal punnings
      */
-    static Collection<IRI> determineIllegalPunnings(boolean add, Collection<OWLEntity> signature,
+    static Collection<IRI> determineIllegalPunnings(boolean add, Stream<OWLEntity> signature,
         Collection<IRI> punnedEntities) {
         if (!add) {
             return Collections.emptySet();
         }
         // determine what entities are illegally punned
         Multimap<IRI, EntityType<?>> punnings = LinkedListMultimap.create();
-        for (OWLEntity e : signature) {
-            // disregard individuals as they do not give raise to illegal
-            // punnings; only keep track of punned entities, ignore the rest
-            if (!e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI())) {
-                punnings.put(e.getIRI(), e.getEntityType());
-            }
-        }
+        // disregard individuals as they do not give raise to illegal
+        // punnings; only keep track of punned entities, ignore the rest
+        signature.filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI())).forEach(e -> punnings
+            .put(e.getIRI(), e.getEntityType()));
         return computeIllegals(punnings);
     }
 

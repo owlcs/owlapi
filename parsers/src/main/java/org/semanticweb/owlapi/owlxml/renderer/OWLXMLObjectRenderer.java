@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.owlxml.renderer;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.Collection;
@@ -66,11 +66,11 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             OWLDocumentFormat format = ontology.getFormat();
             boolean addMissing = format.isAddMissingTypes();
             if (addMissing) {
-                Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(addMissing,
-                    asList(ontology.signature()), ontology.getPunnedIRIs(Imports.INCLUDED));
+                Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(addMissing, ontology
+                    .signature(), ontology.getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
-                    if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
-                        && !ontology.isDeclared(e, Imports.INCLUDED)) {
+                    if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI()) && !ontology.isDeclared(e,
+                        Imports.INCLUDED)) {
                         ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e).accept(this);
                     }
                 }

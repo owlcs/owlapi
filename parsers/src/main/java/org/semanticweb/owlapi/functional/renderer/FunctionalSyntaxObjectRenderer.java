@@ -222,11 +222,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         List<OWLEntity> signature = sortOptionally(ontology.signature());
-        Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(addMissingDeclarations, signature,
-            ont.getPunnedIRIs(INCLUDED));
+        Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(addMissingDeclarations, signature
+            .stream(), ont.getPunnedIRIs(INCLUDED));
         signature.forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
-        writeSortedEntities("Annotation Properties", "Annotation Property",
-            ontology.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);
+        writeSortedEntities("Annotation Properties", "Annotation Property", ontology.annotationPropertiesInSignature(
+            EXCLUDED), writtenAxioms);
         writeSortedEntities("Object Properties", "Object Property", ontology.objectPropertiesInSignature(EXCLUDED),
             writtenAxioms);
         writeSortedEntities("Data Properties", "Data Property", ontology.dataPropertiesInSignature(EXCLUDED),
@@ -259,10 +259,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         Set<OWLAxiom> writtenAxioms) {
         boolean haveWrittenBanner = false;
         for (OWLEntity owlEntity : entities) {
-            List<? extends OWLAxiom> axiomsForEntity = asList(
-                getUnsortedAxiomsForEntity(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
-            List<OWLAnnotationAssertionAxiom> list = asList(
-                ont.annotationAssertionAxioms(owlEntity.getIRI()).filter(ax -> !writtenAxioms.contains(ax)));
+            List<? extends OWLAxiom> axiomsForEntity = asList(getUnsortedAxiomsForEntity(owlEntity).filter(
+                ax -> !writtenAxioms.contains(ax)));
+            List<OWLAnnotationAssertionAxiom> list = asList(ont.annotationAssertionAxioms(owlEntity.getIRI()).filter(
+                ax -> !writtenAxioms.contains(ax)));
             if (axiomsForEntity.isEmpty() && list.isEmpty()) {
                 continue;
             }
@@ -305,8 +305,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writeEntity(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeEntity2(entity, "", sortOptionally(getUnsortedAxiomsForEntity(entity)),
-            sortOptionally(ont.annotationAssertionAxioms(entity.getIRI())), alreadyWrittenAxioms);
+        writeEntity2(entity, "", sortOptionally(getUnsortedAxiomsForEntity(entity)), sortOptionally(ont
+            .annotationAssertionAxioms(entity.getIRI())), alreadyWrittenAxioms);
     }
 
     protected void writeEntity2(OWLEntity entity, String entityTypeName, List<? extends OWLAxiom> axiomsForEntity,
@@ -314,8 +314,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity) + ")");
         writeReturn();
         annotationAssertionAxioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
-        axiomsForEntity.stream().filter(this::shouldWrite).filter(alreadyWrittenAxioms::add)
-            .forEach(this::acceptAndReturn);
+        axiomsForEntity.stream().filter(this::shouldWrite).filter(alreadyWrittenAxioms::add).forEach(
+            this::acceptAndReturn);
         writeReturn();
     }
 
@@ -323,8 +323,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
             return false;
         }
-        if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-            && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2) {
+        if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES) && ((OWLDisjointClassesAxiom) ax).classExpressions()
+            .count() > 2) {
             return false;
         }
         return true;
@@ -346,9 +346,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeAnnotations(entity, alreadyWrittenAxioms);
         List<OWLAxiom> writtenAxioms = new ArrayList<>();
         Stream<? extends OWLAxiom> stream = getUnsortedAxiomsForEntity(entity).filter(alreadyWrittenAxioms::contains)
-            .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS))
-            .filter(ax -> ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-                && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2);
+            .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)).filter(ax -> ax.getAxiomType()
+                .equals(AxiomType.DISJOINT_CLASSES) && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2);
         sortOptionally(stream).forEach(ax -> {
             ax.accept(this);
             writtenAxioms.add(ax);
@@ -383,8 +382,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         // here, though
         if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn() && !illegals.contains(entity.getIRI())
             && !ont.isDeclared(entity, Imports.INCLUDED)) {
-            OWLDeclarationAxiom declaration = ont.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLDeclarationAxiom(entity);
+            OWLDeclarationAxiom declaration = ont.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(
+                entity);
             acceptAndReturn(declaration);
         }
     }
@@ -414,8 +413,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      *        axioms
      */
     protected void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
-        sortOptionally(ont.annotationAssertionAxioms(entity.getIRI()).filter(alreadyWrittenAxioms::add))
-            .forEach(this::acceptAndReturn);
+        sortOptionally(ont.annotationAssertionAxioms(entity.getIRI()).filter(alreadyWrittenAxioms::add)).forEach(
+            this::acceptAndReturn);
     }
 
     /**

@@ -55,8 +55,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
         manager = new OWLOntologyManagerImpl(dataFactory, readWriteLock);
         mockAndAddOntologyFactory();
         mockAndAddOntologyStorer();
-        ontology = manager.createOntology();
         IRI iri = IRI.create("http://owlapi/ont");
+        ontology = manager.createOntology(iri);
         manager.setOntologyDocumentIRI(ontology, iri);
         reset(readLock, writeLock, readWriteLock);
     }
@@ -68,8 +68,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
         final OWLOntology owlOntology = new OWLOntologyImpl(manager, new OWLOntologyID());
         when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyID.class), any(IRI.class),
             any(OWLOntologyFactory.OWLOntologyCreationHandler.class))).thenAnswer(i -> notify(3, i, owlOntology));
-        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class),
-            any(OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
+        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class), any(
+            OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
                 .thenAnswer(i -> notify(2, i, owlOntology));
         manager.setOntologyFactories(Collections.singleton(ontologyFactory));
     }
@@ -645,8 +645,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     protected OWLMutableOntology mockOntology() {
         OWLMutableOntology mock = mock(OWLMutableOntology.class);
-        when(mock.getOntologyID())
-            .thenReturn(new OWLOntologyID(optional(IRI.create("urn:mock:ontology")), emptyOptional()));
+        when(mock.getOntologyID()).thenReturn(new OWLOntologyID(optional(IRI.create("urn:mock:ontology")),
+            emptyOptional()));
         return mock;
     }
 

@@ -212,8 +212,7 @@ public class TurtleTestCase extends TestBase {
                 + "  owl:annotatedSource :Manage ;\n" + "  owl:annotatedTarget :ManagementType ;\n"
                 + "  owl:annotatedProperty rdfs:subClassOf ;\n"
                 + "  :prov [\n prov:gen :FMDomain ;\n prov:att :DM .\n ]\n ] .\n"
-                + ":ManagementType rdf:type owl:Class .\n"
-                + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
+                + ":ManagementType rdf:type owl:Class .\n" + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
                 + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
             OWLOntology ontology = loadOntologyFromString(input);
             OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
@@ -264,7 +263,7 @@ public class TurtleTestCase extends TestBase {
         // when
         OWLOntology o = loadOntologyFromString(input);
         // then
-        o.logicalAxioms().forEach(ax -> assertTrue(ax instanceof OWLAnnotationAssertionAxiom));
+        o.logicalAxioms().forEach(ax -> assertTrue(ax.toString(), ax instanceof OWLObjectPropertyDomainAxiom));
     }
 
     @Test
