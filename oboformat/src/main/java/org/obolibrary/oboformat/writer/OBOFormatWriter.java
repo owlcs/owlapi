@@ -135,13 +135,25 @@ public class OBOFormatWriter {
     /**
      * @param doc
      *        the doc
+     * @param outFilename
+     *        the out file name
+     * @throws IOException
+     *         Signals that an I/O exception has occurred.
+     */
+    public void write(@Nonnull OBODoc doc, @Nonnull String outFilename) throws IOException {
+        write(doc, new File(outFilename));
+    }
+	
+	/**
+     * @param doc
+     *        the doc
      * @param outFile
      *        the out file
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(@Nonnull OBODoc doc, @Nonnull String outFile) throws IOException {
-        FileOutputStream os = new FileOutputStream(new File(outFile));
+    public void write(@Nonnull OBODoc doc, @Nonnull File outFile) throws IOException {
+        FileOutputStream os = new FileOutputStream(outFile);
         OutputStreamWriter osw = new OutputStreamWriter(os, OBOFormatConstants.DEFAULT_CHARACTER_ENCODING);
         BufferedWriter bw = new BufferedWriter(osw);
         write(doc, bw);
