@@ -23,6 +23,10 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLLiteralReplacer;
+import org.semanticweb.owlapi.util.OWLObjectTransformer;
+
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -59,6 +63,37 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
         replacements.put(Literal(true), Literal(false));
         replacements.put(Literal(3), Literal(4));
         List<OWLOntologyChange> results = replacer.changeLiterals(replacements);
+        assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(4)))));
+        assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
+        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
+        assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(true)))));
+        assertEquals(4, results.size());
+    }
+
+    @Test
+    public void shouldReplaceLiteralsWithTransformer() {
+        OWLOntology o = getOnt();
+        final Map<OWLLiteral, OWLLiteral> replacements = new HashMap<>();
+        replacements.put(Literal(true), Literal(false));
+        replacements.put(Literal(3), Literal(4));
+        OWLObjectTransformer<OWLLiteral> replacer = new OWLObjectTransformer<>(new Predicate<Object>() {
+
+            @Override
+            public boolean apply(Object input) {
+                return true;
+            }
+        }, new Function<OWLLiteral, OWLLiteral>() {
+
+            @Override
+            public OWLLiteral apply(OWLLiteral input) {
+                OWLLiteral l = replacements.get(input);
+                if (l == null) {
+                    return input;
+                }
+                return l;
+            }
+        }, df, OWLLiteral.class);
+        List<OWLOntologyChange> results = replacer.change(o);
         assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(4)))));
         assertTrue(results.contains(new AddAxiom(o, DataPropertyAssertion(prop, ind, Literal(false)))));
         assertTrue(results.contains(new RemoveAxiom(o, DataPropertyAssertion(prop, ind, Literal(3)))));
