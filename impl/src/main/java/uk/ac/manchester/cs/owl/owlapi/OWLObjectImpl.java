@@ -46,8 +46,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     protected int hashCode = 0;
-    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder()
-        .weakKeys().softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
+    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder().weakKeys()
+        .softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
     protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = Caffeine.newBuilder()
         .weakKeys().softValues().build(key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
     protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
@@ -204,6 +204,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public String toString() {
-        return ToStringRenderer.getInstance().getRendering(this);
+        return ToStringRenderer.getRendering(this);
     }
 }

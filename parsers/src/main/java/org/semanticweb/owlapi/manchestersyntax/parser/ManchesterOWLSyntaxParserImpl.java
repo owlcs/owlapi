@@ -21,7 +21,6 @@ import java.util.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -61,8 +60,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // this parser by hand. The error messages that this parser generates
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
-    @Nonnull private Provider<OWLOntologyLoaderConfiguration> configProvider;
-    @Nonnull private Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
+    @Nonnull private OWLOntologyLoaderConfiguration loaderConfig;
     protected OWLDataFactory df;
     private List<Token> tokens;
     private int tokenIndex;
@@ -99,9 +97,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
      *        dataFactory
      */
     @Inject
-    public ManchesterOWLSyntaxParserImpl(Provider<OWLOntologyLoaderConfiguration> configurationProvider,
-        OWLDataFactory dataFactory) {
-        configProvider = configurationProvider;
+    public ManchesterOWLSyntaxParserImpl(OntologyConfigurator configurationProvider, OWLDataFactory dataFactory) {
+        loaderConfig = configurationProvider.buildLoaderConfiguration();
         df = dataFactory;
         anonProvider = new RemappingIndividualProvider(df);
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
@@ -137,21 +134,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
-        if (config.isPresent()) {
-            return config.get();
-        }
-        config = optional(configProvider.get());
-        return config.get();
+        return loaderConfig;
     }
 
     @Override
-    public void setOntologyLoaderConfigurationProvider(Provider<OWLOntologyLoaderConfiguration> provider) {
-        configProvider = provider;
-    }
-
-    @Override
-    public void setOntologyLoaderConfiguration(OWLOntologyLoaderConfiguration config) {
-        this.config = optional(config);
+    public void setOntologyLoaderConfiguration(OWLOntologyLoaderConfiguration conf) {
+        loaderConfig = conf;
     }
 
     @Override

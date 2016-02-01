@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
-import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
@@ -70,8 +69,8 @@ public class ManchesterSyntaxTool {
         if (auxiliaryOntologies != null) {
             auxiliaryOntologies.forEach(o -> add(ontologies, o.importsClosure()));
         }
-        ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
-            new BidirectionalShortFormProviderAdapter(manager, ontologies, shortFormProvider));
+        ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(new BidirectionalShortFormProviderAdapter(
+            manager, ontologies, shortFormProvider));
         entityChecker = new AdvancedEntityChecker(defaultInstance, ontologies, inputOntology.getOWLOntologyManager());
     }
 
@@ -107,7 +106,7 @@ public class ManchesterSyntaxTool {
         if (disposed.get()) {
             throw new OWLRuntimeException("Illegal State: Trying to use an disposed instance.");
         }
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(), dataFactory);
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
         parser.setStringToParse(expression);
         parser.setOWLEntityChecker(entityChecker);
         LOG.info("parsing: {}", expression);
@@ -269,9 +268,8 @@ public class ManchesterSyntaxTool {
         @Nullable
         protected IRI getIRIByLabel(String label) {
             for (OWLOntology o : ontologies) {
-                Optional<OWLAnnotationAssertionAxiom> anyMatch = o.axioms(AxiomType.ANNOTATION_ASSERTION)
-                    .filter(aa -> isMatchingLabel(label, aa.getValue(), aa.getProperty()) && aa.getSubject().isIRI())
-                    .findAny();
+                Optional<OWLAnnotationAssertionAxiom> anyMatch = o.axioms(AxiomType.ANNOTATION_ASSERTION).filter(
+                    aa -> isMatchingLabel(label, aa.getValue(), aa.getProperty()) && aa.getSubject().isIRI()).findAny();
                 if (anyMatch.isPresent()) {
                     return (IRI) anyMatch.get().getSubject();
                 }
@@ -327,8 +325,8 @@ public class ManchesterSyntaxTool {
         protected OWLNamedIndividual getOWLIndividual(IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLNamedIndividual c = o.getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(iri);
-                Optional<OWLDeclarationAxiom> found = o.declarationAxioms(c)
-                    .filter(da -> da.getEntity().isOWLNamedIndividual()).findAny();
+                Optional<OWLDeclarationAxiom> found = o.declarationAxioms(c).filter(da -> da.getEntity()
+                    .isOWLNamedIndividual()).findAny();
                 if (found.isPresent()) {
                     return found.get().getEntity().asOWLNamedIndividual();
                 }

@@ -17,7 +17,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * A parser for the Manchester OWL Syntax. All properties must be defined before
@@ -45,7 +45,7 @@ public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserIm
      *        s
      */
     public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
-        this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
+        this(new OntologyConfigurator(), dataFactory, s);
     }
 
     /**
@@ -56,9 +56,8 @@ public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserIm
      * @param s
      *        s
      */
-    public ManchesterOWLSyntaxEditorParser(final OWLOntologyLoaderConfiguration configuration,
-            OWLDataFactory dataFactory, String s) {
-        super(() -> configuration, dataFactory);
+    public ManchesterOWLSyntaxEditorParser(OntologyConfigurator configuration, OWLDataFactory dataFactory, String s) {
+        super(configuration, dataFactory);
         setStringToParse(s);
     }
 

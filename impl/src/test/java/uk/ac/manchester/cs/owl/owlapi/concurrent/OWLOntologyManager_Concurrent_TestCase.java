@@ -13,8 +13,6 @@ import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
-import javax.inject.Provider;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -688,9 +686,9 @@ public class OWLOntologyManager_Concurrent_TestCase {
     }
 
     @Test
-    public void shouldCall_setOntologyLoaderConfigurationProvider_with_writeLock() {
-        Provider<OWLOntologyLoaderConfiguration> arg0 = mock(Provider.class);
-        manager.setOntologyLoaderConfigurationProvider(arg0);
+    public void shouldCall_setOntologyWriterConfiguration_with_writeLock() {
+        OWLOntologyWriterConfiguration arg0 = mock(OWLOntologyWriterConfiguration.class);
+        manager.setOntologyWriterConfiguration(arg0);
         verifyWriteLock_LockUnlock();
     }
 

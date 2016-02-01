@@ -26,7 +26,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -223,13 +222,6 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             () -> singleton(DisjointObjectProperties(propA, propB)),
             () -> Sets.newHashSet(EquivalentObjectProperties(propA, propB), Declaration(propA), Declaration(propB)),
             () -> singleton(FunctionalObjectProperty(op)),
-            () -> {
-                XMLWriterPreferences.getInstance().setUseNamespaceEntities(true);
-                return Sets.newHashSet(
-                    Declaration(clsA),
-                    AnnotationAssertion(apropA, clsA.getIRI(), Literal("value1")),
-                    AnnotationAssertion(apropB, clsA.getIRI(), Literal("value2")));
-            } ,
             () -> singleton(InverseFunctionalObjectProperty(op)),
             () -> singleton(IrreflexiveObjectProperty(op)),
             () -> singleton(DifferentIndividuals(asUnorderedSet(Stream.generate(() -> createIndividual()).limit(

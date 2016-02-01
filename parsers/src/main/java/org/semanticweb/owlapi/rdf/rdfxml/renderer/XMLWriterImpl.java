@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.semanticweb.owlapi.util.StringLengthComparator;
@@ -52,7 +53,7 @@ public class XMLWriterImpl implements XMLWriter {
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
     private static final String PERCENT_ENTITY = "&#37;";
-    protected final XMLWriterPreferences xmlPreferences;
+    protected final OWLOntologyWriterConfiguration xmlPreferences;
 
     /**
      * @param writer
@@ -65,7 +66,7 @@ public class XMLWriterImpl implements XMLWriter {
      *        xml writer preferences instance
      */
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase,
-        XMLWriterPreferences preferences) {
+        OWLOntologyWriterConfiguration preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
             "xmlWriterNamespaceManager cannot be null");
@@ -240,8 +241,8 @@ public class XMLWriterImpl implements XMLWriter {
         }
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
             if (!curPrefix.isEmpty()) {
-                writeAttribute("xmlns:" + curPrefix,
-                    verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
+                writeAttribute("xmlns:" + curPrefix, verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(
+                    curPrefix)));
             }
         }
     }

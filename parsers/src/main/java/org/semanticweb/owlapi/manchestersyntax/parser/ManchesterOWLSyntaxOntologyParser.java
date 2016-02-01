@@ -16,7 +16,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.DocumentSources;
@@ -27,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
@@ -81,8 +81,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 lineCount++;
             }
             String s = sb.toString();
-            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(),
-                ontology.getOWLOntologyManager().getOWLDataFactory());
+            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), ontology
+                .getOWLOntologyManager().getOWLDataFactory());
             parser.setOntologyLoaderConfiguration(config);
             parser.setStringToParse(s);
             return parser.parseOntology(ontology);
@@ -94,7 +94,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     private static boolean startsWithMagicNumber(String line) {
-        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
-            || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
+        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY
+            .toString()) != -1;
     }
 }

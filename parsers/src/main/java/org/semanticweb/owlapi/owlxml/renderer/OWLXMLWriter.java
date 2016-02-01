@@ -21,7 +21,6 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
@@ -31,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriter;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterFactory;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterNamespaceManager;
 import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.semanticweb.owlapi.util.VersionInfo;
@@ -64,17 +63,18 @@ public class OWLXMLWriter {
      * @param ontology
      *        ontology
      */
-    public OWLXMLWriter(PrintWriter writer, @Nullable OWLOntology ontology) {
+    public OWLXMLWriter(PrintWriter writer, OWLOntology ontology) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
         nsm.setPrefix("rdf", Namespaces.RDF.toString());
         nsm.setPrefix("rdfs", Namespaces.RDFS.toString());
         nsm.setPrefix("xml", Namespaces.XML.toString());
         String base = Namespaces.OWL.toString();
-        if (ontology != null && !ontology.isAnonymous()) {
+        if (!ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
-        this.writer = XMLWriterFactory.createXMLWriter(writer, nsm, base);
+        this.writer = new XMLWriterImpl(writer, nsm, base, ontology.getOWLOntologyManager()
+            .getOntologyWriterConfiguration());
     }
 
     /**

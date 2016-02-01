@@ -37,8 +37,7 @@ import com.google.inject.multibindings.Multibinder;
 @OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
 
-    private static Logger logger = LoggerFactory
-            .getLogger(OWLAPIServiceLoaderModule.class);
+    private static Logger logger = LoggerFactory.getLogger(OWLAPIServiceLoaderModule.class);
 
     @Override
     protected void configure() {
@@ -50,8 +49,6 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         loadFactories(OWLParserFactory.class, OWLParser.class);
         loadFactories(OWLStorerFactory.class, OWLStorer.class);
         loadOntologyManagerFactory();
-        bind(OWLOntologyLoaderConfiguration.class).toProvider(
-                OWLAPIConfigProvider.class);
     }
 
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
@@ -90,31 +87,26 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         return result;
     }
 
-    protected <T, F extends Provider<T>> void loadFactories(Class<F> factory,
-            Class<T> type) {
+    protected <T, F extends Provider<T>> void loadFactories(Class<F> factory, Class<T> type) {
         try {
-            Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(),
-                    factory);
+            Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(), factory);
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
             load(factory).forEach(o -> {
                 factoryBinder.addBinding().toInstance(o);
                 binder.addBinding().toInstance(o.get());
             });
         } catch (ServiceConfigurationError e) {
-            throw new OWLRuntimeException("Injection failed for factory: "
-                    + factory + " type: " + type, e);
+            throw new OWLRuntimeException("Injection failed for factory: " + factory + " type: " + type, e);
         }
     }
 
     protected void loadOntologyManagerFactory() {
         try {
-            Multibinder<OWLOntologyManagerFactory> binder = Multibinder
-                    .newSetBinder(binder(), OWLOntologyManagerFactory.class);
-            load(OWLOntologyManagerFactory.class).forEach(
-                    o -> binder.addBinding().toInstance(o));
+            Multibinder<OWLOntologyManagerFactory> binder = Multibinder.newSetBinder(binder(),
+                OWLOntologyManagerFactory.class);
+            load(OWLOntologyManagerFactory.class).forEach(o -> binder.addBinding().toInstance(o));
         } catch (ServiceConfigurationError e) {
-            throw new OWLRuntimeException(
-                    "Injection failed for OWLOntologyManager factory", e);
+            throw new OWLRuntimeException("Injection failed for OWLOntologyManager factory", e);
         }
     }
 }

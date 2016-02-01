@@ -10,34 +10,39 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.rdf.rdfxml.renderer;
+package org.semanticweb.owlapi.api.test.baseclasses;
 
-import java.io.PrintWriter;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+
+import com.google.common.collect.Sets;
 
 /**
- * Developed as part of the CO-ODE project http://www.co-ode.org .
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
- * @since 2.0.0
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
+ * @since 3.0.0
  */
-public class XMLWriterFactory {
+@SuppressWarnings("javadoc")
+public class AxiomsRoundTrippingWithEntitiesTestCase extends AxiomsRoundTrippingBase {
 
-    private XMLWriterFactory() {}
+    private static final IRI iriA = iri("A");
+    private static final OWLClass clsA = Class(iriA);
+    private static final OWLAnnotationProperty apropA = AnnotationProperty(iri("apropA"));
+    private static final OWLAnnotationProperty apropB = AnnotationProperty(iri("apropB"));
 
-    /**
-     * Creates an XMLWriter.
-     * 
-     * @param writer
-     *        The {@code Writer} that the XMLWriter will actually write to
-     * @param xmlWriterNamespaceManager
-     *        xmlWriterNamespaceManager
-     * @param xmlBase
-     *        xmlBase
-     * @return xml writer
-     */
-    public static XMLWriter createXMLWriter(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
-        String xmlBase) {
-        return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase, XMLWriterPreferences.getInstance().copy());
+    public AxiomsRoundTrippingWithEntitiesTestCase() {
+        super(() -> Sets.newHashSet(Declaration(clsA), AnnotationAssertion(apropA, clsA.getIRI(), Literal("value1")),
+            AnnotationAssertion(apropB, clsA.getIRI(), Literal("value2"))));
+    }
+
+    @Override
+    protected OWLOntology createOntology() {
+        OWLOntology createOntology = super.createOntology();
+        m.getOntologyConfigurator().withUseNamespaceEntities(true);
+        return createOntology;
     }
 }

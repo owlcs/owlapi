@@ -30,9 +30,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import javax.inject.Provider;
 
-import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
@@ -78,8 +76,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private transient Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = createSyncMap();
     private transient Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = createSyncMap();
     private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<>();
-    @Nonnull private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
-    @Nonnull private transient Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
+    @Nonnull private final OntologyConfigurator configProvider = new OntologyConfigurator();
+    @Nonnull private transient Optional<OWLOntologyLoaderConfiguration> loaderConfig = emptyOptional();
+    @Nonnull private transient Optional<OWLOntologyWriterConfiguration> writerConfig = emptyOptional();
     @Nonnull protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers;
     @Nonnull protected final PriorityCollection<OWLOntologyFactory> ontologyFactories;
     @Nonnull protected final PriorityCollection<OWLParserFactory> parserFactories;
@@ -141,12 +140,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     @Override
-    public void setOntologyLoaderConfigurationProvider(Provider<OWLOntologyLoaderConfiguration> provider) {
-        writeLock.lock();
+    public OntologyConfigurator getOntologyConfigurator() {
+        readLock.lock();
         try {
-            configProvider = provider;
+            return configProvider;
         } finally {
-            writeLock.unlock();
+            readLock.unlock();
         }
     }
 
@@ -154,7 +153,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public void setOntologyLoaderConfiguration(OWLOntologyLoaderConfiguration newConfig) {
         writeLock.lock();
         try {
-            config = optional(newConfig);
+            loaderConfig = optional(newConfig);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public void setOntologyWriterConfiguration(OWLOntologyWriterConfiguration newConfig) {
+        writeLock.lock();
+        try {
+            writerConfig = optional(newConfig);
         } finally {
             writeLock.unlock();
         }
@@ -164,11 +173,23 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
         readLock.lock();
         try {
-            if (config.isPresent()) {
-                return config.get();
+            if (loaderConfig.isPresent()) {
+                return loaderConfig.get();
             }
-            config = optional(configProvider.get());
-            return config.get();
+            return configProvider.buildLoaderConfiguration();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public OWLOntologyWriterConfiguration getOntologyWriterConfiguration() {
+        readLock.lock();
+        try {
+            if (writerConfig.isPresent()) {
+                return writerConfig.get();
+            }
+            return configProvider.buildWriterConfiguration();
         } finally {
             readLock.unlock();
         }
@@ -1300,7 +1321,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     // Listener stuff - methods to add/remove listeners
     private void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
-        config = optional((OWLOntologyLoaderConfiguration) stream.readObject());
+        loaderConfig = optional((OWLOntologyLoaderConfiguration) stream.readObject());
         listenerMap = new ConcurrentHashMap<>();
         impendingChangeListenerMap = new ConcurrentHashMap<>();
         vetoListeners = new ArrayList<>();
@@ -1308,7 +1329,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
-        stream.writeObject(config.orElse(null));
+        stream.writeObject(getOntologyLoaderConfiguration());
     }
 
     @Override

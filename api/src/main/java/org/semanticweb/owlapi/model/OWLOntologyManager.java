@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  */
 public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFactory, HasGetOntologyById, HasApplyChanges,
     HasApplyChange, HasAddAxioms, HasAddAxiom, HasRemoveAxioms, HasRemoveAxiom, HasContainsOntology,
-    HasOntologyChangeListeners, HasOntologyLoaderConfigurationProvider, HasOntologyLoaderConfiguration, Serializable {
+    HasOntologyChangeListeners, HasOntologyConfigurator, HasOntologyLoaderConfiguration, HasOntologyWriterConfiguration,
+    Serializable {
 
     /**
      * Clear all ontologies, listeners and maps from the manager. Leave injected

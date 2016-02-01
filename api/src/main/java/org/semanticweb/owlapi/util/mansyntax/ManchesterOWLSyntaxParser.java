@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.util.OntologyAxiomPair;
  * @author ignazio
  */
 @ParametersAreNonnullByDefault
-public interface ManchesterOWLSyntaxParser
-        extends HasOntologyLoaderConfigurationProvider, HasOntologyLoaderConfiguration {
+public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguration {
 
     /**
      * @param s
@@ -71,7 +70,7 @@ public interface ManchesterOWLSyntaxParser
      *             parseAxiom() to OWLClassAxiom.
      */
     @Deprecated
-    OWLClassAxiom parseClassAxiom();
+        OWLClassAxiom parseClassAxiom();
 
     /**
      * Parses an OWL class expression that is represented in Manchester OWL

@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * for a specific ontology or manager at this point, and so they are system
  * wide.
  */
+// XXX config
 public class AnonymousIndividualProperties {
 
     private static AtomicBoolean saveIds = new AtomicBoolean(false);

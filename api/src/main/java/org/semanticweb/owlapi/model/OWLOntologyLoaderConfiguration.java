@@ -40,16 +40,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class OWLOntologyLoaderConfiguration implements Serializable {
 
-    /**
-     * what action to take if the ontology header is missing.
-     */
-    public enum MissingOntologyHeaderStrategy {
-        /** Include triples. */
-        INCLUDE_GRAPH,
-        /** Keep import structure. */
-        IMPORT_GRAPH
-    }
-
     /** True if http compression should be used. */
     private boolean acceptHTTPCompression = true;
     /** Timeout for connections. */

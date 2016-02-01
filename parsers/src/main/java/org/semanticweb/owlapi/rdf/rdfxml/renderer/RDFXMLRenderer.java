@@ -39,6 +39,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Nonnull private final RDFXMLNamespaceManager qnameManager;
     @Nonnull private final OWLDocumentFormat format;
     private final ShortFormProvider labelMaker;
+    private final OWLOntologyWriterConfiguration config;
 
     /**
      * @param ontology
@@ -60,12 +61,13 @@ public class RDFXMLRenderer extends RDFRendererBase {
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"));
+        config = ontology.getOWLOntologyManager().getOntologyWriterConfiguration();
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(
-            XMLWriterFactory.createXMLWriter(checkNotNull(w, "w cannot be null"), qnameManager, base));
+        writer = new RDFXMLWriter(new XMLWriterImpl(checkNotNull(w, "w cannot be null"), qnameManager, base, ontology
+            .getOWLOntologyManager().getOntologyWriterConfiguration()));
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
@@ -138,7 +140,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private void writeCommentForEntity(String msg, OWLEntity entity) {
         checkNotNull(entity, msg);
         String iriString = entity.getIRI().toString();
-        if (XMLWriterPreferences.getInstance().isLabelsAsBanner()) {
+        if (config.isLabelsAsBanner()) {
             String labelString = labelMaker.getShortForm(entity);
             String commentString;
             if (!iriString.equals(labelString)) {
@@ -171,9 +173,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
-            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
-                && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
-                && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && BUILT_IN_VOCABULARY_IRIS
+                .contains(triple.getObject().getIRI()) && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                 candidatePrettyPrintTypeTriple = triple;
             }
         }

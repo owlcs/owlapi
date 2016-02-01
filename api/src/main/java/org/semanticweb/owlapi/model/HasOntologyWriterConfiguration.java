@@ -10,25 +10,28 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi;
-
-import java.io.Serializable;
-
-import javax.inject.Provider;
-
-import org.semanticweb.owlapi.annotations.OwlapiModule;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-
+package org.semanticweb.owlapi.model;
 
 /**
- * Default configuration provider.
+ * An interface for objects that allow a writer configuration to be set.
+ * 
+ * @since 5.0.0
  */
-@OwlapiModule
-public class OWLAPIConfigProvider implements
-        Provider<OWLOntologyLoaderConfiguration>, Serializable {
+public interface HasOntologyWriterConfiguration {
 
-    @Override
-    public OWLOntologyLoaderConfiguration get() {
-        return new OWLOntologyLoaderConfiguration();
-    }
+    /**
+     * Sets the configuration.
+     * 
+     * @param config
+     *        configuration to be used
+     */
+    void setOntologyWriterConfiguration(OWLOntologyWriterConfiguration config);
+
+    /**
+     * @return the configuration for this object. This is a read only accessor,
+     *         since the configuration is an immutable object. To change the
+     *         configuration, use the setter in this interface to set a modified
+     *         configuration.
+     */
+    OWLOntologyWriterConfiguration getOntologyWriterConfiguration();
 }

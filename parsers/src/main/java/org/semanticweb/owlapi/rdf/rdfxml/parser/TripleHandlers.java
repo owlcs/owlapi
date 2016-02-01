@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
+import static org.semanticweb.owlapi.model.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
@@ -228,8 +228,8 @@ public class TripleHandlers {
                     // C(a)
                     OWLIndividual ind = consumer.translateIndividual(s);
                     OWLClassExpression ce = consumer.translatorAccessor.translateClassExpression(o);
-                    consumer.addAxiom(
-                        consumer.getDataFactory().getOWLClassAssertionAxiom(ce, ind, consumer.getPendingAnnotations()));
+                    consumer.addAxiom(consumer.getDataFactory().getOWLClassAssertionAxiom(ce, ind, consumer
+                        .getPendingAnnotations()));
                 }
             } else {
                 TriplePredicateHandler handler = predicates.get(p);
@@ -297,8 +297,8 @@ public class TripleHandlers {
 
         private Set<RDFTriple> getRemainingTriples() {
             Set<RDFTriple> remaining = new HashSet<>();
-            consumer.iterateResources((s, p, o) -> remaining
-                .add(new RDFTriple(s, consumer.isAnonymousNode(s), p, o, consumer.isAnonymousNode(o))));
+            consumer.iterateResources((s, p, o) -> remaining.add(new RDFTriple(s, consumer.isAnonymousNode(s), p, o,
+                consumer.isAnonymousNode(o))));
             consumer.iterateLiterals((s, p, o) -> remaining.add(new RDFTriple(s, consumer.isAnonymousNode(s), p, o)));
             return remaining;
         }
@@ -795,8 +795,8 @@ public class TripleHandlers {
         }
     }
 
-    abstract static class AbstractBuiltInTypeHandler extends AbstractTriplePredicateHandler
-        implements BuiltInTypeHandler {
+    abstract static class AbstractBuiltInTypeHandler extends AbstractTriplePredicateHandler implements
+        BuiltInTypeHandler {
 
         private final IRI typeIRI;
 
@@ -874,8 +874,8 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandle(IRI s, IRI p, IRI o) {
-            return !consumer.isAxiom(s) && !consumer.isAnnotation(s)
-                && (BUILT_IN_AP_IRIS.contains(p) || !p.isReservedVocabulary());
+            return !consumer.isAxiom(s) && !consumer.isAnnotation(s) && (BUILT_IN_AP_IRIS.contains(p) || !p
+                .isReservedVocabulary());
         }
 
         @Override
@@ -1026,8 +1026,8 @@ public class TripleHandlers {
         public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
             addR(s, false);
             IRI propIRI = getResourceObject(s, OWL_ON_PROPERTY);
-            if (propIRI != null
-                && (!isAnon(o) || consumer.translatorAccessor.getClassExpressionIfTranslated(o) != null)) {
+            if (propIRI != null && (!isAnon(o) || consumer.translatorAccessor.getClassExpressionIfTranslated(
+                o) != null)) {
                 // The filler is either a datatype or named class
                 if (isObjectPropertyStrict(propIRI)) {
                     addCe(o, false);
@@ -1455,8 +1455,8 @@ public class TripleHandlers {
             @Nullable OWLOntology io) {
             if (io != null) {
                 OWLDocumentFormat importedOntologyFormat = io.getFormat();
-                if (importedOntologyFormat instanceof AbstractRDFPrefixDocumentFormat && io.isAnonymous()
-                    && consumer.getConfiguration().getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
+                if (importedOntologyFormat instanceof AbstractRDFPrefixDocumentFormat && io.isAnonymous() && consumer
+                    .getConfiguration().getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
                     // We should have just included the triples rather
                     // than imported them. So,
                     // we remove the imports statement, add the axioms
@@ -2043,8 +2043,8 @@ public class TripleHandlers {
         }
     }
 
-    abstract static class AbstractTriplePredicateHandler extends AbstractResourceTripleHandler
-        implements TriplePredicateHandler {
+    abstract static class AbstractTriplePredicateHandler extends AbstractResourceTripleHandler implements
+        TriplePredicateHandler {
 
         private final IRI predicateIRI;
 

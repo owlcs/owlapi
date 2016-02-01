@@ -54,28 +54,20 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     @Override
     public String getMessage() {
         StringBuilder msg = new StringBuilder();
-        msg.append("Problem parsing ");
-        msg.append(documentIRI);
-        msg.append(
+        msg.append("Problem parsing ").append(documentIRI).append(
             "\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
         int counter = 1;
         for (OWLParser parser : exceptions.keySet()) {
-            msg.append(counter);
-            msg.append(") ");
-            msg.append(parser.toString());
-            msg.append('\n');
+            msg.append(counter).append(") ").append(parser).append('\n');
             counter++;
         }
         msg.append("\n\nDetailed logs:\n");
         for (Map.Entry<OWLParser, OWLParserException> nextException : exceptions.entrySet()) {
             Throwable exception = nextException.getValue();
-            msg.append("--------------------------------------------------------------------------------\n");
-            msg.append("Parser: ");
-            msg.append(nextException.getKey().toString());
-            msg.append('\n');
+            msg.append("--------------------------------------------------------------------------------\nParser: ")
+                .append(nextException.getKey()).append('\n');
             if (!includeStackTraceInMessage) {
-                msg.append(exception.getMessage());
-                msg.append("\n\n");
+                msg.append(exception.getMessage()).append("\n\n");
             } else {
                 msg.append("    Stack trace:\n");
                 Throwable current = exception;
@@ -95,9 +87,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         StackTraceElement[] stackTrace = current.getStackTrace();
         for (int stackDepth = 0; stackDepth < 10 && stackDepth < stackTrace.length; stackDepth++) {
             StackTraceElement element = stackTrace[stackDepth];
-            msg.append("        ");
-            msg.append(element);
-            msg.append('\n');
+            msg.append("        ").append(element).append('\n');
         }
         if (current.getCause() != null && current.getCause() != current) {
             return current.getCause();

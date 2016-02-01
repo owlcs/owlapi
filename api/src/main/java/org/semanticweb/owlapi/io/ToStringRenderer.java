@@ -14,10 +14,11 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javax.inject.Provider;
 
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
 /**
@@ -32,34 +33,22 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  */
 public final class ToStringRenderer {
 
-    @Nonnull private static final ToStringRenderer INSTANCE = new ToStringRenderer();
-    private OWLObjectRenderer renderer;
-
-    private ToStringRenderer() {
-        renderer = new SimpleRenderer();
-    }
+    private static final AtomicReference<Provider<OWLObjectRenderer>> rendererProvider = new AtomicReference<>(
+        SimpleRenderer::new);
 
     /**
      * @return the singleton instance
      */
-    public static ToStringRenderer getInstance() {
-        return INSTANCE;
-    }
-
-    /**
-     * @param provider
-     *        the new short form provider
-     */
-    public synchronized void setShortFormProvider(ShortFormProvider provider) {
-        renderer.setShortFormProvider(provider);
+    public static OWLObjectRenderer getInstance() {
+        return rendererProvider.get().get();
     }
 
     /**
      * @param renderer
      *        the new renderer to use
      */
-    public synchronized void setRenderer(OWLObjectRenderer renderer) {
-        this.renderer = checkNotNull(renderer, "renderer cannot be null");
+    public static void setRenderer(Provider<OWLObjectRenderer> renderer) {
+        rendererProvider.set(checkNotNull(renderer, "renderer cannot be null"));
     }
 
     /**
@@ -67,7 +56,7 @@ public final class ToStringRenderer {
      *        the object to render
      * @return the rendering for the object
      */
-    public synchronized String getRendering(OWLObject object) {
-        return renderer.render(checkNotNull(object, "object cannot be null"));
+    public static String getRendering(OWLObject object) {
+        return getInstance().render(checkNotNull(object, "object cannot be null"));
     }
 }

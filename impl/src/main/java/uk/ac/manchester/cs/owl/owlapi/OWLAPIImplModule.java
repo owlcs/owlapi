@@ -62,10 +62,10 @@ public class OWLAPIImplModule extends AbstractModule {
         bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class).to(OWLOntologyManagerImpl.class)
             .asEagerSingleton();
         bind(OWLOntologyBuilder.class).to(ConcurrentOWLOntologyBuilder.class);
-        bind(OWLOntologyBuilder.class).annotatedWith(NonConcurrentDelegate.class)
-            .to(NonConcurrentOWLOntologyBuilder.class);
-        install(new FactoryModuleBuilder().implement(OWLOntology.class, OWLOntologyImpl.class)
-            .build(OWLOntologyImplementationFactory.class));
+        bind(OWLOntologyBuilder.class).annotatedWith(NonConcurrentDelegate.class).to(
+            NonConcurrentOWLOntologyBuilder.class);
+        install(new FactoryModuleBuilder().implement(OWLOntology.class, OWLOntologyImpl.class).build(
+            OWLOntologyImplementationFactory.class));
         multibind(OWLOntologyFactory.class, OWLOntologyFactoryImpl.class);
     }
 

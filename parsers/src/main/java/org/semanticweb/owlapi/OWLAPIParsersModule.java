@@ -13,12 +13,11 @@
 package org.semanticweb.owlapi;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.inject.Provider;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import com.google.inject.AbstractModule;
@@ -45,8 +44,7 @@ public class OWLAPIParsersModule extends AbstractModule {
      * @return implementation of manchester parser for parsing strings
      */
     @Provides
-    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df,
-        Provider<OWLOntologyLoaderConfiguration> provider) {
-        return new ManchesterOWLSyntaxParserImpl(provider, df);
+    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df, OWLOntologyManager provider) {
+        return new ManchesterOWLSyntaxParserImpl(provider.getOntologyConfigurator(), df);
     }
 }
