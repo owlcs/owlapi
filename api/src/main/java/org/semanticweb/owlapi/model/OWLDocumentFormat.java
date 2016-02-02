@@ -174,7 +174,7 @@ public interface OWLDocumentFormat extends Serializable {
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
      *         wise {@code false}.
      */
-    default boolean isPrefixOWLOntologyFormat() {
+    default boolean isPrefixOWLDocumentFormat() {
         return false;
     }
 
@@ -190,8 +190,8 @@ public interface OWLDocumentFormat extends Serializable {
      *         if this format is not an instance of
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
      */
-    default PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        if (isPrefixOWLOntologyFormat()) {
+    default PrefixDocumentFormat asPrefixOWLDocumentFormat() {
+        if (isPrefixOWLDocumentFormat()) {
             return (PrefixDocumentFormat) this;
         }
         throw new ClassCastException(getClass().getName() + " is not a Prefix Document Format");
@@ -200,7 +200,7 @@ public interface OWLDocumentFormat extends Serializable {
     /**
      * If this format describes an ontology that was loaded from some ontology
      * document (rather than created programmatically) there may be some meta
-     * data about the loading process. Subclasses of {@code OWLOntologyFormat}
+     * data about the loading process. Subclasses of {@code OWLDocumentFormat}
      * will provide accessors etc. to details pertaining to the meta data about
      * loading.
      * 

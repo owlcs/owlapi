@@ -22,8 +22,7 @@ import javax.inject.Provider;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public interface OWLDocumentFormatFactory extends Serializable,
-        Provider<OWLDocumentFormat>, MIMETypeAware {
+public interface OWLDocumentFormatFactory extends Serializable, Provider<OWLDocumentFormat>, MIMETypeAware {
 
     /**
      * Create a new format. Note that ontology formats currently carry prefix
@@ -35,10 +34,10 @@ public interface OWLDocumentFormatFactory extends Serializable,
     OWLDocumentFormat createFormat();
 
     /**
-     * Returns the key for the OWLOntologyFormat that this class is a factory
-     * for without necessarily creating an instance of the OWLOntologyFormat.
+     * Returns the key for the OWLDocumentFormat that this class is a factory
+     * for without necessarily creating an instance of the OWLDocumentFormat.
      * 
-     * @return The key for the OWLOntologyFormat.
+     * @return The key for the OWLDocumentFormat.
      */
     String getKey();
 

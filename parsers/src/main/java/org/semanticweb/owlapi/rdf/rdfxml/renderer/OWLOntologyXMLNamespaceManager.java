@@ -30,9 +30,9 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
+ * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLDocumentFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
- * NamespaceManager (OWLOntologyFormat) this manager will create them.
+ * NamespaceManager (OWLDocumentFormat) this manager will create them.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -123,8 +123,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(format, "format cannot be null");
         if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixOWLOntologyFormat = (PrefixDocumentFormat) format;
-            String defaultPrefix = prefixOWLOntologyFormat.getDefaultPrefix();
+            PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
+            String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
             if (defaultPrefix != null) {
                 return defaultPrefix;
             }

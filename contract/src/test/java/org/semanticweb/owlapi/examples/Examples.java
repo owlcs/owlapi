@@ -156,8 +156,8 @@ public class Examples extends TestBase {
         // supports prefixes. When we save the ontology in the new format we
         // will copy the prefixes over so that we have nicely abbreviated IRIs
         // in the new ontology document
-        if (format.isPrefixOWLOntologyFormat()) {
-            owlxmlFormat.copyPrefixesFrom(format.asPrefixOWLOntologyFormat());
+        if (format.isPrefixOWLDocumentFormat()) {
+            owlxmlFormat.copyPrefixesFrom(format.asPrefixOWLDocumentFormat());
         }
         manager.saveOntology(ontology, owlxmlFormat, IRI.create(file.toURI()));
         // We can also dump an ontology to System.out by specifying a different
@@ -165,8 +165,8 @@ public class Examples extends TestBase {
         // stream in a similar way using the StreamOutputTarget class
         // Try another format - The Manchester OWL Syntax
         ManchesterSyntaxDocumentFormat manSyntaxFormat = new ManchesterSyntaxDocumentFormat();
-        if (format.isPrefixOWLOntologyFormat()) {
-            manSyntaxFormat.copyPrefixesFrom(format.asPrefixOWLOntologyFormat());
+        if (format.isPrefixOWLDocumentFormat()) {
+            manSyntaxFormat.copyPrefixesFrom(format.asPrefixOWLDocumentFormat());
         }
         // Replace the ByteArrayOutputStream wth an actual output stream to save
         // to a file.
@@ -446,8 +446,8 @@ public class Examples extends TestBase {
         // do anything that's necessary, e.g., print them out
         // System.out.println("Referenced class: " + cls);
         // We should also find that B is an ASSERTED superclass of A
-        Iterable<OWLClassExpression> superClasses = asList(
-            sup(ontology.axioms(Filters.subClassWithSub, clsA, INCLUDED), OWLClassExpression.class));
+        Iterable<OWLClassExpression> superClasses = asList(sup(ontology.axioms(Filters.subClassWithSub, clsA, INCLUDED),
+            OWLClassExpression.class));
         // Now save the ontology. The ontology will be saved to the location
         // where we loaded it from, in the default ontology format
         manager.saveOntology(ontology);
@@ -634,8 +634,8 @@ public class Examples extends TestBase {
         OWLClass clsA = factory.getOWLClass(ontologyIRI + "#A");
         OWLClass clsB = factory.getOWLClass(ontologyIRI + "#B");
         SWRLVariable var = factory.getSWRLVariable(ontologyIRI + "#x");
-        SWRLRule rule = factory.getSWRLRule(singleton(factory.getSWRLClassAtom(clsA, var)),
-            singleton(factory.getSWRLClassAtom(clsB, var)));
+        SWRLRule rule = factory.getSWRLRule(singleton(factory.getSWRLClassAtom(clsA, var)), singleton(factory
+            .getSWRLClassAtom(clsB, var)));
         manager.applyChange(new AddAxiom(ontology, rule));
         OWLObjectProperty prop = factory.getOWLObjectProperty(ontologyIRI + "#propA");
         OWLObjectProperty propB = factory.getOWLObjectProperty(ontologyIRI + "#propB");
@@ -865,8 +865,8 @@ public class Examples extends TestBase {
         // Get a reference to the vegetarian class so that we can as the
         // reasoner about it. The full IRI of this class happens to be:
         // <http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#Marsupials>
-        OWLClass marsupials = fac
-            .getOWLClass("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#Marsupials");
+        OWLClass marsupials = fac.getOWLClass(
+            "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#Marsupials");
         // Now use the reasoner to obtain the subclasses of Marsupials. We can
         // ask for the direct subclasses or all of the (proper)
         // subclasses. In this case we just want the direct ones
@@ -1055,8 +1055,8 @@ public class Examples extends TestBase {
         // Now we create the content of our comment. In this case we simply want
         // a plain string literal. We'll attach a language to the comment to
         // specify that our comment is written in English (en).
-        OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(),
-            df.getOWLLiteral("A class which represents quokkas", "en"));
+        OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(
+            "A class which represents quokkas", "en"));
         // Specify that the class has an annotation - to do this we attach
         // an entity annotation using an entity annotation axiom (remember,
         // classes are entities)
@@ -1088,9 +1088,8 @@ public class Examples extends TestBase {
         // rdfs:label
         OWLAnnotationProperty label = df.getRDFSLabel();
         // Get the annotations on the class that use the label property
-        ont.classesInSignature()
-            .forEach(c -> getAnnotationObjects(c, ont.importsClosure(), label).map(a -> a.getValue().asLiteral())
-                .filter(v -> v.isPresent() && v.get().hasLang("en")).forEach(v -> v.get().getLiteral()));
+        ont.classesInSignature().forEach(c -> getAnnotationObjects(c, ont.importsClosure(), label).map(a -> a.getValue()
+            .asLiteral()).filter(v -> v.isPresent() && v.get().hasLang("en")).forEach(v -> v.get().getLiteral()));
     }
 
     /**
@@ -1151,8 +1150,8 @@ public class Examples extends TestBase {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         load(man);
         OWLOntology o = man.createOntology(IRI.create("urn:test"));
-        man.addAxiom(o,
-            man.getOWLDataFactory().getOWLDeclarationAxiom(man.getOWLDataFactory().getOWLClass("urn:testclass")));
+        man.addAxiom(o, man.getOWLDataFactory().getOWLDeclarationAxiom(man.getOWLDataFactory().getOWLClass(
+            "urn:testclass")));
         // Create our ontology merger
         OWLOntologyMerger merger = new OWLOntologyMerger(man);
         // We merge all of the loaded ontologies. Since an OWLOntologyManager is
@@ -1568,8 +1567,8 @@ public class Examples extends TestBase {
         // Inverse property axioms //We can specify the inverse property of
         // hasWife as hasHusband We first need a reference to the hasHusband
         // property.
-        OWLObjectProperty hasHusband = factory
-            .getOWLObjectProperty(ont.getOntologyID().getOntologyIRI().get() + "#hasHusband");
+        OWLObjectProperty hasHusband = factory.getOWLObjectProperty(ont.getOntologyID().getOntologyIRI().get()
+            + "#hasHusband");
         // The full IRI of the hasHusband property will be
         // http://example.com/owlapi/families#hasHusband since the IRI of our
         // ontology is http://example.com/owlapi/families Create the inverse
@@ -1578,8 +1577,8 @@ public class Examples extends TestBase {
         // Sub property axioms //OWL allows a property hierarchy to be
         // specified. Here, hasSon and hasDaughter will be specified as
         // hasChild.
-        OWLObjectProperty hasChild = factory
-            .getOWLObjectProperty(ont.getOntologyID().getOntologyIRI().get() + "#hasChild");
+        OWLObjectProperty hasChild = factory.getOWLObjectProperty(ont.getOntologyID().getOntologyIRI().get()
+            + "#hasChild");
         OWLSubObjectPropertyOfAxiom hasSonSubHasChildAx = factory.getOWLSubObjectPropertyOfAxiom(hasSon, hasChild);
         // Add the axiom
         manager.addAxiom(ont, hasSonSubHasChildAx);
@@ -1659,8 +1658,8 @@ public class Examples extends TestBase {
         // hasDaughter has a range of Person and hasGender value female. This
         // time, we will make things a little more compact by not using so many
         // variables
-        OWLClassExpression rangeOfHasDaughter = factory.getOWLObjectIntersectionOf(person,
-            factory.getOWLObjectHasValue(hasGender, female));
+        OWLClassExpression rangeOfHasDaughter = factory.getOWLObjectIntersectionOf(person, factory.getOWLObjectHasValue(
+            hasGender, female));
         manager.addAxiom(ont, factory.getOWLObjectPropertyRangeAxiom(hasDaughter, rangeOfHasDaughter));
         // Data Ranges and Equivalent Classes axioms //In OWL 2, we can specify
         // expressive data ranges. Here, we will specify the classes Teenage,
@@ -1688,8 +1687,8 @@ public class Examples extends TestBase {
         OWLEquivalentClassesAxiom teenagerDefinition = factory.getOWLEquivalentClassesAxiom(teenager, teenagePerson);
         manager.addAxiom(ont, teenagerDefinition);
         // Do the same for Adult that has an age greater than 21
-        OWLDataRange geq21 = factory.getOWLDatatypeRestriction(integerDatatype,
-            factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
+        OWLDataRange geq21 = factory.getOWLDatatypeRestriction(integerDatatype, factory.getOWLFacetRestriction(
+            MIN_INCLUSIVE, 21));
         OWLClass adult = factory.getOWLClass(ontologyIRI + "#Adult");
         OWLClassExpression adultAgeRestriction = factory.getOWLDataSomeValuesFrom(hasAge, geq21);
         OWLClassExpression adultPerson = factory.getOWLObjectIntersectionOf(person, adultAgeRestriction);

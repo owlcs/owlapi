@@ -177,8 +177,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     private final Map<String, IRI> IRIMap = createMap();
     @Nonnull private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
     private static final Set<IRI> entityTypes = Sets.newHashSet(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
-        OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), RDFS_DATATYPE.getIRI(),
-        OWL_NAMED_INDIVIDUAL.getIRI());
+        OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), RDFS_DATATYPE.getIRI(), OWL_NAMED_INDIVIDUAL
+            .getIRI());
     RemappingIndividualProvider anonProvider;
 
     /**
@@ -236,8 +236,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
 
     @Override
     public void addPrefix(String abbreviation, String value) {
-        if (ontologyFormat.isPrefixOWLOntologyFormat()) {
-            ontologyFormat.asPrefixOWLOntologyFormat().setPrefix(abbreviation, value);
+        if (ontologyFormat.isPrefixOWLDocumentFormat()) {
+            ontologyFormat.asPrefixOWLDocumentFormat().setPrefix(abbreviation, value);
         }
     }
 
@@ -252,8 +252,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     }
 
     private void setupSinglePredicateMaps() {
-        Stream.of(OWL_ON_PROPERTY, OWL_SOME_VALUES_FROM, OWL_ALL_VALUES_FROM, OWL_ON_CLASS, OWL_ON_DATA_RANGE)
-            .forEach(v -> singleValuedResTriplesByPredicate.put(v.getIRI(), createMap()));
+        Stream.of(OWL_ON_PROPERTY, OWL_SOME_VALUES_FROM, OWL_ALL_VALUES_FROM, OWL_ON_CLASS, OWL_ON_DATA_RANGE).forEach(
+            v -> singleValuedResTriplesByPredicate.put(v.getIRI(), createMap()));
     }
 
     private void setupSynonymMap() {
@@ -316,8 +316,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             addLegacyMapping(v);
         }
-        Stream.of(OWLFacet.values()).forEach(v -> Stream.of(OWL, OWL11, OWL2)
-            .forEach(p -> synonymMap.put(IRI.create(p.getPrefixIRI(), v.getShortForm()), v.getIRI())));
+        Stream.of(OWLFacet.values()).forEach(v -> Stream.of(OWL, OWL11, OWL2).forEach(p -> synonymMap.put(IRI.create(p
+            .getPrefixIRI(), v.getShortForm()), v.getIRI())));
         synonymMap.put(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(), OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         synonymMap.put(OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(), OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         // Intermediate OWL 2 spec
@@ -381,8 +381,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      */
     public void setOntologyFormat(RDFDocumentFormat format) {
         ontologyFormat = format;
-        if (ontologyFormat.isPrefixOWLOntologyFormat()) {
-            tripleLogger.setPrefixManager(ontologyFormat.asPrefixOWLOntologyFormat());
+        if (ontologyFormat.isPrefixOWLDocumentFormat()) {
+            tripleLogger.setPrefixManager(ontologyFormat.asPrefixOWLDocumentFormat());
         }
     }
 
@@ -794,8 +794,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *         {@code false}.
      */
     protected boolean isObjectPropertyOnly(@Nullable IRI iri) {
-        return iri != null && !dataPropertyIRIs.contains(iri) && !annPropertyIRIs.contains(iri)
-            && objectPropertyIRIs.contains(iri);
+        return iri != null && !dataPropertyIRIs.contains(iri) && !annPropertyIRIs.contains(iri) && objectPropertyIRIs
+            .contains(iri);
     }
 
     /**
@@ -822,8 +822,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *         {@code false}.
      */
     protected boolean isDataPropertyOnly(@Nullable IRI iri) {
-        return iri != null && !objectPropertyIRIs.contains(iri) && !annPropertyIRIs.contains(iri)
-            && dataPropertyIRIs.contains(iri);
+        return iri != null && !objectPropertyIRIs.contains(iri) && !annPropertyIRIs.contains(iri) && dataPropertyIRIs
+            .contains(iri);
     }
 
     /**
@@ -895,8 +895,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        The annotations
      */
     public void addAnnotatedSource(IRI annotatedAnonSource, IRI annotationMainNode) {
-        annotatedAnonSource2AnnotationMap.computeIfAbsent(annotatedAnonSource, x -> createLinkedSet())
-            .add(annotationMainNode);
+        annotatedAnonSource2AnnotationMap.computeIfAbsent(annotatedAnonSource, x -> createLinkedSet()).add(
+            annotationMainNode);
     }
 
     /**
@@ -1195,8 +1195,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     protected void dumpRemainingTriples() {
         // if info logging is disabled or all collections are empty, do not
         // output anything
-        if (LOGGER.isInfoEnabled() && singleValuedResTriplesByPredicate.size()
-            + singleValuedLitTriplesByPredicate.size() + resTriplesBySubject.size() + litTriplesBySubject.size() > 0) {
+        if (LOGGER.isInfoEnabled() && singleValuedResTriplesByPredicate.size() + singleValuedLitTriplesByPredicate
+            .size() + resTriplesBySubject.size() + litTriplesBySubject.size() > 0) {
             LOGGER.info("dumping remaining triples");
             singleValuedResTriplesByPredicate.forEach((p, map) -> map.forEach((s, o) -> printTriple(s, p, o)));
             singleValuedLitTriplesByPredicate.forEach((p, map) -> map.forEach((s, o) -> printTriple(s, p, o)));
@@ -1230,8 +1230,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         translatorAccessor.consumeSWRLRules(swrlRules);
         Set<RDFTriple> remainingTriples = handlerAccessor.mopUp();
         if (ontologyFormat != null) {
-            RDFParserMetaData metaData = new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER,
-                tripleLogger.count(), remainingTriples, guessedDeclarations);
+            RDFParserMetaData metaData = new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER, tripleLogger
+                .count(), remainingTriples, guessedDeclarations);
             ontologyFormat.setOntologyLoaderMetaData(metaData);
         }
         // Do we need to change the ontology IRI?
@@ -1547,8 +1547,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         Map<IRI, Collection<OWLAnnotation>> anns = createMap();
         getAnnotatedSourceAnnotationMainNodes(n).forEach(node -> anns.put(node, translateAnnotations(node)));
         Set<OWLAnnotation> nodeAnns = createLinkedSet();
-        getPredicatesBySubject(n).stream().filter(this::isAnnotationProperty)
-            .forEach(p -> mapAnnotation(n, anns, nodeAnns, p));
+        getPredicatesBySubject(n).stream().filter(this::isAnnotationProperty).forEach(p -> mapAnnotation(n, anns,
+            nodeAnns, p));
         return nodeAnns;
     }
 
@@ -1571,18 +1571,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
 
     @Nullable
     private IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, OWLLiteral v) {
-        return getAnnotatedSourceAnnotationMainNodes(n).stream()
-            .filter(i -> p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
-                && v.equals(getLiteralObject(i, OWL_ANNOTATED_TARGET, false)))
-            .findAny().orElse(null);
+        return getAnnotatedSourceAnnotationMainNodes(n).stream().filter(i -> p.equals(getResourceObject(i,
+            OWL_ANNOTATED_PROPERTY, false)) && v.equals(getLiteralObject(i, OWL_ANNOTATED_TARGET, false))).findAny()
+            .orElse(null);
     }
 
     @Nullable
     private IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
-        return getAnnotatedSourceAnnotationMainNodes(n).stream()
-            .filter(i -> p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
-                && v.equals(getResourceObject(i, OWL_ANNOTATED_TARGET, false)))
-            .findAny().orElse(null);
+        return getAnnotatedSourceAnnotationMainNodes(n).stream().filter(i -> p.equals(getResourceObject(i,
+            OWL_ANNOTATED_PROPERTY, false)) && v.equals(getResourceObject(i, OWL_ANNOTATED_TARGET, false))).findAny()
+            .orElse(null);
     }
 
     private OWLAnnotationValue getAnnotationValue(IRI resVal) {
@@ -1599,8 +1597,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         IRI iri = IRI.create("http://org.semanticweb.owlapi/error#", "Error" + ERRORCOUNTER.incrementAndGet());
         LOGGER.error("Entity not properly recognized, missing triples in input? {} for type {}", iri, entityType);
         if (configuration.isStrict()) {
-            throw new OWLParserException(
-                "Entity not properly recognized, missing triples in input? " + iri + " for type " + entityType);
+            throw new OWLParserException("Entity not properly recognized, missing triples in input? " + iri
+                + " for type " + entityType);
         }
         return df.getOWLEntity(entityType, iri);
     }
@@ -2115,9 +2113,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the iterator
      */
     protected void iterateResources(ResourceTripleIterator iterator) {
-        new ArrayList<>(resTriplesBySubject.entrySet())
-            .forEach(e -> new ArrayList<>(e.getValue().entrySet()).forEach(p -> new ArrayList<>(p.getValue())
-                .forEach(object -> iterator.handleResourceTriple(e.getKey(), p.getKey(), object))));
+        new ArrayList<>(resTriplesBySubject.entrySet()).forEach(e -> new ArrayList<>(e.getValue().entrySet()).forEach(
+            p -> new ArrayList<>(p.getValue()).forEach(object -> iterator.handleResourceTriple(e.getKey(), p.getKey(),
+                object))));
     }
 
     /**
@@ -2127,9 +2125,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the iterator
      */
     protected void iterateLiterals(LiteralTripleIterator iterator) {
-        new ArrayList<>(litTriplesBySubject.entrySet())
-            .forEach(e -> new ArrayList<>(e.getValue().entrySet()).forEach(p -> new ArrayList<>(p.getValue())
-                .forEach(object -> iterator.handleLiteralTriple(e.getKey(), p.getKey(), object))));
+        new ArrayList<>(litTriplesBySubject.entrySet()).forEach(e -> new ArrayList<>(e.getValue().entrySet()).forEach(
+            p -> new ArrayList<>(p.getValue()).forEach(object -> iterator.handleLiteralTriple(e.getKey(), p.getKey(),
+                object))));
     }
 
     @Override
@@ -2158,8 +2156,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         if (subjObjMap != null) {
             subjObjMap.put(subject, object);
         } else {
-            resTriplesBySubject.computeIfAbsent(subject, x -> createMap())
-                .computeIfAbsent(predicate, x -> createLinkedSet()).add(object);
+            resTriplesBySubject.computeIfAbsent(subject, x -> createMap()).computeIfAbsent(predicate,
+                x -> createLinkedSet()).add(object);
         }
     }
 
@@ -2168,8 +2166,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         if (subjObjMap != null) {
             subjObjMap.put(subject, con);
         } else {
-            litTriplesBySubject.computeIfAbsent(subject, x -> createMap())
-                .computeIfAbsent(predicate, x -> createLinkedSet()).add(con);
+            litTriplesBySubject.computeIfAbsent(subject, x -> createMap()).computeIfAbsent(predicate,
+                x -> createLinkedSet()).add(con);
         }
     }
 }

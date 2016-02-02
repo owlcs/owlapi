@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
 
 /**
- * A PrefixOWLOntologyFormat delegates all PrefixManager operations to a
+ * A PrefixOWLDocumentFormat delegates all PrefixManager operations to a
  * PrefixManager implementation.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -140,7 +140,7 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements P
     }
 
     @Override
-    public boolean isPrefixOWLOntologyFormat() {
+    public boolean isPrefixOWLDocumentFormat() {
         return true;
     }
 }

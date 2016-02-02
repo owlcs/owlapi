@@ -15,17 +15,17 @@ import javax.annotation.Nullable;
 public interface MIMETypeAware {
 
     /**
-     * Returns the default MIME Type for the OWLOntologyFormat that this class
+     * Returns the default MIME Type for the OWLDocumentFormat that this class
      * is a factory for.
      * 
-     * @return The default MIME Type for the OWLOntologyFormat that this class
+     * @return The default MIME Type for the OWLDocumentFormat that this class
      *         is a factory for or null if no MIME Types are specified.
      */
     @Nullable
-    String getDefaultMIMEType();
+        String getDefaultMIMEType();
 
     /**
-     * Returns a sorted list of MIMETypes for the OWLOntologyFormat that this
+     * Returns a sorted list of MIMETypes for the OWLDocumentFormat that this
      * class is a factory for. If this list is not empty, the first element in
      * the returned list must be the default MIMEType.
      * 

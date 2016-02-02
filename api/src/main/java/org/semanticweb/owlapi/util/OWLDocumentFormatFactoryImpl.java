@@ -22,9 +22,9 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
- * A generic factory class for OWLOntologyFormats. This class can act as a
- * factory for any OWLOntologyFormat type that has a no argument constructor
- * (the default type of OWLOntologyFormat).
+ * A generic factory class for OWLDocumentFormats. This class can act as a
+ * factory for any OWLDocumentFormat type that has a no argument constructor
+ * (the default type of OWLDocumentFormat).
  * 
  * @author ignazio
  */

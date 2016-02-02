@@ -100,7 +100,7 @@ public class RioRenderer extends RDFRendererBase {
             pm.setDefaultPrefix(defaultPrefix);
         }
         // copy prefixes out of the given format if it is a
-        // PrefixOWLOntologyFormat
+        // PrefixOWLDocumentFormat
         if (format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
             pm.copyPrefixesFrom(prefixFormat);
@@ -258,7 +258,7 @@ public class RioRenderer extends RDFRendererBase {
 
     private void writeNamespaces() {
         // Send the prefixes from the prefixmanager to the RDFHandler
-        // NOTE: These may be derived from a PrefixOWLOntologyFormat
+        // NOTE: These may be derived from a PrefixOWLDocumentFormat
         for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
             final String prefix = pm.getPrefix(prefixName);
             // OWLAPI generally stores prefixes with a colon at the end, while

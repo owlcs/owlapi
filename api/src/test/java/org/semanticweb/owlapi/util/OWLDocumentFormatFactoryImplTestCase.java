@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * @author ignazio
  */
 @SuppressWarnings("javadoc")
-public class OWLOntologyFormatFactoryImplTestCase {
+public class OWLDocumentFormatFactoryImplTestCase {
 
     @Test
     public void testDLSyntaxHTMLFormat() {

@@ -408,9 +408,9 @@ public abstract class TestBase {
         OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLDocumentFormat fromFormat = ont.getFormat();
-        if (fromFormat.isPrefixOWLOntologyFormat() && format.isPrefixOWLOntologyFormat()) {
-            PrefixDocumentFormat fromPrefixFormat = fromFormat.asPrefixOWLOntologyFormat();
-            PrefixDocumentFormat toPrefixFormat = format.asPrefixOWLOntologyFormat();
+        if (fromFormat.isPrefixOWLDocumentFormat() && format.isPrefixOWLDocumentFormat()) {
+            PrefixDocumentFormat fromPrefixFormat = fromFormat.asPrefixOWLDocumentFormat();
+            PrefixDocumentFormat toPrefixFormat = format.asPrefixOWLDocumentFormat();
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
             toPrefixFormat.setDefaultPrefix(null);
         }
