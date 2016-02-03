@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.EnumSet;
 
@@ -65,7 +65,7 @@ public class NamespacesTestCase extends TestBase {
 
     @Test
     public void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLClass item = df.getOWLClass("http://test.owl/test#item");
+        OWLClass item = df.getOWLClass(IRI.create("http://test.owl/test#item"));
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
         OWLOntology o1 = m.createOntology();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
