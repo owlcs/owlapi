@@ -1,3 +1,24 @@
+4.1.4 3 February 2016
+Features:
+Add OWLObjectTransformer to replace any part of an ontology #487
+Add OWLLiteralReplacer to replace literals with different values #487
+Throw error on malformed ontologies when parsing is strict (avoid Error1 classes) #444
+
+Bug fixes:
+Fix RBox axiom types #479
+Fix Parsing of nested anonymous nodes broken in 4.1.1 #478
+Fix Error in rdf handling of deep nested annotations
+Fix EntitySearcher.subPropertiesFilter is broken #486
+Fix Cyclic imports cause illegal punning #483
+Fix OWLOntologyManager.copyOntology does not copy imports #480
+Fix Changes not successfully applied broadcasted as applied #476
+Add restriction on aduna packages #471
+Fix BOM removal wrapper is applied to all input streams #212
+Fix Serialization into incorrect OWL syntax #468
+Fix Constraint Sesame Versions in OSGi Imports #471
+Fix ExplanationOrdererImpl.SeedExtractor throws exception #469
+Fix for Multiple nested annotations fail in RDF/XML #470
+
 4.1.0 25 October 2015
 Features:
 Port protege-owlapi concurrency support to the OWL API
