@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
-    @Nonnull private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
+    private OWLOntologyLoaderMetaData loaderMetaData = null;
     private boolean addMissingTypes = true;
 
     @Override
@@ -62,8 +62,8 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     @Override
-    public OWLOntologyLoaderMetaData getOntologyLoaderMetaData() {
-        return loaderMetaData;
+    public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
+        return Optional.ofNullable(loaderMetaData);
     }
 
     @Override
@@ -98,10 +98,5 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     @Override
     public String toString() {
         return getKey();
-    }
-
-    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData, Serializable {
-
-        NullLoaderMetaData() {}
     }
 }

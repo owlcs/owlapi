@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.formats;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
@@ -24,16 +23,10 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  * 
  * @since 4.0.1
  */
-public abstract class AbstractRDFNonPrefixDocumentFormat extends
-        OWLDocumentFormatImpl implements RDFDocumentFormat {
+public abstract class AbstractRDFNonPrefixDocumentFormat extends OWLDocumentFormatImpl implements RDFDocumentFormat {
 
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();
-
-    @Override
-    public RDFParserMetaData getOntologyLoaderMetaData() {
-        return (RDFParserMetaData) super.getOntologyLoaderMetaData();
-    }
 
     @Override
     public void addError(RDFResourceParseError error) {

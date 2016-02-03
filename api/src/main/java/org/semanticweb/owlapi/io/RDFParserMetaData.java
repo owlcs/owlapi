@@ -16,9 +16,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -47,40 +47,29 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
      *        guessed declarations map
      */
     public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount, Set<RDFTriple> unparsedTriples,
-            ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+        ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
         this.tripleCount = tripleCount;
         this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
         this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
         this.guessedDeclarations = checkNotNull(guessedDeclarations, "guessedDeclarations cannot be null");
     }
 
-    /**
-     * Gets a count of the triples process during loading.
-     * 
-     * @return The number of triples process during loading.
-     */
+    @Override
     public int getTripleCount() {
         return tripleCount;
     }
 
-    /**
-     * @return the header status
-     */
+    @Override
     public RDFOntologyHeaderStatus getHeaderState() {
         return headerStatus;
     }
 
-    /**
-     * @return the set of unparsed triples, as a copy
-     */
-    public Set<RDFTriple> getUnparsedTriples() {
-        return CollectionFactory.copyMutable(unparsedTriples);
+    @Override
+    public Stream<RDFTriple> getUnparsedTriples() {
+        return unparsedTriples.stream();
     }
 
-    /**
-     * @return the guessed declarations, i.e., those not parsed from explicit
-     *         declaration axioms
-     */
+    @Override
     public Multimap<IRI, Class<?>> getGuessedDeclarations() {
         return Multimaps.unmodifiableMultimap(guessedDeclarations);
     }

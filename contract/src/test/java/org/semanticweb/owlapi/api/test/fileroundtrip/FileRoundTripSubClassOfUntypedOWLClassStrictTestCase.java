@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.fileroundtrip;
 
 import static org.junit.Assert.*;
 
-import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.2.3
  */
 @SuppressWarnings("javadoc")
-public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
-    AbstractFileRoundTrippingTestCase {
+public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends AbstractFileRoundTrippingTestCase {
 
     public FileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
         super("SubClassOfUntypedOWLClass.rdf");
@@ -44,8 +43,8 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
         OWLDocumentFormat format = ont.getFormat();
         assertTrue(format instanceof RDFXMLDocumentFormat);
         RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
-        Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()
-            .getUnparsedTriples();
-        assertEquals(1, triples.size());
+        assertTrue(rdfxmlFormat.getOntologyLoaderMetaData().isPresent());
+        Stream<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData().get().getUnparsedTriples();
+        assertEquals(1, triples.count());
     }
 }

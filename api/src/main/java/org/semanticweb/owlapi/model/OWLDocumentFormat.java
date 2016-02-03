@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -206,7 +207,7 @@ public interface OWLDocumentFormat extends Serializable {
      * 
      * @return An object containing the meta data about loading. .
      */
-    OWLOntologyLoaderMetaData getOntologyLoaderMetaData();
+    Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData();
 
     /**
      * Sets the meta data for the ontology loader.
