@@ -18,7 +18,9 @@ import java.util.EnumSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -56,5 +58,26 @@ public class NamespacesTestCase extends TestBase {
         XSDVocabulary.parseShortName(s);
         // then
         // an exception should have been thrown
+    }
+
+    @Test
+    public void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLClass item = df.getOWLClass("http://test.owl/test#item");
+        OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
+        OWLOntology o1 = m.createOntology();
+        FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
+        pm1.setPrefix(":", "http://test.owl/test#");
+        m.setOntologyFormat(o1, pm1);
+        m.addAxiom(o1, declaration);
+        StringDocumentTarget t1 = new StringDocumentTarget();
+        m.saveOntology(o1, t1);
+        OWLOntology o2 = m1.createOntology();
+        FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
+        pm2.setPrefix(":", "http://test.owl/test#");
+        m1.addAxiom(o2, declaration);
+        StringDocumentTarget t2 = new StringDocumentTarget();
+        m1.saveOntology(o1, pm2, t2);
+        assertTrue(t2.toString().contains("Declaration(Class(:item))"));
+        assertEquals(t1.toString(), t2.toString());
     }
 }
