@@ -8,32 +8,36 @@ class TExpressionSignatureUpdater implements OWLObjectVisitor {
     /** Signature to be filled */
     Signature sig;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     TExpressionSignatureUpdater(Signature s) {
         sig = s;
     }
 
-    /** helper for concept arguments */
     void vC(OWLClassExpression expr) {
         expr.accept(this);
     }
 
-    /** helper for individual arguments */
     void vI(OWLIndividual expr) {
         expr.accept(this);
     }
 
-    /** helper for object role arguments */
     void vOR(HasProperty<OWLObjectPropertyExpression> expr) {
         expr.getProperty().accept(this);
     }
 
-    /** helper for object role arguments */
     void vDR(HasProperty<OWLDataPropertyExpression> expr) {
         expr.getProperty().accept(this);
     }
 
-    /** helper for the named entity */
+    /**
+     * @param e
+     *        entity to add
+     */
     void vE(OWLEntity e) {
         sig.add(e);
     }

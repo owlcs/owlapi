@@ -11,7 +11,12 @@ import org.semanticweb.owlapi.model.*;
  */
 class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     UpperBoundComplementEvaluator(Signature s) {
         super(s);
     }
@@ -68,7 +73,6 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return Math.min(getMinValue(m, r, c), getMaxValue(m, r, c));
     }
 
-    /** helper for And */
     <C extends OWLObject> int getAndValue(HasOperands<C> expr) {
         int sum = 0;
         Iterator<C> it = expr.operands().iterator();
@@ -83,7 +87,6 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return sum;
     }
 
-    /** helper for Or */
     <C extends OWLObject> int getOrValue(HasOperands<C> expr) {
         // noUpperValue is a maximal element
         AtomicInteger min = new AtomicInteger(noUpperValue());

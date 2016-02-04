@@ -2,11 +2,7 @@ package org.semanticweb.owlapitools.decomposition;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -99,25 +95,24 @@ public class Decomposer {
      * @return module for given axiom AX; use parent atom's module as a base for
      *         the module search
      */
-    @Nullable
-    private OntologyAtom buildModule(Signature sig, OntologyAtom parent) {
+    private Optional<OntologyAtom> buildModule(Signature sig, OntologyAtom parent) {
         // build a module for a given signature
         modularizer.extract(parent.getModule(), sig, type);
         Collection<AxiomWrapper> module = modularizer.getModule();
         // if module is empty (empty bottom atom) -- do nothing
         if (module.isEmpty()) {
-            return null;
+            return Optional.empty();
         }
         // check if the module corresponds to a PARENT one; modules are the same
         // iff their sizes are the same
         if (parent != rootAtom && module.size() == parent.getModule().size()) {
-            return parent;
+            return Optional.of(parent);
         }
         // create new atom with that module
         assert atomList != null;
         OntologyAtom atom = atomList.newAtom();
         atom.setModule(module);
-        return atom;
+        return Optional.of(atom);
     }
 
     /**
@@ -130,30 +125,30 @@ public class Decomposer {
      */
     private OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
         // check whether axiom already has an atom
-        OntologyAtom atom = ax.getAtom();
-        if (atom != null) {
-            return atom;
+        Optional<OntologyAtom> atom = ax.getAtom();
+        if (atom.isPresent()) {
+            return atom.get();
         }
         // build an atom: use a module to find atomic dependencies
         atom = buildModule(new Signature(ax.getAxiom().signature()), parent);
         // no empty modules should be here
-        assert atom != null;
+        assert atom.isPresent();
         // register axiom as a part of an atom
-        atom.addAxiom(ax);
+        atom.get().addAxiom(ax);
         // if atom is the same as parent -- nothing more to do
-        if (atom == parent) {
+        if (atom.get() == parent) {
             return parent;
         }
         // not the same as parent: for all atom's axioms check their atoms and
         // make ATOM depend on them
         /** do cycle via set to keep the order */
-        for (AxiomWrapper q : atom.getModule()) {
+        for (AxiomWrapper q : atom.get().getModule()) {
             // #endif
             if (!q.equals(ax)) {
-                atom.addDepAtom(createAtom(q, atom));
+                atom.get().addDepAtom(createAtom(q, atom.get()));
             }
         }
-        return atom;
+        return atom.get();
     }
 
     /** @return atom list class */
@@ -180,13 +175,13 @@ public class Decomposer {
         rootAtom.setModule(new HashSet<>(axioms));
         // build the "bottom" atom for an empty signature
         assert rootAtom != null;
-        OntologyAtom bottomAtom = buildModule(new Signature(), rootAtom);
-        if (bottomAtom != null) {
-            bottomAtom.addAxioms(bottomAtom.getModule());
+        Optional<OntologyAtom> bottomAtom = buildModule(new Signature(), rootAtom);
+        if (bottomAtom.isPresent()) {
+            bottomAtom.get().addAxioms(bottomAtom.get().getModule());
         }
         // create atoms for all the axioms in the ontology
         for (AxiomWrapper p : axioms) {
-            if (p.isUsed() && p.getAtom() == null) {
+            if (p.isUsed() && !p.getAtom().isPresent()) {
                 assert rootAtom != null;
                 createAtom(p, rootAtom);
             }

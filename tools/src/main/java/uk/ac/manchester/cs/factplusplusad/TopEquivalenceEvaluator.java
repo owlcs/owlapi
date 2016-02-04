@@ -14,18 +14,26 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     /** keep the value here */
     boolean isTopEq = false;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     TopEquivalenceEvaluator(Signature s) {
         super(s);
     }
 
-    /** check whether the expression is top-equivalent */
     boolean isBotEquivalent(OWLObject expr) {
         return botEval.isBotEquivalent(expr);
     }
 
     // non-empty Concept/Data expression
-    /** @return true iff C^I is non-empty */
+    /**
+     * @param c
+     *        C
+     * @return true iff C^I is non-empty
+     */
     private boolean isBotDistinct(OWLObject c) {
         // TOP is non-empty
         if (isTopEquivalent(c)) {
@@ -37,7 +45,13 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
     // cardinality of a concept/data expression interpretation
 
-    /** @return true if #C^I > n */
+    /**
+     * @param c
+     *        C
+     * @param n
+     *        cardinality
+     * @return true if #C^I > n
+     */
     private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
             return isBotDistinct(c);
@@ -58,17 +72,32 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
         return false;
     }
 
-    /** @return true iff (>= n R.C) is topEq */
+    /**
+     * @param n
+     *        cardinality
+     * @param r
+     *        role
+     * @param c
+     *        filler
+     * @return true iff (>= n R.C) is topEq
+     */
     private boolean isMinTopEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return n == 0 || isTopEquivalent(r) && isCardLargerThan(c, n - 1);
     }
 
-    /** @return true iff (<= n R.C) is topEq */
-    private boolean isMaxTopEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
+    /**
+     * @param n
+     *        cardinality
+     * @param r
+     *        role
+     * @param c
+     *        filler
+     * @return true iff (<= n R.C) is topEq
+     */
+    private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return isBotEquivalent(r) || isBotEquivalent(c);
     }
 
-    /** set the corresponding bottom evaluator */
     void setBotEval(BotEquivalenceEvaluator eval) {
         botEval = eval;
     }

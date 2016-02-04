@@ -14,29 +14,45 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
     /** remember the axiom locality value here */
     boolean isLocal = true;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     LocalityChecker(Signature s) {
         super(s);
     }
 
-    public void preprocessOntology(Collection<AxiomWrapper> axioms) {
+    public void preprocessOntology(@SuppressWarnings("unused") Collection<AxiomWrapper> axioms) {
         // nothing to do here
     }
 
-    /** @return true iff an AXIOM is local wrt signature */
+    /**
+     * @param axiom
+     *        axiom to check
+     * @return true iff an AXIOM is local wrt signature
+     */
     boolean local(OWLAxiom axiom) {
         axiom.accept(this);
         return isLocal;
     }
 
     /**
-     * set a new value of a signature (without changing a locality parameters)
+     * @param sig
+     *        new value of signature (without changing locality parameters)
      */
     void setSignatureValue(Signature sig) {
         this.sig.setSignature(sig);
     }
 
-    /** get locality checker by a method */
+    /**
+     * @param moduleMethod
+     *        modularisation method
+     * @param pSig
+     *        signature
+     * @return locality checker by a method
+     */
     static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
         switch (moduleMethod) {
             case SYNTACTIC_STANDARD:

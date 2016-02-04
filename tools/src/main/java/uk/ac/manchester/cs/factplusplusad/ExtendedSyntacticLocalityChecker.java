@@ -10,7 +10,12 @@ class ExtendedSyntacticLocalityChecker extends SyntacticLocalityChecker {
     UpperBoundComplementEvaluator ubc;
     LowerBoundComplementEvaluator lbc;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     ExtendedSyntacticLocalityChecker(Signature s) {
         super(s);
         ubd = new UpperBoundDirectEvaluator(s);

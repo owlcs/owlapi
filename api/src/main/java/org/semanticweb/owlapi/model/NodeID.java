@@ -89,7 +89,6 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     /**
      * @return IRI with fresh node id
      */
-    @Nonnull
     public static IRI nextFreshNodeId() {
         return IRI.create(PREFIX_NODE + COUNTER.incrementAndGet());
     }

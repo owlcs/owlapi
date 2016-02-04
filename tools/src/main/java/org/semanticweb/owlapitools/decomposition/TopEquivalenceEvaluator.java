@@ -20,7 +20,11 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // non-empty Concept/Data expression
-    /** @return true iff C^I is non-empty */
+    /**
+     * @param c
+     *        C
+     * @return true iff C^I is non-empty
+     */
     private boolean isBotDistinct(OWLObject c) {
         // TOP is non-empty
         if (isTopEquivalent(c)) {
@@ -32,7 +36,13 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // cardinality of a concept/data expression interpretation
-    /** @return true if #C^I > n */
+    /**
+     * @param c
+     *        C
+     * @param n
+     *        cardinality
+     * @return true if #C^I > n
+     */
     private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
             return isBotDistinct(c);
@@ -45,13 +55,29 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // QCRs
-    /** @return true iff (>= n R.C) is topEq */
+    /**
+     * @param n
+     *        cardinality
+     * @param r
+     *        role
+     * @param c
+     *        filler
+     * @return true iff (>= n R.C) is topEq
+     */
     private boolean isMinTopEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return n == 0 || isTopEquivalent(r) && isCardLargerThan(c, n - 1);
     }
 
-    /** @return true iff (<= n R.C) is topEq */
-    private boolean isMaxTopEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
+    /**
+     * @param n
+     *        cardinality
+     * @param r
+     *        role
+     * @param c
+     *        filler
+     * @return true iff (<= n R.C) is topEq
+     */
+    private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r, OWLPropertyRange c) {
         return localityChecker.isBotEquivalent(r) || localityChecker.isBotEquivalent(c);
     }
 

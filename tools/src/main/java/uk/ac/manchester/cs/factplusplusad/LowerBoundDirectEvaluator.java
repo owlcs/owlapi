@@ -11,32 +11,26 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
-    /** init c'tor */
     LowerBoundDirectEvaluator(Signature s) {
         super(s);
     }
 
-    /** define a special value for concepts that are not in C^{>= n} */
     @Override
         int getNoneValue() {
         return 0;
     }
 
-    /**
-     * define a special value for concepts that are in C^{>= n} for all n
-     */
     @Override
         int getAllValue() {
         return -1;
     }
 
-    /** return all or none values depending on the parameter value */
     @Override
-        int getOneNoneLower(boolean value) {
-        return value ? 1 : getNoneValue();
+        int getOneNoneLower(boolean v) {
+        return v ? 1 : getNoneValue();
     }
 
-    /** helper for entities TODO: checks only C top-locality, not R */
+    // TODO: checks only C top-locality, not R
     @Override
         int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
@@ -57,7 +51,6 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return getOneNoneLower(isBotEquivalent(r) || isUpperLE(getUpperBoundComplement(c), 0));
     }
 
-    /** helper for things like >= m R.C */
     @Override
         int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m == 0 or...
@@ -72,7 +65,6 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return isLowerGE(getLowerBoundDirect(c), m) ? m : noLowerValue();
     }
 
-    /** helper for things like <= m R.C */
     @Override
         int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \bot or...
@@ -83,7 +75,6 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return getOneNoneLower(isUpperLE(getUpperBoundDirect(c), m));
     }
 
-    /** helper for things like = m R.C */
     @Override
         int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         int min = getMinValue(m, r, c), max = getMaxValue(m, r, c);
@@ -100,7 +91,6 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return Math.min(min, max);
     }
 
-    /** helper for And */
     // FIXME!! not done yet
     <C extends OWLObject> int getAndValue(HasOperands<C> expr) {
         // return m - sumK, where
@@ -159,7 +149,6 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
         }
     }
 
-    /** helper for Or */
     <C extends OWLObject> int getOrValue(HasOperands<C> expr) {
         int max = noLowerValue();
         // we are looking for the maximal value here; ANY need to be

@@ -10,32 +10,26 @@ import org.semanticweb.owlapi.model.*;
  */
 class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
-    /** init c'tor */
     LowerBoundComplementEvaluator(Signature s) {
         super(s);
     }
 
-    /** define a special value for concepts that are not in C^{>= n} */
     @Override
         int getNoneValue() {
         return 0;
     }
 
-    /**
-     * define a special value for concepts that are in C^{>= n} for all n
-     */
     @Override
         int getAllValue() {
         return -1;
     }
 
-    /** return all or none values depending on the parameter value */
     @Override
-        int getOneNoneLower(boolean value) {
-        return value ? 1 : getNoneValue();
+        int getOneNoneLower(boolean v) {
+        return v ? 1 : getNoneValue();
     }
 
-    /** helper for entities TODO: checks only C top-locality, not R */
+    // TODO: checks only C top-locality, not R */
     @Override
         int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
@@ -51,13 +45,11 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return getOneNoneLower(botCLocal() && nc(entity));
     }
 
-    /** helper for All */
     @Override
         int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
         return getOneNoneLower(isTopEquivalent(r) && isLowerGE(getLowerBoundComplement(c), 1));
     }
 
-    /** helper for things like >= m R.C */
     @Override
         int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m > 0 and...
@@ -72,7 +64,6 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return getOneNoneLower(isUpperLT(getUpperBoundDirect(c), m));
     }
 
-    /** helper for things like <= m R.C */
     @Override
         int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \top and...
@@ -87,7 +78,6 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
         }
     }
 
-    /** helper for things like = m R.C */
     @Override
         int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // here the maximal value between Mix and Max is an answer. The -1
@@ -96,7 +86,6 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return Math.max(getMinValue(m, r, c), getMaxValue(m, r, c));
     }
 
-    /** helper for And */
     <C extends OWLObject> int getAndValue(HasOperands<C> expr) {
         int max = getNoneValue();
         // we are looking for the maximal value here; ANY need to be
@@ -113,7 +102,6 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return max;
     }
 
-    /** helper for Or */
     <C extends OWLObject> int getOrValue(HasOperands<C> expr) {
         // return m - sumK, where
         // true if found a conjunct that is in C^{>=}

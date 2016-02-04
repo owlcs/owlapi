@@ -10,7 +10,12 @@ class SigAccessor {
     /** signature of a module */
     Signature sig;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     SigAccessor(Signature s) {
         sig = verifyNotNull(s);
     }
@@ -42,7 +47,11 @@ class SigAccessor {
         return sig;
     }
 
-    /** @return true iff SIGnature does NOT contain given entity */
+    /**
+     * @param entity
+     *        entity to check
+     * @return true iff SIGnature does NOT contain given entity
+     */
     boolean nc(OWLEntity entity) {
         return !sig.contains(entity);
     }

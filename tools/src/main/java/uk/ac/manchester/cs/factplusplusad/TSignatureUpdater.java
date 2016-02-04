@@ -10,17 +10,20 @@ class TSignatureUpdater implements OWLAxiomVisitor {
     /** helper with expressions */
     TExpressionSignatureUpdater updater;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param sig
+     *        signature
+     */
     TSignatureUpdater(Signature sig) {
         updater = new TExpressionSignatureUpdater(sig);
     }
 
-    /** helper for the expression processing */
     void v(OWLObject e) {
         e.accept(updater);
     }
 
-    /** helper for the [begin,end) interval */
     void v(Stream<? extends OWLObject> begin) {
         begin.forEach(this::v);
     }

@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
@@ -18,7 +20,12 @@ class Signature {
     /** true if role TOP-locality; false if role BOTTOM-locality */
     private boolean topRLocality = false;
 
-    /** copy c'tor */
+    /**
+     * copy c'tor
+     * 
+     * @param copy
+     *        signature to copy
+     */
     Signature(Signature copy) {
         set.addAll(copy.set);
         topCLocality = copy.topCLocality;
@@ -54,22 +61,42 @@ class Signature {
         OWLAPIStreamUtils.add(set, p);
     }
 
-    /** add set of named entities to signature */
+    /**
+     * Add set of named entities to signature.
+     * 
+     * @param aSet
+     *        set to add
+     */
     void add(Set<OWLEntity> aSet) {
         set.addAll(aSet);
     }
 
-    /** add another signature to a given one */
+    /**
+     * Add another signature to a given one.
+     * 
+     * @param sig
+     *        signature to add
+     */
     void add(Signature sig) {
         add(sig.set);
     }
 
-    /** remove given element from a signature */
+    /**
+     * Remove given element from a signature.
+     * 
+     * @param p
+     *        element to remove
+     */
     void remove(OWLEntity p) {
         set.remove(p);
     }
 
-    /** set new locality polarity */
+    /**
+     * Set new locality polarity.
+     * 
+     * @param top
+     *        locality polarity
+     */
     void setLocality(boolean top) {
         setLocality(top, top);
     }
@@ -98,7 +125,7 @@ class Signature {
     // comparison
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }
@@ -111,12 +138,20 @@ class Signature {
         return false;
     }
 
-    /** @return true iff signature contains given element */
+    /**
+     * @param p
+     *        element to check
+     * @return true iff signature contains given element
+     */
     boolean contains(OWLEntity p) {
         return set.contains(p);
     }
 
-    /** @return true iff signature contains given element */
+    /**
+     * @param p
+     *        element to check
+     * @return true iff signature contains given element
+     */
     boolean contains(OWLObjectInverseOf p) {
         return set.contains(p.getNamedProperty());
     }

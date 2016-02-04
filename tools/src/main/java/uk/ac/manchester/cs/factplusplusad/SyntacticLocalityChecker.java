@@ -14,7 +14,12 @@ class SyntacticLocalityChecker extends LocalityChecker {
     /** bottom evaluator */
     BotEquivalenceEvaluator botEval;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     SyntacticLocalityChecker(Signature s) {
         super(s);
         topEval = new TopEquivalenceEvaluator(s);
@@ -23,19 +28,30 @@ class SyntacticLocalityChecker extends LocalityChecker {
         botEval.setTopEval(topEval);
     }
 
-    /** @return true iff EXPR is top equivalent */
+    /**
+     * @param expr
+     *        expression
+     * @return true iff EXPR is top equivalent
+     */
     public boolean isTopEquivalent(OWLObject expr) {
         return topEval.isTopEquivalent(expr);
     }
 
-    /** @return true iff EXPR is bottom equivalent */
+    /**
+     * @param expr
+     *        expression
+     * @return true iff EXPR is bottom equivalent
+     */
     public boolean isBotEquivalent(OWLObject expr) {
         return botEval.isBotEquivalent(expr);
     }
 
     /**
-     * processing method for all Equivalent axioms; @return true if axiom is
-     * local
+     * Processing method for all Equivalent axioms.
+     * 
+     * @param axiom
+     *        axiom
+     * @return true if axiom is local
      */
     <T extends OWLObject> boolean processEquivalentAxiom(HasOperands<T> axiom) {
         // 1 element => local
@@ -70,7 +86,11 @@ class SyntacticLocalityChecker extends LocalityChecker {
     }
 
     /**
-     * processing method for all Disjoint axioms; @return true if axiom is local
+     * Processing method for all Disjoint axioms.
+     * 
+     * @param axiom
+     *        axiom
+     * @return true if axiom is local
      */
     private <T extends OWLObject> boolean processDisjointAxiom(HasOperands<T> axiom) {
         // local iff at most 1 element is not bot-equiv

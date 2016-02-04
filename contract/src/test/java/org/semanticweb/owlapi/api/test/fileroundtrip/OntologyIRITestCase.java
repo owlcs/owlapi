@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -43,8 +42,7 @@ public class OntologyIRITestCase extends AbstractRoundTrippingTestCase {
     }
 
     @Override
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() {
         // XXX functional won't work here
     }
 

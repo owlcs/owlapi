@@ -24,8 +24,6 @@ public class Modularizer {
     private long nChecks = 0;
     /** number of non-local axioms */
     private long nNonLocal = 0;
-    /** true if no atoms are processed ATM */
-    private boolean noAtomsProcessing = true;
 
     /**
      * @param c
@@ -213,12 +211,12 @@ public class Modularizer {
         return module;
     }
 
-    /** get number of checks made */
+    /** @return number of checks made */
     long getNChecks() {
         return nChecks;
     }
 
-    /** get number of axioms that were local */
+    /** @return number of axioms that were local */
     long getNNonLocal() {
         return nNonLocal;
     }

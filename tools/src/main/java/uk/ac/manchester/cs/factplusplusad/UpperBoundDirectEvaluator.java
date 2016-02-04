@@ -11,12 +11,16 @@ import org.semanticweb.owlapi.model.*;
  */
 class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     UpperBoundDirectEvaluator(Signature s) {
         super(s);
     }
 
-    /** helper for entities TODO: checks only C top-locality, not R */
     @Override
         int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
@@ -28,13 +32,11 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(botCLocal() && nc(entity));
     }
 
-    /** helper for All */
     @Override
         int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
         return getAllNoneUpper(isTopEquivalent(r) && isLowerGE(getLowerBoundComplement(c), 1));
     }
 
-    /** helper for things like >= m R.C */
     @Override
         int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m > 0 and...
@@ -49,7 +51,6 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(isUpperLT(getUpperBoundDirect(c), m));
     }
 
-    /** helper for things like <= m R.C */
     @Override
         int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \top and...
@@ -60,14 +61,12 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(isLowerGT(getLowerBoundDirect(c), m));
     }
 
-    /** helper for = m R.C */
     @Override
         int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // conjunction of Min and Max values
         return minUpperValue(getMinValue(m, r, c), getMaxValue(m, r, c));
     }
 
-    /** helper for And */
     <C extends OWLObject> int getAndValue(HasOperands<C> expr) {
         // noUpperValue is a maximal element
         AtomicInteger min = new AtomicInteger(noUpperValue());
@@ -76,7 +75,6 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return min.get();
     }
 
-    /** helper for Or */
     <C extends OWLObject> int getOrValue(HasOperands<C> expr) {
         int sum = 0;
         int n;

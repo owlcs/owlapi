@@ -37,14 +37,24 @@ public class Modularizer {
     /** true if no atoms are processed ATM */
     private boolean noAtomsProcessing = true;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param moduleMethod
+     *        module method
+     */
     Modularizer(ModuleMethod moduleMethod) {
         checker = LocalityChecker.createLocalityChecker(moduleMethod, sig);
         sigIndex = new SigIndex(checker);
     }
     // methods
 
-    /** update SIG wrt the axiom signature */
+    /**
+     * update SIG wrt the axiom signature
+     * 
+     * @param axiomSig
+     *        signature to add
+     */
     void addAxiomSig(Stream<OWLEntity> axiomSig) {
         axiomSig.filter(p -> !sig.contains(p)).forEach(p -> {
             // new one
@@ -80,19 +90,33 @@ public class Modularizer {
         return b;
     }
 
-    /** add an axiom if it is non-local (or in noCheck is true) */
+    /**
+     * add an axiom if it is non-local (or in noCheck is true)
+     * 
+     * @param ax
+     *        axiom to add
+     * @param noCheck
+     *        check or not
+     */
     void addNonLocal(AxiomWrapper ax, boolean noCheck) {
         if (noCheck || isNonLocal(ax)) {
             addAxiomToModule(ax);
-            if (noAtomsProcessing && ax.getAtom() != null) {
+            if (noAtomsProcessing && ax.getAtom().isPresent()) {
                 noAtomsProcessing = false;
-                addNonLocal(ax.getAtom().getModule(), true);
+                addNonLocal(ax.getAtom().get().getModule(), true);
                 noAtomsProcessing = true;
             }
         }
     }
 
-    /** add all the non-local axioms from given axiom-set AxSet */
+    /**
+     * Add all the non-local axioms from given axiom-set AxSet.
+     * 
+     * @param axSet
+     *        axiom set
+     * @param noCheck
+     *        check or not
+     */
     void addNonLocal(Collection<AxiomWrapper> axSet, boolean noCheck) {
         for (AxiomWrapper q : axSet) {
             if (!q.isInModule() && q.isInSearchSpace()) {
@@ -212,12 +236,12 @@ public class Modularizer {
         return module;
     }
 
-    /** get number of checks made */
+    /** @return number of checks made */
     long getNChecks() {
         return nChecks;
     }
 
-    /** get number of axioms that were local */
+    /** @return number of axioms that were local */
     long getNNonLocal() {
         return nNonLocal;
     }

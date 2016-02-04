@@ -11,12 +11,25 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     /** keep the value here */
     int value = 0;
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     * 
+     * @param s
+     *        signature
+     */
     CardinalityEvaluatorBase(Signature s) {
         super(s);
     }
 
-    /** return minimal of the two Upper Bounds */
+    /**
+     * return minimal of the two Upper Bounds
+     * 
+     * @param uv1
+     *        values to compare
+     * @param uv2
+     *        values to compare
+     * @return min value
+     */
     int minUpperValue(int uv1, int uv2) {
         // noUpperValue is a maximal element
         if (uv1 == noUpperValue()) {
@@ -30,96 +43,136 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
         return Math.min(uv1, uv2);
     }
 
-    /** define a special value for concepts that are not in C[C}^{<= n} */
+    /**
+     * @return special value for concepts that are not in C[C}^{<= n}
+     */
     int noUpperValue() {
         return -1;
     }
 
-    /** define a special value for concepts that are in C[C]^{<= n} for all n */
+    /** @return special value for concepts that are in C[C]^{<= n} for all n */
     int anyUpperValue() {
         return 0;
     }
 
-    /** return all or none values depending on the condition */
+    /**
+     * @param condition
+     *        condition to test
+     * @return all or none values depending on the condition
+     */
     int getAllNoneUpper(boolean condition) {
         return condition ? anyUpperValue() : noUpperValue();
     }
 
-    /** define a special value for concepts that are not in C[C]^{>= n} */
+    /**
+     * @return special value for concepts that are not in C[C]^{>= n}
+     */
     int noLowerValue() {
         return 0;
     }
 
-    /** define a special value for concepts that are in C[C]^{>= n} for all n */
+    /**
+     * @return special value for concepts that are in C[C]^{>= n} for all n
+     */
     int anyLowerValue() {
         return -1;
     }
 
-    /** return 1 or none values depending on the condition */
+    /**
+     * @param condition
+     *        condition to test
+     * @return 1 or none values depending on the condition
+     */
     int getOneNoneLower(boolean condition) {
         return condition ? 1 : noLowerValue();
     }
 
-    /** define a special value for concepts that are in C^{<= n} for all n */
+    /** @return special value for concepts that are in C^{<= n} for all n */
     int getAllValue() {
         return 0;
     }
 
-    /** define a special value for concepts that are not in C^{<= n} */
+    /** @return special value for concepts that are not in C^{<= n} */
     int getNoneValue() {
         return -1;
     }
 
-    /** implementation of evaluation */
     int getUpperBoundDirect(OWLObject expr) {
         return ubd.getValue(expr);
     }
 
-    /** implementation of evaluation */
     int getUpperBoundComplement(OWLObject expr) {
         return ubc.getValue(expr);
     }
 
-    /** implementation of evaluation */
     int getLowerBoundDirect(OWLObject expr) {
         return lbd.getValue(expr);
     }
 
-    /** implementation of evaluation */
     int getLowerBoundComplement(OWLObject expr) {
         return lbc.getValue(expr);
     }
 
-    /** main method to use */
+    /**
+     * Main method to use.
+     * 
+     * @param expr
+     *        expression
+     * @return value
+     */
     int getValue(OWLObject expr) {
         expr.accept(this);
         return value;
     }
 
-    /** @return true if given upper VALUE is less than M */
-    boolean isUpperLT(int value, int m) {
-        if (value == noUpperValue()) {
+    /**
+     * @param v
+     *        value to test
+     * @param m
+     *        upper limit
+     * @return true if given upper VALUE is less than M
+     */
+    boolean isUpperLT(int v, int m) {
+        if (v == noUpperValue()) {
             return false;
         }
-        return value == anyUpperValue() || value < m;
+        return v == anyUpperValue() || v < m;
     }
 
-    /** @return true if given upper VALUE is less than or equal to M */
-    boolean isUpperLE(int value, int m) {
-        return isUpperLT(value, m + 1);
+    /**
+     * @param v
+     *        value to test
+     * @param m
+     *        upper limit
+     * @return true if given upper VALUE is less than or equal to M
+     */
+    boolean isUpperLE(int v, int m) {
+        return isUpperLT(v, m + 1);
     }
 
-    /** @return true if given lower VALUE is greater than or equal to M */
-    boolean isLowerGE(int value, int m) {
-        if (value == noLowerValue()) {
+    /**
+     * @param v
+     *        value to test
+     * @param m
+     *        upper limit
+     * @return true if given lower VALUE is greater than or equal to M
+     */
+    boolean isLowerGE(int v, int m) {
+        if (v == noLowerValue()) {
             return false;
         }
-        return value == anyLowerValue() || value >= m;
+        return v == anyLowerValue() || v >= m;
     }
 
-    /** @return true if given upper VALUE is greater than M */
-    boolean isLowerGT(int value, int m) {
-        return isLowerGE(value, m + 1);
+    /**
+     * @param v
+     *        value to test
+     * @param m
+     *        upper limit
+     * @return true if given upper VALUE is greater than M
+     */
+    boolean isLowerGT(int v, int m) {
+        return isLowerGE(v, m + 1);
     }
 
     boolean isBotEquivalent(OWLObject expr) {
@@ -149,22 +202,18 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
         assert ubd == this || lbd == this || ubc == this || lbc == this;
     }
 
-    /** implementation of evaluation */
     int getUpperBoundDirect(OWLClassExpression expr) {
         return getUpperBoundDirect(expr);
     }
 
-    /** implementation of evaluation */
     int getUpperBoundComplement(OWLClassExpression expr) {
         return getUpperBoundComplement(expr);
     }
 
-    /** implementation of evaluation */
     int getLowerBoundDirect(OWLClassExpression expr) {
         return getLowerBoundDirect(expr);
     }
 
-    /** implementation of evaluation */
     int getLowerBoundComplement(OWLClassExpression expr) {
         return getLowerBoundComplement(expr);
     }

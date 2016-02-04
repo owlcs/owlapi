@@ -88,7 +88,11 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     }
 
     /**
-     * processing method for all Disjoint axioms; @return true if axiom is local
+     * Processing method for all Disjoint axioms.
+     * 
+     * @param axiom
+     *        axiom
+     * @return true if axiom is local
      */
     private <T extends OWLObject> boolean processDisjointAxiom(HasOperands<T> axiom) {
         // local iff at most 1 element is not bot-equiv

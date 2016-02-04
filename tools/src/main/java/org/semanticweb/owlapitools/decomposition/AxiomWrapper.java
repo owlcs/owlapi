@@ -1,5 +1,6 @@
 package org.semanticweb.owlapitools.decomposition;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -106,8 +107,7 @@ public class AxiomWrapper {
     }
 
     /** @return the including atom */
-    @Nullable
-    public OntologyAtom getAtom() {
-        return atom;
+    public Optional<OntologyAtom> getAtom() {
+        return Optional.ofNullable(atom);
     }
 }

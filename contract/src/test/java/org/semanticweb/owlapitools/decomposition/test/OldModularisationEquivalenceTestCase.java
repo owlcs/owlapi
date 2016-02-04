@@ -157,9 +157,9 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         assertEquals(s1, s2);
     }
 
-    protected Set<OWLAxiom> getTraditionalModule(OWLOntologyManager m, OWLOntology o, Set<OWLEntity> seedSig,
+    protected Set<OWLAxiom> getTraditionalModule(OWLOntologyManager man, OWLOntology o, Set<OWLEntity> seedSig,
         ModuleType type) {
-        SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(m, o, type);
+        SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(man, o, type);
         return sme.extract(seedSig);
     }
 
@@ -168,8 +168,8 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
     // ModuleMethod.SYNTACTIC_STANDARD);
     // return new HashSet<>(om.getModule(sig.stream(), ModuleType.STAR));
     // }
-    protected Set<OWLAxiom> getADModule1(OWLOntology o, Set<OWLEntity> sig, ModuleType m) {
+    protected Set<OWLAxiom> getADModule1(OWLOntology o, Set<OWLEntity> sig, ModuleType mt) {
         AtomicDecomposition ad = new AtomicDecompositionImpl(o);
-        return asSet(ad.getModule(sig.stream(), false, m));
+        return asSet(ad.getModule(sig.stream(), false, mt));
     }
 }
