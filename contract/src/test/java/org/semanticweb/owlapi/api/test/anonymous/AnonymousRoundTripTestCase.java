@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.*;
 public class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldNotFailOnAnonymousOntologySearch()
-        throws OWLOntologyCreationException {
+    public void shouldNotFailOnAnonymousOntologySearch() throws OWLOntologyCreationException {
         m.createOntology(new OWLOntologyID());
         assertNull(m.getOntology(new OWLOntologyID()));
     }
@@ -33,11 +32,11 @@ public class AnonymousRoundTripTestCase extends TestBase {
     @Test
     public void testRoundTrip() throws Exception {
         String ns = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
-        OWLClass a = Class(IRI(ns + "#A"));
+        OWLClass a = Class(IRI(ns + "#", "A"));
         OWLAnonymousIndividual h = AnonymousIndividual();
         OWLAnonymousIndividual i = AnonymousIndividual();
-        OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#p"));
-        OWLObjectProperty q = ObjectProperty(IRI(ns + "#q"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#", "p"));
+        OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
         OWLOntology ontology = getOWLOntology();
         OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
         OWLAnnotation annotation2 = df.getOWLAnnotation(df.getRDFSLabel(), Literal("Second", "en"));

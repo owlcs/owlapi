@@ -143,6 +143,6 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     public void startRDF() {
         // creating a mock IRI here. In the current implementation its value is
         // ignored
-        startModel(IRI.create("urn:unused"));
+        startModel(IRI.create("urn:test:", "unused"));
     }
 }

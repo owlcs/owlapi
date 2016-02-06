@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class TripleComparatorTestCase {
 
     private final @Nonnull String ns = "http://www.co-ode.org/roberts/pto.owl#";
-    private final @Nonnull RDFResourceIRI g = r(Class(IRI(ns + "MoleOfGoldAtom")));
+    private final @Nonnull RDFResourceIRI g = r(Class(IRI(ns, "MoleOfGoldAtom")));
     private final @Nonnull RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
     private final @Nonnull RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
 
@@ -95,7 +95,7 @@ public class TripleComparatorTestCase {
                 triple(624417224),
                 triple("MoleOfRadonAtom"), 
                 triple(1556170233), 
-                new RDFTriple(g, subtype, r(IRI(ns + "MoleOfAtom"))), 
+                new RDFTriple(g, subtype, r(IRI(ns , "MoleOfAtom"))), 
                 triple("MoleOfSeleniumAtom"),
                 triple("MoleOfNeonAtom"), 
                 triple("MoleOfKryptonAtom"), 
@@ -114,7 +114,7 @@ public class TripleComparatorTestCase {
     }
 
     private RDFTriple triple(String n) {
-        return new RDFTriple(g, d, r(IRI(ns + n)));
+        return new RDFTriple(g, d, r(IRI(ns, n)));
     }
 
     private RDFTriple triple(OWLRDFVocabulary p, OWLRDFVocabulary n) {

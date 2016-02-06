@@ -44,9 +44,9 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         OWLClass clsC = Class("C", pm);
         OWLClass clsD = Class("D", pm);
         OWLClass clsE = Class("E", pm);
-        SWRLVariable varA = df.getSWRLVariable("http://other.com/A/VarA");
-        SWRLVariable varB = df.getSWRLVariable("http://other.com/A/VarA");
-        SWRLVariable varC = df.getSWRLVariable("http://other.com/A/VarA");
+        SWRLVariable varA = df.getSWRLVariable("http://other.com/A/", "VarA");
+        SWRLVariable varB = df.getSWRLVariable("http://other.com/A/", "VarA");
+        SWRLVariable varC = df.getSWRLVariable("http://other.com/A/", "VarA");
         body.add(df.getSWRLClassAtom(clsC, varA));
         body.add(df.getSWRLClassAtom(clsB, varB));
         body.add(df.getSWRLClassAtom(clsA, varC));
@@ -99,7 +99,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
             + "                    </rdf:Description>\n" + "                </rdf:first>\n"
             + "                <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
             + "            </rdf:Description>\n" + "        </swrl:head>\n" + "    </rdf:Description>\n" + "</rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(in, IRI.create("urn:test"), new RDFXMLDocumentFormat());
+        OWLOntology o = loadOntologyFromString(in, IRI.create("urn:test#", "test"), new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
         assertFalse(string, string.contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"));
     }
@@ -109,8 +109,8 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         roundTrip(new RDFXMLDocumentFormat());
     }
 
-    private void roundTrip(OWLDocumentFormat ontologyFormat)
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    private void roundTrip(OWLDocumentFormat ontologyFormat) throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         OWLOntology ont = getOWLOntology();
         ont.add(rule);
         StringDocumentTarget documentTarget = new StringDocumentTarget();
@@ -129,20 +129,20 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldPreserveOrderingInTurtleRoundTrip()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldPreserveOrderingInTurtleRoundTrip() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         roundTrip(new TurtleDocumentFormat());
     }
 
     @Test
-    public void shouldPreserveOrderingInManchesterSyntaxRoundTrip()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldPreserveOrderingInManchesterSyntaxRoundTrip() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         roundTrip(new ManchesterSyntaxDocumentFormat());
     }
 
     @Test
-    public void shouldPreserveOrderingInOWLXMLRoundTrip()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldPreserveOrderingInOWLXMLRoundTrip() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         roundTrip(new OWLXMLDocumentFormat());
     }
 }

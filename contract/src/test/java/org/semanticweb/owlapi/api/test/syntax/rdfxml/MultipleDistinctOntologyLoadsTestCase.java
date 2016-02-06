@@ -37,9 +37,9 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 @SuppressWarnings({ "javadoc" })
 public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
 
-    IRI jb = IRI("http://example.purl.org.au/domainontology/JB_000007");
-    IRI v1 = IRI("http://test.example.org/ontology/0139/version:1");
-    IRI v2 = IRI("http://test.example.org/ontology/0139/version:2");
+    IRI jb = IRI("http://example.purl.org.au/domainontology/", "JB_000007");
+    IRI v1 = IRI("http://test.example.org/ontology/0139/", "version:1");
+    IRI v2 = IRI("http://test.example.org/ontology/0139/", "version:2");
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testMultipleVersionLoadChangeIRI() throws Exception {
@@ -102,8 +102,8 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
         OWLOntology initialOntology = m.createOntology();
         OWLParser parser = new RDFXMLParser();
         parser.parse(documentSource, initialOntology, config);
-        assertEquals(IRI("http://test.example.org/ontology/0139"),
-            initialOntology.getOntologyID().getOntologyIRI().get());
+        assertEquals(IRI("http://test.example.org/ontology/0139", ""), initialOntology.getOntologyID().getOntologyIRI()
+            .get());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI().get());
         OWLOntologyDocumentSource secondDocumentSource = getDocument();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(jb), optional(v2));

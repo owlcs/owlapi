@@ -30,14 +30,14 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 @SuppressWarnings("javadoc")
 public class ManchesterImportTestCase extends TestBase {
 
-    private final @Nonnull String str = "http://owlapitestontologies.com/thesuperont";
+    private final @Nonnull IRI str = IRI("http://owlapitestontologies.com/", "thesuperont");
     private final @Nonnull String superpath = "/imports/thesuperont.omn";
 
     @Test
     public void testManualImports() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
         manager.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
-        assertNotNull(manager.getOntology(IRI(str)));
+        assertNotNull(manager.getOntology(str));
     }
 
     private OWLOntologyManager getManager() {
@@ -49,11 +49,10 @@ public class ManchesterImportTestCase extends TestBase {
     @Test
     public void testRemoteIsParseable() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
-        IRI iri = IRI(str);
-        OWLOntology ontology = manager.loadOntology(iri);
+        OWLOntology ontology = manager.loadOntology(str);
         assertEquals(1, ontology.axioms().count());
-        assertEquals(ontology.getOntologyID().getOntologyIRI().get(), iri);
-        assertNotNull(manager.getOntology(iri));
+        assertEquals(ontology.getOntologyID().getOntologyIRI().get(), str);
+        assertNotNull(manager.getOntology(str));
     }
 
     @Test
@@ -61,7 +60,7 @@ public class ManchesterImportTestCase extends TestBase {
         OWLOntologyManager managerStart = getManager();
         OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
-        OWLOntology iriImport = managerTest.loadOntology(IRI(str));
+        OWLOntology iriImport = managerTest.loadOntology(str);
         assertTrue(manualImport.equalAxioms(iriImport));
         assertEquals(manualImport.getOntologyID(), iriImport.getOntologyID());
     }

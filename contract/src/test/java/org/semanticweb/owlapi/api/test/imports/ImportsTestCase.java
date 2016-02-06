@@ -48,9 +48,9 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testImportsClosureUpdate() throws OWLOntologyCreationException {
-        IRI aIRI = IRI("http://a.com");
+        IRI aIRI = IRI("http://a.com", "");
         OWLOntology ontA = getOWLOntology(aIRI);
-        IRI bIRI = IRI("http://b.com");
+        IRI bIRI = IRI("http://b.com", "");
         OWLOntology ontB = getOWLOntology(bIRI);
         ontA.applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
         assertEquals(2, m.importsClosure(ontA).count());
@@ -93,10 +93,10 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void shouldNotLoadWrong() throws OWLOntologyCreationException {
-        m.createOntology(IRI.create("urn:test"));
+        m.createOntology(IRI.create("urn:test#", "test"));
         StringDocumentSource documentSource = new StringDocumentSource("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\">\n"
-            + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test\"/></owl:Ontology></rdf:RDF>");
+            + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology></rdf:RDF>");
         OWLOntology o = m.loadOntologyFromOntologyDocument(documentSource);
         assertTrue(o.getOntologyID().toString(), o.isAnonymous());
         assertFalse(o.getOntologyID().getDefaultDocumentIRI().isPresent());
@@ -104,8 +104,8 @@ public class ImportsTestCase extends TestBase {
 
     @Test
     public void testManualImports() throws OWLOntologyCreationException {
-        OWLOntology baseOnt = getOWLOntology(IRI("http://semanticweb.org/ontologies/base"));
-        IRI importedIRI = IRI("http://semanticweb.org/ontologies/imported");
+        OWLOntology baseOnt = getOWLOntology(IRI("http://semanticweb.org/ontologies/", "base"));
+        IRI importedIRI = IRI("http://semanticweb.org/ontologies/", "imported");
         OWLOntology importedOnt = getOWLOntology(importedIRI);
         Set<OWLOntology> preImportsClosureCache = asUnorderedSet(baseOnt.importsClosure());
         assertTrue(preImportsClosureCache.contains(baseOnt));
@@ -151,15 +151,16 @@ public class ImportsTestCase extends TestBase {
         // reimported
         File ontologyDirectory = new File(RESOURCES, "importNoOntology");
         String ns = "http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/";
-        IRI bobsOntologyName = IRI.create(ns + "subject-bob");
-        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(ns + "subject-bob#subjectOnImmunosuppressantA2");
-        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"), IRI.create(new File(ontologyDirectory,
+        IRI bobsOntologyName = IRI.create(ns, "subject-bob");
+        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(ns + "subject-bob#",
+            "subjectOnImmunosuppressantA2");
+        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns, "subject-amy"), IRI.create(new File(ontologyDirectory,
             "subject-amy.ttl"))));
         m.getIRIMappers().add(new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(ontologyDirectory,
             "subject-bob.ttl"))));
-        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"), IRI.create(new File(ontologyDirectory,
+        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create(ns, "subject-sue"), IRI.create(new File(ontologyDirectory,
             "subject-sue.ttl"))));
-        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create("http://www.w3.org/2013/12/FDA-TA/core"), IRI.create(
+        m.getIRIMappers().add(new SimpleIRIMapper(IRI.create("http://www.w3.org/2013/12/FDA-TA/", "core"), IRI.create(
             new File(ontologyDirectory, "core.ttl"))));
         OWLOntology topLevelImport = m.loadOntologyFromOntologyDocument(new File(ontologyDirectory, "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...", topLevelImport.containsEntityInSignature(bobsIndividual,
@@ -191,8 +192,8 @@ public class ImportsTestCase extends TestBase {
         String input = "<?xml version=\"1.0\"?>\n"
             + "<Ontology  ontologyIRI=\"http://protege.org/ontologies/TestFunnyPizzaImport.owl\">\n"
             + "    <Import>http://test.org/TestPizzaImport.owl</Import>\n" + "</Ontology>";
-        IRI testImport = IRI.create("http://test.org/TestPizzaImport.owl");
-        IRI remap = IRI.create("urn:test:mockImport");
+        IRI testImport = IRI.create("http://test.org/", "TestPizzaImport.owl");
+        IRI remap = IRI.create("urn:test:", "mockImport");
         StringDocumentSource source = new StringDocumentSource(input);
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
@@ -211,8 +212,8 @@ public class ImportsTestCase extends TestBase {
             + "    <owl:Ontology rdf:about=\"urn:test\">\n"
             + "        <owl:imports rdf:resource=\"http://test.org/TestPizzaImport.owl\"/>\n" + "    </owl:Ontology>\n"
             + "</rdf:RDF>";
-        IRI testImport = IRI.create("http://test.org/TestPizzaImport.owl");
-        IRI remap = IRI.create("urn:test:mockImport");
+        IRI testImport = IRI.create("http://test.org/", "TestPizzaImport.owl");
+        IRI remap = IRI.create("urn:test:", "mockImport");
         StringDocumentSource source = new StringDocumentSource(input);
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
@@ -226,11 +227,11 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void testImportOntologyByLocation() throws Exception {
         @Nonnull File f = folder.newFile("a.owl");
-        createOntologyFile(IRI("http://a.com"), f);
+        createOntologyFile(IRI("http://a.com", ""), f);
         // have to load an ontology for it to get a document IRI
         OWLOntology a = m.loadOntologyFromOntologyDocument(f);
         IRI locA = m.getOntologyDocumentIRI(a);
-        IRI bIRI = IRI("http://b.com");
+        IRI bIRI = IRI("http://b.com", "");
         OWLOntology b = getOWLOntology(bIRI);
         // import from the document location of a.owl (rather than the
         // ontology IRI)

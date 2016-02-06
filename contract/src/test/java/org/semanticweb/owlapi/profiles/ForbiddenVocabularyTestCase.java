@@ -96,10 +96,10 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
         // a:hasBrother ) The uncle of someone's child is that person's brother.
-        OWLObjectProperty father = df.getOWLObjectProperty("urn:test:hasFather");
-        OWLObjectProperty brother = df.getOWLObjectProperty("urn:test:hasBrother");
-        OWLObjectProperty child = df.getOWLObjectProperty("urn:test:hasChild");
-        OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:hasUncle");
+        OWLObjectProperty father = df.getOWLObjectProperty("urn:test:", "hasFather");
+        OWLObjectProperty brother = df.getOWLObjectProperty("urn:test:", "hasBrother");
+        OWLObjectProperty child = df.getOWLObjectProperty("urn:test:", "hasChild");
+        OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:", "hasUncle");
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
@@ -126,16 +126,16 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     @Test
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology();
-        OWLObjectProperty father = df.getOWLObjectProperty("urn:test:hasFather");
-        OWLObjectProperty brother = df.getOWLObjectProperty("urn:test:hasBrother");
-        OWLObjectProperty child = df.getOWLObjectProperty("urn:test:hasChild");
-        OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:hasUncle");
+        OWLObjectProperty father = df.getOWLObjectProperty("urn:test:", "hasFather");
+        OWLObjectProperty brother = df.getOWLObjectProperty("urn:test:", "hasBrother");
+        OWLObjectProperty child = df.getOWLObjectProperty("urn:test:", "hasChild");
+        OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:", "hasUncle");
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = df
-            .getOWLSubPropertyChainOfAxiom(CollectionFactory.list(father, brother), uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = df.getOWLSubPropertyChainOfAxiom(CollectionFactory.list(father,
+            brother), uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
@@ -176,9 +176,8 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         + "    <owl:ObjectProperty rdf:about=\"http://www.w3.org/2002/07/owl#topObjectProperty\"/>\n"
         + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#BF\"/>\n"
         + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#C\"/>\n"
-        + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#OR\">\n"
-        + "        <owl:equivalentClass>\n" + "            <owl:Class>\n"
-        + "                <owl:intersectionOf rdf:parseType=\"Collection\">\n"
+        + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#OR\">\n" + "        <owl:equivalentClass>\n"
+        + "            <owl:Class>\n" + "                <owl:intersectionOf rdf:parseType=\"Collection\">\n"
         + "                    <owl:Restriction>\n"
         + "                        <owl:onProperty rdf:resource=\"http://purl.org/net/social-reality#context\"/>\n"
         + "                        <owl:someValuesFrom rdf:resource=\"http://purl.org/net/social-reality#C\"/>\n"
@@ -314,22 +313,21 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         + "                <owl:onProperty rdf:resource=\"http://purl.org/net/roles#is_F\"/>\n"
         + "                <owl:hasSelf rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</owl:hasSelf>\n"
         + "            </owl:Restriction>\n" + "        </owl:equivalentClass>\n"
-        + "        <rdfs:subClassOf rdf:resource=\"http://purl.org/net/social-reality#OR\"/>\n"
-        + "    </owl:Class>\n" + "    <owl:Class rdf:about=\"http://purl.org/net/roles#R\">\n"
-        + "        <owl:equivalentClass>\n" + "            <owl:Restriction>\n"
-        + "                <owl:onProperty>\n" + "                    <rdf:Description>\n"
+        + "        <rdfs:subClassOf rdf:resource=\"http://purl.org/net/social-reality#OR\"/>\n" + "    </owl:Class>\n"
+        + "    <owl:Class rdf:about=\"http://purl.org/net/roles#R\">\n" + "        <owl:equivalentClass>\n"
+        + "            <owl:Restriction>\n" + "                <owl:onProperty>\n"
+        + "                    <rdf:Description>\n"
         + "                        <owl:inverseOf rdf:resource=\"http://purl.org/net/roles#plays\"/>\n"
         + "                    </rdf:Description>\n" + "                </owl:onProperty>\n"
         + "                <owl:someValuesFrom rdf:resource=\"http://purl.org/net/social-reality#BF\"/>\n"
-        + "            </owl:Restriction>\n" + "        </owl:equivalentClass>\n"
-        + "        <owl:equivalentClass>\n" + "            <owl:Restriction>\n"
+        + "            </owl:Restriction>\n" + "        </owl:equivalentClass>\n" + "        <owl:equivalentClass>\n"
+        + "            <owl:Restriction>\n"
         + "                <owl:onProperty rdf:resource=\"http://purl.org/net/roles#is_R\"/>\n"
         + "                <owl:hasSelf rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</owl:hasSelf>\n"
         + "            </owl:Restriction>\n" + "        </owl:equivalentClass>\n"
-        + "        <rdfs:subClassOf rdf:resource=\"http://purl.org/net/social-reality#OR\"/>\n"
-        + "    </owl:Class>\n" + "    <owl:Class rdf:about=\"http://purl.org/net/roles#TR\">\n"
-        + "        <owl:equivalentClass>\n" + "            <owl:Class>\n"
-        + "                <owl:intersectionOf rdf:parseType=\"Collection\">\n"
+        + "        <rdfs:subClassOf rdf:resource=\"http://purl.org/net/social-reality#OR\"/>\n" + "    </owl:Class>\n"
+        + "    <owl:Class rdf:about=\"http://purl.org/net/roles#TR\">\n" + "        <owl:equivalentClass>\n"
+        + "            <owl:Class>\n" + "                <owl:intersectionOf rdf:parseType=\"Collection\">\n"
         + "                    <owl:Restriction>\n"
         + "                        <owl:onProperty rdf:resource=\"http://purl.org/net/social-reality#context\"/>\n"
         + "                        <owl:someValuesFrom rdf:resource=\"http://purl.org/net/roles#Ac\"/>\n"
@@ -344,12 +342,11 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         + "                <owl:onProperty rdf:resource=\"http://purl.org/net/roles#is_TR\"/>\n"
         + "                <owl:hasSelf rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</owl:hasSelf>\n"
         + "            </owl:Restriction>\n" + "        </owl:equivalentClass>\n"
-        + "        <rdfs:subClassOf rdf:resource=\"http://purl.org/net/social-reality#OR\"/>\n"
-        + "    </owl:Class>\n" + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#BF\"/>\n"
+        + "        <rdfs:subClassOf rdf:resource=\"http://purl.org/net/social-reality#OR\"/>\n" + "    </owl:Class>\n"
+        + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#BF\"/>\n"
         + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#C\"/>\n"
-        + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#OR\">\n"
-        + "        <owl:equivalentClass>\n" + "            <owl:Class>\n"
-        + "                <owl:intersectionOf rdf:parseType=\"Collection\">\n"
+        + "    <owl:Class rdf:about=\"http://purl.org/net/social-reality#OR\">\n" + "        <owl:equivalentClass>\n"
+        + "            <owl:Class>\n" + "                <owl:intersectionOf rdf:parseType=\"Collection\">\n"
         + "                    <owl:Restriction>\n"
         + "                        <owl:onProperty rdf:resource=\"http://purl.org/net/social-reality#context\"/>\n"
         + "                        <owl:someValuesFrom rdf:resource=\"http://purl.org/net/social-reality#C\"/>\n"

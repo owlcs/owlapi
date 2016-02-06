@@ -40,10 +40,10 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtrip() throws Exception {
-        OWLClass a = Class(IRI(NS + "#A"));
-        OWLDataProperty p = df.getOWLDataProperty(NS + "#P");
-        SWRLVariable x = df.getSWRLVariable(NS + "#X");
-        SWRLVariable y = df.getSWRLVariable(NS + "#Y");
+        OWLClass a = Class(IRI(NS + "#", "A"));
+        OWLDataProperty p = df.getOWLDataProperty(NS + "#", "P");
+        SWRLVariable x = df.getSWRLVariable(NS + "#", "X");
+        SWRLVariable y = df.getSWRLVariable(NS + "#", "Y");
         OWLOntology ontology = getOWLOntology();
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(p, x, y));
@@ -59,10 +59,10 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtripManchesterOWLSyntax() throws Exception {
-        OWLClass a = Class(IRI(NS + "#A"));
-        OWLDataProperty p = df.getOWLDataProperty(NS + "#P");
-        SWRLVariable x = df.getSWRLVariable(NS + "#X");
-        SWRLVariable y = df.getSWRLVariable(NS + "#Y");
+        OWLClass a = Class(IRI(NS + "#", "A"));
+        OWLDataProperty p = df.getOWLDataProperty(NS + "#", "P");
+        SWRLVariable x = df.getSWRLVariable(NS + "#", "X");
+        SWRLVariable y = df.getSWRLVariable(NS + "#", "Y");
         OWLOntology ontology = getOWLOntology();
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(p, x, y));
@@ -146,10 +146,10 @@ public class SWRLRoundTripTestCase extends TestBase {
      * @throws OWLOntologyCreationException
      */
     OWLOntology prepareOntology() {
-        OWLClass a = Class(IRI(NS + "#A"));
-        OWLDataProperty p = df.getOWLDataProperty(NS + "#P");
-        SWRLVariable x = df.getSWRLVariable(NS + "#X");
-        SWRLVariable y = df.getSWRLVariable(NS + "#Y");
+        OWLClass a = Class(IRI(NS + "#", "A"));
+        OWLDataProperty p = df.getOWLDataProperty(NS + "#", "P");
+        SWRLVariable x = df.getSWRLVariable(NS + "#", "X");
+        SWRLVariable y = df.getSWRLVariable(NS + "#", "Y");
         OWLOntology ontology = getOWLOntology();
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(p, x, y));
@@ -159,44 +159,44 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("test", ""));
         SWRLRule rule = df.getSWRLRule(body, head, singleton(ann));
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
-        OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:mydatatype"),
-            df.getOWLDatatypeMaxExclusiveRestriction(200D),
-            singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("datatype definition"))));
+        OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"), df
+            .getOWLDatatypeMaxExclusiveRestriction(200D), singleton(df.getOWLAnnotation(df.getRDFSLabel(), df
+                .getOWLLiteral("datatype definition"))));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
     }
 
     OWLOntology prepareOntology1() {
         OWLOntology ontology = getOWLOntology();
-        OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:mydatatype"),
-            df.getOWLDatatypeMaxExclusiveRestriction(200D),
-            singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("datatype definition"))));
+        OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"), df
+            .getOWLDatatypeMaxExclusiveRestriction(200D), singleton(df.getOWLAnnotation(df.getRDFSLabel(), df
+                .getOWLLiteral("datatype definition"))));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
     }
 
     @Test
     public void shouldParse() throws OWLOntologyCreationException {
-        String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#\"\n" + "     xml:base=\"urn:test\"\n"
+        String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#\"\n" + "     xml:base=\"urn:test#test\"\n"
             + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
             + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
             + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
             + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
             + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-            + "    <owl:Ontology rdf:about=\"urn:test\"/>\n" + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n"
-            + "        <owl:equivalentClass>\n"
+            + "    <owl:Ontology rdf:about=\"urn:test#test\"/>\n"
+            + "    <rdfs:Datatype rdf:about=\"urn:my#datatype\">\n" + "        <owl:equivalentClass>\n"
             + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-            + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
+            + "        </owl:equivalentClass></rdfs:Datatype><owl:Axiom>\n"
             + "        <rdfs:label >datatype definition</rdfs:label>\n"
             + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
-            + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n" + "        <owl:annotatedTarget>\n"
+            + "        <owl:annotatedSource rdf:resource=\"urn:my#datatype\"/>\n" + "        <owl:annotatedTarget>\n"
             + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
             + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
         OWLOntology o = loadOntologyFromString(s);
-        OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:mydatatype"),
-            df.getDoubleOWLDatatype(),
-            singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("datatype definition", ""))));
+        OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"), df
+            .getDoubleOWLDatatype(), singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(
+                "datatype definition", ""))));
         assertTrue(contains(o.axioms(), def));
     }
 
@@ -208,15 +208,17 @@ public class SWRLRoundTripTestCase extends TestBase {
             + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
             + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-            + "    <Class rdf:about=\"urn:myClass\">\n" + "        <rdfs:subClassOf rdf:resource=\"urn:test\"/>\n"
-            + "    </Class>\n" + "    <Axiom>\n" + "        <rdfs:label>datatype definition</rdfs:label>\n"
+            + "    <Class rdf:about=\"urn:urn:test#myClass\">\n"
+            + "        <rdfs:subClassOf rdf:resource=\"urn:test#test\"/>\n" + "    </Class>\n" + "    <Axiom>\n"
+            + "        <rdfs:label>datatype definition</rdfs:label>\n"
             + "        <annotatedProperty rdf:resource=\"http://www.w3.org/2000/01/rdf-schema#subClassOf\"/>\n"
-            + "        <annotatedSource rdf:resource=\"urn:myClass\"/>\n"
-            + "        <annotatedTarget rdf:resource=\"urn:test\"/>\n" + "    </Axiom>\n"
+            + "        <annotatedSource rdf:resource=\"urn:test#myClass\"/>\n"
+            + "        <annotatedTarget rdf:resource=\"urn:test#test\"/>\n" + "    </Axiom>\n"
             + "    <Class rdf:about=\"urn:test\"/>\n" + "</rdf:RDF>\n" + "";
         OWLOntology o = loadOntologyFromString(s);
-        OWLSubClassOfAxiom def = df.getOWLSubClassOfAxiom(df.getOWLClass("urn:myClass"), df.getOWLClass("urn:test"),
-            singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("datatype definition", ""))));
+        OWLSubClassOfAxiom def = df.getOWLSubClassOfAxiom(df.getOWLClass("urn:test#", "myClass"), df.getOWLClass(
+            "urn:test#", "test"), singleton(df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(
+                "datatype definition", ""))));
         assertTrue(contains(o.axioms(), def));
     }
 }

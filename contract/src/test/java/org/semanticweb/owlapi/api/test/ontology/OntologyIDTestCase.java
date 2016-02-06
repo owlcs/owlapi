@@ -30,16 +30,16 @@ public class OntologyIDTestCase extends TestBase {
 
     @Test
     public void shouldFindSameHashCode() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING);
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING);
+        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         assertEquals(iri1.hashCode(), iri2.hashCode());
         assertEquals(iri1, iri2);
     }
 
     @Test
     public void shouldFindSameHashCodeForIDs() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING);
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING);
+        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         assertEquals(iri1.hashCode(), iri2.hashCode());
         OWLOntologyID id1 = new OWLOntologyID(optional(iri1), emptyOptional(IRI.class));
         OWLOntologyID id2 = new OWLOntologyID(optional(iri2), emptyOptional(IRI.class));
@@ -48,8 +48,8 @@ public class OntologyIDTestCase extends TestBase {
 
     @Test
     public void shouldFindSameHashCodeForIDs2() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING);
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING);
+        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         assertEquals(iri1.hashCode(), iri2.hashCode());
         OWLOntologyID id1 = new OWLOntologyID(optional(iri1), emptyOptional(IRI.class));
         OWLOntologyID id2 = new OWLOntologyID(optional(iri2), emptyOptional(IRI.class));
@@ -59,8 +59,8 @@ public class OntologyIDTestCase extends TestBase {
 
     @Test
     public void testUnequalIdsUnequal() {
-        OWLOntologyID id1 = new OWLOntologyID(optional(IRI("http://www.w3.org/foo")), emptyOptional(IRI.class));
-        OWLOntologyID id2 = new OWLOntologyID(optional(IRI("http://www.w3.org/bar")), emptyOptional(IRI.class));
+        OWLOntologyID id1 = new OWLOntologyID(optional(IRI("http://www.w3.org/", "foo")), emptyOptional(IRI.class));
+        OWLOntologyID id2 = new OWLOntologyID(optional(IRI("http://www.w3.org/", "bar")), emptyOptional(IRI.class));
         assertNotEquals(id1.hashCode(), id2.hashCode());
         assertNotEquals(id1, id2);
     }
@@ -69,26 +69,25 @@ public class OntologyIDTestCase extends TestBase {
     // ontology together in a multimap or something
     @Test
     public void testVersionedIDComparisons() {
-        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING);
-        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING);
+        IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
+        IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         assertEquals(iri1.hashCode(), iri2.hashCode());
         assertEquals(iri1, iri2);
         OWLOntologyID unversionedID = new OWLOntologyID(optional(iri1), emptyOptional(IRI.class));
-        String version1IRIString = TEST_ONTOLOGY_IRI_STRING + "/version1";
-        IRI version1IRI = IRI(version1IRIString);
+        IRI version1IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version1");
         OWLOntologyID version1ID = new OWLOntologyID(optional(iri2), optional(version1IRI));
         assertEquals("null vs v1 base IRIs", unversionedID.getOntologyIRI(), version1ID.getOntologyIRI());
         assertNotEquals(unversionedID.getVersionIRI(), version1ID.getVersionIRI());
         assertNotEquals("null version vs version1", unversionedID.hashCode(), version1ID.hashCode());
         assertNotEquals("null version vs version1", unversionedID, version1ID);
-        OWLOntologyID duplicateVersion1ID = new OWLOntologyID(optional(IRI(TEST_ONTOLOGY_IRI_STRING)),
-                optional(IRI(version1IRIString)));
+        OWLOntologyID duplicateVersion1ID = new OWLOntologyID(optional(IRI(TEST_ONTOLOGY_IRI_STRING, "")), optional(
+            version1IRI));
         assertEquals(" two version1 ids", version1ID, duplicateVersion1ID);
-        OWLOntologyID differentBasedVersion1ID = new OWLOntologyID(optional(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom")),
-                optional(IRI(version1IRIString)));
+        OWLOntologyID differentBasedVersion1ID = new OWLOntologyID(optional(IRI(TEST_ONTOLOGY_IRI_STRING + "-of-doom",
+            "")), optional(version1IRI));
         assertNotEquals("version1 of two base IRIs", version1ID, differentBasedVersion1ID);
-        IRI version2IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/version2");
-        IRI iri3 = IRI(TEST_ONTOLOGY_IRI_STRING);
+        IRI version2IRI = IRI(TEST_ONTOLOGY_IRI_STRING + "/", "version2");
+        IRI iri3 = IRI(TEST_ONTOLOGY_IRI_STRING, "");
         OWLOntologyID version2ID = new OWLOntologyID(optional(iri3), optional(version2IRI));
         assertNotEquals("version1 vs version2", version1ID.hashCode(), version2ID.hashCode());
         assertNotEquals("version1 vs version2", version1ID, version2ID);

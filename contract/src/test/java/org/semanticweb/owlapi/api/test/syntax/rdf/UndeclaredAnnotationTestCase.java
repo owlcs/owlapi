@@ -35,13 +35,13 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             .count());
         Set<OWLAnnotationAssertionAxiom> annotationAxioms = asUnorderedSet(oo.axioms(AxiomType.ANNOTATION_ASSERTION));
         assertEquals("annotation axiom count should be 2", 2, annotationAxioms.size());
-        OWLAnnotationProperty relProperty = df.getOWLAnnotationProperty("http://example.com/ns#rel");
-        OWLAnnotationProperty predProperty = df.getOWLAnnotationProperty("http://example.com/ns#pred");
+        OWLAnnotationProperty relProperty = df.getOWLAnnotationProperty("http://example.com/ns#", "rel");
+        OWLAnnotationProperty predProperty = df.getOWLAnnotationProperty("http://example.com/ns#", "pred");
         Set<OWLAnonymousIndividual> anonymousIndividualSet = asUnorderedSet(oo.anonymousIndividuals());
         assertEquals("should be one anonymous individual", 1, anonymousIndividualSet.size());
         @Nonnull OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet.iterator().next();
         OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(relProperty, IRI.create(
-            "http://example.com/ns#test"), anonymousIndividual);
+            "http://example.com/ns#", "test"), anonymousIndividual);
         OWLLiteral notVisible = df.getOWLLiteral("Not visible", "");
         OWLAnnotationAssertionAxiom predAx = df.getOWLAnnotationAssertionAxiom(predProperty, anonymousIndividual,
             notVisible);
@@ -58,7 +58,7 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             + "           ex:pred ex:Visible ;\n" + "           ex:pred \"Not visible\" .\n"
             + "        ex:subj rdfs:label \"Visible\" .\n" + "        ex:subj ex:pred \"Visible\" .";
         OWLOntology o = loadOntologyFromString(input);
-        OWLAnnotationProperty pred = df.getOWLAnnotationProperty("http://www.example.org/pred");
+        OWLAnnotationProperty pred = df.getOWLAnnotationProperty("http://www.example.org/", "pred");
         AtomicInteger countLabels = new AtomicInteger();
         AtomicInteger countPreds = new AtomicInteger();
         AtomicInteger countBNodeAnnotations = new AtomicInteger();

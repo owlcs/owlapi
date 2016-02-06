@@ -30,9 +30,9 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     @Test
     public void testmain() throws Exception {
         OWLOntology ontology = getOWLOntology();
-        OWLObjectProperty p = df.getOWLObjectProperty("http://example.org/A_#part_of");
-        OWLClass a = Class(IRI("http://example.org/A_A"));
-        OWLClass b = Class(IRI("http://example.org/A_B"));
+        OWLObjectProperty p = df.getOWLObjectProperty("http://example.org/A_#", "part_of");
+        OWLClass a = Class(IRI("http://example.org/", "A_A"));
+        OWLClass b = Class(IRI("http://example.org/", "A_B"));
         ontology.add(Declaration(p), Declaration(a), Declaration(b), SubClassOf(b, df.getOWLObjectSomeValuesFrom(p,
             a)));
         OWLOntology loadOntology = roundTrip(ontology, new RDFXMLDocumentFormat());

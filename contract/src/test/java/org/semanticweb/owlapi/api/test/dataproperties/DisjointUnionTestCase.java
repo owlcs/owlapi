@@ -26,9 +26,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class DisjointUnionTestCase extends TestBase {
 
     private static final @Nonnull String NS = "http://protege.org/protege/DisjointUnion.owl";
-    public static final @Nonnull OWLClass A = Class(IRI(NS + "#A"));
-    public static final @Nonnull OWLClass B = Class(IRI(NS + "#B"));
-    public static final @Nonnull OWLClass C = Class(IRI(NS + "#C"));
+    public static final @Nonnull OWLClass A = Class(IRI(NS + "#", "A"));
+    public static final @Nonnull OWLClass B = Class(IRI(NS + "#", "B"));
+    public static final @Nonnull OWLClass C = Class(IRI(NS + "#", "C"));
 
     @Test
     public void testDisjointUnion() {

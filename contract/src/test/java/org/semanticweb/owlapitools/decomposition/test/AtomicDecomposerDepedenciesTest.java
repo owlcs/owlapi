@@ -9,8 +9,8 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 
 import uk.ac.manchester.cs.atomicdecomposition.Atom;
-import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposition;
+import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 
 @SuppressWarnings("javadoc")
 public class AtomicDecomposerDepedenciesTest {
@@ -37,10 +37,10 @@ public class AtomicDecomposerDepedenciesTest {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLOntology o = m.createOntology();
         OWLDataFactory f = m.getOWLDataFactory();
-        OWLClass powerYoga = f.getOWLClass(IRI.create("urn:test#PowerYoga"));
-        OWLClass yoga = f.getOWLClass(IRI.create("urn:test#Yoga"));
-        OWLClass relaxation = f.getOWLClass(IRI.create("urn:test#Relaxation"));
-        OWLClass activity = f.getOWLClass(IRI.create("urn:test#Activity"));
+        OWLClass powerYoga = f.getOWLClass(IRI.create("urn:test#", "PowerYoga"));
+        OWLClass yoga = f.getOWLClass(IRI.create("urn:test#", "Yoga"));
+        OWLClass relaxation = f.getOWLClass(IRI.create("urn:test#", "Relaxation"));
+        OWLClass activity = f.getOWLClass(IRI.create("urn:test#", "Activity"));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));

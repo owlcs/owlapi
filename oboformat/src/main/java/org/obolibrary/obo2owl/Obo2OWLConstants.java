@@ -25,9 +25,9 @@ public class Obo2OWLConstants {
     /** OIO vocabulary prefix. */
     @Nonnull public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
     /** IRI for the 'has obsolescence reason' annotation property */
-    @Nonnull public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000231");
+    @Nonnull public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000231");
     /** IRI for the 'terms merged' individual */
-    @Nonnull public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000227");
+    @Nonnull public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
 
     /** OBO to OWL vocabulary. */
     public enum Obo2OWLVocabulary implements HasIRI {
@@ -69,7 +69,7 @@ public class Obo2OWLConstants {
         @Nonnull final String mappedTag;
 
         Obo2OWLVocabulary(String namespce, String shortName, String label, String mappedTag) {
-            iri = IRI.create(namespce + shortName);
+            iri = IRI.create(namespce, shortName);
             this.shortName = shortName;
             namespace = namespce;
             this.label = label;
@@ -133,8 +133,8 @@ public class Obo2OWLConstants {
         }
     }
 
-    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps
-        .uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), v -> v.mappedTag);
+    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps.uniqueIndex(Arrays.asList(Obo2OWLVocabulary
+        .values()), v -> v.mappedTag);
 
     /**
      * @param tag

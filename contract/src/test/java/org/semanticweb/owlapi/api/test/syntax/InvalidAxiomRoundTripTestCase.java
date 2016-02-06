@@ -48,12 +48,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDifferentIndividuals()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidDifferentIndividuals() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         // given
-        OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
-        OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
-        OWLNamedIndividual e3 = NamedIndividual(IRI("urn:test3"));
+        OWLNamedIndividual e1 = NamedIndividual(IRI("urn:tes#", "t1"));
+        OWLNamedIndividual e2 = NamedIndividual(IRI("urn:tes#", "t2"));
+        OWLNamedIndividual e3 = NamedIndividual(IRI("urn:tes#", "t3"));
         // given
         OWLAxiom wrongAxiom = DifferentIndividuals(e1);
         OWLAxiom validAxiom = DifferentIndividuals(e2, e3);
@@ -64,12 +64,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDisjointObjectProperties()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidDisjointObjectProperties() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         // given
-        OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
-        OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
-        OWLObjectProperty e3 = ObjectProperty(IRI("urn:test3"));
+        OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
+        OWLObjectProperty e2 = ObjectProperty(IRI("urn:tes#", "t2"));
+        OWLObjectProperty e3 = ObjectProperty(IRI("urn:tes#", "t3"));
         // given
         OWLAxiom wrongAxiom = DisjointObjectProperties(e1);
         OWLAxiom validAxiom = DisjointObjectProperties(e2, e3);
@@ -86,9 +86,9 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     @Test
     public void shouldRoundTripInvalidDisjointClasses() throws Exception {
         // given
-        OWLClass e1 = Class(IRI("urn:test1"));
-        OWLClass e2 = Class(IRI("urn:test2"));
-        OWLClass e3 = Class(IRI("urn:test3"));
+        OWLClass e1 = Class(IRI("urn:tes#", "t1"));
+        OWLClass e2 = Class(IRI("urn:tes#", "t2"));
+        OWLClass e3 = Class(IRI("urn:tes#", "t3"));
         // The implementation now checks for classes that only have a single
         // distinct element
         // Note: we cannot distinguish between a self-disjoint axiom and an
@@ -122,12 +122,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDisjointDataProperties()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidDisjointDataProperties() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         // given
-        OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
-        OWLDataProperty e2 = DataProperty(IRI("urn:test2"));
-        OWLDataProperty e3 = DataProperty(IRI("urn:test3"));
+        OWLDataProperty e1 = DataProperty(IRI("urn:tes#", "t1"));
+        OWLDataProperty e2 = DataProperty(IRI("urn:tes#", "t2"));
+        OWLDataProperty e3 = DataProperty(IRI("urn:tes#", "t3"));
         // given
         OWLAxiom wrongAxiom = DisjointDataProperties(e1);
         OWLAxiom validAxiom = DisjointDataProperties(e2, e3);
@@ -142,12 +142,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidSameIndividuals()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidSameIndividuals() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         // given
-        OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
-        OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
-        OWLNamedIndividual e3 = NamedIndividual(IRI("urn:test3"));
+        OWLNamedIndividual e1 = NamedIndividual(IRI("urn:tes#", "t1"));
+        OWLNamedIndividual e2 = NamedIndividual(IRI("urn:tes#", "t2"));
+        OWLNamedIndividual e3 = NamedIndividual(IRI("urn:tes#", "t3"));
         // given
         OWLAxiom wrongAxiom = SameIndividual(e1);
         OWLAxiom validAxiom = SameIndividual(e2, e3);
@@ -158,12 +158,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentClasses()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidEquivalentClasses() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         // given
-        OWLClass e1 = Class(IRI("urn:test1"));
-        OWLClass e2 = Class(IRI("urn:test2"));
-        OWLClass e3 = Class(IRI("urn:test3"));
+        OWLClass e1 = Class(IRI("urn:tes#", "t1"));
+        OWLClass e2 = Class(IRI("urn:tes#", "t2"));
+        OWLClass e3 = Class(IRI("urn:tes#", "t3"));
         // given
         OWLAxiom wrongAxiom = EquivalentClasses(e1);
         OWLAxiom validAxiom = EquivalentClasses(e2, e3);
@@ -178,12 +178,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentObjectProperties()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidEquivalentObjectProperties() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         // given
-        OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
-        OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
-        OWLObjectProperty e3 = ObjectProperty(IRI("urn:test3"));
+        OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
+        OWLObjectProperty e2 = ObjectProperty(IRI("urn:tes#", "t2"));
+        OWLObjectProperty e3 = ObjectProperty(IRI("urn:tes#", "t3"));
         // given
         OWLAxiom wrongAxiom = EquivalentObjectProperties(e1);
         OWLAxiom validAxiom = EquivalentObjectProperties(e2, e3);
@@ -198,12 +198,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentDataProperties()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidEquivalentDataProperties() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         // given
-        OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
-        OWLDataProperty e2 = DataProperty(IRI("urn:test2"));
-        OWLDataProperty e3 = DataProperty(IRI("urn:test3"));
+        OWLDataProperty e1 = DataProperty(IRI("urn:tes#", "t1"));
+        OWLDataProperty e2 = DataProperty(IRI("urn:tes#", "t2"));
+        OWLDataProperty e3 = DataProperty(IRI("urn:tes#", "t3"));
         // given
         OWLAxiom wrongAxiom = EquivalentDataProperties(e1);
         OWLAxiom validAxiom = EquivalentDataProperties(e2, e3);

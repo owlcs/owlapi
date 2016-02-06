@@ -13,24 +13,18 @@ public class OBOCommentsTestCase extends TestBase {
 
     @Test
     public void shouldAllowCommentInDate() {
-        String in1 = "format-version: 1.2\n"
-            + "data-version: beta2 ! WSIO Beta 2\n"
+        String in1 = "format-version: 1.2\n" + "data-version: beta2 ! WSIO Beta 2\n"
             + "date: 19:06:2014 18:57 ! CE(S)T";
-        OWLOntology o1 = loadOntologyFromString(in1, IRI.create("urn:test1"),
-            new OBODocumentFormat());
-        String in2 = "format-version: 1.2\n"
-            + "date: 19:06:2014 18:57 ! CE(S)T"
+        OWLOntology o1 = loadOntologyFromString(in1, IRI.create("urn:test#", "test1"), new OBODocumentFormat());
+        String in2 = "format-version: 1.2\n" + "date: 19:06:2014 18:57 ! CE(S)T"
             + "data-version: beta2 ! WSIO Beta 2\n";
-        OWLOntology o2 = loadOntologyFromString(in2, IRI.create("urn:test2"),
-            new OBODocumentFormat());
+        OWLOntology o2 = loadOntologyFromString(in2, IRI.create("urn:test#", "test2"), new OBODocumentFormat());
         assertTrue(o1.equalAxioms(o2));
     }
 
     @Test
     public void shouldAllowInstanceStanza() {
-        String in = "format-version: 1.2\n"
-            + "date: 02:05:2014 08:22\n"
-            + "saved-by: martinschiller\n"
+        String in = "format-version: 1.2\n" + "date: 02:05:2014 08:22\n" + "saved-by: martinschiller\n"
             + "auto-generated-by: OBO-Edit 2.3-beta7\ndefault-namespace: HIV\nidspace: ROP http://purl.org/obo/owl/OBO_REL#\nidspace: ENVO http://purl.org/obo/owl/ENVO#\nidspace: snap http://www.ifomis.org/bfo/1.1/snap#\nidspace: VO http://purl.obolibrary.org/obo/VO\n"
             + "idspace: RO http://www.obofoundry.org/ro/ro.owl#\nidspace: MOD http://www.berkeleybop.org/ontologies/mod.owl\nidspace: BFO http://www.ifomis.org/bfo/1.1/\nidspace: MI http://psidev.cvs.sourceforge.net/viewvc/psidev/psi/mod/data/PSI-MOD.obo\nidspace: IDO http://purl.obolibrary.org/obo/ido.owl\nidspace: CHEBI http://purl.org/obo/owl/CHEBI#\nidspace: PRO http://purl.org/obo/owl/PRO#\nidspace: PATO http://purl.org/obo/owl/PATO#\n"
             + "idspace: birn_anat http://ontology.neuinfo.org/NIF/BiomaterialEntities/NIF-GrossAnatomy.owl#\nidspace: HPO http://purl.org/obo/owl/HP#\nidspace: UO http://purl.org/obo/owl/UO#\nidspace: NCBITaxon http://purl.org/obo/owl/NCBITaxon#\nidspace: OBI http://purl.obolibrary.org/obo/OBI_\nidspace: SO http://purl.org/obo/owl/SO#\nidspace: FMA http://purl.org/obo/owl/FMA#\nidspace: IAO http://purl.obolibrary.org/obo/IAO\nidspace: UBERON http://purl.org/obo/owl/UBERON#\nidspace: GO http://purl.org/obo/owl/GO#\nidspace: OGMS http://ogms.googlecode.com/svn/releases/2011-09-20/ontology/ogms.owl\nidspace: CL http://purl.org/obo/owl/CL#\nidspace: span http://www.ifomis.org/bfo/1.1/span#\nremark: This version 1.3 contains additional sources and minor corrections in the spacing of some ids for the HIV Ontology\nremark: This version 1.3 is of 2014-04-25\n\n"
@@ -85,20 +79,15 @@ public class OBOCommentsTestCase extends TestBase {
             + "[Term]\nid: HIV:00048\nname: HIV RNA dimerization\ndef: \"The retroviral genome consists of two identical RNA molecules joined at their 5' ends.\" [PMID:2124274, PMID:22328732]\nsynonym: \"HIV dimerization\" RELATED [PMID:2124274]\n\n"
             + "[Term]\nid: HIV:00049\nname: viral genome packaging\ndef: \"The encapsulation of the viral genome within the capsid.\" [GO:0019072]\nsynonym: \"encapsidation\" RELATED [PMID:24688060]\nsynonym: \"packaging\" RELATED [PMID:24530126]\nxref: GO:0019072\n\n"
             + "[Term]\nid: HIV:00050\nname: viral enzyme\ndef: \"Products of pol genes, which are essential components of the retroviral particle that catalyze different reactions.\" [:LosAlamosHIVSequenceDatabaseCompendium2013]\nrelationship: is_transcribed_and_translated_from HIV:00037\nrelationship: type_of HIV:00003\n\n"
-            + "[Typedef]\nid: binds_to\nname: binds_to\nis_transitive: true\n\n"
-            + "[Typedef]\nid: is_a\nname: is_a\n\n"
+            + "[Typedef]\nid: binds_to\nname: binds_to\nis_transitive: true\n\n" + "[Typedef]\nid: is_a\nname: is_a\n\n"
             + "[Typedef]\nid: is_transcribed_and_translated_from\nname: is_transcribed_and_translated_from\n\n"
             + "[Typedef]\nid: is_transcribed_from\nname: is_transcribed_from\n\n"
             + "[Typedef]\nid: is_translated_from\nname: is_translated_from\n\n"
             + "[Typedef]\nid: part_of\nname: part_of\nis_transitive: true\n\n"
             + "[Typedef]\nid: type_of\nname: type_of\n\n"
-            + "[Typedef]\nid: RO:instance_of\nname: instance_of\nis_transitive: true\n\n"
-            + "[Instance]\n"
-            + "id: HIV:00101\n"
-            + "name: HIV-1\n"
-            + "synonym: \"HIV1\" RELATED []\n"
-            + "synonym: \"HTLV-III\" RELATED []\n"
-            + "synonym: \"Human Immunodeficiency Virus 1\" RELATED []\n"
+            + "[Typedef]\nid: RO:instance_of\nname: instance_of\nis_transitive: true\n\n" + "[Instance]\n"
+            + "id: HIV:00101\n" + "name: HIV-1\n" + "synonym: \"HIV1\" RELATED []\n"
+            + "synonym: \"HTLV-III\" RELATED []\n" + "synonym: \"Human Immunodeficiency Virus 1\" RELATED []\n"
             + "synonym: \"human immunodeficiency virus 1 HIV-1\" RELATED []\n"
             + "synonym: \"human immunodeficiency virus HIV-1\" RELATED []\n"
             + "synonym: \"human immunodeficiency virus type 1\" RELATED []\n"
@@ -108,11 +97,9 @@ public class OBOCommentsTestCase extends TestBase {
             + "synonym: \"human immunodeficiency virus type 1, HIV-1\" RELATED []\n"
             + "synonym: \"human immunodeficiency virus type I HIV-1\" RELATED []\n"
             + "synonym: \"human immunodeficiency virus type-1 HIV-1\" RELATED []\n"
-            + "synonym: \"human immunodeficiency virus-1 HIV-1\" RELATED []\n"
-            + "synonym: \"LAV\" RELATED []\n" + "xref: NCBITaxon:11676\n"
-            + "instance_of: HIV:00010\n"
-            + "property value: host_range human\n" + "type_of: HIV:00000";
-        loadOntologyFromString(in, IRI.create("urn:test"),
-            new OBODocumentFormat());
+            + "synonym: \"human immunodeficiency virus-1 HIV-1\" RELATED []\n" + "synonym: \"LAV\" RELATED []\n"
+            + "xref: NCBITaxon:11676\n" + "instance_of: HIV:00010\n" + "property value: host_range human\n"
+            + "type_of: HIV:00000";
+        loadOntologyFromString(in, IRI.create("urn:test#", "test"), new OBODocumentFormat());
     }
 }

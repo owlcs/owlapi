@@ -54,7 +54,7 @@ public class IRIShorteningTestCase extends TestBase {
 
     private OWLOntology createTestOntology() {
         OWLOntology o = getOWLOntology();
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI()));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI(), ""));
         o.add(df.getOWLDeclarationAxiom(i));
         i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE);
         o.add(df.getOWLDeclarationAxiom(i));
@@ -63,9 +63,9 @@ public class IRIShorteningTestCase extends TestBase {
 
     @Test
     public void shouldOutputURNsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(IRI.create("urn:ontology:test"));
-        o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:p"),
-            df.getOWLNamedIndividual("urn:test"), df.getOWLNamedIndividual("urn:other:test")));
+        OWLOntology o = m.createOntology(IRI.create("urn:ontology:", "test"));
+        o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:test#", "p"), df.getOWLNamedIndividual(
+            "urn:test#", "test"), df.getOWLNamedIndividual("urn:other:", "test")));
         equal(o, roundTrip(o));
     }
 }

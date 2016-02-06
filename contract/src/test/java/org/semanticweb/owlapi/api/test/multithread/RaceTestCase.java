@@ -86,7 +86,6 @@ public class RaceTestCase {
 
     static class RaceTestCaseRunner {
 
-        private static final String A_CLASS = "http://www.race.org#testclass";
         public static final String NS = "http://www.race.org#";
         protected RaceCallback callback;
         final AtomicBoolean done = new AtomicBoolean(false);
@@ -123,8 +122,8 @@ public class RaceTestCase {
                 manager = OWLManager.createConcurrentOWLOntologyManager();
                 factory = manager.getOWLDataFactory();
                 ontology = manager.createOntology();
-                x = factory.getOWLClass(IRI.create(NS + "X"));
-                y = factory.getOWLClass(IRI.create(NS + "Y"));
+                x = factory.getOWLClass(IRI.create(NS, "X"));
+                y = factory.getOWLClass(IRI.create(NS, "Y"));
             }
 
             @Override
@@ -170,11 +169,12 @@ public class RaceTestCase {
 
             @Override
             public void race() {
-                asList(ontology.subClassAxiomsForSubClass(factory.getOWLClass(IRI.create(A_CLASS))));
+                asList(ontology.subClassAxiomsForSubClass(factory.getOWLClass(IRI.create("http://www.race.org#",
+                    "testclass"))));
             }
 
             public OWLClass createMiddleClass(int i) {
-                return factory.getOWLClass(IRI.create(NS + "P" + i));
+                return factory.getOWLClass(IRI.create(NS, "P" + i));
             }
         }
     }

@@ -38,9 +38,9 @@ public class TurtleTestCase extends TestBase {
         m.loadOntologyFromOntologyDocument(uri);
     }
 
-    private final @Nonnull IRI iri = IRI.create("urn:testliterals");
+    private final @Nonnull IRI iri = IRI.create("urn:test#", "literals");
     private final @Nonnull TurtleDocumentFormat tf = new TurtleDocumentFormat();
-    private final @Nonnull IRI s = IRI.create("urn:test#s");
+    private final @Nonnull IRI s = IRI.create("urn:test#", "s");
 
     @Test
     public void shouldParseFixedQuotesLiterals1() throws OWLOntologyCreationException {
@@ -83,8 +83,8 @@ public class TurtleTestCase extends TestBase {
     public void shouldParseOntologyThatworked() throws OWLOntologyCreationException {
         // given
         String working = "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n @prefix foaf:    <http://xmlns.com/foaf/0.1/> .\n foaf:fundedBy rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .";
-        OWLAxiom expected = AnnotationAssertion(df.getRDFSIsDefinedBy(), IRI("http://xmlns.com/foaf/0.1/fundedBy"), IRI(
-            "http://xmlns.com/foaf/0.1/"));
+        OWLAxiom expected = AnnotationAssertion(df.getRDFSIsDefinedBy(), IRI("http://xmlns.com/foaf/0.1/", "fundedBy"),
+            IRI("http://xmlns.com/foaf/0.1/", ""));
         // when
         OWLOntology o = loadOntologyFromString(working);
         // then
@@ -95,8 +95,8 @@ public class TurtleTestCase extends TestBase {
     public void shouldParseOntologyThatBroke() throws OWLOntologyCreationException {
         // given
         String input = "@prefix f:    <urn:test/> . f:r f:p f: .";
-        OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(df.getOWLAnnotationProperty("urn:test/p"), IRI(
-            "urn:test/r"), IRI("urn:test/"));
+        OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(df.getOWLAnnotationProperty("urn:test/", "p"), IRI(
+            "urn:test/", "r"), IRI("urn:test/", ""));
         // when
         OWLOntology o = loadOntologyFromString(input);
         // then
@@ -135,9 +135,9 @@ public class TurtleTestCase extends TestBase {
     public void shouldParseScientificNotation() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e+07 .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/South_Africa");
+        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i, Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
     }
 
@@ -145,9 +145,9 @@ public class TurtleTestCase extends TestBase {
     public void shouldParseScientificNotationWithMinus() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e-07 .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/South_Africa");
+        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i, Literal("1.0E-7", OWL2Datatype.XSD_DOUBLE))));
     }
 
@@ -165,9 +165,9 @@ public class TurtleTestCase extends TestBase {
     public void shouldParseTwo() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1 .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/South_Africa");
+        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i, Literal(1))));
     }
 
@@ -175,9 +175,9 @@ public class TurtleTestCase extends TestBase {
     public void shouldParseOne() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1.0.";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/", "areaTotal"));
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(p)));
-        IRI i = IRI("http://dbpedia.org/resource/South_Africa");
+        IRI i = IRI("http://dbpedia.org/resource/", "South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i, Literal("1.0", OWL2Datatype.XSD_DECIMAL))));
     }
 
@@ -187,10 +187,10 @@ public class TurtleTestCase extends TestBase {
             + "      <http://www.w3.org/2004/02/skos/core#broader>\n [] ;\n"
             + "      <http://www.w3.org/2004/02/skos/core#broader>\n [] .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLIndividual i = NamedIndividual(IRI("http://taxonomy.wolterskluwer.de/practicearea/10112"));
-        OWLAnnotationProperty ap = AnnotationProperty(IRI("http://www.w3.org/2004/02/skos/core#broader"));
-        OWLClass c = Class(IRI("http://www.w3.org/2004/02/skos/core#Concept"));
-        OWLClass term = Class(IRI("http://schema.wolterskluwer.de/TaxonomyTerm"));
+        OWLIndividual i = NamedIndividual(IRI("http://taxonomy.wolterskluwer.de/practicearea/10112", ""));
+        OWLAnnotationProperty ap = AnnotationProperty(IRI("http://www.w3.org/2004/02/skos/core#", "broader"));
+        OWLClass c = Class(IRI("http://www.w3.org/2004/02/skos/core#", "Concept"));
+        OWLClass term = Class(IRI("http://schema.wolterskluwer.de/", "TaxonomyTerm"));
         assertTrue(ontology.containsAxiom(ClassAssertion(c, i)));
         assertTrue(ontology.containsAxiom(ClassAssertion(term, i)));
         assertTrue(ontology.containsEntityInSignature(ap));
@@ -240,7 +240,7 @@ public class TurtleTestCase extends TestBase {
             + ":t rdf:type owl:Class ; rdfs:subClassOf :q .";
         OWLOntology in = loadOntologyFromString(input);
         String string = "urn:test#test.owl/";
-        OWLOntology ontology = getOWLOntology(IRI.create(string));
+        OWLOntology ontology = getOWLOntology(IRI.create(string, ""));
         ontology.add(df.getOWLSubClassOfAxiom(df.getOWLClass(string, "t"), df.getOWLClass(string, "q")));
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         equal(o, in);

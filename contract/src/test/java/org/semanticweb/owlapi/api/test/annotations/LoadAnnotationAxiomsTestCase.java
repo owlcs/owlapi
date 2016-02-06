@@ -38,8 +38,8 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     @Test
     public void testIgnoreAnnotations() throws Exception {
         OWLOntology ont = getOWLOntology();
-        OWLClass clsA = Class(IRI("http://ont.com#A"));
-        OWLClass clsB = Class(IRI("http://ont.com#B"));
+        OWLClass clsA = Class(IRI("http://ont.com#", "A"));
+        OWLClass clsB = Class(IRI("http://ont.com#", "B"));
         OWLSubClassOfAxiom sca = SubClassOf(clsA, clsB);
         ont.add(sca);
         OWLAnnotationProperty rdfsComment = RDFSComment();
@@ -50,7 +50,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         ont.add(annoAx2);
         OWLAnnotationPropertyRangeAxiom annoAx3 = df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
         ont.add(annoAx3);
-        OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#myComment"));
+        OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#", "myComment"));
         OWLSubAnnotationPropertyOfAxiom annoAx4 = df.getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
         ont.add(annoAx4);
         reload(ont, new RDFXMLDocumentFormat());
@@ -59,8 +59,8 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         reload(ont, new FunctionalSyntaxDocumentFormat());
     }
 
-    private void reload(OWLOntology ontology, OWLDocumentFormat format)
-        throws OWLOntologyStorageException, OWLOntologyCreationException {
+    private void reload(OWLOntology ontology, OWLDocumentFormat format) throws OWLOntologyStorageException,
+        OWLOntologyCreationException {
         Set<OWLAxiom> axioms = asUnorderedSet(ontology.axioms());
         Set<OWLAxiom> annotationAxioms = asUnorderedSet(axioms.stream().filter(OWLAxiom::isAnnotationAxiom));
         OWLOntologyLoaderConfiguration withAnnosConfig = new OWLOntologyLoaderConfiguration();
@@ -77,8 +77,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     }
 
     private OWLOntology reload(OWLOntology ontology, OWLDocumentFormat format,
-        OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
+        OWLOntologyLoaderConfiguration configuration) throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology reloaded = loadOntologyWithConfig(saveOntology(ontology, format), configuration);
         reloaded.remove(reloaded.axioms(AxiomType.DECLARATION));
         return reloaded;

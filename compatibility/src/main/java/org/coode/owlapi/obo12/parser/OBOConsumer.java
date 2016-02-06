@@ -282,10 +282,10 @@ class OBOConsumer implements OBOParserHandler {
      * {@link org.semanticweb.owlapi.model.OWLOntologyID}.
      */
     private void setOntologyId() {
-        IRI ontologyIRI = IRI.create(idSpaceManager.getIRIPrefix(ontologyTagValue) + ontologyTagValue);
+        IRI ontologyIRI = IRI.create(idSpaceManager.getIRIPrefix(ontologyTagValue), ontologyTagValue);
         IRI versionIRI = null;
         if (dataVersionTagValue.length() > 0) {
-            versionIRI = IRI.create(ontologyIRI.toString() + "/" + dataVersionTagValue);
+            versionIRI = IRI.create(ontologyIRI + "/", dataVersionTagValue);
         }
         OWLOntologyID ontologyID = new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
         ontology.getOWLOntologyManager().applyChange(new SetOntologyID(ontology, ontologyID));
@@ -340,8 +340,8 @@ class OBOConsumer implements OBOParserHandler {
     }
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
-        OWLAxiom ax = getDataFactory()
-            .getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(), classExpression));
+        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
+            classExpression));
         getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
     }
 
@@ -375,8 +375,8 @@ class OBOConsumer implements OBOParserHandler {
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
                     owlOntologyManager.addAxiom(ontology, ax);
-                    OWLDeclarationAxiom annotationPropertyDeclaration = getDataFactory()
-                        .getOWLDeclarationAxiom(property);
+                    OWLDeclarationAxiom annotationPropertyDeclaration = getDataFactory().getOWLDeclarationAxiom(
+                        property);
                     owlOntologyManager.addAxiom(ontology, annotationPropertyDeclaration);
                 }
             }
@@ -439,7 +439,7 @@ class OBOConsumer implements OBOParserHandler {
         if (tagIRI != null) {
             return tagIRI;
         } else {
-            IRI freshTagIRI = IRI.create(OBOVocabulary.OBO_IRI_BASE + tagName);
+            IRI freshTagIRI = IRI.create(OBOVocabulary.OBO_IRI_BASE, tagName);
             tagIRICache.put(tagName, freshTagIRI);
             return freshTagIRI;
         }
@@ -495,8 +495,7 @@ class OBOConsumer implements OBOParserHandler {
             // the quoted string is a description of the xref. I can't find
             // anywhere to put this.
             // Just add as a comment for now
-            @Nonnull
-            Set<OWLAnnotation> xrefDescriptions = new HashSet<>();
+            @Nonnull Set<OWLAnnotation> xrefDescriptions = new HashSet<>();
             if (xrefQuotedString != null) {
                 xrefDescriptions.add(df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(xrefQuotedString)));
             }

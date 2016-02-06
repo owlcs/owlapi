@@ -29,7 +29,7 @@ public class SimpleIRIShortFormProviderTestCase {
 
     @Test
     public void testFragmentShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#A");
+        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#", "A");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
         assertEquals("A", shortForm);
@@ -37,7 +37,7 @@ public class SimpleIRIShortFormProviderTestCase {
 
     @Test
     public void testLastPathShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x");
+        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/", "x");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
         assertEquals("x", shortForm);
@@ -45,7 +45,7 @@ public class SimpleIRIShortFormProviderTestCase {
 
     @Test
     public void testEmptyPathShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/");
+        IRI iri = IRI("http://owl.cs.manchester.ac.uk/", "");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
         assertEquals("<http://owl.cs.manchester.ac.uk/>", shortForm);

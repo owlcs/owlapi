@@ -10,17 +10,12 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class PunningAndDomainsRangesTestCase extends TestBase {
 
     @Test
-    public void shouldKeepDomainsInFSS() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(IRI.create("urn:testontology"));
-        OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(IRI.create(
-            "urn:property:p"));
-        OWLDataProperty p2 = df.getOWLDataProperty(IRI.create(
-            "urn:property:p"));
-        m.addAxiom(o, df.getOWLAnnotationPropertyRangeAxiom(p1,
-            OWL2Datatype.RDFS_LITERAL.getIRI()));
-        m.addAxiom(o, df.getOWLDataPropertyRangeAxiom(p2,
-            OWL2Datatype.RDFS_LITERAL.getDatatype(df)));
+    public void shouldKeepDomainsInFSS() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = m.createOntology(IRI.create("urn:test#", "ontology"));
+        OWLAnnotationProperty p1 = df.getOWLAnnotationProperty(IRI.create("urn:property#", "p"));
+        OWLDataProperty p2 = df.getOWLDataProperty(IRI.create("urn:property#", "p"));
+        m.addAxiom(o, df.getOWLAnnotationPropertyRangeAxiom(p1, OWL2Datatype.RDFS_LITERAL.getIRI()));
+        m.addAxiom(o, df.getOWLDataPropertyRangeAxiom(p2, OWL2Datatype.RDFS_LITERAL.getDatatype(df)));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
     }

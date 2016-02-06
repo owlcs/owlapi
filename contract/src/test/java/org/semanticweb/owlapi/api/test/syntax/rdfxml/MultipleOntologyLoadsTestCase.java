@@ -37,9 +37,9 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 @SuppressWarnings({ "javadoc" })
 public class MultipleOntologyLoadsTestCase extends TestBase {
 
-    private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1");
-    private static final IRI CREATEV2 = IRI("http://test.example.org/ontology/0139/version:2");
-    private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139");
+    private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1", "");
+    private static final IRI CREATEV2 = IRI("http://test.example.org/ontology/0139/version:2", "");
+    private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139", "");
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testMultipleVersionLoadChangeIRI() throws Exception {

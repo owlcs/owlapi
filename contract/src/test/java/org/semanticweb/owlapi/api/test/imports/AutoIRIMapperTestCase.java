@@ -13,7 +13,7 @@ public class AutoIRIMapperTestCase extends TestBase {
     @Test
     public void shouldTestIRIMapperForOWLXML() {
         AutoIRIMapper mapper = new AutoIRIMapper(RESOURCES, false);
-        IRI documentIRI = mapper.getDocumentIRI(IRI.create("urn:test:prem"));
+        IRI documentIRI = mapper.getDocumentIRI(IRI.create("urn:test:", "prem"));
         assert documentIRI != null;
         assertTrue(documentIRI.toString().endsWith("/urntestontology.xml"));
     }

@@ -56,8 +56,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
             } else {
                 iri = iriPrefix;
             }
-            map.put(IRI.create(iri), ns.getPrefixName().toLowerCase());
-            map.put(IRI.create(iri + '/'), ns.getPrefixName().toLowerCase());
+            map.put(IRI.create(iri, ""), ns.getPrefixName().toLowerCase());
+            map.put(IRI.create(iri + '/', ""), ns.getPrefixName().toLowerCase());
         }
         return Collections.unmodifiableMap(map);
     }

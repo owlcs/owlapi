@@ -385,7 +385,7 @@ public abstract class TestBase {
     }
 
     public static IRI iri(String name) {
-        return IRI(uriBase + '#' + name);
+        return IRI(uriBase + '#', name);
     }
 
     public void roundTripOntology(OWLOntology ont) throws OWLOntologyStorageException, OWLOntologyCreationException {
@@ -434,7 +434,7 @@ public abstract class TestBase {
 
     // @Test
     public void checkVerify() {
-        OWLDataProperty t = df.getOWLDataProperty("urn:test#t");
+        OWLDataProperty t = df.getOWLDataProperty("urn:test#", "t");
         Set<OWLAxiom> ax1 = new HashSet<>();
         ax1.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));
         ax1.add(df.getOWLDataPropertyAssertionAxiom(t, df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));

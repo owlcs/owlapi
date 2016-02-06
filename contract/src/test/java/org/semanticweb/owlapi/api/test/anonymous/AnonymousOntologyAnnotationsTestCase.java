@@ -26,14 +26,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 3.2.0
  */
-public class AnonymousOntologyAnnotationsTestCase
-    extends AbstractRoundTrippingTestCase {
+public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getAnonymousOWLOntology();
-        OWLAnnotationProperty prop = AnnotationProperty(IRI(
-            "http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#",
+            "prop"));
         OWLLiteral value = Literal(33);
         OWLAnnotation annotation = df.getOWLAnnotation(prop, value);
         ont.applyChange(new AddOntologyAnnotation(ont, annotation));

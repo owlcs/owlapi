@@ -37,13 +37,11 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     private static final @Nonnull String FIXED = "Prefix(:=<http://namespace.owl#>)\n"
         + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
         + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
-        + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
-        + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-        + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + '\n' + '\n'
-        + "Ontology(<http://namespace.owl>\n" + '\n' + "Declaration(Class(:C))\n"
-        + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n" + "Declaration(Class(:D))\n"
-        + "Declaration(ObjectProperty(:p))\n" + "Declaration(DataProperty(:q))\n" + "ClassAssertion(:D _:genid2)\n"
-        + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ')';
+        + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n" + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+        + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + '\n' + '\n' + "Ontology(<http://namespace.owl>\n"
+        + '\n' + "Declaration(Class(:C))\n" + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n"
+        + "Declaration(Class(:D))\n" + "Declaration(ObjectProperty(:p))\n" + "Declaration(DataProperty(:q))\n"
+        + "ClassAssertion(:D _:genid2)\n" + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ')';
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
@@ -61,14 +59,14 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTrip() throws Exception {
-        OWLClass c = Class(IRI(NS + "#C"));
-        OWLClass d = Class(IRI(NS + "#D"));
-        OWLObjectProperty p = ObjectProperty(IRI(NS + "#p"));
-        OWLDataProperty q = DataProperty(IRI(NS + "#q"));
+        OWLClass c = Class(IRI(NS + "#", "C"));
+        OWLClass d = Class(IRI(NS + "#", "D"));
+        OWLObjectProperty p = ObjectProperty(IRI(NS + "#", "p"));
+        OWLDataProperty q = DataProperty(IRI(NS + "#", "q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
-        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
-            DataPropertyAssertion(q, i, Literal("hello")));
+        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i), DataPropertyAssertion(q, i, Literal(
+            "hello")));
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format);

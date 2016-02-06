@@ -21,7 +21,8 @@ import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 @SuppressWarnings("javadoc")
 public class PrimerTestCase extends TestBase {
 
-    protected @Nonnull OWLOntology func = loadOntologyFromString(FUNCTIONAL, IRI.create("urn:primer#functional"),
+    private static final String NS = "http://example.com/owl/families/";
+    protected @Nonnull OWLOntology func = loadOntologyFromString(FUNCTIONAL, IRI.create("urn:primer#", "functional"),
         new FunctionalSyntaxDocumentFormat());
     OWL2DLProfile profile = new OWL2DLProfile();
 
@@ -32,7 +33,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldManchBeEquivalent() throws OWLOntologyCreationException {
-        OWLOntology manch = loadOntologyFromString(MANCHESTER, IRI.create("urn:primer#manchester"),
+        OWLOntology manch = loadOntologyFromString(MANCHESTER, IRI.create("urn:primer#", "manchester"),
             new ManchesterSyntaxDocumentFormat());
         assertTrue(profile.checkOntology(manch).getViolations().isEmpty());
         // XXX Manchester OWL Syntax does not support GCIs
@@ -42,47 +43,47 @@ public class PrimerTestCase extends TestBase {
         // Rectifying this to be able to assert equality, and using a different
         // ontology
         // so that the equality test does not skip gcis because of the format
-        OWLClass x = df.getOWLClass("http://example.com/owl/families/X");
+        OWLClass x = df.getOWLClass(NS, "X");
         Set<OWLClassAxiom> axioms = asUnorderedSet(manch.axioms(x));
         manch.remove(axioms);
-        OWLClass female = df.getOWLClass("http://example.com/owl/families/Female");
-        OWLClassExpression oneOf = df.getOWLObjectOneOf(
-            df.getOWLNamedIndividual("http://example.com/owl/families/Bill"),
-            df.getOWLNamedIndividual("http://example.com/owl/families/Mary"),
-            df.getOWLNamedIndividual("http://example.com/owl/families/Meg"));
-        OWLClass parent = df.getOWLClass("http://example.com/owl/families/Parent");
-        OWLObjectProperty hasChild = df.getOWLObjectProperty("http://example.com/owl/families/hasChild");
-        OWLClassExpression superClass = df.getOWLObjectIntersectionOf(parent,
-            df.getOWLObjectAllValuesFrom(hasChild, female), df.getOWLObjectMaxCardinality(1, hasChild));
-        manch.getOWLOntologyManager().addAxiom(manch,
-            df.getOWLSubClassOfAxiom(df.getOWLObjectIntersectionOf(female, oneOf), superClass));
-        OWLOntology replacement = m.createOntology(manch.axioms(),
-            get(manch.getOntologyID().getOntologyIRI()));
+        OWLClass female = df.getOWLClass(NS, "Female");
+        OWLClassExpression oneOf = df.getOWLObjectOneOf(df.getOWLNamedIndividual(NS, "Bill"), df.getOWLNamedIndividual(
+            NS, "Mary"), df.getOWLNamedIndividual(NS, "Meg"));
+        OWLClass parent = df.getOWLClass(NS, "Parent");
+        OWLObjectProperty hasChild = df.getOWLObjectProperty(NS, "hasChild");
+        OWLClassExpression superClass = df.getOWLObjectIntersectionOf(parent, df.getOWLObjectAllValuesFrom(hasChild,
+            female), df.getOWLObjectMaxCardinality(1, hasChild));
+        manch.getOWLOntologyManager().addAxiom(manch, df.getOWLSubClassOfAxiom(df.getOWLObjectIntersectionOf(female,
+            oneOf), superClass));
+        OWLOntology replacement = m.createOntology(manch.axioms(), get(manch.getOntologyID().getOntologyIRI()));
         equal(func, replacement);
     }
 
     @Test
     public void shouldRDFXMLBeEquivalent() {
-        OWLOntology rdf = loadOntologyFromString(RDFXML, IRI.create("urn:primer#rdfxml"), new RDFXMLDocumentFormat());
+        OWLOntology rdf = loadOntologyFromString(RDFXML, IRI.create("urn:primer#", "rdfxml"),
+            new RDFXMLDocumentFormat());
         assertTrue(profile.checkOntology(rdf).getViolations().isEmpty());
         equal(func, rdf);
     }
 
     @Test
     public void shouldOWLXMLBeEquivalent() {
-        OWLOntology owl = loadOntologyFromString(OWLXML, IRI.create("urn:primer#owlxml"), new OWLXMLDocumentFormat());
+        OWLOntology owl = loadOntologyFromString(OWLXML, IRI.create("urn:primer#", "owlxml"),
+            new OWLXMLDocumentFormat());
         assertTrue(profile.checkOntology(owl).getViolations().isEmpty());
         equal(func, owl);
     }
 
     @Test
     public void shouldTURTLEBeEquivalent() {
-        OWLOntology turt = loadOntologyFromString(TURTLE, IRI.create("urn:primer#turtle"), new TurtleDocumentFormat());
+        OWLOntology turt = loadOntologyFromString(TURTLE, IRI.create("urn:primer#", "turtle"),
+            new TurtleDocumentFormat());
         assertTrue(profile.checkOntology(turt).getViolations().isEmpty());
         // XXX somehow the Turtle parser introduces a tautology: the inverse of
         // inverse(hasParent) is hasParent
         // dropping said tautology to assert equality of the rest of the axioms
-        OWLObjectProperty hasParent = df.getOWLObjectProperty("http://example.com/owl/families/hasParent");
+        OWLObjectProperty hasParent = df.getOWLObjectProperty(NS, "hasParent");
         turt.remove(df.getOWLInverseObjectPropertiesAxiom(df.getOWLObjectInverseOf(hasParent), hasParent));
         equal(func, turt);
     }
@@ -97,10 +98,9 @@ public class PrimerTestCase extends TestBase {
         + "<owl:ObjectProperty rdf:about=\"hasUncle\"/>\n"
         + "<owl:ObjectProperty rdf:about=\"http://example.org/otherOntologies/families/child\"/>\n"
         + "<owl:DatatypeProperty rdf:about=\"http://example.org/otherOntologies/families/age\"/>\n"
-        + "<owl:ObjectProperty rdf:about=\"hasDaughter\"/>\n"
-        + "<owl:ObjectProperty rdf:about=\"hasGrandparent\"/>\n" + "<owl:ObjectProperty rdf:about=\"parentOf\"/>\n"
-        + "<owl:ObjectProperty rdf:about=\"loves\"/>\n" + "<owl:ObjectProperty rdf:about=\"hasRelative\"/>\n"
-        + "<owl:DatatypeProperty rdf:about=\"hasSSN\"/>\n"
+        + "<owl:ObjectProperty rdf:about=\"hasDaughter\"/>\n" + "<owl:ObjectProperty rdf:about=\"hasGrandparent\"/>\n"
+        + "<owl:ObjectProperty rdf:about=\"parentOf\"/>\n" + "<owl:ObjectProperty rdf:about=\"loves\"/>\n"
+        + "<owl:ObjectProperty rdf:about=\"hasRelative\"/>\n" + "<owl:DatatypeProperty rdf:about=\"hasSSN\"/>\n"
         + "<owl:Class rdf:about=\"http://example.org/otherOntologies/families/Grownup\"/>\n"
         + "<owl:Class rdf:about=\"SocialRole\"/>\n" + "<owl:Class rdf:about=\"Dead\"/>\n"
         + "<owl:Class rdf:about=\"Human\"/>\n"
@@ -312,13 +312,11 @@ public class PrimerTestCase extends TestBase {
         + "   Declaration( Class( :Adult ) )\n" + "   Declaration( Class( :YoungChild ) )\n"
         + "   Declaration( ObjectProperty( :hasWife ) )\n" + "   Declaration( ObjectProperty( :hasChild ) )\n"
         + "   Declaration( ObjectProperty( :hasDaughter ) )\n" + "   Declaration( ObjectProperty( :loves ) )\n"
-        + "   Declaration( ObjectProperty( :hasSpouse ) )\n"
-        + "   Declaration( ObjectProperty( :hasGrandparent ) )\n"
+        + "   Declaration( ObjectProperty( :hasSpouse ) )\n" + "   Declaration( ObjectProperty( :hasGrandparent ) )\n"
         + "   Declaration( ObjectProperty( :hasParent ) )\n" + "   Declaration( ObjectProperty( :hasBrother ) )\n"
         + "   Declaration( ObjectProperty( :hasUncle ) )\n" + "   Declaration( ObjectProperty( :hasSon ) )\n"
         + "   Declaration( ObjectProperty( :hasAncestor ) )\n" + "   Declaration( ObjectProperty( :hasHusband ) )\n"
-        + "   Declaration( ObjectProperty( :hasRelative ) )\n"
-        + "   Declaration( ObjectProperty( otherOnt:child ) )\n"
+        + "   Declaration( ObjectProperty( :hasRelative ) )\n" + "   Declaration( ObjectProperty( otherOnt:child ) )\n"
         + "   Declaration( ObjectProperty( :hasFather ) )\n" + "   Declaration( ObjectProperty( :hasSon ) )\n"
         + "   Declaration( ObjectProperty( :parentOf ) )\n" + "   Declaration( DataProperty( otherOnt:age ) )\n"
         + "   Declaration( Class( otherOnt:Grownup ) )\n" + "   Declaration( Class( :Father ) )\n"
@@ -340,8 +338,7 @@ public class PrimerTestCase extends TestBase {
         + "   IrreflexiveObjectProperty( :parentOf )\n" + "   FunctionalObjectProperty( :hasHusband )\n"
         + "   InverseFunctionalObjectProperty( :hasHusband )\n" + "   TransitiveObjectProperty( :hasAncestor )\n"
         + "   FunctionalDataProperty( :hasAge )\n" + '\n' + "   SubClassOf( :Woman :Person )\n"
-        + "   SubClassOf( :Mother :Woman )\n"
-        + "   SubClassOf( :Grandfather ObjectIntersectionOf( :Man :Parent ) )\n"
+        + "   SubClassOf( :Mother :Woman )\n" + "   SubClassOf( :Grandfather ObjectIntersectionOf( :Man :Parent ) )\n"
         + "   SubClassOf( :Teenager DataSomeValuesFrom( :hasAge DatatypeRestriction( xsd:integer xsd:minExclusive \"12\"^^xsd:integer xsd:maxInclusive \"19\"^^xsd:integer ) ) )\n"
         + "   SubClassOf( Annotation( rdfs:comment \"States that every man is a person.\" ) :Man :Person )\n"
         + "   SubClassOf( :Father ObjectIntersectionOf( :Man :Parent ) )\n"
@@ -370,9 +367,8 @@ public class PrimerTestCase extends TestBase {
         + "   ClassAssertion( ObjectMaxCardinality( 4 :hasChild :Parent ) :John )\n"
         + "   ClassAssertion( ObjectMinCardinality( 2 :hasChild :Parent ) :John )\n"
         + "   ClassAssertion( ObjectExactCardinality( 3 :hasChild :Parent ) :John )\n"
-        + "   ClassAssertion( ObjectExactCardinality( 5 :hasChild ) :John )\n"
-        + "   ClassAssertion( :Father :John )\n" + "   ClassAssertion( :SocialRole :Father )\n" + '\n'
-        + "   ObjectPropertyAssertion( :hasWife :John :Mary )\n"
+        + "   ClassAssertion( ObjectExactCardinality( 5 :hasChild ) :John )\n" + "   ClassAssertion( :Father :John )\n"
+        + "   ClassAssertion( :SocialRole :Father )\n" + '\n' + "   ObjectPropertyAssertion( :hasWife :John :Mary )\n"
         + "   NegativeObjectPropertyAssertion( :hasWife :Bill :Mary )\n"
         + "   NegativeObjectPropertyAssertion( :hasDaughter :Bill :Susan )\n"
         + "   DataPropertyAssertion( :hasAge :John \"51\"^^xsd:integer )\n"
@@ -395,12 +391,11 @@ public class PrimerTestCase extends TestBase {
         + "   SubPropertyChain: hasParent o hasParent\n" + "ObjectProperty: hasUncle\n"
         + "   SubPropertyChain: hasFather o hasBrother\n" + "ObjectProperty: hasFather\n"
         + "   SubPropertyOf: hasParent\n" + "ObjectProperty: hasBrother\n" + "ObjectProperty: hasDaughter\n"
-        + "ObjectProperty: hasSon\n" + "ObjectProperty: loves\n" + '\n'
-        + "DisjointProperties: hasParent, hasSpouse\n" + "DisjointProperties: hasSon,    hasDaughter\n"
-        + "EquivalentProperties: hasChild, otherOnt:child\n" + "EquivalentProperties: hasAge,   otherOnt:age\n"
-        + '\n' + "DataProperty: hasAge\n" + "   Domain: Person\n" + "   Range:  xsd:nonNegativeInteger\n"
-        + "   Characteristics: Functional\n" + "DataProperty: hasSSN\n" + '\n' + "Datatype: personAge\n"
-        + "   EquivalentTo: xsd:integer[>= 0 , <= 150]\n" + "Datatype: minorAge\n"
+        + "ObjectProperty: hasSon\n" + "ObjectProperty: loves\n" + '\n' + "DisjointProperties: hasParent, hasSpouse\n"
+        + "DisjointProperties: hasSon,    hasDaughter\n" + "EquivalentProperties: hasChild, otherOnt:child\n"
+        + "EquivalentProperties: hasAge,   otherOnt:age\n" + '\n' + "DataProperty: hasAge\n" + "   Domain: Person\n"
+        + "   Range:  xsd:nonNegativeInteger\n" + "   Characteristics: Functional\n" + "DataProperty: hasSSN\n" + '\n'
+        + "Datatype: personAge\n" + "   EquivalentTo: xsd:integer[>= 0 , <= 150]\n" + "Datatype: minorAge\n"
         + "   EquivalentTo: xsd:integer[>= 0 , <= 18]\n" + "Datatype: majorAge\n"
         + "   EquivalentTo: personAge and not minorAge\n" + "Datatype: toddlerAge\n" + "   EquivalentTo: { 1, 2 }\n"
         + "Datatype: minorAge\n" + '\n' + "Class: Woman\n" + "   SubClassOf: Person\n" + "Class: Mother\n"
@@ -420,9 +415,9 @@ public class PrimerTestCase extends TestBase {
         + "   SubClassOf: Man and Parent\n"
         // this class X is a trick to represent a GCI
         + "Class: X\n" + "   SubClassOf:   Parent and hasChild max 1 and hasChild only Female\n"
-        + "   EquivalentTo: {Mary, Bill, Meg} and Female\n" + "Class: Dead\n" + "Class: Father\n"
-        + "Class: Female\n" + "Class: Happy\n" + "Class: Human\n" + "Class: SocialRole\n" + "Class: YoungChild\n"
-        + "Class: Adult\n" + "DisjointClasses: Mother, Father, YoungChild\n" + "DisjointClasses: Woman, Man\n"
+        + "   EquivalentTo: {Mary, Bill, Meg} and Female\n" + "Class: Dead\n" + "Class: Father\n" + "Class: Female\n"
+        + "Class: Happy\n" + "Class: Human\n" + "Class: SocialRole\n" + "Class: YoungChild\n" + "Class: Adult\n"
+        + "DisjointClasses: Mother, Father, YoungChild\n" + "DisjointClasses: Woman, Man\n"
         + "Class: otherOnt:Grownup\n" + "EquivalentClasses: Adult, otherOnt:Grownup\n" + '\n' + "Individual: Mary\n"
         + "   Types: Person\n" + "   Types: Woman\n" + "Individual: Jack\n" + "   Types: Person and not Parent\n"
         + "Individual: John\n" + "   Types: Father\n" + "   Types: hasChild max 4 Parent\n"
@@ -502,18 +497,16 @@ public class PrimerTestCase extends TestBase {
         + "    owl:targetValue        53 .\n" + ":hasAge  rdfs:domain  :Person ;\n"
         + "         rdfs:range   xsd:nonNegativeInteger .\n" + ":Mother  owl:equivalentClass  [\n"
         + "  rdf:type            owl:Class ;\n" + "  owl:intersectionOf  ( :Woman :Parent )\n" + "] .\n"
-        + ":Parent  owl:equivalentClass  [\n" + "  rdf:type     owl:Class ;\n"
-        + "  owl:unionOf  ( :Mother :Father )\n" + "] .\n" + ":ChildlessPerson  owl:equivalentClass  [\n"
-        + "  rdf:type            owl:Class ;\n"
+        + ":Parent  owl:equivalentClass  [\n" + "  rdf:type     owl:Class ;\n" + "  owl:unionOf  ( :Mother :Father )\n"
+        + "] .\n" + ":ChildlessPerson  owl:equivalentClass  [\n" + "  rdf:type            owl:Class ;\n"
         + "  owl:intersectionOf  ( :Person  [ owl:complementOf  :Parent ] )\n" + "] .\n"
         + ":Grandfather  rdfs:subClassOf  [\n" + "  rdf:type            owl:Class ;\n"
         + "  owl:intersectionOf  ( :Man  :Parent )\n" + "] .\n" + ":Jack  rdf:type  [\n"
         + "  rdf:type            owl:Class ;\n" + "  owl:intersectionOf  ( :Person\n"
-        + "                        [ rdf:type owl:Class ; owl:complementOf  :Parent ]\n"
-        + "                      )\n" + "] .\n" + ":Parent  owl:equivalentClass  [\n"
-        + "  rdf:type            owl:Restriction ;\n" + "  owl:onProperty      :hasChild ;\n"
-        + "  owl:someValuesFrom  :Person\n" + "] .\n" + ":HappyPerson\n" + "    owl:equivalentClass  [\n"
-        + "      rdf:type            owl:Class ;\n"
+        + "                        [ rdf:type owl:Class ; owl:complementOf  :Parent ]\n" + "                      )\n"
+        + "] .\n" + ":Parent  owl:equivalentClass  [\n" + "  rdf:type            owl:Restriction ;\n"
+        + "  owl:onProperty      :hasChild ;\n" + "  owl:someValuesFrom  :Person\n" + "] .\n" + ":HappyPerson\n"
+        + "    owl:equivalentClass  [\n" + "      rdf:type            owl:Class ;\n"
         + "      owl:intersectionOf  ( [ rdf:type owl:Restriction ; owl:onProperty :hasChild ; owl:allValuesFrom   :HappyPerson      ]\n"
         + "                            [ rdf:type owl:Restriction ; owl:onProperty :hasChild ; owl:someValuesFrom  :HappyPerson      ] )\n"
         + "    ] .\n" + ":JohnsChildren  owl:equivalentClass  [\n" + "  rdf:type        owl:Restriction ;\n"
@@ -527,23 +520,22 @@ public class PrimerTestCase extends TestBase {
         + "  owl:minQualifiedCardinality  \"2\"^^xsd:nonNegativeInteger ;\n"
         + "  owl:onProperty               :hasChild ;\n" + "  owl:onClass                  :Parent\n" + "] .\n"
         + ":John  rdf:type  [\n" + "  rdf:type                  owl:Restriction ;\n"
-        + "  owl:qualifiedCardinality  \"3\"^^xsd:nonNegativeInteger ;\n"
-        + "  owl:onProperty            :hasChild ;\n" + "  owl:onClass               :Parent\n" + "] .\n"
-        + ":John  rdf:type  [\n" + "  rdf:type         owl:Restriction ;\n"
-        + "  owl:cardinality  \"5\"^^xsd:nonNegativeInteger ;\n" + "  owl:onProperty   :hasChild\n" + "] .\n"
-        + ":MyBirthdayGuests  owl:equivalentClass  [\n" + "  rdf:type   owl:Class ;\n"
-        + "  owl:oneOf  ( :Bill  :John  :Mary )\n" + "] .\n" + ":hasParent owl:inverseOf :hasChild .\n"
-        + ":Orphan  owl:equivalentClass  [\n" + "  rdf:type           owl:Restriction ;\n"
-        + "  owl:onProperty     [ owl:inverseOf  :hasChild ] ;\n" + "  owl:allValuesFrom  :Dead\n" + "] .\n"
-        + ":hasSpouse  rdf:type  owl:SymmetricProperty .\n" + ":hasChild  rdf:type  owl:AsymmetricProperty .\n"
-        + ":hasParent  owl:propertyDisjointWith  :hasSpouse .\n"
+        + "  owl:qualifiedCardinality  \"3\"^^xsd:nonNegativeInteger ;\n" + "  owl:onProperty            :hasChild ;\n"
+        + "  owl:onClass               :Parent\n" + "] .\n" + ":John  rdf:type  [\n"
+        + "  rdf:type         owl:Restriction ;\n" + "  owl:cardinality  \"5\"^^xsd:nonNegativeInteger ;\n"
+        + "  owl:onProperty   :hasChild\n" + "] .\n" + ":MyBirthdayGuests  owl:equivalentClass  [\n"
+        + "  rdf:type   owl:Class ;\n" + "  owl:oneOf  ( :Bill  :John  :Mary )\n" + "] .\n"
+        + ":hasParent owl:inverseOf :hasChild .\n" + ":Orphan  owl:equivalentClass  [\n"
+        + "  rdf:type           owl:Restriction ;\n" + "  owl:onProperty     [ owl:inverseOf  :hasChild ] ;\n"
+        + "  owl:allValuesFrom  :Dead\n" + "] .\n" + ":hasSpouse  rdf:type  owl:SymmetricProperty .\n"
+        + ":hasChild  rdf:type  owl:AsymmetricProperty .\n" + ":hasParent  owl:propertyDisjointWith  :hasSpouse .\n"
         + ":hasRelative  rdf:type  owl:ReflexiveProperty .\n" + ":parentOf  rdf:type  owl:IrreflexiveProperty .\n"
         + ":hasHusband  rdf:type  owl:FunctionalProperty .\n"
         + ":hasHusband  rdf:type  owl:InverseFunctionalProperty .\n"
         + ":hasAncestor  rdf:type  owl:TransitiveProperty .\n"
         + ":hasGrandparent  owl:propertyChainAxiom  ( :hasParent  :hasParent ) .\n"
-        + ":Person owl:hasKey ( :hasSSN ) .\n" + ":personAge  owl:equivalentClass\n"
-        + " [ rdf:type rdfs:Datatype;\n" + "   owl:onDatatype xsd:integer;\n"
+        + ":Person owl:hasKey ( :hasSSN ) .\n" + ":personAge  owl:equivalentClass\n" + " [ rdf:type rdfs:Datatype;\n"
+        + "   owl:onDatatype xsd:integer;\n"
         + "   owl:withRestrictions ( [ xsd:minInclusive \"0\"^^xsd:integer ] [ xsd:maxInclusive \"150\"^^xsd:integer ] )\n"
         + " ] .\n" + ":majorAge  owl:equivalentClass\n" + "  [ rdf:type rdfs:Datatype;\n"
         + "    owl:intersectionOf ( :personAge\n"
@@ -558,21 +550,20 @@ public class PrimerTestCase extends TestBase {
         + "         ]\n" + "      ] .\n" + ":Person  rdfs:comment  \"Represents the set of all people.\" .\n"
         + ":Man rdfs:subClassOf :Person .\n" + "[]  rdf:type       owl:Axiom ;\n"
         + "    owl:annotatedSource    :Man ;\n" + "    owl:annotatedProperty  rdfs:subClassOf ;\n"
-        + "    owl:annotatedTarget    :Person ;\n"
-        + "    rdfs:comment     \"States that every man is a person.\" .\n" + '\n'
-        + ":Mary      owl:sameAs              otherOnt:MaryBrown .\n"
+        + "    owl:annotatedTarget    :Person ;\n" + "    rdfs:comment     \"States that every man is a person.\" .\n"
+        + '\n' + ":Mary      owl:sameAs              otherOnt:MaryBrown .\n"
         + ":John      owl:sameAs              otherOnt:JohnBrown .\n"
         + ":Adult     owl:equivalentClass     otherOnt:Grownup .\n"
         + ":hasChild  owl:equivalentProperty  otherOnt:child .\n"
         + ":hasAge    owl:equivalentProperty  otherOnt:age .\n" + ":John    rdf:type owl:NamedIndividual .\n"
         + ":Person  rdf:type owl:Class .\n" + ":hasWife rdf:type owl:ObjectProperty .\n"
         + ":hasAge  rdf:type owl:DatatypeProperty .\n" + ":John rdf:type :Father .\n"
-        + ":Father rdf:type :SocialRole .\n" + ":Father  rdfs:subClassOf  [\n"
-        + "  rdf:type            owl:Class ;\n" + "  owl:intersectionOf  ( :Man  :Parent )\n" + "] .\n" + '\n'
-        + ":Parent  owl:equivalentClass  [\n" + "  rdf:type            owl:Restriction ;\n"
-        + "  owl:onProperty      :hasChild ;\n" + "  owl:someValuesFrom  :Person\n" + "] .\n" + '\n'
-        + ":NarcisticPerson  owl:equivalentClass  [\n" + "  rdf:type        owl:Restriction ;\n"
-        + "  owl:onProperty  :loves ;\n" + "  owl:hasSelf     true\n" + "] .\n" + '\n'
+        + ":Father rdf:type :SocialRole .\n" + ":Father  rdfs:subClassOf  [\n" + "  rdf:type            owl:Class ;\n"
+        + "  owl:intersectionOf  ( :Man  :Parent )\n" + "] .\n" + '\n' + ":Parent  owl:equivalentClass  [\n"
+        + "  rdf:type            owl:Restriction ;\n" + "  owl:onProperty      :hasChild ;\n"
+        + "  owl:someValuesFrom  :Person\n" + "] .\n" + '\n' + ":NarcisticPerson  owl:equivalentClass  [\n"
+        + "  rdf:type        owl:Restriction ;\n" + "  owl:onProperty  :loves ;\n" + "  owl:hasSelf     true\n"
+        + "] .\n" + '\n'
         + "[] rdf:type     owl:AllDisjointClasses ;   owl:members  ( :Mother  :Father  :YoungChild ) .\n" + '\n'
         + ":hasUncle  owl:propertyChainAxiom  ( :hasFather  :hasBrother ) .\n" + '\n'
         + "[]  rdf:type               owl:NegativePropertyAssertion ;\n" + "    owl:sourceIndividual   :Bill ;\n"
@@ -583,8 +574,8 @@ public class PrimerTestCase extends TestBase {
         + "                            owl:onProperty      [ owl:inverseOf  :hasParent ] ;\n"
         + "                            owl:someValuesFrom  owl:Thing\n" + "                          ]\n"
         + "                        ]\n" + "                      )\n" + "] .\n" + '\n'
-        + ":hasSon  owl:propertyDisjointWith  :hasDaughter.\n" + '\n'
-        + ":hasFather  rdfs:subPropertyOf  :hasParent.\n" + "[]  rdf:type            owl:Class ;\n"
+        + ":hasSon  owl:propertyDisjointWith  :hasDaughter.\n" + '\n' + ":hasFather  rdfs:subPropertyOf  :hasParent.\n"
+        + "[]  rdf:type            owl:Class ;\n"
         + "    owl:intersectionOf  ( [ rdf:type   owl:Class ; owl:oneOf  ( :Mary  :Bill  :Meg ) ]\n"
         + "                          :Female\n" + "                        ) ;\n" + "    rdfs:subClassOf     [\n"
         + "      rdf:type            owl:Class ;\n" + "      owl:intersectionOf  ( :Parent\n"

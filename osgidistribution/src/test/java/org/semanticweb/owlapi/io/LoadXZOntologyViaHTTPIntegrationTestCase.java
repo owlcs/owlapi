@@ -19,10 +19,10 @@ public class LoadXZOntologyViaHTTPIntegrationTestCase {
 
     @Test
     public void testLoadOverHTTP() throws OWLOntologyCreationException {
-        String urlString = "http://owlcs.github.io/owlapibenchmarks/horridge-iswc-2014-corpus/BioPortal-Corpus-xz/BPOntology-100.owl.xml.xz";
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI
-        .create(urlString));
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(
+            "http://owlcs.github.io/owlapibenchmarks/horridge-iswc-2014-corpus/BioPortal-Corpus-xz/",
+            "BPOntology-100.owl.xml.xz"));
         assertNotNull(ontology);
         assertEquals("axiomCount", 122, ontology.getAxiomCount());
     }

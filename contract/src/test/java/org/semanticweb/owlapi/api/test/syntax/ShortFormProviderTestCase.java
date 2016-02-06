@@ -27,7 +27,7 @@ public class ShortFormProviderTestCase {
 
     @Test
     public void shouldFindShortForm() {
-        OWLClass c = Class(IRI("http://www.ebi.ac.uk/fgpt/ontologies/test/TEST_00001> test:TEST_00001"));
+        OWLClass c = Class(IRI("http://www.ebi.ac.uk/fgpt/ontologies/test/", "TEST_00001"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
         assertEquals("test:TEST_00001", shortform);
@@ -35,7 +35,7 @@ public class ShortFormProviderTestCase {
 
     @Test
     public void shouldFindShortFormForWoman() {
-        OWLClass c = Class(IRI("http://www.example.org/#Woman"));
+        OWLClass c = Class(IRI("http://www.example.org/#", "Woman"));
         QNameShortFormProvider shortener = new QNameShortFormProvider();
         String shortform = shortener.getShortForm(c);
         assertEquals("www:Woman", shortform);
@@ -43,7 +43,7 @@ public class ShortFormProviderTestCase {
 
     @Test
     public void shouldFindShortFormForSetPRefix() {
-        OWLClass c = Class(IRI("http://www.example.org/#Woman"));
+        OWLClass c = Class(IRI("http://www.example.org/#", "Woman"));
         Map<String, String> prefixes = new HashMap<>();
         prefixes.put("test", "http://www.example.org/#");
         QNameShortFormProvider shortener = new QNameShortFormProvider(prefixes);

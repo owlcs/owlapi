@@ -35,9 +35,9 @@ import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 @SuppressWarnings("javadoc")
 public class Utf8TestCase extends TestBase {
 
-    private static final String INVALID_UTF8 = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-        + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-        + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+    private static final String INVALID_UTF8 = "<!DOCTYPE rdf:RDF [\n"
+        + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n" + "<rdf:RDF \n" + "xml:base=\n"
+        + "\"http://www.example.org/ISA14#\" \n" + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
         + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
         + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
         + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
@@ -106,7 +106,7 @@ public class Utf8TestCase extends TestBase {
     public void testPositiveUTF8roundTrip() throws Exception {
         String ns = "http://protege.org/UTF8.owl";
         OWLOntology ontology = getOWLOntology();
-        OWLClass a = Class(IRI(ns + "#A"));
+        OWLClass a = Class(IRI(ns + "#", "A"));
         ontology.add(df.getOWLDeclarationAxiom(a));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("Chinese=處方"));
         OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
@@ -117,7 +117,7 @@ public class Utf8TestCase extends TestBase {
     @Test
     public void testRoundTrip() throws Exception {
         String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
-        OWLClass c = Class(IRI(ns + "#C"));
+        OWLClass c = Class(IRI(ns + "#", "C"));
         /*
          * The two unicode characters entered here are valid and can be found in
          * the code chart http://www.unicode.org/charts/PDF/U4E00.pdf. It has
@@ -136,7 +136,7 @@ public class Utf8TestCase extends TestBase {
 
     private OWLOntology createOriginalOntology(String ns, OWLClass c, String chinese)
         throws OWLOntologyCreationException {
-        OWLOntology ontology = getOWLOntology(IRI(ns));
+        OWLOntology ontology = getOWLOntology(IRI(ns, ""));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);
         return ontology;

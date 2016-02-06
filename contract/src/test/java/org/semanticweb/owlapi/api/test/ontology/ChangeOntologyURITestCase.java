@@ -34,13 +34,12 @@ public class ChangeOntologyURITestCase extends TestBase {
 
     @Test
     public void testChangeURI() throws OWLOntologyCreationException {
-        IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/ontA");
-        IRI newIRI = IRI("http://www.semanticweb.org/ontologies/ontB");
+        IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/", "ontA");
+        IRI newIRI = IRI("http://www.semanticweb.org/ontologies/", "ontB");
         OWLOntology ont = m.createOntology(oldIRI);
-        OWLOntology importingOnt = m
-            .createOntology(IRI("http://www.semanticweb.org/ontologies/ontC"));
-        m.applyChange(new AddImport(importingOnt, df.getOWLImportsDeclaration(
-            get(ont.getOntologyID().getOntologyIRI()))));
+        OWLOntology importingOnt = m.createOntology(IRI("http://www.semanticweb.org/ontologies/", "ontC"));
+        m.applyChange(new AddImport(importingOnt, df.getOWLImportsDeclaration(get(ont.getOntologyID()
+            .getOntologyIRI()))));
         assertTrue(m.contains(oldIRI));
         OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m);
         m.applyChanges(changer.getChanges(ont, newIRI));
@@ -53,8 +52,7 @@ public class ChangeOntologyURITestCase extends TestBase {
         assertEquals(ontology, ont);
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), newIRI);
         assertTrue(m.importsClosure(importingOnt).anyMatch(o -> o.equals(ont)));
-        assertNotNull("ontology should not be null",
-            m.getOntologyDocumentIRI(ont));
+        assertNotNull("ontology should not be null", m.getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(m.getOntologyDocumentIRI(ont), oldIRI);
         assertNotNull("ontology format should not be null", ont.getFormat());
@@ -62,7 +60,7 @@ public class ChangeOntologyURITestCase extends TestBase {
 
     @Test
     public void shouldCheckContents() throws OWLOntologyCreationException {
-        m.createOntology(IRI.create("http://www.test.com/123"));
+        m.createOntology(IRI.create("http://www.test.com/", "123"));
         OWLOntologyID anonymousId = m1.createOntology().getOntologyID();
         m.contains(anonymousId);
     }

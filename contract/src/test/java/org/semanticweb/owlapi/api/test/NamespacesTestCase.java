@@ -62,7 +62,7 @@ public class NamespacesTestCase extends TestBase {
 
     @Test
     public void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLClass item = df.getOWLClass("http://test.owl/test#item");
+        OWLClass item = df.getOWLClass("http://test.owl/test#", "item");
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
         OWLOntology o1 = m.createOntology();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();

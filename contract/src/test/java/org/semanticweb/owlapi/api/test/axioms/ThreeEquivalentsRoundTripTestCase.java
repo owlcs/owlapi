@@ -30,12 +30,12 @@ public class ThreeEquivalentsRoundTripTestCase extends TestBase {
     public void shouldRoundTrip() throws Exception {
         // given
         String ns = "http://protege.org/ontologies";
-        OWLClass b = Class(IRI(ns + "#B"));
-        OWLClass c = Class(IRI(ns + "#C"));
-        OWLObjectProperty p = ObjectProperty(IRI(ns + "#p"));
-        OWLObjectProperty q = ObjectProperty(IRI(ns + "#q"));
-        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#A")),
-            ObjectSomeValuesFrom(p, b), ObjectSomeValuesFrom(q, c));
+        OWLClass b = Class(IRI(ns + "#", "B"));
+        OWLClass c = Class(IRI(ns + "#", "C"));
+        OWLObjectProperty p = ObjectProperty(IRI(ns + "#", "p"));
+        OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
+        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#", "A")), ObjectSomeValuesFrom(p, b),
+            ObjectSomeValuesFrom(q, c));
         OWLOntology ontology = getOWLOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         // when

@@ -12,16 +12,16 @@ public class ThreeLayersOfAnnotationsTestCase extends AbstractRoundTrippingTestC
         String oboInOwl = "urn:obo:";
         OWLOntology o;
         try {
-            o = m.createOntology(IRI.create("urn:nested:ontology"));
+            o = m.createOntology(IRI.create("urn:nested:", "ontology"));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-        OWLClass dbxref = df.getOWLClass(IRI.create(oboInOwl + "DbXref"));
-        OWLClass definition = df.getOWLClass(IRI.create(oboInOwl + "Definition"));
-        OWLObjectProperty adjacent_to = df.getOWLObjectProperty(IRI.create(oboInOwl + "adjacent_to"));
-        OWLAnnotationProperty hasDefinition = df.getOWLAnnotationProperty(IRI.create(oboInOwl + "hasDefinition"));
-        OWLAnnotationProperty hasdbxref = df.getOWLAnnotationProperty(IRI.create(oboInOwl + "hasDbXref"));
-        OWLDataProperty hasuri = df.getOWLDataProperty(IRI.create(oboInOwl + "hasURI"));
+        OWLClass dbxref = df.getOWLClass(IRI.create(oboInOwl, "DbXref"));
+        OWLClass definition = df.getOWLClass(IRI.create(oboInOwl, "Definition"));
+        OWLObjectProperty adjacent_to = df.getOWLObjectProperty(IRI.create(oboInOwl, "adjacent_to"));
+        OWLAnnotationProperty hasDefinition = df.getOWLAnnotationProperty(IRI.create(oboInOwl, "hasDefinition"));
+        OWLAnnotationProperty hasdbxref = df.getOWLAnnotationProperty(IRI.create(oboInOwl, "hasDbXref"));
+        OWLDataProperty hasuri = df.getOWLDataProperty(IRI.create(oboInOwl, "hasURI"));
         OWLAnonymousIndividual ind1 = df.getOWLAnonymousIndividual();
         m.addAxiom(o, df.getOWLClassAssertionAxiom(dbxref, ind1));
         m.addAxiom(o, df.getOWLDataPropertyAssertionAxiom(hasuri, ind1, df.getOWLLiteral("urn:SO:SO_ke",

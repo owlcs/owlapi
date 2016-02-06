@@ -29,7 +29,7 @@ public class IRICharSequenceTestCase {
     @Test
     public void testCharAt() {
         String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI(str);
+        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
         for (int i = 0; i < str.length(); i++) {
             assertEquals(str.charAt(i), iri.charAt(i));
         }
@@ -38,7 +38,7 @@ public class IRICharSequenceTestCase {
     @Test
     public void testCharAtNoRemainder() {
         String str = "http://owlapi.sourceforge.net";
-        IRI iri = IRI(str);
+        IRI iri = IRI(str, "");
         for (int i = 0; i < str.length(); i++) {
             assertEquals(str.charAt(i), iri.charAt(i));
         }
@@ -47,7 +47,7 @@ public class IRICharSequenceTestCase {
     @Test
     public void testCharAtNoPrefix() {
         String str = "#ABC";
-        IRI iri = IRI(str);
+        IRI iri = IRI("#", "ABC");
         for (int i = 0; i < str.length(); i++) {
             assertEquals(str.charAt(i), iri.charAt(i));
         }
@@ -56,7 +56,7 @@ public class IRICharSequenceTestCase {
     @Test
     public void testSubSequence() {
         String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI(str);
+        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
         for (int i = 0; i < str.length(); i++) {
             for (int j = i; j < str.length(); j++) {
                 assertEquals(str.subSequence(i, j), iri.subSequence(i, j));
@@ -66,22 +66,19 @@ public class IRICharSequenceTestCase {
 
     @Test
     public void testLength() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI(str);
-        assertEquals(str.length(), iri.length());
+        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
+        assertEquals(33, iri.length());
     }
 
     @Test
     public void testLengthNoRemainder() {
-        String str = "http://owlapi.sourceforge.net";
-        IRI iri = IRI(str);
-        assertEquals(str.length(), iri.length());
+        IRI iri = IRI("http://owlapi.sourceforge.net", "");
+        assertEquals(29, iri.length());
     }
 
     @Test
     public void testLengthNoPrefix() {
-        String str = "#ABC";
-        IRI iri = IRI(str);
-        assertEquals(str.length(), iri.length());
+        IRI iri = IRI("#", "ABC");
+        assertEquals(4, iri.length());
     }
 }

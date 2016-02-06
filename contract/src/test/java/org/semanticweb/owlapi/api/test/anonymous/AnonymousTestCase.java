@@ -23,14 +23,14 @@ public class AnonymousTestCase extends TestBase {
 
     @Test
     public void shouldRoundTrip() throws Exception {
-        OWLClass c = Class(IRI("urn:test#C"));
-        OWLClass d = Class(IRI("urn:test#D"));
-        OWLObjectProperty p = ObjectProperty(IRI("urn:test#p"));
-        OWLDataProperty q = DataProperty(IRI("urn:test#q"));
+        OWLClass c = Class(IRI("urn:test#", "C"));
+        OWLClass d = Class(IRI("urn:test#", "D"));
+        OWLObjectProperty p = ObjectProperty(IRI("urn:test#", "p"));
+        OWLDataProperty q = DataProperty(IRI("urn:test#", "q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
-        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
-                DataPropertyAssertion(q, i, Literal("hello")));
+        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i), DataPropertyAssertion(q, i, Literal(
+            "hello")));
         OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
         equal(ontology, ontologyReloaded);
     }

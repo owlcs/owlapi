@@ -51,13 +51,13 @@ public class SWRLAnnotationTestCase extends TestBase {
         + "    <swrla:isRuleEnabled rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</swrla:isRuleEnabled>\n"
         + "    <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">:i62, :i61</rdfs:comment></swrl:Imp>\n"
         + "</rdf:RDF>";
-    protected @Nonnull OWLClass a = Class(IRI(NS + "#A"));
-    protected @Nonnull OWLClass b = Class(IRI(NS + "#B"));
+    protected @Nonnull OWLClass a = Class(IRI(NS + "#", "A"));
+    protected @Nonnull OWLClass b = Class(IRI(NS + "#", "B"));
     protected @Nonnull OWLAxiom axiom;
 
     @Before
     public void setUpAtoms() {
-        SWRLVariable x = df.getSWRLVariable(NS + "#x");
+        SWRLVariable x = df.getSWRLVariable(NS + "#", "x");
         SWRLAtom atom1 = df.getSWRLClassAtom(a, x);
         SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
         Set<SWRLAtom> consequent = new TreeSet<>();
@@ -88,8 +88,8 @@ public class SWRLAnnotationTestCase extends TestBase {
     @Test
     public void replicateFailure() throws Exception {
         String input = HEAD + " rdf:ID=\"test-table5-prp-inv2-rule\"" + TAIL;
-        OWLOntology ontology = loadOntologyFromString(
-            new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
+        OWLOntology ontology = loadOntologyFromString(new StringDocumentSource(input, "test",
+            new RDFXMLDocumentFormat(), null));
         assertTrue(ontology.axioms(AxiomType.SWRL_RULE).anyMatch(ax -> ax.toString().contains(
             "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string)  Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)) )")));
     }
@@ -97,8 +97,8 @@ public class SWRLAnnotationTestCase extends TestBase {
     @Test
     public void replicateSuccess() throws Exception {
         String input = HEAD + TAIL;
-        OWLOntology ontology = loadOntologyFromString(
-            new StringDocumentSource(input, "test", new RDFXMLDocumentFormat(), null));
+        OWLOntology ontology = loadOntologyFromString(new StringDocumentSource(input, "test",
+            new RDFXMLDocumentFormat(), null));
         assertTrue(ontology.axioms(AxiomType.SWRL_RULE).anyMatch(ax -> ax.toString().contains(
             "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string)  Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)) )")));
     }

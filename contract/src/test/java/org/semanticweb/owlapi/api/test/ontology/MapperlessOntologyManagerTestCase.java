@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase extends TestBase {
 
-    private static final @Nonnull IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
+    private static final @Nonnull IRI ONTOLOGY_IRI = IRI("http://test.com/", "ont");
 
     private OWLOntologyManager createManager() {
         m.getIRIMappers().clear();
@@ -65,7 +65,7 @@ public class MapperlessOntologyManagerTestCase extends TestBase {
     @Test
     public void testCreateOntologyWithIdWithVersionIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        IRI versionIRI = IRI("http://version/1");
+        IRI versionIRI = IRI("http://version/1", "");
         OWLOntologyID id = new OWLOntologyID(optional(ONTOLOGY_IRI), optional(versionIRI));
         OWLOntology ontology = manager.createOntology(id);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get());

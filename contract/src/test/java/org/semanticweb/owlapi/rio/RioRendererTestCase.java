@@ -36,7 +36,7 @@ public class RioRendererTestCase extends TestBase {
     private @Nonnull OWLOntology testOntologyEmpty;
     private @Nonnull OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
-    private final @Nonnull IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1");
+    private final @Nonnull IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1", "");
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;
     private RDFWriter testRdfXmlRioWriter;
@@ -150,10 +150,10 @@ public class RioRendererTestCase extends TestBase {
         // actual length depends on the length of dynamically assigned blank
         // node identifiers, so we
         // only test a minimum length and a maximum length
-        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result.length() > 24000);
-        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result.length() < 26000);
+        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds", result
+            .length() > 24000);
+        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds", result
+            .length() < 26000);
         RDFParser parser = Rio.createParser(RDFFormat.RDFXML, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -181,10 +181,10 @@ public class RioRendererTestCase extends TestBase {
         // actual length depends on the length of dynamically assigned blank
         // node identifiers, so we
         // only test a minimum length and a maximum length
-        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result.length() > 8250);
-        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result.length() < 9500);
+        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds", result
+            .length() > 8250);
+        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds", result
+            .length() < 9500);
         RDFParser parser = Rio.createParser(RDFFormat.TURTLE, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -208,10 +208,10 @@ public class RioRendererTestCase extends TestBase {
         // actual length depends on the length of dynamically assigned blank
         // node identifiers, so we
         // only test a minimum length and a maximum length
-        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result.length() > 26200);
-        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result.length() < 27500);
+        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds", result
+            .length() > 26200);
+        assertTrue("result.length()=" + result.length() + " was not inside the expected bounds", result
+            .length() < 27500);
         RDFParser parser = Rio.createParser(RDFFormat.NTRIPLES, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");

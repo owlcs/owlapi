@@ -76,7 +76,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         @Override
         public @Nullable OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
-                return factory.getOWLDataProperty("http://protege.org/Test.owl#p");
+                return factory.getOWLDataProperty("http://protege.org/Test.owl#", "p");
             } else {
                 return null;
             }

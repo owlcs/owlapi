@@ -34,10 +34,10 @@ public class OWLXMLNullPointerTestCase extends TestBase {
 
     @Test
     public void testRoundTrip() throws Exception {
-        OWLOntology ontology = getOWLOntology(IRI(NS));
-        OWLClass cheesy = Class(IRI(NS + "#CheeseyPizza"));
-        OWLClass cheese = Class(IRI(NS + "#CheeseTopping"));
-        OWLObjectProperty hasTopping = df.getOWLObjectProperty(NS + "#hasTopping");
+        OWLOntology ontology = getOWLOntology(IRI(NS, ""));
+        OWLClass cheesy = Class(IRI(NS + "#", "CheeseyPizza"));
+        OWLClass cheese = Class(IRI(NS + "#", "CheeseTopping"));
+        OWLObjectProperty hasTopping = df.getOWLObjectProperty(NS + "#", "hasTopping");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
         OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), i, lit);
@@ -52,8 +52,8 @@ public class OWLXMLNullPointerTestCase extends TestBase {
     @Test
     public void shouldParse() throws Exception {
         OWLOntology o = getOWLOntology();
-        OWLClass c = df.getOWLClass("urn:c");
-        OWLObjectProperty p = df.getOWLObjectProperty("urn:p");
+        OWLClass c = df.getOWLClass("urn:test#", "c");
+        OWLObjectProperty p = df.getOWLObjectProperty("urn:test#", "p");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c, df.getOWLObjectHasValue(p, i));
         o.getOWLOntologyManager().addAxiom(o, sub);

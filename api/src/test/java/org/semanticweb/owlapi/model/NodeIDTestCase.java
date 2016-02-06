@@ -17,8 +17,7 @@ public class NodeIDTestCase {
 
     @Test
     public void shouldCreateIRIFromNodeString() {
-        assertEquals("_:genid-nodeid-somestring_",
-                NodeID.getIRIFromNodeID("somestring_genid"));
+        assertEquals("_:genid-nodeid-somestring_", NodeID.getIRIFromNodeID("somestring_genid"));
     }
 
     @Test
@@ -30,46 +29,36 @@ public class NodeIDTestCase {
     public void shouldFindAnonymousNode() {
         assertTrue(NodeID.isAnonymousNodeIRI("_:sometest_genid_something"));
         assertTrue(NodeID.isAnonymousNodeIRI("_:genid_something"));
-        assertFalse(NodeID
-                .isAnonymousNodeIRI("http://sometest_genid_something"));
+        assertFalse(NodeID.isAnonymousNodeIRI("http://sometest_genid_something"));
         assertFalse(NodeID.isAnonymousNodeIRI((String) null));
     }
 
     @Test
     public void shouldFindAnonymousNodeIRI() {
-        assertTrue(NodeID.isAnonymousNodeIRI(IRI
-                .create("_:sometest_genid_something")));
+        assertTrue(NodeID.isAnonymousNodeIRI(IRI.create("_:sometest_genid_something")));
         assertTrue(NodeID.isAnonymousNodeIRI(IRI.create("_:genid_something")));
-        assertFalse(NodeID.isAnonymousNodeIRI(IRI
-                .create("http://sometest_genid_something")));
+        assertFalse(NodeID.isAnonymousNodeIRI(IRI.create("http://sometest_genid#", "something")));
         assertFalse(NodeID.isAnonymousNodeIRI((IRI) null));
     }
 
     @Test
     public void shouldFindsharedNodeIRI() {
-        assertFalse(NodeID
-                .isAnonymousNodeID("_:sometest_genid-nodeid-_something"));
+        assertFalse(NodeID.isAnonymousNodeID("_:sometest_genid-nodeid-_something"));
         assertTrue(NodeID.isAnonymousNodeID("_:genid-nodeid-_something"));
-        assertFalse(NodeID
-                .isAnonymousNodeID("http://sometest_genid-nodeid-_something"));
+        assertFalse(NodeID.isAnonymousNodeID("http://sometest_genid-nodeid-_something"));
         assertFalse(NodeID.isAnonymousNodeID(null));
     }
 
     @Test
     public void shouldbuildNode() {
-        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(
-                "_:sometest_genid_something").getID()));
-        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(
-                "http://sometest_genid_something").getID()));
+        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID("_:sometest_genid_something").getID()));
+        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID("http://sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null).getID()));
         NodeID id = NodeID.getNodeID(null);
         assertEquals(id.getID(), id.toString());
-        assertEquals(NodeID.getNodeID("somestring"),
-                NodeID.getNodeID("somestring"));
-        assertEquals(
-                NodeID.getNodeID("somestring").compareTo(
-                        NodeID.getNodeID("someotherstring")),
-                "somestring".compareTo("someotherstring"));
+        assertEquals(NodeID.getNodeID("somestring"), NodeID.getNodeID("somestring"));
+        assertEquals(NodeID.getNodeID("somestring").compareTo(NodeID.getNodeID("someotherstring")), "somestring"
+            .compareTo("someotherstring"));
         assertEquals(id.hashCode(), id.toString().hashCode());
     }
 }
