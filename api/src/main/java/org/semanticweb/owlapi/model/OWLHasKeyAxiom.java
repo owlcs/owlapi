@@ -65,7 +65,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @deprecated use the stream method
      */
     @Deprecated
-    default Set<? extends OWLPropertyExpression> getPropertyExpressions() {
+    default Set<OWLPropertyExpression> getPropertyExpressions() {
         return asSet(propertyExpressions());
     }
 
@@ -74,7 +74,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * 
      * @return The set of property expression that form the key
      */
-    Stream<? extends OWLPropertyExpression> propertyExpressions();
+    Stream<OWLPropertyExpression> propertyExpressions();
 
     /**
      * Gets the set of object property expressions that make up the key. This is
@@ -88,8 +88,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @deprecated use the stream method
      */
     @Deprecated
-    default Set<? extends OWLObjectPropertyExpression> getObjectPropertyExpressions() {
-        return asSet(objectPropertiesInSignature());
+    default Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
+        return asSet(objectPropertiesInSignature(), OWLObjectPropertyExpression.class);
     }
 
     /**
@@ -102,9 +102,9 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The set of object property expressions in the key described by
      *         this axiom
      */
-    default Stream<? extends OWLObjectPropertyExpression> objectPropertyExpressions() {
-        return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression)
-            .map(OWLPropertyExpression::asObjectPropertyExpression);
+    default Stream<OWLObjectPropertyExpression> objectPropertyExpressions() {
+        return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression).map(
+            OWLPropertyExpression::asObjectPropertyExpression);
     }
 
     /**
@@ -119,7 +119,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @deprecated use the stream method
      */
     @Deprecated
-    default Set<? extends OWLDataPropertyExpression> getDataPropertyExpressions() {
+    default Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
         return asSet(dataPropertyExpressions());
     }
 
@@ -133,9 +133,9 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The set of object property expressions in the key described by
      *         this axiom
      */
-    default Stream<? extends OWLDataPropertyExpression> dataPropertyExpressions() {
-        return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression)
-            .map(OWLPropertyExpression::asDataPropertyExpression);
+    default Stream<OWLDataPropertyExpression> dataPropertyExpressions() {
+        return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression).map(
+            OWLPropertyExpression::asDataPropertyExpression);
     }
 
     @Override

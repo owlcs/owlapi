@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
-    private final List<? extends OWLLiteral> values;
+    private final List<OWLLiteral> values;
 
     /**
      * @param values
@@ -38,7 +38,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
      */
     public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
         checkNotNull(values, "values cannot be null");
-        this.values = sortOptionally(values.distinct());
+        this.values = sortOptionally(values.map(l -> (OWLLiteral) l).distinct());
     }
 
     /**
@@ -59,7 +59,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     @Override
-    public Stream<? extends OWLLiteral> values() {
+    public Stream<OWLLiteral> values() {
         return values.stream();
     }
 }

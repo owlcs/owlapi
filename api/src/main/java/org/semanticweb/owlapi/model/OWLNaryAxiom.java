@@ -48,7 +48,7 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
      * 
      * @return This axiom as a set of pairwise axioms.
      */
-    Collection<? extends OWLAxiom> asPairwiseAxioms();
+    Collection<? extends OWLNaryAxiom<C>> asPairwiseAxioms();
 
     /**
      * @param <T>

@@ -70,12 +70,14 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @param annotations
      *        The annotations that will be added to existing annotations to
      *        annotate the copy of this axiom
+     * @param <T>
+     *        type of axiom returned
      * @return A copy of this axiom that has the specified annotations plus any
      *         existing annotations returned by the
      *         {@code OWLAxiom#getAnnotations()} method.
      */
-    default OWLAxiom getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
-        return getAnnotatedAxiom(annotations.stream());
+    default <T extends OWLAxiom> T getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
+        return (T) getAnnotatedAxiom(annotations.stream());
     }
 
     /**

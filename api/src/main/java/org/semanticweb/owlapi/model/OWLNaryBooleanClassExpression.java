@@ -51,7 +51,7 @@ public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression
      * 
      * @return The class expressions as a list.
      */
-    default List<? extends OWLClassExpression> getOperandsAsList() {
+    default List<OWLClassExpression> getOperandsAsList() {
         return asList(operands());
     }
 }

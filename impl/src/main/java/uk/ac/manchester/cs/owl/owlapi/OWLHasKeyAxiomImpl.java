@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
@@ -33,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
     @Nonnull private final OWLClassExpression expression;
-    @Nonnull private final List<? extends OWLPropertyExpression> propertyExpressions;
+    @Nonnull private final List<OWLPropertyExpression> propertyExpressions;
 
     /**
      * @param expression
@@ -48,7 +49,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
         checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
-        this.propertyExpressions = sortOptionally(propertyExpressions.stream().distinct());
+        this.propertyExpressions = sortOptionally(propertyExpressions.stream().map(p -> (OWLPropertyExpression) p)
+            .distinct());
     }
 
     @Override
@@ -70,7 +72,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-    public Stream<? extends OWLPropertyExpression> propertyExpressions() {
+    public Stream<OWLPropertyExpression> propertyExpressions() {
         return propertyExpressions.stream();
     }
 }

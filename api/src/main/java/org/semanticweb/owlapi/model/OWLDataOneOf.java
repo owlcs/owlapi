@@ -55,7 +55,7 @@ public interface OWLDataOneOf extends OWLDataRange {
      * @deprecated use the stream method
      */
     @Deprecated
-    default Set<? extends OWLLiteral> getValues() {
+    default Set<OWLLiteral> getValues() {
         return asSet(values());
     }
 
@@ -64,7 +64,7 @@ public interface OWLDataOneOf extends OWLDataRange {
      * 
      * @return The values that this data range consists of.
      */
-    Stream<? extends OWLLiteral> values();
+    Stream<OWLLiteral> values();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

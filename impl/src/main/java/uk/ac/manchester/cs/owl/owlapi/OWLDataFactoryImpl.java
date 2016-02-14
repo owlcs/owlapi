@@ -229,8 +229,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         checkNotNull(dataType, "datatype cannot be null");
         checkNotNull(facet, "facet cannot be null");
         checkNotNull(typedLiteral, "typedConstant cannot be null");
-        return new OWLDatatypeRestrictionImpl(dataType,
-            CollectionFactory.createSet(getOWLFacetRestriction(facet, typedLiteral)));
+        return new OWLDatatypeRestrictionImpl(dataType, CollectionFactory.createSet(getOWLFacetRestriction(facet,
+            typedLiteral)));
     }
 
     @Override
@@ -506,8 +506,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
             OWLClass addedClass = classExpression.isOWLThing() ? OWL_NOTHING : OWL_THING;
             modifiedClassExpressions.add(addedClass);
             modifiedClassExpressions.add(classExpression);
-            return getOWLDisjointClassesAxiom(modifiedClassExpressions,
-                makeSingletonDisjoinClassWarningAnnotation(annotations, classExpression, addedClass));
+            return getOWLDisjointClassesAxiom(modifiedClassExpressions, makeSingletonDisjoinClassWarningAnnotation(
+                annotations, classExpression, addedClass));
         }
         return new OWLDisjointClassesAxiomImpl(classExpressions, annotations);
     }
@@ -799,8 +799,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
         OWLAnnotation annotation) {
         checkNotNull(annotation, "annotation cannot be null");
-        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(),
-            asList(annotation.annotations()));
+        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), asList(
+            annotation.annotations()));
     }
 
     @Override
