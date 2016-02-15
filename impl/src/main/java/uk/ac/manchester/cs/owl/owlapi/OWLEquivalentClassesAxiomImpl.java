@@ -16,11 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -50,8 +46,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
     }
 
     @Override
-    public OWLEquivalentClassesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotationsToAdd) {
-        return new OWLEquivalentClassesAxiomImpl(classExpressions, mergeAnnos(annotationsToAdd));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLEquivalentClassesAxiomImpl(classExpressions, mergeAnnos(anns));
     }
 
     @Override

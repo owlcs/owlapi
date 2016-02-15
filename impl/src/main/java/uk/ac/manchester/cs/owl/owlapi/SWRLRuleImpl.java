@@ -72,8 +72,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new SWRLRuleImpl(body, head, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new SWRLRuleImpl(body, head, mergeAnnos(anns));
     }
 
     @Override
@@ -92,8 +92,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Stream<OWLClassExpression> classAtomPredicates() {
-        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom)
-            .map(c -> ((SWRLClassAtom) c).getPredicate());
+        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom).map(
+            c -> ((SWRLClassAtom) c).getPredicate());
     }
 
     @Override

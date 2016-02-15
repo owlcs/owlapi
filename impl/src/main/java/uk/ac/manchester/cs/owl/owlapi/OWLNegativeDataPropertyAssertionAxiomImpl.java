@@ -22,9 +22,9 @@ import org.semanticweb.owlapi.model.*;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLNegativeDataPropertyAssertionAxiomImpl
-    extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
-    implements OWLNegativeDataPropertyAssertionAxiom {
+public class OWLNegativeDataPropertyAssertionAxiomImpl extends
+    OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements
+    OWLNegativeDataPropertyAssertionAxiom {
 
     /**
      * @param subject
@@ -43,8 +43,8 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
-            new OWLObjectComplementOfImpl(new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()), new OWLObjectComplementOfImpl(
+            new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
     }
 
     @Override
@@ -56,9 +56,9 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
     }
 
     @Override
-    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
-            mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(
+            anns));
     }
 
     @Override

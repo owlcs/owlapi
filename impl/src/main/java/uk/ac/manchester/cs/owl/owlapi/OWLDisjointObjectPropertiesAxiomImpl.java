@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -49,8 +50,8 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     }
 
     @Override
-    public OWLDisjointObjectPropertiesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDisjointObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLDisjointObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }
 
     @Override

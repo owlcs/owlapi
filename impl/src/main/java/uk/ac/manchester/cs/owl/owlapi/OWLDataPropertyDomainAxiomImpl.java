@@ -24,8 +24,8 @@ import org.semanticweb.owlapi.model.*;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression>
-    implements OWLDataPropertyDomainAxiom {
+public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements
+    OWLDataPropertyDomainAxiom {
 
     /**
      * @param property
@@ -49,8 +49,8 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
     }
 
     @Override

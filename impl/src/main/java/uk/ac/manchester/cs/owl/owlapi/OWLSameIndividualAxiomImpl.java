@@ -15,11 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.*;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -48,8 +44,8 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     }
 
     @Override
-    public OWLSameIndividualAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLSameIndividualAxiomImpl(individuals, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLSameIndividualAxiomImpl(individuals, mergeAnnos(anns));
     }
 
     @Override

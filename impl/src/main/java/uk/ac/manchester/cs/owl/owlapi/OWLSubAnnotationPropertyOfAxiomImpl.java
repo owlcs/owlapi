@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
 /**
@@ -49,8 +50,8 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public OWLSubAnnotationPropertyOfAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
     }
 
     @Override

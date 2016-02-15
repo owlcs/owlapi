@@ -22,9 +22,9 @@ import org.semanticweb.owlapi.model.*;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectPropertyAssertionAxiomImpl
-    extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
-    implements OWLObjectPropertyAssertionAxiom {
+public class OWLObjectPropertyAssertionAxiomImpl extends
+    OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements
+    OWLObjectPropertyAssertionAxiom {
 
     /**
      * @param subject
@@ -51,13 +51,13 @@ public class OWLObjectPropertyAssertionAxiomImpl
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
-            new OWLObjectHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()), new OWLObjectHasValueImpl(getProperty(),
+            getObject()), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(anns));
     }
 
     @Override

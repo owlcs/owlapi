@@ -17,19 +17,15 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression>
-    implements OWLObjectPropertyDomainAxiom {
+public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression> implements
+    OWLObjectPropertyDomainAxiom {
 
     /**
      * @param property
@@ -53,8 +49,8 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
     }
 
     @Override
-    public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLObjectPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLObjectPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
     }
 
     @Override

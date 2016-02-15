@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
@@ -50,8 +51,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
     }
 
     @Override
-    public OWLEquivalentObjectPropertiesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLEquivalentObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }
 
     @Override

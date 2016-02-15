@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -27,8 +28,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-    implements OWLReflexiveObjectPropertyAxiom {
+public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements
+    OWLReflexiveObjectPropertyAxiom {
 
     /**
      * @param property
@@ -55,7 +56,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     }
 
     @Override
-    public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 }

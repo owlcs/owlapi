@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
@@ -49,8 +50,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     }
 
     @Override
-    public OWLSubClassOfAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(anns));
     }
 
     @Override

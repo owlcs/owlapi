@@ -65,8 +65,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
     @Override
-    public OWLDisjointUnionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(), mergeAnnos(anns));
     }
 
     @Override

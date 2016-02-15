@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
@@ -27,8 +28,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression>
-    implements OWLEquivalentDataPropertiesAxiom {
+public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
+    OWLEquivalentDataPropertiesAxiom {
 
     /**
      * @param properties
@@ -50,8 +51,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     }
 
     @Override
-    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLEquivalentDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLEquivalentDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }
 
     @Override

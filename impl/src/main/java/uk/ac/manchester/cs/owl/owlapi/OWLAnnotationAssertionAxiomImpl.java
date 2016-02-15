@@ -19,11 +19,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -76,8 +72,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     }
 
     @Override
-    public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(), mergeAnnos(anns));
     }
 
     @Override

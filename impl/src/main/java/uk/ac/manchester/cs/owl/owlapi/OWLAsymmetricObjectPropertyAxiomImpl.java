@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
@@ -24,8 +25,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-    implements OWLAsymmetricObjectPropertyAxiom {
+public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements
+    OWLAsymmetricObjectPropertyAxiom {
 
     /**
      * @param property
@@ -47,7 +48,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     @Override
-    public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 }

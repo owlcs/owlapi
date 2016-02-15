@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
@@ -51,8 +52,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     }
 
     @Override
-    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(), mergeAnnos(anns));
     }
 
     @Override

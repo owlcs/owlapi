@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -26,8 +27,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression>
-    implements OWLDisjointDataPropertiesAxiom {
+public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
+    OWLDisjointDataPropertiesAxiom {
 
     /**
      * @param properties
@@ -49,8 +50,8 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
     }
 
     @Override
-    public OWLDisjointDataPropertiesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDisjointDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLDisjointDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }
 
     @Override

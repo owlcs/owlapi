@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -27,8 +28,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
-    implements OWLDifferentIndividualsAxiom {
+public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements
+    OWLDifferentIndividualsAxiom {
 
     /**
      * @param individuals
@@ -50,8 +51,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     @Override
-    public OWLDifferentIndividualsAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDifferentIndividualsAxiomImpl(individuals, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLDifferentIndividualsAxiomImpl(individuals, mergeAnnos(anns));
     }
 
     @Override
@@ -77,7 +78,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(a),
-            new OWLObjectOneOfImpl(b).getObjectComplementOf(), NO_ANNOTATIONS));
+        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(a), new OWLObjectOneOfImpl(b)
+            .getObjectComplementOf(), NO_ANNOTATIONS));
     }
 }

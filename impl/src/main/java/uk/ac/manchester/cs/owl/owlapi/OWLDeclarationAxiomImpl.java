@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -52,8 +53,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
     @Override
-    public OWLDeclarationAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(anns));
     }
 
     @Override

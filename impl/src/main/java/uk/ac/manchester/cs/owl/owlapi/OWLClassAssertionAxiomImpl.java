@@ -55,8 +55,8 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
     }
 
     @Override
-    public OWLClassAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), mergeAnnos(anns));
     }
 
     @Override
@@ -71,7 +71,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getIndividual()),
-            getClassExpression(), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getIndividual()), getClassExpression(),
+            NO_ANNOTATIONS);
     }
 }

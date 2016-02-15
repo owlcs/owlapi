@@ -25,8 +25,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-    implements OWLTransitiveObjectPropertyAxiom {
+public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements
+    OWLTransitiveObjectPropertyAxiom {
 
     /**
      * @param property
@@ -48,7 +48,7 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 }

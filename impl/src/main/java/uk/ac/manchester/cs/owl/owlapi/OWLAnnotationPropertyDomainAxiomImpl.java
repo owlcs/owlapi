@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -58,8 +59,8 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
     }
 
     @Override
-    public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -62,8 +63,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-    public OWLHasKeyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, mergeAnnos(anns));
     }
 
     @Override

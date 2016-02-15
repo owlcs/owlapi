@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -58,8 +59,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
     }
 
     @Override

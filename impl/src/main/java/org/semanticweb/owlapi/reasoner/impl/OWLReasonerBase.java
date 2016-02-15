@@ -56,9 +56,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(this::handleRawOntologyChanges);
-        reasonerAxioms = asUnorderedSet(rootOntology.importsClosure()
-            .flatMap(o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
-            .map(OWLAxiom::getAxiomWithoutAnnotations));
+        reasonerAxioms = asUnorderedSet(rootOntology.importsClosure().flatMap(o -> Stream.concat(o.logicalAxioms(), o
+            .axioms(AxiomType.DECLARATION))).map(ax -> OWLAxiom.getAxiomWithoutAnnotations(ax)));
     }
 
     /**
@@ -150,10 +149,10 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         if (rawChanges.isEmpty()) {
             return;
         }
-        rootOntology.importsClosure().flatMap(o -> o.logicalAxioms())
-            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(added::add);
-        rootOntology.importsClosure().flatMap(o -> o.axioms(AxiomType.DECLARATION))
-            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(added::add);
+        rootOntology.importsClosure().flatMap(o -> o.logicalAxioms()).filter(ax -> !reasonerAxioms.contains(ax
+            .getAxiomWithoutAnnotations())).forEach(added::add);
+        rootOntology.importsClosure().flatMap(o -> o.axioms(AxiomType.DECLARATION)).filter(ax -> !reasonerAxioms
+            .contains(ax.getAxiomWithoutAnnotations())).forEach(added::add);
         for (OWLAxiom ax : reasonerAxioms) {
             if (!rootOntology.containsAxiom(ax, Imports.INCLUDED, AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS)) {
                 removed.add(ax);

@@ -59,8 +59,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     }
 
     @Override
-    public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), mergeAnnos(anns));
+    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return (T) new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), mergeAnnos(anns));
     }
 
     @Override
