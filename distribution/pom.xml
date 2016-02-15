@@ -155,8 +155,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java-sesame</artifactId>
-			<version>0.5.1</version>
+			<artifactId>jsonld-java</artifactId>
+			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semarglproject</groupId>
