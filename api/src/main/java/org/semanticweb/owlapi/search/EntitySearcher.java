@@ -1661,7 +1661,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<IRI> getDomains(@Nonnull OWLAnnotationProperty e, @Nonnull OWLOntology ontology) {
-        return Searcher.domain(ontology.getAnnotationPropertyRangeAxioms(e));
+        return Searcher.domain(ontology.getAnnotationPropertyDomainAxioms(e));
     }
 
     /**
