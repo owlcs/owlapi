@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.0.0-BETA3-SNAPSHOT</version>
+		<version>5.0.0-BETA4-SNAPSHOT</version>
 	</parent>
 	<properties>
 		<inherited.sesame.version>${sesame.version}</inherited.sesame.version>
