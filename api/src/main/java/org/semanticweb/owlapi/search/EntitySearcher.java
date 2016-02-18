@@ -841,7 +841,7 @@ public class EntitySearcher {
      *         intersection of these class expressions).
      */
     public static Stream<IRI> getDomains(OWLAnnotationProperty e, OWLOntology ontology) {
-        return Searcher.domain(ontology.annotationPropertyRangeAxioms(e));
+        return Searcher.domain(ontology.annotationPropertyDomainAxioms(e));
     }
 
     /**
