@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-@HasPriority(5)
+@HasPriority(13)
 public class OBOFormatOWLAPIParserFactory extends OWLParserFactoryImpl {
 
     /** Default constructor. */

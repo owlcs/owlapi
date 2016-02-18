@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -83,7 +82,7 @@ public class Utf8TestCase extends TestBase {
         m.loadOntologyFromOntologyDocument(in);
     }
 
-    @Test(expected = OWLOntologyCreationIOException.class)
+    @Test
     public void testInvalidUTF8roundTripFromReader() throws OWLOntologyCreationException {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,

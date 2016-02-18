@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-@HasPriority(7)
+@HasPriority(3)
 public class RioTurtleParserFactory extends AbstractRioParserFactory {
 
     /** Default constructor. */
