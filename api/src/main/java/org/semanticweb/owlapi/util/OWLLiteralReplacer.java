@@ -59,7 +59,7 @@ public class OWLLiteralReplacer {
         uriMap.put(literal, newLiteral);
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(Collections.<OWLEntity, IRI> emptyMap(), uriMap,
-            owlOntologyManager.getOWLDataFactory());
+            owlOntologyManager);
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             fillListWithTransformChanges(changes, getAxioms(ont, literal), ont, dup);
@@ -75,7 +75,7 @@ public class OWLLiteralReplacer {
     public List<OWLOntologyChange> changeLiterals(Map<OWLLiteral, OWLLiteral> literalToLiteralMap) {
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(Collections.<OWLEntity, IRI> emptyMap(),
-            literalToLiteralMap, owlOntologyManager.getOWLDataFactory());
+            literalToLiteralMap, owlOntologyManager);
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             for (OWLLiteral ent : literalToLiteralMap.keySet()) {

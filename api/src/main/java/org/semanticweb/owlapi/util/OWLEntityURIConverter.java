@@ -75,7 +75,7 @@ public class OWLEntityURIConverter {
             ont.dataPropertiesInSignature().forEach(this::processEntity);
             ont.individualsInSignature().forEach(this::processEntity);
         }
-        OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager.getOWLDataFactory());
+        OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager);
         for (OWLOntology ont : ontologies) {
             ont.axioms().forEach(ax -> {
                 OWLAxiom dupAx = dup.duplicateObject(ax);

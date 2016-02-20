@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
 /**
@@ -41,11 +41,12 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
      * Creates an object duplicator that duplicates objects using the specified
      * data factory.
      * 
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
+     * @param m
+     *        The manager providing data factory and config to be used for the
+     *        duplication.
      */
-    public AnonymousIndividualsNormaliser(OWLDataFactory dataFactory) {
-        super(dataFactory);
+    public AnonymousIndividualsNormaliser(OWLOntologyManager m) {
+        super(m);
     }
 
     public Set<OWLAxiom> getNormalisedAxioms(Collection<OWLAxiom> axioms) {

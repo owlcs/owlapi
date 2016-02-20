@@ -4,32 +4,34 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 
 /**
  * A provider for anonymous individuals that remaps input ids consistently
  * across all requests. This class obeys the preferences set in
- * {@link AnonymousIndividualProperties} at the time the instance is created;
- * changing the property while the instance is in use will not affect the
- * instance.
+ * {@link OWLOntologyManager#getOntologyWriterConfiguration()}.
  */
 public class RemappingIndividualProvider implements AnonymousIndividualByIdProvider {
 
     private OWLDataFactory df;
-    private boolean remapEnabled;
+    private OWLOntologyWriterConfiguration cf;
     private Map<String, OWLAnonymousIndividual> map;
 
     /**
+     * @param m
+     *        ontology configurator
      * @param df
      *        data factory
      */
-    public RemappingIndividualProvider(OWLDataFactory df) {
+    public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
         this.df = df;
-        remapEnabled = AnonymousIndividualProperties.shouldRemapAllAnonymousIndividualsIds();
-        if (remapEnabled) {
+        cf = m.buildWriterConfiguration();
+        if (cf.shouldRemapAllAnonymousIndividualsIds()) {
             map = new HashMap<>();
         } else {
             map = Collections.emptyMap();
@@ -38,7 +40,7 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
 
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
-        if (!remapEnabled) {
+        if (!cf.shouldRemapAllAnonymousIndividualsIds()) {
             return df.getOWLAnonymousIndividual(nodeId);
         }
         OWLAnonymousIndividual toReturn = map.get(nodeId);

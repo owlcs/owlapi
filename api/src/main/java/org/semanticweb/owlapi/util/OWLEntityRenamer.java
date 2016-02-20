@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLEntityRenamer {
 
+    private final OWLOntologyManager m;
     private final OWLDataFactory df;
     private final Collection<OWLOntology> ontologies;
 
@@ -44,6 +45,7 @@ public class OWLEntityRenamer {
      *        the ontologies to use
      */
     public OWLEntityRenamer(OWLOntologyManager owlOntologyManager, Collection<OWLOntology> ontologies) {
+        m = owlOntologyManager;
         df = owlOntologyManager.getOWLDataFactory();
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
@@ -65,7 +67,7 @@ public class OWLEntityRenamer {
         Map<IRI, IRI> uriMap = new HashMap<>();
         uriMap.put(iri, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<>();
-        OWLObjectDuplicator dup = new OWLObjectDuplicator(df, uriMap);
+        OWLObjectDuplicator dup = new OWLObjectDuplicator(m, uriMap);
         ontologies.forEach(o -> fillListWithTransformChanges(changes, o.referencingAxioms(iri), o, dup));
         return changes;
     }
@@ -84,7 +86,7 @@ public class OWLEntityRenamer {
         Map<OWLEntity, IRI> iriMap = new HashMap<>();
         iriMap.put(entity, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<>();
-        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, df);
+        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, m);
         ontologies.forEach(o -> fillListWithTransformChanges(changes, getAxioms(o, entity), o, duplicator));
         return changes;
     }
@@ -96,17 +98,17 @@ public class OWLEntityRenamer {
      */
     public List<OWLOntologyChange> changeIRI(Map<OWLEntity, IRI> entity2IRIMap) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, df);
+        OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, m);
         for (OWLOntology ont : ontologies) {
-            entity2IRIMap.keySet()
-                .forEach(e -> fillListWithTransformChanges(changes, getAxioms(ont, e), ont, duplicator));
+            entity2IRIMap.keySet().forEach(e -> fillListWithTransformChanges(changes, getAxioms(ont, e), ont,
+                duplicator));
         }
         return changes;
     }
 
     private static Stream<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
-        return Stream.of(ont.referencingAxioms(entity), ont.declarationAxioms(entity),
-            ont.annotationAssertionAxioms(entity.getIRI())).flatMap(x -> x);
+        return Stream.of(ont.referencingAxioms(entity), ont.declarationAxioms(entity), ont.annotationAssertionAxioms(
+            entity.getIRI())).flatMap(x -> x);
     }
 
     /**

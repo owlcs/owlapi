@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
@@ -119,14 +118,14 @@ public class TurtleTestCase extends TestBase {
     // test for 3543488
     @Test
     public void shouldRoundTripTurtleWithsharedBnodes() throws Exception {
-        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
         try {
             String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
             OWLOntology ontology = loadOntologyFromString(input);
             OWLOntology onto2 = roundTrip(ontology, new TurtleDocumentFormat());
             equal(ontology, onto2);
         } finally {
-            AnonymousIndividualProperties.resetToDefault();
+            masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
         }
     }
 
@@ -198,7 +197,7 @@ public class TurtleTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripAxiomAnnotation() throws Exception {
-        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
         try {
             String input = "@prefix : <urn:fm2#> .\n" + "@prefix fm:    <urn:fm2#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -225,7 +224,7 @@ public class TurtleTestCase extends TestBase {
             Set<OWLAxiom> anns = asUnorderedSet(o.axioms().filter(ax -> contains(ax.anonymousIndividuals(), ind)));
             assertEquals(3, anns.size());
         } finally {
-            AnonymousIndividualProperties.resetToDefault();
+            masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
         }
     }
 

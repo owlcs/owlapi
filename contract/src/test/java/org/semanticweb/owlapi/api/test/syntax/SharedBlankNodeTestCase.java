@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 
@@ -108,7 +107,7 @@ public class SharedBlankNodeTestCase extends TestBase {
 
     @Test
     public void shouldNotRemapUponReloading() throws OWLOntologyCreationException {
-        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
         String input = "<?xml version=\"1.0\"?>\r\n" + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n"
             + "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n"
@@ -119,20 +118,16 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "            <rdf:Description rdf:nodeID=\"1058025095\">\r\n"
             + "                <rdfs:comment>E</rdfs:comment>\r\n" + "            </rdf:Description>\r\n"
             + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
-        try {
-            Set<OWLAnnotationValue> values1 = new HashSet<>();
-            values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
-            OWLOntology o1 = loadOntologyFromString(input);
-            add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
-                a -> a instanceof OWLAnonymousIndividual));
-            o1 = loadOntologyFromString(input);
-            add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
-                a -> a instanceof OWLAnonymousIndividual));
-            assertEquals(values1.toString(), values1.size(), 1);
-        } finally {
-            // make sure config is restored
-            AnonymousIndividualProperties.resetToDefault();
-        }
+        Set<OWLAnnotationValue> values1 = new HashSet<>();
+        values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
+        OWLOntology o1 = loadOntologyFromString(input);
+        add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+            a -> a instanceof OWLAnonymousIndividual));
+        o1 = loadOntologyFromString(input);
+        add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+            a -> a instanceof OWLAnonymousIndividual));
+        assertEquals(values1.toString(), values1.size(), 1);
+        m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
     }
 
     @Test
@@ -164,13 +159,16 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "            <rdf:Description>\r\n" + "                <rdfs:comment>E</rdfs:comment>\r\n"
             + "            </rdf:Description>\r\n" + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(input);
-        AnonymousIndividualProperties.setSaveIdsForAllAnonymousIndividuals(true);
+        masterManager.getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(true);
         try {
             StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
             assertTrue(result.toString().contains("rdf:nodeID"));
+            OWLOntology reloaded = loadOntologyFromString(result);
+            StringDocumentTarget resaved = saveOntology(reloaded, new RDFXMLDocumentFormat());
+            assertEquals(result.toString(), resaved.toString());
         } finally {
             // make sure the static variable is reset after the test
-            AnonymousIndividualProperties.resetToDefault();
+            masterManager.getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(false);
         }
     }
 

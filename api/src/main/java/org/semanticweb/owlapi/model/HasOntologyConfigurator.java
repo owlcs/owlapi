@@ -24,4 +24,10 @@ public interface HasOntologyConfigurator {
      * @return the configurator.
      */
     OntologyConfigurator getOntologyConfigurator();
+
+    /**
+     * @param configurator
+     *        the configurator.
+     */
+    void setOntologyConfigurator(OntologyConfigurator configurator);
 }

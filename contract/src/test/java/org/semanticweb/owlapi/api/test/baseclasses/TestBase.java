@@ -122,6 +122,7 @@ public abstract class TestBase {
         manager.getOntologyParsers().set(masterManager.getOntologyParsers());
         manager.getOntologyStorers().set(masterManager.getOntologyStorers());
         manager.getIRIMappers().set(masterManager.getIRIMappers());
+        manager.setOntologyConfigurator(masterManager.getOntologyConfigurator());
         return manager;
     }
 
@@ -153,8 +154,8 @@ public abstract class TestBase {
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
-        axioms1 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont1.axioms());
-        axioms2 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont2.axioms());
+        axioms1 = new AnonymousIndividualsNormaliser(ont1.getOWLOntologyManager()).getNormalisedAxioms(ont1.axioms());
+        axioms2 = new AnonymousIndividualsNormaliser(ont1.getOWLOntologyManager()).getNormalisedAxioms(ont2.axioms());
         OWLDocumentFormat ontologyFormat = ont2.getFormat();
         applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
         if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {

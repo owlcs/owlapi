@@ -208,7 +208,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         nodeCheckerDelegate = checker;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
-        anonProvider = new RemappingIndividualProvider(df);
+        anonProvider = new RemappingIndividualProvider(ontology.getOWLOntologyManager().getOntologyConfigurator(), df);
         this.configuration = configuration;
         handlerAccessor = new HandlerAccessor(this);
         translatorAccessor = new TranslatorAccessor(this);

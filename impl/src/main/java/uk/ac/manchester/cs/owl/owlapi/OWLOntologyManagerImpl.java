@@ -76,7 +76,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private transient Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = createSyncMap();
     private transient Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = createSyncMap();
     private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<>();
-    @Nonnull private final OntologyConfigurator configProvider = new OntologyConfigurator();
+    @Nonnull private OntologyConfigurator configProvider = new OntologyConfigurator();
     @Nonnull private transient Optional<OWLOntologyLoaderConfiguration> loaderConfig = emptyOptional();
     @Nonnull private transient Optional<OWLOntologyWriterConfiguration> writerConfig = emptyOptional();
     @Nonnull protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers;
@@ -146,6 +146,16 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             return configProvider;
         } finally {
             readLock.unlock();
+        }
+    }
+
+    @Override
+    public void setOntologyConfigurator(OntologyConfigurator configurator) {
+        writeLock.lock();
+        try {
+            configProvider = configurator;
+        } finally {
+            writeLock.unlock();
         }
     }
 

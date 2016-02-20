@@ -31,7 +31,11 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
@@ -86,9 +90,10 @@ public abstract class RDFRendererBase {
 
     protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format) {
         this.ontology = ontology;
-        df = this.ontology.getOWLOntologyManager().getOWLDataFactory();
+        OWLOntologyManager m = this.ontology.getOWLOntologyManager();
+        df = m.getOWLDataFactory();
         this.format = format;
-        if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
+        if (m.getOntologyWriterConfiguration().shouldSaveIdsForAllAnonymousIndividuals()) {
             occurrences = x -> true;
             axiomOccurrences = x -> true;
         } else {
