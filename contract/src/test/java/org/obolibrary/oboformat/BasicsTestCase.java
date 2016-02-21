@@ -230,7 +230,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assert rc != null;
         assertEquals("sense organ", rc.getValue());
         OBOFormatWriter w = new OBOFormatWriter();
-        w.write(d2, "/tmp/z.obo");
+        w.write(d2, File.createTempFile("zzz", ".obo"));
     }
 
     @Test

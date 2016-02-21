@@ -45,16 +45,16 @@ public class OBOFormatWriter {
     private static final Comparator<Frame> framesComparator = Comparator.comparing(Frame::getId);
     private static final TObjectIntHashMap<String> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
     private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
-    private static final Comparator<String> headerTagsComparator = Comparator
-        .comparingInt(OBOFormatWriter::getHeaderPriority);
+    private static final Comparator<String> headerTagsComparator = Comparator.comparingInt(
+        OBOFormatWriter::getHeaderPriority);
     /**
      * This comparator sorts clauses with the same tag in the specified write
      * order.
      */
     private static final Comparator<Clause> clauseComparator = (o1, o2) -> compare(o1, o2);
     private static Comparator<String> termsTagsComparator = Comparator.comparingInt(OBOFormatWriter::getPriority);
-    private static Comparator<String> typeDefTagsComparator = Comparator
-        .comparingInt(OBOFormatWriter::getTypedefPriority);
+    private static Comparator<String> typeDefTagsComparator = Comparator.comparingInt(
+        OBOFormatWriter::getTypedefPriority);
     private static Comparator<Clause> clauseListComparator = Comparator.comparing(Clause::getTag, termsTagsComparator)
         .thenComparing(clauseComparator);
     private boolean isCheckStructure = true;
@@ -171,13 +171,25 @@ public class OBOFormatWriter {
     /**
      * @param doc
      *        the doc
+     * @param outFilename
+     *        the out file name
+     * @throws IOException
+     *         Signals that an I/O exception has occurred.
+     */
+    public void write(OBODoc doc, String outFilename) throws IOException {
+        write(doc, new File(outFilename));
+    }
+
+    /**
+     * @param doc
+     *        the doc
      * @param outFile
      *        the out file
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(OBODoc doc, String outFile) throws IOException {
-        try (FileOutputStream os = new FileOutputStream(new File(outFile));
+    public void write(OBODoc doc, File outFile) throws IOException {
+        try (FileOutputStream os = new FileOutputStream(outFile);
             OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
             Writer bw = new BufferedWriter(osw);) {
             write(doc, bw);
@@ -482,9 +494,8 @@ public class OBOFormatWriter {
         // to write []
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
-        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
-            || OboFormatTag.TAG_SYNONYM.getTag().equals(clause.getTag())
-            || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
+        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag()) || OboFormatTag.TAG_SYNONYM.getTag().equals(
+            clause.getTag()) || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
             || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clause.getTag())) {
             sb.append(" []");
         }
