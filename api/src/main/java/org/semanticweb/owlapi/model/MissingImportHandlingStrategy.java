@@ -19,7 +19,7 @@ package org.semanticweb.owlapi.model;
  *         Research Group
  * @since 3.3
  */
-public enum MissingImportHandlingStrategy {
+public enum MissingImportHandlingStrategy implements ByName<MissingImportHandlingStrategy> {
     /**
      * Specifies that an
      * {@link org.semanticweb.owlapi.model.UnloadableImportException} will NOT
@@ -30,11 +30,16 @@ public enum MissingImportHandlingStrategy {
      * {@link org.semanticweb.owlapi.model.MissingImportListener#importMissing(org.semanticweb.owlapi.model.MissingImportEvent)}
      * method.
      */
-    SILENT,
-    /**
-     * Specifies that an
-     * {@link org.semanticweb.owlapi.model.UnloadableImportException} WILL be
-     * thrown during ontology loading if an import cannot be loaded.
-     */
-    THROW_EXCEPTION
+    SILENT, /**
+             * Specifies that an
+             * {@link org.semanticweb.owlapi.model.UnloadableImportException}
+             * WILL be thrown during ontology loading if an import cannot be
+             * loaded.
+             */
+    THROW_EXCEPTION;
+
+    @Override
+    public MissingImportHandlingStrategy byName(CharSequence name) {
+        return valueOf(name.toString());
+    }
 }
