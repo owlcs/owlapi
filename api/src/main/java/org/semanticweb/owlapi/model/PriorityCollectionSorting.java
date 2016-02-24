@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.util.HasPriorityComparator;
  * @author Ignazio
  * @since 4.0.2
  */
-public enum PriorityCollectionSorting {
+public enum PriorityCollectionSorting implements ByName<PriorityCollectionSorting> {
     /** Always keep the collection sorted by HasPriority annotation values. */
     ALWAYS {
 
@@ -80,7 +80,8 @@ public enum PriorityCollectionSorting {
     /**
      * @param list
      *        list to sort
-     *        @param <O> type of elements
+     * @param <O>
+     *        type of elements
      * @return sorted list
      */
     public abstract <O> List<O> sort(List<O> list);
@@ -88,8 +89,14 @@ public enum PriorityCollectionSorting {
     /**
      * @param list
      *        list to sort
-     *        @param <O> type of elements
+     * @param <O>
+     *        type of elements
      * @return sorted list
      */
     public abstract <O> List<O> sortInputSet(List<O> list);
+
+    @Override
+    public PriorityCollectionSorting byName(CharSequence name) {
+        return valueOf(name.toString());
+    }
 }
