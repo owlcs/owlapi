@@ -104,60 +104,51 @@ public enum ConfigurationOptions {
     /**
      * @param value
      *        value to parse according to the enum default value
+     * @param type
+     *        type of the returned value
      * @return parsed value
      */
-    protected Object parse(Object value) {
-        if (defaultValue instanceof Boolean) {
-            return Boolean.valueOf(value.toString());
+    protected <T> T parse(Object value, Class<T> type) {
+        if (Boolean.class.equals(type)) {
+            return type.cast(Boolean.valueOf(value.toString()));
         }
-        if (defaultValue instanceof Long) {
-            return Long.valueOf(value.toString());
+        if (Long.class.equals(type)) {
+            return type.cast(Long.valueOf(value.toString()));
         }
-        if (defaultValue instanceof Integer) {
-            return Integer.valueOf(value.toString());
+        if (Integer.class.equals(type)) {
+            return type.cast(Integer.valueOf(value.toString()));
         }
         if (defaultValue instanceof ByName) {
-            return ((ByName<?>) defaultValue).byName(value.toString());
+            return type.cast(((ByName<?>) defaultValue).byName(value.toString()));
         }
-        return value;
-    }
-
-    /** @return value for this enum element as int */
-    public int getIntValue() {
-        return ((Integer) getValue()).intValue();
-    }
-
-    /** @return value for this enum element as long */
-    public long getLongValue() {
-        return ((Long) getValue()).intValue();
-    }
-
-    /** @return value for this enum element as boolean */
-    public boolean getBooleanValue() {
-        return ((Boolean) getValue()).booleanValue();
-    }
-
-    /** @return value for this enum element as enum value */
-    public <T> T getEnumValue() {
-        return (T) getValue();
+        return type.cast(value);
     }
 
     /**
+     * @param type
+     *        type for this value
+     * @param overrides
+     *        local overrides
      * @return value for this configuration option. Values are evaluated as
-     *         follows: first, check if a system property with the expected name
-     *         is set; if not, check the config file; if no value is set in the
-     *         config file, use the default defined in this enumeration.
+     *         follows: first, check overrides; if no overrides are present,
+     *         check if a system property with the expected name is set; if not,
+     *         check the config file; if no value is set in the config file, use
+     *         the default defined in this enumeration.
      */
-    public Object getValue() {
+    public <T> T getValue(Class<T> type, EnumMap<ConfigurationOptions, Object> overrides) {
+        Object override = overrides.get(this);
+        if (override != null) {
+            return parse(override, type);
+        }
         // first system properties
         Object fromSystemProperties = System.getProperty(PREFIX + name());
         if (fromSystemProperties != null) {
-            return parse(fromSystemProperties);
+            return parse(fromSystemProperties, type);
         }
         Object fromConfigFile = owlapiProperties.get(this);
         if (fromConfigFile != null) {
-            return parse(fromConfigFile);
+            return parse(fromConfigFile, type);
         }
-        return defaultValue;
+        return type.cast(defaultValue);
     }
 }

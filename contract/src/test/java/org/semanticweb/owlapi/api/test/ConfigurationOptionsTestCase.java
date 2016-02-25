@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -73,6 +74,6 @@ public class ConfigurationOptionsTestCase {
 
     @Test
     public void shouldFindExpectedValue() {
-        assertEquals(value, config.getValue());
+        assertEquals(value, config.getValue(value.getClass(), new EnumMap<>(ConfigurationOptions.class)));
     }
 }
