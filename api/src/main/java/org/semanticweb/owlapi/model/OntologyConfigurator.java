@@ -12,11 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
+
 import java.io.Serializable;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 /**
  * A configuration builder that specifies all available options in the OWL API.
@@ -28,54 +33,10 @@ import javax.annotation.Nonnull;
  */
 public class OntologyConfigurator implements Serializable {
 
-    /** True if http compression should be used. */
-    private boolean acceptHTTPCompression = true;
-    /** Timeout for connections. */
-    private int connectionTimeout = 20000;
-    /** True if redirects should be followed across protocols. */
-    private boolean followRedirects = true;
     /** Set of imports to ignore. */
     @Nonnull private final Set<IRI> ignoredImports = new HashSet<>();
-    /** True if annotations should be loaded, false if skipped. */
-    private boolean loadAnnotations = true;
-    /** Missing imports handling strategy. */
-    @Nonnull private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
-    /** Default missing ontology strategy. */
-    @Nonnull private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
-    /** Flag to enable stack traces on parsing exceptions. */
-    private boolean reportStackTraces = true;
-    /**
-     * Number of retries to attempt when retrieving an ontology form a remote
-     * URL. Defaults to 5.
-     */
-    private int retriesToAttempt = 5;
-    /** True if strict parsing should be used. */
-    private boolean parseWithStrictConfiguration = false;
-    /** True if Dublin Core. */
-    private boolean treatDublinCoreAsBuiltIn = true;
-    /** sort configuration for priority collections */
-    private PriorityCollectionSorting priorityCollectionSorting = PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
-    // Save options
-    /**
-     * True if ids for blank nodes should always be written (axioms and
-     * anonymous individuals only).
-     */
-    private boolean saveIds = false;
-    /**
-     * True if all anonymous individuals should have their ids remapped after
-     * parsing.
-     */
-    private boolean remapIds = true;
-    /** True if entities should be used for namespace abbreviations. */
-    private boolean useNamespaceEntities = false;
-    /** True if indenting should be used when writing out a file. */
-    private boolean indenting = true;
-    /**
-     * Size of indentation between levels. Only used if indenting is set to
-     * true.
-     */
-    private int indentSize = 4;
-    private boolean labelsAsBanner = false;
+    /** Local override map. */
+    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
 
     /**
      * Set the priorty collection sorting option.
@@ -86,8 +47,12 @@ public class OntologyConfigurator implements Serializable {
      *         option set.
      */
     public OntologyConfigurator setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
-        priorityCollectionSorting = sorting;
+        overrides.put(PRIORITY_COLLECTION_SORTING, sorting);
         return this;
+    }
+
+    public PriorityCollectionSorting getPriorityCollectionSorting() {
+        return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
     }
 
     /**
@@ -139,8 +104,12 @@ public class OntologyConfigurator implements Serializable {
      *         to the new value
      */
     public OntologyConfigurator setAcceptingHTTPCompression(boolean b) {
-        acceptHTTPCompression = b;
+        overrides.put(ACCEPT_HTTP_COMPRESSION, b);
         return this;
+    }
+
+    public boolean shouldAcceptHTTPCompression() {
+        return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -151,8 +120,12 @@ public class OntologyConfigurator implements Serializable {
      *         timeout set to the new value.
      */
     public OntologyConfigurator setConnectionTimeout(int l) {
-        connectionTimeout = l;
+        overrides.put(CONNECTION_TIMEOUT, l);
         return this;
+    }
+
+    public int getConnectionTimeout() {
+        return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
     }
 
     /**
@@ -163,8 +136,12 @@ public class OntologyConfigurator implements Serializable {
      *         value.
      */
     public OntologyConfigurator setFollowRedirects(boolean value) {
-        followRedirects = value;
+        overrides.put(FOLLOW_REDIRECTS, value);
         return this;
+    }
+
+    public boolean shouldFollowRedirects() {
+        return FOLLOW_REDIRECTS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -181,8 +158,12 @@ public class OntologyConfigurator implements Serializable {
      *         set.
      */
     public OntologyConfigurator setLoadAnnotationAxioms(boolean b) {
-        loadAnnotations = b;
+        overrides.put(LOAD_ANNOTATIONS, b);
         return this;
+    }
+
+    public boolean shouldLoadAnnotations() {
+        return LOAD_ANNOTATIONS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -197,8 +178,12 @@ public class OntologyConfigurator implements Serializable {
      * @since 3.3
      */
     public OntologyConfigurator setMissingImportHandlingStrategy(MissingImportHandlingStrategy strategy) {
-        missingImportHandlingStrategy = strategy;
+        overrides.put(MISSING_IMPORT_HANDLING_STRATEGY, strategy);
         return this;
+    }
+
+    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
+        return MISSING_IMPORT_HANDLING_STRATEGY.getValue(MissingImportHandlingStrategy.class, overrides);
     }
 
     /**
@@ -207,8 +192,12 @@ public class OntologyConfigurator implements Serializable {
      * @return a copy of this configuration object with a different strategy
      */
     public OntologyConfigurator setMissingOntologyHeaderStrategy(MissingOntologyHeaderStrategy strategy) {
-        missingOntologyHeaderStrategy = strategy;
+        overrides.put(MISSING_ONTOLOGY_HEADER_STRATEGY, strategy);
         return this;
+    }
+
+    public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
+        return MISSING_ONTOLOGY_HEADER_STRATEGY.getValue(MissingOntologyHeaderStrategy.class, overrides);
     }
 
     /**
@@ -222,8 +211,12 @@ public class OntologyConfigurator implements Serializable {
      *         to the new value.
      */
     public OntologyConfigurator setReportStackTraces(boolean b) {
-        reportStackTraces = b;
+        overrides.put(REPORT_STACK_TRACES, b);
         return this;
+    }
+
+    public boolean shouldReportStackTraces() {
+        return REPORT_STACK_TRACES.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -232,8 +225,13 @@ public class OntologyConfigurator implements Serializable {
      * @return copy of this configuration with modified retries attempts.
      */
     public OntologyConfigurator setRetriesToAttempt(int retries) {
-        retriesToAttempt = retries;
+        overrides.put(RETRIES_TO_ATTEMPT, retries);
         return this;
+    }
+
+    /** @return value of retries to attempt */
+    public int getRetriesToAttempt() {
+        return RETRIES_TO_ATTEMPT.getValue(Integer.class, overrides).intValue();
     }
 
     /**
@@ -242,8 +240,13 @@ public class OntologyConfigurator implements Serializable {
      * @return copy of the configuration with new strict value
      */
     public OntologyConfigurator setStrict(boolean strict) {
-        parseWithStrictConfiguration = strict;
+        overrides.put(PARSE_WITH_STRICT_CONFIGURATION, strict);
         return this;
+    }
+
+    /** @return true if parsing should be strict */
+    public boolean shouldParseWithStrictConfiguration() {
+        return PARSE_WITH_STRICT_CONFIGURATION.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -253,8 +256,13 @@ public class OntologyConfigurator implements Serializable {
      *         the new value.
      */
     public OntologyConfigurator setTreatDublinCoreAsBuiltIn(boolean value) {
-        treatDublinCoreAsBuiltIn = value;
+        overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, value);
         return this;
+    }
+
+    /** @return true if Dublin Core vocabulary should be treated as built in. */
+    public boolean shouldTreatDublinCoreAsBuiltin() {
+        return TREAT_DUBLINCORE_AS_BUILTIN.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -262,12 +270,13 @@ public class OntologyConfigurator implements Serializable {
      *         settings
      */
     public OWLOntologyLoaderConfiguration buildLoaderConfiguration() {
-        return new OWLOntologyLoaderConfiguration().setAcceptingHTTPCompression(acceptHTTPCompression)
-            .setConnectionTimeout(connectionTimeout).setFollowRedirects(followRedirects).setLoadAnnotationAxioms(
-                loadAnnotations).setMissingImportHandlingStrategy(missingImportHandlingStrategy)
-            .setMissingOntologyHeaderStrategy(missingOntologyHeaderStrategy).setPriorityCollectionSorting(
-                priorityCollectionSorting).setReportStackTraces(reportStackTraces).setRetriesToAttempt(retriesToAttempt)
-            .setStrict(parseWithStrictConfiguration).setTreatDublinCoreAsBuiltIn(treatDublinCoreAsBuiltIn);
+        return new OWLOntologyLoaderConfiguration().setAcceptingHTTPCompression(shouldAcceptHTTPCompression())
+            .setConnectionTimeout(getConnectionTimeout()).setFollowRedirects(shouldFollowRedirects())
+            .setLoadAnnotationAxioms(shouldLoadAnnotations()).setMissingImportHandlingStrategy(
+                getMissingImportHandlingStrategy()).setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
+            .setPriorityCollectionSorting(getPriorityCollectionSorting()).setReportStackTraces(
+                shouldReportStackTraces()).setRetriesToAttempt(getRetriesToAttempt()).setStrict(
+                    shouldParseWithStrictConfiguration()).setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin());
     }
 
     /**
@@ -277,8 +286,12 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
-        saveIds = b;
+        overrides.put(SAVE_IDS, b);
         return this;
+    }
+
+    public boolean shouldSaveIds() {
+        return SAVE_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -288,8 +301,12 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withRemapAllAnonymousIndividualsIds(boolean b) {
-        remapIds = b;
+        overrides.put(REMAP_IDS, b);
         return this;
+    }
+
+    public boolean shouldRemapIds() {
+        return REMAP_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -298,8 +315,12 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withUseNamespaceEntities(boolean useEntities) {
-        useNamespaceEntities = useEntities;
+        overrides.put(USE_NAMESPACE_ENTITIES, useEntities);
         return this;
+    }
+
+    public boolean shouldUseNamespaceEntities() {
+        return USE_NAMESPACE_ENTITIES.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -308,8 +329,12 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withIndenting(boolean indent) {
-        indenting = indent;
+        overrides.put(INDENTING, indent);
         return this;
+    }
+
+    public boolean shouldIndent() {
+        return INDENTING.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -319,8 +344,12 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withIndentSize(int indent) {
-        indentSize = indent;
+        overrides.put(INDENT_SIZE, indent);
         return this;
+    }
+
+    public int getIndentSize() {
+        return INDENT_SIZE.getValue(Integer.class, overrides).intValue();
     }
 
     /**
@@ -329,8 +358,12 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withLabelsAsBanner(boolean label) {
-        labelsAsBanner = label;
+        overrides.put(LABELS_AS_BANNER, label);
         return this;
+    }
+
+    public boolean shouldUseLabelsAsBanner() {
+        return LABELS_AS_BANNER.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -338,8 +371,9 @@ public class OntologyConfigurator implements Serializable {
      *         settings
      */
     public OWLOntologyWriterConfiguration buildWriterConfiguration() {
-        return new OWLOntologyWriterConfiguration().withIndenting(indenting).withIndentSize(indentSize)
-            .withLabelsAsBanner(labelsAsBanner).withRemapAllAnonymousIndividualsIds(remapIds)
-            .withSaveIdsForAllAnonymousIndividuals(saveIds).withUseNamespaceEntities(useNamespaceEntities);
+        return new OWLOntologyWriterConfiguration().withIndenting(shouldIndent()).withIndentSize(getIndentSize())
+            .withLabelsAsBanner(shouldUseLabelsAsBanner()).withRemapAllAnonymousIndividualsIds(shouldRemapIds())
+            .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds()).withUseNamespaceEntities(
+                shouldUseNamespaceEntities());
     }
 }

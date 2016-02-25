@@ -26,7 +26,7 @@ public enum ConfigurationOptions {
     /** True if http compression should be used. */
     ACCEPT_HTTP_COMPRESSION             (Boolean.TRUE),
     /** Timeout for connections. */
-    CONNECTION_TIMEOUT                  (20000L),
+    CONNECTION_TIMEOUT                  (20000),
     /** True if redirects should be followed across protocols. */
     FOLLOW_REDIRECTS                    (Boolean.TRUE),
     /** True if annotations should be loaded, false if skipped. */
@@ -149,6 +149,10 @@ public enum ConfigurationOptions {
         if (fromConfigFile != null) {
             return parse(fromConfigFile, type);
         }
+        return type.cast(defaultValue);
+    }
+
+    public <T> T getDefaultValue(Class<T> type) {
         return type.cast(defaultValue);
     }
 }
