@@ -1,6 +1,10 @@
 package org.semanticweb.owlapi.io;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
+
+import java.util.EnumMap;
+
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 /**
  * Settings for anonymous individual treatment. Note: these cannot be specified
@@ -9,20 +13,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class AnonymousIndividualProperties {
 
-    private static final AtomicBoolean saveIds = new AtomicBoolean(false);
-    private static final AtomicBoolean remapIds = new AtomicBoolean(true);
+    /** Local override map. */
+    private static EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
 
     /** Ensure the config is back to default values. */
     public static void resetToDefault() {
-        saveIds.set(false);
-        remapIds.set(true);
+        overrides.clear();
     }
 
     /**
      * @return true if all anonymous individuals should have their ids persisted
      */
     public static boolean shouldSaveIdsForAllAnonymousIndividuals() {
-        return saveIds.get();
+        return SAVE_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -30,7 +33,7 @@ public class AnonymousIndividualProperties {
      *         upon reading
      */
     public static boolean shouldRemapAllAnonymousIndividualsIds() {
-        return remapIds.get();
+        return REMAP_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -38,7 +41,7 @@ public class AnonymousIndividualProperties {
      *        true if all anonymous individuals should have their ids persisted
      */
     public static void setSaveIdsForAllAnonymousIndividuals(boolean b) {
-        saveIds.set(b);
+        overrides.put(SAVE_IDS, b);
     }
 
     /**
@@ -47,6 +50,6 @@ public class AnonymousIndividualProperties {
      *        after parsing
      */
     public static void setRemapAllAnonymousIndividualsIds(boolean b) {
-        remapIds.set(b);
+        overrides.put(REMAP_IDS, b);
     }
 }

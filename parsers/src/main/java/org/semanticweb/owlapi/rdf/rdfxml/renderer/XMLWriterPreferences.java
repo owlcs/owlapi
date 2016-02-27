@@ -12,10 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
+
+import java.util.EnumMap;
 
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
@@ -27,10 +30,8 @@ import javax.annotation.Nonnull;
 public final class XMLWriterPreferences {
 
     private static final @Nonnull XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
-    private AtomicBoolean useNamespaceEntities = new AtomicBoolean(false);
-    private AtomicBoolean indenting = new AtomicBoolean(true);
-    private AtomicBoolean labelsAsBanner = new AtomicBoolean(false);
-    private AtomicInteger indentSize = new AtomicInteger(4);
+    /** Local override map. */
+    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
 
     private XMLWriterPreferences() {}
 
@@ -43,10 +44,7 @@ public final class XMLWriterPreferences {
     @Nonnull
     public synchronized XMLWriterPreferences copy() {
         XMLWriterPreferences p = new XMLWriterPreferences();
-        p.indenting.set(indenting.get());
-        p.indentSize.set(indentSize.get());
-        p.useNamespaceEntities.set(useNamespaceEntities.get());
-        p.labelsAsBanner.set(labelsAsBanner.get());
+        p.overrides.putAll(overrides);
         return p;
     }
 
@@ -61,7 +59,7 @@ public final class XMLWriterPreferences {
      * @return use namespace entities
      */
     public boolean isUseNamespaceEntities() {
-        return useNamespaceEntities.get();
+        return USE_NAMESPACE_ENTITIES.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -69,14 +67,14 @@ public final class XMLWriterPreferences {
      *        useNamespaceEntities
      */
     public void setUseNamespaceEntities(boolean useNamespaceEntities) {
-        this.useNamespaceEntities.set(useNamespaceEntities);
+        overrides.put(USE_NAMESPACE_ENTITIES, useNamespaceEntities);
     }
 
     /**
      * @return indenting
      */
     public boolean isIndenting() {
-        return indenting.get();
+        return INDENTING.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -84,14 +82,14 @@ public final class XMLWriterPreferences {
      *        indenting
      */
     public void setIndenting(boolean indenting) {
-        this.indenting.set(indenting);
+        overrides.put(INDENTING, indenting);
     }
 
     /**
      * @return indent size
      */
     public int getIndentSize() {
-        return indentSize.get();
+        return INDENT_SIZE.getValue(Integer.class, overrides).intValue();
     }
 
     /**
@@ -99,14 +97,14 @@ public final class XMLWriterPreferences {
      *        indentSize
      */
     public void setIndentSize(int indentSize) {
-        this.indentSize.set(indentSize);
+        overrides.put(INDENT_SIZE, indentSize);
     }
 
     public void setLabelsAsBanner(boolean labelsAsBanner) {
-        this.labelsAsBanner.set(labelsAsBanner);
+        overrides.put(LABELS_AS_BANNER, labelsAsBanner);
     }
 
     public boolean isLabelsAsBanner() {
-        return labelsAsBanner.get();
+        return LABELS_AS_BANNER.getValue(Boolean.class, overrides).booleanValue();
     }
 }
