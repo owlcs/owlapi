@@ -1,3 +1,10 @@
+4.2.0 28 February 2016
+Features:
+Allow overridable and defaultable properties
+
+Bug fixes:
+Fix EntitySearcher.getDomains(OWLAnnotationProperty, OWLOntology) returns the range axioms instead of the domain axioms #492
+
 4.1.4 3 February 2016
 Features:
 Add OWLObjectTransformer to replace any part of an ontology #487
