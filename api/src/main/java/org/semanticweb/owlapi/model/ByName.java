@@ -7,7 +7,6 @@ package org.semanticweb.owlapi.model;
  * @param <T>
  *        type for the interface
  */
-@FunctionalInterface
 public interface ByName<T> {
 
     /**
