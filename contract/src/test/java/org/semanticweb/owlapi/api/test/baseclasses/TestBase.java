@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -82,16 +83,10 @@ public abstract class TestBase {
     }
 
     private static final File resources() {
-        File f = new File("contract/src/test/resources/");
-        if (f.exists()) {
-            return f;
-        } else {
-            f = new File("src/test/resources/");
-            if (f.exists()) {
-                return f;
-            } else {
-                throw new OWLRuntimeException("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
-            }
+        try {
+            return new File(TestBase.class.getResource("/owlapi.properties").toURI()).getParentFile();
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException("NO RESOURCE FOLDER ACCESSIBLE", e);
         }
     }
 
