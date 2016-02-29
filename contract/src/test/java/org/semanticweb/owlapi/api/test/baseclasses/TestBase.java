@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
@@ -56,6 +58,16 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
  */
 @SuppressWarnings({ "javadoc", "null" })
 public abstract class TestBase {
+
+    @Nonnull protected static final File RESOURCES = resources();
+
+    private static final File resources() {
+        try {
+            return new File(TestBase.class.getResource("/owlapi.properties").toURI()).getParentFile();
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException("NO RESOURCE FOLDER ACCESSIBLE", e);
+        }
+    }
 
     protected static final Logger logger = LoggerFactory.getLogger(TestBase.class);
     @Nonnull @Rule public TemporaryFolder folder = new TemporaryFolder();

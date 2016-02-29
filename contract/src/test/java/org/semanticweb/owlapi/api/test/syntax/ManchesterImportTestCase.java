@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 @SuppressWarnings("javadoc")
@@ -33,21 +32,6 @@ public class ManchesterImportTestCase extends TestBase {
 
     @Nonnull private final String str = "http://owlapitestontologies.com/thesuperont";
     @Nonnull private final String superpath = "/imports/thesuperont.omn";
-    @Nonnull private static final File RESOURCES;
-
-    static {
-        File f = new File("contract/src/test/resources/");
-        if (f.exists()) {
-            RESOURCES = f;
-        } else {
-            f = new File("src/test/resources/");
-            if (f.exists()) {
-                RESOURCES = f;
-            } else {
-                throw new OWLRuntimeException("ManchesterImportTestCase: NO RESOURCE FOLDER ACCESSIBLE");
-            }
-        }
-    }
 
     @Test
     public void testManualImports() throws OWLOntologyCreationException {
