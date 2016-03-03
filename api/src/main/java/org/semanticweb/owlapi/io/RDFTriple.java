@@ -35,12 +35,9 @@ import gnu.trove.map.hash.THashMap;
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final RDFResource subject;
-    @Nonnull
-    private final RDFResourceIRI predicate;
-    @Nonnull
-    private final RDFNode object;
+    @Nonnull private final RDFResource subject;
+    @Nonnull private final RDFResourceIRI predicate;
+    @Nonnull private final RDFNode object;
 
     /**
      * @param subject
@@ -50,8 +47,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param object
      *        the object
      */
-    public RDFTriple(@Nonnull RDFResource subject,
-        @Nonnull RDFResourceIRI predicate, @Nonnull RDFNode object) {
+    public RDFTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI predicate, @Nonnull RDFNode object) {
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.object = checkNotNull(object, "object cannot be null");
@@ -69,8 +65,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param objectAnon
      *        whether the object is anonymous
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
-        @Nonnull IRI predicate, @Nonnull IRI object, boolean objectAnon) {
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate, @Nonnull IRI object,
+        boolean objectAnon) {
         this(getResource(subject, subjectAnon),
             // Predicate is not allowed to be anonymous
             new RDFResourceIRI(predicate), getResource(object, objectAnon));
@@ -94,10 +90,13 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param object
      *        the object
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
-        @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
-        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate),
-            new RDFLiteral(object));
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
+        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate), new RDFLiteral(object));
+    }
+
+    /** @return true if subject and object are the same */
+    public boolean isSubjectSameAsObject() {
+        return subject.equals(object);
     }
 
     /**
@@ -126,8 +125,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     @Override
     public int hashCode() {
-        return subject.hashCode() * 37 + predicate.hashCode() * 17
-            + object.hashCode();
+        return subject.hashCode() * 37 + predicate.hashCode() * 17 + object.hashCode();
     }
 
     @Override
@@ -139,9 +137,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             return false;
         }
         RDFTriple other = (RDFTriple) obj;
-        return subject.equals(other.subject)
-            && predicate.equals(other.predicate)
-            && object.equals(other.object);
+        return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);
     }
 
     @Override
@@ -149,16 +145,11 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return String.format("%s %s %s.\n", subject, predicate, object);
     }
 
-    private static final List<IRI> ORDERED_URIS = Arrays.asList(
-        RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(), OWL_DEPRECATED.getIRI(),
-        RDFS_COMMENT.getIRI(), RDFS_IS_DEFINED_BY.getIRI(),
-        RDF_FIRST.getIRI(), RDF_REST.getIRI(),
-        OWL_EQUIVALENT_CLASS.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI(),
-        RDFS_SUBCLASS_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI(),
-        RDFS_DOMAIN.getIRI(), RDFS_RANGE.getIRI(),
-        OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
-        OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI(),
-        OWL_ANNOTATED_SOURCE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI(),
+    private static final List<IRI> ORDERED_URIS = Arrays.asList(RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(), OWL_DEPRECATED
+        .getIRI(), RDFS_COMMENT.getIRI(), RDFS_IS_DEFINED_BY.getIRI(), RDF_FIRST.getIRI(), RDF_REST.getIRI(),
+        OWL_EQUIVALENT_CLASS.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI(), RDFS_SUBCLASS_OF.getIRI(), RDFS_SUB_PROPERTY_OF
+            .getIRI(), RDFS_DOMAIN.getIRI(), RDFS_RANGE.getIRI(), OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
+        OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI(), OWL_ANNOTATED_SOURCE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI(),
         OWL_ANNOTATED_TARGET.getIRI());
     static final THashMap<IRI, Integer> specialPredicateRanks = new THashMap<>();
 
@@ -188,13 +179,11 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return diff;
     }
 
-    private static int comparePredicates(RDFResourceIRI predicate,
-        RDFResourceIRI otherPredicate) {
+    private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
         IRI predicateIRI = predicate.getIRI();
         Integer specialPredicateRank = specialPredicateRanks.get(predicateIRI);
         IRI otherPredicateIRI = otherPredicate.getIRI();
-        Integer otherSpecialPredicateRank = specialPredicateRanks
-            .get(otherPredicateIRI);
+        Integer otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
         if (specialPredicateRank != null) {
             if (otherSpecialPredicateRank != null) {
                 return specialPredicateRank - otherSpecialPredicateRank;

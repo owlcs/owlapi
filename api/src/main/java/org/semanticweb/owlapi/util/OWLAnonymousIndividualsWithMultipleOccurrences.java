@@ -146,6 +146,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         axiom.getProperty().accept(this);
+        axiom.getSubject().accept(this);
         axiom.getObject().accept(this);
         processAxiomAnnotations(axiom);
     }

@@ -36,12 +36,9 @@ import org.semanticweb.owlapi.util.VersionInfo;
 public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
-    @Nonnull
-    private final Set<RDFResource> pending = new HashSet<>();
-    @Nonnull
-    private final RDFXMLNamespaceManager qnameManager;
-    @Nonnull
-    private final OWLDocumentFormat format;
+    @Nonnull private final Set<RDFResource> pending = new HashSet<>();
+    @Nonnull private final RDFXMLNamespaceManager qnameManager;
+    @Nonnull private final OWLDocumentFormat format;
     ShortFormProvider labelMaker;
 
     /**
@@ -229,6 +226,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                 }
                             }
                         }
+                    } else if (objectRes.equals(node)) {
+                        // special case for triples with same object and subject
+                        writer.writeNodeIDAttribute((RDFResourceBlankNode) objectRes);
                     } else {
                         render(objectRes);
                     }

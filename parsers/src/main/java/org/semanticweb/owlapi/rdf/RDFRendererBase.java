@@ -39,33 +39,21 @@ import gnu.trove.strategy.IdentityHashingStrategy;
  */
 public abstract class RDFRendererBase {
 
-    @Nonnull
-    private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
-    @Nonnull
-    private static final String DATATYPES_BANNER_TEXT = "Datatypes";
-    @Nonnull
-    private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
-    @Nonnull
-    private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
-    @Nonnull
-    private static final String CLASSES_BANNER_TEXT = "Classes";
-    @Nonnull
-    private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
-    @Nonnull
-    private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
+    @Nonnull private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
+    @Nonnull private static final String DATATYPES_BANNER_TEXT = "Datatypes";
+    @Nonnull private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
+    @Nonnull private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
+    @Nonnull private static final String CLASSES_BANNER_TEXT = "Classes";
+    @Nonnull private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
+    @Nonnull private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
     /** general axioms */
-    @Nonnull
-    private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    @Nonnull private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
     /** rules banner */
-    @Nonnull
-    private static final String RULES_BANNER_TEXT = "Rules";
-    @Nonnull
-    private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
-    @Nonnull
-    protected final OWLOntology ontology;
+    @Nonnull private static final String RULES_BANNER_TEXT = "Rules";
+    @Nonnull private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
+    @Nonnull protected final OWLOntology ontology;
     protected RDFGraph graph;
-    @Nonnull
-    protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
+    @Nonnull protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
     protected final IndividualAppearance occurrences;
@@ -426,8 +414,7 @@ public abstract class RDFRendererBase {
     }
 
     protected void renderOntologyHeader() throws IOException {
-        RDFTranslator translator = new RDFTranslator(
-            ontology.getOWLOntologyManager(), ontology,
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences);
         graph = translator.getGraph();
         RDFResource ontologyHeaderNode = createOntologyHeaderNode(translator);
@@ -461,8 +448,7 @@ public abstract class RDFRendererBase {
 
     private void addAnnotationsToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode, RDFTranslator translator) {
         for (OWLAnnotation anno : ontology.getAnnotations()) {
-            translator.addTriple(ontologyHeaderNode,
-                anno.getProperty().getIRI(), anno.getValue());
+            translator.addTriple(ontologyHeaderNode, anno.getProperty().getIRI(), anno.getValue());
             if (anno.getValue() instanceof OWLAnonymousIndividual) {
                 OWLAnonymousIndividual i = (OWLAnonymousIndividual) anno.getValue();
                 for (OWLAxiom ax : ontology.getReferencingAxioms(i)) {

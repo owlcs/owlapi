@@ -150,16 +150,13 @@ public class RDFGraph implements Serializable {
     private void rebuildAnonRoots() {
         rootAnonymousNodes.clear();
         for (RDFTriple triple : triples) {
-            if (triple.getSubject() instanceof RDFResourceBlankNode) {
+            if (triple.getSubject().isAnonymous()) {
                 rootAnonymousNodes.add((RDFResourceBlankNode) triple.getSubject());
             }
         }
         for (RDFTriple triple : triples) {
-            if (!triple.getObject().isLiteral()) {
+            if (triple.getObject().isAnonymous() && !triple.isSubjectSameAsObject()) {
                 rootAnonymousNodes.remove(triple.getObject());
-            }
-            if (!triple.getSubject().isAnonymous()) {
-                rootAnonymousNodes.remove(triple.getSubject());
             }
         }
     }
