@@ -223,6 +223,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                 }
                             }
                         }
+                    } else if (objectRes.equals(node)) {
+                        // special case for triples with same object and subject
+                        writer.writeNodeIDAttribute(objectRes);
                     } else {
                         render(objectRes);
                     }

@@ -48,6 +48,19 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences extends AbstractColl
     }
 
     @Override
+    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        axiom.getObject().accept(this);
+        axiom.annotations().forEach(a1 -> a1.accept(this));
+    }
+
+    @Override
+    public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        axiom.getSubject().accept(this);
+        axiom.annotations().forEach(a1 -> a1.accept(this));
+    }
+
+    @Override
     public void visit(OWLOntology ontology) {
         ontology.annotations().forEach(a1 -> a1.accept(this));
         AxiomType.AXIOM_TYPES.forEach(t -> ontology.axioms(t).forEach(ax -> ax.accept(this)));

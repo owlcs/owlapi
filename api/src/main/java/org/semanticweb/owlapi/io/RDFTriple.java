@@ -121,6 +121,11 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         return new RDFResourceIRI(iri);
     }
 
+    /** @return true if subject and object are the same */
+    public boolean isSubjectSameAsObject() {
+        return subject.equals(object);
+    }
+
     @Override
     public RDFResource getSubject() {
         return subject;
@@ -174,8 +179,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
         ORDERED_URIS.forEach(iri -> predicates.put(iri, nextId.getAndIncrement()));
-        Stream.of(OWLRDFVocabulary.values())
-            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId.getAndIncrement()));
+        Stream.of(OWLRDFVocabulary.values()).forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId
+            .getAndIncrement()));
         return predicates;
     }
 

@@ -60,6 +60,16 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(), ind);
                 axioms.add(ax);
                 axioms.add(Declaration(cls));
+                OWLObjectProperty p = ObjectProperty(iri("p"));
+                axioms.add(Declaration(p));
+                OWLAnonymousIndividual anon1 = AnonymousIndividual();
+                OWLAnonymousIndividual anon2 = AnonymousIndividual();
+                OWLNamedIndividual ind1 = NamedIndividual(iri("j"));
+                OWLNamedIndividual ind2 = NamedIndividual(iri("i"));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, ind1, ind2));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, anon1, anon1));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, anon2, ind2));
+                axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, ind2, anon2));
                 return axioms;
             } ,
             // AnonymousIndividuals2
