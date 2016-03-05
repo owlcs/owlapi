@@ -1004,7 +1004,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         writeLock.lock();
         try {
             if (loadCount.get() != importsLoadCount.get()) {
-                LOGGER.error(
+                LOGGER.warn(
                     "Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
             }
             fireStartedLoadingEvent(new OWLOntologyID(of(ontologyIRI), absent()), documentSource.getDocumentIRI(),
