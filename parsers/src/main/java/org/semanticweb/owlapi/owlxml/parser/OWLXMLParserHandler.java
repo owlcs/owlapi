@@ -25,6 +25,8 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +42,7 @@ import org.xml.sax.helpers.DefaultHandler;
  *         Informatics Group
  * @since 2.0.0
  */
-class OWLXMLParserHandler extends DefaultHandler {
+class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualByIdProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLXMLParserHandler.class);
     private final OWLOntologyManager owlOntologyManager;
@@ -52,6 +54,7 @@ class OWLXMLParserHandler extends DefaultHandler {
     private final Deque<URI> bases = new LinkedList<>();
     @Nonnull private final OWLOntologyLoaderConfiguration configuration;
     private final Map<String, IRI> iriMap = new HashMap<>();
+    private final RemappingIndividualProvider anonProvider;
 
     /**
      * @param ontology
@@ -100,6 +103,8 @@ class OWLXMLParserHandler extends DefaultHandler {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
+        anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOntologyConfigurator(), owlOntologyManager
+            .getOWLDataFactory());
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -197,6 +202,11 @@ class OWLXMLParserHandler extends DefaultHandler {
         addFactory(PARSER_BUILT_IN_ATOM);
         addFactory(PARSER_DIFFERENT_INDIVIDUALS_ATOM);
         addFactory(PARSER_SAME_INDIVIDUAL_ATOM);
+    }
+
+    @Override
+    public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
+        return anonProvider.getOWLAnonymousIndividual(nodeId);
     }
 
     @Override

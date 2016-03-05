@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class FileRoudTripWithEqualTestCase extends
-    AbstractFileRoundTrippingTestCase {
+public class FileRoudTripWithEqualTestCase extends AbstractFileRoundTrippingTestCase {
 
     public FileRoudTripWithEqualTestCase(String f) {
         super(f);
@@ -47,13 +46,13 @@ public class FileRoudTripWithEqualTestCase extends
             // AnonymousTurtle2
             "testBlankNodes2.ttl",
             // AnonymousTurtleAssertion
-            "testBlankNodesAssertions.ttl");
+            "testBlankNodesAssertions.ttl", "owlxml_anonloop.owx");
     }
 
     @Override
     @Test
-    public void roundTripRDFXMLAndFunctionalShouldBeSame()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
         OWLOntology ont = createOntology();
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());

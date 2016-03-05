@@ -20,7 +20,6 @@ import java.util.*;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -1206,12 +1205,9 @@ class OWLAnnotationPropertyRangeElementHandler extends AbstractOWLAxiomElementHa
 class OWLAnonymousIndividualElementHandler extends OWLElementHandler<OWLAnonymousIndividual> {
 
     OWLAnonymousIndividual ind;
-    RemappingIndividualProvider anonProvider;
 
     OWLAnonymousIndividualElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        anonProvider = new RemappingIndividualProvider(handler.getOWLOntologyManager().getOntologyConfigurator(),
-            handler.getOWLOntologyManager().getOWLDataFactory());
     }
 
     @Override
@@ -1222,7 +1218,7 @@ class OWLAnonymousIndividualElementHandler extends OWLElementHandler<OWLAnonymou
     @Override
         void attribute(String localName, String value) {
         if (localName.equals(NODE_ID.getShortForm())) {
-            ind = anonProvider.getOWLAnonymousIndividual(value.trim());
+            ind = handler.getOWLAnonymousIndividual(value.trim());
         } else {
             super.attribute(localName, value);
         }
