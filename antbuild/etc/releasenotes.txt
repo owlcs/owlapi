@@ -1,3 +1,9 @@
+4.2.1 5 March 2016
+Bug fixes:
+Fix Anonymous individuals parsing problems #494
+Fix makeLoadImportRequest log should be a warning #489
+Fix Saving fails for ontologies containing XMLLiteral #495
+
 4.2.0 28 February 2016
 Features:
 Allow overridable and defaultable properties
