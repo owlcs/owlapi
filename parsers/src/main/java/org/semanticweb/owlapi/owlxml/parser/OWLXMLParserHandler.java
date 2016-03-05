@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -43,20 +44,17 @@ import org.xml.sax.helpers.DefaultHandler;
  *         Informatics Group
  * @since 2.0.0
  */
-class OWLXMLParserHandler extends DefaultHandler {
+class OWLXMLParserHandler extends DefaultHandler implements OWLAnonymousIndividualByIdProvider {
 
     private final OWLOntologyManager owlOntologyManager;
-    @Nonnull
-    private final OWLOntology ontology;
+    @Nonnull private final OWLOntology ontology;
     private final List<OWLElementHandler<?>> handlerStack;
-    @Nonnull
-    private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
-    @Nonnull
-    private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
+    @Nonnull private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
+    @Nonnull private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
     private Locator locator;
     private final Stack<URI> bases;
-    @Nonnull
-    private final OWLOntologyLoaderConfiguration configuration;
+    @Nonnull private final OWLOntologyLoaderConfiguration configuration;
+    private final RemappingIndividualProvider anonProvider;
 
     /**
      * @param ontology
@@ -121,6 +119,7 @@ class OWLXMLParserHandler extends DefaultHandler {
         bases = new Stack<>();
         this.configuration = configuration;
         handlerStack = new ArrayList<>();
+        anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOWLDataFactory());
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -218,6 +217,11 @@ class OWLXMLParserHandler extends DefaultHandler {
         addFactory(PARSER_BUILT_IN_ATOM);
         addFactory(PARSER_DIFFERENT_INDIVIDUALS_ATOM);
         addFactory(PARSER_SAME_INDIVIDUAL_ATOM);
+    }
+
+    @Override
+    public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
+        return anonProvider.getOWLAnonymousIndividual(nodeId);
     }
 
     /**
