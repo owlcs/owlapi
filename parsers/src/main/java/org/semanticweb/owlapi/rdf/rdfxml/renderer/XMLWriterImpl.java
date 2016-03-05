@@ -41,15 +41,11 @@ import com.google.common.collect.Lists;
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    @Nonnull
-    private final Stack<XMLElement> elementStack;
-    @Nonnull
-    protected final Writer writer;
+    @Nonnull private final Stack<XMLElement> elementStack;
+    @Nonnull protected final Writer writer;
     private String encoding = "";
-    @Nonnull
-    private final String xmlBase;
-    @Nonnull
-    private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    @Nonnull private final String xmlBase;
+    @Nonnull private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
@@ -273,8 +269,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         private final String name;
         private final Map<String, String> attributes;
-        @Nullable
-        String textContent;
+        @Nullable String textContent;
         private boolean startWritten;
         private int indentation;
         private boolean wrapAttributes;
@@ -429,13 +424,18 @@ public class XMLWriterImpl implements XMLWriter {
         private void writeTextContent() throws IOException {
             if (textContent != null) {
                 // only escape the data if this is not an XML literal
-                if ("http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral".equals(attributes.get("rdf:datatype"))) {
+                if (isRDFXMLLiteral()) {
                     checkProperXMLLiteral(textContent);
                     writer.write(textContent);
                 } else {
                     writer.write(XMLUtils.escapeXML(textContent));
                 }
             }
+        }
+
+        private boolean isRDFXMLLiteral() {
+            return "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral".equals(attributes.get("rdf:datatype"))
+                || "Literal".equals(attributes.get("rdf:parseType"));
         }
 
         private void checkProperXMLLiteral(String text) throws IOException {

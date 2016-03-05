@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -30,26 +31,13 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class RDFXMLWriter {
 
-    @Nonnull
-    private static final IRI RDF_RDF = IRI.create(
-        Namespaces.RDF.getPrefixIRI(), "RDF");
-    @Nonnull
-    private static final IRI RDF_RESOURCE = IRI.create(
-        Namespaces.RDF.getPrefixIRI(), "resource");
-    @Nonnull
-    private static final String XML_LANG = "xml:lang";
-    @Nonnull
-    private static final IRI RDF_NODEID = IRI.create(
-        Namespaces.RDF.getPrefixIRI(), "nodeID");
-    @Nonnull
-    private static final IRI RDF_ABOUT = IRI.create(
-        Namespaces.RDF.getPrefixIRI(), "about");
-    @Nonnull
-    private static final IRI RDF_DATATYPE = IRI.create(
-        Namespaces.RDF.getPrefixIRI(), "datatype");
-    @Nonnull
-    private static final IRI PARSETYPE_IRI = IRI.create(
-        Namespaces.RDF.getPrefixIRI(), "parseType");
+    @Nonnull private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
+    @Nonnull private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(), "resource");
+    @Nonnull private static final String XML_LANG = "xml:lang";
+    @Nonnull private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(), "nodeID");
+    @Nonnull private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(), "about");
+    @Nonnull private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(), "datatype");
+    @Nonnull private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(), "parseType");
     private final XMLWriter writer;
 
     protected RDFXMLWriter(@Nonnull XMLWriter writer) {
@@ -64,8 +52,7 @@ public class RDFXMLWriter {
      */
     public void writeStartElement(@Nonnull IRI elementName) throws IOException {
         // Sort out with namespace
-        writer.writeStartElement(checkNotNull(elementName,
-            "elementName cannot be null"));
+        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
     }
 
     /**
@@ -77,15 +64,28 @@ public class RDFXMLWriter {
     }
 
     /**
+     * Parse type attribute for literals.
+     * 
+     * @throws IOException
+     *         io exception
+     */
+    public void writeParseTypeLiteralAttribute() throws IOException {
+        writer.writeAttribute(PARSETYPE_IRI, "Literal");
+    }
+
+    /**
      * @param datatypeIRI
      *        datatypeIRI
      * @throws IOException
      *         io exception
      */
-    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI)
-        throws IOException {
+    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
-        writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
+        if (OWL2Datatype.RDF_XML_LITERAL.getIRI().equals(datatypeIRI)) {
+            writeParseTypeLiteralAttribute();
+        } else {
+            writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
+        }
     }
 
     /**
@@ -132,8 +132,7 @@ public class RDFXMLWriter {
      * @throws IOException
      *         io exception
      */
-    public void writeNodeIDAttribute(@Nonnull RDFResourceBlankNode node)
-        throws IOException {
+    public void writeNodeIDAttribute(@Nonnull RDFResourceBlankNode node) throws IOException {
         writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
@@ -145,10 +144,8 @@ public class RDFXMLWriter {
      * @throws IOException
      *         io exception
      */
-    public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value)
-        throws IOException {
-        writer.writeAttribute(attributeName,
-            checkNotNull(value, "value cannot be null").toString());
+    public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value) throws IOException {
+        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
     }
 
     /**

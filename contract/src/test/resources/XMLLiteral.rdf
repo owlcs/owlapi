@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://testonto#"
+     xml:base="http://testonto"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:ttania="http://ttania.owl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#" >
+     
+    <owl:Ontology rdf:about="http://testonto" />
+	<owl:AnnotationProperty rdf:about="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#annotProp" />
+    <owl:Class rdf:about="http://ttania.owl/OWLClass_ce266563_6ce0_4958_b061_a1d2a62b7e86">
+        <rdfs:label xml:lang="en">ClassA</rdfs:label>        
+        <ncicp:annotProp rdf:parseType="Literal"><ncicp:ComplexTerm xmlns:ncicp="http://ncicb.nci.nih.gov/xml/owl/EVS/ComplexProperties.xsd#"><ncicp:term-name>Role_Has_Parent</ncicp:term-name><ncicp:term-group>PT</ncicp:term-group><ncicp:term-source>NCI</ncicp:term-source></ncicp:ComplexTerm></ncicp:annotProp>
+    </owl:Class>
+</rdf:RDF>
