@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -58,12 +59,23 @@ public class RDFXMLWriter {
     }
 
     /**
+     * Parse type attribute for literals.
+     */
+    public void writeParseTypeLiteralAttribute() {
+        writer.writeAttribute(PARSETYPE_IRI, "Literal");
+    }
+
+    /**
      * @param datatypeIRI
      *        datatypeIRI
      */
     public void writeDatatypeAttribute(IRI datatypeIRI) {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
-        writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
+        if (OWL2Datatype.RDF_XML_LITERAL.getIRI().equals(datatypeIRI)) {
+            writeParseTypeLiteralAttribute();
+        } else {
+            writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
+        }
     }
 
     /**

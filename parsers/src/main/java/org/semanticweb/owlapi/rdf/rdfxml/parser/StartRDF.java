@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
@@ -83,12 +85,11 @@ abstract class AbstractState {
             String nsIRI = atts.getURI(i);
             String localName = atts.getLocalName(i);
             String value = atts.getValue(i);
-            if (!XMLNS.equals(nsIRI) && !XMLLANG.equals(localName)
-                && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName) || ATTR_NODE_ID.equals(localName)
-                    || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(localName)
-                    || ATTR_RESOURCE.equals(localName) || ATTR_PARSE_TYPE.equals(localName)
-                    || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(localName)
-                    || ATTR_BAG_ID.equals(localName)))) {
+            if (!XMLNS.equals(nsIRI) && !XMLLANG.equals(localName) && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(
+                localName) || ATTR_NODE_ID.equals(localName) || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(
+                    localName) || ATTR_RESOURCE.equals(localName) || ATTR_PARSE_TYPE.equals(localName)
+                || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(localName) || ATTR_BAG_ID.equals(
+                    localName)))) {
                 String reificationID = reificationManager.getReificationID(null, parser);
                 parser.statementWithLiteralValue(subjectIRI, nsIRI + localName, value, null, reificationID);
             } else if (RDFNS.equals(nsIRI) && ELT_TYPE.equals(localName)) {
@@ -299,8 +300,8 @@ class NodeElement extends AbstractState implements State {
         boolean isRDFNS = RDFNS.equals(namespaceIRI);
         reificationManager = getReificationManager(atts);
         if (!isRDFNS || !ELT_DESCRIPTION.equals(localName)) {
-            parser.statementWithResourceValue(subjectIRI(), RDF_TYPE, namespaceIRI + localName,
-                reificationManager.getReificationID(null, parser));
+            parser.statementWithResourceValue(subjectIRI(), RDF_TYPE, namespaceIRI + localName, reificationManager
+                .getReificationID(null, parser));
         }
         // Checks if attribute list contains some of the unsupported attributes.
         parser.verify(atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1, ABOUT_EACH_UNSUPPORTED);
@@ -524,6 +525,8 @@ class ParseTypeLiteralElement extends AbstractState implements State {
     @Nullable protected String reificationID;
     protected int depth;
     protected StringBuilder m_content;
+    // avoid multiple redeclarations of namespace abbreviations in XML Literals
+    protected Set<String> declaredNamespaces = new HashSet<>(2);
 
     ParseTypeLiteralElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -543,6 +546,12 @@ class ParseTypeLiteralElement extends AbstractState implements State {
         } else {
             m_content.append('<');
             m_content.append(qName);
+            // ensure namespace declarations are added at the root, and only if
+            // not already added in a parent node
+            if (!localName.equals(qName) && declaredNamespaces.add(namespaceIRI)) {
+                m_content.append(" xmlns:").append(qName.substring(0, qName.indexOf(':'))).append("=\"").append(
+                    namespaceIRI).append('"');
+            }
             int length = atts.getLength();
             for (int i = 0; i < length; i++) {
                 m_content.append(' ');
@@ -559,8 +568,9 @@ class ParseTypeLiteralElement extends AbstractState implements State {
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (depth == 1) {
-            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(),
-                verifyNotNull(m_content.toString()), RDF_XMLLITERAL, reificationID);
+            String content = verifyNotNull(m_content.toString());
+            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), content, RDF_XMLLITERAL,
+                reificationID);
             parser.popState();
         } else {
             m_content.append("</");
@@ -594,8 +604,8 @@ class ParseTypeResourceElement extends AbstractState implements State {
         reificationID = nodeElement.getReificationID(atts);
         NodeElement anonymousNodeElement = new NodeElement(parser);
         anonymousNodeElement.startDummyElement(atts);
-        parser.statementWithResourceValue(nodeElement.subjectIRI(), verifyNotNull(mpIRI),
-            anonymousNodeElement.subjectIRI(), reificationID);
+        parser.statementWithResourceValue(nodeElement.subjectIRI(), verifyNotNull(mpIRI), anonymousNodeElement
+            .subjectIRI(), reificationID);
         parser.pushState(new PropertyElementList(anonymousNodeElement, parser));
     }
 
