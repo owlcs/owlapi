@@ -636,7 +636,9 @@ class PropertyElementList extends AbstractState implements State {
     @Override
     public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
         String parseType = atts.getValue(RDFNS, ATTR_PARSE_TYPE);
-        if (PARSE_TYPE_LITERAL.equals(parseType)) {
+        // allow for xml literals with specified dataype instead of just
+        // parseType=Literal
+        if (PARSE_TYPE_LITERAL.equals(parseType) || RDF_XMLLITERAL.equals(atts.getValue(RDFNS, ATTR_DATATYPE))) {
             parser.pushState(new ParseTypeLiteralElement(node, parser));
         } else if (PARSE_TYPE_RESOURCE.equals(parseType)) {
             parser.pushState(new ParseTypeResourceElement(node, parser));
