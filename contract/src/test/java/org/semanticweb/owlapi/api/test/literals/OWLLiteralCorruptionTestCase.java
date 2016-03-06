@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Liter
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -64,6 +65,30 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         expectedException.expectMessage(literal);
         expectedException.expectMessage("XML literal is not self contained");
         saveOntology(o).toString();
+    }
+
+    @Test
+    public void shouldAcceptXMLLiteralWithDatatype() throws OWLOntologyStorageException {
+        // A bug in OWLAPI means some incorrect XMLLiterals might have been
+        // produced.
+        // They should be understood in input and saved correctly on roundtrip
+        String wrong = "rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral\"";
+        String correct = "rdf:parseType=\"Literal\"";
+        String preamble = "<?xml version=\"1.0\"?>\n<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xml:base=\"http://www.w3.org/2002/07/owl\"\n     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n"
+            + "     xmlns:protege=\"http://protege.stanford.edu/\"\n     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n    <Ontology/>\n"
+            + "    <AnnotationProperty rdf:about=\"http://protege.stanford.edu/code\"/>\n"
+            + "    <Class rdf:about=\"http://protege.stanford.edu/A\">\n        <rdfs:subClassOf rdf:resource=\"http://www.w3.org/2002/07/owl#Thing\"/>\n"
+            + "        <protege:code ";
+        String closure = "><test>xxx</test></protege:code>\n    </Class>\n" + "</rdf:RDF>";
+        String input = preamble + wrong + closure;
+        OWLOntology o = loadOntologyFromString(input, IRI.generateDocumentIRI(), new RDFXMLDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(preamble + correct + closure, IRI.generateDocumentIRI(),
+            new RDFXMLDocumentFormat());
+        equal(o, o1);
+        assertTrue(saveOntology(o, new RDFXMLDocumentFormat()).toString().contains(correct));
     }
 
     @Test
