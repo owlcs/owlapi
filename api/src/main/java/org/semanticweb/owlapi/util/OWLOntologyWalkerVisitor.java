@@ -40,15 +40,9 @@ public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
         this.walker = checkNotNull(walker, "walker cannot be null");
     }
 
-    /** @return current axiom from walker */
-    @Nonnull
+    /** @return current axiom */
     public OWLAxiom getCurrentAxiom() {
-        OWLAxiom axiom = walker.getAxiom();
-        if (axiom == null) {
-            throw new OWLRuntimeException(
-                    "No current axiom; is the walker being used outside of an ontology visit?");
-        }
-        return axiom;
+        return walker.getAxiom();
     }
 
     /** @return current ontology from walker */
