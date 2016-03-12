@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -39,7 +41,7 @@ public class UseOfUnknownDatatype extends OWLProfileViolation {
      * @param datatype
      *        datatype
      */
-    public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
+    public UseOfUnknownDatatype(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLDatatype datatype) {
         super(ontology, axiom, datatype);
     }
 

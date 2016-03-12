@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,7 +37,8 @@ public class UseOfReservedVocabularyForDataPropertyIRI extends OWLProfileViolati
      * @param property
      *        property
      */
-    public UseOfReservedVocabularyForDataPropertyIRI(OWLOntology ontology, OWLAxiom axiom, OWLDataProperty property) {
+    public UseOfReservedVocabularyForDataPropertyIRI(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLDataProperty property) {
         super(ontology, axiom, property);
     }
 

@@ -72,7 +72,7 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements P
     }
 
     @Override
-    public void setDefaultPrefix(String defaultPrefix) {
+    public void setDefaultPrefix(@Nullable String defaultPrefix) {
         nsm.setDefaultPrefix(defaultPrefix);
     }
 

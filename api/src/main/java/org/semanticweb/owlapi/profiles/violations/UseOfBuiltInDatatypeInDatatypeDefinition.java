@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -32,7 +34,7 @@ public class UseOfBuiltInDatatypeInDatatypeDefinition extends OWLProfileViolatio
      * @param axiom
      *        axiom
      */
-    public UseOfBuiltInDatatypeInDatatypeDefinition(OWLOntology ontology, OWLDatatypeDefinitionAxiom axiom) {
+    public UseOfBuiltInDatatypeInDatatypeDefinition(OWLOntology ontology, @Nullable OWLDatatypeDefinitionAxiom axiom) {
         super(ontology, axiom, null);
     }
 

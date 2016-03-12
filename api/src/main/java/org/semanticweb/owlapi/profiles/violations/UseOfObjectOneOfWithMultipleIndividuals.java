@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -34,7 +36,8 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassEx
      * @param oneOf
      *        oneOf
      */
-    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom, OWLObjectOneOf oneOf) {
+    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
     }
 

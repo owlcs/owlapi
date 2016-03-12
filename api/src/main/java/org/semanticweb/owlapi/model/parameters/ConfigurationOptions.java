@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.model.parameters;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.EnumMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.Nullable;
@@ -26,7 +27,7 @@ public enum ConfigurationOptions {
     /** True if http compression should be used. */
     ACCEPT_HTTP_COMPRESSION             (Boolean.TRUE),
     /** Timeout for connections. */
-    CONNECTION_TIMEOUT                  (20000),
+    CONNECTION_TIMEOUT                  (Integer.valueOf(20000)),
     /** True if redirects should be followed across protocols. */
     FOLLOW_REDIRECTS                    (Boolean.TRUE),
     /** True if annotations should be loaded, false if skipped. */
@@ -38,7 +39,7 @@ public enum ConfigurationOptions {
     /** Flag to enable stack traces on parsing exceptions. */
     REPORT_STACK_TRACES                 (Boolean.TRUE),
     /** Number of retries to attempt when retrieving an ontology form a remote URL. Defaults to 5. */
-    RETRIES_TO_ATTEMPT                  (5),
+    RETRIES_TO_ATTEMPT                  (Integer.valueOf(5)),
     /** True if strict parsing should be used. */
     PARSE_WITH_STRICT_CONFIGURATION     (Boolean.FALSE),
     /** True if Dublin Core. */
@@ -55,7 +56,7 @@ public enum ConfigurationOptions {
     /** True if indenting should be used when writing out a file. */
     INDENTING                           (Boolean.TRUE),
     /** Size of indentation between levels. Only used if indenting is set to true. */
-    INDENT_SIZE                         (4),
+    INDENT_SIZE                         (Integer.valueOf(4)),
     /** True if rdfs:label values are to be used as banners in text output. */
     LABELS_AS_BANNER                    (Boolean.FALSE);
     //@formatter:on
@@ -63,6 +64,10 @@ public enum ConfigurationOptions {
     private Object defaultValue;
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationOptions.class);
     private static final EnumMap<ConfigurationOptions, Object> owlapiProperties = loadProperties();
+
+    ConfigurationOptions(Object o) {
+        defaultValue = o;
+    }
 
     private static EnumMap<ConfigurationOptions, Object> loadProperties() {
         EnumMap<ConfigurationOptions, Object> map = new EnumMap<>(ConfigurationOptions.class);
@@ -95,10 +100,6 @@ public enum ConfigurationOptions {
             return null;
         }
         return valueOf(parameterName.substring(PREFIX.length()));
-    }
-
-    ConfigurationOptions(Object o) {
-        defaultValue = o;
     }
 
     /**
@@ -135,7 +136,7 @@ public enum ConfigurationOptions {
      *         check the config file; if no value is set in the config file, use
      *         the default defined in this enumeration.
      */
-    public <T> T getValue(Class<T> type, EnumMap<ConfigurationOptions, Object> overrides) {
+    public <T> T getValue(Class<T> type, Map<ConfigurationOptions, Object> overrides) {
         Object override = overrides.get(this);
         if (override != null) {
             return parse(override, type);
@@ -152,6 +153,11 @@ public enum ConfigurationOptions {
         return type.cast(defaultValue);
     }
 
+    /**
+     * @param type
+     *        type to cast to
+     * @return default value
+     */
     public <T> T getDefaultValue(Class<T> type) {
         return type.cast(defaultValue);
     }

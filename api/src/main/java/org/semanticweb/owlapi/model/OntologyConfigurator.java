@@ -51,6 +51,7 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
+    /** @return the priorty collection sorting option */
     public PriorityCollectionSorting getPriorityCollectionSorting() {
         return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
     }
@@ -104,10 +105,13 @@ public class OntologyConfigurator implements Serializable {
      *         to the new value
      */
     public OntologyConfigurator setAcceptingHTTPCompression(boolean b) {
-        overrides.put(ACCEPT_HTTP_COMPRESSION, b);
+        overrides.put(ACCEPT_HTTP_COMPRESSION, Boolean.valueOf(b));
         return this;
     }
 
+    /**
+     * @return true if HTTP compression should be used
+     */
     public boolean shouldAcceptHTTPCompression() {
         return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -120,10 +124,11 @@ public class OntologyConfigurator implements Serializable {
      *         timeout set to the new value.
      */
     public OntologyConfigurator setConnectionTimeout(int l) {
-        overrides.put(CONNECTION_TIMEOUT, l);
+        overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
         return this;
     }
 
+    /** @return the connection timeout */
     public int getConnectionTimeout() {
         return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
     }
@@ -136,10 +141,11 @@ public class OntologyConfigurator implements Serializable {
      *         value.
      */
     public OntologyConfigurator setFollowRedirects(boolean value) {
-        overrides.put(FOLLOW_REDIRECTS, value);
+        overrides.put(FOLLOW_REDIRECTS, Boolean.valueOf(value));
         return this;
     }
 
+    /** @return follow redirects */
     public boolean shouldFollowRedirects() {
         return FOLLOW_REDIRECTS.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -158,10 +164,11 @@ public class OntologyConfigurator implements Serializable {
      *         set.
      */
     public OntologyConfigurator setLoadAnnotationAxioms(boolean b) {
-        overrides.put(LOAD_ANNOTATIONS, b);
+        overrides.put(LOAD_ANNOTATIONS, Boolean.valueOf(b));
         return this;
     }
 
+    /** @return load annotations */
     public boolean shouldLoadAnnotations() {
         return LOAD_ANNOTATIONS.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -182,6 +189,7 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
+    /** @return missing import handling strategy */
     public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
         return MISSING_IMPORT_HANDLING_STRATEGY.getValue(MissingImportHandlingStrategy.class, overrides);
     }
@@ -196,6 +204,7 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
+    /** @return missing ontology header strategy */
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
         return MISSING_ONTOLOGY_HEADER_STRATEGY.getValue(MissingOntologyHeaderStrategy.class, overrides);
     }
@@ -211,10 +220,11 @@ public class OntologyConfigurator implements Serializable {
      *         to the new value.
      */
     public OntologyConfigurator setReportStackTraces(boolean b) {
-        overrides.put(REPORT_STACK_TRACES, b);
+        overrides.put(REPORT_STACK_TRACES, Boolean.valueOf(b));
         return this;
     }
 
+    /** @return report stack traces */
     public boolean shouldReportStackTraces() {
         return REPORT_STACK_TRACES.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -225,7 +235,7 @@ public class OntologyConfigurator implements Serializable {
      * @return copy of this configuration with modified retries attempts.
      */
     public OntologyConfigurator setRetriesToAttempt(int retries) {
-        overrides.put(RETRIES_TO_ATTEMPT, retries);
+        overrides.put(RETRIES_TO_ATTEMPT, Integer.valueOf(retries));
         return this;
     }
 
@@ -240,7 +250,7 @@ public class OntologyConfigurator implements Serializable {
      * @return copy of the configuration with new strict value
      */
     public OntologyConfigurator setStrict(boolean strict) {
-        overrides.put(PARSE_WITH_STRICT_CONFIGURATION, strict);
+        overrides.put(PARSE_WITH_STRICT_CONFIGURATION, Boolean.valueOf(strict));
         return this;
     }
 
@@ -256,7 +266,7 @@ public class OntologyConfigurator implements Serializable {
      *         the new value.
      */
     public OntologyConfigurator setTreatDublinCoreAsBuiltIn(boolean value) {
-        overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, value);
+        overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.valueOf(value));
         return this;
     }
 
@@ -286,10 +296,11 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
-        overrides.put(SAVE_IDS, b);
+        overrides.put(SAVE_IDS, Boolean.valueOf(b));
         return this;
     }
 
+    /** @return should save ids */
     public boolean shouldSaveIds() {
         return SAVE_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -301,10 +312,11 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withRemapAllAnonymousIndividualsIds(boolean b) {
-        overrides.put(REMAP_IDS, b);
+        overrides.put(REMAP_IDS, Boolean.valueOf(b));
         return this;
     }
 
+    /** @return should remap ids */
     public boolean shouldRemapIds() {
         return REMAP_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -315,10 +327,11 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withUseNamespaceEntities(boolean useEntities) {
-        overrides.put(USE_NAMESPACE_ENTITIES, useEntities);
+        overrides.put(USE_NAMESPACE_ENTITIES, Boolean.valueOf(useEntities));
         return this;
     }
 
+    /** @return should use namespace entities */
     public boolean shouldUseNamespaceEntities() {
         return USE_NAMESPACE_ENTITIES.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -329,10 +342,11 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withIndenting(boolean indent) {
-        overrides.put(INDENTING, indent);
+        overrides.put(INDENTING, Boolean.valueOf(indent));
         return this;
     }
 
+    /** @return should indent */
     public boolean shouldIndent() {
         return INDENTING.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -344,10 +358,11 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withIndentSize(int indent) {
-        overrides.put(INDENT_SIZE, indent);
+        overrides.put(INDENT_SIZE, Integer.valueOf(indent));
         return this;
     }
 
+    /** @return indent size */
     public int getIndentSize() {
         return INDENT_SIZE.getValue(Integer.class, overrides).intValue();
     }
@@ -358,10 +373,11 @@ public class OntologyConfigurator implements Serializable {
      * @return new config object
      */
     public OntologyConfigurator withLabelsAsBanner(boolean label) {
-        overrides.put(LABELS_AS_BANNER, label);
+        overrides.put(LABELS_AS_BANNER, Boolean.valueOf(label));
         return this;
     }
 
+    /** @return should use labels as banner */
     public boolean shouldUseLabelsAsBanner() {
         return LABELS_AS_BANNER.getValue(Boolean.class, overrides).booleanValue();
     }

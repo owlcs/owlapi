@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -42,7 +44,7 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation implements Unde
      * @param datatype
      *        datatype
      */
-    public UseOfUndeclaredDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
+    public UseOfUndeclaredDatatype(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLDatatype datatype) {
         super(ontology, axiom, checkNotNull(datatype));
     }
 

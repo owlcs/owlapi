@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -40,7 +42,7 @@ public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implement
      * @param prop
      *        prop
      */
-    public UseOfUndeclaredObjectProperty(OWLOntology ontology, OWLAxiom axiom, OWLObjectProperty prop) {
+    public UseOfUndeclaredObjectProperty(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLObjectProperty prop) {
         super(ontology, axiom, checkNotNull(prop));
     }
 

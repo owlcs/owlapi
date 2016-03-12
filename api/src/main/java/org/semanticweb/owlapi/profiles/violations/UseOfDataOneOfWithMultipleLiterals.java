@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -34,7 +36,7 @@ public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
      * @param dataOneOf
      *        dataOneOf
      */
-    public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, OWLAxiom axiom, OWLDataOneOf dataOneOf) {
+    public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLDataOneOf dataOneOf) {
         super(ontology, axiom, dataOneOf);
     }
 

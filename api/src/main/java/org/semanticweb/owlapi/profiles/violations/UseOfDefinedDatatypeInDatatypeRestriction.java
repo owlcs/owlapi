@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,8 +37,8 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolati
      * @param restriction
      *        restriction
      */
-    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, OWLAxiom axiom,
-            OWLDatatypeRestriction restriction) {
+    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLDatatypeRestriction restriction) {
         super(ontology, axiom, restriction);
     }
 

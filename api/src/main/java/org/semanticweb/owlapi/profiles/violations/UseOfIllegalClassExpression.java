@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -39,7 +41,8 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation {
      * @param classExpression
      *        classExpression
      */
-    public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    public UseOfIllegalClassExpression(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLClassExpression classExpression) {
         super(ontology, axiom, checkNotNull(classExpression));
     }
 
@@ -60,7 +63,7 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Class expressions not allowed in profile: %s",
-                getExpression().getClassExpressionType().getName());
+        return toString("Class expressions not allowed in profile: %s", getExpression().getClassExpressionType()
+            .getName());
     }
 }

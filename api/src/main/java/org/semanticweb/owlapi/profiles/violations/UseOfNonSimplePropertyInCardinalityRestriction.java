@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,8 +37,8 @@ public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileVi
      * @param restriction
      *        restriction
      */
-    public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology, OWLAxiom axiom,
-            OWLObjectCardinalityRestriction restriction) {
+    public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLObjectCardinalityRestriction restriction) {
         super(ontology, axiom, restriction);
     }
 

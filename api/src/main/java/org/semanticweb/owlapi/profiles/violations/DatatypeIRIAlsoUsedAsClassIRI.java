@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -43,7 +45,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
      * @param iri
      *        iri
      */
-    public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
+    public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom, IRI iri) {
         super(ontology, checkNotNull(axiom), iri);
     }
 

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,7 +37,7 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation {
      * @param literal
      *        literal
      */
-    public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLLiteral literal) {
+    public LexicalNotInLexicalSpace(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLLiteral literal) {
         super(ontology, axiom, literal);
     }
 

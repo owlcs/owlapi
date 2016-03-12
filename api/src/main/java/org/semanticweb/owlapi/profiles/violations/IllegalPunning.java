@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -38,7 +40,7 @@ public class IllegalPunning extends OWLProfileViolation {
      * @param iri
      *        iri
      */
-    public IllegalPunning(OWLOntology currentOntology, OWLAxiom node, IRI iri) {
+    public IllegalPunning(OWLOntology currentOntology, @Nullable OWLAxiom node, IRI iri) {
         super(currentOntology, node, checkNotNull(iri));
     }
 

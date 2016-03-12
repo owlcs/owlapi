@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,7 +37,7 @@ public class UseOfAnonymousIndividual extends OWLProfileViolation {
      * @param individual
      *        individual
      */
-    public UseOfAnonymousIndividual(OWLOntology ontology, OWLAxiom axiom, OWLAnonymousIndividual individual) {
+    public UseOfAnonymousIndividual(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLAnonymousIndividual individual) {
         super(ontology, axiom, individual);
     }
 

@@ -42,8 +42,8 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
      * @param prop
      *        prop
      */
-    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, @Nullable OWLAnnotation annotation,
-        OWLAnnotationProperty prop) {
+    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        @Nullable OWLAnnotation annotation, OWLAnnotationProperty prop) {
         super(ontology, axiom, checkNotNull(prop));
         this.annotation = annotation;
     }

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -32,7 +34,7 @@ public class CycleInDatatypeDefinition extends OWLProfileViolation {
      * @param axiom
      *        axiom
      */
-    public CycleInDatatypeDefinition(OWLOntology ontology, OWLAxiom axiom) {
+    public CycleInDatatypeDefinition(OWLOntology ontology, @Nullable OWLAxiom axiom) {
         super(ontology, axiom, null);
     }
 

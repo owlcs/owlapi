@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -35,8 +37,8 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation {
      * @param rangeAxiom
      *        rangeAxiom
      */
-    public LastPropertyInChainNotInImposedRange(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom,
-            OWLObjectPropertyRangeAxiom rangeAxiom) {
+    public LastPropertyInChainNotInImposedRange(OWLOntology ontology, @Nullable OWLSubPropertyChainOfAxiom axiom,
+        OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom, rangeAxiom);
     }
 

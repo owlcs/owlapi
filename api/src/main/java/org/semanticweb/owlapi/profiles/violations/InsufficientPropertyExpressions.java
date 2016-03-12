@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -32,7 +34,7 @@ public class InsufficientPropertyExpressions extends OWLProfileViolation {
      * @param axiom
      *        axiom
      */
-    public InsufficientPropertyExpressions(OWLOntology ontology, OWLAxiom axiom) {
+    public InsufficientPropertyExpressions(OWLOntology ontology, @Nullable OWLAxiom axiom) {
         super(ontology, axiom, null);
     }
 

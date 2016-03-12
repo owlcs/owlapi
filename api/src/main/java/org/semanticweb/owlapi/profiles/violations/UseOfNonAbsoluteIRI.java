@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,7 +37,7 @@ public class UseOfNonAbsoluteIRI extends OWLProfileViolation {
      * @param iri
      *        iri
      */
-    public UseOfNonAbsoluteIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
+    public UseOfNonAbsoluteIRI(OWLOntology ontology, @Nullable OWLAxiom axiom, IRI iri) {
         super(ontology, axiom, iri);
     }
 

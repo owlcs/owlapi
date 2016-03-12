@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -40,7 +42,7 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements Undecla
      * @param cls
      *        cls
      */
-    public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
+    public UseOfUndeclaredClass(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLClass cls) {
         super(ontology, axiom, checkNotNull(cls));
     }
 
