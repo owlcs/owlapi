@@ -45,6 +45,7 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
     /**
      * @return current axiom
      */
+    @Nullable
     public OWLAxiom getCurrentAxiom() {
         return walker.getAxiom();
     }

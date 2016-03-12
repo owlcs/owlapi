@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityRenamer {
 
     private final OWLOntologyManager m;
-    private final OWLDataFactory df;
     private final Collection<OWLOntology> ontologies;
 
     /**
@@ -46,7 +45,6 @@ public class OWLEntityRenamer {
      */
     public OWLEntityRenamer(OWLOntologyManager owlOntologyManager, Collection<OWLOntology> ontologies) {
         m = owlOntologyManager;
-        df = owlOntologyManager.getOWLDataFactory();
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 

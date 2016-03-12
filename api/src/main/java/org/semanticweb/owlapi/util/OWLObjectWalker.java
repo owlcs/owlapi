@@ -168,8 +168,9 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @return The last axiom to be visited, or {@code null} if an axiom has not
      *         be visited
      */
+    @Nullable
     public OWLAxiom getAxiom() {
-        return verifyNotNull(ax, "No current axiom; is the walker being used outside of an ontology visit?");
+        return ax;
     }
 
     /**
