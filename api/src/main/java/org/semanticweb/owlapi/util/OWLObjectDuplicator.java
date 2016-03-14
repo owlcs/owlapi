@@ -485,7 +485,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public SWRLRule visit(SWRLRule rule) {
-        return df.getSWRLRule(list(rule.body()), list(rule.head()));
+        return df.getSWRLRule(list(rule.body()), list(rule.head()), anns(rule));
     }
 
     @Override
