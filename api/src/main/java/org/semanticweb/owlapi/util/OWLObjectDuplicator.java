@@ -694,7 +694,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             atom.accept(this);
             consequents.add((SWRLAtom) getLastObject());
         }
-        obj = dataFactory.getSWRLRule(antecedents, consequents);
+        obj = dataFactory.getSWRLRule(antecedents, consequents, duplicateAxiomAnnotations(rule));
     }
 
     @Override
