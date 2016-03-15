@@ -66,11 +66,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLRDFConsumer.class);
-    @Nonnull
-    final TripleLogger tripleLogger;
+    @Nonnull final TripleLogger tripleLogger;
     /** The configuration. */
-    @Nonnull
-    private final OWLOntologyLoaderConfiguration configuration;
+    @Nonnull private final OWLOntologyLoaderConfiguration configuration;
     /** The owl ontology manager. */
     private final OWLOntologyManager owlOntologyManager;
     // The set of IRIs that are either explicitly typed
@@ -117,8 +115,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     /** The annotated anon source2 annotation map. */
     private final Map<IRI, Set<IRI>> annotatedAnonSource2AnnotationMap = new HashMap<>();
     /** The ontology that the RDF will be parsed into. */
-    @Nonnull
-    private final OWLOntology ontology;
+    @Nonnull private final OWLOntology ontology;
     /** The expected axioms. */
     private int expectedAxioms = -1;
     /** The parsed axioms. */
@@ -164,8 +161,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     final HandlerAccessor handlerAccessor;
     final TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
-    @Nonnull
-    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
+    @Nonnull private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
     RemappingIndividualProvider anonProvider;
 
     /**
@@ -1295,7 +1291,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
 
     // RDFConsumer implementation
     private static void printTriple(Object subject, Object predicate, Object object) {
-        LOGGER.info("{} -> {} -> {}", subject, predicate, object);
+        LOGGER.info("Unparsed triple: {} -> {} -> {}", subject, predicate, object);
     }
 
     /** Dump remaining triples. */
@@ -1304,7 +1300,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         // output anything
         if (LOGGER.isInfoEnabled() && singleValuedResTriplesByPredicate.size() + singleValuedLitTriplesByPredicate
             .size() + resTriplesBySubject.size() + litTriplesBySubject.size() > 0) {
-            LOGGER.info("dumping remaining triples");
             for (IRI predicate : singleValuedResTriplesByPredicate.keySet()) {
                 Map<IRI, IRI> map = singleValuedResTriplesByPredicate.get(predicate);
                 for (IRI subject : map.keySet()) {
@@ -1338,7 +1333,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
                 }
             }
         }
-        LOGGER.info("done dumping remaining triples");
     }
 
     @Override
@@ -1744,8 +1738,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
 
     private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, OWLLiteral v) {
         for (IRI i : getAnnotatedSourceAnnotationMainNodes(n)) {
-            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
-                && v.equals(getLiteralObject(i, OWL_ANNOTATED_TARGET, false))) {
+            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false)) && v.equals(getLiteralObject(i,
+                OWL_ANNOTATED_TARGET, false))) {
                 return i;
             }
         }
@@ -1754,16 +1748,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
 
     private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
         for (IRI i : getAnnotatedSourceAnnotationMainNodes(n)) {
-            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
-                && v.equals(getResourceObject(i, OWL_ANNOTATED_TARGET, false))) {
+            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false)) && v.equals(getResourceObject(i,
+                OWL_ANNOTATED_TARGET, false))) {
                 return i;
             }
         }
         return null;
     }
 
-    @Nonnull
-    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
+    @Nonnull private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
 
     @Nonnull
     private <E extends OWLEntity> E getErrorEntity(@Nonnull EntityType<E> entityType) {
