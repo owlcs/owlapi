@@ -1188,7 +1188,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
 
     // RDFConsumer implementation
     private static void printTriple(Object subject, Object predicate, Object object) {
-        LOGGER.info("{} -> {} -> {}", subject, predicate, object);
+        LOGGER.info("Unparsed triple: {} -> {} -> {}", subject, predicate, object);
     }
 
     /** Dump remaining triples. */
@@ -1197,12 +1197,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         // output anything
         if (LOGGER.isInfoEnabled() && singleValuedResTriplesByPredicate.size() + singleValuedLitTriplesByPredicate
             .size() + resTriplesBySubject.size() + litTriplesBySubject.size() > 0) {
-            LOGGER.info("dumping remaining triples");
             singleValuedResTriplesByPredicate.forEach((p, map) -> map.forEach((s, o) -> printTriple(s, p, o)));
             singleValuedLitTriplesByPredicate.forEach((p, map) -> map.forEach((s, o) -> printTriple(s, p, o)));
             resTriplesBySubject.forEach((p, map) -> map.forEach((s, o) -> o.forEach(x -> printTriple(s, p, x))));
             litTriplesBySubject.forEach((p, map) -> map.forEach((s, o) -> o.forEach(x -> printTriple(s, p, x))));
-            LOGGER.info("done dumping remaining triples");
         }
     }
 
