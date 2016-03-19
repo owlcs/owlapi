@@ -852,16 +852,33 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         axiom.getSuperProperty().accept(this);
         OWLProperty sup = getLastObject();
         if (sub.isObjectPropertyExpression() || sup.isObjectPropertyExpression()) {
-            obj = dataFactory.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(), sup.asOWLObjectProperty(), axiom
-                .getAnnotations());
+            // check: it is possible that the properties represent an actual
+            // illegal punning, where this fix cannot be applied
+            if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
+                obj = dataFactory.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(), sup.asOWLObjectProperty(),
+                    axiom.getAnnotations());
+            } else {
+                // cannot repair: leave unchanged
+                obj = axiom;
+            }
             return;
         } else if (sub.isDataPropertyExpression() || sup.isDataPropertyExpression()) {
-            obj = dataFactory.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(), sup.asOWLDataProperty(), axiom
-                .getAnnotations());
+            if (sub.isOWLDataProperty() && sup.isOWLDataProperty()) {
+                obj = dataFactory.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(), sup.asOWLDataProperty(), axiom
+                    .getAnnotations());
+            } else {
+                // cannot repair: leave unchanged
+                obj = axiom;
+            }
             return;
         }
-        obj = dataFactory.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(), sup
-            .asOWLAnnotationProperty(), duplicateAxiomAnnotations(axiom));
+        if (sub.isOWLAnnotationProperty() && sup.isOWLAnnotationProperty()) {
+            obj = dataFactory.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(), sup
+                .asOWLAnnotationProperty(), duplicateAxiomAnnotations(axiom));
+        } else {
+            // cannot repair: leave unchanged
+            obj = axiom;
+        }
     }
 
     @Override
