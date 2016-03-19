@@ -42,7 +42,7 @@ import com.google.common.collect.Sets;
  *        axiom type
  */
 @SuppressWarnings({ "unchecked" })
-public final class AxiomType<C extends OWLAxiom> implements Serializable {
+public final class AxiomType<C extends OWLAxiom> implements Serializable, Comparable<AxiomType<?>> {
 
     private final String name;
     private final boolean owl2Axiom;
@@ -334,5 +334,9 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
      */
     public static boolean isAxiomType(String _name) {
         return NAME_TYPE_MAP.containsKey(_name);
+    }
+    @Override
+    public int compareTo(@SuppressWarnings("null") AxiomType<?> o) {
+        return Integer.compare(index, o.index);
     }
 }
