@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import javax.annotation.Nullable;
+
 /**
  * This type of exception is thrown by an
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that the
@@ -28,5 +30,31 @@ public class InconsistentOntologyException extends OWLReasonerRuntimeException {
     /** Default constructor. */
     public InconsistentOntologyException() {
         super("Inconsistent ontology");
+    }
+
+    /**
+     * @param cause
+     *        error cause
+     */
+    public InconsistentOntologyException(@Nullable Throwable cause) {
+        super(cause);
+    }
+
+    /**
+     * @param message
+     *        error message
+     */
+    public InconsistentOntologyException(String message) {
+        super(message);
+    }
+
+    /**
+     * @param message
+     *        error message
+     * @param cause
+     *        error cause
+     */
+    public InconsistentOntologyException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
