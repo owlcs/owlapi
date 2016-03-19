@@ -1,3 +1,15 @@
+5.0.1 19 March 2016
+Bug fixes:
+Fix Fixing punnings fails on dp subDataPropertyOf rdfs:label #505
+"Dumping remaining triples" displayed when no triples left #502
+Fix Annotations lost on entity renaming of SWRLRules #501
+Fix Profile validation throws exception on ontology annotations #498
+Fix RDF/XML parser failing to load ontology containing XMLLiteral #496
+Fix #489 makeLoadImportRequest log should be a warning #489
+Fix Anonymous individuals parsing problems #494
+Fix Saving fails for ontologies containing XMLLiteral #495
+Fix Anonymous individuals parsing problems #494
+
 5.0.0 28 February 2015
 Features:
 Allow overridable and defaultable properties
@@ -23,6 +35,23 @@ OWLOntology.getReferencingAxioms() finds any of the OWLPrimitive objects
 Enabled OWLOntologyManager to build and keep an OntologyConfigurator instance
 Declaration of save methods on OWLOntology
 OWLAPI 5 uses Java 8
+
+4.2.3 19 March 2016
+Bug fixes:
+Fix Fixing punnings fails on dp subDataPropertyOf rdfs:label #505
+
+4.2.2 15 March 2016
+Bug fixes:
+Fix RDF/XML parser failing to load ontology containing XMLLiteral #496
+Fix Profile validation throws exception on ontology annotations #498
+Fix Annotations lost on entity renaming of SWRLRules #501
+Fix "Dumping remaining triples" displayed when no triples left #502
+
+4.2.1 5 March 2016
+Bug fixes:
+Fix Anonymous individuals parsing problems #494
+Fix makeLoadImportRequest log should be a warning #489
+Fix Saving fails for ontologies containing XMLLiteral #495
 
 4.2.0 28 February 2016
 Features:
