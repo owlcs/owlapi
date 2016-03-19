@@ -1,3 +1,7 @@
+4.2.3 19 March 2016
+Bug fixes:
+Fix Fixing punnings fails on dp subDataPropertyOf rdfs:label #505
+
 4.2.2 15 March 2016
 Bug fixes:
 Fix RDF/XML parser failing to load ontology containing XMLLiteral #496
