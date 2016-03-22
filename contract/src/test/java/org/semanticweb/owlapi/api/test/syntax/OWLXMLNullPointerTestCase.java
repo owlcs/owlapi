@@ -40,7 +40,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
         OWLObjectProperty hasTopping = df.getOWLObjectProperty(NS + "#", "hasTopping");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
-        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), i, lit);
+        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(i, df.getRDFSLabel(lit));
         OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, i);
         OWLIndividual j = df.getOWLAnonymousIndividual();
         OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);

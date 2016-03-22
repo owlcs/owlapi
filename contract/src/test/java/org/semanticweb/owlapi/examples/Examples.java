@@ -1056,8 +1056,7 @@ public class Examples extends TestBase {
         // Now we create the content of our comment. In this case we simply want
         // a plain string literal. We'll attach a language to the comment to
         // specify that our comment is written in English (en).
-        OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(
-            "A class which represents quokkas", "en"));
+        OWLAnnotation commentAnno = df.getRDFSComment(df.getOWLLiteral("A class which represents quokkas", "en"));
         // Specify that the class has an annotation - to do this we attach
         // an entity annotation using an entity annotation axiom (remember,
         // classes are entities)

@@ -18,7 +18,6 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -44,9 +43,9 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
      * @param df
      *        data factory
      */
-    public BuilderEntity(OWLClass expected, OWLDataFactory df) {
+    public BuilderEntity(OWLEntity expected, OWLDataFactory df) {
         this(df);
-        withType(EntityType.CLASS).withIRI(expected.getIRI());
+        withType(expected.getEntityType()).withIRI(expected.getIRI());
     }
 
     /**

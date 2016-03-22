@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.axiomproviders.*;
 import org.semanticweb.owlapi.model.providers.*;
 
@@ -23,13 +25,13 @@ import org.semanticweb.owlapi.model.providers.*;
  * @since 2.0.0
  */
 public interface OWLDataFactory extends SWRLProvider, EntityProvider, EntityByTypeProvider, AnonymousIndividualProvider,
-        AnonymousIndividualByIdProvider, OWLVocabularyProvider, LiteralProvider, AnnotationProvider,
-        AnnotationAssertionProvider, ClassAssertionProvider, DataAssertionProvider, ObjectAssertionProvider,
-        IndividualAssertionProvider, CardinalityRestrictionProvider, DisjointAxiomProvider, EquivalentAxiomProvider,
-        PropertyCharacteristicAxiomProvider, DatatypeExpressionProvider, DomainAxiomProvider, RangeAxiomProvider,
-        IntersectionProvider, UnionProvider, SubAxiomProvider, DeclarationAxiomProvider, ComplementProvider,
-        NominalProvider, UniversalProvider, ExistentialProvider, HasKeyAxiomProvider, InverseAxiomProvider,
-        HasValueProvider, InverseProvider, HasSelfProvider, DisjointUnionAxiomProvider, PropertyChainAxiomProvider {
+    AnonymousIndividualByIdProvider, OWLVocabularyProvider, LiteralProvider, AnnotationProvider,
+    AnnotationAssertionProvider, ClassAssertionProvider, DataAssertionProvider, ObjectAssertionProvider,
+    IndividualAssertionProvider, CardinalityRestrictionProvider, DisjointAxiomProvider, EquivalentAxiomProvider,
+    PropertyCharacteristicAxiomProvider, DatatypeExpressionProvider, DomainAxiomProvider, RangeAxiomProvider,
+    IntersectionProvider, UnionProvider, SubAxiomProvider, DeclarationAxiomProvider, ComplementProvider,
+    NominalProvider, UniversalProvider, ExistentialProvider, HasKeyAxiomProvider, InverseAxiomProvider,
+    HasValueProvider, InverseProvider, HasSelfProvider, DisjointUnionAxiomProvider, PropertyChainAxiomProvider {
 
     /**
      * @param importedOntologyIRI
@@ -40,4 +42,108 @@ public interface OWLDataFactory extends SWRLProvider, EntityProvider, EntityByTy
 
     /** Empty all caches */
     void purge();
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSLabel(), getOWLLiteral(value))}
+     * 
+     * @param value
+     *        The annotation value.
+     * @return an rdfs:label annotation with provided value
+     */
+    default OWLAnnotation getRDFSLabel(String value) {
+        return getOWLAnnotation(getRDFSLabel(), getOWLLiteral(value));
+    }
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSLabel(), getOWLLiteral(value), annotations)}
+     * 
+     * @param value
+     *        The annotation value.
+     * @param annotations
+     *        annotations
+     * @return an rdfs:label annotation with provided value
+     */
+    default OWLAnnotation getRDFSLabel(String value, Stream<OWLAnnotation> annotations) {
+        return getOWLAnnotation(getRDFSLabel(), getOWLLiteral(value), annotations);
+    }
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSLabel(), getOWLLiteral(value))}
+     * 
+     * @param value
+     *        The annotation value.
+     * @return an rdfs:label annotation with provided value
+     */
+    default OWLAnnotation getRDFSLabel(OWLAnnotationValue value) {
+        return getOWLAnnotation(getRDFSLabel(), value);
+    }
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSLabel(), getOWLLiteral(value), annotations)}
+     * 
+     * @param value
+     *        The annotation value.
+     * @param annotations
+     *        annotations
+     * @return an rdfs:label annotation with provided value
+     */
+    default OWLAnnotation getRDFSLabel(OWLAnnotationValue value, Stream<OWLAnnotation> annotations) {
+        return getOWLAnnotation(getRDFSLabel(), value, annotations);
+    }
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSComment(), getOWLLiteral(value))}
+     * 
+     * @param value
+     *        The annotation value.
+     * @return an rdfs:comment annotation with provided value
+     */
+    default OWLAnnotation getRDFSComment(String value) {
+        return getOWLAnnotation(getRDFSComment(), getOWLLiteral(value));
+    }
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSComment(), getOWLLiteral(value), annotations)}
+     * 
+     * @param value
+     *        The annotation value.
+     * @param annotations
+     *        annotations
+     * @return an rdfs:comment annotation with provided value
+     */
+    default OWLAnnotation getRDFSComment(String value, Stream<OWLAnnotation> annotations) {
+        return getOWLAnnotation(getRDFSComment(), getOWLLiteral(value), annotations);
+    }
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSComment(), getOWLLiteral(value))}
+     * 
+     * @param value
+     *        The annotation value.
+     * @return an rdfs:comment annotation with provided value
+     */
+    default OWLAnnotation getRDFSComment(OWLAnnotationValue value) {
+        return getOWLAnnotation(getRDFSComment(), value);
+    }
+
+    /**
+     * Shorthand for
+     * {@code getOWLAnnotation(getRDFSComment(), getOWLLiteral(value), annotations)}
+     * 
+     * @param value
+     *        The annotation value.
+     * @param annotations
+     *        annotations
+     * @return an rdfs:comment annotation with provided value
+     */
+    default OWLAnnotation getRDFSComment(OWLAnnotationValue value, Stream<OWLAnnotation> annotations) {
+        return getOWLAnnotation(getRDFSComment(), value, annotations);
+    }
 }

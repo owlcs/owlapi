@@ -116,7 +116,7 @@ public class ProfileValidationTestCase extends TestBase {
     @Test
     public void shouldNotFailELBecauseOfBoolean() {
         OWLOntology o = getOWLOntology();
-        OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true));
+        OWLAnnotation ann = df.getRDFSLabel(df.getOWLLiteral(true));
         OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test#", "ELProfile"), ann);
         o.add(ax, Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
         checkProfile(o, new OWL2ELProfile(), true);

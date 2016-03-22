@@ -62,7 +62,7 @@ public class SWRLAnnotationTestCase extends TestBase {
         SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
         Set<SWRLAtom> consequent = new TreeSet<>();
         consequent.add(atom1);
-        OWLAnnotation annotation = df.getOWLAnnotation(RDFSComment(), Literal("Not a great rule"));
+        OWLAnnotation annotation = df.getRDFSComment("Not a great rule");
         Set<OWLAnnotation> annotations = new TreeSet<>();
         annotations.add(annotation);
         Set<SWRLAtom> body = new TreeSet<>();

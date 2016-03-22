@@ -1105,9 +1105,7 @@ public class OWLAPIObo2Owl {
             Xref xref = (Xref) clause.getValue();
             String xrefAnnotation = xref.getAnnotation();
             if (xrefAnnotation != null) {
-                OWLAnnotation owlAnnotation = fac.getOWLAnnotation(fac.getRDFSLabel(), fac.getOWLLiteral(
-                    xrefAnnotation));
-                annotations.add(owlAnnotation);
+                annotations.add(fac.getRDFSLabel(xrefAnnotation));
             }
             ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub, trLiteral(clause.getValue()),
                 annotations);
@@ -1400,7 +1398,7 @@ public class OWLAPIObo2Owl {
             add(fac.getOWLDeclarationAxiom(ap));
             Obo2OWLVocabulary vocab = Obo2OWLConstants.getVocabularyObj(tag);
             if (vocab != null) {
-                add(fac.getOWLAnnotationAssertionAxiom(fac.getRDFSLabel(), iri, trLiteral(vocab.getLabel())));
+                add(fac.getOWLAnnotationAssertionAxiom(iri, fac.getRDFSLabel(vocab.getLabel())));
             }
         }
         return ap;
