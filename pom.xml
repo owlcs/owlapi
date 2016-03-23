@@ -35,7 +35,6 @@
 		<module>tools</module>
 		<module>parsers</module>
 		<module>oboformat</module>
-		<module>fixers</module>
 		<module>rio</module>
 		<module>compatibility</module>
 		<module>apibinding</module>
