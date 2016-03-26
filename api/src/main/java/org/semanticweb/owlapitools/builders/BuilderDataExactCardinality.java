@@ -18,7 +18,8 @@ import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLDataExactCardinality. */
-public class BuilderDataExactCardinality extends BaseDataBuilder<OWLDataExactCardinality, BuilderDataExactCardinality> {
+public class BuilderDataExactCardinality extends BaseDataBuilder<OWLDataExactCardinality, BuilderDataExactCardinality>
+    implements SettableCardinality<BuilderDataExactCardinality> {
 
     private int cardinality = -1;
 
@@ -44,14 +45,15 @@ public class BuilderDataExactCardinality extends BaseDataBuilder<OWLDataExactCar
         withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
 
-    /**
-     * @param arg
-     *        cardinality
-     * @return builder
-     */
+    @Override
     public BuilderDataExactCardinality withCardinality(int arg) {
         cardinality = arg;
         return this;
+    }
+
+    @Override
+    public int getCardinality() {
+        return cardinality;
     }
 
     @Override

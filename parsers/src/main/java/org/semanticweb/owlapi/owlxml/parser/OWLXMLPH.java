@@ -42,12 +42,12 @@ import org.xml.sax.helpers.DefaultHandler;
  *         Informatics Group
  * @since 2.0.0
  */
-class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualByIdProvider {
+class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OWLXMLParserHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OWLXMLPH.class);
     private final OWLOntologyManager owlOntologyManager;
     @Nonnull private final OWLOntology ontology;
-    private final List<OWLElementHandler<?>> handlerStack = new ArrayList<>();
+    private final List<OWLEH<?, ?>> handlerStack = new ArrayList<>();
     @Nonnull private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     @Nonnull private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
     private Locator locator;
@@ -60,7 +60,7 @@ class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualB
      * @param ontology
      *        ontology to parse into
      */
-    public OWLXMLParserHandler(OWLOntology ontology) {
+    public OWLXMLPH(OWLOntology ontology) {
         this(ontology, null, ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
@@ -70,7 +70,7 @@ class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualB
      * @param configuration
      *        load configuration
      */
-    public OWLXMLParserHandler(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OWLXMLPH(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
     }
 
@@ -80,7 +80,7 @@ class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualB
      * @param topHandler
      *        top level handler
      */
-    public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler) {
+    public OWLXMLPH(OWLOntology ontology, OWLEH<?, ?> topHandler) {
         this(ontology, topHandler, ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
@@ -98,7 +98,7 @@ class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualB
      * @param configuration
      *        load configuration
      */
-    public OWLXMLParserHandler(OWLOntology ontology, @Nullable OWLElementHandler<?> topHandler,
+    public OWLXMLPH(OWLOntology ontology, @Nullable OWLEH<?, ?> topHandler,
         OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
@@ -345,7 +345,7 @@ class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualB
     public void characters(@Nullable char[] ch, int start, int length) throws SAXException {
         if (!handlerStack.isEmpty()) {
             try {
-                OWLElementHandler<?> handler = handlerStack.get(0);
+                OWLEH<?, ?> handler = handlerStack.get(0);
                 if (handler.isTextContentPossible()) {
                     handler.handleChars(verifyNotNull(ch), start, length);
                 }
@@ -378,7 +378,7 @@ class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualB
         }
         PARSER_OWLXMLVocabulary handlerFactory = handlerMap.get(localName);
         if (handlerFactory != null) {
-            OWLElementHandler<?> handler = handlerFactory.createHandler(this);
+            OWLEH<?, ?> handler = handlerFactory.createHandler(this);
             if (!handlerStack.isEmpty()) {
                 handler.setParentHandler(handlerStack.get(0));
             }
@@ -415,8 +415,7 @@ class OWLXMLParserHandler extends DefaultHandler implements AnonymousIndividualB
             return;
         }
         if (!handlerStack.isEmpty()) {
-            OWLElementHandler<?> handler = handlerStack.remove(0);
-            handler.endElement();
+            handlerStack.remove(0).endElement();
         }
         bases.pop();
     }

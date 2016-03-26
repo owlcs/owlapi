@@ -30,7 +30,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * @param <B>
  *        builder type
  */
-public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B> {
+public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B> implements
+    SettableRange<OWLDataRange, B> {
 
     @Nullable private OWLDataRange dataRange = null;
 
@@ -52,11 +53,7 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPr
         return withRange(arg.getDatatype(df));
     }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
+    @Override
     @SuppressWarnings("unchecked")
     public B withRange(OWLDataRange arg) {
         dataRange = arg;
@@ -68,5 +65,10 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPr
      */
     public OWLDataRange getDataRange() {
         return verifyNotNull(dataRange);
+    }
+
+    @Override
+    public OWLDataRange getRange() {
+        return getDataRange();
     }
 }

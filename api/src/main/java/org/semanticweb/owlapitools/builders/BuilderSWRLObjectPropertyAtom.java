@@ -14,18 +14,18 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 
 /** Builder class for SWRLObjectPropertyAtom. */
 public class BuilderSWRLObjectPropertyAtom extends
-    BaseObjectPropertyBuilder<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
+    BuilderSWRLIndividualsAtom<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
 
-    private SWRLIArgument arg1;
-    private SWRLIArgument arg0;
+    @Nullable private OWLObjectPropertyExpression property = null;
 
     /**
      * Builder initialized from an existing object.
@@ -52,40 +52,25 @@ public class BuilderSWRLObjectPropertyAtom extends
 
     /**
      * @param arg
-     *        individual
-     * @return builder
+     *        property
+     * @return this builder
      */
-    public BuilderSWRLObjectPropertyAtom withArg0(SWRLIArgument arg) {
-        arg0 = arg;
+    public BuilderSWRLObjectPropertyAtom withProperty(OWLObjectPropertyExpression arg) {
+        property = arg;
         return this;
     }
 
     /**
-     * @param arg
-     *        individual
-     * @return builder
+     * @return property
      */
-    public BuilderSWRLObjectPropertyAtom withArg1(SWRLIArgument arg) {
-        arg1 = arg;
-        return this;
+    @Nullable
+    public OWLObjectPropertyExpression getProperty() {
+        return property;
     }
 
     @Override
     public SWRLObjectPropertyAtom buildObject() {
-        return df.getSWRLObjectPropertyAtom(verifyNotNull(getProperty()), getArg0(), getArg1());
-    }
-
-    /**
-     * @return arg 1
-     */
-    public SWRLIArgument getArg1() {
-        return verifyNotNull(arg1);
-    }
-
-    /**
-     * @return arg 0
-     */
-    public SWRLIArgument getArg0() {
-        return verifyNotNull(arg0);
+        return df.getSWRLObjectPropertyAtom(verifyNotNull(getProperty()), verifyNotNull(getArg0()), verifyNotNull(
+            getArg1()));
     }
 }

@@ -18,14 +18,10 @@ import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /** Builder class for SWRLDifferentIndividualsAtom. */
-public class BuilderSWRLDifferentIndividualsAtom
-        extends BaseBuilder<SWRLDifferentIndividualsAtom, BuilderSWRLDifferentIndividualsAtom> {
-
-    private SWRLIArgument arg0;
-    private SWRLIArgument arg1;
+public class BuilderSWRLDifferentIndividualsAtom extends
+    BuilderSWRLIndividualsAtom<SWRLDifferentIndividualsAtom, BuilderSWRLDifferentIndividualsAtom> {
 
     /**
      * Builder initialized from an existing object.
@@ -49,42 +45,8 @@ public class BuilderSWRLDifferentIndividualsAtom
         super(df);
     }
 
-    /**
-     * @param arg
-     *        arg0
-     * @return builder
-     */
-    public BuilderSWRLDifferentIndividualsAtom withArg0(SWRLIArgument arg) {
-        arg0 = arg;
-        return this;
-    }
-
-    /**
-     * @param arg
-     *        arg0
-     * @return builder
-     */
-    public BuilderSWRLDifferentIndividualsAtom withArg1(SWRLIArgument arg) {
-        arg1 = arg;
-        return this;
-    }
-
     @Override
     public SWRLDifferentIndividualsAtom buildObject() {
-        return df.getSWRLDifferentIndividualsAtom(getArg0(), getArg1());
-    }
-
-    /**
-     * @return arg 1
-     */
-    public SWRLIArgument getArg1() {
-        return verifyNotNull(arg1);
-    }
-
-    /**
-     * @return arg 0
-     */
-    public SWRLIArgument getArg0() {
-        return verifyNotNull(arg0);
+        return df.getSWRLDifferentIndividualsAtom(verifyNotNull(getArg0()), verifyNotNull(getArg1()));
     }
 }

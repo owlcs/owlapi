@@ -18,7 +18,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 
 /** Builder class for OWLDataMaxCardinality. */
-public class BuilderDataMaxCardinality extends BaseDataBuilder<OWLDataMaxCardinality, BuilderDataMaxCardinality> {
+public class BuilderDataMaxCardinality extends BaseDataBuilder<OWLDataMaxCardinality, BuilderDataMaxCardinality>
+    implements SettableCardinality<BuilderDataMaxCardinality> {
 
     private int cardinality = -1;
 
@@ -44,14 +45,15 @@ public class BuilderDataMaxCardinality extends BaseDataBuilder<OWLDataMaxCardina
         withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
 
-    /**
-     * @param arg
-     *        cardinality
-     * @return builder
-     */
+    @Override
     public BuilderDataMaxCardinality withCardinality(int arg) {
         cardinality = arg;
         return this;
+    }
+
+    @Override
+    public int getCardinality() {
+        return cardinality;
     }
 
     @Override

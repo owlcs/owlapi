@@ -25,7 +25,7 @@ class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
      * @param elementType
      *        elementType
      */
-    public OWLXMLParserElementNotFoundException(OWLXMLParserHandler h, String elementType) {
+    public OWLXMLParserElementNotFoundException(OWLXMLPH h, String elementType) {
         super(h, "Element not found: " + elementType);
     }
 }

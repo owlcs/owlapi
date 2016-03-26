@@ -18,7 +18,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 
 /** Builder class for OWLDataMinCardinality. */
-public class BuilderDataMinCardinality extends BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality> {
+public class BuilderDataMinCardinality extends BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality>
+    implements SettableCardinality<BuilderDataMinCardinality> {
 
     private int cardinality = -1;
 
@@ -44,14 +45,15 @@ public class BuilderDataMinCardinality extends BaseDataBuilder<OWLDataMinCardina
         withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
 
-    /**
-     * @param arg
-     *        cardinality
-     * @return builder
-     */
+    @Override
     public BuilderDataMinCardinality withCardinality(int arg) {
         cardinality = arg;
         return this;
+    }
+
+    @Override
+    public int getCardinality() {
+        return cardinality;
     }
 
     @Override

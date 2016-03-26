@@ -25,7 +25,7 @@ class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
      * @param attributeName
      *        attributeName
      */
-    public OWLXMLParserAttributeNotFoundException(OWLXMLParserHandler h, String attributeName) {
+    public OWLXMLParserAttributeNotFoundException(OWLXMLPH h, String attributeName) {
         super(h, "Attribute not found: " + attributeName);
     }
 }

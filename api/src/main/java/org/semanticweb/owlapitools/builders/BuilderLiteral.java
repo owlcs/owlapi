@@ -15,6 +15,7 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -104,6 +105,17 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     public BuilderLiteral withDatatype(OWLDatatype arg) {
         lang = null;
         datatype = arg;
+        return this;
+    }
+
+    /**
+     * @param arg
+     *        datatype
+     * @return builder
+     */
+    public BuilderLiteral withDatatype(IRI arg) {
+        lang = null;
+        datatype = df.getOWLDatatype(arg);
         return this;
     }
 

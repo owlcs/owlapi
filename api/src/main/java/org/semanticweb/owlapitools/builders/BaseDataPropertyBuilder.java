@@ -29,7 +29,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <B>
  *        builder type
  */
-public abstract class BaseDataPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> {
+public abstract class BaseDataPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> implements
+    SettableProperty<OWLDataPropertyExpression, B> {
 
     @Nullable private OWLDataPropertyExpression property = null;
 
@@ -42,20 +43,14 @@ public abstract class BaseDataPropertyBuilder<T extends OWLObject, B> extends Ba
         super(df);
     }
 
-    /**
-     * @param arg
-     *        property
-     * @return builder
-     */
+    @Override
     @SuppressWarnings("unchecked")
     public B withProperty(OWLDataPropertyExpression arg) {
         property = arg;
         return (B) this;
     }
 
-    /**
-     * @return property
-     */
+    @Override
     public OWLDataPropertyExpression getProperty() {
         return verifyNotNull(property);
     }

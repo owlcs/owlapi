@@ -46,12 +46,12 @@ public class OWLXMLParser extends AbstractOWLParser {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             InputSource isrc = getInputSource(documentSource, configuration);
-            OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
+            OWLXMLPH handler = new OWLXMLPH(ontology, configuration);
             SAXParsers.initParserWithOWLAPIStandards(null).parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;
-        } catch (SAXException | IOException | OWLOntologyInputSourceException e) {
+        } catch (SAXException | IOException | OWLOntologyInputSourceException | IllegalStateException e) {
             // General exception
             throw new OWLParserException(e);
         }

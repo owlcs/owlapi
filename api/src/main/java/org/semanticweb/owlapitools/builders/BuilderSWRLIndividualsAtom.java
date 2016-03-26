@@ -12,41 +12,71 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.SWRLBinaryAtom;
+import org.semanticweb.owlapi.model.SWRLIArgument;
 
-/** Builder class for OWLObjectPropertyDomainAxiom. */
-public class BuilderObjectPropertyDomain extends
-    BaseDomainBuilder<OWLObjectPropertyDomainAxiom, BuilderObjectPropertyDomain, OWLObjectPropertyExpression> implements
-    SettableProperty<OWLObjectPropertyExpression, BuilderObjectPropertyDomain> {
+/**
+ * Builder class for SWRL Individuals Atom.
+ * 
+ * @param <X>
+ *        type to build
+ * @param <B>
+ *        builder
+ */
+abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends Builder<X>>
+    extends BaseBuilder<X, B> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectPropertyDomain(OWLObjectPropertyDomainAxiom expected, OWLDataFactory df) {
-        this(df);
-        withDomain(expected.getDomain()).withProperty(expected.getProperty()).withAnnotations(expected.annotations());
-    }
+    private SWRLIArgument arg0;
+    private SWRLIArgument arg1;
 
     /**
      * @param df
      *        data factory
      */
     @Inject
-    public BuilderObjectPropertyDomain(OWLDataFactory df) {
+    public BuilderSWRLIndividualsAtom(OWLDataFactory df) {
         super(df);
     }
 
-    @Override
-    public OWLObjectPropertyDomainAxiom buildObject() {
-        return df.getOWLObjectPropertyDomainAxiom(getProperty(), getDomain(), annotations);
+    /**
+     * @param arg
+     *        arg0
+     * @return builder
+     */
+    @SuppressWarnings("unchecked")
+    public B withArg0(SWRLIArgument arg) {
+        arg0 = arg;
+        return (B) this;
+    }
+
+    /**
+     * @param arg
+     *        arg0
+     * @return builder
+     */
+    @SuppressWarnings("unchecked")
+    public B withArg1(SWRLIArgument arg) {
+        arg1 = arg;
+        return (B) this;
+    }
+
+    /**
+     * @return arg 1
+     */
+    @Nullable
+    public SWRLIArgument getArg1() {
+        return arg1;
+    }
+
+    /**
+     * @return arg 0
+     */
+    @Nullable
+    public SWRLIArgument getArg0() {
+        return arg0;
     }
 }

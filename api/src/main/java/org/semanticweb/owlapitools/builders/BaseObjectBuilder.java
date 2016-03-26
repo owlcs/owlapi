@@ -29,7 +29,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <B>
  *        builder type
  */
-public abstract class BaseObjectBuilder<T extends OWLObject, B> extends BaseObjectPropertyBuilder<T, B> {
+public abstract class BaseObjectBuilder<T extends OWLObject, B> extends BaseObjectPropertyBuilder<T, B> implements
+    SettableRange<OWLClassExpression, B> {
 
     @Nullable private OWLClassExpression range = null;
 
@@ -42,20 +43,14 @@ public abstract class BaseObjectBuilder<T extends OWLObject, B> extends BaseObje
         super(df);
     }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
+    @Override
     @SuppressWarnings("unchecked")
     public B withRange(OWLClassExpression arg) {
         range = arg;
         return (B) this;
     }
 
-    /**
-     * @return range
-     */
+    @Override
     public OWLClassExpression getRange() {
         return verifyNotNull(range);
     }

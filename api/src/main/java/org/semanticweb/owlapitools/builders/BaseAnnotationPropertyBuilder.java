@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -29,7 +30,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <B>
  *        builder type
  */
-public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> {
+public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> implements
+    SettableProperty<OWLAnnotationProperty, B> {
 
     @Nullable private OWLAnnotationProperty property = null;
 
@@ -42,11 +44,7 @@ public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> exte
         super(df);
     }
 
-    /**
-     * @param arg
-     *        property
-     * @return builder
-     */
+    @Override
     @SuppressWarnings("unchecked")
     public B withProperty(OWLAnnotationProperty arg) {
         property = arg;
@@ -54,8 +52,17 @@ public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> exte
     }
 
     /**
-     * @return the property
+     * @param arg
+     *        property
+     * @return builder
      */
+    @SuppressWarnings("unchecked")
+    public B withProperty(IRI arg) {
+        property = df.getOWLAnnotationProperty(arg);
+        return (B) this;
+    }
+
+    @Override
     public OWLAnnotationProperty getProperty() {
         return verifyNotNull(property);
     }

@@ -20,8 +20,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 
 /** Builder class for OWLObjectMaxCardinality. */
-public class BuilderObjectMaxCardinality extends
-    BaseObjectBuilder<OWLObjectMaxCardinality, BuilderObjectMaxCardinality> {
+public class BuilderObjectMaxCardinality extends BaseObjectBuilder<OWLObjectMaxCardinality, BuilderObjectMaxCardinality>
+    implements SettableCardinality<BuilderObjectMaxCardinality> {
 
     private int cardinality = -1;
 
@@ -47,14 +47,15 @@ public class BuilderObjectMaxCardinality extends
         super(df);
     }
 
-    /**
-     * @param arg
-     *        cardinality
-     * @return builder
-     */
+    @Override
     public BuilderObjectMaxCardinality withCardinality(int arg) {
         cardinality = arg;
         return this;
+    }
+
+    @Override
+    public int getCardinality() {
+        return cardinality;
     }
 
     @Override

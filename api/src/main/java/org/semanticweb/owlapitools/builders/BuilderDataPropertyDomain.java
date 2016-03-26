@@ -19,8 +19,9 @@ import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
 /** Builder class for OWLDataPropertyDomainAxiom. */
-public class BuilderDataPropertyDomain
-        extends BaseDomainBuilder<OWLDataPropertyDomainAxiom, BuilderDataPropertyDomain, OWLDataPropertyExpression> {
+public class BuilderDataPropertyDomain extends
+    BaseDomainBuilder<OWLDataPropertyDomainAxiom, BuilderDataPropertyDomain, OWLDataPropertyExpression> implements
+    SettableProperty<OWLDataPropertyExpression, BuilderDataPropertyDomain> {
 
     /**
      * @param df
