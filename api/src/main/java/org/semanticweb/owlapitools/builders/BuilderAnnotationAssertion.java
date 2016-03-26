@@ -17,14 +17,16 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotationAssertionAxiom. */
-public class BuilderAnnotationAssertion
-    extends BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
+public class BuilderAnnotationAssertion extends
+    BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> implements
+    Builder<OWLAnnotationAssertionAxiom> {
 
     @Nullable private OWLAnnotationSubject subject = null;
     private OWLAnnotationValue value;
@@ -64,6 +66,16 @@ public class BuilderAnnotationAssertion
 
     /**
      * @param arg
+     *        subject
+     * @return builder
+     */
+    public BuilderAnnotationAssertion withSubject(HasIRI arg) {
+        subject = arg.getIRI();
+        return this;
+    }
+
+    /**
+     * @param arg
      *        value
      * @return builder
      */
@@ -74,20 +86,23 @@ public class BuilderAnnotationAssertion
 
     @Override
     public OWLAnnotationAssertionAxiom buildObject() {
-        return df.getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue(), annotations);
+        return df.getOWLAnnotationAssertionAxiom(getProperty(), verifyNotNull(subject), verifyNotNull(value),
+            annotations);
     }
 
     /**
      * @return value
      */
+    @Nullable
     public OWLAnnotationValue getValue() {
-        return verifyNotNull(value);
+        return value;
     }
 
     /**
      * @return value
      */
+    @Nullable
     public OWLAnnotationSubject getSubject() {
-        return verifyNotNull(subject);
+        return subject;
     }
 }

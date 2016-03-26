@@ -84,6 +84,17 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         return (B) this;
     }
 
+    /**
+     * Clear annotations.
+     * 
+     * @return builder
+     */
+    @SuppressWarnings("unchecked")
+    public B clearAnnotations() {
+        annotations.clear();
+        return (B) this;
+    }
+
     @Override
     public abstract T buildObject();
 

@@ -12,14 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 
 /** Builder class for OWLReflexiveObjectPropertyAxiom. */
-public class BuilderReflexiveObjectProperty
-        extends BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
+public class BuilderReflexiveObjectProperty extends
+    BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
 
     /**
      * Builder initialized from an existing object.
@@ -45,6 +47,6 @@ public class BuilderReflexiveObjectProperty
 
     @Override
     public OWLReflexiveObjectPropertyAxiom buildObject() {
-        return df.getOWLReflexiveObjectPropertyAxiom(getProperty(), annotations);
+        return df.getOWLReflexiveObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
     }
 }

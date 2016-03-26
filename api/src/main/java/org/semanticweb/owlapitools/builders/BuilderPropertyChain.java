@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,8 +40,8 @@ public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubProper
      */
     public BuilderPropertyChain(OWLSubPropertyChainOfAxiom expected, OWLDataFactory df) {
         this(df);
-        withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty())
-            .withAnnotations(expected.annotations());
+        withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty()).withAnnotations(
+            expected.annotations());
     }
 
     /**
@@ -71,8 +73,13 @@ public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubProper
         return this;
     }
 
+    /** @return size of the chain */
+    public int chainSize() {
+        return chain.size();
+    }
+
     @Override
     public OWLSubPropertyChainOfAxiom buildObject() {
-        return df.getOWLSubPropertyChainOfAxiom(chain, getProperty(), annotations);
+        return df.getOWLSubPropertyChainOfAxiom(chain, verifyNotNull(getProperty()), annotations);
     }
 }

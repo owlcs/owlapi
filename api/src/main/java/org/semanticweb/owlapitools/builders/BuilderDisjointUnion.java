@@ -23,8 +23,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 
 /** Builder class for OWLDisjointUnionAxiom. */
-public class BuilderDisjointUnion
-    extends BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
+public class BuilderDisjointUnion extends
+    BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
 
     @Nullable private OWLClass ce = null;
 
@@ -38,8 +38,8 @@ public class BuilderDisjointUnion
      */
     public BuilderDisjointUnion(OWLDisjointUnionAxiom expected, OWLDataFactory df) {
         this(df);
-        withClass(expected.getOWLClass()).withItems(expected.classExpressions())
-            .withAnnotations(expected.annotations());
+        withClass(expected.getOWLClass()).withItems(expected.classExpressions()).withAnnotations(expected
+            .annotations());
     }
 
     /**
@@ -63,13 +63,14 @@ public class BuilderDisjointUnion
 
     @Override
     public OWLDisjointUnionAxiom buildObject() {
-        return df.getOWLDisjointUnionAxiom(getClassExpression(), items, annotations);
+        return df.getOWLDisjointUnionAxiom(verifyNotNull(ce), items, annotations);
     }
 
     /**
      * @return class expression
      */
+    @Nullable
     public OWLClass getClassExpression() {
-        return verifyNotNull(ce);
+        return ce;
     }
 }

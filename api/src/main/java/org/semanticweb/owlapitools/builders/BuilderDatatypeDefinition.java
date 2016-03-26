@@ -82,7 +82,7 @@ public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinition
 
     @Override
     public OWLDatatypeDefinitionAxiom buildObject() {
-        return df.getOWLDatatypeDefinitionAxiom(getType(), getRange(), annotations);
+        return df.getOWLDatatypeDefinitionAxiom(verifyNotNull(type), getRange(), annotations);
     }
 
     /**
@@ -95,7 +95,8 @@ public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinition
     /**
      * @return type
      */
+    @Nullable
     public OWLDatatype getType() {
-        return verifyNotNull(type);
+        return type;
     }
 }

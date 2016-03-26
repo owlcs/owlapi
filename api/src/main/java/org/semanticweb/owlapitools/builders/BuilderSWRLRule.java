@@ -14,9 +14,9 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /** Builder class for SWRLRule. */
 public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
-    @Nonnull private final Set<SWRLAtom> body = new HashSet<>();
-    @Nonnull private final Set<SWRLAtom> head = new HashSet<>();
+    @Nonnull private final List<SWRLAtom> body = new ArrayList<>();
+    @Nonnull private final List<SWRLAtom> head = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.
@@ -117,5 +117,15 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     @Override
     public SWRLRule buildObject() {
         return df.getSWRLRule(body, head, annotations);
+    }
+
+    /** @return size of body */
+    public int bodySize() {
+        return body.size();
+    }
+
+    /** @return size of head */
+    public int headSize() {
+        return head.size();
     }
 }

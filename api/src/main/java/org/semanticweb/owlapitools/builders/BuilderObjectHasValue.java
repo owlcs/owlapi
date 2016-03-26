@@ -60,7 +60,7 @@ public class BuilderObjectHasValue extends BaseObjectPropertyBuilder<OWLObjectHa
 
     @Override
     public OWLObjectHasValue buildObject() {
-        return df.getOWLObjectHasValue(getProperty(), getValue());
+        return df.getOWLObjectHasValue(verifyNotNull(getProperty()), getValue());
     }
 
     /**

@@ -73,20 +73,23 @@ public class BuilderNegativeObjectPropertyAssertion extends
 
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom buildObject() {
-        return df.getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(), getValue(), annotations);
+        return df.getOWLNegativeObjectPropertyAssertionAxiom(verifyNotNull(getProperty()), verifyNotNull(subject),
+            verifyNotNull(value), annotations);
     }
 
     /**
      * @return individual
      */
+    @Nullable
     public OWLIndividual getSubject() {
-        return verifyNotNull(subject);
+        return subject;
     }
 
     /**
      * @return individual
      */
+    @Nullable
     public OWLIndividual getValue() {
-        return verifyNotNull(value);
+        return value;
     }
 }

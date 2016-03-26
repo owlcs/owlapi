@@ -21,8 +21,8 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 
 /** Builder class for SWRLObjectPropertyAtom. */
-public class BuilderSWRLObjectPropertyAtom
-        extends BaseObjectPropertyBuilder<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
+public class BuilderSWRLObjectPropertyAtom extends
+    BaseObjectPropertyBuilder<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
 
     private SWRLIArgument arg1;
     private SWRLIArgument arg0;
@@ -37,8 +37,8 @@ public class BuilderSWRLObjectPropertyAtom
      */
     public BuilderSWRLObjectPropertyAtom(SWRLObjectPropertyAtom expected, OWLDataFactory df) {
         this(df);
-        withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument())
-                .withProperty(expected.getPredicate());
+        withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument()).withProperty(expected
+            .getPredicate());
     }
 
     /**
@@ -72,7 +72,7 @@ public class BuilderSWRLObjectPropertyAtom
 
     @Override
     public SWRLObjectPropertyAtom buildObject() {
-        return df.getSWRLObjectPropertyAtom(getProperty(), getArg0(), getArg1());
+        return df.getSWRLObjectPropertyAtom(verifyNotNull(getProperty()), getArg0(), getArg1());
     }
 
     /**

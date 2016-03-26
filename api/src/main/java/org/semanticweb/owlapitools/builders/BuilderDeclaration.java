@@ -60,13 +60,14 @@ public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, Builder
 
     @Override
     public OWLDeclarationAxiom buildObject() {
-        return df.getOWLDeclarationAxiom(getEntity(), annotations);
+        return df.getOWLDeclarationAxiom(verifyNotNull(entity), annotations);
     }
 
     /**
      * @return entity
      */
+    @Nullable
     public OWLEntity getEntity() {
-        return verifyNotNull(entity);
+        return entity;
     }
 }

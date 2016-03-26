@@ -22,8 +22,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
 /** Builder class for OWLObjectPropertyAssertionAxiom. */
-public class BuilderObjectPropertyAssertion
-    extends BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
+public class BuilderObjectPropertyAssertion extends
+    BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
 
     @Nullable private OWLIndividual subject = null;
     @Nullable private OWLIndividual value = null;
@@ -73,20 +73,23 @@ public class BuilderObjectPropertyAssertion
 
     @Override
     public OWLObjectPropertyAssertionAxiom buildObject() {
-        return df.getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getValue(), annotations);
+        return df.getOWLObjectPropertyAssertionAxiom(verifyNotNull(getProperty()), verifyNotNull(subject),
+            verifyNotNull(value), annotations);
     }
 
     /**
      * @return individual
      */
+    @Nullable
     public OWLIndividual getValue() {
-        return verifyNotNull(value);
+        return value;
     }
 
     /**
      * @return individual
      */
+    @Nullable
     public OWLIndividual getSubject() {
-        return verifyNotNull(subject);
+        return subject;
     }
 }

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -19,8 +21,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
 /** Builder class for OWLSubDataPropertyOfAxiom. */
-public class BuilderSubDataProperty
-        extends BaseSubBuilder<OWLSubDataPropertyOfAxiom, BuilderSubDataProperty, OWLDataPropertyExpression> {
+public class BuilderSubDataProperty extends
+    BaseSubBuilder<OWLSubDataPropertyOfAxiom, BuilderSubDataProperty, OWLDataPropertyExpression> {
 
     /**
      * Builder initialized from an existing object.
@@ -46,6 +48,6 @@ public class BuilderSubDataProperty
 
     @Override
     public OWLSubDataPropertyOfAxiom buildObject() {
-        return df.getOWLSubDataPropertyOfAxiom(getSub(), getSup(), annotations);
+        return df.getOWLSubDataPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()), annotations);
     }
 }
