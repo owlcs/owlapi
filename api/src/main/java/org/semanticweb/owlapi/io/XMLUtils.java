@@ -26,18 +26,18 @@ import javax.annotation.Nullable;
  */
 public final class XMLUtils {
 
-    /** &amp;lt; shortcut */
+    /** &amp;lt; shortcut. */
     public static final String LT = "&lt;";
-    /** &amp;gt; shortcut */
+    /** &amp;gt; shortcut. */
     public static final String GT = "&gt;";
-    /** &amp;quot; shortcut */
+    /** &amp;quot; shortcut. */
     public static final String QUOT = "&quot;";
-    /** &amp;amp; shortcut */
+    /** &amp;amp; shortcut. */
     public static final String AMP = "&amp;";
-    /** &amp;apos; shortcut */
+    /** &amp;apos; shortcut. */
     public static final String APOS = "&apos;";
     // For some point in the future
-    /** owl processing instruction */
+    /** OWL processing instruction. */
     public static final String OWL_PROCESSING_INSTRUCTION_NAME = "owl";
 
     private XMLUtils() {}
@@ -298,6 +298,81 @@ public final class XMLUtils {
             i += Character.charCount(codePoint);
         }
         return sb.toString();
+    }
+
+    /**
+     * Escapes a subset of a char sequence so that it is valid XML. Escaped or
+     * unchanged characters are added to destination.
+     * 
+     * @param chars
+     *        chars to check
+     * @param start
+     *        start index (inclusive)
+     * @param count
+     *        number of characters
+     * @param destination
+     *        destination for escaped chars
+     * @return The modified destination.
+     */
+    public static StringBuilder escapeXML(char[] chars, int start, int count, StringBuilder destination) {
+        // double quote -- quot
+        // ampersand -- amp
+        // less than -- lt
+        // greater than -- gt
+        // apostrophe -- apos
+        for (int i = 0; i < count; i++) {
+            char codePoint = chars[start + i];
+            if (codePoint == '<') {
+                destination.append(LT);
+            } else if (codePoint == '>') {
+                destination.append(GT);
+            } else if (codePoint == '\"') {
+                destination.append(QUOT);
+            } else if (codePoint == '&') {
+                destination.append(AMP);
+            } else if (codePoint == '\'') {
+                destination.append(APOS);
+            } else {
+                destination.append(codePoint);
+            }
+        }
+        return destination;
+    }
+
+    /**
+     * Escapes a string builder so that it is valid XML.
+     * 
+     * @param sb
+     *        The string builder to escape.
+     */
+    public static void escapeXML(StringBuilder sb) {
+        // double quote -- quot
+        // ampersand -- amp
+        // less than -- lt
+        // greater than -- gt
+        // apostrophe -- apos
+        for (int i = 0; i < sb.length();) {
+            int codePoint = Character.codePointAt(sb, i);
+            int length = Character.charCount(codePoint);
+            if (codePoint == '<') {
+                sb.replace(i, i + length, LT);
+                i += LT.length();
+            } else if (codePoint == '>') {
+                sb.replace(i, i + length, GT);
+                i += GT.length();
+            } else if (codePoint == '\"') {
+                sb.replace(i, i + length, QUOT);
+                i += QUOT.length();
+            } else if (codePoint == '&') {
+                sb.replace(i, i + length, AMP);
+                i += AMP.length();
+            } else if (codePoint == '\'') {
+                sb.replace(i, i + length, APOS);
+                i += APOS.length();
+            } else {
+                i += length;
+            }
+        }
     }
 
     /**

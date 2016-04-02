@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.NodeID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -581,7 +582,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
 
     @Override
     public void characters(char[] data, int start, int length) {
-        m_content.append(data, start, length);
+        XMLUtils.escapeXML(data, start, length, m_content);
     }
 }
 
