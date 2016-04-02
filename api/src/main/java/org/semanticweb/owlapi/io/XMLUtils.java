@@ -52,14 +52,13 @@ public final class XMLUtils {
      *         otherwise {@code false}
      */
     public static boolean isXMLNameStartCharacter(int codePoint) {
-        return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z' || codePoint == '_'
-            || codePoint >= 'a' && codePoint <= 'z' || codePoint >= 0xC0 && codePoint <= 0xD6
-            || codePoint >= 0xD8 && codePoint <= 0xF6 || codePoint >= 0xF8 && codePoint <= 0x2FF
-            || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F && codePoint <= 0x1FFF
-            || codePoint >= 0x200C && codePoint <= 0x200D || codePoint >= 0x2070 && codePoint <= 0x218F
-            || codePoint >= 0x2C00 && codePoint <= 0x2FEF || codePoint >= 0x3001 && codePoint <= 0xD7FF
-            || codePoint >= 0xF900 && codePoint <= 0xFDCF || codePoint >= 0xFDF0 && codePoint <= 0xFFFD
-            || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
+        return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z' || codePoint == '_' || codePoint >= 'a'
+            && codePoint <= 'z' || codePoint >= 0xC0 && codePoint <= 0xD6 || codePoint >= 0xD8 && codePoint <= 0xF6
+            || codePoint >= 0xF8 && codePoint <= 0x2FF || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F
+                && codePoint <= 0x1FFF || codePoint >= 0x200C && codePoint <= 0x200D || codePoint >= 0x2070
+                    && codePoint <= 0x218F || codePoint >= 0x2C00 && codePoint <= 0x2FEF || codePoint >= 0x3001
+                        && codePoint <= 0xD7FF || codePoint >= 0xF900 && codePoint <= 0xFDCF || codePoint >= 0xFDF0
+                            && codePoint <= 0xFFFD || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
     }
 
     /**
@@ -73,9 +72,9 @@ public final class XMLUtils {
      *         otherwise {@code false}
      */
     public static boolean isXMLNameChar(int codePoint) {
-        return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.'
-            || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7
-            || codePoint >= 0x0300 && codePoint <= 0x036F || codePoint >= 0x203F && codePoint <= 0x2040;
+        return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.' || codePoint >= '0'
+            && codePoint <= '9' || codePoint == 0xB7 || codePoint >= 0x0300 && codePoint <= 0x036F
+            || codePoint >= 0x203F && codePoint <= 0x2040;
     }
 
     /**
@@ -297,6 +296,81 @@ public final class XMLUtils {
             i += Character.charCount(codePoint);
         }
         return sb.toString();
+    }
+
+    /**
+     * Escapes a subset of a char sequence so that it is valid XML. Escaped or
+     * unchanged characters are added to destination.
+     * 
+     * @param chars
+     *        chars to check
+     * @param start
+     *        start index (inclusive)
+     * @param count
+     *        number of characters
+     * @param destination
+     *        destination for escaped chars
+     * @return The modified destination.
+     */
+    public static StringBuilder escapeXML(char[] chars, int start, int count, StringBuilder destination) {
+        // double quote -- quot
+        // ampersand -- amp
+        // less than -- lt
+        // greater than -- gt
+        // apostrophe -- apos
+        for (int i = 0; i < count; i++) {
+            char codePoint = chars[start + i];
+            if (codePoint == '<') {
+                destination.append(LT);
+            } else if (codePoint == '>') {
+                destination.append(GT);
+            } else if (codePoint == '\"') {
+                destination.append(QUOT);
+            } else if (codePoint == '&') {
+                destination.append(AMP);
+            } else if (codePoint == '\'') {
+                destination.append(APOS);
+            } else {
+                destination.append(codePoint);
+            }
+        }
+        return destination;
+    }
+
+    /**
+     * Escapes a string builder so that it is valid XML.
+     * 
+     * @param sb
+     *        The string builder to escape.
+     */
+    public static void escapeXML(StringBuilder sb) {
+        // double quote -- quot
+        // ampersand -- amp
+        // less than -- lt
+        // greater than -- gt
+        // apostrophe -- apos
+        for (int i = 0; i < sb.length();) {
+            int codePoint = Character.codePointAt(sb, i);
+            int length = Character.charCount(codePoint);
+            if (codePoint == '<') {
+                sb.replace(i, i + length, LT);
+                i += LT.length();
+            } else if (codePoint == '>') {
+                sb.replace(i, i + length, GT);
+                i += GT.length();
+            } else if (codePoint == '\"') {
+                sb.replace(i, i + length, QUOT);
+                i += QUOT.length();
+            } else if (codePoint == '&') {
+                sb.replace(i, i + length, AMP);
+                i += AMP.length();
+            } else if (codePoint == '\'') {
+                sb.replace(i, i + length, APOS);
+                i += APOS.length();
+            } else {
+                i += length;
+            }
+        }
     }
 
     /**
