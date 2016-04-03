@@ -59,11 +59,11 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat 
     private final String formatName;
 
     /**
-     * Constructor for super-classes to specify which {@link RDFFormat} they
-     * support.
+     * Constructor for super-classes to specify which
+     * {@link org.openrdf.rio.RDFFormat} they support.
      * 
      * @param format
-     *        The {@link RDFFormat} that this instance supports.
+     *        The {@link org.openrdf.rio.RDFFormat} that this instance supports.
      */
     public RioRDFPrefixDocumentFormat(RDFFormat format) {
         this.format = format;
@@ -82,9 +82,7 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat 
 
     @Override
     public String getKey() {
-        String name = format.getName();
-        assert name != null;
-        return name;
+        return format.getName();
     }
 
     @Override
@@ -100,9 +98,7 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat 
 
     @Override
     public List<String> getMIMETypes() {
-        List<String> mimeTypes = format.getMIMETypes();
-        assert mimeTypes != null;
-        return mimeTypes;
+        return format.getMIMETypes();
     }
 
     @Override

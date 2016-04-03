@@ -16,13 +16,13 @@ import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
@@ -31,136 +31,42 @@ import org.semanticweb.owlapi.search.Filters;
 /**
  * @author Olaf Noppens
  */
-public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
-
-    private final Writer writer;
+public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
 
     /**
+     * @param ontology
+     *        ontology
      * @param writer
      *        writer
      */
-    public KRSS2OWLObjectRenderer(Writer writer) {
-        this.writer = checkNotNull(writer);
-    }
-
-    private void writeOpenBracket() {
-        try {
-            writer.write("(");
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void writeCloseBracket() {
-        try {
-            writer.write(")");
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void write(int i) {
-        try {
-            writer.write(" " + i);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void write(IRI iri) {
-        try {
-            writer.write(iri.toString());
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
+    public KRSS2OWLObjectRenderer(OWLOntology ontology, Writer writer) {
+        super(ontology, writer);
     }
 
     private void writeAttribute(KRSS2Vocabulary v) {
-        try {
-            writeSpace();
-            writer.write(":");
-            writer.write(v.toString());
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void write(KRSS2Vocabulary v) {
-        try {
-            writer.write(v.toString());
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void writeSpace() {
-        try {
-            writer.write(" ");
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void writeln() {
-        try {
-            writer.write("\n");
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void write(OWLClassExpression obj) {
         writeSpace();
-        obj.accept(this);
-    }
-
-    private void write(OWLIndividual ind) {
-        writeSpace();
-        ind.accept(this);
-    }
-
-    private void write(OWLPropertyExpression obj) {
-        writeSpace();
-        obj.accept(this);
-    }
-
-    private void write(OWLDataRange obj) {
-        writeSpace();
-        obj.accept(this);
-    }
-
-    private void flatten(Iterator<OWLClassExpression> c) {
-        if (!c.hasNext()) {
-            return;
-        }
-        OWLClassExpression desc = c.next();
-        if (!c.hasNext()) {
-            write(desc);
-            return;
-        }
-        writeOpenBracket();
-        write(AND);
-        write(desc);
-        flatten(c);
-        writeCloseBracket();
+        writer.write(":");
+        writer.write(v.toString());
     }
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLClass eachClass : asList(ontology.classesInSignature())) {
+        List<OWLClass> classes1 = asList(ontology.classesInSignature());
+        classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
+        classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
+        sortOptionally(classes1);
+        for (OWLClass eachClass : classes1) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Stream<OWLClassExpression> superClasses = sup(
-                    ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED), OWLClassExpression.class);
-                flatten(superClasses.iterator());
-                writeCloseBracket(); // ==> end definition of primitive-concept
+                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
+                writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> classes = asList(
-                    equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
+                Collection<OWLClassExpression> classes = asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
+                    OWLClassExpression.class));
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -174,8 +80,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Collection<OWLClassExpression> classes = asList(
-                    equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
+                Collection<OWLClassExpression> classes = asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
+                    OWLClassExpression.class));
                 if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
@@ -216,21 +122,18 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeSpace();
                 write(TRUE);
             }
-            Stream<OWLClassExpression> domains = domain(ontology.objectPropertyDomainAxioms(property));
-            Iterator<OWLClassExpression> i = domains.iterator();
-            if (i.hasNext()) {
+            List<OWLClassExpression> domains = asList(domain(ontology.objectPropertyDomainAxioms(property)));
+            if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
-                flatten(i);
+                flatten(domains);
             }
-            Stream<OWLClassExpression> ranges = range(ontology.objectPropertyRangeAxioms(property));
-            i = ranges.iterator();
-            if (i.hasNext()) {
+            List<OWLClassExpression> ranges = asList(range(ontology.objectPropertyRangeAxioms(property)));
+            if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
-                flatten(i);
+                flatten(ranges);
             }
-            Stream<OWLObjectPropertyExpression> superProperties = sup(
-                ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
-                OWLObjectPropertyExpression.class);
+            Stream<OWLObjectPropertyExpression> superProperties = sup(ontology.axioms(Filters.subObjectPropertyWithSub,
+                property, INCLUDED), OWLObjectPropertyExpression.class);
             Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
             if (it.hasNext()) {
                 writeAttribute(PARENTS_ATTR);
@@ -242,11 +145,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
             }
             writeCloseBracket();
         }
-        try {
-            writer.flush();
-        } catch (IOException io) {
-            throw new OWLRuntimeException(io);
-        }
+        writer.flush();
     }
 
     @Override
@@ -256,190 +155,5 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         write(axiom.getSubClass());
         write(axiom.getSuperClass());
         writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
-        writeOpenBracket();
-        axiom.classExpressions().forEach(this::write);
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        write(RELATED);
-        write(axiom.getSubject());
-        write(axiom.getObject());
-        write(axiom.getProperty());
-        writeln();
-    }
-
-    @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
-        write(INSTANCE);
-        write(axiom.getIndividual());
-        write(axiom.getClassExpression());
-        writeln();
-    }
-
-    @Override
-    public void visit(OWLClass ce) {
-        write(ce.getIRI());
-    }
-
-    @Override
-    public void visit(OWLObjectIntersectionOf ce) {
-        writeOpenBracket();
-        write(AND);
-        ce.operands().forEach(this::write);
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectUnionOf ce) {
-        writeOpenBracket();
-        write(OR);
-        ce.operands().forEach(this::write);
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectComplementOf ce) {
-        writeOpenBracket();
-        write(NOT);
-        write(ce.getOperand());
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectSomeValuesFrom ce) {
-        writeOpenBracket();
-        write(SOME);
-        write(ce.getProperty());
-        write(ce.getFiller());
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectAllValuesFrom ce) {
-        writeOpenBracket();
-        write(ALL);
-        write(ce.getProperty());
-        write(ce.getFiller());
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectMinCardinality ce) {
-        writeOpenBracket();
-        write(AT_LEAST);
-        write(ce.getCardinality());
-        write(ce.getProperty());
-        if (ce.isQualified()) {
-            write(ce.getFiller());
-        }
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectExactCardinality ce) {
-        writeOpenBracket();
-        write(EXACTLY);
-        write(ce.getCardinality());
-        write(ce.getProperty());
-        if (ce.isQualified()) {
-            write(ce.getFiller());
-        }
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectMaxCardinality ce) {
-        writeOpenBracket();
-        write(AT_MOST);
-        write(ce.getCardinality());
-        write(ce.getProperty());
-        if (ce.isQualified()) {
-            write(ce.getFiller());
-        }
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLDataSomeValuesFrom ce) {
-        writeOpenBracket();
-        write(SOME);
-        write(ce.getProperty());
-        write(ce.getFiller());
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLDataAllValuesFrom ce) {
-        writeOpenBracket();
-        write(ALL);
-        write(ce.getProperty());
-        write(ce.getFiller());
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLDataMinCardinality ce) {
-        writeOpenBracket();
-        write(AT_LEAST);
-        write(ce.getCardinality());
-        write(ce.getProperty());
-        if (ce.isQualified()) {
-            write(ce.getFiller());
-        }
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLDataExactCardinality ce) {
-        writeOpenBracket();
-        write(EXACTLY);
-        write(ce.getCardinality());
-        write(ce.getProperty());
-        if (ce.isQualified()) {
-            write(ce.getFiller());
-        }
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLDataMaxCardinality ce) {
-        writeOpenBracket();
-        write(AT_MOST);
-        write(ce.getCardinality());
-        write(ce.getProperty());
-        if (ce.isQualified()) {
-            write(ce.getFiller());
-        }
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLObjectProperty property) {
-        write(property.getIRI());
-    }
-
-    @Override
-    public void visit(OWLObjectInverseOf property) {
-        writeOpenBracket();
-        write(INVERSE);
-        writeSpace();
-        property.getInverse().accept(this);
-        writeCloseBracket();
-    }
-
-    @Override
-    public void visit(OWLDataProperty property) {
-        write(property.getIRI());
-    }
-
-    @Override
-    public void visit(OWLNamedIndividual individual) {
-        write(individual.getIRI());
     }
 }

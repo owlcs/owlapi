@@ -82,9 +82,7 @@ public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentF
 
     @Override
     public String getKey() {
-        String name = format.getName();
-        assert name != null;
-        return name;
+        return format.getName();
     }
 
     @Override
@@ -100,9 +98,7 @@ public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentF
 
     @Override
     public List<String> getMIMETypes() {
-        List<String> mimeTypes = format.getMIMETypes();
-        assert mimeTypes != null;
-        return mimeTypes;
+        return format.getMIMETypes();
     }
 
     @Override

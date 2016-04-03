@@ -103,9 +103,9 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     @Override
     public void parse(@Nullable InputStream in, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        StreamDocumentSource source = new StreamDocumentSource(checkNotNull(in), IRI.create(checkNotNull(baseURI)),
-            nextFormat, getRDFFormat().getDefaultMIMEType());
-        render(source);
+        String mime = getRDFFormat().getDefaultMIMEType();
+        IRI iri = IRI.create(checkNotNull(baseURI));
+        render(new StreamDocumentSource(checkNotNull(in), iri, nextFormat, mime));
     }
 
     /**
@@ -133,8 +133,8 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     @Override
     public void parse(@Nullable Reader reader, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        ReaderDocumentSource source = new ReaderDocumentSource(checkNotNull(reader), IRI.create(checkNotNull(baseURI)),
-            nextFormat, getRDFFormat().getDefaultMIMEType());
-        render(source);
+        String mime = getRDFFormat().getDefaultMIMEType();
+        IRI iri = IRI.create(checkNotNull(baseURI));
+        render(new ReaderDocumentSource(checkNotNull(reader), iri, nextFormat, mime));
     }
 }
