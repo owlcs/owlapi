@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.*;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -64,9 +65,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     protected OWLDataFactory df;
     private List<Token> tokens;
     private int tokenIndex;
-    private OWLEntityChecker owlEntityChecker;
+    private OWLEntityChecker checker;
     private OWLOntologyChecker owlOntologyChecker = name -> null;
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new EnumMap<>(
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLClass, ?>> classFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
     @Nonnull protected final Set<String> classNames = new HashSet<>();
     @Nonnull protected final Set<String> objectPropertyNames = new HashSet<>();
@@ -79,13 +80,13 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Nonnull protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
     private static final boolean ALLOWEMPTYFRAMESECTIONS = false;
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<>(
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new EnumMap<>(
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new EnumMap<>(
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLIndividual, ?>> individualFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
     protected RemappingIndividualProvider anonProvider;
     private final Map<String, IRI> nameIRIMap = new HashMap<>();
@@ -125,7 +126,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             String fragment = XMLUtils.getNCNameSuffix(string);
             annotationPropertyNames.add(u.getPrefix(ns) + ':' + (fragment != null ? fragment : ""));
         }
-        owlEntityChecker = new DefaultEntityChecker();
+        checker = new DefaultEntityChecker();
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
             ruleBuiltIns.put(v.getShortForm(), v);
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
@@ -154,63 +155,72 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private void initialiseClassFrameSections() {
-        initialiseSection(new EntityAnnotationsListItemParser<OWLClass>(), classFrameSections);
-        initialiseSection(new ClassSubClassOfListItemParser(), classFrameSections);
-        initialiseSection(new ClassEquivalentToListItemParser(), classFrameSections);
-        initialiseSection(new ClassDisjointWithListItemParser(), classFrameSections);
-        initialiseSection(new ClassHasKeyListItemParser(), classFrameSections);
-        initialiseSection(new ClassDisjointUnionOfListItemParser(), classFrameSections);
+        //@formatter:off
+        initialiseSection(new AnnAxiom<OWLClass, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), SUBCLASS_OF, (s, o, anns) -> df.getOWLSubClassOfAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentClassesAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointClassesAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, Set<OWLPropertyExpression>>(x -> parsePropertyList(), HAS_KEY, (s, o, anns) -> df.getOWLHasKeyAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, Set<OWLClassExpression>>(x -> parseClassExpressionList(), DISJOINT_UNION_OF, (s, o, anns) -> df.getOWLDisjointUnionAxiom(s, o, anns)), classFrameSections);
         // Extensions
-        initialiseSection(new ClassSuperClassOfListItemParser(), classFrameSections);
-        initialiseSection(new ClassDisjointClassesListItemParser(), classFrameSections);
-        initialiseSection(new ClassIndividualsListItemParser(), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), SUPERCLASS_OF, (s, o, anns) -> df.getOWLSubClassOfAxiom(o, s, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, Set<OWLClassExpression>>(x -> parseClassExpressionList(), DISJOINT_CLASSES, (s, o, anns) -> df.getOWLDisjointClassesAxiom(o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLIndividual>(x -> parseIndividual(), INDIVIDUALS, (s, o, anns) -> df.getOWLClassAssertionAxiom(s, o, anns)), classFrameSections);
+        //@formatter:on
     }
 
     private void initialiseObjectPropertyFrameSections() {
-        initialiseSection(new EntityAnnotationsListItemParser<OWLObjectProperty>(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertySubPropertyOfListItemParser(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertyEquivalentToListItemParser(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertyDisjointWithListItemParser(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertyDomainListItemParser(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertyRangeListItemParser(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertyInverseOfListItemParser(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertyCharacteristicsItemParser(), objectPropertyFrameSections);
-        initialiseSection(new ObjectPropertySubPropertyChainListItemParser(), objectPropertyFrameSections);
+      //@formatter:off
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubObjectPropertyOfAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentObjectPropertiesAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointObjectPropertiesAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLClassExpression>(x -> parseUnion(), DOMAIN, (s, o, anns) -> df.getOWLObjectPropertyDomainAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLClassExpression>(x -> parseUnion(), RANGE, (s, o, anns) -> df.getOWLObjectPropertyRangeAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), INVERSE_OF, (s, o, anns) -> df.getOWLInverseObjectPropertiesAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyCharacteristicAxiom>(this::parseObjectPropertyCharacteristic, CHARACTERISTICS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, List<OWLObjectPropertyExpression>>(x -> parseObjectPropertyChain(), SUB_PROPERTY_CHAIN, (s, o, anns) -> df.getOWLSubPropertyChainOfAxiom(o, s, anns)), objectPropertyFrameSections);
         // Extensions
-        initialiseSection(new ObjectPropertySuperPropertyOfListItemParser(), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), SUPER_PROPERTY_OF, (s, o, anns) -> df.getOWLSubObjectPropertyOfAxiom(o, s, anns)), objectPropertyFrameSections);
+      //@formatter:on
     }
 
     private void initialiseDataPropertyFrameSections() {
-        initialiseSection(new DataPropertySubPropertyOfListItemParser(), dataPropertyFrameSections);
-        initialiseSection(new DataPropertyEquivalentToListItemParser(), dataPropertyFrameSections);
-        initialiseSection(new DataPropertyDisjointWithListItemParser(), dataPropertyFrameSections);
-        initialiseSection(new DataPropertyDomainListItemParser(), dataPropertyFrameSections);
-        initialiseSection(new DataPropertyRangeListItemParser(), dataPropertyFrameSections);
-        initialiseSection(new DataPropertyCharacteristicsItemParser(), dataPropertyFrameSections);
-        initialiseSection(new EntityAnnotationsListItemParser<OWLDataProperty>(), dataPropertyFrameSections);
+      //@formatter:off
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubDataPropertyOfAxiom(s, o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentDataPropertiesAxiom(s,o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointDataPropertiesAxiom(s,o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLClassExpression>(x -> parseUnion(), DOMAIN, (s, o, anns) -> df.getOWLDataPropertyDomainAxiom(s, o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataRange>(x -> parseDataRange(), RANGE, (s, o, anns) -> df.getOWLDataPropertyRangeAxiom(s, o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyCharacteristicAxiom>(this::parseDataPropertyCharacteristic, CHARACTERISTICS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), dataPropertyFrameSections);
+      //@formatter:on
     }
 
     private void initialiseAnnotationPropertyFrameSections() {
-        initialiseSection(new AnnotationPropertySubPropertyOfListItemParser(), annotationPropertyFrameSections);
-        initialiseSection(new AnnotationPropertyDomainListItemParser(), annotationPropertyFrameSections);
-        initialiseSection(new AnnotationPropertyRangeListItemParser(), annotationPropertyFrameSections);
-        initialiseSection(new EntityAnnotationsListItemParser<OWLAnnotationProperty>(),
-            annotationPropertyFrameSections);
+      //@formatter:off
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, OWLAnnotationProperty>(x -> parseAnnotationProperty(), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubAnnotationPropertyOfAxiom(s, o, anns)), annotationPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), DOMAIN, (s, o, anns) -> df.getOWLAnnotationPropertyDomainAxiom(s, o, anns)), annotationPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), RANGE, (s, o, anns) -> df.getOWLAnnotationPropertyRangeAxiom(s, o, anns)), annotationPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), annotationPropertyFrameSections);
+      //@formatter:on
     }
 
     private void initialiseIndividualFrameSections() {
-        initialiseSection(new IndividualAnnotationItemParser(), individualFrameSections);
-        initialiseSection(new IndividualTypesItemParser(), individualFrameSections);
-        initialiseSection(new IndividualFactsItemParser(), individualFrameSections);
-        initialiseSection(new IndividualSameAsItemParser(), individualFrameSections);
-        initialiseSection(new IndividualDifferentFromItemParser(), individualFrameSections);
+      //@formatter:off
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> create(df, s, o, anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLClassExpression>(x -> parseUnion(), TYPES, (s, o, anns) -> df.getOWLClassAssertionAxiom(o, s, anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<>(this::parseFact, FACTS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), SAME_AS, (s, o, anns) -> df.getOWLSameIndividualAxiom(s, o, anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), DIFFERENT_FROM, (s, o, anns) -> df.getOWLDifferentIndividualsAxiom(s, o, anns)), individualFrameSections);
         // Extensions
-        initialiseSection(new IndividualDifferentIndividualsItemParser(), individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, Set<OWLIndividual>>(x -> parseIndividualList(), DIFFERENT_INDIVIDUALS, (s, o, anns) -> create(df, s, o, anns)), individualFrameSections);
+      //@formatter:on
     }
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker owlEntityChecker) {
-        this.owlEntityChecker = owlEntityChecker;
+        checker = owlEntityChecker;
     }
 
     private boolean isOntologyName(String name) {
@@ -218,7 +228,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private boolean isClassName(String name) {
-        return classNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLClass(name) != null;
+        return classNames.contains(name) || checker != null && checker.getOWLClass(name) != null;
     }
 
     @Nullable
@@ -232,28 +242,24 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private boolean isObjectPropertyName(String name) {
-        return objectPropertyNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLObjectProperty(
-            name) != null;
+        return objectPropertyNames.contains(name) || checker != null && checker.getOWLObjectProperty(name) != null;
     }
 
     private boolean isAnnotationPropertyName(String name) {
-        return annotationPropertyNames.contains(name) || owlEntityChecker != null && owlEntityChecker
-            .getOWLAnnotationProperty(name) != null;
+        return annotationPropertyNames.contains(name) || checker != null && checker.getOWLAnnotationProperty(
+            name) != null;
     }
 
     private boolean isDataPropertyName(String name) {
-        return dataPropertyNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLDataProperty(
-            name) != null;
+        return dataPropertyNames.contains(name) || checker != null && checker.getOWLDataProperty(name) != null;
     }
 
     private boolean isIndividualName(String name) {
-        return individualNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLIndividual(
-            name) != null;
+        return individualNames.contains(name) || checker != null && checker.getOWLIndividual(name) != null;
     }
 
     private boolean isDatatypeName(String name) {
-        return dataTypeNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLDatatype(
-            name) != null;
+        return dataTypeNames.contains(name) || checker != null && checker.getOWLDatatype(name) != null;
     }
 
     private boolean isSWRLBuiltin(String name) {
@@ -261,7 +267,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private OWLClass getOWLClass(String name) {
-        OWLClass cls = owlEntityChecker.getOWLClass(name);
+        OWLClass cls = checker.getOWLClass(name);
         if (cls == null && classNames.contains(name)) {
             cls = df.getOWLClass(getIRI(name));
         }
@@ -272,7 +278,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private OWLObjectProperty getOWLObjectProperty(String name) {
-        OWLObjectProperty prop = owlEntityChecker.getOWLObjectProperty(name);
+        OWLObjectProperty prop = checker.getOWLObjectProperty(name);
         if (prop == null && objectPropertyNames.contains(name)) {
             prop = df.getOWLObjectProperty(getIRI(name));
         }
@@ -290,7 +296,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private OWLNamedIndividual getOWLNamedIndividual(String name) {
-        OWLNamedIndividual ind = owlEntityChecker.getOWLIndividual(name);
+        OWLNamedIndividual ind = checker.getOWLIndividual(name);
         if (ind == null && individualNames.contains(name)) {
             ind = df.getOWLNamedIndividual(getIRI(name));
         }
@@ -301,7 +307,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private OWLDataProperty getOWLDataProperty(String name) {
-        OWLDataProperty prop = owlEntityChecker.getOWLDataProperty(name);
+        OWLDataProperty prop = checker.getOWLDataProperty(name);
         if (prop == null && dataPropertyNames.contains(name)) {
             prop = df.getOWLDataProperty(getIRI(name));
         }
@@ -312,7 +318,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private OWLDatatype getOWLDatatype(String name) {
-        OWLDatatype dt = owlEntityChecker.getOWLDatatype(name);
+        OWLDatatype dt = checker.getOWLDatatype(name);
         if (dt == null && dataTypeNames.contains(name)) {
             dt = df.getOWLDatatype(getIRI(name));
         }
@@ -323,7 +329,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private OWLAnnotationProperty getOWLAnnotationProperty(String name) {
-        OWLAnnotationProperty prop = owlEntityChecker.getOWLAnnotationProperty(name);
+        OWLAnnotationProperty prop = checker.getOWLAnnotationProperty(name);
         if (prop == null && annotationPropertyNames.contains(name)) {
             prop = df.getOWLAnnotationProperty(getIRI(name));
         }
@@ -881,9 +887,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return df.getOWLObjectOneOf(inds);
     }
 
-    private static <F> void initialiseSection(AnnotatedListItemParser<F, ?> parser,
-        Map<ManchesterOWLSyntax, AnnotatedListItemParser<F, ?>> map, ManchesterOWLSyntax... synonyms) {
-        map.put(parser.getFrameSectionKeyword(), parser);
+    private static <F> void initialiseSection(AnnAxiom<F, ?> parser, Map<ManchesterOWLSyntax, AnnAxiom<F, ?>> map,
+        ManchesterOWLSyntax... synonyms) {
+        map.put(parser.keyword, parser);
         for (ManchesterOWLSyntax syn : synonyms) {
             map.put(syn, parser);
         }
@@ -1168,10 +1174,10 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private <F> void parseFrameSections(boolean eof, Set<OntologyAxiomPair> axioms, F frameSubject,
-        Map<ManchesterOWLSyntax, AnnotatedListItemParser<F, ?>> sectionParsers) {
+        Map<ManchesterOWLSyntax, AnnAxiom<F, ?>> sectionParsers) {
         while (true) {
             String sect = peekToken();
-            AnnotatedListItemParser<F, ?> parser = sectionParsers.get(parse(sect));
+            AnnAxiom<F, ?> parser = sectionParsers.get(parse(sect));
             if (parser != null) {
                 consumeToken();
                 Set<OWLOntology> onts = getOntologies();
@@ -1254,7 +1260,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return axioms;
     }
 
-    protected OWLPropertyAssertionAxiom<?, ?> parseFact(OWLIndividual ind) {
+    protected OWLAxiom parseFact(OWLIndividual ind) {
         boolean negative = false;
         if (NOT.matches(peekToken())) {
             consumeToken();
@@ -1710,8 +1716,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLPropertyExpression> props = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
-            OWLPropertyExpression prop = parsePropertyExpression();
-            props.add(prop);
+            props.add(parsePropertyExpression());
             sep = peekToken();
             if (COMMA.matches(sep)) {
                 consumeToken();
@@ -1725,8 +1730,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLObjectPropertyExpression> props = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
-            OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-            props.add(prop);
+            props.add(parseObjectPropertyExpression(false));
             sep = peekToken();
             if (COMMA.matches(sep)) {
                 consumeToken();
@@ -1740,8 +1744,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLDataProperty> props = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
-            OWLDataProperty prop = parseDataProperty();
-            props.add(prop);
+            props.add(parseDataProperty());
             sep = peekToken();
             if (COMMA.matches(sep)) {
                 consumeToken();
@@ -1755,8 +1758,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLAnnotationProperty> props = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
-            OWLAnnotationProperty prop = parseAnnotationProperty();
-            props.add(prop);
+            props.add(parseAnnotationProperty());
             sep = peekToken();
             if (COMMA.matches(sep)) {
                 consumeToken();
@@ -1784,8 +1786,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         String delim = "o";
         List<OWLObjectPropertyExpression> properties = new ArrayList<>();
         while ("o".equals(delim)) {
-            OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-            properties.add(prop);
+            properties.add(parseObjectPropertyExpression(false));
             delim = peekToken();
             if ("o".equals(delim)) {
                 consumeToken();
@@ -2498,8 +2499,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!INVERSE_FUNCTIONAL.matches(kw)) {
             throw new ExceptionBuilder().withKeyword(INVERSE_FUNCTIONAL).build();
         }
-        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-        return df.getOWLInverseFunctionalObjectPropertyAxiom(prop);
+        return df.getOWLInverseFunctionalObjectPropertyAxiom(parseObjectPropertyExpression(false));
     }
 
     private OWLAxiom parseSymmetricPropertyAxiom() {
@@ -2507,8 +2507,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!SYMMETRIC.matches(kw)) {
             throw new ExceptionBuilder().withKeyword(SYMMETRIC).build();
         }
-        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-        return df.getOWLSymmetricObjectPropertyAxiom(prop);
+        return df.getOWLSymmetricObjectPropertyAxiom(parseObjectPropertyExpression(false));
     }
 
     private OWLAxiom parseAsymmetricPropertyAxiom() {
@@ -2516,8 +2515,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!ASYMMETRIC.matches(kw)) {
             throw new ExceptionBuilder().withKeyword(ASYMMETRIC).build();
         }
-        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-        return df.getOWLAsymmetricObjectPropertyAxiom(prop);
+        return df.getOWLAsymmetricObjectPropertyAxiom(parseObjectPropertyExpression(false));
     }
 
     private OWLAxiom parseTransitivePropertyAxiom() {
@@ -2525,8 +2523,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!TRANSITIVE.matches(kw)) {
             throw new ExceptionBuilder().withKeyword(TRANSITIVE).build();
         }
-        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-        return df.getOWLTransitiveObjectPropertyAxiom(prop);
+        return df.getOWLTransitiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
     }
 
     private OWLAxiom parseReflexivePropertyAxiom() {
@@ -2534,8 +2531,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!REFLEXIVE.matches(kw)) {
             throw new ExceptionBuilder().withKeyword(REFLEXIVE).build();
         }
-        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-        return df.getOWLReflexiveObjectPropertyAxiom(prop);
+        return df.getOWLReflexiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
     }
 
     private OWLAxiom parseIrreflexivePropertyAxiom() {
@@ -2543,8 +2539,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!IRREFLEXIVE.matches(kw)) {
             throw new ExceptionBuilder().withKeyword(IRREFLEXIVE).build();
         }
-        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-        return df.getOWLIrreflexiveObjectPropertyAxiom(prop);
+        return df.getOWLIrreflexiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
     }
 
     private OWLAxiom parseFunctionPropertyAxiom() {
@@ -2554,24 +2549,22 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
         String name = peekToken();
         if (isObjectPropertyName(name)) {
-            OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-            return df.getOWLFunctionalObjectPropertyAxiom(prop);
+            return df.getOWLFunctionalObjectPropertyAxiom(parseObjectPropertyExpression(false));
         } else if (isDataPropertyName(name)) {
-            OWLDataProperty prop = parseDataProperty();
-            return df.getOWLFunctionalDataPropertyAxiom(prop);
+            return df.getOWLFunctionalDataPropertyAxiom(parseDataProperty());
         } else {
             consumeToken();
             throw new ExceptionBuilder().withObject().withData().build();
         }
     }
 
-    private <F, O> Set<OntologyAxiomPair> parseAnnotatedListItems(F s, AnnotatedListItemParser<F, O> itemParser,
+    private <F, O> Set<OntologyAxiomPair> parseAnnotatedListItems(F s, AnnAxiom<F, O> itemParser,
         Set<OWLOntology> ontologies) {
         Set<OntologyAxiomPair> result = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             Set<OWLAnnotation> annotations = parseAnnotations();
-            O item = itemParser.parseItem(s);
+            O item = itemParser.parse.apply(s);
             OWLAxiom axiom = itemParser.createAxiom(s, item, annotations);
             for (OWLOntology ontology : ontologies) {
                 result.add(new OntologyAxiomPair(ontology, axiom));
@@ -2584,581 +2577,41 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return result;
     }
 
-    interface AnnotatedListItemParser<F, O> {
-
-        O parseItem(F s);
-
-        OWLAxiom createAxiom(F s, O o, Set<OWLAnnotation> anns);
-
-        ManchesterOWLSyntax getFrameSectionKeyword();
+    static OWLAxiom create(OWLDataFactory d, OWLIndividual s, Set<OWLIndividual> o, Collection<OWLAnnotation> anns) {
+        Set<OWLIndividual> individuals = new HashSet<>();
+        individuals.add(s);
+        individuals.addAll(o);
+        return d.getOWLDifferentIndividualsAxiom(individuals, anns);
     }
 
-    abstract class AnnotatedClassExpressionListItemParser<F> implements AnnotatedListItemParser<F, OWLClassExpression> {
-
-        @Override
-        public OWLClassExpression parseItem(F s) {
-            return parseUnion();
-        }
-    }
-
-    abstract class AnnotatedClassExpressionSetListItemParser<F> implements
-        AnnotatedListItemParser<F, Set<OWLClassExpression>> {
-
-        @Override
-        public Set<OWLClassExpression> parseItem(F s) {
-            return parseClassExpressionList();
+    static OWLAxiom create(OWLDataFactory d, OWLIndividual s, OWLAnnotation o, Collection<OWLAnnotation> anns) {
+        if (s.isAnonymous()) {
+            return d.getOWLAnnotationAssertionAxiom(s.asOWLAnonymousIndividual(), o, anns);
+        } else {
+            return d.getOWLAnnotationAssertionAxiom(s.asOWLNamedIndividual().getIRI(), o, anns);
         }
     }
 
-    abstract class AnnotatedPropertyListListItemParser<F> implements
-        AnnotatedListItemParser<F, Set<OWLPropertyExpression>> {
+    static class AnnAxiom<F, O> {
 
-        @Override
-        public Set<OWLPropertyExpression> parseItem(F s) {
-            return parsePropertyList();
+        Function<F, O> parse;
+        ManchesterOWLSyntax keyword;
+        Builder<F, O> builder;
+
+        AnnAxiom(Function<F, O> p, ManchesterOWLSyntax k, Builder<F, O> b) {
+            parse = p;
+            keyword = k;
+            builder = b;
+        }
+
+        final OWLAxiom createAxiom(F s, O o, Collection<OWLAnnotation> anns) {
+            return builder.createAxiom(s, o, anns);
         }
     }
 
-    abstract class AnnotatedIndividualsListItemParser<F> implements AnnotatedListItemParser<F, OWLIndividual> {
+    @FunctionalInterface
+    interface Builder<F, O> {
 
-        @Override
-        public OWLIndividual parseItem(F s) {
-            return parseIndividual();
-        }
-    }
-
-    abstract class AnnotationListItemParser<F> implements AnnotatedListItemParser<F, OWLAnnotation> {
-
-        @Override
-        public OWLAnnotation parseItem(F s) {
-            return parseAnnotation();
-        }
-    }
-
-    class ClassSubClassOfListItemParser extends AnnotatedClassExpressionListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLSubClassOfAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SUBCLASS_OF;
-        }
-    }
-
-    class ClassEquivalentToListItemParser extends AnnotatedClassExpressionListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLEquivalentClassesAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return EQUIVALENT_TO;
-        }
-    }
-
-    class ClassDisjointWithListItemParser extends AnnotatedClassExpressionListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            Set<OWLClassExpression> disjointClasses = new HashSet<>();
-            disjointClasses.add(s);
-            disjointClasses.add(o);
-            return df.getOWLDisjointClassesAxiom(disjointClasses, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DISJOINT_WITH;
-        }
-    }
-
-    class ClassDisjointClassesListItemParser extends AnnotatedClassExpressionSetListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, Set<OWLClassExpression> o, Set<OWLAnnotation> anns) {
-            return df.getOWLDisjointClassesAxiom(o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DISJOINT_CLASSES;
-        }
-    }
-
-    class ClassDisjointUnionOfListItemParser extends AnnotatedClassExpressionSetListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, Set<OWLClassExpression> o, Set<OWLAnnotation> anns) {
-            return df.getOWLDisjointUnionAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DISJOINT_UNION_OF;
-        }
-    }
-
-    class ClassHasKeyListItemParser extends AnnotatedPropertyListListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, Set<OWLPropertyExpression> o, Set<OWLAnnotation> anns) {
-            return df.getOWLHasKeyAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return HAS_KEY;
-        }
-    }
-
-    class ClassSuperClassOfListItemParser extends AnnotatedClassExpressionListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLSubClassOfAxiom(o, s, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SUPERCLASS_OF;
-        }
-    }
-
-    class ClassIndividualsListItemParser extends AnnotatedIndividualsListItemParser<OWLClass> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLClass s, OWLIndividual o, Set<OWLAnnotation> anns) {
-            return df.getOWLClassAssertionAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return INDIVIDUALS;
-        }
-    }
-
-    class EntityAnnotationsListItemParser<E extends OWLEntity> extends AnnotationListItemParser<E> {
-
-        @Override
-        public OWLAxiom createAxiom(E s, OWLAnnotation o, Set<OWLAnnotation> anns) {
-            return df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return ANNOTATIONS;
-        }
-    }
-
-    abstract class ObjectPropertyExpressionListItemParser<F> implements
-        AnnotatedListItemParser<F, OWLObjectPropertyExpression> {
-
-        @Override
-        public OWLObjectPropertyExpression parseItem(F s) {
-            return parseObjectPropertyExpression(false);
-        }
-    }
-
-    class ObjectPropertySubPropertyOfListItemParser extends ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLSubObjectPropertyOfAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SUB_PROPERTY_OF;
-        }
-    }
-
-    class ObjectPropertySuperPropertyOfListItemParser extends
-        ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLSubObjectPropertyOfAxiom(o, s, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SUPER_PROPERTY_OF;
-        }
-    }
-
-    class ObjectPropertyEquivalentToListItemParser extends ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLEquivalentObjectPropertiesAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return EQUIVALENT_TO;
-        }
-    }
-
-    class ObjectPropertyDisjointWithListItemParser extends ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
-            Set<OWLObjectPropertyExpression> properties = new HashSet<>();
-            properties.add(s);
-            properties.add(o);
-            return df.getOWLDisjointObjectPropertiesAxiom(properties, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DISJOINT_WITH;
-        }
-    }
-
-    class ObjectPropertyDomainListItemParser extends AnnotatedClassExpressionListItemParser<OWLObjectProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLObjectPropertyDomainAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DOMAIN;
-        }
-    }
-
-    class ObjectPropertyRangeListItemParser extends AnnotatedClassExpressionListItemParser<OWLObjectProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLObjectPropertyRangeAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return RANGE;
-        }
-    }
-
-    class ObjectPropertyInverseOfListItemParser extends ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLInverseObjectPropertiesAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return INVERSE_OF;
-        }
-    }
-
-    class ObjectPropertySubPropertyChainListItemParser implements
-        AnnotatedListItemParser<OWLObjectProperty, List<OWLObjectPropertyExpression>> {
-
-        @Override
-        public List<OWLObjectPropertyExpression> parseItem(OWLObjectProperty s) {
-            return parseObjectPropertyChain();
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, List<OWLObjectPropertyExpression> o, Set<OWLAnnotation> anns) {
-            return df.getOWLSubPropertyChainOfAxiom(o, s, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SUB_PROPERTY_CHAIN;
-        }
-    }
-
-    class ObjectPropertyCharacteristicsItemParser implements
-        AnnotatedListItemParser<OWLObjectProperty, OWLObjectPropertyCharacteristicAxiom> {
-
-        @Override
-        public OWLObjectPropertyCharacteristicAxiom parseItem(OWLObjectProperty s) {
-            return parseObjectPropertyCharacteristic(s);
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLObjectProperty s, OWLObjectPropertyCharacteristicAxiom o,
-            Set<OWLAnnotation> anns) {
-            return o.getAnnotatedAxiom(anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return CHARACTERISTICS;
-        }
-    }
-
-    abstract class DataPropertyExpressionListItemParser<F> implements
-        AnnotatedListItemParser<F, OWLDataPropertyExpression> {
-
-        @Override
-        public OWLDataProperty parseItem(F s) {
-            return parseDataProperty();
-        }
-    }
-
-    class DataPropertySubPropertyOfListItemParser extends DataPropertyExpressionListItemParser<OWLDataProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLDataProperty s, OWLDataPropertyExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLSubDataPropertyOfAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SUB_PROPERTY_OF;
-        }
-    }
-
-    class DataPropertyEquivalentToListItemParser extends DataPropertyExpressionListItemParser<OWLDataProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLDataProperty s, OWLDataPropertyExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLEquivalentDataPropertiesAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return EQUIVALENT_TO;
-        }
-    }
-
-    class DataPropertyDisjointWithListItemParser extends DataPropertyExpressionListItemParser<OWLDataProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLDataProperty s, OWLDataPropertyExpression o, Set<OWLAnnotation> anns) {
-            Set<OWLDataPropertyExpression> properties = new HashSet<>();
-            properties.add(s);
-            properties.add(o);
-            return df.getOWLDisjointDataPropertiesAxiom(properties, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DISJOINT_WITH;
-        }
-    }
-
-    class DataPropertyDomainListItemParser extends AnnotatedClassExpressionListItemParser<OWLDataProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLDataProperty s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLDataPropertyDomainAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DOMAIN;
-        }
-    }
-
-    abstract class AnnotatedDataRangeListItemParser<F> implements AnnotatedListItemParser<F, OWLDataRange> {
-
-        @Override
-        public OWLDataRange parseItem(F s) {
-            return parseDataRange();
-        }
-    }
-
-    class DataPropertyRangeListItemParser extends AnnotatedDataRangeListItemParser<OWLDataProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLDataProperty s, OWLDataRange o, Set<OWLAnnotation> anns) {
-            return df.getOWLDataPropertyRangeAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return RANGE;
-        }
-    }
-
-    class DataPropertyCharacteristicsItemParser implements
-        AnnotatedListItemParser<OWLDataProperty, OWLDataPropertyCharacteristicAxiom> {
-
-        @Override
-        public OWLDataPropertyCharacteristicAxiom parseItem(OWLDataProperty s) {
-            return parseDataPropertyCharacteristic(s);
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLDataProperty s, OWLDataPropertyCharacteristicAxiom o, Set<OWLAnnotation> anns) {
-            return o.getAnnotatedAxiom(anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return CHARACTERISTICS;
-        }
-    }
-
-    class IndividualTypesItemParser extends AnnotatedClassExpressionListItemParser<OWLIndividual> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLIndividual s, OWLClassExpression o, Set<OWLAnnotation> anns) {
-            return df.getOWLClassAssertionAxiom(o, s, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return TYPES;
-        }
-    }
-
-    class IndividualFactsItemParser implements AnnotatedListItemParser<OWLIndividual, OWLPropertyAssertionAxiom<?, ?>> {
-
-        @Override
-        public OWLPropertyAssertionAxiom<?, ?> parseItem(OWLIndividual s) {
-            return parseFact(s);
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLIndividual s, OWLPropertyAssertionAxiom<?, ?> o, Set<OWLAnnotation> anns) {
-            return o.getAnnotatedAxiom(anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return FACTS;
-        }
-    }
-
-    class IndividualSameAsItemParser extends AnnotatedIndividualsListItemParser<OWLIndividual> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLIndividual s, OWLIndividual o, Set<OWLAnnotation> anns) {
-            Set<OWLIndividual> individuals = new HashSet<>();
-            individuals.add(s);
-            individuals.add(o);
-            return df.getOWLSameIndividualAxiom(individuals, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SAME_AS;
-        }
-    }
-
-    class IndividualDifferentFromItemParser extends AnnotatedIndividualsListItemParser<OWLIndividual> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLIndividual s, OWLIndividual o, Set<OWLAnnotation> anns) {
-            Set<OWLIndividual> individuals = new HashSet<>();
-            individuals.add(s);
-            individuals.add(o);
-            return df.getOWLDifferentIndividualsAxiom(individuals, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DIFFERENT_FROM;
-        }
-    }
-
-    class IndividualDifferentIndividualsItemParser implements
-        AnnotatedListItemParser<OWLIndividual, Set<OWLIndividual>> {
-
-        @Override
-        public Set<OWLIndividual> parseItem(OWLIndividual s) {
-            return parseIndividualList();
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLIndividual s, Set<OWLIndividual> o, Set<OWLAnnotation> anns) {
-            Set<OWLIndividual> individuals = new HashSet<>();
-            individuals.add(s);
-            individuals.addAll(o);
-            return df.getOWLDifferentIndividualsAxiom(individuals, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DIFFERENT_INDIVIDUALS;
-        }
-    }
-
-    class IndividualAnnotationItemParser implements AnnotatedListItemParser<OWLIndividual, OWLAnnotation> {
-
-        @Override
-        public OWLAnnotation parseItem(OWLIndividual s) {
-            return parseAnnotation();
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLIndividual s, OWLAnnotation o, Set<OWLAnnotation> anns) {
-            if (s.isAnonymous()) {
-                return df.getOWLAnnotationAssertionAxiom(s.asOWLAnonymousIndividual(), o, anns);
-            } else {
-                return df.getOWLAnnotationAssertionAxiom(s.asOWLNamedIndividual().getIRI(), o, anns);
-            }
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return ANNOTATIONS;
-        }
-    }
-
-    abstract class AnnotatedIRIListItemParser<F> implements AnnotatedListItemParser<F, IRI> {
-
-        @Override
-        public IRI parseItem(F s) {
-            return parseIRI();
-        }
-    }
-
-    class AnnotationPropertySubPropertyOfListItemParser implements
-        AnnotatedListItemParser<OWLAnnotationProperty, OWLAnnotationProperty> {
-
-        @Override
-        public OWLAnnotationProperty parseItem(OWLAnnotationProperty s) {
-            return parseAnnotationProperty();
-        }
-
-        @Override
-        public OWLAxiom createAxiom(OWLAnnotationProperty s, OWLAnnotationProperty o, Set<OWLAnnotation> anns) {
-            return df.getOWLSubAnnotationPropertyOfAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return SUB_PROPERTY_OF;
-        }
-    }
-
-    class AnnotationPropertyDomainListItemParser extends AnnotatedIRIListItemParser<OWLAnnotationProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLAnnotationProperty s, IRI o, Set<OWLAnnotation> anns) {
-            return df.getOWLAnnotationPropertyDomainAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return DOMAIN;
-        }
-    }
-
-    class AnnotationPropertyRangeListItemParser extends AnnotatedIRIListItemParser<OWLAnnotationProperty> {
-
-        @Override
-        public OWLAxiom createAxiom(OWLAnnotationProperty s, IRI o, Set<OWLAnnotation> anns) {
-            return df.getOWLAnnotationPropertyRangeAxiom(s, o, anns);
-        }
-
-        @Override
-        public ManchesterOWLSyntax getFrameSectionKeyword() {
-            return RANGE;
-        }
+        OWLAxiom createAxiom(F s, O o, Collection<OWLAnnotation> anns);
     }
 }
