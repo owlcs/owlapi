@@ -402,15 +402,15 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(OWLEntity entity, Collection<IRI> illegalPuns) {
         final List<OWLAxiom> axioms = new ArrayList<>();
-        // Don't write out duplicates for punned annotations!
-        if (!punned.contains(entity.getIRI())) {
-            add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(), EXCLUDED));
-        }
         add(axioms, ontology.declarationAxioms(entity));
         entity.accept(new GraphVisitor(ontology, axioms, this::createGraph));
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
             && OWLDocumentFormat.isMissingType(entity, ontology)) {
             axioms.add(df.getOWLDeclarationAxiom(entity));
+        }
+        // Don't write out duplicates for punned annotations!
+        if (!punned.contains(entity.getIRI())) {
+            add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(), EXCLUDED));
         }
         createGraph(axioms.stream());
         return !axioms.isEmpty();
