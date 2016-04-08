@@ -460,10 +460,6 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(@Nonnull OWLEntity entity, Collection<IRI> illegalPuns) {
         final Set<OWLAxiom> axioms = new TreeSet<>();
-        // Don't write out duplicates for punned annotations!
-        if (!punned.contains(entity.getIRI())) {
-            axioms.addAll(ontology.getAnnotationAssertionAxioms(entity.getIRI()));
-        }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {
 
@@ -552,6 +548,10 @@ public abstract class RDFRendererBase {
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
             && OWLDocumentFormatImpl.isMissingType(entity, ontology)) {
             axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
+        }
+        // Don't write out duplicates for punned annotations!
+        if (!punned.contains(entity.getIRI())) {
+            axioms.addAll(ontology.getAnnotationAssertionAxioms(entity.getIRI()));
         }
         createGraph(axioms);
         return !axioms.isEmpty();
