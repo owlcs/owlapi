@@ -19,22 +19,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.profiles.violations.LexicalNotInLexicalSpace;
-import org.semanticweb.owlapi.profiles.violations.OntologyIRINotAbsolute;
-import org.semanticweb.owlapi.profiles.violations.OntologyVersionIRINotAbsolute;
-import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatypeRestriction;
-import org.semanticweb.owlapi.profiles.violations.UseOfIllegalFacetRestriction;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonAbsoluteIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.profiles.violations.*;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -42,9 +28,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import com.google.common.base.Optional;
 
 /**
- * Checks to see if an ontology and its imports closure fall into the OWL 2 DL
+ * Checks to see if an ontology and its imports closure fall into the OWL 2 FULL
  * profile. An ontology is OWL Full if any of the global structural restrictions
- * are violated, if there is punning between object and data properties
+ * are violated, if there is punning between object and data properties. Failing
+ * this profile means the ontology is not valid OWL.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -73,25 +60,19 @@ public class OWL2Profile implements OWLProfile {
      */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
-        OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
-                ontology.getImportsClosure());
-        OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker,
-                ontology.getOWLOntologyManager());
+        OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(ontology.getImportsClosure());
+        OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker, ontology.getOWLOntologyManager());
         walker.walkStructure(visitor);
         Set<OWLProfileViolation> pv = visitor.getProfileViolations();
         return new OWLProfileReport(this, pv);
     }
 
-    private static class OWL2ProfileObjectWalker extends
-            OWLOntologyWalkerVisitor {
+    private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitor {
 
-        @Nonnull
-        private final OWLOntologyManager man;
-        @Nonnull
-        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
+        @Nonnull private final OWLOntologyManager man;
+        @Nonnull private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
-        OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
-                @Nonnull OWLOntologyManager man) {
+        OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker, @Nonnull OWLOntologyManager man) {
             super(walker);
             this.man = man;
         }
@@ -113,8 +94,7 @@ public class OWL2Profile implements OWLProfile {
                 Optional<IRI> versionIRI = id.getVersionIRI();
                 if (versionIRI.isPresent()) {
                     if (!versionIRI.get().isAbsolute()) {
-                        profileViolations
-                                .add(new OntologyVersionIRINotAbsolute(ontology));
+                        profileViolations.add(new OntologyVersionIRINotAbsolute(ontology));
                     }
                 }
             }
@@ -123,8 +103,7 @@ public class OWL2Profile implements OWLProfile {
         @Override
         public void visit(IRI iri) {
             if (!iri.isAbsolute()) {
-                profileViolations.add(new UseOfNonAbsoluteIRI(
-                        getCurrentOntology(), getCurrentAxiom(), iri));
+                profileViolations.add(new UseOfNonAbsoluteIRI(getCurrentOntology(), getCurrentAxiom(), iri));
             }
         }
 
@@ -133,10 +112,8 @@ public class OWL2Profile implements OWLProfile {
             // Check that the lexical value of the literal is in the lexical
             // space of the literal datatype
             if (node.getDatatype().isBuiltIn()) {
-                if (!node.getDatatype().getBuiltInDatatype()
-                        .isInLexicalSpace(node.getLiteral())) {
-                    profileViolations.add(new LexicalNotInLexicalSpace(
-                            getCurrentOntology(), getCurrentAxiom(), node));
+                if (!node.getDatatype().getBuiltInDatatype().isInLexicalSpace(node.getLiteral())) {
+                    profileViolations.add(new LexicalNotInLexicalSpace(getCurrentOntology(), getCurrentAxiom(), node));
                 }
             }
         }
@@ -146,13 +123,10 @@ public class OWL2Profile implements OWLProfile {
             // The datatype should not be defined with a datatype definition
             // axiom
             for (OWLOntology ont : man.getImportsClosure(getCurrentOntology())) {
-                for (OWLDatatypeDefinitionAxiom ax : ont
-                        .getAxioms(AxiomType.DATATYPE_DEFINITION)) {
+                for (OWLDatatypeDefinitionAxiom ax : ont.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
                     if (node.getDatatype().equals(ax.getDatatype())) {
-                        profileViolations
-                                .add(new UseOfDefinedDatatypeInDatatypeRestriction(
-                                        getCurrentOntology(),
-                                        getCurrentAxiom(), node));
+                        profileViolations.add(new UseOfDefinedDatatypeInDatatypeRestriction(getCurrentOntology(),
+                            getCurrentAxiom(), node));
                     }
                 }
             }
@@ -160,9 +134,8 @@ public class OWL2Profile implements OWLProfile {
             for (OWLFacetRestriction r : node.getFacetRestrictions()) {
                 OWL2Datatype dt = node.getDatatype().getBuiltInDatatype();
                 if (!dt.getFacets().contains(r.getFacet())) {
-                    profileViolations.add(new UseOfIllegalFacetRestriction(
-                            getCurrentOntology(), getCurrentAxiom(), node, r
-                                    .getFacet()));
+                    profileViolations.add(new UseOfIllegalFacetRestriction(getCurrentOntology(), getCurrentAxiom(),
+                        node, r.getFacet()));
                 }
             }
         }
@@ -171,8 +144,7 @@ public class OWL2Profile implements OWLProfile {
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
             // The datatype MUST be declared
             if (!getCurrentOntology().isDeclared(axiom.getDatatype(), INCLUDED)) {
-                profileViolations.add(new UseOfUndeclaredDatatype(
-                        getCurrentOntology(), axiom, axiom.getDatatype()));
+                profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), axiom, axiom.getDatatype()));
             }
         }
     }
