@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -31,14 +32,13 @@ import com.google.common.collect.Multimaps;
  *         Informatics Group
  * @since 3.2
  */
-public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
-        Serializable {
+public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
 
     private static final long serialVersionUID = 40000L;
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples;
-    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
+    private final transient ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
 
     /**
      * @param headerStatus
@@ -50,16 +50,20 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      * @param guessedDeclarations
      *        guessed declarations map
      */
-    public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
-            int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,
-            @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+    public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus, int tripleCount,
+        @Nonnull Set<RDFTriple> unparsedTriples, @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
         this.tripleCount = tripleCount;
-        this.headerStatus = checkNotNull(headerStatus,
-                "headerStatus cannot be null");
-        this.unparsedTriples = checkNotNull(unparsedTriples,
-                "unparsedTriples cannot be null");
-        this.guessedDeclarations = checkNotNull(guessedDeclarations,
-                "guessedDeclarations cannot be null");
+        this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
+        this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
+        this.guessedDeclarations = checkNotNull(guessedDeclarations, "guessedDeclarations cannot be null");
+    }
+
+    /** Empty construcotr for empty metadata. */
+    public RDFParserMetaData() {
+        tripleCount = 0;
+        headerStatus = RDFOntologyHeaderStatus.PARSED_ZERO_HEADERS;
+        unparsedTriples = new HashSet<>();
+        guessedDeclarations = null;
     }
 
     /**
@@ -78,8 +82,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
 
     /** @return the set of unparsed triples, as a copy */
     public Set<RDFTriple> getUnparsedTriples() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(unparsedTriples);
+        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(unparsedTriples);
     }
 
     /**
@@ -87,6 +90,9 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      *         declaration axioms
      */
     public Multimap<IRI, Class<?>> getGuessedDeclarations() {
+        if (guessedDeclarations == null) {
+            return ArrayListMultimap.create();
+        }
         return Multimaps.unmodifiableMultimap(guessedDeclarations);
     }
 }

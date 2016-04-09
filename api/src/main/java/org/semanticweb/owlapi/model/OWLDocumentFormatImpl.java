@@ -24,6 +24,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
+import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.google.common.collect.LinkedListMultimap;
@@ -42,8 +43,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
-    @Nonnull
-    private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
+    @Nonnull private OWLOntologyLoaderMetaData loaderMetaData = new RDFParserMetaData();
     private boolean addMissingTypes = true;
 
     @Override
@@ -67,8 +67,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
      *         signature of one of the imported ontologies, {@code true} if none
      *         of the previous conditions are met.
      */
-    public static boolean isMissingType(@Nonnull OWLEntity entity,
-            OWLOntology ontology) {
+    public static boolean isMissingType(@Nonnull OWLEntity entity, OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
             return false;
@@ -104,8 +103,8 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
      *        declarations will be added.
      * @return collection of IRIS used in illegal punnings
      */
-    public static Collection<IRI> determineIllegalPunnings(boolean add,
-            Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
+    public static Collection<IRI> determineIllegalPunnings(boolean add, Collection<OWLEntity> signature,
+        Collection<IRI> punnedEntities) {
         if (!add) {
             return CollectionFactory.emptySet();
         }
@@ -114,25 +113,20 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
         for (OWLEntity e : signature) {
             // disregard individuals as they do not give raise to illegal
             // punnings; only keep track of punned entities, ignore the rest
-            if (!e.isOWLNamedIndividual()
-                    && punnedEntities.contains(e.getIRI())) {
+            if (!e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI())) {
                 punnings.put(e.getIRI(), e.getEntityType());
             }
         }
         Collection<IRI> illegals = new HashSet<>();
         for (IRI i : punnings.keySet()) {
             Collection<EntityType<?>> puns = punnings.get(i);
-            if (puns.contains(EntityType.OBJECT_PROPERTY)
-                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+            if (puns.contains(EntityType.OBJECT_PROPERTY) && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                    && puns.contains(EntityType.OBJECT_PROPERTY)) {
+            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(EntityType.OBJECT_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATATYPE)
-                    && puns.contains(EntityType.CLASS)) {
+            } else if (puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
                 illegals.add(i);
             }
         }
@@ -150,8 +144,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     @Override
-    public Serializable
-            getParameter(Serializable key, Serializable defaultValue) {
+    public Serializable getParameter(Serializable key, Serializable defaultValue) {
         Serializable val = parameterMap.get(key);
         if (val != null) {
             return val;
@@ -166,8 +159,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     @Override
-    public void setOntologyLoaderMetaData(
-            OWLOntologyLoaderMetaData loaderMetaData) {
+    public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
         this.loaderMetaData = loaderMetaData;
     }
 
@@ -200,8 +192,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
         return getKey();
     }
 
-    private static class NullLoaderMetaData implements
-            OWLOntologyLoaderMetaData, Serializable {
+    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
