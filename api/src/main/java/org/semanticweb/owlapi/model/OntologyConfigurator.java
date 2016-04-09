@@ -39,12 +39,30 @@ public class OntologyConfigurator implements Serializable {
     private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
 
     /**
+     * @param ban
+     *        list of parser names that identify parsers that should be skipped
+     *        when attempting ontology parsing
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OntologyConfigurator setBannedParsers(String ban) {
+        overrides.put(BANNED_PARSERS, ban);
+        return this;
+    }
+
+    /**
+     * @return list of parser names that identify parsers that should be skipped
+     *         when attempting ontology parsing
+     */
+    public String getBannedParsers() {
+        return BANNED_PARSERS.getValue(String.class, overrides);
+    }
+
+    /**
      * Set the priorty collection sorting option.
      * 
      * @param sorting
      *        the sorting option to be used.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting
-     *         option set.
+     * @return An {@code OntologyConfigurator} with the new sorting option set.
      */
     public OntologyConfigurator setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
         overrides.put(PRIORITY_COLLECTION_SORTING, sorting);
@@ -286,7 +304,8 @@ public class OntologyConfigurator implements Serializable {
                 getMissingImportHandlingStrategy()).setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
             .setPriorityCollectionSorting(getPriorityCollectionSorting()).setReportStackTraces(
                 shouldReportStackTraces()).setRetriesToAttempt(getRetriesToAttempt()).setStrict(
-                    shouldParseWithStrictConfiguration()).setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin());
+                    shouldParseWithStrictConfiguration()).setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin())
+            .setBannedParsers(getBannedParsers());
     }
 
     /**
@@ -383,6 +402,21 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * @param label
+     *        True if banner comments should be enabled.
+     * @return new config object
+     */
+    public OntologyConfigurator withBannersEnabled(boolean label) {
+        overrides.put(BANNERS_ENABLED, Boolean.valueOf(label));
+        return this;
+    }
+
+    /** @return should output banners */
+    public boolean shouldUseBanners() {
+        return BANNERS_ENABLED.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
      * @return a new OWLOntologyWriterConfiguration from the builder current
      *         settings
      */
@@ -390,6 +424,6 @@ public class OntologyConfigurator implements Serializable {
         return new OWLOntologyWriterConfiguration().withIndenting(shouldIndent()).withIndentSize(getIndentSize())
             .withLabelsAsBanner(shouldUseLabelsAsBanner()).withRemapAllAnonymousIndividualsIds(shouldRemapIds())
             .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds()).withUseNamespaceEntities(
-                shouldUseNamespaceEntities());
+                shouldUseNamespaceEntities()).withBannersEnabled(shouldUseBanners());
     }
 }

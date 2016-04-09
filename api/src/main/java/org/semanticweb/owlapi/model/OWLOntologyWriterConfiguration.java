@@ -27,6 +27,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     private boolean useNamespaceEntities = false;
     private boolean indenting = true;
     private boolean labelsAsBanner = false;
+    private boolean bannersEnabled = true;
     private int indentSize = 4;
 
     private OWLOntologyWriterConfiguration copy() {
@@ -37,6 +38,11 @@ public class OWLOntologyWriterConfiguration implements Serializable {
         toReturn.remapIds = remapIds;
         toReturn.saveIds = saveIds;
         return toReturn;
+    }
+
+    /** @return should output banners */
+    public boolean shouldUseBanners() {
+        return bannersEnabled;
     }
 
     /**
@@ -80,6 +86,20 @@ public class OWLOntologyWriterConfiguration implements Serializable {
      */
     public boolean isLabelsAsBanner() {
         return labelsAsBanner;
+    }
+
+    /**
+     * @param label
+     *        True if banner comments should be enabled.
+     * @return new config object
+     */
+    public OWLOntologyWriterConfiguration withBannersEnabled(boolean label) {
+        if (labelsAsBanner == label) {
+            return this;
+        }
+        OWLOntologyWriterConfiguration copy = copy();
+        copy.labelsAsBanner = label;
+        return copy;
     }
 
     /**

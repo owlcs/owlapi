@@ -39,7 +39,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Nonnull private final RDFXMLNamespaceManager qnameManager;
     @Nonnull private final OWLDocumentFormat format;
     private final ShortFormProvider labelMaker;
-    private final OWLOntologyWriterConfiguration config;
 
     /**
      * @param ontology
@@ -60,8 +59,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
      *        format
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
-        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"));
-        config = ontology.getOWLOntologyManager().getOntologyWriterConfiguration();
+        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"), ontology
+            .getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
@@ -138,19 +137,21 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     private void writeCommentForEntity(String msg, OWLEntity entity) {
-        checkNotNull(entity, msg);
-        String iriString = entity.getIRI().toString();
-        if (config.isLabelsAsBanner()) {
-            String labelString = labelMaker.getShortForm(entity);
-            String commentString;
-            if (!iriString.equals(labelString)) {
-                commentString = labelString;
+        if (config.shouldUseBanners()) {
+            checkNotNull(entity, msg);
+            String iriString = entity.getIRI().toString();
+            if (config.isLabelsAsBanner()) {
+                String labelString = labelMaker.getShortForm(entity);
+                String commentString;
+                if (!iriString.equals(labelString)) {
+                    commentString = labelString;
+                } else {
+                    commentString = iriString;
+                }
+                writer.writeComment(XMLUtils.escapeXML(commentString));
             } else {
-                commentString = iriString;
+                writer.writeComment(XMLUtils.escapeXML(iriString));
             }
-            writer.writeComment(XMLUtils.escapeXML(commentString));
-        } else {
-            writer.writeComment(XMLUtils.escapeXML(iriString));
         }
     }
 

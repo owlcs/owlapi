@@ -61,7 +61,7 @@ public class TurtleRenderer extends RDFRendererBase {
      *        format
      */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
-        super(ontology, format);
+        super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
         pending = new HashSet<>();

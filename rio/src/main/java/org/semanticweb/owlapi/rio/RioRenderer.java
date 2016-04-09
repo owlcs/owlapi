@@ -86,7 +86,7 @@ public class RioRenderer extends RDFRendererBase {
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer, final OWLDocumentFormat format,
         final Resource... contexts) {
-        super(ontology, format);
+        super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
         this.writer = writer;

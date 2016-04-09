@@ -79,17 +79,19 @@ public abstract class RDFRendererBase {
     private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
         new IdentityHashingStrategy<>());
+    protected final OWLOntologyWriterConfiguration config;
 
     /**
      * @param ontology
      *        ontology
      */
     public RDFRendererBase(OWLOntology ontology) {
-        this(ontology, ontology.getFormat());
+        this(ontology, ontology.getFormat(), ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
     }
 
-    protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format) {
+    protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format, OWLOntologyWriterConfiguration config) {
         this.ontology = ontology;
+        this.config = config;
         OWLOntologyManager m = this.ontology.getOWLOntologyManager();
         df = m.getOWLDataFactory();
         this.format = format;
@@ -227,7 +229,7 @@ public abstract class RDFRendererBase {
     }
 
     private void render(OWLEntity entity, AtomicBoolean firstRendering, String bannerText) {
-        if (firstRendering.getAndSet(false) && !bannerText.isEmpty()) {
+        if (config.shouldUseBanners() && firstRendering.getAndSet(false) && !bannerText.isEmpty()) {
             writeBanner(bannerText);
         }
         renderEntity(entity);

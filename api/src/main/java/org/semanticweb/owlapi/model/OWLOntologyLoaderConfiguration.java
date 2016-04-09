@@ -67,6 +67,30 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     private boolean treatDublinCoreAsBuiltIn = true;
     /** sort configuration for priority collections */
     private PriorityCollectionSorting priorityCollectionSorting = PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
+    private String bannedParsers = "";
+
+    /**
+     * @param ban
+     *        list of parser names that identify parsers that should be skipped
+     *        when attempting ontology parsing
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setBannedParsers(String ban) {
+        if (bannedParsers.equals(ban)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.bannedParsers = ban;
+        return configuration;
+    }
+
+    /**
+     * @return list of parser names that identify parsers that should be skipped
+     *         when attempting ontology parsing
+     */
+    public String getBannedParsers() {
+        return bannedParsers;
+    }
 
     /**
      * Set the priorty collection sorting option.
