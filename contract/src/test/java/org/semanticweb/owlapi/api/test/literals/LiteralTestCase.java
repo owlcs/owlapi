@@ -22,11 +22,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -43,8 +40,7 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLLiteral literalWithLang = Literal("abc", "en");
         OWLClass cls = Class(iri("A"));
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop,
-                cls.getIRI(), literalWithLang);
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(), literalWithLang);
         Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(ax);
         axioms.add(Declaration(cls));
@@ -122,5 +118,17 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLLiteral zeroLiteral = Literal("0", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(zeroLiteral.isBoolean());
         assertFalse(zeroLiteral.parseBoolean());
+    }
+
+    @Test
+    public void shouldStoreTagsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = getOWLOntology("urn:test");
+        String in = "See more at <a href=\"http://abc.com\">abc</a>";
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), createIndividual()
+            .getIRI(), df.getOWLLiteral(in));
+        o.getOWLOntologyManager().addAxiom(o, ax);
+        OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
+        assertTrue(o1.containsAxiom(ax));
+        equal(o, o1);
     }
 }
