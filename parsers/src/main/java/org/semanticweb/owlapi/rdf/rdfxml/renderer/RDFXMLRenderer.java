@@ -141,19 +141,21 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     private void writeCommentForEntity(String msg, OWLEntity entity) throws IOException {
-        checkNotNull(entity, msg + " cannot be null");
-        String iriString = entity.getIRI().toString();
-        if (XMLWriterPreferences.getInstance().isLabelsAsBanner()) {
-            String labelString = labelMaker.getShortForm(entity);
-            String commentString = null;
-            if (!iriString.equals(labelString)) {
-                commentString = labelString;
+        if (XMLWriterPreferences.getInstance().isBannersEnabled()) {
+            checkNotNull(entity, msg + " cannot be null");
+            String iriString = entity.getIRI().toString();
+            if (XMLWriterPreferences.getInstance().isLabelsAsBanner()) {
+                String labelString = labelMaker.getShortForm(entity);
+                String commentString = null;
+                if (!iriString.equals(labelString)) {
+                    commentString = labelString;
+                } else {
+                    commentString = iriString;
+                }
+                writer.writeComment(XMLUtils.escapeXML(commentString));
             } else {
-                commentString = iriString;
+                writer.writeComment(XMLUtils.escapeXML(iriString));
             }
-            writer.writeComment(XMLUtils.escapeXML(commentString));
-        } else {
-            writer.writeComment(XMLUtils.escapeXML(iriString));
         }
     }
 

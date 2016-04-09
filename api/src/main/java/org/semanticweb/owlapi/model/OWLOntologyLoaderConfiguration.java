@@ -250,6 +250,14 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
+     * @return list of parser names that identify parsers that should be skipped
+     *         when attempting ontology parsing
+     */
+    public String getBannedParsers() {
+        return BANNED_PARSERS.getValue(String.class, overrides);
+    }
+
+    /**
      * @param b
      *        true if HTTP compression should be accepted
      * @return a copy of this configuration with accepting HTTP compression set
@@ -434,5 +442,20 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, value);
         return copy;
+    }
+
+    /**
+     * @param ban
+     *        list of parser names that identify parsers that should be skipped
+     *        when attempting ontology parsing
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setBannedParsers(String ban) {
+        if (getBannedParsers().equals(ban)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(BANNED_PARSERS, ban);
+        return configuration;
     }
 }

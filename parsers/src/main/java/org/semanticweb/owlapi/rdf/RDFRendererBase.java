@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences;
 import org.semanticweb.owlapi.util.*;
 
 import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
@@ -244,7 +245,7 @@ public abstract class RDFRendererBase {
      */
     private void renderEntities(@Nonnull Set<? extends OWLEntity> entities, @Nonnull String bannerText,
         Collection<IRI> illegalPuns) throws IOException {
-        boolean firstRendering = true;
+        boolean firstRendering = true && XMLWriterPreferences.getInstance().isBannersEnabled();
         for (OWLEntity entity : toSortedSet(entities)) {
             assert entity != null;
             if (createGraph(entity, illegalPuns)) {

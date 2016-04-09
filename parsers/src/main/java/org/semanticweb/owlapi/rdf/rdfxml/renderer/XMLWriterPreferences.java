@@ -107,4 +107,12 @@ public final class XMLWriterPreferences {
     public boolean isLabelsAsBanner() {
         return LABELS_AS_BANNER.getValue(Boolean.class, overrides).booleanValue();
     }
+
+    public void setBannersEnabled(boolean bannersEnabled) {
+        overrides.put(BANNERS_ENABLED, bannersEnabled);
+    }
+
+    public boolean isBannersEnabled() {
+        return BANNERS_ENABLED.getValue(Boolean.class, overrides).booleanValue();
+    }
 }
