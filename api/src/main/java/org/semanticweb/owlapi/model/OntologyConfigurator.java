@@ -40,18 +40,18 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param ban
-     *        list of parser names that identify parsers that should be skipped
-     *        when attempting ontology parsing
+     *        list of parser factory class names that should be skipped when
+     *        attempting ontology parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
-    public OntologyConfigurator setBannedParsers(String ban) {
+    public OntologyConfigurator withBannedParsers(String ban) {
         overrides.put(BANNED_PARSERS, ban);
         return this;
     }
 
     /**
-     * @return list of parser names that identify parsers that should be skipped
-     *         when attempting ontology parsing
+     * @return list of parser factory class names that should be skipped when
+     *         attempting ontology parsing. The list is space separated.
      */
     public String getBannedParsers() {
         return BANNED_PARSERS.getValue(String.class, overrides);

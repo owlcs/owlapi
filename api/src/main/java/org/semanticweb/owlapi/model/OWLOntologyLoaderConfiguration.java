@@ -71,8 +71,8 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
 
     /**
      * @param ban
-     *        list of parser names that identify parsers that should be skipped
-     *        when attempting ontology parsing
+     *        list of parser factory class names that should be skipped when
+     *        attempting ontology parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OWLOntologyLoaderConfiguration setBannedParsers(String ban) {
@@ -85,8 +85,8 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * @return list of parser names that identify parsers that should be skipped
-     *         when attempting ontology parsing
+     * @return list of parser factory class names that should be skipped when
+     *         attempting ontology parsing. The list is space separated.
      */
     public String getBannedParsers() {
         return bannedParsers;

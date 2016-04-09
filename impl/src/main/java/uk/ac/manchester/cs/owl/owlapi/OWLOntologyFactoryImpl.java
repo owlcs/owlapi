@@ -53,8 +53,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     @Override
     public boolean canAttemptLoading(OWLOntologyDocumentSource source) {
-        return !source.hasAlredyFailedOnStreams() || !source.hasAlredyFailedOnIRIResolution()
-            && parsableSchemes.contains(source.getDocumentIRI().getScheme());
+        return !source.hasAlredyFailedOnStreams() || !source.hasAlredyFailedOnIRIResolution() && parsableSchemes
+            .contains(source.getDocumentIRI().getScheme());
     }
 
     @Override
@@ -138,7 +138,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager manager, OWLOntologyDocumentSource documentSource,
         OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
         // ontology is parsed successfully then we break out and return the
         // ontology.
@@ -161,41 +161,48 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
+        Set<String> bannedParsers = Sets.newHashSet(configuration.getBannedParsers().split(" "));
         PriorityCollection<OWLParserFactory> parsers = getParsers(documentSource, manager.getOntologyParsers());
         for (OWLParserFactory parserFactory : parsers) {
-            OWLParser parser = parserFactory.createParser();
-            try {
-                if (existingOntology == null && !ont.isEmpty()) {
-                    // Junk from a previous parse. We should clear the ont
-                    manager.removeOntology(ont);
-                    ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
-                }
-                OWLDocumentFormat format = parser.parse(documentSource, ont, configuration);
-                handler.setOntologyFormat(ont, format);
-                return ont;
-            } catch (UnloadableImportException e) {
-                // If an import cannot be located, all parsers will fail. Again,
-                // terminate early
-                // First clean up
-                manager.removeOntology(ont);
-                throw e;
-            } catch (OWLParserException e) {
-                if (e.getCause() instanceof IOException || e.getCause() instanceof OWLOntologyInputSourceException) {
-                    // For input/output exceptions, we assume that it means the
-                    // source cannot be read regardless of the parsers, so we
-                    // stop
-                    // early
+            if (!bannedParsers.contains(parserFactory.getClass().getName())) {
+                OWLParser parser = parserFactory.createParser();
+                try {
+                    if (existingOntology == null && !ont.isEmpty()) {
+                        // Junk from a previous parse. We should clear the ont
+                        manager.removeOntology(ont);
+                        ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
+                    }
+                    OWLDocumentFormat format = parser.parse(documentSource, ont, configuration);
+                    handler.setOntologyFormat(ont, format);
+                    return ont;
+                } catch (UnloadableImportException e) {
+                    // If an import cannot be located, all parsers will fail.
+                    // Again,
+                    // terminate early
                     // First clean up
                     manager.removeOntology(ont);
-                    throw new OWLOntologyCreationIOException(e.getCause());
+                    throw e;
+                } catch (OWLParserException e) {
+                    if (e.getCause() instanceof IOException || e
+                        .getCause() instanceof OWLOntologyInputSourceException) {
+                        // For input/output exceptions, we assume that it means
+                        // the
+                        // source cannot be read regardless of the parsers, so
+                        // we
+                        // stop
+                        // early
+                        // First clean up
+                        manager.removeOntology(ont);
+                        throw new OWLOntologyCreationIOException(e.getCause());
+                    }
+                    // Record this attempts and continue trying to parse.
+                    exceptions.put(parser, e);
+                } catch (RuntimeException e) {
+                    // Clean up and rethrow
+                    exceptions.put(parser, new OWLParserException(e));
+                    manager.removeOntology(ont);
+                    throw e;
                 }
-                // Record this attempts and continue trying to parse.
-                exceptions.put(parser, e);
-            } catch (RuntimeException e) {
-                // Clean up and rethrow
-                exceptions.put(parser, new OWLParserException(e));
-                manager.removeOntology(ont);
-                throw e;
             }
         }
         if (existingOntology == null) {
