@@ -39,7 +39,7 @@ public class OWL2Profile implements OWLProfile {
 
     @Override
     public String getName() {
-        return "OWL 2";
+        return "OWL 2 Full";
     }
 
     @Override
