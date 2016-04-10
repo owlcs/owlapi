@@ -160,7 +160,16 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         if (typeIndex() != other.typeIndex()) {
             return false;
         }
-        return equalStreams(components(), other.components());
+		if (this instanceof SWRLRule){
+			final SWRLRule rule1 = ((SWRLRule) this);
+			final SWRLRule rule2 = ((SWRLRule) other); // Because type index are the same.
+			
+			return equalStreams(rule1.body().sorted(), rule2.body().sorted()) && 
+					equalStreams(rule1.head().sorted(), rule2.head().sorted()) &&
+					equalStreams(rule1.annotations(), rule2.annotations());
+		}
+		else
+			return equalStreams(components(), other.components());
     }
 
     @Override
