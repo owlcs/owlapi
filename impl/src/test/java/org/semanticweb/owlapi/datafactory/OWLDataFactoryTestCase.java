@@ -15,6 +15,9 @@ package org.semanticweb.owlapi.datafactory;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -1801,5 +1804,49 @@ public class OWLDataFactoryTestCase {
         int hashCodeA = testSubject.getOWLSubObjectPropertyOfAxiom(left, right).hashCode();
         int hashCodeB = testSubject.getOWLSubObjectPropertyOfAxiom(left, right).hashCode();
         assertEquals(hashCodeA, hashCodeB);
+    }
+
+    @Test
+    public void shouldHaveSWRLRulesEqual() {
+        OWLClass clsA = testSubject.getOWLClass("urn:test#", "A");
+        OWLClass clsB = testSubject.getOWLClass("urn:test#", "B");
+        OWLClass clsC = testSubject.getOWLClass("urn:test#", "C");
+        OWLClass clsD = testSubject.getOWLClass("urn:test#", "D");
+        SWRLVariable var = testSubject.getSWRLVariable("urn:test#", "x");
+        List<SWRLClassAtom> body1 = Arrays.asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(
+            clsC, var));
+        List<SWRLClassAtom> head1 = Arrays.asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(
+            clsD, var));
+        List<SWRLClassAtom> body2 = Arrays.asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(
+            clsA, var));
+        List<SWRLClassAtom> head2 = Arrays.asList(testSubject.getSWRLClassAtom(clsD, var), testSubject.getSWRLClassAtom(
+            clsB, var));
+        SWRLRule rule1 = testSubject.getSWRLRule(body1, head1);
+        SWRLRule rule2 = testSubject.getSWRLRule(body2, head2);
+        assertEquals(rule1, rule2);
+    }
+
+    @Test
+    public void shouldHaveSWRLRulesWithAnnotationsEqual() {
+        OWLClass clsA = testSubject.getOWLClass("urn:test#", "A");
+        OWLClass clsB = testSubject.getOWLClass("urn:test#", "B");
+        OWLClass clsC = testSubject.getOWLClass("urn:test#", "C");
+        OWLClass clsD = testSubject.getOWLClass("urn:test#", "D");
+        Collection<OWLAnnotation> ann1 = Arrays.asList(testSubject.getRDFSComment("test1"), testSubject.getRDFSLabel(
+            "test2"));
+        Collection<OWLAnnotation> ann2 = Arrays.asList(testSubject.getRDFSLabel("test2"), testSubject.getRDFSComment(
+            "test1"));
+        SWRLVariable var = testSubject.getSWRLVariable("urn:test#", "x");
+        List<SWRLClassAtom> body1 = Arrays.asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(
+            clsC, var));
+        List<SWRLClassAtom> head1 = Arrays.asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(
+            clsD, var));
+        List<SWRLClassAtom> body2 = Arrays.asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(
+            clsA, var));
+        List<SWRLClassAtom> head2 = Arrays.asList(testSubject.getSWRLClassAtom(clsD, var), testSubject.getSWRLClassAtom(
+            clsB, var));
+        SWRLRule rule1 = testSubject.getSWRLRule(body1, head1, ann1);
+        SWRLRule rule2 = testSubject.getSWRLRule(body2, head2, ann2);
+        assertEquals(rule1, rule2);
     }
 }

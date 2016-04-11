@@ -146,7 +146,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     }
 
     @Override
-    public final boolean equals(@Nullable Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
