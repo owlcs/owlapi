@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- *
+ * 
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -55,7 +55,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     /**
      * Override point to change hashing strategy if needed - only used in
      * OWLLiteral implementations at the moment.
-     *
+     * 
      * @param object
      *        the object to compute the hashcode for
      * @return the hashcode
@@ -67,7 +67,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     /**
      * Streams from components need a start point and the order of the
      * components is important.
-     *
+     * 
      * @param start
      *        start index
      * @param s
@@ -160,10 +160,12 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         if (typeIndex() != other.typeIndex()) {
             return false;
         }
-        if (this instanceof SWRLRule)// Casts allow because index are the sames
-        	return ((SWRLRule) this).equalsRules((SWRLRule)other);
-        else
-        	return equalStreams(components(), other.components());
+        if (this instanceof SWRLRule) {// Casts allow because index are the sames
+            return ((SWRLRule) this).equalsRules((SWRLRule)other);
+        }
+        else {
+            return equalStreams(components(), other.components());
+        }
     }
 
     @Override
