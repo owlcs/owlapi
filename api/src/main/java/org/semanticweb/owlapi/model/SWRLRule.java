@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -20,7 +21,7 @@ import java.util.stream.Stream;
 /**
  * Represent a rule. A rule consists of a head and a body. Both the head and the
  * body consist of a conjunction of atoms.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
  * @since 2.0.0
@@ -49,7 +50,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the body of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
      *         of the rule.
      * @deprecated use {@link #body()}
@@ -61,7 +62,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the body of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
      *         of the rule.
      */
@@ -69,7 +70,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the head of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
      *         of the rule
      * @deprecated use {@link #head()}
@@ -81,7 +82,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the head of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
      *         of the rule
      */
@@ -92,7 +93,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * properties, then this method creates and returns a rule where the
      * arguments of these atoms are fliped over and the predicate is the inverse
      * (simplified) property.
-     * 
+     *
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are
      *         transformed to p(x, y).
      */
@@ -100,7 +101,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the variables that appear in this rule.
-     * 
+     *
      * @return A set of variables.
      * @deprecated use {@link #variables()}
      */
@@ -111,14 +112,14 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the variables that appear in this rule.
-     * 
+     *
      * @return A set of variables.
      */
     Stream<SWRLVariable> variables();
 
     /**
      * Determines if this rule uses anonymous class expressions in class atoms.
-     * 
+     *
      * @return {@code true} if this rule contains anonymous class expression in
      *         class atoms, otherwise {@code false}.
      */
@@ -126,7 +127,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the predicates of class atoms.
-     * 
+     *
      * @return A set of class expressions that represent the class class
      *         expressions that are predicates of class atoms.
      * @deprecated use {@link #classAtomPredicates()}
@@ -138,7 +139,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the predicates of class atoms.
-     * 
+     *
      * @return A set of class expressions that represent the class class
      *         expressions that are predicates of class atoms.
      */
@@ -180,5 +181,18 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.SWRL_RULE;
+    }
+
+    default boolean equalsRules(final SWRLRule other)
+    {
+    	if (other == this){
+    		return true;
+    	}
+    	if (other == null){
+    		return false;
+    	}
+    	return equalStreams(body().sorted(), other.body().sorted()) &&//
+    	equalStreams(head().sorted(), other.head().sorted()) &&//
+    	equalStreams(annotations(), other.annotations());
     }
 }
