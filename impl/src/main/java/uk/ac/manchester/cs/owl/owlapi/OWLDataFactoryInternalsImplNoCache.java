@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 
-import java.io.Serializable;
 import java.util.Locale;
 import java.util.stream.Stream;
 
@@ -29,7 +28,7 @@ import org.semanticweb.owlapi.model.*;
  * 
  * @author ignazio
  */
-public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals, Serializable {
+public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals {
 
     @Nonnull private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
     private final boolean useCompression;

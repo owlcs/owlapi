@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImplNoCache;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -41,7 +40,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImplNoCache;
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
-    private static final OWLDataFactory DF = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
+    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false);
     @Nonnull protected static final OWLClass TOP_CLASS = DF.getOWLThing();
     @Nonnull protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
     @Nonnull protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
