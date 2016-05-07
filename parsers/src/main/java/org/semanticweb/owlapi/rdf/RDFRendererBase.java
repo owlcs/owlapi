@@ -533,7 +533,7 @@ public abstract class RDFRendererBase {
                 needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
                 return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
             } else if (key instanceof OWLAxiom) {
-                isIndividual = true;
+                isIndividual = false;
                 needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
             }
             return getBlankNodeFor(key, isIndividual, needId);

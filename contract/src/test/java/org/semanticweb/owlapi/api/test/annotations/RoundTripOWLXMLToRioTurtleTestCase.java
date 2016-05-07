@@ -129,6 +129,7 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
         ontology.saveOntology(new RioTurtleDocumentFormat(), target1);
         StringDocumentTarget target2 = new StringDocumentTarget();
         ontology.saveOntology(new RioTurtleDocumentFormat(), target2);
-        assertEquals(target1.toString(), target2.toString());
+        assertEquals(target1.toString().replaceAll("_:genid[0-9]+", "_:genid"), target2.toString().replaceAll(
+            "_:genid[0-9]+", "_:genid"));
     }
 }

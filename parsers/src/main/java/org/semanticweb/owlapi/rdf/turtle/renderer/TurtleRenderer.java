@@ -22,11 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -44,7 +40,8 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private final PrintWriter writer;
     private final PrefixManager pm;
-    private final Set<RDFResource> pending;
+    private final Set<RDFResource> pending = new HashSet<>();
+    private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
     private final String base;
     private final OWLDocumentFormat format;
     int bufferLength = 0;
@@ -64,7 +61,6 @@ public class TurtleRenderer extends RDFRendererBase {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
-        pending = new HashSet<>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
@@ -86,7 +82,7 @@ public class TurtleRenderer extends RDFRendererBase {
         pm.getPrefixName2PrefixMap().forEach((k, v) -> {
             write("@prefix ");
             write(k);
-            write(" ");
+            writeSpace();
             writeAsURI(v);
             write(" .");
             writeNewLine();
@@ -131,7 +127,9 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private void write(IRI iri) {
-        if (iri.equals(ontology.getOntologyID().getOntologyIRI().orElse(null))) {
+        if (NodeID.isAnonymousNodeIRI(iri)) {
+            write(iri.toString());
+        } else if (iri.equals(ontology.getOntologyID().getOntologyIRI().orElse(null))) {
             writeAsURI(iri.toString());
         } else {
             String name = pm.getPrefixIRI(iri);
@@ -178,8 +176,16 @@ public class TurtleRenderer extends RDFRendererBase {
             tabIndent = tabs.peek().intValue();
         }
         for (int i = 1; i < tabIndent; i++) {
-            write(" ");
+            writeSpace();
         }
+    }
+
+    protected void writeAt() {
+        write("@");
+    }
+
+    protected void writeSpace() {
+        write(" ");
     }
 
     private void write(RDFNode node) {
@@ -199,7 +205,7 @@ public class TurtleRenderer extends RDFRendererBase {
             } else {
                 writeStringLiteral(node.getLexicalValue());
                 if (node.hasLang()) {
-                    write("@");
+                    writeAt();
                     write(node.getLang());
                 } else {
                     write("^^");
@@ -209,7 +215,7 @@ public class TurtleRenderer extends RDFRendererBase {
         } else {
             writeStringLiteral(node.getLexicalValue());
             if (node.hasLang()) {
-                write("@");
+                writeAt();
                 write(node.getLang());
             }
         }
@@ -241,7 +247,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 toJavaList(node, list);
                 pushTab();
                 write("(");
-                write(" ");
+                writeSpace();
                 pushTab();
                 for (Iterator<RDFNode> it = list.iterator(); it.hasNext();) {
                     write(verifyNotNull(it.next()));
@@ -269,16 +275,12 @@ public class TurtleRenderer extends RDFRendererBase {
         } else {
             write(Namespaces.OWL.toString());
         }
-        write("> .");
-        writeNewLine();
-        writeNewLine();
+        write("> .\n\n");
         // Ontology URI
     }
 
     @Override
     protected void endDocument() {
-        writer.flush();
-        writer.println();
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
         if (!format.isAddMissingTypes()) {
             // missing type declarations could have been omitted, adding a
@@ -322,28 +324,18 @@ public class TurtleRenderer extends RDFRendererBase {
         write("###  ");
         write(comment);
         writeNewLine();
-        writeNewLine();
     }
 
     @Override
     protected void endObject() {
         writeNewLine();
-        writeNewLine();
-        writeNewLine();
     }
 
     @Override
     protected void writeBanner(String name) {
-        writeNewLine();
-        writeNewLine();
-        writer.println("#################################################################");
-        writer.println("#");
-        writer.print("#    ");
+        writer.print("#################################################################\n#    ");
         writer.println(name);
-        writer.println("#");
-        writer.println("#################################################################");
-        writeNewLine();
-        writeNewLine();
+        writer.println("#################################################################\n");
     }
 
     @Override
@@ -364,26 +356,38 @@ public class TurtleRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             RDFResource subj = triple.getSubject();
             RDFResourceIRI pred = triple.getPredicate();
+            RDFNode object = triple.getObject();
             if (lastSubject != null && (subj.equals(lastSubject) || subj.isAnonymous())) {
                 if (lastPredicate != null && pred.equals(lastPredicate)) {
                     // Only the object differs from previous triple
                     // Just write the object
                     write(" ,");
                     writeNewLine();
-                    write(triple.getObject());
+                    if (object.isAnonymous() && object.isIndividual() && object.shouldOutputId()) {
+                        if (!pending.contains(object)) {
+                            nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+                        }
+                        write(object.getIRI());
+                    } else {
+                        write(object);
+                    }
                 } else {
                     // The predicate, object differ from previous triple
                     // Just write the predicate and object
                     write(" ;");
                     popTab();
-                    if (!subj.isAnonymous()) {
-                        writeNewLine();
-                    }
                     writeNewLine();
                     write(triple.getPredicate());
-                    write(" ");
+                    writeSpace();
                     pushTab();
-                    write(triple.getObject());
+                    if (object.isAnonymous() && object.isIndividual() && object.shouldOutputId()) {
+                        if (!pending.contains(object)) {
+                            nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+                        }
+                        write(object.getIRI());
+                    } else {
+                        write(object);
+                    }
                 }
             } else {
                 if (!first) {
@@ -391,20 +395,30 @@ public class TurtleRenderer extends RDFRendererBase {
                     popTab();
                     writeNewLine();
                 }
-                // Subject, preficate and object are different from last triple
+                // Subject, predicate and object are different from last triple
                 if (!node.isAnonymous()) {
-                    write(triple.getSubject());
-                    write(" ");
+                    write(subj);
+                    writeSpace();
+                } else if (node.isIndividual() && node.shouldOutputId()) {
+                    write(subj.getIRI());
+                    writeSpace();
                 } else {
                     pushTab();
                     write("[");
-                    write(" ");
+                    writeSpace();
                 }
                 pushTab();
                 write(triple.getPredicate());
-                write(" ");
+                writeSpace();
                 pushTab();
-                write(triple.getObject());
+                if (object.isAnonymous() && object.isIndividual() && object.shouldOutputId()) {
+                    if (!pending.contains(object)) {
+                        nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+                    }
+                    write(object.getIRI());
+                } else {
+                    write(object);
+                }
             }
             lastSubject = subj;
             lastPredicate = pred;
@@ -413,22 +427,27 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.isAnonymous()) {
             popTab();
             popTab();
-            if (triples.isEmpty()) {
-                write("[ ");
-            } else {
-                writeNewLine();
+            if (!node.isIndividual() || !node.shouldOutputId()) {
+                if (triples.isEmpty()) {
+                    write("[ ");
+                } else {
+                    writeNewLine();
+                }
+                write("]");
             }
-            write("]");
             popTab();
         } else {
             popTab();
             popTab();
         }
         if (level == 1 && !triples.isEmpty()) {
-            write(" .\n");
+            write(" .\n\n");
         }
         writer.flush();
-        pending.remove(node);
         level--;
+        while (!nodesToRenderSeparately.isEmpty()) {
+            render(nodesToRenderSeparately.poll());
+        }
+        pending.remove(node);
     }
 }
