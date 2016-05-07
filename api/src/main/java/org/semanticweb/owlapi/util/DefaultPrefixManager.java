@@ -116,7 +116,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
             }
             return;
         }
-        setPrefix(":", defaultPrefix);
+        prefix2NamespaceMap.put(":", defaultPrefix);
+        if (!reverseprefix2NamespaceMap.containsKey(defaultPrefix)) {
+            reverseprefix2NamespaceMap.put(defaultPrefix, ":");
+        }
     }
 
     @Override
