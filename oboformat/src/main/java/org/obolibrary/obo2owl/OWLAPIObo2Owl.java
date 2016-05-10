@@ -51,8 +51,7 @@ public class OWLAPIObo2Owl {
     public static final String IRI_PROP_ISREVERSIBLEPROPERTYCHAIN = DEFAULT_IRI_PREFIX
         + "IAO_isReversiblePropertyChain";
     /** The default id space. */
-    @Nonnull
-    protected String defaultIDSpace = "";
+    @Nonnull protected String defaultIDSpace = "";
     /** The manager. */
     protected OWLOntologyManager manager;
     /** The owl ontology. */
@@ -62,20 +61,15 @@ public class OWLAPIObo2Owl {
     /** The obodoc. */
     protected OBODoc obodoc;
     /** The id space map. */
-    @Nonnull
-    protected final Map<String, String> idSpaceMap;
+    @Nonnull protected final Map<String, String> idSpaceMap;
     /** The annotation property map. */
-    @Nonnull
-    public static final Map<String, IRI> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
+    @Nonnull public static final Map<String, IRI> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
     /** The ap to declare. */
-    @Nonnull
-    protected final Set<OWLAnnotationProperty> apToDeclare;
+    @Nonnull protected final Set<OWLAnnotationProperty> apToDeclare;
     /** The cls to declar. */
-    @Nonnull
-    protected final Map<String, OWLClass> clsToDeclare;
+    @Nonnull protected final Map<String, OWLClass> clsToDeclare;
     /** The typedef to annotation property. */
-    @Nonnull
-    protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
+    @Nonnull protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
     private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation", "gci_filler", "cardinality",
         "minCardinality", "maxCardinality", "all_some", "all_only");
     /** Cache for the id to IRI conversion. */
@@ -175,7 +169,7 @@ public class OWLAPIObo2Owl {
      */
     public static void convertURL(String iri, @Nonnull String outFile, String defaultOnt,
         @Nonnull OWLOntologyManager manager) throws IOException, OWLOntologyCreationException,
-            OWLOntologyStorageException {
+        OWLOntologyStorageException {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new URL(iri));
@@ -444,7 +438,7 @@ public class OWLAPIObo2Owl {
      * @return the uri
      */
     protected static String getURI(@Nonnull String path) {
-        if (path.startsWith("http://") || path.startsWith("file:")) {
+        if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("file:")) {
             return path;
         }
         File f = new File(path);
