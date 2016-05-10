@@ -409,7 +409,7 @@ public class OWLAPIObo2Owl {
      * @return the uri
      */
     protected static String getURI(String path) {
-        if (path.startsWith("http://") || path.startsWith("file:")) {
+        if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("file:")) {
             return path;
         }
         File f = new File(path);
