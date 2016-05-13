@@ -455,6 +455,15 @@ public abstract class TestBase {
             throw new OWLRuntimeException(e);
         }
     }
+    @Nonnull
+    protected OWLOntology loadOntologyFromString(@Nonnull String input, @Nonnull OWLDocumentFormat f) {
+        StringDocumentSource documentSource = new StringDocumentSource(input, IRI.generateDocumentIRI(), f, null);
+        try {
+            return setupManager().loadOntologyFromOntologyDocument(documentSource);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
 
     @Nonnull
     protected OWLOntology loadOntologyFromString(@Nonnull StringDocumentSource input)

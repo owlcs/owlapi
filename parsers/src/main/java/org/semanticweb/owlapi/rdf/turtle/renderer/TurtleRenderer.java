@@ -89,7 +89,6 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-
     protected void pushTab() {
         tabs.push(getIndent());
     }
@@ -127,6 +126,13 @@ public class TurtleRenderer extends RDFRendererBase {
         write(">");
     }
 
+    private static String escapeDot(String iri) {
+        if (iri.endsWith(".")) {
+            return iri.substring(0, iri.length() - 1) + "\\u002E";
+        }
+        return iri;
+    }
+
     private void write(@Nonnull IRI iri) {
         if (NodeID.isAnonymousNodeIRI(iri)) {
             write(iri.toString());
@@ -144,7 +150,9 @@ public class TurtleRenderer extends RDFRendererBase {
                 // no qname and no matching prefix
                 writeAsURI(iri.toString());
             } else {
-                if (name.indexOf(':') != -1) {
+                if (name.endsWith(".")) {
+                    writeAsURI(iri.toString());
+                } else if (name.indexOf(':') != -1) {
                     write(name);
                 } else {
                     write(":");
@@ -337,7 +345,6 @@ public class TurtleRenderer extends RDFRendererBase {
         writer.println(name);
         writer.println("#################################################################\n");
     }
-
 
     @Override
     public void render(@Nonnull RDFResource node) {

@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -338,5 +339,17 @@ public class TurtleTestCase extends TestBase {
         }
         OWLOntology test = roundTrip(o, new TurtleDocumentFormat());
         equal(o, test);
+    }
+
+    @Test
+    public void shouldAllowMultipleDotsInIRIs() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        IRI test1 = IRI.create("http://www.semanticweb.org/ontology#A...");
+        IRI test2 = IRI.create("http://www.semanticweb.org/ontology#A...B");
+        OWLOntology o = m.createOntology(IRI.create("http://www.semanticweb.org/ontology"));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
+        TurtleDocumentFormat format = new TurtleDocumentFormat();
+        format.setDefaultPrefix("http://www.semanticweb.org/ontology#");
+        roundTrip(o, format);
     }
 }
