@@ -306,4 +306,16 @@ public class TurtleTestCase extends TestBase {
             assertTrue(expected + " not found", o.containsAxiom(expected));
         });
     }
+
+    @Test
+    public void shouldAllowMultipleDotsInIRIs() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        IRI test1 = IRI.create("http://www.semanticweb.org/ontology#A...");
+        IRI test2 = IRI.create("http://www.semanticweb.org/ontology#A...B");
+        OWLOntology o = m.createOntology(IRI.create("http://www.semanticweb.org/ontology"));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
+        TurtleDocumentFormat format = new TurtleDocumentFormat();
+        format.setDefaultPrefix("http://www.semanticweb.org/ontology#");
+        roundTrip(o, format);
+    }
 }
