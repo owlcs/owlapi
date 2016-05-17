@@ -1,3 +1,8 @@
+4.2.5 17 May 2016
+Bug fixes:
+Fix Turtle Renderer doesn't escape periods #525
+Fix Import IRI not resolved correctly in OBO input #523
+
 4.2.4 7 May 2016
 Bug fixes:
     Fix Default prefix overrides explicit prefixes #522
