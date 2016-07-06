@@ -17,12 +17,10 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-rdf-api</artifactId>
-			<version>0.1.0-incubating</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-rdf-api</artifactId>
-			<version>0.1.0-incubating</version>
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>	  

@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.formats;
 
-import org.openrdf.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFFormat;
 
 /**
  * Created by ses on 9/30/14.

@@ -7,11 +7,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openrdf.model.BNode;
-import org.openrdf.model.Literal;
-import org.openrdf.model.Statement;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.model.BNode;
+import org.eclipse.rdf4j.model.Literal;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
@@ -67,9 +67,9 @@ public class RioUtilsTestCase {
             testOwlApiObjectBNode1);
         testOwlApiTripleSubjectObjectBNode = new RDFTriple(testOwlApiSubjectBNode1, testOwlApiPredicateUri1,
             testOwlApiObjectBNode1);
-        org.openrdf.model.IRI testSesameSubjectUri1 = VF.createIRI("urn:test:subject:uri:1");
-        org.openrdf.model.IRI testSesamePredicateUri1 = VF.createIRI("urn:test:predicate:uri:1");
-        org.openrdf.model.IRI testSesameObjectUri1 = VF.createIRI("urn:test:object:uri:1");
+        org.eclipse.rdf4j.model.IRI testSesameSubjectUri1 = VF.createIRI("urn:test:subject:uri:1");
+        org.eclipse.rdf4j.model.IRI testSesamePredicateUri1 = VF.createIRI("urn:test:predicate:uri:1");
+        org.eclipse.rdf4j.model.IRI testSesameObjectUri1 = VF.createIRI("urn:test:object:uri:1");
         Literal testSesameObjectPlainLiteral1 = VF.createLiteral("Test literal");
         Literal testSesameObjectLangLiteral1 = VF.createLiteral("Test literal", "en");
         Literal testSesameObjectTypedLiteral1 = VF.createLiteral("Test literal", VF.createIRI("urn:test:datatype:1"));

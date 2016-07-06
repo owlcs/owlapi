@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFFormat;
 import org.semanticweb.owlapi.io.OWLParser;
 
 /**

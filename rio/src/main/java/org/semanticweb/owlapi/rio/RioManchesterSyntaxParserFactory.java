@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFParserFactory;
+import org.eclipse.rdf4j.rio.RDFParserFactory;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 
 /**

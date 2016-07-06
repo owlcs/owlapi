@@ -45,9 +45,9 @@ import java.util.Set;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import org.openrdf.model.ValueFactory;
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.helpers.AbstractRDFParser;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.helpers.AbstractRDFParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;

@@ -45,16 +45,16 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.openrdf.OpenRDFException;
-import org.openrdf.model.Model;
-import org.openrdf.model.Namespace;
-import org.openrdf.model.Statement;
-import org.openrdf.model.util.Namespaces;
+import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.model.Namespace;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import info.aduna.iteration.CloseableIteration;
+import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not

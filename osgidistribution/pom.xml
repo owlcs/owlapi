@@ -11,7 +11,7 @@
 		<version>6.0.0-SNAPSHOT</version>
 	</parent>
 	<properties>
-		<inherited.sesame.version>${sesame.version}</inherited.sesame.version>
+		<inherited.rdf4j.version>${rdf4j.version}</inherited.rdf4j.version>
 	</properties>
 
 	<!-- NOTE: These dependency declarations are only required to sort this 
@@ -55,17 +55,14 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.6.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.6.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.6.3</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -75,7 +72,6 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-rdf-api</artifactId>
-			<version>0.1.0-incubating</version>
 		</dependency>
 		<dependency>
 			<groupId>org.tukaani</groupId>
@@ -83,94 +79,90 @@
 			<version>1.5</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-model</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-model</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-api</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-api</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-languages</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-languages</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-datatypes</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-datatypes</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-binary</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-binary</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-n3</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-n3</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-nquads</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-nquads</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-ntriples</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-ntriples</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-rdfjson</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-rdfjson</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-rdfxml</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-rdfxml</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-trix</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-trix</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-turtle</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-turtle</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-trig</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-trig</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-util</artifactId>
-			<version>${inherited.sesame.version}</version>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-util</artifactId>
+			<version>${inherited.rdf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.jsonld-java</groupId>
 			<artifactId>jsonld-java</artifactId>
-			<version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient-cache</artifactId>
-			<version>4.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
-			<version>4.4.4</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -180,9 +172,8 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.2</version>
 		</dependency>
-		<dependency>
+		<!-- dependency> Disable until updated to use RDF4J
 			<groupId>org.semarglproject</groupId>
 			<artifactId>semargl-sesame</artifactId>
 			<version>0.6.1</version>
@@ -201,7 +192,7 @@
 			<groupId>org.semarglproject</groupId>
 			<artifactId>semargl-rdf</artifactId>
 			<version>0.6.1</version>
-		</dependency>
+		</dependency -->
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.framework</artifactId>
@@ -254,7 +245,7 @@
 							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
 							groupId=net.sf.trove4j;scope=compile|runtime|provided;inline=false,
 							groupId=org.apache.httpcomponents;scope=compile|runtime|provided;inline=false,
-							groupId=org.openrdf.sesame;scope=compile|runtime|provided;inline=false,
+							groupId=org.eclipse.rdf4j;scope=compile|runtime|provided;inline=false,
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
 							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
@@ -316,7 +307,7 @@
 								</includes>
 								<excludes>
 									<exclude>org.apache.felix:org.osgi.core</exclude>
-									<exclude>org.openrdf.sesame:*</exclude>
+									<exclude>org.eclipse.rdf4j:*</exclude>
 									<exclude>com.fasterxml.jackson.core:*</exclude>
 									<exclude>com.github.jsonld-java:*</exclude>
 									<exclude>com.fasterxml.jackson.core:*</exclude>

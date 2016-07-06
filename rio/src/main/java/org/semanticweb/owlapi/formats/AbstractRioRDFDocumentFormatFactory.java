@@ -38,8 +38,8 @@ package org.semanticweb.owlapi.formats;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFParserRegistry;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
