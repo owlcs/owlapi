@@ -79,17 +79,19 @@ public abstract class RDFRendererBase {
     private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
         new IdentityHashingStrategy<>());
+    protected final OWLOntologyWriterConfiguration config;
 
     /**
      * @param ontology
      *        ontology
      */
     public RDFRendererBase(OWLOntology ontology) {
-        this(ontology, ontology.getFormat());
+        this(ontology, ontology.getFormat(), ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
     }
 
-    protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format) {
+    protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format, OWLOntologyWriterConfiguration config) {
         this.ontology = ontology;
+        this.config = config;
         OWLOntologyManager m = this.ontology.getOWLOntologyManager();
         df = m.getOWLDataFactory();
         this.format = format;
@@ -227,7 +229,7 @@ public abstract class RDFRendererBase {
     }
 
     private void render(OWLEntity entity, AtomicBoolean firstRendering, String bannerText) {
-        if (firstRendering.getAndSet(false) && !bannerText.isEmpty()) {
+        if (config.shouldUseBanners() && firstRendering.getAndSet(false) && !bannerText.isEmpty()) {
             writeBanner(bannerText);
         }
         renderEntity(entity);
@@ -402,15 +404,15 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(OWLEntity entity, Collection<IRI> illegalPuns) {
         final List<OWLAxiom> axioms = new ArrayList<>();
-        // Don't write out duplicates for punned annotations!
-        if (!punned.contains(entity.getIRI())) {
-            add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(), EXCLUDED));
-        }
         add(axioms, ontology.declarationAxioms(entity));
         entity.accept(new GraphVisitor(ontology, axioms, this::createGraph));
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
             && OWLDocumentFormat.isMissingType(entity, ontology)) {
             axioms.add(df.getOWLDeclarationAxiom(entity));
+        }
+        // Don't write out duplicates for punned annotations!
+        if (!punned.contains(entity.getIRI())) {
+            add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(), EXCLUDED));
         }
         createGraph(axioms.stream());
         return !axioms.isEmpty();
@@ -531,7 +533,7 @@ public abstract class RDFRendererBase {
                 needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
                 return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
             } else if (key instanceof OWLAxiom) {
-                isIndividual = true;
+                isIndividual = false;
                 needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
             }
             return getBlankNodeFor(key, isIndividual, needId);

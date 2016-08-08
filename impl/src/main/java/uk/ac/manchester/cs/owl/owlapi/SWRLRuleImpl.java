@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
@@ -109,6 +110,26 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     public SWRLRule getSimplified() {
         return (SWRLRule) accept(ATOM_SIMPLIFIER);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof SWRLRule)) {
+            return false;
+        }
+        if (obj instanceof SWRLRuleImpl) {
+            return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head) && equalStreams(
+                annotations(), ((SWRLRuleImpl) obj).annotations());
+        }
+        SWRLRule other = (SWRLRule) obj;
+        return body.equals(asSet(other.body())) && head.equals(asSet(other.head())) && equalStreams(annotations(), other
+            .annotations());
     }
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {

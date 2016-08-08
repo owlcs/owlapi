@@ -284,4 +284,38 @@ public class TurtleTestCase extends TestBase {
         StringDocumentTarget t = saveOntology(o);
         assertTrue(t.toString().contains("ABA:10"));
     }
+
+    @Test
+    public void shouldFindExpectedAxiomsForBlankNodes() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
+        OWLObjectProperty r = ObjectProperty(IRI.create(
+            "http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
+        String input = "@prefix : <http://www.derivo.de/ontologies/examples/anonymous-individuals#> .\n"
+            + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            + "<http://www.derivo.de/ontologies/examples/anonymous-individuals> a owl:Ontology .\n"
+            + ":r a owl:ObjectProperty .\n" + ":C a owl:Class .\n" + "_:genid1 a :C ; :r _:genid1 .";
+        OWLOntology o = loadOntologyFromString(input);
+        // assertEquals(input, saveOntology(o, new
+        // TurtleDocumentFormat()).toString().replaceAll("\\#.*\\n", ""));
+        o.axioms(AxiomType.CLASS_ASSERTION).forEach(ax -> {
+            OWLAxiom expected = df.getOWLObjectPropertyAssertionAxiom(r, ax.getIndividual(), ax.getIndividual());
+            assertTrue(expected + " not found", o.containsAxiom(expected));
+        });
+    }
+
+    @Test
+    public void shouldAllowMultipleDotsInIRIs() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        IRI test1 = IRI.create("http://www.semanticweb.org/ontology#A...");
+        IRI test2 = IRI.create("http://www.semanticweb.org/ontology#A...B");
+        OWLOntology o = m.createOntology(IRI.create("http://www.semanticweb.org/ontology"));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
+        TurtleDocumentFormat format = new TurtleDocumentFormat();
+        format.setDefaultPrefix("http://www.semanticweb.org/ontology#");
+        roundTrip(o, format);
+    }
 }

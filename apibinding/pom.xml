@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.0.0</version>
+		<version>5.0.2</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -31,11 +31,6 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-tools</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-fixers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

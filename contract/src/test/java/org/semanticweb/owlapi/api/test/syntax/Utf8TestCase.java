@@ -107,7 +107,7 @@ public class Utf8TestCase extends TestBase {
         OWLOntology ontology = getOWLOntology();
         OWLClass a = Class(IRI(ns + "#", "A"));
         ontology.add(df.getOWLDeclarationAxiom(a));
-        OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("Chinese=處方"));
+        OWLAnnotation ann = df.getRDFSLabel("Chinese=處方");
         OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
         ontology.add(axiom);
         ontology = roundTrip(ontology, new FunctionalSyntaxDocumentFormat());

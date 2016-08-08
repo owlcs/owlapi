@@ -27,9 +27,10 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * Checks to see if an ontology and its imports closure fall into the OWL 2 DL
+ * Checks to see if an ontology and its imports closure fall into the OWL 2 FULL
  * profile. An ontology is OWL Full if any of the global structural restrictions
- * are violated, if there is punning between object and data properties
+ * are violated, if there is punning between object and data properties. Failing
+ * this profile means the ontology is not valid OWL.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -38,7 +39,7 @@ public class OWL2Profile implements OWLProfile {
 
     @Override
     public String getName() {
-        return "OWL 2";
+        return "OWL 2 Full";
     }
 
     @Override
@@ -118,10 +119,9 @@ public class OWL2Profile implements OWLProfile {
             // The datatype should not be defined with a datatype definition
             // axiom
             OWLDatatype datatype = node.getDatatype();
-            getCurrentOntology().importsClosure().flatMap(o -> o.axioms(AxiomType.DATATYPE_DEFINITION))
-                .filter(ax -> datatype.equals(ax.getDatatype()))
-                .forEach(ax -> profileViolations.add(new UseOfDefinedDatatypeInDatatypeRestriction(
-                    getCurrentOntology(), getCurrentAxiom(), node)));
+            getCurrentOntology().importsClosure().flatMap(o -> o.axioms(AxiomType.DATATYPE_DEFINITION)).filter(
+                ax -> datatype.equals(ax.getDatatype())).forEach(ax -> profileViolations.add(
+                    new UseOfDefinedDatatypeInDatatypeRestriction(getCurrentOntology(), getCurrentAxiom(), node)));
             // All facets must be allowed for the restricted datatype
             node.facetRestrictions().forEach(r -> {
                 OWL2Datatype dt = datatype.getBuiltInDatatype();

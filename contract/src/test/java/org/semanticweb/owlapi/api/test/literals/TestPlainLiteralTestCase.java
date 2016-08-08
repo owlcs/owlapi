@@ -75,7 +75,7 @@ public class TestPlainLiteralTestCase extends TestBase {
         OWLOntology o = getOWLOntology();
         OWLIndividual i = df.getOWLNamedIndividual("urn:test#", "ind");
         OWLLiteral l = df.getOWLLiteral("test", OWL2Datatype.RDF_PLAIN_LITERAL);
-        o.add(df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), i.asOWLNamedIndividual().getIRI(), l));
+        o.add(df.getOWLAnnotationAssertionAxiom(i.asOWLNamedIndividual().getIRI(), df.getRDFSComment(l)));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         o.saveOntology(out);
         String expectedStart = "<rdfs:comment";
@@ -88,7 +88,7 @@ public class TestPlainLiteralTestCase extends TestBase {
     public void testPlainLiteralSerializationComments2() throws Exception {
         OWLOntology o = getOWLOntology();
         OWLLiteral l = df.getOWLLiteral("test", OWL2Datatype.RDF_PLAIN_LITERAL);
-        OWLAnnotation a = df.getOWLAnnotation(df.getRDFSComment(), l);
+        OWLAnnotation a = df.getRDFSComment(l);
         o.applyChange(new AddOntologyAnnotation(o, a));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         o.saveOntology(out);

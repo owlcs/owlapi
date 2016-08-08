@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImplNoCache;
 
 /**
  * A test case to ensure that the reference implementation data factories do not
@@ -50,8 +49,8 @@ public class OWLDataFactoryImplTestCase {
 
     @Parameterized.Parameters
     public static Collection<OWLDataFactoryImpl> parameters() {
-        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
-        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
+        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(false);
+        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(false);
         return Arrays.asList(noCaching, withCaching);
     }
 

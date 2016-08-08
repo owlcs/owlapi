@@ -29,6 +29,9 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
+
 /**
  * Represents International Resource Identifiers.
  * 
@@ -39,6 +42,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive,
     HasShortForm, org.apache.commons.rdf.api.IRI {
 
+    // Cache prefixes for memory gains.
+    private static final LoadingCache<String, String> CACHE = Caffeine.newBuilder().maximumSize(2048).build(k -> k);
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
     // public creation
@@ -55,7 +60,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *        The suffix.
      */
     protected IRI(String prefix, @Nullable String suffix) {
-        namespace = prefix.intern();
+        namespace = CACHE.get(prefix);
         remainder = suffix == null ? "" : suffix;
     }
 
@@ -158,8 +163,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *         {@code false}.
      */
     public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
-            || Namespaces.RDFS.inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
+        return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace) || Namespaces.RDFS
+            .inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**

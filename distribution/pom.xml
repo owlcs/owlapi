@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.0.0</version>
+		<version>5.0.2</version>
 	</parent>
 
 	<properties>
@@ -41,11 +41,6 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-oboformat</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-fixers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -219,7 +214,6 @@
 								<includes>
 									<include>net.sourceforge.owlapi:owlapi-api</include>
 									<include>net.sourceforge.owlapi:owlapi-apibinding</include>
-									<include>net.sourceforge.owlapi:owlapi-fixers</include>
 									<include>net.sourceforge.owlapi:owlapi-impl</include>
 									<include>net.sourceforge.owlapi:owlapi-oboformat</include>
 									<include>net.sourceforge.owlapi:owlapi-parsers</include>
@@ -281,7 +275,6 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboformat</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-fixers</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>

@@ -497,7 +497,7 @@ class OBOConsumer implements OBOParserHandler {
             // Just add as a comment for now
             @Nonnull Set<OWLAnnotation> xrefDescriptions = new HashSet<>();
             if (xrefQuotedString != null) {
-                xrefDescriptions.add(df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(xrefQuotedString)));
+                xrefDescriptions.add(df.getRDFSComment(xrefQuotedString));
             }
             String xrefId = matcher.group(XREF_ID_GROUP).trim();
             OBOIdType idType = OBOIdType.getIdType(xrefId);

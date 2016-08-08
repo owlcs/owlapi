@@ -17,9 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -113,8 +112,7 @@ public class LiteralTestCase extends TestBase {
 
     @Test
     public void testBuiltInDatatypes() {
-        OWL2Datatype dt = OWL2Datatype.getDatatype(
-            OWLRDFVocabulary.RDF_PLAIN_LITERAL);
+        OWL2Datatype dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL);
         assertNotNull("object should not be null", dt);
         dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL);
         assertNotNull("object should not be null", dt);
@@ -133,5 +131,17 @@ public class LiteralTestCase extends TestBase {
                 assertNotNull("object should not be null", builtInDatatype);
             }
         }
+    }
+
+    @Test
+    public void shouldStoreTagsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String in = "See more at <a href=\"http://abc.com\">abc</a>";
+        OWLOntology o = getOWLOntology();
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(createIndividual().getIRI(), df
+            .getRDFSComment(in));
+        o.add(ax);
+        OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
+        assertTrue(o1.containsAxiom(ax));
+        equal(o, o1);
     }
 }

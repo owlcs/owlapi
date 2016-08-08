@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -39,22 +41,29 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
 
-    private final OWLDataFactoryInternals dataFactoryInternals;
+    private final boolean useCompression;
+    private transient OWLDataFactoryInternals dataFactoryInternals;
+
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        dataFactoryInternals = new OWLDataFactoryInternalsImpl(useCompression);
+    }
 
     /**
      * Constructs an OWLDataFactoryImpl that uses caching but no compression.
      */
     public OWLDataFactoryImpl() {
-        this(new OWLDataFactoryInternalsImpl(false));
+        this(false);
     }
 
     /**
-     * @param dataFactoryInternals
-     *        internals to use
+     * @param useCompression
+     *        true if compression should be used
      */
     @Inject
-    public OWLDataFactoryImpl(OWLDataFactoryInternals dataFactoryInternals) {
-        this.dataFactoryInternals = verifyNotNull(dataFactoryInternals);
+    public OWLDataFactoryImpl(@CompressionEnabled boolean useCompression) {
+        this.useCompression = useCompression;
+        dataFactoryInternals = new OWLDataFactoryInternalsImpl(this.useCompression);
     }
 
     @Override

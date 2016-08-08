@@ -419,8 +419,8 @@ class DisjointFromHandler extends AbstractTagValueHandler {
 
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLAxiom ax = getDataFactory()
-            .getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(), getOWLClass(value)));
+        OWLAxiom ax = getDataFactory().getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
+            getOWLClass(value)));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -510,12 +510,12 @@ class IsATagValueHandler extends AbstractTagValueHandler {
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (getConsumer().isTerm()) {
             // We simply add a subclass axiom
-            applyChange(new AddAxiom(getOntology(),
-                getDataFactory().getOWLSubClassOfAxiom(getClassFromId(currentId), getClassFromId(value))));
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(getClassFromId(currentId),
+                getClassFromId(value))));
         } else if (getConsumer().isTypedef()) {
             // We simply add a sub property axiom
-            applyChange(new AddAxiom(getOntology(), getDataFactory()
-                .getOWLSubObjectPropertyOfAxiom(getOWLObjectProperty(currentId), getOWLObjectProperty(value))));
+            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubObjectPropertyOfAxiom(
+                getOWLObjectProperty(currentId), getOWLObjectProperty(value))));
         }
     }
 }
@@ -555,9 +555,8 @@ class NameTagValueHandler extends AbstractTagValueHandler {
         } else {
             ent = getDataFactory().getOWLNamedIndividual(getIRIFromOBOId(currentId));
         }
-        OWLLiteral con = getDataFactory().getOWLLiteral(value);
-        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getRDFSLabel(), ent.getIRI(),
-            con);
+        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(ent.getIRI(), getDataFactory().getRDFSLabel(
+            value));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -725,8 +724,8 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
 
     @Nonnull private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
-    private static final Pattern VALUEPATTERN = Pattern
-        .compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
+    private static final Pattern VALUEPATTERN = Pattern.compile(
+        "\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
     private static final int VALUE_GROUP = 1;
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
@@ -825,11 +824,10 @@ class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
             applyChange(new AddAxiom(getOntology(), df.getOWLDeclarationAxiom(annotationProperty)));
             IRI subsetdefIRI = getTagIRI(OBOVocabulary.SUBSETDEF.getName());
             OWLAnnotationProperty subsetdefAnnotationProperty = df.getOWLAnnotationProperty(subsetdefIRI);
-            applyChange(new AddAxiom(getOntology(),
-                df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty, subsetdefAnnotationProperty)));
-            OWLLiteral nameLiteral = df.getOWLLiteral(name);
-            applyChange(new AddAxiom(getOntology(),
-                df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), annotationPropertyIRI, nameLiteral)));
+            applyChange(new AddAxiom(getOntology(), df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty,
+                subsetdefAnnotationProperty)));
+            applyChange(new AddAxiom(getOntology(), df.getOWLAnnotationAssertionAxiom(annotationPropertyIRI, df
+                .getRDFSLabel(name))));
         } else {
             OWLAnnotation annotation = getAnnotationForTagValuePair(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
             applyChange(new AddOntologyAnnotation(getOntology(), annotation));

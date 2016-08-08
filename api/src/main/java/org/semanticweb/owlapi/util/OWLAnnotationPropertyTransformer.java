@@ -616,16 +616,33 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
         OWLProperty sub = dup(ax.getSubProperty());
         OWLProperty sup = dup(ax.getSuperProperty());
         if (sub.isObjectPropertyExpression() || sup.isObjectPropertyExpression()) {
-            obj = df.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(), sup.asOWLObjectProperty(), asList(ax
-                .annotations()));
+            // check: it is possible that the properties represent an actual
+            // illegal punning, where this fix cannot be applied
+            if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
+                obj = df.getOWLSubObjectPropertyOfAxiom(sub.asOWLObjectProperty(), sup.asOWLObjectProperty(), asList(ax
+                    .annotations()));
+            } else {
+                // cannot repair: leave unchanged
+                obj = ax;
+            }
             return;
         } else if (sub.isDataPropertyExpression() || sup.isDataPropertyExpression()) {
-            obj = df.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(), sup.asOWLDataProperty(), asList(ax
-                .annotations()));
+            if (sub.isOWLDataProperty() && sup.isOWLDataProperty()) {
+                obj = df.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(), sup.asOWLDataProperty(), asList(ax
+                    .annotations()));
+            } else {
+                // cannot repair: leave unchanged
+                obj = ax;
+            }
             return;
         }
-        obj = df.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(), sup.asOWLAnnotationProperty(), anns(
-            ax));
+        if (sub.isOWLAnnotationProperty() && sup.isOWLAnnotationProperty()) {
+            obj = df.getOWLSubAnnotationPropertyOfAxiom(sub.asOWLAnnotationProperty(), sup.asOWLAnnotationProperty(),
+                anns(ax));
+        } else {
+            // cannot repair: leave unchanged
+            obj = ax;
+        }
     }
 
     @Override

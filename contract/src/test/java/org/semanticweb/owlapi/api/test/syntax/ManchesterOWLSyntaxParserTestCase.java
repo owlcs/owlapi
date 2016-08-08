@@ -222,8 +222,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     public OWLAxiom annotation(OWLEntity e, String s) {
-        return df.getOWLAnnotationAssertionAxiom(e.getIRI(), df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(
-            s)));
+        return df.getOWLAnnotationAssertionAxiom(e.getIRI(), df.getRDFSLabel(s));
     }
 
     @Test

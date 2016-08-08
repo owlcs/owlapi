@@ -58,8 +58,8 @@ public class MemoryBenchmark {
      * @throws IOException
      *         if the dump file cannot be created
      */
-    public static void memoryProfile(Path ontologyPath, Path hprofPath)
-        throws OWLOntologyCreationException, IOException {
+    public static void memoryProfile(Path ontologyPath, Path hprofPath) throws OWLOntologyCreationException,
+        IOException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         File file = ontologyPath.toFile();
         manager.getIRIMappers().add(new AutoIRIMapper(file.getParentFile(), false));
@@ -70,7 +70,9 @@ public class MemoryBenchmark {
             ds = new FileDocumentSource(file);
         }
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration().setStrict(false);
+        long start = System.currentTimeMillis();
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ds, config);
+        System.out.println("MemoryBenchmark.memoryProfile() elapsed: " + (System.currentTimeMillis() - start));
         getDiagnostics().dumpHeap(hprofPath.toString(), true);
         manager.removeOntology(ontology);
     }

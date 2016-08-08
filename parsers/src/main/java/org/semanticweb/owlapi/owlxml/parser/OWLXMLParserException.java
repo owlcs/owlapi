@@ -27,7 +27,7 @@ class OWLXMLParserException extends OWLParserException {
      * @param h
      *        handler
      */
-    public OWLXMLParserException(OWLXMLParserHandler h, String message) {
+    public OWLXMLParserException(OWLXMLPH h, String message) {
         super(message, h.getLineNumber(), h.getColumnNumber());
     }
 }

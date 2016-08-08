@@ -120,17 +120,16 @@ public class RioStorer extends AbstractOWLStorer {
      *         available on the classpath.
      */
     protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format, Writer writer)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         // by default return a StatementCollector if they did not specify a
         // format
         if (format == null) {
             return new StatementCollector();
-        } else {
-            try {
-                return Rio.createWriter(format, writer);
-            } catch (final UnsupportedRDFormatException e) {
-                throw new OWLOntologyStorageException(e);
-            }
+        }
+        try {
+            return Rio.createWriter(format, writer);
+        } catch (final UnsupportedRDFormatException e) {
+            throw new OWLOntologyStorageException(e);
         }
     }
 
@@ -152,18 +151,17 @@ public class RioStorer extends AbstractOWLStorer {
      *         If the format does not have an {@link RDFWriter} implementation
      *         available on the classpath.
      */
-    protected static RDFHandler getRDFHandlerForOutputStream(@Nullable final RDFFormat format,
-            final OutputStream outputStream) throws OWLOntologyStorageException {
+    protected static RDFHandler getRDFHandlerForOutputStream(@Nullable RDFFormat format, OutputStream outputStream)
+        throws OWLOntologyStorageException {
         // by default return a StatementCollector if they did not specify a
         // format
         if (format == null) {
             return new StatementCollector();
-        } else {
-            try {
-                return Rio.createWriter(format, outputStream);
-            } catch (final UnsupportedRDFormatException e) {
-                throw new OWLOntologyStorageException(e);
-            }
+        }
+        try {
+            return Rio.createWriter(format, outputStream);
+        } catch (final UnsupportedRDFormatException e) {
+            throw new OWLOntologyStorageException(e);
         }
     }
 
@@ -184,7 +182,7 @@ public class RioStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
         // example, it could store the triples in memory without serialising
@@ -192,16 +190,16 @@ public class RioStorer extends AbstractOWLStorer {
         if (rioHandler == null) {
             if (!(format instanceof RioRDFDocumentFormat)) {
                 throw new OWLOntologyStorageException(
-                        "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                                + format);
+                    "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
+                        + format);
             }
             final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
             if (format.isTextual()) {
                 rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(), writer);
             } else {
                 throw new OWLOntologyStorageException(
-                        "Unable to use storeOntology with a Writer as the desired format is not textual. Format was "
-                                + format);
+                    "Unable to use storeOntology with a Writer as the desired format is not textual. Format was "
+                        + format);
             }
         }
         try {
@@ -214,7 +212,7 @@ public class RioStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
         // example, it could store the triples in memory without serialising
@@ -222,8 +220,8 @@ public class RioStorer extends AbstractOWLStorer {
         if (rioHandler == null) {
             if (!(format instanceof RioRDFDocumentFormat)) {
                 throw new OWLOntologyStorageException(
-                        "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                                + format);
+                    "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
+                        + format);
             }
             final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
             if (format.isTextual()) {

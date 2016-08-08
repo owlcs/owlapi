@@ -457,8 +457,7 @@ public class TutorialSnippetsTestCase {
         // We want to add a comment to the pizza class.
         OWLClass quokkaCls = df.getOWLClass(KOALA_IRI + "#", "Quokka");
         // the content of our comment: a string and a language tag
-        OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(
-            "A class which represents Quokkas", "en"));
+        OWLAnnotation commentAnno = df.getRDFSComment(df.getOWLLiteral("A class which represents Quokkas", "en"));
         // Specify that the pizza class has an annotation
         OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(quokkaCls.getIRI(), commentAnno);
         // Add the axiom to the ontology
