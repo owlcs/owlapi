@@ -1,4 +1,8 @@
-/* 
+/*  NOTE:  Derived from openrdf sesame version 2.9.0.  See
+ *  sesame distribution, available at https://bitbucket.org/openrdf/sesame
+ * for license details referenced below.
+ * Cloned from info.aduna.xml.SimpleSaxParser in order to be able to mask errors.
+
  * Licensed to Aduna under one or more contributor license agreements.  
  * See the NOTICE.txt file distributed with this work for additional 
  * information regarding copyright ownership. 
@@ -33,7 +37,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-/**  Cloned from info.aduna.xml.SimpleSaxParser in order to be able to mask errors
+/**
+ *
+ *
  * An XML parser that generates "simple" SAX-like events from a limited subset
  * of XML documents. The OWLAPISimpleSAXParser can parse simple XML documents; it
  * doesn't support processing instructions or elements that contain both
