@@ -26,7 +26,13 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.FileDocumentSource;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
@@ -1148,8 +1154,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
         void clearOntologyStorers();
 
     /**
-     * Set the collection of IRI mappers. It is used by Guice injection, but can
-     * be used manually as well to replace the existing mappers with new ones.
+     * Set the collection of IRI mappers.
      * The mappers are used to obtain ontology document IRIs for ontology IRIs.
      * If their type is annotated with a HasPriority type, this will be used to
      * decide the order they are used. Otherwise, the order in which the
@@ -1168,12 +1173,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     PriorityCollection<OWLOntologyIRIMapper> getIRIMappers();
 
     /**
-     * Set the collection of parsers. It is used by Guice injection, but can be
-     * used manually as well to replace the existing parsers with new ones. If
-     * their type is annotated with a HasPriority type, this will be used to
-     * decide the order they are used. Otherwise, the order in which the
-     * collection is iterated will determine the order in which the parsers are
-     * used.
+     * Set the collection of parsers. If the parsers are  annotated with a 
+     * HasPriority type, this will be used to decide the order they are used. 
+     * Otherwise, the order in which the collection is iterated will determine 
+     * the order in which the parsers are used.
      * 
      * @param parsers
      *        the factories to be injected
@@ -1187,12 +1190,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     PriorityCollection<OWLParserFactory> getOntologyParsers();
 
     /**
-     * Set the collection of ontology factories. It is used by Guice injection,
-     * but can be used manually as well to replace the existing factories with
-     * new ones. If their type is annotated with a HasPriority type, this will
-     * be used to decide the order they are used. Otherwise, the order in which
-     * the collection is iterated will determine the order in which the parsers
-     * are used.
+     * Set the collection of ontology factories. If the factories are annotated 
+     * with a HasPriority type, this will be used to decide the order they are 
+     * used. Otherwise, the order in which the collection is iterated will 
+     * determine the order in which the parsers are used.
      * 
      * @param factories
      *        the factories to be injected
