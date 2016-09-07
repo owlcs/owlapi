@@ -942,8 +942,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
         void clearOntologyStorers();
 
     /**
-     * Set the collection of IRI mappers. It is used by Guice injection, but can
-     * be used manually as well to replace the existing mappers with new ones.
+     * Set the collection of IRI mappers. 
      * The mappers are used to obtain ontology document IRIs for ontology IRIs.
      * If their type is annotated with a HasPriority type, this will be used to
      * decide the order they are used. Otherwise, the order in which the
@@ -963,9 +962,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
         PriorityCollection<OWLOntologyIRIMapper> getIRIMappers();
 
     /**
-     * Set the collection of parsers. It is used by Guice injection, but can be
-     * used manually as well to replace the existing parsers with new ones. If
-     * their type is annotated with a HasPriority type, this will be used to
+     * Set the collection of parsers. If the parsers are annotated with a 
+     * HasPriority type, this will be used to
      * decide the order they are used. Otherwise, the order in which the
      * collection is iterated will determine the order in which the parsers are
      * used.
@@ -983,9 +981,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
         PriorityCollection<OWLParserFactory> getOntologyParsers();
 
     /**
-     * Set the collection of ontology factories. It is used by Guice injection,
-     * but can be used manually as well to replace the existing factories with
-     * new ones. If their type is annotated with a HasPriority type, this will
+     * Set the collection of ontology factories. If the factories are annotated 
+     * with a HasPriority type, this will
      * be used to decide the order they are used. Otherwise, the order in which
      * the collection is iterated will determine the order in which the parsers
      * are used.
