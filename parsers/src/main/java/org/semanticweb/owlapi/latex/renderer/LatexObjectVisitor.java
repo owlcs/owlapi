@@ -595,11 +595,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        write(axiom.getFirstProperty());
+        axiom.getFirstProperty().accept(this);
         writeSpace();
         write(EQUIV);
         writeSpace();
-        write(axiom.getSecondProperty());
+        axiom.getSecondProperty().accept(this);
         write("\\ensuremath{^-}");
     }
 
@@ -738,7 +738,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLVariable node) {
-        write(node.getIRI());
+        node.getIRI().accept(this);
     }
 
     private void writeNested(OWLClassExpression classExpression) {
@@ -818,7 +818,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDatatype node) {
         write("Datatype");
-        write(node.getIRI());
+        node.getIRI().accept(this);
     }
 
     @Override
@@ -826,7 +826,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write("\"");
         write(node.getLiteral());
         write("\"\\^\\^");
-        write(node.getDatatype().getIRI());
+        node.getDatatype().getIRI().accept(this);
     }
 
     @Override

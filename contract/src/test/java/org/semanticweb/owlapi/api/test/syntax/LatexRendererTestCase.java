@@ -12,12 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.LatexDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class LatexRendererTestCase extends TestBase {
@@ -39,4 +41,24 @@ public class LatexRendererTestCase extends TestBase {
         assertTrue(saveOntology(o, new LatexDocumentFormat()).toString()
                 .contains("C\\_Test"));
     }
+
+    @Test
+    public void shouldSaveInverses() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "@prefix : <http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61#> .\n" + 
+        "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n" + 
+        "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" + 
+        "@base <http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61> .\n\n" + 
+        "<http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61> rdf:type owl:Ontology .\n\n" + 
+        ":buzz_of rdf:type owl:ObjectProperty ;\n owl:inverseOf :fizzle_of .\n\n :fizzle_of rdf:type owl:ObjectProperty .";
+        String expected="\\documentclass{article}\n" + 
+            "\\parskip 0pt\n\\parindent 0pt\n\\oddsidemargin 0cm\n\\textwidth 19cm\n\\begin{document}\n\n" + 
+            "\\section*{Object properties}\\subsubsection*{buzz\\_of}\n\n" + 
+            "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n" + 
+            "\\subsubsection*{fizzle\\_of}\n\n" + 
+            "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n" + 
+            "\\section*{Data properties}\\section*{Individuals}\\section*{Datatypes}\\end{document}\n";
+        OWLOntology o = loadOntologyFromString(input);
+        assertEquals(expected, saveOntology(o, new LatexDocumentFormat()).toString());
+    }
+
 }
