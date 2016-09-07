@@ -351,4 +351,32 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // then
         assertEquals(df.getOWLSubClassOfAxiom(a, b), axiom);
     }
+    @Test
+    public void shouldNotFailOWLReal() throws OWLOntologyCreationException {
+        OWLDataProperty p = DataProperty(IRI("urn:test#name"));
+        OWLClass b = Class(IRI("urn:test#B"));
+        String in = "name max 1 owl:real";
+        OWLOntology o = m.createOntology();
+        m.addAxiom(o, df.getOWLDeclarationAxiom(p));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
+        // select a short form provider that uses annotations
+        ShortFormProvider sfp = new AnnotationValueShortFormProvider(
+                Arrays.asList(df.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
+        BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
+                m.getOntologies(), sfp);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(in);
+        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
+                shortFormProvider);
+        parser.setOWLEntityChecker(owlEntityChecker);
+        parser.setDefaultOntology(o);
+        // when
+        // finally parse
+        OWLClassExpression expected=df.getOWLDataMaxCardinality(1, p, OWL2Datatype.OWL_REAL.getDatatype(df));
+        OWLClassExpression cl = parser.parseClassExpression();
+        // then
+        assertEquals(cl, expected);
+    }
+
 }
