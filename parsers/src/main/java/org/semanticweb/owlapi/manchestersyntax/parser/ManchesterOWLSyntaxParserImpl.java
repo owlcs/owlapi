@@ -16,7 +16,17 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,7 +46,13 @@ import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
-import org.semanticweb.owlapi.vocab.*;
+import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import com.google.common.base.Optional;
 
@@ -127,6 +143,11 @@ public class ManchesterOWLSyntaxParserImpl implements
         initialiseAnnotationPropertyFrameSections();
         initialiseIndividualFrameSections();
         for (XSDVocabulary v : XSDVocabulary.values()) {
+            dataTypeNames.add(v.getIRI().toString());
+            dataTypeNames.add(v.getIRI().toQuotedString());
+            dataTypeNames.add(v.getPrefixedName());
+        }
+        for (OWL2Datatype v : OWL2Datatype.values()) {
             dataTypeNames.add(v.getIRI().toString());
             dataTypeNames.add(v.getIRI().toQuotedString());
             dataTypeNames.add(v.getPrefixedName());

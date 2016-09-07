@@ -32,23 +32,7 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
@@ -446,5 +430,32 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLAxiom axiom = parser.parseAxiom();
         // then
         assertEquals(df.getOWLSubClassOfAxiom(a, b), axiom);
+    }
+    @Test
+    public void shouldNotFailOWLReal() throws OWLOntologyCreationException {
+        OWLDataProperty p = DataProperty(IRI("urn:test#name"));
+        OWLClass b = Class(IRI("urn:test#B"));
+        String in = "name max 1 owl:real";
+        OWLOntology o = m.createOntology();
+        m.addAxiom(o, df.getOWLDeclarationAxiom(p));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
+        // select a short form provider that uses annotations
+        ShortFormProvider sfp = new AnnotationValueShortFormProvider(
+                Arrays.asList(df.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
+        BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
+                m.getOntologies(), sfp);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(in);
+        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
+                shortFormProvider);
+        parser.setOWLEntityChecker(owlEntityChecker);
+        parser.setDefaultOntology(o);
+        // when
+        // finally parse
+        OWLClassExpression expected=df.getOWLDataMaxCardinality(1, p, OWL2Datatype.OWL_REAL.getDatatype(df));
+        OWLClassExpression cl = parser.parseClassExpression();
+        // then
+        assertEquals(cl, expected);
     }
 }
