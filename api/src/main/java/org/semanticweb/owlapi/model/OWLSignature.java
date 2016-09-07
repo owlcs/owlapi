@@ -52,7 +52,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         import closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLClass> classesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(OWLOntology::classesInSignature);
+        return imports.stream(this).flatMap(OWLOntology::classesInSignature).distinct().sorted();
     }
 
     /**
@@ -82,7 +82,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         of the data.
      */
     default Stream<OWLObjectProperty> objectPropertiesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(OWLOntology::objectPropertiesInSignature);
+        return imports.stream(this).flatMap(OWLOntology::objectPropertiesInSignature).distinct().sorted();
     }
 
     /**
@@ -112,7 +112,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         data.
      */
     default Stream<OWLDataProperty> dataPropertiesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(OWLOntology::dataPropertiesInSignature);
+        return imports.stream(this).flatMap(OWLOntology::dataPropertiesInSignature).distinct().sorted();
     }
 
     /**
@@ -140,7 +140,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         import closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLNamedIndividual> individualsInSignature(Imports imports) {
-        return imports.stream(this).flatMap(OWLOntology::individualsInSignature);
+        return imports.stream(this).flatMap(OWLOntology::individualsInSignature).distinct().sorted();
     }
 
     /**
@@ -166,7 +166,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @return The set of referenced anonymous individuals
      */
     default Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals(Imports imports) {
-        return imports.stream(this).flatMap(OWLOntology::referencedAnonymousIndividuals);
+        return imports.stream(this).flatMap(OWLOntology::referencedAnonymousIndividuals).distinct().sorted();
     }
 
     /**
@@ -212,7 +212,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         is a copy of the data.
      */
     default Stream<OWLDatatype> datatypesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(OWLOntology::datatypesInSignature);
+        return imports.stream(this).flatMap(OWLOntology::datatypesInSignature).distinct().sorted();
     }
 
     /**
@@ -242,7 +242,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         of the data.
      */
     default Stream<OWLAnnotationProperty> annotationPropertiesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(OWLOntology::annotationPropertiesInSignature);
+        return imports.stream(this).flatMap(OWLOntology::annotationPropertiesInSignature).distinct().sorted();
     }
 
     /**
@@ -460,7 +460,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         the ones in the import closure.
      */
     default Stream<OWLEntity> entitiesInSignature(IRI iri, Imports imports) {
-        return imports.stream(this).flatMap(o -> o.entitiesInSignature(iri));
+        return imports.stream(this).flatMap(o -> o.entitiesInSignature(iri)).distinct().sorted();
     }
 
     /**

@@ -23,7 +23,16 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLObject;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
@@ -94,7 +103,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     public Stream<OWLClassExpression> classAtomPredicates() {
         return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom).map(
-            c -> ((SWRLClassAtom) c).getPredicate());
+            c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
     }
 
     @Override

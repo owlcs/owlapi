@@ -342,7 +342,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
         return Stream.concat(ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get()
-            .keySet().stream(), ints.getOntologyAnnotations().map(a -> a.getProperty()));
+            .keySet().stream(), ints.getOntologyAnnotations().map(a -> a.getProperty())).distinct().sorted();
     }
 
     @Override

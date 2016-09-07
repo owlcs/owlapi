@@ -62,7 +62,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
      * @return The annotations
      */
     protected Collection<OWLAnnotation> mergeAnnos(Stream<OWLAnnotation> annos) {
-        return asList(Stream.concat(annos, annotations.stream()));
+        return asList(Stream.concat(annos, annotations.stream()).distinct().sorted());
     }
 
     @Override

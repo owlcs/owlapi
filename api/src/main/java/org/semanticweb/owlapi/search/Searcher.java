@@ -254,7 +254,7 @@ public final class Searcher {
         if (axiom instanceof OWLAnnotationAssertionAxiom) {
             stream = Stream.of(((OWLAnnotationAssertionAxiom) axiom).getAnnotation());
         }
-        stream = Stream.concat(stream, axiom.annotations());
+        stream = Stream.concat(stream, axiom.annotations()).distinct().sorted();
         if (p != null) {
             stream = stream.filter(a -> a.getProperty().equals(p));
         }
