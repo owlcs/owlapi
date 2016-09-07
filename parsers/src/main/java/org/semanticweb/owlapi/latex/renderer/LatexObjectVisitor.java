@@ -587,11 +587,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        write(axiom.getFirstProperty());
+        axiom.getFirstProperty().accept(this);
         writeSpace();
         write(EQUIV);
         writeSpace();
-        write(axiom.getSecondProperty());
+        axiom.getSecondProperty().accept(this);
         write("\\ensuremath{^-}");
     }
 
