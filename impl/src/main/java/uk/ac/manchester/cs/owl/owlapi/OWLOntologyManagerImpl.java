@@ -21,7 +21,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,7 +43,16 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.FileDocumentSource;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
+import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
@@ -375,11 +392,16 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             OWLOntologyID ontologyID = ontologyIDsByImportsDeclaration.get(declaration);
             if (ontologyID == null) {
                 // No such ontology has been loaded through an import
-                // declaration,
-                // but it might have been loaded manually.
+                // declaration, but it might have been loaded manually.
                 // Using the IRI to retrieve it will either find the ontology or
-                // return null
-                return getOntology(declaration.getIRI());
+                // return null.
+                // Last possibility is an import by document IRI; if the
+                // ontology is not found by IRI, check by document IRI.
+                OWLOntology ontology = getOntology(declaration.getIRI());
+                if (ontology == null) {
+                    ontology = getOntologyByDocumentIRI(declaration.getIRI());
+                }
+                return ontology;
             } else {
                 return getOntology(ontologyID);
             }
@@ -923,7 +945,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 }
                 // The ontology might be being loaded, but its IRI might
                 // not have been set (as is probably the case with RDF/XML!)
-                OWLOntology ontByDocumentIRI = getOntologyByDocumentIRI(documentIRI);
+                OWLOntology ontByDocumentIRI = loadOntologyByDocumentIRI(documentIRI);
                 if (ontByDocumentIRI != null) {
                     return ontByDocumentIRI;
                 }
@@ -938,7 +960,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         }
     }
 
-    private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
+    private OWLOntology loadOntologyByDocumentIRI(IRI documentIRI) {
         readLock.lock();
         try {
             for (OWLOntologyID ontID : documentIRIsByID.keySet()) {
@@ -946,6 +968,21 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 IRI docIRI = documentIRIsByID.get(ontID);
                 if (docIRI != null && docIRI.equals(documentIRI)) {
                     return getOntology(ontID);
+                }
+            }
+            return null;
+        } finally {
+            readLock.unlock();
+        }
+    }
+    private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
+        readLock.lock();
+        try {
+            for (OWLOntologyID ontID : documentIRIsByID.keySet()) {
+                assert ontID != null;
+                IRI docIRI = documentIRIsByID.get(ontID);
+                if (documentIRI.equals(docIRI)) {
+                    return ontologiesByID.get(ontID);
                 }
             }
             return null;
@@ -1177,6 +1214,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 throw new UnknownOWLOntologyException(ontology.getOntologyID());
             }
             documentIRIsByID.put(ontology.getOntologyID(), documentIRI);
+            resetImportsClosureCache();
         } finally {
             writeLock.unlock();
         }
