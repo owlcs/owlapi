@@ -16,14 +16,38 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
-import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
@@ -164,11 +188,15 @@ public class TurtleRenderer extends RDFRendererBase {
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
         String actualIRI = iri.toString();
         for (Map.Entry<String, String> e : prefixName2PrefixMap) {
-            if (actualIRI.startsWith(e.getValue())) {
+            if (actualIRI.startsWith(e.getValue()) && noSplits(actualIRI, e.getValue().length())) {
                 return e.getKey() + actualIRI.substring(e.getValue().length());
             }
         }
         return null;
+    }
+
+    private boolean noSplits(String s, int index) {
+        return s.indexOf('#', index)<0 && s.indexOf('/', index)<0; 
     }
 
     private void writeNewLine() {
