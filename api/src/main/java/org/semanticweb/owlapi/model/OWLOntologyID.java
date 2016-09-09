@@ -16,6 +16,10 @@ import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
@@ -32,17 +36,13 @@ import com.google.common.base.Optional;
  */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyID.class);
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private static final AtomicInteger COUNTER = new AtomicInteger();
-    @Nonnull
-    private static final String ANON_PREFIX = "Anonymous-";
-    @Nonnull
-    private Optional<String> internalID = Optional.absent();
-    @Nonnull
-    private final Optional<IRI> ontologyIRI;
-    @Nonnull
-    private final Optional<IRI> versionIRI;
+    @Nonnull private static final AtomicInteger COUNTER = new AtomicInteger();
+    @Nonnull private static final String ANON_PREFIX = "Anonymous-";
+    @Nonnull private Optional<String> internalID = Optional.absent();
+    @Nonnull private final Optional<IRI> ontologyIRI;
+    @Nonnull private final Optional<IRI> versionIRI;
     private int hashCode;
 
     /**
@@ -74,9 +74,15 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     @Nonnull
-    private static Optional<IRI> opt(IRI i) {
-        if (NodeID.isAnonymousNodeIRI(i)) {
+    private static Optional<IRI> opt(@Nullable IRI i) {
+        if (NodeID.isAnonymousNodeIRI(i) || i == null) {
             return Optional.absent();
+        }
+        if (!i.isAbsolute()) {
+            LOGGER.error(
+                "Ontology IRIs must be absolute; IRI {} is relative and will be made absolute by prefixing urn:absolute: to it",
+                i);
+            return Optional.fromNullable(IRI.create("urn:absolute:" + i));
         }
         return Optional.fromNullable(i);
     }
@@ -91,10 +97,10 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      */
     @Nonnull
     private static Optional<IRI> opt(Optional<IRI> i) {
-        if (NodeID.isAnonymousNodeIRI(i.orNull())) {
-            return Optional.absent();
+        if (i.isPresent()) {
+            return opt(i.get());
         }
-        return i;
+        return Optional.absent();
     }
 
     @Nonnull
