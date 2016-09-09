@@ -598,7 +598,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         setAxiomWriting();
         axiom.getSubProperty().accept(this);
-        write(SUB_PROPERTY_OF);
+        writeSectionKeyword(SUB_PROPERTY_OF);
         axiom.getSuperProperty().accept(this);
         restore();
     }
@@ -674,7 +674,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     public void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         setAxiomWriting();
         axiom.getSubProperty().accept(this);
-        write(SUB_PROPERTY_OF);
+        writeSectionKeyword(SUB_PROPERTY_OF);
         axiom.getSuperProperty().accept(this);
     }
 
@@ -789,7 +789,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
                 write(" o ");
             }
         }
-        write(SUB_PROPERTY_OF);
+        writeSectionKeyword(SUB_PROPERTY_OF);
         axiom.getSuperProperty().accept(this);
         restore();
     }
