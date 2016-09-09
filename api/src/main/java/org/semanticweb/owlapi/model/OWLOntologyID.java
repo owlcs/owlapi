@@ -24,6 +24,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * An object that identifies an ontology. Since OWL 2, ontologies do not have to
  * have an ontology IRI, or if they have an ontology IRI then they can
@@ -36,7 +39,7 @@ import javax.annotation.Nullable;
  * @since 3.0.0
  */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyID.class);
     @Nonnull private static final AtomicInteger COUNTER = new AtomicInteger();
     @Nonnull private static final String ANON_PREFIX = "Anonymous-";
     @Nonnull private transient Optional<String> internalID = emptyOptional();
@@ -119,8 +122,14 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     }
 
     private static Optional<IRI> opt(IRI i) {
-        if (NodeID.isAnonymousNodeIRI(i)) {
+        if (NodeID.isAnonymousNodeIRI(i) || i == null) {
             return emptyOptional();
+        }
+        if (!i.isAbsolute()) {
+            LOGGER.error(
+                "Ontology IRIs must be absolute; IRI {} is relative and will be made absolute by prefixing urn:absolute: to it",
+                i);
+            return optional(IRI.create("urn:absolute:" + i));
         }
         return optional(i);
     }
