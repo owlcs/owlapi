@@ -13,8 +13,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 @SuppressWarnings("javadoc")
 public class OWLOntologyStorerFactoryRegistryTest extends TestBase {
 
-    // XXX originally it was 19 storers, I cannot find which ones are missing.
-    private static final int EXPECTED_STORERS = 18;
+    private static final int EXPECTED_STORERS = 20;
 
     @Test
     public void setUp() {

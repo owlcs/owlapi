@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
-import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -66,8 +65,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
             @Override
             protected void write(DLSyntax keyword) {
-                write(XMLUtils.escapeXML(checkNotNull(keyword,
-                        "keyword cannot be null").toString()));
+                write(checkNotNull(keyword, "keyword cannot be null").toHTMLString());
             }
         };
         ren.setFocusedObject(subject);
