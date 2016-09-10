@@ -40,7 +40,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
 
     // XXX config
     @Nonnull private Map<String, String> prefix2NamespaceMap;
-    @Nonnull private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<>();
+    @Nonnull private final Map<String, String> reverseprefix2NamespaceMap;
     @Nonnull private StringComparator comparator;
 
     /**
@@ -63,6 +63,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
         @Nullable String defaultPrefix) {
         comparator = c == null ? new StringLengthComparator() : c;
         prefix2NamespaceMap = new TreeMap<>(comparator);
+        reverseprefix2NamespaceMap = new TreeMap<>(comparator);
         setupDefaultPrefixes();
         if (pm != null) {
             copyPrefixesFrom(pm);
@@ -133,9 +134,26 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     public String getPrefixIRI(IRI iri) {
         String prefix = reverseprefix2NamespaceMap.get(iri.getNamespace());
         if (prefix == null) {
+            String iriString = iri.toString();
+            String prefixed = null;
+            for (String s : reverseprefix2NamespaceMap.keySet()) {
+                if (iriString.startsWith(s) && noSplits(iriString, s.length())) {
+                    prefix = reverseprefix2NamespaceMap.get(s);
+                    prefixed = iriString.replace(s, prefix);
+                }
+            }
+            if (prefixed != null) {
+                return prefixed;
+            }
+        }
+        if (prefix == null) {
             return null;
         }
         return iri.prefixedBy(prefix);
+    }
+
+    private static boolean noSplits(String s, int index) {
+        return s.indexOf('#', index)<0 && s.indexOf('/', index)<0; 
     }
 
     @Override
