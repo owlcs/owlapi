@@ -14,7 +14,14 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,7 +41,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
 
     private static final long serialVersionUID = 40000L;
     @Nonnull private Map<String, String> prefix2NamespaceMap;
-    @Nonnull private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<>();
+    @Nonnull private final Map<String, String> reverseprefix2NamespaceMap;
     @Nonnull private StringComparator comparator;
 
     /**
@@ -58,6 +65,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
         @Nullable String defaultPrefix) {
         comparator = c == null ? new StringLengthComparator() : c;
         prefix2NamespaceMap = new TreeMap<>(comparator);
+        reverseprefix2NamespaceMap = new TreeMap<>(comparator);
         setupDefaultPrefixes();
         if (pm != null) {
             copyPrefixesFrom(pm);
@@ -112,10 +120,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
         String prefixToUnregister = prefix2NamespaceMap.get(":");
         if (prefixToUnregister != null) {
             prefix2NamespaceMap.remove(":");
-            Iterator<Map.Entry<String, String>> it=reverseprefix2NamespaceMap.entrySet().iterator();
-            while(it.hasNext()) {
-                Map.Entry<String, String> e=it.next();
-                if(e.getKey().equals(prefixToUnregister) && e.getValue().equals(":")) {
+            Iterator<Map.Entry<String, String>> it = reverseprefix2NamespaceMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<String, String> e = it.next();
+                if (e.getKey().equals(prefixToUnregister) && e.getValue().equals(":")) {
                     it.remove();
                 }
             }
@@ -133,9 +141,26 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     public String getPrefixIRI(IRI iri) {
         String prefix = reverseprefix2NamespaceMap.get(iri.getNamespace());
         if (prefix == null) {
+            String iriString = iri.toString();
+            String prefixed = null;
+            for (String s : reverseprefix2NamespaceMap.keySet()) {
+                if (iriString.startsWith(s) && noSplits(iriString, s.length())) {
+                    prefix = reverseprefix2NamespaceMap.get(s);
+                    prefixed = iriString.replace(s, prefix);
+                }
+            }
+            if (prefixed != null) {
+                return prefixed;
+            }
+        }
+        if (prefix == null) {
             return null;
         }
         return iri.prefixedBy(prefix);
+    }
+
+    private static boolean noSplits(String s, int index) {
+        return s.indexOf('#', index)<0 && s.indexOf('/', index)<0; 
     }
 
     @Override

@@ -19,7 +19,14 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -160,6 +167,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(@Nonnull IRI iri) {
+        if(iri.toString().contains("PizzaBase")) {
+        System.out.println("FunctionalSyntaxObjectRenderer.write() "+iri);
+        }
         String qname = prefixManager.getPrefixIRI(iri);
         if (qname != null) {
             boolean lastCharIsColon = qname.charAt(qname.length() - 1) == ':';

@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -78,14 +79,31 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         m.saveOntology(ontology, documentTarget);
         assertTrue(documentTarget.toString().contains("example:pizza"));
     }
+
     @Test
     public void shouldConvertToFunctionalCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String in="Prefix: : <http://purl.obolibrary.org/obo/>\n" + 
-            "Ontology: <http://example.org/>\n" + 
-            "Class: :FOO_0000001";
-        OWLOntology o=loadOntologyFromString(in);
-        System.out.println(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
-        OWLOntology o1=loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
+        String in = "Prefix: : <http://purl.obolibrary.org/obo/>\n" + "Ontology: <http://example.org/>\n"
+            + "Class: :FOO_0000001";
+        OWLOntology o = loadOntologyFromString(in);
+        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
         equal(o, o1);
+    }
+
+    @Test
+    public void shouldPreservePrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String prefix = "http://www.dis.uniroma1.it/pizza";
+        OWLOntology ontology = m.createOntology(IRI.create(prefix));
+        PrefixManager pm = new DefaultPrefixManager();
+        pm.setPrefix("pizza", prefix);
+        OWLClass pizza = df.getOWLClass("pizza:PizzaBase", pm);
+        assertEquals(prefix + "PizzaBase", pizza.getIRI().toString());
+        OWLDeclarationAxiom declarationAxiom = df.getOWLDeclarationAxiom(pizza);
+        m.addAxiom(ontology, declarationAxiom);
+        FunctionalSyntaxDocumentFormat ontoFormat = new FunctionalSyntaxDocumentFormat();
+        ontoFormat.setPrefix("pizza", prefix);
+        m.setOntologyFormat(ontology, ontoFormat);
+        OWLOntologyDocumentTarget stream = new StringDocumentTarget();
+        m.saveOntology(ontology, stream);
+        assertTrue(stream.toString().contains("pizza:PizzaBase"));
     }
 }
