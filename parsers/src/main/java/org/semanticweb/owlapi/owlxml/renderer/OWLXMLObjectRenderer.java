@@ -778,7 +778,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(SWRLVariable node) {
         writer.writeStartElement(VARIABLE);
-        writer.writeIRIAttribute(node.getIRI().getRemainder().get());
+        writer.writeIRIAttribute(node.getIRI());
         writer.writeEndElement();
     }
 

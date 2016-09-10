@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -2921,7 +2922,11 @@ class SWRLVariableElementHandler extends OWLElementHandler<SWRLVariable> {
 
     @Override
         void attribute(@Nonnull String localName, @Nonnull String value) {
-        iri = IRI.create("urn:swrl#", value);
+        if(XMLUtils.isNCName(value)) {
+            iri = IRI.create("urn:swrl#", value);
+        }else {
+            iri = getIRIFromAttribute(localName, value);
+        }
     }
 
     @Override

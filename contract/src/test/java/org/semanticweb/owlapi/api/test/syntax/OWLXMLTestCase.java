@@ -62,7 +62,7 @@ public class OWLXMLTestCase extends TestBase {
                 .toString());
         }
         String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
-        assertTrue(out, out.contains("<Variable IRI=\"x\"/>"));
-        assertTrue(out, out.contains("<Variable IRI=\"y\"/>"));
+        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl#x\"/>"));
+        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl#y\"/>"));
     }
 }

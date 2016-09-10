@@ -241,18 +241,6 @@ public class OWLXMLWriter {
             throw new OWLRuntimeException(e);
         }
     }
-    /**
-     * @param iri
-     *        iri
-     */
-    public void writeIRIAttribute(String iri) {
-        try {
-            IRI attName = IRI_ATTRIBUTE.getIRI();
-            writer.writeAttribute(attName, iri);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
 
     /**
      * Writes an IRI element for a given IRI.
