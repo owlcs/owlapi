@@ -56,7 +56,6 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
         if (format instanceof PrefixDocumentFormat
                 && ont2Format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
-            prefixFormat.getPrefixName2PrefixMap();
             PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
             for (String prefixName : prefixFormat.getPrefixNames()) {
                 assert prefixName != null;

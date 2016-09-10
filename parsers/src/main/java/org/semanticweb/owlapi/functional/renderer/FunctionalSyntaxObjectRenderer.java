@@ -72,7 +72,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
             prefixManager.setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
         }
-        if (!ontology.isAnonymous()) {
+        if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix()==null) {
             String existingDefault = prefixManager.getDefaultPrefix();
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {

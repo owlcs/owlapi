@@ -21,7 +21,15 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 @SuppressWarnings("javadoc")
@@ -69,5 +77,15 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         StringDocumentTarget documentTarget = new StringDocumentTarget();
         m.saveOntology(ontology, documentTarget);
         assertTrue(documentTarget.toString().contains("example:pizza"));
+    }
+    @Test
+    public void shouldConvertToFunctionalCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String in="Prefix: : <http://purl.obolibrary.org/obo/>\n" + 
+            "Ontology: <http://example.org/>\n" + 
+            "Class: :FOO_0000001";
+        OWLOntology o=loadOntologyFromString(in);
+        System.out.println(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
+        OWLOntology o1=loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
+        equal(o, o1);
     }
 }
