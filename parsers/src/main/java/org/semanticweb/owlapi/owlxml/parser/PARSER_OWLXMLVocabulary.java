@@ -23,6 +23,7 @@ import java.util.function.Function;
 import javax.annotation.Nullable;
 import javax.inject.Provider;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -1677,7 +1678,11 @@ class VariableEH extends OWLEH<SWRLVariable, BuilderSWRLVariable> {
 
     @Override
     void attribute(String localName, String value) {
-        builder.with(IRI.create("urn:swrl#", value));
+        if (XMLUtils.isNCName(value)) {
+            builder.with(IRI.create("urn:swrl#", value));
+        } else {
+            builder.with(getIRIFromAttribute(localName, value));
+        }
     }
 }
 

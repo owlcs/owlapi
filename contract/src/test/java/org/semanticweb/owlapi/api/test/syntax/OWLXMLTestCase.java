@@ -59,8 +59,8 @@ public class OWLXMLTestCase extends TestBase {
             assertEquals("DLSafeRule( Body(SameAsAtom(Variable(<urn:swrl#x>) Variable(<urn:swrl#y>))) Head() )", r
                 .toString()));
         String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
-        assertTrue(out, out.contains("<Variable IRI=\"x\"/>"));
-        assertTrue(out, out.contains("<Variable IRI=\"y\"/>"));
+        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl#x\"/>"));
+        assertTrue(out, out.contains("<Variable IRI=\"urn:swrl#y\"/>"));
     }
 
 }
