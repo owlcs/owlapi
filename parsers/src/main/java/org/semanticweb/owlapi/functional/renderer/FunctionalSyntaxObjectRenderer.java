@@ -167,9 +167,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(@Nonnull IRI iri) {
-        if(iri.toString().contains("PizzaBase")) {
-        System.out.println("FunctionalSyntaxObjectRenderer.write() "+iri);
-        }
         String qname = prefixManager.getPrefixIRI(iri);
         if (qname != null) {
             boolean lastCharIsColon = qname.charAt(qname.length() - 1) == ':';
