@@ -15,7 +15,12 @@ package org.semanticweb.owlapi.owlxml.parser;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -2916,7 +2921,7 @@ class SWRLVariableElementHandler extends OWLElementHandler<SWRLVariable> {
 
     @Override
         void attribute(@Nonnull String localName, @Nonnull String value) {
-        iri = getIRIFromAttribute(localName, value);
+        iri = IRI.create("urn:swrl#", value);
     }
 
     @Override
