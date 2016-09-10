@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 @SuppressWarnings("javadoc")
 public class OWLOntologyStorerFactoryRegistryTestCase {
 
-    private static final int EXPECTED_STORERS = 19;
+    private static final int EXPECTED_STORERS = 20;
 
     @Test
     public void setUp() {
