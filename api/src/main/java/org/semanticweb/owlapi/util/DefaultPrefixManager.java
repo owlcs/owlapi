@@ -14,7 +14,12 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -109,11 +114,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
 
     @Override
     public void setDefaultPrefix(@Nullable String defaultPrefix) {
+        String prefixToUnregister = prefix2NamespaceMap.get(":");
+        if (prefixToUnregister != null) {
+            prefix2NamespaceMap.remove(":");
+            reverseprefix2NamespaceMap.remove(prefixToUnregister, ":");
+        }
         if (defaultPrefix == null) {
-            String prefixToUnregister = prefix2NamespaceMap.get(":");
-            if (prefixToUnregister != null) {
-                unregisterNamespace(prefixToUnregister);
-            }
             return;
         }
         prefix2NamespaceMap.put(":", defaultPrefix);

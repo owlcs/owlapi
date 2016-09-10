@@ -20,7 +20,15 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -101,7 +109,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
             prefixManager.setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
         }
-        if (!ontology.isAnonymous()) {
+        if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix()==null) {
             String existingDefault = prefixManager.getDefaultPrefix();
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {

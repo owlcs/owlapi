@@ -67,4 +67,15 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         m.saveOntology(ontology, documentTarget);
         assertTrue(documentTarget.toString().contains("example:pizza"));
     }
+
+    @Test
+    public void shouldConvertToFunctionalCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String in="Prefix: : <http://purl.obolibrary.org/obo/>\n" + 
+            "Ontology: <http://example.org/>\n" + 
+            "Class: :FOO_0000001";
+        OWLOntology o=loadOntologyFromString(in);
+        System.out.println(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
+        OWLOntology o1=loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
+        equal(o, o1);
+    }
 }

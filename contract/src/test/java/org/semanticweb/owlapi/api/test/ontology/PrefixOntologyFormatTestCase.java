@@ -48,7 +48,6 @@ public class PrefixOntologyFormatTestCase
         if (format instanceof PrefixDocumentFormat
             && ont2Format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
-            prefixFormat.getPrefixName2PrefixMap();
             PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
             prefixFormat.prefixNames().forEach(prefixName -> {
                 assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
