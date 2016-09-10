@@ -1,3 +1,19 @@
+4.2.6 10 Sep 2016
+Bug fixes:
+Fix OMN Parser mistakes punned class for object property #548
+Fix OWL/XML format does not support SWRL variable IRIs #535
+Fix Explicit prefix ignored during serialization #529
+Fix Saving to OFN loses namespaces due to double default prefix #537
+Fix DL-Syntax HTML formatter issues #536
+Fix ManchesterOWLSyntaxRenderer SubPropertyOf render inconsistent #534
+Fix Slow inferred disjoint generator #542
+Fix Relative Ontology IRI causes missing declaration #557
+Fix Invalid Turtle ontologies when hash IRIs are used #543
+Fix Calling setOntologyDocumentIRI reset imports closure cache #541
+Fix Latex Renderer produces bad LaTeX for property inverses #526
+Fix ManchesterOWLSyntaxParser doesn't handle the OWL 2 datatypes #556
+
+
 4.2.5 17 May 2016
 Bug fixes:
 Fix Turtle Renderer doesn't escape periods #525
