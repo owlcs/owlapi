@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
@@ -95,7 +96,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Nonnull protected final Set<String> dataTypeNames = new HashSet<>();
     @Nonnull protected final Set<String> annotationPropertyNames = new HashSet<>();
     @Nonnull private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
-    @Nonnull protected DefaultPrefixManager pm = new DefaultPrefixManager();
+    @Nonnull protected final DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
     private static final boolean ALLOWEMPTYFRAMESECTIONS = false;
@@ -155,6 +156,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             ruleBuiltIns.put(v.getShortForm(), v);
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
+    }
+    
+    /**@return the prefix manager used by this parser*/
+    //XXX add this method to the interface in next release
+    public PrefixManager getPrefixManager() {
+        return pm;
     }
 
     @Override
@@ -509,6 +516,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             consumeToken();
             OWLClassExpression complemented = parseNestedClassExpression(false);
             return df.getOWLObjectComplementOf(complemented);
+        } else if (isClassName(tok)) {
+            consumeToken();
+            return getOWLClass(tok);
         } else if (isObjectPropertyName(tok) || INVERSE.matches(tok)) {
             return parseObjectRestriction();
         } else if (isDataPropertyName(tok)) {
@@ -518,9 +528,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return parseObjectOneOf();
         } else if (OPEN.matches(tok)) {
             return parseNestedClassExpression(false);
-        } else if (isClassName(tok)) {
-            consumeToken();
-            return getOWLClass(tok);
         }
         // Add option for strict class name checking
         else {
@@ -1187,6 +1194,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Override
     public void setDefaultOntology(OWLOntology defaultOntology) {
         this.defaultOntology = defaultOntology;
+        defaultOntology.axioms(AxiomType.DECLARATION, Imports.INCLUDED).forEach(this::processDeclaredEntities);
     }
 
     private boolean isEmptyFrameSection(Map<ManchesterOWLSyntax, ?> parsers) {
