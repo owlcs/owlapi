@@ -207,6 +207,14 @@ public class OWLXMLWriter {
             }
         }
     }
+    /**
+     * @param iri
+     *        iri
+     */
+    public void writeIRIAttribute(String iri) {
+        IRI attName = IRI_ATTRIBUTE.getIRI();
+        writer.writeAttribute(attName, iri);
+     }
 
     /**
      * Writes an IRI element for a given IRI.

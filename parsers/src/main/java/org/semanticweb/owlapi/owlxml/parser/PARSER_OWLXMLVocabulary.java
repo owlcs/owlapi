@@ -1677,7 +1677,7 @@ class VariableEH extends OWLEH<SWRLVariable, BuilderSWRLVariable> {
 
     @Override
     void attribute(String localName, String value) {
-        builder.with(getIRIFromAttribute(localName, value));
+        builder.with(IRI.create("urn:swrl#", value));
     }
 }
 
