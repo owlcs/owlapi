@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
@@ -110,7 +111,7 @@ public class ManchesterOWLSyntaxParserImpl implements
     @Nonnull
     private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new HashMap<>();
     @Nonnull
-    protected DefaultPrefixManager pm = new DefaultPrefixManager();
+    protected final DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull
     protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
@@ -167,6 +168,12 @@ public class ManchesterOWLSyntaxParserImpl implements
             ruleBuiltIns.put(v.getShortForm(), v);
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
+    }
+    
+    /**@return the prefix manager used by this parser*/
+    //XXX add this method to the interface in next release
+    public PrefixManager getPrefixManager() {
+        return pm;
     }
 
     @Override
@@ -598,6 +605,9 @@ public class ManchesterOWLSyntaxParserImpl implements
             consumeToken();
             OWLClassExpression complemented = parseNestedClassExpression(false);
             return dataFactory.getOWLObjectComplementOf(complemented);
+        } else if (isClassName(tok)) {
+            consumeToken();
+            return getOWLClass(tok);
         } else if (isObjectPropertyName(tok) || INVERSE.matches(tok)) {
             return parseObjectRestriction();
         } else if (isDataPropertyName(tok)) {
@@ -607,9 +617,6 @@ public class ManchesterOWLSyntaxParserImpl implements
             return parseObjectOneOf();
         } else if (OPEN.matches(tok)) {
             return parseNestedClassExpression(false);
-        } else if (isClassName(tok)) {
-            consumeToken();
-            return getOWLClass(tok);
         }
         // Add option for strict class name checking
         else {
@@ -1340,6 +1347,9 @@ public class ManchesterOWLSyntaxParserImpl implements
     @Override
     public void setDefaultOntology(@Nonnull OWLOntology defaultOntology) {
         this.defaultOntology = defaultOntology;
+        for(OWLDeclarationAxiom d:defaultOntology.getAxioms(AxiomType.DECLARATION, Imports.INCLUDED)) {
+            processDeclaredEntities(d);
+        }
     }
 
     private boolean isEmptyFrameSection(Map<ManchesterOWLSyntax, ?> parsers) {
