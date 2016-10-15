@@ -1,3 +1,7 @@
+3.5.5 15 October 2016
+Bug fixes
+Serialization issue with OWLOntology hashcode
+
 3.5.4 25 October 2015
 
 Features
