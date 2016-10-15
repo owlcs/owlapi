@@ -16,6 +16,9 @@ import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,6 +52,16 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     private static final long serialVersionUID = 40000L;
     @Nonnull protected OWLOntologyManager manager;
     @Nonnull protected OWLOntologyID ontologyID;
+
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.writeObject(ontologyID);
+        stream.writeObject(manager);
+    }
+
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        ontologyID = (OWLOntologyID) stream.readObject();
+        manager = (OWLOntologyManager) stream.readObject();
+    }
 
     @Override
     protected int index() {
