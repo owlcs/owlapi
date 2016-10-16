@@ -1,3 +1,8 @@
+4.2.7 16 October 2016
+Bug fix:
+Serialization issues
+
+
 4.2.6 10 Sep 2016
 Bug fixes:
 Fix OMN Parser mistakes punned class for object property #548
