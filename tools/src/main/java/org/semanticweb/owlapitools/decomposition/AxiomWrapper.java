@@ -1,5 +1,6 @@
 package org.semanticweb.owlapitools.decomposition;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -14,7 +15,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * 
  * @author ignazio
  */
-public class AxiomWrapper {
+public class AxiomWrapper implements Serializable{
 
     private OWLAxiom axiom;
     private boolean used = true;
