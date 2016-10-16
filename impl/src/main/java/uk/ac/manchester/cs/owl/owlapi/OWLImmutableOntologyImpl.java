@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.io.Serializable;
@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
 
-    @Nonnull protected OWLOntologyManager manager;
+    @Nullable protected OWLOntologyManager manager;
     @Nonnull protected OWLDataFactory df;
     @Nonnull protected OWLOntologyID ontologyID;
     private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
@@ -55,7 +55,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
      * @param ontologyID
      *        ontology id
      */
-    public OWLImmutableOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
+    public OWLImmutableOntologyImpl(@Nonnull OWLOntologyManager manager, OWLOntologyID ontologyID) {
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
@@ -73,10 +73,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
-        return manager;
+        return verifyNotNull(manager, "Ontology no longer has a manager");
     }
 
-    @SuppressWarnings("null")
     @Override
     public void setOWLOntologyManager(@Nullable OWLOntologyManager manager) {
         this.manager = manager;
@@ -357,12 +356,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Stream<OWLOntology> imports() {
-        return manager.imports(this);
+        return getOWLOntologyManager().imports(this);
     }
 
     @Override
     public Stream<OWLOntology> directImports() {
-        return manager.directImports(this);
+        return getOWLOntologyManager().directImports(this);
     }
 
     @Override
