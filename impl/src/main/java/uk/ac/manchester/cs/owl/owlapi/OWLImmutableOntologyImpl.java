@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.*;
@@ -50,7 +51,7 @@ import com.google.common.collect.Iterables;
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull protected OWLOntologyManager manager;
+    @Nullable protected OWLOntologyManager manager;
     @Nonnull protected OWLOntologyID ontologyID;
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
@@ -99,7 +100,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
-        return manager;
+        return verifyNotNull(manager, "Ontology no longer has a manager");
     }
 
     @Override
@@ -426,7 +427,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI, Imports includeImportsClosure) {
-        OWLAnnotationProperty p = manager.getOWLDataFactory().getOWLAnnotationProperty(owlAnnotationPropertyIRI);
+        OWLAnnotationProperty p = getOWLOntologyManager().getOWLDataFactory().getOWLAnnotationProperty(owlAnnotationPropertyIRI);
         if (includeImportsClosure == INCLUDED) {
             for (OWLOntology o : getImportsClosure()) {
                 if (o.containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI, EXCLUDED)) {
@@ -485,22 +486,22 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     public Set<OWLEntity> getEntitiesInSignature(IRI iri, Imports includeImportsClosure) {
         Set<OWLEntity> result = createSet(6);
         if (containsClassInSignature(iri, includeImportsClosure)) {
-            result.add(manager.getOWLDataFactory().getOWLClass(iri));
+            result.add(getOWLOntologyManager().getOWLDataFactory().getOWLClass(iri));
         }
         if (containsObjectPropertyInSignature(iri, includeImportsClosure)) {
-            result.add(manager.getOWLDataFactory().getOWLObjectProperty(iri));
+            result.add(getOWLOntologyManager().getOWLDataFactory().getOWLObjectProperty(iri));
         }
         if (containsDataPropertyInSignature(iri, includeImportsClosure)) {
-            result.add(manager.getOWLDataFactory().getOWLDataProperty(iri));
+            result.add(getOWLOntologyManager().getOWLDataFactory().getOWLDataProperty(iri));
         }
         if (containsIndividualInSignature(iri, includeImportsClosure)) {
-            result.add(manager.getOWLDataFactory().getOWLNamedIndividual(iri));
+            result.add(getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(iri));
         }
         if (containsDatatypeInSignature(iri, includeImportsClosure)) {
-            result.add(manager.getOWLDataFactory().getOWLDatatype(iri));
+            result.add(getOWLOntologyManager().getOWLDataFactory().getOWLDatatype(iri));
         }
         if (containsAnnotationPropertyInSignature(iri, includeImportsClosure)) {
-            result.add(manager.getOWLDataFactory().getOWLAnnotationProperty(iri));
+            result.add(getOWLOntologyManager().getOWLDataFactory().getOWLAnnotationProperty(iri));
         }
         return result;
     }
@@ -606,7 +607,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             return true;
         }
         if (includeImportsClosure == INCLUDED) {
-            for (OWLOntology ont : manager.getImportsClosure(this)) {
+            for (OWLOntology ont : getOWLOntologyManager().getImportsClosure(this)) {
                 if (!ont.equals(this) && ont.isDeclared(owlEntity)) {
                     return true;
                 }
@@ -842,12 +843,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Set<OWLOntology> getImports() {
-        return manager.getImports(this);
+        return getOWLOntologyManager().getImports(this);
     }
 
     @Override
     public Set<OWLOntology> getDirectImports() {
-        return manager.getDirectImports(this);
+        return getOWLOntologyManager().getDirectImports(this);
     }
 
     @Override
