@@ -405,7 +405,34 @@ public class Translators {
         protected boolean isObjectPropertyLax(IRI mainNode,
                 OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
-            return object != null && isObjectPropertyLax(object);
+            /*
+             * Enhancement for Issue 571 (https://github.com/owlcs/owlapi/issues/571)
+             * Relax a bit the Object Property assertion logic. If it is not explicitly 
+             * declared to be an Object Property or a Datatype Property, then assume it 
+             * is an Object Property.
+             */
+            if(object != null)
+            {
+                if(!isObjectPropertyLax(object))
+                {	// Not declared as Object Property
+                	if(!isDataPropertyLax(object))
+                	{	// Not declared as Object or Datatype property. Assume Object Property.
+                		LOGGER.info("Property {} is not declared to be an Object or Datatype Property. Will assume it is an Object Property.", object);
+                		return true;
+                	}
+                	else
+                	{	// Declared explicitly as Datatype Property
+                		return false;
+                	}
+                }
+                else
+                {	// Declared as Object Property
+                	return true;
+                }
+            }
+            
+            // not correctly constructed Resource object.
+            return false;
         }
 
         protected boolean isDataPropertyStrict(IRI node) {
