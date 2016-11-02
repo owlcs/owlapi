@@ -798,7 +798,7 @@ public class Translators {
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode,
                     OWL_MAX_QUALIFIED_CARDINALITY)
-                    && isDataPropertyLax(mainNode, OWL_ON_PROPERTY)
+                    && isResourcePresent(mainNode, OWL_ON_PROPERTY)
                     && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
         }
 
@@ -890,7 +890,7 @@ public class Translators {
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode,
                     OWL_MIN_QUALIFIED_CARDINALITY)
-                    && isDataPropertyLax(mainNode, OWL_ON_PROPERTY)
+                    && isResourcePresent(mainNode, OWL_ON_PROPERTY)
                     && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
         }
 
@@ -955,7 +955,7 @@ public class Translators {
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_QUALIFIED_CARDINALITY)
-                    && isDataPropertyLax(mainNode, OWL_ON_PROPERTY)
+                    && isResourcePresent(mainNode, OWL_ON_PROPERTY)
                     && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
         }
 
@@ -1564,7 +1564,7 @@ public class Translators {
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode,
                     OWL_MAX_QUALIFIED_CARDINALITY)
-                    && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY)
+                    && isResourcePresent(mainNode, OWL_ON_PROPERTY)
                     && isClassExpressionLax(mainNode, OWL_ON_CLASS);
         }
 
@@ -1660,7 +1660,7 @@ public class Translators {
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode,
                     OWL_MIN_QUALIFIED_CARDINALITY)
-                    && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY)
+                    && isResourcePresent(mainNode, OWL_ON_PROPERTY)
                     && isClassExpressionLax(mainNode, OWL_ON_CLASS);
         }
 
@@ -1774,7 +1774,7 @@ public class Translators {
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_QUALIFIED_CARDINALITY)
-                    && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY)
+                    && isResourcePresent(mainNode, OWL_ON_PROPERTY)
                     && isClassExpressionLax(mainNode, OWL_ON_CLASS);
         }
 
