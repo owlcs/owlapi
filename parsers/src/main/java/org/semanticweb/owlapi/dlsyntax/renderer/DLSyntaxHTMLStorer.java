@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
-import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -68,7 +67,10 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null").println("<html>\n<body>\n<h1>Ontology: ");
+        checkNotNull(writer, "writer cannot be null");
+        writer.println("<html>");
+        writer.println("<body>");
+        writer.println("<h1>Ontology: ");
         writer.print(ontology.getOntologyID());
         writer.println("</h1>");
     }
@@ -81,7 +83,9 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null").println("</body>\n</html>");
+        checkNotNull(writer, "writer cannot be null");
+        writer.println("</body>");
+        writer.println("</html>");
     }
 
     @Override
@@ -97,11 +101,13 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     @Override
     protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
-        checkNotNull(writer, "writer cannot be null").print("<h2><a name=\"");
+        checkNotNull(writer, "writer cannot be null");
+        writer.print("<h2><a name=\"");
         writer.print(sfp.getShortForm(subject));
         writer.print("\">");
         writer.print(subject.getIRI());
-        writer.println("</a></h2>\n<div class=\"entitybox\">");
+        writer.println("</a></h2>");
+        writer.println("<div class=\"entitybox\">");
     }
 
     @Override
@@ -121,7 +127,8 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void beginWritingUsage(int size, PrintWriter writer) {
-        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (" + size + ")</h3>");
+        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
+        writer.println("<h3>Usages (" + size + ")</h3>");
     }
 
     @Override
