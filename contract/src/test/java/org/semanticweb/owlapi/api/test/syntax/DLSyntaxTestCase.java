@@ -63,7 +63,7 @@ public class DLSyntaxTestCase extends TestBase {
             "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
             "<h2><a name=\"B\">urn:test:B</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
             "<h2><a name=\"C\">urn:test:C</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
-            "<div>\n</div>\n</body>\n</html>\n", render);
+            "<div>\n</div>\n</body>\n</html>\n", render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class DLSyntaxTestCase extends TestBase {
             "<div class=\"entitybox\">\n<div class=\"axiombox\"> \nA &#8849; &#172; <a href=\"#B\">B</a> </div>\n" + 
             "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
             "<h2><a name=\"B\">urn:test:B</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
-            "<div>\n</div>\n</body>\n</html>\n", render);
+            "<div>\n</div>\n</body>\n</html>\n", render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class DLSyntaxTestCase extends TestBase {
             "<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n" + 
             "<h3>Usages (0)</h3>\n</div>\n</div>\n<h2><a name=\"D\">urn:test:D</a></h2>\n" + 
             "<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n" + 
-            "<h3>Usages (0)</h3>\n</div>\n</div>\n<div>\n</div>\n</body>\n</html>\n", render);
+            "<h3>Usages (0)</h3>\n</div>\n</div>\n<div>\n</div>\n</body>\n</html>\n", render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
