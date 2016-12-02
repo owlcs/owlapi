@@ -6,8 +6,7 @@ _:x <http://www.w3.org/2002/07/owl#annotatedSource>
 _:x <http://www.w3.org/2002/07/owl#annotatedProperty>
 <http://www.w3.org/2002/07/owl#propertyChainAxiom> .
 _:x <http://www.w3.org/2002/07/owl#annotatedTarget> _:y1 .
-_:x <http://www.w3.org/2000/01/rdf-schema#comment> "An aunt is a
-mother's sister." .
+_:x <http://www.w3.org/2000/01/rdf-schema#comment> "An aunt is a mother's sister." .
 <http://example.org/myOnt/hasAunt>
 <http://www.w3.org/2002/07/owl#propertyChainAxiom> _:y1 .
 _:y1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first>

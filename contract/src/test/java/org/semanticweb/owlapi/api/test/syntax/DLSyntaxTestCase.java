@@ -61,9 +61,9 @@ public class DLSyntaxTestCase extends TestBase {
             "<div class=\"entitybox\">\n<div class=\"axiombox\"> \n" + 
             "A &#8849; &#172; <a href=\"#B\">B</a>, A &#8849; &#172; <a href=\"#C\">C</a>, <a href=\"#B\">B</a> &#8849; &#172; <a href=\"#C\">C</a> </div>\n" + 
             "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
-            "<h2><a name=\"B\">urn:B</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
-            "<h2><a name=\"C\">urn:C</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
-            "<div>\n</div>\n</body>\n</html>\n", render);
+            "<h2><a name=\"B\">urn:test:B</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
+            "<h2><a name=\"C\">urn:test:C</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
+            "<div>\n</div>\n</body>\n</html>\n", render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
@@ -77,8 +77,8 @@ public class DLSyntaxTestCase extends TestBase {
         assertEquals("<html>\n<body>\n<h1>Ontology: \nOntologyID(OntologyIRI(<urn:test:onto>) VersionIRI(<null>))</h1>\n<h2><a name=\"A\">urn:A</a></h2>\n" + 
             "<div class=\"entitybox\">\n<div class=\"axiombox\"> \nA &#8849; &#172; <a href=\"#B\">B</a> </div>\n" + 
             "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
-            "<h2><a name=\"B\">urn:B</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
-            "<div>\n</div>\n</body>\n</html>\n", render);
+            "<h2><a name=\"B\">urn:test:B</a></h2>\n<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (0)</h3>\n</div>\n</div>\n" + 
+            "<div>\n</div>\n</body>\n</html>\n", render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class DLSyntaxTestCase extends TestBase {
             "<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n" + 
             "<h3>Usages (0)</h3>\n</div>\n</div>\n<h2><a name=\"D\">urn:D</a></h2>\n" + 
             "<div class=\"entitybox\">\n<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n" + 
-            "<h3>Usages (0)</h3>\n</div>\n</div>\n<div>\n</div>\n</body>\n</html>\n", render);
+            "<h3>Usages (0)</h3>\n</div>\n</div>\n<div>\n</div>\n</body>\n</html>\n", render.replace(System.getProperty("line.separator"), "\n"));
     }
 
     @Test
