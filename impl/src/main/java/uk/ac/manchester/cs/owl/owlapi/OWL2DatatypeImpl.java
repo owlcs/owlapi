@@ -4,32 +4,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -385,7 +360,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public boolean isTopEntity() {
-        return owl2Datatype == OWL2Datatype.RDF_PLAIN_LITERAL;
+        return owl2Datatype == OWL2Datatype.RDFS_LITERAL;
     }
 
     @Override
