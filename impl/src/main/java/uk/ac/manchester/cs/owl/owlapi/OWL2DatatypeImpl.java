@@ -152,7 +152,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public boolean isTopEntity() {
-        return owl2Datatype == RDF_PLAIN_LITERAL;
+        return owl2Datatype == RDFS_LITERAL;
     }
 
     @Override
