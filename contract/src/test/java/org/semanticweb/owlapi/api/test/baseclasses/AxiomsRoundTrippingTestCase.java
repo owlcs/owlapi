@@ -88,6 +88,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
             // SWRLRuleAlternateNS
+            (AxiomBuilder)
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
                 SWRLVariable varX = df.getSWRLVariable("http://www.owlapi#", "x");

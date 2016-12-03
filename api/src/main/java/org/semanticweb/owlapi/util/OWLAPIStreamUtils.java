@@ -1,9 +1,15 @@
 package org.semanticweb.owlapi.util;
 
 import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.HasComponents;
@@ -106,7 +112,7 @@ public class OWLAPIStreamUtils {
      * @return list including all elements in the stream
      */
     public static <T> List<T> asListNullsForbidden(Stream<T> s) {
-        return asList(s.map(x -> checkNotNull(x)));
+        return asList(s.map(OWLAPIPreconditions::checkNotNull));
     }
 
     /**
