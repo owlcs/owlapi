@@ -14,7 +14,14 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -217,7 +224,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             BufferedInputStream delegate = new BufferedInputStream(in);
             InputStream is = OWLOntologyDocumentSourceBase.wrap(delegate);) {
             currentFile = file;
-            SAXParsers.initParserWithOWLAPIStandards(null).parse(is, this);
+            SAXParsers.initParserWithOWLAPIStandards(null, "64000").parse(is, this);
         } catch (Exception e) {
             // if we can't parse a file, then we can't map it
         }

@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Receives notifications about triples generated during the parsing process. */
@@ -167,4 +168,10 @@ public interface RDFConsumer {
      *        replacement for short version
      */
     void addPrefix(String abbreviation, String value);
+
+    /**
+     * @return the loader configuration
+     */
+    OWLOntologyLoaderConfiguration getConfiguration();
+
 }

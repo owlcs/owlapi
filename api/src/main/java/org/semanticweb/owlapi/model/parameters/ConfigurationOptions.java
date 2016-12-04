@@ -91,7 +91,10 @@ public enum ConfigurationOptions {
     BANNERS_ENABLED                     (Boolean.TRUE),
     /** List of banned 
      * parsers keys. */
-    BANNED_PARSERS                      ("");
+    BANNED_PARSERS                      (""),
+    /** Entity expansion limit for 
+     * XML parsing. */
+    ENTITY_EXPANSION_LIMIT              ("100000000");
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private Object defaultValue;
@@ -169,7 +172,7 @@ public enum ConfigurationOptions {
      *         check the config file; if no value is set in the config file, use
      *         the default defined in this enumeration.
      */
-    public <T> T getValue(Class<T> type, EnumMap<ConfigurationOptions, Object> overrides) {
+    public <T> T getValue(Class<T> type, Map<ConfigurationOptions, Object> overrides) {
         Object override = overrides.get(this);
         if (override != null) {
             return parse(override, type);

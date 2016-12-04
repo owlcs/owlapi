@@ -32,7 +32,12 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.util.SAXParsers;
-import org.xml.sax.*;
+import org.xml.sax.Attributes;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
@@ -137,7 +142,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 @Override
                 public void attributeDecl(String eName, String aName, String type, String mode, String value) {}
             };
-            SAXParsers.initParserWithOWLAPIStandards(handler).parse(source, this);
+            SAXParsers.initParserWithOWLAPIStandards(handler, inputConsumer.getConfiguration().getEntityExpansionLimit()).parse(source, this);
             inputConsumer.endModel();
         } catch (URISyntaxException e) {
             throw new SAXException("Invalid SystemID '" + systemID + "'of the supplied input source.", e);

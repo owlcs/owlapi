@@ -57,7 +57,7 @@ public class OWLXMLParser extends AbstractOWLParser {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
-            SAXParsers.initParserWithOWLAPIStandards(null).parse(isrc, handler);
+            SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit()).parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;

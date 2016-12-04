@@ -16,14 +16,29 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
+import org.semanticweb.owlapi.io.RDFParserMetaData;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFResourceParseError;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.TranslatorAccessor;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor;
@@ -2283,13 +2298,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         return dataRangeIRIs.contains(iri);
     }
 
-    /**
-     * Gets the configuration.
-     * 
-     * @return the configuration
-     */
+    @Override
     @Nonnull
-    protected OWLOntologyLoaderConfiguration getConfiguration() {
+    public OWLOntologyLoaderConfiguration getConfiguration() {
         return configuration;
     }
 

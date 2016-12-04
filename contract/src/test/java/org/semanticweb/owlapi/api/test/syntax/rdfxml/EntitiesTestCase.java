@@ -28,4 +28,21 @@ public class EntitiesTestCase extends TestBase {
         assertTrue(o2.toString().contains(
                 "<owl:priorVersion rdf:resource=\"&vin;test\"/>"));
     }
+
+    @Test
+    public void shouldNotIncludeExternalEntities() throws Exception {
+        String input = "<?xml version=\"1.0\"?>\n"
+            + "<!DOCTYPE testinginjection [<!ENTITY xxe SYSTEM \"file:///etc/passwd\" >]>\n"
+            + "<rdf:RDF xmlns:owl =\"http://www.w3.org/2002/07/owl#\""
+            + " xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
+            + " xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\""
+            + " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\"> \n" + "<owl:Ontology rdf:about=\"\"/>"
+            + "    <rdf:Description rdf:about=\"urn:test:i\">\n"
+            + "        <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">&xxe;</rdfs:comment>\n"
+            + "    </rdf:Description>" + "</rdf:RDF>";
+        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o1 = m.createOntology();
+        m.addAxiom(o1, df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), IRI.create("urn:test:i"), df.getOWLLiteral("")));
+        equal(o, o1);
+    }
 }

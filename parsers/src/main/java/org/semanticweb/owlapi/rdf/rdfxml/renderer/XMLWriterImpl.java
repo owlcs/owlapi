@@ -17,13 +17,21 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.Writer;
-import java.util.*;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.parsers.SAXParser;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.xml.sax.InputSource;
@@ -440,8 +448,9 @@ public class XMLWriterImpl implements XMLWriter {
 
         private void checkProperXMLLiteral(String text) throws IOException {
             try {
-                SAXParsers.initParserWithOWLAPIStandards(null).parse(new InputSource(new StringReader(text)),
-                    new DefaultHandler());
+                String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT.getValue(String.class, Collections.<ConfigurationOptions, Object>emptyMap());
+                SAXParser parser = SAXParsers.initParserWithOWLAPIStandards(null, expansions);
+                parser.parse(new InputSource(new StringReader(text)), new DefaultHandler());
             } catch (SAXException e) {
                 throw new IOException("XML literal is not self contained: \"" + text + "\"", e);
             }

@@ -258,6 +258,13 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
+     * @return max number of XML entity expansions to perform while parsing RDF/XML.
+     */
+    public String getEntityExpansionLimit() {
+        return ENTITY_EXPANSION_LIMIT.getValue(String.class, overrides);
+    }
+
+    /**
      * @param b
      *        true if HTTP compression should be accepted
      * @return a copy of this configuration with accepting HTTP compression set
@@ -456,6 +463,19 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(BANNED_PARSERS, ban);
+        return configuration;
+    }
+    /**
+     * @param limit
+     *        maximum number of XML entities to expand.
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setEntityExpansionLimit(String limit) {
+        if (getEntityExpansionLimit().equals(limit)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(ConfigurationOptions.ENTITY_EXPANSION_LIMIT, limit);
         return configuration;
     }
 }
