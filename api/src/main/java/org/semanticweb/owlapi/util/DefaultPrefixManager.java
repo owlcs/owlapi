@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -25,6 +24,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -142,7 +142,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
                     prefixed = iriString.replace(s, prefix);
                 }
             }
-            if (prefixed != null) {
+            if (prefixed != null && XMLUtils.isQName(prefixed)) {
                 return prefixed;
             }
         }
