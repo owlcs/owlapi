@@ -106,4 +106,18 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         m.saveOntology(ontology, stream);
         assertTrue(stream.toString().contains("pizza:PizzaBase"));
     }
+
+    @Test
+    public void shouldRoundtripIRIsWithQueryString() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input="<?xml version=\"1.0\"?>\n" + 
+            "<rdf:RDF xmlns=\"http://purl.obolibrary.org/obo/TEMP#\" xml:base=\"http://purl.obolibrary.org/obo/TEMP\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:oboInOwl=\"http://www.geneontology.org/formats/oboInOwl#\" xmlns:obo1=\"http://purl.obolibrary.org/obo/\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n" + 
+            "    <owl:Ontology rdf:about=\"http://purl.obolibrary.org/obo/TEMP\"/>\n" + 
+            "    <owl:Class rdf:about=\"obo1:X\"><rdfs:seeAlso rdf:resource=\"http://purl.obolibrary.org/obo/?func=detail&amp;\"/></owl:Class>\n" + 
+            "</rdf:RDF>";
+        OWLOntology o=loadOntologyFromString(input);
+        StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
+        System.out.println("RoundTripTestCase.shouldRoundtripIRIsWithQueryString() "+saveOntology);
+        OWLOntology o1=loadOntologyFromString(saveOntology);
+        equal(o, o1);
+    }
 }

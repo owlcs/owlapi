@@ -26,6 +26,7 @@ import java.util.TreeMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -149,7 +150,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
                     prefixed = iriString.replace(s, prefix);
                 }
             }
-            if (prefixed != null) {
+            if (prefixed != null && XMLUtils.isQName(prefixed)) {
                 return prefixed;
             }
         }
