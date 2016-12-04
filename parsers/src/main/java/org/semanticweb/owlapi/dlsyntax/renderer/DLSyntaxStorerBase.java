@@ -94,7 +94,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         }
         Set<OWLAxiom> usages = new TreeSet<>(ont.getReferencingAxioms(entity, EXCLUDED));
         usages.removeAll(axioms);
-        beginWritingUsage(entity, usages, writer);
+        beginWritingUsage(usages.size(), writer);
         for (OWLAxiom usage : usages) {
             assert usage != null;
             if (!axioms.contains(usage) && printed.add(usage)) {
@@ -138,8 +138,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void beginWritingUsage(@Nonnull OWLEntity subject, @Nonnull Set<? extends OWLAxiom> axioms,
-        @Nonnull PrintWriter writer) {}
+    protected void beginWritingUsage(int size, @Nonnull PrintWriter writer) {}
 
     @SuppressWarnings("unused")
     protected void endWritingUsage(@Nonnull OWLEntity subject, @Nonnull Set<? extends OWLAxiom> axioms,

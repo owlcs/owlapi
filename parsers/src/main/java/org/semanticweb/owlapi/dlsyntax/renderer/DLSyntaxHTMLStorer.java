@@ -53,14 +53,11 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
             @Override
             protected String renderEntity(@Nonnull OWLEntity entity) {
-                String shortForm = sfp.getShortForm(checkNotNull(entity,
-                        "entity cannot be null"));
-                if (!entity.equals(subject)) {
-                    return "<a href=\"#" + shortForm + "\">" + shortForm
-                            + "</a>";
-                } else {
+                String shortForm = sfp.getShortForm(checkNotNull(entity, "entity cannot be null"));
+                if (entity.equals(subject)) {
                     return shortForm;
                 }
+                return "<a href=\"#" + shortForm + "\">" + shortForm + "</a>";
             }
 
             @Override
@@ -74,8 +71,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @Override
-    protected void beginWritingOntology(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer) {
+    protected void beginWritingOntology(@Nonnull OWLOntology ontology, @Nonnull PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
         writer.println("<html>");
@@ -86,8 +82,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @SuppressWarnings("unused")
-    protected void writeEntity(@Nonnull OWLEntity entity,
-            @Nonnull PrintWriter writer) {}
+    protected void writeEntity(@Nonnull OWLEntity entity, @Nonnull PrintWriter writer) {}
 
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
@@ -140,6 +135,12 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
             PrintWriter writer) {
         checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").println("</div>");
+    }
+
+    @Override
+    protected void beginWritingUsage(int size, PrintWriter writer) {
+        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
+        writer.println("<h3>Usages (" + size + ")</h3>");
     }
 
     @Override
