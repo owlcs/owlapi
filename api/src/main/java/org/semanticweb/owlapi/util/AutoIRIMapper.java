@@ -15,7 +15,15 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashSet;
@@ -245,7 +253,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             BufferedInputStream delegate = new BufferedInputStream(in);
             InputStream is = DocumentSources.wrap(delegate);) {
             currentFile = file;
-            SAXParsers.initParserWithOWLAPIStandards(null).parse(is, this);
+            //Using the default expansion limit. If the ontology IRI cannot be found before 64000 entities are expanded, the file is too expensive to parse.
+            SAXParsers.initParserWithOWLAPIStandards(null, "64000").parse(is, this);
         } catch (SAXException | IOException e) {
             // if we can't parse a file, then we can't map it
             LOGGER.debug("Exception reading file", e);

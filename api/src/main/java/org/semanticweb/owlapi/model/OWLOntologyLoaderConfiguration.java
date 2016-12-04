@@ -12,12 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
+
 import java.io.Serializable;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -40,83 +42,11 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class OWLOntologyLoaderConfiguration implements Serializable {
 
-    /** True if http compression should be used. */
-    private boolean acceptHTTPCompression = true;
-    /** Timeout for connections. */
-    private int connectionTimeout = 20000;
-    /** True if redirects should be followed across protocols. */
-    private boolean followRedirects = true;
-    /** Set of imports to ignore. */
-    @Nonnull private final Set<IRI> ignoredImports = new HashSet<>();
-    /** True if annotations should be loaded, false if skipped. */
-    private boolean loadAnnotations = true;
-    /** Missing imports handling strategy. */
-    @Nonnull private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
-    /** Default missing ontology strategy. */
-    @Nonnull private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
-    /** Flag to enable stack traces on parsing exceptions. */
-    private boolean reportStackTraces = true;
-    /**
-     * Number of retries to attempt when retrieving an ontology form a remote
-     * URL. Defaults to 5.
-     */
-    private int retriesToAttempt = 5;
-    /** True if strict parsing should be used. */
-    private boolean strict = false;
-    /** True if Dublin Core. */
-    private boolean treatDublinCoreAsBuiltIn = true;
-    /** sort configuration for priority collections */
-    private PriorityCollectionSorting priorityCollectionSorting = PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
-    private String bannedParsers = "";
+    /** Local override map. */
+    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
+    /** set of imports to ignore */
+    private final Set<IRI> ignoredImports = new HashSet<>();
 
-    /**
-     * @param ban
-     *        list of parser factory class names that should be skipped when
-     *        attempting ontology parsing. The list is space separated.
-     * @return An {@code OntologyConfigurator} with the new option set.
-     */
-    public OWLOntologyLoaderConfiguration setBannedParsers(String ban) {
-        if (bannedParsers.equals(ban)) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.bannedParsers = ban;
-        return configuration;
-    }
-
-    /**
-     * @return list of parser factory class names that should be skipped when
-     *         attempting ontology parsing. The list is space separated.
-     */
-    public String getBannedParsers() {
-        return bannedParsers;
-    }
-
-    /**
-     * Set the priorty collection sorting option.
-     * 
-     * @param sorting
-     *        the sorting option to be used.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting
-     *         option set.
-     */
-    public OWLOntologyLoaderConfiguration setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
-        if (priorityCollectionSorting == sorting) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.priorityCollectionSorting = sorting;
-        return configuration;
-    }
-
-    /**
-     * @return The {@code PriorityCollectionSorting} for this configuration. It
-     *         determines how parsers, storers and mappers are ordered. Default
-     *         is {@link PriorityCollectionSorting#ON_SET_INJECTION_ONLY}
-     */
-    public PriorityCollectionSorting getPriorityCollectionSorting() {
-        return priorityCollectionSorting;
-    }
 
     /**
      * Adds an ontology document IRI to the list of ontology imports that will
@@ -148,133 +78,12 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * Internally copies this configuaration object.
-     * 
-     * @return The copied configuration
-     */
-    private OWLOntologyLoaderConfiguration copyConfiguration() {
-        OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
-        copy.acceptHTTPCompression = acceptHTTPCompression;
-        copy.connectionTimeout = connectionTimeout;
-        copy.followRedirects = followRedirects;
-        copy.ignoredImports.clear();
-        copy.ignoredImports.addAll(ignoredImports);
-        copy.loadAnnotations = loadAnnotations;
-        copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
-        copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
-        copy.reportStackTraces = reportStackTraces;
-        copy.retriesToAttempt = retriesToAttempt;
-        copy.strict = strict;
-        copy.treatDublinCoreAsBuiltIn = treatDublinCoreAsBuiltIn;
-        return copy;
-    }
-
-    /**
-     * @return the connection timeout for this configuration
-     */
-    public int getConnectionTimeout() {
-        return connectionTimeout;
-    }
-
-    /**
-     * Gets the strategy used for missing imports.
-     * 
-     * @return The strategy. See {@link MissingImportHandlingStrategy} for the
-     *         strategies and their descriptions.
-     * @since 3.3
-     */
-    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
-        return missingImportHandlingStrategy;
-    }
-
-    /**
-     * @return the ontology header strategy
-     */
-    public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
-        return missingOntologyHeaderStrategy;
-    }
-
-    /**
-     * @return number of retries to attempt when retrieving an ontology form a
-     *         remote URL.
-     */
-    public int getRetriesToAttempt() {
-        return retriesToAttempt;
-    }
-
-    /**
-     * @return true if http compression should be accepted.
-     */
-    public boolean isAcceptingHTTPCompression() {
-        return acceptHTTPCompression;
-    }
-
-    /**
-     * When loading an ontology, a parser might connect to a remote URL. If the
-     * remote URL is a 302 redirect and the protocol is different, e.g., http to
-     * https, the parser needs to decide whether to follow the redirect and
-     * download the ontology from an alternate source, or stop with an
-     * UnloadableOntologyError. By default this is true, meaning redirects will
-     * be followed across protocols. If set to false, redirects will be followed
-     * only within the same protocol (URLConnection limits this to five
-     * redirects).
-     * 
-     * @return true if redirects should be followed when importing ontologies
-     *         from remote URLs
-     */
-    public boolean isFollowRedirects() {
-        return followRedirects;
-    }
-
-    /**
      * @param iri
      *        iri to check
      * @return true if iri should be ignored
      */
     public boolean isIgnoredImport(IRI iri) {
         return Namespaces.isDefaultIgnoredImport(iri) || ignoredImports.contains(iri);
-    }
-
-    /**
-     * Determines whether or not annotation axioms (instances of
-     * {@code OWLAnnotationAxiom}) should be loaded. By default, the loading of
-     * annotation axioms is enabled.
-     * 
-     * @return {@code true} if annotation assertions will be loaded, or
-     *         {@code false} if annotation assertions will not be loaded because
-     *         they will be discarded on loading.
-     */
-    public boolean isLoadAnnotationAxioms() {
-        return loadAnnotations;
-    }
-
-    /**
-     * @return value for the report stack trace flag.
-     */
-    public boolean isReportStackTrace() {
-        return reportStackTraces;
-    }
-
-    /**
-     * @return true if parsing should be strict
-     */
-    public boolean isStrict() {
-        return strict;
-    }
-
-    /**
-     * Determines if the various parsers, for formats such as RDF based formats
-     * that do not require strong typing, should treat Dublin Core Vocabulary as
-     * built in vocabulary, so that Dublin Core metadata properties are
-     * interpreted as annotation properties.
-     * 
-     * @return {@code true} if the Dublin Core Vocabulary should be treated as
-     *         built in vocabulary and Dublin Core properties are interpreted as
-     *         annotation properties, otherwise {@code false}. The defaut is
-     *         {@code true}.
-     */
-    public boolean isTreatDublinCoreAsBuiltIn() {
-        return treatDublinCoreAsBuiltIn;
     }
 
     /**
@@ -294,6 +103,149 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
+     * Internally copies this configuaration object.
+     * 
+     * @return The copied configuration
+     */
+    private OWLOntologyLoaderConfiguration copyConfiguration() {
+        OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
+        copy.overrides.putAll(overrides);
+        copy.ignoredImports.clear();
+        copy.ignoredImports.addAll(ignoredImports);
+        return copy;
+    }
+
+    /**
+     * Set the priorty collection sorting option.
+     * 
+     * @param sorting
+     *        the sorting option to be used.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting
+     *         option set.
+     */
+    public OWLOntologyLoaderConfiguration setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
+        if (sorting.equals(getPriorityCollectionSorting())) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(PRIORITY_COLLECTION_SORTING, sorting);
+        return configuration;
+    }
+
+    /**
+     * @return The {@code PriorityCollectionSorting} for this configuration. It
+     *         determines how parsers, storers and mappers are ordered. Default
+     *         is {@link PriorityCollectionSorting#ON_SET_INJECTION_ONLY}
+     */
+    public PriorityCollectionSorting getPriorityCollectionSorting() {
+        return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
+    }
+
+    /** @return the connection timeout for this configuration */
+    public int getConnectionTimeout() {
+        return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
+    }
+
+    /**
+     * Gets the strategy used for missing imports.
+     * 
+     * @return The strategy. See {@link MissingImportHandlingStrategy} for the
+     *         strategies and their descriptions.
+     * @since 3.3
+     */
+    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
+        return MISSING_IMPORT_HANDLING_STRATEGY.getValue(MissingImportHandlingStrategy.class, overrides);
+    }
+
+    /** @return the ontology header strategy */
+    public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
+        return MISSING_ONTOLOGY_HEADER_STRATEGY.getValue(MissingOntologyHeaderStrategy.class, overrides);
+    }
+
+    /**
+     * @return number of retries to attempt when retrieving an ontology form a
+     *         remote URL.
+     */
+    public int getRetriesToAttempt() {
+        return RETRIES_TO_ATTEMPT.getValue(Integer.class, overrides).intValue();
+    }
+
+    /** @return true if http compression should be accepted. */
+    public boolean isAcceptingHTTPCompression() {
+        return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * When loading an ontology, a parser might connect to a remote URL. If the
+     * remote URL is a 302 redirect and the protocol is different, e.g., http to
+     * https, the parser needs to decide whether to follow the redirect and
+     * download the ontology from an alternate source, or stop with an
+     * UnloadableOntologyError. By default this is true, meaning redirects will
+     * be followed across protocols. If set to false, redirects will be followed
+     * only within the same protocol (URLConnection limits this to five
+     * redirects).
+     * 
+     * @return true if redirects should be followed when importing ontologies
+     *         from remote URLs
+     */
+    public boolean isFollowRedirects() {
+        return FOLLOW_REDIRECTS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * Determines whether or not annotation axioms (instances of
+     * {@code OWLAnnotationAxiom}) should be loaded. By default, the loading of
+     * annotation axioms is enabled.
+     * 
+     * @return {@code true} if annotation assertions will be loaded, or
+     *         {@code false} if annotation assertions will not be loaded because
+     *         they will be discarded on loading.
+     */
+    public boolean isLoadAnnotationAxioms() {
+        return LOAD_ANNOTATIONS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /** @return value for the report stack trace flag. */
+    public boolean isReportStackTrace() {
+        return REPORT_STACK_TRACES.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /** @return true if parsing should be strict */
+    public boolean isStrict() {
+        return PARSE_WITH_STRICT_CONFIGURATION.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * Determines if the various parsers, for formats such as RDF based formats
+     * that do not require strong typing, should treat Dublin Core Vocabulary as
+     * built in vocabulary, so that Dublin Core metadata properties are
+     * interpreted as annotation properties.
+     * 
+     * @return {@code true} if the Dublin Core Vocabulary should be treated as
+     *         built in vocabulary and Dublin Core properties are interpreted as
+     *         annotation properties, otherwise {@code false}. The defaut is
+     *         {@code true}.
+     */
+    public boolean isTreatDublinCoreAsBuiltIn() {
+        return TREAT_DUBLINCORE_AS_BUILTIN.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @return list of parser factory class names that should be skipped when
+     *         attempting ontology parsing. The list is space separated.
+     */
+    public String getBannedParsers() {
+        return BANNED_PARSERS.getValue(String.class, overrides);
+    }
+
+    /**
+     * @return max number of XML entity expansions to perform while parsing RDF/XML.
+     */
+    public String getEntityExpansionLimit() {
+        return ENTITY_EXPANSION_LIMIT.getValue(String.class, overrides);
+    }
+
+    /**
      * @param b
      *        true if HTTP compression should be accepted
      * @return a copy of this configuration with accepting HTTP compression set
@@ -301,11 +253,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public OWLOntologyLoaderConfiguration setAcceptingHTTPCompression(boolean b) {
         // do not make copies if setting the same value
-        if (acceptHTTPCompression == b) {
+        if (isAcceptingHTTPCompression() == b) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.acceptHTTPCompression = b;
+        copy.overrides.put(ACCEPT_HTTP_COMPRESSION, Boolean.valueOf(b));
         return copy;
     }
 
@@ -317,11 +269,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      *         timeout set to the new value.
      */
     public OWLOntologyLoaderConfiguration setConnectionTimeout(int l) {
-        if (l == connectionTimeout) {
+        if (getConnectionTimeout() == l) {
             return this;
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.connectionTimeout = l;
+        configuration.overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
         return configuration;
     }
 
@@ -335,11 +287,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
         // as the objects are immutable, setting to the same value returns the
         // same object
-        if (value == followRedirects) {
+        if (value == isFollowRedirects()) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.followRedirects = value;
+        copy.overrides.put(FOLLOW_REDIRECTS, Boolean.valueOf(value));
         return copy;
     }
 
@@ -358,11 +310,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
         // do not make copies if setting the same value
-        if (loadAnnotations == b) {
+        if (isLoadAnnotationAxioms() == b) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.loadAnnotations = b;
+        copy.overrides.put(LOAD_ANNOTATIONS, Boolean.valueOf(b));
         return copy;
     }
 
@@ -380,11 +332,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(
         MissingImportHandlingStrategy missingImportHandlingStrategy) {
         // do not make copies if setting the same value
-        if (this.missingImportHandlingStrategy == missingImportHandlingStrategy) {
+        if (getMissingImportHandlingStrategy() == missingImportHandlingStrategy) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
+        copy.overrides.put(MISSING_IMPORT_HANDLING_STRATEGY, missingImportHandlingStrategy);
         return copy;
     }
 
@@ -396,11 +348,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
         MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         // do not make copies if setting the same value
-        if (missingOntologyHeaderStrategy == this.missingOntologyHeaderStrategy) {
+        if (getMissingOntologyHeaderStrategy() == missingOntologyHeaderStrategy) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
+        copy.overrides.put(MISSING_ONTOLOGY_HEADER_STRATEGY, missingOntologyHeaderStrategy);
         return copy;
     }
 
@@ -415,11 +367,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      *         to the new value.
      */
     public OWLOntologyLoaderConfiguration setReportStackTraces(boolean b) {
-        if (b == reportStackTraces) {
+        if (isReportStackTrace() == b) {
             return this;
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.reportStackTraces = b;
+        configuration.overrides.put(REPORT_STACK_TRACES, Boolean.valueOf(b));
         return configuration;
     }
 
@@ -430,11 +382,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public OWLOntologyLoaderConfiguration setRetriesToAttempt(int retries) {
         // do not make copies if setting the same value
-        if (retries == retriesToAttempt) {
+        if (getRetriesToAttempt() == retries) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.retriesToAttempt = retries;
+        copy.overrides.put(RETRIES_TO_ATTEMPT, Integer.valueOf(retries));
         return copy;
     }
 
@@ -445,11 +397,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
         // do not make copies if setting the same value
-        if (this.strict == strict) {
+        if (isStrict() == strict) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.strict = strict;
+        copy.overrides.put(PARSE_WITH_STRICT_CONFIGURATION, Boolean.valueOf(strict));
         return copy;
     }
 
@@ -462,11 +414,40 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(boolean value) {
         // as the objects are immutable, setting to the same value returns the
         // same object
-        if (value == treatDublinCoreAsBuiltIn) {
+        if (isTreatDublinCoreAsBuiltIn() == value) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.treatDublinCoreAsBuiltIn = value;
+        copy.overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.valueOf(value));
         return copy;
     }
+
+    /**
+     * @param ban
+     *        list of parser factory class names that should be skipped when
+     *        attempting ontology parsing. The list is space separated.
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setBannedParsers(String ban) {
+        if (getBannedParsers().equals(ban)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(BANNED_PARSERS, ban);
+        return configuration;
+    }
+    /**
+     * @param limit
+     *        maximum number of XML entities to expand.
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OWLOntologyLoaderConfiguration setEntityExpansionLimit(String limit) {
+        if (getEntityExpansionLimit().equals(limit)) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.overrides.put(ConfigurationOptions.ENTITY_EXPANSION_LIMIT, limit);
+        return configuration;
+    }
 }
+

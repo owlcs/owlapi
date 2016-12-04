@@ -37,6 +37,8 @@ public final class SAXParsers {
     private static final String DECLARATION_HANDLER = "http://xml.org/sax/properties/declaration-handler";
     private static final String EXPANSION_LIMIT = "entityExpansionLimit";
     private static final String ORACLE_EXPANSION_LIMIT = "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit";
+    private static final String GENERAL_ENTITIES="http://xml.org/sax/features/external-general-entities";
+    private static final String PARAMETER_ENTITIES="http://xml.org/sax/features/external-parameter-entities";
     private static final Logger LOGGER = LoggerFactory.getLogger(SAXParsers.class);
 
     private SAXParsers() {}
@@ -48,28 +50,38 @@ public final class SAXParsers {
     public static SAXParserFactory initFactory() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);
-        try {
-            factory.setFeature(LOAD_EXTERNAL_DTD, false);
-            factory.setFeature(VALIDATION, false);
-        } catch (ParserConfigurationException | SAXException e) {
-            throw new OWLRuntimeException(e);
-        }
+        disableFeature(LOAD_EXTERNAL_DTD, factory);
+        disableFeature(VALIDATION, factory);
+        disableFeature(GENERAL_ENTITIES, factory);
+        disableFeature(PARAMETER_ENTITIES, factory);
         factory.setNamespaceAware(true);
         return factory;
+    }
+
+    private static void disableFeature(String feature, SAXParserFactory factory) {
+        try {
+            factory.setFeature(feature, false);
+        } catch (ParserConfigurationException | SAXException e) {
+            LOGGER.warn(factory.getClass().getName() + " does not support " + feature, e);
+        }
     }
 
     /**
      * @param handler
      *        declaration handler, optional. Used for entity detection for reuse
      *        in parser output.
+     * @param expansion
+     *        entity expansion limit. See
+     *        {@link org.semanticweb.owlapi.model.parameters.ConfigurationOptions}
+     *        for instructions on how to set the value.
      * @return new SaxParser, intialized with optional declaration handler and
      *         larger entity expansion limit
      */
-    public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler) {
+    public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler, String expansion) {
         try {
             SAXParser parser = initFactory().newSAXParser();
-            if (!addOracleExpansionLimit(parser)) {
-                addExpansionLimit(parser);
+            if (!addOracleExpansionLimit(parser, expansion)) {
+                addExpansionLimit(parser, expansion);
             }
             addHandler(handler, parser);
             return parser;
@@ -78,17 +90,17 @@ public final class SAXParsers {
         }
     }
 
-    protected static void addExpansionLimit(SAXParser parser) {
+    protected static void addExpansionLimit(SAXParser parser, String expansion) {
         try {
-            parser.setProperty(EXPANSION_LIMIT, "100000000");
+            parser.setProperty(EXPANSION_LIMIT, expansion);
         } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
             LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), ex.getMessage());
         }
     }
 
-    protected static boolean addOracleExpansionLimit(SAXParser parser) {
+    protected static boolean addOracleExpansionLimit(SAXParser parser, String expansion) {
         try {
-            parser.setProperty(ORACLE_EXPANSION_LIMIT, "100000000");
+            parser.setProperty(ORACLE_EXPANSION_LIMIT, expansion);
             return true;
         } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
             LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), e.getMessage());

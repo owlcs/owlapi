@@ -91,7 +91,10 @@ public enum ConfigurationOptions {
     BANNERS_ENABLED                     (Boolean.FALSE),
     /** List of banned 
      * parsers keys. */
-    BANNED_PARSERS                      ("");
+    BANNED_PARSERS                      (""),
+    /** Entity expansion limit for 
+     * XML parsing. */
+    ENTITY_EXPANSION_LIMIT              ("100000000");
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private Object defaultValue;
