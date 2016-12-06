@@ -387,7 +387,6 @@ public class TripleHandlers {
             add(predicateHandlers, new TPSubClassOfHandler(r));
             add(predicateHandlers, new TPSubPropertyOfHandler(r));
             add(predicateHandlers, nonBuiltInTypes);
-            add(predicateHandlers, new TPDistinctMembersHandler(r));
             add(predicateHandlers, new TPImportsHandler(r));
             add(predicateHandlers, new TPIntersectionOfHandler(r));
             add(predicateHandlers, new TPUnionOfHandler(r));
@@ -1345,26 +1344,6 @@ public class TripleHandlers {
         }
     }
 
-    static class TPDistinctMembersHandler extends AbstractTriplePredicateHandler {
-
-        TPDistinctMembersHandler(@Nonnull OWLRDFConsumer consumer) {
-            super(consumer, OWL_DISTINCT_MEMBERS.getIRI());
-        }
-
-        @Override
-        public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-            // We need all of the list triples to be loaded :(
-            return false;
-        }
-
-        @Override
-        public void handleTriple(IRI subject, IRI predicate, IRI object) {
-            Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(object);
-            addAxiom(df.getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
-            consumeTriple(subject, predicate, object);
-        }
-    }
-
     static class TPEquivalentClassHandler extends AbstractTriplePredicateHandler {
 
         TPEquivalentClassHandler(@Nonnull OWLRDFConsumer consumer) {
@@ -2207,8 +2186,8 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandle(IRI subject, @Nonnull IRI predicate, @Nonnull IRI object) {
-            return super.canHandle(subject, predicate, object) && consumer.getResourceObject(subject, OWL_MEMBERS,
-                false) != null;
+            return super.canHandle(subject, predicate, object) &&  
+                (isResourcePresent(subject, OWL_MEMBERS) || isResourcePresent(subject, OWL_DISTINCT_MEMBERS));
         }
 
         @Override
@@ -2218,6 +2197,13 @@ public class TripleHandlers {
                 Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(listNode);
                 addAxiom(df.getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
                 consumeTriple(subject, predicate, object);
+            }else {
+                listNode=consumer.getResourceObject(subject, OWL_DISTINCT_MEMBERS.getIRI(), true);
+                if (listNode != null) {
+                    Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(listNode);
+                    addAxiom(df.getOWLDifferentIndividualsAxiom(inds, getPendingAnnotations()));
+                    consumeTriple(subject, predicate, object);
+                }
             }
         }
 

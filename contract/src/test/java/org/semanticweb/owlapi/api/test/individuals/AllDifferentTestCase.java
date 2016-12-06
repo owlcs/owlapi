@@ -45,6 +45,6 @@ public class AllDifferentTestCase extends TestBase {
                 + "</owl:members></owl:AllDifferent></rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(onto1);
         OWLOntology o2 = loadOntologyFromString(onto2);
-        assertEquals(o2.getLogicalAxiomCount(), o1.getLogicalAxiomCount());
+        equal(o2, o1);
     }
 }
