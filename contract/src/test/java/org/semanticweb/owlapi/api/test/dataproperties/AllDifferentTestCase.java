@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.dataproperties;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -45,6 +43,6 @@ public class AllDifferentTestCase extends TestBase {
                 + "</owl:members></owl:AllDifferent></rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(onto1);
         OWLOntology o2 = loadOntologyFromString(onto2);
-        assertEquals(o2.getLogicalAxiomCount(), o1.getLogicalAxiomCount());
+        equal(o2, o1);
     }
 }

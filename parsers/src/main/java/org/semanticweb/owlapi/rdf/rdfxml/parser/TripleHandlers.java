@@ -321,7 +321,6 @@ public class TripleHandlers {
             add(predicateHandlers, new TPSubClassOfHandler(r));
             add(predicateHandlers, new TPSubPropertyOfHandler(r));
             add(predicateHandlers, nonBuiltInTypes);
-            add(predicateHandlers, new TPDistinctMembersHandler(r));
             add(predicateHandlers, new TPImportsHandler(r));
             add(predicateHandlers, new TPIntersectionOfHandler(r));
             add(predicateHandlers, new TPUnionOfHandler(r));
@@ -1245,26 +1244,6 @@ public class TripleHandlers {
         }
     }
 
-    static class TPDistinctMembersHandler extends AbstractTriplePredicateHandler {
-
-        TPDistinctMembersHandler(OWLRDFConsumer consumer) {
-            super(consumer, OWL_DISTINCT_MEMBERS.getIRI());
-        }
-
-        @Override
-        public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
-            // We need all of the list triples to be loaded :(
-            return false;
-        }
-
-        @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {
-            Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(o);
-            add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
-            consume(s, p, o);
-        }
-    }
-
     static class TPEquivalentClassHandler extends AbstractTriplePredicateHandler {
 
         TPEquivalentClassHandler(OWLRDFConsumer consumer) {
@@ -2073,7 +2052,8 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandle(IRI s, IRI p, IRI o) {
-            return super.canHandle(s, p, o) && isResourcePresent(s, OWL_MEMBERS);
+            return super.canHandle(s, p, o) && 
+                (isResourcePresent(s, OWL_MEMBERS) || isResourcePresent(s, OWL_DISTINCT_MEMBERS));
         }
 
         @Override
@@ -2083,6 +2063,13 @@ public class TripleHandlers {
                 Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(listNode);
                 add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
                 consume(s, p, o);
+            }else {
+                listNode=getRO(s, OWL_DISTINCT_MEMBERS);
+                if (listNode != null) {
+                    Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(listNode);
+                    add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
+                    consume(s, p, o);
+                }
             }
         }
 
