@@ -83,7 +83,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     @Nonnull protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
     protected final AtomicInteger loadCount = new AtomicInteger(0);
     protected final AtomicInteger importsLoadCount = new AtomicInteger(0);
-    @Nonnull protected final Set<IRI> importedIRIs = createSyncSet();
+    @Nonnull protected final Map<IRI, Object> importedIRIs = createSyncMap();
     @Nonnull protected final OWLDataFactory dataFactory;
     @Nonnull protected final Map<OWLOntologyID, Set<OWLOntology>> importsClosureCache = createSyncMap();
     @Nonnull protected final List<MissingImportListener> missingImportsListeners = createSyncList();
@@ -393,7 +393,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         try {
             OWLOntologyID ontologyID = ontologyIDsByImportsDeclaration.get(declaration);
             if (ontologyID == null) {
-             // No such ontology has been loaded through an import
+                // No such ontology has been loaded through an import
                 // declaration, but it might have been loaded manually.
                 // Using the IRI to retrieve it will either find the ontology or
                 // return null.
@@ -882,8 +882,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
         readLock.lock();
         try {
-            java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream().filter(o -> documentIRI
-                .equals(o.getValue())).findAny();
+            java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream().filter(
+                o -> documentIRI.equals(o.getValue())).findAny();
             if (findAny.isPresent()) {
                 return ontologiesByID.get(findAny.get().getKey());
             }
@@ -1072,6 +1072,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             OWLOntology o = ontologiesByID.remove(ontologyID);
             ontologyFormatsByOntology.remove(ontologyID);
             documentIRIsByID.remove(ontologyID);
+            removeValue(ontologyIDsByImportsDeclaration, ontologyID);
+            removeValue(importedIRIs, ontologyID);
             if (o != null) {
                 o.setOWLOntologyManager(null);
                 resetImportsClosureCache();
@@ -1079,6 +1081,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         } finally {
             writeLock.unlock();
         }
+    }
+
+    protected <Q, S> void removeValue(Map<Q, S> map, S id) {
+        List<Q> keys = asList(map.entrySet().stream().filter(e -> e.getValue().equals(id)).map(e -> e.getKey()));
+        keys.forEach(map::remove);
     }
 
     private void addOntology(OWLOntology ont) {
@@ -1570,12 +1577,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         writeLock.lock();
         try {
             IRI iri = declaration.getIRI();
-            if (!configuration.isIgnoredImport(iri) && !importedIRIs.contains(iri)) {
-                importedIRIs.add(iri);
+            if (!configuration.isIgnoredImport(iri) && !importedIRIs.containsKey(iri)) {
+                // insert temporary value - we do not know the actual ID yet
+                importedIRIs.put(iri, new Object());
                 try {
                     OWLOntology ont = loadImports(declaration, configuration);
                     if (ont != null) {
                         ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
+                        importedIRIs.put(iri, ont.getOntologyID());
                     }
                 } catch (OWLOntologyCreationException e) {
                     // Wrap as UnloadableImportException and throw

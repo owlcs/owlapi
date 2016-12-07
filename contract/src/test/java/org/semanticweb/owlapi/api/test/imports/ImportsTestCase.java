@@ -31,8 +31,19 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.Profiles;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
@@ -256,5 +267,21 @@ public class ImportsTestCase extends TestBase {
             a.saveOntology(out);
         }
         return a;
+    }
+
+    @Test
+    public void testImportsWhenRemovingAndReloading() throws Exception {
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        man.getIRIMappers().add(mapper);
+        String name = "/imports/thesubont.omn";
+        OWLOntology root = man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
+        assertEquals(1, root.getImports().size());
+        for (OWLOntology ontology : man.getOntologies()) {
+            man.removeOntology(ontology);
+        }
+        assertEquals(0, man.getOntologies().size());
+        root = man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
+        assertEquals(1, root.getImports().size());
     }
 }
