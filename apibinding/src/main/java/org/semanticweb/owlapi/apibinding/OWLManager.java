@@ -79,8 +79,16 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     private static Injector createInjector(Concurrency concurrency) {
-        return Guice.createInjector(new OWLAPIImplModule(concurrency), new OWLAPIParsersModule(),
-                new OWLAPIServiceLoaderModule());
+        String previousStrategy = System.getProperty("guice_include_stack_traces");
+        System.setProperty("guice_include_stack_traces", "OFF");
+        Injector injector = Guice.createInjector(new OWLAPIImplModule(concurrency), new OWLAPIParsersModule(),
+            new OWLAPIServiceLoaderModule());
+        if (previousStrategy != null) {
+            System.setProperty("guice_include_stack_traces", previousStrategy);
+        } else {
+            System.getProperties().remove("guice_include_stack_traces");
+        }
+        return injector;
     }
 
     private static OWLOntologyManager instatiateOWLOntologyManager(Concurrency concurrency) {
