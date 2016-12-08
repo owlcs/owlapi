@@ -100,7 +100,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
-        return verifyNotNull(manager, "Ontology no longer has a manager");
+        return verifyNotNull(manager, "Manager on ontology " + getOntologyID()
+            + " is null; the ontology is no longer associated to a manager. Ensure the ontology is not being used after being removed from its manager.");
     }
 
     @Override
@@ -427,7 +428,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI, Imports includeImportsClosure) {
-        OWLAnnotationProperty p = getOWLOntologyManager().getOWLDataFactory().getOWLAnnotationProperty(owlAnnotationPropertyIRI);
+        OWLAnnotationProperty p = getOWLOntologyManager().getOWLDataFactory().getOWLAnnotationProperty(
+            owlAnnotationPropertyIRI);
         if (includeImportsClosure == INCLUDED) {
             for (OWLOntology o : getImportsClosure()) {
                 if (o.containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI, EXCLUDED)) {
@@ -544,7 +546,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
                 }
             }
             if (punned.isEmpty()) {
-                return CollectionFactory.<IRI> emptySet();
+                return CollectionFactory.<IRI>emptySet();
             }
             return punned;
         } else {
@@ -577,7 +579,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
                 }
             }
             if (punned.isEmpty()) {
-                return CollectionFactory.<IRI> emptySet();
+                return CollectionFactory.<IRI>emptySet();
             }
             return punned;
         }
