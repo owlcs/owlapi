@@ -85,7 +85,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     @Nonnull protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
     protected final AtomicInteger loadCount = new AtomicInteger(0);
     protected final AtomicInteger importsLoadCount = new AtomicInteger(0);
-    @Nonnull protected final Set<IRI> importedIRIs = createSyncSet();
+    @Nonnull protected final Map<IRI, Object> importedIRIs = createSyncMap();
     @Nonnull protected final OWLDataFactory dataFactory;
     @Nonnull protected final Map<OWLOntologyID, Set<OWLOntology>> importsClosureCache = createSyncMap();
     @Nonnull protected final List<MissingImportListener> missingImportsListeners = createSyncList();
@@ -975,6 +975,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             readLock.unlock();
         }
     }
+
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
         readLock.lock();
         try {
@@ -1174,12 +1175,29 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public void removeOntology(OWLOntologyID ontologyID) {
         writeLock.lock();
         try {
-            ontologiesByID.remove(ontologyID);
+            OWLOntology o = ontologiesByID.remove(ontologyID);
             ontologyFormatsByOntology.remove(ontologyID);
             documentIRIsByID.remove(ontologyID);
-            resetImportsClosureCache();
+            removeValue(ontologyIDsByImportsDeclaration, ontologyID);
+            removeValue(importedIRIs, ontologyID);
+            if (o != null) {
+                o.setOWLOntologyManager(null);
+                resetImportsClosureCache();
+            }
         } finally {
             writeLock.unlock();
+        }
+    }
+
+    protected <Q, S> void removeValue(Map<Q, S> map, S id) {
+        List<Q> keys = new ArrayList<>();
+        for (Map.Entry<Q, S> e : map.entrySet()) {
+            if (e.getValue().equals(id)) {
+                keys.add(e.getKey());
+            }
+        }
+        for (Q k : keys) {
+            map.remove(k);
         }
     }
 
@@ -1678,12 +1696,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         writeLock.lock();
         try {
             IRI iri = declaration.getIRI();
-            if (!configuration.isIgnoredImport(iri) && !importedIRIs.contains(iri)) {
-                importedIRIs.add(iri);
+            if (!configuration.isIgnoredImport(iri) && !importedIRIs.containsKey(iri)) {
+                importedIRIs.put(iri, new Object());
                 try {
                     OWLOntology ont = loadImports(declaration, configuration);
                     if (ont != null) {
                         ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
+                        importedIRIs.put(iri, ont.getOntologyID());
                     }
                 } catch (OWLOntologyCreationException e) {
                     // Wrap as UnloadableImportException and throw

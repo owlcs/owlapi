@@ -1,13 +1,18 @@
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.io.File;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
 
@@ -15,6 +20,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul
  * 16
  */
+@SuppressWarnings("javadoc")
 public class ImportsCacheTestCase extends TestBase {
 
     private OWLOntology ontA;
@@ -22,7 +28,6 @@ public class ImportsCacheTestCase extends TestBase {
     private IRI ontBDocIri;
     private OWLImportsDeclarationImpl ontBDocumentIriImportsDeclaration;
 
-    @SuppressWarnings("javadoc")
     @Before
     public void setUpOntologies() throws Exception {
         ontA = m.createOntology(IRI.create("http://ont.com/ontA"));
@@ -59,5 +64,21 @@ public class ImportsCacheTestCase extends TestBase {
         m.setOntologyDocumentIRI(ontB, ontBDocIri);
         assertTrue(ontA.getImportsClosure().contains(ontA));
         assertTrue(ontA.getImportsClosure().contains(ontB));
+    }
+
+    @Test
+    public void testImportsWhenRemovingAndReloading() throws Exception {
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        man.getIRIMappers().add(mapper);
+        String name = "/imports/thesubont.omn";
+        OWLOntology root = man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
+        assertEquals(1, root.getImports().size());
+        for (OWLOntology ontology : man.getOntologies()) {
+            man.removeOntology(ontology);
+        }
+        assertEquals(0, man.getOntologies().size());
+        root = man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
+        assertEquals(1, root.getImports().size());
     }
 }
