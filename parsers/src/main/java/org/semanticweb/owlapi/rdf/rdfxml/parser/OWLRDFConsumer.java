@@ -1405,6 +1405,35 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
      */
     private void chooseAndSetOntologyIRI() {
         Optional<IRI> ontologyIRIToSet = Optional.absent();
+        if (firstOntologyIRI != null) {
+            Collection<OWLAnnotationAssertionAxiom> annotationsForOntology = ontology.getAnnotationAssertionAxioms(
+                firstOntologyIRI);
+            for (OWLAnnotationAssertionAxiom ax : annotationsForOntology) {
+                addOntologyAnnotation(ax.getAnnotation());
+                if (ax.getAnnotations().isEmpty()) {
+                    // axioms with annotations must be preserved,
+                    // axioms without annotations do not need to be preserved
+                    // (they exist because of triple ordering in ontology
+                    // declaration and annotation)
+                    owlOntologyManager.removeAxiom(ontology, ax);
+                }
+            }
+            Collection<OWLAnnotationAxiom> annotationsParsed = new ArrayList<>(parsedAnnotationAxioms);
+            for (OWLAnnotationAxiom ax : annotationsParsed) {
+                if (ax instanceof OWLAnnotationAssertionAxiom && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(
+                    firstOntologyIRI)) {
+                    addOntologyAnnotation(((OWLAnnotationAssertionAxiom) ax).getAnnotation());
+                    if (ax.getAnnotations().isEmpty()) {
+                        // axioms with annotations must be preserved,
+                        // axioms without annotations do not need to be
+                        // preserved
+                        // (they exist because of triple ordering in ontology
+                        // declaration and annotation)
+                        parsedAnnotationAxioms.remove(ax);
+                    }
+                }
+            }
+        }
         if (ontologyIRIs.isEmpty()) {
             // No ontology IRIs
             // We used to use the xml:base here. But this is probably incorrect
@@ -1535,7 +1564,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
      *         params)
      */
     @Nonnull
-        OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype, @Nullable String lang) {
+    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype, @Nullable String lang) {
         if (datatype != null) {
             return dataFactory.getOWLLiteral(literal, dataFactory.getOWLDatatype(datatype));
         } else {
@@ -1737,7 +1766,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, resVal);
             Set<OWLAnnotation> c = anns.get(annotation);
             mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, val, c != null ? c
-                : Collections.<OWLAnnotation> emptySet()));
+                : Collections.<OWLAnnotation>emptySet()));
             resVal = getResourceObject(mainNode, predicate, true);
         }
         OWLLiteral litVal = getLiteralObject(mainNode, predicate, true);
@@ -1746,7 +1775,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, litVal);
             Set<OWLAnnotation> c = anns.get(annotation);
             mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, litVal, c != null ? c
-                : Collections.<OWLAnnotation> emptySet()));
+                : Collections.<OWLAnnotation>emptySet()));
             litVal = getLiteralObject(mainNode, predicate, true);
         }
     }
