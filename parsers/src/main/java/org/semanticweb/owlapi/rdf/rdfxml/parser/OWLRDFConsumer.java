@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -1269,6 +1271,35 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      */
     private void chooseAndSetOntologyIRI() {
         Optional<IRI> ontologyIRIToSet = emptyOptional();
+        if (firstOntologyIRI != null) {
+            List<OWLAnnotationAssertionAxiom> annotationsForOntology = asList(ontology.annotationAssertionAxioms(
+                firstOntologyIRI));
+            for (OWLAnnotationAssertionAxiom ax : annotationsForOntology) {
+                addOntologyAnnotation(ax.getAnnotation());
+                if (ax.annotations().count() == 0) {
+                    // axioms with annotations must be preserved,
+                    // axioms without annotations do not need to be preserved
+                    // (they exist because of triple ordering in ontology
+                    // declaration and annotation)
+                    ontology.remove(ax);
+                }
+            }
+            Collection<OWLAnnotationAxiom> annotationsParsed = new ArrayList<>(parsedAnnotationAxioms);
+            for (OWLAnnotationAxiom ax : annotationsParsed) {
+                if (ax instanceof OWLAnnotationAssertionAxiom && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(
+                    firstOntologyIRI)) {
+                    addOntologyAnnotation(((OWLAnnotationAssertionAxiom) ax).getAnnotation());
+                    if (ax.annotations().count() == 0) {
+                        // axioms with annotations must be preserved,
+                        // axioms without annotations do not need to be
+                        // preserved
+                        // (they exist because of triple ordering in ontology
+                        // declaration and annotation)
+                        parsedAnnotationAxioms.remove(ax);
+                    }
+                }
+            }
+        }
         if (ontologyIRIs.isEmpty()) {
             // No ontology IRIs
             // We used to use the xml:base here. But this is probably incorrect
