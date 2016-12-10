@@ -28,19 +28,18 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  *         Informatics Group
  * @since 2.1.0
  */
-public class InferredEquivalentObjectPropertyAxiomGenerator
-        extends
-        InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
+public class InferredEquivalentObjectPropertyAxiomGenerator extends
+    InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity,
-            @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLEquivalentObjectPropertiesAxiom> result) {
-        Set<OWLObjectPropertyExpression> equivProps = new HashSet<>(reasoner
-                .getEquivalentObjectProperties(entity).getEntities());
+    protected void addAxioms(OWLObjectProperty entity, @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
+        Set<OWLEquivalentObjectPropertiesAxiom> result) {
+        Set<OWLObjectPropertyExpression> equivProps = new HashSet<>(reasoner.getEquivalentObjectProperties(entity)
+            .getEntities());
         equivProps.add(entity);
-        result.add(dataFactory
-                .getOWLEquivalentObjectPropertiesAxiom(equivProps));
+        if (equivProps.size() > 1) {
+            result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
+        }
     }
 
     @Override
