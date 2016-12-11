@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,6 +27,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.*;
@@ -57,12 +59,19 @@ public class SerializationTestCase extends TestBase {
     private final @Nonnull List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
     private final @Nonnull Set<OWLIndividual> setowlindividual = new HashSet<>();
     private final @Nonnull Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
+    IRI ontologyIRI;
+    protected OWLOntology o;
+
+    @Before
+    public void setUp() throws OWLOntologyCreationException {
+        m.getIRIMappers().add(new AutoIRIMapper(new File("."), false));
+        o = m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/pizza.owl"));
+        ontologyIRI = o.getOntologyID().getOntologyIRI().get();
+    }
 
     @SuppressWarnings("null")
     @Test
     public void testrun() throws Exception {
-        m.getIRIMappers().set(new AutoIRIMapper(new File("."), false));
-        OWLOntology o = m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/pizza.owl"));
         o.applyChange(new AddImport(o, df.getOWLImportsDeclaration(iri)));
         o.add(df.getOWLDeclarationAxiom(df.getOWLClass(iri)));
         o.add(sub(c, df.getOWLClass(string, prefixmanager)));
@@ -137,8 +146,12 @@ public class SerializationTestCase extends TestBase {
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
         ObjectInputStream inStream = new ObjectInputStream(in);
         OWLOntologyManager copy = (OWLOntologyManager) inStream.readObject();
-        copy.ontologies().forEach(ont -> assertTrue("Troubles with ontology " + ont.getOntologyID(), m.getOntology(get(
-            ont.getOntologyID().getOntologyIRI())).equalAxioms(ont)));
+        OWLOntology o1 = copy.getOntology(ontologyIRI);
+        assertEquals(asSet(o.axioms()), asSet(o1.axioms()));
+        assertEquals(o.getAxiomCount(), o1.getAxiomCount());
+        assertEquals(o.getLogicalAxiomCount(), o1.getLogicalAxiomCount());
+        assertEquals(asSet(o.annotations()), asSet(o1.annotations()));
+        assertEquals(o.getOntologyID(), o1.getOntologyID());
     }
 
     protected OWLAxiom sub(OWLClassExpression cl, OWLClassExpression d) {
