@@ -7,9 +7,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.HasComponents;
@@ -127,6 +130,41 @@ public class OWLAPIStreamUtils {
     @SuppressWarnings("unchecked")
     public static <T> List<T> asList(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
         return asList(s.map(x -> (T) x));
+    }
+
+    /**
+     * @param s
+     *        stream to turn to map. The stream is consumed by this operation.
+     * @param f
+     *        function to create the key
+     * @param <T>
+     *        type of key
+     * @param <Q>
+     *        type of input and value
+     * @return map including all elements in the stream, keyed by f
+     */
+    public static <T, Q> Map<T, Q> asMap(Stream<Q> s, Function<Q, T> f) {
+        return asMap(s, f, v -> v);
+    }
+
+    /**
+     * @param s
+     *        stream to turn to map. The stream is consumed by this operation.
+     * @param key
+     *        function to create the key
+     * @param val
+     *        function to create the value
+     * @param <K>
+     *        type of key
+     * @param <V>
+     *        type of value
+     * @param <Q>
+     *        type of input
+     * @return map including all elements in the stream, keyed by key and valued
+     *         by val
+     */
+    public static <K, V, Q> Map<K, V> asMap(Stream<Q> s, Function<Q, K> key, Function<Q, V> val) {
+        return s.collect(Collectors.toConcurrentMap(v -> key.apply(v), v -> val.apply(v)));
     }
 
     /**

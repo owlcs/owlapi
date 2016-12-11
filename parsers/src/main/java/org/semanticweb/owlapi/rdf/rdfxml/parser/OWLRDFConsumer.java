@@ -1501,7 +1501,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
                 restrictions = translatorAccessor.translateToFacetRestrictionSet(facets);
             } else if (!configuration.isStrict()) {
                 // Try the legacy encoding
-                for (IRI facetIRI : OWLFacet.FACET_IRIS) {
+                for (IRI facetIRI : OWLFacet.getFacetIRIs()) {
                     OWLLiteral val = getLiteralObject(n, facetIRI, true);
                     while (val != null) {
                         restrictions.add(df.getOWLFacetRestriction(OWLFacet.getFacet(facetIRI), val));
