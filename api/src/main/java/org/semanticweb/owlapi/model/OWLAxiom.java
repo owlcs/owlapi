@@ -37,6 +37,21 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
         return 2000 + getAxiomType().getIndex();
     }
 
+    @Override
+    default boolean isAnonymous() {
+        return true;
+    }
+
+    @Override
+    default boolean isIndividual() {
+        return false;
+    }
+
+    @Override
+    default boolean isAxiom() {
+        return true;
+    }
+
     /**
      * @param visitor
      *        visitor to accept

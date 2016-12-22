@@ -19,7 +19,7 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, AsOWLNamedIndividual, IsAnonymous {
+public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, AsOWLNamedIndividual {
 
     /**
      * Determines if this individual is an instance of
@@ -32,6 +32,11 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
      */
     default boolean isNamed() {
         return isOWLNamedIndividual();
+    }
+
+    @Override
+    default boolean isIndividual() {
+        return true;
     }
 
     /**

@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature, HasContainsEntityInSignature,
     HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
     HasIndividualsInSignature, HasDatatypesInSignature, HasAnnotationPropertiesInSignature, HasIndex, HasHashIndex,
-    HasComponents {
+    HasComponents, IsAnonymous {
 
     /**
      * Gets all of the nested (includes top level) class expressions that are
@@ -98,9 +98,32 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
     }
 
     /**
-     * @return true if this object is an IRI
+     * @return true if this object is an IRI.
      */
     default boolean isIRI() {
         return false;
+    }
+
+    /**
+     * @return true if this object is an individual.
+     */
+    default boolean isIndividual() {
+        return false;
+    }
+
+    /**
+     * @return true if this object is an axiom.
+     */
+    default boolean isAxiom() {
+        return false;
+    }
+
+    /**
+     * @return true if this object is not an axiom, not an individual and
+     *         anonymous; this is true for class and property expressions, as
+     *         well as data ranges.
+     */
+    default boolean isAnonymousExpression() {
+        return !isAxiom() && !isIndividual() && isAnonymous();
     }
 }

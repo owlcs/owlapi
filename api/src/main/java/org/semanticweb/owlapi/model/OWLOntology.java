@@ -47,7 +47,17 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports, HasImportsClosure, HasOntologyID,
     OWLAxiomCollection, OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs, OWLAxiomIndex,
     HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
-    HasApplyDirectChange, IsAnonymous {
+    HasApplyDirectChange {
+
+    @Override
+    default boolean isAxiom() {
+        return false;
+    }
+
+    @Override
+    default boolean isIndividual() {
+        return false;
+    }
 
     @Override
     default Stream<?> components() {
