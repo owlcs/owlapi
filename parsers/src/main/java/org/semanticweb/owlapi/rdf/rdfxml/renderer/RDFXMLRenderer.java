@@ -83,13 +83,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
         return base;
     }
 
-    /**
-     * @return unserializable entities
-     */
-    public Set<OWLEntity> getUnserialisableEntities() {
-        return qnameManager.getEntitiesWithInvalidQNames();
-    }
-
     @Override
     protected void beginDocument() {
         writer.startDocument();
@@ -112,6 +105,11 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+        writeCommentForEntity("prop cannot be null", prop);
+    }
+
+    @Override
     protected void writeClassComment(OWLClass cls) {
         writeCommentForEntity("cls cannot be null", cls);
     }
@@ -122,18 +120,21 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
+    protected void writeDatatypeComment(OWLDatatype datatype) {
+        writeCommentForEntity("datatype cannot be null", datatype);
+    }
+
+    @Override
     protected void writeObjectPropertyComment(OWLObjectProperty prop) {
         writeCommentForEntity("prop cannot be null", prop);
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
-        writeCommentForEntity("prop cannot be null", prop);
-    }
-
-    @Override
-    protected void writeDatatypeComment(OWLDatatype datatype) {
-        writeCommentForEntity("datatype cannot be null", datatype);
+    protected void writeBanner(String name) {
+        writer.writeComment(
+            "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
+                + checkNotNull(name, "name cannot be null")
+                + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
     private void writeCommentForEntity(String msg, OWLEntity entity) {
@@ -153,14 +154,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 writer.writeComment(XMLUtils.escapeXML(iriString));
             }
         }
-    }
-
-    @Override
-    protected void writeBanner(String name) {
-        writer.writeComment(
-            "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
-                + checkNotNull(name, "name cannot be null")
-                + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
     @Override
@@ -194,6 +187,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());
+            triple=remapNodesIfNecessary(node, triple);
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
                 RDFResource objectRes = (RDFResource) objectNode;
@@ -246,5 +240,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         writer.writeEndElement();
         pending.remove(node);
+    }
+
+    /**
+     * @return unserializable entities
+     */
+    public Set<OWLEntity> getUnserialisableEntities() {
+        return qnameManager.getEntitiesWithInvalidQNames();
     }
 }

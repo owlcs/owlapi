@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
  */
 public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    @Nonnull private RDFGraph graph = new RDFGraph();
-
     /**
      * @param manager
      *        the manager
@@ -46,13 +44,6 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
         IndividualAppearance occurrences) {
         super(manager, ontology, useStrongTyping, occurrences);
-    }
-
-    /**
-     * @return the graph
-     */
-    public RDFGraph getGraph() {
-        return graph;
     }
 
     @Override
@@ -90,10 +81,5 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     @Override
     protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
         return new RDFResourceIRI(iri);
-    }
-
-    /** Clear the graph. */
-    public void reset() {
-        graph = new RDFGraph();
     }
 }

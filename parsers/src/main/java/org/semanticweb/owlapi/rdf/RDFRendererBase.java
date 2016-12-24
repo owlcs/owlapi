@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -80,6 +81,7 @@ public abstract class RDFRendererBase {
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
         new IdentityHashingStrategy<>());
     protected final OWLOntologyWriterConfiguration config;
+    protected Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
 
     /**
      * @param ontology
@@ -185,6 +187,7 @@ public abstract class RDFRendererBase {
     /** Render document. */
     public void render() {
         graph = new RDFGraph();
+        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
         punned = ontology.getPunnedIRIs(EXCLUDED);
         beginDocument();
         renderOntologyHeader();
@@ -373,6 +376,7 @@ public abstract class RDFRendererBase {
         if (!graph.isEmpty()) {
             render(ontologyHeaderNode);
         }
+        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
     }
 
     private RDFResource createOntologyHeaderNode(RDFTranslator translator) {
@@ -544,12 +548,14 @@ public abstract class RDFRendererBase {
         RDFTranslator translator = new SequentialBlankNodeRDFTranslator();
         sortOptionally(objects).forEach(obj -> obj.accept(translator));
         graph = translator.getGraph();
+        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
     }
 
     protected void createGraph(OWLObject o) {
         RDFTranslator translator = new SequentialBlankNodeRDFTranslator();
         o.accept(translator);
         graph = translator.getGraph();
+        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
     }
 
     protected abstract void writeBanner(String name);
@@ -604,5 +610,20 @@ public abstract class RDFRendererBase {
                 }
             }
         }
+    }
+
+    protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
+        RDFTriple tripleToRender = triple;
+        RDFResourceBlankNode remappedNode = triplesWithRemappedNodes.get(tripleToRender);
+        if (remappedNode != null) {
+            tripleToRender = new RDFTriple(tripleToRender.getSubject(), tripleToRender.getPredicate(), remappedNode);
+        }
+        if (!node.equals(tripleToRender.getSubject())) {
+            // the node will not match the triple subject if the node itself
+            // is a remapped blank node
+            // in which case the triple subject needs remapping as well
+            tripleToRender = new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
+        }
+        return tripleToRender;
     }
 }

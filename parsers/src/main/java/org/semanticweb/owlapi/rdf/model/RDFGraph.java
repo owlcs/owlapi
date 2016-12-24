@@ -18,9 +18,13 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.*;
-
-import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -41,10 +45,10 @@ import com.google.common.collect.Sets;
 public class RDFGraph implements Serializable {
 
     private static final Set<IRI> skippedPredicates = Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
-    @Nonnull private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
-    @Nonnull private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
-    @Nonnull private final Set<RDFTriple> triples = createLinkedSet();
-    @Nonnull private final Map<RDFNode, RDFNode> remappedNodes = createMap();
+    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
+    private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
+    private final Set<RDFTriple> triples = createLinkedSet();
+    private final Map<RDFNode, RDFNode> remappedNodes = createMap();
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any
