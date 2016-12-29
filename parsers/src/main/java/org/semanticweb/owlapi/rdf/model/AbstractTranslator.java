@@ -18,18 +18,31 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import com.google.common.base.Optional;
+
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
  * An abstract translator that can produce an RDF graph from an OWLOntology.
@@ -40,8 +53,7 @@ import com.google.common.base.Optional;
  *        the basic node
  * @param <R>
  *        a resource node
- * @param
- *        <P>
+ * @param <P>
  *        a predicate node
  * @param <L>
  *        a literal node
@@ -56,6 +68,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final OWLOntology ont;
     private final boolean useStrongTyping;
     protected final IndividualAppearance multipleOccurrences;
+    protected final AxiomAppearance axiomOccurrences;
+    protected RDFGraph graph = new RDFGraph();
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+        new IdentityHashingStrategy<>());
+    private final AtomicInteger nextBlankNodeId;
 
     /**
      * @param manager
@@ -66,11 +83,23 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      *        true if strong typing should be used
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
-        boolean useStrongTyping, IndividualAppearance multiple) {
+        boolean useStrongTyping, IndividualAppearance multiple, AxiomAppearance appearance, AtomicInteger nextNode) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
         multipleOccurrences = multiple;
+        this.axiomOccurrences = appearance;
+        this.nextBlankNodeId = nextNode;
+    }
+
+    @Nonnull
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+        int id = blankNodeMap.get(key);
+        if (id == 0) {
+            id = nextBlankNodeId.getAndIncrement();
+            blankNodeMap.put(key, id);
+        }
+        return new RDFResourceBlankNode(id, isIndividual, needId);
     }
 
     @Override
@@ -1161,5 +1190,17 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         public IRI visit(OWLAnnotationProperty property) {
             return OWL_ANNOTATION_PROPERTY.getIRI();
         }
+    }
+
+    /**
+     * @return the graph
+     */
+    public RDFGraph getGraph() {
+        return graph;
+    }
+
+    /** Clear the graph. */
+    public void reset() {
+        graph = new RDFGraph();
     }
 }

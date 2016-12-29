@@ -14,14 +14,23 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 
 /**
@@ -30,8 +39,6 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
  * @since 2.0.0
  */
 public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
-
-    @Nonnull private RDFGraph graph = new RDFGraph();
 
     /**
      * @param manager
@@ -42,15 +49,8 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
      *        true if strong typing is required
      */
     public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences) {
-        super(manager, ontology, useStrongTyping, occurrences);
-    }
-
-    /**
-     * @return the graph
-     */
-    public RDFGraph getGraph() {
-        return graph;
+        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger nextNode) {
+        super(manager, ontology, useStrongTyping, occurrences, axiomOccurrences, nextNode);
     }
 
     @Override
@@ -62,11 +62,17 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     @Override
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
-        if (key instanceof OWLAnonymousIndividual) {
-            return new RDFResourceBlankNode(System.identityHashCode(((OWLAnonymousIndividual) key).getID().getID()),
-                true, multipleOccurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
+        boolean isIndividual = key instanceof OWLAnonymousIndividual;
+        boolean needId = false;
+        if (isIndividual) {
+            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+            needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
+            key = anonymousIndividual.getID().getID();
+        } else if (key instanceof OWLAxiom) {
+            isIndividual = false;
+            needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
         }
-        return new RDFResourceBlankNode(System.identityHashCode(key), false, false);
+        return getBlankNodeFor(key, isIndividual, needId);
     }
 
     @Override
@@ -88,10 +94,5 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     @Override
     protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
         return new RDFResourceIRI(iri);
-    }
-
-    /** clear the graph */
-    public void reset() {
-        graph = new RDFGraph();
     }
 }
