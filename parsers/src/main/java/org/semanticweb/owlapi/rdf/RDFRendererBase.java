@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
+import org.semanticweb.owlapi.util.OWLObjectDesharer;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
@@ -319,15 +320,15 @@ public abstract class RDFRendererBase {
     }
 
     private void renderGeneralAxioms() {
-        AtomicBoolean haveWrittenBanner = new AtomicBoolean(false);
-        getGeneralAxioms().forEach(ax -> renderGeneral(haveWrittenBanner, ax));
+        AtomicBoolean bannerWritten = new AtomicBoolean(false);
+        getGeneralAxioms().forEach(ax -> renderGeneral(bannerWritten, ax));
     }
 
-    protected void renderGeneral(AtomicBoolean haveWrittenBanner, OWLAxiom axiom) {
+    protected void renderGeneral(AtomicBoolean bannerWritten, OWLAxiom axiom) {
         createGraph(axiom);
         Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
         if (!rootNodes.isEmpty()) {
-            if (!haveWrittenBanner.getAndSet(true)) {
+            if (!bannerWritten.getAndSet(true)) {
                 writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
             }
             beginObject();
@@ -507,7 +508,7 @@ public abstract class RDFRendererBase {
     protected void createGraph(Stream<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
-        sortOptionally(objects).forEach(obj -> obj.accept(translator));
+        sortOptionally(objects).forEach(obj -> deshare(obj).accept(translator));
         graph = translator.getGraph();
         triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
     }
@@ -515,9 +516,16 @@ public abstract class RDFRendererBase {
     protected void createGraph(OWLObject o) {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
-        o.accept(translator);
+        deshare(o).accept(translator);
         graph = translator.getGraph();
         triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
+    }
+
+    protected OWLObject deshare(OWLObject o) {
+        if (o.hasSharedStructure()) {
+            return o.accept(new OWLObjectDesharer(ontology.getOWLOntologyManager()));
+        }
+        return o;
     }
 
     protected abstract void writeBanner(String name);

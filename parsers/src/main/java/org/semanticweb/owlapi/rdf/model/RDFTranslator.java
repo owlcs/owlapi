@@ -67,8 +67,7 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
 
     @Override
     protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"), checkNotNull(pred,
-            "pred cannot be null"), checkNotNull(object, "object cannot be null")));
+        graph.addTriple(new RDFTriple(subject, pred, object));
     }
 
     @Override
@@ -94,12 +93,6 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
             blankNodeMap.put(key, id);
         }
         return new RDFResourceBlankNode(id, isIndividual, needId);
-    }
-
-    @Override
-    protected RDFResource getAnonymousNodeForExpressions(Object key) {
-        checkNotNull(key, "key cannot be null");
-        return new RDFResourceBlankNode(false, false);
     }
 
     @Override

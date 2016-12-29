@@ -60,6 +60,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     }
 
     @Override
+    default boolean isOntology() {
+        return true;
+    }
+
+    @Override
     default Stream<?> components() {
         return Stream.of(getOntologyID());
     }

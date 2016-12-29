@@ -21,6 +21,7 @@ import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -61,6 +62,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final Set<OWLIndividual> currentIndividuals = createLinkedSet();
     /** Maps Objects to nodes. */
     private final Map<OWLObject, N> nodeMap = new HashMap<>();
+    private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
     protected final IndividualAppearance multipleOccurrences;
     protected RDFGraph graph = new RDFGraph();
 
@@ -837,7 +839,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void translateAnonymousNode(OWLObject object) {
-        nodeMap.put(object, getAnonymousNode(object));
+        if (object.isAnonymousExpression()) {
+            expressionMap.put(object, getAnonymousNode(object));
+        } else {
+            nodeMap.put(object, getAnonymousNode(object));
+        }
     }
 
     /**
@@ -850,6 +856,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @SuppressWarnings("unchecked")
     @Nullable
     public <T> T getMappedNode(OWLObject object) {
+        if (object.isAnonymousExpression()) {
+            return (T) expressionMap.get(object);
+        }
         return (T) nodeMap.get(object);
     }
 
@@ -897,16 +906,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @return The resource
      */
     protected abstract R getAnonymousNode(Object key);
-
-    /**
-     * Gets a fresh anonymous resource.
-     * 
-     * @param key
-     *        A key for the resource. Each call will create a new node; nodes
-     *        cannot clash.
-     * @return The resource
-     */
-    protected abstract R getAnonymousNodeForExpressions(Object key);
 
     protected abstract L getLiteralNode(OWLLiteral literal);
 

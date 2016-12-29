@@ -356,21 +356,22 @@ public class OWLAPIStreamUtils {
      *         will be flattened.
      */
     public static Stream<?> flatComponents(HasComponents root) {
-        List<Stream<?>> streams = new ArrayList<>();
-        streams.add(Stream.of(root));
+        List streams = new ArrayList<>();
+        streams.add(root);
         root.components().filter(o -> o != root).forEach(o -> flatIteration(streams, o));
-        return streams.stream().flatMap(x -> x);
+        return streams.stream();
     }
 
-    protected static void flatIteration(List<Stream<?>> streams, Object o) {
+    protected static void flatIteration(List streams, Object o) {
         if (o instanceof Stream) {
             ((Stream<?>) o).forEach(o1 -> flatIteration(streams, o1));
         } else if (o instanceof Collection) {
             ((Collection<?>) o).forEach(o1 -> flatIteration(streams, o1));
         } else if (o instanceof HasComponents) {
+            streams.add(o);
             ((HasComponents) o).components().forEach(o1 -> flatIteration(streams, o1));
         } else {
-            streams.add(Stream.of(o));
+            streams.add(o);
         }
     }
 

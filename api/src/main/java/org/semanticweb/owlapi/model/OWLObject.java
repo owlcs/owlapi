@@ -15,7 +15,10 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 /**
@@ -118,12 +121,43 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
         return false;
     }
 
+    /** @return true for ontologies, false for any other OWL object */
+    default boolean isOntology() {
+        return false;
+    }
+
     /**
      * @return true if this object is not an axiom, not an individual and
      *         anonymous; this is true for class and property expressions, as
      *         well as data ranges.
      */
     default boolean isAnonymousExpression() {
-        return !isAxiom() && !isIndividual() && isAnonymous();
+        return !isAxiom() && !isIndividual() && !isOntology() && isAnonymous();
+    }
+
+    /**
+     * @return true if this object contains anonymous expressions referred
+     *         multiple times. This is called structure sharing. An example can
+     *         be:<br>
+     * 
+     *         <pre>
+     * some P C subClassOf some Q (some P C)
+     *         </pre>
+     * 
+     *         <br>
+     *         This can happen in axioms as well as in expressions:<br>
+     * 
+     *         <pre>
+     * (some P C) and (some Q (some P C))
+     *         </pre>
+     * 
+     *         <br>
+     */
+    default boolean hasSharedStructure() {
+        Map<OWLObject, AtomicInteger> counters = new HashMap<>();
+        Stream<OWLObject> filter = flatComponents(this).filter(x -> x instanceof OWLObject).map(x -> (OWLObject) x)
+            .filter(OWLObject::isAnonymousExpression);
+        filter.forEach(x -> counters.computeIfAbsent(x, q -> new AtomicInteger(0)).incrementAndGet());
+        return counters.values().stream().anyMatch(x -> x.get() > 1);
     }
 }
