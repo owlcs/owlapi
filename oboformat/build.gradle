@@ -1,0 +1,5 @@
+
+description = 'OWLAPI :: OBO Format'
+dependencies {
+  compile project(':owlapi-parsers')
+}

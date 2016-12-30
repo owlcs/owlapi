@@ -1,0 +1,20 @@
+
+description = 'OWLAPI :: Sesame Rio'
+dependencies {
+  compile project(':owlapi-parsers')
+    compile group: 'org.openrdf.sesame', name: 'sesame-model', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-api', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-languages', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-datatypes', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-binary', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-n3', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-nquads', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-ntriples', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-rdfjson', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-rdfxml', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-trix', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-turtle', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-trig', version:'4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-jsonld', version:'4.0.2'
+    compile group: 'com.github.jsonld-java', name: 'jsonld-java', version:'0.7.0'
+}
