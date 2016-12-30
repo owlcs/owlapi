@@ -1,0 +1,71 @@
+
+description = 'OWLAPI :: OSGi and Compatibility Distribution'
+
+//apply plugin: 'biz.aQute.bnd.builder'
+
+dependencies {
+    compile project(':owlapi-apibinding')
+    compile project(':owlapi-tools')
+    compile project(':owlapi-impl')
+    compile project(':owlapi-parsers')
+    compile project(':owlapi-oboformat')
+    compile project(':owlapi-rio')
+    compile project(':owlapi-api')
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.6.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.6.3'
+    compile project(':owlapi-compatibility')
+    compile group: 'org.apache.commons', name: 'commons-rdf-api', version: '0.1.0-incubating'
+    compile group: 'org.tukaani', name: 'xz', version: '1.5'
+    compile group: 'org.openrdf.sesame', name: 'sesame-model', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-api', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-languages', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-datatypes', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-binary', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-n3', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-nquads', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-ntriples', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-rdfjson', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-rdfxml', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-trix', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-turtle', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-rio-trig', version: '4.0.2'
+    compile group: 'org.openrdf.sesame', name: 'sesame-util', version: '4.0.2'
+    compile group: 'com.github.jsonld-java', name: 'jsonld-java', version: '0.8.0'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.1'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient-cache', version: '4.5.1'
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.4'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+    compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    compile group: 'org.semarglproject', name: 'semargl-sesame', version: '0.6.1'
+    compile group: 'org.semarglproject', name: 'semargl-core', version: '0.6.1'
+    compile group: 'org.semarglproject', name: 'semargl-rdfa', version: '0.6.1'
+    compile group: 'org.semarglproject', name: 'semargl-rdf', version: '0.6.1'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.javax-inject', version: '1_2'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.aopalliance', version: '1.0_6'
+    testCompile group: 'org.apache.felix', name: 'org.apache.felix.framework', version: '5.4.0'
+    testCompile group: 'org.apache.felix', name: 'org.osgi.core', version: '1.4.0'
+}
+
+apply plugin: 'java'
+import aQute.bnd.gradle.Bundle
+task jar(overwrite: true, type: Bundle) {
+    dependsOn classes
+    configuration=configurations.compile
+    manifest {
+        attributes('Export-Package': "" +
+                "com.clarkparsia.*," +
+                "org.semanticweb.owlapi.*;-split-package:=merge-first," +
+                "org.semanticweb.owlapitools.*;-split-package:=merge-first," +
+                "uk.ac.manchester.*;-split-package:=merge-first," +
+                "org.obolibrary.*;-split-package:=merge-first," +
+                "org.coode.*;-split-package:=merge-first," +
+                "de.uulm.*;-split-package:=merge-first",
+
+                "Import-Package": "com.github.benmanes.*;resolution:=optional,*" ,
+                
+                "Bundle-SymbolicName": "org.semanticweb.owl.owlapi"
+                
+        )
+    }
+}  
