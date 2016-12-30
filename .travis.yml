@@ -10,4 +10,4 @@ cache:
 
 language: java
 jdk:
-  - openjdk8
+  - oraclejdk8
