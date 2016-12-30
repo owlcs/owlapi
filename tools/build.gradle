@@ -1,0 +1,5 @@
+
+description = 'OWLAPI :: Atomic Decomposition and Explanation'
+dependencies {
+  compile project(':owlapi-api')
+}

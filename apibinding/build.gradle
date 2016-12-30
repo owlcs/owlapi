@@ -1,0 +1,10 @@
+
+description = 'OWLAPI :: Binding and Config'
+dependencies {
+  compile project(':owlapi-api')
+  compile project(':owlapi-impl')
+  compile project(':owlapi-parsers')
+  compile project(':owlapi-oboformat')
+  compile project(':owlapi-tools')
+  compile project(':owlapi-rio')
+}

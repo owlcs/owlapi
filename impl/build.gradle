@@ -1,0 +1,5 @@
+
+description = 'OWLAPI :: Default Implementation'
+dependencies {
+  compile project(':owlapi-api')
+}
