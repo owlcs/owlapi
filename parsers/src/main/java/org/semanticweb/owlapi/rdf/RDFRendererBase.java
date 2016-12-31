@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,11 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
 import org.semanticweb.owlapi.util.OWLAxiomsWithNestedAnnotations;
 import org.semanticweb.owlapi.util.OWLEntityIRIComparator;
+import org.semanticweb.owlapi.util.OWLObjectDesharer;
+import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
+import org.semanticweb.owlapi.util.OWLObjectWalker;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.util.StructureWalker.AnnotationWalkingControl;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -379,8 +384,7 @@ public abstract class RDFRendererBase {
         boolean haveWrittenBanner = false;
         Set<OWLAxiom> generalAxioms = getGeneralAxioms();
         for (OWLAxiom axiom : generalAxioms) {
-            Set<OWLAxiom> axiomSet = Collections.singleton(axiom);
-            createGraph(axiomSet);
+            createGraph(Collections.singleton(axiom));
             Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
             if (!rootNodes.isEmpty()) {
                 if (!haveWrittenBanner) {
@@ -587,10 +591,71 @@ public abstract class RDFRendererBase {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
         for (OWLObject obj : objects) {
-            obj.accept(translator);
+            deshare(obj).accept(translator);
         }
         graph = translator.getGraph();
         triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
+    }
+
+    protected OWLObject deshare(OWLObject o) {
+        if (hasSharedStructure(o)) {
+            return o.accept(new OWLObjectDesharer(ontology.getOWLOntologyManager()));
+        }
+        return o;
+    }
+
+    /**
+     * @return true if this object contains anonymous expressions referred
+     *         multiple times. This is called structure sharing. An example can
+     *         be:<br>
+     * 
+     *         <pre>
+     * some P C subClassOf some Q (some P C)
+     *         </pre>
+     * 
+     *         <br>
+     *         This can happen in axioms as well as in expressions:<br>
+     * 
+     *         <pre>
+     * (some P C) and (some Q (some P C))
+     *         </pre>
+     * 
+     *         <br>
+     */
+    private boolean hasSharedStructure(OWLObject o) {
+        final Map<OWLObject, AtomicInteger> counters = new HashMap<>();
+        OWLObjectWalker<OWLObject> walker = new OWLObjectWalker<>(Collections.singleton(o), true,
+            AnnotationWalkingControl.DONT_WALK_ANNOTATIONS);
+        walker.walkStructure(new OWLObjectVisitorAdapter() {
+
+            @Override
+            protected void handleDefault(OWLObject axiom) {
+                if (isNotAnonymousExpression(axiom)) {
+                    return;
+                }
+                AtomicInteger i = counters.get(axiom);
+                if (i == null) {
+                    i = new AtomicInteger();
+                    counters.put(axiom, i);
+                }
+                i.incrementAndGet();
+            }
+        });
+        for (AtomicInteger i : counters.values()) {
+            if (i.get() > 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isNotAnonymousExpression(OWLObject o) {
+        boolean b = o instanceof OWLAxiom || o instanceof OWLOntology || o instanceof OWLPrimitive
+            || o instanceof HasIRI;
+        if (!b && o instanceof SWRLIndividualArgument) {
+            b = isNotAnonymousExpression(((SWRLIndividualArgument) o).getIndividual());
+        }
+        return b;
     }
 
     protected abstract void writeBanner(@Nonnull String name) throws IOException;

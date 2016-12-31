@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +35,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -73,6 +75,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
         new IdentityHashingStrategy<>());
     private final AtomicInteger nextBlankNodeId;
+    /** Maps Objects to nodes. */
+    @Nonnull private final Map<OWLObject, N> nodeMap = new HashMap<>();
+    private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
 
     /**
      * @param manager
@@ -586,17 +591,13 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLClass ce) {
-        if (!nodeMap.containsKey(ce)) {
-            nodeMap.put(ce, getResourceNode(ce.getIRI()));
-        }
+        storeNodeIfNotPresent(ce, getResourceNode(ce.getIRI()));
         addStrongTyping(ce);
     }
 
     @Override
     public void visit(@Nonnull OWLDatatype node) {
-        if (!nodeMap.containsKey(node)) {
-            nodeMap.put(node, getResourceNode(node.getIRI()));
-        }
+        storeNodeIfNotPresent(node, getResourceNode(node.getIRI()));
         addStrongTyping(node);
     }
 
@@ -608,47 +609,35 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(IRI iri) {
-        if (!nodeMap.containsKey(iri)) {
-            nodeMap.put(iri, getResourceNode(iri));
-        }
+        storeNodeIfNotPresent(iri, getResourceNode(iri));
     }
 
     @Override
     public void visit(OWLLiteral node) {
-        if (!nodeMap.containsKey(node)) {
-            nodeMap.put(node, getLiteralNode(node));
-        }
+        storeNodeIfNotPresent(node, getLiteralNode(node));
     }
 
     @Override
     public void visit(@Nonnull OWLDataProperty property) {
-        if (!nodeMap.containsKey(property)) {
-            nodeMap.put(property, getPredicateNode(property.getIRI()));
-        }
+        storeNodeIfNotPresent(property, getPredicateNode(property.getIRI()));
         addStrongTyping(property);
     }
 
     @Override
     public void visit(@Nonnull OWLObjectProperty property) {
-        if (!nodeMap.containsKey(property)) {
-            nodeMap.put(property, getPredicateNode(property.getIRI()));
-        }
+        storeNodeIfNotPresent(property, getPredicateNode(property.getIRI()));
         addStrongTyping(property);
     }
 
     @Override
     public void visit(@Nonnull OWLAnnotationProperty property) {
-        if (!nodeMap.containsKey(property)) {
-            nodeMap.put(property, getPredicateNode(property.getIRI()));
-        }
+        storeNodeIfNotPresent(property, getPredicateNode(property.getIRI()));
         addStrongTyping(property);
     }
 
     @Override
     public void visit(@Nonnull OWLNamedIndividual individual) {
-        if (!nodeMap.containsKey(individual)) {
-            nodeMap.put(individual, getResourceNode(individual.getIRI()));
-        }
+        storeNodeIfNotPresent(individual, getResourceNode(individual.getIRI()));
         addStrongTyping(individual);
     }
 
@@ -661,9 +650,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     public void visit(@Nonnull OWLOntology ontology) {
         Optional<IRI> ontologyIRI = ontology.getOntologyID().getOntologyIRI();
         if (ontologyIRI.isPresent()) {
-            if (!nodeMap.containsKey(ontology)) {
-                nodeMap.put(ontology, getResourceNode(ontologyIRI.get()));
-            }
+            storeNodeIfNotPresent(ontology, getResourceNode(ontologyIRI.get()));
         } else {
             translateAnonymousNode(ontology);
         }
@@ -758,9 +745,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull SWRLVariable node) {
-        if (!nodeMap.containsKey(node)) {
-            nodeMap.put(node, getResourceNode(node.getIRI()));
-        }
+        storeNodeIfNotPresent(node, getResourceNode(node.getIRI()));
         if (!ont.containsIndividualInSignature(node.getIRI())) {
             addTriple(node, RDF_TYPE.getIRI(), VARIABLE.getIRI());
         }
@@ -769,23 +754,16 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(@Nonnull SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
-        if (!nodeMap.containsKey(node)) {
-            nodeMap.put(node, nodeMap.get(node.getIndividual()));
-        }
+        storeNodeIfNotPresent(node, nodeMap.get(node.getIndividual()));
     }
 
     @Override
     public void visit(@Nonnull SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
-        if (!nodeMap.containsKey(node)) {
-            nodeMap.put(node, nodeMap.get(node.getLiteral()));
-        }
+        storeNodeIfNotPresent(node, nodeMap.get(node.getLiteral()));
     }
 
     // Methods to add triples
-    /** Maps Objects to nodes. */
-    @Nonnull private final Map<OWLObject, N> nodeMap = new HashMap<>();
-
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subject, @Nonnull IRI pred,
         @Nonnull OWLObject obj) {
         addSingleTripleAxiom(ax, getResourceNode(subject), getPredicateNode(pred), getNode(obj));
@@ -896,7 +874,22 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void translateAnonymousNode(@Nonnull OWLObject object) {
-        nodeMap.put(object, getAnonymousNode(object));
+        storeNode(object, getAnonymousNode(object));
+    }
+
+    private void storeNode(@Nonnull OWLObject object, N value) {
+        if (!RDFRendererBase.isNotAnonymousExpression(object)) {
+            expressionMap.put(object, value);
+        } else {
+            nodeMap.put(object, value);
+        }
+    }
+
+    private void storeNodeIfNotPresent(@Nonnull OWLObject object, N value) {
+        N v = getMappedNode(object);
+        if (v == null) {
+            storeNode(object, value);
+        }
     }
 
     /**
@@ -907,6 +900,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @return mapped node, or null if the node is absent
      */
     public <T extends N> T getMappedNode(OWLObject object) {
+        if (!RDFRendererBase.isNotAnonymousExpression(object)) {
+            return (T) expressionMap.get(object);
+        }
         return (T) nodeMap.get(object);
     }
 
@@ -961,12 +957,12 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Nonnull
     @SuppressWarnings("unchecked")
     private R getResourceNode(@Nonnull OWLObject object) {
-        R r = (R) nodeMap.get(object);
+        R r = (R) getMappedNode(object);
         if (r == null) {
             object.accept(this);
-            r = (R) nodeMap.get(object);
+            r = (R) getMappedNode(object);
             if (r == null) {
-                throw new IllegalStateException("Node is null!");
+                throw new IllegalStateException("Node is null. Attempting to get node for " + object);
             }
         }
         return r;
@@ -975,25 +971,25 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Nonnull
     @SuppressWarnings("unchecked")
     private P getPredicateNode(@Nonnull OWLObject object) {
-        P p = (P) nodeMap.get(object);
+        P p = (P) getMappedNode(object);
         if (p == null) {
             object.accept(this);
-            p = (P) nodeMap.get(object);
+            p = (P) getMappedNode(object);
             if (p == null) {
-                throw new IllegalStateException("Node is null!");
+                throw new IllegalStateException("Node is null. Attempting to get node for " + object);
             }
         }
         return p;
     }
 
     @Nonnull
-    private N getNode(@Nonnull OWLObject obj) {
-        N node = nodeMap.get(obj);
+    private N getNode(@Nonnull OWLObject object) {
+        N node = getMappedNode(object);
         if (node == null) {
-            obj.accept(this);
-            node = nodeMap.get(obj);
+            object.accept(this);
+            node = getMappedNode(object);
             if (node == null) {
-                throw new IllegalStateException("Node is null. Attempting to get node for " + obj);
+                throw new IllegalStateException("Node is null. Attempting to get node for " + object);
             }
         }
         return node;
