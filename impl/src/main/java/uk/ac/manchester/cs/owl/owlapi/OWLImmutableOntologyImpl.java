@@ -73,7 +73,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
-        return verifyNotNull(manager, "Manager on ontology " + getOntologyID()
+        return verifyNotNull(manager, () -> "Manager on ontology " + getOntologyID()
             + " is null; the ontology is no longer associated to a manager. Ensure the ontology is not being used after being removed from its manager.");
     }
 
