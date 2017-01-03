@@ -44,14 +44,14 @@ import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nullable;
 
-import org.openrdf.OpenRDFUtil;
-import org.openrdf.model.Resource;
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.RDFWriter;
-import org.openrdf.rio.Rio;
-import org.openrdf.rio.UnsupportedRDFormatException;
-import org.openrdf.rio.helpers.StatementCollector;
+import org.eclipse.rdf4j.OpenRDFUtil;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.RDFWriter;
+import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
+import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.model.*;
