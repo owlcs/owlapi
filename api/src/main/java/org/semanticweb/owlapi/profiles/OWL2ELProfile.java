@@ -13,16 +13,24 @@
 package org.semanticweb.owlapi.profiles;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.profiles.violations.*;
+import org.semanticweb.owlapi.profiles.violations.LastPropertyInChainNotInImposedRange;
+import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
+import org.semanticweb.owlapi.profiles.violations.UseOfDataOneOfWithMultipleLiterals;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
+import org.semanticweb.owlapi.profiles.violations.UseOfObjectOneOfWithMultipleIndividuals;
+import org.semanticweb.owlapi.profiles.violations.UseOfObjectPropertyInverse;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
@@ -62,8 +70,8 @@ public class OWL2ELProfile implements OWLProfile {
 
     protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor {
 
-        private OWLObjectPropertyManager propertyManager;
-        @Nonnull private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
+        @Nullable private OWLObjectPropertyManager propertyManager;
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         public OWL2ELProfileObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -77,7 +85,7 @@ public class OWL2ELProfile implements OWLProfile {
             if (propertyManager == null) {
                 propertyManager = new OWLObjectPropertyManager(getCurrentOntology());
             }
-            return propertyManager;
+            return verifyNotNull(propertyManager);
         }
 
         @Override
@@ -145,8 +153,8 @@ public class OWL2ELProfile implements OWLProfile {
         @Override
         public void visit(OWLObjectOneOf ce) {
             if (ce.individuals().count() != 1) {
-                profileViolations
-                    .add(new UseOfObjectOneOfWithMultipleIndividuals(getCurrentOntology(), getCurrentAxiom(), ce));
+                profileViolations.add(new UseOfObjectOneOfWithMultipleIndividuals(getCurrentOntology(),
+                    getCurrentAxiom(), ce));
             }
         }
 
@@ -163,8 +171,8 @@ public class OWL2ELProfile implements OWLProfile {
         @Override
         public void visit(OWLDataOneOf node) {
             if (node.values().count() != 1) {
-                profileViolations
-                    .add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(), getCurrentAxiom(), node));
+                profileViolations.add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(), getCurrentAxiom(),
+                    node));
             }
         }
 
@@ -248,8 +256,8 @@ public class OWL2ELProfile implements OWLProfile {
                         OWLObjectPropertyExpression lastProperty = chain.get(chain.size() - 1);
                         boolean rngPresent = rangePresent(imposedRange, lastProperty);
                         if (!rngPresent) {
-                            profileViolations
-                                .add(new LastPropertyInChainNotInImposedRange(getCurrentOntology(), axiom, rngAx));
+                            profileViolations.add(new LastPropertyInChainNotInImposedRange(getCurrentOntology(), axiom,
+                                rngAx));
                         }
                     }
                 }

@@ -23,7 +23,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -49,9 +48,9 @@ import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 @SuppressWarnings({ "deprecation" })
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToSize {
 
-    @Nonnull private final OWLOntology delegate;
-    @Nonnull private final Lock readLock;
-    @Nonnull private final Lock writeLock;
+    private final OWLOntology delegate;
+    private final Lock readLock;
+    private final Lock writeLock;
 
     /**
      * Constructs a ConcurrentOWLOntology that provides concurrent access to a
@@ -2945,6 +2944,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    @Nullable
     public OWLDocumentFormat getFormat() {
         readLock.lock();
         try {

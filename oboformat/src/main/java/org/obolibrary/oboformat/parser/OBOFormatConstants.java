@@ -7,7 +7,6 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Maps;
@@ -97,7 +96,7 @@ public class OBOFormatConstants {
         /** Related. */
         TAG_RELATED("RELATED");
 
-        @Nonnull private final String tag;
+        private final String tag;
         /** Term frames. */
         public static final EnumSet<OboFormatTag> TERM_FRAMES = EnumSet.of(TAG_INTERSECTION_OF, TAG_UNION_OF,
             TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_RELATIONSHIP, TAG_IS_A);
@@ -125,7 +124,7 @@ public class OBOFormatConstants {
     private static final Map<String, OboFormatTag> TAGSTABLE = Maps.uniqueIndex(Arrays.asList(OboFormatTag.values()),
         OboFormatTag::getTag);
     /** tags */
-    @Nonnull public static final Set<String> TAGS = TAGSTABLE.keySet();
+    public static final Set<String> TAGS = TAGSTABLE.keySet();
 
     /**
      * @param tag

@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
@@ -70,7 +69,7 @@ public class TurtleRenderer extends RDFRendererBase {
     private final OWLDocumentFormat format;
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    @Nonnull protected final Deque<Integer> tabs = new LinkedList<>();
+    protected final Deque<Integer> tabs = new LinkedList<>();
     int level = 0;
 
     /**
@@ -196,7 +195,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private boolean noSplits(String s, int index) {
-        return s.indexOf('#', index)<0 && s.indexOf('/', index)<0; 
+        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     private void writeNewLine() {
@@ -377,7 +376,7 @@ public class TurtleRenderer extends RDFRendererBase {
             // cycles therefore indicate a bug!
             triples = Collections.emptyList();
         } else {
-            triples = graph.getTriplesForSubject(node);
+            triples = getRDFGraph().getTriplesForSubject(node);
         }
         pending.add(node);
         RDFResource lastSubject = null;

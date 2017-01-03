@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
@@ -42,7 +42,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private ShortFormProvider shortFormProvider;
     private final IRIShortFormProvider iriShortFormProvider;
     private StringBuilder buffer;
-    private OWLObject focusedObject;
+    @Nullable private OWLObject focusedObject;
 
     /** Default constructor. */
     public DLSyntaxObjectRenderer() {
@@ -68,7 +68,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         if (focusedObject == null) {
             return false;
         }
-        return focusedObject.equals(obj);
+        return verifyNotNull(focusedObject).equals(obj);
     }
 
     @Override

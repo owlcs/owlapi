@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -35,7 +34,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     private static final String PREFIX = "_:";
     private static final String PREFIX_NODE = PREFIX + NODE_ID_PREFIX;
     private static final String PREFIX_SHARED_NODE = PREFIX + SHARED_NODE_ID_PREFIX;
-    @Nonnull private final String id;
+    private final String id;
 
     private NodeID(String id) {
         if (id.startsWith(PREFIX)) {

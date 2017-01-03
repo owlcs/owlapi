@@ -240,7 +240,7 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static int compareIterators(Iterator<?> set1, Iterator<?> set2) {
         while (set1.hasNext() && set2.hasNext()) {
             Object o1 = set1.next();
@@ -355,6 +355,7 @@ public class OWLAPIStreamUtils {
      *         component; includes the root and all intermediate nodes. Streams
      *         will be flattened.
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static Stream<?> flatComponents(HasComponents root) {
         List streams = new ArrayList<>();
         streams.add(root);
@@ -362,6 +363,7 @@ public class OWLAPIStreamUtils {
         return streams.stream();
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected static void flatIteration(List streams, Object o) {
         if (o instanceof Stream) {
             ((Stream<?>) o).forEach(o1 -> flatIteration(streams, o1));

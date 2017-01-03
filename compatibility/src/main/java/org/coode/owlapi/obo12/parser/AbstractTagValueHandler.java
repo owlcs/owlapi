@@ -38,11 +38,17 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -127,8 +133,8 @@ interface TagValueHandler {
 
 abstract class AbstractTagValueHandler implements TagValueHandler {
 
-    @Nonnull private final String tag;
-    @Nonnull private final OBOConsumer consumer;
+    private final String tag;
+    private final OBOConsumer consumer;
 
     public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
         this.tag = tag;
@@ -342,10 +348,10 @@ class DataVersionTagValueHandler extends AbstractTagValueHandler {
  * OBO files can load many OBO files at once. If several ontologies have been
  * loaded together and saved into a single file, it would be impossible to know
  * which terms came from which file unless the origin of each term is indicated
- * somehow. Namespaces are used to solve this problem by indicating a
- * "logical ontology" to which every term, relation, instance OR relationship
- * belongs, i.e., each entity is tagged with a Namespace that indicates which
- * ontology it is part of.
+ * somehow. Namespaces are used to solve this problem by indicating a "logical
+ * ontology" to which every term, relation, instance OR relationship belongs,
+ * i.e., each entity is tagged with a Namespace that indicates which ontology it
+ * is part of.
  * <p/>
  * Namespaces are user-definable. Every ontology object belongs to a single
  * namespace. When terms from many ontologies have been loaded together,
@@ -595,9 +601,9 @@ class PartOfTagValueHandler extends AbstractTagValueHandler {
 
 class RawFrameHandler implements OBOParserHandler {
 
-    private String currentFrameType;
+    private String currentFrameType = "";
     private final List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
-    private OBOFrame headerFrame;
+    @Nullable private OBOFrame headerFrame;
     private final List<OBOFrame> typeDefFrames = new ArrayList<>();
     private final List<OBOFrame> nonTypeDefFrames = new ArrayList<>();
 
@@ -612,7 +618,7 @@ class RawFrameHandler implements OBOParserHandler {
     }
 
     @Override
-    public void startFrame(String frameType) {
+    public void startFrame(@Nonnull String frameType) {
         currentFrameType = frameType;
         currentTagValuePairs.clear();
     }
@@ -641,6 +647,7 @@ class RawFrameHandler implements OBOParserHandler {
     /**
      * @return the header frame
      */
+    @Nullable
     public OBOFrame getHeaderFrame() {
         return headerFrame;
     }
@@ -722,7 +729,7 @@ class SymmetricTagValueHandler extends AbstractTagValueHandler {
 
 class SynonymTagValueHandler extends AbstractTagValueHandler {
 
-    @Nonnull private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
+    private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
     private static final Pattern VALUEPATTERN = Pattern.compile(
         "\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
@@ -730,7 +737,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
     private static final int XREF_GROUP = 4;
-    @Nonnull public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
+    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
     public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
 
     public SynonymTagValueHandler(OBOConsumer consumer) {
@@ -893,6 +900,7 @@ class XRefTagHandler extends AbstractTagValueHandler {
         super(OBOVocabulary.XREF.getName(), consumer);
     }
 
+    @SuppressWarnings({ "null", "unused" })
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (currentId == null) {

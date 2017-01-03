@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -27,8 +25,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
 
-    @Nonnull private final OWLFacet facet;
-    @Nonnull private final OWLLiteral facetValue;
+    private final OWLFacet facet;
+    private final OWLLiteral facetValue;
 
     /**
      * @param facet

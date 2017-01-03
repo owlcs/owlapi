@@ -14,17 +14,15 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataRestriction;
 
 /** Quantified data restriction. */
-public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLDataRange>
-    implements OWLDataRestriction {
+public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLDataRange> implements
+    OWLDataRestriction {
 
-    @Nonnull private final OWLDataPropertyExpression property;
+    private final OWLDataPropertyExpression property;
 
     /**
      * @param property

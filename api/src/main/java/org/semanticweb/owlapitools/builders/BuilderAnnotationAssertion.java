@@ -29,7 +29,7 @@ public class BuilderAnnotationAssertion extends
     Builder<OWLAnnotationAssertionAxiom> {
 
     @Nullable private OWLAnnotationSubject subject = null;
-    private OWLAnnotationValue value;
+    @Nullable private OWLAnnotationValue value;
 
     /**
      * @param df

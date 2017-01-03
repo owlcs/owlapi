@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -30,12 +29,12 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
-    @Nonnull private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    @Nonnull private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
-    @Nonnull private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
-    @Nonnull private final String literal;
-    @Nonnull private final OWLDatatype datatype;
-    @Nonnull private final String language;
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
+    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
+    private final String literal;
+    private final OWLDatatype datatype;
+    private final String language;
 
     /**
      * @param literal
@@ -58,8 +57,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
             if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
-                throw new OWLRuntimeException(
-                    "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
+                    + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_LANG_STRING;

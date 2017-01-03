@@ -16,7 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
@@ -34,10 +34,10 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  */
 public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
-    @Nonnull private final OWLDataFactory dataFactory;
-    @Nonnull private OWLEntityChecker checker;
-    private OWLOntologyChecker ontologyChecker;
-    private OWLOntology defaultOntology;
+    private final OWLDataFactory dataFactory;
+    private OWLEntityChecker checker;
+    @Nullable private OWLOntologyChecker ontologyChecker;
+    @Nullable private OWLOntology defaultOntology;
 
     /**
      * @param dataFactory

@@ -107,10 +107,10 @@ public interface OWLOntologyLoaderListener extends Serializable {
      */
     class LoadingFinishedEvent extends LoadingEvent {
 
-        private final Exception ex;
+        @Nullable private final Exception ex;
 
         public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported,
-                @Nullable Exception ex) {
+            @Nullable Exception ex) {
             super(ontologyID, documentIRI, imported);
             this.ex = ex;
         }
@@ -137,6 +137,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
          *         successfully, or {@code null} if the ontology was loaded
          *         successfully.
          */
+        @Nullable
         public Exception getException() {
             return ex;
         }

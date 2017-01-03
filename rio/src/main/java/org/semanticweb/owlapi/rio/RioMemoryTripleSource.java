@@ -43,8 +43,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.Model;
 import org.openrdf.model.Namespace;
@@ -84,7 +82,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
         public Statement next() {
             Statement nextStatement = null;
             try {
-                nextStatement = this.statements.next();
+                nextStatement = statements.next();
                 if (nextStatement != null) {
                     return nextStatement;
                 } else {
@@ -95,7 +93,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
             } finally {
                 if (nextStatement == null) {
                     try {
-                        this.statements.close();
+                        statements.close();
                     } catch (OpenRDFException e) {
                         throw new OWLRuntimeException(e);
                     }
@@ -107,14 +105,14 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
         public boolean hasNext() {
             boolean result = false;
             try {
-                result = this.statements.hasNext();
+                result = statements.hasNext();
                 return result;
             } catch (OpenRDFException e) {
                 throw new OWLRuntimeException("Found exception while iterating", e);
             } finally {
                 if (!result) {
                     try {
-                        this.statements.close();
+                        statements.close();
                     } catch (OpenRDFException e) {
                         throw new OWLRuntimeException(e);
                     }
@@ -124,8 +122,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     private final Map<String, String> namespaces = new LinkedHashMap<>();
-    @Nonnull private final Iterator<Statement> statementIterator;
-    @Nonnull private final IRI documentIRI;
+    private final Iterator<Statement> statementIterator;
+    private final IRI documentIRI;
 
     /**
      * Creates a RioMemoryTripleSource using an {@link Iterable} of

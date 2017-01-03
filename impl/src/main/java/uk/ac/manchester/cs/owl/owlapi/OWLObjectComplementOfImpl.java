@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  */
 public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
 
-    @Nonnull private final OWLClassExpression operand;
+    private final OWLClassExpression operand;
 
     /**
      * @param operand

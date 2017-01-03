@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
@@ -39,9 +38,9 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
     // XXX config
-    @Nonnull private Map<String, String> prefix2NamespaceMap;
-    @Nonnull private final Map<String, String> reverseprefix2NamespaceMap;
-    @Nonnull private StringComparator comparator;
+    private Map<String, String> prefix2NamespaceMap;
+    private final Map<String, String> reverseprefix2NamespaceMap;
+    private StringComparator comparator;
 
     /**
      * @param defaultPrefix
@@ -153,7 +152,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     }
 
     private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index)<0 && s.indexOf('/', index)<0; 
+        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     @Override

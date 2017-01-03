@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.UUID;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.rdf.api.BlankNode;
@@ -26,7 +25,7 @@ import org.semanticweb.owlapi.model.NodeID;
 /** Anonymous node implementation. */
 public class RDFResourceBlankNode extends RDFResource implements org.apache.commons.rdf.api.BlankNode {
 
-    @Nonnull private final IRI resource;
+    private final IRI resource;
     private final boolean isIndividual;
     private final boolean forceIdOutput;
     /**

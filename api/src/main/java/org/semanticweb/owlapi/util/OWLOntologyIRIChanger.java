@@ -17,9 +17,15 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
  * Changes the URI of an ontology and ensures that ontologies which import the
@@ -31,7 +37,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLOntologyIRIChanger {
 
-    @Nonnull private final OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager owlOntologyManager;
 
     /**
      * @param owlOntologyManager
@@ -54,13 +60,12 @@ public class OWLOntologyIRIChanger {
      */
     public List<OWLOntologyChange> getChanges(OWLOntology ontology, IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new SetOntologyID(ontology,
-            new OWLOntologyID(optional(newIRI), ontology.getOntologyID().getVersionIRI())));
+        changes.add(new SetOntologyID(ontology, new OWLOntologyID(optional(newIRI), ontology.getOntologyID()
+            .getVersionIRI())));
         OWLImportsDeclaration owlImport = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI);
         IRI ontIRI = ontology.getOntologyID().getOntologyIRI().get();
-        owlOntologyManager.ontologies().forEach(ont -> ont.importsDeclarations()
-            .filter(decl -> decl.getIRI().equals(ontIRI))
-            .forEach(decl -> {
+        owlOntologyManager.ontologies().forEach(ont -> ont.importsDeclarations().filter(decl -> decl.getIRI().equals(
+            ontIRI)).forEach(decl -> {
                 changes.add(new RemoveImport(ont, decl));
                 changes.add(new AddImport(ont, owlImport));
             }));

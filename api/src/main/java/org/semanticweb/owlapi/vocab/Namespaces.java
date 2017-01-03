@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
 import java.util.EnumSet;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -87,8 +85,8 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
-    @Nonnull private final String prefix;
-    @Nonnull private final String ns;
+    private final String prefix;
+    private final String ns;
     final Status status;
     final BuiltIn builtIn;
     final String hashless;

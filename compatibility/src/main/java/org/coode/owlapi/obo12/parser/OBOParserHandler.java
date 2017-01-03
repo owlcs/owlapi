@@ -38,6 +38,8 @@
  */
 package org.coode.owlapi.obo12.parser;
 
+import javax.annotation.Nullable;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -52,7 +54,7 @@ public interface OBOParserHandler {
 
     void endHeader();
 
-    void startFrame(String name);
+    void startFrame(@Nullable String name);
 
     void endFrame();
 

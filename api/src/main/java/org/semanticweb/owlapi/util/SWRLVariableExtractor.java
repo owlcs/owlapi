@@ -15,9 +15,18 @@ package org.semanticweb.owlapi.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
  * Extracts the variables from rules.
@@ -28,7 +37,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class SWRLVariableExtractor implements SWRLObjectVisitorEx<Collection<SWRLVariable>> {
 
-    @Nonnull private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<>();
+    private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<>();
 
     /**
      * @return the set of variables

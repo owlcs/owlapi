@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.junit.Test;
@@ -39,8 +38,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @ParametersAreNonnullByDefault
 public class OWLDataFactoryTestCase {
 
-    private final @Nonnull AtomicInteger counter = new AtomicInteger(1);
-    private final @Nonnull OWLDataFactory testSubject = new OWLDataFactoryImpl();
+    private final AtomicInteger counter = new AtomicInteger(1);
+    private final OWLDataFactory testSubject = new OWLDataFactoryImpl();
 
     private static IRI IRI() {
         return IRI.getNextDocumentIRI("urn:test#A");

@@ -18,6 +18,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -35,7 +37,7 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements OWLMe
     private OWLOntology ontology;
     private boolean dirty;
     private boolean importsClosureUsed;
-    private M value;
+    @Nullable private M value;
 
     /**
      * Instantiates a new abstract owl metric.

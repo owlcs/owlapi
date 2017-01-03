@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
@@ -26,7 +24,7 @@ import com.google.common.collect.Iterators;
  */
 public class PriorityCollection<T extends Serializable> implements Iterable<T>, Serializable {
 
-    @Nonnull private final List<T> delegate = Collections.synchronizedList(new ArrayList<T>());
+    private final List<T> delegate = Collections.synchronizedList(new ArrayList<T>());
     private final PriorityCollectionSorting configurationHolder;
 
     /**

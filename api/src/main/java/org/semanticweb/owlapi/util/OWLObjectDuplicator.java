@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -32,10 +30,10 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
-    @Nonnull private final OWLDataFactory df;
-    @Nonnull private final Map<OWLEntity, IRI> replacementMap;
-    protected RemappingIndividualProvider anonProvider;
-    @Nonnull private final Map<OWLLiteral, OWLLiteral> replacementLiterals;
+    private final OWLDataFactory df;
+    private final Map<OWLEntity, IRI> replacementMap;
+    protected final RemappingIndividualProvider anonProvider;
+    private final Map<OWLLiteral, OWLLiteral> replacementLiterals;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified
@@ -50,7 +48,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
      *        used to "rename" entities.
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, OWLOntologyManager m) {
-        this(entityIRIReplacementMap, Collections.<OWLLiteral, OWLLiteral> emptyMap(), m);
+        this(entityIRIReplacementMap, Collections.<OWLLiteral, OWLLiteral>emptyMap(), m);
     }
 
     /**
@@ -85,7 +83,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
      *        duplication.
      */
     public OWLObjectDuplicator(OWLOntologyManager m) {
-        this(Collections.<OWLEntity, IRI> emptyMap(), m);
+        this(Collections.<OWLEntity, IRI>emptyMap(), m);
     }
 
     /**

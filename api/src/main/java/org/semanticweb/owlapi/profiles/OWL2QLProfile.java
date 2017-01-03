@@ -17,10 +17,13 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.profiles.violations.*;
+import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonAtomicClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSubClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSuperClassExpression;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -31,10 +34,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2QLProfile implements OWLProfile {
 
-    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(
-        OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
-    @Nonnull private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
-    @Nonnull private final OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
+    protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i
+        .getIRI()));
+    private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
+    private final OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
 
     /**
      * Gets the name of the profile.
@@ -75,7 +78,7 @@ public class OWL2QLProfile implements OWLProfile {
 
     private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor {
 
-        @Nonnull private final Set<OWLProfileViolation> violations = new HashSet<>();
+        private final Set<OWLProfileViolation> violations = new HashSet<>();
 
         OWL2QLObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -114,14 +117,14 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce))
-                .forEach(ce -> violations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
+            axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce)).forEach(ce -> violations.add(
+                new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
         }
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce))
-                .forEach(ce -> violations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
+            axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce)).forEach(ce -> violations.add(
+                new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
         }
 
         @Override
@@ -173,8 +176,8 @@ public class OWL2QLProfile implements OWLProfile {
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
             if (axiom.getClassExpression().isAnonymous()) {
-                violations
-                    .add(new UseOfNonAtomicClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
+                violations.add(new UseOfNonAtomicClassExpression(getCurrentOntology(), axiom, axiom
+                    .getClassExpression()));
             }
         }
 

@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
@@ -32,22 +31,22 @@ import org.xml.sax.SAXException;
 abstract class AbstractState {
 
     //@formatter:off
-@Nonnull     static final String DATATYPE_RESOURCE           = "rdf:datatype specified on a node with resource value.";
-@Nonnull     static final String TEXT_SEEN                   = "Text was seen and new node is started.";
-@Nonnull     static final String RDF_RDF                     = "Expecting rdf:RDF element.";
-@Nonnull     static final String OP_EXPECTED                 = "Cannot answer characters when object properties are expected.";
-@Nonnull     static final String CHARACTERS_NOT_EXPECTED     = "Characters were not expected.";
-@Nonnull     static final String INCORRECT_START             = "incorrect element start encountered.";
-@Nonnull     static final String EXPECTING_OBJECT            = "Expecting an object element instead of character content.";
-@Nonnull     static final String RDF_RDF_EXPECTED            = "Expecting rdf:rdf element instead of character content.";
-@Nonnull     static final String NODE_EXPECTED               = "Cannot answer characters when node is expected.";
-@Nonnull     static final String NO_RDF_NODE_ID_ID_ABOUT     = "Element cannot specify both rdf:nodeID and rdf:ID or rdf:about attributes.";
-@Nonnull     static final String NO_RDF_ID_AND_ABOUT         = "Element cannot specify both rdf:ID and rdf:about attributes.";
-@Nonnull     static final String ABOUT_EACH_PREFIX_UNSUPPORTED = "rdf:aboutEachPrefix attribute is not supported.";
-@Nonnull     static final String ABOUT_EACH_UNSUPPORTED      = "rdf:aboutEach attribute is not supported.";
+    static final String DATATYPE_RESOURCE           = "rdf:datatype specified on a node with resource value.";
+    static final String TEXT_SEEN                   = "Text was seen and new node is started.";
+    static final String RDF_RDF                     = "Expecting rdf:RDF element.";
+    static final String OP_EXPECTED                 = "Cannot answer characters when object properties are expected.";
+    static final String CHARACTERS_NOT_EXPECTED     = "Characters were not expected.";
+    static final String INCORRECT_START             = "incorrect element start encountered.";
+    static final String EXPECTING_OBJECT            = "Expecting an object element instead of character content.";
+    static final String RDF_RDF_EXPECTED            = "Expecting rdf:rdf element instead of character content.";
+    static final String NODE_EXPECTED               = "Cannot answer characters when node is expected.";
+    static final String NO_RDF_NODE_ID_ID_ABOUT     = "Element cannot specify both rdf:nodeID and rdf:ID or rdf:about attributes.";
+    static final String NO_RDF_ID_AND_ABOUT         = "Element cannot specify both rdf:ID and rdf:about attributes.";
+    static final String ABOUT_EACH_PREFIX_UNSUPPORTED = "rdf:aboutEachPrefix attribute is not supported.";
+    static final String ABOUT_EACH_UNSUPPORTED      = "rdf:aboutEach attribute is not supported.";
     //@formatter:on
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractState.class);
-    @Nonnull protected final RDFParser parser;
+    protected final RDFParser parser;
 
     AbstractState(RDFParser parser) {
         this.parser = parser;
@@ -187,7 +186,7 @@ class StartRDF extends AbstractState implements State {
         }
         // the logical IRI is the current IRI that we have as the base IRI
         // at this point
-        parser.consumer.logicalURI(parser.getBaseIRI());
+        parser.getRDFConsumer().logicalURI(parser.getBaseIRI());
         parser.pushState(new NodeElementList(parser));
     }
 
@@ -206,7 +205,7 @@ class StartRDF extends AbstractState implements State {
 class EmptyPropertyElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    protected String pIRI;
+    @Nullable protected String pIRI;
 
     EmptyPropertyElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -245,8 +244,8 @@ class EmptyPropertyElement extends AbstractState implements State {
 /** Parses the nodeElement production. */
 class NodeElement extends AbstractState implements State {
 
-    protected String subjectIRI;
-    protected ReificationManager reificationManager;
+    @Nullable protected String subjectIRI;
+    @Nullable protected ReificationManager reificationManager;
     protected final AtomicLong nextLi = new AtomicLong(1);
 
     NodeElement(RDFParser parser) {
@@ -273,7 +272,7 @@ class NodeElement extends AbstractState implements State {
         if (rdfID != null) {
             rdfID = parser.resolveIRI('#' + rdfID);
         }
-        return reificationManager.getReificationID(rdfID, parser);
+        return verifyNotNull(reificationManager).getReificationID(rdfID, parser);
     }
 
     /**
@@ -301,8 +300,8 @@ class NodeElement extends AbstractState implements State {
         boolean isRDFNS = RDFNS.equals(namespaceIRI);
         reificationManager = getReificationManager(atts);
         if (!isRDFNS || !ELT_DESCRIPTION.equals(localName)) {
-            parser.statementWithResourceValue(subjectIRI(), RDF_TYPE, namespaceIRI + localName, reificationManager
-                .getReificationID(null, parser));
+            parser.statementWithResourceValue(subjectIRI(), RDF_TYPE, namespaceIRI + localName, verifyNotNull(
+                reificationManager).getReificationID(null, parser));
         }
         // Checks if attribute list contains some of the unsupported attributes.
         parser.verify(atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1, ABOUT_EACH_UNSUPPORTED);
@@ -378,13 +377,13 @@ class NodeElementList extends AbstractState implements State {
     @Override
     public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
         parser.pushState(new NodeElement(parser));
-        parser.state.startElement(namespaceIRI, localName, qName, atts);
+        verifyNotNull(parser.state).startElement(namespaceIRI, localName, qName, atts);
     }
 
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
         parser.popState();
-        parser.state.endElement(namespaceIRI, localName, qName);
+        verifyNotNull(parser.state).endElement(namespaceIRI, localName, qName);
     }
 
     @Override
@@ -397,9 +396,9 @@ class NodeElementList extends AbstractState implements State {
 class ParseTypeCollectionElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    protected String pIRI;
+    @Nullable protected String pIRI;
     @Nullable protected String reificationID;
-    protected String lastCellIRI;
+    @Nullable protected String lastCellIRI;
 
     ParseTypeCollectionElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -422,7 +421,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
         } else {
             NodeElement collectionNode = new NodeElement(parser);
             parser.pushState(collectionNode);
-            parser.state.startElement(namespaceIRI, localName, qName, atts);
+            verifyNotNull(parser.state).startElement(namespaceIRI, localName, qName, atts);
             String newListCellIRI = listCell(collectionNode.subjectIRI());
             if (lastCellIRI == null) {
                 parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), newListCellIRI,
@@ -463,12 +462,12 @@ class ParseTypeCollectionElement extends AbstractState implements State {
  */
 class ResourceOrLiteralElement extends AbstractState implements State {
 
-    @Nonnull protected final NodeElement nodeElement;
-    protected String propertyIRI;
+    protected final NodeElement nodeElement;
+    @Nullable protected String propertyIRI;
     @Nullable protected String reificationID;
-    protected String datatype;
-    protected StringBuilder text;
-    protected NodeElement innerNode;
+    @Nullable protected String datatype;
+    @Nullable protected StringBuilder text;
+    @Nullable protected NodeElement innerNode;
 
     ResourceOrLiteralElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -492,17 +491,17 @@ class ResourceOrLiteralElement extends AbstractState implements State {
             parser.verify(datatype != null, DATATYPE_RESOURCE);
             innerNode = new NodeElement(parser);
             parser.pushState(innerNode);
-            parser.state.startElement(namespaceIRI, localName, qName, atts);
+            verifyNotNull(parser.state).startElement(namespaceIRI, localName, qName, atts);
         }
     }
 
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (innerNode != null) {
-            parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), innerNode.subjectIRI(),
-                reificationID);
+            parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), verifyNotNull(innerNode)
+                .subjectIRI(), reificationID);
         } else {
-            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), verifyNotNull(text.toString()),
+            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), verifyNotNull(text).toString(),
                 datatype, reificationID);
         }
         parser.popState();
@@ -513,7 +512,7 @@ class ResourceOrLiteralElement extends AbstractState implements State {
         if (innerNode != null) {
             parser.verify(notBlank(data, start, length), OP_EXPECTED);
         } else {
-            text.append(data, start, length);
+            verifyNotNull(text).append(data, start, length);
         }
     }
 }
@@ -522,10 +521,10 @@ class ResourceOrLiteralElement extends AbstractState implements State {
 class ParseTypeLiteralElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    protected String pIRI;
+    @Nullable protected String pIRI;
     @Nullable protected String reificationID;
     protected int depth;
-    protected StringBuilder m_content;
+    protected final StringBuilder m_content = new StringBuilder();
     // avoid multiple redeclarations of namespace abbreviations in XML Literals
     protected Set<String> declaredNamespaces = new HashSet<>(2);
 
@@ -543,7 +542,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
         if (depth == 0) {
             pIRI = nodeElement.getPropertyIRI(namespaceIRI + localName);
             reificationID = nodeElement.getReificationID(atts);
-            m_content = new StringBuilder();
+            m_content.delete(0, m_content.length());
         } else {
             m_content.append('<');
             m_content.append(qName);
@@ -591,7 +590,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
 class ParseTypeResourceElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    protected String mpIRI;
+    @Nullable protected String mpIRI;
     @Nullable protected String reificationID;
 
     ParseTypeResourceElement(NodeElement nodeElement, RDFParser parser) {
@@ -627,7 +626,7 @@ class ParseTypeResourceElement extends AbstractState implements State {
  */
 class PropertyElementList extends AbstractState implements State {
 
-    @Nonnull protected final NodeElement node;
+    protected final NodeElement node;
 
     PropertyElementList(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -655,13 +654,13 @@ class PropertyElementList extends AbstractState implements State {
                 parser.pushState(new ResourceOrLiteralElement(node, parser));
             }
         }
-        parser.state.startElement(namespaceIRI, localName, qName, atts);
+        verifyNotNull(parser.state).startElement(namespaceIRI, localName, qName, atts);
     }
 
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
         parser.popState();
-        parser.state.endElement(namespaceIRI, localName, qName);
+        verifyNotNull(parser.state).endElement(namespaceIRI, localName, qName);
     }
 
     @Override
@@ -672,7 +671,7 @@ class PropertyElementList extends AbstractState implements State {
 
 class ReificationManager {
 
-    @Nonnull public static final ReificationManager INSTANCE = new ReificationManager();
+    public static final ReificationManager INSTANCE = new ReificationManager();
 
     @SuppressWarnings("unused")
     @Nullable
@@ -683,8 +682,8 @@ class ReificationManager {
 
 class ReifiedStatementBag extends ReificationManager {
 
-    @Nonnull protected final AtomicLong elements = new AtomicLong(1);
-    @Nonnull protected final String iri;
+    protected final AtomicLong elements = new AtomicLong(1);
+    protected final String iri;
 
     ReifiedStatementBag(String uri, RDFParser parser) {
         iri = uri;

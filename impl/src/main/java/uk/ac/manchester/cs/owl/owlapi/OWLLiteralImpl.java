@@ -14,13 +14,19 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Serializable;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -41,11 +47,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
-    @Nonnull private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    @Nonnull private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
-    @Nonnull private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
-    @Nonnull private final OWLDatatype datatype;
-    @Nonnull private final String language;
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
+    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
+    private final OWLDatatype datatype;
+    private final String language;
 
     /**
      * @param literal
@@ -70,8 +76,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal or lang string
-                throw new OWLRuntimeException(
-                    "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
+                    + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_LANG_STRING;
@@ -171,8 +177,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static class LiteralWrapper implements Serializable {
 
         private static final String COMPRESSED_ENCODING = "UTF-16";
-        String l;
-        byte[] bytes;
+        @Nullable String l;
+        @Nullable byte[] bytes;
 
         LiteralWrapper(String s) {
             if (s.length() > COMPRESSION_LIMIT) {
@@ -195,7 +201,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 return verifyNotNull(l);
             }
             try {
-                return decompress(bytes);
+                return decompress(verifyNotNull(bytes));
             } catch (IOException e) {
                 // some problem has happened - cannot recover from this
                 throw new OWLRuntimeException(e);

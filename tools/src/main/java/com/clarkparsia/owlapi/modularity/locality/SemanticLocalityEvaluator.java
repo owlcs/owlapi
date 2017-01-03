@@ -19,6 +19,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -45,8 +47,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     public SemanticLocalityEvaluator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory) {
         df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         try {
-            reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
-                .createNonBufferingReasoner(man.createOntology());
+            reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null").createNonBufferingReasoner(man
+                .createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
         }
@@ -109,10 +111,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     /** The Class BottomReplacer. */
     private class BottomReplacer implements OWLAxiomVisitor, OWLClassExpressionVisitor {
 
-        private OWLAxiom newAxiom;
-        private OWLClassExpression newClassExpression;
+        @Nullable private OWLAxiom newAxiom;
+        @Nullable private OWLClassExpression newClassExpression;
         private Collection<OWLEntity> signature;
 
+        @SuppressWarnings("null")
         BottomReplacer() {}
 
         /**
@@ -332,8 +335,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     @Override
     public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
         LOGGER.info("Replacing axiom by Bottom");
-        OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"),
-            checkNotNull(signature, "signature cannot be null"));
+        OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"), checkNotNull(
+            signature, "signature cannot be null"));
         return axiomVisitor.isLocal(newAxiom);
     }
 }

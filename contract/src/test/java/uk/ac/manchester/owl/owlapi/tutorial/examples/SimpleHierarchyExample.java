@@ -41,8 +41,8 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 public final class SimpleHierarchyExample {
 
     private static final int INDENT = 4;
-    private final @Nonnull OWLReasonerFactory reasonerFactory;
-    private final @Nonnull OWLOntology ontology;
+    private final OWLReasonerFactory reasonerFactory;
+    private final OWLOntology ontology;
     private final PrintStream out;
 
     private SimpleHierarchyExample(OWLReasonerFactory reasonerFactory, OWLOntology inputOntology) {
@@ -109,8 +109,7 @@ public final class SimpleHierarchyExample {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // We load an ontology from the URI specified
         // on the command line
-        @Nonnull
-        String x = args[0];
+        @Nonnull String x = args[0];
         System.out.println(x);
         IRI documentIRI = IRI.create(x);
         // Now load the ontology.

@@ -21,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -37,7 +38,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "javadoc", "deprecation", "resource" })
+@SuppressWarnings({ "javadoc", "deprecation", "resource", "null" })
 public class OWLOntologyManager_Concurrent_TestCase {
 
     private OWLOntologyManager manager;
@@ -59,6 +60,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
         reset(readLock, writeLock, readWriteLock);
     }
 
+    @SuppressWarnings("boxing")
     private void mockAndAddOntologyFactory() throws OWLOntologyCreationException {
         OWLOntologyFactory ontologyFactory = mock(OWLOntologyFactory.class);
         when(ontologyFactory.canCreateFromDocumentIRI(any(IRI.class))).thenReturn(Boolean.TRUE);
@@ -77,6 +79,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
         return ont;
     }
 
+    @SuppressWarnings("boxing")
     private void mockAndAddOntologyStorer() {
         OWLStorer storer = mock(OWLStorer.class);
         when(storer.canStoreOntology(any(OWLDocumentFormat.class))).thenReturn(Boolean.TRUE);
@@ -356,8 +359,13 @@ public class OWLOntologyManager_Concurrent_TestCase {
     @Test
     public void shouldCall_saveOntology_with_readLock_3() throws OWLOntologyStorageException {
         OWLOntologyDocumentTarget arg1 = mock(OWLOntologyDocumentTarget.class);
+        manager.setOntologyFormat(ontology, new RDFXMLDocumentFormat());
+        verify(writeLock, atLeastOnce()).lock();
+        verify(writeLock, atLeastOnce()).unlock();
         manager.saveOntology(ontology, arg1);
-        verifyReadLock_LockUnlock();
+        InOrder inOrder = Mockito.inOrder(readLock, readLock);
+        inOrder.verify(readLock, atLeastOnce()).lock();
+        inOrder.verify(readLock, atLeastOnce()).unlock();
     }
 
     @Test
@@ -370,22 +378,37 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_saveOntology_with_readLock_5() throws OWLOntologyStorageException {
+        manager.setOntologyFormat(ontology, new RDFXMLDocumentFormat());
+        verify(writeLock, atLeastOnce()).lock();
+        verify(writeLock, atLeastOnce()).unlock();
         manager.saveOntology(ontology);
-        verifyReadLock_LockUnlock();
+        InOrder inOrder = Mockito.inOrder(readLock, readLock);
+        inOrder.verify(readLock, atLeastOnce()).lock();
+        inOrder.verify(readLock, atLeastOnce()).unlock();
     }
 
     @Test
     public void shouldCall_saveOntology_with_readLock_6() throws OWLOntologyStorageException {
         IRI arg1 = mockIRI();
+        manager.setOntologyFormat(ontology, new RDFXMLDocumentFormat());
+        verify(writeLock, atLeastOnce()).lock();
+        verify(writeLock, atLeastOnce()).unlock();
         manager.saveOntology(ontology, arg1);
-        verifyReadLock_LockUnlock();
+        InOrder inOrder = Mockito.inOrder(readLock, readLock);
+        inOrder.verify(readLock, atLeastOnce()).lock();
+        inOrder.verify(readLock, atLeastOnce()).unlock();
     }
 
     @Test
     public void shouldCall_saveOntology_with_readLock_7() throws OWLOntologyStorageException {
         OutputStream arg1 = mock(OutputStream.class);
+        manager.setOntologyFormat(ontology, new RDFXMLDocumentFormat());
+        verify(writeLock, atLeastOnce()).lock();
+        verify(writeLock, atLeastOnce()).unlock();
         manager.saveOntology(ontology, arg1);
-        verifyReadLock_LockUnlock();
+        InOrder inOrder = Mockito.inOrder(readLock, readLock);
+        inOrder.verify(readLock, atLeastOnce()).lock();
+        inOrder.verify(readLock, atLeastOnce()).unlock();
     }
 
     @Test

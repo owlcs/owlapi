@@ -7,10 +7,19 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
@@ -47,7 +56,7 @@ public class OWLAPIObo2Owl {
     public static final String IRI_PROP_ISREVERSIBLEPROPERTYCHAIN = DEFAULT_IRI_PREFIX
         + "IAO_isReversiblePropertyChain";
     /** The default id space. */
-    @Nonnull protected String defaultIDSpace = "";
+    protected String defaultIDSpace = "";
     /** The manager. */
     protected OWLOntologyManager manager;
     /** The owl ontology. */
@@ -57,15 +66,15 @@ public class OWLAPIObo2Owl {
     /** The obodoc. */
     protected OBODoc obodoc;
     /** The id space map. */
-    @Nonnull protected final Map<String, String> idSpaceMap;
+    protected final Map<String, String> idSpaceMap;
     /** The annotation property map. */
-    @Nonnull protected static final Map<String, IRI> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
+    protected static final Map<String, IRI> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
     /** The ap to declare. */
-    @Nonnull protected final Set<OWLAnnotationProperty> apToDeclare;
+    protected final Set<OWLAnnotationProperty> apToDeclare;
     /** The cls to declar. */
-    @Nonnull protected final Map<String, OWLClass> clsToDeclare;
+    protected final Map<String, OWLClass> clsToDeclare;
     /** The typedef to annotation property. */
-    @Nonnull protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
+    protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
     private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation", "gci_filler", "cardinality",
         "minCardinality", "maxCardinality", "all_some", "all_only");
     /**
@@ -89,6 +98,7 @@ public class OWLAPIObo2Owl {
      * @param manager
      *        the manager
      */
+    @SuppressWarnings("null")
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<>();
         apToDeclare = new HashSet<>();

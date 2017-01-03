@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -31,10 +30,10 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class XMLWriterNamespaceManager {
 
-    @Nonnull private final Map<String, String> prefixNamespaceMap = new HashMap<>();
-    @Nonnull private final Map<String, String> namespacePrefixMap = new HashMap<>();
-    @Nonnull private final Map<String, String> wellknownNamespaces = new HashMap<>();
-    @Nonnull private String defaultNamespace;
+    private final Map<String, String> prefixNamespaceMap = new HashMap<>();
+    private final Map<String, String> namespacePrefixMap = new HashMap<>();
+    private final Map<String, String> wellknownNamespaces = new HashMap<>();
+    private String defaultNamespace;
 
     /**
      * @param defaultNamespace
@@ -51,8 +50,8 @@ public class XMLWriterNamespaceManager {
      *        namespace
      */
     public void addWellKnownNamespace(String prefix, String namespace) {
-        wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
-            checkNotNull(namespace, "namespace cannot be null"));
+        wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"), checkNotNull(namespace,
+            "namespace cannot be null"));
     }
 
     /**

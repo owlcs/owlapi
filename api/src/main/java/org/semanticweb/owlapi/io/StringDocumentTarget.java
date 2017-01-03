@@ -18,8 +18,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -27,7 +25,7 @@ import javax.annotation.Nonnull;
  */
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
 
-    @Nonnull private final Optional<Writer> writer = optional(new StringWriter());
+    private final Optional<Writer> writer = optional(new StringWriter());
 
     @Override
     public String toString() {

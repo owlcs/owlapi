@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -25,7 +23,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class OWLAxiomChange extends OWLOntologyChange {
 
-    @Nonnull private final OWLAxiom axiom;
+    private final OWLAxiom axiom;
 
     /**
      * @param ont

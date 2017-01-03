@@ -20,10 +20,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -34,16 +40,16 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLObjectWalker<O extends OWLObject> {
 
-    protected OWLOntology ontology;
+    @Nullable protected OWLOntology ontology;
     private final Collection<O> objects;
     @Nullable protected OWLObjectVisitor visitor;
     @Nullable private OWLObjectVisitorEx<?> visitorEx;
     protected final boolean visitDuplicates;
-    protected OWLAxiom ax;
-    protected OWLAnnotation annotation;
+    @Nullable protected OWLAxiom ax;
+    @Nullable protected OWLAnnotation annotation;
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<>();
     private final List<OWLDataRange> dataRangePath = new ArrayList<>();
-    @Nonnull private StructureWalker<O> walker;
+    private StructureWalker<O> walker;
 
     /**
      * @param objects
@@ -178,6 +184,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @return The last annotation to be visited (may be {@code null})
      */
+    @Nullable
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

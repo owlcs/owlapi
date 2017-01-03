@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
@@ -31,11 +29,11 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  * @param <B>
  *        atom type
  */
-public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl
-    implements SWRLBinaryAtom<A, B> {
+public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl implements
+    SWRLBinaryAtom<A, B> {
 
-    @Nonnull private final A arg0;
-    @Nonnull private final B arg1;
+    private final A arg0;
+    private final B arg1;
 
     protected SWRLBinaryAtomImpl(SWRLPredicate predicate, A arg0, B arg1) {
         super(predicate);

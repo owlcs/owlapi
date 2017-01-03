@@ -103,6 +103,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
         /** Instantiates a new axiom locality visitor. */
+        @SuppressWarnings("null")
         AxiomLocalityVisitor() {
             topEvaluator.setBottomEvaluator(bottomEvaluator);
             bottomEvaluator.setTopEvaluator(topEvaluator);
@@ -710,6 +711,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private TopEquivalenceEvaluator topEvaluator;
 
         /** Instantiates a new bottom equivalence evaluator. */
+        @SuppressWarnings("null")
         BottomEquivalenceEvaluator() {}
 
         /**
@@ -1054,6 +1056,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private Collection<OWLEntity> signature;
 
         /** Instantiates a new top equivalence evaluator. */
+        @SuppressWarnings("null")
         TopEquivalenceEvaluator() {}
 
         private boolean isTopEquivalent(OWLClassExpression desc) {

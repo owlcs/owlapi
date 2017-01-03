@@ -15,14 +15,17 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -32,9 +35,9 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings({ "javadoc" })
 public class OWLOntologyChangeRecordTestCase extends TestBase {
 
-    private final @Nonnull OWLOntologyID mockOntologyID = new OWLOntologyID();
-    private final @Nonnull OWLOntologyChangeData mockChangeData = mock(OWLOntologyChangeData.class);
-    private final @Nonnull OWLAxiom mockAxiom = mock(OWLAxiom.class);
+    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
+    private final OWLOntologyChangeData mockChangeData = mock(OWLOntologyChangeData.class);
+    private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
 
     @Test
     public void testEquals() {

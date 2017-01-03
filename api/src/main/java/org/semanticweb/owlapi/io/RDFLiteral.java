@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.rdf.api.Literal;
@@ -32,9 +31,9 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
 
-    @Nonnull private final String lexicalValue;
-    @Nonnull private final String lang;
-    @Nonnull private final IRI datatype;
+    private final String lexicalValue;
+    private final String lang;
+    private final IRI datatype;
     private int hashCode;
 
     /**
@@ -191,10 +190,10 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
 
     @Override
     public String ntriplesString() {
-        String escaped = '"' +
-            EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n").replace("\r", "\\r") + '"';
-        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) ||
-            datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
+        String escaped = '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n").replace("\r", "\\r")
+            + '"';
+        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || datatype.equals(OWL2Datatype.XSD_STRING
+            .getIRI())) {
             return escaped;
         } else if (hasLang()) {
             return escaped + "@" + getLang();

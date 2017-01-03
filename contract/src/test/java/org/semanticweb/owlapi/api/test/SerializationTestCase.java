@@ -25,8 +25,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -36,29 +34,29 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({ "javadoc", "null" })
 public class SerializationTestCase extends TestBase {
 
-    private final @Nonnull OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
-    private final @Nonnull OWLDataProperty dp = df.getOWLDataProperty("urn:test#", "dp");
-    private final @Nonnull OWLObjectProperty op = df.getOWLObjectProperty("urn:test#", "op");
-    private final @Nonnull IRI iri = IRI.create("urn:test#", "iri");
-    private final @Nonnull OWLLiteral owlliteral = df.getOWLLiteral(true);
-    private final @Nonnull OWLAnnotationSubject as = IRI.create("urn:test#", "i");
-    private final @Nonnull OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
-    private final @Nonnull OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
-    private final @Nonnull OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test#", "ap");
-    private final @Nonnull OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
-    private final @Nonnull String string = "testString";
-    private final @Nonnull OWLClassExpression c = df.getOWLClass("urn:test#", "classexpression");
-    private final @Nonnull PrefixManager prefixmanager = new DefaultPrefixManager();
-    private final @Nonnull OWLIndividual ai = df.getOWLAnonymousIndividual();
-    private final @Nonnull OWLAnnotationValue owlannotationvalue = owlliteral;
-    private final @Nonnull Set<OWLObjectPropertyExpression> setop = new HashSet<>();
-    private final @Nonnull Set<OWLDataPropertyExpression> setdp = new HashSet<>();
-    private final @Nonnull List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
-    private final @Nonnull Set<OWLIndividual> setowlindividual = new HashSet<>();
-    private final @Nonnull Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
+    private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
+    private final OWLDataProperty dp = df.getOWLDataProperty("urn:test#", "dp");
+    private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test#", "op");
+    private final IRI iri = IRI.create("urn:test#", "iri");
+    private final OWLLiteral owlliteral = df.getOWLLiteral(true);
+    private final OWLAnnotationSubject as = IRI.create("urn:test#", "i");
+    private final OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
+    private final OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
+    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:test#", "ap");
+    private final OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
+    private final String string = "testString";
+    private final OWLClassExpression c = df.getOWLClass("urn:test#", "classexpression");
+    private final PrefixManager prefixmanager = new DefaultPrefixManager();
+    private final OWLIndividual ai = df.getOWLAnonymousIndividual();
+    private final OWLAnnotationValue owlannotationvalue = owlliteral;
+    private final Set<OWLObjectPropertyExpression> setop = new HashSet<>();
+    private final Set<OWLDataPropertyExpression> setdp = new HashSet<>();
+    private final List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
+    private final Set<OWLIndividual> setowlindividual = new HashSet<>();
+    private final Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
     IRI ontologyIRI;
     protected OWLOntology o;
 
@@ -69,7 +67,6 @@ public class SerializationTestCase extends TestBase {
         ontologyIRI = o.getOntologyID().getOntologyIRI().get();
     }
 
-    @SuppressWarnings("null")
     @Test
     public void testrun() throws Exception {
         o.applyChange(new AddImport(o, df.getOWLImportsDeclaration(iri)));

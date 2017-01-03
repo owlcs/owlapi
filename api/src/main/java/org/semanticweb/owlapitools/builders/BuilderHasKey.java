@@ -14,6 +14,7 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -24,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 /** Builder class for OWLHasKeyAxiom. */
 public class BuilderHasKey extends BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey, OWLPropertyExpression> {
 
-    private OWLClassExpression ce;
+    @Nullable private OWLClassExpression ce;
 
     /**
      * Builder initialized from an existing object.
@@ -36,8 +37,8 @@ public class BuilderHasKey extends BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey,
      */
     public BuilderHasKey(OWLHasKeyAxiom expected, OWLDataFactory df) {
         this(df);
-        withClass(expected.getClassExpression()).withAnnotations(expected.annotations())
-                .withItems(expected.dataPropertyExpressions()).withItems(expected.objectPropertyExpressions());
+        withClass(expected.getClassExpression()).withAnnotations(expected.annotations()).withItems(expected
+            .dataPropertyExpressions()).withItems(expected.objectPropertyExpressions());
     }
 
     /**

@@ -57,6 +57,10 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
      *        true if strong typing is required
      * @param occurrences
      *        will tell whether anonymous individuals need an id or not
+     * @param axiomOccurrences
+     *        axiom occurrences
+     * @param counter
+     *        counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
         IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {

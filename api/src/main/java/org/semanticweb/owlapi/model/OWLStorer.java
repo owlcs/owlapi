@@ -56,7 +56,7 @@ public interface OWLStorer extends Serializable {
      *         if there was a problem storing the ontology
      */
     void storeOntology(OWLOntology ontology, IRI documentIRI, OWLDocumentFormat ontologyFormat)
-            throws OWLOntologyStorageException, IOException;
+        throws OWLOntologyStorageException, IOException;
 
     /**
      * Stores an ontology to the specified target. This method assumes the
@@ -75,5 +75,5 @@ public interface OWLStorer extends Serializable {
      *         if there was an IOException when storing the ontology.
      */
     void storeOntology(OWLOntology ontology, OWLOntologyDocumentTarget target, OWLDocumentFormat format)
-            throws OWLOntologyStorageException, IOException;
+        throws OWLOntologyStorageException, IOException;
 }

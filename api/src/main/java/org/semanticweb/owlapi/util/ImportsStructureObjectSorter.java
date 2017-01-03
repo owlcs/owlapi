@@ -15,10 +15,13 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -42,8 +45,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ImportsStructureObjectSorter<O> {
 
-    @Nonnull private final OWLOntology ontology;
-    @Nonnull private final ObjectSelector<O> objectSelector;
+    private final OWLOntology ontology;
+    private final ObjectSelector<O> objectSelector;
 
     /**
      * Creates a sorter for the specified ontology, whose imports closure is

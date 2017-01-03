@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owlapi.modularity;
 
-import javax.annotation.Nonnull;
-
 /**
  * Enumeration for module types.
  * 
@@ -27,7 +25,7 @@ public enum ModuleType {
     /** Module type representing fixpoint-nested modules (top-of-bottom-of-top-of-...). */  STAR("nested");
     //@formatter:on
     /** The name of the module type in bottom/top notation. */
-    @Nonnull private final String name;
+    private final String name;
 
     /**
      * Constructs a module type with the given name and alternative name.

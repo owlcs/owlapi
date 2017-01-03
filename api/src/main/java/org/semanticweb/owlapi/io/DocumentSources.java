@@ -2,7 +2,12 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -18,7 +23,6 @@ import java.util.zip.InflaterInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.io.ByteOrderMark;
@@ -44,7 +48,7 @@ public class DocumentSources {
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern.compile(".*owl|rdf|xml|mos");
     private static final String ACCEPTABLE_CONTENT_ENCODING = "xz,gzip,deflate";
-    @Nonnull private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
+    private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
 
     private DocumentSources() {}
 
@@ -170,8 +174,7 @@ public class DocumentSources {
             con.connect();
             int responseCode = con.getResponseCode();
             // redirect
-            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-                || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP || responseCode == HttpURLConnection.HTTP_MOVED_PERM
                 || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
                 String location = con.getHeaderField("Location");
                 URL newURL = new URL(location);
@@ -218,7 +221,7 @@ public class DocumentSources {
     @Nullable
     protected static InputStream connectWithFiveRetries(IRI documentIRI, OWLOntologyLoaderConfiguration config,
         URLConnection conn, int connectionTimeout, String contentEncoding) throws IOException,
-            OWLOntologyInputSourceException {
+        OWLOntologyInputSourceException {
         InputStream is = null;
         int count = 0;
         while (count < config.getRetriesToAttempt() && is == null) {

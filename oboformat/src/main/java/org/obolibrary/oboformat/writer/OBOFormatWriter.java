@@ -4,12 +4,29 @@ import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUB_POSITION
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Serializable;
+import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -24,7 +41,12 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +62,8 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
-    @Nonnull private static final TObjectIntHashMap<String> TAGSPRIORITIES = buildTagsPriorities();
-    @Nonnull private static final TObjectIntHashMap<String> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
+    private static final TObjectIntHashMap<String> TAGSPRIORITIES = buildTagsPriorities();
+    private static final TObjectIntHashMap<String> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
     private static final Comparator<Frame> framesComparator = Comparator.comparing(Frame::getId);
     private static final TObjectIntHashMap<String> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
     private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
@@ -955,7 +977,7 @@ public class OBOFormatWriter {
          * @return name or null
          */
         @Nullable
-            String getName(String id);
+        String getName(String id);
 
         /**
          * Retrieve the default OBO namespace.
@@ -963,7 +985,7 @@ public class OBOFormatWriter {
          * @return default OBO namespace or null
          */
         @Nullable
-            String getDefaultOboNamespace();
+        String getDefaultOboNamespace();
     }
 
     /**
@@ -972,7 +994,7 @@ public class OBOFormatWriter {
      */
     public static class OBODocNameProvider implements NameProvider {
 
-        @Nonnull private final OBODoc oboDoc;
+        private final OBODoc oboDoc;
         @Nullable private final String defaultOboNamespace;
 
         /**
@@ -1023,7 +1045,7 @@ public class OBOFormatWriter {
      */
     public static class OWLOntologyNameProvider implements NameProvider {
 
-        @Nonnull private final OWLOntology ont;
+        private final OWLOntology ont;
         @Nullable private final String defaultOboNamespace;
 
         /**

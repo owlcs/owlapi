@@ -12,7 +12,15 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * Created by ses on 3/10/14.
@@ -29,7 +37,7 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             + "    <rdf:Description rdf:about=\"&ns;test\"><ns:rel><rdf:Description ns:pred =\"Not visible\"/></ns:rel></rdf:Description>\n"
             + "</rdf:RDF>";
         OWLOntology oo = loadOntologyFromString(input);
-        @Nonnull RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo.getFormat();
+        RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo.getNonnullFormat();
         assertTrue(format.getOntologyLoaderMetaData().isPresent());
         assertEquals("Should have no unparsed triples", 0, format.getOntologyLoaderMetaData().get().getUnparsedTriples()
             .count());

@@ -14,11 +14,22 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * Performs a bulk conversion/translation of entity URIs. This utility class can
@@ -33,13 +44,13 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLEntityURIConverter {
 
-    @Nonnull private final OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
     // The ontologies that reference the
     // entities whose names will be converted
-    @Nonnull private final Collection<OWLOntology> ontologies;
-    @Nonnull private final Map<OWLEntity, IRI> replacementMap = new HashMap<>();
-    private Set<OWLEntity> processedEntities;
-    @Nonnull private final OWLEntityURIConverterStrategy strategy;
+    private final Collection<OWLOntology> ontologies;
+    private final Map<OWLEntity, IRI> replacementMap = new HashMap<>();
+    private final Set<OWLEntity> processedEntities = new HashSet<>();
+    private final OWLEntityURIConverterStrategy strategy;
 
     /**
      * Creates a converter that will convert the URIs of entities in the
@@ -67,7 +78,7 @@ public class OWLEntityURIConverter {
      */
     public List<OWLOntologyChange> getChanges() {
         replacementMap.clear();
-        processedEntities = new HashSet<>();
+        processedEntities.clear();
         List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
             ont.classesInSignature().filter(c -> !c.isOWLThing() && !c.isOWLNothing()).forEach(this::processEntity);

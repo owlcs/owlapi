@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -31,8 +29,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  */
 public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLAnnotation {
 
-    @Nonnull private final OWLAnnotationProperty property;
-    @Nonnull private final OWLAnnotationValue value;
+    private final OWLAnnotationProperty property;
+    private final OWLAnnotationValue value;
 
     /**
      * @param property

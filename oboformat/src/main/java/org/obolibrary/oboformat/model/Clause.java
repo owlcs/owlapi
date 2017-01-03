@@ -1,8 +1,12 @@
 package org.obolibrary.oboformat.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
@@ -15,12 +19,12 @@ import com.google.common.collect.Sets;
 public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
-    private static final Set<?> trueValues = Sets.newHashSet(Boolean.TRUE, "true");
-    private static final Set<?> falseValues = Sets.newHashSet(Boolean.FALSE, "false");
+    @SuppressWarnings("unchecked") private static final Set<?> trueValues = Sets.newHashSet(Boolean.TRUE, "true");
+    @SuppressWarnings("unchecked") private static final Set<?> falseValues = Sets.newHashSet(Boolean.FALSE, "false");
     @Nullable protected String tag;
-    @Nonnull protected List<Object> values = new ArrayList<>();
-    @Nonnull protected Collection<Xref> xrefs = new ArrayList<>();
-    @Nonnull protected Collection<QualifierValue> qualifierValues = new ArrayList<>();
+    protected List<Object> values = new ArrayList<>();
+    protected Collection<Xref> xrefs = new ArrayList<>();
+    protected Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
      * @param tag
@@ -470,8 +474,8 @@ public class Clause {
             Object v1 = getValue();
             Object v2 = other.getValue();
             if (v1 != v2 && !v1.equals(v2)) {
-                return trueValues.contains(v1) && trueValues.contains(v2)
-                    || falseValues.contains(v1) && falseValues.contains(v2);
+                return trueValues.contains(v1) && trueValues.contains(v2) || falseValues.contains(v1) && falseValues
+                    .contains(v2);
             }
         } catch (FrameStructureException e) {
             // this cannot happen as it's already been tested

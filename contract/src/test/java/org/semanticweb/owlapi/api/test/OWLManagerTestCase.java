@@ -17,7 +17,7 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class OWLManagerTestCase {
 
     private OWLOntologyManager manager;
@@ -43,21 +43,15 @@ public class OWLManagerTestCase {
     public void shouldShareReadWriteLock() throws Exception {
         // Nasty, but not sure of another way to do this without exposing it in
         // the interface
-        Field ontologyLockField = ConcurrentOWLOntologyImpl.class
-            .getDeclaredField("readLock");
+        Field ontologyLockField = ConcurrentOWLOntologyImpl.class.getDeclaredField("readLock");
         ontologyLockField.setAccessible(true);
-        Field ontologyManagerField = OWLOntologyManagerImpl.class
-            .getDeclaredField("readLock");
+        Field ontologyManagerField = OWLOntologyManagerImpl.class.getDeclaredField("readLock");
         ontologyManagerField.setAccessible(true);
-        assertThat(ontologyLockField.get(ontology),
-            is(ontologyManagerField.get(manager)));
-        ontologyLockField = ConcurrentOWLOntologyImpl.class
-            .getDeclaredField("writeLock");
+        assertThat(ontologyLockField.get(ontology), is(ontologyManagerField.get(manager)));
+        ontologyLockField = ConcurrentOWLOntologyImpl.class.getDeclaredField("writeLock");
         ontologyLockField.setAccessible(true);
-        ontologyManagerField = OWLOntologyManagerImpl.class
-            .getDeclaredField("writeLock");
+        ontologyManagerField = OWLOntologyManagerImpl.class.getDeclaredField("writeLock");
         ontologyManagerField.setAccessible(true);
-        assertThat(ontologyLockField.get(ontology),
-            is(ontologyManagerField.get(manager)));
+        assertThat(ontologyLockField.get(ontology), is(ontologyManagerField.get(manager)));
     }
 }

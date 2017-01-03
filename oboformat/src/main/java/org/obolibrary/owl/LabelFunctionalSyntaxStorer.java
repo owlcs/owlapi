@@ -6,13 +6,20 @@ import java.io.PrintWriter;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
@@ -41,8 +48,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     static class LabelPrefixManager implements PrefixManager {
 
-        @Nonnull private final OWLOntology ontology;
-        @Nonnull private final PrefixManager delegate;
+        private final OWLOntology ontology;
+        private final PrefixManager delegate;
 
         LabelPrefixManager(OWLOntology ontology) {
             this.ontology = ontology;
@@ -111,7 +118,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public void setDefaultPrefix(String defaultPrefix) {
+        public void setDefaultPrefix(@Nullable String defaultPrefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }

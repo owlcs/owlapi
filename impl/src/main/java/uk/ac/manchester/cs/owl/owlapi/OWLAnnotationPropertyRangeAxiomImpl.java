@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -32,8 +30,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
 
-    @Nonnull private final OWLAnnotationProperty property;
-    @Nonnull protected final IRI range;
+    private final OWLAnnotationProperty property;
+    protected final IRI range;
 
     /**
      * @param property

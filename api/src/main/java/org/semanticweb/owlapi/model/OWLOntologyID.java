@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
@@ -39,12 +38,13 @@ import org.slf4j.LoggerFactory;
  * @since 3.0.0
  */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyID.class);
-    @Nonnull private static final AtomicInteger COUNTER = new AtomicInteger();
-    @Nonnull private static final String ANON_PREFIX = "Anonymous-";
-    @Nonnull private transient Optional<String> internalID = emptyOptional();
-    @Nonnull private transient Optional<IRI> ontologyIRI;
-    @Nonnull private transient Optional<IRI> versionIRI;
+    private static final AtomicInteger COUNTER = new AtomicInteger();
+    private static final String ANON_PREFIX = "Anonymous-";
+    private transient Optional<String> internalID = emptyOptional();
+    private transient Optional<IRI> ontologyIRI;
+    private transient Optional<IRI> versionIRI;
     private int hashCode;
 
     /**
@@ -54,7 +54,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * @param iri
      *        The ontology IRI (may be {@code null})
      */
-    public OWLOntologyID(IRI iri) {
+    public OWLOntologyID(@Nullable IRI iri) {
         this(opt(iri), emptyOptional(IRI.class));
     }
 
@@ -67,7 +67,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * @param versionIRI
      *        The version IRI (must be {@code null} if the ontologyIRI is null)
      */
-    public OWLOntologyID(IRI iri, IRI versionIRI) {
+    public OWLOntologyID(@Nullable IRI iri, @Nullable IRI versionIRI) {
         this(opt(iri), opt(versionIRI));
     }
 
@@ -121,8 +121,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
         stream.writeObject(internalID.orElse(null));
     }
 
-    private static Optional<IRI> opt(IRI i) {
-        if (NodeID.isAnonymousNodeIRI(i) || i == null) {
+    private static Optional<IRI> opt(@Nullable IRI i) {
+        if (i == null || NodeID.isAnonymousNodeIRI(i)) {
             return emptyOptional();
         }
         if (!i.isAbsolute()) {
@@ -203,8 +203,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary()
      */
     public boolean isOWL2DLOntologyID() {
-        return !ontologyIRI.isPresent() || !ontologyIRI.get().isReservedVocabulary()
-            && (!versionIRI.isPresent() || !versionIRI.get().isReservedVocabulary());
+        return !ontologyIRI.isPresent() || !ontologyIRI.get().isReservedVocabulary() && (!versionIRI.isPresent()
+            || !versionIRI.get().isReservedVocabulary());
     }
 
     @Override

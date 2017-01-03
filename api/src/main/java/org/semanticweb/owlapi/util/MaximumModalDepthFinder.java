@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -25,8 +23,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
-    @Nonnull private static final Integer _1 = Integer.valueOf(1);
-    @Nonnull private static final Integer _0 = Integer.valueOf(0);
+    private static final Integer _1 = Integer.valueOf(1);
+    private static final Integer _0 = Integer.valueOf(0);
 
     @Override
     public Integer doDefault(Object o) {

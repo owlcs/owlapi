@@ -19,8 +19,6 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 /**
@@ -34,7 +32,7 @@ import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 public class OntologyConfigurator implements Serializable {
 
     /** Set of imports to ignore. */
-    @Nonnull private final Set<IRI> ignoredImports = new HashSet<>();
+    private final Set<IRI> ignoredImports = new HashSet<>();
     /** Local override map. */
     private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
 

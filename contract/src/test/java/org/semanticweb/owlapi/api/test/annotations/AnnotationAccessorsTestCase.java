@@ -20,14 +20,18 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPrimitive;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -38,7 +42,7 @@ import org.semanticweb.owlapi.model.*;
 @RunWith(Parameterized.class)
 public class AnnotationAccessorsTestCase extends TestBase {
 
-    private static final @Nonnull IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+    private static final IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
 
     @Parameters
     public static Collection<OWLPrimitive> getData() {

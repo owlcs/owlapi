@@ -25,7 +25,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.parsers.SAXParser;
 
@@ -52,11 +51,11 @@ import com.google.common.collect.Lists;
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    @Nonnull private final Deque<XMLElement> elementStack = new LinkedList<>();
-    @Nonnull protected final PrintWriter writer;
+    private final Deque<XMLElement> elementStack = new LinkedList<>();
+    protected final PrintWriter writer;
     private String encoding = "";
-    @Nonnull private final String xmlBase;
-    @Nonnull private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    private final String xmlBase;
+    private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
@@ -73,6 +72,7 @@ public class XMLWriterImpl implements XMLWriter {
      * @param preferences
      *        xml writer preferences instance
      */
+    @SuppressWarnings("null")
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase,
         OWLOntologyWriterConfiguration preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
@@ -431,7 +431,8 @@ public class XMLWriterImpl implements XMLWriter {
 
         private void checkProperXMLLiteral(String text) {
             try {
-                String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT.getValue(String.class, Collections.emptyMap());
+                String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT.getValue(String.class, Collections
+                    .emptyMap());
                 SAXParser parser = SAXParsers.initParserWithOWLAPIStandards(null, expansions);
                 parser.parse(new InputSource(new StringReader(text)), new DefaultHandler());
             } catch (SAXException | IOException e) {

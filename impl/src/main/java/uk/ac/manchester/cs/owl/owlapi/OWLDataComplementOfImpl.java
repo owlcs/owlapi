@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
 
-    @Nonnull private final OWLDataRange dataRange;
+    private final OWLDataRange dataRange;
 
     /**
      * @param dataRange

@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
  */
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
-    @Nonnull private final NodeID nodeId;
+    private final NodeID nodeId;
 
     /**
      * @param nodeID

@@ -85,6 +85,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *        axiom to divest of annotations
      * @return The annotationless version of the axiom
      */
+    @SuppressWarnings("unchecked")
     static <T extends OWLAxiom> T getAxiomWithoutAnnotations(T axiom) {
         return axiom.getAxiomWithoutAnnotations((Class<T>) axiom.getClass());
     }
@@ -103,6 +104,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *        Variable to ground the generic return type
      * @return The annotationless version of this axiom
      */
+    @SuppressWarnings("unchecked")
     default <T extends OWLAxiom> T getAxiomWithoutAnnotations(@SuppressWarnings("unused") Class<T> witness) {
         return (T) getAxiomWithoutAnnotations();
     }
@@ -124,6 +126,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         existing annotations returned by the
      *         {@code OWLAxiom#getAnnotations()} method.
      */
+    @SuppressWarnings("unchecked")
     static <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> annotations, T axiom) {
         return axiom.getAnnotatedAxiom((Class<T>) axiom.getClass(), annotations);
     }
@@ -169,7 +172,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         existing annotations returned by the
      *         {@code OWLAxiom#getAnnotations()} method.
      */
-    default <T extends OWLAxiom> T getAnnotatedAxiom(Class<T> witness, Stream<OWLAnnotation> annotations) {
+    @SuppressWarnings("unchecked")
+    default <T extends OWLAxiom> T getAnnotatedAxiom(@SuppressWarnings("unused") Class<T> witness,
+        Stream<OWLAnnotation> annotations) {
         return (T) getAnnotatedAxiom(annotations);
     }
 

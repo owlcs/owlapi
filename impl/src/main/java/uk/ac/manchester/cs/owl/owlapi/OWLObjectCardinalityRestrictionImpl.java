@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLClassExpression>
     implements OWLObjectCardinalityRestriction {
 
-    @Nonnull private final OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     protected OWLObjectCardinalityRestrictionImpl(OWLObjectPropertyExpression property, int cardinality,
         OWLClassExpression filler) {

@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -34,10 +32,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class TripleComparatorTestCase {
 
-    private final @Nonnull String ns = "http://www.co-ode.org/roberts/pto.owl#";
-    private final @Nonnull RDFResourceIRI g = r(Class(IRI(ns, "MoleOfGoldAtom")));
-    private final @Nonnull RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
-    private final @Nonnull RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
+    private final String ns = "http://www.co-ode.org/roberts/pto.owl#";
+    private final RDFResourceIRI g = r(Class(IRI(ns, "MoleOfGoldAtom")));
+    private final RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
+    private final RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
 
     @Test
     public void shouldSort() {

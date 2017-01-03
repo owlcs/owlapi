@@ -90,6 +90,6 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
-        render(ontology, writer, ontology.getFormat());
+        render(ontology, writer, ontology.getNonnullFormat());
     }
 }

@@ -14,6 +14,7 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -23,7 +24,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /** Builder class for SWRLVariable. */
 public class BuilderSWRLVariable extends BaseBuilder<SWRLVariable, BuilderSWRLVariable> {
 
-    private IRI iri;
+    @Nullable private IRI iri;
 
     /**
      * Builder initialized from an existing object.

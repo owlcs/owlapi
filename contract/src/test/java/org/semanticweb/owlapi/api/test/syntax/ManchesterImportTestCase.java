@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -30,8 +28,8 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 @SuppressWarnings("javadoc")
 public class ManchesterImportTestCase extends TestBase {
 
-    private final @Nonnull IRI str = IRI("http://owlapitestontologies.com/", "thesuperont");
-    private final @Nonnull String superpath = "/imports/thesuperont.omn";
+    private final IRI str = IRI("http://owlapitestontologies.com/", "thesuperont");
+    private final String superpath = "/imports/thesuperont.omn";
 
     @Test
     public void testManualImports() throws OWLOntologyCreationException {

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.OutputStream;
@@ -19,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -170,10 +172,26 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     OWLOntologyManager getOWLOntologyManager();
 
     /**
-     * @return ontology format for this ontology
+     * @return ontology format for this ontology; can be null if the ontology
+     *         has been created programmatically and not loaded/saved, so it
+     *         does not have any format information associated.
      */
+    @Nullable
     default OWLDocumentFormat getFormat() {
         return getOWLOntologyManager().getOntologyFormat(this);
+    }
+
+    /**
+     * Gets the ontology format for this ontology, ensuring it is not null (an
+     * error is thrown if the ontology has no format). Do not use this method to
+     * check if an ontology has a format associated with it; prefer
+     * {@link #getFormat()}.
+     * 
+     * @return The format of the ontology
+     */
+    default OWLDocumentFormat getNonnullFormat() {
+        return verifyNotNull(getFormat(), (Supplier<String>) () -> "There is no format specified for ontology "
+            + getOntologyID() + ", the ontology format needs to be set before saving or specified in the save call");
     }
 
     /**

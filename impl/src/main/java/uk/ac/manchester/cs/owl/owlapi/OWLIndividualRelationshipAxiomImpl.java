@@ -16,13 +16,14 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
- * @param
- *        <P>
+ * @param <P>
  *        the property expression
  * @param <O>
  *        the object
@@ -33,9 +34,9 @@ import org.semanticweb.owlapi.model.*;
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
     extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
-    @Nonnull private final OWLIndividual subject;
-    @Nonnull private final P property;
-    @Nonnull private final O o;
+    private final OWLIndividual subject;
+    private final P property;
+    private final O o;
 
     /**
      * @param subject

@@ -20,8 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.IRI;
@@ -51,11 +49,11 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class OWLXMLWriter {
 
-    @Nonnull private static final String LANG_IRI = "xml:lang";
-    @Nonnull private static final IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
-    @Nonnull private static final IRI ONTOLOGY_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
+    private static final String LANG_IRI = "xml:lang";
+    private static final IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
+    private static final IRI ONTOLOGY_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
     private final XMLWriter writer;
-    @Nonnull private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
+    private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
 
     /**
      * @param writer

@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -29,8 +28,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /** Builder class for SWRLRule. */
 public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
-    @Nonnull private final List<SWRLAtom> body = new ArrayList<>();
-    @Nonnull private final List<SWRLAtom> head = new ArrayList<>();
+    private final List<SWRLAtom> body = new ArrayList<>();
+    private final List<SWRLAtom> head = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.

@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
  */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnotationProperty {
 
-    @Nonnull private final IRI iri;
+    private final IRI iri;
 
     /**
      * @param i

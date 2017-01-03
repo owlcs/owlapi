@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
+import javax.annotation.Nullable;
+
 /**
  * The listener interface for receiving renderer events. The class that is
  * interested in processing a renderer event implements this interface, and the
@@ -33,7 +35,7 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void frameRenderingPrepared(String frameName, RendererEvent event);
+    void frameRenderingPrepared(String frameName, @Nullable RendererEvent event);
 
     /**
      * Frame rendering started.
@@ -43,7 +45,7 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void frameRenderingStarted(String frameName, RendererEvent event);
+    void frameRenderingStarted(String frameName, @Nullable RendererEvent event);
 
     /**
      * Frame rendering finished.
@@ -53,7 +55,7 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void frameRenderingFinished(String frameName, RendererEvent event);
+    void frameRenderingFinished(String frameName, @Nullable RendererEvent event);
 
     /**
      * Section rendering prepared.
@@ -63,7 +65,7 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void sectionRenderingPrepared(String sectionName, RendererEvent event);
+    void sectionRenderingPrepared(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section rendering started.
@@ -73,7 +75,7 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void sectionRenderingStarted(String sectionName, RendererEvent event);
+    void sectionRenderingStarted(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section item prepared.
@@ -83,7 +85,7 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void sectionItemPrepared(String sectionName, RendererEvent event);
+    void sectionItemPrepared(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section item finished.
@@ -93,7 +95,7 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void sectionItemFinished(String sectionName, RendererEvent event);
+    void sectionItemFinished(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section rendering finished.
@@ -103,5 +105,5 @@ public interface RendererListener {
      * @param event
      *        the event
      */
-    void sectionRenderingFinished(String sectionName, RendererEvent event);
+    void sectionRenderingFinished(String sectionName, @Nullable RendererEvent event);
 }

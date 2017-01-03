@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -32,8 +30,8 @@ import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
  */
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
 
-    @Nonnull private final OWLDatatype datatype;
-    @Nonnull private final OWLDataRange dataRange;
+    private final OWLDatatype datatype;
+    private final OWLDataRange dataRange;
 
     /**
      * @param datatype

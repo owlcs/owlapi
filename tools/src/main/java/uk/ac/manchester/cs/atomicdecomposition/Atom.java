@@ -42,7 +42,7 @@ public class Atom {
     private void initSignature() {
         if (signature == null) {
             signature = new ArrayList<>();
-            axioms.forEach(ax -> add(signature, ax.signature()));
+            axioms.forEach(ax -> add(verifyNotNull(signature), ax.signature()));
         }
     }
 

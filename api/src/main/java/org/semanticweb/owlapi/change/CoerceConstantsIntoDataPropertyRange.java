@@ -51,6 +51,12 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         ontologies.forEach(o -> o.logicalAxioms().forEach(ax -> duplicate(replacer, o, ax)));
     }
 
+    /**
+     * @param ontologies
+     *        ontologies to inspect
+     * @return datatypes declared in the ontologies (not including OWL 2
+     *         standard datatypes)
+     */
     public Stream<OWLDataPropertyRangeAxiom> datatypes(Collection<OWLOntology> ontologies) {
         return ontologies.stream().flatMap(ont -> ont.axioms(AxiomType.DATA_PROPERTY_RANGE)).filter(ax -> ax.getRange()
             .isOWLDatatype());

@@ -23,7 +23,20 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.*;
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
@@ -42,8 +55,8 @@ import org.slf4j.LoggerFactory;
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BlackBoxOWLDebugger.class);
-    private OWLClass currentClass;
-    private OWLOntology debuggingOntology;
+    @Nullable private OWLClass currentClass;
+    @Nullable private OWLOntology debuggingOntology;
     private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<>();
     private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<>();
@@ -93,10 +106,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     @Override
     protected OWLClassExpression getCurrentClass() {
-        if (currentClass == null) {
-            throw new IllegalStateException("currentClass is null; it is not possible to use it at this point.");
-        }
-        return currentClass;
+        return verifyNotNull(currentClass, "currentClass is null; it is not possible to use it at this point.");
     }
 
     /**

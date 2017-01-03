@@ -161,9 +161,7 @@ public final class OWLAPIPreconditions {
      *        message for the illegal argument exception
      * @throws IllegalArgumentException
      *         if object is negative
-     * @deprecated use {@link #checkNotNegative(long, Supplier)}
      */
-    @Deprecated
     public static void checkNotNegative(@Nonnegative long object, String message) {
         checkNotNegative(object, () -> message);
     }

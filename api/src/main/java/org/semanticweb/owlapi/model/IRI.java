@@ -22,7 +22,6 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
@@ -47,8 +46,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
     // public creation
-    @Nonnull private final String remainder;
-    @Nonnull private final String namespace;
+    private final String remainder;
+    private final String namespace;
 
     /**
      * Constructs an IRI which is built from the concatenation of the specified

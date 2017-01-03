@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
@@ -43,9 +43,9 @@ import com.google.common.io.Closeables;
 public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XZFileDocumentTarget.class);
-    @Nonnull private final File out;
+    private final File out;
     private final FilterOptions[] filterOptions;
-    private OutputStream outputStream;
+    @Nullable private OutputStream outputStream;
 
     /**
      * @param os

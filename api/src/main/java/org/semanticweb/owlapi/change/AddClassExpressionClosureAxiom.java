@@ -18,9 +18,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * This composite change adds a 'closure' axiom to an ontology for a given class
@@ -82,8 +89,8 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
 
     private class FillerCollector implements OWLClassExpressionVisitor {
 
-        @Nonnull final List<OWLClassExpression> fillers = new ArrayList<>();
-        @Nonnull final OWLObjectPropertyExpression property;
+        final List<OWLClassExpression> fillers = new ArrayList<>();
+        final OWLObjectPropertyExpression property;
 
         /**
          * @param p

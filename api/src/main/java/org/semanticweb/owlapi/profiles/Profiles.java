@@ -16,8 +16,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -60,7 +58,7 @@ interface KnownFactories {
  * 
  * @author ignazio
  */
-public enum Profiles implements HasIRI,KnownFactories,OWLProfile {
+public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     //@formatter:off
     /** http://www.w3.org/ns/owl-profile/DL. **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} },
     /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile();} },
@@ -68,8 +66,8 @@ public enum Profiles implements HasIRI,KnownFactories,OWLProfile {
     /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
     /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} };
     //@formatter:on
-    @Nonnull private final IRI iri;
-    @Nonnull private final List<String> supportingFactories;
+    private final IRI iri;
+    private final List<String> supportingFactories;
 
     Profiles(String name, String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);

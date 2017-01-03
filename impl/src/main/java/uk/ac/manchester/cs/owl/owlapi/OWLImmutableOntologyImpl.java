@@ -26,7 +26,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
@@ -45,8 +44,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
 
     @Nullable protected OWLOntologyManager manager;
-    @Nonnull protected OWLDataFactory df;
-    @Nonnull protected OWLOntologyID ontologyID;
+    protected OWLDataFactory df;
+    protected OWLOntologyID ontologyID;
     private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
     /**
@@ -55,7 +54,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
      * @param ontologyID
      *        ontology id
      */
-    public OWLImmutableOntologyImpl(@Nonnull OWLOntologyManager manager, OWLOntologyID ontologyID) {
+    public OWLImmutableOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();

@@ -14,8 +14,6 @@ package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -26,8 +24,8 @@ import org.slf4j.LoggerFactory;
 public class SatisfiabilityConverter {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SatisfiabilityConverter.class);
-    @Nonnull private final AxiomConverter converter;
-    @Nonnull protected final OWLDataFactory factory;
+    private final AxiomConverter converter;
+    protected final OWLDataFactory factory;
 
     /**
      * Instantiates a new satisfiability converter.

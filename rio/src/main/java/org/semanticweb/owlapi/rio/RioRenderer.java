@@ -39,8 +39,6 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.OpenRDFUtil;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
@@ -48,7 +46,6 @@ import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -75,8 +72,8 @@ public class RioRenderer extends RDFRendererBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
-    @Nonnull private final Set<RDFResource> pending = new LinkedHashSet<>();
-    @Nonnull private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
+    private final Set<RDFResource> pending = new LinkedHashSet<>();
+    private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
 
     /**
@@ -223,7 +220,7 @@ public class RioRenderer extends RDFRendererBase {
             return;
         }
         pending.add(node);
-        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+        final Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("triples.size()={}", Integer.valueOf(triples.size()));
             if (!triples.isEmpty()) {

@@ -18,10 +18,21 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.profiles.violations.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.profiles.violations.LexicalNotInLexicalSpace;
+import org.semanticweb.owlapi.profiles.violations.OntologyIRINotAbsolute;
+import org.semanticweb.owlapi.profiles.violations.OntologyVersionIRINotAbsolute;
+import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatypeRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalFacetRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonAbsoluteIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -67,7 +78,7 @@ public class OWL2Profile implements OWLProfile {
 
     private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitor {
 
-        @Nonnull private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         OWL2ProfileObjectWalker(OWLOntologyWalker walker) {
             super(walker);

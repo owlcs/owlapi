@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
@@ -34,8 +33,8 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
 
-    @Nonnull private ManchesterOWLSyntaxObjectRenderer ren;
-    @Nonnull private final WriterDelegate writerDelegate;
+    private ManchesterOWLSyntaxObjectRenderer ren;
+    private final WriterDelegate writerDelegate;
 
     /** Default constructor. */
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
@@ -57,7 +56,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
 
     private static class WriterDelegate extends Writer {
 
-        private StringWriter delegate;
+        private StringWriter delegate = new StringWriter();
 
         /** Default constructor. */
         WriterDelegate() {}
