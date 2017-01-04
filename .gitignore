@@ -1,9 +1,11 @@
 .classpath
+.gradle
 .project
 .settings
 *.iml
 *.class
 target/
+build/
 bin/
 .idea
 *.iws
