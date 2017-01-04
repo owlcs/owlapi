@@ -13,7 +13,7 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.6.3'
   compile project(':owlapi-compatibility')
     compile group: 'org.apache.commons', name: 'commons-rdf-api', version:'0.1.0-incubating'
-    compile group: 'org.tukaani', name: 'xz', version:'1.5'
+    compile group: 'org.tukaani', name: 'xz', version:'1.6'
     compile group: 'org.openrdf.sesame', name: 'sesame-model', version:'4.0.2'
     compile group: 'org.openrdf.sesame', name: 'sesame-rio-api', version:'4.0.2'
     compile group: 'org.openrdf.sesame', name: 'sesame-rio-languages', version:'4.0.2'
