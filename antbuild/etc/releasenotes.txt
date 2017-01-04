@@ -1,5 +1,22 @@
+4.2.8 4 Jan 2017
+Bug fixes:
+Fix Structural sharing in GCIs causes errors #564
+Fix Issue with serialization - OWLAPI version 3.5.5 #586
+Fix Order of RDF triples affects annotation parsing #574
+Fix Property Axiom Generator should check set size #527
+Fix Imports not properly loaded after all ontologies removed #580
+Performance improved in creating OWLOntologyManager
+Fix Incomplete Parsing of DifferentIndividuals with distinctMembers #569
+Fix Apache Harmoony SAX parser not supported #581
+Ensure XXE vulnerability does not exist
+Fix line separators in `DLSyntaxHTMLStorer` #583
+Fix IRIs with query string cause OFN unparseable output #570
+Fix Unqualified data restriction considered qualified #576
+Fix OWLOntologyManager in OWLImmutableOntologyImpl should be @Nullable #568
+
+
 4.2.7 16 October 2016
-Bug fix:
+Bug fixes:
 Serialization issues
 
 
