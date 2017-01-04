@@ -1,3 +1,22 @@
+5.0.5 4 Jan 2017
+Bug fix:
+Allow supplier for null error messages
+IsAnonymous, isIndividual, isAxiom, isAnonymousExpression on OWLObject
+Performance improved in creating OWLOntologyManager
+Ensure XXE vulnerability is prevented
+Fix Structural sharing in GCIs causes errors #564
+Fix Issue with serialization - OWLAPI version 3.5.5 #586
+Fix Problems compiling version5 for Android v24 Nougat #585
+Fix Order of RDF triples affects annotation parsing #574
+Fix Property Axiom Generator should check set size #527
+Fix Imports not properly loaded after all ontologies removed #580
+Fix Incomplete Parsing of DifferentIndividuals with distinctMembers #569
+Fix Apache Harmoony SAX parser not supported #581
+Fix line separators in `DLSyntaxHTMLStorer` #583
+Fix IRIs with query string cause OFN unparseable output #570
+Fix Unqualified data restriction considered qualified #576
+
+
 5.0.4 16 October 2016
 Bug fix:
 Serializability issues
