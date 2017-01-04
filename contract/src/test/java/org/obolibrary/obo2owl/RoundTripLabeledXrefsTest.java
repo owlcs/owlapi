@@ -18,10 +18,10 @@ public class RoundTripLabeledXrefsTest extends RoundTripTest {
         String written = renderOboToString(source);
         OBODoc parsed = parseOboToString(written);
         OBODocDiffer dd = new OBODocDiffer();
-        List<Diff> diffs = dd.getDiffs(source, parsed);
-        for (Diff diff : diffs) {
-            System.out.println(diff);
-        }
+        List<Diff> diffs = OBODocDiffer.getDiffs(source, parsed);
+        // for (Diff diff : diffs) {
+        // System.out.println(diff);
+        // }
         assertEquals("Expected no diffs", 0, diffs.size());
     }
 }
