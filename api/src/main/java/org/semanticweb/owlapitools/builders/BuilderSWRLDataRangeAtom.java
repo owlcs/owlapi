@@ -14,6 +14,7 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -25,8 +26,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** Builder class for SWRLDataRangeAtom. */
 public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
 
-    private SWRLDArgument argument;
-    private OWLDataRange predicate;
+    @Nullable private SWRLDArgument argument;
+    @Nullable private OWLDataRange predicate;
 
     /**
      * Builder initialized from an existing object.

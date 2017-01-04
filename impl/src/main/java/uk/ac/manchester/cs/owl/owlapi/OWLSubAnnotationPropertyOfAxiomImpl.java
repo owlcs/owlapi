@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -31,8 +29,8 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
  */
 public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements OWLSubAnnotationPropertyOfAxiom {
 
-    @Nonnull private final OWLAnnotationProperty subProperty;
-    @Nonnull private final OWLAnnotationProperty superProperty;
+    private final OWLAnnotationProperty subProperty;
+    private final OWLAnnotationProperty superProperty;
 
     /**
      * @param subProperty

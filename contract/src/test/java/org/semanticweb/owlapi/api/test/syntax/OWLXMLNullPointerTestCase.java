@@ -14,12 +14,17 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -29,8 +34,8 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends TestBase {
 
-    private static final @Nonnull String NS = "urn:test";
-    public static final @Nonnull String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
+    private static final String NS = "urn:test";
+    public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     @Test
     public void testRoundTrip() throws Exception {

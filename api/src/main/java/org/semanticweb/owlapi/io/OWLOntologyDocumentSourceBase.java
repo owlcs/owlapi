@@ -5,7 +5,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -20,8 +19,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocumentSource {
 
     private final IRI documentIRI;
-    @Nonnull private final Optional<OWLDocumentFormat> format;
-    @Nonnull private final Optional<String> mimeType;
+    private final Optional<OWLDocumentFormat> format;
+    private final Optional<String> mimeType;
     protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
     protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
 

@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -31,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLObjectComparator implements Comparator<OWLObject> {
 
-    @Nonnull private final OWLEntityComparator entityComparator;
+    private final OWLEntityComparator entityComparator;
 
     /**
      * @param shortFormProvider

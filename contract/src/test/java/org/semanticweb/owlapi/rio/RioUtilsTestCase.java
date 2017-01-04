@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({ "javadoc", "null" })
 public class RioUtilsTestCase {
 
     private static final ValueFactory VF = SimpleValueFactory.getInstance();

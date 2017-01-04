@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -34,7 +32,7 @@ import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 @SuppressWarnings({ "javadoc" })
 public class MoveOntologyTestCase extends TestBase {
 
-    private final static @Nonnull String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#test\"\n"
+    private final static String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#test\"\n"
         + "     xml:base=\"urn:test#test\"\n" + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
         + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
         + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"

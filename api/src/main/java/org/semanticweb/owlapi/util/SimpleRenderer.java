@@ -36,6 +36,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     private IRIShortFormProvider iriShortFormProvider;
 
     /** Default constructor. */
+    @SuppressWarnings("null")
     public SimpleRenderer() {
         sb = new StringBuilder();
         resetShortFormProvider();
@@ -76,7 +77,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology, boolean processImportedOntologies) {
         resetShortFormProvider();
-        Imports.fromBoolean(processImportedOntologies).stream(ontology).forEach(o -> copyPrefixes(o.getFormat()));
+        Imports.fromBoolean(processImportedOntologies).stream(ontology).forEach(o -> copyPrefixes(o
+            .getNonnullFormat()));
     }
 
     private void copyPrefixes(OWLDocumentFormat ontologyFormat) {

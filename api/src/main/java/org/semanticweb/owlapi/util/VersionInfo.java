@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import javax.annotation.Nonnull;
-
 /**
  * A place holder for the current release number.
  * 
@@ -23,8 +21,8 @@ import javax.annotation.Nonnull;
  */
 public class VersionInfo {
 
-    @Nonnull private static final VersionInfo INSTANCE = new VersionInfo();
-    @Nonnull private final String version;
+    private static final VersionInfo INSTANCE = new VersionInfo();
+    private final String version;
 
     protected VersionInfo() {
         String v = VersionInfo.class.getPackage().getImplementationVersion();

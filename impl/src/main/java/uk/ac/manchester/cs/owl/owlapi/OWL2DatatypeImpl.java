@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.DataRangeType;
@@ -36,7 +35,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2DatatypeImpl implements OWLDatatype {
 
-    @Nonnull private final OWL2Datatype owl2Datatype;
+    private final OWL2Datatype owl2Datatype;
     private final int hashCode;
 
     /**

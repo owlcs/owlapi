@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -28,8 +26,8 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  */
 public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser<OWLAxiom> {
 
-    @Nonnull private final OWLDataFactory dataFactory;
-    @Nonnull private OWLEntityChecker checker;
+    private final OWLDataFactory dataFactory;
+    private OWLEntityChecker checker;
 
     /**
      * @param dataFactory

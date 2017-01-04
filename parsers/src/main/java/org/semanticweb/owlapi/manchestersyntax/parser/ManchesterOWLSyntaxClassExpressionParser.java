@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -33,8 +31,8 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  */
 public class ManchesterOWLSyntaxClassExpressionParser implements OWLExpressionParser<OWLClassExpression> {
 
-    @Nonnull private final OWLDataFactory dataFactory;
-    @Nonnull private OWLEntityChecker checker;
+    private final OWLDataFactory dataFactory;
+    private OWLEntityChecker checker;
 
     /**
      * @param dataFactory

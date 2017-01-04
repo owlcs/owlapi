@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
@@ -33,7 +32,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
-    @Nonnull protected final SimpleShortFormProvider sfp = new SimpleShortFormProvider();
+    protected final SimpleShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {

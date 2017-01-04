@@ -18,9 +18,16 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologySetProvider;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
  * A short form provider that generates short forms from the values of object
@@ -37,7 +44,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
 
-    @Nonnull private final List<OWLPropertyExpression> properties;
+    private final List<OWLPropertyExpression> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
     private final OWLOntologySetProvider ontologySetProvider;
     private final ShortFormProvider alternateShortFormProvider;

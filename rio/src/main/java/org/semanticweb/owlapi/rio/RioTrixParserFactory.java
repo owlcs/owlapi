@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.TrixDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
@@ -76,13 +75,13 @@ public class RioTrixParserFactory extends AbstractRioParserFactory {
 
     private static class TrixParserImpl extends RioParserImpl {
 
-        public TrixParserImpl(@Nonnull RioRDFDocumentFormatFactory formatFactory) {
+        public TrixParserImpl(RioRDFDocumentFormatFactory formatFactory) {
             super(formatFactory);
         }
 
         @Override
         protected void parseDocumentSource(OWLOntologyDocumentSource source, String baseUri, RDFHandler handler,
-            OWLOntologyLoaderConfiguration config) throws OWLOntologyInputSourceException, IOException {
+            OWLOntologyLoaderConfiguration config) throws IOException {
             RioRDFDocumentFormatFactory owlFormatFactory = getSupportedFormat();
             final RDFParser createParser = new OWLAPIRioTrixParser();
             createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);

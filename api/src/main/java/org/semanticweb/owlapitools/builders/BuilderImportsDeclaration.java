@@ -17,16 +17,21 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /** Builder class for OWLImportsDeclaration. */
 public class BuilderImportsDeclaration implements Builder<OWLImportsDeclaration> {
 
-    @Nonnull protected final OWLDataFactory df;
-    private IRI iri;
+    protected final OWLDataFactory df;
+    @Nullable private IRI iri;
 
     /**
      * Builder initialized from an existing object.

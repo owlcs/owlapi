@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -31,7 +30,7 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 public class BuilderSWRLBuiltInAtom extends BaseBuilder<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 
     @Nullable private IRI iri = null;
-    @Nonnull private final List<SWRLDArgument> args = new ArrayList<>();
+    private final List<SWRLDArgument> args = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.

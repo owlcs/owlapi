@@ -1,12 +1,11 @@
 package org.obolibrary.oboformat.model;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Xref. */
 public class Xref {
 
-    @Nonnull protected String idref;
+    protected String idref;
     @Nullable protected String annotation;
 
     /**

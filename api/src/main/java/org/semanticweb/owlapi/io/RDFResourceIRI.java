@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -22,7 +21,7 @@ import org.semanticweb.owlapi.model.IRI;
 /** IRI node implementation. */
 public class RDFResourceIRI extends RDFResource implements org.apache.commons.rdf.api.IRI {
 
-    @Nonnull private final IRI resource;
+    private final IRI resource;
 
     /**
      * @param resource

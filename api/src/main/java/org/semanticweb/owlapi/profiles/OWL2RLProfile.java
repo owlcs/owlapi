@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
@@ -37,9 +35,9 @@ public class OWL2RLProfile implements OWLProfile {
 
     protected static final Set<IRI> ALLOWED_DATATYPES = asUnorderedSet(OWL2Datatype.RL_DATATYPES.stream().map(i -> i
         .getIRI()));
-    @Nonnull private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
-    @Nonnull private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
-    @Nonnull private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
+    private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
+    private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
+    private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
 
     /**
      * Gets the name of the profile.

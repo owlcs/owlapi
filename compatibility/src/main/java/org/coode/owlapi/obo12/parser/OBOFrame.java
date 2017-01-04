@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 /**
  * Author: Matthew Horridge<br>
  * Stanford University<br>
@@ -50,7 +52,7 @@ import java.util.List;
  */
 class OBOFrame {
 
-    private String frameType;
+    @Nullable private String frameType = null;
     private final List<OBOTagValuePair> tagValuePairs;
 
     public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
@@ -62,6 +64,7 @@ class OBOFrame {
         this.tagValuePairs = new ArrayList<>(tagValuePairs);
     }
 
+    @Nullable
     public String getFrameType() {
         return frameType;
     }

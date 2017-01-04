@@ -19,7 +19,13 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
@@ -30,7 +36,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  */
 public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements UndeclaredEntityViolation {
 
-    private final OWLAnnotation annotation;
+    @Nullable private final OWLAnnotation annotation;
 
     /**
      * @param ontology
@@ -70,7 +76,13 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
 
     @Override
     public String toString() {
-        return toString("Use of undeclared annotation property: %s in annotation", getExpression(), annotation);
+        return toString("Use of undeclared annotation property: %s in annotation", getExpression(),
+            nullSafeAnnotation());
+    }
+
+    @SuppressWarnings("null")
+    protected String nullSafeAnnotation() {
+        return annotation == null ? "" : annotation.toString();
     }
 
     @Override

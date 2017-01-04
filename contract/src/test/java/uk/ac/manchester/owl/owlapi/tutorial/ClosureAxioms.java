@@ -16,9 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * This class demonstrates some aspects of the OWL API. Given a class in an
@@ -34,8 +41,8 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class ClosureAxioms {
 
-    private final @Nonnull OWLOntologyManager manager;
-    private final @Nonnull OWLOntology ontology;
+    private final OWLOntologyManager manager;
+    private final OWLOntology ontology;
     private final OWLDataFactory factory;
 
     public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {

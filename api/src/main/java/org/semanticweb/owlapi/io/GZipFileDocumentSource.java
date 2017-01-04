@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -38,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GZipFileDocumentSource.class);
-    @Nonnull private final File file;
+    private final File file;
 
     /**
      * Constructs an input source which will read an ontology from a

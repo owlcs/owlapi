@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
  */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLIndividualArgument {
 
-    @Nonnull private final OWLIndividual individual;
+    private final OWLIndividual individual;
 
     /**
      * @param individual

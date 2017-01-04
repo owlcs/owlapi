@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -29,7 +27,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
-    @Nonnull private final IRI iri;
+    private final IRI iri;
     private final boolean top;
     private final boolean builtin;
 

@@ -19,9 +19,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * A bidirectional short form provider which uses a specified short form
@@ -33,9 +39,9 @@ import org.semanticweb.owlapi.model.*;
  */
 public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalShortFormProvider {
 
-    @Nonnull private final ShortFormProvider shortFormProvider;
-    protected Collection<OWLOntology> ontologies;
-    private OWLOntologyManager man;
+    private final ShortFormProvider shortFormProvider;
+    @Nullable protected final Collection<OWLOntology> ontologies;
+    @Nullable private OWLOntologyManager man;
 
     /**
      * @param shortFormProvider
@@ -43,6 +49,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      */
     public BidirectionalShortFormProviderAdapter(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        ontologies = null;
     }
 
     /**
@@ -103,23 +110,26 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
     }
 
     void handleChanges(List<? extends OWLOntologyChange> changes) {
+        if (ontologies == null) {
+            return;
+        }
         Set<OWLEntity> processed = new HashSet<>();
         for (OWLOntologyChange chg : changes) {
+            assert ontologies != null;
             if (ontologies.contains(chg.getOntology())) {
                 OWLOntologyChangeVisitor v = new OWLOntologyChangeVisitor() {
 
                     @Override
                     public void visit(AddAxiom change) {
-                        change.signature().filter(processed::add)
-                            .forEach(BidirectionalShortFormProviderAdapter.this::add);
+                        change.signature().filter(processed::add).forEach(
+                            BidirectionalShortFormProviderAdapter.this::add);
                     }
 
                     @Override
                     public void visit(RemoveAxiom change) {
-                        change.signature()
-                            .filter(processed::add)
-                            .filter(BidirectionalShortFormProviderAdapter.this::noLongerReferenced)
-                            .forEach(BidirectionalShortFormProviderAdapter.this::remove);
+                        change.signature().filter(processed::add).filter(
+                            BidirectionalShortFormProviderAdapter.this::noLongerReferenced).forEach(
+                                BidirectionalShortFormProviderAdapter.this::remove);
                     }
                 };
                 chg.accept(v);
@@ -128,6 +138,10 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
     }
 
     protected boolean noLongerReferenced(OWLEntity ent) {
+        if (ontologies == null) {
+            return true;
+        }
+        assert ontologies != null;
         return ontologies.stream().noneMatch(ont -> ont.containsEntityInSignature(ent));
     }
 }

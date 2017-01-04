@@ -20,7 +20,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -45,7 +44,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
-    @Nonnull protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     /**
      * @param body

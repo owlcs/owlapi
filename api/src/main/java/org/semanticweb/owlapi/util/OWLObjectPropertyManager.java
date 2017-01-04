@@ -17,12 +17,25 @@ import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
@@ -32,13 +45,13 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  */
 public class OWLObjectPropertyManager {
 
-    @Nonnull private final OWLDataFactory df;
-    @Nonnull private final OWLOntology ontology;
-    @Nonnull private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<>();
-    @Nonnull private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<>();
-    @Nonnull private final Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<>();
-    @Nonnull private final Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<>();
-    @Nonnull private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<>();
+    private final OWLDataFactory df;
+    private final OWLOntology ontology;
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<>();
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<>();
+    private final Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<>();
+    private final Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<>();
+    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<>();
     private boolean compositeDirty;
     private boolean hierarchyDirty;
     private boolean reflexiveTransitiveClosureDirty;
@@ -142,15 +155,15 @@ public class OWLObjectPropertyManager {
             // EquivalentObjectProperties
             // InverseObjectProperties
             // SymmetricObjectProperty
-            axioms(SUB_OBJECT_PROPERTY)
-                .forEach(ax -> getKeyValueSymmetric(map, ax.getSubProperty(), ax.getSuperProperty()));
+            axioms(SUB_OBJECT_PROPERTY).forEach(ax -> getKeyValueSymmetric(map, ax.getSubProperty(), ax
+                .getSuperProperty()));
             axioms(EQUIVALENT_OBJECT_PROPERTIES).forEach(ax -> pairwise(map, ax));
             axioms(INVERSE_OBJECT_PROPERTIES).forEach(ax -> {
                 getKeyValueASymmetric(map, ax.getFirstProperty(), ax.getSecondProperty());
                 getKeyValueASymmetric(map, ax.getSecondProperty(), ax.getFirstProperty());
             });
-            axioms(SYMMETRIC_OBJECT_PROPERTY)
-                .forEach(ax -> getKeyValueASymmetric(map, ax.getProperty(), ax.getProperty()));
+            axioms(SYMMETRIC_OBJECT_PROPERTY).forEach(ax -> getKeyValueASymmetric(map, ax.getProperty(), ax
+                .getProperty()));
             hierarchy.clear();
             hierarchy.putAll(map);
             hierarchyDirty = false;
@@ -190,8 +203,8 @@ public class OWLObjectPropertyManager {
             // Produce a map of the transitive reflexive closure of this
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> rtcMap = new HashMap<>();
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> propertyHierarchy = getPropertyHierarchy();
-            getReferencedProperties().forEach(prop -> rtcMap.put(prop,
-                getReflexiveTransitiveClosure(prop, propertyHierarchy, new HashSet<>(), new HashSet<>())));
+            getReferencedProperties().forEach(prop -> rtcMap.put(prop, getReflexiveTransitiveClosure(prop,
+                propertyHierarchy, new HashSet<>(), new HashSet<>())));
             reflexiveTransitiveClosure.clear();
             reflexiveTransitiveClosure.putAll(rtcMap);
             reflexiveTransitiveClosureDirty = false;
@@ -244,8 +257,8 @@ public class OWLObjectPropertyManager {
                 nonSimpleProperties.add(prop);
                 nonSimpleProperties.addAll(reflexiveTransitiveClosureMap.get(prop));
             });
-            nonSimpleProperties
-                .addAll(asList(nonSimpleProperties.stream().map(p -> p.getInverseProperty().getSimplified())));
+            nonSimpleProperties.addAll(asList(nonSimpleProperties.stream().map(p -> p.getInverseProperty()
+                .getSimplified())));
             simpleDirty = false;
         }
         return nonSimpleProperties;
@@ -261,8 +274,8 @@ public class OWLObjectPropertyManager {
                 getPropertyHierarchy());
             axioms(SUB_PROPERTY_CHAIN_OF).forEach(ax -> ax.getPropertyChain().forEach(p -> map(map, ax, p)));
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> ordering = new HashMap<>();
-            getReferencedProperties().forEach(
-                prop -> ordering.put(prop, getReflexiveTransitiveClosure(prop, map, new HashSet<>(), new HashSet<>())));
+            getReferencedProperties().forEach(prop -> ordering.put(prop, getReflexiveTransitiveClosure(prop, map,
+                new HashSet<>(), new HashSet<>())));
             partialOrdering.putAll(ordering);
             partialOrderingDirty = false;
         }
@@ -272,8 +285,8 @@ public class OWLObjectPropertyManager {
     protected void map(Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
         OWLSubPropertyChainOfAxiom ax, OWLObjectPropertyExpression prop) {
         map.computeIfAbsent(prop.getSimplified(), k -> new HashSet<>()).add(ax.getSuperProperty().getSimplified());
-        map.computeIfAbsent(prop.getInverseProperty().getSimplified(), k -> new HashSet<>())
-            .add(ax.getSuperProperty().getInverseProperty().getSimplified());
+        map.computeIfAbsent(prop.getInverseProperty().getSimplified(), k -> new HashSet<>()).add(ax.getSuperProperty()
+            .getInverseProperty().getSimplified());
     }
 
     /**
@@ -290,8 +303,8 @@ public class OWLObjectPropertyManager {
     }
 
     private Stream<OWLObjectPropertyExpression> getReferencedProperties() {
-        return ontologies().flatMap(OWLOntology::objectPropertiesInSignature)
-            .map(OWLObjectPropertyExpression::getSimplified);
+        return ontologies().flatMap(OWLOntology::objectPropertiesInSignature).map(
+            OWLObjectPropertyExpression::getSimplified);
     }
 
     /**
@@ -299,8 +312,8 @@ public class OWLObjectPropertyManager {
      *        ontologies to search
      * @return sets of equivalent properties
      */
-    public static Collection<Set<OWLObjectPropertyExpression>>
-        getEquivalentObjectProperties(Stream<OWLOntology> ontologies) {
+    public static Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties(
+        Stream<OWLOntology> ontologies) {
         checkNotNull(ontologies, "ontologies cannot be null");
         Set<Set<OWLObjectPropertyExpression>> result = new HashSet<>();
         Set<OWLObjectPropertyExpression> processed = new HashSet<>();
@@ -371,9 +384,9 @@ public class OWLObjectPropertyManager {
         lowlinkMap.put(prop, Integer.valueOf(index));
         stack.push(prop);
         stackProps.add(prop);
-        ontologies.flatMap(ont -> ont.objectSubPropertyAxiomsForSubProperty(prop))
-            .filter(ax -> ax.getSubProperty().equals(prop)).forEach(ax -> callTarjanAndPut(ontologies, prop, index,
-                stack, indexMap, lowlinkMap, result, processed, stackProps, ax.getSuperProperty()));
+        ontologies.flatMap(ont -> ont.objectSubPropertyAxiomsForSubProperty(prop)).filter(ax -> ax.getSubProperty()
+            .equals(prop)).forEach(ax -> callTarjanAndPut(ontologies, prop, index, stack, indexMap, lowlinkMap, result,
+                processed, stackProps, ax.getSuperProperty()));
         if (lowlinkMap.get(prop).equals(indexMap.get(prop))) {
             Set<OWLObjectPropertyExpression> scc = new HashSet<>();
             OWLObjectPropertyExpression propPrime;
@@ -406,8 +419,8 @@ public class OWLObjectPropertyManager {
 
     protected static void putIndex(OWLObjectPropertyExpression prop, Map<OWLObjectPropertyExpression, Integer> indexMap,
         Map<OWLObjectPropertyExpression, Integer> lowlinkMap, OWLObjectPropertyExpression supProp) {
-        lowlinkMap.put(prop,
-            Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(), indexMap.get(supProp).intValue())));
+        lowlinkMap.put(prop, Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(), indexMap.get(supProp)
+            .intValue())));
     }
 
     protected static void put(OWLObjectPropertyExpression prop, Map<OWLObjectPropertyExpression, Integer> lowlinkMap,

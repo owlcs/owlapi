@@ -18,9 +18,16 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * Given a set of ontologies, this composite change will convert all property
@@ -40,7 +47,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
 
-    @Nonnull private final Collection<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
 
     /**
      * Instantiates a new convert property assertions to annotations.
@@ -100,9 +107,8 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     }
 
     protected void addAnnotations(OWLNamedIndividual ind, OWLOntology ont) {
-        ont.dataPropertyAssertionAxioms(ind)
-            .filter(ax -> !ax.getProperty().isAnonymous())
-            .forEach(ax -> addAnnotation(ind, ont, ax));
+        ont.dataPropertyAssertionAxioms(ind).filter(ax -> !ax.getProperty().isAnonymous()).forEach(ax -> addAnnotation(
+            ind, ont, ax));
     }
 
     protected void addAnnotation(OWLNamedIndividual ind, OWLOntology ont, OWLDataPropertyAssertionAxiom ax) {

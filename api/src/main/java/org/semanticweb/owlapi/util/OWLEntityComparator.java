@@ -16,10 +16,16 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * A {@code Comparator} which compares entities. Entities are compared first by
@@ -33,7 +39,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor {
 
-    @Nonnull private final ShortFormProvider shortFormProvider;
+    private final ShortFormProvider shortFormProvider;
     int lastValue;
 
     /**

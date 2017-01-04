@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends Builder<X>>
     extends BaseBuilder<X, B> {
 
-    private SWRLIArgument arg0;
-    private SWRLIArgument arg1;
+    @Nullable private SWRLIArgument arg0;
+    @Nullable private SWRLIArgument arg1;
 
     /**
      * @param df

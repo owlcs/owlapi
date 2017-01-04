@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
-    @Nonnull private final String literal;
+    private final String literal;
 
     /**
      * @param literal
@@ -50,7 +48,7 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(),
-            Stream.of(getDatatype(), Integer.valueOf(getLiteral().hashCode() * 65536), getLang()));
+        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(getLiteral().hashCode() * 65536),
+            getLang()));
     }
 }

@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -38,7 +37,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
-    @Nonnull protected final Set<I> items = new HashSet<>();
+    protected final Set<I> items = new HashSet<>();
 
     /**
      * @param df

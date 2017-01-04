@@ -17,9 +17,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -28,9 +31,9 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
 
-    @Nonnull private final OWLAnnotationSubject subject;
-    @Nonnull private final OWLAnnotationProperty property;
-    @Nonnull private final OWLAnnotationValue value;
+    private final OWLAnnotationSubject subject;
+    private final OWLAnnotationProperty property;
+    private final OWLAnnotationValue value;
 
     /**
      * @param subject

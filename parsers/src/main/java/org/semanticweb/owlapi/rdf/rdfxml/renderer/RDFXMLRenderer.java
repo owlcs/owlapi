@@ -16,12 +16,32 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -35,9 +55,9 @@ import org.semanticweb.owlapi.util.VersionInfo;
 public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
-    @Nonnull private final Set<RDFResource> pending = new HashSet<>();
-    @Nonnull private final RDFXMLNamespaceManager qnameManager;
-    @Nonnull private final OWLDocumentFormat format;
+    private final Set<RDFResource> pending = new HashSet<>();
+    private final RDFXMLNamespaceManager qnameManager;
+    private final OWLDocumentFormat format;
     private final ShortFormProvider labelMaker;
 
     /**
@@ -164,7 +184,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+        Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && BUILT_IN_VOCABULARY_IRIS
@@ -187,7 +207,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());
-            triple=remapNodesIfNecessary(node, triple);
+            triple = remapNodesIfNecessary(node, triple);
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
                 RDFResource objectRes = (RDFResource) objectNode;

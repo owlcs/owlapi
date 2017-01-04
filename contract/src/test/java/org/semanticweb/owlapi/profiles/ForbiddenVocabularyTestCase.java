@@ -17,8 +17,6 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -147,7 +145,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         }
     }
 
-    private static final @Nonnull String input1 = "<?xml version=\"1.0\"?>\n"
+    private static final String input1 = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns=\"http://purl.org/net/social-reality#\"\n"
         + "     xml:base=\"http://purl.org/net/social-reality\"\n"
         + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
@@ -204,8 +202,8 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         + "                    </owl:Restriction>\n" + "                </owl:intersectionOf>\n"
         + "            </owl:Class>\n" + "        </rdfs:subClassOf>\n" + "    </owl:Class>\n"
         + "    <owl:Class rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"/>\n" + "</rdf:RDF>";
-    private static final @Nonnull String input2 = "<?xml version=\"1.0\"?>\n"
-        + "<rdf:RDF xmlns=\"http://purl.org/net/roles#\"\n" + "     xml:base=\"http://purl.org/net/roles\"\n"
+    private static final String input2 = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://purl.org/net/roles#\"\n"
+        + "     xml:base=\"http://purl.org/net/roles\"\n"
         + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
         + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
         + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"

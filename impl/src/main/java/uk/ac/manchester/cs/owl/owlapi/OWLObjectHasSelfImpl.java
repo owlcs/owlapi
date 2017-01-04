@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class OWLObjectHasSelfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectHasSelf {
 
-    @Nonnull private final OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     /**
      * @param property

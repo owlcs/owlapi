@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
@@ -26,14 +24,13 @@ import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param
- *        <P>
+ * @param <P>
  *        property type
  */
-public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
-    implements OWLUnaryPropertyAxiom<P> {
+public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl implements
+    OWLUnaryPropertyAxiom<P> {
 
-    @Nonnull private final P property;
+    private final P property;
 
     /**
      * @param property

@@ -32,7 +32,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -81,24 +80,24 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // this parser by hand. The error messages that this parser generates
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
-    @Nonnull private OWLOntologyLoaderConfiguration loaderConfig;
+    private OWLOntologyLoaderConfiguration loaderConfig;
     protected OWLDataFactory df;
-    private List<Token> tokens;
+    private final List<Token> tokens = new ArrayList<>();
     private int tokenIndex;
     private OWLEntityChecker checker;
     private OWLOntologyChecker owlOntologyChecker = name -> null;
     private final Map<ManchesterOWLSyntax, AnnAxiom<OWLClass, ?>> classFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
-    @Nonnull protected final Set<String> classNames = new HashSet<>();
-    @Nonnull protected final Set<String> objectPropertyNames = new HashSet<>();
-    @Nonnull protected final Set<String> dataPropertyNames = new HashSet<>();
-    @Nonnull protected final Set<String> individualNames = new HashSet<>();
-    @Nonnull protected final Set<String> dataTypeNames = new HashSet<>();
-    @Nonnull protected final Set<String> annotationPropertyNames = new HashSet<>();
-    @Nonnull private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
-    @Nonnull protected final DefaultPrefixManager pm = new DefaultPrefixManager();
-    @Nonnull protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
-    private OWLOntology defaultOntology;
+    protected final Set<String> classNames = new HashSet<>();
+    protected final Set<String> objectPropertyNames = new HashSet<>();
+    protected final Set<String> dataPropertyNames = new HashSet<>();
+    protected final Set<String> individualNames = new HashSet<>();
+    protected final Set<String> dataTypeNames = new HashSet<>();
+    protected final Set<String> annotationPropertyNames = new HashSet<>();
+    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
+    protected final DefaultPrefixManager pm = new DefaultPrefixManager();
+    protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
+    @Nullable private OWLOntology defaultOntology;
     private static final boolean ALLOWEMPTYFRAMESECTIONS = false;
     private final Map<ManchesterOWLSyntax, AnnAxiom<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
@@ -157,9 +156,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
     }
-    
-    /**@return the prefix manager used by this parser*/
-    //XXX add this method to the interface in next release
+
+    /** @return the prefix manager used by this parser */
+    // XXX add this method to the interface in next release
     public PrefixManager getPrefixManager() {
         return pm;
     }
@@ -176,7 +175,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public void setStringToParse(String s) {
-        tokens = new ArrayList<>();
+        tokens.clear();
         tokens.addAll(getTokenizer(s).tokenize());
         tokenIndex = 0;
     }
@@ -259,7 +258,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private boolean isClassName(String name) {
-        return classNames.contains(name) || checker != null && checker.getOWLClass(name) != null;
+        return classNames.contains(name) || checker.getOWLClass(name) != null;
     }
 
     @Nullable
@@ -273,24 +272,23 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private boolean isObjectPropertyName(String name) {
-        return objectPropertyNames.contains(name) || checker != null && checker.getOWLObjectProperty(name) != null;
+        return objectPropertyNames.contains(name) || checker.getOWLObjectProperty(name) != null;
     }
 
     private boolean isAnnotationPropertyName(String name) {
-        return annotationPropertyNames.contains(name) || checker != null && checker.getOWLAnnotationProperty(
-            name) != null;
+        return annotationPropertyNames.contains(name) || checker.getOWLAnnotationProperty(name) != null;
     }
 
     private boolean isDataPropertyName(String name) {
-        return dataPropertyNames.contains(name) || checker != null && checker.getOWLDataProperty(name) != null;
+        return dataPropertyNames.contains(name) || checker.getOWLDataProperty(name) != null;
     }
 
     private boolean isIndividualName(String name) {
-        return individualNames.contains(name) || checker != null && checker.getOWLIndividual(name) != null;
+        return individualNames.contains(name) || checker.getOWLIndividual(name) != null;
     }
 
     private boolean isDatatypeName(String name) {
-        return dataTypeNames.contains(name) || checker != null && checker.getOWLDatatype(name) != null;
+        return dataTypeNames.contains(name) || checker.getOWLDatatype(name) != null;
     }
 
     private boolean isSWRLBuiltin(String name) {
@@ -2117,7 +2115,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         boolean annotationPropertyNameExpected = false;
         boolean integerExpected = false;
         Set<String> keywords = new HashSet<>();
-        List<String> tokenSequence;
+        @Nullable List<String> tokenSequence;
         int start = -1;
         int line = -1;
         int column = -1;
@@ -2227,9 +2225,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 line = lastToken.getRow();
                 column = lastToken.getCol();
             }
-            return new ParserException(tokenSequence, start, line, column, ontologyNameExpected, classNameExpected,
-                objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected, datatypeNameExpected,
-                annotationPropertyNameExpected, integerExpected, keywords);
+            return new ParserException(verifyNotNull(tokenSequence), start, line, column, ontologyNameExpected,
+                classNameExpected, objectPropertyNameExpected, dataPropertyNameExpected, individualNameExpected,
+                datatypeNameExpected, annotationPropertyNameExpected, integerExpected, keywords);
         }
     }
 

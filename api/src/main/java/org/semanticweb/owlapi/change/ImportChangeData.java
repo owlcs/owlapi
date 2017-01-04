@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
 /**
@@ -29,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  */
 public abstract class ImportChangeData extends OWLOntologyChangeData {
 
-    @Nonnull private final OWLImportsDeclaration declaration;
+    private final OWLImportsDeclaration declaration;
 
     /**
      * Constructs an {@code ImportChangeData} object that describes an

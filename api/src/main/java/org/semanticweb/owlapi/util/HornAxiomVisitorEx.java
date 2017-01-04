@@ -19,8 +19,8 @@ import org.semanticweb.owlapi.model.*;
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
-    @Nonnull private final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
-    @Nonnull private final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
+    private final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
+    private final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
 
     protected boolean checkNegative(OWLClassExpression c) {
         return c.accept(negative).booleanValue();

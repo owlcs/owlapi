@@ -16,10 +16,18 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,15 +51,13 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
      * annotations will be reused extremely frequently.
      */
     private final transient LoadingCache<OWLAnnotation, OWLAnnotation> annotations = builder(key -> key);
-    @Nonnull private final LoadingCache<IRI, OWLClass> classes = builder(key -> new OWLClassImpl(key));
-    @Nonnull private final LoadingCache<IRI, OWLObjectProperty> objectProperties = builder(
-        key -> new OWLObjectPropertyImpl(key));
-    @Nonnull private final LoadingCache<IRI, OWLDataProperty> dataProperties = builder(key -> new OWLDataPropertyImpl(
+    private final LoadingCache<IRI, OWLClass> classes = builder(key -> new OWLClassImpl(key));
+    private final LoadingCache<IRI, OWLObjectProperty> objectProperties = builder(key -> new OWLObjectPropertyImpl(
         key));
-    @Nonnull private final LoadingCache<IRI, OWLDatatype> datatypes = builder(key -> new OWLDatatypeImpl(key));
-    @Nonnull private final LoadingCache<IRI, OWLNamedIndividual> individuals = builder(
-        key -> new OWLNamedIndividualImpl(key));
-    @Nonnull private final LoadingCache<IRI, OWLAnnotationProperty> annotationProperties = builder(
+    private final LoadingCache<IRI, OWLDataProperty> dataProperties = builder(key -> new OWLDataPropertyImpl(key));
+    private final LoadingCache<IRI, OWLDatatype> datatypes = builder(key -> new OWLDatatypeImpl(key));
+    private final LoadingCache<IRI, OWLNamedIndividual> individuals = builder(key -> new OWLNamedIndividualImpl(key));
+    private final LoadingCache<IRI, OWLAnnotationProperty> annotationProperties = builder(
         key -> new OWLAnnotationPropertyImpl(key));
 
     /**

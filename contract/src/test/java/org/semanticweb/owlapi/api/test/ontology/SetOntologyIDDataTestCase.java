@@ -16,8 +16,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
@@ -34,8 +32,8 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings({ "javadoc" })
 public class SetOntologyIDDataTestCase {
 
-    private final @Nonnull OWLOntology mockOntology = mock(OWLOntology.class);
-    private final @Nonnull OWLOntologyID mockOntologyID = new OWLOntologyID();
+    private final OWLOntology mockOntology = mock(OWLOntology.class);
+    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
 
     @Before
     public void setUp() {

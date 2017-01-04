@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
@@ -34,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
-    @Nonnull protected final List<OWLClassExpression> classExpressions;
+    protected final List<OWLClassExpression> classExpressions;
 
     /**
      * @param classExpressions

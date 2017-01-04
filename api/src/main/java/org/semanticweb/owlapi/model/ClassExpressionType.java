@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -25,7 +23,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  *         Management Group
  * @since 2.2.0
  */
-public enum ClassExpressionType implements Serializable,HasShortForm,HasPrefixedName,HasIRI {
+public enum ClassExpressionType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
     //@formatter:off
     /** Represents {@link OWLClass}.                    */  OWL_CLASS               ("Class"), 
     /** Represents {@link OWLObjectSomeValuesFrom}.     */  OBJECT_SOME_VALUES_FROM ("ObjectSomeValuesFrom" ),
@@ -46,9 +44,9 @@ public enum ClassExpressionType implements Serializable,HasShortForm,HasPrefixed
     /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_COMPLEMENT_OF    ("ObjectComplementOf"   ),
     /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_ONE_OF           ("ObjectOneOf"          );
     //@formatter:on
-    @Nonnull private final String name;
-    @Nonnull private final String prefixedName;
-    @Nonnull private final IRI iri;
+    private final String name;
+    private final String prefixedName;
+    private final IRI iri;
 
     ClassExpressionType(String name) {
         this.name = name;

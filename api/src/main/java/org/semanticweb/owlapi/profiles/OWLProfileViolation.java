@@ -18,10 +18,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -34,8 +40,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class OWLProfileViolation {
 
-    @Nonnull protected final OWLOntology ontology;
-    @Nonnull protected final OWLDataFactory df;
+    protected final OWLOntology ontology;
+    protected final OWLDataFactory df;
     @Nullable protected final OWLAxiom axiom;
     @Nullable protected final Object expression;
 

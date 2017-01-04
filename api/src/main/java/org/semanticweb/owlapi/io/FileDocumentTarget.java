@@ -14,10 +14,15 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Optional;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
@@ -34,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentTarget.class);
-    @Nonnull private final File file;
+    private final File file;
 
     /**
      * Constructs the document target, with the target being the specified file.

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
@@ -63,6 +64,28 @@ public final class OWLAPIPreconditions {
     }
 
     /**
+     * Check that the argument is not null; if the argument is null, throw an
+     * IllegalStateException. This method is meant to be used to verify
+     * conditions on member variables rather than input parameters.
+     * 
+     * @param object
+     *        reference to check
+     * @param message
+     *        message to use for the error
+     * @param <T>
+     *        reference type
+     * @return the input reference if not null
+     * @throws IllegalStateException
+     *         if object is null
+     */
+    public static <T> T verifyNotNull(@Nullable T object, Supplier<String> message) {
+        if (object == null) {
+            throw new IllegalStateException(message.get());
+        }
+        return object;
+    }
+
+    /**
      * Check for null and throw NullPointerException if null.
      * 
      * @param object
@@ -74,7 +97,7 @@ public final class OWLAPIPreconditions {
      *         if object is null
      */
     public static <T> T checkNotNull(@Nullable T object) {
-        return checkNotNull(object, "this variable cannot be null");
+        return checkNotNull(object, () -> "this variable cannot be null");
     }
 
     /**
@@ -98,6 +121,26 @@ public final class OWLAPIPreconditions {
     }
 
     /**
+     * Check for null and throw NullPointerException if null.
+     * 
+     * @param object
+     *        reference to check
+     * @param message
+     *        message for the illegal argument exception
+     * @param <T>
+     *        reference type
+     * @return the input reference if not null
+     * @throws NullPointerException
+     *         if object is null
+     */
+    public static <T> T checkNotNull(@Nullable T object, Supplier<String> message) {
+        if (object == null) {
+            throw new NullPointerException(message.get());
+        }
+        return object;
+    }
+
+    /**
      * Check for negative value and throw IllegalArgumentException if negative.
      * 
      * @param object
@@ -106,7 +149,7 @@ public final class OWLAPIPreconditions {
      *         if object is negative
      */
     public static void checkNotNegative(@Nonnegative long object) {
-        checkNotNegative(object, "this variable cannot be negative: " + object);
+        checkNotNegative(object, () -> "this variable cannot be negative: " + object);
     }
 
     /**
@@ -120,8 +163,22 @@ public final class OWLAPIPreconditions {
      *         if object is negative
      */
     public static void checkNotNegative(@Nonnegative long object, String message) {
+        checkNotNegative(object, () -> message);
+    }
+
+    /**
+     * Check for negative value and throw IllegalArgumentException if negative.
+     * 
+     * @param object
+     *        value to check
+     * @param message
+     *        message for the illegal argument exception
+     * @throws IllegalArgumentException
+     *         if object is negative
+     */
+    public static void checkNotNegative(@Nonnegative long object, Supplier<String> message) {
         if (object < 0) {
-            throw new IllegalArgumentException(message);
+            throw new IllegalArgumentException(message.get());
         }
     }
 
@@ -137,10 +194,29 @@ public final class OWLAPIPreconditions {
      * @return the input reference if not null
      * @throws IllegalArgumentException
      *         if object is null
+     * @deprecated use {@link #checkNotNull(Object, Supplier)}
      */
+    @Deprecated
     public static <T> T checkNotNull(@Nullable Optional<T> object, String message) {
+        return checkNotNull(object, () -> message);
+    }
+
+    /**
+     * Check for absent and throw IllegalArgumentException if null or absent.
+     * 
+     * @param object
+     *        reference to check
+     * @param message
+     *        message for the illegal argument exception
+     * @param <T>
+     *        reference type
+     * @return the input reference if not null
+     * @throws IllegalArgumentException
+     *         if object is null
+     */
+    public static <T> T checkNotNull(@Nullable Optional<T> object, Supplier<String> message) {
         if (object == null || !object.isPresent()) {
-            throw new IllegalArgumentException(message);
+            throw new IllegalArgumentException(message.get());
         }
         return verifyNotNull(object.get());
     }

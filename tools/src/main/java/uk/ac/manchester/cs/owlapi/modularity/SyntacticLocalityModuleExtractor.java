@@ -15,13 +15,29 @@ package uk.ac.manchester.cs.owlapi.modularity;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.reasoner.NodeSet;
@@ -55,7 +71,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     static class OntologyAxiomSet {
 
         /** Array representing all axioms of the associated ontology. */
-        @Nonnull final OWLAxiom[] ax;
+        final OWLAxiom[] ax;
 
         /**
          * Creates a new OntologyAxiomSet from a given set of axioms without
@@ -152,11 +168,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
     }
 
-    @Nonnull /** Type of module. */
+    /** Type of module. */
     private ModuleType moduleType;
     /** Represents the associated ontology. */
     private final OntologyAxiomSet ontologyAxiomSet;
-    @Nonnull private final OWLOntology ontology;
+    private final OWLOntology ontology;
     /** Represents the manager for the associated ontology. */
     private final OWLOntologyManager manager;
 

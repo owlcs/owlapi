@@ -16,12 +16,11 @@ package org.semanticweb.owlapi.krss1.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
+@SuppressWarnings("null")
 class ParseException extends OWLParserException {
 
-    ParseException(Token currentTokenVal, int[][] expectedTokenSequencesVal,
-            String[] tokenImageVal) {
-        super(initialise(currentTokenVal, expectedTokenSequencesVal,
-                tokenImageVal));
+    ParseException(Token currentTokenVal, int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
+        super(initialise(currentTokenVal, expectedTokenSequencesVal, tokenImageVal));
         currentToken = currentTokenVal;
         expectedTokenSequences = expectedTokenSequencesVal;
         tokenImage = tokenImageVal;
@@ -37,8 +36,7 @@ class ParseException extends OWLParserException {
     int[][] expectedTokenSequences;
     String[] tokenImage;
 
-    private static String initialise(Token currentToken,
-            int[][] expectedTokenSequences, String[] tokenImage) {
+    private static String initialise(Token currentToken, int[][] expectedTokenSequences, String[] tokenImage) {
         String eol = System.getProperty("line.separator", "\n");
         StringBuffer expected = new StringBuffer();
         int maxSize = 0;
@@ -47,8 +45,7 @@ class ParseException extends OWLParserException {
                 maxSize = expectedTokenSequences[i].length;
             }
             for (int j = 0; j < expectedTokenSequences[i].length; j++) {
-                expected.append(tokenImage[expectedTokenSequences[i][j]])
-                        .append(' ');
+                expected.append(tokenImage[expectedTokenSequences[i][j]]).append(' ');
             }
             if (expectedTokenSequences[i][expectedTokenSequences[i].length - 1] != 0) {
                 expected.append("...");
@@ -71,8 +68,7 @@ class ParseException extends OWLParserException {
             retval += " \"";
             tok = tok.next;
         }
-        retval += "\" at line " + currentToken.next.beginLine + ", column "
-                + currentToken.next.beginColumn;
+        retval += "\" at line " + currentToken.next.beginLine + ", column " + currentToken.next.beginColumn;
         retval += '.' + eol;
         if (expectedTokenSequences.length == 1) {
             retval += "Was expecting:" + eol + "    ";
@@ -119,8 +115,7 @@ class ParseException extends OWLParserException {
                 default:
                     if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
                         String s = "0000" + Integer.toString(ch, 16);
-                        retval.append("\\u"
-                                + s.substring(s.length() - 4, s.length()));
+                        retval.append("\\u" + s.substring(s.length() - 4, s.length()));
                     } else {
                         retval.append(ch);
                     }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -28,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 /** Builder class for OWLSubPropertyChainOfAxiom. */
 public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
 
-    @Nonnull private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
+    private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.

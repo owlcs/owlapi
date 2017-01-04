@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -33,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
 
-    @Nonnull private final OWLAnnotation annotation;
+    private final OWLAnnotation annotation;
 
     /**
      * Constructs an {@code OntologyAnnotationChangeData} object that describes

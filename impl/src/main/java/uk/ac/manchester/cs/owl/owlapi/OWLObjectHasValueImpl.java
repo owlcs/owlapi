@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue {
 
-    @Nonnull private final OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     /**
      * @param property
@@ -48,7 +46,6 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return new OWLObjectSomeValuesFromImpl(getProperty(),
-            new OWLObjectOneOfImpl(getFiller()));
+        return new OWLObjectSomeValuesFromImpl(getProperty(), new OWLObjectOneOfImpl(getFiller()));
     }
 }

@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -31,9 +29,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
     /** The data factory. */
-    @Nonnull protected final OWLDataFactory df;
+    protected final OWLDataFactory df;
     /** The changes. */
-    @Nonnull private final List<OWLOntologyChange> changes = new ArrayList<>();
+    private final List<OWLOntologyChange> changes = new ArrayList<>();
 
     /**
      * Instantiates a new abstract composite ontology change.

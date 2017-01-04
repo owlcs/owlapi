@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -25,7 +23,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AnnotationChange extends OWLOntologyChange {
 
-    @Nonnull private final OWLAnnotation annotation;
+    private final OWLAnnotation annotation;
 
     /**
      * @param ont

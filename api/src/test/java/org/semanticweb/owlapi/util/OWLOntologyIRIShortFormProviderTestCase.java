@@ -4,10 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-import javax.annotation.Nonnull;
-
 import org.hamcrest.CoreMatchers;
-import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
@@ -19,13 +16,8 @@ import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("javadoc")
 public class OWLOntologyIRIShortFormProviderTestCase {
 
-    public static final @Nonnull String SCHEME_DOMAIN = "http://www.semanticweb.org";
-    private OntologyIRIShortFormProvider sfp;
-
-    @Before
-    public void setUp() {
-        sfp = new OntologyIRIShortFormProvider();
-    }
+    public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
+    private OntologyIRIShortFormProvider sfp = new OntologyIRIShortFormProvider();
 
     @Test
     public void shouldFindLastPathElement() {

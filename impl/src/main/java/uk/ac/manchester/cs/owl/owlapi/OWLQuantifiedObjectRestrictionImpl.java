@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectRestriction;
@@ -24,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLObjectRestriction;
 public abstract class OWLQuantifiedObjectRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLClassExpression>
     implements OWLObjectRestriction {
 
-    @Nonnull private final OWLObjectPropertyExpression property;
+    private final OWLObjectPropertyExpression property;
 
     /**
      * @param property

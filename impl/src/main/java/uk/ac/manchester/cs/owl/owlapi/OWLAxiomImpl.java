@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.NNF;
@@ -32,7 +30,7 @@ import org.semanticweb.owlapi.util.NNF;
  */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
-    @Nonnull protected final List<OWLAnnotation> annotations;
+    protected final List<OWLAnnotation> annotations;
 
     /**
      * @param annotations

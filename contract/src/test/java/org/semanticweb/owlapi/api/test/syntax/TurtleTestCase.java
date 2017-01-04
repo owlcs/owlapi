@@ -41,9 +41,9 @@ public class TurtleTestCase extends TestBase {
         m.loadOntologyFromOntologyDocument(uri);
     }
 
-    private final @Nonnull IRI iri = IRI.create("urn:test#", "literals");
-    private final @Nonnull TurtleDocumentFormat tf = new TurtleDocumentFormat();
-    private final @Nonnull IRI s = IRI.create("urn:test#", "s");
+    private final IRI iri = IRI.create("urn:test#", "literals");
+    private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
+    private final IRI s = IRI.create("urn:test#", "s");
 
     @Test
     public void shouldParseFixedQuotesLiterals1() throws OWLOntologyCreationException {
@@ -297,8 +297,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldFindExpectedAxiomsForBlankNodes() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    public void shouldFindExpectedAxiomsForBlankNodes() throws OWLOntologyCreationException {
         OWLObjectProperty r = ObjectProperty(IRI.create(
             "http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
         String input = "@prefix : <http://www.derivo.de/ontologies/examples/anonymous-individuals#> .\n"
@@ -332,15 +331,15 @@ public class TurtleTestCase extends TestBase {
 
     @Test
     public void shouldSaveWithCorrectPrefixes() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String in="@prefix OBO: <http://purl.obolibrary.org/obo/> .\n" + 
-            "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n" + 
-            "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" + 
-            "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n" + 
-            "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" + 
-            "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n" + 
-            "<http://purl.obolibrary.org/obo/test.owl> rdf:type owl:Ontology .\n\n" + 
-            "<http://purl.obolibrary.org/obo/test#foo> rdf:type owl:ObjectProperty .\n\n" + 
-            "OBO:TEST_1 rdf:type owl:Class ;\n    rdfs:label \"foo\"@en .";
+        String in = "@prefix OBO: <http://purl.obolibrary.org/obo/> .\n"
+            + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n"
+            + "<http://purl.obolibrary.org/obo/test.owl> rdf:type owl:Ontology .\n\n"
+            + "<http://purl.obolibrary.org/obo/test#foo> rdf:type owl:ObjectProperty .\n\n"
+            + "OBO:TEST_1 rdf:type owl:Class ;\n    rdfs:label \"foo\"@en .";
         OWLOntology ont = loadOntologyFromString(in);
         OWLDocumentFormat ofmt = new TurtleDocumentFormat();
         ofmt.asPrefixOWLDocumentFormat().setPrefix("OBO", "http://purl.obolibrary.org/obo/");
@@ -351,15 +350,15 @@ public class TurtleTestCase extends TestBase {
 
     @Test
     public void shouldSaveWithCorrectSlashPrefixes() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String in="@prefix OBO: <http://purl.obolibrary.org/obo/> .\n" + 
-            "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n" + 
-            "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" + 
-            "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n" + 
-            "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" + 
-            "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n" + 
-            "<http://purl.obolibrary.org/obo/test.owl> rdf:type owl:Ontology .\n\n" + 
-            "<http://purl.obolibrary.org/obo/test/foo> rdf:type owl:ObjectProperty .\n\n" + 
-            "OBO:TEST_1 rdf:type owl:Class ;\n    rdfs:label \"foo\"@en .";
+        String in = "@prefix OBO: <http://purl.obolibrary.org/obo/> .\n"
+            + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n"
+            + "<http://purl.obolibrary.org/obo/test.owl> rdf:type owl:Ontology .\n\n"
+            + "<http://purl.obolibrary.org/obo/test/foo> rdf:type owl:ObjectProperty .\n\n"
+            + "OBO:TEST_1 rdf:type owl:Class ;\n    rdfs:label \"foo\"@en .";
         OWLOntology ont = loadOntologyFromString(in);
         OWLDocumentFormat ofmt = new TurtleDocumentFormat();
         ofmt.asPrefixOWLDocumentFormat().setPrefix("OBO", "http://purl.obolibrary.org/obo/");
@@ -367,5 +366,4 @@ public class TurtleTestCase extends TestBase {
         OWLOntology o1 = loadOntologyFromString(result);
         equal(ont, o1);
     }
-
 }

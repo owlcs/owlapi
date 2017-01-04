@@ -30,6 +30,8 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
  */
 @SuppressWarnings("javadoc")
 public class OWL2DatatypeTestCase extends TestBase {
+@SuppressWarnings({ "javadoc", "null" })
+public class OWL2DatatypeImplTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;
 
@@ -173,8 +175,7 @@ public class OWL2DatatypeTestCase extends TestBase {
     @Test
     public void toStringID() {
         assertNotNull(plainLiteral.toStringID());
-        assertEquals(RDF_PLAIN_LITERAL.getIRI().toString(), plainLiteral
-            .toStringID());
+        assertEquals(RDF_PLAIN_LITERAL.getIRI().toString(), plainLiteral.toStringID());
     }
 
     @Test

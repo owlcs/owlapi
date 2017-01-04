@@ -18,10 +18,18 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 import java.util.Locale;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * No cache used.
@@ -30,7 +38,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals {
 
-    @Nonnull private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
+    private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
     private final boolean useCompression;
 
     /**

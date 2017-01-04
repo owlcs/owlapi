@@ -33,6 +33,7 @@ public interface Tree<N> {
      * 
      * @return The user content of this node.
      */
+    @Nullable
     N getUserObject();
 
     /**
@@ -41,6 +42,7 @@ public interface Tree<N> {
      * @return The parent tree node, or {@code null} if this node doesn't have a
      *         parent.
      */
+    @Nullable
     Tree<N> getParent();
 
     /**

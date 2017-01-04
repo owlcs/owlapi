@@ -16,8 +16,6 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
@@ -30,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class DisjointClassesRoundTripTestCase extends TestBase {
 
-    private static final @Nonnull String NS = "http://ns.owl";
+    private static final String NS = "http://ns.owl";
 
     @Test
     public void shouldParse() throws OWLOntologyCreationException {

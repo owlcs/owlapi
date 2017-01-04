@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -24,7 +22,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public enum DataRangeType implements Serializable,HasShortForm,HasPrefixedName,HasIRI {
+public enum DataRangeType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
     //@formatter:off
     /** Represents {@link OWLDatatype}.             */ DATATYPE             ("Datatype"             ),
     /** Represents {@link OWLDataOneOf}.            */ DATA_ONE_OF          ("DataOneOf"            ),
@@ -33,9 +31,9 @@ public enum DataRangeType implements Serializable,HasShortForm,HasPrefixedName,H
     /** Represents {@link OWLDataUnionOf}.          */ DATA_UNION_OF        ("DataUnionOf"          ),
     /** Represents {@link OWLDataIntersectionOf}.   */ DATA_INTERSECTION_OF ("DataIntersectionOf"   );
     //@formatter:on
-    @Nonnull private final String name;
-    @Nonnull private final String prefixedName;
-    @Nonnull private final IRI iri;
+    private final String name;
+    private final String prefixedName;
+    private final IRI iri;
 
     DataRangeType(String name) {
         this.name = name;

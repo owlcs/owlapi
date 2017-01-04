@@ -48,6 +48,7 @@ public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends 
         return (B) this;
     }
 
+    @SuppressWarnings("null")
     @Override
     @Nullable
     public OWLObjectPropertyExpression getProperty() {

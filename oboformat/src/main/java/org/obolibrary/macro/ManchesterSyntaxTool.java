@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
@@ -34,10 +33,10 @@ import org.slf4j.LoggerFactory;
 public class ManchesterSyntaxTool {
 
     private static final Logger LOG = LoggerFactory.getLogger(ManchesterSyntaxTool.class);
-    @Nonnull protected final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
-    @Nonnull private final OWLDataFactory dataFactory;
-    @Nonnull private final AdvancedEntityChecker entityChecker;
-    @Nonnull private final ShortFormProvider shortFormProvider = e -> iriShortFormProvider.getShortForm(e.getIRI());
+    protected final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
+    private final OWLDataFactory dataFactory;
+    private final AdvancedEntityChecker entityChecker;
+    private final ShortFormProvider shortFormProvider = e -> iriShortFormProvider.getShortForm(e.getIRI());
     private final AtomicBoolean disposed = new AtomicBoolean(false);
 
     /**

@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
 
@@ -31,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLNaryDataRange;
  */
 public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLNaryDataRange {
 
-    @Nonnull private final List<OWLDataRange> operands;
+    private final List<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(Collection<OWLDataRange> operands) {
         Collection<OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");

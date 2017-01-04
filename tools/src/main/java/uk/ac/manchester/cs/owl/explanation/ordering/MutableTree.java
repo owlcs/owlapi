@@ -12,8 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -26,8 +36,8 @@ import javax.annotation.Nullable;
  */
 public class MutableTree<N> implements Tree<N> {
 
-    private final N userObject;
-    private MutableTree<N> parent;
+    @Nullable private final N userObject;
+    @Nullable private MutableTree<N> parent;
     private final List<MutableTree<N>> children;
     private final Map<Tree<N>, Object> child2EdgeMap;
     private NodeRenderer<N> toStringRenderer;
@@ -44,6 +54,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     @Override
+    @Nullable
     public N getUserObject() {
         return userObject;
     }
@@ -107,6 +118,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     @Override
+    @Nullable
     public Tree<N> getParent() {
         return parent;
     }
@@ -136,7 +148,7 @@ public class MutableTree<N> implements Tree<N> {
         if (parent == null) {
             return this;
         }
-        return parent.getRoot();
+        return verifyNotNull(parent).getRoot();
     }
 
     @Override
@@ -225,8 +237,8 @@ public class MutableTree<N> implements Tree<N> {
      *        the node to put in place of this one
      */
     public void replace(MutableTree<N> tree) {
-        parent.children.remove(this);
-        parent.children.add(tree);
+        verifyNotNull(parent, "parent cannot be null here").children.remove(this);
+        verifyNotNull(parent, "parent cannot be null here").children.add(tree);
         parent = null;
         tree.children.clear();
         tree.children.addAll(children);

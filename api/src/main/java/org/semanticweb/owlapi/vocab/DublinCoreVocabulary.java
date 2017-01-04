@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -29,7 +27,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 2.0.0
  */
-public enum DublinCoreVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
+public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor. */ CONTRIBUTOR("contributor"),
     /** http://purl.org/dc/elements/1.1/coverage. */    COVERAGE   ("coverage"   ),
@@ -47,11 +45,11 @@ public enum DublinCoreVocabulary implements HasShortForm,HasIRI,HasPrefixedName 
     /** http://purl.org/dc/elements/1.1/title. */       TITLE      ("title"      ),
     /** http://purl.org/dc/elements/1.1/type. */        TYPE       ("type"       );
 //@formatter:on
-    @Nonnull private final String shortName;
-    @Nonnull private final String qname;
-    @Nonnull private final IRI iri;
+    private final String shortName;
+    private final String qname;
+    private final IRI iri;
     /** Dublin Core name space. */
-    @Nonnull public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
+    public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
     /** All IRIs. */
     public static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(x -> x.getIRI()));
 

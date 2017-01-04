@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -42,8 +40,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverterStrategy {
 
     /** default base. */
-    @Nonnull public static final String DEFAULT_BASE = "http://tinyname.org#";
-    @Nonnull private final String base;
+    public static final String DEFAULT_BASE = "http://tinyname.org#";
+    private final String base;
     private final Map<OWLEntity, IRI> entityNameMap = new HashMap<>();
     private final OWLEntityFragmentProvider fragmentProvider = new OWLEntityFragmentProvider();
 

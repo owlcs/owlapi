@@ -17,8 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -27,8 +25,8 @@ import javax.annotation.Nonnull;
 public class ManchesterOWLSyntaxTokenizer {
 
     /** EOF. */
-    @Nonnull public static final String EOFTOKEN = "|EOF|";
-    @Nonnull protected final Set<Character> skip = new HashSet<>();
+    public static final String EOFTOKEN = "|EOF|";
+    protected final Set<Character> skip = new HashSet<>();
     protected final Set<Character> commentDelimiters = new HashSet<>();
     protected final Set<Character> delims = new HashSet<>();
     private final String buffer;
@@ -39,7 +37,7 @@ public class ManchesterOWLSyntaxTokenizer {
     int startCol = 1;
     int startRow = 1;
     List<Token> tokens = new ArrayList<>();
-    private StringBuilder sb;
+    private StringBuilder sb = new StringBuilder();
     private static final char ESCAPE_CHAR = '\\';
 
     /**
@@ -225,7 +223,7 @@ public class ManchesterOWLSyntaxTokenizer {
     /** Token. */
     public static class Token {
 
-        @Nonnull private final String currentToken;
+        private final String currentToken;
         private final int pos;
         private final int col;
         private final int row;

@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -36,8 +35,8 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
  */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
 
-    @Nonnull private final OWLDataFactory dataFactory;
-    @Nonnull private final MultipleExplanationGenerator gen;
+    private final OWLDataFactory dataFactory;
+    private final MultipleExplanationGenerator gen;
 
     /**
      * Instantiates a new default explanation generator.
@@ -53,9 +52,8 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
         ExplanationProgressMonitor progressMonitor) {
-        this(man, reasonerFactory, ontology,
-            checkNotNull(reasonerFactory, "reasonerFactory cannot be null").createNonBufferingReasoner(ontology),
-            progressMonitor);
+        this(man, reasonerFactory, ontology, checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
+            .createNonBufferingReasoner(ontology), progressMonitor);
     }
 
     /**
@@ -76,8 +74,8 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         OWLReasoner reasoner, @Nullable ExplanationProgressMonitor progressMonitor) {
         dataFactory = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         BlackBoxExplanation singleGen = new BlackBoxExplanation(checkNotNull(ontology, "ontology cannot be null"),
-            checkNotNull(reasonerFactory, "reasonerFactory cannot be null"),
-            checkNotNull(reasoner, "reasoner cannot be null"));
+            checkNotNull(reasonerFactory, "reasonerFactory cannot be null"), checkNotNull(reasoner,
+                "reasoner cannot be null"));
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
             gen.setProgressMonitor(progressMonitor);
