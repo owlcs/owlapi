@@ -12,12 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -29,7 +23,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -43,7 +42,6 @@ public class RDFParserTestCase extends TestBase {
     public void setUpStorers() {
         // Use the reference implementation
         m.getOntologyStorers().set(new RDFXMLStorerFactory());
-        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
     }
 
     @Test

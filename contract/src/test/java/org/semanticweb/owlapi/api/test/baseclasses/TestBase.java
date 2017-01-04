@@ -12,18 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -43,10 +31,24 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
+
+import javax.annotation.Nonnull;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -95,14 +97,12 @@ public abstract class TestBase {
     @Nonnull @Rule public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
     protected @Nonnull OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     protected static @Nonnull OWLDataFactory df;
-    protected static @Nonnull OWLOntologyManager masterManager;
     protected @Nonnull OWLOntologyManager m;
     protected @Nonnull OWLOntologyManager m1;
 
-    @BeforeClass
+   @BeforeClass
     public static void setupManagers() {
-        masterManager = OWLManager.createOWLOntologyManager();
-        df = masterManager.getOWLDataFactory();
+      df = OWLManager.getOWLDataFactory();
     }
 
     @Before
@@ -111,32 +111,12 @@ public abstract class TestBase {
         m1 = setupManager();
     }
 
-    protected static OWLOntologyManager setupManager() {
-        OWLOntologyManager manager = new OWLOntologyManagerImpl(df, new NoOpReadWriteLock());
-        manager.getOntologyFactories().set(masterManager.getOntologyFactories());
-        manager.getOntologyParsers().set(masterManager.getOntologyParsers());
-        manager.getOntologyStorers().set(masterManager.getOntologyStorers());
-        manager.getIRIMappers().set(masterManager.getIRIMappers());
-        manager.setOntologyConfigurator(masterManager.getOntologyConfigurator());
-        return manager;
+    protected  OWLOntologyManager setupManager() {
+        return OWLManager.createOWLOntologyManager();
     }
 
     protected static <S> Set<S> singleton(S s) {
         return Collections.singleton(s);
-    }
-
-    protected Set<OWLAxiom> stripSimpleDeclarations(Collection<OWLAxiom> axioms) {
-        Set<OWLAxiom> toReturn = new HashSet<>();
-        for (OWLAxiom ax : axioms) {
-            if (!isSimpleDeclaration(ax)) {
-                toReturn.add(ax);
-            }
-        }
-        return toReturn;
-    }
-
-    protected boolean isSimpleDeclaration(OWLAxiom ax) {
-        return ax.isOfType(AxiomType.DECLARATION) && ax.annotations().count() == 0;
     }
 
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {

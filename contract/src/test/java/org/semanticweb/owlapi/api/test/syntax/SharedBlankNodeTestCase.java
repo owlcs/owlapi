@@ -1,19 +1,21 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.*;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 /**
  * test for 3294629 - currently disabled. Not clear whether structure sharing is
@@ -21,6 +23,7 @@ import org.semanticweb.owlapi.model.*;
  */
 @SuppressWarnings("javadoc")
 public class SharedBlankNodeTestCase extends TestBase {
+
 
     @Test
     public void shouldSaveOneIndividual() throws Exception {
@@ -104,10 +107,20 @@ public class SharedBlankNodeTestCase extends TestBase {
         assertEquals(values1.toString(), values2.size(), 1);
         assertNotEquals(values1, values2);
     }
+    private boolean remapAnons=true;
+    private  boolean saveIds = false;
+
+    @Override
+    protected OWLOntologyManager setupManager() {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        manager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(remapAnons);
+        manager.getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(saveIds);
+        return manager;
+    }
 
     @Test
     public void shouldNotRemapUponReloading() throws OWLOntologyCreationException {
-        m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
+        remapAnons=false;
         String input = "<?xml version=\"1.0\"?>\r\n" + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n"
             + "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n"
@@ -127,7 +140,7 @@ public class SharedBlankNodeTestCase extends TestBase {
         add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
             a -> a instanceof OWLAnonymousIndividual));
         assertEquals(values1.toString(), values1.size(), 1);
-        m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
+       remapAnons = true;
     }
 
     @Test
@@ -159,8 +172,9 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "            <rdf:Description>\r\n" + "                <rdfs:comment>E</rdfs:comment>\r\n"
             + "            </rdf:Description>\r\n" + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(input);
-        masterManager.getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(true);
+        saveIds = (true);
         try {
+            o1.getOWLOntologyManager().getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(true);
             StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
             assertTrue(result.toString().contains("rdf:nodeID"));
             OWLOntology reloaded = loadOntologyFromString(result);
@@ -168,7 +182,7 @@ public class SharedBlankNodeTestCase extends TestBase {
             assertEquals(result.toString(), resaved.toString());
         } finally {
             // make sure the static variable is reset after the test
-            masterManager.getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(false);
+            saveIds = (false);
         }
     }
 

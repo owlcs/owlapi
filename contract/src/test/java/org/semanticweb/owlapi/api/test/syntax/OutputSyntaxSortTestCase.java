@@ -1,17 +1,11 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -22,7 +16,15 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
@@ -247,10 +249,15 @@ public class OutputSyntaxSortTestCase extends TestBase {
                 new RDFXMLDocumentFormat() }, new Object[] { new OWLXMLDocumentFormat() });
     }
 
+    @Override
+    protected OWLOntologyManager setupManager() {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        manager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
+        return manager;
+    }
+
     @Test
     public void shouldOutputAllInSameOrder() throws OWLOntologyStorageException, OWLOntologyCreationException {
-        masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
-        try {
             List<OWLOntology> ontologies = new ArrayList<>();
             List<String> set = new ArrayList<>();
             for (String s : input) {
@@ -266,8 +273,5 @@ public class OutputSyntaxSortTestCase extends TestBase {
                 assertEquals(format.getKey() + " " + new ComparisonFailure("", set.get(i), set.get(i + 1)).getMessage(),
                     set.get(i), set.get(i + 1));
             }
-        } finally {
-            masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
-        }
     }
 }
