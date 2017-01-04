@@ -1,3 +1,10 @@
+3.5.6 4 Jan 2017
+Bug fixes:
+Fix Issue with serialization - OWLAPI version 3.5.5 #586
+Fix Property Axiom Generator should check set size #527
+Fix Unqualified data restriction considered qualified #576
+
+
 3.5.5 15 October 2016
 Bug fixes
 Serialization issue with OWLOntology hashcode
