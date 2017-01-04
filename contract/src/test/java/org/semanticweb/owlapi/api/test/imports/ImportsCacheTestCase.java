@@ -1,16 +1,15 @@
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul
@@ -21,7 +20,7 @@ public class ImportsCacheTestCase extends TestBase {
     private OWLOntology ontA;
     private OWLOntology ontB;
     private IRI ontBDocIri;
-    private OWLImportsDeclarationImpl ontBDocumentIriImportsDeclaration;
+    private OWLImportsDeclaration ontBDocumentIriImportsDeclaration;
 
     @SuppressWarnings("javadoc")
     @Before
@@ -29,7 +28,7 @@ public class ImportsCacheTestCase extends TestBase {
         ontA = m.createOntology(IRI.create("http://ont.com/ontA"));
         ontB = m.createOntology(IRI.create("http://ont.com/ontB"));
         ontBDocIri = IRI.create("http://docs.ont.com/ontB");
-        ontBDocumentIriImportsDeclaration = new OWLImportsDeclarationImpl(ontBDocIri);
+        ontBDocumentIriImportsDeclaration = df.getOWLImportsDeclaration(ontBDocIri);
     }
 
     /**

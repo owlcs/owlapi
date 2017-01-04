@@ -12,22 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -35,7 +29,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
-public class OWL2DatatypeImplTestCase extends TestBase {
+public class OWL2DatatypeTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;
 
@@ -242,15 +236,4 @@ public class OWL2DatatypeImplTestCase extends TestBase {
         assertFalse(plainLiteral.isBottomEntity());
     }
 
-    @Test
-    public void contains() {
-        IRI iri = XSD_BYTE.getIRI();
-        Set<OWLDatatype> datatypes = new HashSet<>();
-        OWLDatatypeImpl dtImpl = new OWLDatatypeImpl(iri);
-        OWLDatatype dt2Impl = XSD_BYTE.getDatatype(df);
-        assertEquals(dtImpl, dt2Impl);
-        datatypes.add(dt2Impl);
-        assertTrue(datatypes.contains(dtImpl));
-        assertEquals(dt2Impl.hashCode(), dtImpl.hashCode());
-    }
 }

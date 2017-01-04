@@ -12,21 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
-
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+
+import javax.annotation.Nonnull;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 @SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
@@ -114,18 +118,24 @@ public class TurtleTestCase extends TestBase {
         assertTrue(axioms.contains("http://test.org/b1"));
         assertTrue(axioms.contains("http://test.org/c1"));
     }
-
+    private boolean remapAnons=true;
+    @Override
+    public OWLOntologyManager setupManager() {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        manager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(remapAnons);
+        return manager;
+    }
     // test for 3543488
     @Test
     public void shouldRoundTripTurtleWithsharedBnodes() throws Exception {
-        masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
+        remapAnons=(false);
         try {
             String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
             OWLOntology ontology = loadOntologyFromString(input);
             OWLOntology onto2 = roundTrip(ontology, new TurtleDocumentFormat());
             equal(ontology, onto2);
         } finally {
-            masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
+            remapAnons=(true);
         }
     }
 
@@ -195,9 +205,10 @@ public class TurtleTestCase extends TestBase {
         assertTrue(ontology.containsEntityInSignature(ap));
     }
 
+
     @Test
     public void shouldRoundTripAxiomAnnotation() throws Exception {
-        masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
+        remapAnons= false;
         try {
             String input = "@prefix : <urn:fm2#> .\n" + "@prefix fm:    <urn:fm2#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -224,7 +235,7 @@ public class TurtleTestCase extends TestBase {
             Set<OWLAxiom> anns = asUnorderedSet(o.axioms().filter(ax -> contains(ax.anonymousIndividuals(), ind)));
             assertEquals(3, anns.size());
         } finally {
-            masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
+            remapAnons = true;
         }
     }
 
