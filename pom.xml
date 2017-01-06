@@ -86,13 +86,13 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
+			<version>2.0.2-beta</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>18.0</version>
+			<version>20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -112,23 +112,23 @@
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
-			<version>2.0.1</version>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.10</version>
+			<version>1.7.22</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.10</version>
+			<version>1.7.22</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>2.5</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -136,17 +136,17 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-core</artifactId>
-				<version>2.5.1</version>
+				<version>2.8.5</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
-				<version>2.5.1</version>
+				<version>2.8.5</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>2.5.1</version>
+				<version>2.8.5</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -161,7 +161,7 @@
 	<mailingLists>
 		<mailingList>
 			<name>OWLAPI Development Mailing list</name>
-			<subscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developert</subscribe>
+			<subscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developer</subscribe>
 			<unsubscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developer</unsubscribe>
 			<archive>http://sourceforge.net/mailarchive/forum.php?forum_name=owlapi-developer</archive>
 			<post>owlapi-developer@lists.sourceforge.net</post>
@@ -207,7 +207,7 @@
 					<plugin>
 						<groupId>org.apache.felix</groupId>
 						<artifactId>maven-bundle-plugin</artifactId>
-						<version>2.3.7</version>
+						<version>2.5.3</version>
 						<extensions>true</extensions>
 						<configuration>
 							<instructions>
@@ -265,7 +265,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.2</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
@@ -318,9 +318,7 @@
 						<exclude>**/*IntegrationTestCase.java</exclude>
 					</excludes>
 					<printSummary>false</printSummary>
-					<!-- <parallel>all</parallel>
-					<threadCount>1</threadCount>
-					<perCoreThreadCount>true</perCoreThreadCount> -->
+					<!-- <parallel>all</parallel> <threadCount>1</threadCount> <perCoreThreadCount>true</perCoreThreadCount> -->
 					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
@@ -359,7 +357,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.7</version>
+				<version>2.5.3</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -371,26 +369,28 @@
 					</instructions>
 				</configuration>
 			</plugin>
-
-			<!-- the FindBugs plugin for extra checks -->
-			<!--plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.5.3</version>
-				<executions>
-					<execution>
-						<id>findbugs-check</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<failOnError>false</failOnError>
-						</configuration>
-					</execution>
-				</executions>
-				</plugin -->
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>findbugs-maven-plugin</artifactId>
+					<version>2.5.3</version>
+					<executions>
+						<execution>
+							<id>findbugs-check</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+							<configuration>
+								<failOnError>false</failOnError>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 

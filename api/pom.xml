@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-api</artifactId>
-	<name>OWLAPI Model Interfaces and utilities</name>
+	<name>OWLAPI :: Interfaces</name>
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>org.tukaani</groupId>
 			<artifactId>xz</artifactId>
-			<version>1.5</version>
+			<version>1.6</version>
 		</dependency>
 	</dependencies>
 </project>
