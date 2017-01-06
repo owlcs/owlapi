@@ -41,8 +41,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFParserRegistry;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 
 /**
@@ -60,10 +60,10 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat 
 
     /**
      * Constructor for super-classes to specify which
-     * {@link org.openrdf.rio.RDFFormat} they support.
+     * {@link RDFFormat} they support.
      * 
      * @param format
-     *        The {@link org.openrdf.rio.RDFFormat} that this instance supports.
+     *        The {@link RDFFormat} that this instance supports.
      */
     public RioRDFPrefixDocumentFormat(RDFFormat format) {
         this.format = format;
