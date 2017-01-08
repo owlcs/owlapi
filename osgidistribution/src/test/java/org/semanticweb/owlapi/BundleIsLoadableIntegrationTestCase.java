@@ -25,19 +25,17 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.launch.Framework;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.test.IntegrationTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("javadoc")
 @Category(IntegrationTest.class)
 public class BundleIsLoadableIntegrationTestCase {
 
-    private static Logger logger = LoggerFactory
-        .getLogger(BundleIsLoadableIntegrationTestCase.class);
-
     @Test
-    public void startBundle() throws BundleException, ClassNotFoundException,
-        IllegalAccessException, InstantiationException {
+    public void startBundle() throws BundleException, ClassNotFoundException, IllegalAccessException,
+        InstantiationException {
+        // Stream.of(System.getProperty("java.class.path").split(":")).filter(x
+        // -> x.contains(".jar")).forEach(
+        // System.out::println);
         Map<String, String> configuration = new HashMap<>();
         configuration.put("org.osgi.framework.storage.clean", "onFirstInit");
         configuration.put("felix.log.level", "4");
@@ -54,8 +52,7 @@ public class BundleIsLoadableIntegrationTestCase {
         File[] files = dir.listFiles();
         for (File f : files) {
             String fileName = f.getAbsolutePath();
-            if (fileName.endsWith("jar") && !fileName.contains("sources")
-                && !fileName.contains("javadoc")) {
+            if (fileName.endsWith("jar") && !fileName.contains("sources") && !fileName.contains("javadoc")) {
                 file = f;
                 break;
             }
@@ -65,36 +62,43 @@ public class BundleIsLoadableIntegrationTestCase {
         assertNotNull("uri is null", uri);
         BundleContext context = framework.getBundleContext();
         assertNotNull("context is null", context);
-        List<String> bundles = Arrays.asList("javax-inject", "aopalliance","caffeine",
-            "guava", "guice-multibindings", "guice-assistedinject", "guice-4",
-            "aopalliance", "commons-io", "commons-codec", "slf4j-simple", "jcl-over-slf4j", "slf4j-api");
+        List<String> bundles = Arrays.asList("org.apache.servicemix.bundles.javax-inject",
+            "org.apache.servicemix.bundles.aopalliance", "slf4j-simple", "slf4j-api", "caffeine", "guava", "jsr305",
+            "guice-multibindings", "guice-assistedinject", "guice-4", "commons-io", "commons-codec", "jcl-over-slf4j");
         for (String bundleName : bundles) {
             try {
                 String simple = getJarURL(bundleName);
                 if (simple.isEmpty()) {
-                    logger.info("Can't install " + bundleName + ";");
+                    System.out.println("Can't install " + bundleName + ";");
                 }
+                // System.out.println("BundleIsLoadableIntegrationTestCase.startBundle()
+                // " + simple);
                 Bundle simpleLoggerBundle = context.installBundle(simple);
                 try {
                     simpleLoggerBundle.start();
                 } catch (BundleException e) {
-                    e.printStackTrace();
+                    if (!"Fragment bundles can not be started.".equals(e.getMessage())) {
+                        System.out.println("ERROR " + simple + " " + e.getMessage());
+                    }
                 }
             } catch (Throwable e) {
-                logger.info("Can't install: " + bundleName, e);
+                System.out.println("ERROR " + e.getMessage());
             }
         }
         Bundle bundle = context.installBundle(uri.toString());
         assertNotNull(bundle);
-        bundle.start();
-        assertEquals("bundle state", bundle.getState(), Bundle.ACTIVE);
-        Class<?> owlManagerClass = bundle
-            .loadClass("org.semanticweb.owlapi.apibinding.OWLManager");
-        assertNotNull("no class owlmanager", owlManagerClass);
-        owlManagerClass.newInstance();
-        assertNotEquals(
-            "OWLManager class from bundle class loader  equals OWLManager class from system class path",
-            OWLManager.class, owlManagerClass);
+        try {
+            bundle.start();
+            assertEquals("bundle state", bundle.getState(), Bundle.ACTIVE);
+            Class<?> owlManagerClass = bundle.loadClass("org.semanticweb.owlapi.apibinding.OWLManager");
+            assertNotNull("no class owlmanager", owlManagerClass);
+            owlManagerClass.newInstance();
+            assertNotEquals("OWLManager class from bundle class loader  equals OWLManager class from system class path",
+                OWLManager.class, owlManagerClass);
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            throw e;
+        }
     }
 
     @Nonnull
@@ -104,7 +108,8 @@ public class BundleIsLoadableIntegrationTestCase {
             for (URL url : ((URLClassLoader) classLoader).getURLs()) {
                 String string = url.toString();
                 if (string.contains(jarNameFragment)) {
-                    System.out.println("BundleIsLoadableIntegrationTestCase.getJarURL() " + string);
+                    // System.out.println("BundleIsLoadableIntegrationTestCase.getJarURL()
+                    // " + string);
                     return string;
                 }
             }
