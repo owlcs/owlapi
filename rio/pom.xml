@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>owlapi-parent</artifactId>
 		<groupId>net.sourceforge.owlapi</groupId>
-		<version>5.0.5</version>
+		<version>5.0.6-SNAPSHOT</version>
 	</parent>
 	<artifactId>owlapi-rio</artifactId>
 	<name>OWLAPI :: RDF4J Rio</name>
