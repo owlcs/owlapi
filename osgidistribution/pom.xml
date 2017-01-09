@@ -108,7 +108,8 @@
 							groupId=commons-*;scope=compile|runtime|provided,
 							groupId=com.google.guava;scope=compile|runtime|provided,
 							groupId=com.google.inject*;scope=compile|runtime|provided,
-							slf4j-api;scope=compile|runtime|provided
+							slf4j-api;scope=compile|runtime|provided,
+							slf4j-simple;scope=compile|runtime|provided
 						</excludeDependencies>
 						<Embed-Directory>lib</Embed-Directory>
 						<_exportcontents>
