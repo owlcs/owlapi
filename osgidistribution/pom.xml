@@ -35,6 +35,7 @@
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.22</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.22</version></dependency>
 		<dependency><groupId>org.openrdf.sesame</groupId><artifactId>sesame-model</artifactId><version>${inherited.sesame.version}</version></dependency>
+		<dependency><groupId>org.openrdf.sesame</groupId><artifactId>sesame-util</artifactId><version>${inherited.sesame.version}</version></dependency>		
 		<dependency><groupId>org.openrdf.sesame</groupId><artifactId>sesame-rio-api</artifactId><version>${inherited.sesame.version}</version></dependency>
 		<dependency><groupId>org.openrdf.sesame</groupId><artifactId>sesame-rio-languages</artifactId><version>${inherited.sesame.version}</version></dependency>
 		<dependency><groupId>org.openrdf.sesame</groupId><artifactId>sesame-rio-datatypes</artifactId><version>${inherited.sesame.version}</version></dependency>
