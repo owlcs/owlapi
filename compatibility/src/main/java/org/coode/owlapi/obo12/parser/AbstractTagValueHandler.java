@@ -47,7 +47,6 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
@@ -601,7 +600,7 @@ class PartOfTagValueHandler extends AbstractTagValueHandler {
 
 class RawFrameHandler implements OBOParserHandler {
 
-    private String currentFrameType = "";
+    @Nullable private String currentFrameType = "";
     private final List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
     @Nullable private OBOFrame headerFrame;
     private final List<OBOFrame> typeDefFrames = new ArrayList<>();
@@ -618,7 +617,7 @@ class RawFrameHandler implements OBOParserHandler {
     }
 
     @Override
-    public void startFrame(@Nonnull String frameType) {
+    public void startFrame(@Nullable String frameType) {
         currentFrameType = frameType;
         currentTagValuePairs.clear();
     }

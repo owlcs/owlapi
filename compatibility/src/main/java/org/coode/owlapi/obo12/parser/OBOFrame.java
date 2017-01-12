@@ -59,7 +59,7 @@ class OBOFrame {
         this.tagValuePairs = tagValuePairs;
     }
 
-    public OBOFrame(String frameType, List<OBOTagValuePair> tagValuePairs) {
+    public OBOFrame(@Nullable String frameType, List<OBOTagValuePair> tagValuePairs) {
         this.frameType = frameType;
         this.tagValuePairs = new ArrayList<>(tagValuePairs);
     }
