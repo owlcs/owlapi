@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class CommonsRDFTermTest extends AbstractRDFTest {
 
     private final class OWLAPIRDFTermFactory implements RDF {
@@ -132,8 +132,7 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
         }
 
         @Override
-        public Quad createQuad(BlankNodeOrIRI graphName, BlankNodeOrIRI subject, IRI predicate, RDFTerm object)
-            throws IllegalArgumentException {
+        public Quad createQuad(BlankNodeOrIRI graphName, BlankNodeOrIRI subject, IRI predicate, RDFTerm object) {
             // TODO Auto-generated method stub
             return null;
         }
@@ -141,14 +140,14 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
     @Ignore
     @Override
-    public void hashCodeBlankNode() throws Exception {
+    public void hashCodeBlankNode() {
         // TODO Auto-generated method stub
         // super.hashCodeBlankNode();
     }
 
     @Ignore
     @Override
-    public void hashCodeLiteral() throws Exception {
+    public void hashCodeLiteral() {
         // TODO Auto-generated method stub
         // super.hashCodeLiteral();
     }
@@ -162,14 +161,14 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
     @Ignore
     @Override
-    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() throws Exception {
+    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() {
         // TODO Auto-generated method stub
         // super.testCreateBlankNodeIdentifierTwiceDifferentFactories();
     }
 
     @Ignore
     @Override
-    public void hashCodeTriple() throws Exception {
+    public void hashCodeTriple() {
         // TODO Auto-generated method stub
         // super.hashCodeTriple();
     }
