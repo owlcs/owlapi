@@ -16,15 +16,14 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -39,9 +38,9 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
     // XXX config
-    @Nonnull private Map<String, String> prefix2NamespaceMap;
-    @Nonnull private final Map<String, String> reverseprefix2NamespaceMap;
-    @Nonnull private StringComparator comparator;
+    private Map<String, String> prefix2NamespaceMap;
+    private final Map<String, String> reverseprefix2NamespaceMap;
+    private StringComparator comparator;
 
     /**
      * @param defaultPrefix
@@ -142,7 +141,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
                     prefixed = iriString.replace(s, prefix);
                 }
             }
-            if (prefixed != null) {
+            if (prefixed != null && XMLUtils.isQName(prefixed)) {
                 return prefixed;
             }
         }
@@ -153,7 +152,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     }
 
     private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index)<0 && s.indexOf('/', index)<0; 
+        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     @Override

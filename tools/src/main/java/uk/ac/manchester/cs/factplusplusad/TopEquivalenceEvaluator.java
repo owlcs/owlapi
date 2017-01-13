@@ -20,6 +20,7 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
      * @param s
      *        signature
      */
+    @SuppressWarnings("null")
     TopEquivalenceEvaluator(Signature s) {
         super(s);
     }

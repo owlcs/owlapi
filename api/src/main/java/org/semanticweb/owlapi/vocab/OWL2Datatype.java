@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.vocab;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
@@ -22,13 +22,18 @@ import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.providers.DatatypeProvider;
 
 /**
@@ -39,7 +44,7 @@ import org.semanticweb.owlapi.model.providers.DatatypeProvider;
  *         Management Group
  * @since 2.2.0
  */
-public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
+public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 //@formatter:off
     /** RDF_XML_LITERAL. */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL. */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -77,7 +82,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /** XSD_DATE_TIME. */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
     /** XSD_DATE_TIME_STAMP. */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
-    @Nonnull private static final Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(v -> v.iri));
+    private static final Map<IRI, OWL2Datatype> ALL_IRIS = asMap(stream(), HasIRI::getIRI);
     /**
      * Datatypes allowed in the EL and QL profiles.
      */
@@ -89,16 +94,16 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     public static final List<OWL2Datatype> RL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
         RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER,
         XSD_POSITIVE_INTEGER, XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
-        XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_LANGUAGE,
-        XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI,
-        XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
-    @Nonnull private final String shortForm;
-    @Nonnull private final IRI iri;
-    @Nonnull private final Category category;
+        XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_LANGUAGE, XSD_NAME,
+        XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI, XSD_DATE_TIME,
+        XSD_DATE_TIME_STAMP);
+    private final String shortForm;
+    private final IRI iri;
+    private final Category category;
     private final boolean finite;
-    @Nonnull private final Pattern pattern;
-    @Nonnull private final String regExpression;
-    @Nonnull private final String prefixedName;
+    private final Pattern pattern;
+    private final String regExpression;
+    private final String prefixedName;
 
     OWL2Datatype(Namespaces namespace, String shortForm, Category category, boolean finite, String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
@@ -120,6 +125,10 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
+    private static Stream<OWL2Datatype> stream() {
+        return Stream.of(values());
+    }
+
     /**
      * Gets all of the built in datatype IRIs.
      * 
@@ -127,7 +136,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      *         {@code OWL2Datatype}s.
      */
     public static Set<IRI> getDatatypeIRIs() {
-        return ALL_IRIS;
+        return ALL_IRIS.keySet();
     }
 
     /**
@@ -159,7 +168,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      *         {@code false} if the IRI does not identify a built in datatype.
      */
     public static boolean isBuiltIn(IRI datatypeIRI) {
-        return ALL_IRIS.contains(datatypeIRI);
+        return ALL_IRIS.containsKey(datatypeIRI);
     }
 
     /**
@@ -173,11 +182,11 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      *         if the specified IRI is not a built in datatype IRI.
      */
     public static OWL2Datatype getDatatype(IRI datatype) {
-        if (!isBuiltIn(datatype)) {
+        OWL2Datatype knownDatatype = ALL_IRIS.get(datatype);
+        if (knownDatatype == null) {
             throw new OWLRuntimeException(datatype + " is not a built in datatype!");
         }
-        return Stream.of(values()).filter(v -> v.iri.equals(datatype)).findAny()
-            .orElseThrow(() -> new OWLRuntimeException(datatype + " is not a built in datatype!"));
+        return knownDatatype;
     }
 
     /**

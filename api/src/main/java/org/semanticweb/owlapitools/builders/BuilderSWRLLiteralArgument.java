@@ -14,6 +14,7 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,7 +24,7 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 /** Builder class for SWRLLiteralArgument. */
 public class BuilderSWRLLiteralArgument extends BaseBuilder<SWRLLiteralArgument, BuilderSWRLLiteralArgument> {
 
-    private OWLLiteral literal;
+    @Nullable private OWLLiteral literal;
 
     /**
      * Builder initialized from an existing object.

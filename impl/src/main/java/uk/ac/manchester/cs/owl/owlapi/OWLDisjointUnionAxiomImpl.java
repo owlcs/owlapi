@@ -19,9 +19,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 
 import com.google.common.collect.Sets;
 
@@ -32,8 +36,8 @@ import com.google.common.collect.Sets;
  */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
 
-    @Nonnull private final OWLClass owlClass;
-    @Nonnull private final List<OWLClassExpression> classExpressions;
+    private final OWLClass owlClass;
+    private final List<OWLClassExpression> classExpressions;
 
     /**
      * @param owlClass

@@ -15,8 +15,6 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -33,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class SubClassCollector implements OWLAxiomVisitor {
 
     /* Collected axioms */
-    private final @Nonnull Set<OWLSubClassOfAxiom> axioms;
+    private final Set<OWLSubClassOfAxiom> axioms;
     /* Class to look for */
     private final OWLClass clazz;
 

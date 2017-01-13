@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
-    private OWLOntologyLoaderMetaData loaderMetaData = null;
+    @Nullable private OWLOntologyLoaderMetaData loaderMetaData = null;
     private boolean addMissingTypes = true;
 
     @Override

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.io.Writer;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -26,7 +24,7 @@ import javax.annotation.Nonnull;
  */
 public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
 
-    @Nonnull private final Optional<Writer> writer;
+    private final Optional<Writer> writer;
 
     /**
      * @param writer

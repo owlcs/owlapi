@@ -11,8 +11,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +26,7 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 04/04/2014
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 @RunWith(MockitoJUnitRunner.class)
 public class SWRLAtomOrderingTestCase extends TestBase {
 
@@ -37,7 +35,7 @@ public class SWRLAtomOrderingTestCase extends TestBase {
     protected SWRLAtom atomC;
     protected SWRLAtom atomD;
     private SWRLRuleImpl rule;
-    private final @Nonnull Set<SWRLAtom> body = new LinkedHashSet<>();
+    private final Set<SWRLAtom> body = new LinkedHashSet<>();
 
     @Before
     public void setUp() {
@@ -51,7 +49,7 @@ public class SWRLAtomOrderingTestCase extends TestBase {
         body.add(atomA);
         Set<SWRLAtom> head = new LinkedHashSet<>();
         head.add(atomD);
-        rule = new SWRLRuleImpl(body, head, Collections.<OWLAnnotation> emptySet());
+        rule = new SWRLRuleImpl(body, head, Collections.<OWLAnnotation>emptySet());
     }
 
     @Test

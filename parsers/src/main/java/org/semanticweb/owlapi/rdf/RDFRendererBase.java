@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.rdf;
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
@@ -23,13 +23,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -43,10 +44,8 @@ import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
+import org.semanticweb.owlapi.util.OWLObjectDesharer;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
-
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -55,31 +54,30 @@ import gnu.trove.strategy.IdentityHashingStrategy;
  */
 public abstract class RDFRendererBase {
 
-    @Nonnull private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
-    @Nonnull private static final String DATATYPES_BANNER_TEXT = "Datatypes";
-    @Nonnull private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
-    @Nonnull private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
-    @Nonnull private static final String CLASSES_BANNER_TEXT = "Classes";
-    @Nonnull private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
-    @Nonnull private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
+    private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
+    private static final String DATATYPES_BANNER_TEXT = "Datatypes";
+    private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
+    private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
+    private static final String CLASSES_BANNER_TEXT = "Classes";
+    private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
+    private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
     /** General axioms. */
-    @Nonnull private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
     /** Rules banner. */
-    @Nonnull private static final String RULES_BANNER_TEXT = "Rules";
-    @Nonnull protected final OWLOntology ontology;
+    private static final String RULES_BANNER_TEXT = "Rules";
+    protected final OWLOntology ontology;
     protected final OWLDataFactory df;
-    protected RDFGraph graph;
-    @Nonnull protected final Set<IRI> prettyPrintedTypes = asUnorderedSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
+    @Nullable protected RDFGraph graph;
+    protected final Set<IRI> prettyPrintedTypes = asUnorderedSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
         OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY, OWL_RESTRICTION, OWL_THING, OWL_NOTHING, OWL_ONTOLOGY,
         OWL_ANNOTATION_PROPERTY, OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION).map(a -> a.getIRI()));
-    private final OWLDocumentFormat format;
-    private Set<IRI> punned;
+    @Nullable private final OWLDocumentFormat format;
+    private final Set<IRI> punned;
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
     private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
     protected final OWLOntologyWriterConfiguration config;
+    @Nullable protected Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
 
     /**
      * @param ontology
@@ -89,7 +87,8 @@ public abstract class RDFRendererBase {
         this(ontology, ontology.getFormat(), ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
     }
 
-    protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format, OWLOntologyWriterConfiguration config) {
+    protected RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format,
+        OWLOntologyWriterConfiguration config) {
         this.ontology = ontology;
         this.config = config;
         OWLOntologyManager m = this.ontology.getOWLOntologyManager();
@@ -104,6 +103,7 @@ public abstract class RDFRendererBase {
             ontology.accept(visitor);
             axiomOccurrences = x -> x.annotations().anyMatch(a -> a.annotations().count() > 0);
         }
+        punned = ontology.getPunnedIRIs(EXCLUDED);
     }
 
     /** Hooks for subclasses */
@@ -185,7 +185,7 @@ public abstract class RDFRendererBase {
     /** Render document. */
     public void render() {
         graph = new RDFGraph();
-        punned = ontology.getPunnedIRIs(EXCLUDED);
+        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
         beginDocument();
         renderOntologyHeader();
         renderOntologyComponents();
@@ -324,21 +324,25 @@ public abstract class RDFRendererBase {
     }
 
     private void renderGeneralAxioms() {
-        AtomicBoolean haveWrittenBanner = new AtomicBoolean(false);
-        getGeneralAxioms().forEach(ax -> renderGeneral(haveWrittenBanner, ax));
+        AtomicBoolean bannerWritten = new AtomicBoolean(false);
+        getGeneralAxioms().forEach(ax -> renderGeneral(bannerWritten, ax));
     }
 
-    protected void renderGeneral(AtomicBoolean haveWrittenBanner, OWLAxiom axiom) {
+    protected void renderGeneral(AtomicBoolean bannerWritten, OWLAxiom axiom) {
         createGraph(axiom);
-        Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
+        Set<RDFResourceBlankNode> rootNodes = getRDFGraph().getRootAnonymousNodes();
         if (!rootNodes.isEmpty()) {
-            if (!haveWrittenBanner.getAndSet(true)) {
+            if (!bannerWritten.getAndSet(true)) {
                 writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
             }
             beginObject();
             renderAnonRoots();
             endObject();
         }
+    }
+
+    protected RDFGraph getRDFGraph() {
+        return verifyNotNull(graph, "rdfGraph not initialised yet");
     }
 
     /**
@@ -364,20 +368,21 @@ public abstract class RDFRendererBase {
 
     protected void renderOntologyHeader() {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations(), occurrences);
+            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
         graph = translator.getGraph();
         RDFResource ontologyHeaderNode = createOntologyHeaderNode(translator);
         addVersionIRIToOntologyHeader(ontologyHeaderNode, translator);
         addImportsDeclarationsToOntologyHeader(ontologyHeaderNode, translator);
         addAnnotationsToOntologyHeader(ontologyHeaderNode, translator);
-        if (!graph.isEmpty()) {
+        if (!getRDFGraph().isEmpty()) {
             render(ontologyHeaderNode);
         }
+        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }
 
     private RDFResource createOntologyHeaderNode(RDFTranslator translator) {
         ontology.accept(translator);
-        return translator.getMappedNode(ontology);
+        return verifyNotNull(translator.getMappedNode(ontology), "ontology header node not found");
     }
 
     private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode, RDFTranslator translator) {
@@ -419,16 +424,7 @@ public abstract class RDFRendererBase {
     }
 
     protected boolean shouldInsertDeclarations() {
-        return format == null || format.isAddMissingTypes();
-    }
-
-    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
-        int id = blankNodeMap.get(key);
-        if (id == 0) {
-            id = nextBlankNodeId.getAndIncrement();
-            blankNodeMap.put(key, id);
-        }
-        return new RDFResourceBlankNode(id, isIndividual, needId);
+        return format == null || verifyNotNull(format).isAddMissingTypes();
     }
 
     static final class GraphVisitor implements OWLEntityVisitor {
@@ -517,46 +513,34 @@ public abstract class RDFRendererBase {
         }
     }
 
-    private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
-
-        public SequentialBlankNodeRDFTranslator() {
-            super(ontology.getOWLOntologyManager(), ontology, shouldInsertDeclarations(), occurrences);
-        }
-
-        @Override
-        protected RDFResourceBlankNode getAnonymousNode(Object key) {
-            checkNotNull(key, "key cannot be null");
-            boolean isIndividual = key instanceof OWLAnonymousIndividual;
-            boolean needId = false;
-            if (isIndividual) {
-                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
-                needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-                return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
-            } else if (key instanceof OWLAxiom) {
-                isIndividual = false;
-                needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
-            }
-            return getBlankNodeFor(key, isIndividual, needId);
-        }
-    }
-
     protected void createGraph(Stream<? extends OWLObject> objects) {
-        RDFTranslator translator = new SequentialBlankNodeRDFTranslator();
-        sortOptionally(objects).forEach(obj -> obj.accept(translator));
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
+            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
+        sortOptionally(objects).forEach(obj -> deshare(obj).accept(translator));
         graph = translator.getGraph();
+        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }
 
     protected void createGraph(OWLObject o) {
-        RDFTranslator translator = new SequentialBlankNodeRDFTranslator();
-        o.accept(translator);
+        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
+            shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
+        deshare(o).accept(translator);
         graph = translator.getGraph();
+        triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
+    }
+
+    protected OWLObject deshare(OWLObject o) {
+        if (o.hasSharedStructure()) {
+            return o.accept(new OWLObjectDesharer(ontology.getOWLOntologyManager()));
+        }
+        return o;
     }
 
     protected abstract void writeBanner(String name);
 
     /** Render anonymous roots. */
     public void renderAnonRoots() {
-        graph.getRootAnonymousNodes().stream().sorted().forEach(this::render);
+        getRDFGraph().getRootAnonymousNodes().stream().sorted().forEach(this::render);
     }
 
     /**
@@ -569,7 +553,7 @@ public abstract class RDFRendererBase {
     public abstract void render(RDFResource node);
 
     protected boolean isObjectList(RDFResource node) {
-        for (RDFTriple triple : graph.getTriplesForSubject(node)) {
+        for (RDFTriple triple : getRDFGraph().getTriplesForSubject(node)) {
             if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && triple
                 .getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
@@ -583,12 +567,12 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
+            for (RDFTriple triple : getRDFGraph().getTriplesForSubject(currentNode)) {
                 if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
+            for (RDFTriple triple : getRDFGraph().getTriplesForSubject(currentNode)) {
                 if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {
@@ -604,5 +588,21 @@ public abstract class RDFRendererBase {
                 }
             }
         }
+    }
+
+    protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
+        RDFTriple tripleToRender = triple;
+        RDFResourceBlankNode remappedNode = verifyNotNull(triplesWithRemappedNodes,
+            "triplesWithRemappedNodes not initialised yet").get(tripleToRender);
+        if (remappedNode != null) {
+            tripleToRender = new RDFTriple(tripleToRender.getSubject(), tripleToRender.getPredicate(), remappedNode);
+        }
+        if (!node.equals(tripleToRender.getSubject())) {
+            // the node will not match the triple subject if the node itself
+            // is a remapped blank node
+            // in which case the triple subject needs remapping as well
+            tripleToRender = new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
+        }
+        return tripleToRender;
     }
 }

@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.diff;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nullable;
 
 import org.obolibrary.oboformat.model.Clause;
@@ -10,10 +12,10 @@ public class Diff {
 
     String type;
     final String frameType;
-    Frame frame1;
-    Frame frame2;
-    Clause clause1;
-    Clause clause2;
+    @Nullable Frame frame1;
+    @Nullable Frame frame2;
+    @Nullable Clause clause1;
+    @Nullable Clause clause2;
     final int frameNum;
 
     /**
@@ -71,6 +73,7 @@ public class Diff {
     /**
      * @return frame1
      */
+    @Nullable
     public Frame getFrame1() {
         return frame1;
     }
@@ -86,6 +89,7 @@ public class Diff {
     /**
      * @return frame2
      */
+    @Nullable
     public Frame getFrame2() {
         return frame2;
     }
@@ -101,6 +105,7 @@ public class Diff {
     /**
      * @return clause1
      */
+    @Nullable
     public Clause getClause1() {
         return clause1;
     }
@@ -116,6 +121,7 @@ public class Diff {
     /**
      * @return clause2
      */
+    @Nullable
     public Clause getClause2() {
         return clause2;
     }
@@ -130,9 +136,17 @@ public class Diff {
 
     @Override
     public String toString() {
-        return type + ' ' + frameType + " Frame1=" + (frame1 == null ? "-" : frame1.getId()) + " Frame2="
-                + (frame2 == null ? "-" : frame2.getId()) + " Clause1=" + (clause1 == null ? "-" : clause1)
-                + " Clause2=" + (clause2 == null ? "-" : clause2) + " In=Frame" + frameNum;
+        return type + ' ' + frameType + " Frame1=" + id(frame1) + " Frame2=" + id(frame2) + " Clause1="
+            + (clause1 == null ? "-" : clause1) + " Clause2=" + (clause2 == null ? "-" : clause2) + " In=Frame"
+            + frameNum;
+    }
+
+    @Nullable
+    protected String id(@Nullable Frame f) {
+        if (f == null) {
+            return "-";
+        }
+        return verifyNotNull(f).getId();
     }
     /*
      * public String toOboDelta() throws IOException { Vector<String> lines =

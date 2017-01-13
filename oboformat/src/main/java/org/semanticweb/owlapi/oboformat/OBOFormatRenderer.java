@@ -14,7 +14,12 @@ package org.semanticweb.owlapi.oboformat;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 import javax.annotation.Nullable;
 
@@ -35,7 +40,7 @@ public class OBOFormatRenderer implements OWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), ontology.getFormat());
+        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
     }
 
     /**
@@ -83,8 +88,8 @@ public class OBOFormatRenderer implements OWLRenderer {
                 nameProvider = new OBODocNameProvider(result);
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
-            oboFormatWriter
-                .setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
+            oboFormatWriter.setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
+                .booleanValue());
             oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

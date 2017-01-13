@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
  */
 public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
-    @Nonnull private final OWLOntology ont;
+    private final OWLOntology ont;
 
     /**
      * @param ont
@@ -80,8 +78,8 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      *         {@code isAxiomChange} method first).
      */
     public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException(
-            "This is an " + getClass().getSimpleName() + ", not an axiom change: " + this);
+        throw new UnsupportedOperationException("This is an " + getClass().getSimpleName() + ", not an axiom change: "
+            + this);
     }
 
     /**

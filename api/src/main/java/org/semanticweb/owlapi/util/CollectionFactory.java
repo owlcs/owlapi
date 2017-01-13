@@ -15,7 +15,17 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -54,7 +64,7 @@ public class CollectionFactory {
      *        list to sort
      * @return sorted input, if no errors are raised. Original otherwise.
      */
-    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(List<T> toReturn) {
+    public static <T extends OWLObject> List<T> sortOptionallyComparables(List<T> toReturn) {
         try {
             toReturn.sort(null);
         } catch (IllegalArgumentException e) {
@@ -75,7 +85,7 @@ public class CollectionFactory {
      * @return sorted input list
      */
     public static <T extends OWLObject> List<T> sortOptionally(List<T> toReturn) {
-        return sortOptionallyComparables((List) toReturn);
+        return sortOptionallyComparables(toReturn);
     }
 
     /**
@@ -90,9 +100,10 @@ public class CollectionFactory {
      *        witness for return type
      * @return sorted input list
      */
+    @SuppressWarnings({ "unchecked" })
     public static <T extends OWLObject> List<T> sortOptionally(List<? extends T> toReturn,
         @SuppressWarnings("unused") Class<T> desiredType) {
-        return sortOptionallyComparables((List) toReturn);
+        return (List<T>) sortOptionallyComparables(toReturn);
     }
 
     /**
@@ -108,7 +119,7 @@ public class CollectionFactory {
      * @return sorted copy of the input, if no errors are raised. Copy of the
      *         original otherwise.
      */
-    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(Collection<T> toReturn) {
+    public static <T extends OWLObject> List<T> sortOptionallyComparables(Collection<T> toReturn) {
         return sortOptionallyComparables(new ArrayList<>(toReturn));
     }
 

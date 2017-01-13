@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
@@ -22,11 +22,17 @@ import javax.inject.Provider;
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Iterables;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
@@ -69,9 +75,9 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
      */
     protected <T> Iterable<T> load(Class<T> type) {
         // J2EE compatible search
-        Collection<T> result = new HashSet<>();
+        Collection<T> result = new ArrayList<>();
         try {
-            Iterables.addAll(result, ServiceLoader.load(type));
+            ServiceLoader.load(type).forEach(result::add);
         } catch (ServiceConfigurationError e) {
             logger.debug("ServiceLoading: ", e);
         }
@@ -82,7 +88,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         // services provided by the OWLAPI jar itself.
         if (result.isEmpty()) {
             ClassLoader classLoader = getClass().getClassLoader();
-            Iterables.addAll(result, ServiceLoader.load(type, classLoader));
+            ServiceLoader.load(type, classLoader).forEach(result::add);
         }
         return result;
     }

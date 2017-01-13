@@ -18,11 +18,14 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -32,7 +35,7 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase extends TestBase {
 
-    private static final @Nonnull IRI ONTOLOGY_IRI = IRI("http://test.com/", "ont");
+    private static final IRI ONTOLOGY_IRI = IRI("http://test.com/", "ont");
 
     private OWLOntologyManager createManager() {
         m.getIRIMappers().clear();

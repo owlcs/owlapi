@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
@@ -29,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> extends OWLAnonymousClassExpressionImpl
     implements OWLQuantifiedRestriction<F> {
 
-    @Nonnull private final F filler;
+    private final F filler;
 
     /**
      * @param filler

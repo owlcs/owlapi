@@ -2,9 +2,13 @@ package org.obolibrary.oboformat.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
@@ -19,15 +23,15 @@ public class OBODoc {
     /** The header frame. */
     @Nullable protected Frame headerFrame;
     /** The term frame map. */
-    @Nonnull protected final Map<String, Frame> termFrameMap = new HashMap<>();
+    protected final Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
-    @Nonnull protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
+    protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
     /** The instance frame map. */
-    @Nonnull protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
+    protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
     /** The annotation frames. */
-    @Nonnull protected final Collection<Frame> annotationFrames = new LinkedList<>();
+    protected final Collection<Frame> annotationFrames = new LinkedList<>();
     /** The imported obo docs. */
-    protected Collection<OBODoc> importedOBODocs = new LinkedList<>();
+    protected final Collection<OBODoc> importedOBODocs = new LinkedList<>();
 
     /**
      * @return the header frame
@@ -71,7 +75,8 @@ public class OBODoc {
      * that the system may optimize data structures for performance or space.
      */
     public void freezeFrames() {
-        headerFrame.freeze();
+        verifyNotNull(headerFrame, "headerFrame cannot be null at this stage. Setting the headr frame has been skipped")
+            .freeze();
         freezeFrameMap(termFrameMap);
         freezeFrameMap(typedefFrameMap);
         freezeFrameMap(instanceFrameMap);
@@ -215,7 +220,8 @@ public class OBODoc {
      *        the new imported obo docs
      */
     public void setImportedOBODocs(Collection<OBODoc> importedOBODocs) {
-        this.importedOBODocs = importedOBODocs;
+        this.importedOBODocs.clear();
+        this.importedOBODocs.addAll(importedOBODocs);
     }
 
     /**
@@ -225,9 +231,6 @@ public class OBODoc {
      *        the doc
      */
     public void addImportedOBODoc(OBODoc doc) {
-        if (importedOBODocs == null) {
-            importedOBODocs = new ArrayList<>();
-        }
         importedOBODocs.add(doc);
     }
 

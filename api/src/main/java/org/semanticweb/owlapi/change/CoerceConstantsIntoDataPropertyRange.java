@@ -13,10 +13,11 @@
 package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asMap;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
@@ -44,11 +45,21 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
     public CoerceConstantsIntoDataPropertyRange(OWLOntologyManager m, Collection<OWLOntology> ontologies) {
         super(m.getOWLDataFactory());
         checkNotNull(ontologies, "ontologies cannot be null");
-        Map<OWLDataPropertyExpression, OWLDatatype> map = ontologies.stream().flatMap(ont -> ont.axioms(
-            AxiomType.DATA_PROPERTY_RANGE)).filter(ax -> ax.getRange().isOWLDatatype()).collect(Collectors.toMap(
-                ax -> ax.getProperty(), ax -> ax.getRange().asOWLDatatype()));
+        Map<OWLDataPropertyExpression, OWLDatatype> map = asMap(datatypes(ontologies), ax -> ax.getProperty(), ax -> ax
+            .getRange().asOWLDatatype());
         OWLConstantReplacer replacer = new OWLConstantReplacer(m, map);
         ontologies.forEach(o -> o.logicalAxioms().forEach(ax -> duplicate(replacer, o, ax)));
+    }
+
+    /**
+     * @param ontologies
+     *        ontologies to inspect
+     * @return datatypes declared in the ontologies (not including OWL 2
+     *         standard datatypes)
+     */
+    public Stream<OWLDataPropertyRangeAxiom> datatypes(Collection<OWLOntology> ontologies) {
+        return ontologies.stream().flatMap(ont -> ont.axioms(AxiomType.DATA_PROPERTY_RANGE)).filter(ax -> ax.getRange()
+            .isOWLDatatype());
     }
 
     protected void duplicate(OWLConstantReplacer replacer, OWLOntology o, OWLLogicalAxiom ax) {

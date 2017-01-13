@@ -45,17 +45,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.openrdf.model.Resource;
-import org.openrdf.model.Statement;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.SimpleValueFactory;
-import org.openrdf.model.vocabulary.RDF;
-import org.openrdf.rio.*;
-import org.openrdf.rio.helpers.BasicParserSettings;
-import org.openrdf.rio.helpers.StatementCollector;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.model.vocabulary.RDF;
+import org.eclipse.rdf4j.rio.*;
+import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
+import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -79,7 +78,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
     protected static final Logger LOGGER = LoggerFactory.getLogger(RioParserImpl.class);
-    @Nonnull private final RioRDFDocumentFormatFactory owlFormatFactory;
+    private final RioRDFDocumentFormatFactory owlFormatFactory;
 
     /**
      * @param nextFormat
@@ -102,8 +101,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             consumer.setOntologyFormat(owlFormatFactory.createFormat());
             String baseUri = "urn:default:baseUri:";
             // Override the default baseUri for non-anonymous ontologies
-            if (!ontology.getOntologyID().isAnonymous()
-                && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
+            if (!ontology.getOntologyID().isAnonymous() && ontology.getOntologyID().getDefaultDocumentIRI()
+                .isPresent()) {
                 baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
             }
             RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
@@ -124,8 +123,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         } catch (final RDFHandlerException e) {
             // See sourceforge bug 3566820 for more information about this
             // branch
-            if (e.getCause() != null && e.getCause().getCause() != null
-                && e.getCause().getCause() instanceof UnloadableImportException) {
+            if (e.getCause() != null && e.getCause().getCause() != null && e.getCause()
+                .getCause() instanceof UnloadableImportException) {
                 throw (UnloadableImportException) e.getCause().getCause();
             } else {
                 throw new OWLParserException(e);
@@ -164,8 +163,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      *         If there are malformed URLs.
      */
     protected void parseDocumentSource(final OWLOntologyDocumentSource source, final String baseUri,
-        final RDFHandler handler, OWLOntologyLoaderConfiguration config)
-            throws OWLOntologyInputSourceException, IOException {
+        final RDFHandler handler, OWLOntologyLoaderConfiguration config) throws OWLOntologyInputSourceException,
+        IOException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);

@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -32,8 +30,8 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
  */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
 
-    @Nonnull private final OWLDatatype datatype;
-    @Nonnull private final List<OWLFacetRestriction> facetRestrictions;
+    private final OWLDatatype datatype;
+    private final List<OWLFacetRestriction> facetRestrictions;
 
     /**
      * @param datatype

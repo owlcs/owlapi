@@ -14,14 +14,12 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.5.0
  */
-public enum PrimitiveType implements Serializable,HasShortForm {
+public enum PrimitiveType implements Serializable, HasShortForm {
     //@formatter:off
     /** CLASS.               */  CLASS               (EntityType.CLASS), 
     /** OBJECT_PROPERTY.     */  OBJECT_PROPERTY     (EntityType.OBJECT_PROPERTY), 
@@ -32,9 +30,9 @@ public enum PrimitiveType implements Serializable,HasShortForm {
     /** LITERAL.             */  LITERAL             ("Literal", "Literal", "Literals"), 
     /** IRI.                 */  IRI                 ("IRI", "IRI", "IRIs");
     //@formatter:on
-    @Nonnull private final String shortForm;
-    @Nonnull private final String printName;
-    @Nonnull private final String pluralPrintName;
+    private final String shortForm;
+    private final String printName;
+    private final String pluralPrintName;
 
     PrimitiveType(EntityType<?> entityType) {
         this(entityType.getShortForm(), entityType.getPrintName(), entityType.getPluralPrintName());

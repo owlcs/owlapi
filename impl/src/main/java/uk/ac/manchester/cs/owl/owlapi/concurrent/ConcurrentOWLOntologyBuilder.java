@@ -4,7 +4,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.concurrent.locks.ReadWriteLock;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -18,7 +17,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
     private final OWLOntologyBuilder builder;
-    @Nonnull private final ReadWriteLock readWriteLock;
+    private final ReadWriteLock readWriteLock;
 
     /**
      * @param builder

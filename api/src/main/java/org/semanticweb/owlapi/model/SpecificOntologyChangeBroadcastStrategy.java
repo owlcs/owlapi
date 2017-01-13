@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * A change broadcast strategy that broadcasts changes that have been applied to
  * a specific ontology.
@@ -29,7 +27,7 @@ import javax.annotation.Nonnull;
  */
 public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
-    @Nonnull private final OWLOntology ontology;
+    private final OWLOntology ontology;
 
     /**
      * Constructs a change broadcast strategy which only causes changes that
@@ -46,8 +44,8 @@ public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChang
     public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
-        List<OWLOntologyChange> broadcastChanges = asList(
-            changes.stream().filter(c -> c.getOntology().equals(ontology)), OWLOntologyChange.class);
+        List<OWLOntologyChange> broadcastChanges = asList(changes.stream().filter(c -> c.getOntology().equals(
+            ontology)), OWLOntologyChange.class);
         listener.ontologiesChanged(broadcastChanges);
     }
 }

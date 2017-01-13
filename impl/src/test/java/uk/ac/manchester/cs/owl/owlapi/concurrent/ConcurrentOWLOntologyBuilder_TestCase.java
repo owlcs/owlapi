@@ -22,22 +22,16 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class ConcurrentOWLOntologyBuilder_TestCase {
 
     private ConcurrentOWLOntologyBuilder builder;
-    @Mock
-    private OWLOntologyBuilder delegateBuilder;
-    @Mock
-    private ReadWriteLock readWriteLock;
-    @Mock
-    private Lock readLock, writeLock;
-    @Mock
-    private OWLOntologyManager manager;
-    @Mock
-    private OWLOntologyID ontologyId;
-    @Mock
-    private OWLOntology ontology;
+    @Mock private OWLOntologyBuilder delegateBuilder;
+    @Mock private ReadWriteLock readWriteLock;
+    @Mock private Lock readLock, writeLock;
+    @Mock private OWLOntologyManager manager;
+    @Mock private OWLOntologyID ontologyId;
+    @Mock private OWLOntology ontology;
 
     @Before
     public void setUp() {

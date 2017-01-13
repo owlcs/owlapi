@@ -15,18 +15,33 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
+import org.semanticweb.owlapi.io.RDFParserMetaData;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFResourceParseError;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.TranslatorAccessor;
@@ -68,9 +83,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLRDFConsumer.class);
-    @Nonnull final TripleLogger tripleLogger;
+    final TripleLogger tripleLogger;
     /** The configuration. */
-    @Nonnull private final OWLOntologyLoaderConfiguration configuration;
+    private final OWLOntologyLoaderConfiguration configuration;
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -95,7 +110,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     /** IRIs that had a type triple to rdfs:Datatange */
     private final Set<IRI> dataRangeIRIs = createSet();
     /** The IRI of the first reource that is typed as an ontology */
-    private IRI firstOntologyIRI;
+    @Nullable private IRI firstOntologyIRI;
     /** IRIs that had a type triple to owl:Ontology */
     private final Set<IRI> ontologyIRIs = createSet();
     /** IRIs that had a type triple to owl:Restriction */
@@ -115,13 +130,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     /** The annotated anon source2 annotation map. */
     private final Map<IRI, Set<IRI>> annotatedAnonSource2AnnotationMap = createMap();
     /** The ontology that the RDF will be parsed into. */
-    @Nonnull private final OWLOntology ontology;
+    private final OWLOntology ontology;
     /** The ontology format. */
-    private RDFDocumentFormat ontologyFormat;
+    @Nullable private RDFDocumentFormat ontologyFormat;
     /** The data factory. */
     private final OWLDataFactory df;
     /** The last added axiom. */
-    private OWLAxiom lastAddedAxiom;
+    @Nullable private OWLAxiom lastAddedAxiom;
     /** The synonym map. */
     private final Map<IRI, IRI> synonymMap = createMap();
     // SWRL Stuff
@@ -144,7 +159,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     /** The swrl different from atoms. */
     private final Set<IRI> swrlDifferentFromAtoms = createSet();
     /** The iri provider. */
-    private IRIProvider iriProvider;
+    @Nullable private IRIProvider iriProvider;
     /**
      * A cache of annotation axioms to be added at the end - saves some peek
      * memory doing this.
@@ -157,7 +172,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     final HandlerAccessor handlerAccessor;
     final TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
-    @Nonnull private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
+    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
     /** The translated properties. */
     private final Map<IRI, OWLObjectPropertyExpression> translatedProperties = createMap();
     // Resource triples
@@ -175,7 +190,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     // consumer, so the cache size itself is much smaller than the total memory
     // footprint
     private final Map<String, IRI> IRIMap = createMap();
-    @Nonnull private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
+    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
     private static final Set<IRI> entityTypes = Sets.newHashSet(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
         OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), RDFS_DATATYPE.getIRI(), OWL_NAMED_INDIVIDUAL
             .getIRI());
@@ -236,8 +251,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
 
     @Override
     public void addPrefix(String abbreviation, String value) {
-        if (ontologyFormat.isPrefixOWLDocumentFormat()) {
-            ontologyFormat.asPrefixOWLDocumentFormat().setPrefix(abbreviation, value);
+        if (getOntologyFormat().isPrefixOWLDocumentFormat()) {
+            getOntologyFormat().asPrefixOWLDocumentFormat().setPrefix(abbreviation, value);
         }
     }
 
@@ -381,8 +396,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      */
     public void setOntologyFormat(RDFDocumentFormat format) {
         ontologyFormat = format;
-        if (ontologyFormat.isPrefixOWLDocumentFormat()) {
-            tripleLogger.setPrefixManager(ontologyFormat.asPrefixOWLDocumentFormat());
+        if (getOntologyFormat().isPrefixOWLDocumentFormat()) {
+            tripleLogger.setPrefixManager(getOntologyFormat().asPrefixOWLDocumentFormat());
         }
     }
 
@@ -591,6 +606,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      * 
      * @return the last added axiom
      */
+    @Nullable
     public OWLAxiom getLastAddedAxiom() {
         return lastAddedAxiom;
     }
@@ -1230,7 +1246,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         if (ontologyFormat != null) {
             RDFParserMetaData metaData = new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER, tripleLogger
                 .count(), remainingTriples, guessedDeclarations);
-            ontologyFormat.setOntologyLoaderMetaData(metaData);
+            getOntologyFormat().setOntologyLoaderMetaData(metaData);
         }
         // Do we need to change the ontology IRI?
         chooseAndSetOntologyIRI();
@@ -1255,6 +1271,35 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      */
     private void chooseAndSetOntologyIRI() {
         Optional<IRI> ontologyIRIToSet = emptyOptional();
+        if (firstOntologyIRI != null) {
+            List<OWLAnnotationAssertionAxiom> annotationsForOntology = asList(ontology.annotationAssertionAxioms(
+                firstOntologyIRI));
+            for (OWLAnnotationAssertionAxiom ax : annotationsForOntology) {
+                addOntologyAnnotation(ax.getAnnotation());
+                if (ax.annotations().count() == 0) {
+                    // axioms with annotations must be preserved,
+                    // axioms without annotations do not need to be preserved
+                    // (they exist because of triple ordering in ontology
+                    // declaration and annotation)
+                    ontology.remove(ax);
+                }
+            }
+            Collection<OWLAnnotationAxiom> annotationsParsed = new ArrayList<>(parsedAnnotationAxioms);
+            for (OWLAnnotationAxiom ax : annotationsParsed) {
+                if (ax instanceof OWLAnnotationAssertionAxiom && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(
+                    firstOntologyIRI)) {
+                    addOntologyAnnotation(((OWLAnnotationAssertionAxiom) ax).getAnnotation());
+                    if (ax.annotations().count() == 0) {
+                        // axioms with annotations must be preserved,
+                        // axioms without annotations do not need to be
+                        // preserved
+                        // (they exist because of triple ordering in ontology
+                        // declaration and annotation)
+                        parsedAnnotationAxioms.remove(ax);
+                    }
+                }
+            }
+        }
         if (ontologyIRIs.isEmpty()) {
             // No ontology IRIs
             // We used to use the xml:base here. But this is probably incorrect
@@ -1456,7 +1501,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
                 restrictions = translatorAccessor.translateToFacetRestrictionSet(facets);
             } else if (!configuration.isStrict()) {
                 // Try the legacy encoding
-                for (IRI facetIRI : OWLFacet.FACET_IRIS) {
+                for (IRI facetIRI : OWLFacet.getFacetIRIs()) {
                     OWLLiteral val = getLiteralObject(n, facetIRI, true);
                     while (val != null) {
                         restrictions.add(df.getOWLFacetRestriction(OWLFacet.getFacet(facetIRI), val));
@@ -1627,7 +1672,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     }
 
     private void logError(RDFResourceParseError error) {
-        ontologyFormat.addError(error);
+        getOntologyFormat().addError(error);
     }
 
     /**
@@ -2094,12 +2139,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         return dataRangeIRIs.contains(iri);
     }
 
-    /**
-     * Gets the configuration.
-     * 
-     * @return the configuration
-     */
-    protected OWLOntologyLoaderConfiguration getConfiguration() {
+    @Override
+    public OWLOntologyLoaderConfiguration getConfiguration() {
         return configuration;
     }
 

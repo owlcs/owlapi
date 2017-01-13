@@ -16,7 +16,16 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
@@ -41,8 +50,8 @@ public class Filters {
      */
     public static class AxiomFilter<A extends OWLAxiom> implements OWLAxiomSearchFilter {
 
-        @Nonnull private final Collection<AxiomType<?>> types;
-        @Nonnull private final Filter<A> filter;
+        private final Collection<AxiomType<?>> types;
+        private final Filter<A> filter;
 
         /**
          * @param type
@@ -51,7 +60,7 @@ public class Filters {
          *        filter lambda
          */
         public AxiomFilter(AxiomType<?> type, Filter<A> f) {
-            types = CollectionFactory.<AxiomType<?>> list(type);
+            types = CollectionFactory.<AxiomType<?>>list(type);
             filter = f;
         }
 
@@ -105,68 +114,68 @@ public class Filters {
      * filter returning subannotation axioms where the super property matches
      * the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subAnnotationWithSuper = new AxiomFilter<>(
+    public static final OWLAxiomSearchFilter subAnnotationWithSuper = new AxiomFilter<>(
         AxiomType.SUB_ANNOTATION_PROPERTY_OF, OWLSubAnnotationPropertyOfAxiom::getSuperProperty);
     /**
      * filter returning subannotation axioms where the sub property matches the
      * input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subAnnotationWithSub = new AxiomFilter<>(
+    public static final OWLAxiomSearchFilter subAnnotationWithSub = new AxiomFilter<>(
         AxiomType.SUB_ANNOTATION_PROPERTY_OF, OWLSubAnnotationPropertyOfAxiom::getSubProperty);
     /**
      * filter returning subclass axioms where the super class matches the input
      * key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subClassWithSuper = new AxiomFilter<>(AxiomType.SUBCLASS_OF,
+    public static final OWLAxiomSearchFilter subClassWithSuper = new AxiomFilter<>(AxiomType.SUBCLASS_OF,
         OWLSubClassOfAxiom::getSuperClass);
     /**
      * filter returning subclass axioms where the sub class matches the input
      * key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subClassWithSub = new AxiomFilter<>(AxiomType.SUBCLASS_OF,
+    public static final OWLAxiomSearchFilter subClassWithSub = new AxiomFilter<>(AxiomType.SUBCLASS_OF,
         OWLSubClassOfAxiom::getSubClass);
     /**
      * filter returning sub object property axioms where the super property
      * matches the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subObjectPropertyWithSuper = new AxiomFilter<>(
+    public static final OWLAxiomSearchFilter subObjectPropertyWithSuper = new AxiomFilter<>(
         AxiomType.SUB_OBJECT_PROPERTY, OWLSubObjectPropertyOfAxiom::getSuperProperty);
     /**
      * filter returning sub object property axioms where the sub property
      * matches the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subObjectPropertyWithSub = new AxiomFilter<>(
-        AxiomType.SUB_OBJECT_PROPERTY, OWLSubObjectPropertyOfAxiom::getSubProperty);
+    public static final OWLAxiomSearchFilter subObjectPropertyWithSub = new AxiomFilter<>(AxiomType.SUB_OBJECT_PROPERTY,
+        OWLSubObjectPropertyOfAxiom::getSubProperty);
     /**
      * filter returning sub data property axioms where the super property
      * matches the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subDataPropertyWithSuper = new AxiomFilter<>(
-        AxiomType.SUB_DATA_PROPERTY, OWLSubDataPropertyOfAxiom::getSuperProperty);
+    public static final OWLAxiomSearchFilter subDataPropertyWithSuper = new AxiomFilter<>(AxiomType.SUB_DATA_PROPERTY,
+        OWLSubDataPropertyOfAxiom::getSuperProperty);
     /**
      * filter returning sub data property axioms where the sub property matches
      * the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter subDataPropertyWithSub = new AxiomFilter<>(
-        AxiomType.SUB_DATA_PROPERTY, OWLSubDataPropertyOfAxiom::getSubProperty);
+    public static final OWLAxiomSearchFilter subDataPropertyWithSub = new AxiomFilter<>(AxiomType.SUB_DATA_PROPERTY,
+        OWLSubDataPropertyOfAxiom::getSubProperty);
     /**
      * filter returning datatype definition axioms where the datatype matches
      * the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter datatypeDefFilter = new AxiomFilter<>(
-        AxiomType.DATATYPE_DEFINITION, OWLDatatypeDefinitionAxiom::getDatatype);
+    public static final OWLAxiomSearchFilter datatypeDefFilter = new AxiomFilter<>(AxiomType.DATATYPE_DEFINITION,
+        OWLDatatypeDefinitionAxiom::getDatatype);
     /**
      * filter returning annotation property range axioms where the property
      * matches the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter apRangeFilter = new AxiomFilter<>(
-        AxiomType.ANNOTATION_PROPERTY_RANGE, OWLAnnotationPropertyRangeAxiom::getProperty);
+    public static final OWLAxiomSearchFilter apRangeFilter = new AxiomFilter<>(AxiomType.ANNOTATION_PROPERTY_RANGE,
+        OWLAnnotationPropertyRangeAxiom::getProperty);
     /**
      * filter returning annotation property domain axioms where the property
      * matches the input key.
      */
-    @Nonnull public static final OWLAxiomSearchFilter apDomainFilter = new AxiomFilter<>(
-        AxiomType.ANNOTATION_PROPERTY_DOMAIN, OWLAnnotationPropertyDomainAxiom::getProperty);
+    public static final OWLAxiomSearchFilter apDomainFilter = new AxiomFilter<>(AxiomType.ANNOTATION_PROPERTY_DOMAIN,
+        OWLAnnotationPropertyDomainAxiom::getProperty);
     /**
      * filter returning annotation assertions where the subject matches the
      * input key.
@@ -174,13 +183,13 @@ public class Filters {
      * @deprecated use the OWLOntology:getAnnotationAssertionAxioms() in place
      *             of this filter as it is much faster, thanks to indexing.
      */
-    @Deprecated @Nonnull public static final OWLAxiomSearchFilter annotations = new AxiomFilter<>(
-        AxiomType.ANNOTATION_ASSERTION, OWLAnnotationAssertionAxiom::getSubject);
+    @Deprecated public static final OWLAxiomSearchFilter annotations = new AxiomFilter<>(AxiomType.ANNOTATION_ASSERTION,
+        OWLAnnotationAssertionAxiom::getSubject);
     /**
      * filter returning all axioms included in TBox or RBox. No assertions,
      * nonlogical axioms or SWRL rules.
      */
-    @Nonnull public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox = new AxiomFilter<OWLAxiom>(
+    public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox = new AxiomFilter<OWLAxiom>(
         AxiomType.TBoxAndRBoxAxiomTypes, a -> a) {
 
         @Override

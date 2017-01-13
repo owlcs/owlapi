@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
@@ -33,7 +31,7 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
 
-    @Nonnull private final List<SWRLDArgument> args;
+    private final List<SWRLDArgument> args;
 
     /**
      * @param predicate

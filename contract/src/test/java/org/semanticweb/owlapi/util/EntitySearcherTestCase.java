@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.search.EntitySearcher;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class EntitySearcherTestCase extends TestBase {
 
     private OWLObjectProperty superProperty;

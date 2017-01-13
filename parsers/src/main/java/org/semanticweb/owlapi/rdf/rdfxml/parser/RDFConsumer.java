@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -160,4 +161,9 @@ public interface RDFConsumer {
      *        replacement for short version
      */
     void addPrefix(String abbreviation, String value);
+
+    /**
+     * @return the loader configuration
+     */
+    OWLOntologyLoaderConfiguration getConfiguration();
 }

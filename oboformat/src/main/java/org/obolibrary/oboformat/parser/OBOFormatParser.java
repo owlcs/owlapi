@@ -1,6 +1,13 @@
 package org.obolibrary.oboformat.parser;
 
-import java.io.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
@@ -12,8 +19,13 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.obolibrary.oboformat.model.*;
+import org.obolibrary.oboformat.model.Clause;
+import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
+import org.obolibrary.oboformat.model.FrameMergeException;
+import org.obolibrary.oboformat.model.OBODoc;
+import org.obolibrary.oboformat.model.QualifierValue;
+import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,10 +53,11 @@ public class OBOFormatParser {
      * @param s
      *        input stream
      */
+    @SuppressWarnings("null")
     protected OBOFormatParser(MyStream s) {
         stream = s;
-        Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608)
-            .weigher((String key, String value) -> key.length());
+        Caffeine<String, String> builder = Caffeine.newBuilder().maximumWeight(8388608).weigher((String key,
+            String value) -> key.length());
         if (LOG.isDebugEnabled()) {
             builder.recordStats();
         }
@@ -54,12 +67,16 @@ public class OBOFormatParser {
     protected static class MyStream {
 
         int pos = 0;
-        String line;
+        @Nullable String line;
         int lineNo = 0;
-        BufferedReader reader;
+        @Nullable BufferedReader reader;
 
         public MyStream() {
             pos = 0;
+        }
+
+        protected String line() {
+            return verifyNotNull(line);
         }
 
         public MyStream(BufferedReader r) {
@@ -68,12 +85,12 @@ public class OBOFormatParser {
 
         protected char peekChar() {
             prepare();
-            return line.charAt(pos);
+            return line().charAt(pos);
         }
 
         public char nextChar() {
             pos++;
-            return line.charAt(pos - 1);
+            return line().charAt(pos - 1);
         }
 
         public String rest() {
@@ -81,10 +98,10 @@ public class OBOFormatParser {
             if (line == null) {
                 return "";
             }
-            if (pos >= line.length()) {
+            if (pos >= line().length()) {
                 return "";
             }
-            return line.substring(pos);
+            return line().substring(pos);
         }
 
         public void advance(int dist) {
@@ -99,7 +116,7 @@ public class OBOFormatParser {
 
         public void advanceLine() {
             try {
-                line = reader.readLine();
+                line = verifyNotNull(reader, "reader must be set before accessing it").readLine();
                 lineNo++;
                 pos = 0;
             } catch (IOException e) {
@@ -111,7 +128,7 @@ public class OBOFormatParser {
             if (line == null) {
                 return;
             }
-            pos = line.length();
+            pos = line().length();
         }
 
         public boolean eol() {
@@ -119,7 +136,7 @@ public class OBOFormatParser {
             if (line == null) {
                 return false;
             }
-            return pos >= line.length();
+            return pos >= line().length();
         }
 
         public boolean eof() {
@@ -148,7 +165,7 @@ public class OBOFormatParser {
             if (line == null) {
                 return -1;
             }
-            return line.substring(pos).indexOf(c);
+            return line().substring(pos).indexOf(c);
         }
 
         @Override
@@ -521,8 +538,8 @@ public class OBOFormatParser {
         if (rest.startsWith("[Term]")) {
             parseTermFrame(obodoc);
         } else if (rest.startsWith("[Instance]")) {
-            LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: {}",
-                Integer.valueOf(stream.getLineNo()));
+            LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: {}", Integer.valueOf(
+                stream.getLineNo()));
             while (!stream.eof()) {
                 stream.advanceLine();
             }
@@ -562,9 +579,8 @@ public class OBOFormatParser {
                 f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException(
-                    "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
-                    stream.line);
+                throw new OBOFormatParserException("Could not add frame " + f
+                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Term] frame, but found unknown stanza type.");
@@ -694,9 +710,8 @@ public class OBOFormatParser {
                 f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException(
-                    "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
-                    stream.line);
+                throw new OBOFormatParserException("Could not add frame " + f
+                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Typedef] frame, but found unknown stanza type.");

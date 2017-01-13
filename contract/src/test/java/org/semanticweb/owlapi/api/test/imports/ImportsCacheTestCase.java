@@ -16,6 +16,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul
  * 16
  */
+@SuppressWarnings({ "javadoc", "null" })
 public class ImportsCacheTestCase extends TestBase {
 
     private OWLOntology ontA;
@@ -23,7 +24,6 @@ public class ImportsCacheTestCase extends TestBase {
     private IRI ontBDocIri;
     private OWLImportsDeclarationImpl ontBDocumentIriImportsDeclaration;
 
-    @SuppressWarnings("javadoc")
     @Before
     public void setUpOntologies() throws Exception {
         ontA = m.createOntology(IRI.create("http://ont.com/ontA"));
@@ -43,8 +43,8 @@ public class ImportsCacheTestCase extends TestBase {
         m.setOntologyDocumentIRI(ontB, ontBDocIri);
         // OntA imports OntB by a document IRI rather than its ontology IRI
         m.applyChange(new AddImport(ontA, ontBDocumentIriImportsDeclaration));
-        assertTrue(contains(ontA.importsClosure(),ontA));
-        assertTrue(contains(ontA.importsClosure(),ontB));
+        assertTrue(contains(ontA.importsClosure(), ontA));
+        assertTrue(contains(ontA.importsClosure(), ontB));
     }
 
     /**
@@ -58,7 +58,7 @@ public class ImportsCacheTestCase extends TestBase {
         m.applyChange(new AddImport(ontA, ontBDocumentIriImportsDeclaration));
         // Update the document IRI for ontB (AFTER we haved added the import)
         m.setOntologyDocumentIRI(ontB, ontBDocIri);
-        assertTrue(contains(ontA.importsClosure(),ontA));
-        assertTrue(contains(ontA.importsClosure(),ontB));
+        assertTrue(contains(ontA.importsClosure(), ontA));
+        assertTrue(contains(ontA.importsClosure(), ontB));
     }
 }

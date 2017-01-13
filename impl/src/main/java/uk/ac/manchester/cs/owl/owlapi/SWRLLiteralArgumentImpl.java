@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
  */
 public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
 
-    @Nonnull private final OWLLiteral literal;
+    private final OWLLiteral literal;
 
     /**
      * @param literal

@@ -22,7 +22,14 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 @SuppressWarnings("javadoc")
@@ -71,12 +78,10 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
     @Test
     public void shouldConvertToFunctionalCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String in="Prefix: : <http://purl.obolibrary.org/obo/>\n" + 
-            "Ontology: <http://example.org/>\n" + 
-            "Class: :FOO_0000001";
-        OWLOntology o=loadOntologyFromString(in);
-        System.out.println(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
-        OWLOntology o1=loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
+        String in = "Prefix: : <http://purl.obolibrary.org/obo/>\n" + "Ontology: <http://example.org/>\n"
+            + "Class: :FOO_0000001";
+        OWLOntology o = loadOntologyFromString(in);
+        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
         equal(o, o1);
     }
 
@@ -96,5 +101,18 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         OWLOntologyDocumentTarget stream = new StringDocumentTarget();
         m.saveOntology(ontology, stream);
         assertTrue(stream.toString().contains("pizza:PizzaBase"));
+    }
+
+    @Test
+    public void shouldRoundtripIRIsWithQueryString() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "<?xml version=\"1.0\"?>\n"
+            + "<rdf:RDF xmlns=\"http://purl.obolibrary.org/obo/TEMP#\" xml:base=\"http://purl.obolibrary.org/obo/TEMP\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:oboInOwl=\"http://www.geneontology.org/formats/oboInOwl#\" xmlns:obo1=\"http://purl.obolibrary.org/obo/\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
+            + "    <owl:Ontology rdf:about=\"http://purl.obolibrary.org/obo/TEMP\"/>\n"
+            + "    <owl:Class rdf:about=\"obo1:X\"><rdfs:seeAlso rdf:resource=\"http://purl.obolibrary.org/obo/?func=detail&amp;\"/></owl:Class>\n"
+            + "</rdf:RDF>";
+        OWLOntology o = loadOntologyFromString(input);
+        StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(saveOntology);
+        equal(o, o1);
     }
 }

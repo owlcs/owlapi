@@ -22,9 +22,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
@@ -40,13 +43,13 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
  */
 public abstract class OWLReasonerBase implements OWLReasoner {
 
-    @Nonnull private final OWLOntologyManager manager;
-    @Nonnull private final OWLOntology rootOntology;
-    @Nonnull private final BufferingMode bufferingMode;
+    private final OWLOntologyManager manager;
+    private final OWLOntology rootOntology;
+    private final BufferingMode bufferingMode;
     private final List<OWLOntologyChange> rawChanges = new ArrayList<>();
-    @Nonnull private final Set<OWLAxiom> reasonerAxioms;
+    private final Set<OWLAxiom> reasonerAxioms;
     private final long timeOut;
-    @Nonnull private final OWLReasonerConfiguration configuration;
+    private final OWLReasonerConfiguration configuration;
 
     protected OWLReasonerBase(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
         BufferingMode bufferingMode) {

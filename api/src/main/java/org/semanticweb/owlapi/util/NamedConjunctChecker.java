@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClass;
@@ -39,8 +38,8 @@ public class NamedConjunctChecker {
     @Nullable protected OWLClass conjunct;
     boolean found;
     boolean collect;
-    @Nonnull final Set<OWLClass> conjuncts = new HashSet<>();
-    @Nonnull private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
+    final Set<OWLClass> conjuncts = new HashSet<>();
+    private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
 
     /**
      * @return true ifa named class is a conjunct in a given class expression.

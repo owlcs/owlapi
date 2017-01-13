@@ -19,12 +19,16 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedObject;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -40,9 +44,9 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
-    @Nonnull private final OWLOntology ontology;
-    @Nonnull private final NamespaceUtil namespaceUtil = new NamespaceUtil();
-    @Nonnull private final OWLDocumentFormat ontologyFormat;
+    private final OWLOntology ontology;
+    private final NamespaceUtil namespaceUtil = new NamespaceUtil();
+    private final OWLDocumentFormat ontologyFormat;
 
     /**
      * @param ontology

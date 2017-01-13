@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.rdf.api.Triple;
@@ -38,34 +37,9 @@ import gnu.trove.map.hash.TObjectIntHashMap;
  */
 public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
 
-    @Nonnull private final RDFResource subject;
-    @Nonnull private final RDFResourceIRI predicate;
-    @Nonnull private final RDFNode object;
-//@formatter:off
-    private static final List<IRI> ORDERED_URIS = Arrays.asList(
-        RDF_TYPE.getIRI(),
-        RDFS_LABEL.getIRI(),
-        OWL_DEPRECATED.getIRI(),
-        RDFS_COMMENT.getIRI(),
-        RDFS_IS_DEFINED_BY.getIRI(),
-        RDF_FIRST.getIRI(),
-        RDF_REST.getIRI(),
-        OWL_EQUIVALENT_CLASS.getIRI(),
-        OWL_EQUIVALENT_PROPERTY.getIRI(),
-        RDFS_SUBCLASS_OF.getIRI(),
-        RDFS_SUB_PROPERTY_OF.getIRI(),
-        RDFS_DOMAIN.getIRI(),
-        RDFS_RANGE.getIRI(),
-        OWL_DISJOINT_WITH.getIRI(),
-        OWL_ON_PROPERTY.getIRI(),
-        OWL_DATA_RANGE.getIRI(),
-        OWL_ON_CLASS.getIRI(),
-        
-        OWL_ANNOTATED_SOURCE.getIRI(),
-        OWL_ANNOTATED_PROPERTY.getIRI(),
-        OWL_ANNOTATED_TARGET.getIRI()
-        );
-    //@formatter:on
+    private final RDFResource subject;
+    private final RDFResourceIRI predicate;
+    private final RDFNode object;
     static final TObjectIntHashMap<IRI> specialPredicateRanks = initMap();
 
     /**
@@ -178,7 +152,11 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
     static TObjectIntHashMap<IRI> initMap() {
         TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
-        ORDERED_URIS.forEach(iri -> predicates.put(iri, nextId.getAndIncrement()));
+        List<OWLRDFVocabulary> ORDERED_URIS = Arrays.asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED, RDFS_COMMENT,
+            RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS, OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF,
+            RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN, RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY, OWL_DATA_RANGE,
+            OWL_ON_CLASS, OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
+        ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
         Stream.of(OWLRDFVocabulary.values()).forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId
             .getAndIncrement()));
         return predicates;

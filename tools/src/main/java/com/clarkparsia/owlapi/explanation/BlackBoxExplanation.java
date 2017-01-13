@@ -16,11 +16,27 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.slf4j.Logger;
@@ -33,17 +49,17 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
-    private OWLOntology debuggingOntology;
+    @Nullable private OWLOntology debuggingOntology;
     /** The debugging axioms. */
-    @Nonnull protected Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
+    protected Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
     /** The objects expanded with defining axioms. */
-    @Nonnull private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<>();
+    private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<>();
     /** The objects expanded with referencing axioms. */
-    @Nonnull private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<>();
+    private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<>();
     /** The expanded with defining axioms. */
-    @Nonnull private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<>();
+    private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<>();
     /** The expanded with referencing axioms. */
-    @Nonnull private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
+    private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
     /** default expansion limit. */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     /** The initial expansion limit. */

@@ -27,7 +27,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
@@ -197,11 +196,11 @@ import org.semanticweb.owlapi.search.Filters;
  */
 public class KRSSObjectRenderer implements OWLObjectVisitor {
 
-    @Nonnull protected static final String OPEN_BRACKET = "(";
-    @Nonnull protected static final String CLOSE_BRACKET = ")";
-    @Nonnull protected static final String NEWLINE = "\n";
-    @Nonnull protected final OWLOntology ont;
-    @Nonnull protected final PrintWriter writer;
+    protected static final String OPEN_BRACKET = "(";
+    protected static final String CLOSE_BRACKET = ")";
+    protected static final String NEWLINE = "\n";
+    protected final OWLOntology ont;
+    protected final PrintWriter writer;
     private int pos = 0;
     private int lastNewLinePos = 0;
 

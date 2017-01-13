@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.vocab;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 2.0.0
  */
-public enum XSDVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
+public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // @formatter:off
     /** ANY_TYPE. */             ANY_TYPE        ("anyType"),
     /** ANY_SIMPLE_TYPE. */      ANY_SIMPLE_TYPE ("anySimpleType"),
@@ -78,9 +76,9 @@ public enum XSDVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     /** UNSIGNED_SHORT. */       UNSIGNED_SHORT  ("unsignedShort"),
     /** UNSIGNED_BYTE. */        UNSIGNED_BYTE   ("unsignedByte");
     // @formatter:on
-    @Nonnull private final String shortName;
-    @Nonnull private final IRI iri;
-    @Nonnull private final String prefixedName;
+    private final String shortName;
+    private final IRI iri;
+    private final String prefixedName;
 
     XSDVocabulary(String name) {
         shortName = name;

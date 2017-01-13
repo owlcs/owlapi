@@ -43,14 +43,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.openrdf.OpenRDFUtil;
-import org.openrdf.model.BNode;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Statement;
-import org.openrdf.model.Value;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.SimpleValueFactory;
-import org.openrdf.model.vocabulary.XMLSchema;
+import org.eclipse.rdf4j.OpenRDFUtil;
+import org.eclipse.rdf4j.model.BNode;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.model.vocabulary.XMLSchema;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
@@ -96,7 +96,7 @@ public final class RioUtils {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
-        org.openrdf.model.IRI predicate;
+        org.eclipse.rdf4j.model.IRI predicate;
         Value object;
         if (triple.getSubject() instanceof RDFResourceIRI) {
             try {

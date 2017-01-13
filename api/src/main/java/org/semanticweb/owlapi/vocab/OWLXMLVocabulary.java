@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -29,7 +27,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 2.0.0
  */
-public enum OWLXMLVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
+public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** CLASS.                              */  CLASS                               ("Class"),
     /** DATA_PROPERTY.                      */  DATA_PROPERTY                       ("DataProperty"),
@@ -136,10 +134,9 @@ public enum OWLXMLVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     /** VARIABLE.                           */  VARIABLE                            ("Variable"),
     /** DESCRIPTION_GRAPH_RULE.             */  DESCRIPTION_GRAPH_RULE              ("DescriptionGraphRule");
 //@formatter:on
-    @Nonnull private final IRI iri;
-    @Nonnull private final String shortName;
-    @Nonnull private final String prefixedName;
-
+    private final IRI iri;
+    private final String shortName;
+    private final String prefixedName;
     static final Set<IRI> BUILT_IN_IRIS = asSet(Stream.of(values()).map(v -> v.getIRI()));
 
     OWLXMLVocabulary(String name) {

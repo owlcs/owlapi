@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.functional.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
@@ -31,7 +32,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.*;
@@ -83,13 +84,13 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    @Nonnull private DefaultPrefixManager defaultPrefixManager;
+    private DefaultPrefixManager defaultPrefixManager;
     private PrefixManager prefixManager;
     protected final OWLOntology ont;
     private final Writer writer;
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
-    protected AnnotationValueShortFormProvider labelMaker = null;
+    @Nullable protected AnnotationValueShortFormProvider labelMaker = null;
 
     /**
      * @param ontology
@@ -102,14 +103,14 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         this.writer = writer;
         defaultPrefixManager = new DefaultPrefixManager();
         prefixManager = defaultPrefixManager;
-        OWLDocumentFormat ontologyFormat = ontology.getFormat();
+        OWLDocumentFormat ontologyFormat = ontology.getNonnullFormat();
         // reuse the setting on the existing format
         addMissingDeclarations = ontologyFormat.isAddMissingTypes();
         if (ontologyFormat instanceof PrefixDocumentFormat) {
             prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
             prefixManager.setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
         }
-        if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix()==null) {
+        if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix() == null) {
             String existingDefault = prefixManager.getDefaultPrefix();
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             if (existingDefault == null || !existingDefault.startsWith(ontologyIRIString)) {
@@ -347,7 +348,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private String getEntityLabel(OWLEntity entity) {
-        return labelMaker.getShortForm(entity);
+        return verifyNotNull(labelMaker, "labelMaker has not been set yet").getShortForm(entity);
     }
 
     private void writeAxioms(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {

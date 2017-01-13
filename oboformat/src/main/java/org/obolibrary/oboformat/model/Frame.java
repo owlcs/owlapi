@@ -1,6 +1,13 @@
 package org.obolibrary.oboformat.model;
 
-import java.util.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -22,15 +29,15 @@ public class Frame {
     }
 
     /** The clauses. */
-    protected Collection<Clause> clauses;
+    protected Collection<Clause> clauses = new ArrayList<>();
     /** The id. */
-    protected String id;
+    @Nullable protected String id;
     /** The type. */
-    protected FrameType type;
+    @Nullable protected FrameType type;
 
     /** Instantiates a new frame. */
     public Frame() {
-        init();
+        this(null);
     }
 
     /**
@@ -39,14 +46,8 @@ public class Frame {
      * @param type
      *        the type
      */
-    public Frame(FrameType type) {
-        init();
+    public Frame(@Nullable FrameType type) {
         this.type = type;
-    }
-
-    /** Init clauses. */
-    protected final void init() {
-        clauses = new ArrayList<>();
     }
 
     /**
@@ -76,6 +77,7 @@ public class Frame {
     /**
      * @return the type
      */
+    @Nullable
     public FrameType getType() {
         return type;
     }
@@ -337,7 +339,14 @@ public class Frame {
         if (id == null) {
             return f.getId() == null;
         }
-        return id.equals(f.getId());
+        return verifyNotNull(id).equals(f.getId());
+    }
+
+    private boolean sameType(Frame f) {
+        if (type == null) {
+            return f.getType() == null;
+        }
+        return verifyNotNull(type).equals(f.getType());
     }
 
     /**
@@ -353,7 +362,7 @@ public class Frame {
         if (!sameID(extFrame)) {
             throw new FrameMergeException("ids do not match");
         }
-        if (!extFrame.getType().equals(getType())) {
+        if (!sameType(extFrame)) {
             throw new FrameMergeException("frame types do not match");
         }
         extFrame.getClauses().forEach(this::addClause);

@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -25,7 +23,7 @@ import javax.annotation.Nonnull;
 public class OWLProfileReport {
 
     private final OWLProfile profile;
-    @Nonnull private final List<OWLProfileViolation> violations;
+    private final List<OWLProfileViolation> violations;
 
     /**
      * @param profile

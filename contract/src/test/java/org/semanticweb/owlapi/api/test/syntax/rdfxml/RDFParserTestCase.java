@@ -21,8 +21,10 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
@@ -103,5 +105,16 @@ public class RDFParserTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(in);
         assertEquals(0, o.axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).count());
         assertEquals(1, o.axioms(AxiomType.SUB_OBJECT_PROPERTY).count());
+    }
+
+    @Test
+    public void shouldRoundTripLhsSubsetOfRHS() throws OWLException {
+        String input = "Ontology(<http://x.org/test.owl>\n"
+            + "SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>))\n"
+            + "SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/located-in> ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>)))\n"
+            + "SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/located-in> ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo1>))))";
+        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
+        equal(o, o1);
     }
 }

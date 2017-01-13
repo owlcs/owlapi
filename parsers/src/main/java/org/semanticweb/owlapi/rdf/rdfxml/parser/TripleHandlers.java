@@ -23,7 +23,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.AbstractRDFPrefixDocumentFormat;
@@ -53,7 +52,7 @@ public class TripleHandlers {
     static class HandlerAccessor {
 
         /** Handlers for built in types */
-        @Nonnull private final Map<IRI, BuiltInTypeHandler> builtInTypes;
+        private final Map<IRI, BuiltInTypeHandler> builtInTypes;
         /**
          * Handler for triples that denote nodes which represent axioms. i.e.
          * owl:AllDisjointClasses owl:AllDisjointProperties owl:AllDifferent
@@ -62,9 +61,9 @@ public class TripleHandlers {
          * axioms should be in the ontology before annotations on the annotated
          * versions of these axioms are parsed.
          */
-        @Nonnull protected final Map<IRI, BuiltInTypeHandler> axiomTypes;
+        protected final Map<IRI, BuiltInTypeHandler> axiomTypes;
         /** Handlers for build in predicates */
-        @Nonnull protected final Map<IRI, TriplePredicateHandler> predicates;
+        protected final Map<IRI, TriplePredicateHandler> predicates;
         /**
          * Handlers for general literal triples (i.e. triples which have
          * predicates that are not part of the built in OWL/RDFS/RDF vocabulary.
@@ -80,10 +79,10 @@ public class TripleHandlers {
          */
         protected final List<ResourceTripleHandler> resources;
         /** The inverse of handler. */
-        @Nonnull protected final TPInverseOfHandler inverseOf;
+        protected final TPInverseOfHandler inverseOf;
         /** The non built in type handler. */
-        @Nonnull private final TPTypeHandler nonBuiltInTypes;
-        @Nonnull protected final OWLRDFConsumer consumer;
+        private final TPTypeHandler nonBuiltInTypes;
+        protected final OWLRDFConsumer consumer;
 
         HandlerAccessor(OWLRDFConsumer r) {
             consumer = r;
@@ -321,7 +320,6 @@ public class TripleHandlers {
             add(predicateHandlers, new TPSubClassOfHandler(r));
             add(predicateHandlers, new TPSubPropertyOfHandler(r));
             add(predicateHandlers, nonBuiltInTypes);
-            add(predicateHandlers, new TPDistinctMembersHandler(r));
             add(predicateHandlers, new TPImportsHandler(r));
             add(predicateHandlers, new TPIntersectionOfHandler(r));
             add(predicateHandlers, new TPUnionOfHandler(r));
@@ -501,10 +499,10 @@ public class TripleHandlers {
 
     static class AbstractTripleHandler {
 
-        @Nonnull protected final OWLRDFConsumer consumer;
-        @Nonnull private final TypeMatcher ceMatcher = this::isClassExpressionStrict;
-        @Nonnull private final TypeMatcher drMatcher = this::isDataRangeStrict;
-        @Nonnull private final TypeMatcher indMatcher = node -> true;
+        protected final OWLRDFConsumer consumer;
+        private final TypeMatcher ceMatcher = this::isClassExpressionStrict;
+        private final TypeMatcher drMatcher = this::isDataRangeStrict;
+        private final TypeMatcher indMatcher = node -> true;
         protected final OWLDataFactory df;
 
         protected AbstractTripleHandler(OWLRDFConsumer consumer) {
@@ -1241,26 +1239,6 @@ public class TripleHandlers {
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
             add(df.getOWLDisjointClassesAxiom(Sets.newHashSet(ce(s), ce(o)), anns()));
-            consume(s, p, o);
-        }
-    }
-
-    static class TPDistinctMembersHandler extends AbstractTriplePredicateHandler {
-
-        TPDistinctMembersHandler(OWLRDFConsumer consumer) {
-            super(consumer, OWL_DISTINCT_MEMBERS.getIRI());
-        }
-
-        @Override
-        public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
-            // We need all of the list triples to be loaded :(
-            return false;
-        }
-
-        @Override
-        public void handleTriple(IRI s, IRI p, IRI o) {
-            Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(o);
-            add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
             consume(s, p, o);
         }
     }
@@ -2073,7 +2051,8 @@ public class TripleHandlers {
 
         @Override
         public boolean canHandle(IRI s, IRI p, IRI o) {
-            return super.canHandle(s, p, o) && isResourcePresent(s, OWL_MEMBERS);
+            return super.canHandle(s, p, o) && (isResourcePresent(s, OWL_MEMBERS) || isResourcePresent(s,
+                OWL_DISTINCT_MEMBERS));
         }
 
         @Override
@@ -2083,6 +2062,13 @@ public class TripleHandlers {
                 Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(listNode);
                 add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
                 consume(s, p, o);
+            } else {
+                listNode = getRO(s, OWL_DISTINCT_MEMBERS);
+                if (listNode != null) {
+                    Set<OWLIndividual> inds = consumer.translatorAccessor.translateToIndividualSet(listNode);
+                    add(df.getOWLDifferentIndividualsAxiom(inds, anns()));
+                    consume(s, p, o);
+                }
             }
         }
 
@@ -2264,18 +2250,21 @@ public class TripleHandlers {
                 }
                 if (!annotations.isEmpty()) {
                     OWLAxiom ax = consumer.getLastAddedAxiom();
-                    consumer.removeAxiom(ax.getAxiomWithoutAnnotations());
+                    consumer.removeAxiom(verifyNotNull(ax, "no axiom added yet by the consumer")
+                        .getAxiomWithoutAnnotations());
                 }
             }
         }
 
         @SuppressWarnings("unused")
+        @Nullable
         protected OWLAxiom handleAxiomTriples(IRI subjectTriple, IRI predicateTriple, IRI objectTriple,
             Set<OWLAnnotation> annotations) {
             // Reconstitute the original triple from the reification triples
             return consumer.getLastAddedAxiom();
         }
 
+        @Nullable
         protected OWLAxiom handleAxiomTriples(IRI subjectTripleObject, IRI predicateTripleObject, OWLLiteral con,
             @SuppressWarnings("unused") Set<OWLAnnotation> annotations) {
             consumer.handlerAccessor.handle(subjectTripleObject, predicateTripleObject, con);

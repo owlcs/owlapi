@@ -4,10 +4,14 @@ import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.Obo2OWLConstants;
@@ -26,10 +30,10 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     static final Logger LOG = LoggerFactory.getLogger(AbstractMacroExpansionVisitor.class);
     static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     final OWLDataFactory df;
-    @Nonnull final Map<IRI, String> expandAssertionToMap;
-    @Nonnull protected final Map<IRI, String> expandExpressionMap;
-    @Nonnull protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
-    @Nonnull protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
+    final Map<IRI, String> expandAssertionToMap;
+    protected final Map<IRI, String> expandExpressionMap;
+    protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
+    protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
     protected final OWLAnnotationProperty OIO_ISEXPANSION;
     protected final OWLAnnotation expansionMarkerAnnotation;
@@ -40,14 +44,14 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         this.shouldAddExpansionMarker = shouldAddExpansionMarker;
     }
 
+    @SuppressWarnings("null")
     protected AbstractMacroExpansionVisitor(OWLOntology o) {
         df = o.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<>();
         expandAssertionToMap = new HashMap<>();
         OWLAnnotationProperty ap424 = df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI());
-        o.objectPropertiesInSignature().forEach(
-            p -> getAnnotationObjects(p, o.importsClosure(), ap424)
-                .forEach(a -> mapToExpand(p, a)));
+        o.objectPropertiesInSignature().forEach(p -> getAnnotationObjects(p, o.importsClosure(), ap424).forEach(
+            a -> mapToExpand(p, a)));
         o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
         OIO_ISEXPANSION = df.getOWLAnnotationProperty(IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
         expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION, df.getOWLLiteral(true));
@@ -271,8 +275,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
 
     @Nullable
     protected IRI valFromOneOf(Object filler) {
-        Iterator<? extends OWLIndividual> inds = ((OWLObjectOneOf) filler).individuals()
-            .filter(x -> x instanceof OWLNamedIndividual).iterator();
+        Iterator<? extends OWLIndividual> inds = ((OWLObjectOneOf) filler).individuals().filter(
+            x -> x instanceof OWLNamedIndividual).iterator();
         if (inds.hasNext()) {
             OWLIndividual ind = inds.next();
             // more than one value? Then cannot select a value

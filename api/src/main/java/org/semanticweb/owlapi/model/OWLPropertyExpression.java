@@ -19,8 +19,8 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyExpression
-        extends OWLObject, IsAnonymous, AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
+public interface OWLPropertyExpression extends OWLObject, AsOWLObjectProperty, AsOWLDataProperty,
+    AsOWLAnnotationProperty {
 
     /**
      * @param visitor

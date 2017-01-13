@@ -17,15 +17,22 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.*;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.parsers.SAXParser;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.xml.sax.InputSource;
@@ -44,11 +51,11 @@ import com.google.common.collect.Lists;
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    @Nonnull private final Deque<XMLElement> elementStack = new LinkedList<>();
-    @Nonnull protected final PrintWriter writer;
+    private final Deque<XMLElement> elementStack = new LinkedList<>();
+    protected final PrintWriter writer;
     private String encoding = "";
-    @Nonnull private final String xmlBase;
-    @Nonnull private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    private final String xmlBase;
+    private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
@@ -65,6 +72,7 @@ public class XMLWriterImpl implements XMLWriter {
      * @param preferences
      *        xml writer preferences instance
      */
+    @SuppressWarnings("null")
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase,
         OWLOntologyWriterConfiguration preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
@@ -423,8 +431,10 @@ public class XMLWriterImpl implements XMLWriter {
 
         private void checkProperXMLLiteral(String text) {
             try {
-                SAXParsers.initParserWithOWLAPIStandards(null).parse(new InputSource(new StringReader(text)),
-                    new DefaultHandler());
+                String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT.getValue(String.class, Collections
+                    .emptyMap());
+                SAXParser parser = SAXParsers.initParserWithOWLAPIStandards(null, expansions);
+                parser.parse(new InputSource(new StringReader(text)), new DefaultHandler());
             } catch (SAXException | IOException e) {
                 throw new OWLRuntimeException("XML literal is not self contained: \"" + text + "\"", e);
             }

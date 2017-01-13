@@ -14,6 +14,7 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,7 +24,7 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 /** Builder class for SWRLIndividualArgument. */
 public class BuilderSWRLIndividualArgument extends BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
 
-    private OWLIndividual individual;
+    @Nullable private OWLIndividual individual;
 
     /**
      * Builder initialized from an existing object.

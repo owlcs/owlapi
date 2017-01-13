@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tukaani.xz.FilterOptions;
@@ -38,7 +40,7 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCl
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XZStreamDocumentTarget.class);
     private final OutputStream outputStream;
-    private XZOutputStream xzOutputStream;
+    @Nullable private XZOutputStream xzOutputStream;
     private FilterOptions[] filterOptions;
 
     /**

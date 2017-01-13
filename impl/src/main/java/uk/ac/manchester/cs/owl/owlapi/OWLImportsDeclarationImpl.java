@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -29,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
 
-    @Nonnull private final IRI iri;
+    private final IRI iri;
 
     /**
      * @param iri

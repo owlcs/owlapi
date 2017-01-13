@@ -1,9 +1,18 @@
 package org.semanticweb.owlapi.util;
 
 import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.HasComponents;
@@ -106,7 +115,7 @@ public class OWLAPIStreamUtils {
      * @return list including all elements in the stream
      */
     public static <T> List<T> asListNullsForbidden(Stream<T> s) {
-        return asList(s.map(x -> checkNotNull(x)));
+        return asList(s.map(OWLAPIPreconditions::checkNotNull));
     }
 
     /**
@@ -121,6 +130,41 @@ public class OWLAPIStreamUtils {
     @SuppressWarnings("unchecked")
     public static <T> List<T> asList(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
         return asList(s.map(x -> (T) x));
+    }
+
+    /**
+     * @param s
+     *        stream to turn to map. The stream is consumed by this operation.
+     * @param f
+     *        function to create the key
+     * @param <T>
+     *        type of key
+     * @param <Q>
+     *        type of input and value
+     * @return map including all elements in the stream, keyed by f
+     */
+    public static <T, Q> Map<T, Q> asMap(Stream<Q> s, Function<Q, T> f) {
+        return asMap(s, f, v -> v);
+    }
+
+    /**
+     * @param s
+     *        stream to turn to map. The stream is consumed by this operation.
+     * @param key
+     *        function to create the key
+     * @param val
+     *        function to create the value
+     * @param <K>
+     *        type of key
+     * @param <V>
+     *        type of value
+     * @param <Q>
+     *        type of input
+     * @return map including all elements in the stream, keyed by key and valued
+     *         by val
+     */
+    public static <K, V, Q> Map<K, V> asMap(Stream<Q> s, Function<Q, K> key, Function<Q, V> val) {
+        return s.collect(Collectors.toConcurrentMap(v -> key.apply(v), v -> val.apply(v)));
     }
 
     /**
@@ -196,7 +240,7 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static int compareIterators(Iterator<?> set1, Iterator<?> set2) {
         while (set1.hasNext() && set2.hasNext()) {
             Object o1 = set1.next();
@@ -311,22 +355,25 @@ public class OWLAPIStreamUtils {
      *         component; includes the root and all intermediate nodes. Streams
      *         will be flattened.
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static Stream<?> flatComponents(HasComponents root) {
-        List<Stream<?>> streams = new ArrayList<>();
-        streams.add(Stream.of(root));
+        List streams = new ArrayList<>();
+        streams.add(root);
         root.components().filter(o -> o != root).forEach(o -> flatIteration(streams, o));
-        return streams.stream().flatMap(x -> x);
+        return streams.stream();
     }
 
-    protected static void flatIteration(List<Stream<?>> streams, Object o) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    protected static void flatIteration(List streams, Object o) {
         if (o instanceof Stream) {
             ((Stream<?>) o).forEach(o1 -> flatIteration(streams, o1));
         } else if (o instanceof Collection) {
             ((Collection<?>) o).forEach(o1 -> flatIteration(streams, o1));
         } else if (o instanceof HasComponents) {
+            streams.add(o);
             ((HasComponents) o).components().forEach(o1 -> flatIteration(streams, o1));
         } else {
-            streams.add(Stream.of(o));
+            streams.add(o);
         }
     }
 

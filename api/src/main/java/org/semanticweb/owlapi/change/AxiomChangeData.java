@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
 
-    @Nonnull private final OWLAxiom axiom;
+    private final OWLAxiom axiom;
 
     /**
      * Constructs an {@code AxiomChangeData} object that describes a change

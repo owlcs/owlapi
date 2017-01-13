@@ -12,21 +12,30 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.SmallSet;
@@ -56,8 +65,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nullable private final AxiomType<?> type;
     @Nullable private final OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
-    @Nonnull protected final Internals i;
-    private SoftReference<Set<IRI>> iris;
+    protected final Internals i;
+    @Nullable private SoftReference<Set<IRI>> iris;
     private int size = 0;
     private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
     private boolean neverTrimmed = true;
@@ -150,13 +159,12 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (visitor == null || type == null) {
             return this;
         }
-        assert visitor != null;
-        assert type != null;
         if (visitor instanceof InitVisitor) {
-            i.getAxiomsByType().forEach(type, ax -> putInternal(ax.accept((InitVisitor<K>) visitor), (V) ax));
+            i.getAxiomsByType().forEach(verifyNotNull(type), ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(
+                visitor)), (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
-            i.getAxiomsByType().forEach(type,
-                ax -> ax.accept((InitCollectionVisitor<K>) visitor).forEach(key -> putInternal(key, (V) ax)));
+            i.getAxiomsByType().forEach(verifyNotNull(type), ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(
+                visitor)).forEach(key -> putInternal(key, (V) ax)));
         }
         return this;
     }

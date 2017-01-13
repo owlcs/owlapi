@@ -14,7 +14,13 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -41,7 +47,7 @@ import org.slf4j.LoggerFactory;
 public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamDocumentSourceBase.class);
-    protected byte[] byteBuffer;
+    @Nullable protected byte[] byteBuffer;
     private Charset encoding = StandardCharsets.UTF_8;
     private boolean streamAvailable = false;
 
@@ -193,8 +199,8 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
             return emptyOptional();
         }
         try {
-            return optional(new InputStreamReader(
-                DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(byteBuffer))), encoding));
+            return optional(new InputStreamReader(DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(
+                byteBuffer))), encoding));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);

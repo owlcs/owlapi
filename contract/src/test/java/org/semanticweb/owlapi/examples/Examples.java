@@ -22,7 +22,12 @@ import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -37,11 +42,26 @@ import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.*;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.InferenceType;
+import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.search.Filters;
-import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.util.AutoIRIMapper;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.InferredAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredOntologyGenerator;
+import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
+import org.semanticweb.owlapi.util.OWLEntityRemover;
+import org.semanticweb.owlapi.util.OWLOntologyMerger;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -56,7 +76,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings({ "javadoc", "unused" })
 public class Examples extends TestBase {
 
-    @Nonnull public static final String KOALA = "<?xml version=\"1.0\"?>\n"
+    public static final String KOALA = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
         + "  <owl:Ontology rdf:about=\"\"/>\n"
         + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -146,7 +166,7 @@ public class Examples extends TestBase {
         // By default ontologies are saved in the format from which they were
         // loaded. In this case the ontology was loaded from rdf/xml. We
         // can get information about the format of an ontology from its manager
-        OWLDocumentFormat format = ontology.getFormat();
+        OWLDocumentFormat format = ontology.getNonnullFormat();
         // We can save the ontology in a different format. Lets save the
         // ontology
         // in owl/xml format
@@ -1008,7 +1028,7 @@ public class Examples extends TestBase {
      */
     private static class RestrictionVisitor implements OWLClassExpressionVisitor {
 
-        private final @Nonnull Set<OWLClass> processedClasses;
+        private final Set<OWLClass> processedClasses;
         private final Set<OWLOntology> onts;
 
         RestrictionVisitor(Set<OWLOntology> onts) {

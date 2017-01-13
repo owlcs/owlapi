@@ -12,15 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * A utility class that can be used to determine is a class is a syntactic
@@ -46,7 +54,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class SimpleRootClassChecker implements RootClassChecker {
 
-    @Nonnull private final Collection<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
     // Rules for determining if a class is a direct subclass of Thing
     // 1) It isn't referenced by ANY subclass axiom or equivalent class axioms
     // 2) It is reference only by subclass axioms, but doesn't appear on the LHS
@@ -59,8 +67,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
     // at least one operand in the equivalent class axiom which is an
     // intersection containing a named operand i.e.
     // EquivalentClasses(A (B and hasP some C)) would not be a subclass of Thing
-    @Nonnull private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
-    @Nonnull private final NamedSuperChecker superChecker = new NamedSuperChecker();
+    private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
+    private final NamedSuperChecker superChecker = new NamedSuperChecker();
 
     /**
      * Creates a root class checker, which examines axioms contained in
@@ -78,8 +86,11 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
     @Override
     public boolean isRootClass(OWLClass cls) {
-        return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls))
-            .anyMatch(ax -> !ax.accept(checker.setOWLClass(cls)).booleanValue());
+        return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls)).anyMatch(ax -> isRootClass(cls, ax));
+    }
+
+    private boolean isRootClass(OWLClass cls, OWLAxiom ax) {
+        return !ax.accept(checker.setOWLClass(cls)).booleanValue();
     }
 
     private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {
@@ -116,10 +127,10 @@ public class SimpleRootClassChecker implements RootClassChecker {
      */
     private class RootClassCheckerHelper implements OWLAxiomVisitorEx<Boolean> {
 
-        private Boolean isRoot;
-        private OWLClass cls;
+        private Boolean isRoot = Boolean.TRUE;
+        @Nullable private OWLClass cls = null;
 
-        RootClassCheckerHelper() {}
+        public RootClassCheckerHelper() {}
 
         public RootClassCheckerHelper setOWLClass(OWLClass cls) {
             // Start off with the assumption that the class is
@@ -131,9 +142,13 @@ public class SimpleRootClassChecker implements RootClassChecker {
             return this;
         }
 
+        private OWLClass cls() {
+            return verifyNotNull(cls, "cls cannot be null. Has the helper been initialised with a valid value?");
+        }
+
         @Override
         public Boolean visit(OWLSubClassOfAxiom axiom) {
-            if (axiom.getSubClass().equals(cls)) {
+            if (axiom.getSubClass().equals(cls())) {
                 isRoot = Boolean.valueOf(check(axiom.getSuperClass()));
             }
             return isRoot;
@@ -141,7 +156,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         @Override
         public Boolean visit(OWLEquivalentClassesAxiom axiom) {
-            if (!contains(axiom.classExpressions(), cls)) {
+            if (!contains(axiom.classExpressions(), cls())) {
                 return isRoot;
             }
             boolean check = false;

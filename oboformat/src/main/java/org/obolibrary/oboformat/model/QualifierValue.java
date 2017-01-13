@@ -1,13 +1,12 @@
 package org.obolibrary.oboformat.model;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Qualifier value. */
 public class QualifierValue implements Comparable<QualifierValue> {
 
-    @Nonnull protected String qualifier;
-    @Nonnull protected String value;
+    protected String qualifier;
+    protected String value;
 
     /**
      * @param q

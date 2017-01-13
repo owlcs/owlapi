@@ -21,9 +21,14 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 import com.google.common.collect.Iterators;
 
@@ -61,11 +66,11 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         }
     };
     /** The target ontology. */
-    @Nonnull private final OWLOntology targetOntology;
+    private final OWLOntology targetOntology;
     /** The OWL class. */
-    @Nonnull private final OWLClass cls;
+    private final OWLClass cls;
     /** The ontologies. */
-    @Nonnull private final Collection<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
     /** true if intersections should be split. */
     private final boolean splitIntersections;
 

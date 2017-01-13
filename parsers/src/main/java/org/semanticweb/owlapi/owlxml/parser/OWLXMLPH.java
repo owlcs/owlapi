@@ -18,13 +18,23 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -46,13 +56,13 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLXMLPH.class);
     private final OWLOntologyManager owlOntologyManager;
-    @Nonnull private final OWLOntology ontology;
+    private final OWLOntology ontology;
     private final List<OWLEH<?, ?>> handlerStack = new ArrayList<>();
-    @Nonnull private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
-    @Nonnull private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
-    private Locator locator;
+    private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
+    private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
+    @Nullable private Locator locator;
     private final Deque<URI> bases = new LinkedList<>();
-    @Nonnull private final OWLOntologyLoaderConfiguration configuration;
+    private final OWLOntologyLoaderConfiguration configuration;
     private final Map<String, IRI> iriMap = new HashMap<>();
     private final RemappingIndividualProvider anonProvider;
 

@@ -15,11 +15,14 @@ package org.semanticweb.owlapi.api.test.axioms;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
@@ -137,12 +140,12 @@ public class NNFTestCase extends TestBase {
         assertEquals(cls.getNNF(), nnf);
     }
 
-    private final @Nonnull OWLClass clsA = Class(iri("A"));
-    private final @Nonnull OWLClass clsB = Class(iri("B"));
-    private final @Nonnull OWLClass clsC = Class(iri("C"));
-    private final @Nonnull OWLClass clsD = Class(iri("D"));
-    private final @Nonnull OWLObjectProperty propP = ObjectProperty(iri("p"));
-    private final @Nonnull OWLNamedIndividual indA = NamedIndividual(iri("a"));
+    private final OWLClass clsA = Class(iri("A"));
+    private final OWLClass clsB = Class(iri("B"));
+    private final OWLClass clsC = Class(iri("C"));
+    private final OWLClass clsD = Class(iri("D"));
+    private final OWLObjectProperty propP = ObjectProperty(iri("p"));
+    private final OWLNamedIndividual indA = NamedIndividual(iri("a"));
 
     private static OWLClassExpression getNNF(OWLClassExpression classExpression) {
         NNF nnf = new NNF(df);

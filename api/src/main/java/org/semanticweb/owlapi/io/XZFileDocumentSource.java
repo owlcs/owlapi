@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -39,7 +38,7 @@ import org.tukaani.xz.XZInputStream;
 public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XZFileDocumentSource.class);
-    @Nonnull private final File file;
+    private final File file;
 
     /**
      * Constructs an input source which will read an ontology from a

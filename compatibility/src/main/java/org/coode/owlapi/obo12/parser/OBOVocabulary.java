@@ -44,8 +44,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -165,8 +163,8 @@ public enum OBOVocabulary implements HasIRI {
         CONSIDER);
     private static final List<OBOVocabulary> instanceStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
         COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY, CONSIDER);
-    private final @Nonnull String name;
-    private final @Nonnull IRI iri;
+    private final String name;
+    private final IRI iri;
 
     OBOVocabulary(String name) {
         this.name = name;

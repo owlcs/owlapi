@@ -21,9 +21,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * A convenience object that generates the changes which are necessary to remove
@@ -40,7 +47,7 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityRemover implements OWLEntityVisitor {
 
     private final List<RemoveAxiom> changes = new ArrayList<>();
-    @Nonnull private final Collection<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
 
     /**
      * Creates an entity remover, which will remove entities (axioms referring

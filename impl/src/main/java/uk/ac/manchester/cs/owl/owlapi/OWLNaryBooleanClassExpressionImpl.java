@@ -19,8 +19,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asListNullsForbidden
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 
@@ -29,10 +27,10 @@ import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
-    implements OWLNaryBooleanClassExpression {
+public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl implements
+    OWLNaryBooleanClassExpression {
 
-    @Nonnull private final List<OWLClassExpression> operands;
+    private final List<OWLClassExpression> operands;
 
     /**
      * @param operands

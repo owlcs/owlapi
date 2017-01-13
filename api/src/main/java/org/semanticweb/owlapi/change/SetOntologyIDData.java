@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -31,7 +29,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  */
 public class SetOntologyIDData extends OWLOntologyChangeData {
 
-    @Nonnull private final OWLOntologyID newId;
+    private final OWLOntologyID newId;
 
     /**
      * Constructs a {@code SetOntologyIDData} object that describes an

@@ -14,8 +14,6 @@ package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -28,11 +26,11 @@ import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {
 
     private boolean inTransaction;
-    @Nonnull private final OWLOntologyManager owlOntologyManager;
-    @Nonnull private final OWLOntology ontology;
-    @Nonnull private final OWLReasoner reasoner;
-    @Nonnull private final OWLReasonerFactory reasonerFactory;
-    @Nonnull private final DefinitionTracker definitionTracker;
+    private final OWLOntologyManager owlOntologyManager;
+    private final OWLOntology ontology;
+    private final OWLReasoner reasoner;
+    private final OWLReasonerFactory reasonerFactory;
+    private final DefinitionTracker definitionTracker;
 
     /**
      * Instantiates a new single explanation generator impl.

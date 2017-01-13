@@ -34,7 +34,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class OWL2DatatypeImplTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;
@@ -179,8 +179,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     @Test
     public void toStringID() {
         assertNotNull(plainLiteral.toStringID());
-        assertEquals(RDF_PLAIN_LITERAL.getIRI().toString(), plainLiteral
-            .toStringID());
+        assertEquals(RDF_PLAIN_LITERAL.getIRI().toString(), plainLiteral.toStringID());
     }
 
     @Test

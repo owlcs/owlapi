@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nullable;
@@ -19,7 +21,7 @@ import org.slf4j.LoggerFactory;
 public class TripleLogger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TripleLogger.class);
-    private PrefixManager prefixManager;
+    @Nullable private PrefixManager prefixManager;
     // Debug stuff
     private final AtomicInteger count = new AtomicInteger();
 
@@ -118,7 +120,7 @@ public class TripleLogger {
         }
         // there is a prefix manager and o is an IRI
         IRI i = (IRI) o;
-        String result = prefixManager.getPrefixIRI(i);
+        String result = verifyNotNull(prefixManager).getPrefixIRI(i);
         if (result == null) {
             result = i.toQuotedString();
         }

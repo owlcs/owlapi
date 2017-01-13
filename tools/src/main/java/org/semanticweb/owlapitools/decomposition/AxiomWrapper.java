@@ -15,13 +15,13 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * 
  * @author ignazio
  */
-public class AxiomWrapper implements Serializable{
+public class AxiomWrapper implements Serializable {
 
     private OWLAxiom axiom;
     private boolean used = true;
     private boolean searchspace;
     private boolean module;
-    private OntologyAtom atom;
+    @Nullable private OntologyAtom atom;
     private int id;
 
     /**
@@ -49,10 +49,7 @@ public class AxiomWrapper implements Serializable{
      * @return signature of the axiom, or empty if no axiom is set
      */
     public Stream<OWLEntity> signature() {
-        if (axiom != null) {
-            return axiom.signature();
-        }
-        return Stream.empty();
+        return axiom.signature();
     }
 
     /** @return wrapped axiom */

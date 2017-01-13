@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -33,8 +31,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  */
 public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
 
-    @Nonnull private final List<OWLObjectPropertyExpression> propertyChain;
-    @Nonnull private final OWLObjectPropertyExpression superProperty;
+    private final List<OWLObjectPropertyExpression> propertyChain;
+    private final OWLObjectPropertyExpression superProperty;
 
     /**
      * @param propertyChain

@@ -186,7 +186,7 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     }
 }
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "null" })
 abstract class OWLEH<O, B extends Builder<O>> {
 
     OWLXMLPH handler;
@@ -822,7 +822,7 @@ class DataPropertyRangeEH extends AxiomEH<OWLDataPropertyRangeAxiom, BuilderData
 
 class DataRestrictionEH extends DataRangeEH<OWLDatatypeRestriction, BuilderDatatypeRestriction> {
 
-    BuilderFacetRestriction oneRestriction;
+    @Nullable BuilderFacetRestriction oneRestriction;
 
     public DataRestrictionEH() {
         super(BuilderDatatypeRestriction::new);
@@ -841,7 +841,7 @@ class DataRestrictionEH extends DataRangeEH<OWLDatatypeRestriction, BuilderDatat
 
     @Override
     void handleChild(LiteralEH h) {
-        oneRestriction.withLiteral(h.getOWLObject());
+        verifyNotNull(oneRestriction).withLiteral(h.getOWLObject());
     }
 
     @Override
@@ -853,7 +853,7 @@ class DataRestrictionEH extends DataRangeEH<OWLDatatypeRestriction, BuilderDatat
     void attribute(String localName, String value) {
         super.attribute(localName, value);
         if ("facet".equals(localName)) {
-            oneRestriction.withFacet(OWLFacet.getFacet(handler.getIRI(value)));
+            verifyNotNull(oneRestriction).withFacet(OWLFacet.getFacet(handler.getIRI(value)));
         }
     }
 }
@@ -1434,7 +1434,7 @@ class ChainEH extends OWLEH<List<OWLObjectPropertyExpression>, Builder<List<OWLO
 
 class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, BuilderSubObjectProperty> {
 
-    BuilderPropertyChain chain;
+    @Nullable BuilderPropertyChain chain;
 
     SubObjectPropertyOfEH() {
         super(BuilderSubObjectProperty::new);
@@ -1449,11 +1449,11 @@ class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, Builder
     @Override
     void handleChild(ObjectPropertyEH h) {
         OWLObjectPropertyExpression prop = h.getOWLObject();
-        if (builder.getSub() == null && chain.chainSize() == 0) {
+        if (builder.getSub() == null && verifyNotNull(chain).chainSize() == 0) {
             builder.withSub(prop);
         } else if (builder.getSup() == null) {
             builder.withSup(prop);
-            chain.withProperty(prop);
+            verifyNotNull(chain).withProperty(prop);
         } else {
             ensureNotNull(null, "Expected two object property expression elements");
         }
@@ -1462,18 +1462,18 @@ class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, Builder
     @Override
     void handleChild(AnnEH h) {
         super.handleChild(h);
-        chain.withAnnotation(h.getOWLObject());
+        verifyNotNull(chain).withAnnotation(h.getOWLObject());
     }
 
     @Override
     void handleChild(ChainEH h) {
-        chain.withPropertiesInChain(h.getOWLObject());
+        verifyNotNull(chain).withPropertiesInChain(h.getOWLObject());
     }
 
     @Override
     public <T> T getOWLObject() {
-        if (chain.chainSize() > 0) {
-            return (T) chain.buildObject();
+        if (verifyNotNull(chain).chainSize() > 0) {
+            return (T) verifyNotNull(chain).buildObject();
         }
         return (T) builder.buildObject();
     }

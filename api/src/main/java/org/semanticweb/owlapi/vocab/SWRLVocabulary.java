@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -24,7 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Group
  * @since 2.0.0
  */
-public enum SWRLVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
+public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** IMP. */                          IMP                     ("Imp"), 
     /** INDIVIDUAL_PROPERTY_ATOM. */     INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"), 
@@ -47,9 +45,9 @@ public enum SWRLVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     /** ARGUMENT_1. */                   ARGUMENT_1              ("argument1"), 
     /** ARGUMENT_2. */                   ARGUMENT_2              ("argument2");
 //@formatter:on
-    @Nonnull private final String shortName;
-    @Nonnull private final IRI iri;
-    @Nonnull private final String prefixedName;
+    private final String shortName;
+    private final IRI iri;
+    private final String prefixedName;
 
     SWRLVocabulary(String name) {
         shortName = name;

@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.profiles;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
@@ -25,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class OWL2ProfileReport extends OWLProfileReport {
 
-    @Nonnull private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
+    private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
     private final Set<OWLObjectPropertyExpression> simpleRoles;
 
     /**

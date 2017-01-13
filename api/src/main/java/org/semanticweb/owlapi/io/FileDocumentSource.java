@@ -20,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -38,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentSource.class);
-    @Nonnull private final File file;
+    private final File file;
 
     /**
      * Constructs an ontology input source using the specified file.

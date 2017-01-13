@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -29,9 +28,9 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
-    @Nonnull private final String literal;
-    @Nonnull private final OWLDatatype datatype;
-    @Nonnull private final String lang;
+    private final String literal;
+    private final OWLDatatype datatype;
+    private final String lang;
 
     /**
      * @param literal

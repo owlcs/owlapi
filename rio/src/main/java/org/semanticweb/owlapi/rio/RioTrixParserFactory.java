@@ -35,26 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.RDFParser;
-import org.openrdf.rio.helpers.BasicParserSettings;
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.TrixDocumentFormatFactory;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
-import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -66,45 +48,5 @@ public class RioTrixParserFactory extends AbstractRioParserFactory {
     /** Default constructor. */
     public RioTrixParserFactory() {
         super(new TrixDocumentFormatFactory());
-    }
-
-    @Nonnull
-    @Override
-    public OWLParser createParser() {
-        return new TrixParserImpl(getRioFormatFactory());
-    }
-
-    private static class TrixParserImpl extends RioParserImpl {
-
-        public TrixParserImpl(@Nonnull RioRDFDocumentFormatFactory formatFactory) {
-            super(formatFactory);
-        }
-
-        @Override
-        protected void parseDocumentSource(OWLOntologyDocumentSource source, String baseUri, RDFHandler handler,
-            OWLOntologyLoaderConfiguration config) throws OWLOntologyInputSourceException, IOException {
-            RioRDFDocumentFormatFactory owlFormatFactory = getSupportedFormat();
-            final RDFParser createParser = new OWLAPIRioTrixParser();
-            createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
-            createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
-            createParser.setRDFHandler(handler);
-            long rioParseStart = System.currentTimeMillis();
-            Optional<Reader> reader = source.getReader();
-            if (owlFormatFactory.isTextual() && reader.isPresent()) {
-                createParser.parse(reader.get(), baseUri);
-            } else {
-                Optional<InputStream> inputStream = source.getInputStream();
-                if (inputStream.isPresent()) {
-                    createParser.parse(inputStream.get(), baseUri);
-                } else {
-                    URL url = URI.create(source.getDocumentIRI().toString()).toURL();
-                    URLConnection conn = url.openConnection();
-                    createParser.parse(conn.getInputStream(), baseUri);
-                }
-            }
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("rioParse: timing={}", System.currentTimeMillis() - rioParseStart);
-            }
-        }
     }
 }

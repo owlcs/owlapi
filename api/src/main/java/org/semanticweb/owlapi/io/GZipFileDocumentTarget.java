@@ -21,8 +21,6 @@ import java.io.OutputStream;
 import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +35,7 @@ import org.slf4j.LoggerFactory;
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GZipFileDocumentTarget.class);
-    @Nonnull private final File out;
+    private final File out;
 
     /**
      * @param os

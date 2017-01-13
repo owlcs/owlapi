@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
@@ -31,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
 
-    @Nonnull private final OWLOntology o;
+    private final OWLOntology o;
 
     /**
      * Constructs an {@code OWLOntologySingletonSetProvider} which provides a

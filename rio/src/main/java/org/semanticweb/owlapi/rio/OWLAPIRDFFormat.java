@@ -36,12 +36,15 @@
 package org.semanticweb.owlapi.rio;
 
 import static java.util.Arrays.asList;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
-import org.openrdf.rio.RDFFormat;
+import javax.annotation.Nullable;
+
+import org.eclipse.rdf4j.rio.RDFFormat;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -102,8 +105,8 @@ public class OWLAPIRDFFormat extends RDFFormat {
     public static final OWLAPIRDFFormat OWL_FUNCTIONAL = new OWLAPIRDFFormat("OWL Functional Syntax", asList(
         "text/owl-functional"), StandardCharsets.UTF_8, asList("ofn"), SUPPORTS_NAMESPACES, NO_CONTEXTS,
         new FunctionalSyntaxDocumentFormat());
-    private OWLDocumentFormat owlFormat;
-    private OWLDocumentFormatFactory owlFormatFactory;
+    @Nullable private OWLDocumentFormat owlFormat;
+    @Nullable private OWLDocumentFormatFactory owlFormatFactory;
 
     /**
      * @param name
@@ -248,7 +251,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
             return owlFormatFactory.createFormat();
         }
         try {
-            return owlFormat.getClass().newInstance();
+            return verifyNotNull(owlFormat).getClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             throw new OWLRuntimeException("Format did not have a factory or a public default constructor", e);
         }

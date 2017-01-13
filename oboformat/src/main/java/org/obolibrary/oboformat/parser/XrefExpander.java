@@ -1,12 +1,12 @@
 package org.obolibrary.oboformat.parser;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -23,10 +23,10 @@ public class XrefExpander {
 
     protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
-    OBODoc targetOBODoc;
-    String targetBase;
-    @Nonnull protected Map<String, Rule> treatMap = new HashMap<>();
-    @Nonnull protected Map<String, OBODoc> targetDocMap = new HashMap<>();
+    @Nullable OBODoc targetOBODoc;
+    @Nullable String targetBase;
+    protected Map<String, Rule> treatMap = new HashMap<>();
+    protected Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
      * @param src
@@ -34,6 +34,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
+    @SuppressWarnings("null")
     public XrefExpander(OBODoc src) {
         sourceOBODoc = src;
         Frame shf = checkNotNull(src.getHeaderFrame());
@@ -186,9 +187,9 @@ public class XrefExpander {
     /** Rule. */
     public abstract class Rule {
 
-        protected String xref;
+        @Nullable protected String xref;
         /** Id space. */
-        protected String idSpace;
+        @Nullable protected String idSpace;
 
         /**
          * @param sf
@@ -201,12 +202,13 @@ public class XrefExpander {
         public abstract void expand(Frame sf, String id, String xRef);
 
         protected Frame getTargetFrame(String id) {
-            Frame f = getTargetDoc(idSpace).getTermFrame(id);
+            OBODoc targetDoc = getTargetDoc(verifyNotNull(idSpace, "idSpace not set yet"));
+            Frame f = targetDoc.getTermFrame(id);
             if (f == null) {
                 f = new Frame();
                 f.setId(id);
                 try {
-                    getTargetDoc(idSpace).addTermFrame(f);
+                    targetDoc.addTermFrame(f);
                 } catch (FrameMergeException e) {
                     // this should be impossible
                     LOG.error("Frame merge exceptions should not be possible", e);

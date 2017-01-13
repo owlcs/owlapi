@@ -3,7 +3,6 @@ package org.obolibrary.obo2owl;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -17,8 +16,8 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IdTranslator {
 
-    @Nonnull static final String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
-    @Nonnull private final Map<String, String> idspaceMap = new HashMap<>();
+    static final String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
+    private final Map<String, String> idspaceMap = new HashMap<>();
 
     /**
      * @param iri

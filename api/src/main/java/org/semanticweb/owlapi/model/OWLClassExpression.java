@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  *         Group
  * @since 2.0.0
  */
-public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate, AsOWLClass, IsAnonymous {
+public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate, AsOWLClass {
 
     /**
      * Gets the class expression type for this class expression.

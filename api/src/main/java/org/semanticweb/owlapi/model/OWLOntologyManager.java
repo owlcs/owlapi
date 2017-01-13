@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -139,7 +140,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         is managed by this manager, otherwise {@code false}.
      */
     @Override
-        boolean contains(OWLOntologyID id);
+    boolean contains(OWLOntologyID id);
 
     /**
      * Determines if there is an ontology with the specified version IRI, that
@@ -190,7 +191,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         specified IRI and no version IRI.
      */
     @Nullable
-        OWLOntology getOntology(IRI ontologyIRI);
+    OWLOntology getOntology(IRI ontologyIRI);
 
     /**
      * Gets a previously loaded/created ontology that has the specified ontology
@@ -204,7 +205,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      */
     @Nullable
     @Override
-        OWLOntology getOntology(OWLOntologyID ontologyID);
+    OWLOntology getOntology(OWLOntologyID ontologyID);
 
     /**
      * Given an imports declaration, obtains the ontology that this import has
@@ -218,7 +219,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         removed from this manager
      */
     @Nullable
-        OWLOntology getImportedOntology(OWLImportsDeclaration declaration);
+    OWLOntology getImportedOntology(OWLImportsDeclaration declaration);
 
     /**
      * Gets the set of <em>loaded</em> ontologies that the specified ontology is
@@ -932,11 +933,28 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * Gets the ontology format for the specified ontology.
      * 
      * @param ontology
-     *        The ontology whose format it to be obtained.
-     * @return The format of the ontology.
+     *        The ontology whose format is to be obtained.
+     * @return The format of the ontology, or {@code null} if the ontology has
+     *         no format (e.g., programmatically created ontology)
      */
     @Nullable
-        OWLDocumentFormat getOntologyFormat(OWLOntology ontology);
+    OWLDocumentFormat getOntologyFormat(OWLOntology ontology);
+
+    /**
+     * Gets the ontology format for the specified ontology, ensuring it is not
+     * null (an error is thrown if the ontology has no format). Do not use this
+     * method to check if an ontology has a format associated with it; prefer
+     * {@link #getOntologyFormat(OWLOntology)}.
+     * 
+     * @param ontology
+     *        The ontology whose format is to be obtained.
+     * @return The format of the ontology
+     */
+    default OWLDocumentFormat getNonnullOntologyFormat(OWLOntology ontology) {
+        return verifyNotNull(getOntologyFormat(ontology),
+            (Supplier<String>) () -> "There is no format specified for ontology " + ontology.getOntologyID()
+                + ", the ontology format needs to be set before saving or specified in the save call");
+    }
 
     /**
      * Sets the format for the specified ontology.
@@ -968,7 +986,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         if this manager does not manage the specified ontology
      */
     default void saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
-        saveOntology(ontology, getOntologyFormat(ontology));
+        saveOntology(ontology, getNonnullOntologyFormat(ontology));
     }
 
     /**
@@ -985,7 +1003,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         if the specified ontology is not managed by this manager.
      */
     default void saveOntology(OWLOntology ontology, IRI documentIRI) throws OWLOntologyStorageException {
-        saveOntology(ontology, getOntologyFormat(ontology), documentIRI);
+        saveOntology(ontology, getNonnullOntologyFormat(ontology), documentIRI);
     }
 
     /**
@@ -1076,7 +1094,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      */
     default void saveOntology(OWLOntology ontology, OWLOntologyDocumentTarget documentTarget)
         throws OWLOntologyStorageException {
-        saveOntology(ontology, getOntologyFormat(ontology), documentTarget);
+        saveOntology(ontology, getNonnullOntologyFormat(ontology), documentTarget);
     }
 
     /**
@@ -1105,7 +1123,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getIRIMappers().add() instead
      */
     @Deprecated
-        void addIRIMapper(OWLOntologyIRIMapper mapper);
+    void addIRIMapper(OWLOntologyIRIMapper mapper);
 
     /**
      * Remove an IRI mapper from the manager
@@ -1115,7 +1133,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getIRIMappers().remove() instead
      */
     @Deprecated
-        void removeIRIMapper(OWLOntologyIRIMapper mapper);
+    void removeIRIMapper(OWLOntologyIRIMapper mapper);
 
     /**
      * Clear the manager mappers
@@ -1123,7 +1141,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getIRIMappers().clear() instead
      */
     @Deprecated
-        void clearIRIMappers();
+    void clearIRIMappers();
 
     /**
      * Add astorer to the manager
@@ -1133,7 +1151,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getOntologyStorers().add() instead
      */
     @Deprecated
-        void addOntologyStorer(OWLStorerFactory storer);
+    void addOntologyStorer(OWLStorerFactory storer);
 
     /**
      * Remove a storer from the manager
@@ -1143,7 +1161,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getOntologyStorers().remove() instead
      */
     @Deprecated
-        void removeOntologyStorer(OWLStorerFactory storer);
+    void removeOntologyStorer(OWLStorerFactory storer);
 
     /**
      * Clear the manager storers
@@ -1151,15 +1169,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getOntologyStorers().clear() instead
      */
     @Deprecated
-        void clearOntologyStorers();
+    void clearOntologyStorers();
 
     /**
-     * Set the collection of IRI mappers.
-     * The mappers are used to obtain ontology document IRIs for ontology IRIs.
-     * If their type is annotated with a HasPriority type, this will be used to
-     * decide the order they are used. Otherwise, the order in which the
-     * collection is iterated will determine the order in which the mappers are
-     * used.
+     * Set the collection of IRI mappers. The mappers are used to obtain
+     * ontology document IRIs for ontology IRIs. If their type is annotated with
+     * a HasPriority type, this will be used to decide the order they are used.
+     * Otherwise, the order in which the collection is iterated will determine
+     * the order in which the mappers are used.
      * 
      * @param mappers
      *        the mappers to be injected
@@ -1173,9 +1190,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     PriorityCollection<OWLOntologyIRIMapper> getIRIMappers();
 
     /**
-     * Set the collection of parsers. If the parsers are  annotated with a 
-     * HasPriority type, this will be used to decide the order they are used. 
-     * Otherwise, the order in which the collection is iterated will determine 
+     * Set the collection of parsers. If the parsers are annotated with a
+     * HasPriority type, this will be used to decide the order they are used.
+     * Otherwise, the order in which the collection is iterated will determine
      * the order in which the parsers are used.
      * 
      * @param parsers
@@ -1190,9 +1207,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     PriorityCollection<OWLParserFactory> getOntologyParsers();
 
     /**
-     * Set the collection of ontology factories. If the factories are annotated 
-     * with a HasPriority type, this will be used to decide the order they are 
-     * used. Otherwise, the order in which the collection is iterated will 
+     * Set the collection of ontology factories. If the factories are annotated
+     * with a HasPriority type, this will be used to decide the order they are
+     * used. Otherwise, the order in which the collection is iterated will
      * determine the order in which the parsers are used.
      * 
      * @param factories

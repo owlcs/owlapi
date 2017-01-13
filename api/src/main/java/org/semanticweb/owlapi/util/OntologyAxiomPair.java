@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -28,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OntologyAxiomPair {
 
     @Nullable private final OWLOntology ontology;
-    @Nonnull private final OWLAxiom axiom;
+    private final OWLAxiom axiom;
 
     /**
      * @param ontology

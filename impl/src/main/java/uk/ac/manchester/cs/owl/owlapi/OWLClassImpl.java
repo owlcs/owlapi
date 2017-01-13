@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -31,7 +29,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Serializable {
 
-    @Nonnull private final IRI iri;
+    private final IRI iri;
     private final boolean isThing;
     private final boolean isNothing;
 

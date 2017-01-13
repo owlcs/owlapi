@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -30,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
 
-    @Nonnull private final OWLOntologyWalker walker;
+    private final OWLOntologyWalker walker;
 
     /**
      * @param walker

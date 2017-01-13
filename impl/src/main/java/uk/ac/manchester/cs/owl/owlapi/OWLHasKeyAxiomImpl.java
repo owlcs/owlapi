@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -34,8 +32,8 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
-    @Nonnull private final OWLClassExpression expression;
-    @Nonnull private final List<OWLPropertyExpression> propertyExpressions;
+    private final OWLClassExpression expression;
+    private final List<OWLPropertyExpression> propertyExpressions;
 
     /**
      * @param expression

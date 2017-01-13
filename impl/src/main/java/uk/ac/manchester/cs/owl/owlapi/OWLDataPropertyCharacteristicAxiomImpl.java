@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -27,10 +25,10 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl
-    implements OWLDataPropertyCharacteristicAxiom {
+public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl implements
+    OWLDataPropertyCharacteristicAxiom {
 
-    @Nonnull private final OWLDataPropertyExpression property;
+    private final OWLDataPropertyExpression property;
 
     /**
      * @param property

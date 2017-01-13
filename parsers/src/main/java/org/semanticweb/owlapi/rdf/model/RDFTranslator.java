@@ -14,15 +14,27 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
+
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -31,7 +43,10 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
  */
 public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    @Nonnull private RDFGraph graph = new RDFGraph();
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+        new IdentityHashingStrategy<>());
+    protected final AxiomAppearance axiomOccurrences;
+    private final AtomicInteger nextBlankNodeId;
 
     /**
      * @param manager
@@ -42,39 +57,46 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
      *        true if strong typing is required
      * @param occurrences
      *        will tell whether anonymous individuals need an id or not
+     * @param axiomOccurrences
+     *        axiom occurrences
+     * @param counter
+     *        counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences) {
+        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
         super(manager, ontology, useStrongTyping, occurrences);
-    }
-
-    /**
-     * @return the graph
-     */
-    public RDFGraph getGraph() {
-        return graph;
+        this.axiomOccurrences = axiomOccurrences;
+        nextBlankNodeId = counter;
     }
 
     @Override
     protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"), checkNotNull(pred,
-            "pred cannot be null"), checkNotNull(object, "object cannot be null")));
+        graph.addTriple(new RDFTriple(subject, pred, object));
     }
 
     @Override
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
-        if (key instanceof OWLAnonymousIndividual) {
-            return new RDFResourceBlankNode(System.identityHashCode(((OWLAnonymousIndividual) key).getID().getID()),
-                true, multipleOccurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
+        boolean isIndividual = key instanceof OWLAnonymousIndividual;
+        boolean needId = false;
+        if (isIndividual) {
+            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+            needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
+            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
+        } else if (key instanceof OWLAxiom) {
+            isIndividual = false;
+            needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
         }
-        return new RDFResourceBlankNode(System.identityHashCode(key), false, false);
+        return getBlankNodeFor(key, isIndividual, needId);
     }
 
-    @Override
-    protected RDFResource getAnonymousNodeForExpressions(Object key) {
-        checkNotNull(key, "key cannot be null");
-        return new RDFResourceBlankNode(false, false);
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+        int id = blankNodeMap.get(key);
+        if (id == 0) {
+            id = nextBlankNodeId.getAndIncrement();
+            blankNodeMap.put(key, id);
+        }
+        return new RDFResourceBlankNode(id, isIndividual, needId);
     }
 
     @Override
@@ -90,10 +112,5 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     @Override
     protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
         return new RDFResourceIRI(iri);
-    }
-
-    /** Clear the graph. */
-    public void reset() {
-        graph = new RDFGraph();
     }
 }

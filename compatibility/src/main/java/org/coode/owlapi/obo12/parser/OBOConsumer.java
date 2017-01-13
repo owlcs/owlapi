@@ -49,6 +49,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -66,20 +67,20 @@ class OBOConsumer implements OBOParserHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OBOConsumer.class.getName());
     private static final String IMPORT_TAG_NAME = "import";
-    private final @Nonnull OWLOntologyLoaderConfiguration configuration;
+    private final OWLOntologyLoaderConfiguration configuration;
     private final OWLOntologyManager owlOntologyManager;
-    private final @Nonnull OWLOntology ontology;
+    private final OWLOntology ontology;
     private boolean inHeader;
-    private String currentId;
-    private Map<String, TagValueHandler> handlerMap;
+    @Nullable private String currentId;
+    private final Map<String, TagValueHandler> handlerMap = new HashMap<>();
     // private String defaultNamespace;
-    private String defaultNamespaceTagValue = OBOVocabulary.OBO_IRI_BASE;
-    private String stanzaType;
+    @Nullable private String defaultNamespaceTagValue = OBOVocabulary.OBO_IRI_BASE;
+    @Nullable private String stanzaType;
     private boolean termType;
     private boolean typedefType;
     private boolean instanceType;
-    private final @Nonnull Set<OWLClassExpression> intersectionOfOperands;
-    private final @Nonnull Set<OWLClassExpression> unionOfOperands = new HashSet<>();
+    private final Set<OWLClassExpression> intersectionOfOperands;
+    private final Set<OWLClassExpression> unionOfOperands = new HashSet<>();
     private Map<String, IRI> uriCache = new HashMap<>();
     private final Map<String, IRI> symbolicIdCache = new HashMap<>();
     private final Map<String, IRI> tagIRICache = new HashMap<>();
@@ -126,7 +127,7 @@ class OBOConsumer implements OBOParserHandler {
     }
 
     public String getCurrentId() {
-        return currentId;
+        return verifyNotNull(currentId);
     }
 
     public void addSymbolicIdMapping(String symbolicName, IRI fullIRI) {
@@ -152,6 +153,7 @@ class OBOConsumer implements OBOParserHandler {
      * 
      * @return The default-namespace tag value. Not <code>null</code>.
      */
+    @Nullable
     public String getDefaultNamespaceTagValue() {
         return defaultNamespaceTagValue;
     }
@@ -209,6 +211,7 @@ class OBOConsumer implements OBOParserHandler {
         intersectionOfOperands.add(classExpression);
     }
 
+    @Nullable
     public String getStanzaType() {
         return stanzaType;
     }
@@ -232,7 +235,6 @@ class OBOConsumer implements OBOParserHandler {
     }
 
     private void setupTagHandlers() {
-        handlerMap = new HashMap<>();
         addTagHandler(new OntologyTagValueHandler(this));
         addTagHandler(new IDTagValueHandler(this));
         addTagHandler(new NameTagValueHandler(this));
@@ -292,17 +294,17 @@ class OBOConsumer implements OBOParserHandler {
     }
 
     @Override
-    public void startFrame(String name) {
+    public void startFrame(@Nullable String name) {
         currentId = null;
         defaultNamespaceTagValue = null;
         stanzaType = name;
-        termType = stanzaType.equals(OBOVocabulary.TERM.getName());
+        termType = OBOVocabulary.TERM.getName().equals(stanzaType);
         typedefType = false;
         instanceType = false;
         if (!termType) {
-            typedefType = stanzaType.equals(OBOVocabulary.TYPEDEF.getName());
+            typedefType = OBOVocabulary.TYPEDEF.getName().equals(stanzaType);
             if (!typedefType) {
-                instanceType = stanzaType.equals(OBOVocabulary.INSTANCE.getName());
+                instanceType = OBOVocabulary.INSTANCE.getName().equals(stanzaType);
             }
         }
     }
@@ -345,6 +347,7 @@ class OBOConsumer implements OBOParserHandler {
         getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
     }
 
+    @SuppressWarnings("null")
     @Override
     public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
         try {
@@ -406,10 +409,12 @@ class OBOConsumer implements OBOParserHandler {
         return getOWLOntologyManager().getOWLDataFactory();
     }
 
+    @SuppressWarnings("null")
     public OWLClass getCurrentClass() {
         return getDataFactory().getOWLClass(getIRI(currentId));
     }
 
+    @SuppressWarnings("null")
     public OWLEntity getCurrentEntity() {
         if (isTerm()) {
             return getCurrentClass();

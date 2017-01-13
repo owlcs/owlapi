@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -44,17 +46,22 @@ import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nullable;
 
-import org.openrdf.OpenRDFUtil;
-import org.openrdf.model.Resource;
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.RDFWriter;
-import org.openrdf.rio.Rio;
-import org.openrdf.rio.UnsupportedRDFormatException;
-import org.openrdf.rio.helpers.StatementCollector;
+import org.eclipse.rdf4j.OpenRDFUtil;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.RDFWriter;
+import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
+import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
@@ -67,7 +74,7 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public class RioStorer extends AbstractOWLStorer {
 
-    private transient RDFHandler rioHandler;
+    @Nullable private transient RDFHandler rioHandler;
     private final OWLDocumentFormatFactory ontFormat;
     private final Resource[] contexts;
 
@@ -168,6 +175,7 @@ public class RioStorer extends AbstractOWLStorer {
     /**
      * @return the rioHandler
      */
+    @Nullable
     public RDFHandler getRioHandler() {
         return rioHandler;
     }
@@ -203,7 +211,7 @@ public class RioStorer extends AbstractOWLStorer {
             }
         }
         try {
-            final RioRenderer ren = new RioRenderer(ontology, rioHandler, format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
@@ -232,7 +240,7 @@ public class RioStorer extends AbstractOWLStorer {
             }
         }
         try {
-            final RioRenderer ren = new RioRenderer(ontology, rioHandler, format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);

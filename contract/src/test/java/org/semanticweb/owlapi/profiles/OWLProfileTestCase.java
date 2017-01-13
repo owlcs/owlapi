@@ -16,38 +16,54 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.profiles.violations.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({ "javadoc", "rawtypes" })
+@SuppressWarnings({ "javadoc", "rawtypes", "null" })
 public class OWLProfileTestCase extends TestBase {
 
-    private static final @Nonnull String START = OWLThing().getIRI().getNamespace();
-    private static final @Nonnull OWLClass CL = Class(IRI("urn:test#", "fakeclass"));
-    private static final @Nonnull OWLDataProperty DATAP = DataProperty(IRI("urn:datatype#", "fakedatatypeproperty"));
-    private static final @Nonnull OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE2 = DataPropertyRange(DATAP,
-        DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.LANG_RANGE, Literal(1))));
-    private static final @Nonnull OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE = DataPropertyRange(DATAP,
-        DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1))));
-    private static final @Nonnull OWLObjectProperty OP = ObjectProperty(IRI("urn:datatype#", "fakeobjectproperty"));
-    private static final @Nonnull OWLDatatype UNKNOWNFAKEDATATYPE = Datatype(IRI(START, "unknownfakedatatype"));
-    private static final @Nonnull OWLDatatype FAKEUNDECLAREDDATATYPE = Datatype(IRI("urn:datatype#",
-        "fakeundeclareddatatype"));
-    private static final @Nonnull OWLDatatype FAKEDATATYPE = Datatype(IRI("urn:datatype#", "fakedatatype"));
-    private static final @Nonnull IRI onto = IRI.create("urn:test#", "ontology");
-    private static final @Nonnull OWLDataFactory DF = OWLManager.getOWLDataFactory();
-    private static final @Nonnull OWLObjectProperty P = ObjectProperty(IRI("urn:test#", "objectproperty"));
+    private static final String START = OWLThing().getIRI().getNamespace();
+    private static final OWLClass CL = Class(IRI("urn:test#", "fakeclass"));
+    private static final OWLDataProperty DATAP = DataProperty(IRI("urn:datatype#", "fakedatatypeproperty"));
+    private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE2 = DataPropertyRange(DATAP, DatatypeRestriction(
+        Integer(), FacetRestriction(OWLFacet.LANG_RANGE, Literal(1))));
+    private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE = DataPropertyRange(DATAP, DatatypeRestriction(
+        Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1))));
+    private static final OWLObjectProperty OP = ObjectProperty(IRI("urn:datatype#", "fakeobjectproperty"));
+    private static final OWLDatatype UNKNOWNFAKEDATATYPE = Datatype(IRI(START, "unknownfakedatatype"));
+    private static final OWLDatatype FAKEUNDECLAREDDATATYPE = Datatype(IRI("urn:datatype#", "fakeundeclareddatatype"));
+    private static final OWLDatatype FAKEDATATYPE = Datatype(IRI("urn:datatype#", "fakedatatype"));
+    private static final IRI onto = IRI.create("urn:test#", "ontology");
+    private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
+    private static final OWLObjectProperty P = ObjectProperty(IRI("urn:test#", "objectproperty"));
     OWLOntology o;
 
     @Before
@@ -65,8 +81,7 @@ public class OWLProfileTestCase extends TestBase {
         Stream.of(entities).map(e -> Declaration(e)).forEach(ax -> ont.add(ax));
     }
 
-    protected static final @Nonnull Comparator<Class> comp = (o1, o2) -> o1.getSimpleName().compareTo(o2
-        .getSimpleName());
+    protected static final Comparator<Class> comp = (o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName());
 
     public void checkInCollection(List<OWLProfileViolation> violations, Class[] inputList) {
         List<Class> list = new ArrayList<>(Arrays.asList(inputList));

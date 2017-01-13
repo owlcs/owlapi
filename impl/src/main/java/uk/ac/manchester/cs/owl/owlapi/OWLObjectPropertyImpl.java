@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -28,7 +26,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLObjectPropertyImpl extends OWLObjectImpl implements OWLObjectProperty {
 
-    @Nonnull private final IRI iri;
+    private final IRI iri;
     private final boolean builtin;
 
     /**
@@ -37,8 +35,8 @@ public class OWLObjectPropertyImpl extends OWLObjectImpl implements OWLObjectPro
      */
     public OWLObjectPropertyImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
-        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI())
-            || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI()) || iri.equals(
+            OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
     }
 
     @Override

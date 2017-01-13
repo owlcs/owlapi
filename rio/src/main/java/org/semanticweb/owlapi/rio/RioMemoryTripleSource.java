@@ -40,21 +40,16 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.openrdf.OpenRDFException;
-import org.openrdf.model.Model;
-import org.openrdf.model.Namespace;
-import org.openrdf.model.Statement;
-import org.openrdf.model.util.Namespaces;
+import org.eclipse.rdf4j.RDF4JException;
+import org.eclipse.rdf4j.common.iteration.CloseableIteration;
+import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.model.Namespace;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-
-import info.aduna.iteration.CloseableIteration;
 
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not
@@ -69,9 +64,9 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     static final class StatementIterator implements Iterator<Statement> {
 
-        private final CloseableIteration<Statement, ? extends OpenRDFException> statements;
+        private final CloseableIteration<Statement, ? extends RDF4JException> statements;
 
-        StatementIterator(CloseableIteration<Statement, ? extends OpenRDFException> statements) {
+        StatementIterator(CloseableIteration<Statement, ? extends RDF4JException> statements) {
             this.statements = statements;
         }
 
@@ -82,50 +77,18 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
         @Override
         public Statement next() {
-            Statement nextStatement = null;
-            try {
-                nextStatement = this.statements.next();
-                if (nextStatement != null) {
-                    return nextStatement;
-                } else {
-                    throw new NoSuchElementException("No more statements in this iterator");
-                }
-            } catch (OpenRDFException e) {
-                throw new OWLRuntimeException("Found exception while iterating", e);
-            } finally {
-                if (nextStatement == null) {
-                    try {
-                        this.statements.close();
-                    } catch (OpenRDFException e) {
-                        throw new OWLRuntimeException(e);
-                    }
-                }
-            }
+            return statements.next();
         }
 
         @Override
         public boolean hasNext() {
-            boolean result = false;
-            try {
-                result = this.statements.hasNext();
-                return result;
-            } catch (OpenRDFException e) {
-                throw new OWLRuntimeException("Found exception while iterating", e);
-            } finally {
-                if (!result) {
-                    try {
-                        this.statements.close();
-                    } catch (OpenRDFException e) {
-                        throw new OWLRuntimeException(e);
-                    }
-                }
-            }
+            return statements.hasNext();
         }
     }
 
     private final Map<String, String> namespaces = new LinkedHashMap<>();
-    @Nonnull private final Iterator<Statement> statementIterator;
-    @Nonnull private final IRI documentIRI;
+    private final Iterator<Statement> statementIterator;
+    private final IRI documentIRI;
 
     /**
      * Creates a RioMemoryTripleSource using an {@link Iterable} of
@@ -183,7 +146,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A {@link CloseableIteration} of {@link Statement} objects that
      *        make up this source.
      */
-    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
+    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends RDF4JException> statements) {
         documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = new StatementIterator(statements);
     }
@@ -200,7 +163,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A Map of namespaces from prefix to full URI which are to be used
      *        by this source.
      */
-    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements,
+    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends RDF4JException> statements,
         final Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);

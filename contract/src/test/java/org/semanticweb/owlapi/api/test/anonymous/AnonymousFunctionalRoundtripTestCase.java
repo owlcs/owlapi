@@ -14,27 +14,29 @@ package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
-    private static final @Nonnull String NS = "http://namespace.owl";
-    private static final @Nonnull String BROKEN = "<?xml version=\"1.0\"?>\n"
-        + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n" + "     xml:base=\"http://namespace.owl\"\n"
-        + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+    private static final String NS = "http://namespace.owl";
+    private static final String BROKEN = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
+        + "     xml:base=\"http://namespace.owl\"\n" + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
         + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
         + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
         + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
         + "    <owl:Ontology rdf:about=\"http://namespace.owl\"/>\n"
         + "    <owl:Class rdf:about=\"http://namespace.owl#A\"/>\n" + "<A/></rdf:RDF>";
-    private static final @Nonnull String FIXED = "Prefix(:=<http://namespace.owl#>)\n"
+    private static final String FIXED = "Prefix(:=<http://namespace.owl#>)\n"
         + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
         + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
         + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n" + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"

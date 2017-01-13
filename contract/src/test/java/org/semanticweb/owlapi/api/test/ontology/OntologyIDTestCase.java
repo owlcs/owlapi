@@ -16,8 +16,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 @SuppressWarnings("javadoc")
 public class OntologyIDTestCase extends TestBase {
 
-    private static final @Nonnull String TEST_ONTOLOGY_IRI_STRING = "http://test.it/check1";
+    private static final String TEST_ONTOLOGY_IRI_STRING = "http://test.it/check1";
 
     @Test
     public void shouldFindSameHashCode() {

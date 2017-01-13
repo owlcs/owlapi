@@ -21,8 +21,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
@@ -38,8 +36,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
     implements OWLInverseObjectPropertiesAxiom {
 
-    @Nonnull private final OWLObjectPropertyExpression first;
-    @Nonnull private final OWLObjectPropertyExpression second;
+    private final OWLObjectPropertyExpression first;
+    private final OWLObjectPropertyExpression second;
 
     /**
      * @param first

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.vocab;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasIRI;
@@ -28,7 +27,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  *         Group
  * @since 2.0.0
  */
-public enum SWRLBuiltInsVocabulary implements SWRLPredicate,HasShortForm,HasIRI,HasPrefixedName {
+public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** EQUAL. */                    EQUAL("equal", 2),
     /** NOT_EQUAL. */                NOT_EQUAL("notEqual", 2),
@@ -100,9 +99,9 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate,HasShortForm,HasIRI,
     /** SUBTRACT_DATE_TIMES_YIELDING_YEAR_MONTH_DURATION. */ SUBTRACT_DATE_TIMES_YIELDING_YEAR_MONTH_DURATION("subtractDateTimesYieldingYearMonthDuration", 3),    
     /** SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION. */   SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION("subtractDateTimesYieldingDayTimeDuration", 3);
 //@formatter:on
-    @Nonnull private final String shortName;
-    @Nonnull private final String prefixedName;
-    @Nonnull private final IRI iri;
+    private final String shortName;
+    private final String prefixedName;
+    private final IRI iri;
     // Arity of the predicate (-1 if infinite)
     private final int minArity;
     private final int maxArity;

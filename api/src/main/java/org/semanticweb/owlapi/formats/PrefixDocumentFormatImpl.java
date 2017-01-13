@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -36,7 +35,7 @@ import org.semanticweb.owlapi.util.StringComparator;
  */
 public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements PrefixDocumentFormat {
 
-    @Nonnull private PrefixManager nsm;
+    private PrefixManager nsm;
 
     /** Default constructor. */
     public PrefixDocumentFormatImpl() {

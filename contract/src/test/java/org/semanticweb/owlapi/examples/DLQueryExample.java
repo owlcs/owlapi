@@ -23,13 +23,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -57,7 +61,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 @SuppressWarnings({ "javadoc" })
 public class DLQueryExample {
 
-    private static final @Nonnull String KOALA = "<?xml version=\"1.0\"?>\n"
+    private static final String KOALA = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
         + "  <owl:Ontology rdf:about=\"\"/>\n"
         + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -160,8 +164,8 @@ public class DLQueryExample {
  */
 class DLQueryEngine {
 
-    private final @Nonnull OWLReasoner reasoner;
-    private final @Nonnull DLQueryParser parser;
+    private final OWLReasoner reasoner;
+    private final DLQueryParser parser;
 
     /**
      * Constructs a DLQueryEngine. This will answer "DL queries" using the
@@ -256,8 +260,8 @@ class DLQueryEngine {
 
 class DLQueryParser {
 
-    private final @Nonnull OWLOntology rootOntology;
-    private final @Nonnull BidirectionalShortFormProvider bidiShortFormProvider;
+    private final OWLOntology rootOntology;
+    private final BidirectionalShortFormProvider bidiShortFormProvider;
 
     /**
      * Constructs a DLQueryParser using the specified ontology and short form

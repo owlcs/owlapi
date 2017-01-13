@@ -16,11 +16,17 @@ import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
@@ -71,14 +77,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         return 1;
     };
     private Set<OWLAxiom> currentExplanation;
-    @Nonnull private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
-    @Nonnull private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
-    @Nonnull private final SeedExtractor seedExtractor = new SeedExtractor();
-    @Nonnull private final OWLOntologyManager man;
-    private OWLOntology ont;
-    @Nonnull private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
-    @Nonnull private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
-    @Nonnull private final Set<AxiomType<?>> passTypes = createLinkedSet();
+    private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
+    private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
+    private final SeedExtractor seedExtractor = new SeedExtractor();
+    private final OWLOntologyManager man;
+    @Nullable private OWLOntology ont;
+    private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
+    private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
+    private final Set<AxiomType<?>> passTypes = createLinkedSet();
 
     /**
      * Instantiates a new explanation orderer impl.
@@ -138,18 +144,22 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private Set<OWLAxiom> getTargetAxioms(OWLEntity target) {
         Set<OWLAxiom> axioms = new HashSet<>();
         if (target.isOWLClass()) {
-            add(axioms, ont.axioms(target.asOWLClass()));
+            add(axioms, getOntology().axioms(target.asOWLClass()));
         }
         if (target.isOWLObjectProperty()) {
-            add(axioms, ont.axioms(target.asOWLObjectProperty()));
+            add(axioms, getOntology().axioms(target.asOWLObjectProperty()));
         }
         if (target.isOWLDataProperty()) {
-            add(axioms, ont.axioms(target.asOWLDataProperty()));
+            add(axioms, getOntology().axioms(target.asOWLDataProperty()));
         }
         if (target.isOWLNamedIndividual()) {
-            add(axioms, ont.axioms(target.asOWLNamedIndividual()));
+            add(axioms, getOntology().axioms(target.asOWLNamedIndividual()));
         }
         return axioms;
+    }
+
+    protected OWLOntology getOntology() {
+        return verifyNotNull(ont, "ontology has not been set yet");
     }
 
     private Stream<OWLEntity> getRHSEntitiesSorted(OWLAxiom ax) {
@@ -176,16 +186,16 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     protected Stream<? extends OWLAxiom> getAxioms(OWLEntity entity) {
         if (entity.isOWLClass()) {
-            return ont.axioms(entity.asOWLClass());
+            return getOntology().axioms(entity.asOWLClass());
         }
         if (entity.isOWLObjectProperty()) {
-            return ont.axioms(entity.asOWLObjectProperty());
+            return getOntology().axioms(entity.asOWLObjectProperty());
         }
         if (entity.isOWLDataProperty()) {
-            return ont.axioms(entity.asOWLDataProperty());
+            return getOntology().axioms(entity.asOWLDataProperty());
         }
         if (entity.isOWLNamedIndividual()) {
-            return ont.axioms(entity.asOWLNamedIndividual());
+            return getOntology().axioms(entity.asOWLNamedIndividual());
         }
         return empty();
     }
@@ -200,13 +210,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         currentExplanation.forEach(ax -> ax.accept(builder));
         try {
             if (ont != null) {
-                man.removeOntology(verifyNotNull(ont));
+                man.removeOntology(verifyNotNull(getOntology()));
             }
-            ont = man
-                .createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART.incrementAndGet()));
+            ont = man.createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART
+                .incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
-                changes.add(new AddAxiom(verifyNotNull(ont), ax));
+                changes.add(new AddAxiom(getOntology(), ax));
                 ax.accept(builder);
             }
             man.applyChanges(changes);
@@ -235,7 +245,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      */
     private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
         if (addIfEmpty) {
-            return map.computeIfAbsent(obj, x -> CollectionFactory.<E> createLinkedSet());
+            return map.computeIfAbsent(obj, x -> CollectionFactory.<E>createLinkedSet());
         }
         Set<E> set = map.get(obj);
         if (set == null) {
@@ -290,8 +300,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The Class SeedExtractor. */
     private static class SeedExtractor implements OWLAxiomVisitor {
 
-        private OWLEntity source;
-        private OWLEntity target;
+        @Nullable private OWLEntity source;
+        @Nullable private OWLEntity target;
 
         SeedExtractor() {}
 

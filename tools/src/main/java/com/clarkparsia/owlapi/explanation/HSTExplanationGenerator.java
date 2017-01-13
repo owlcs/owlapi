@@ -15,13 +15,25 @@ package com.clarkparsia.owlapi.explanation;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.OWLAPIPreconditions;
@@ -37,8 +49,8 @@ import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HSTExplanationGenerator.class);
-    @Nonnull private final TransactionAwareSingleExpGen singleExplanationGenerator;
-    @Nonnull private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
+    private final TransactionAwareSingleExpGen singleExplanationGenerator;
+    private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
     /**
      * Instantiates a new hST explanation generator.
@@ -372,8 +384,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         List<OWLDeclarationAxiom> temporaryDeclarations) {
         // Remove the current axiom from all the ontologies it is included
         // in
-        Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom,
-            getReasoner().getRootOntology().importsClosure());
+        Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom, getReasoner().getRootOntology()
+            .importsClosure());
         collectTemporaryDeclarations(axiom, temporaryDeclarations);
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
             OntologyUtils.addAxiom(decl, getReasoner().getRootOntology().importsClosure());

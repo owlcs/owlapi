@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
@@ -32,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
  */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
 
-    @Nonnull protected final List<OWLIndividual> individuals;
+    protected final List<OWLIndividual> individuals;
 
     /**
      * @param individuals

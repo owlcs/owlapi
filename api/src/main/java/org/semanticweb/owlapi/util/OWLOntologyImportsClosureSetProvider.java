@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
@@ -33,8 +31,8 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
 
-    @Nonnull private final OWLOntologyManager manager;
-    @Nonnull private final OWLOntology rootOntology;
+    private final OWLOntologyManager manager;
+    private final OWLOntology rootOntology;
 
     /**
      * Constructs an {@code OWLOntologySetProvider} which provides a set

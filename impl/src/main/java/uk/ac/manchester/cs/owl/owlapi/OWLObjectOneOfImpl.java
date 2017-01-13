@@ -19,8 +19,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asListNullsForbidden
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
@@ -32,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
  */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
-    @Nonnull private final List<OWLIndividual> values;
+    private final List<OWLIndividual> values;
 
     /**
      * @param values
