@@ -29,7 +29,7 @@ public class VersionInfo {
         if (v != null) {
             version = v;
         } else {
-            version = "5.0.5";
+            version = "6.0.0-SNAPSHOT";
         }
     }
 
