@@ -2,6 +2,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import java.io.Serializable;
 
@@ -12,5 +13,13 @@ import java.io.Serializable;
  */
 public interface OWLOntologyImplementationFactory extends Serializable {
 
-    OWLOntology createOWLOntology(OWLOntologyID ontologyID);
+    /**
+     * @param manager
+     *        manager that will host the ontology
+     * @param ontologyID
+     *        ontology id
+     * @return new ontology instance
+     */
+    OWLOntology createOWLOntology(OWLOntologyManager manager,
+        OWLOntologyID ontologyID);
 }
