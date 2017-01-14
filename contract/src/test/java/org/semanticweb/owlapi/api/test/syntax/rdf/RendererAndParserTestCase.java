@@ -32,8 +32,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -61,23 +59,21 @@ public class RendererAndParserTestCase extends TestBase {
             () -> singleton(df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
                 createIndividual(), createIndividual(), createIndividual())),
             // EquivalentClasses
-            () -> singleton(df.getOWLEquivalentClassesAxiom(createClass(),
-                df.getOWLObjectSomeValuesFrom(createObjectProperty(), df.getOWLThing()))),
+            () -> singleton(df.getOWLEquivalentClassesAxiom(createClass(), df.getOWLObjectSomeValuesFrom(
+                createObjectProperty(), df.getOWLThing()))),
             // NegativeDataPropertyAssertionAxiom
-            () -> singleton(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(),
-                df.getOWLLiteral("TestConstant"))),
+            () -> singleton(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(), df
+                .getOWLLiteral("TestConstant"))),
             // NegativeObjectPropertyAssertionAxiom
             () -> singleton(df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(), createIndividual(),
                 createIndividual())),
             // QCR
-            () -> singleton(df.getOWLSubClassOfAxiom(createClass(),
-                df.getOWLObjectMinCardinality(3, createObjectProperty(),
-                    df.getOWLObjectIntersectionOf(createClass(), createClass())))));
+            () -> singleton(df.getOWLSubClassOfAxiom(createClass(), df.getOWLObjectMinCardinality(3,
+                createObjectProperty(), df.getOWLObjectIntersectionOf(createClass(), createClass())))));
     }
 
     @Before
     public void setUpManager() {
-        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
         m.getOntologyStorers().set(new RDFXMLStorerFactory());
         m.getOntologyParsers().set(new RDFXMLParserFactory());
     }

@@ -13,7 +13,20 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * test for 3294629 - currently disabled. Not clear whether structure sharing is
@@ -159,7 +172,7 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "            <rdf:Description>\r\n" + "                <rdfs:comment>E</rdfs:comment>\r\n"
             + "            </rdf:Description>\r\n" + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(input);
-        masterManager.getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(true);
+        masterConfigurator.withSaveIdsForAllAnonymousIndividuals(true);
         try {
             StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
             assertTrue(result.toString().contains("rdf:nodeID"));
@@ -168,7 +181,7 @@ public class SharedBlankNodeTestCase extends TestBase {
             assertEquals(result.toString(), resaved.toString());
         } finally {
             // make sure the static variable is reset after the test
-            masterManager.getOntologyConfigurator().withSaveIdsForAllAnonymousIndividuals(false);
+            masterConfigurator.withSaveIdsForAllAnonymousIndividuals(false);
         }
     }
 

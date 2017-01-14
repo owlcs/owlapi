@@ -242,14 +242,14 @@ public class OutputSyntaxSortTestCase extends TestBase {
 
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> getData() {
-        return Arrays.<Object[]> asList(new Object[] { new ManchesterSyntaxDocumentFormat() }, new Object[] {
+        return Arrays.<Object[]>asList(new Object[] { new ManchesterSyntaxDocumentFormat() }, new Object[] {
             new FunctionalSyntaxDocumentFormat() }, new Object[] { new TurtleDocumentFormat() }, new Object[] {
                 new RDFXMLDocumentFormat() }, new Object[] { new OWLXMLDocumentFormat() });
     }
 
     @Test
     public void shouldOutputAllInSameOrder() throws OWLOntologyStorageException, OWLOntologyCreationException {
-        masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
+        masterConfigurator.withRemapAllAnonymousIndividualsIds(false);
         try {
             List<OWLOntology> ontologies = new ArrayList<>();
             List<String> set = new ArrayList<>();
@@ -267,7 +267,7 @@ public class OutputSyntaxSortTestCase extends TestBase {
                     set.get(i), set.get(i + 1));
             }
         } finally {
-            masterManager.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
+            masterConfigurator.withRemapAllAnonymousIndividualsIds(true);
         }
     }
 }

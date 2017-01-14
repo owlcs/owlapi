@@ -57,9 +57,8 @@ public class OWLAPIImplModule extends AbstractModule {
         }
         bind(boolean.class).annotatedWith(CompressionEnabled.class).toInstance(Boolean.FALSE);
         bind(OWLDataFactory.class).to(OWLDataFactoryImpl.class).asEagerSingleton();
-        bind(OWLOntologyManager.class).to(OWLOntologyManagerImpl.class).asEagerSingleton();
-        bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class).to(OWLOntologyManagerImpl.class)
-            .asEagerSingleton();
+        bind(OWLOntologyManager.class).to(OWLOntologyManagerImpl.class);
+        bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class).to(OWLOntologyManagerImpl.class);
         bind(OWLOntologyBuilder.class).to(ConcurrentOWLOntologyBuilder.class);
         bind(OWLOntologyBuilder.class).annotatedWith(NonConcurrentDelegate.class).to(
             NonConcurrentOWLOntologyBuilder.class);
