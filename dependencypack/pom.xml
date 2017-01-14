@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>owlapi-dependencypack</artifactId>
+	<packaging>bundle</packaging>
+	<name>OWLAPI :: Dependency pack</name>
+
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>4.2.9-SNAPSHOT</version>
+	</parent>
+	<properties>
+		<inherited.rdf4j.version>${rdf4j.version}</inherited.rdf4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-distribution</artifactId><version>${project.version}</version></dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Creates binary distribution. -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.2.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						<Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Embed-Dependency>owlapi-distribution,!groupId=${project.groupId},!scope=test,!slf4j-simple,*</Embed-Dependency>
+						<Embed-Directory>lib</Embed-Directory>
+						<Embed-Transitive>true</Embed-Transitive>
+						<Export-Package>*</Export-Package>
+						<Import-Package>!sun.misc,!javax.servlet,!com.google.errorprone.*,!net.sf.ehcache.*,!net.spy.memcached</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
