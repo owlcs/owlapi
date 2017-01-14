@@ -604,25 +604,25 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         OWLDataPropertyExpression prop = parseDataProperty();
         String kw = consumeToken();
         if (SOME.matches(kw)) {
-            OWLDataRange rng = parseDataRange();
+            OWLDataRange rng = parseDataIntersectionOf(false);
             return df.getOWLDataSomeValuesFrom(prop, rng);
         } else if (ONLY.matches(kw)) {
-            OWLDataRange rng = parseDataRange();
+            OWLDataRange rng = parseDataIntersectionOf(false);
             return df.getOWLDataAllValuesFrom(prop, rng);
         } else if (VALUE.matches(kw)) {
             OWLLiteral con = parseLiteral(null);
             return df.getOWLDataHasValue(prop, con);
         } else if (MIN.matches(kw)) {
             int card = parseInteger();
-            OWLDataRange rng = parseDataRange();
+            OWLDataRange rng = parseDataIntersectionOf(true);
             return df.getOWLDataMinCardinality(card, prop, rng);
         } else if (EXACTLY.matches(kw)) {
             int card = parseInteger();
-            OWLDataRange rng = parseDataRange();
+            OWLDataRange rng = parseDataIntersectionOf(true);
             return df.getOWLDataExactCardinality(card, prop, rng);
         } else if (MAX.matches(kw)) {
             int card = parseInteger();
-            OWLDataRange rng = parseDataRange();
+            OWLDataRange rng = parseDataIntersectionOf(true);
             return df.getOWLDataMaxCardinality(card, prop, rng);
         }
         throw new ExceptionBuilder().withKeyword(SOME, ONLY, VALUE, MIN, EXACTLY, MAX).build();
@@ -655,14 +655,14 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public OWLDataRange parseDataRange() {
-        return parseDataIntersectionOf();
+        return parseDataIntersectionOf(false);
     }
 
-    private OWLDataRange parseDataIntersectionOf() {
+    private OWLDataRange parseDataIntersectionOf(boolean lookaheadCheck) {
         String sep = AND.keyword();
         Set<OWLDataRange> ranges = new HashSet<>();
         while (AND.matches(sep)) {
-            ranges.add(parseDataUnionOf());
+            ranges.add(parseDataUnionOf(lookaheadCheck));
             sep = peekToken();
             if (AND.matches(sep)) {
                 consumeToken();
@@ -677,11 +677,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return df.getOWLDataIntersectionOf(ranges);
     }
 
-    private OWLDataRange parseDataUnionOf() {
+    private OWLDataRange parseDataUnionOf(boolean lookaheadCheck) {
         String sep = OR.keyword();
         Set<OWLDataRange> ranges = new HashSet<>();
         while (OR.matches(sep)) {
-            ranges.add(parseDataRangePrimary());
+            ranges.add(parseDataRangePrimary(lookaheadCheck));
             sep = peekToken();
             if (OR.matches(sep)) {
                 consumeToken();
@@ -694,7 +694,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
-    private OWLDataRange parseDataRangePrimary() {
+    private OWLDataRange parseDataRangePrimary(boolean lookaheadCheck) {
         String tok = peekToken();
         if (isDatatypeName(tok)) {
             consumeToken();
@@ -722,15 +722,28 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 return datatype;
             }
         } else if (NOT.matches(tok)) {
-            return parseDataComplementOf();
+            return parseDataComplementOf(false);
         } else if (OPENBRACE.matches(tok)) {
             return parseDataOneOf();
         } else if (OPEN.matches(tok)) {
             consumeToken();
-            OWLDataRange rng = parseDataRange();
+            OWLDataRange rng = parseDataIntersectionOf(false);
             consumeToken(CLOSE.keyword());
             return rng;
         } else {
+            // XXX problem: if the type is missing, we should return
+            // the top datatype. But there are many ways in which it could be
+            // missing.
+            // Hard to tell what sort of lookahead is needed.
+            // The next two checks should cover most cases.
+            for (ManchesterOWLSyntax x : values()) {
+                if (x.matches(tok)) {
+                    return df.getTopDatatype();
+                }
+            }
+            if (eof(tok) && lookaheadCheck) {
+                return df.getTopDatatype();
+            }
             consumeToken();
             throw new ExceptionBuilder().withDt().withKeyword(OPENBRACE, NOT).build();
         }
@@ -742,7 +755,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLDataRange> ranges = new HashSet<>();
         while (COMMA.matches(sep)) {
             potentialKeywords.remove(COMMA);
-            OWLDataRange rng = parseDataRange();
+            OWLDataRange rng = parseDataIntersectionOf(false);
             ranges.add(rng);
             potentialKeywords.add(COMMA);
             sep = peekToken();
@@ -768,12 +781,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return df.getOWLDataOneOf(cons);
     }
 
-    private OWLDataRange parseDataComplementOf() {
+    private OWLDataRange parseDataComplementOf(boolean lookaheadCheck) {
         String not = consumeToken();
         if (!NOT.matches(not)) {
             throw new ExceptionBuilder().withKeyword(NOT).build();
         }
-        OWLDataRange complementedDataRange = parseDataRangePrimary();
+        OWLDataRange complementedDataRange = parseDataRangePrimary(lookaheadCheck);
         return df.getOWLDataComplementOf(complementedDataRange);
     }
 
@@ -1449,7 +1462,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private SWRLAtom parseDataRangeAtom() {
-        OWLDataRange range = parseDataRange();
+        OWLDataRange range = parseDataIntersectionOf(false);
         consumeToken(OPEN.keyword());
         SWRLVariable obj1 = parseDVariable();
         consumeToken(CLOSE.keyword());
@@ -2387,22 +2400,22 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         OWLDataPropertyExpression prop = parseDataProperty();
         String kw = consumeToken();
         if (SOME.matches(kw)) {
-            OWLDataRange dataRange = parseDataIntersectionOf();
+            OWLDataRange dataRange = parseDataIntersectionOf(false);
             return parseClassAxiomRemainder(df.getOWLDataSomeValuesFrom(prop, dataRange));
         } else if (ONLY.matches(kw)) {
-            OWLDataRange dataRange = parseDataIntersectionOf();
+            OWLDataRange dataRange = parseDataIntersectionOf(false);
             return parseClassAxiomRemainder(df.getOWLDataAllValuesFrom(prop, dataRange));
         } else if (MIN.matches(kw)) {
             int cardi = parseInteger();
-            OWLDataRange dataRange = parseDataIntersectionOf();
+            OWLDataRange dataRange = parseDataIntersectionOf(true);
             return parseClassAxiomRemainder(df.getOWLDataMinCardinality(cardi, prop, dataRange));
         } else if (MAX.matches(kw)) {
             int cardi = parseInteger();
-            OWLDataRange dataRange = parseDataIntersectionOf();
+            OWLDataRange dataRange = parseDataIntersectionOf(true);
             return parseClassAxiomRemainder(df.getOWLDataMaxCardinality(cardi, prop, dataRange));
         } else if (EXACTLY.matches(kw)) {
             int cardi = parseInteger();
-            OWLDataRange dataRange = parseDataIntersectionOf();
+            OWLDataRange dataRange = parseDataIntersectionOf(true);
             return parseClassAxiomRemainder(df.getOWLDataExactCardinality(cardi, prop, dataRange));
         } else if (SUB_PROPERTY_OF.matches(kw)) {
             OWLDataPropertyExpression superProperty = parseDataPropertyExpression();
@@ -2417,7 +2430,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             OWLClassExpression domain = parseClassExpression();
             return df.getOWLDataPropertyDomainAxiom(prop, domain);
         } else if (RANGE.matches(kw)) {
-            OWLDataRange range = parseDataRange();
+            OWLDataRange range = parseDataIntersectionOf(true);
             return df.getOWLDataPropertyRangeAxiom(prop, range);
         } else {
             throw new ExceptionBuilder().withKeyword(SOME, ONLY, MIN, MAX, EXACTLY, SUB_PROPERTY_OF, EQUIVALENT_TO,
