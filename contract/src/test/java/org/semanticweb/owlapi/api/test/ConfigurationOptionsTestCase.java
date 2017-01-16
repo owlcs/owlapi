@@ -27,9 +27,7 @@ public class ConfigurationOptionsTestCase {
     @Parameters(name = "{0}")
     public static List<Object[]> values() {
         List<Object[]> toReturn = new ArrayList<>();
-        toReturn.add(new Object[] { ACCEPT_HTTP_COMPRESSION, Boolean.TRUE });
         toReturn.add(new Object[] { CONNECTION_TIMEOUT, Integer.valueOf(20000) });
-        toReturn.add(new Object[] { FOLLOW_REDIRECTS, Boolean.TRUE });
         toReturn.add(new Object[] { INDENT_SIZE, Integer.valueOf(4) });
         toReturn.add(new Object[] { INDENTING, Boolean.TRUE });
         toReturn.add(new Object[] { LABELS_AS_BANNER, Boolean.FALSE });
