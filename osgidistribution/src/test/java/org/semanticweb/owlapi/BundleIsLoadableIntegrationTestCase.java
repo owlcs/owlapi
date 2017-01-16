@@ -4,6 +4,7 @@ package org.semanticweb.owlapi;
  * Created by ses on 3/5/15.
  */
 
+<<<<<<< master
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,6 +20,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+=======
+>>>>>>> 1cb7635 Stashing
 import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,9 +32,14 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.launch.Framework;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.test.IntegrationTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -45,10 +53,8 @@ import static org.junit.Assert.*;
 @SuppressWarnings("javadoc")
 @Category(IntegrationTest.class)
 public class BundleIsLoadableIntegrationTestCase {
-
-    private static Logger logger = LoggerFactory
-        .getLogger(BundleIsLoadableIntegrationTestCase.class);
-    @Ignore           // Not gradle ready
+    private static Logger logger = LoggerFactory.getLogger(BundleIsLoadableIntegrationTestCase.class);
+    @Ignore
     @Test
     public void startBundle() throws BundleException, ClassNotFoundException,
         IllegalAccessException, InstantiationException {
@@ -92,9 +98,9 @@ public class BundleIsLoadableIntegrationTestCase {
                 // System.out.println("BundleIsLoadableIntegrationTestCase.startBundle()
                 // " + simple);
                 Bundle simpleLoggerBundle = context.installBundle(simple);
-                try {
-                    simpleLoggerBundle.start();
-                } catch (BundleException e) {
+            try {
+                simpleLoggerBundle.start();
+            } catch (BundleException e) {
                     if (!"Fragment bundles can not be started.".equals(e.getMessage())) {
                         System.out.println("ERROR " + simple + " " + e.getMessage());
                     }
@@ -112,9 +118,8 @@ public class BundleIsLoadableIntegrationTestCase {
                 bundle.loadClass("org.semanticweb.owlapi.apibinding.OWLManager");
             assertNotNull("no class owlmanager", owlManagerClass);
             owlManagerClass.newInstance();
-            assertNotEquals(
-                "OWLManager class from bundle class loader  equals OWLManager class from system class path",
-                OWLManager.class, owlManagerClass);
+            assertNotEquals("OWLManager class from bundle class loader  equals OWLManager class from system class path",
+            OWLManager.class, owlManagerClass);
         } catch (Exception e) {
             e.printStackTrace(System.out);
             throw e;

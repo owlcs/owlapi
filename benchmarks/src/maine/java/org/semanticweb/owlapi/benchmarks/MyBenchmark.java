@@ -24,12 +24,6 @@
  */
 package org.semanticweb.owlapi.benchmarks;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
-
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
@@ -42,10 +36,15 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OntologyConfigurator;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.GZIPInputStream;
 
 @SuppressWarnings("javadoc")
 @State(Scope.Thread)
@@ -56,7 +55,8 @@ public class MyBenchmark {
     @Setup(Level.Trial)
     public void setUp() throws IOException {
         uncompressedTaxonFile = File.createTempFile("taxons", "ofn");
-        InputStream resourceAsStream = getClass().getResourceAsStream("/ncbitaxon.rdf.ofn.gz");
+        InputStream resourceAsStream = getClass().getResourceAsStream(
+            "/ncbitaxon.rdf.ofn.gz");
         try (GZIPInputStream in = new GZIPInputStream(resourceAsStream);
             FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
             int n;
@@ -77,10 +77,12 @@ public class MyBenchmark {
     @Benchmark
     public void testLoadTaxonFSS() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntologyDocumentSource ds = new FileDocumentSource(uncompressedTaxonFile);
-        OntologyConfigurator config = new OntologyConfigurator().setStrict(false);
-        OWLOntologyImpl ontology =
-            (OWLOntologyImpl) manager.loadOntologyFromOntologyDocument(ds, config);
+        OWLOntologyDocumentSource ds = new FileDocumentSource(
+            uncompressedTaxonFile);
+        OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
+            .setStrict(false);
+        OWLOntologyImpl ontology = (OWLOntologyImpl) manager
+            .loadOntologyFromOntologyDocument(ds, config);
         manager.removeOntology(ontology);
     }
 }
