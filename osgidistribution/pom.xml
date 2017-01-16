@@ -61,6 +61,8 @@
 		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-assistedinject</artifactId><version>4.1.0</version></dependency>
 		<dependency><groupId>com.google.inject.extensions</groupId><artifactId>guice-multibindings</artifactId><version>4.1.0</version></dependency>
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.3.5</version></dependency>
+		<dependency><groupId>com.squareup.okhttp3</groupId><artifactId>okhttp</artifactId><version>3.5.0</version></dependency>
+		<dependency><groupId>com.squareup.okio</groupId><artifactId>okio</artifactId><version>1.11.0</version></dependency>
 		<!--  Disable until updated to use RDF4J
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-core</artifactId><version>0.7</version></dependency>
@@ -102,7 +104,9 @@
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=com.github.jsonld-java;scope=compile|runtime|provided;inline=false,
 							jsr305;scope=compile|runtime|provided;inline=false,
-							caffeine;scope=compile|runtime|provided;inline=false
+							caffeine;scope=compile|runtime|provided;inline=false,
+							okhttp;scope=compile|runtime|provided;inline=false,
+							okio;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<excludeDependencies>
 							groupId=commons-*;scope=compile|runtime|provided,
@@ -129,6 +133,7 @@
 							!org.apache.avalon.framework.logger,
 							!org.apache.log*,
 							!javax.annotation,
+							!android.util,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
 							*

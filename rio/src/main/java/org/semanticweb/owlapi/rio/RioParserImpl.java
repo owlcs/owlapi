@@ -39,7 +39,6 @@ import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -52,7 +51,12 @@ import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
-import org.eclipse.rdf4j.rio.*;
+import org.eclipse.rdf4j.rio.RDFHandler;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
+import org.eclipse.rdf4j.rio.RDFParseException;
+import org.eclipse.rdf4j.rio.RDFParser;
+import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
 import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.annotations.HasPriority;
@@ -159,8 +163,6 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * @throws RDFHandlerException
      *         If there is an error related to the processing of the RDF
      *         statements after parsing.
-     * @throws MalformedURLException
-     *         If there are malformed URLs.
      */
     protected void parseDocumentSource(final OWLOntologyDocumentSource source, final String baseUri,
         final RDFHandler handler, OWLOntologyLoaderConfiguration config) throws OWLOntologyInputSourceException,

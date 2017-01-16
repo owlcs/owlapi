@@ -7,9 +7,10 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
@@ -41,12 +42,15 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.semanticweb.owlapi.io.DocumentSources;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,10 +153,15 @@ public class OBOFormatWriter {
      */
     public void write(String fn, Writer writer) throws IOException {
         if (fn.startsWith("http:")) {
-            write(new URL(fn), writer);
+            try (InputStream in = DocumentSources.getInputStream(IRI.create(fn), new OWLOntologyLoaderConfiguration())
+                .get()) {
+                write(in, writer);
+            } catch (OWLOntologyInputSourceException e) {
+                throw (IOException) e.getCause();
+            }
         } else {
-            try (FileReader r = new FileReader(new File(fn)); Reader reader = new BufferedReader(r);) {
-                write(reader, writer);
+            try (InputStream in = new FileInputStream(new File(fn))) {
+                write(in, writer);
             }
         }
     }
@@ -169,9 +178,24 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
+    public void write(InputStream url, Writer writer) throws IOException {
+        write(new BufferedReader(new InputStreamReader(url)), writer);
+    }
+
+    /**
+     * Write.
+     * 
+     * @param url
+     *        the url
+     * @param writer
+     *        the writer
+     * @throws IOException
+     *         Signals that an I/O exception has occurred.
+     * @throws OBOFormatParserException
+     *         the oBO format parser exception
+     */
     public void write(URL url, Writer writer) throws IOException {
-        Reader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-        write(reader, writer);
+        write(url.toString(), writer);
     }
 
     /**

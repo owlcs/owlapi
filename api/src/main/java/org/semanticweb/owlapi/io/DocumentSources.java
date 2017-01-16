@@ -8,13 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -29,11 +27,17 @@ import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tukaani.xz.XZInputStream;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.google.common.base.Charsets;
+
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Request.Builder;
+import okhttp3.Response;
 
 /**
  * Static methods from AbstractOWLParser. Mostly used by
@@ -41,14 +45,9 @@ import com.google.common.base.Charsets;
  */
 public class DocumentSources {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentSources.class);
     private static final String ZIP_FILE_EXTENSION = ".zip";
-    private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern.compile(".*filename=\"([^\\s;]*)\".*");
-    private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern.compile(".*owl|rdf|xml|mos");
-    private static final String ACCEPTABLE_CONTENT_ENCODING = "xz,gzip,deflate";
-    private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
 
     private DocumentSources() {}
 
@@ -126,6 +125,26 @@ public class DocumentSources {
         throw new OWLOntologyInputSourceException("No input reader can be found");
     }
 
+    private static final LoadingCache<Integer, OkHttpClient> CACHE = Caffeine.newBuilder().maximumSize(16).build(
+        DocumentSources::client);
+
+    private static Response getResponse(IRI documentIRI, boolean isAcceptingCompression, int timeout)
+        throws IOException {
+        Builder builder = new Request.Builder().url(documentIRI.toString()).addHeader("Accept",
+            "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2");
+        if (isAcceptingCompression) {
+            builder.addHeader("Accept-Encoding", "xz,gzip,deflate");
+        }
+        Request request = builder.build();
+        Call newCall = CACHE.get(Integer.valueOf(timeout)).newCall(request);
+        return newCall.execute();
+    }
+
+    private static OkHttpClient client(int connectTimeout) {
+        return new OkHttpClient.Builder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(
+            connectTimeout, TimeUnit.MILLISECONDS).followRedirects(true).followSslRedirects(true).build();
+    }
+
     /**
      * A convenience method that obtains an input stream from a URI. This method
      * sets up the correct request type and wraps the input stream within a
@@ -144,99 +163,53 @@ public class DocumentSources {
     public static Optional<InputStream> getInputStream(IRI documentIRI, OWLOntologyLoaderConfiguration config)
         throws OWLOntologyInputSourceException {
         try {
-            URL originalURL = documentIRI.toURI().toURL();
-            String originalProtocol = originalURL.getProtocol();
-            URLConnection conn = originalURL.openConnection();
-            conn.addRequestProperty("Accept", REQUESTTYPES);
-            if (config.isAcceptingHTTPCompression()) {
-                conn.setRequestProperty("Accept-Encoding", ACCEPTABLE_CONTENT_ENCODING);
+            int count = 0;
+            InputStream is = null;
+            if (documentIRI.getNamespace().startsWith("file:")) {
+                is = documentIRI.toURI().toURL().openStream();
+                if (isZipFileName(documentIRI.toString())) {
+                    is = handleZips(is);
+                }
             }
-            int connectionTimeout = config.getConnectionTimeout();
-            conn.setConnectTimeout(connectionTimeout);
-            conn = connect(config, originalProtocol, conn, connectionTimeout);
-            String contentEncoding = conn.getContentEncoding();
-            InputStream is = connectWithFiveRetries(documentIRI, config, conn, connectionTimeout, contentEncoding);
             if (is == null) {
-                return emptyOptional();
+                String disposition = null;
+                while (count < config.getRetriesToAttempt() && is == null) {
+                    try {
+                        count++;
+                        int timeout = count * config.getConnectionTimeout();
+                        Response response = getResponse(documentIRI, config.isAcceptingHTTPCompression(), timeout);
+                        String encoding = response.header("Content-Encoding");
+                        disposition = response.header("Content-Disposition");
+                        is = getInputStreamFromContentEncoding(documentIRI, response, encoding, disposition);
+                        if (isZipFileName(documentIRI.toString()) || isZipFileName(getFileNameFromContentDisposition(
+                            disposition))) {
+                            is = handleZips(is);
+                        }
+                    } catch (SocketTimeoutException e) {
+                        if (count == 5) {
+                            throw new OWLOntologyInputSourceException("cannot connect to " + documentIRI
+                                + "; retry limit exhausted", e);
+                        }
+                    }
+                }
             }
-            is = handleZips(documentIRI, conn, is);
             return optional(is);
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }
     }
 
-    protected static URLConnection connect(OWLOntologyLoaderConfiguration config, String originalProtocol,
-        URLConnection conn, int connectionTimeout) throws IOException {
-        if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
-            // follow redirects to HTTPS
-            HttpURLConnection con = (HttpURLConnection) conn;
-            con.connect();
-            int responseCode = con.getResponseCode();
-            // redirect
-            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
-                String location = con.getHeaderField("Location");
-                URL newURL = new URL(location);
-                String newProtocol = newURL.getProtocol();
-                if (!originalProtocol.equals(newProtocol)) {
-                    // then different protocols: redirect won't follow
-                    // automatically
-                    return rebuildConnection(config, connectionTimeout, newURL);
-                }
-            }
-        }
-        return conn;
-    }
-
-    protected static URLConnection rebuildConnection(OWLOntologyLoaderConfiguration config, int connectionTimeout,
-        URL newURL) throws IOException {
-        URLConnection conn;
-        conn = newURL.openConnection();
-        conn.addRequestProperty("Accept", REQUESTTYPES);
-        if (config.isAcceptingHTTPCompression()) {
-            conn.setRequestProperty("Accept-Encoding", ACCEPTABLE_CONTENT_ENCODING);
-        }
-        conn.setConnectTimeout(connectionTimeout);
-        return conn;
-    }
-
-    protected static InputStream handleZips(IRI documentIRI, URLConnection conn, InputStream is) throws IOException {
-        if (!isZipName(documentIRI, conn)) {
-            return is;
-        }
+    protected static InputStream handleZips(InputStream is) throws IOException {
         ZipInputStream zis = new ZipInputStream(is);
-        ZipEntry entry = null;
+        ZipEntry selectedEntry = null;
         ZipEntry nextEntry = zis.getNextEntry();
-        // XXX is this a bug?
-        while (entry != null && nextEntry != null) {
+        while (selectedEntry == null && nextEntry != null) {
             if (couldBeOntology(nextEntry)) {
-                entry = nextEntry;
+                selectedEntry = nextEntry;
             }
             nextEntry = zis.getNextEntry();
         }
         return zis;
-    }
-
-    @Nullable
-    protected static InputStream connectWithFiveRetries(IRI documentIRI, OWLOntologyLoaderConfiguration config,
-        URLConnection conn, int connectionTimeout, String contentEncoding) throws IOException,
-        OWLOntologyInputSourceException {
-        InputStream is = null;
-        int count = 0;
-        while (count < config.getRetriesToAttempt() && is == null) {
-            try {
-                is = getInputStreamFromContentEncoding(conn, contentEncoding);
-            } catch (SocketTimeoutException e) {
-                count++;
-                if (count == 5) {
-                    throw new OWLOntologyInputSourceException("cannot connect to " + documentIRI
-                        + "; retry limit exhausted", e);
-                }
-                conn.setConnectTimeout(connectionTimeout + connectionTimeout * count);
-            }
-        }
-        return is;
     }
 
     /**
@@ -252,33 +225,34 @@ public class DocumentSources {
             ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
     }
 
-    private static boolean couldBeOntology(@Nullable ZipEntry zipEntry) {
-        if (zipEntry == null) {
-            return false;
-        }
+    private static boolean couldBeOntology(ZipEntry zipEntry) {
         return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName()).matches();
     }
 
-    private static InputStream getInputStreamFromContentEncoding(URLConnection conn, @Nullable String contentEncoding)
-        throws IOException {
-        InputStream in = conn.getInputStream();
+    private static InputStream getInputStreamFromContentEncoding(@Nullable IRI url, Response conn,
+        @Nullable String contentEncoding, @Nullable String contentDisposition) throws IOException {
+        InputStream in = conn.body().byteStream();
         if (contentEncoding != null) {
-            InputStream toReturn = handleKnownContentEncodings(contentEncoding, in);
-            if (toReturn != null) {
-                return toReturn;
+            switch (contentEncoding) {
+                case "xz":
+                    return new BufferedInputStream(new XZInputStream(in));
+                case "gzip":
+                    return new BufferedInputStream(new GZIPInputStream(in));
+                case "deflate":
+                    return new InflaterInputStream(in, new Inflater(true));
+                default:
+                    break;
             }
         }
-        String fileName = getFileNameFromContentDisposition(conn);
-        if (fileName == null && conn.getURL() != null) {
-            fileName = conn.getURL().toString();
+        String fileName = getFileNameFromContentDisposition(contentDisposition);
+        if (fileName == null && url != null) {
+            fileName = url.toString();
         }
         if (fileName != null) {
             if (fileName.endsWith(".gz")) {
-                LOGGER.info("URL connection has no content encoding but name ends with .gz");
                 return new BufferedInputStream(new GZIPInputStream(in));
             }
             if (fileName.endsWith(".xz")) {
-                LOGGER.info("URL connection has no content encoding but name ends with .xz");
                 return new BufferedInputStream(new XZInputStream(in));
             }
         }
@@ -286,45 +260,20 @@ public class DocumentSources {
     }
 
     @Nullable
-    protected static InputStream handleKnownContentEncodings(String contentEncoding, InputStream in)
-        throws IOException {
-        if ("xz".equals(contentEncoding)) {
-            LOGGER.info("URL connection input stream is compressed using xz");
-            return new BufferedInputStream(new XZInputStream(in));
-        }
-        if ("gzip".equals(contentEncoding)) {
-            LOGGER.info("URL connection input stream is compressed using gzip");
-            return new BufferedInputStream(new GZIPInputStream(in));
-        }
-        if ("deflate".equals(contentEncoding)) {
-            LOGGER.info("URL connection input stream is compressed using deflate");
-            return new InflaterInputStream(in, new Inflater(true));
-        }
-        return null;
-    }
-
-    private static boolean isZipName(IRI documentIRI, URLConnection connection) {
-        if (isZipFileName(documentIRI.toString())) {
-            return true;
-        } else {
-            String fileName = getFileNameFromContentDisposition(connection);
-            return fileName != null && isZipFileName(fileName);
-        }
-    }
-
-    @Nullable
-    private static String getFileNameFromContentDisposition(URLConnection connection) {
-        String contentDispositionHeaderValue = connection.getHeaderField(CONTENT_DISPOSITION_HEADER);
-        if (contentDispositionHeaderValue != null) {
-            Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN.matcher(contentDispositionHeaderValue);
+    private static String getFileNameFromContentDisposition(@Nullable String contentDispositionHeader) {
+        if (contentDispositionHeader != null) {
+            Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN.matcher(contentDispositionHeader);
             if (matcher.matches()) {
-                return matcher.group(CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP);
+                return matcher.group(1).toLowerCase(Locale.getDefault());
             }
         }
         return null;
     }
 
-    private static boolean isZipFileName(String fileName) {
+    private static boolean isZipFileName(@Nullable String fileName) {
+        if (fileName == null) {
+            return false;
+        }
         return fileName.toLowerCase(Locale.getDefault()).endsWith(ZIP_FILE_EXTENSION);
     }
 }

@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
@@ -27,6 +28,10 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.io.DocumentSources;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -221,7 +226,12 @@ public class OBOFormatParser {
      */
     public OBODoc parse(String fn) throws IOException {
         if (fn.startsWith("http:")) {
-            return parse(new URL(fn));
+            try (InputStream in = DocumentSources.getInputStream(IRI.create(fn), new OWLOntologyLoaderConfiguration())
+                .get()) {
+                return parse(in);
+            } catch (OWLOntologyInputSourceException e) {
+                throw (IOException) e.getCause();
+            }
         }
         return parse(new File(fn));
     }
@@ -259,8 +269,7 @@ public class OBOFormatParser {
      */
     public OBODoc parse(URL url) throws IOException {
         location = url;
-        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-        return parse(in);
+        return parse(url.toString());
     }
 
     /**
@@ -295,6 +304,19 @@ public class OBOFormatParser {
             }
         }
         return path;
+    }
+
+    /**
+     * @param reader
+     *        reader
+     * @return parsed obo document
+     * @throws IOException
+     *         io exception
+     * @throws OBOFormatParserException
+     *         parser exception
+     */
+    public OBODoc parse(InputStream reader) throws IOException {
+        return parse(new InputStreamReader(reader, StandardCharsets.UTF_8));
     }
 
     /**

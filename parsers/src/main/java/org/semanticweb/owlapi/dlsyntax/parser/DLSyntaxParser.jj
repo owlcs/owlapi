@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.model.*;
 
 public class DLSyntaxParser {
 
-    private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology" + System.nanoTime();
+    private String defaultNamespace = IRI.getNextDocumentIRI("http://www.semanticweb.org/ontologies/Ontology").toString();
 
     private Map<String, String> namespaceMap = new HashMap<String, String>();
 

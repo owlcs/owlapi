@@ -7,8 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,6 +26,8 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -148,9 +148,10 @@ public class PunRunner extends org.junit.runner.Runner {
         for (int i = 0; i < 10; i++) {
             PrefixDocumentFormat format = formatClass.newInstance();
             format.setPrefixManager(new DefaultPrefixManager("http://localhost#"));
-            ByteArrayInputStream in = saveForRereading(o, format, ontologyManager);
+            StringDocumentTarget in = saveForRereading(o, format, ontologyManager);
             ontologyManager.removeOntology(o);
-            o = ontologyManager.loadOntologyFromOntologyDocument(in);
+            o = ontologyManager.loadOntologyFromOntologyDocument(new StringDocumentSource(in.toString(), o
+                .getOntologyID().getOntologyIRI().get(), formatClass.newInstance(), null));
         }
         assertEquals("annotationCount", entities.length, o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
     }
@@ -169,10 +170,10 @@ public class PunRunner extends org.junit.runner.Runner {
         return manager.createOntology(axioms);
     }
 
-    public static ByteArrayInputStream saveForRereading(OWLOntology o, PrefixDocumentFormat format,
+    public static StringDocumentTarget saveForRereading(OWLOntology o, PrefixDocumentFormat format,
         OWLOntologyManager manager) throws OWLOntologyStorageException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        StringDocumentTarget out = new StringDocumentTarget();
         manager.saveOntology(o, format, out);
-        return new ByteArrayInputStream(out.toByteArray());
+        return out;
     }
 }
