@@ -115,27 +115,9 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param b
-     *        true if HTTP compression should be accepted
-     * @return a copy of this configuration with accepting HTTP compression set
-     *         to the new value
-     */
-    public OntologyConfigurator setAcceptingHTTPCompression(boolean b) {
-        overrides.put(ACCEPT_HTTP_COMPRESSION, Boolean.valueOf(b));
-        return this;
-    }
-
-    /**
-     * @return true if HTTP compression should be used
-     */
-    public boolean shouldAcceptHTTPCompression() {
-        return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
-    }
-
-    /**
      * @param l
      *        new timeout Note: the timeout is an int and represents
-     *        milliseconds. This is necessary for use in {@code URLConnection}
+     *        milliseconds.
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection
      *         timeout set to the new value.
      */
@@ -147,23 +129,6 @@ public class OntologyConfigurator implements Serializable {
     /** @return the connection timeout */
     public int getConnectionTimeout() {
         return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
-    }
-
-    /**
-     * @param value
-     *        true if redirects should be followed across protocols, false
-     *        otherwise.
-     * @return a copy of the current object with followRedirects set to the new
-     *         value.
-     */
-    public OntologyConfigurator setFollowRedirects(boolean value) {
-        overrides.put(FOLLOW_REDIRECTS, Boolean.valueOf(value));
-        return this;
-    }
-
-    /** @return follow redirects */
-    public boolean shouldFollowRedirects() {
-        return FOLLOW_REDIRECTS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -296,14 +261,19 @@ public class OntologyConfigurator implements Serializable {
      *         settings
      */
     public OWLOntologyLoaderConfiguration buildLoaderConfiguration() {
-        return new OWLOntologyLoaderConfiguration().setAcceptingHTTPCompression(shouldAcceptHTTPCompression())
-            .setConnectionTimeout(getConnectionTimeout()).setFollowRedirects(shouldFollowRedirects())
-            .setLoadAnnotationAxioms(shouldLoadAnnotations()).setMissingImportHandlingStrategy(
-                getMissingImportHandlingStrategy()).setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
-            .setPriorityCollectionSorting(getPriorityCollectionSorting()).setReportStackTraces(
-                shouldReportStackTraces()).setRetriesToAttempt(getRetriesToAttempt()).setStrict(
-                    shouldParseWithStrictConfiguration()).setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin())
+        //@formatter:off
+        return new OWLOntologyLoaderConfiguration()
+            .setConnectionTimeout(getConnectionTimeout())
+            .setLoadAnnotationAxioms(shouldLoadAnnotations())
+            .setMissingImportHandlingStrategy(getMissingImportHandlingStrategy())
+            .setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
+            .setPriorityCollectionSorting(getPriorityCollectionSorting())
+            .setReportStackTraces(shouldReportStackTraces())
+            .setRetriesToAttempt(getRetriesToAttempt())
+            .setStrict(shouldParseWithStrictConfiguration())
+            .setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin())
             .setBannedParsers(getBannedParsers());
+        //@formatter:on
     }
 
     /**
@@ -419,9 +389,15 @@ public class OntologyConfigurator implements Serializable {
      *         settings
      */
     public OWLOntologyWriterConfiguration buildWriterConfiguration() {
-        return new OWLOntologyWriterConfiguration().withIndenting(shouldIndent()).withIndentSize(getIndentSize())
-            .withLabelsAsBanner(shouldUseLabelsAsBanner()).withRemapAllAnonymousIndividualsIds(shouldRemapIds())
-            .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds()).withUseNamespaceEntities(
-                shouldUseNamespaceEntities()).withBannersEnabled(shouldUseBanners());
+        //@formatter:off
+        return new OWLOntologyWriterConfiguration()
+            .withIndenting(shouldIndent())
+            .withIndentSize(getIndentSize())
+            .withLabelsAsBanner(shouldUseLabelsAsBanner())
+            .withRemapAllAnonymousIndividualsIds(shouldRemapIds())
+            .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds())
+            .withUseNamespaceEntities(shouldUseNamespaceEntities())
+            .withBannersEnabled(shouldUseBanners());
+        //@formatter:on
     }
 }

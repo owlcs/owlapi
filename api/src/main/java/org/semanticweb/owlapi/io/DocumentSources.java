@@ -128,13 +128,11 @@ public class DocumentSources {
     private static final LoadingCache<Integer, OkHttpClient> CACHE = Caffeine.newBuilder().maximumSize(16).build(
         DocumentSources::client);
 
-    private static Response getResponse(IRI documentIRI, boolean isAcceptingCompression, int timeout)
-        throws IOException {
-        Builder builder = new Request.Builder().url(documentIRI.toString()).addHeader("Accept",
-            "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2");
-        if (isAcceptingCompression) {
-            builder.addHeader("Accept-Encoding", "xz,gzip,deflate");
-        }
+    private static Response getResponse(IRI documentIRI, int timeout) throws IOException {
+        Builder builder = new Request.Builder()
+            .url(documentIRI.toString())
+            .addHeader("Accept","application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2")
+            .addHeader("Accept-Encoding", "xz,gzip,deflate");
         Request request = builder.build();
         Call newCall = CACHE.get(Integer.valueOf(timeout)).newCall(request);
         return newCall.execute();
@@ -177,7 +175,7 @@ public class DocumentSources {
                     try {
                         count++;
                         int timeout = count * config.getConnectionTimeout();
-                        Response response = getResponse(documentIRI, config.isAcceptingHTTPCompression(), timeout);
+                        Response response = getResponse(documentIRI, timeout);
                         String encoding = response.header("Content-Encoding");
                         disposition = response.header("Content-Disposition");
                         is = getInputStreamFromContentEncoding(documentIRI, response, encoding, disposition);

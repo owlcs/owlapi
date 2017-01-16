@@ -47,7 +47,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /** set of imports to ignore */
     private final Set<IRI> ignoredImports = new HashSet<>();
 
-
     /**
      * Adds an ontology document IRI to the list of ontology imports that will
      * be ignored during ontology loading.
@@ -163,33 +162,11 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * @return number of retries to attempt when retrieving an ontology form a
+     * @return number of retries to attempt when retrieving an ontology from a
      *         remote URL.
      */
     public int getRetriesToAttempt() {
         return RETRIES_TO_ATTEMPT.getValue(Integer.class, overrides).intValue();
-    }
-
-    /** @return true if http compression should be accepted. */
-    public boolean isAcceptingHTTPCompression() {
-        return ACCEPT_HTTP_COMPRESSION.getValue(Boolean.class, overrides).booleanValue();
-    }
-
-    /**
-     * When loading an ontology, a parser might connect to a remote URL. If the
-     * remote URL is a 302 redirect and the protocol is different, e.g., http to
-     * https, the parser needs to decide whether to follow the redirect and
-     * download the ontology from an alternate source, or stop with an
-     * UnloadableOntologyError. By default this is true, meaning redirects will
-     * be followed across protocols. If set to false, redirects will be followed
-     * only within the same protocol (URLConnection limits this to five
-     * redirects).
-     * 
-     * @return true if redirects should be followed when importing ontologies
-     *         from remote URLs
-     */
-    public boolean isFollowRedirects() {
-        return FOLLOW_REDIRECTS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
@@ -239,32 +216,17 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * @return max number of XML entity expansions to perform while parsing RDF/XML.
+     * @return max number of XML entity expansions to perform while parsing
+     *         RDF/XML.
      */
     public String getEntityExpansionLimit() {
         return ENTITY_EXPANSION_LIMIT.getValue(String.class, overrides);
     }
 
     /**
-     * @param b
-     *        true if HTTP compression should be accepted
-     * @return a copy of this configuration with accepting HTTP compression set
-     *         to the new value
-     */
-    public OWLOntologyLoaderConfiguration setAcceptingHTTPCompression(boolean b) {
-        // do not make copies if setting the same value
-        if (isAcceptingHTTPCompression() == b) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(ACCEPT_HTTP_COMPRESSION, Boolean.valueOf(b));
-        return copy;
-    }
-
-    /**
      * @param l
      *        new timeout Note: the timeout is an int and represents
-     *        milliseconds. This is necessary for use in {@code URLConnection}
+     *        milliseconds.
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection
      *         timeout set to the new value.
      */
@@ -275,24 +237,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
         return configuration;
-    }
-
-    /**
-     * @param value
-     *        true if redirects should be followed across protocols, false
-     *        otherwise.
-     * @return a copy of the current object with followRedirects set to the new
-     *         value.
-     */
-    public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
-        // as the objects are immutable, setting to the same value returns the
-        // same object
-        if (value == isFollowRedirects()) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.overrides.put(FOLLOW_REDIRECTS, Boolean.valueOf(value));
-        return copy;
     }
 
     /**
@@ -436,6 +380,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         configuration.overrides.put(BANNED_PARSERS, ban);
         return configuration;
     }
+
     /**
      * @param limit
      *        maximum number of XML entities to expand.
@@ -450,4 +395,3 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         return configuration;
     }
 }
-

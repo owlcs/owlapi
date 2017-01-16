@@ -24,14 +24,8 @@ import org.slf4j.LoggerFactory;
  */
 public enum ConfigurationOptions {
     //@formatter:off
-    /** True if http compression 
-     * should be used. */
-    ACCEPT_HTTP_COMPRESSION             (Boolean.TRUE),
     /** Timeout for connections. */
     CONNECTION_TIMEOUT                  (Integer.valueOf(20000)),
-    /** True if redirects should be 
-     * followed across protocols. */
-    FOLLOW_REDIRECTS                    (Boolean.TRUE),
     /** True if annotations should 
      * be loaded, false if skipped. */
     LOAD_ANNOTATIONS                    (Boolean.TRUE),
@@ -46,7 +40,7 @@ public enum ConfigurationOptions {
     REPORT_STACK_TRACES                 (Boolean.TRUE),
     /** Number of retries to 
      * attempt when retrieving an 
-     * ontology form a remote URL. 
+     * ontology from a remote URL. 
      * Defaults to 5. */
     RETRIES_TO_ATTEMPT                  (Integer.valueOf(5)),
     /** True if strict parsing 
@@ -79,7 +73,7 @@ public enum ConfigurationOptions {
     INDENTING                           (Boolean.TRUE),
     /** Size of indentation 
      * between levels. Only used 
-     * if indenting is to true. */
+     * if indenting is set to true. */
     INDENT_SIZE                         (Integer.valueOf(4)),
     /** True if rdfs:label values 
      * are to be used as banners 
