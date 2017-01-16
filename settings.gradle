@@ -10,6 +10,7 @@ include ':owlapi-apibinding'
 include ':owlapi-contract'
 include ':owlapi-distribution'
 include ':owlapi-osgidistribution'
+include ':benchmarks'
 
 project(':owlapi-api').projectDir = "$rootDir/api" as File
 project(':owlapi-impl').projectDir = "$rootDir/impl" as File

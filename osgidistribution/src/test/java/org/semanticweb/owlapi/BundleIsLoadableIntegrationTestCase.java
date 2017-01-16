@@ -4,7 +4,6 @@ package org.semanticweb.owlapi;
  * Created by ses on 3/5/15.
  */
 import org.apache.felix.framework.FrameworkFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.osgi.framework.Bundle;
@@ -34,7 +33,7 @@ public class BundleIsLoadableIntegrationTestCase {
 
     private static Logger logger = LoggerFactory
         .getLogger(BundleIsLoadableIntegrationTestCase.class);
-    @Ignore           // Not gradle ready
+
     @Test
     public void startBundle() throws BundleException, ClassNotFoundException,
         IllegalAccessException, InstantiationException {

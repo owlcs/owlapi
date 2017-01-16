@@ -1,11 +1,16 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+
     }
     dependencies {
         classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.2.0'
     }
 }
+
 
 
 allprojects {
@@ -33,19 +38,18 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-      //  maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-        //maven { url "http://repo.maven.apache.org/maven2" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
     
     /*configurations.all {
     }  */
     dependencies {
         compile group: 'net.sf.trove4j', name: 'trove4j', version: '[3.0.3,4)'
-        compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '[2.1.0,3)'
+        compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '[2.1,3)'
         compile group: 'com.google.guava', name: 'guava', version: '[19.0,21)'
-        compile group: 'com.google.inject', name: 'guice', version: '[4.0,5)'
-        compile group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '[4.0,5)'
-        compile group: 'com.google.inject.extensions', name: 'guice-multibindings', version: '[4.0,5)'
+        compile group: 'com.google.inject', name: 'guice', version: '[4,4.1.1)'
+        compile group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '[4,4.1.1)'
+        compile group: 'com.google.inject.extensions', name: 'guice-multibindings', version: '[4,4.1.1)'
         compile group: 'com.google.code.findbugs', name: 'jsr305', version: '[2.0.1,3)'
         compile group: 'org.slf4j', name: 'slf4j-api', version: '[1.7.14,1.8)'
         compile group: 'commons-io', name: 'commons-io', version: '[2.4,3)'

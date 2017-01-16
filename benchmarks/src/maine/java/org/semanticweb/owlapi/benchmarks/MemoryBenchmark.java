@@ -1,13 +1,7 @@
 package org.semanticweb.owlapi.benchmarks;
 
-import static java.lang.management.ManagementFactory.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.management.RuntimeMXBean;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-
+import com.sun.management.HotSpotDiagnosticMXBean;
+import com.sun.management.VMOption;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.GZipFileDocumentSource;
@@ -20,8 +14,13 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.management.HotSpotDiagnosticMXBean;
-import com.sun.management.VMOption;
+import java.io.File;
+import java.io.IOException;
+import java.lang.management.RuntimeMXBean;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
+import static java.lang.management.ManagementFactory.*;
 
 /**
  * Created by ses on 3/19/14.
