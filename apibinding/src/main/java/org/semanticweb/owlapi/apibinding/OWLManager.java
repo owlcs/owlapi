@@ -49,7 +49,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return The new manager.
      */
     public static OWLOntologyManager createOWLOntologyManager() {
-        return instatiateOWLOntologyManager(Concurrency.NON_CONCURRENT);
+        return createOWLOntologyManager(createInjector(Concurrency.NON_CONCURRENT));
     }
 
     /**
@@ -59,7 +59,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return The new manager.
      */
     public static OWLOntologyManager createConcurrentOWLOntologyManager() {
-        return instatiateOWLOntologyManager(Concurrency.CONCURRENT);
+        return createOWLOntologyManager(createInjector(Concurrency.CONCURRENT));
     }
 
     /**
@@ -68,17 +68,46 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return An OWLDataFactory that can be used for creating OWL API objects.
      */
     public static OWLDataFactory getOWLDataFactory() {
-        return verifyNotNull(createInjector(Concurrency.NON_CONCURRENT).getInstance(OWLDataFactory.class));
+        return getOWLDataFactory(createInjector(Concurrency.NON_CONCURRENT));
+    }
+
+    /**
+     * Creates an OWL ontology manager that is configured with the standard
+     * parsers and storers and provides locking for concurrent access.
+     * 
+     * @param injector
+     *        injector object
+     * @return The new manager.
+     */
+    public static OWLOntologyManager createOWLOntologyManager(Object injector) {
+        return instatiateOWLOntologyManager(injector);
+    }
+
+    /**
+     * Gets a global data factory that can be used to create OWL API objects.
+     * 
+     * @param injector
+     *        injector object
+     * @return An OWLDataFactory that can be used for creating OWL API objects.
+     */
+    public static OWLDataFactory getOWLDataFactory(Object injector) {
+        return verifyNotNull(((Injector) injector).getInstance(OWLDataFactory.class));
     }
 
     /**
      * @return an initialized manchester syntax parser for parsing strings
      */
     public static ManchesterOWLSyntaxParser createManchesterParser() {
-        return createInjector(Concurrency.NON_CONCURRENT).getInstance(ManchesterOWLSyntaxParser.class);
+        return ((Injector) createInjector(Concurrency.NON_CONCURRENT)).getInstance(ManchesterOWLSyntaxParser.class);
     }
 
-    private static Injector createInjector(Concurrency concurrency) {
+    /**
+     * @param concurrency
+     *        concurrency value (concurrent or non concurrent?)
+     * @return an injector for OWLOntologyManager and OWLDataFactory; Object is
+     *         returned so the interface is not tied to Guice.
+     */
+    public static Object createInjector(Concurrency concurrency) {
         String previousStrategy = System.getProperty("guice_include_stack_traces");
         System.setProperty("guice_include_stack_traces", "OFF");
         Injector injector = Guice.createInjector(new OWLAPIImplModule(concurrency), new OWLAPIParsersModule(),
@@ -91,10 +120,10 @@ public class OWLManager implements OWLOntologyManagerFactory {
         return injector;
     }
 
-    private static OWLOntologyManager instatiateOWLOntologyManager(Concurrency concurrency) {
-        Injector injector = createInjector(concurrency);
-        OWLOntologyManager instance = injector.getInstance(OWLOntologyManager.class);
-        injector.injectMembers(instance);
+    private static OWLOntologyManager instatiateOWLOntologyManager(Object injector) {
+        Injector inj = (Injector) injector;
+        OWLOntologyManager instance = inj.getInstance(OWLOntologyManager.class);
+        inj.injectMembers(instance);
         return verifyNotNull(instance);
     }
 }

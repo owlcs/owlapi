@@ -3,6 +3,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<prerequisites>
+		<maven>3.0.5</maven>
+	</prerequisites>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -13,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>5.0.4</version>
+	<version>5.0.6-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
@@ -21,7 +24,7 @@
 	<properties>
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sesame.version>4.0.2</sesame.version>
+		<rdf4j.version>2.1.4</rdf4j.version>
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
 		<no-javadoc>true</no-javadoc>
@@ -93,66 +96,88 @@
 		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>
 			<artifactId>caffeine</artifactId>
-			<version>2.1.0</version>
+			<version>2.3.5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>19.0</version>
+			<version>20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.0</version>
+			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assistedinject</artifactId>
-			<version>4.0</version>
+			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
-			<version>4.0</version>
+			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
-			<version>2.0.1</version>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.14</version>
+			<version>1.7.22</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.14</version>
+			<version>1.7.22</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>2.5</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-rdf-api</artifactId>
+				<version>0.3.0-incubating</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-rdf-api</artifactId>
+				<version>0.3.0-incubating</version>
+				<classifier>tests</classifier>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-core</artifactId>
-				<version>2.6.3</version>
+				<version>2.8.5</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
-				<version>2.6.3</version>
+				<version>2.8.5</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>2.6.3</version>
+				<version>2.8.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore-osgi</artifactId>
+				<version>4.4.5</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.jsonld-java</groupId>
+				<artifactId>jsonld-java</artifactId>
+				<version>0.9.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -167,7 +192,7 @@
 	<mailingLists>
 		<mailingList>
 			<name>OWLAPI Development Mailing list</name>
-			<subscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developert</subscribe>
+			<subscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developer</subscribe>
 			<unsubscribe>https://lists.sourceforge.net/lists/listinfo/owlapi-developer</unsubscribe>
 			<archive>http://sourceforge.net/mailarchive/forum.php?forum_name=owlapi-developer</archive>
 			<post>owlapi-developer@lists.sourceforge.net</post>
@@ -199,7 +224,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.5</version>
+						<version>1.6</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -213,7 +238,7 @@
 					<plugin>
 						<groupId>org.apache.felix</groupId>
 						<artifactId>maven-bundle-plugin</artifactId>
-						<version>2.5.3</version>
+						<version>3.2.0</version>
 						<extensions>true</extensions>
 						<configuration>
 							<instructions>
@@ -228,7 +253,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>2.2.1</version>
+						<version>3.0.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -243,7 +268,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.8.1</version>
+						<version>2.10.4</version>
 						<configuration>
 							<show>public</show>
 						</configuration>
@@ -272,7 +297,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.6.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -284,7 +309,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -299,7 +324,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.8.1</version>
+				<version>2.10.4</version>
 				<configuration>
 					<show>public</show>
 				</configuration>
@@ -319,7 +344,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
+				<version>2.19.1</version>
 				<configuration>
 					<includes>
 						<include>**/*TestCase.java, **/*Test.java</include>
@@ -334,7 +359,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.18.1</version>
+				<version>2.19.1</version>
 				<configuration>
 					<includes>
 						<include>**/*IntegrationTestCase.java</include>
@@ -352,7 +377,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.3</version>
+				<version>1.6.7</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
@@ -363,7 +388,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>3.2.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -381,7 +406,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>2.5.3</version>
+					<version>3.0.4</version>
 					<executions>
 						<execution>
 							<id>findbugs-check</id>

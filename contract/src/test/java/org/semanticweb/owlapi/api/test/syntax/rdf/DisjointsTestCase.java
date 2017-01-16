@@ -19,7 +19,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -27,8 +26,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
 
 /**
  * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
@@ -44,11 +41,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
  */
 @SuppressWarnings("javadoc")
 public class DisjointsTestCase extends TestBase {
-
-    @Before
-    public void setUpManager() {
-        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
-    }
 
     @Test
     public void testAnonDisjoints() throws Exception {

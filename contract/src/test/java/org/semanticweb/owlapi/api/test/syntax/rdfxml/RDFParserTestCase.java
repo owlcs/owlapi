@@ -29,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -43,7 +41,6 @@ public class RDFParserTestCase extends TestBase {
     public void setUpStorers() {
         // Use the reference implementation
         m.getOntologyStorers().set(new RDFXMLStorerFactory());
-        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
     }
 
     @Test

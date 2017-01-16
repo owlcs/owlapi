@@ -18,7 +18,13 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -44,9 +50,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -63,7 +67,6 @@ public abstract class TestBase {
 
     protected static final Logger logger = LoggerFactory.getLogger(TestBase.class);
     protected final @Nonnull File RESOURCES = resources();
-    protected final @Nonnull OWLOntologyBuilder builder = (om, id) -> new OWLOntologyImpl(om, id);
 
     protected <T> T get(Optional<T> t) {
         return t.get();
@@ -95,14 +98,16 @@ public abstract class TestBase {
     @Nonnull @Rule public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
     protected @Nonnull OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     protected static @Nonnull OWLDataFactory df;
-    protected static @Nonnull OWLOntologyManager masterManager;
+    protected static @Nonnull Object masterInjector;
+    protected static @Nonnull OntologyConfigurator masterConfigurator;
     protected @Nonnull OWLOntologyManager m;
     protected @Nonnull OWLOntologyManager m1;
 
     @BeforeClass
     public static void setupManagers() {
-        masterManager = OWLManager.createOWLOntologyManager();
-        df = masterManager.getOWLDataFactory();
+        masterInjector = OWLManager.createInjector(Concurrency.NON_CONCURRENT);
+        masterConfigurator = new OntologyConfigurator();
+        df = OWLManager.getOWLDataFactory(masterInjector);
     }
 
     @Before
@@ -112,13 +117,9 @@ public abstract class TestBase {
     }
 
     protected static OWLOntologyManager setupManager() {
-        OWLOntologyManager manager = new OWLOntologyManagerImpl(df, new NoOpReadWriteLock());
-        manager.getOntologyFactories().set(masterManager.getOntologyFactories());
-        manager.getOntologyParsers().set(masterManager.getOntologyParsers());
-        manager.getOntologyStorers().set(masterManager.getOntologyStorers());
-        manager.getIRIMappers().set(masterManager.getIRIMappers());
-        manager.setOntologyConfigurator(masterManager.getOntologyConfigurator());
-        return manager;
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager(masterInjector);
+        man.setOntologyConfigurator(masterConfigurator);
+        return man;
     }
 
     protected static <S> Set<S> singleton(S s) {
@@ -458,6 +459,7 @@ public abstract class TestBase {
             throw new OWLRuntimeException(e);
         }
     }
+
     protected OWLOntology loadOntologyFromString(String input, OWLDocumentFormat f) {
         StringDocumentSource documentSource = new StringDocumentSource(input, IRI.generateDocumentIRI(), f, null);
         try {

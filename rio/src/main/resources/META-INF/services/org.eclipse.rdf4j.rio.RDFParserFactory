@@ -1,0 +1,3 @@
+org.semanticweb.owlapi.rio.RioFunctionalSyntaxParserFactory
+org.semanticweb.owlapi.rio.RioManchesterSyntaxParserFactory
+org.semanticweb.owlapi.rio.RioOWLXMLParserFactory
