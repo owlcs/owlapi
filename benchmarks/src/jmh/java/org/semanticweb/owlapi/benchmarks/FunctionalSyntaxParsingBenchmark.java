@@ -1,4 +1,4 @@
-/*
+package org.semanticweb.owlapi.benchmarks;/*
  * Copyright (c) 2005, 2014, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
@@ -22,7 +22,6 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package org.semanticweb.owlapi.benchmarks;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -35,28 +34,30 @@ import org.openjdk.jmh.annotations.TearDown;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
 @SuppressWarnings("javadoc")
 @State(Scope.Thread)
-public class MyBenchmark {
+public class FunctionalSyntaxParsingBenchmark {
 
+    private static String TAXON_URL=
+            "https://github.com/owlcs/owlapibenchmarks/raw/master/ncbitaxon/src/main/resources/ncbitaxon.rdf.ofn.gz";
     private File uncompressedTaxonFile;
 
     @Setup(Level.Trial)
     public void setUp() throws IOException {
-        uncompressedTaxonFile = File.createTempFile("taxons", "ofn");
-        InputStream resourceAsStream = getClass().getResourceAsStream(
-            "/ncbitaxon.rdf.ofn.gz");
+        uncompressedTaxonFile = File.createTempFile("taxons", ".ofn");
+        InputStream resourceAsStream = new URL(TAXON_URL).openStream();
         try (GZIPInputStream in = new GZIPInputStream(resourceAsStream);
             FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
             int n;
@@ -81,7 +82,7 @@ public class MyBenchmark {
             uncompressedTaxonFile);
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
             .setStrict(false);
-        OWLOntologyImpl ontology = (OWLOntologyImpl) manager
+        OWLOntology ontology = manager
             .loadOntologyFromOntologyDocument(ds, config);
         manager.removeOntology(ontology);
     }
