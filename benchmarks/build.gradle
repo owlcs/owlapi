@@ -1,13 +1,12 @@
 plugins {
     id 'java'
     id 'idea'
-   // id 'com.github.johnrengelman.shadow'   version '1.2.4'
+    id 'com.github.johnrengelman.shadow'   version '1.2.4'
     id 'me.champeau.gradle.jmh'   version '0.3.1'
 }
 dependencies {
     jmh 'org.openjdk.jmh:jmh-core:[1,2)'
-    //jmh 'org.openjdk.jmh:jmh-generator-annprocess:[1,2)'
-    jmh project(':owlapi-apibinding')
+    compile project(':owlapi-apibinding')
 }
 jmh {
     //include='.*'
