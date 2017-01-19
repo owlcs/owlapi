@@ -12,15 +12,25 @@ dependencies {
     compile project(':owlapi-rio')
     compile project(':owlapi-api')
     compile project(':owlapi-compatibility')
+    compile fileTree(dir: "bundles", include: "*.jar")
+    
   compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.javax-inject', version: '1_2'
     compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.aopalliance', version: '1.0_6'
-    testCompile group: 'org.apache.felix', name: 'org.apache.felix.framework', version: '5.4.0'
-    testCompile group: 'org.apache.felix', name: 'org.osgi.core', version: '1.4.0'
+    testCompile group: 'org.apache.felix', name: 'org.apache.felix.main', version: 'latest.release'
+    testCompile group: 'org.osgi', name: 'org.osgi.core', version: 'latest.release'
+    testCompile group: 'org.apache.felix', name: 'org.apache.felix.bundlerepository', version: 'latest.release'
+    testCompile 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.2.0'
+
 }
 
 apply plugin: 'java'
+
+
+
+
 import aQute.bnd.gradle.Bundle
-task jar(overwrite: true, type: Bundle) {
+
+task bundle( type: Bundle) {
     dependsOn classes
     configuration=configurations.compile
     manifest {
@@ -39,4 +49,37 @@ task jar(overwrite: true, type: Bundle) {
                 
         )
     }
-}  
+}
+test {
+    File bundleName = new File(temporaryDir,"bundleName")
+    PrintStream out = new PrintStream(bundleName)
+    out.println(bundle.archivePath)
+    def var = configurations.compile.resolvedConfiguration.resolvedArtifacts
+    List<aQute.bnd.osgi.Jar> bcp = []
+    Set dependentArtifacts = new HashSet()
+    var.findAll({ foo -> foo.moduleVersion.id.group != project.group})*.file.each {
+        bcp += new aQute.bnd.osgi.Jar(it)
+        dependentArtifacts.add(it)
+    }
+    bcp.each {
+        if(it.bsn) {
+            println it.bsn
+        } else {
+            println "no bsn for ${it}"
+        }
+    }
+    dependentArtifacts.each {
+        out.println it
+    }
+    FileTree foo = fileTree(dir: "bundles", include: "*.jar")
+     foo.files.each {
+         out.println it
+     }
+    out.close()
+}
+
+
+jar {
+    dependsOn bundle
+    deleteAllActions()
+}
