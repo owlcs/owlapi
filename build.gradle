@@ -31,9 +31,14 @@ subprojects {
     task packageSources(type: Jar) {
         classifier = 'sources'
         from sourceSets.main.allSource
-
+    }
+    task packageJavadoc(type: Jar) {
+        dependsOn javadoc
+        classifier = 'javadoc'
+        from javadoc.outputs
     }
     artifacts.archives packageSources
+    artifacts.archives packageJavadoc
 
     repositories {
         mavenLocal()
@@ -41,8 +46,6 @@ subprojects {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
     
-    /*configurations.all {
-    }  */
     dependencies {
         compile group: 'net.sf.trove4j', name: 'trove4j', version: '[3.0.3,4)'
         compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '[2.1,3)'
