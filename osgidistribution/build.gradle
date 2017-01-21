@@ -29,6 +29,7 @@ apply plugin: 'java'
 
 
 import aQute.bnd.gradle.Bundle
+import aQute.bnd.osgi.Analyzer
 
 task bundle( type: Bundle) {
     dependsOn classes
@@ -61,11 +62,13 @@ test {
         bcp += new aQute.bnd.osgi.Jar(it)
         dependentArtifacts.add(it)
     }
+    def bundles = []
+    def nonbundles = []
     bcp.each {
         if(it.bsn) {
-            println it.bsn
+            bundles += it
         } else {
-            println "no bsn for ${it}"
+            nonbundles += it
         }
     }
     dependentArtifacts.each {
@@ -78,8 +81,113 @@ test {
     out.close()
 }
 
+task wrap(type: OSGIWrap) {
+    configuration = project.configurations.compile
+    def var = configurations.compile.resolvedConfiguration.resolvedArtifacts
+    List<aQute.bnd.osgi.Jar> bcp = []
+    Set dependentArtifacts = new HashSet()
+    var.findAll({ foo -> foo.moduleVersion.id.group != project.group })*.file.each {
+        bcp += new aQute.bnd.osgi.Jar(it)
+        dependentArtifacts.add(it)
+    }
+    def bundles = []
+    def nonbundles = []
+    bcp.each {
+        if (it.bsn) {
+            bundles += it
+        } else {
+            nonbundles += it
+        }
+    }
+}
 
 jar {
     dependsOn bundle
     deleteAllActions()
+}
+
+class OSGIWrap extends DefaultTask {
+    Configuration configuration = project.configurations.compile
+    @OutputDirectory
+    File bundleOutputDir = new File(project.buildDir,"wrapped-bundles")
+    def walkTree(ResolutionResult foo, Closure f) {
+        //println "foo root = ${foo.root.id}"
+        depthFirstWalk(foo.root.dependencies, f)
+        //println foo.properties
+
+    }
+
+    def depthFirstWalk(Set<DependencyResult> kids, Closure f, int level = 0) {
+        if (kids.empty)
+            return
+        //println("walk level: ${level}")  ${dependencyToFileMap[kid.selected.id]}
+        for (DependencyResult kid : kids) {
+            //println "${spaces(level)}${kid.selected.id} "
+            depthFirstWalk(kid.selected.dependencies, f, level + 1)
+            f.call(kid)
+        }
+        // println "end level ${level}"
+    }
+    def dependencyToFileMap = [:]
+    def dependencyToJarMap = [:]
+    def bundles = []
+    HashSet seen = []
+
+    private void buildDependencyToFileMap() {
+        configuration.resolvedConfiguration.resolvedArtifacts.each {
+            dependencyToFileMap[it.id.componentIdentifier] = it.file
+            def jar = new aQute.bnd.osgi.Jar(it.file)
+            dependencyToJarMap[it.id.componentIdentifier] = jar
+
+        }
+    }
+
+    @TaskAction
+    wrap() {
+        println "in wrap"
+        buildDependencyToFileMap()
+        walkTree(configuration.incoming.resolutionResult,
+                {
+                    DependencyResult dep ->
+                        if (dep.selected.id instanceof ProjectComponentIdentifier)
+                            return
+                        if(!seen.add(dep.selected.id)) {
+                            return
+                        } 
+                        def jar = dependencyToJarMap[dep.selected.id]
+                        if (!jar.bsn) {
+                            //println dep.selected.properties
+                            wrapOneJar(dep, jar)
+                            bundles += jar
+                        } else {
+                            println "jar is already a bundle (${jar.bsn})"
+                            bundles += jar
+                        }
+                })
+    }
+
+    void wrapOneJar(DependencyResult dep, aQute.bnd.osgi.Jar toWrap) {
+        Analyzer analyzer = new Analyzer()
+        analyzer.setClasspath(bundles)
+        analyzer.setJar(toWrap)
+        def depId = dep.selected.id
+        analyzer.setBundleSymbolicName("${depId.group}.${depId.module}")
+        analyzer.bundleVersion = depId.version
+        analyzer.exportPackage = "*;version=\"${depId.version}\""
+        analyzer.importPackage = "*"
+        analyzer.calculateExportsFromContents(toWrap)
+        analyzer.analyze()
+        toWrap.manifest =  analyzer.calcManifest()
+        println toWrap.manifest.properties
+        analyzer.save(new File(bundleOutputDir,"${depId.group}.${depId.module}-${depId.version}.jar"),true)
+    }
+
+    static spaces(int count) {
+        StringBuilder buf = new StringBuilder()
+        while (count--) {
+            buf.append("  ")
+        }
+        return buf.toString()
+    }
+
 }
