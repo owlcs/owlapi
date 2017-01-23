@@ -15,4 +15,16 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+	<properties>
+		<!-- Overriding the 3.3 from parent because this was first introduced in 3.4 -->
+		<last.japicmp.compare.version>3.4</last.japicmp.compare.version>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.siom79.japicmp</groupId>
+				<artifactId>japicmp-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

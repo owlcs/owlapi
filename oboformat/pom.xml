@@ -28,6 +28,8 @@
 	</licenses>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Overriding the 3.3 from parent because this was first introduced in 3.4.10 -->
+		<last.japicmp.compare.version>3.4.10</last.japicmp.compare.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -47,4 +49,12 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.siom79.japicmp</groupId>
+				<artifactId>japicmp-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
