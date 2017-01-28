@@ -9,18 +9,18 @@ JAVA_UNICODE_ESCAPE=true;
 
 PARSER_BEGIN(KRSS2Parser)
 
-package de.uulm.ecs.ai.owlapi.krssparser;
+package org.semanticweb.owlapi.krss2.parser;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.util.*;
-import org.coode.owl.krssparser.NameResolverStrategy;
-
-import java.net.*;
+import java.net.URISyntaxException;
 import java.util.*;
 
+import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.krss1.parser.NameResolverStrategy;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
 // Suppress warnings in auto-generated code
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class KRSS2Parser {
 
     private OWLOntology ontology;
@@ -33,7 +33,6 @@ public class KRSS2Parser {
 
     private String base;
 
-    private NamespaceUtil utils;
      private NameResolverStrategy nameResolution;
     //all fields for the adaptive strategy
     private int adaptiveMaxRuns = 10;
@@ -42,9 +41,9 @@ public class KRSS2Parser {
     //
     private String[] splitted=new String[2];
 
-    public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory)  {
+    public KRSS2Parser setOntology(OWLOntology ontology)  {
         this.ontology = ontology;
-        this.dataFactory = dataFactory;
+        this.dataFactory = ontology.getOWLOntologyManager().getOWLDataFactory();
         this.string2IRI = new HashMap<String, IRI>();
         OWLOntologyID id = ontology.getOntologyID();
         if(!id.isAnonymous()) {
@@ -53,9 +52,8 @@ public class KRSS2Parser {
         else {
             this.base = id.toString() + "#";
         }
-        this.utils = new NamespaceUtil();
         this.nameResolution = NameResolverStrategy.CHECK;
-
+        return this;
     }
 
      protected void addAxiom(OWLAxiom ax) throws KRSS2OWLParserException {
@@ -68,15 +66,15 @@ public class KRSS2Parser {
     }
 
      public IRI getIRI(final String s) throws URISyntaxException {
-            IRI IRI = string2IRI.get(s);
-            if (IRI == null) {
+            IRI iri = string2IRI.get(s);
+            if (iri == null) {
                 switch(nameResolution) {
                     case IRI: {
-                        IRI = IRI.create(s);
+                        iri = IRI.create(s);
                         break;
                     }
                     case NAME: {
-                        IRI = IRI.create(base+s);
+                        iri = IRI.create(base+s);
                         break;
                     }
                     case ADAPTIVE: {
@@ -91,18 +89,18 @@ public class KRSS2Parser {
                         adaptiveMaxRuns--;
                     }
                     case CHECK: {
-                        splitted = utils.split(s, splitted);
-                        if (splitted[0]=="") {
-                            IRI = IRI.create(base + s);
-                        } else {
-                            IRI = IRI.create(s);
-                        }
+                        String ns = XMLUtils.getNCNamePrefix(s);
+                    	if (ns.equals("")) {
+                        	iri = IRI.create(base + s);
+                    	} else {
+                        	iri = IRI.create(s);
+                    	}
                         break;
                     }
                 }
-                string2IRI.put(s,IRI);
+                string2IRI.put(s,iri);
             }
-            return IRI;
+            return iri;
         }
 
      public void setNameResolution(NameResolverStrategy nameResolution) {

@@ -7,7 +7,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -42,8 +42,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
-import org.semanticweb.owlapi.io.DocumentSources;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,18 +153,10 @@ public class OBOFormatWriter {
      *         the oBO format parser exception
      */
     public void write(String fn, Writer writer) throws IOException {
-        if (fn.startsWith("http:")) {
-            try (InputStream in = DocumentSources.getInputStream(IRI.create(fn), new OWLOntologyLoaderConfiguration())
-                .get()) {
-                write(in, writer);
-            } catch (OWLOntologyInputSourceException e) {
-                throw (IOException) e.getCause();
-            }
-        } else {
-            try (InputStream in = new FileInputStream(new File(fn))) {
-                write(in, writer);
-            }
-        }
+        AtomicReference<OBODoc> doc = new AtomicReference<>();
+        OWLParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
+        new IRIDocumentSource(IRI.create(fn)).acceptParser(parser, null, new OWLOntologyLoaderConfiguration());
+        write(doc.get(), writer);
     }
 
     /**

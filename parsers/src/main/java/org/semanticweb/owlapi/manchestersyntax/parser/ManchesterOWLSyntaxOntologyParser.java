@@ -18,10 +18,7 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.DocumentSources;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
-import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -44,10 +41,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-        OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config);
-            BufferedReader reader = new BufferedReader(r)) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+        try (BufferedReader reader = new BufferedReader(r)) {
             StringBuilder sb = new StringBuilder();
             String line;
             int lineCount = 1;
@@ -59,17 +54,16 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 if (!foundMagicNumber) {
                     String trimmedLine = line.trim();
                     if (!trimmedLine.isEmpty() && !trimmedLine.startsWith(COMMENT_START_CHAR)) {
-                        // Non-empty line, that is not a comment. The
-                        // trimmed line MUST start with our magic
-                        // number if we are going to parse the rest of
-                        // it.
+                        // Non-empty line, that is not a comment. The trimmed
+                        // line MUST start with our magic number if we are going
+                        // to parse the rest of it.
                         if (startsWithMagicNumber(line)) {
                             foundMagicNumber = true;
-                            // We have set the found flag - we never end
-                            // up here again
+                            // We have set the found flag - we never end up here
+                            // again
                         } else {
-                            // Non-empty line that is NOT a comment. We
-                            // cannot possibly parse this.
+                            // Non-empty line that is NOT a comment. We cannot
+                            // possibly parse this.
                             int startCol = line.indexOf(trimmedLine) + 1;
                             String msg = String.format(
                                 "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
@@ -81,14 +75,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 lineCount++;
             }
             String s = sb.toString();
-            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), ontology
+            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), o
                 .getOWLOntologyManager().getOWLDataFactory());
             parser.setOntologyLoaderConfiguration(config);
             parser.setStringToParse(s);
-            return parser.parseOntology(ontology);
-        } catch (ParserException e) {
-            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, e.getLineNumber(), e.getColumnNumber());
-        } catch (OWLOntologyInputSourceException | IOException e) {
+            return parser.parseOntology(o);
+        } catch (IOException e) {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, 1, 1);
         }
     }

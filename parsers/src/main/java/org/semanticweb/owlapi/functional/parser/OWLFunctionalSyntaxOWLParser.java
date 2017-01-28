@@ -12,15 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.parser;
 
-import java.io.IOException;
 import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.DocumentSources;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
-import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -39,16 +35,9 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-            OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(r));
-            parser.setUp(ontology, config);
-            return parser.parse();
-        } catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e, 0, 0);
-        } catch (TokenMgrError | OWLOntologyInputSourceException | IOException e) {
-            throw new OWLParserException(e);
-        }
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+        OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(r));
+        parser.setUp(o, config);
+        return parser.parse();
     }
 }

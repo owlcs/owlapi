@@ -12,51 +12,60 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
+import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
-import javax.annotation.Nullable;
-
-import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.tukaani.xz.XZInputStream;
 
 /**
- * An ontology document source which can read from a XZ stream.
- * 
- * @author ses
- * @since 4.0.2
+ * Utility class for handling zip files (local or remote).
  */
-public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
+public class ZipSources {
+
+    private static final Pattern ZIP_ENTRY_ONTOLOGY = Pattern.compile(".*owl|rdf|xml|mos");
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified file.
-     *
      * @param is
-     *        The stream that the ontology representation will be read from.
+     *        input stream to wrap if a zip file
+     * @param name
+     *        name of the file or the IRI
+     * @return wrapped inputstream if necessary
+     * @throws IOException
+     *         if an exception happens accessing the zip stream
      */
-    public XZStreamDocumentSource(InputStream is) {
-        this(is, IRI.getNextDocumentIRI("xzinputstream:ontology"), null, null);
+    public static InputStream handleZips(InputStream is, IRI name) throws IOException {
+        return handleZips(is, name.toString());
     }
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
-     *
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param is
+     *        input stream to wrap if a zip file
+     * @param name
+     *        name of the file or the IRI
+     * @return wrapped inputstream if necessary
+     * @throws IOException
+     *         if an exception happens accessing the zip stream
      */
-    public XZStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
-        super(documentIRI, format, mime);
-        inputStream = () -> new XZInputStream(new ByteArrayInputStream(IOUtils.toByteArray(stream)));
+    public static InputStream handleZips(InputStream is, String name) throws IOException {
+        if (!name.toLowerCase(Locale.getDefault()).endsWith(".zip")) {
+            return is;
+        }
+        ZipInputStream zis = new ZipInputStream(is);
+        ZipEntry nextEntry = zis.getNextEntry();
+        while (nextEntry != null) {
+            if (couldBeOntology(nextEntry)) {
+                return zis;
+            }
+            nextEntry = zis.getNextEntry();
+        }
+        return zis;
+    }
+
+    private static boolean couldBeOntology(ZipEntry zipEntry) {
+        return ZIP_ENTRY_ONTOLOGY.matcher(zipEntry.getName()).matches();
     }
 }

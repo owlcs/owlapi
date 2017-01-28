@@ -12,18 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -33,8 +30,7 @@ import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.semanticweb.owlapi.util.BufferByteArray;
 
 /**
  * Base class for common utilities among stream, reader and file input sources.
@@ -45,11 +41,6 @@ import org.slf4j.LoggerFactory;
  *        Both issues could be addressed with a local file copy.
  */
 public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSourceBase {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(StreamDocumentSourceBase.class);
-    @Nullable protected byte[] byteBuffer;
-    private Charset encoding = StandardCharsets.UTF_8;
-    private boolean streamAvailable = false;
 
     /**
      * Constructs an input source which will read an ontology from a
@@ -68,7 +59,24 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
         @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
-        streamAvailable = true;
+    }
+
+    /**
+     * Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *        The stream that the ontology representation will be read from.
+     * @param prefix
+     *        The document IRI prefix
+     * @param format
+     *        ontology format
+     * @param mime
+     *        mime type
+     */
+    protected StreamDocumentSourceBase(InputStream stream, String prefix, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
+        this(stream, IRI.getNextDocumentIRI(prefix), format, mime);
     }
 
     /**
@@ -94,27 +102,6 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
             encoding = Charset.forName(((InputStreamReader) stream).getEncoding());
         }
         readIntoBuffer(stream);
-        streamAvailable = false;
-    }
-
-    /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
-     * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param prefix
-     *        The document IRI prefix
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
-     */
-    protected StreamDocumentSourceBase(InputStream stream, String prefix, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
-        super(prefix, format, mime);
-        readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
-        streamAvailable = true;
     }
 
     /**
@@ -132,15 +119,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      */
     protected StreamDocumentSourceBase(Reader stream, String prefix, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
-        super(prefix, format, mime);
-        checkNotNull(stream, "stream cannot be null");
-        // if the input stream carries encoding information, use it; else leave
-        // the default as UTF-8
-        if (stream instanceof InputStreamReader) {
-            encoding = Charset.forName(((InputStreamReader) stream).getEncoding());
-        }
-        readIntoBuffer(stream);
-        streamAvailable = false;
+        this(stream, IRI.getNextDocumentIRI(prefix), format, mime);
     }
 
     /**
@@ -148,63 +127,30 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      * which is necessary because we may need to access the input stream more
      * than once. In other words, this method caches the input stream.
      * 
-     * @param reader
+     * @param in
      *        The stream to be "cached"
      */
-    private void readIntoBuffer(InputStream reader) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            GZIPOutputStream out = new GZIPOutputStream(bos);
-            IOUtils.copy(reader, out);
+    private void readIntoBuffer(InputStream in) {
+        try (BufferByteArray bos = new BufferByteArray(); GZIPOutputStream out = new GZIPOutputStream(bos)) {
+            IOUtils.copy(in, out);
             out.finish();
             out.flush();
-            byteBuffer = bos.toByteArray();
+            inputStream = () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-    private void readIntoBuffer(Reader reader) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            GZIPOutputStream out = new GZIPOutputStream(bos);
-            OutputStreamWriter writer = new OutputStreamWriter(out);
-            IOUtils.copy(reader, writer);
+    private void readIntoBuffer(Reader in) {
+        try (BufferByteArray bos = new BufferByteArray(); GZIPOutputStream out = new GZIPOutputStream(bos)) {
+            OutputStreamWriter writer = new OutputStreamWriter(out, encoding);
+            IOUtils.copy(in, writer);
             writer.flush();
             out.finish();
             out.flush();
-            byteBuffer = bos.toByteArray();
+            inputStream = () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
-        }
-    }
-
-    @Override
-    public Optional<InputStream> getInputStream() {
-        if (!streamAvailable) {
-            return emptyOptional();
-        }
-        try {
-            return optional(new GZIPInputStream(new ByteArrayInputStream(byteBuffer)));
-        } catch (IOException e) {
-            LOGGER.error("Buffer cannot be opened", e);
-            failedOnStreams.set(true);
-            return emptyOptional();
-        }
-    }
-
-    @Override
-    public Optional<Reader> getReader() {
-        if (streamAvailable) {
-            return emptyOptional();
-        }
-        try {
-            return optional(new InputStreamReader(DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(
-                byteBuffer))), encoding));
-        } catch (IOException e) {
-            LOGGER.error("Buffer cannot be opened", e);
-            failedOnStreams.set(true);
-            return emptyOptional();
         }
     }
 }

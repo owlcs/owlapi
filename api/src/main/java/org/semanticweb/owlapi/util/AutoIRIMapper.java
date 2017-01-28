@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +34,6 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -249,14 +247,12 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
     private void parseFile(File file) {
-        try (FileInputStream in = new FileInputStream(file);
-            BufferedInputStream delegate = new BufferedInputStream(in);
-            InputStream is = DocumentSources.wrap(delegate);) {
+        try {
             currentFile = file;
             // Using the default expansion limit. If the ontology IRI cannot be
             // found before 64000 entities are expanded, the file is too
             // expensive to parse.
-            SAXParsers.initParserWithOWLAPIStandards(null, "64000").parse(is, this);
+            SAXParsers.initParserWithOWLAPIStandards(null, "64000").parse(file, this);
         } catch (SAXException | IOException e) {
             // if we can't parse a file, then we can't map it
             LOGGER.debug("Exception reading file", e);

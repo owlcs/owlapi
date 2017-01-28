@@ -19,7 +19,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -162,8 +161,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     private void parseOnto(OWLOntologyDocumentSource initialDocumentSource, OWLOntology initialOntology) {
-        OWLParser initialParser = new RDFXMLParser();
-        initialParser.parse(initialDocumentSource, initialOntology, config);
+        initialDocumentSource.acceptParser(new RDFXMLParser(), initialOntology, config);
     }
 
     private OWLOntologyDocumentSource getDocumentSource() {

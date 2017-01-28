@@ -7,14 +7,14 @@ JAVA_UNICODE_ESCAPE=true;
 
 PARSER_BEGIN(KRSSParser)
 
-package org.coode.owl.krssparser;
+package org.semanticweb.owlapi.krss1.parser;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import java.net.*;
 import java.util.*;
 
-
+@SuppressWarnings("all")
 public class KRSSParser {
 
     private OWLOntology ontology;
@@ -27,9 +27,9 @@ public class KRSSParser {
 
     private String base;
 
-    public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
+    public KRSSParser setOntology(OWLOntology ontology) {
         this.ontology = ontology;
-        this.dataFactory = dataFactory;
+        this.dataFactory = ontology.getOWLOntologyManager().getOWLDataFactory();
         string2IRI = new HashMap<String, IRI>();
         if (!ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI() + "#";
@@ -37,6 +37,7 @@ public class KRSSParser {
         else {
             base = Namespaces.OWL.toString();
         }
+        return this;
     }
 
     protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {

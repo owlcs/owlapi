@@ -35,13 +35,13 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -58,13 +58,9 @@ import org.eclipse.rdf4j.rio.RDFParser;
 import org.eclipse.rdf4j.rio.Rio;
 import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
-import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.DocumentSources;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -97,31 +93,56 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         return owlFormatFactory;
     }
 
+    protected String baseIRI(final OWLOntology ontology) {
+        String baseUri = "urn:default:baseUri:";
+        // Override the default baseUri for non-anonymous ontologies
+        if (!ontology.getOntologyID().isAnonymous() && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
+            baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
+        }
+        return baseUri;
+    }
+
     @Override
-    public OWLDocumentFormat parse(final OWLOntologyDocumentSource documentSource, final OWLOntology ontology,
-        final OWLOntologyLoaderConfiguration configuration) {
+    public OWLDocumentFormat parse(RioMemoryTripleSource r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+        IRI documentIRI) {
+        RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(o, CHECKER, config);
+        consumer.setOntologyFormat(owlFormatFactory.createFormat());
+        RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
+        Iterator<Statement> statementsIterator = r.getStatementIterator();
+        handler.startRDF();
+        r.getNamespaces().forEach(handler::handleNamespace);
+        while (statementsIterator.hasNext()) {
+            handler.handleStatement(statementsIterator.next());
+        }
+        handler.endRDF();
+        return handler.consumer.getOntologyFormat();
+    }
+
+    @Override
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI iri) {
+        return parseStream(r, o, config);
+    }
+
+    @Override
+    public OWLDocumentFormat parse(InputStream in, String cs, OWLOntology o, OWLOntologyLoaderConfiguration config,
+        IRI iri) {
+        return parseStream(in, o, config);
+    }
+
+    private OWLDocumentFormat parseStream(Object r, OWLOntology o, OWLOntologyLoaderConfiguration config) {
+        long rioParseStart = System.currentTimeMillis();
         try {
-            RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(ontology, CHECKER, configuration);
+            RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(o, CHECKER, config);
             consumer.setOntologyFormat(owlFormatFactory.createFormat());
-            String baseUri = "urn:default:baseUri:";
-            // Override the default baseUri for non-anonymous ontologies
-            if (!ontology.getOntologyID().isAnonymous() && ontology.getOntologyID().getDefaultDocumentIRI()
-                .isPresent()) {
-                baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
-            }
             RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
-            if (documentSource instanceof RioMemoryTripleSource) {
-                RioMemoryTripleSource tripleSource = (RioMemoryTripleSource) documentSource;
-                Map<String, String> namespaces = tripleSource.getNamespaces();
-                Iterator<Statement> statementsIterator = tripleSource.getStatementIterator();
-                handler.startRDF();
-                namespaces.forEach(handler::handleNamespace);
-                while (statementsIterator.hasNext()) {
-                    handler.handleStatement(statementsIterator.next());
-                }
-                handler.endRDF();
+            final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
+            createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
+            createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
+            createParser.setRDFHandler(handler);
+            if (r instanceof Reader) {
+                createParser.parse((Reader) r, baseIRI(o));
             } else {
-                parseDocumentSource(documentSource, baseUri, handler, configuration);
+                createParser.parse((InputStream) r, baseIRI(o));
             }
             return consumer.getOntologyFormat();
         } catch (final RDFHandlerException e) {
@@ -133,61 +154,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             } else {
                 throw new OWLParserException(e);
             }
-        } catch (RDFParseException | UnsupportedRDFormatException | OWLOntologyInputSourceException | IOException e) {
-            throw new OWLParserException(e);
-        }
-    }
-
-    /**
-     * Parse the given document source and return a {@link StatementCollector}
-     * containing the RDF statements found in the source.
-     * 
-     * @param source
-     *        An {@link OWLOntologyDocumentSource} containing RDF statements.
-     * @param baseUri
-     *        The base URI to use when parsing the document source.
-     * @param handler
-     *        rdf handler
-     * @param config
-     *        loading configuration
-     * @throws OWLOntologyInputSourceException
-     *         if the source cannot be accessed
-     * @throws UnsupportedRDFormatException
-     *         If the document contains a format which is currently unsupported,
-     *         based on the parsers that are currently available.
-     * @throws IOException
-     *         If there is an input/output exception while accessing the
-     *         document source.
-     * @throws RDFParseException
-     *         If there is an error while parsing the document source.
-     * @throws RDFHandlerException
-     *         If there is an error related to the processing of the RDF
-     *         statements after parsing.
-     */
-    protected void parseDocumentSource(final OWLOntologyDocumentSource source, final String baseUri,
-        final RDFHandler handler, OWLOntologyLoaderConfiguration config) throws OWLOntologyInputSourceException,
-        IOException {
-        final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
-        createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
-        createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
-        createParser.setRDFHandler(handler);
-        long rioParseStart = System.currentTimeMillis();
-        try {
-            if (owlFormatFactory.isTextual()) {
-                createParser.parse(wrapInputAsReader(source, config), baseUri);
-                return;
-            } // if the format is not textual, but the source is a String based
-              // source,
-              // the following call can fail with an OWLOntologyInputSource
-              // exception without
-              // there being an actual I/O error. This should be considered a
-              // parser error
-              // and further parsing attempted.
-            try {
-                createParser.parse(DocumentSources.wrapInput(source, config), baseUri);
-            } catch (OWLOntologyInputSourceException e) {
-                throw new OWLParserException(e.getMessage(), e);
-            }
+        } catch (RDFParseException | UnsupportedRDFormatException | IOException e) {
+            throw new OWLParserException(e.getMessage(), e);
         } finally {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("rioParse: timing={}", Long.valueOf(System.currentTimeMillis() - rioParseStart));
@@ -209,13 +177,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
-            if (anon(iri.toString())) {
-                LOGGER.trace("isAnonymousNode(IRI {})", iri);
-                return true;
-            } else {
-                LOGGER.trace("NOT isAnonymousNode(IRI {})", iri);
-                return false;
-            }
+            return anon(iri.toString());
         }
 
         @Override
@@ -223,13 +185,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
-            if (anon(iri)) {
-                LOGGER.trace("isAnonymousNode(String {})", iri);
-                return true;
-            } else {
-                LOGGER.trace("NOT isAnonymousNode(String {})", iri);
-                return false;
-            }
+            return anon(iri);
         }
 
         // TODO: apparently we should be tracking whether they
@@ -240,13 +196,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             // HACK: FIXME: When the mess of having blank nodes
             // represented as IRIs is
             // finished remove the genid hack below
-            if (anon(iri)) {
-                LOGGER.trace("isAnonymousSharedNode(String {})", iri);
-                return true;
-            } else {
-                LOGGER.trace("NOT isAnonymousSharedNode(String {})", iri);
-                return false;
-            }
+            return anon(iri);
         }
 
         boolean anon(final String iri) {
@@ -257,12 +207,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     private static class RioParserRDFHandler implements RDFHandler {
 
         private static final Logger LOG = LoggerFactory.getLogger(RioParserRDFHandler.class);
-        private final RDFHandler consumer;
+        protected final RioOWLRDFConsumerAdapter consumer;
         private long owlParseStart;
         private final Set<Resource> typedLists = new HashSet<>();
         private final ValueFactory vf = SimpleValueFactory.getInstance();
 
-        RioParserRDFHandler(RDFHandler consumer) {
+        RioParserRDFHandler(RioOWLRDFConsumerAdapter consumer) {
             this.consumer = consumer;
         }
 

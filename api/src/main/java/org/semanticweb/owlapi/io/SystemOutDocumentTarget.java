@@ -28,17 +28,6 @@ public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Override
     public Optional<OutputStream> getOutputStream() {
-        return optional(new OutputStream() {
-
-            @Override
-            public void write(int b) {
-                System.out.write(b);
-            }
-
-            @Override
-            public void close() {
-                // Do nothing
-            }
-        });
+        return optional(System.out);
     }
 }

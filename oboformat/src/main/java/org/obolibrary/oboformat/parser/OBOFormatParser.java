@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.Nullable;
 
@@ -28,10 +29,10 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.io.DocumentSources;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,21 +220,11 @@ public class OBOFormatParser {
      * @param fn
      *        fn
      * @return parsed obo document
-     * @throws IOException
-     *         io exception
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public OBODoc parse(String fn) throws IOException {
-        if (fn.startsWith("http:")) {
-            try (InputStream in = DocumentSources.getInputStream(IRI.create(fn), new OWLOntologyLoaderConfiguration())
-                .get()) {
-                return parse(in);
-            } catch (OWLOntologyInputSourceException e) {
-                throw (IOException) e.getCause();
-            }
-        }
-        return parse(new File(fn));
+    public OBODoc parse(String fn) {
+        return parseURL(fn);
     }
 
     /**
@@ -262,12 +253,10 @@ public class OBOFormatParser {
      * @param url
      *        url
      * @return parsed obo document
-     * @throws IOException
-     *         io exception
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public OBODoc parse(URL url) throws IOException {
+    public OBODoc parse(URL url) {
         location = url;
         return parse(url.toString());
     }
@@ -278,14 +267,14 @@ public class OBOFormatParser {
      * @param urlstr
      *        urlstr
      * @return parsed obo document
-     * @throws IOException
-     *         io exception
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public OBODoc parseURL(String urlstr) throws IOException {
-        URL url = new URL(urlstr);
-        return parse(url);
+    public OBODoc parseURL(String urlstr) {
+        AtomicReference<OBODoc> doc = new AtomicReference<>();
+        OBOFormatOWLAPIParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
+        new IRIDocumentSource(IRI.create(urlstr)).acceptParser(parser, null, new OWLOntologyLoaderConfiguration());
+        return doc.get();
     }
 
     private String resolvePath(String inputPath) {
@@ -310,12 +299,10 @@ public class OBOFormatParser {
      * @param reader
      *        reader
      * @return parsed obo document
-     * @throws IOException
-     *         io exception
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public OBODoc parse(InputStream reader) throws IOException {
+    public OBODoc parse(InputStream reader) {
         return parse(new InputStreamReader(reader, StandardCharsets.UTF_8));
     }
 
@@ -323,12 +310,10 @@ public class OBOFormatParser {
      * @param reader
      *        reader
      * @return parsed obo document
-     * @throws IOException
-     *         io exception
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public OBODoc parse(Reader reader) throws IOException {
+    public OBODoc parse(Reader reader) {
         setReader(new BufferedReader(reader));
         OBODoc obodoc = new OBODoc();
         parseOBODoc(obodoc);

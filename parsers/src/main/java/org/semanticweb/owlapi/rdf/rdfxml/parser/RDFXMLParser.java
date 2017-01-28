@@ -13,14 +13,14 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.io.IOException;
+import java.io.Reader;
 
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -41,10 +41,9 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
         try {
-            final RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
+            final RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) getSupportedFormat().createFormat();
             RDFParser parser = new RDFParser() {
 
                 @Override
@@ -55,13 +54,14 @@ public class RDFXMLParser extends AbstractOWLParser {
                     }
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, configuration);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(o, config);
             consumer.setIRIProvider(parser);
             consumer.setOntologyFormat(format);
-            InputSource is = getInputSource(documentSource, configuration);
+            InputSource is = new InputSource(r);
+            is.setSystemId(documentIRI.toString());
             parser.parse(is, consumer);
             return format;
-        } catch (RDFParserException | SAXException | OWLOntologyInputSourceException | IOException e) {
+        } catch (RDFParserException | SAXException | IOException e) {
             throw new OWLRDFXMLParserException(e);
         }
     }

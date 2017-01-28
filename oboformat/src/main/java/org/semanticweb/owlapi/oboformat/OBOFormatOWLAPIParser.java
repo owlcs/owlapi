@@ -12,21 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
-import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
-
-import java.io.IOException;
+import java.io.Reader;
 import java.io.Serializable;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
-import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,19 +32,65 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 /** OBOformat parser. */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
+    private static final BiConsumer<OWLOntology, OBODoc> defaultBridge = (o, doc) -> bridge(o, doc);
+    private static final Consumer<OBODoc> defaultTreatDocument = (doc) -> {};
+    private final BiConsumer<OWLOntology, OBODoc> bridge;
+    private final Consumer<OBODoc> treatDocument;
+
+    /**
+     * @param c
+     *        behaviour for translating from OBO to OWL
+     * @param t
+     *        any extra operations to carry out on the OBO model before
+     *        translation
+     */
+    public OBOFormatOWLAPIParser(BiConsumer<OWLOntology, OBODoc> c, Consumer<OBODoc> t) {
+        bridge = c;
+        treatDocument = t;
+    }
+
+    /**
+     * @param c
+     *        behaviour for translating from OBO to OWL
+     */
+    public OBOFormatOWLAPIParser(BiConsumer<OWLOntology, OBODoc> c) {
+        this(c, defaultTreatDocument);
+    }
+
+    /**
+     * Default constructor: OBO document is translated and no extra operations
+     * carried out.
+     */
+    public OBOFormatOWLAPIParser() {
+        this(defaultBridge, defaultTreatDocument);
+    }
+
+    /**
+     * @param t
+     *        any extra operations to carry out on the OBO model before
+     *        translation
+     */
+    public OBOFormatOWLAPIParser(Consumer<OBODoc> t) {
+        this(defaultBridge, t);
+    }
+
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology in,
-            OWLOntologyLoaderConfiguration config) {
-        try {
-            OBOFormatParser p = new OBOFormatParser();
-            OBODoc obodoc = p.parse(wrapInputAsReader(source, config));
-            // create a translator object and feed it the OBO Document
-            OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(in.getOWLOntologyManager());
-            bridge.convert(obodoc, in);
-            return new OBODocumentFormat();
-        } catch (OBOFormatParserException | IOException | OWLOntologyInputSourceException e) {
-            throw new OWLParserException(e);
-        }
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+        OBODoc obodoc = parse(r);
+        treatDocument.accept(obodoc);
+        bridge.accept(o, obodoc);
+        return new OBODocumentFormat();
+    }
+
+    protected static void bridge(OWLOntology o, OBODoc obodoc) {
+        // create a translator object and feed it the OBO Document
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(o.getOWLOntologyManager());
+        bridge.convert(obodoc, o);
+    }
+
+    protected OBODoc parse(Reader r) {
+        OBOFormatParser p = new OBOFormatParser();
+        return p.parse(r);
     }
 
     @Override

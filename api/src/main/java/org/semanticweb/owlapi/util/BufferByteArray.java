@@ -10,34 +10,40 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.krss1.parser;
+package org.semanticweb.owlapi.util;
 
-import java.io.Reader;
-
-import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import java.io.ByteArrayOutputStream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ * A ByteArrayOutputStream that allows access to the underlying byte array
+ * without a copy. To be used for buffering data that needs to be held
+ * temporarily (e.g., stream document sources) before being read again. Make
+ * sure that no more writes to the stream happen after the array has been
+ * accessed - if the array is updated or extended after it has been accessed,
+ * data will be lost.
  */
-public class KRSSOWLParser extends AbstractOWLParser {
+public class BufferByteArray extends ByteArrayOutputStream {
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new KRSSDocumentFormatFactory();
+    /** Default constructor setting the array size to 16K */
+    public BufferByteArray() {
+        super(16384);
     }
 
-    @Override
-    public OWLDocumentFormat parse(Reader reader, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
-        new KRSSParser(reader).setOntology(o).parse();
-        return getSupportedFormat().createFormat();
+    /**
+     * @param size
+     *        initial size
+     */
+    public BufferByteArray(int size) {
+        super(size);
+    }
+
+    /**
+     * @return the baking byte array. Make sure that no more writes to the
+     *         stream happen after the array has been accessed - if the array is
+     *         updated or extended after it has been accessed, data will be
+     *         lost.
+     */
+    public byte[] byteArray() {
+        return buf;
     }
 }

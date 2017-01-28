@@ -23,8 +23,24 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.*;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.UnparsableOntologyException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.PriorityCollectionSorting;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 import com.google.common.collect.Sets;
@@ -53,8 +69,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     @Override
     public boolean canAttemptLoading(OWLOntologyDocumentSource source) {
-        return !source.hasAlredyFailedOnStreams() || !source.hasAlredyFailedOnIRIResolution() && parsableSchemes
-            .contains(source.getDocumentIRI().getScheme());
+        return source.loadingCanBeAttempted(parsableSchemes);
     }
 
     @Override
@@ -172,8 +187,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                         manager.removeOntology(ont);
                         ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
                     }
-                    OWLDocumentFormat format = parser.parse(documentSource, ont, configuration);
-                    handler.setOntologyFormat(ont, format);
+                    handler.setOntologyFormat(ont, documentSource.acceptParser(parser, ont, configuration));
                     return ont;
                 } catch (UnloadableImportException e) {
                     // If an import cannot be located, all parsers will fail.

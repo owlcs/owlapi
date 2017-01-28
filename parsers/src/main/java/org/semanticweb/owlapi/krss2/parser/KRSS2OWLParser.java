@@ -12,15 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.parser;
 
-import java.io.IOException;
 import java.io.Reader;
 
-import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.DocumentSources;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -237,16 +233,8 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            KRSS2DocumentFormat format = new KRSS2DocumentFormat();
-            KRSS2Parser parser = new KRSS2Parser(r);
-            parser.setOntology(ontology);
-            parser.parse();
-            return format;
-        } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
-            throw new KRSS2OWLParserException(e);
-        }
+    public OWLDocumentFormat parse(Reader reader, OWLOntology o, OWLOntologyLoaderConfiguration c, IRI documentIRI) {
+        new KRSS2Parser(reader).setOntology(o).parse();
+        return getSupportedFormat().createFormat();
     }
 }

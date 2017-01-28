@@ -16,7 +16,12 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
  * Tools to read and write a set of owl axioms to/from a string. Used to
@@ -89,7 +94,7 @@ public class OwlStringTools {
             OWLFunctionalSyntaxOWLParser p = new OWLFunctionalSyntaxOWLParser();
             OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms);
             OWLOntology ontology = translationManager.createOntology();
-            p.parse(documentSource, ontology, translationManager.getOntologyLoaderConfiguration());
+            documentSource.acceptParser(p, ontology, translationManager.getOntologyLoaderConfiguration());
             return asList(ontology.axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException | OWLParserException e) {
             throw new OWLRuntimeException(e);

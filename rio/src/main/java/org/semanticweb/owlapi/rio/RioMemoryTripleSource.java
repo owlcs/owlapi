@@ -37,6 +37,7 @@ package org.semanticweb.owlapi.rio;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -49,7 +50,11 @@ import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not
@@ -170,13 +175,13 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
-    public IRI getDocumentIRI() {
-        return documentIRI;
+    public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o, OWLOntologyLoaderConfiguration config) {
+        return ((RioParser) parser).parse(this, o, config, documentIRI);
     }
 
     @Override
-    public boolean hasAlredyFailedOnStreams() {
-        return false;
+    public IRI getDocumentIRI() {
+        return documentIRI;
     }
 
     /**
@@ -212,12 +217,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
-    public boolean hasAlredyFailedOnIRIResolution() {
-        return false;
-    }
-
-    @Override
-    public void setIRIResolutionFailed(boolean value) {
-        // unnecessary for this class
+    public boolean loadingCanBeAttempted(Collection<String> parsableSchemes) {
+        return parsableSchemes.contains(documentIRI.getScheme());
     }
 }

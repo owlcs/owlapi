@@ -2,7 +2,18 @@ package org.obolibrary.oboformat;
 
 import static org.junit.Assert.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
@@ -15,7 +26,16 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 @SuppressWarnings({ "javadoc" })
 public class OboFormatTestBasics extends TestBase {
@@ -24,24 +44,18 @@ public class OboFormatTestBasics extends TestBase {
         return parseOBOFile(fn, false);
     }
 
-    @SuppressWarnings("resource")
     protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames) {
         InputStream inputStream = getInputStream(fn);
         OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc;
-        try {
-            obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
-            assertNotNull("The obodoc should not be null", obodoc);
-            if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
-                fail("Term frames should not be empty.");
-            }
-            return obodoc;
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
+        assertNotNull("The obodoc should not be null", obodoc);
+        if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
+            fail("Term frames should not be empty.");
         }
+        return obodoc;
     }
 
-    protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames) throws IOException {
+    protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames) {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new BufferedReader(fn));
         assertNotNull("The obodoc should not be null", obodoc);
@@ -51,7 +65,6 @@ public class OboFormatTestBasics extends TestBase {
         return obodoc;
     }
 
-    @SuppressWarnings("resource")
     protected InputStream getInputStream(String fn) {
         InputStream inputStream = OboFormatTestBasics.class.getResourceAsStream(fn);
         if (inputStream == null) {
@@ -71,11 +84,6 @@ public class OboFormatTestBasics extends TestBase {
             }
         }
         return inputStream;
-    }
-
-    protected OBODoc parseOBOFile(File file) throws IOException {
-        OBOFormatParser p = new OBOFormatParser();
-        return p.parse(file.getCanonicalPath());
     }
 
     protected OWLOntology parseOWLFile(String fn) throws OWLOntologyCreationException {
@@ -143,14 +151,14 @@ public class OboFormatTestBasics extends TestBase {
         return out.getBuffer().toString();
     }
 
-    protected static OBODoc parseOboToString(String oboString) throws IOException {
+    protected static OBODoc parseOboToString(String oboString) {
         return new OBOFormatParser().parse(new StringReader(oboString));
     }
 
     protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
-        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label.equals(
-                ((OWLLiteral) aa.getValue()).getLiteral())).filter(aa -> aa.getSubject().isIRI()).findAny();
+        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(aa -> aa
+            .getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label.equals(((OWLLiteral) aa.getValue())
+                .getLiteral())).filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }

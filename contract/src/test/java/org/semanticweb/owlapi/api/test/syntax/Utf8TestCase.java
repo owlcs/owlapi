@@ -64,7 +64,7 @@ public class Utf8TestCase extends TestBase {
         ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         try {
-            parser.parse(new StreamDocumentSource(in), getOWLOntology(), config);
+            new StreamDocumentSource(in).acceptParser(parser, getOWLOntology(), config);
             fail("parsing should have failed, invalid input");
         } catch (@SuppressWarnings("unused") Exception ex) {
             // expected to fail, but actual exception depends on the parsers in

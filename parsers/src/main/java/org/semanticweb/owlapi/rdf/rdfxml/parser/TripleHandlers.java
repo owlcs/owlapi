@@ -2317,8 +2317,6 @@ public class TripleHandlers {
          * @param mainNode
          *        The main node of the triple
          * @return The source object
-         * @throws OWLRDFXMLParserMalformedNodeException
-         *         malformed node
          */
         @Nullable
         private IRI getObjectOfSourceTriple(IRI mainNode) {

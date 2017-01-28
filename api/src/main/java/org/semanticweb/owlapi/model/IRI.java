@@ -206,11 +206,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * Gets the fragment of the IRI.
      * 
      * @return The IRI fragment, or empty string if the IRI does not have a
-     *         fragment
-     * @deprecated use getNCName() - getFragment() does not return a real
-     *             fragment. e.g., it does not allow / and () on it
+     *         fragment. Note: getFragment() does not return a real fragment.
+     *         e.g., it does not allow / and () on it.
      */
-    @Deprecated
     public String getFragment() {
         return remainder;
     }
@@ -223,6 +221,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
             return emptyOptional();
         }
         return optional(remainder);
+    }
+
+    /** @return true if this IRI has a file: protocol */
+    public boolean isFileIRI() {
+        return namespace.startsWith("file:");
     }
 
     /**

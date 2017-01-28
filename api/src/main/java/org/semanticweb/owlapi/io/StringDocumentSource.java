@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Reader;
+import java.io.ByteArrayInputStream;
 import java.io.StringReader;
-import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -32,19 +31,20 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private final String string;
+    /**
+     * @param target
+     *        a document target
+     */
+    public StringDocumentSource(StringDocumentTarget target) {
+        this(target.toString());
+    }
 
     /**
      * @param string
      *        the source string
      */
     public StringDocumentSource(String string) {
-        super("string:ontology", null, null);
-        this.string = checkNotNull(string, "string cannot be null");
-        // avoid attempting IRI resolution if it is known to be failed
-        // a String document source needs not have an IRI and should not resolve
-        // it anyway
-        failedOnIRI.set(true);
+        this(string, "string:ontology", null, null);
     }
 
     /**
@@ -58,11 +58,19 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     }
 
     /**
-     * @param target
-     *        a document target
+     * Specifies a string as an ontology document.
+     * 
+     * @param string
+     *        The string
+     * @param prefix
+     *        The document IRI prefix
+     * @param f
+     *        ontology format
+     * @param mime
+     *        mime type
      */
-    public StringDocumentSource(StringDocumentTarget target) {
-        this(target.toString());
+    public StringDocumentSource(String string, String prefix, @Nullable OWLDocumentFormat f, @Nullable String mime) {
+        this(string, IRI.getNextDocumentIRI(prefix), f, mime);
     }
 
     /**
@@ -79,28 +87,12 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f, @Nullable String mime) {
         super(documentIRI, f, mime);
-        this.string = checkNotNull(string, "string cannot be null");
-    }
-
-    /**
-     * Specifies a string as an ontology document.
-     * 
-     * @param string
-     *        The string
-     * @param prefix
-     *        The document IRI prefix
-     * @param f
-     *        ontology format
-     * @param mime
-     *        mime type
-     */
-    public StringDocumentSource(String string, String prefix, @Nullable OWLDocumentFormat f, @Nullable String mime) {
-        super(prefix, f, mime);
-        this.string = checkNotNull(string, "string cannot be null");
-    }
-
-    @Override
-    public Optional<Reader> getReader() {
-        return optional(new StringReader(string));
+        checkNotNull(string, "string cannot be null");
+        // avoid attempting IRI resolution if it is known to be failed
+        // a String document source needs not have an IRI and should not resolve
+        // it anyway
+        failedOnIRI.set(true);
+        reader = () -> new StringReader(string);
+        inputStream = () -> new ByteArrayInputStream(string.getBytes());
     }
 }

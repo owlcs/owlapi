@@ -14,12 +14,13 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 
-import java.io.InputStream;
-import java.io.Reader;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * A document source provides a point for loading an ontology. A document source
@@ -43,30 +44,22 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 public interface OWLOntologyDocumentSource {
 
     /**
-     * Gets a reader which an ontology document can be read from. This method
-     * may be called multiple times. Each invocation will return a new
-     * {@code Reader}. If there is no reader stream available, returns
-     * Optional.absent.
-     * 
-     * @return A new {@code Reader} which the ontology can be read from, wrapped
-     *         in an Optional.
+     * @param parser
+     *        parser to accept
+     * @param o
+     *        ontology to fill
+     * @param config
+     *        configuration for loading
+     * @return document format for loaded ontology
      */
-    default Optional<Reader> getReader() {
-        return emptyOptional();
-    }
+    OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o, OWLOntologyLoaderConfiguration config);
 
     /**
-     * If an input stream can be obtained from this document source then this
-     * method creates it. This method may be called multiple times. Each
-     * invocation will return a new input stream. If there is no input stream
-     * available, returns Optional.absent. .
-     * 
-     * @return A new input stream which the ontology can be read from, wrapped
-     *         in an Optional.
+     * @param parsableSchemes
+     *        schemes that can be parsed
+     * @return true if loading with schemes can be attempted
      */
-    default Optional<InputStream> getInputStream() {
-        return emptyOptional();
-    }
+    boolean loadingCanBeAttempted(Collection<String> parsableSchemes);
 
     /**
      * Gets the IRI of the ontology document.
@@ -90,30 +83,4 @@ public interface OWLOntologyDocumentSource {
     default Optional<String> getMIMEType() {
         return emptyOptional();
     }
-
-    /**
-     * @return true if there is no reader or input stream available for this
-     *         source, or reading from them has already been attempted in a
-     *         previous call and has failed. This leaves attempting to resolve
-     *         the document IRI as input. No attempt is made to verify that the
-     *         document IRI is resolvable.
-     */
-    boolean hasAlredyFailedOnStreams();
-
-    /**
-     * @return true if resolving the document IRI has been attempted by a
-     *         previous call and has failed, false if resolution has not been
-     *         attempted yet or it has happened successfully.
-     */
-    boolean hasAlredyFailedOnIRIResolution();
-
-    /**
-     * IRI resolution does not happen inside this class. This method allows the
-     * resolver to mark the document IRI as unresolvable, so that the
-     * information is tracked with the source.
-     * 
-     * @param value
-     *        new value for the flag
-     */
-    void setIRIResolutionFailed(boolean value);
 }

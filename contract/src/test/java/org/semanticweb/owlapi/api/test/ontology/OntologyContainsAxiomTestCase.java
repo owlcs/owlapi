@@ -29,7 +29,17 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -100,14 +110,11 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         return format;
     }
 
-    @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms1(OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology();
-        @Nonnull
-        IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
+        @Nonnull IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
         OWLOntology ont2 = getOWLOntology();
-        @Nonnull
-        IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
+        @Nonnull IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
         ont1.getOWLOntologyManager().applyChange(new AddImport(ont2, ont2import));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
@@ -139,13 +146,11 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertFalse(containsConsider(ont1, axAsubB));
         assertTrue(containsConsiderEx(ont2, axAsubB));
         assertTrue(containsConsider(ont2, axAsubB));
-        @Nonnull
-        File savedLocation1 = folder.newFile("testont1A.owl");
+        @Nonnull File savedLocation1 = folder.newFile("testont1A.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
-        @Nonnull
-        File savedLocation2 = folder.newFile("testont2A.owl");
+        @Nonnull File savedLocation2 = folder.newFile("testont2A.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
         ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
@@ -198,7 +203,6 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }
 
-    @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms2(OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology();
         IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
@@ -235,19 +239,16 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertFalse(containsConsider(ont1, axAsubB));
         assertTrue(containsConsiderEx(ont2, axAsubB));
         assertTrue(containsConsider(ont2, axAsubB));
-        @Nonnull
-        File savedLocation1 = folder.newFile("testont1B.owl");
+        @Nonnull File savedLocation1 = folder.newFile("testont1B.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
-        @Nonnull
-        File savedLocation2 = folder.newFile("testont2B.owl");
+        @Nonnull File savedLocation2 = folder.newFile("testont2B.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
         ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
         OWLOntologyManager man = setupManager();
-        @SuppressWarnings("unused")
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
+        @SuppressWarnings("unused") OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
         ont2L.imports().forEach(o -> o.axioms().forEach(ax -> {
             assertTrue(containsConsiderEx(o, ax));

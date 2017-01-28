@@ -4,9 +4,10 @@ import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,11 +32,12 @@ import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatException;
-import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -140,14 +142,10 @@ public class OWLAPIObo2Owl {
      */
     public static void convertURL(String iri, String outFile, OWLOntologyManager manager) throws IOException,
         OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc = p.parse(new URL(iri));
-        OWLOntology ontology = bridge.convert(obodoc);
-        IRI outputStream = IRI.create(outFile);
-        OWLDocumentFormat format = new RDFXMLDocumentFormat();
-        LOG.info("saving to {} fmt={}", outputStream, format);
-        manager.saveOntology(ontology, format, outputStream);
+        OWLOntology o = manager.createOntology();
+        new IRIDocumentSource(IRI.create(iri)).acceptParser(new OBOFormatOWLAPIParser(), o,
+            new OWLOntologyLoaderConfiguration());
+        saveAsRDFXML(outFile, manager, o);
     }
 
     /**
@@ -174,15 +172,19 @@ public class OWLAPIObo2Owl {
      */
     public static void convertURL(String iri, String outFile, String defaultOnt, OWLOntologyManager manager)
         throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc = p.parse(new URL(iri));
-        obodoc.addDefaultOntologyHeader(defaultOnt);
-        OWLOntology ontology = bridge.convert(obodoc);
-        IRI outputStream = IRI.create(outFile);
-        OWLDocumentFormat format = new RDFXMLDocumentFormat();
-        LOG.info("saving to {} fmt={}", outputStream, format);
-        manager.saveOntology(ontology, format, outputStream);
+        OWLOntology o = manager.createOntology();
+        OBOFormatOWLAPIParser parser = new OBOFormatOWLAPIParser((obo) -> obo.addDefaultOntologyHeader(defaultOnt));
+        new IRIDocumentSource(IRI.create(iri)).acceptParser(parser, o, new OWLOntologyLoaderConfiguration());
+        saveAsRDFXML(outFile, manager, o);
+    }
+
+    protected static void saveAsRDFXML(String outFile, OWLOntologyManager manager, OWLOntology o)
+        throws OWLOntologyStorageException, IOException, FileNotFoundException {
+        try (FileOutputStream outputStream = new FileOutputStream(outFile)) {
+            OWLDocumentFormat format = new RDFXMLDocumentFormat();
+            LOG.info("saving to {} fmt={}", outFile, format);
+            manager.saveOntology(o, format, outputStream);
+        }
     }
 
     /**
@@ -269,14 +271,10 @@ public class OWLAPIObo2Owl {
      *         the oWL ontology creation exception
      */
     public OWLOntology convert(String oboFile) throws OWLOntologyCreationException {
-        try {
-            OBOFormatParser p = new OBOFormatParser();
-            return convert(p.parse(oboFile));
-        } catch (IOException ex) {
-            throw new OWLOntologyCreationException("Error Occured while parsing OBO '" + oboFile + '\'', ex);
-        } catch (OBOFormatParserException ex) {
-            throw new OWLOntologyCreationException("Syntax error occured while parsing OBO '" + oboFile + '\'', ex);
-        }
+        OWLOntology o = manager.createOntology();
+        new IRIDocumentSource(IRI.create(oboFile)).acceptParser(new OBOFormatOWLAPIParser(), o, manager
+            .getOntologyLoaderConfiguration());
+        return o;
     }
 
     /**

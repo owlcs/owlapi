@@ -55,7 +55,6 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
             + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>" + "  </owl:Thing>"
             + "</rdf:RDF>";
         OWLOntology ontology = getOWLOntology();
-        RDFXMLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(rdfContent), ontology, config);
+        new StringDocumentSource(rdfContent).acceptParser(new RDFXMLParser(), ontology, config);
     }
 }

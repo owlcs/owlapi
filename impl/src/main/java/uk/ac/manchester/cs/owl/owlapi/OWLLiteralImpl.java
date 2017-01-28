@@ -15,13 +15,14 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
@@ -33,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.BufferByteArray;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -176,7 +178,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     // Literal Wrapper
     private static class LiteralWrapper implements Serializable {
 
-        private static final String COMPRESSED_ENCODING = "UTF-16";
+        private static final Charset COMPRESSED_ENCODING = StandardCharsets.UTF_16;
         @Nullable String l;
         @Nullable byte[] bytes;
 
@@ -185,7 +187,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 try {
                     bytes = compress(s);
                     l = null;
-                } catch (@SuppressWarnings("unused") IOException e) {
+                } catch (@SuppressWarnings("unused") OWLRuntimeException e) {
                     // some problem happened - defaulting to no compression
                     l = s;
                     bytes = null;
@@ -200,36 +202,37 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             if (l != null) {
                 return verifyNotNull(l);
             }
-            try {
-                return decompress(verifyNotNull(bytes));
+            return decompress(verifyNotNull(bytes));
+        }
+
+        static byte[] compress(String s) {
+            try (BufferByteArray out = new BufferByteArray(32);
+                GZIPOutputStream zipout = new GZIPOutputStream(out);
+                Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING)) {
+                writer.write(s);
+                writer.flush();
+                zipout.finish();
+                zipout.flush();
+                return out.toByteArray();
             } catch (IOException e) {
-                // some problem has happened - cannot recover from this
                 throw new OWLRuntimeException(e);
             }
         }
 
-        static byte[] compress(String s) throws IOException {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            GZIPOutputStream zipout = new GZIPOutputStream(out);
-            Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
-            writer.write(s);
-            writer.flush();
-            zipout.finish();
-            zipout.flush();
-            return out.toByteArray();
-        }
-
-        static String decompress(byte[] result) throws IOException {
-            ByteArrayInputStream in = new ByteArrayInputStream(result);
-            GZIPInputStream zipin = new GZIPInputStream(in);
-            Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
-            StringBuilder b = new StringBuilder();
-            int c = reader.read();
-            while (c > -1) {
-                b.append((char) c);
-                c = reader.read();
+        static String decompress(byte[] result) {
+            try (ByteArrayInputStream in = new ByteArrayInputStream(result);
+                GZIPInputStream zipin = new GZIPInputStream(in);
+                Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING)) {
+                StringBuilder b = new StringBuilder();
+                int c = reader.read();
+                while (c > -1) {
+                    b.append((char) c);
+                    c = reader.read();
+                }
+                return b.toString();
+            } catch (IOException e) {
+                throw new OWLRuntimeException(e);
             }
-            return b.toString();
         }
     }
 }

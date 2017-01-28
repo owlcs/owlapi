@@ -36,7 +36,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      *        The reader that will be used to read an ontology.
      */
     public ReaderDocumentSource(Reader reader) {
-        super(reader, "reader:ontology", null, null);
+        this(reader, IRI.getNextDocumentIRI("reader:ontology"), null, null);
     }
 
     /**
@@ -50,7 +50,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      *        document if needed.
      */
     public ReaderDocumentSource(Reader reader, IRI iri) {
-        super(reader, iri, null, null);
+        this(reader, iri, null, null);
     }
 
     /**

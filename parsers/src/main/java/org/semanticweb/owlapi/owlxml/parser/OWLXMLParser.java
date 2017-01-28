@@ -13,13 +13,13 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
+import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -41,17 +41,17 @@ public class OWLXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
-        OWLOntologyLoaderConfiguration configuration) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
-            InputSource isrc = getInputSource(documentSource, configuration);
-            OWLXMLPH handler = new OWLXMLPH(ontology, configuration);
-            SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit()).parse(isrc, handler);
+            InputSource isrc = new InputSource(r);
+            isrc.setSystemId(documentIRI.toString());
+            OWLXMLPH handler = new OWLXMLPH(o, config);
+            SAXParsers.initParserWithOWLAPIStandards(null, config.getEntityExpansionLimit()).parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;
-        } catch (SAXException | IOException | OWLOntologyInputSourceException | IllegalStateException e) {
+        } catch (SAXException | IOException | IllegalStateException e) {
             // General exception
             throw new OWLParserException(e);
         }
