@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** The Class TurtleParser. */
+@SuppressWarnings("all")
 public class TurtleParser {
 
     private Map<String, IRI> string2IRI;
@@ -160,43 +161,25 @@ SKIP:
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-MORE : {
-    <STRING_START: "\""> : IN_STRING
-}
+            MORE : {<QUOTE: "\""> : IN_STRING}
+<IN_STRING> MORE : {<"\\"~[] >}
+<IN_STRING> MORE : {<~["\""]>}
+<IN_STRING> TOKEN: {<STRING: "\""> : DEFAULT}
 
-<IN_STRING> MORE :
-{
-    <ANY_ESCAPED_CHAR: "\\"~[] >
-}
+                  MORE : {<SINGLEQUOTE: "'"> : IN_SINGLESTRING}
+<IN_SINGLESTRING> MORE : {<"\\"~[] >}
+<IN_SINGLESTRING> MORE : {<~["'"]>}
+<IN_SINGLESTRING> TOKEN: {<SINGLESTRING: "'"> : DEFAULT}
 
-<IN_STRING> MORE :
-{
-    <ANY_CHAR: ~["\""]>
-}
+                 MORE : {<TRIQUOTE: "\"\"\""> : IN_LONG_STRING}
+<IN_LONG_STRING> MORE : {<  (~[]) >}
+<IN_LONG_STRING> MORE : {<"\\"~[] >}
+<IN_LONG_STRING> TOKEN :{<LONG_STRING: "\"\"\""> : DEFAULT}
 
-<IN_STRING> TOKEN:
-{
-    <STRING: "\""> : DEFAULT
-}
-
-MORE : {
-   < THREEQUOTES: ("\"\"\""|"'''") > : IN_LONG_STRING
-}
-
-<IN_LONG_STRING> MORE :
-{
-    <  (~[]) >
-}
-<IN_LONG_STRING> MORE :
-{
-    <ANY_ESCAPED_CHAR_IN_LONG_STRING: "\\"~[] >
-}
-
-
-<IN_LONG_STRING> TOKEN :
-{
-    <LONG_STRING: ("\"\"\""|"'''")> : DEFAULT
-}
+                       MORE : {<TRISINGLEQUOTE: "'''"> : IN_LONG_SINGLESTRING}
+<IN_LONG_SINGLESTRING> MORE : {<(~[]) >}
+<IN_LONG_SINGLESTRING> MORE : {<"\\"~[] >}
+<IN_LONG_SINGLESTRING> TOKEN :{<LONG_SINGLESTRING: "'''"> : DEFAULT}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -411,14 +394,6 @@ TOKEN:
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//TOKEN:
-//{
-//    <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
-//}
-
-
 
 void parseDocument() :
 {
@@ -744,7 +719,13 @@ String parseString() :
     (t=<STRING> {
         rawString = t.image.substring(1, t.image.length() - 1);
     }
+    | t=<SINGLESTRING> {
+        rawString = t.image.substring(1, t.image.length() - 1);
+    }
     | t=<LONG_STRING> {
+        rawString = t.image.substring(3, t.image.length() - 3);
+     }
+     | t=<LONG_SINGLESTRING> {
         rawString = t.image.substring(3, t.image.length() - 3);
      }) {
         return EscapeUtils.unescapeString(rawString);
