@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -105,7 +106,11 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
                 file.getParentFile().mkdirs();
                 baseStream = () -> new FileOutputStream(file);
             } else {
-                baseStream = () -> documentIRI.toURI().toURL().openConnection().getOutputStream();
+                baseStream = () -> {
+                    URLConnection openConnection = documentIRI.toURI().toURL().openConnection();
+                    openConnection.setDoOutput(true);
+                    return openConnection.getOutputStream();
+                };
             }
             stream = () -> stream(baseStream);
             writer = () -> writer(baseStream);

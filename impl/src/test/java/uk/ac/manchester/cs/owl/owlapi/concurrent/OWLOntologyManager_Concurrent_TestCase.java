@@ -377,11 +377,15 @@ public class OWLOntologyManager_Concurrent_TestCase {
     }
 
     @Test
-    public void shouldCall_saveOntology_with_readLock_5() throws OWLOntologyStorageException {
+    public void shouldCall_saveOntology_with_readLock_5() {
         manager.setOntologyFormat(ontology, new RDFXMLDocumentFormat());
         verify(writeLock, atLeastOnce()).lock();
         verify(writeLock, atLeastOnce()).unlock();
-        manager.saveOntology(ontology);
+        try {
+            manager.saveOntology(ontology);
+        } catch (@SuppressWarnings("unused") OWLOntologyStorageException e) {
+            // no need to worry
+        }
         InOrder inOrder = Mockito.inOrder(readLock, readLock);
         inOrder.verify(readLock, atLeastOnce()).lock();
         inOrder.verify(readLock, atLeastOnce()).unlock();
@@ -412,9 +416,13 @@ public class OWLOntologyManager_Concurrent_TestCase {
     }
 
     @Test
-    public void shouldCall_saveOntology_with_readLock_8() throws OWLOntologyStorageException {
+    public void shouldCall_saveOntology_with_readLock_8() {
         OWLDocumentFormat arg1 = mock(OWLDocumentFormat.class);
-        manager.saveOntology(ontology, arg1);
+        try {
+            manager.saveOntology(ontology, arg1);
+        } catch (@SuppressWarnings("unused") OWLOntologyStorageException e) {
+            // no need to worry
+        }
         verifyReadLock_LockUnlock();
     }
 
