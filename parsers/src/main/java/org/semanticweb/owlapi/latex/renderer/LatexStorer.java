@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
 public class LatexStorer extends AbstractOWLStorer {
 
     @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+        throws OWLOntologyStorageException {
         try {
             new LatexRenderer().render(ontology, writer);
             writer.flush();

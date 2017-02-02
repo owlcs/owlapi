@@ -41,7 +41,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     private DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
 
     @Override
-    protected void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format) {
+    public void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format) {
         checkNotNull(o, "ontology cannot be null");
         checkNotNull(printWriter, "writer cannot be null");
         Set<OWLAxiom> printed = new HashSet<>();

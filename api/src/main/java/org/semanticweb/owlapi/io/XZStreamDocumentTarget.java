@@ -12,22 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Optional;
 
-import javax.annotation.Nullable;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.tukaani.xz.FilterOptions;
 import org.tukaani.xz.LZMA2Options;
 import org.tukaani.xz.UnsupportedOptionsException;
 import org.tukaani.xz.XZOutputStream;
-
-import com.google.common.io.Closeables;
 
 /**
  * An ontology document target which can write to a XZ stream. Notice that this
@@ -36,12 +28,7 @@ import com.google.common.io.Closeables;
  * @author ses
  * @since 4.0.2
  */
-public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCloseable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(XZStreamDocumentTarget.class);
-    private final OutputStream outputStream;
-    @Nullable private XZOutputStream xzOutputStream;
-    private FilterOptions[] filterOptions;
+public class XZStreamDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
      * @param os
@@ -51,12 +38,7 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCl
      *        LZMA2 Options.
      */
     public XZStreamDocumentTarget(OutputStream os, FilterOptions... filterOptions) {
-        outputStream = os;
-        if (filterOptions.length == 0) {
-            this.filterOptions = new FilterOptions[] { new LZMA2Options() };
-        } else {
-            this.filterOptions = filterOptions;
-        }
+        super(() -> new XZOutputStream(checkNotNull(os, "os cannot be null"), filterOptions), null);
     }
 
     /**
@@ -69,25 +51,5 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCl
      */
     public XZStreamDocumentTarget(OutputStream os, int presetLevel) throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
-    }
-
-    @Override
-    public Optional<OutputStream> getOutputStream() {
-        if (xzOutputStream == null) {
-            try {
-                xzOutputStream = new XZOutputStream(outputStream, filterOptions);
-            } catch (IOException e) {
-                LOGGER.error("Fille cannot be found or opened", e);
-                return emptyOptional();
-            }
-        }
-        return optional(verifyNotNull(xzOutputStream));
-    }
-
-    @Override
-    public void close() throws Exception {
-        XZOutputStream toReturn = xzOutputStream;
-        xzOutputStream = null;
-        Closeables.close(toReturn, false);
     }
 }

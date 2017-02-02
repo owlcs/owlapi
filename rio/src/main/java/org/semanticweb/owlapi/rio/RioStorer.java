@@ -189,7 +189,7 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
@@ -219,7 +219,7 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format)
+    public void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For

@@ -12,53 +12,29 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZipDocumentTarget.class);
-    private final File file;
+public class ZipDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
      * @param file
      *        the file to use
      */
     public ZipDocumentTarget(File file) {
-        this.file = checkNotNull(file, "file cannot be null");
-    }
-
-    @Override
-    public Optional<OutputStream> getOutputStream() {
-        File parentFile = file.getAbsoluteFile().getParentFile();
-        if (parentFile.exists() || parentFile.mkdirs()) {
-            ZipOutputStream os;
-            try {
-                os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-                os.putNextEntry(new ZipEntry("ontology.txt"));
-                return optional(os);
-            } catch (IOException e) {
-                LOGGER.error("Cannot create or find file", e);
-                return emptyOptional();
-            }
-        }
-        LOGGER.error("Could not create directories: {}", parentFile);
-        return emptyOptional();
+        super(() -> {
+            ZipOutputStream os = new ZipOutputStream(new FileOutputStream(checkNotNull(file, "file cannot be null")));
+            os.putNextEntry(new ZipEntry("ontology.txt"));
+            return os;
+        }, null);
     }
 }

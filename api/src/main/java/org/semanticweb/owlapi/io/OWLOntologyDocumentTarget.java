@@ -12,22 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-
-import java.io.OutputStream;
-import java.io.Writer;
-import java.util.Optional;
-
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLStorer;
 
 /**
- * Specifies an interface that provides a pointer to an ontology document where
- * an ontology can be stored. <br>
- * Any client that writes an ontology to a "stream" will first try to obtain a
- * writer, followed by an OutputStream , followed by trying to open a stream
- * from a document IRI. <br>
- * A client that writes an ontology to a database or some similar storage will
- * simply try to use the {@link IRI} returned by {@link #getDocumentIRI()}.
+ * Specifies an interface that provides output management when an ontology is
+ * saved.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -36,36 +28,14 @@ import org.semanticweb.owlapi.model.IRI;
 public interface OWLOntologyDocumentTarget {
 
     /**
-     * Gets a {@link java.io.Writer} that can be used to write an ontology to an
-     * ontology document. If none is available, return Optional.absent. Do not
-     * call multiple times for the same file: the output file will be opened for
-     * write multiple times.
-     * 
-     * @return The writer
+     * @param storer
+     *        storer which will carry out the serialization
+     * @param ontology
+     *        ontology to save
+     * @param format
+     *        format of the ontology
+     * @throws OWLOntologyStorageException
+     *         ifan exception is raised, e.g., IO errors
      */
-    default Optional<Writer> getWriter() {
-        return emptyOptional();
-    }
-
-    /**
-     * Gets an {@link java.io.OutputStream} that can be used to write an
-     * ontology to an ontology document. If none is available, return
-     * Optional.absent. Do not call multiple times for the same file: the output
-     * file will be opened for write multiple times.
-     * 
-     * @return The output stream
-     */
-    default Optional<OutputStream> getOutputStream() {
-        return emptyOptional();
-    }
-
-    /**
-     * Gets an IRI that points to an ontology document. If none is available,
-     * return Optional.absent.
-     * 
-     * @return The IRI
-     */
-    default Optional<IRI> getDocumentIRI() {
-        return emptyOptional();
-    }
+    void store(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format) throws OWLOntologyStorageException;
 }

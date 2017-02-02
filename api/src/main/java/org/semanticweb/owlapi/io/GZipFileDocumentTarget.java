@@ -12,18 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An ontology document target which can write to a GZIP File. Notice that this
@@ -32,31 +25,13 @@ import org.slf4j.LoggerFactory;
  * @author ignazio
  * @since 3.4.8
  */
-public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GZipFileDocumentTarget.class);
-    private final File out;
+public class GZipFileDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
-     * @param os
+     * @param file
      *        the actual file
      */
-    public GZipFileDocumentTarget(File os) {
-        out = checkNotNull(os, "os cannot be null");
-    }
-
-    @Override
-    public Optional<OutputStream> getOutputStream() {
-        try {
-            return optional(new GZIPOutputStream(new FileOutputStream(out)));
-        } catch (IOException e) {
-            LOGGER.error("Cannot create output stream", e);
-            return emptyOptional();
-        }
-    }
-
-    @Override
-    public Optional<IRI> getDocumentIRI() {
-        return optional(IRI.create(out));
+    public GZipFileDocumentTarget(File file) {
+        super(() -> new GZIPOutputStream(new FileOutputStream(checkNotNull(file, "file cannot be null"))), null);
     }
 }

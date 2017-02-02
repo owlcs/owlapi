@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
@@ -35,13 +34,9 @@ public class TutorialSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
-        try {
-            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
-            renderer.render(ontology, writer);
-        } catch (OWLRuntimeException e) {
-            throw new OWLRuntimeException(e);
-        }
+    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+        throws OWLOntologyStorageException {
+        OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
+        renderer.render(ontology, writer);
     }
 }

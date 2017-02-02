@@ -34,7 +34,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology, writer);

@@ -44,9 +44,9 @@ import javax.inject.Inject;
 
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.io.IRIDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -1202,21 +1202,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     @Override
     public void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat, IRI documentIRI)
         throws OWLOntologyStorageException {
-        readLock.lock();
-        try {
-            for (OWLStorerFactory storerFactory : ontologyStorers) {
-                OWLStorer storer = storerFactory.createStorer();
-                if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(ontology, documentIRI, ontologyFormat);
-                    return;
-                }
-            }
-            throw new OWLStorerNotFoundException(ontologyFormat);
-        } catch (IOException e) {
-            throw new OWLOntologyStorageIOException(e);
-        } finally {
-            readLock.unlock();
-        }
+        saveOntology(ontology, ontologyFormat, new IRIDocumentTarget(documentIRI));
     }
 
     @Override
@@ -1254,13 +1240,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             for (OWLStorerFactory storerFactory : ontologyStorers) {
                 OWLStorer storer = storerFactory.createStorer();
                 if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(ontology, documentTarget, ontologyFormat);
+                    documentTarget.store(storer, ontology, ontologyFormat);
                     return;
                 }
             }
             throw new OWLStorerNotFoundException(ontologyFormat);
-        } catch (IOException e) {
-            throw new OWLOntologyStorageIOException(e);
         } finally {
             readLock.unlock();
         }

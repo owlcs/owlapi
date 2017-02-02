@@ -92,7 +92,7 @@ public class ParsersStorersTestCase extends TestBase {
             ont = ont();
         }
         StringDocumentTarget target = new StringDocumentTarget();
-        s.createStorer().storeOntology(ont, target, ontologyFormat);
+        target.store(s.createStorer(), ont, ontologyFormat);
         OWLOntology o = getAnonymousOWLOntology();
         try {
             new StringDocumentSource(target).acceptParser(p.createParser(), o, new OWLOntologyLoaderConfiguration());
@@ -194,7 +194,6 @@ public class ParsersStorersTestCase extends TestBase {
         LatexDocumentFormat ontologyFormat = new LatexDocumentFormat();
         LatexStorerFactory storer = new LatexStorerFactory();
         StringDocumentTarget target = new StringDocumentTarget();
-        storer.createStorer().storeOntology(ont(), target, ontologyFormat);
-        // assertEquals(expected, object.toString());
+        target.store(storer.createStorer(), ont(), ontologyFormat);
     }
 }

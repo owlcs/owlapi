@@ -12,15 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An ontology document target which can write to a GZIP stream. Notice that
@@ -30,27 +25,13 @@ import org.slf4j.LoggerFactory;
  * @author ignazio
  * @since 3.4.8
  */
-public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
-
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(GZipFileDocumentTarget.class);
-    private final OutputStream outputStream;
+public class GZipStreamDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
      * @param os
      *        the actual file
      */
     public GZipStreamDocumentTarget(OutputStream os) {
-        outputStream = os;
-    }
-
-    @Override
-    public Optional<OutputStream> getOutputStream() {
-        try {
-            return optional(new GZIPOutputStream(outputStream));
-        } catch (IOException e) {
-            LOGGER.error("Fille cannot be found or opened", e);
-            return emptyOptional();
-        }
+        super(() -> new GZIPOutputStream(checkNotNull(os, "os cannot be null")), null);
     }
 }
