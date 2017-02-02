@@ -8,7 +8,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
@@ -33,6 +36,11 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
      */
     public PriorityCollection(PriorityCollectionSorting sorting) {
         this.configurationHolder = sorting;
+    }
+
+    /** @return stream view */
+    public Stream<T> stream() {
+        return StreamSupport.stream(spliterator(), false);
     }
 
     /**
@@ -171,7 +179,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
-     * Returns the first item matching the mime type<br>
+     * Returns the items matching the mime type<br>
      * NOTE: The order in which the services are loaded an examined is not
      * deterministic so this method may return different results if the
      * MIME-Type matches more than one item. However, if the default MIME-Types
@@ -196,6 +204,30 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
                     if (mimeTypeAware.getMIMETypes().contains(mimeType)) {
                         pc.add(t);
                     }
+                }
+            }
+        }
+        return pc;
+    }
+
+    /**
+     * Returns the items matching the format
+     * 
+     * @param formatKey
+     *        A format type to use for filtering items
+     * @return matched elements
+     */
+    public PriorityCollection<T> getBySupportedFormat(String formatKey) {
+        checkNotNull(formatKey, "formatKey cannot be null");
+        PriorityCollection<T> pc = new PriorityCollection<>(PriorityCollectionSorting.NEVER);
+        // adding directly to the delegate. No need to order because insertion
+        // will be ordered as in this PriorityCollection
+        for (T t : delegate) {
+            // if the instance has formats associated
+            if (t instanceof OWLParserFactory) {
+                OWLParserFactory mimeTypeAware = (OWLParserFactory) t;
+                if (mimeTypeAware.getSupportedFormat().getKey().equals(formatKey)) {
+                    pc.add(t);
                 }
             }
         }

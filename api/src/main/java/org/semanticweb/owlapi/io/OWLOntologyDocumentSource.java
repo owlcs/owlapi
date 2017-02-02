@@ -12,15 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
-
 import java.util.Collection;
-import java.util.Optional;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
  * A document source provides a point for loading an ontology. A document source
@@ -42,6 +40,16 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * @since 2.0.0
  */
 public interface OWLOntologyDocumentSource {
+
+    /**
+     * @param parsers
+     *        parsers to filter
+     * @return filtered parsers - parsers that are incompatible with the known
+     *         format or MIME type are skipped
+     */
+    default PriorityCollection<OWLParserFactory> filter(PriorityCollection<OWLParserFactory> parsers) {
+        return parsers;
+    }
 
     /**
      * @param parser
@@ -67,20 +75,4 @@ public interface OWLOntologyDocumentSource {
      * @return An IRI which represents the ontology document IRI
      */
     IRI getDocumentIRI();
-
-    /**
-     * @return format for the ontology. If none is known, return
-     *         Optional.absent.
-     */
-    default Optional<OWLDocumentFormat> getFormat() {
-        return emptyOptional();
-    }
-
-    /**
-     * @return MIME type for this source, if one is specified. If none is known,
-     *         return Optional.absent.
-     */
-    default Optional<String> getMIMEType() {
-        return emptyOptional();
-    }
 }

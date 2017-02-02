@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -31,7 +30,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -39,9 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.util.PriorityCollection;
 
 import com.google.common.collect.Sets;
 
@@ -81,75 +77,6 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         return ont;
     }
 
-    /**
-     * Select parsers by MIME type and format of the input source, if known. If
-     * format and MIME type are not known or not matched by any parser, return
-     * all known parsers.
-     * 
-     * @param documentSource
-     *        document source
-     * @param parsers
-     *        parsers
-     * @return selected parsers
-     */
-    private static PriorityCollection<OWLParserFactory> getParsers(OWLOntologyDocumentSource documentSource,
-        PriorityCollection<OWLParserFactory> parsers) {
-        if (parsers.isEmpty()) {
-            return parsers;
-        }
-        Optional<OWLDocumentFormat> format = documentSource.getFormat();
-        Optional<String> mimeType = documentSource.getMIMEType();
-        if (!format.isPresent() && !mimeType.isPresent()) {
-            return parsers;
-        }
-        PriorityCollection<OWLParserFactory> candidateParsers = parsers;
-        if (format.isPresent()) {
-            candidateParsers = getParsersByFormat(format.get(), parsers);
-        }
-        if (candidateParsers.isEmpty() && mimeType.isPresent()) {
-            candidateParsers = getParserCandidatesByMIME(mimeType.get(), parsers);
-        }
-        if (candidateParsers.isEmpty()) {
-            return parsers;
-        }
-        return candidateParsers;
-    }
-
-    /**
-     * Use the format to select a sublist of parsers.
-     * 
-     * @param format
-     *        document format
-     * @param parsers
-     *        parsers
-     * @return candidate parsers
-     */
-    private static PriorityCollection<OWLParserFactory> getParsersByFormat(OWLDocumentFormat format,
-        PriorityCollection<OWLParserFactory> parsers) {
-        PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>(
-            PriorityCollectionSorting.NEVER);
-        for (OWLParserFactory parser : parsers) {
-            if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
-                candidateParsers.add(parser);
-            }
-        }
-        return candidateParsers;
-    }
-
-    /**
-     * Use the MIME type it to select a sublist of parsers.
-     * 
-     * @param mimeType
-     *        MIME type
-     * @param parsers
-     *        parsers
-     * @return candidate parsers
-     */
-    private static PriorityCollection<OWLParserFactory> getParserCandidatesByMIME(String mimeType,
-        PriorityCollection<OWLParserFactory> parsers) {
-        return parsers.getByMIMEType(mimeType);
-    }
-
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager manager, OWLOntologyDocumentSource documentSource,
         OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
@@ -177,8 +104,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // select a parser if the input source has format information and MIME
         // information
         Set<String> bannedParsers = Sets.newHashSet(configuration.getBannedParsers().split(" "));
-        PriorityCollection<OWLParserFactory> parsers = getParsers(documentSource, manager.getOntologyParsers());
-        for (OWLParserFactory parserFactory : parsers) {
+        for (OWLParserFactory parserFactory : documentSource.filter(manager.getOntologyParsers())) {
             if (!bannedParsers.contains(parserFactory.getClass().getName())) {
                 OWLParser parser = parserFactory.createParser();
                 try {

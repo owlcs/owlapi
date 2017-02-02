@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.apache.commons.io.ByteOrderMark.*;
 import static org.semanticweb.owlapi.io.ZipSources.handleZips;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -16,7 +16,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
@@ -32,6 +31,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tukaani.xz.XZInputStream;
@@ -68,8 +68,8 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
 
     protected Charset encoding = StandardCharsets.UTF_8;
     private final IRI documentIRI;
-    private final Optional<OWLDocumentFormat> format;
-    private final Optional<String> mimeType;
+    @Nullable private final OWLDocumentFormat format;
+    @Nullable private final String mimeType;
     protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
     protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
     protected final StreamerWrapper<Reader, InputStream> defaultReader = (i) -> new InputStreamReader(
@@ -88,8 +88,8 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
      *        mime type. If null or empty, it is considered unspecified.
      */
     public OWLOntologyDocumentSourceBase(IRI iri, @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        this.format = optional(format);
-        mimeType = optional(mime);
+        this.format = format;
+        mimeType = mime;
         documentIRI = checkNotNull(iri, "document iri cannot be null");
     }
 
@@ -247,12 +247,23 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     }
 
     @Override
-    public Optional<OWLDocumentFormat> getFormat() {
-        return format;
-    }
-
-    @Override
-    public Optional<String> getMIMEType() {
-        return mimeType;
+    public PriorityCollection<OWLParserFactory> filter(PriorityCollection<OWLParserFactory> parsers) {
+        if (parsers.isEmpty()) {
+            return parsers;
+        }
+        if (format == null && mimeType == null) {
+            return parsers;
+        }
+        PriorityCollection<OWLParserFactory> candidateParsers = parsers;
+        if (format != null) {
+            candidateParsers = parsers.getBySupportedFormat(format.getKey());
+        }
+        if (candidateParsers.isEmpty() && mimeType != null) {
+            candidateParsers = parsers.getByMIMEType(mimeType);
+        }
+        if (candidateParsers.isEmpty()) {
+            return parsers;
+        }
+        return candidateParsers;
     }
 }
