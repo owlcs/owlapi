@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.HasIRI;
@@ -22,8 +23,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.CollectionFactory;
-
-import com.google.inject.Provides;
 
 /*
  * Not a pretty pattern but I didn't want to have long strings repeated across
@@ -58,13 +57,13 @@ interface KnownFactories {
  * 
  * @author ignazio
  */
-public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
+public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWLProfile> {
     //@formatter:off
-    /** http://www.w3.org/ns/owl-profile/DL. **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/EL. **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2ELProfile();} },
-    /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} };
+    /** http://www.w3.org/ns/owl-profile/DL. **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2DLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2QLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/EL. **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2ELProfile();} },
+    /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2RLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2DLProfile();} };
     //@formatter:on
     private final IRI iri;
     private final List<String> supportingFactories;
@@ -76,26 +75,18 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
 
     @Override
     public String getName() {
-        return getOWLProfile().getName();
+        return get().getName();
     }
 
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
-        return getOWLProfile().checkOntology(ontology);
+        return get().checkOntology(ontology);
     }
 
     @Override
     public IRI getIRI() {
         return iri;
     }
-
-    /**
-     * Factory method for OWLProfile checkers.
-     * 
-     * @return profile checker for this profile
-     */
-    @Provides
-    public abstract OWLProfile getOWLProfile();
 
     /**
      * @return collection of OWLReasonerFactory class names known to support the

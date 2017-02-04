@@ -17,13 +17,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.multibindings.Multibinder;
 
 import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
@@ -51,7 +49,7 @@ public class OWLAPIImplModule extends AbstractModule {
     @Override
     protected void configure() {
         if (concurrency == Concurrency.CONCURRENT) {
-            bind(ReadWriteLock.class).to(ReentrantReadWriteLock.class).asEagerSingleton();
+            bind(ReadWriteLock.class).to(ReentrantReadWriteLock.class);
         } else {
             bind(ReadWriteLock.class).to(NoOpReadWriteLock.class).asEagerSingleton();
         }
@@ -62,8 +60,6 @@ public class OWLAPIImplModule extends AbstractModule {
         bind(OWLOntologyBuilder.class).to(ConcurrentOWLOntologyBuilder.class);
         bind(OWLOntologyBuilder.class).annotatedWith(NonConcurrentDelegate.class).to(
             NonConcurrentOWLOntologyBuilder.class);
-        install(new FactoryModuleBuilder().implement(OWLOntology.class, OWLOntologyImpl.class).build(
-            OWLOntologyImplementationFactory.class));
         multibind(OWLOntologyFactory.class, OWLOntologyFactoryImpl.class);
     }
 

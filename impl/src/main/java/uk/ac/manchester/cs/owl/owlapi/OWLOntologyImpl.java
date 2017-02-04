@@ -19,10 +19,19 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLMutableOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
+import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
-
-import com.google.inject.assistedinject.Assisted;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -38,7 +47,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
      *        ontology id
      */
     @Inject
-    public OWLOntologyImpl(@Assisted OWLOntologyManager manager, @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 

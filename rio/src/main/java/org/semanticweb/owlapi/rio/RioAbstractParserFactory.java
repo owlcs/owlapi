@@ -37,7 +37,6 @@ package org.semanticweb.owlapi.rio;
 
 import org.eclipse.rdf4j.rio.RDFParser;
 import org.eclipse.rdf4j.rio.RDFParserFactory;
-import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -51,8 +50,7 @@ import com.google.inject.Injector;
  */
 public abstract class RioAbstractParserFactory implements RDFParserFactory {
 
-    private static final Injector INJECTOR = Guice
-            .createInjector(new OWLAPIServiceLoaderModule());
+    private static final Injector INJECTOR = Guice.createInjector(new OWLAPIForRIOModule());
 
     @Override
     public abstract OWLAPIRDFFormat getRDFFormat();
