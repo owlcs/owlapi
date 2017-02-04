@@ -13,8 +13,9 @@
 package org.semanticweb.owlapi.model;
 
 import static java.util.Arrays.stream;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.*;
 
@@ -25,7 +26,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.semanticweb.owlapi.vocab.*;
+import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.vocab.SKOSVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -68,7 +76,7 @@ public class VocabularyEnumTestCase {
 
     @Test
     public void getPrefixedNameShouldStartWithDublinCorePrefixName() {
-        assertThat(name.getPrefixedName(), startsWith(expected.getPrefixName()));
+        assertTrue(name.getPrefixedName().startsWith(expected.getPrefixName()));
     }
 
     @Test
