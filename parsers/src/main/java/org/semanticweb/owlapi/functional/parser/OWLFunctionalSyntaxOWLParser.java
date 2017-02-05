@@ -36,7 +36,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
-        OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(r));
+        OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new StreamProvider(r));
         parser.setUp(o, config);
         return parser.parse();
     }

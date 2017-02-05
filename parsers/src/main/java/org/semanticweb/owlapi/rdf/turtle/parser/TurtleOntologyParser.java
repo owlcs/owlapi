@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
+import java.io.IOException;
 import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
@@ -22,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * The Class TurtleOntologyParser.
@@ -39,14 +41,18 @@ public class TurtleOntologyParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
-        TurtleParser parser = new TurtleParser(r, new ConsoleTripleHandler(), documentIRI);
-        OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(o, config);
-        TurtleDocumentFormat format = new TurtleDocumentFormat();
-        consumer.setOntologyFormat(format);
-        consumer.startModel(documentIRI);
-        parser.setTripleHandler(consumer);
-        parser.parseDocument();
-        format.copyPrefixesFrom(parser.getPrefixManager());
-        return format;
+        try {
+            TurtleParser parser = new TurtleParser(r, new ConsoleTripleHandler(), documentIRI);
+            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(o, config);
+            TurtleDocumentFormat format = new TurtleDocumentFormat();
+            consumer.setOntologyFormat(format);
+            consumer.startModel(documentIRI);
+            parser.setTripleHandler(consumer);
+            parser.parseDocument();
+            format.copyPrefixesFrom(parser.getPrefixManager());
+            return format;
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 }

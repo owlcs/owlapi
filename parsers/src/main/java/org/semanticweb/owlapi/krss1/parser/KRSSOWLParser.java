@@ -37,7 +37,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
     @Override
     public OWLDocumentFormat parse(Reader reader, OWLOntology o, OWLOntologyLoaderConfiguration config,
         IRI documentIRI) {
-        new KRSSParser(reader).setOntology(o).parse();
+        new KRSSParser(new StreamProvider(reader)).setOntology(o).parse();
         return getSupportedFormat().createFormat();
     }
 }

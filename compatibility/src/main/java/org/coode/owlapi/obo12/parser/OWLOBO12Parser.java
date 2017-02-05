@@ -63,7 +63,7 @@ class OWLOBO12Parser extends AbstractOWLParser {
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
         RawFrameHandler rawFrameHandler = new RawFrameHandler();
         OBOConsumer oboConsumer = new OBOConsumer(o, config, documentIRI);
-        OBOParser parser = new OBOParser(r);
+        OBOParser parser = new OBOParser(new StreamProvider(r));
         parser.setHandler(rawFrameHandler);
         parser.parse();
         parseFrames(rawFrameHandler, oboConsumer);

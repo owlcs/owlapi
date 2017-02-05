@@ -27,8 +27,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @param <B>
  *        builder type
  */
-public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> implements
-    SettableProperty<OWLObjectPropertyExpression, B> {
+public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B>
+    implements SettableProperty<OWLObjectPropertyExpression, B> {
 
     @Nullable private OWLObjectPropertyExpression property = null;
 
@@ -48,7 +48,6 @@ public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends 
         return (B) this;
     }
 
-    @SuppressWarnings("null")
     @Override
     @Nullable
     public OWLObjectPropertyExpression getProperty() {

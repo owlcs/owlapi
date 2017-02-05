@@ -18,7 +18,6 @@ public interface OWLVisitorExBase<O> {
      *        type visited
      * @return The default return value
      */
-    @SuppressWarnings("null")
     default <T> O doDefault(@SuppressWarnings("unused") T object) {
         // no other way to provide a default implementation
         return null;

@@ -342,12 +342,11 @@ class OBOConsumer implements OBOParserHandler {
     }
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
-        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
-            classExpression));
+        OWLAxiom ax = getDataFactory()
+            .getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(), classExpression));
         getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
     }
 
-    @SuppressWarnings("null")
     @Override
     public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
         try {
@@ -378,8 +377,8 @@ class OBOConsumer implements OBOParserHandler {
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
                     owlOntologyManager.addAxiom(ontology, ax);
-                    OWLDeclarationAxiom annotationPropertyDeclaration = getDataFactory().getOWLDeclarationAxiom(
-                        property);
+                    OWLDeclarationAxiom annotationPropertyDeclaration = getDataFactory()
+                        .getOWLDeclarationAxiom(property);
                     owlOntologyManager.addAxiom(ontology, annotationPropertyDeclaration);
                 }
             }
@@ -409,12 +408,10 @@ class OBOConsumer implements OBOParserHandler {
         return getOWLOntologyManager().getOWLDataFactory();
     }
 
-    @SuppressWarnings("null")
     public OWLClass getCurrentClass() {
         return getDataFactory().getOWLClass(getIRI(currentId));
     }
 
-    @SuppressWarnings("null")
     public OWLEntity getCurrentEntity() {
         if (isTerm()) {
             return getCurrentClass();
