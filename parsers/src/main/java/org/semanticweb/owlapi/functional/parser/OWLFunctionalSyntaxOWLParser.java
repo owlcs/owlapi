@@ -40,14 +40,14 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-            OWLOntologyLoaderConfiguration config) {
+        OWLOntologyLoaderConfiguration config) {
         try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(r));
+            OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new StreamProvider(r));
             parser.setUp(ontology, config);
             return parser.parse();
         } catch (ParseException e) {
             throw new OWLParserException(e.getMessage(), e, 0, 0);
-        } catch (TokenMgrError | OWLOntologyInputSourceException | IOException e) {
+        } catch (OWLOntologyInputSourceException | IOException e) {
             throw new OWLParserException(e);
         }
     }

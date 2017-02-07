@@ -237,11 +237,11 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration config) {
         try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
             KRSS2DocumentFormat format = new KRSS2DocumentFormat();
-            KRSS2Parser parser = new KRSS2Parser(r);
+            KRSS2Parser parser = new KRSS2Parser(new StreamProvider(r));
             parser.setOntology(ontology);
             parser.parse();
             return format;
