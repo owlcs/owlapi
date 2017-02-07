@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -539,7 +540,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     @Override
-    public ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes) {
+    public ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> changes) {
         writeLock.lock();
         try {
             broadcastImpendingChanges(changes);
@@ -557,16 +558,16 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             fireEndChanges();
             broadcastChanges(appliedChanges);
             if (rollbackRequested.get()) {
-                return ChangeApplied.UNSUCCESSFULLY;
+                return new ChangeDetails(ChangeApplied.UNSUCCESSFULLY, appliedChanges);
             }
             if (allNoOps.get()) {
-                return ChangeApplied.NO_OPERATION;
+                return new ChangeDetails(ChangeApplied.NO_OPERATION, appliedChanges);
             }
-            return ChangeApplied.SUCCESSFULLY;
+            return new ChangeDetails(ChangeApplied.SUCCESSFULLY, appliedChanges);
         } catch (OWLOntologyChangeVetoException e) {
             // Some listener blocked the changes.
             broadcastOntologyChangesVetoed(changes, e);
-            return ChangeApplied.UNSUCCESSFULLY;
+            return new ChangeDetails(ChangeApplied.UNSUCCESSFULLY, Collections.emptyList());
         } finally {
             writeLock.unlock();
         }

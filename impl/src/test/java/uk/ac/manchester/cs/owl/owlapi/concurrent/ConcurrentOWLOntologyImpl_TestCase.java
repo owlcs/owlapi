@@ -1,9 +1,11 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -18,6 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
@@ -44,6 +47,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     public void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
+        when(delegate.applyDetailedChanges(anyListOf(OWLOntologyChange.class))).thenReturn(new ChangeDetails(
+            ChangeApplied.NO_OPERATION, Collections.emptyList()));
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
     }
 
@@ -1190,7 +1195,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_applyChanges_withWriteLock() {
         ontology.applyChanges(list);
-        writeLock(i -> i.verify(delegate).applyChanges(list));
+        writeLock(i -> i.verify(delegate).applyDetailedChanges(list));
     }
 
     @Mock List<OWLOntologyChange> list;

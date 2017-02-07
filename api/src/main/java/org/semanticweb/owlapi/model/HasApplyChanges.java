@@ -38,7 +38,9 @@ public interface HasApplyChanges {
      * @throws OWLOntologyChangeException
      *         If one or more of the changes could not be applied.
      */
-    ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes);
+    default ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes) {
+        return applyDetailedChanges(changes).getChangeEffect();
+    }
 
     /**
      * Applies a list ontology changes to a collection of ontologies. Note that
@@ -55,5 +57,37 @@ public interface HasApplyChanges {
      */
     default ChangeApplied applyChanges(OWLOntologyChange... changes) {
         return applyChanges(Arrays.asList(changes));
+    }
+
+    /**
+     * Applies a list ontology changes to a collection of ontologies. Note that
+     * the ontologies need to be managed by this manager, since import closures,
+     * ontology ids and configurations might be affected by the changes, and
+     * they are held by the manager.
+     * 
+     * @param changes
+     *        The changes to be applied.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException
+     *         If one or more of the changes could not be applied.
+     */
+    ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> changes);
+
+    /**
+     * Applies a list ontology changes to a collection of ontologies. Note that
+     * the ontologies need to be managed by this manager, since import closures,
+     * ontology ids and configurations might be affected by the changes, and
+     * they are held by the manager.
+     * 
+     * @param changes
+     *        The changes to be applied.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException
+     *         If one or more of the changes could not be applied.
+     */
+    default ChangeDetails applyDetailedChanges(OWLOntologyChange... changes) {
+        return applyDetailedChanges(Arrays.asList(changes));
     }
 }
