@@ -11,7 +11,7 @@ import java.io.IOException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /** Token Manager. */ @SuppressWarnings("all")
-public class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSyntaxParserConstants {
+class OWLFunctionalSyntaxParserTokenManager implements OWLFunctionalSyntaxParserConstants {
 
   /** Debug output. */
   public  java.io.PrintStream debugStream = System.out;

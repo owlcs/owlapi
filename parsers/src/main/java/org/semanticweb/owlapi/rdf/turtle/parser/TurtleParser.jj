@@ -3,7 +3,7 @@ options {
     STATIC=false;
     JAVA_TEMPLATE_TYPE = "modern";
     EXCEPTIONS_SUPER_CLASS = "org.semanticweb.owlapi.io.OWLParserException"; 
-    //DEBUG_TOKEN_MANAGER=true;
+    SUPPORT_CLASS_VISIBILITY_PUBLIC=false;
     //DEBUG_PARSER=true;
 }
 

@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.model.*;
 
 /** Token Manager. */ @SuppressWarnings("all")
-public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
+class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
 
   /** Debug output. */
   public  java.io.PrintStream debugStream = System.out;

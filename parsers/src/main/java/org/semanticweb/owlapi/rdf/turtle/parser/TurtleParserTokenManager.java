@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** Token Manager. */ @SuppressWarnings("all")
-public class TurtleParserTokenManager implements TurtleParserConstants {
+class TurtleParserTokenManager implements TurtleParserConstants {
 
   /** Debug output. */
   public  java.io.PrintStream debugStream = System.out;

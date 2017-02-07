@@ -7,7 +7,7 @@ import java.net.*;
 import java.util.*;
 
 /** Token Manager. */ @SuppressWarnings("all")
-public class KRSSParserTokenManager implements KRSSParserConstants {
+class KRSSParserTokenManager implements KRSSParserConstants {
 
   /** Debug output. */
   public  java.io.PrintStream debugStream = System.out;
