@@ -15,11 +15,24 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.ChangeDetails;
+import org.semanticweb.owlapi.model.OWLMutableOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.RemoveImport;
+import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
+import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 import com.google.inject.assistedinject.Assisted;
@@ -49,11 +62,15 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
     }
 
     @Override
-    public ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes) {
+    public ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> changes) {
+        List<OWLOntologyChange> enactedChanges = new ArrayList<>();
         ChangeApplied appliedChanges = SUCCESSFULLY;
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange change : changes) {
             ChangeApplied result = change.accept(changeFilter);
+            if (result == SUCCESSFULLY) {
+                enactedChanges.add(change);
+            }
             if (appliedChanges == SUCCESSFULLY) {
                 // overwrite only if appliedChanges is still successful. If one
                 // change has been unsuccessful, we want to preserve that
@@ -61,7 +78,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
                 appliedChanges = result;
             }
         }
-        return appliedChanges;
+        return new ChangeDetails(appliedChanges, enactedChanges);
     }
 
     protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
