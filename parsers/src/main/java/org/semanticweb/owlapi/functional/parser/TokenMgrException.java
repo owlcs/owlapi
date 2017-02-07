@@ -3,7 +3,7 @@
 package org.semanticweb.owlapi.functional.parser;
 
 @SuppressWarnings("all")
-public class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException
+class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException
 {
 
   private static final long serialVersionUID = 1L;
@@ -86,4 +86,4 @@ public class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserExcept
     this(LexicalErr(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
   }
 }
-/* JavaCC - OriginalChecksum=b77dafce175b055567e0c2fda47c4eb4 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b3ee955f0340226ac98779c2b3ad03a3 (do not edit this line) */

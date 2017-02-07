@@ -6,7 +6,7 @@ import java.net.*;
 import java.util.*;
 
 /** Token Manager. */ @SuppressWarnings("all")
-public class OBOParserTokenManager implements OBOParserConstants {
+class OBOParserTokenManager implements OBOParserConstants {
 
   /** Debug output. */
   public  java.io.PrintStream debugStream = System.out;
