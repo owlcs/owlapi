@@ -47,6 +47,14 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
+    public void shouldParseFixedQuotesLiterals6() throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(
+            "<urn:test#s> <urn:test#p> \"\"\"3'''-acetate; [cut]\"\"\"^^xsd:string .", iri, tf, null));
+        o.annotationAssertionAxioms(s).forEach(ax -> assertEquals("3'''-acetate; [cut]", ((OWLLiteral) ax.getValue())
+            .getLiteral()));
+    }
+
+    @Test
     public void shouldParseFixedQuotesLiterals2() throws OWLOntologyCreationException {
         OWLOntology o = loadOntologyFromString(new StringDocumentSource(
             "<urn:test#s> <urn:test#p> \"\"\" \"\"\\\" \"\"\" .", iri, tf, null));

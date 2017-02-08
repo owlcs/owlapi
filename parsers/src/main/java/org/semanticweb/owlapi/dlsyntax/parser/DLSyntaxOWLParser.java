@@ -43,9 +43,9 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-            OWLOntologyLoaderConfiguration config) {
+        OWLOntologyLoaderConfiguration config) {
         try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            DLSyntaxParser parser = new DLSyntaxParser(r);
+            DLSyntaxParser parser = new DLSyntaxParser(new StreamProvider(r));
             parser.setOWLDataFactory(ontology.getOWLOntologyManager().getOWLDataFactory());
             Set<OWLAxiom> set = parser.parseAxioms();
             ontology.add(set);
