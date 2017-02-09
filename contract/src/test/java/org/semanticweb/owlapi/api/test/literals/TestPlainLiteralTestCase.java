@@ -19,7 +19,15 @@ import java.io.ByteArrayOutputStream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
@@ -34,7 +42,7 @@ public class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParsePlainLiteral() throws OWLOntologyCreationException {
+    public void shouldParsePlainLiteral() {
         String input = "<?xml version=\"1.0\"?>\n"
             + "    <rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\" xml:base=\"http://www.w3.org/2002/07/owl\"\n"
             + "         xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
@@ -42,7 +50,7 @@ public class TestPlainLiteralTestCase extends TestBase {
             + "        <rdf:Description rdf:about=\"urn:test#ind\">\n"
             + "            <rdfs:comment rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">test</rdfs:comment>\n"
             + "        </rdf:Description>\n" + "    </rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         IRI i = IRI("urn:test#", "ind");
         assertEquals(o.annotationAssertionAxioms(i).iterator().next(), AnnotationAssertion(RDFSComment(), i, Literal(
             "test", OWL2Datatype.RDF_PLAIN_LITERAL)));

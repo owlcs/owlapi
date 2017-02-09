@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class DisjointClassesRoundTripTestCase extends TestBase {
@@ -31,11 +30,11 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
     private static final String NS = "http://ns.owl";
 
     @Test
-    public void shouldParse() throws OWLOntologyCreationException {
+    public void shouldParse() {
         OWLOntology ontology = buildOntology();
         String input = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n Prefix: piz: <http://ns.owl#>\n Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n Ontology: <http://ns.owl>\n"
             + " Class: piz:F\n Class: piz:E\n Class: piz:D\n Class: piz:C\n DisjointClasses: \n ( piz:D or piz:C),\n (piz:E or piz:C),\n (piz:F or piz:C)";
-        OWLOntology roundtripped = loadOntologyFromString(input);
+        OWLOntology roundtripped = loadOntologyFromString(input, new ManchesterSyntaxDocumentFormat());
         assertTrue(input, equalStreams(ontology.logicalAxioms(), roundtripped.logicalAxioms()));
     }
 

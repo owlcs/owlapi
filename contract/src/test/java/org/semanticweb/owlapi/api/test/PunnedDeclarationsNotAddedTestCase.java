@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
@@ -63,8 +62,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
     }
 
     @Test
-    public void shouldNotAddDeclarationsForIllegalPunnings() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    public void shouldNotAddDeclarationsForIllegalPunnings() throws OWLOntologyStorageException {
         OWLOntology o = getOntologyWithPunnedInvalidDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
@@ -73,7 +71,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDeclareMissingEntities() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDeclareMissingEntities() throws OWLOntologyStorageException {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));

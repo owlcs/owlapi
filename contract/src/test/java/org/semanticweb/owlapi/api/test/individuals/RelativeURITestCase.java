@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,6 +56,7 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
             + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>" + "  </owl:Thing>"
             + "</rdf:RDF>";
         OWLOntology ontology = getOWLOntology();
-        new StringDocumentSource(rdfContent).acceptParser(new RDFXMLParser(), ontology, config);
+        new StringDocumentSource(rdfContent, new RDFXMLDocumentFormat()).acceptParser(new RDFXMLParser(), ontology,
+            config);
     }
 }

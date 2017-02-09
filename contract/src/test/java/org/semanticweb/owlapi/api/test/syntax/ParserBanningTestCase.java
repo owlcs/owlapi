@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -46,6 +47,6 @@ public class ParserBanningTestCase extends TestBase {
         // org.semanticweb.owlapi.rio.RioTurtleParserFactory
         String name = "org.semanticweb.owlapi.rio.RioTrixParserFactory";
         manager.getOntologyConfigurator().withBannedParsers(name);
-        manager.loadOntologyFromOntologyDocument(new StringDocumentSource(in));
+        manager.loadOntologyFromOntologyDocument(new StringDocumentSource(in, new RDFXMLDocumentFormat()));
     }
 }

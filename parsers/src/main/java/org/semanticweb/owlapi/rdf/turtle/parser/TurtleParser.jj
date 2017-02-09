@@ -41,24 +41,8 @@ public class TurtleParser {
      *            the handler
      * @param base
      *            the base */
-    public TurtleParser(Reader reader, TripleHandler handler, IRI base) throws IOException {
-        this(new StreamProvider(reader));
-        this.handler = handler;
-        this.base = base;
-        string2IRI = new HashMap<String, IRI>();
-        pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
-    }
-
-    /** Instantiates a new turtle parser.
-     * 
-     * @param is
-     *            the is
-     * @param handler
-     *            the handler
-     * @param base
-     *            the base */
-    public TurtleParser(InputStream is, TripleHandler handler, IRI base) throws IOException {
-        this(new StreamProvider(is));
+    public TurtleParser(Provider r, TripleHandler handler, IRI base) {
+        this(r);
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();

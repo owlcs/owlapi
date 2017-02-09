@@ -2,14 +2,14 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 
 @SuppressWarnings("javadoc")
 public class BFOTestCase extends TestBase {
 
     @Test
-    public void shouldparseBFO() throws OWLOntologyCreationException {
+    public void shouldparseBFO() {
         m.getOntologyParsers().set(new RDFXMLParserFactory());
         loadOntologyFromString("<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://purl.obolibrary.org/obo/bfo.owl#\"\n"
@@ -17,12 +17,10 @@ public class BFOTestCase extends TestBase {
             + "     xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"
             + "     xmlns:obo=\"http://purl.obolibrary.org/obo/\"\n"
             + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-            + "     xmlns:foaf=\"http://xmlns.com/foaf/0.1/\"\n"
-            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xmlns:foaf=\"http://xmlns.com/foaf/0.1/\"\n" + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-            + "    <owl:Ontology rdf:about=\"http://purl.obolibrary.org/obo/bfo.owl\"/>\n"
-            + "\n"
+            + "    <owl:Ontology rdf:about=\"http://purl.obolibrary.org/obo/bfo.owl\"/>\n" + "\n"
             + "    <owl:AnnotationProperty rdf:about=\"http://purl.obolibrary.org/obo/BFO_0000179\"/>\n"
             + "    <owl:AnnotationProperty rdf:about=\"http://purl.obolibrary.org/obo/BFO_0000180\"/>\n"
             + "    <owl:AnnotationProperty rdf:about=\"http://xmlns.com/foaf/0.1/homepage\"/>\n"
@@ -42,8 +40,8 @@ public class BFOTestCase extends TestBase {
             + "    <owl:AnnotationProperty rdf:about=\"http://purl.obolibrary.org/obo/IAO_0000118\"/>\n"
             + "    <owl:AnnotationProperty rdf:about=\"http://purl.obolibrary.org/obo/IAO_0000600\"/>\n"
             + "    <owl:AnnotationProperty rdf:about=\"http://purl.obolibrary.org/obo/IAO_0000111\"/>\n"
-            + "    <owl:AnnotationProperty rdf:about=\"http://purl.obolibrary.org/obo/IAO_0000112\"/>\n"
-            + "    \n" + "\n" + "    <owl:Axiom>\n"
+            + "    <owl:AnnotationProperty rdf:about=\"http://purl.obolibrary.org/obo/IAO_0000112\"/>\n" + "    \n"
+            + "\n" + "    <owl:Axiom>\n"
             + "        <owl:annotatedTarget rdf:resource=\"http://purl.obolibrary.org/obo/BFO_0000110\"/><!-- has continuant part at all times -->\n"
             + "        <owl:annotatedSource rdf:resource=\"http://purl.obolibrary.org/obo/BFO_0000186\"/><!-- part of continuant at all times that whole exists -->\n"
             + "        <!-- has axiom label --><obo:IAO_0010000 rdf:resource=\"http://purl.obolibrary.org/obo/bfo/axiom/0000602\"/>\n"
@@ -68,6 +66,6 @@ public class BFOTestCase extends TestBase {
             + "        <owl:annotatedSource rdf:resource=\"http://purl.obolibrary.org/obo/BFO_0000187\"/><!-- has continuant part at all times that part exists -->\n"
             + "        <!-- has axiom label --><obo:IAO_0010000 rdf:resource=\"http://purl.obolibrary.org/obo/bfo/axiom/0000601\"/>\n"
             + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#inverseOf\"/>\n"
-            + "    </owl:Axiom>\n" + "</rdf:RDF>");
+            + "    </owl:Axiom>\n" + "</rdf:RDF>", new RDFXMLDocumentFormat());
     }
 }

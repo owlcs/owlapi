@@ -30,7 +30,21 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 @SuppressWarnings("javadoc")
 public class RoundTripTestCase extends RoundTripTestBasics {
@@ -159,7 +173,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         StringDocumentTarget documentTarget = new StringDocumentTarget();
         manager.saveOntology(owlOntology, new OWLXMLDocumentFormat(), documentTarget);
         String owlString = documentTarget.toString();
-        OWLOntology reloadedOwl = loadOntologyFromString(owlString);
+        OWLOntology reloadedOwl = loadOntologyFromString(owlString, new OWLXMLDocumentFormat());
         assertEquals(owlOntology.getAxiomCount(), reloadedOwl.getAxiomCount());
     }
 

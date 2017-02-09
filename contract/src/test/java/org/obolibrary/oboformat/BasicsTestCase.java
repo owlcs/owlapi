@@ -4,7 +4,16 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,8 +34,13 @@ import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
-import org.obolibrary.oboformat.model.*;
+import org.obolibrary.oboformat.model.Clause;
+import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
+import org.obolibrary.oboformat.model.FrameStructureException;
+import org.obolibrary.oboformat.model.OBODoc;
+import org.obolibrary.oboformat.model.QualifierValue;
+import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
@@ -473,7 +487,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
      * @throws OWLOntologyCreationException
      */
     @Test
-    public void testHeaderLostBug() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void testHeaderLostBug() throws OWLOntologyStorageException {
         OWLOntology ontology = roundTrip(convert(parseOBOFile("header_lost_bug.obo")), new RDFXMLDocumentFormat());
         IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/", "test.owl");
         // two tags in the header of the obo file are translated as annotation

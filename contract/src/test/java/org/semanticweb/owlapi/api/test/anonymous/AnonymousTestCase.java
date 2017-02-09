@@ -16,7 +16,14 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class AnonymousTestCase extends TestBase {
@@ -31,7 +38,7 @@ public class AnonymousTestCase extends TestBase {
         OWLOntology ontology = getOWLOntology();
         ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i), DataPropertyAssertion(q, i, Literal(
             "hello")));
-        OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
+        OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology), ontology.getNonnullFormat());
         equal(ontology, ontologyReloaded);
     }
 

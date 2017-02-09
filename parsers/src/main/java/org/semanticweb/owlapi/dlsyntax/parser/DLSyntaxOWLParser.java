@@ -37,7 +37,16 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
-        DLSyntaxParser parser = new DLSyntaxParser(new StreamProvider(r));
+        return parse(o, new StreamProvider(r));
+    }
+
+    @Override
+    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+        return parse(o, new StringProvider(s));
+    }
+
+    protected OWLDocumentFormat parse(OWLOntology o, Provider provider) {
+        DLSyntaxParser parser = new DLSyntaxParser(provider);
         parser.setOWLDataFactory(o.getOWLOntologyManager().getOWLDataFactory());
         o.add(parser.parseAxioms());
         return new DLSyntaxHTMLDocumentFormat();

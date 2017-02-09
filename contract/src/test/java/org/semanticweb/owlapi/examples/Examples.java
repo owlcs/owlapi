@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -144,7 +145,7 @@ public class Examples extends TestBase {
      */
     OWLOntology load(OWLOntologyManager manager) throws OWLOntologyCreationException {
         // in this test, the ontology is loaded from a string
-        return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+        return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA, new RDFXMLDocumentFormat()));
     }
 
     /**
@@ -401,7 +402,8 @@ public class Examples extends TestBase {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // In this test we don't rely on a remote ontology and load it from
         // a string
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA,
+            new RDFXMLDocumentFormat()));
         // Print out all of the classes which are contained in the signature of
         // the ontology. These are the classes that are referenced by axioms in
         // the ontology.

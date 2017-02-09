@@ -21,6 +21,7 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -64,7 +65,7 @@ public class RDFParserTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseDataProperty() throws OWLOntologyCreationException {
+    public void shouldParseDataProperty() {
         String in = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<!DOCTYPE rdf:RDF [\n"
             + "    <!ENTITY b 'http://www.loa-cnr.it/ontologies/ExtendedDnS.owl#'>\n"
             + "    <!ENTITY k 'http://www.loa-cnr.it/ontologies/Plans.owl#'>\n"
@@ -83,13 +84,13 @@ public class RDFParserTestCase extends TestBase {
             + "</owl:DatatypeProperty>\n" + "<owl:Datatype rdf:about=\"&xsd;decimal\"/>\n"
             + "<owl:Datatype rdf:about=\"&xsd;integer\"/>\n" + "<owl:Datatype rdf:about=\"&xsd;string\"/>\n"
             + "</rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(in);
+        OWLOntology o = loadOntologyFromString(in, new RDFXMLDocumentFormat());
         assertFalse(o.containsObjectPropertyInSignature(IRI.create("http://www.loa-cnr.it/ontologies/Plans.owl#",
             "iteration-cardinality")));
     }
 
     @Test
-    public void shouldLoadSubPropertiesAsObjectProperties() throws OWLOntologyCreationException {
+    public void shouldLoadSubPropertiesAsObjectProperties() {
         String in = "<rdf:RDF xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:marc-fields=\"http://bibframe.org/marc/\" xmlns:rda-fields=\"http://bibframe.org/rda/\" xmlns:bf-abstract=\"http://bibframe.org/model-abstract/\" xmlns:bframe=\"http://bibframe.org/vocab/frame\" xmlns:bfmain=\"http://bibframe.org/vocab/main\" xml:base=\"http://bibframe.org/vocab/\">\n"
             + "  <owl:Ontology rdf:about=\"\">\n" + "  </owl:Ontology>\n"
             + "  <rdfs:Class rdf:about=\"http://bibframe.org/vocab/Resource\">\n" + "  </rdfs:Class>\n"
@@ -99,7 +100,7 @@ public class RDFParserTestCase extends TestBase {
             + "  <rdf:Property rdf:about=\"http://bibframe.org/vocab/partOf\">\n"
             + "    <rdfs:subPropertyOf rdf:resource=\"http://bibframe.org/vocab/relatedTo\"/>\n" + "  </rdf:Property>\n"
             + "</rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(in);
+        OWLOntology o = loadOntologyFromString(in, new RDFXMLDocumentFormat());
         assertEquals(0, o.axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).count());
         assertEquals(1, o.axioms(AxiomType.SUB_OBJECT_PROPERTY).count());
     }
@@ -110,7 +111,7 @@ public class RDFParserTestCase extends TestBase {
             + "SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>))\n"
             + "SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/located-in> ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>)))\n"
             + "SubClassOf(ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo>) ObjectSomeValuesFrom(<http://x.org/located-in> ObjectSomeValuesFrom(<http://x.org/part-of> <http://x.org/Foo1>))))";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         equal(o, o1);
     }

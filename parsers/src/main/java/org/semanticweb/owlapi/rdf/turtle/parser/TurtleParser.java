@@ -32,24 +32,8 @@ public class TurtleParser implements TurtleParserConstants {
      *            the handler
      * @param base
      *            the base */
-    public TurtleParser(Reader reader, TripleHandler handler, IRI base) throws IOException {
-        this(new StreamProvider(reader));
-        this.handler = handler;
-        this.base = base;
-        string2IRI = new HashMap<String, IRI>();
-        pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
-    }
-
-    /** Instantiates a new turtle parser.
-     * 
-     * @param is
-     *            the is
-     * @param handler
-     *            the handler
-     * @param base
-     *            the base */
-    public TurtleParser(InputStream is, TripleHandler handler, IRI base) throws IOException {
-        this(new StreamProvider(is));
+    public TurtleParser(Provider r, TripleHandler handler, IRI base) {
+        this(r);
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
@@ -706,24 +690,6 @@ return EscapeUtils.unescapeString(rawString);
     finally { jj_save(2, xla); }
   }
 
-  private boolean jj_3R_6()
- {
-    if (jj_scan_token(PNAME_LN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_3()
- {
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_7()
- {
-    if (jj_scan_token(PNAME_NS)) return true;
-    return false;
-  }
-
   private boolean jj_3_1()
  {
     if (jj_scan_token(SEMICOLON)) return true;
@@ -789,6 +755,24 @@ return EscapeUtils.unescapeString(rawString);
     jj_scanpos = xsp;
     if (jj_3R_9()) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3R_6()
+ {
+    if (jj_scan_token(PNAME_LN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_3()
+ {
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_7()
+ {
+    if (jj_scan_token(PNAME_NS)) return true;
     return false;
   }
 

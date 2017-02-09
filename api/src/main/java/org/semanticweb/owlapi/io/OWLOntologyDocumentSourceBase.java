@@ -76,6 +76,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         new BOMInputStream(new BufferedInputStream(i), UTF_8, UTF_16BE, UTF_16LE, UTF_32BE, UTF_32LE), encoding);
     protected Streamer<InputStream> inputStream;
     protected Streamer<Reader> reader = () -> defaultReader.get(inputStream.get());
+    protected String stringContent = "";
 
     /**
      * Constructs an ontology input source using the specified file.
@@ -96,6 +97,11 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     @Override
     public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o, OWLOntologyLoaderConfiguration config) {
         boolean textual = parser.getSupportedFormat().isTextual();
+        // For document sources that are string based, this is a performance
+        // shortcut: no streams, no buffers, no IOExceptions
+        if (!stringContent.isEmpty() && textual) {
+            return parser.parse(stringContent, o, config, documentIRI);
+        }
         if (!failedOnStreams.get()) {
             if (textual) {
                 try (Reader r = reader.get()) {
@@ -224,7 +230,8 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
 
     @Override
     public boolean loadingCanBeAttempted(Collection<String> parsableSchemes) {
-        return !failedOnStreams.get() || !failedOnIRI.get() && parsableSchemes.contains(documentIRI.getScheme());
+        return !stringContent.isEmpty() || !failedOnStreams.get() || !failedOnIRI.get() && parsableSchemes.contains(
+            documentIRI.getScheme());
     }
 
     /**

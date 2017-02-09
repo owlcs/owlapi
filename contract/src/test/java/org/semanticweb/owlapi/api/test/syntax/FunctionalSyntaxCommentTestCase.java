@@ -19,21 +19,28 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxCommentTestCase extends TestBase {
 
     @Test
-    public void shouldParseCommentAndSkipIt() throws OWLOntologyCreationException {
+    public void shouldParseCommentAndSkipIt() {
         String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\nPrefix(skos:=<http://www.w3.org/2004/02/skos/core#>)\n\n"
             + "Ontology(<file:test.owl>\n" + "Declaration(Class(<urn:test.owl#ContactInformation>))\n"
             + "#Test comment\n" + "Declaration(DataProperty(<urn:test.owl#city>))\n"
             + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
             + ')';
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#", "city")));
         OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#", "ContactInformation")), DataMaxCardinality(1, DataProperty(
             IRI("urn:test.owl#", "city")), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
@@ -55,7 +62,7 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
             + "    SubClassOf( test:A DataMinCardinality( 257 test:dp rdfs:Literal ) ) \n"
             + "    SubClassOf( test:A DataAllValuesFrom( test:dp xsd:byte ) ) \n"
             + "    ClassAssertion( test:A test:a ))";
-        OWLOntology o = loadOntologyFromString(new StringDocumentSource(in));
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(in, new FunctionalSyntaxDocumentFormat()));
         OWLClass a = df.getOWLClass(IRI.create("urn:test#", "A"));
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#", "dp"));
         assertTrue(o.containsAxiom(df.getOWLSubClassOfAxiom(a, df.getOWLDataMinCardinality(257, p,
@@ -63,9 +70,9 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
     }
 
     @Test
-    public void testConvertGetLoadedOntology() throws Exception {
+    public void testConvertGetLoadedOntology() {
         String input = "Prefix(:=<http://www.example.org/#>)\nOntology(<http://example.org/>\nSubClassOf(:a :b) )";
-        OWLOntology origOnt = loadOntologyFromString(input);
+        OWLOntology origOnt = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         assertNotNull(origOnt);
         OWLOntologyManager manager = origOnt.getOWLOntologyManager();
         assertEquals(1, manager.ontologies().count());

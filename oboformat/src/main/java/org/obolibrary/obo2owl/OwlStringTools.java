@@ -10,6 +10,7 @@ import java.util.Collections;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -92,7 +93,8 @@ public class OwlStringTools {
         }
         try {
             OWLFunctionalSyntaxOWLParser p = new OWLFunctionalSyntaxOWLParser();
-            OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms);
+            OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms,
+                new FunctionalSyntaxDocumentFormat());
             OWLOntology ontology = translationManager.createOntology();
             documentSource.acceptParser(p, ontology, translationManager.getOntologyLoaderConfiguration());
             return asList(ontology.axioms());

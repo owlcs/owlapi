@@ -18,7 +18,12 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -134,7 +139,7 @@ public class LiteralTestCase extends TestBase {
     }
 
     @Test
-    public void shouldStoreTagsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldStoreTagsCorrectly() throws OWLOntologyStorageException {
         String in = "See more at <a href=\"http://abc.com\">abc</a>";
         OWLOntology o = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(createIndividual().getIRI(), df

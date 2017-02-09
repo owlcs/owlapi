@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
@@ -46,13 +45,13 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
         + "ClassAssertion(:D _:genid2)\n" + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ')';
 
     @Test
-    public void shouldRoundTripFixed() throws OWLOntologyCreationException {
-        loadOntologyFromString(FIXED);
+    public void shouldRoundTripFixed() {
+        loadOntologyFromString(FIXED, new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
     public void shouldRoundTripBroken() throws Exception {
-        OWLOntology o = loadOntologyFromString(BROKEN);
+        OWLOntology o = loadOntologyFromString(BROKEN, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);

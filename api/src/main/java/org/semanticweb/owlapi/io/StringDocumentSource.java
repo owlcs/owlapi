@@ -14,9 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -34,9 +31,21 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * @param target
      *        a document target
+     * @param f
+     *        format
      */
-    public StringDocumentSource(StringDocumentTarget target) {
-        this(target.toString());
+    public StringDocumentSource(StringDocumentTarget target, OWLDocumentFormat f) {
+        this(target.toString(), "string:ontology", f, null);
+    }
+
+    /**
+     * @param string
+     *        the source string
+     * @param f
+     *        format
+     */
+    public StringDocumentSource(String string, OWLDocumentFormat f) {
+        this(string, "string:ontology", f, null);
     }
 
     /**
@@ -88,11 +97,11 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f, @Nullable String mime) {
         super(documentIRI, f, mime);
         checkNotNull(string, "string cannot be null");
+        stringContent = string;
         // avoid attempting IRI resolution if it is known to be failed
         // a String document source needs not have an IRI and should not resolve
         // it anyway
         failedOnIRI.set(true);
-        reader = () -> new StringReader(string);
-        inputStream = () -> new ByteArrayInputStream(string.getBytes());
+        failedOnStreams.set(true);
     }
 }

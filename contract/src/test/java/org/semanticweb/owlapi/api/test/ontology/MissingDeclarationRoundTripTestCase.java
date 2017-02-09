@@ -34,7 +34,7 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setAddMissingTypes(false);
-        ontology = loadOntologyStrict(saveOntology(ontology, format));
+        ontology = loadOntologyStrict(saveOntology(ontology, format), format);
         assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(0, ontology.getAxiomCount());
     }

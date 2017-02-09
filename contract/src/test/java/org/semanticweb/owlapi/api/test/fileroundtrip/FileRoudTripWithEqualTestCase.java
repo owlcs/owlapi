@@ -22,7 +22,6 @@ import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
@@ -51,8 +50,7 @@ public class FileRoudTripWithEqualTestCase extends AbstractFileRoundTrippingTest
 
     @Override
     @Test
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyStorageException {
         OWLOntology ont = createOntology();
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());

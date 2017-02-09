@@ -95,7 +95,8 @@ public class ParsersStorersTestCase extends TestBase {
         target.store(s.createStorer(), ont, ontologyFormat);
         OWLOntology o = getAnonymousOWLOntology();
         try {
-            new StringDocumentSource(target).acceptParser(p.createParser(), o, new OWLOntologyLoaderConfiguration());
+            new StringDocumentSource(target, ontologyFormat).acceptParser(p.createParser(), o,
+                new OWLOntologyLoaderConfiguration());
         } catch (OWLParserException e) {
             if (logfailures) {
                 System.out.println("parse fail: " + ontologyFormat.getKey() + " " + object);

@@ -77,11 +77,12 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     }
 
     @Test
-    public void shouldConvertToFunctionalCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldConvertToFunctionalCorrectly() throws OWLOntologyStorageException {
         String in = "Prefix: : <http://purl.obolibrary.org/obo/>\n" + "Ontology: <http://example.org/>\n"
             + "Class: :FOO_0000001";
-        OWLOntology o = loadOntologyFromString(in);
-        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
+        OWLOntology o = loadOntologyFromString(in, new ManchesterSyntaxDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()),
+            new FunctionalSyntaxDocumentFormat());
         equal(o, o1);
     }
 
@@ -104,15 +105,15 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundtripIRIsWithQueryString() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundtripIRIsWithQueryString() throws OWLOntologyStorageException {
         String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://purl.obolibrary.org/obo/TEMP#\" xml:base=\"http://purl.obolibrary.org/obo/TEMP\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:oboInOwl=\"http://www.geneontology.org/formats/oboInOwl#\" xmlns:obo1=\"http://purl.obolibrary.org/obo/\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
             + "    <owl:Ontology rdf:about=\"http://purl.obolibrary.org/obo/TEMP\"/>\n"
             + "    <owl:Class rdf:about=\"obo1:X\"><rdfs:seeAlso rdf:resource=\"http://purl.obolibrary.org/obo/?func=detail&amp;\"/></owl:Class>\n"
             + "</rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
-        OWLOntology o1 = loadOntologyFromString(saveOntology);
+        OWLOntology o1 = loadOntologyFromString(saveOntology, new FunctionalSyntaxDocumentFormat());
         equal(o, o1);
     }
 }

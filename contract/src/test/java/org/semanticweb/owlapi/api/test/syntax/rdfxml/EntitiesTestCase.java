@@ -36,7 +36,7 @@ public class EntitiesTestCase extends TestBase {
             + "    <rdf:Description rdf:about=\"urn:test:i\">\n"
             + "        <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">&xxe;</rdfs:comment>\n"
             + "    </rdf:Description>" + "</rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         OWLOntology o1 = m.createOntology();
         o1.add(df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), IRI.create("urn:test:i"), df.getOWLLiteral("")));
         equal(o, o1);

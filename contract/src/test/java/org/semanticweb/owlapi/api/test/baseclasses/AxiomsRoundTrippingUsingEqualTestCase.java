@@ -24,7 +24,17 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -40,8 +50,7 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
     }
 
     @Override
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyStorageException {
         OWLOntology ont = createOntology();
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
@@ -71,7 +80,7 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, anon2, ind2));
                 axioms.add(df.getOWLObjectPropertyAssertionAxiom(p, ind2, anon2));
                 return axioms;
-            } ,
+            },
             // AnonymousIndividuals2
             () -> {
                 // Originally submitted by Timothy Redmond
@@ -87,7 +96,7 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 axioms.add(ObjectPropertyAssertion(q, h, i));
                 axioms.add(AnnotationAssertion(RDFSLabel(), h, Literal("Second", "en")));
                 return axioms;
-            } ,
+            },
             // AnonymousIndividuals
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
@@ -95,7 +104,7 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")), NamedIndividual(iri("i1")), ind));
                 axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")), ind, NamedIndividual(iri("i2"))));
                 return axioms;
-            } ,
+            },
             // ChainedAnonymousIndividuals
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
@@ -113,7 +122,7 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 axioms.add(annoAssertion2);
                 axioms.add(annoAssertion3);
                 return axioms;
-            } ,
+            },
             // ClassAssertionWithAnonymousIndividual
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
@@ -122,19 +131,19 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 axioms.add(ClassAssertion(cls, ind));
                 axioms.add(Declaration(cls));
                 return axioms;
-            } ,
+            },
             // DifferentIndividualsAnonymous
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
                 axioms.add(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual(), AnonymousIndividual()));
                 return axioms;
-            } ,
+            },
             // DifferentIndividualsPairwiseAnonymous
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();
                 axioms.add(DifferentIndividuals(AnonymousIndividual(), AnonymousIndividual()));
                 return axioms;
-            } ,
+            },
             // ObjectPropertyAssertionWithAnonymousIndividuals
             () -> {
                 OWLIndividual subject = AnonymousIndividual();
@@ -144,7 +153,7 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 axioms.add(ObjectPropertyAssertion(prop, subject, object));
                 axioms.add(Declaration(prop));
                 return axioms;
-            } ,
+            },
             // SameIndividualsAnonymous
             () -> {
                 Set<OWLAxiom> axioms = new HashSet<>();

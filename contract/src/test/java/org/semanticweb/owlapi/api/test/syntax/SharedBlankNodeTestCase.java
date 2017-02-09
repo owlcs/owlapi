@@ -40,8 +40,8 @@ public class SharedBlankNodeTestCase extends TestBase {
         OWLOntology ontology = createOntology();
         StringDocumentTarget s = saveOntology(ontology, new RDFXMLDocumentFormat());
         StringDocumentTarget functionalSyntax = saveOntology(ontology, new FunctionalSyntaxDocumentFormat());
-        testAnnotation(loadOntologyFromString(functionalSyntax));
-        testAnnotation(loadOntologyFromString(s));
+        testAnnotation(loadOntologyFromString(functionalSyntax, new FunctionalSyntaxDocumentFormat()));
+        testAnnotation(loadOntologyFromString(s, new RDFXMLDocumentFormat()));
     }
 
     public OWLOntology createOntology() throws OWLOntologyCreationException {
@@ -74,11 +74,13 @@ public class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundtripBlankNodeAnnotations() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundtripBlankNodeAnnotations() throws OWLOntologyStorageException {
         String input = "<?xml version=\"1.0\"?>\r\n<rdf:RDF xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:Class rdf:about=\"http://E\"><rdfs:comment><rdf:Description><rdfs:comment>E</rdfs:comment></rdf:Description></rdfs:comment></owl:Class></rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(input);
-        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
-        OWLOntology o2 = loadOntologyFromString(saveOntology(o1, new RDFXMLDocumentFormat()));
+        OWLOntology o = loadOntologyFromString(input, new RDFXMLDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()),
+            new FunctionalSyntaxDocumentFormat());
+        OWLOntology o2 = loadOntologyFromString(saveOntology(o1, new RDFXMLDocumentFormat()),
+            new RDFXMLDocumentFormat());
         assertEquals(1L, o2.annotationAssertionAxioms(IRI("http://E", "")).count());
         Stream<OWLAnnotationSubject> s = o2.annotationAssertionAxioms(IRI("http://E", "")).map(
             a -> (OWLAnnotationSubject) a.getValue());
@@ -86,15 +88,15 @@ public class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRemapUponReading() throws OWLOntologyCreationException {
+    public void shouldRemapUponReading() {
         String input = "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\r\n"
             + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\r\n"
             + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\r\n"
             + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\r\n" + "Ontology(\r\n"
             + "Declaration(Class(<http://E>))\r\n" + "AnnotationAssertion(rdfs:comment <http://E> _:genid1)\r\n"
             + "AnnotationAssertion(rdfs:comment _:genid1 \"E\"))";
-        OWLOntology o1 = loadOntologyFromString(input);
-        OWLOntology o2 = loadOntologyFromString(input);
+        OWLOntology o1 = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o2 = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
             .getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
         Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
@@ -105,10 +107,10 @@ public class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    public void shouldHaveOnlyOneAnonIndividual() throws OWLOntologyCreationException {
+    public void shouldHaveOnlyOneAnonIndividual() {
         String input = "<?xml version=\"1.0\"?>\r\n<rdf:RDF xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:Class rdf:about=\"http://E\"><rdfs:comment><rdf:Description><rdfs:comment>E</rdfs:comment></rdf:Description></rdfs:comment></owl:Class></rdf:RDF>";
-        OWLOntology o1 = loadOntologyFromString(input);
-        OWLOntology o2 = loadOntologyFromString(input);
+        OWLOntology o1 = loadOntologyFromString(input, new RDFXMLDocumentFormat());
+        OWLOntology o2 = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
             .getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
         Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a
@@ -119,7 +121,7 @@ public class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    public void shouldNotRemapUponReloading() throws OWLOntologyCreationException {
+    public void shouldNotRemapUponReloading() {
         m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(false);
         String input = "<?xml version=\"1.0\"?>\r\n" + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n"
             + "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n"
@@ -133,10 +135,10 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
         Set<OWLAnnotationValue> values1 = new HashSet<>();
         values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
-        OWLOntology o1 = loadOntologyFromString(input);
+        OWLOntology o1 = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
             a -> a instanceof OWLAnonymousIndividual));
-        o1 = loadOntologyFromString(input);
+        o1 = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
             a -> a instanceof OWLAnonymousIndividual));
         assertEquals(values1.toString(), values1.size(), 1);
@@ -144,7 +146,7 @@ public class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    public void shouldNotOutputNodeIdWhenNotNeeded() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldNotOutputNodeIdWhenNotNeeded() throws OWLOntologyStorageException {
         String input = "<?xml version=\"1.0\"?>\r\n" + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n"
             + "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n"
@@ -155,13 +157,13 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "            <rdf:Description rdf:nodeID=\"1058025095\">\r\n"
             + "                <rdfs:comment>E</rdfs:comment>\r\n" + "            </rdf:Description>\r\n"
             + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
-        OWLOntology o1 = loadOntologyFromString(input);
+        OWLOntology o1 = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
         assertFalse(result.toString().contains("rdf:nodeID"));
     }
 
     @Test
-    public void shouldOutputNodeIdEvenIfNotNeeded() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldOutputNodeIdEvenIfNotNeeded() throws OWLOntologyStorageException {
         String input = "<?xml version=\"1.0\"?>\r\n" + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n"
             + "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n"
@@ -171,12 +173,12 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "    <Class rdf:about=\"http://E\">\r\n" + "        <rdfs:comment>\r\n"
             + "            <rdf:Description>\r\n" + "                <rdfs:comment>E</rdfs:comment>\r\n"
             + "            </rdf:Description>\r\n" + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
-        OWLOntology o1 = loadOntologyFromString(input);
+        OWLOntology o1 = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         masterConfigurator.withSaveIdsForAllAnonymousIndividuals(true);
         try {
             StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
             assertTrue(result.toString().contains("rdf:nodeID"));
-            OWLOntology reloaded = loadOntologyFromString(result);
+            OWLOntology reloaded = loadOntologyFromString(result, new RDFXMLDocumentFormat());
             StringDocumentTarget resaved = saveOntology(reloaded, new RDFXMLDocumentFormat());
             assertEquals(result.toString(), resaved.toString());
         } finally {
@@ -186,7 +188,7 @@ public class SharedBlankNodeTestCase extends TestBase {
     }
 
     @Test
-    public void shouldOutputNodeIdWhenNeeded() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldOutputNodeIdWhenNeeded() throws OWLOntologyStorageException {
         String input = "<?xml version=\"1.0\"?>\r\n" + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n"
             + "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n"
@@ -200,7 +202,7 @@ public class SharedBlankNodeTestCase extends TestBase {
             + "        <rdfs:comment>\r\n" + "            <rdf:Description rdf:nodeID=\"1058025095\">\r\n"
             + "                <rdfs:comment>E</rdfs:comment>\r\n" + "            </rdf:Description>\r\n"
             + "        </rdfs:comment>\r\n" + "    </Class>\r\n" + "</rdf:RDF>";
-        OWLOntology o1 = loadOntologyFromString(input);
+        OWLOntology o1 = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         StringDocumentTarget result = saveOntology(o1, new RDFXMLDocumentFormat());
         assertTrue(result.toString().contains("rdf:nodeID"));
     }

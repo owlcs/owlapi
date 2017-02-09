@@ -33,6 +33,7 @@ import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.examples.Examples;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -89,7 +90,7 @@ public class TutorialSnippetsTestCase {
     }
 
     private static OWLOntology loadPizzaOntology(OWLOntologyManager m) throws OWLOntologyCreationException {
-        return m.loadOntologyFromOntologyDocument(new StringDocumentSource(Examples.KOALA));
+        return m.loadOntologyFromOntologyDocument(new StringDocumentSource(Examples.KOALA, new RDFXMLDocumentFormat()));
     }
 
     @Test
@@ -103,6 +104,7 @@ public class TutorialSnippetsTestCase {
     public void testOntologyLoadingFromStringSource() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
+        OWLDocumentFormat format = o.getFormat();
         assertNotNull(o);
         // save an ontology to a document target which holds all data in memory
         StringDocumentTarget target = new StringDocumentTarget();
@@ -110,7 +112,7 @@ public class TutorialSnippetsTestCase {
         // remove the ontology from the manager, so it can be loaded again
         m.removeOntology(o);
         // create a document source from a string
-        StringDocumentSource documentSource = new StringDocumentSource(target);
+        StringDocumentSource documentSource = new StringDocumentSource(target, format);
         // load the ontology from a document source
         OWLOntology o2 = m.loadOntologyFromOntologyDocument(documentSource);
         assertNotNull(o2);

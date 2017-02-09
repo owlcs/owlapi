@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -48,7 +49,7 @@ public class DeclareAnnotatedEntitiesTestCase extends TestBase {
             + "        <AbbreviatedIRI>owl:Thing</AbbreviatedIRI>\n"
             + "        <Literal datatypeIRI=\"http://www.semanticweb.org/owlapi-datatypes#myDatatype2\">comment with datatype myDatatype2</Literal>\n"
             + "    </AnnotationAssertion>\n</Ontology>";
-        OWLOntology ontology = loadOntologyFromString(in);
+        OWLOntology ontology = loadOntologyFromString(in, new OWLXMLDocumentFormat());
         Set<OWLDeclarationAxiom> declarations = asSet(ontology.axioms(AxiomType.DECLARATION));
         Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms = asSet(ontology.axioms(
             AxiomType.ANNOTATION_ASSERTION));

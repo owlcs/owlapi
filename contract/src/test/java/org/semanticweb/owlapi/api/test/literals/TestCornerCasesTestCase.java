@@ -19,10 +19,11 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class TestCornerCasesTestCase extends TestBase {
@@ -59,7 +60,7 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testWebOnt() throws OWLOntologyCreationException {
+    public void testWebOnt() {
         String s = "<!DOCTYPE rdf:RDF [\n   <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\">\n   <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n]>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:first=\"http://www.w3.org/2002/03owlt/oneOf/premises004#\" xml:base=\"http://www.w3.org/2002/03owlt/oneOf/premises004\" >\n"
             + " <owl:Ontology/>\n" + " <owl:DatatypeProperty rdf:ID=\"p\">"
@@ -76,7 +77,7 @@ public class TestCornerCasesTestCase extends TestBase {
             "DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer ))");
         expected.add(
             "ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
-        OWLOntology o = loadOntologyFromString(s);
+        OWLOntology o = loadOntologyFromString(s, new RDFXMLDocumentFormat());
         Set<String> result = new TreeSet<>();
         o.axioms().forEach(ax -> result.add(ax.toString()));
         if (!result.equals(expected)) {
@@ -98,7 +99,7 @@ public class TestCornerCasesTestCase extends TestBase {
             + "Declaration(Class(:A))\n" + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))" + "\nSubClassOf(:A \n"
             + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
             + "\n)\nClassAssertion(:A :a))";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         assertTrue(saveOntology(o).toString().contains("-INF"));
         OWLOntology o1 = roundTrip(o);
         equal(o, o1);
@@ -112,7 +113,7 @@ public class TestCornerCasesTestCase extends TestBase {
             + "Declaration(Class(:A))\n" + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))" + "\nSubClassOf(:A \n"
             + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))" + "\n)" + '\n'
             + "ClassAssertion(:A :a)" + "\n)";
-        OWLOntology o = loadOntologyFromString(input);
+        OWLOntology o = loadOntologyFromString(input, new FunctionalSyntaxDocumentFormat());
         assertTrue(saveOntology(o).toString().contains("-INF"));
         OWLOntology o1 = roundTrip(o);
         equal(o, o1);

@@ -447,10 +447,15 @@ public abstract class TestBase {
         // System.out.println(target.toString());
     }
 
-    protected OWLOntology loadOntologyFromString(String input) throws OWLOntologyCreationException {
-        return setupManager().loadOntologyFromOntologyDocument(new StringDocumentSource(input));
-    }
-
+    // protected OWLOntology loadOntologyFromString(String input,
+    // OWLDocumentFormat f) {
+    // try {
+    // return setupManager().loadOntologyFromOntologyDocument(new
+    // StringDocumentSource(input,f));
+    // } catch (OWLOntologyCreationException e) {
+    // throw new OWLRuntimeException(e);
+    // }
+    // }
     protected OWLOntology loadOntologyFromString(String input, IRI i, OWLDocumentFormat f) {
         StringDocumentSource documentSource = new StringDocumentSource(input, i, f, null);
         try {
@@ -473,23 +478,32 @@ public abstract class TestBase {
         return setupManager().loadOntologyFromOntologyDocument(input);
     }
 
-    protected OWLOntology loadOntologyFromString(StringDocumentTarget input) throws OWLOntologyCreationException {
-        return setupManager().loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+    // protected OWLOntology loadOntologyFromString(StringDocumentTarget input,
+    // OWLDocumentFormat f) {
+    // try {
+    // return setupManager().loadOntologyFromOntologyDocument(new
+    // StringDocumentSource(input,f));
+    // } catch (OWLOntologyCreationException e) {
+    // throw new OWLRuntimeException(e);
+    // }
+    // }
+    protected OWLOntology loadOntologyFromString(StringDocumentTarget input, OWLDocumentFormat f) {
+        try {
+            return setupManager().loadOntologyFromOntologyDocument(new StringDocumentSource(input.toString(),
+                "string:ontology", f, null));
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
-    protected OWLOntology loadOntologyFromString(StringDocumentTarget input, OWLDocumentFormat f)
+    protected OWLOntology loadOntologyStrict(StringDocumentTarget o, OWLDocumentFormat f)
         throws OWLOntologyCreationException {
-        return setupManager().loadOntologyFromOntologyDocument(new StringDocumentSource(input.toString(),
-            "string:ontology", f, null));
+        return loadOntologyWithConfig(o, f, new OWLOntologyLoaderConfiguration().setStrict(true));
     }
 
-    protected OWLOntology loadOntologyStrict(StringDocumentTarget o) throws OWLOntologyCreationException {
-        return loadOntologyWithConfig(o, new OWLOntologyLoaderConfiguration().setStrict(true));
-    }
-
-    protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o, OWLOntologyLoaderConfiguration c)
-        throws OWLOntologyCreationException {
-        return loadOntologyWithConfig(new StringDocumentSource(o), c);
+    protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o, OWLDocumentFormat f,
+        OWLOntologyLoaderConfiguration c) throws OWLOntologyCreationException {
+        return loadOntologyWithConfig(new StringDocumentSource(o, f), c);
     }
 
     protected OWLOntology loadOntologyWithConfig(StringDocumentSource o, OWLOntologyLoaderConfiguration c)
@@ -508,17 +522,16 @@ public abstract class TestBase {
         return t;
     }
 
-    protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat format) throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
-        return loadOntologyFromString(saveOntology(o, format), format);
+    protected OWLOntology roundTrip(OWLOntology o) throws OWLOntologyStorageException {
+        return loadOntologyFromString(saveOntology(o, o.getNonnullFormat()), o.getNonnullFormat());
     }
 
     protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat format, OWLOntologyLoaderConfiguration c)
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        return loadOntologyWithConfig(saveOntology(o, format), c);
+        return loadOntologyWithConfig(saveOntology(o, format), format, c);
     }
 
-    protected OWLOntology roundTrip(OWLOntology o) throws OWLOntologyCreationException, OWLOntologyStorageException {
-        return loadOntologyFromString(saveOntology(o));
+    protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat f) throws OWLOntologyStorageException {
+        return loadOntologyFromString(saveOntology(o, f), f);
     }
 }

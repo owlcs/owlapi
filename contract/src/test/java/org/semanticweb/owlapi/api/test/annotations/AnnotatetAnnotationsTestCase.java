@@ -10,7 +10,15 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import com.google.common.collect.Sets;
 
@@ -18,7 +26,7 @@ import com.google.common.collect.Sets;
 public class AnnotatetAnnotationsTestCase extends TestBase {
 
     @Test
-    public void shouldRoundtripMultipleNestedAnnotationsdebug() throws OWLOntologyCreationException {
+    public void shouldRoundtripMultipleNestedAnnotationsdebug() {
         String ns = "urn:n:a#";
         Set<OWLAxiom> axioms = Sets.newHashSet(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty(ns, "r"),
             df.getOWLNamedIndividual(ns, "a"), df.getOWLNamedIndividual(ns, "b"), Arrays.asList(df.getOWLAnnotation(df
@@ -44,13 +52,12 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
             + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2000/01/rdf-schema#label\"/><owl:annotatedTarget rdf:datatype=\"http://www.w3.org/2001/XMLSchema#integer\">2</owl:annotatedTarget>\n"
             + "        <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#integer\">4</rdfs:comment></owl:Annotation>\n"
             + "    <owl:NamedIndividual rdf:about=\"urn:n:a#b\"/></rdf:RDF>";
-        OWLOntology ont = loadOntologyFromString(input);
+        OWLOntology ont = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         assertEquals(axioms, asUnorderedSet(ont.logicalAxioms()));
     }
 
     @Test
-    public void shouldLoadAnnotatedannotationsCorrectly() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    public void shouldLoadAnnotatedannotationsCorrectly() throws OWLOntologyStorageException {
         IRI subject = IRI.create("http://purl.obolibrary.org/obo/", "UBERON_0000033");
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://example.com#\"\n"
             + "     xml:base=\"http://example.com\"\n" + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
@@ -74,9 +81,9 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
             + "        <owl:annotatedSource rdf:resource=\"http://purl.obolibrary.org/obo/UBERON_0000033\"/>\n"
             + "        <owl:annotatedProperty rdf:resource=\"http://www.geneontology.org/formats/oboInOwl#hasDbXref\"/>\n"
             + "    </owl:Axiom>\n" + "</rdf:RDF>";
-        OWLOntology testcase = loadOntologyFromString(input);
+        OWLOntology testcase = loadOntologyFromString(input, new RDFXMLDocumentFormat());
         long before = testcase.annotationAssertionAxioms(subject).count();
-        OWLOntology result = roundTrip(testcase);
+        OWLOntology result = roundTrip(testcase, new RDFXMLDocumentFormat());
         long after = result.annotationAssertionAxioms(subject).count();
         assertEquals(before, after);
     }

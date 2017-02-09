@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
@@ -20,7 +22,8 @@ public class ProfileELDLOnlyTestCase extends ProfileBase {
 
     @Test
     public void testELDLONLY() {
-        test(premise, true, false, false, true);
+        test(premise.startsWith("<rdf:RDF") ? new RDFXMLDocumentFormat() : new FunctionalSyntaxDocumentFormat(),
+            premise, true, false, false, true);
     }
 
     @Parameters

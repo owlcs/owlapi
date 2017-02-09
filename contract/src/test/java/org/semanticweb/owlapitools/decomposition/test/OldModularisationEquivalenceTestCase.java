@@ -15,8 +15,14 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecomposition;
 import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
@@ -119,7 +125,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
     @Test
     @Ignore
     public void testModularizationWithAtomicDecompositionStar() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA, new RDFXMLDocumentFormat()));
         List<OWLAxiom> module1 = asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.STAR).stream().filter(ax -> ax
             .isLogicalAxiom()).sorted());
@@ -128,7 +134,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
 
     @Test
     public void testModularizationWithAtomicDecompositionTop() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA, new RDFXMLDocumentFormat()));
         List<OWLAxiom> module1 = asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.TOP).stream().filter(ax -> ax
             .isLogicalAxiom()).sorted());
@@ -137,7 +143,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
 
     @Test
     public void testModularizationWithAtomicDecompositionBottom() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA, new RDFXMLDocumentFormat()));
         List<OWLAxiom> module1 = asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.BOT).stream().filter(ax -> ax
             .isLogicalAxiom()).sorted());

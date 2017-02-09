@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
 @SuppressWarnings("javadoc")
@@ -48,7 +49,7 @@ public class Utf8TestCase extends TestBase {
         String onto = "Ontology(<http://protege.org/UTF8.owl>" + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
             + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
             + "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
-        saveOntology(loadOntologyFromString(onto));
+        saveOntology(loadOntologyFromString(onto, new FunctionalSyntaxDocumentFormat()));
         // ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
         // ByteArrayOutputStream out = new ByteArrayOutputStream();
         // manager.saveOntology(manager.loadOntologyFromOntologyDocument(in),
@@ -82,23 +83,13 @@ public class Utf8TestCase extends TestBase {
         m.loadOntologyFromOntologyDocument(in);
     }
 
-    @Test
-    public void testInvalidUTF8roundTripFromReader() throws OWLOntologyCreationException {
+    @Test(expected = OWLRuntimeException.class)
+    public void testInvalidUTF8roundTripFromReader() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        String onto2 = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
-            + "<owl:Ontology rdf:about=\"#\" />\n"
-            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
-        OWLOntology o2 = loadOntologyFromString(onto2);
         String onto1 = INVALID_UTF8;
-        OWLOntology o1 = loadOntologyFromString(onto1);
-        equal(o1, o2);
+        loadOntologyFromString(onto1, new RDFXMLDocumentFormat());
     }
 
     @Test

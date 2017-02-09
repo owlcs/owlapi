@@ -26,7 +26,13 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class SWRLAnnotationTestCase extends TestBase {
@@ -75,7 +81,7 @@ public class SWRLAnnotationTestCase extends TestBase {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(axiom));
         StringDocumentTarget saveOntology = saveOntology(ontology);
-        ontology = loadOntologyFromString(saveOntology);
+        ontology = loadOntologyFromString(saveOntology, ontology.getNonnullFormat());
         assertTrue(ontology.containsAxiom(axiom));
     }
 

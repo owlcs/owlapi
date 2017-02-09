@@ -85,15 +85,15 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     @Override
     protected OWLOntology createOntology() {
         try {
-            return m.loadOntologyFromOntologyDocument(new StringDocumentSource(original));
+            return m.loadOntologyFromOntologyDocument(new StringDocumentSource(original, new OWLXMLDocumentFormat()));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXML() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(original);
+    public void shouldRoundTripThroughOWLXML() throws OWLOntologyStorageException {
+        OWLOntology ontology = loadOntologyFromString(original, new OWLXMLDocumentFormat());
         StringDocumentTarget targetOWLXML = new StringDocumentTarget();
         ontology.saveOntology(new OWLXMLDocumentFormat(), targetOWLXML);
         OWLOntology o1 = loadOntologyFromString(targetOWLXML, new OWLXMLDocumentFormat());
@@ -101,9 +101,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXMLOrTurtle() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(original);
+    public void shouldRoundTripThroughOWLXMLOrTurtle() throws OWLOntologyStorageException {
+        OWLOntology ontology = loadOntologyFromString(original, new OWLXMLDocumentFormat());
         OWLOntology o1 = roundTrip(ontology, new RioTurtleDocumentFormat());
         equal(ontology, o1);
         OWLOntology o2 = roundTrip(o1, new OWLXMLDocumentFormat());
@@ -111,9 +110,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXMLToTurtle() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(original);
+    public void shouldRoundTripThroughOWLXMLToTurtle() throws OWLOntologyStorageException {
+        OWLOntology ontology = loadOntologyFromString(original, new OWLXMLDocumentFormat());
         StringDocumentTarget targetTTL = new StringDocumentTarget();
         ontology.saveOntology(new TurtleDocumentFormat(), targetTTL);
         StringDocumentTarget targetTTLFromTTL = new StringDocumentTarget();
@@ -122,9 +120,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXMLToRioTurtle() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(original);
+    public void shouldRoundTripThroughOWLXMLToRioTurtle() throws OWLOntologyStorageException {
+        OWLOntology ontology = loadOntologyFromString(original, new OWLXMLDocumentFormat());
         StringDocumentTarget target1 = new StringDocumentTarget();
         ontology.saveOntology(new RioTurtleDocumentFormat(), target1);
         StringDocumentTarget target2 = new StringDocumentTarget();

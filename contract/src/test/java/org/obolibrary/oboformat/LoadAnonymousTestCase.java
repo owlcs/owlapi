@@ -9,8 +9,20 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 import com.google.common.collect.Sets;
 
@@ -37,7 +49,7 @@ public class LoadAnonymousTestCase extends TestBase {
             + "def: \"A unit which is a standard measure of the distance between two points.\" [Wikipedia:Wikipedia]\n"
             + "subset: unit_group_slim\n" + "is_a: UO:0000000 ! unit\n"
             + "relationship: is_unit_of PATO:0001708 ! 1-D extent\n" + "created_by: george gkoutos";
-        StringDocumentSource streamDocumentSource = new StringDocumentSource(input);
+        StringDocumentSource streamDocumentSource = new StringDocumentSource(input, new OBODocumentFormat());
         OWLOntologyLoaderConfiguration loaderConfig = new OWLOntologyLoaderConfiguration()
             .setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
         OWLOntology ontology = m1.loadOntologyFromOntologyDocument(streamDocumentSource, loaderConfig);

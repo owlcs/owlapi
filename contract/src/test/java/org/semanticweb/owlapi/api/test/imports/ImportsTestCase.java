@@ -32,6 +32,8 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -105,9 +107,10 @@ public class ImportsTestCase extends TestBase {
     @Test
     public void shouldNotLoadWrong() throws OWLOntologyCreationException {
         m.createOntology(IRI.create("urn:test#", "test"));
-        StringDocumentSource documentSource = new StringDocumentSource("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        String input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\">\n"
-            + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology></rdf:RDF>");
+            + "    <owl:Ontology><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology></rdf:RDF>";
+        StringDocumentSource documentSource = new StringDocumentSource(input, new RDFXMLDocumentFormat());
         OWLOntology o = m.loadOntologyFromOntologyDocument(documentSource);
         assertTrue(o.getOntologyID().toString(), o.isAnonymous());
         assertFalse(o.getOntologyID().getDefaultDocumentIRI().isPresent());
@@ -128,14 +131,14 @@ public class ImportsTestCase extends TestBase {
     }
 
     @Test(expected = UnloadableImportException.class)
-    public void shouldThrowExceptionWithDefaultImportsconfig() throws OWLOntologyCreationException {
+    public void shouldThrowExceptionWithDefaultImportsconfig() {
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
             + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
             + "    <owl:Ontology rdf:about=\"http://www.semanticweb.org/fake/ontologies/2012/8/1\">\n"
             + "        <owl:imports rdf:resource=\"http://localhost:1\"/>\n" + "    </owl:Ontology>\n" + "</rdf:RDF>";
-        loadOntologyFromString(input);
+        loadOntologyFromString(input, new RDFXMLDocumentFormat());
     }
 
     @Test
@@ -205,7 +208,7 @@ public class ImportsTestCase extends TestBase {
             + "    <Import>http://test.org/TestPizzaImport.owl</Import>\n" + "</Ontology>";
         IRI testImport = IRI.create("http://test.org/", "TestPizzaImport.owl");
         IRI remap = IRI.create("urn:test:", "mockImport");
-        StringDocumentSource source = new StringDocumentSource(input);
+        StringDocumentSource source = new StringDocumentSource(input, new OWLXMLDocumentFormat());
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
         m.getIRIMappers().set(mock);
@@ -225,7 +228,7 @@ public class ImportsTestCase extends TestBase {
             + "</rdf:RDF>";
         IRI testImport = IRI.create("http://test.org/", "TestPizzaImport.owl");
         IRI remap = IRI.create("urn:test:", "mockImport");
-        StringDocumentSource source = new StringDocumentSource(input);
+        StringDocumentSource source = new StringDocumentSource(input, new RDFXMLDocumentFormat());
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
         m.getIRIMappers().set(mock);

@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -56,7 +57,7 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testMove() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
@@ -68,7 +69,7 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testShallow() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
@@ -80,7 +81,7 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));

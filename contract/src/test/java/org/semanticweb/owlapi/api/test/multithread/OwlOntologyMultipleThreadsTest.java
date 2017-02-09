@@ -55,7 +55,19 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class OwlOntologyMultipleThreadsTest extends TestBase {
@@ -208,8 +220,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.containsDatatypeInSignature(t.getIRI(), EXCLUDED);
                     asList(o1.datatypeDefinitions(t));
                 }
-                for (OWLAnnotationProperty p : asList(o1
-                    .annotationPropertiesInSignature(EXCLUDED))) {
+                for (OWLAnnotationProperty p : asList(o1.annotationPropertiesInSignature(EXCLUDED))) {
                     assert p != null;
                     asList(o1.axioms(p, EXCLUDED));
                     o1.containsAnnotationPropertyInSignature(p.getIRI(), EXCLUDED);
@@ -279,7 +290,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
 
     @Test
     public void testLockingOwlOntologyImpl() throws OWLOntologyCreationException {
-        OWLOntology o = loadOntologyFromString(KOALA);
+        OWLOntology o = loadOntologyFromString(KOALA, new RDFXMLDocumentFormat());
         MultiThreadChecker checker = new MultiThreadChecker(5);
         checker.check(new TestCallback(o, m.createOntology()));
         String trace = checker.getTrace();

@@ -89,7 +89,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     public void shouldDoCompleteRoundtripWithAnnotationsOWLXML() throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLXMLDocumentFormat f = new OWLXMLDocumentFormat();
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
+        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
         equal(ontology, ontology2);
         ontology2.axioms(AxiomType.SWRL_RULE).forEach(r -> assertFalse(noLabel(r)));
         ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
@@ -99,7 +99,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     public void shouldDoCompleteRoundtripWithAnnotationsTurtle() throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new TurtleDocumentFormat();
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
+        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
         equal(ontology, ontology2);
         ontology2.axioms(AxiomType.SWRL_RULE).forEach(r -> assertFalse(noLabel(r)));
         ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
@@ -109,7 +109,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     public void shouldDoCompleteRoundtripWithAnnotationsFunctional() throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new FunctionalSyntaxDocumentFormat();
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
+        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
         equal(ontology, ontology2);
         ontology2.axioms(AxiomType.SWRL_RULE).forEach(r -> assertFalse(noLabel(r)));
         ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
@@ -119,7 +119,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     public void shouldDoCompleteRoundtripWithAnnotationsRDFXML() throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
+        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
         equal(ontology, ontology2);
         ontology2.axioms(AxiomType.SWRL_RULE).forEach(r -> assertFalse(noLabel(r)));
         ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
@@ -129,7 +129,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     public void shouldDoCompleteRoundtripWithAnnotationsDatatypeRDFXML() throws Exception {
         OWLOntology ontology = prepareOntology1();
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
+        OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
         equal(ontology, ontology2);
         ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
     }
@@ -144,7 +144,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new ManchesterSyntaxDocumentFormat();
         StringDocumentTarget save = saveOntology(ontology, f);
-        OWLOntology ontology2 = loadOntologyFromString(save);
+        OWLOntology ontology2 = loadOntologyFromString(save, f);
         equal(ontology, ontology2);
         ontology2.axioms(AxiomType.SWRL_RULE).forEach(r -> assertFalse(noLabel(r)));
         ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(r -> assertFalse(noLabel(r)));
@@ -182,7 +182,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParse() throws OWLOntologyCreationException {
+    public void shouldParse() {
         String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#\"\n" + "     xml:base=\"urn:test#test\"\n"
             + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
             + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
@@ -199,14 +199,14 @@ public class SWRLRoundTripTestCase extends TestBase {
             + "        <owl:annotatedSource rdf:resource=\"urn:my#datatype\"/>\n" + "        <owl:annotatedTarget>\n"
             + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
             + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
-        OWLOntology o = loadOntologyFromString(s);
+        OWLOntology o = loadOntologyFromString(s, new RDFXMLDocumentFormat());
         OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"), df
             .getDoubleOWLDatatype(), singleton(df.getRDFSLabel("datatype definition")));
         assertTrue(contains(o.axioms(), def));
     }
 
     @Test
-    public void shouldParse2() throws OWLOntologyCreationException {
+    public void shouldParse2() {
         String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xml:base=\"http://www.w3.org/2002/07/owl\"\n"
             + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
@@ -220,7 +220,7 @@ public class SWRLRoundTripTestCase extends TestBase {
             + "        <annotatedSource rdf:resource=\"urn:test#myClass\"/>\n"
             + "        <annotatedTarget rdf:resource=\"urn:test#test\"/>\n" + "    </Axiom>\n"
             + "    <Class rdf:about=\"urn:test\"/>\n" + "</rdf:RDF>\n" + "";
-        OWLOntology o = loadOntologyFromString(s);
+        OWLOntology o = loadOntologyFromString(s, new RDFXMLDocumentFormat());
         OWLSubClassOfAxiom def = df.getOWLSubClassOfAxiom(df.getOWLClass("urn:test#", "myClass"), df.getOWLClass(
             "urn:test#", "test"), singleton(df.getRDFSLabel("datatype definition")));
         assertTrue(contains(o.axioms(), def));
