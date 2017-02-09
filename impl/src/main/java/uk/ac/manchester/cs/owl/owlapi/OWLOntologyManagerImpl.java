@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -617,6 +618,62 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 return ChangeApplied.NO_OPERATION;
             }
             return ChangeApplied.SUCCESSFULLY;
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> changes) {
+        writeLock.lock();
+        try {
+            broadcastImpendingChanges(changes);
+            boolean rollbackRequested = false;
+            boolean allNoOps = true;
+            // list of changes applied successfully. These are the changes that
+            // will be reverted in case of a rollback
+            List<OWLOntologyChange> appliedChanges = new ArrayList<>();
+            fireBeginChanges(changes.size());
+            for (OWLOntologyChange change : changes) {
+                // once rollback is requested by a failed change, do not carry
+                // out any more changes
+                if (!rollbackRequested) {
+                    assert change != null;
+                    ChangeApplied enactChangeApplication = enactChangeApplication(change);
+                    if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
+                        rollbackRequested = true;
+                    }
+                    if (enactChangeApplication == ChangeApplied.SUCCESSFULLY) {
+                        allNoOps = false;
+                        appliedChanges.add(change);
+                    }
+                    fireChangeApplied(change);
+                }
+            }
+            if (rollbackRequested) {
+                for (OWLOntologyChange c : appliedChanges) {
+                    ChangeApplied enactChangeApplication = enactChangeApplication(c.reverseChange());
+                    if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
+                        // rollback could not complete, throw an exception
+                        throw new OWLRuntimeException("Rollback of changes unsuccessful: Change " + c
+                            + " could not be rolled back");
+                    }
+                }
+                appliedChanges.clear();
+            }
+            fireEndChanges();
+            broadcastChanges(appliedChanges);
+            if (rollbackRequested) {
+                return new ChangeDetails(ChangeApplied.UNSUCCESSFULLY, appliedChanges);
+            }
+            if (allNoOps) {
+                return new ChangeDetails(ChangeApplied.NO_OPERATION, appliedChanges);
+            }
+            return new ChangeDetails(ChangeApplied.SUCCESSFULLY, appliedChanges);
+        } catch (OWLOntologyChangeVetoException e) {
+            // Some listener blocked the changes.
+            broadcastOntologyChangesVetoed(changes, e);
+            return new ChangeDetails(ChangeApplied.UNSUCCESSFULLY, Collections.<OWLOntologyChange>emptyList());
         } finally {
             writeLock.unlock();
         }

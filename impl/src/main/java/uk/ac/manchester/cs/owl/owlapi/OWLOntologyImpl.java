@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.ChangeDetails;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -79,6 +81,26 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
             }
         }
         return appliedChanges;
+    }
+
+    @Override
+    public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> changes) {
+        List<OWLOntologyChange> enactedChanges = new ArrayList<>();
+        ChangeApplied appliedChanges = SUCCESSFULLY;
+        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
+        for (OWLOntologyChange change : changes) {
+            ChangeApplied result = change.accept(changeFilter);
+            if (result == SUCCESSFULLY) {
+                enactedChanges.add(change);
+            }
+            if (appliedChanges == SUCCESSFULLY) {
+                // overwrite only if appliedChanges is still successful. If one
+                // change has been unsuccessful, we want to preserve that
+                // information
+                appliedChanges = result;
+            }
+        }
+        return new ChangeDetails(appliedChanges, enactedChanges);
     }
 
     @Override

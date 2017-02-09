@@ -41,4 +41,20 @@ public interface HasApplyChanges {
     @Nonnull
         ChangeApplied applyChanges(
             @Nonnull List<? extends OWLOntologyChange> changes);
+    /**
+     * Applies a list ontology changes to a collection of ontologies. Note that
+     * the ontologies need to be managed by this manager, since import closures,
+     * ontology ids and configurations might be affected by the changes, and
+     * they are held by the manager.
+     * 
+     * @param changes
+     *        The changes to be applied.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException
+     *         If one or more of the changes could not be applied.
+     */
+    @Nonnull
+    ChangeDetails applyChangesAndGetDetails(@Nonnull List<? extends OWLOntologyChange> changes);
+
 }

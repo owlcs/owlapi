@@ -2047,6 +2047,16 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology,HasTrimToSi
     }
 
     @Override
+    public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> list) {
+        writeLock.lock();
+        try {
+            return getMutableOntology().applyChangesAndGetDetails(list);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
     @Nonnull
     public ChangeApplied addAxiom(@Nonnull OWLAxiom owlAxiom) {
         writeLock.lock();
