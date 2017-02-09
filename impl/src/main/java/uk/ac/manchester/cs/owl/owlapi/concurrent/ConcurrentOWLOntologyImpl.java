@@ -2252,10 +2252,10 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> list) {
+    public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> list) {
         writeLock.lock();
         try {
-            return getMutableOntology().applyDetailedChanges(list);
+            return getMutableOntology().applyChangesAndGetDetails(list);
         } finally {
             writeLock.unlock();
         }

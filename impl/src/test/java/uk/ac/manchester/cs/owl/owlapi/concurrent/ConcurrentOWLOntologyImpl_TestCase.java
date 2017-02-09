@@ -47,7 +47,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     public void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
-        when(delegate.applyDetailedChanges(anyListOf(OWLOntologyChange.class))).thenReturn(new ChangeDetails(
+        when(delegate.applyChangesAndGetDetails(anyListOf(OWLOntologyChange.class))).thenReturn(new ChangeDetails(
             ChangeApplied.NO_OPERATION, Collections.emptyList()));
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
     }
@@ -1195,7 +1195,7 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_applyChanges_withWriteLock() {
         ontology.applyChanges(list);
-        writeLock(i -> i.verify(delegate).applyDetailedChanges(list));
+        writeLock(i -> i.verify(delegate).applyChangesAndGetDetails(list));
     }
 
     @Mock List<OWLOntologyChange> list;

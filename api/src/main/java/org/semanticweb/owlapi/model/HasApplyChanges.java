@@ -39,7 +39,7 @@ public interface HasApplyChanges {
      *         If one or more of the changes could not be applied.
      */
     default ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes) {
-        return applyDetailedChanges(changes).getChangeEffect();
+        return applyChangesAndGetDetails(changes).getChangeEffect();
     }
 
     /**
@@ -72,7 +72,7 @@ public interface HasApplyChanges {
      * @throws OWLOntologyChangeException
      *         If one or more of the changes could not be applied.
      */
-    ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> changes);
+    ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> changes);
 
     /**
      * Applies a list ontology changes to a collection of ontologies. Note that
@@ -87,7 +87,7 @@ public interface HasApplyChanges {
      * @throws OWLOntologyChangeException
      *         If one or more of the changes could not be applied.
      */
-    default ChangeDetails applyDetailedChanges(OWLOntologyChange... changes) {
-        return applyDetailedChanges(Arrays.asList(changes));
+    default ChangeDetails applyChangesAndGetDetails(OWLOntologyChange... changes) {
+        return applyChangesAndGetDetails(Arrays.asList(changes));
     }
 }

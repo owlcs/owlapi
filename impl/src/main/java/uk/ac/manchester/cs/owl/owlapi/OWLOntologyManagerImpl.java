@@ -540,7 +540,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     @Override
-    public ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> changes) {
+    public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> changes) {
         writeLock.lock();
         try {
             broadcastImpendingChanges(changes);

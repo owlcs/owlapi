@@ -60,7 +60,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
     }
 
     @Override
-    public ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> changes) {
+    public ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> changes) {
         List<OWLOntologyChange> enactedChanges = new ArrayList<>();
         ChangeApplied appliedChanges = SUCCESSFULLY;
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
