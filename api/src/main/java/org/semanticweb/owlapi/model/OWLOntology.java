@@ -96,8 +96,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     }
 
     @Override
-    default ChangeDetails applyDetailedChanges(List<? extends OWLOntologyChange> changes) {
-        return getOWLOntologyManager().applyDetailedChanges(changes);
+    default ChangeDetails applyChangesAndGetDetails(List<? extends OWLOntologyChange> changes) {
+        return getOWLOntologyManager().applyChangesAndGetDetails(changes);
     }
 
     @Override
