@@ -37,12 +37,15 @@ import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.AbstractCollector;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ignazio
  */
 public class Internals implements Serializable {
 
+    protected static Logger LOGGER = LoggerFactory.getLogger(Internals.class);
     //@formatter:off
 protected transient MapPointer<OWLClassExpression, OWLClassAssertionAxiom>                          classAssertionAxiomsByClass                         = buildLazy(CLASS_ASSERTION, CLASSEXPRESSIONS);
 protected transient MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>                   annotationAssertionAxiomsBySubject                  = buildLazy(ANNOTATION_ASSERTION, ANNOTSUPERNAMED);
@@ -164,7 +167,14 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
             if (set.isEmpty()) {
                 return Stream.empty();
             }
-            return new ArrayList<>(set).stream();
+            List<K> toReturn = new ArrayList<>(set);
+            try {
+                toReturn.sort(null);
+            } catch (IllegalArgumentException e) {
+                // print a warning and leave the list unsorted
+                LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
+            }
+            return toReturn.stream();
         }
     }
 
