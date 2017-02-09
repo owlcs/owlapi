@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,7 +33,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.search.Filters;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
@@ -86,8 +86,7 @@ public class Internals implements Serializable {
     protected class SetPointer<K extends Serializable> implements Serializable {
 
         private static final long serialVersionUID = 40000L;
-        @Nonnull
-        private final Set<K> set = createSyncSet();
+        @Nonnull private final Set<K> set = createSyncSet();
 
         public boolean isEmpty() {
             return set.isEmpty();
@@ -95,7 +94,7 @@ public class Internals implements Serializable {
 
         @Nonnull
         public Set<K> copy() {
-            return CollectionFactory.getCopyOnRequestSetFromMutableCollection(set);
+            return new TreeSet<>(set);
         }
 
         @Nonnull
@@ -175,8 +174,7 @@ public class Internals implements Serializable {
     @Nonnull protected transient MapPointer<OWLAnnotationProperty, OWLAxiom>     owlAnnotationPropertyReferences     = build();
     @Nonnull protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarationsByEntity                = build();
 //@formatter:on
-    @Nullable
-    private List<OWLAxiom> axiomsForSerialization;
+    @Nullable private List<OWLAxiom> axiomsForSerialization;
 
     @SuppressWarnings("null")
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
@@ -294,14 +292,10 @@ public class Internals implements Serializable {
         stream.defaultWriteObject();
     }
 
-    @Nonnull
-    private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
-    @Nonnull
-    private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
-    @Nonnull
-    private final ReferenceChecker refChecker = new ReferenceChecker();
-    @Nonnull
-    private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
+    @Nonnull private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
+    @Nonnull private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
+    @Nonnull private final ReferenceChecker refChecker = new ReferenceChecker();
+    @Nonnull private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
 
     /**
      * @param i
