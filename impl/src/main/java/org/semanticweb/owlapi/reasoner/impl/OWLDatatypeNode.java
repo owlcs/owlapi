@@ -18,6 +18,8 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
+import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -56,7 +58,7 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
     @Override
     protected Optional<OWLDatatype> getTopEntity() {
-        return Optional.of(TOP_DATATYPE);
+        return Optional.of(InternalizedEntities.RDFSLITERAL);
     }
 
     @Override

@@ -18,6 +18,8 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
+import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -56,12 +58,12 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
 
     @Override
     protected Optional<OWLDataProperty> getTopEntity() {
-        return Optional.of(TOP_DATA_PROPERTY);
+        return Optional.of(InternalizedEntities.OWL_TOP_DATA_PROPERTY);
     }
 
     @Override
     protected Optional<OWLDataProperty> getBottomEntity() {
-        return Optional.of(BOTTOM_DATA_PROPERTY);
+        return Optional.of(InternalizedEntities.OWL_BOTTOM_DATA_PROPERTY);
     }
 
     /**

@@ -18,6 +18,8 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLClass;
 
+import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -56,12 +58,12 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
 
     @Override
     protected Optional<OWLClass> getTopEntity() {
-        return Optional.of(TOP_CLASS);
+        return Optional.of(InternalizedEntities.OWL_THING);
     }
 
     @Override
     protected Optional<OWLClass> getBottomEntity() {
-        return Optional.of(BOTTOM_CLASS);
+        return Optional.of(InternalizedEntities.OWL_NOTHING);
     }
 
     /**

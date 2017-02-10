@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.reasoner.structural;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
@@ -89,7 +89,6 @@ public class StructuralReasoner extends OWLReasonerBase {
     public StructuralReasoner(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
         BufferingMode bufferingMode) {
         super(rootOntology, configuration, bufferingMode);
-        checkNotNull(configuration, "configuration cannot be null");
         pm = configuration.getProgressMonitor();
         prepareReasoner();
     }

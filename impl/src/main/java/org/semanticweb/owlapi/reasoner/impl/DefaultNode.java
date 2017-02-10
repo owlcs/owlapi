@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,16 +25,9 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -44,20 +38,13 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
-    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false);
-    protected static final OWLClass TOP_CLASS = DF.getOWLThing();
-    protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
-    protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
-    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
-    protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
-    protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
-    protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
-    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
-    protected static final OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
-    protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF.getOWLTopObjectProperty();
-    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(TOP_OBJECT_PROPERTY);
-    protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF.getOWLBottomObjectProperty();
-    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(BOTTOM_OBJECT_PROPERTY);
+    protected static final OWLClassNode TOP_NODE = new OWLClassNode(OWL_THING);
+    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(OWL_NOTHING);
+    protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(OWL_TOP_DATA_PROPERTY);
+    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(OWL_BOTTOM_DATA_PROPERTY);
+    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(OWL_TOP_OBJECT_PROPERTY);
+    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
+        OWL_BOTTOM_OBJECT_PROPERTY);
     private final Set<E> entities = new HashSet<>(4);
 
     /**

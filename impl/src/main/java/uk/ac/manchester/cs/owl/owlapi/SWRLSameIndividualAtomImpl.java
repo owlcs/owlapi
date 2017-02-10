@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
@@ -23,8 +21,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
-    implements SWRLSameIndividualAtom {
+public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
+    SWRLSameIndividualAtom {
 
     /**
      * @param property
@@ -35,7 +33,6 @@ public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
      *        second individual
      */
     public SWRLSameIndividualAtomImpl(OWLObjectProperty property, SWRLIArgument arg0, SWRLIArgument arg1) {
-        super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0, "arg0 cannot be null"),
-            checkNotNull(arg1, "arg1 cannot be null"));
+        super(property, arg0, arg1);
     }
 }
