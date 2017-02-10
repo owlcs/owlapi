@@ -12,12 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
+import static org.semanticweb.owlapi.io.ToStringRenderer.getRendering;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -36,22 +39,25 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class LatexObjectVisitor implements OWLObjectVisitor {
 
     //@formatter:off
-    /** AND. */           private static final String AND     = "\\ensuremath{\\sqcap}";
-    /** OR. */            public static final String OR       = "\\ensuremath{\\sqcup}";
-    /** NOT. */           public static final String NOT      = "\\ensuremath{\\lnot}";
-    /** ALL. */           public static final String ALL      = "\\ensuremath{\\forall}";
-    /** SOME. */          public static final String SOME     = "\\ensuremath{\\exists}";
-    /** HASVALUE. */      public static final String HASVALUE = "\\ensuremath{hasValue}";
-    /** MIN. */           public static final String MIN      = "\\ensuremath{\\geq}";
-    /** MAX. */           public static final String MAX      = "\\ensuremath{\\leq}";
-    /** EQUAL. */         public static final String EQUAL    = "\\ensuremath{=}";
-    /** SUBCLASS. */      public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
-    /** EQUIV. */         public static final String EQUIV    = "\\ensuremath{\\equiv}";
-    /** NOT_EQUIV. */     public static final String NOT_EQUIV= "\\ensuremath{\\not\\equiv}";
-    /** TOP. */           public static final String TOP      = "\\ensuremath{\\top}";
-    /** BOTTOM. */        public static final String BOTTOM   = "\\ensuremath{\\bot}";
-    /** SELF. */          public static final String SELF     = "\\ensuremath{\\Self}";
-    /** CIRC. */          public static final String CIRC     = "\\ensuremath{\\circ}";
+	/** AND. */           public static final String AND       = "\\ensuremath{\\sqcap}";
+    /** OR. */            public static final String OR        = "\\ensuremath{\\sqcup}";
+    /** NOT. */           public static final String NOT       = "\\ensuremath{\\lnot}";
+    /** ALL. */           public static final String ALL       = "\\ensuremath{\\forall}";
+    /** SOME. */          public static final String SOME      = "\\ensuremath{\\exists}";
+    /** HASVALUE. */      public static final String HASVALUE  = "\\ensuremath{hasValue}";
+    /** MIN. */           public static final String MIN       = "\\ensuremath{\\geq}";
+    /** MAX. */           public static final String MAX       = "\\ensuremath{\\leq}";
+    /** MINEX. */         public static final String MINEX     = "\\ensuremath{>}";
+    /** MAXEX. */         public static final String MAXEX     = "\\ensuremath{<}";
+    /** EQUAL. */         public static final String EQUAL     = "\\ensuremath{=}";
+    /** SUBCLASS. */      public static final String SUBCLASS  = "\\ensuremath{\\sqsubseteq}";
+    /** EQUIV. */         public static final String EQUIV     = "\\ensuremath{\\equiv}";
+    /** NOT_EQUIV. */     public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
+    /** TOP. */           public static final String TOP       = "\\ensuremath{\\top}";
+    /** BOTTOM. */        public static final String BOTTOM    = "\\ensuremath{\\bot}";
+    /** SELF. */          public static final String SELF      = "\\ensuremath{\\Self}";
+    /** CIRC. */          public static final String CIRC      = "\\ensuremath{\\circ}";
+    /** INVERSE */		  public static final String INVERSE   = "\\ensuremath{^-}";
     //@formatter:on
     private OWLObject subject;
     private final LatexWriter writer;
@@ -137,24 +143,25 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataAllValuesFrom ce) {
-        write(ALL);
-        writeSpace();
+    	write(ALL);
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         ce.getFiller().accept(this);
     }
 
     @Override
     public void visit(OWLDataExactCardinality ce) {
         write(EQUAL);
+        write(ce.getCardinality());
         writeSpace();
         ce.getProperty().accept(this);
+        write(".");
+        ce.getFiller().accept(this);
     }
 
     @Override
     public void visit(OWLDataMaxCardinality ce) {
         write(MAX);
-        writeSpace();
         write(ce.getCardinality());
         writeSpace();
         ce.getProperty().accept(this);
@@ -163,7 +170,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataMinCardinality ce) {
         write(MIN);
-        writeSpace();
         write(ce.getCardinality());
         writeSpace();
         ce.getProperty().accept(this);
@@ -172,74 +178,68 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataSomeValuesFrom ce) {
         write(SOME);
-        writeSpace();
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         ce.getFiller().accept(this);
     }
 
     @Override
     public void visit(OWLDataHasValue ce) {
-        write(HASVALUE);
-        writeSpace();
+        write(SOME);
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         ce.getFiller().accept(this);
     }
 
     @Override
     public void visit(OWLObjectAllValuesFrom ce) {
         write(ALL);
-        writeSpace();
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         writeNested(ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectExactCardinality ce) {
         write(EQUAL);
+        write(ce.getCardinality());
         writeSpace();
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         writeNested(ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectMaxCardinality ce) {
         write(MAX);
-        writeSpace();
         write(ce.getCardinality());
         writeSpace();
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         writeNested(ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectMinCardinality ce) {
         write(MIN);
-        writeSpace();
         write(ce.getCardinality());
         writeSpace();
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         writeNested(ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectSomeValuesFrom ce) {
         write(SOME);
-        writeSpace();
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         writeNested(ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectHasValue ce) {
         write(SOME);
-        writeSpace();
         ce.getProperty().accept(this);
         writeSpace();
         writeOpenBrace();
@@ -302,9 +302,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectHasSelf ce) {
         write(SOME);
-        writeSpace();
         ce.getProperty().accept(this);
-        writeSpace();
+        write(".");
         write(SELF);
     }
 
@@ -402,7 +401,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        setPrettyPrint(false);
+    	setPrettyPrint(false);
         axiom.getSubClass().accept(this);
         writeSpace();
         write(SUBCLASS);
@@ -423,8 +422,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        write("AsymmetricProperty");
         axiom.getProperty().accept(this);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        write(NOT);
+        axiom.getProperty().accept(this);
+        write(INVERSE);
     }
 
     @Override
@@ -474,9 +478,9 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext();) {
-            write("\\{");
+            writeOpenBrace();
             it.next().accept(this);
-            write("\\}");
+            writeCloseBrace();
             if (it.hasNext()) {
                 writeSpace();
                 write(NOT_EQUIV);
@@ -499,22 +503,29 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        write("DisjointObjectProperties");
-        writeSpace();
-        axiom.properties().forEach(p -> {
-            p.accept(this);
-            writeSpace();
-        });
+        write("Disjoint");
+        write("(");
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                write(",");
+                writeSpace();
+            }
+        }
+        write(")");
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        write("DisjointUnion");
-        writeSpace();
+        // DO OTHER AXIOM HERE!
+    	
+    	write("DisjointClasses");
+        write("(");
         axiom.classExpressions().forEach(p -> {
             p.accept(this);
             writeSpace();
         });
+        write(")");
     }
 
     @Override
@@ -595,18 +606,20 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        axiom.getFirstProperty().accept(this);
+        write(axiom.getFirstProperty());
         writeSpace();
         write(EQUIV);
         writeSpace();
-        axiom.getSecondProperty().accept(this);
-        write("\\ensuremath{^-}");
+        write(axiom.getSecondProperty());
+        write(INVERSE);
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         write("IrreflexiveObjectProperty");
+        write("(");
         axiom.getProperty().accept(this);
+        write(")");
     }
 
     @Override
@@ -687,18 +700,20 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         write("ReflexiveProperty");
+        write("(");
         axiom.getProperty().accept(this);
+        write(")");
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext();) {
-            write("\\{");
+            writeOpenBrace();
             it.next().accept(this);
-            write("\\}");
+            writeCloseBrace();
             if (it.hasNext()) {
                 writeSpace();
-                write(EQUIV);
+                write("=");
                 writeSpace();
             }
         }
@@ -716,7 +731,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        write("Datatype");
         axiom.getDatatype().accept(this);
         write(EQUIV);
         axiom.getDataRange().accept(this);
@@ -725,7 +739,9 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         write("TransitiveProperty");
+        write("(");
         axiom.getProperty().accept(this);
+        write(")");
     }
 
     @Override
@@ -738,7 +754,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLVariable node) {
-        node.getIRI().accept(this);
+        write(node.getIRI());
     }
 
     private void writeNested(OWLClassExpression classExpression) {
@@ -764,7 +780,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     private static String escapeName(String name) {
-        return name.replace("_", "\\_");
+        return name.replace("_", "\\_").replace("#", "\\#");
     }
 
     @Override
@@ -775,7 +791,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectInverseOf property) {
         property.getInverse().accept(this);
-        write("\\ensuremath{^-}");
+        write(INVERSE);
     }
 
     @Override
@@ -800,33 +816,62 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLFacetRestriction node) {
-        write("Facet");
-        write(node.getFacet());
-        node.getFacetValue().accept(this);
+    	String facet = node.getFacet().toString();
+    	if(facet.equalsIgnoreCase("minInclusive")){
+    		write(MIN);
+    	}
+    	else if(facet.equalsIgnoreCase("minExclusive")){
+    		write(MINEX);
+    	}
+    	else if(facet.equalsIgnoreCase("maxInclusive")){
+    		write(MAX);
+    	}
+    	else if(facet.equalsIgnoreCase("maxExclusive")){
+    		write(MAXEX);
+    	}
+    	else{
+    		write(facet);
+    	}
+
+    	node.getFacetValue().accept(this);
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-        write("DatatypeRestriction");
-        node.getDatatype().accept(this);
-        node.facetRestrictions().forEach(r -> {
-            writeSpace();
+    	write("(");
+    	node.getDatatype().accept(this);
+        write(":");
+        
+        // Need to know when to stop printing "and"
+        List<OWLFacetRestriction> facetRestrictions =
+        		asList(node.facetRestrictions());
+        
+        for(int i=0;i<facetRestrictions.size();i++){
+        	OWLFacetRestriction r = facetRestrictions.get(i);
+        	writeSpace();
             r.accept(this);
-        });
+            if(i != facetRestrictions.size()-1){
+            	writeSpace();
+            	write("and");
+            }
+        }
+        
+        write(")");
     }
 
     @Override
     public void visit(OWLDatatype node) {
-        write("Datatype");
-        node.getIRI().accept(this);
+        write(getRendering(node));
     }
 
     @Override
     public void visit(OWLLiteral node) {
-        write("\"");
+        writeOpenBrace();
+    	write("``");
         write(node.getLiteral());
-        write("\"\\^\\^");
-        node.getDatatype().getIRI().accept(this);
+        write("\"\\^{}\\^{}");
+        write(getRendering(node.getDatatype()));
+        writeCloseBrace();
     }
 
     @Override
@@ -931,17 +976,17 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
             @Override
             public void visit(IRI iri) {
-                iri.accept(LatexObjectVisitor.this);
+                iri.accept(this);
             }
 
             @Override
             public void visit(OWLAnonymousIndividual individual) {
-                individual.accept(LatexObjectVisitor.this);
+                individual.accept(this);
             }
 
             @Override
             public void visit(OWLLiteral literal) {
-                literal.accept(LatexObjectVisitor.this);
+                literal.accept(this);
             }
         });
     }
@@ -949,11 +994,24 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
         write("HasKey");
+        write("(");
         axiom.getClassExpression().accept(this);
-        axiom.propertyExpressions().forEach(p -> {
-            writeSpace();
-            p.accept(this);
-        });
+        write(")");
+        writeSpace();
+        write("=");
+        writeSpace();
+        writeOpenBrace();
+        for(Iterator<OWLPropertyExpression> it = axiom.propertyExpressions().iterator();
+        		it.hasNext();){
+            it.next().accept(this);
+            if (it.hasNext()) 
+            {
+                write(",");
+                writeSpace();
+            }
+        }
+
+        writeCloseBrace();
     }
 
     @Override
