@@ -21,11 +21,12 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLReflexiveObjectPropertyAxiom
-    extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
+public interface OWLReflexiveObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom,
+    OWLSubClassOfAxiomShortCut {
 
     @Override
-        OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

@@ -21,11 +21,12 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLFunctionalObjectPropertyAxiom
-    extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
+public interface OWLFunctionalObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom,
+    OWLSubClassOfAxiomShortCut {
 
     @Override
-        OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

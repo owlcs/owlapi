@@ -40,14 +40,13 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }

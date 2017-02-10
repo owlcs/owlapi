@@ -23,11 +23,12 @@ import java.util.Collection;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDisjointObjectPropertiesAxiom
-    extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+public interface OWLDisjointObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
+    OWLObjectPropertyAxiom {
 
     @Override
-        OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -35,10 +36,10 @@ public interface OWLDisjointObjectPropertiesAxiom
     }
 
     @Override
-        Collection<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms();
+    Collection<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs();
+    Collection<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

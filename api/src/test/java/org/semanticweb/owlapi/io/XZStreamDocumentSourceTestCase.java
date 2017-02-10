@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 @SuppressWarnings("javadoc")
 public class XZStreamDocumentSourceTestCase {
 
+    @SuppressWarnings("null")
     @Test
     public void testReadKoalaDoc() {
         XZStreamDocumentSource source = new XZStreamDocumentSource(getClass().getResourceAsStream("/koala.owl.xz"));

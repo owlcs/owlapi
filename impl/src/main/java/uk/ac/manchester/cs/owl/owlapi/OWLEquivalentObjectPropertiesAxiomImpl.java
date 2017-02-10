@@ -43,14 +43,13 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLEquivalentObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLEquivalentObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }

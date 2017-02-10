@@ -49,14 +49,14 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
     }

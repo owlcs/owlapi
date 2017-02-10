@@ -20,11 +20,12 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectPropertyRangeAxiom
-    extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>, OWLObjectPropertyAxiom {
+public interface OWLObjectPropertyRangeAxiom extends
+    OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>, OWLObjectPropertyAxiom {
 
     @Override
-        OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

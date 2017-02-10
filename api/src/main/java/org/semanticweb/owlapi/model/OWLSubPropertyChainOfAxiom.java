@@ -30,7 +30,8 @@ import java.util.stream.Stream;
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
 
     @Override
-        OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

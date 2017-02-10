@@ -54,11 +54,10 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(), NO_ANNOTATIONS);
     }
 
     /**
@@ -75,6 +74,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(), mergeAnnos(anns));
     }

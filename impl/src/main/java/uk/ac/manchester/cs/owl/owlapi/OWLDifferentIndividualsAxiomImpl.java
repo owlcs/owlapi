@@ -43,14 +43,13 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLDifferentIndividualsAxiomImpl(individuals, NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLDifferentIndividualsAxiomImpl(individuals, NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDifferentIndividualsAxiomImpl(individuals, mergeAnnos(anns));
     }

@@ -61,14 +61,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(), mergeAnnos(anns));
     }

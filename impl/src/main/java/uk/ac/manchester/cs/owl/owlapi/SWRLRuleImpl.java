@@ -73,14 +73,13 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public SWRLRule getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new SWRLRuleImpl(body, head, NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new SWRLRuleImpl(body, head, NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new SWRLRuleImpl(body, head, mergeAnnos(anns));
     }

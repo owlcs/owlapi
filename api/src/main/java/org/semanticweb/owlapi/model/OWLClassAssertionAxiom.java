@@ -46,7 +46,8 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
     }
 
     @Override
-        OWLClassAssertionAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLClassAssertionAxiom getAxiomWithoutAnnotations();
 
     /**
      * Gets the individual that is asserted to be an instance of a class

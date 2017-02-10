@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.Collections.emptyList;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.Serializable;
@@ -96,12 +96,12 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
-        return anonCaches.get(this).stream();
+        return verifyNotNull(anonCaches.get(this)).stream();
     }
 
     @Override
     public Stream<OWLEntity> signature() {
-        return signatures.get(this).stream();
+        return verifyNotNull(signatures.get(this)).stream();
     }
 
     protected static List<OWLAnnotation> asAnnotations(Collection<OWLAnnotation> anns) {

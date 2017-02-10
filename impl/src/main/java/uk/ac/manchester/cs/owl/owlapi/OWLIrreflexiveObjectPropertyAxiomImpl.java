@@ -43,14 +43,13 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }

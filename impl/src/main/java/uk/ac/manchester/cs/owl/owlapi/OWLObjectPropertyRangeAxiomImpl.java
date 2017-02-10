@@ -17,7 +17,12 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -41,14 +46,13 @@ public class OWLObjectPropertyRangeAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
     }

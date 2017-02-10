@@ -42,14 +42,13 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDisjointClassesAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLDisjointClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLDisjointClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDisjointClassesAxiomImpl(classExpressions, mergeAnnos(anns));
     }

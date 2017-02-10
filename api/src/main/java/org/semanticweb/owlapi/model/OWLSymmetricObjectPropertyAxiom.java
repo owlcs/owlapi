@@ -26,7 +26,8 @@ import java.util.Set;
 public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     @Override
-        OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

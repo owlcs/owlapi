@@ -23,8 +23,8 @@ import java.util.stream.Stream;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnnotationAssertionAxiom
-    extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
+public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>,
+    HasProperty<OWLAnnotationProperty> {
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
@@ -79,7 +79,8 @@ public interface OWLAnnotationAssertionAxiom
     boolean isDeprecatedIRIAssertion();
 
     @Override
-        OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

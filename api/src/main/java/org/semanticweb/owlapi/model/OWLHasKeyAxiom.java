@@ -28,7 +28,8 @@ import java.util.stream.Stream;
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     @Override
-        OWLHasKeyAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLHasKeyAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> components() {

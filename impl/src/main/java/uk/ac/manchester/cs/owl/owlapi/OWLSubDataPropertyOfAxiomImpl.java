@@ -42,14 +42,14 @@ public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDa
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
     }

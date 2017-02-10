@@ -49,14 +49,14 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), mergeAnnos(anns));
     }

@@ -43,11 +43,9 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -56,6 +54,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }

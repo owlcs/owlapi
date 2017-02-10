@@ -15,7 +15,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -42,15 +47,14 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
-            NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(
             anns));

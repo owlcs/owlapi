@@ -43,14 +43,13 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectProper
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }

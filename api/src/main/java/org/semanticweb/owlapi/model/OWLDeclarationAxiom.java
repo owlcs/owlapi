@@ -28,7 +28,8 @@ import java.util.stream.Stream;
 public interface OWLDeclarationAxiom extends OWLAxiom {
 
     @Override
-        OWLDeclarationAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLDeclarationAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

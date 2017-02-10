@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 @SuppressWarnings("javadoc")
 public class StreamDocumentSourceBaseTestCase {
 
+    @SuppressWarnings("null")
     @Test
     public void shouldCreateRewindableReaderWithKnownContent() {
         String input = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"

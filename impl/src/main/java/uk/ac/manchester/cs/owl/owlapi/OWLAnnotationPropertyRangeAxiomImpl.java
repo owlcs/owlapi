@@ -49,14 +49,14 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
     }

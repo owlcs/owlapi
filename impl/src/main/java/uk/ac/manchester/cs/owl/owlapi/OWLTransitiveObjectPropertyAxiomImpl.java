@@ -40,14 +40,13 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }

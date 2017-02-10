@@ -26,7 +26,8 @@ import java.util.stream.Stream;
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
     @Override
-        OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> components() {

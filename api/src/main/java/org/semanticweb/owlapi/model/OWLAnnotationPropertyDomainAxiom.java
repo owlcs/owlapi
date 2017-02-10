@@ -23,11 +23,12 @@ import java.util.stream.Stream;
  *         Management Group
  * @since 3.0.0
  */
-public interface OWLAnnotationPropertyDomainAxiom
-    extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasDomain<IRI> {
+public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>,
+    HasDomain<IRI> {
 
     @Override
-        OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {

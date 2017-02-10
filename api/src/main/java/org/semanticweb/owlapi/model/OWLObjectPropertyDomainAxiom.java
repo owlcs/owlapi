@@ -21,11 +21,12 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectPropertyDomainAxiom
-    extends OWLPropertyDomainAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+public interface OWLObjectPropertyDomainAxiom extends OWLPropertyDomainAxiom<OWLObjectPropertyExpression>,
+    OWLObjectPropertyAxiom {
 
     @Override
-        OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

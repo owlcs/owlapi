@@ -21,11 +21,12 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataPropertyAssertionAxiom
-    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>, OWLSubClassOfAxiomShortCut {
+public interface OWLDataPropertyAssertionAxiom extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
+    OWLSubClassOfAxiomShortCut {
 
     @Override
-        OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

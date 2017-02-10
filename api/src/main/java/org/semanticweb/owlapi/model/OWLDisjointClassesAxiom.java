@@ -26,7 +26,8 @@ import java.util.Collection;
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
 
     @Override
-        OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -34,10 +35,10 @@ public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
     }
 
     @Override
-        Collection<OWLDisjointClassesAxiom> asPairwiseAxioms();
+    Collection<OWLDisjointClassesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLDisjointClassesAxiom> splitToAnnotatedPairs();
+    Collection<OWLDisjointClassesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

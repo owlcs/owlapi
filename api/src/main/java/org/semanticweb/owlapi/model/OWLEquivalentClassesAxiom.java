@@ -30,7 +30,8 @@ import java.util.stream.Stream;
 public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
 
     @Override
-        OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -91,10 +92,10 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     boolean containsOWLThing();
 
     @Override
-        Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms();
+    Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
+    Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

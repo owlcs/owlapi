@@ -27,11 +27,12 @@ import java.util.Collection;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLInverseObjectPropertiesAxiom
-    extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+public interface OWLInverseObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
+    OWLObjectPropertyAxiom {
 
     @Override
-        OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -39,10 +40,10 @@ public interface OWLInverseObjectPropertiesAxiom
     }
 
     @Override
-        Collection<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
+    Collection<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
+    Collection<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
 
     /**
      * @return the first of the two object properties.

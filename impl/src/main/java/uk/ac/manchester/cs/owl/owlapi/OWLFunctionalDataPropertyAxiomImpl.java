@@ -43,14 +43,13 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLFunctionalDataPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }

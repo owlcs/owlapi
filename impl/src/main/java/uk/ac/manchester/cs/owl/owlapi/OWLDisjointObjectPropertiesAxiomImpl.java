@@ -42,14 +42,13 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLDisjointObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLDisjointObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDisjointObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }

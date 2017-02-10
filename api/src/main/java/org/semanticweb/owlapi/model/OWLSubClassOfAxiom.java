@@ -26,7 +26,8 @@ import java.util.stream.Stream;
 public interface OWLSubClassOfAxiom extends OWLClassAxiom {
 
     @Override
-        OWLSubClassOfAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLSubClassOfAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

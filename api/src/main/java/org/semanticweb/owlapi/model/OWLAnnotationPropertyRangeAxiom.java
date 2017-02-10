@@ -25,11 +25,12 @@ import javax.annotation.Nonnull;
  *         Management Group
  * @since 3.0.0
  */
-public interface OWLAnnotationPropertyRangeAxiom
-    extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
+public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>,
+    HasRange<IRI> {
 
     @Override
-        OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {

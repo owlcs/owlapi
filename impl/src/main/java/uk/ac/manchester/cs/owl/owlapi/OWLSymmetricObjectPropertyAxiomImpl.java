@@ -53,15 +53,14 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this : new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 }

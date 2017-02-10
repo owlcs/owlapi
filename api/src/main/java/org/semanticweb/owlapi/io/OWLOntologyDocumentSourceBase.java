@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.apache.commons.io.ByteOrderMark.*;
 import static org.semanticweb.owlapi.io.ZipSources.handleZips;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -213,7 +213,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2").addHeader("Accept-Encoding",
                 "xz,gzip,deflate");
         Request request = builder.build();
-        Call newCall = CACHE.get(Integer.valueOf(timeout)).newCall(request);
+        Call newCall = verifyNotNull(CACHE.get(Integer.valueOf(timeout))).newCall(request);
         return newCall.execute();
     }
 

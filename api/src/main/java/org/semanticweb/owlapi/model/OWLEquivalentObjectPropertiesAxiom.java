@@ -23,11 +23,12 @@ import java.util.Collection;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLEquivalentObjectPropertiesAxiom
-    extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+public interface OWLEquivalentObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
+    OWLObjectPropertyAxiom {
 
     @Override
-        OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -35,10 +36,10 @@ public interface OWLEquivalentObjectPropertiesAxiom
     }
 
     @Override
-        Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
+    Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
+    Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
 
     /**
      * @return the axioms equivalent to the equivalent object property axiom

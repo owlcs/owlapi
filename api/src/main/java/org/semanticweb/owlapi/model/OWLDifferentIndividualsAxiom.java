@@ -26,7 +26,8 @@ import java.util.Collection;
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
     @Override
-        OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
+    @SuppressWarnings("unchecked")
+    OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -42,10 +43,10 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
     boolean containsAnonymousIndividuals();
 
     @Override
-        Collection<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
+    Collection<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs();
+    Collection<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

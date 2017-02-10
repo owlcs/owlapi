@@ -48,16 +48,16 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+            : new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), NO_ANNOTATIONS);
     }
 
     @Override
