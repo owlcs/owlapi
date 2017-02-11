@@ -36,13 +36,8 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
     }
 
     @Override
-    default int hashIndex() {
-        return 307;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 1003;
+    default OWLObjectType type() {
+        return OWLObjectType.INVERSE_OBJECT;
     }
 
     @Override

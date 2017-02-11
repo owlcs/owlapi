@@ -47,8 +47,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     }
 
     @Override
-    default int hashIndex() {
-        return 821;
+    default OWLObjectType type() {
+        return OWLObjectType.HASKEY;
     }
 
     /**

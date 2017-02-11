@@ -160,4 +160,16 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
         filter.forEach(x -> counters.computeIfAbsent(x, q -> new AtomicInteger(0)).incrementAndGet());
         return counters.values().stream().anyMatch(x -> x.get() > 1);
     }
+
+    OWLObjectType type();
+
+    @Override
+    default int hashIndex() {
+        return type().hashIndex();
+    }
+
+    @Override
+    default int typeIndex() {
+        return type().typeIndex();
+    }
 }

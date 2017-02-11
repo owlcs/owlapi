@@ -30,8 +30,8 @@ public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
     OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 31;
+    default OWLObjectType type() {
+        return OWLObjectType.DISJOINT_CLASSES;
     }
 
     @Override

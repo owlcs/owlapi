@@ -42,8 +42,8 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom, HasSubj
     }
 
     @Override
-    default int hashIndex() {
-        return 47;
+    default OWLObjectType type() {
+        return OWLObjectType.ANNOTATION_ASSERTION;
     }
 
     /**

@@ -43,13 +43,8 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OW
     }
 
     @Override
-    default int hashIndex() {
-        return 877;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 5001;
+    default OWLObjectType type() {
+        return OWLObjectType.ANNOTATION;
     }
 
     /**
@@ -58,7 +53,7 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OW
      * @return The annotation property
      */
     @Override
-        OWLAnnotationProperty getProperty();
+    OWLAnnotationProperty getProperty();
 
     /**
      * Gets the annotation value. The type of value will depend upon the type of

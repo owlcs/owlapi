@@ -24,13 +24,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLDataSomeValuesFrom extends OWLQuantifiedDataRestriction {
 
     @Override
-    default int hashIndex() {
-        return 181;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3012;
+    default OWLObjectType type() {
+        return OWLObjectType.SOME_DATA;
     }
 
     @Override

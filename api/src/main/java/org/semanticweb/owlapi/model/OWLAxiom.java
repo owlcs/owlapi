@@ -33,11 +33,6 @@ import javax.annotation.Nullable;
 public interface OWLAxiom extends OWLObject, HasAnnotations {
 
     @Override
-    default int typeIndex() {
-        return 2000 + getAxiomType().getIndex();
-    }
-
-    @Override
     default boolean isAnonymous() {
         return true;
     }

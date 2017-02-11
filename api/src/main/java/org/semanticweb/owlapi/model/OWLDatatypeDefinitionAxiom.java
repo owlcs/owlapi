@@ -41,8 +41,8 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
     }
 
     @Override
-    default int hashIndex() {
-        return 897;
+    default OWLObjectType type() {
+        return OWLObjectType.DATATYPE_DEFINITION;
     }
 
     /**

@@ -28,8 +28,8 @@ public interface OWLDataPropertyRangeAxiom extends OWLPropertyRangeAxiom<OWLData
     OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 17;
+    default OWLObjectType type() {
+        return OWLObjectType.DATA_RANGE;
     }
 
     @Override

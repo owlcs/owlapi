@@ -34,8 +34,8 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 107;
+    default OWLObjectType type() {
+        return OWLObjectType.SUB_PROPERTY_CHAIN;
     }
 
     @Override

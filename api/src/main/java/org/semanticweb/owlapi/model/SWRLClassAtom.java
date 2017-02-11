@@ -27,17 +27,12 @@ public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
     }
 
     @Override
-    default int hashIndex() {
-        return 641;
+    default OWLObjectType type() {
+        return OWLObjectType.SWRL_CLASS;
     }
 
     @Override
-    default int typeIndex() {
-        return 6001;
-    }
-
-    @Override
-        OWLClassExpression getPredicate();
+    OWLClassExpression getPredicate();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

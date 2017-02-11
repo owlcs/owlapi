@@ -34,13 +34,8 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
     }
 
     @Override
-    default int hashIndex() {
-        return 271;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 4006;
+    default OWLObjectType type() {
+        return OWLObjectType.DATATYPE_RESTRICTION;
     }
 
     @Override

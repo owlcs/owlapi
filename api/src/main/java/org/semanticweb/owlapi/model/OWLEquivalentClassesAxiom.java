@@ -34,8 +34,8 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 53;
+    default OWLObjectType type() {
+        return OWLObjectType.EQUIVALENT_CLASSES;
     }
 
     /**

@@ -24,13 +24,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLObjectMaxCardinality extends OWLObjectCardinalityRestriction {
 
     @Override
-    default int hashIndex() {
-        return 223;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3010;
+    default OWLObjectType type() {
+        return OWLObjectType.MAX_OBJECT;
     }
 
     @Override

@@ -41,8 +41,8 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
     }
 
     @Override
-    default int hashIndex() {
-        return 3;
+    default OWLObjectType type() {
+        return OWLObjectType.ASYMMETRIC;
     }
 
     @Override

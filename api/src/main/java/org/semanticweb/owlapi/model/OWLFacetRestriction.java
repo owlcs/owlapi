@@ -33,13 +33,8 @@ public interface OWLFacetRestriction extends OWLObject {
     }
 
     @Override
-    default int hashIndex() {
-        return 563;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 4007;
+    default OWLObjectType type() {
+        return OWLObjectType.FACET_RESTRICTION;
     }
 
     /**

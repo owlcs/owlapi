@@ -35,8 +35,8 @@ public interface OWLInverseObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OW
     OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 83;
+    default OWLObjectType type() {
+        return OWLObjectType.INVERSE;
     }
 
     @Override

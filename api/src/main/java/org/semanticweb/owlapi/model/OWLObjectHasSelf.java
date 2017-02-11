@@ -31,13 +31,8 @@ public interface OWLObjectHasSelf extends OWLRestriction, OWLObjectRestriction {
     }
 
     @Override
-    default int hashIndex() {
-        return 233;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3011;
+    default OWLObjectType type() {
+        return OWLObjectType.HASSELF_OBJECT;
     }
 
     @Override

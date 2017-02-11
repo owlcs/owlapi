@@ -29,8 +29,8 @@ public interface OWLDataPropertyDomainAxiom extends OWLPropertyDomainAxiom<OWLDa
     OWLDataPropertyDomainAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 13;
+    default OWLObjectType type() {
+        return OWLObjectType.DATA_DOMAIN;
     }
 
     @Override

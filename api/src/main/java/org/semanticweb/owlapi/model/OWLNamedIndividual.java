@@ -24,13 +24,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
 
     @Override
-    default int hashIndex() {
-        return 311;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 1005;
+    default OWLObjectType type() {
+        return OWLObjectType.NAMED_INDIVIDUAL;
     }
 
     @Override

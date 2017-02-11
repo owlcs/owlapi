@@ -23,13 +23,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLObjectExactCardinality extends OWLObjectCardinalityRestriction {
 
     @Override
-    default int hashIndex() {
-        return 199;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3009;
+    default OWLObjectType type() {
+        return OWLObjectType.EXACT_OBJECT;
     }
 
     @Override

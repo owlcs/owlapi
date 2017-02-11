@@ -27,17 +27,12 @@ public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
     }
 
     @Override
-    default int hashIndex() {
-        return 643;
+    default OWLObjectType type() {
+        return OWLObjectType.SWRL_DATA_RANGE;
     }
 
     @Override
-    default int typeIndex() {
-        return 6002;
-    }
-
-    @Override
-        OWLDataRange getPredicate();
+    OWLDataRange getPredicate();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

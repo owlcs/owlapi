@@ -40,8 +40,8 @@ import javax.annotation.Nullable;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLLiteral
-    extends OWLObject, OWLAnnotationObject, OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
+public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue, OWLPropertyAssertionObject,
+    OWLPrimitive, HasLang {
 
     @Override
     default Stream<?> components() {
@@ -49,13 +49,8 @@ public interface OWLLiteral
     }
 
     @Override
-    default int hashIndex() {
-        return 277;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 4008;
+    default OWLObjectType type() {
+        return OWLObjectType.LITERAL;
     }
 
     /**

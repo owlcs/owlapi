@@ -30,8 +30,8 @@ public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharac
     OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 149;
+    default OWLObjectType type() {
+        return OWLObjectType.SYMMETRIC;
     }
 
     /**

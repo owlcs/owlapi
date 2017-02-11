@@ -30,8 +30,8 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
     OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 29;
+    default OWLObjectType type() {
+        return OWLObjectType.DIFFERENT_INDIVIDUALS;
     }
 
     /**

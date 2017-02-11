@@ -26,13 +26,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
 
     @Override
-    default int hashIndex() {
-        return 269;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 4001;
+    default OWLObjectType type() {
+        return OWLObjectType.DATATYPE;
     }
 
     @Override

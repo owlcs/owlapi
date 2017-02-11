@@ -31,8 +31,8 @@ public interface OWLDisjointDataPropertiesAxiom extends OWLNaryPropertyAxiom<OWL
     OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 37;
+    default OWLObjectType type() {
+        return OWLObjectType.DISJOINT_DATA;
     }
 
     @Override

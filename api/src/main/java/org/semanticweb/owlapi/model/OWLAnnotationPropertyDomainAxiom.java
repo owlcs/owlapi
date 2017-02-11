@@ -46,8 +46,8 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom, Ha
     }
 
     @Override
-    default int hashIndex() {
-        return 823;
+    default OWLObjectType type() {
+        return OWLObjectType.ANNOTATION_DOMAIN;
     }
 
     @Override

@@ -27,13 +27,8 @@ public interface SWRLLiteralArgument extends SWRLDArgument {
     }
 
     @Override
-    default int hashIndex() {
-        return 683;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 6008;
+    default OWLObjectType type() {
+        return OWLObjectType.SWRL_LITERAL;
     }
 
     /**

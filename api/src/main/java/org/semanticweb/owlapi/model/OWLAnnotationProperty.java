@@ -28,13 +28,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public interface OWLAnnotationProperty extends OWLProperty {
 
     @Override
-    default int hashIndex() {
-        return 857;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 1006;
+    default OWLObjectType type() {
+        return OWLObjectType.ANNOTATION_PROPERTY;
     }
 
     @Override

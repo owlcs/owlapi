@@ -45,8 +45,8 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     }
 
     @Override
-    default int hashIndex() {
-        return 829;
+    default OWLObjectType type() {
+        return OWLObjectType.SUB_ANNOTATION;
     }
 
     /**

@@ -29,8 +29,8 @@ public interface OWLInverseFunctionalObjectPropertyAxiom extends OWLObjectProper
     OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 79;
+    default OWLObjectType type() {
+        return OWLObjectType.INVERSE_FUNCTIONAL;
     }
 
     @Override

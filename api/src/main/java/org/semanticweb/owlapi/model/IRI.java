@@ -72,11 +72,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     @Override
-    public int typeIndex() {
-        return 0;
-    }
-
-    @Override
     public boolean isIRI() {
         return true;
     }
@@ -513,7 +508,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     @Override
-    public int hashIndex() {
-        return 863;
+    public OWLObjectType type() {
+        return OWLObjectType.IRI;
     }
 }

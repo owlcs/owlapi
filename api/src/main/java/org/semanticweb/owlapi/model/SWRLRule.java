@@ -43,8 +43,8 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     }
 
     @Override
-    default int hashIndex() {
-        return 631;
+    default OWLObjectType type() {
+        return OWLObjectType.SWRL_RULE;
     }
 
     /**

@@ -48,8 +48,8 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
     }
 
     @Override
-    default int hashIndex() {
-        return 43;
+    default OWLObjectType type() {
+        return OWLObjectType.DISJOINT_UNION;
     }
 
     /**

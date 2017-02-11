@@ -28,8 +28,8 @@ public interface OWLSubObjectPropertyOfAxiom extends OWLSubPropertyAxiom<OWLObje
     OWLSubObjectPropertyOfAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 127;
+    default OWLObjectType type() {
+        return OWLObjectType.SUB_OBJECT;
     }
 
     @Override

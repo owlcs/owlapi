@@ -31,13 +31,8 @@ public interface OWLDataComplementOf extends OWLDataRange {
     }
 
     @Override
-    default int hashIndex() {
-        return 257;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 4002;
+    default OWLObjectType type() {
+        return OWLObjectType.NOT_DATA;
     }
 
     /**

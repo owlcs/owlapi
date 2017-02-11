@@ -31,13 +31,8 @@ public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI, Seri
     }
 
     @Override
-    default int hashIndex() {
-        return 661;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 6006;
+    default OWLObjectType type() {
+        return OWLObjectType.SWRL_VARIABLE;
     }
 
     @Override

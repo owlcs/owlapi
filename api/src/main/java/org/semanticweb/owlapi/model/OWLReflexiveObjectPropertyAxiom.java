@@ -29,8 +29,8 @@ public interface OWLReflexiveObjectPropertyAxiom extends OWLObjectPropertyCharac
     OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 131;
+    default OWLObjectType type() {
+        return OWLObjectType.REFLEXIVE;
     }
 
     @Override

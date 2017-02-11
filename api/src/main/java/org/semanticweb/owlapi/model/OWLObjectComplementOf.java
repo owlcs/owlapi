@@ -31,13 +31,8 @@ public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
     }
 
     @Override
-    default int hashIndex() {
-        return 197;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3003;
+    default OWLObjectType type() {
+        return OWLObjectType.NOT_OBJECT;
     }
 
     @Override

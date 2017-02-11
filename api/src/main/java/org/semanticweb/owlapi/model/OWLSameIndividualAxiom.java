@@ -30,8 +30,8 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     OWLSameIndividualAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 137;
+    default OWLObjectType type() {
+        return OWLObjectType.SAME_INDIVIDUAL;
     }
 
     /**

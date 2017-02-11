@@ -24,13 +24,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLObjectUnionOf extends OWLNaryBooleanClassExpression {
 
     @Override
-    default int hashIndex() {
-        return 241;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3002;
+    default OWLObjectType type() {
+        return OWLObjectType.OR_OBJECT;
     }
 
     @Override

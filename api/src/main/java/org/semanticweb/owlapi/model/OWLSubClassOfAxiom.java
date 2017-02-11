@@ -30,8 +30,8 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     OWLSubClassOfAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 139;
+    default OWLObjectType type() {
+        return OWLObjectType.SUB_CLASS;
     }
 
     @Override

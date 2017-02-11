@@ -31,8 +31,8 @@ public interface OWLEquivalentObjectPropertiesAxiom extends OWLNaryPropertyAxiom
     OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 61;
+    default OWLObjectType type() {
+        return OWLObjectType.EQUIVALENT_OBJECT;
     }
 
     @Override

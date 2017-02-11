@@ -29,8 +29,8 @@ public interface OWLNegativeObjectPropertyAssertionAxiom extends
     OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 101;
+    default OWLObjectType type() {
+        return OWLObjectType.NEGATIVE_OBJECT_ASSERTION;
     }
 
     /**

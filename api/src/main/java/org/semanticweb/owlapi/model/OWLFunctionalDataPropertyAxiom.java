@@ -28,8 +28,8 @@ public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacter
     OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 67;
+    default OWLObjectType type() {
+        return OWLObjectType.FUNCTIONAL_DATA;
     }
 
     @Override

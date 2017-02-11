@@ -23,13 +23,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamedObject {
 
     @Override
-    default int hashIndex() {
-        return 157;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 1001;
+    default OWLObjectType type() {
+        return OWLObjectType.CLASS;
     }
 
     @Override

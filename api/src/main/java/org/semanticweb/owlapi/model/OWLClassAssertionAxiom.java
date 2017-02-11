@@ -41,8 +41,8 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
     }
 
     @Override
-    default int hashIndex() {
-        return 7;
+    default OWLObjectType type() {
+        return OWLObjectType.CLASS_ASSERTION;
     }
 
     @Override

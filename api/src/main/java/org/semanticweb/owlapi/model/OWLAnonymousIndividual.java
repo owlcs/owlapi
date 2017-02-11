@@ -31,13 +31,8 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
     }
 
     @Override
-    default int hashIndex() {
-        return 859;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 1007;
+    default OWLObjectType type() {
+        return OWLObjectType.ANONYMOUS_INDIVIDUAL;
     }
 
     /**

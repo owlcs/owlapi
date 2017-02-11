@@ -29,8 +29,8 @@ public interface OWLObjectPropertyAssertionAxiom extends
     OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 103;
+    default OWLObjectType type() {
+        return OWLObjectType.OBJECT_ASSERTION;
     }
 
     /**

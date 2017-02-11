@@ -28,8 +28,8 @@ public interface OWLTransitiveObjectPropertyAxiom extends OWLObjectPropertyChara
     OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 151;
+    default OWLObjectType type() {
+        return OWLObjectType.TRANSITIVE;
     }
 
     @Override

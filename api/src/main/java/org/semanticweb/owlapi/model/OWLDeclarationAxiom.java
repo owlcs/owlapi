@@ -32,8 +32,8 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
     OWLDeclarationAxiom getAxiomWithoutAnnotations();
 
     @Override
-    default int hashIndex() {
-        return 23;
+    default OWLObjectType type() {
+        return OWLObjectType.DECLARATION;
     }
 
     @Override

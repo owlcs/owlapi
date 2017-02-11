@@ -24,13 +24,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLDataIntersectionOf extends OWLNaryDataRange {
 
     @Override
-    default int hashIndex() {
-        return 839;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 4004;
+    default OWLObjectType type() {
+        return OWLObjectType.AND_DATA;
     }
 
     @Override

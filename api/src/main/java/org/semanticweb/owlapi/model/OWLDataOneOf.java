@@ -34,13 +34,8 @@ public interface OWLDataOneOf extends OWLDataRange {
     }
 
     @Override
-    default int hashIndex() {
-        return 263;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 4003;
+    default OWLObjectType type() {
+        return OWLObjectType.ONEOF_DATA;
     }
 
     @Override

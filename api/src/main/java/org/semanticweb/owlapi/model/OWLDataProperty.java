@@ -25,13 +25,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public interface OWLDataProperty extends OWLDataPropertyExpression, OWLProperty {
 
     @Override
-    default int hashIndex() {
-        return 283;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 1004;
+    default OWLObjectType type() {
+        return OWLObjectType.DATA_PROPERTY;
     }
 
     @Override

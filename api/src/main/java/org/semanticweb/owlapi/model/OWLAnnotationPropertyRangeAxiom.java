@@ -48,8 +48,8 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom, Has
     }
 
     @Override
-    default int hashIndex() {
-        return 827;
+    default OWLObjectType type() {
+        return OWLObjectType.ANNOTATION_RANGE;
     }
 
     @Override

@@ -30,17 +30,12 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     }
 
     @Override
-    default int hashIndex() {
-        return 659;
+    default OWLObjectType type() {
+        return OWLObjectType.SWRL_BUILTIN;
     }
 
     @Override
-    default int typeIndex() {
-        return 6005;
-    }
-
-    @Override
-        IRI getPredicate();
+    IRI getPredicate();
 
     /**
      * @return list of arguments

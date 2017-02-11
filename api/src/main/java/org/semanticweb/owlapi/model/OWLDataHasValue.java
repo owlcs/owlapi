@@ -24,13 +24,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLDataHasValue extends OWLHasValueRestriction<OWLLiteral>, OWLDataRestriction {
 
     @Override
-    default int hashIndex() {
-        return 191;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3014;
+    default OWLObjectType type() {
+        return OWLObjectType.HASVALUE_DATA;
     }
 
     @Override

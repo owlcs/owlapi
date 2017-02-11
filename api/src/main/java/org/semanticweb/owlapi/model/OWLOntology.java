@@ -72,13 +72,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     }
 
     @Override
-    default int hashIndex() {
-        return 0;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 1;
+    default OWLObjectType type() {
+        return OWLObjectType.ONTOLOGY;
     }
 
     // Default implementation of these mutating methods is to do nothing.

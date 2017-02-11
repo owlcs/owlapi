@@ -34,13 +34,8 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression, HasOperands
     }
 
     @Override
-    default int hashIndex() {
-        return 229;
-    }
-
-    @Override
-    default int typeIndex() {
-        return 3004;
+    default OWLObjectType type() {
+        return OWLObjectType.ONEOF_OBJECT;
     }
 
     @Override
