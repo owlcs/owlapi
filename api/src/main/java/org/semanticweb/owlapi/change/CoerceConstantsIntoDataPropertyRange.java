@@ -110,7 +110,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
                 return df.getOWLDataSomeValuesFrom(ce.getProperty(), process(ce.getProperty(), (OWLDataOneOf) ce
                     .getFiller()));
             }
-            return super.visit(ce);
+            return (OWLDataSomeValuesFrom) super.visit(ce);
         }
 
         @Override
@@ -119,7 +119,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
                 return df.getOWLDataMinCardinality(ce.getCardinality(), ce.getProperty(), process(ce.getProperty(),
                     (OWLDataOneOf) ce.getFiller()));
             }
-            return super.visit(ce);
+            return (OWLDataMinCardinality) super.visit(ce);
         }
 
         @Override
@@ -128,7 +128,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
                 return df.getOWLDataMaxCardinality(ce.getCardinality(), ce.getProperty(), process(ce.getProperty(),
                     (OWLDataOneOf) ce.getFiller()));
             }
-            return super.visit(ce);
+            return (OWLDataMaxCardinality) super.visit(ce);
         }
 
         @Override
@@ -137,7 +137,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
                 return df.getOWLDataExactCardinality(ce.getCardinality(), ce.getProperty(), process(ce.getProperty(),
                     (OWLDataOneOf) ce.getFiller()));
             }
-            return super.visit(ce);
+            return (OWLDataExactCardinality) super.visit(ce);
         }
 
         @Override
@@ -146,7 +146,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
                 return df.getOWLDataAllValuesFrom(ce.getProperty(), process(ce.getProperty(), (OWLDataOneOf) ce
                     .getFiller()));
             }
-            return super.visit(ce);
+            return (OWLDataAllValuesFrom) super.visit(ce);
         }
 
         @Override
