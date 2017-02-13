@@ -20,7 +20,9 @@ dependencies {
   faux project(':owlapi-api')
   faux project(':owlapi-compatibility')
 }
-
+bundle {
+  deleteAllActions()
+}
 shadowJar {
   configurations = []
 }
