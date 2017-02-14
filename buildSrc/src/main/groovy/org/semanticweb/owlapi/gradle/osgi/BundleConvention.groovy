@@ -5,6 +5,7 @@ import aQute.bnd.osgi.Builder
 import aQute.bnd.version.MavenVersion
 import org.gradle.api.GradleException
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
@@ -22,8 +23,9 @@ class BundleConvention {
     private File bndfile
     private SourceSet sourceSet
     @Optional
+    @Classpath
     @InputFiles
-    Set<File> bundleClasspath
+    Set<File> bundleClasspath = new TreeSet<>()
     @Optional
     @Input
     Configuration configuration
@@ -78,7 +80,7 @@ class BundleConvention {
                 builder.setJar(archiveCopyJar)
 
                 // set builder bundleClasspath
-
+                println "BCP = $bundleClasspath"
                 if (!bundleClasspath) {
                     def copyRecursive = getConfiguration().copyRecursive()
                     def resFiles = [sourceSet.output.classesDir]
