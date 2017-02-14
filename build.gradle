@@ -1,34 +1,55 @@
+import aQute.bnd.version.MavenVersion
+import me.champeau.gradle.ArtifactJapicmpTask
+import org.semanticweb.owlapi.gradle.osgi.BundleTask
+import org.semanticweb.owlapi.gradle.osgi.OSGIWrapTask
+
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        mavenLocal()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
 
     }
     dependencies {
-        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.2.0'
+        classpath fileTree('buildSrc/lib/')
+        classpath 'me.champeau.gradle:japicmp-gradle-plugin:latest.integration'
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.3.0'
     }
 }
-
-
 
 allprojects {
     apply plugin: 'maven'
 
     group = 'net.sourceforge.owlapi'
     version = '5.0.6-SNAPSHOT'
+    ext {
+        baselineVersion = '5.0.5'
+    }
+
 }
 
 subprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+
     apply plugin: 'java'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
-
+    apply plugin: 'me.champeau.gradle.japicmp'
+    javadoc {
+        options.links += "https://docs.oracle.com/javase/8/docs/api/"
+    }
     task packageSources(type: Jar) {
+
         classifier = 'sources'
         from sourceSets.main.allSource
     }
@@ -40,12 +61,6 @@ subprojects {
     artifacts.archives packageSources
     artifacts.archives packageJavadoc
 
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    }
-    
     dependencies {
         compile group: 'net.sf.trove4j', name: 'trove4j', version: '[3.0.3,4)'
         compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '[2.1,3)'
@@ -62,5 +77,70 @@ subprojects {
         testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '[1.7.14,1.8)'
     }
 
+    task wrap(type: OSGIWrapTask) {
+        dependsOn compileJava
+        configuration = project.configurations.compile
+        copyExistingBundles=true
+        walkExistingBundles=true
+    }
+    jar {
+        from(sourceSets.main.allSource) {
+            include "**/packageinfo"
+        }
+    }
+    classes {
+        copy {
+            into sourceSets.main.output.classesDir
+            from sourceSets.main.allSource
+            include "**/packageinfo"
+        }
+    }
 
+
+    task bundle(type: BundleTask) {
+        dependsOn jar
+        dependsOn wrap
+        bundleClasspath = project.fileTree(wrap.bundleOutputDir).files
+        //classifier="osgi"
+        
+        manifest {
+            attributes('Export-Package': "{local-packages}",
+
+
+                    "Import-Package": "com.github.benmanes.*;resolution:=optional,*",
+
+                    "Bundle-SymbolicName": "${project.group}.${project.name}"
+
+            )
+        }
+    }
+
+    task initPackageInfo {
+        doFirst {
+            sourceSets.main.allJava*.parentFile.unique().each {
+                File packageInfoFile = new File(it, "packageinfo")
+                if (!packageInfoFile.exists()) {
+                    println "iPi ${it}"
+                    def out = packageInfoFile.newPrintWriter()
+                    MavenVersion v = MavenVersion.parseMavenString(project.version.toString())
+                    out.println "version 5"
+                    out.close()
+                }
+
+            }
+        }
+    }
+    if (!(project.name in ["benchmarks"])) {
+        task japicmp(type: ArtifactJapicmpTask) {
+            description "compare project api to baselineVersion"
+            group "verification"
+            baseline = "${project.group}:${project.name}:${project.baselineVersion}"
+            to = project.jar.archivePath
+            ignoreAllMissingClasses = true
+            noAnnotations = true
+            onlyModified = true
+            failOnModification = false
+            htmlOutputFile = file("$buildDir/reports/japi.html")
+        }
+    }
 }
