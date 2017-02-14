@@ -1,10 +1,14 @@
-
+buildscript {
+    repositories {
+        maven {
+            url 'https://repository.apache.org/content/groups/public'
+        }
+    }
+}
 description = 'OWLAPI :: OSGi and Compatibility Distribution'
 
-//apply plugin: 'biz.aQute.bnd.builder'
 configurations {
     bundlePath {
-        //extendsFrom compile
     }
 }
 
@@ -18,382 +22,119 @@ dependencies {
     compile project(':owlapi-rio')
     compile project(':owlapi-api')
     compile project(':owlapi-compatibility')
-  compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.javax-inject', version: '1_2'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.javax-inject', version: '1_2'
     compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.aopalliance', version: '1.0_6'
-    testCompile group: 'org.apache.felix', name: 'org.apache.felix.main', version: 'latest.release'
-    testCompile group: 'org.osgi', name: 'org.osgi.core', version: 'latest.release'
+    testCompile 'biz.aQute.bnd:biz.aQute.bndlib:3.3.0'
+    testCompile group: 'org.apache.felix', name: 'org.apache.felix.framework', version: '5.6.1'
+    testCompile group: 'org.osgi', name: 'osgi.core', version: '6.0.0'
     testCompile group: 'org.apache.felix', name: 'org.apache.felix.bundlerepository', version: 'latest.release'
-    testCompile 'org.osgi:org.osgi.compendium:5.0.0'
-    testCompile 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.2.0'
-
+    testCompile group: 'org.apache.felix', name: 'org.apache.felix.dependencymanager', version: '4.3.0'
+    testCompile 'org.osgi:osgi.cmpn:6.0.0'
+    testCompile 'org.ops4j.pax.exam:pax-exam-container-native:4.9.2'
+    testCompile 'org.ops4j.pax.exam:pax-exam-junit4:4.9.2'
+    testCompile 'org.ops4j.pax.exam:pax-exam-link-mvn:4.9.2'
+    testCompile 'org.slf4j:slf4j-simple:1.7.22'
 }
 
 apply plugin: 'java'
 
 
+import org.semanticweb.owlapi.gradle.osgi.BundleTask
+import org.semanticweb.owlapi.gradle.osgi.OSGIWrapTask
+import org.semanticweb.owlapi.gradle.osgi.ReBaselineTask
 
-
-import aQute.bnd.gradle.Bundle
-import aQute.bnd.osgi.Analyzer
-import aQute.bnd.osgi.Builder
-import aQute.bnd.osgi.Constants
-import aQute.bnd.version.MavenVersion
-
-import java.util.jar.Manifest
-
-task wrap(type: OSGIWrap) {
+task swrap(type: OSGIWrapTask) {
+    dependsOn compileJava
     configuration = project.configurations.compile
-    def var = configurations.compile.resolvedConfiguration.resolvedArtifacts
-    List<aQute.bnd.osgi.Jar> bcp = []
-    Set dependentArtifacts = new HashSet()
-    var.findAll({ foo -> foo.moduleVersion.id.group != project.group })*.file.each {
-        bcp += new aQute.bnd.osgi.Jar(it)
-        dependentArtifacts.add(it)
-    }
-    def bundles = []
-    def nonbundles = []
-    bcp.each {
-        if (it.bsn) {
-            bundles += it
-        } else {
-            nonbundles += it
-        }
-    }
+    copyExistingBundles = true
+    walkExistingBundles = true
 }
 
-class BundleConventionFoo  {
-    private final Jar task
-    private File bndfile
-    private Configuration configuration
-    private SourceSet sourceSet
 
-    BundleConventionFoo(Jar task) {
-        this.task = task
-    }
 
-    void buildBundle() {
-        println "BUILD BUNDLE CALLED"
-        task.configure {
-            // create Builder and set trace level from gradle
-            new Builder().withCloseable { builder ->
-                // load bnd properties
-                File temporaryBndFile = File.createTempFile('bnd', '.bnd', temporaryDir)
-                temporaryBndFile.withWriter('UTF-8') { writer ->
-                    // write any task manifest entries into the tmp bnd file
-                    manifest.effectiveManifest.attributes.inject(new Properties()) { properties, key, value ->
-                        if (key != 'Manifest-Version') {
-                            properties.setProperty(key, value.toString())
-                        }
-                        return properties
-                    }.store(writer, null)
-
-                    // if the bnd file exists, add its contents to the tmp bnd file
-                    if (bndfile.isFile()) {
-                        builder.loadProperties(bndfile).store(writer, null)
-                    }
-                }
-                builder.setProperties(temporaryBndFile, project.projectDir) // this will cause project.dir property to be set
-                builder.setProperty('project.name', project.name)
-                builder.setProperty('project.output', project.buildDir.canonicalPath)
-
-                // If no bundle to be built, we have nothing to do
-                if (Builder.isTrue(builder.getProperty(Constants.NOBUNDLES))) {
-                    return
-                }
-
-                // Reject sub-bundle projects
-                if (builder.getSubBuilders() != [builder]) {
-                    throw new GradleException('Sub-bundles are not supported by this task')
-                }
-
-                // Include entire contents of Jar task generated jar (except the manifest)
-                project.copy {
-                    from archivePath
-                    into temporaryDir
-                }
-                File archiveCopyFile = new File(temporaryDir, archiveName)
-                aQute.bnd.osgi.Jar archiveCopyJar = new aQute.bnd.osgi.Jar(archiveName, archiveCopyFile)
-                archiveCopyJar.setManifest(new Manifest())
-                builder.setJar(archiveCopyJar)
-
-                // set builder classpath
-
-                def copyRecursive = configuration.copyRecursive()
-                def resFiles = copyRecursive.resolvedConfiguration.resolvedArtifacts.findAll {
-                    it.type == 'jar'
-                }*.file
-                def prependFiles = project.fileTree("build/wrapped-bundles")
-                resFiles = prependFiles + resFiles
-                def buildpath = project.files(resFiles)
-                builder.setProperty('project.buildpath', buildpath.asPath)
-                builder.setClasspath(buildpath as File[])
-                println "XXXXXX" + builder.getClasspath()*.getSource()
-
-                // set builder sourcepath
-                def sourcepath = project.files(sourceSet.allSource.srcDirs.findAll { it.exists() })
-                builder.setProperty('project.sourcepath', sourcepath.asPath)
-                builder.setSourcepath(sourcepath as File[])
-                logger.debug 'builder sourcepath: {}', builder.getSourcePath()
-
-                // set bundle symbolic name from tasks's baseName property if necessary
-                String bundleSymbolicName = builder.getProperty(Constants.BUNDLE_SYMBOLICNAME)
-                if (isEmpty(bundleSymbolicName)) {
-                    builder.setProperty(Constants.BUNDLE_SYMBOLICNAME, baseName)
-                }
-
-                // set bundle version from task's version if necessary
-                String bundleVersion = builder.getProperty(Constants.BUNDLE_VERSION)
-                if (isEmpty(bundleVersion)) {
-                    builder.setProperty(Constants.BUNDLE_VERSION, MavenVersion.parseString(version?.toString()).getOSGiVersion().toString())
-                }
-
-                logger.debug 'builder properties: {}', builder.getProperties()
-
-                // Build bundle
-                aQute.bnd.osgi.Jar bundleJar = builder.build()
-                if (!builder.isOk()) {
-                    // if we already have an error; fail now
-                    builder.getWarnings().each {
-                        logger.warn 'Warning: {}', it
-                    }
-                    builder.getErrors().each {
-                        logger.error 'Error  : {}', it
-                    }
-                    failBuild("Bundle ${archiveName} has errors")
-                }
-
-                // Write out the bundle
-                bundleJar.updateModified(archiveCopyFile.lastModified(), 'time of Jar task generated jar')
-                try {
-                    bundleJar.write(archivePath)
-                } catch (Exception e) {
-                    failBuild("Bundle ${archiveName} failed to build: ${e.getMessage()}", e)
-                } finally {
-                    bundleJar.close()
-                }
-
-                builder.getWarnings().each {
-                    logger.warn 'Warning: {}', it
-                }
-                builder.getErrors().each {
-                    logger.error 'Error  : {}', it
-                }
-                if (!builder.isOk()) {
-                    failBuild("Bundle ${archiveName} has errors")
-                }
-            }
-        }
-    }
-
-    File getBndfile() {
-        if (bndfile == null) {
-            setBndfile(task.project.file('bnd.bnd'))
-        }
-        return bndfile
-    }
-
-    void setBndfile(File bndfile) {
-        this.bndfile = bndfile
-    }
-
-    Configuration getConfiguration() {
-        if (configuration == null) {
-            setConfiguration(task.project.configurations.findByName('compileClasspath') ?: task.project.configurations.compile)
-        }
-        return configuration
-    }
-
-    void setConfiguration(Configuration configuration) {
-        this.configuration = configuration
-    }
-
-    SourceSet getSourceSet() {
-        if (sourceSet == null) {
-            setSourceSet(task.project.sourceSets.main)
-        }
-        return sourceSet
-    }
-
-    void setSourceSet(SourceSet sourceSet) {
-        this.sourceSet = sourceSet
-    }
-    private void failBuild(String msg) {
-        task.archivePath.delete()
-        throw new GradleException(msg)
-    }
-
-    private void failBuild(String msg, Exception e) {
-        task.archivePath.delete()
-        throw new GradleException(msg, e)
-    }
-
-    private boolean isEmpty(String header) {
-        return (header == null) || header.trim().isEmpty() || Constants.EMPTY_HEADER.equals(header)
-    }
-
-}
-
-class BundleFoo extends Bundle {
-    BundleFoo() {
-        convention.plugins.bundle = new BundleConventionFoo(this)
-    }
-}
-
-task bundle(type: BundleFoo) {
+task sbundle(type: BundleTask) {
     dependsOn classes
-    dependsOn wrap
-    //configuration = configurations.bundlePath
+    dependsOn swrap
+    //bundleClasspath = project.fileTree(swrap.bundleOutputDir).files
+    bundleClasspath = bundleClasspath = project.fileTree(wrap.bundleOutputDir).files
+
     doFirst {
-        println bundle.convention.plugins.bundle.properties
-    }
-    doFirst {
-
-        println "dofirst"
-        def tree = project.fileTree("build/wrapped-bundles")
-
-
-        def configuration = project.configurations.detachedConfiguration(dependencies.create(tree))
-        
-        configuration.extendsFrom(configurations.compile)
-        bundle.convention.plugins.bundle.setConfiguration(configuration)
-
+        println "swap outputs = $swrap.outputs.properties   "
     }
     manifest {
         attributes('Export-Package': "" +
-                "com.clarkparsia.*;version=\"${project.version}\"," +
-                "org.semanticweb.owlapi.*;-split-package:=merge-first;version=\"${project.version}\"," +
-                "org.semanticweb.owlapitools.*;-split-package:=merge-first;version=\"${project.version}\"," +
-                "uk.ac.manchester.*;-split-package:=merge-first;version=\"${project.version}\"," +
-                "org.obolibrary.*;-split-package:=merge-first;version=\"${project.version}\"," +
-                "org.coode.*;-split-package:=merge-first;version=\"${project.version}\"," +
-                "de.uulm.*;-split-package:=merge-first;version=\"${project.version}\"",
+                "com.clarkparsia.*," +
+                "org.semanticweb.owlapi.*;-split-package:=merge-first," +
+                "org.semanticweb.owlapitools.*;-split-package:=merge-first," +
+                "uk.ac.manchester.*;-split-package:=merge-first," +
+                "org.obolibrary.*;-split-package:=merge-first," +
+                "org.coode.*;-split-package:=merge-first," +
+                "de.uulm.*;-split-package:=merge-first",
 
-                "Import-Package": "com.github.benmanes.*;resolution:=optional,*" ,
-                
-                "Bundle-SymbolicName": "org.semanticweb.owl.owlapi"
-                
+                "Import-Package": "com.github.benmanes.*;resolution:=optional,*",
+
+                "Bundle-SymbolicName": "org.semanticweb.owl.owlapi" ,
+                "Bundle-Version": "10.0.0"
         )
     }
 }
 test {
-    File bundleName = new File(temporaryDir,"bundleName")
-    PrintStream out = new PrintStream(bundleName)
-    out.println(bundle.archivePath)
-    def var = configurations.compile.resolvedConfiguration.resolvedArtifacts
-    List<aQute.bnd.osgi.Jar> bcp = []
-    Set dependentArtifacts = new HashSet()
-    var.findAll({ foo -> foo.moduleVersion.id.group != project.group})*.file.each {
-        bcp += new aQute.bnd.osgi.Jar(it)
-        dependentArtifacts.add(it)
+    dependsOn sbundle
+    doFirst {
+        File bundleName = new File(temporaryDir, "bundle-files.txt")
+
+        PrintStream out = new PrintStream(bundleName)
+        out.println(bundle.archivePath.toURI())
+        swrap.bundleOutputDir.eachFile { out.println it.toURI() }
+        out.close()
     }
-    def bundles = []
-    def nonbundles = []
-    bcp.each {
-        if(it.bsn) {
-            bundles += it
-        } else {
-            nonbundles += it
+}
+
+task foo(type: ReBaselineTask) {
+    rebaseVersionRange = "[5,$version)"
+    includeSnapshots = false
+    currentBundle = sbundle
+    doLast {
+        Collection<SourceDirectorySet> allSrcDirs = rootProject.allprojects.findResults {
+
+            if (it.hasProperty("sourceSets")) {
+                SourceSetContainer ss = it.sourceSets
+                SourceDirectorySet allJava = ss.main.allJava
+            }
+
+        }.flatten()
+
+        Map<String, Set> packageDirs = [:].withDefault { new TreeSet<>() }
+
+        allSrcDirs.each {
+            def base = it.sourceDirectories.singleFile.toPath()
+            for (File file : it) {
+                def parent = file.toPath().parent
+                def packageName = base.relativize(parent).toString().replace('/', '.')
+                packageDirs[packageName] += parent.toFile()
+            }
+        }
+        packageDirs.each { packName, dirs ->
+            def bndVersion = packageVersions[packName]
+            println "$packName is $bndVersion"
+            if (bndVersion) {
+                dirs.each { dir ->
+                    File packageinfo = new File(dir, "packageinfo")
+                    if (packageinfo.exists()) {
+                        packageinfo.delete()
+                    }
+                    packageinfo.newPrintWriter().withCloseable { out ->
+                        out.println "version $bndVersion"
+                    }
+                }
+            }
         }
     }
-    dependentArtifacts.each {
-        out.println it
-    }
-    FileTree foo = fileTree(dir: "bundles", include: "*.jar")
-     foo.files.each {
-         out.println it
-     }
-    out.close()
 }
 
 
 jar {
-    dependsOn bundle
+    dependsOn sbundle
     deleteAllActions()
 }
 
-class OSGIWrap extends DefaultTask {
-    Configuration configuration = project.configurations.compile
-    @InputFiles
-    def inputFiles = configuration.resolvedConfiguration.resolvedArtifacts*.file
-    @OutputDirectory
-    File bundleOutputDir = new File(project.buildDir,"wrapped-bundles")
-    def walkTree(ResolutionResult foo, Closure f) {
-        //println "foo root = ${foo.root.id}"
-        depthFirstWalk(foo.root.dependencies, f)
-        //println foo.properties
-
-    }
-
-    def depthFirstWalk(Set<DependencyResult> kids, Closure f, int level = 0) {
-        if (kids.empty)
-            return
-        //println("walk level: ${level}")  ${dependencyToFileMap[kid.selected.id]}
-        for (DependencyResult kid : kids) {
-            //println "${spaces(level)}${kid.selected.id} "
-            depthFirstWalk(kid.selected.dependencies, f, level + 1)
-            f.call(kid)
-        }
-        // println "end level ${level}"
-    }
-    def dependencyToFileMap = [:]
-    def dependencyToJarMap = [:]
-    def bundles = []
-    HashSet seen = []
-
-    private void buildDependencyToFileMap() {
-        configuration.resolvedConfiguration.resolvedArtifacts.each {
-            dependencyToFileMap[it.id.componentIdentifier] = it.file
-            def jar = new aQute.bnd.osgi.Jar(it.file)
-            dependencyToJarMap[it.id.componentIdentifier] = jar
-
-        }
-    }
-
-    @TaskAction
-    wrap() {
-        println "in wrap"
-        buildDependencyToFileMap()
-        walkTree(configuration.incoming.resolutionResult,
-                {
-                    DependencyResult dep ->
-                        if (dep.selected.id instanceof ProjectComponentIdentifier)
-                            return
-                        if(!seen.add(dep.selected.id)) {
-                            return
-                        } 
-                        def jar = dependencyToJarMap[dep.selected.id]
-                        if (!jar.bsn) {
-                            //println dep.selected.properties
-                            wrapOneJar(dep, jar)
-                            bundles += jar
-                        } else {
-                            println "jar is already a bundle (${jar.bsn})"
-                            bundles += jar
-                        }
-                })
-    }
-
-    void wrapOneJar(DependencyResult dep, aQute.bnd.osgi.Jar toWrap) {
-        Analyzer analyzer = new Analyzer()
-        analyzer.setClasspath(bundles)
-        analyzer.setJar(toWrap)
-        def depId = dep.selected.id
-        analyzer.setBundleSymbolicName("${depId.group}.${depId.module}")
-        analyzer.bundleVersion = depId.version
-        analyzer.exportPackage = "*;version=\"${depId.version}\""
-        //analyzer.importPackage = "*"
-        analyzer.analyze()
-        toWrap.manifest =  analyzer.calcManifest()
-        println toWrap.manifest.properties
-        analyzer.save(new File(bundleOutputDir,"${depId.group}.${depId.module}-${depId.version}.jar"),true)
-    }
-
-    static spaces(int count) {
-        StringBuilder buf = new StringBuilder()
-        while (count--) {
-            buf.append("  ")
-        }
-        return buf.toString()
-    }
-
-}
