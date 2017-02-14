@@ -60,12 +60,13 @@ class ReBaselineTask extends DefaultTask {
     @OutputDirectory
     def outputDir = new File(project.buildDir,name)
 
-    @Nested
     @Optional
     BundleTask currentBundle
 
     @InputFiles
     Collection<File> inputFiles = new HashSet<>()
+
+    Map<String,BndVersion> packageVersions
 
     private static final Predicate<Version> isSnapshot = { (it.toString().endsWith("-SNAPSHOT")) }
     private static final Predicate<Version> isReleaseVersion = isSnapshot.negate()
@@ -92,8 +93,10 @@ class ReBaselineTask extends DefaultTask {
 
         resolver = configureResolver()
         def versionFilter = includeSnapshots ? null : isReleaseVersion
-        logger.debug "RebaseVersions {}", resolver.resolveVersionRange(rebaseGroupName, rebaseArtifactName, rebaseVersionRange,versionFilter)
-
+        if (logger.isDebugEnabled()) {
+            logger.debug "RebaseVersions {}", resolver.resolveVersionRange(rebaseGroupName, rebaseArtifactName, rebaseVersionRange,versionFilter)
+        }
+        logger.info("resolving versions")
         this.dependencyResults = resolver.resolveVersions(rebaseGroupName, rebaseArtifactName, rebaseVersionRange, versionFilter)
         for (DependencyResult dependencyResult : dependencyResults) {
 
@@ -101,7 +104,8 @@ class ReBaselineTask extends DefaultTask {
                 inputFiles += artifactResult.artifact.file
             }
         }
-        println inputFiles
+        logger.info("resolved versions")
+        logger.debug "input files: {}", inputFiles
         this
     }
 
@@ -135,8 +139,7 @@ class ReBaselineTask extends DefaultTask {
 
     @TaskAction
     def rebaseline() {
-
-
+        
 
         if(this.dependencyResults.size() <2) {
             logger.warn("less than two versions found for rebaselining {}", this.dependencyResults)
@@ -147,14 +150,33 @@ class ReBaselineTask extends DefaultTask {
         baseline = new Baseline(this.reporter, differ)
 
         Iterator<DependencyResult> iterator = this.dependencyResults.iterator()
+        Analyzer oldVersionAnalyzer =null
 
-        Analyzer oldVersionAnalyzer = buildAnalyzer(iterator.next())
-        saveJarIfNeeded(oldVersionAnalyzer)
+        while(iterator.hasNext()) {
+            Analyzer tmpAnalyzer
+            tmpAnalyzer?.close()
+
+            tmpAnalyzer = buildAnalyzer(iterator.next())
+            long oldLastModified = tmpAnalyzer.jar.lastModified()
+            File destFile = getDestFile(tmpAnalyzer)
+            if(destFile.exists() &&  destFile.lastModified() >= oldLastModified) {
+                logger.info("skipping $tmpAnalyzer.jar.source because $destFile is newer")
+                logger.info("tmp {}, dest {}",tmpAnalyzer.jar.lastModified(),destFile.lastModified())
+                oldVersionAnalyzer?.close()
+                oldVersionAnalyzer = new Analyzer()
+                oldVersionAnalyzer.jar = new Jar(destFile)
+            }  else {
+                logger.info("tmp {}, dest {}",tmpAnalyzer.jar.lastModified(),destFile.lastModified())
+                oldVersionAnalyzer = tmpAnalyzer
+                saveJarIfNeeded(oldVersionAnalyzer)
+                logger.info("found newer jar")
+                break
+            }
+        }
 
         Analyzer newVersionAnalyzer
         while(iterator.hasNext()) {
             newVersionAnalyzer = buildAnalyzer(iterator.next())
-            logger.info "compare {} to {}", newVersionAnalyzer.jar.name, oldVersionAnalyzer.jar.name
             compareVersions(newVersionAnalyzer,oldVersionAnalyzer)
             // next round
             oldVersionAnalyzer.close()
@@ -168,8 +190,12 @@ class ReBaselineTask extends DefaultTask {
             }
             compareVersions(newVersionAnalyzer,oldVersionAnalyzer)
         }
-        newVersionAnalyzer.close()
-        oldVersionAnalyzer.close()
+        if(!packageVersions) {
+          println "last ditch - " + oldVersionAnalyzer.getExportPackage()
+            compareVersions(oldVersionAnalyzer,oldVersionAnalyzer)
+        }
+        newVersionAnalyzer?.close()
+        oldVersionAnalyzer?.close()
     }
     private Set<Baseline.Info> runBaseline(Analyzer newer, Analyzer older, Instructions packageFilters) {
         Tree n = differ.tree(newer);
@@ -182,6 +208,7 @@ class ReBaselineTask extends DefaultTask {
         return baseline.baseline(n, nExports, o, oExports, packageFilters);
     }
     void compareVersions(Analyzer newVersion, Analyzer oldVersion) {
+        logger.info("compare $newVersion.jar.name to $oldVersion.jar.name")
         Set<Baseline.Info> x = baseline.baseline(newVersion.jar, oldVersion.jar, new Instructions())
 
         TreeMap<String, Baseline.Info> infoByPackage = indexByPackageName(x)
@@ -218,11 +245,13 @@ class ReBaselineTask extends DefaultTask {
                 }
             }
         }
-
-
+        packageVersions = versionsToSet
+        logger.info "Set packageVersions to {}",packageVersions
         if (changedVersion) {
             def z = Analyzer.printClauses(exportPackage)
             newVersion.properties.setProperty(Analyzer.EXPORT_PACKAGE, z)
+            def oldImport = newVersion.getImportPackage()
+            logger.info "old import {}",oldImport
             newVersion.properties.setProperty(Analyzer.IMPORT_PACKAGE, "*")
             def suggestedBundleVersion = baseline.bundleInfo.suggestedVersion
             if(!baseline.bundleInfo.mismatch) {
@@ -251,8 +280,13 @@ class ReBaselineTask extends DefaultTask {
 
     public void saveJarIfNeeded(Analyzer analyzer) {
         if (savedReversionedFiles) {
-            analyzer.save(new File(outputDir, analyzer.jar.name + ".jar"), true)
+            File destFile = getDestFile(analyzer)
+            analyzer.save(destFile, true)
         }
+    }
+
+    private File getDestFile(Analyzer analyzer) {
+        return new File(outputDir, analyzer.jar.name + ".jar")
     }
 
     public SortedSet<String> findPackagesWithNoResourceDiffs(Diff resourceDiffs) {
