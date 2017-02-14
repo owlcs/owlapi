@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-import dase.OWLConverterMaven.MyLatexObjectVisitor;
-
 /**
  * NOTE: this class was not designed as a general purpose renderer, i.e., some
  * ontologies might be misrepresented in the output. Please report any
@@ -978,17 +976,17 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
             @Override
             public void visit(IRI iri) {
-                iri.accept(MyLatexObjectVisitor.this);
+                iri.accept(this);
             }
 
             @Override
             public void visit(OWLAnonymousIndividual individual) {
-                individual.accept(MyLatexObjectVisitor.this);
+                individual.accept(this);
             }
 
             @Override
             public void visit(OWLLiteral literal) {
-                literal.accept(MyLatexObjectVisitor.this);
+                literal.accept(this);
             }
         });
     }
