@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
 /**
  * The Class TurtleOntologyParser.
@@ -49,12 +50,11 @@ public class TurtleOntologyParser extends AbstractOWLParser {
 
     protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI,
         Provider provider) {
-        TurtleParser parser = new TurtleParser(provider, new ConsoleTripleHandler(), documentIRI);
-        OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(o, config);
+        OWLRDFConsumer consumer = new OWLRDFConsumer(o, config, null);
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         consumer.setOntologyFormat(format);
         consumer.startModel(documentIRI);
-        parser.setTripleHandler(consumer);
+        TurtleParser parser = new TurtleParser(provider, consumer, documentIRI);
         parser.parseDocument();
         format.copyPrefixesFrom(parser.getPrefixManager());
         return format;

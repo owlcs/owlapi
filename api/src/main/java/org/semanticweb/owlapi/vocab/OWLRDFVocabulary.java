@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.vocab;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.EnumSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -47,15 +48,15 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#onProperty.           */    OWL_ON_PROPERTY(Namespaces.OWL, "onProperty"),
     /** http://www.w3.org/2002/07/owl#intersectionOf.       */    OWL_INTERSECTION_OF(Namespaces.OWL, "intersectionOf"),
     /** http://www.w3.org/2002/07/owl#unionOf.              */    OWL_UNION_OF(Namespaces.OWL, "unionOf"),
-    /** http://www.w3.org/2002/07/owl#allValuesFrom.        */    OWL_ALL_VALUES_FROM(Namespaces.OWL, "allValuesFrom"),
-    /** http://www.w3.org/2002/07/owl#someValuesFrom.       */    OWL_SOME_VALUES_FROM(Namespaces.OWL, "someValuesFrom"),
+    /** http://www.w3.org/2002/07/owl#allValuesFrom.        */    OWL_ALL_VALUES_FROM(Namespaces.OWL, "allValuesFrom", "toClass"),
+    /** http://www.w3.org/2002/07/owl#someValuesFrom.       */    OWL_SOME_VALUES_FROM(Namespaces.OWL, "someValuesFrom", "hasClass"),
     /** http://www.w3.org/2002/07/owl#hasValue.             */    OWL_HAS_VALUE(Namespaces.OWL, "hasValue"),
     /** http://www.w3.org/2002/07/owl#disjointWith.         */    OWL_DISJOINT_WITH(Namespaces.OWL, "disjointWith"),
     /** http://www.w3.org/2002/07/owl#oneOf.                */    OWL_ONE_OF(Namespaces.OWL, "oneOf"),
     /** http://www.w3.org/2002/07/owl#hasSelf.              */    OWL_HAS_SELF(Namespaces.OWL, "hasSelf"),
     /** http://www.w3.org/2002/07/owl#disjointUnionOf.      */    OWL_DISJOINT_UNION_OF(Namespaces.OWL, "disjointUnionOf"),
-    /** http://www.w3.org/2002/07/owl#minCardinality.       */    OWL_MIN_CARDINALITY(Namespaces.OWL, "minCardinality"),
-    /** http://www.w3.org/2002/07/owl#cardinality.          */    OWL_CARDINALITY(Namespaces.OWL, "cardinality"),
+    /** http://www.w3.org/2002/07/owl#minCardinality.       */    OWL_MIN_CARDINALITY(Namespaces.OWL, "minCardinality", "minCardinalityQ"),
+    /** http://www.w3.org/2002/07/owl#cardinality.          */    OWL_CARDINALITY(Namespaces.OWL, "cardinality", "cardinalityQ"),
     /** http://www.w3.org/2002/07/owl#qualifiedCardinality. */    OWL_QUALIFIED_CARDINALITY(Namespaces.OWL, "qualifiedCardinality"),
     /** http://www.w3.org/2002/07/owl#AnnotationProperty.   */    OWL_ANNOTATION_PROPERTY(Namespaces.OWL, "AnnotationProperty"),
     /** http://www.w3.org/2002/07/owl#Annotation.           */    OWL_ANNOTATION(Namespaces.OWL, "Annotation"),
@@ -69,7 +70,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#rest.    */    RDF_REST(Namespaces.RDF, "rest"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#first.   */    RDF_FIRST(Namespaces.RDF, "first"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#List.    */    RDF_LIST(Namespaces.RDF, "List"),
-    /** http://www.w3.org/2002/07/owl#maxCardinality.       */    OWL_MAX_CARDINALITY(Namespaces.OWL, "maxCardinality"),
+    /** http://www.w3.org/2002/07/owl#maxCardinality.       */    OWL_MAX_CARDINALITY(Namespaces.OWL, "maxCardinality", "maxCardinalityQ"),
     /** http://www.w3.org/2000/01/rdf-schema#label.         */    RDFS_LABEL(Namespaces.RDFS, "label"),
     /** http://www.w3.org/2000/01/rdf-schema#comment.       */    RDFS_COMMENT(Namespaces.RDFS, "comment"),
     /** http://www.w3.org/2000/01/rdf-schema#seeAlso.       */    RDFS_SEE_ALSO(Namespaces.RDFS, "seeAlso"),
@@ -88,7 +89,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#sameAs.               */    OWL_SAME_AS(Namespaces.OWL, "sameAs"),
     /** http://www.w3.org/2002/07/owl#differentFrom.        */    OWL_DIFFERENT_FROM(Namespaces.OWL, "differentFrom"),
     /** http://www.w3.org/2002/07/owl#DeprecatedProperty.   */    OWL_DEPRECATED_PROPERTY(Namespaces.OWL, "DeprecatedProperty"),
-    /** http://www.w3.org/2002/07/owl#equivalentProperty.   */    OWL_EQUIVALENT_PROPERTY(Namespaces.OWL, "equivalentProperty"),
+    /** http://www.w3.org/2002/07/owl#equivalentProperty.   */    OWL_EQUIVALENT_PROPERTY(Namespaces.OWL, "equivalentProperty", "samePropertyAs"),
     /** http://www.w3.org/2002/07/owl#DeprecatedClass.      */    OWL_DEPRECATED_CLASS(Namespaces.OWL, "DeprecatedClass"),
     /** http://www.w3.org/2002/07/owl#DataRange.            */    OWL_DATA_RANGE(Namespaces.OWL, "DataRange"),
     /** http://www.w3.org/2000/01/rdf-schema#domain.        */    RDFS_DOMAIN(Namespaces.RDFS, "domain"),
@@ -99,7 +100,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#deprecated.           */    OWL_DEPRECATED(Namespaces.OWL, "deprecated"),
     /** http://www.w3.org/2002/07/owl#incompatibleWith.     */    OWL_INCOMPATIBLE_WITH(Namespaces.OWL, "incompatibleWith"),
     /** http://www.w3.org/2002/07/owl#propertyDisjointWith. */    OWL_PROPERTY_DISJOINT_WITH(Namespaces.OWL, "propertyDisjointWith"),
-    /** http://www.w3.org/2002/07/owl#onClass.              */    OWL_ON_CLASS(Namespaces.OWL, "onClass"),
+    /** http://www.w3.org/2002/07/owl#onClass.              */    OWL_ON_CLASS(Namespaces.OWL, "onClass", "hasClassQ"),
     /** http://www.w3.org/2002/07/owl#onDataRange.          */    OWL_ON_DATA_RANGE(Namespaces.OWL, "onDataRange"),
     /** http://www.w3.org/2002/07/owl#onDatatype.           */    OWL_ON_DATA_TYPE(Namespaces.OWL, "onDatatype"),
     /** http://www.w3.org/2002/07/owl#withRestrictions.     */    OWL_WITH_RESTRICTIONS(Namespaces.OWL, "withRestrictions"),
@@ -165,21 +166,57 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     private final Namespaces namespace;
     private final String shortName;
     private final String prefixedName;
+    private final String damlName;
     /** Set of all IRIs for this enum values. */
-    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asSet(Stream.of(values()).map(i -> i.getIRI()));
+    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asSet(Stream.of(values()).map(HasIRI::getIRI));
+    private static String DAML_NAMESPACE = "http://www.daml.org/2001/03/daml+oil#";
+    /** Set of members with DAML+OIL compatibility. */
+    public static final Set<OWLRDFVocabulary> DAML_COMPATIBILITY = EnumSet.of(OWL_ALL_VALUES_FROM, OWL_SOME_VALUES_FROM,
+        OWL_EQUIVALENT_PROPERTY, OWL_ON_CLASS, OWL_CARDINALITY, OWL_MAX_CARDINALITY, OWL_MIN_CARDINALITY,
+        RDFS_SUBCLASS_OF, OWL_IMPORTS, RDFS_RANGE, OWL_HAS_VALUE, RDF_TYPE, RDFS_DOMAIN, OWL_VERSION_INFO, RDFS_COMMENT,
+        OWL_ON_PROPERTY, OWL_RESTRICTION, OWL_CLASS, OWL_THING, OWL_NOTHING, OWL_MIN_CARDINALITY, OWL_CARDINALITY,
+        OWL_MAX_CARDINALITY, OWL_INVERSE_OF, OWL_COMPLEMENT_OF, OWL_UNION_OF, OWL_INTERSECTION_OF, RDFS_LABEL,
+        OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY);
+    /** Entity types. */
+    public static final Set<IRI> entityTypes = asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY,
+        OWL_ANNOTATION_PROPERTY, RDFS_DATATYPE, OWL_NAMED_INDIVIDUAL).map(HasIRI::getIRI));
     /**
      * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
      * seeAlso , isDefinedBy , incompatibleWith , deprecated.
      */
     public static final Set<IRI> BUILT_IN_AP_IRIS = asSet(Stream.of(RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO,
         OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION, RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH,
-        OWL_DEPRECATED).map(i -> i.getIRI()));
+        OWL_DEPRECATED).map(OWLRDFVocabulary::getIRI));
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
+        this(namespace, shortName, null);
+    }
+
+    OWLRDFVocabulary(Namespaces namespace, String shortName, String damlName) {
         this.namespace = namespace;
         this.shortName = shortName;
+        this.damlName = damlName;
         prefixedName = namespace.getPrefixName() + ':' + shortName;
         iri = IRI.create(namespace.toString(), shortName);
+    }
+
+    /**
+     * Determines if the specified IRI is an IRI corresponding to owl:Class,
+     * owl:DatatypeProperty, rdfs:Datatype, owl:ObjectProperty,
+     * owl:AnnotationProperty, or owl:NamedIndividual.
+     * 
+     * @param iri
+     *        The IRI to check
+     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI
+     *         otherwise {@code false}.
+     */
+    public static boolean isEntityTypeIRI(IRI iri) {
+        return entityTypes.contains(iri);
+    }
+
+    /** @return DAML alternative IRI */
+    public IRI getDAMLIRI() {
+        return IRI.create(DAML_NAMESPACE, damlName == null ? shortName : damlName);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -13,16 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
- * type of list (i.e. the type of objects in the list) are determined by a
- * {@code ListItemTranslator}. The translator consumes all triples which are
- * used in the translation.
+ * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The type of list (i.e. the
+ * type of objects in the list) are determined by a {@code ListItemTranslator}. The translator
+ * consumes all triples which are used in the translation.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <O>
- *        type
+ * @param <O> type
  */
 class OptimisedListTranslator<O extends OWLObject> {
 
@@ -31,10 +26,8 @@ class OptimisedListTranslator<O extends OWLObject> {
     private final ListItemTranslator<O> translator;
 
     /**
-     * @param consumer
-     *        consumer
-     * @param translator
-     *        translator
+     * @param consumer consumer
+     * @param translator translator
      */
     protected OptimisedListTranslator(OWLRDFConsumer consumer, ListItemTranslator<O> translator) {
         this.consumer = consumer;
@@ -48,7 +41,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     private void translateList(IRI mainNode, List<O> list) {
         IRI current = mainNode;
         while (current != null) {
-            IRI firstResource = consumer.getFirstResource(current, true);
+            IRI firstResource = consumer.lists.getFirstResource(current, true);
             if (firstResource != null) {
                 O translate = translator.translate(firstResource);
                 if (translate != null) {
@@ -58,7 +51,7 @@ class OptimisedListTranslator<O extends OWLObject> {
                     LOGGER.warn("Possible malformed list: cannot translate it {}", firstResource);
                 }
             } else {
-                OWLLiteral literal = consumer.getFirstLiteral(current);
+                OWLLiteral literal = consumer.lists.getFirstLiteral(current);
                 if (literal != null) {
                     O translate = translator.translate(literal);
                     if (translate != null) {
@@ -69,18 +62,17 @@ class OptimisedListTranslator<O extends OWLObject> {
                     LOGGER.warn("Possible malformed list: rdf:first triple missing");
                 }
             }
-            current = consumer.getRest(current, true);
+            current = consumer.lists.getRest(current, true);
         }
     }
 
     /**
-     * @param mainNode
-     *        mainNode
+     * @param mainNode mainNode
      * @return translated list
      */
     @SuppressWarnings("unchecked")
     public List<O> translateList(IRI mainNode) {
-        boolean shared = consumer.isAnonymousSharedNode(mainNode.toString());
+        boolean shared = consumer.anon.isAnonymousSharedNode(mainNode.toString());
         List<O> list;
         if (shared) {
             Object o = consumer.getSharedAnonymousNode(mainNode);
@@ -96,14 +88,5 @@ class OptimisedListTranslator<O extends OWLObject> {
             translateList(mainNode, list);
         }
         return list;
-    }
-
-    /**
-     * @param mainNode
-     *        mainNode
-     * @return translated list
-     */
-    public Set<O> translateToSet(IRI mainNode) {
-        return new LinkedHashSet<>(translateList(mainNode));
     }
 }

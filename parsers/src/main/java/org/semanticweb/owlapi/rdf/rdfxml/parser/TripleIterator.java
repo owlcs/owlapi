@@ -1,13 +1,12 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLLiteral;
 
 @FunctionalInterface
-interface LiteralTripleIterator {
+interface TripleIterator<T> {
 
     /**
-     * Handle literal triple.
+     * Handle resource triple.
      * 
      * @param subject
      *        the subject
@@ -16,5 +15,5 @@ interface LiteralTripleIterator {
      * @param object
      *        the object
      */
-    void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object);
+    void handleResourceTriple(IRI subject, IRI predicate, T object);
 }

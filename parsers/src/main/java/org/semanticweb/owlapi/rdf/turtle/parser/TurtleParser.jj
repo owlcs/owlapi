@@ -1,4 +1,5 @@
 options {
+
     JAVA_UNICODE_ESCAPE=true;
     STATIC=false;
     JAVA_TEMPLATE_TYPE = "modern";
@@ -17,6 +18,7 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -30,7 +32,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class TurtleParser {
     private Map<String, IRI> string2IRI;
     private IRI base;
-    private TripleHandler handler;
+    private OWLRDFConsumer handler;
     private PrefixManager pm = new DefaultPrefixManager();
 
     /** Instantiates a new turtle parser.
@@ -41,7 +43,7 @@ public class TurtleParser {
      *            the handler
      * @param base
      *            the base */
-    public TurtleParser(Provider r, TripleHandler handler, IRI base) {
+    public TurtleParser(Provider r, OWLRDFConsumer handler, IRI base) {
         this(r);
         this.handler = handler;
         this.base = base;
@@ -54,14 +56,6 @@ public class TurtleParser {
      * @return the prefix manager */
     public PrefixManager getPrefixManager() {
         return pm;
-    }
-
-    /** Sets the triple handler.
-     * 
-     * @param handler
-     *            the new triple handler */
-    public void setTripleHandler(TripleHandler handler) {
-        this.handler = handler;
     }
 
     /** Gets the next blank node.
@@ -209,7 +203,7 @@ TOKEN: { <ERROR: ~[]> }
 
 void parseDocument() :
 { }
-{ (parseDirective()<DOT> | parseStatement()<DOT>)+<EOF> {handler.handleEnd();} }
+{ (parseDirective()<DOT> | parseStatement()<DOT>)+<EOF> {handler.endModel();} }
 
 void parseDirective() :
 { }
@@ -223,13 +217,12 @@ void parsePrefixDirective() :
 {
     <PREFIX> t=<PNAME_NS> ns=parseIRI() {
         pm.setPrefix(t.image, ns.toString());
-        handler.handlePrefixDirective(t.image, ns.toString());
     }
 }
 
 void parseBaseDirective() :
 { Token t; }
-{ <BASE> t=<FULLIRI> {base = IRI.create(t.image.substring(1, t.image.length() - 1));} { handler.handleBaseDirective(base); } }
+{ <BASE> t=<FULLIRI> {base = IRI.create(t.image.substring(1, t.image.length() - 1));} { /* This should be handled properly as a prefix handler.handleBaseDirective(base);*/ } }
 
 void parseStatement() :
 { }
@@ -293,7 +286,7 @@ void parseObjectList(IRI subject, IRI predicate) :
 
 void parseObject(IRI subject, IRI predicate) :
 { IRI resObject; }
-{ (parseLiteral(subject, predicate) | ((resObject=parseResource() | resObject=parseBlankNode())) { handler.handleTriple(subject, predicate, resObject); }) }
+{ (parseLiteral(subject, predicate) | ((resObject=parseResource() | resObject=parseBlankNode())) { handler.statementWithResourceValue(subject, predicate, resObject); }) }
 
 IRI parseCollection() :
 { IRI iri; }
@@ -316,13 +309,13 @@ IRI parseItemList() :
     ( {
         IRI prevSubject = subject;
         subject=getNextBlankNode(null);
-        if(prevSubject != null) { handler.handleTriple(prevSubject, rest, subject); }
+        if(prevSubject != null) { handler.statementWithResourceValue(prevSubject, rest, subject); }
             else { firstSubject = subject; }
-        if(subject!=null) { handler.handleTriple(subject, type, list); }
+        if(subject!=null) { handler.statementWithResourceValue(subject, type, list); }
     }
         parseObject(subject, first))* {
         // Terminate list
-        if (subject != null) { handler.handleTriple(subject, rest, nil); }
+        if (subject != null) { handler.statementWithResourceValue(subject, rest, nil); }
         return firstSubject;
     }
 }
@@ -338,15 +331,15 @@ void parseLiteral(IRI subject, IRI predicate) :
 {
     (literal=parseQuotedString() ((<DOUBLE_CARET> datatype=parseResource()) | (("@" (t=<PN_LOCAL>)){lang=t.image;}))?
         {
-            if(datatype != null) { handler.handleTriple(subject, predicate, literal, datatype); }
-                else if(lang != null) { handler.handleTriple(subject, predicate, literal, lang); }
-                else { handler.handleTriple(subject, predicate, literal); }
+            if(datatype != null) { handler.statementWithLiteralValue(subject, predicate, literal,null, datatype); }
+                else if(lang != null) { handler.statementWithLiteralValue(subject, predicate, literal, lang, null); }
+                else { handler.statementWithLiteralValue(subject, predicate, literal, null, null); }
         }
     )
-    | (literal=parseInteger(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getIRI());})
-    | (literal=parseDouble(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getIRI());})
-    | (literal=parseDecimal(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getIRI());})
-    | (literal=parseBoolean(){handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getIRI());})
+    | (literal=parseInteger(){handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.INTEGER.getIRI());})
+    | (literal=parseDouble() {handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.DOUBLE.getIRI());})
+    | (literal=parseDecimal(){handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.DECIMAL.getIRI());})
+    | (literal=parseBoolean(){handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.BOOLEAN.getIRI());})
 }
 
 

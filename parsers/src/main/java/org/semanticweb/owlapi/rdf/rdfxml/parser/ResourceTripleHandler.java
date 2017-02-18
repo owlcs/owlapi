@@ -4,35 +4,10 @@ import org.semanticweb.owlapi.model.IRI;
 
 interface ResourceTripleHandler {
 
-    /**
-     * @param subject
-     *        subject
-     * @param predicate
-     *        predicate
-     * @param object
-     *        object
-     */
-    void handleTriple(IRI subject, IRI predicate, IRI object);
+    boolean handleTriple(OWLRDFConsumer c, IRI subject, IRI predicate, IRI object);
 
-    /**
-     * @param subject
-     *        subject
-     * @param predicate
-     *        predicate
-     * @param object
-     *        object
-     * @return true if can handle streaming
-     */
-    boolean canHandleStreaming(IRI subject, IRI predicate, IRI object);
+    boolean canHandleStreaming(OWLRDFConsumer c, IRI subject, IRI predicate, IRI object);
 
-    /**
-     * @param subject
-     *        subject
-     * @param predicate
-     *        predicate
-     * @param object
-     *        object
-     * @return true if can handle
-     */
-    boolean canHandle(IRI subject, IRI predicate, IRI object);
+    boolean canHandle(OWLRDFConsumer c, IRI subject, IRI predicate, IRI object);
+    // { return false; }
 }

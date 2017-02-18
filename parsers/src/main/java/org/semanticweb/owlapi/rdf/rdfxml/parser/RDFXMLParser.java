@@ -54,8 +54,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     }
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(o, config);
-            consumer.setIRIProvider(parser);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(o, config, parser);
             consumer.setOntologyFormat(format);
             InputSource is = new InputSource(r);
             is.setSystemId(documentIRI.toString());

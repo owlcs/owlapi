@@ -75,7 +75,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
      */
     public RioOWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
         OWLOntologyLoaderConfiguration configuration) {
-        super(ontology, checker, configuration);
+        super(ontology, checker, configuration, null);
     }
 
     @Override

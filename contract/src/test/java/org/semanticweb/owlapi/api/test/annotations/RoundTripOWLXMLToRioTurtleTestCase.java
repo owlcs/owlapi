@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -20,32 +21,22 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
 //@formatter:off
     private static final String original = "<?xml version=\"1.0\"?>\n" + 
         "<Ontology xmlns=\"http://www.w3.org/2002/07/owl#\"\n" + 
-        "     xml:base=\"http://www.derivo.de/ontologies/examples/nested_annotations\"\n" + 
+        "     xml:base=\"urn:test:nestedAnnotations\"\n" + 
         "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" + 
         "     xmlns:xml=\"http://www.w3.org/XML/1998/namespace\"\n" + 
         "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n" + 
         "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n" + 
-        "     ontologyIRI=\"http://www.derivo.de/ontologies/examples/nested_annotations\">\n" + 
+        "     ontologyIRI=\"urn:test:nestedAnnotations\">\n" + 
         "    <Prefix name=\"owl\" IRI=\"http://www.w3.org/2002/07/owl#\"/>\n" + 
         "    <Prefix name=\"rdf\" IRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"/>\n" + 
         "    <Prefix name=\"xml\" IRI=\"http://www.w3.org/XML/1998/namespace\"/>\n" + 
         "    <Prefix name=\"xsd\" IRI=\"http://www.w3.org/2001/XMLSchema#\"/>\n" + 
         "    <Prefix name=\"rdfs\" IRI=\"http://www.w3.org/2000/01/rdf-schema#\"/>\n" + 
-        "    <Declaration>\n" + 
-        "        <NamedIndividual IRI=\"#b\"/>\n" + 
-        "    </Declaration>\n" + 
-        "    <Declaration>\n" + 
-        "        <NamedIndividual IRI=\"#c\"/>\n" + 
-        "    </Declaration>\n" + 
-        "    <Declaration>\n" + 
-        "        <NamedIndividual IRI=\"#a\"/>\n" + 
-        "    </Declaration>\n" + 
-        "    <Declaration>\n" + 
-        "        <ObjectProperty IRI=\"#r\"/>\n" + 
-        "    </Declaration>\n" + 
-        "    <Declaration>\n" + 
-        "        <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" + 
-        "    </Declaration>\n" + 
+        "    <Declaration><NamedIndividual IRI=\"#b\"/></Declaration>\n" + 
+        "    <Declaration><NamedIndividual IRI=\"#c\"/></Declaration>\n" + 
+        "    <Declaration><NamedIndividual IRI=\"#a\"/></Declaration>\n" + 
+        "    <Declaration><ObjectProperty IRI=\"#r\"/></Declaration>\n" + 
+        "    <Declaration><AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/></Declaration>\n" + 
         "    <ObjectPropertyAssertion>\n" + 
         "        <Annotation>\n" + 
         "            <Annotation>\n" + 

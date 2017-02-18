@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -21,7 +22,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class TurtleParser implements TurtleParserConstants {
     private Map<String, IRI> string2IRI;
     private IRI base;
-    private TripleHandler handler;
+    private OWLRDFConsumer handler;
     private PrefixManager pm = new DefaultPrefixManager();
 
     /** Instantiates a new turtle parser.
@@ -32,7 +33,7 @@ public class TurtleParser implements TurtleParserConstants {
      *            the handler
      * @param base
      *            the base */
-    public TurtleParser(Provider r, TripleHandler handler, IRI base) {
+    public TurtleParser(Provider r, OWLRDFConsumer handler, IRI base) {
         this(r);
         this.handler = handler;
         this.base = base;
@@ -45,14 +46,6 @@ public class TurtleParser implements TurtleParserConstants {
      * @return the prefix manager */
     public PrefixManager getPrefixManager() {
         return pm;
-    }
-
-    /** Sets the triple handler.
-     * 
-     * @param handler
-     *            the new triple handler */
-    public void setTripleHandler(TripleHandler handler) {
-        this.handler = handler;
     }
 
     /** Gets the next blank node.
@@ -168,7 +161,7 @@ void parseDocument() throws ParseException {
       }
     }
     jj_consume_token(0);
-handler.handleEnd();
+handler.endModel();
 }
 
   final public void parseDirective() throws ParseException {
@@ -194,14 +187,13 @@ handler.handleEnd();
     t = jj_consume_token(PNAME_NS);
     ns = parseIRI();
 pm.setPrefix(t.image, ns.toString());
-        handler.handlePrefixDirective(t.image, ns.toString());
 }
 
   final public void parseBaseDirective() throws ParseException {Token t;
     jj_consume_token(BASE);
     t = jj_consume_token(FULLIRI);
 base = IRI.create(t.image.substring(1, t.image.length() - 1));
-handler.handleBaseDirective(base);
+
 }
 
   final public void parseStatement() throws ParseException {
@@ -448,7 +440,7 @@ return iri;
         jj_consume_token(-1);
         throw new ParseException();
       }
-handler.handleTriple(subject, predicate, resObject);
+handler.statementWithResourceValue(subject, predicate, resObject);
       break;
       }
     default:
@@ -504,13 +496,13 @@ return iri;
       }
 IRI prevSubject = subject;
         subject=getNextBlankNode(null);
-        if(prevSubject != null) { handler.handleTriple(prevSubject, rest, subject); }
+        if(prevSubject != null) { handler.statementWithResourceValue(prevSubject, rest, subject); }
             else { firstSubject = subject; }
-        if(subject!=null) { handler.handleTriple(subject, type, list); }
+        if(subject!=null) { handler.statementWithResourceValue(subject, type, list); }
       parseObject(subject, first);
     }
 // Terminate list
-        if (subject != null) { handler.handleTriple(subject, rest, nil); }
+        if (subject != null) { handler.statementWithResourceValue(subject, rest, nil); }
         return firstSubject;
 }
 
@@ -550,31 +542,31 @@ lang=t.image;
         jj_la1[16] = jj_gen;
         ;
       }
-if(datatype != null) { handler.handleTriple(subject, predicate, literal, datatype); }
-                else if(lang != null) { handler.handleTriple(subject, predicate, literal, lang); }
-                else { handler.handleTriple(subject, predicate, literal); }
+if(datatype != null) { handler.statementWithLiteralValue(subject, predicate, literal,null, datatype); }
+                else if(lang != null) { handler.statementWithLiteralValue(subject, predicate, literal, lang, null); }
+                else { handler.statementWithLiteralValue(subject, predicate, literal, null, null); }
       break;
       }
     case DIGIT:
     case INTEGER:{
       literal = parseInteger();
-handler.handleTriple(subject, predicate, literal, XSDVocabulary.INTEGER.getIRI());
+handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.INTEGER.getIRI());
       break;
       }
     case DOUBLE:{
       literal = parseDouble();
-handler.handleTriple(subject, predicate, literal, XSDVocabulary.DOUBLE.getIRI());
+handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.DOUBLE.getIRI());
       break;
       }
     case DECIMAL:{
       literal = parseDecimal();
-handler.handleTriple(subject, predicate, literal, XSDVocabulary.DECIMAL.getIRI());
+handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.DECIMAL.getIRI());
       break;
       }
     case TRUE:
     case FALSE:{
       literal = parseBoolean();
-handler.handleTriple(subject, predicate, literal, XSDVocabulary.BOOLEAN.getIRI());
+handler.statementWithLiteralValue(subject, predicate, literal, null, XSDVocabulary.BOOLEAN.getIRI());
       break;
       }
     default:
@@ -690,6 +682,24 @@ return EscapeUtils.unescapeString(rawString);
     finally { jj_save(2, xla); }
   }
 
+  private boolean jj_3R_6()
+ {
+    if (jj_scan_token(PNAME_LN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_3()
+ {
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_7()
+ {
+    if (jj_scan_token(PNAME_NS)) return true;
+    return false;
+  }
+
   private boolean jj_3_1()
  {
     if (jj_scan_token(SEMICOLON)) return true;
@@ -755,24 +765,6 @@ return EscapeUtils.unescapeString(rawString);
     jj_scanpos = xsp;
     if (jj_3R_9()) return true;
     }
-    return false;
-  }
-
-  private boolean jj_3R_6()
- {
-    if (jj_scan_token(PNAME_LN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_3()
- {
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_7()
- {
-    if (jj_scan_token(PNAME_NS)) return true;
     return false;
   }
 
