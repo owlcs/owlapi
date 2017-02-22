@@ -20,8 +20,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
-
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -39,7 +37,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class LatexObjectVisitor implements OWLObjectVisitor {
 
     //@formatter:off
-	/** AND. */           public static final String AND       = "\\ensuremath{\\sqcap}";
+    /** AND. */           public static final String AND       = "\\ensuremath{\\sqcap}";
     /** OR. */            public static final String OR        = "\\ensuremath{\\sqcup}";
     /** NOT. */           public static final String NOT       = "\\ensuremath{\\lnot}";
     /** ALL. */           public static final String ALL       = "\\ensuremath{\\forall}";
@@ -98,7 +96,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writer.writeSpace();
     }
 
-    private void write(Object o) {
+    private void write(String o) {
         writer.write(o);
     }
 
@@ -143,7 +141,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataAllValuesFrom ce) {
-    	write(ALL);
+        write(ALL);
         ce.getProperty().accept(this);
         write(".");
         ce.getFiller().accept(this);
@@ -401,7 +399,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-    	setPrettyPrint(false);
+        setPrettyPrint(false);
         axiom.getSubClass().accept(this);
         writeSpace();
         write(SUBCLASS);
@@ -518,8 +516,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         // DO OTHER AXIOM HERE!
-    	
-    	write("DisjointClasses");
+        write("DisjointClasses");
         write("(");
         axiom.classExpressions().forEach(p -> {
             p.accept(this);
@@ -606,11 +603,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        write(axiom.getFirstProperty());
+        axiom.getFirstProperty().accept(this);
         writeSpace();
         write(EQUIV);
         writeSpace();
-        write(axiom.getSecondProperty());
+        axiom.getSecondProperty().accept(this);
         write(INVERSE);
     }
 
@@ -754,7 +751,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLVariable node) {
-        write(node.getIRI());
+        node.getIRI().accept(this);
     }
 
     private void writeNested(OWLClassExpression classExpression) {
@@ -816,46 +813,37 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLFacetRestriction node) {
-    	String facet = node.getFacet().toString();
-    	if(facet.equalsIgnoreCase("minInclusive")){
-    		write(MIN);
-    	}
-    	else if(facet.equalsIgnoreCase("minExclusive")){
-    		write(MINEX);
-    	}
-    	else if(facet.equalsIgnoreCase("maxInclusive")){
-    		write(MAX);
-    	}
-    	else if(facet.equalsIgnoreCase("maxExclusive")){
-    		write(MAXEX);
-    	}
-    	else{
-    		write(facet);
-    	}
-
-    	node.getFacetValue().accept(this);
+        String facet = node.getFacet().toString();
+        if (facet.equalsIgnoreCase("minInclusive")) {
+            write(MIN);
+        } else if (facet.equalsIgnoreCase("minExclusive")) {
+            write(MINEX);
+        } else if (facet.equalsIgnoreCase("maxInclusive")) {
+            write(MAX);
+        } else if (facet.equalsIgnoreCase("maxExclusive")) {
+            write(MAXEX);
+        } else {
+            write(facet);
+        }
+        node.getFacetValue().accept(this);
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-    	write("(");
-    	node.getDatatype().accept(this);
+        write("(");
+        node.getDatatype().accept(this);
         write(":");
-        
         // Need to know when to stop printing "and"
-        List<OWLFacetRestriction> facetRestrictions =
-        		asList(node.facetRestrictions());
-        
-        for(int i=0;i<facetRestrictions.size();i++){
-        	OWLFacetRestriction r = facetRestrictions.get(i);
-        	writeSpace();
+        List<OWLFacetRestriction> facetRestrictions = asList(node.facetRestrictions());
+        for (int i = 0; i < facetRestrictions.size(); i++) {
+            OWLFacetRestriction r = facetRestrictions.get(i);
+            writeSpace();
             r.accept(this);
-            if(i != facetRestrictions.size()-1){
-            	writeSpace();
-            	write("and");
+            if (i != facetRestrictions.size() - 1) {
+                writeSpace();
+                write("and");
             }
         }
-        
         write(")");
     }
 
@@ -867,7 +855,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLLiteral node) {
         writeOpenBrace();
-    	write("``");
+        write("``");
         write(node.getLiteral());
         write("\"\\^{}\\^{}");
         write(getRendering(node.getDatatype()));
@@ -1001,16 +989,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write("=");
         writeSpace();
         writeOpenBrace();
-        for(Iterator<OWLPropertyExpression> it = axiom.propertyExpressions().iterator();
-        		it.hasNext();){
+        for (Iterator<OWLPropertyExpression> it = axiom.propertyExpressions().iterator(); it.hasNext();) {
             it.next().accept(this);
-            if (it.hasNext()) 
-            {
+            if (it.hasNext()) {
                 write(",");
                 writeSpace();
             }
         }
-
         writeCloseBrace();
     }
 
