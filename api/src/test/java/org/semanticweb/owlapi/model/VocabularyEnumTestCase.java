@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import static java.util.Arrays.stream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.DC;
 import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
