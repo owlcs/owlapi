@@ -20,32 +20,30 @@ import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue {
+public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual> implements
+    OWLObjectHasValue {
 
-    private final OWLObjectPropertyExpression property;
+  private final OWLObjectPropertyExpression property;
 
-    /**
-     * @param property
-     *        property
-     * @param value
-     *        value
-     */
-    public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
-        super(value);
-        this.property = checkNotNull(property, "property cannot be null");
-    }
+  /**
+   * @param property property
+   * @param value value
+   */
+  public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
+    super(value);
+    this.property = checkNotNull(property, "property cannot be null");
+  }
 
-    @Override
-    public OWLObjectPropertyExpression getProperty() {
-        return property;
-    }
+  @Override
+  public OWLObjectPropertyExpression getProperty() {
+    return property;
+  }
 
-    @Override
-    public OWLClassExpression asSomeValuesFrom() {
-        return new OWLObjectSomeValuesFromImpl(getProperty(), new OWLObjectOneOfImpl(getFiller()));
-    }
+  @Override
+  public OWLClassExpression asSomeValuesFrom() {
+    return new OWLObjectSomeValuesFromImpl(getProperty(), new OWLObjectOneOfImpl(getFiller()));
+  }
 }

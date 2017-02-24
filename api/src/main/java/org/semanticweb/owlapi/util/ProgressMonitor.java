@@ -14,46 +14,53 @@ package org.semanticweb.owlapi.util;
 
 /**
  * A general interface for things whose progress can be monitored.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("unused")
 public interface ProgressMonitor {
 
-    /** start of the process. */
-    default void setStarted() {}
+  /**
+   * start of the process.
+   */
+  default void setStarted() {
+  }
 
-    /**
-     * @param size
-     *        size of the process
-     */
-    default void setSize(long size) {}
+  /**
+   * @param size size of the process
+   */
+  default void setSize(long size) {
+  }
 
-    /**
-     * @param progress
-     *        new progress
-     */
-    default void setProgress(long progress) {}
+  /**
+   * @param progress new progress
+   */
+  default void setProgress(long progress) {
+  }
 
-    /**
-     * @param message
-     *        the message to be displayed
-     */
-    default void setMessage(String message) {}
+  /**
+   * @param message the message to be displayed
+   */
+  default void setMessage(String message) {
+  }
 
-    /**
-     * @param b
-     *        true if the state is indeterminate
-     */
-    default void setIndeterminate(boolean b) {}
+  /**
+   * @param b true if the state is indeterminate
+   */
+  default void setIndeterminate(boolean b) {
+  }
 
-    /** progress completed. */
-    default void setFinished() {}
+  /**
+   * progress completed.
+   */
+  default void setFinished() {
+  }
 
-    /** @return true if the process has been cancelled */
-    default boolean isCancelled() {
-        return false;
-    }
+  /**
+   * @return true if the process has been cancelled
+   */
+  default boolean isCancelled() {
+    return false;
+  }
 }

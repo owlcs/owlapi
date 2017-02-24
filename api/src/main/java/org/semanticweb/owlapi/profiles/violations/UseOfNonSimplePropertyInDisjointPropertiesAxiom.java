@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,41 +21,38 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param prop
-     *        prop
-     */
-    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom,
-            OWLObjectPropertyExpression prop) {
-        super(ontology, axiom, prop);
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param prop prop
+   */
+  public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology,
+      OWLDisjointObjectPropertiesAxiom axiom,
+      OWLObjectPropertyExpression prop) {
+    super(ontology, axiom, prop);
+  }
 
-    @Override
-    public OWLObjectPropertyExpression getExpression() {
-        return (OWLObjectPropertyExpression) super.getExpression();
-    }
+  @Override
+  public OWLObjectPropertyExpression getExpression() {
+    return (OWLObjectPropertyExpression) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Use of non-simple property in an axiom %s", getExpression());
-    }
+  @Override
+  public String toString() {
+    return toString("Use of non-simple property in an axiom %s", getExpression());
+  }
 }

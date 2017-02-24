@@ -18,28 +18,25 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 @FunctionalInterface
 public interface HasGetEntitiesInSignature {
 
-    /**
-     * @param entityIRI
-     *        IRI for all entities to retrieve
-     * @return entities with IRI equal to entityIRI
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLEntity> getEntitiesInSignature(IRI entityIRI) {
-        return asSet(entitiesInSignature(entityIRI));
-    }
+  /**
+   * @param entityIRI IRI for all entities to retrieve
+   * @return entities with IRI equal to entityIRI
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLEntity> getEntitiesInSignature(IRI entityIRI) {
+    return asSet(entitiesInSignature(entityIRI));
+  }
 
-    /**
-     * @param entityIRI
-     *        IRI for all entities to retrieve
-     * @return stream of entities with IRI equal to entityIRI
-     */
-    Stream<OWLEntity> entitiesInSignature(IRI entityIRI);
+  /**
+   * @param entityIRI IRI for all entities to retrieve
+   * @return stream of entities with IRI equal to entityIRI
+   */
+  Stream<OWLEntity> entitiesInSignature(IRI entityIRI);
 }

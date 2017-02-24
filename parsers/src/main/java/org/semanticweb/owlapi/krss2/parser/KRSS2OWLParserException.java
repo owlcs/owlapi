@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 /* @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 class KRSS2OWLParserException extends OWLParserException {
 
-    KRSS2OWLParserException(Throwable cause) {
-        super(cause);
-    }
+  KRSS2OWLParserException(Throwable cause) {
+    super(cause);
+  }
 }

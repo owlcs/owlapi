@@ -18,40 +18,38 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
 
-    private final OWLDatatype datatype;
-    private final List<OWLFacetRestriction> facetRestrictions;
+  private final OWLDatatype datatype;
+  private final List<OWLFacetRestriction> facetRestrictions;
 
-    /**
-     * @param datatype
-     *        datatype
-     * @param facetRestrictions
-     *        facet restriction
-     */
-    public OWLDatatypeRestrictionImpl(OWLDatatype datatype, Collection<OWLFacetRestriction> facetRestrictions) {
-        this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        Collection<OWLFacetRestriction> facets = checkNotNull(facetRestrictions, "facetRestrictions cannot be null");
-        this.facetRestrictions = sortOptionally(facets.stream().distinct());
-    }
+  /**
+   * @param datatype datatype
+   * @param facetRestrictions facet restriction
+   */
+  public OWLDatatypeRestrictionImpl(OWLDatatype datatype,
+      Collection<OWLFacetRestriction> facetRestrictions) {
+    this.datatype = checkNotNull(datatype, "datatype cannot be null");
+    Collection<OWLFacetRestriction> facets = checkNotNull(facetRestrictions,
+        "facetRestrictions cannot be null");
+    this.facetRestrictions = sortOptionally(facets.stream().distinct());
+  }
 
-    @Override
-    public OWLDatatype getDatatype() {
-        return datatype;
-    }
+  @Override
+  public OWLDatatype getDatatype() {
+    return datatype;
+  }
 
-    @Override
-    public Stream<OWLFacetRestriction> facetRestrictions() {
-        return facetRestrictions.stream();
-    }
+  @Override
+  public Stream<OWLFacetRestriction> facetRestrictions() {
+    return facetRestrictions.stream();
+  }
 }

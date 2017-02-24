@@ -45,13 +45,15 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  */
 public class KRSSOWLParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
-    public KRSSOWLParserFactory() {
-        super(new KRSSDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public KRSSOWLParserFactory() {
+    super(new KRSSDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLParser createParser() {
-        return new KRSSOWLParser();
-    }
+  @Override
+  public OWLParser createParser() {
+    return new KRSSOWLParser();
+  }
 }

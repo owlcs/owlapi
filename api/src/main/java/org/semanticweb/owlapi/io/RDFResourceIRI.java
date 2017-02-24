@@ -15,61 +15,61 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
-/** IRI node implementation. */
+/**
+ * IRI node implementation.
+ */
 public class RDFResourceIRI extends RDFResource implements org.apache.commons.rdf.api.IRI {
 
-    private final IRI resource;
+  private final IRI resource;
 
-    /**
-     * @param resource
-     *        the resource
-     */
-    public RDFResourceIRI(IRI resource) {
-        this.resource = checkNotNull(resource, "resource cannot be null");
-    }
+  /**
+   * @param resource the resource
+   */
+  public RDFResourceIRI(IRI resource) {
+    this.resource = checkNotNull(resource, "resource cannot be null");
+  }
 
-    @Override
-    public IRI getIRI() {
-        return resource;
-    }
+  @Override
+  public IRI getIRI() {
+    return resource;
+  }
 
-    @Override
-    public IRI getResource() {
-        return resource;
-    }
+  @Override
+  public IRI getResource() {
+    return resource;
+  }
 
-    @Override
-    public int hashCode() {
-        return resource.hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return resource.hashCode();
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj instanceof RDFResourceIRI) {
-            RDFResourceIRI other = (RDFResourceIRI) obj;
-            return resource.equals(other.resource);
-        }
-        // Commons RDF IRI equals() contract
-        if (obj instanceof org.apache.commons.rdf.api.IRI) {
-            org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
-            return ntriplesString().equals(iri.ntriplesString());
-        }
-        return false;
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
+    if (obj instanceof RDFResourceIRI) {
+      RDFResourceIRI other = (RDFResourceIRI) obj;
+      return resource.equals(other.resource);
+    }
+    // Commons RDF IRI equals() contract
+    if (obj instanceof org.apache.commons.rdf.api.IRI) {
+      org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
+      return ntriplesString().equals(iri.ntriplesString());
+    }
+    return false;
+  }
 
-    @Override
-    public String toString() {
-        return resource.toQuotedString();
-    }
+  @Override
+  public String toString() {
+    return resource.toQuotedString();
+  }
 
-    @Override
-    public String getIRIString() {
-        return resource.getIRIString();
-    }
+  @Override
+  public String getIRIString() {
+    return resource.getIRIString();
+  }
 }

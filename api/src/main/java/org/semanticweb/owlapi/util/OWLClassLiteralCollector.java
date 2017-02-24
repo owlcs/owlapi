@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -23,75 +22,72 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
 
-    // XXX stateful visitor...
-    protected final Set<OWLClass> pos = new HashSet<>();
-    protected final Set<OWLClass> neg = new HashSet<>();
-    private boolean processed = false;
+  // XXX stateful visitor...
+  protected final Set<OWLClass> pos = new HashSet<>();
+  protected final Set<OWLClass> neg = new HashSet<>();
+  private boolean processed = false;
 
-    /**
-     * @param objects
-     *        the objects to visit
-     */
-    public OWLClassLiteralCollector(Set<OWLObject> objects) {
-        super(objects);
+  /**
+   * @param objects the objects to visit
+   */
+  public OWLClassLiteralCollector(Set<OWLObject> objects) {
+    super(objects);
+  }
+
+  /**
+   * @param objects the objects to visit
+   * @param visitDuplicates true if duplicates must be visited
+   */
+  public OWLClassLiteralCollector(Set<OWLObject> objects, boolean visitDuplicates) {
+    super(objects, visitDuplicates);
+  }
+
+  private void process() {
+    if (!processed) {
+      processed = true;
+      walkStructure(new OWLClassLiteralCollectorVisitor());
+    }
+  }
+
+  /**
+   * @return positive literals
+   */
+  public Set<OWLClass> getPositiveLiterals() {
+    process();
+    return new HashSet<>(pos);
+  }
+
+  /**
+   * @return negative literals
+   */
+  public Set<OWLClass> getNegativeLiterals() {
+    process();
+    return new HashSet<>(neg);
+  }
+
+  private class OWLClassLiteralCollectorVisitor implements OWLObjectVisitor {
+
+    OWLClassLiteralCollectorVisitor() {
     }
 
-    /**
-     * @param objects
-     *        the objects to visit
-     * @param visitDuplicates
-     *        true if duplicates must be visited
-     */
-    public OWLClassLiteralCollector(Set<OWLObject> objects, boolean visitDuplicates) {
-        super(objects, visitDuplicates);
-    }
-
-    private void process() {
-        if (!processed) {
-            processed = true;
-            walkStructure(new OWLClassLiteralCollectorVisitor());
+    @Override
+    public void visit(OWLClass ce) {
+      List<OWLClassExpression> path = getClassExpressionPath();
+      if (path.size() > 1) {
+        OWLClassExpression prev = path.get(path.size() - 2);
+        if (prev instanceof OWLObjectComplementOf) {
+          neg.add(ce);
+        } else {
+          pos.add(ce);
         }
+      } else {
+        pos.add(ce);
+      }
     }
-
-    /**
-     * @return positive literals
-     */
-    public Set<OWLClass> getPositiveLiterals() {
-        process();
-        return new HashSet<>(pos);
-    }
-
-    /**
-     * @return negative literals
-     */
-    public Set<OWLClass> getNegativeLiterals() {
-        process();
-        return new HashSet<>(neg);
-    }
-
-    private class OWLClassLiteralCollectorVisitor implements OWLObjectVisitor {
-
-        OWLClassLiteralCollectorVisitor() {}
-
-        @Override
-        public void visit(OWLClass ce) {
-            List<OWLClassExpression> path = getClassExpressionPath();
-            if (path.size() > 1) {
-                OWLClassExpression prev = path.get(path.size() - 2);
-                if (prev instanceof OWLObjectComplementOf) {
-                    neg.add(ce);
-                } else {
-                    pos.add(ce);
-                }
-            } else {
-                pos.add(ce);
-            }
-        }
-    }
+  }
 }

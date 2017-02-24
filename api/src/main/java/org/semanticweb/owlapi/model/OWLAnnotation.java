@@ -20,118 +20,111 @@ import java.util.stream.Stream;
  * annotations to their subjects (i.e. axioms or declarations).<br>
  * An annotation is equal to another annotation if both objects have equal
  * annotation URIs and have equal annotation values.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty> {
+public interface OWLAnnotation extends OWLObject, HasAnnotations,
+    HasProperty<OWLAnnotationProperty> {
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getProperty(), getValue());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getProperty(), getValue());
+  }
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), getValue(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getProperty(), getValue(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getValue());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getProperty(), getValue());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 877;
-    }
+  @Override
+  default int hashIndex() {
+    return 877;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 5001;
-    }
+  @Override
+  default int typeIndex() {
+    return 5001;
+  }
 
-    /**
-     * Gets the property that this annotation acts along.
-     * 
-     * @return The annotation property
-     */
-    @Override
-        OWLAnnotationProperty getProperty();
+  /**
+   * Gets the property that this annotation acts along.
+   *
+   * @return The annotation property
+   */
+  @Override
+  OWLAnnotationProperty getProperty();
 
-    /**
-     * Gets the annotation value. The type of value will depend upon the type of
-     * the annotation e.g. whether the annotation is an
-     * {@link org.semanticweb.owlapi.model.OWLLiteral}, an
-     * {@link org.semanticweb.owlapi.model.IRI} or an
-     * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
-     * 
-     * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
-     * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
-     * @return The annotation value.
-     */
-    OWLAnnotationValue getValue();
+  /**
+   * Gets the annotation value. The type of value will depend upon the type of
+   * the annotation e.g. whether the annotation is an
+   * {@link org.semanticweb.owlapi.model.OWLLiteral}, an
+   * {@link org.semanticweb.owlapi.model.IRI} or an
+   * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
+   *
+   * @return The annotation value.
+   * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
+   * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
+   */
+  OWLAnnotationValue getValue();
 
-    /**
-     * Determines if this annotation is an annotation used to deprecate an IRI.
-     * This is the case if the annotation property has an IRI of
-     * {@code owl:deprecated} and the value of the annotation is
-     * {@code "true"^^xsd:boolean}
-     * 
-     * @return {@code true} if this annotation is an annotation that can be used
-     *         to deprecate an IRI, otherwise {@code false}.
-     */
-    boolean isDeprecatedIRIAnnotation();
+  /**
+   * Determines if this annotation is an annotation used to deprecate an IRI.
+   * This is the case if the annotation property has an IRI of
+   * {@code owl:deprecated} and the value of the annotation is
+   * {@code "true"^^xsd:boolean}
+   *
+   * @return {@code true} if this annotation is an annotation that can be used to deprecate an IRI,
+   * otherwise {@code false}.
+   */
+  boolean isDeprecatedIRIAnnotation();
 
-    /**
-     * Gets an OWLAnnotation which is a copy of this annotation but which has
-     * the specified annotations.
-     * 
-     * @param annotations
-     *        The annotations
-     * @return A copy of this annotation with the specified annotations
-     *         annotating it
-     */
-    OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations);
+  /**
+   * Gets an OWLAnnotation which is a copy of this annotation but which has
+   * the specified annotations.
+   *
+   * @param annotations The annotations
+   * @return A copy of this annotation with the specified annotations annotating it
+   */
+  OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations);
 
-    /**
-     * Gets an OWLAnnotation which is a copy of this annotation but which has
-     * the specified annotations.
-     * 
-     * @param annotations
-     *        The annotations
-     * @return A copy of this annotation with the specified annotations
-     *         annotating it
-     */
-    OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations);
+  /**
+   * Gets an OWLAnnotation which is a copy of this annotation but which has
+   * the specified annotations.
+   *
+   * @param annotations The annotations
+   * @return A copy of this annotation with the specified annotations annotating it
+   */
+  OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations);
 
-    /**
-     * @param visitor
-     *        visitor to accept
-     */
-    default void accept(OWLAnnotationObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  /**
+   * @param visitor visitor to accept
+   */
+  default void accept(OWLAnnotationObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    /**
-     * @param visitor
-     *        visitor to accept
-     * @param <O>
-     *        visitor return type
-     * @return visitor value
-     */
-    default <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  /**
+   * @param visitor visitor to accept
+   * @param <O> visitor return type
+   * @return visitor value
+   */
+  default <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

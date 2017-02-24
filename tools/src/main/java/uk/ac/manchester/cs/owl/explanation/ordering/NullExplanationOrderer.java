@@ -13,23 +13,21 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * An implementation of an explanation order, which doesn't really do any
  * ordering!.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class NullExplanationOrderer implements ExplanationOrderer {
 
-    @Override
-    public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
-        ExplanationTree root = new ExplanationTree(entailment);
-        axioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
-        return root;
-    }
+  @Override
+  public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
+    ExplanationTree root = new ExplanationTree(entailment);
+    axioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
+    return root;
+  }
 }

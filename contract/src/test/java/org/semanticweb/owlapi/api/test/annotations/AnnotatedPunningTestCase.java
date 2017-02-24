@@ -7,4 +7,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
  * Created by ses on 5/13/14.
  */
 @RunWith(PunRunner.class)
-public class AnnotatedPunningTestCase extends TestBase {}
+public class AnnotatedPunningTestCase extends TestBase {
+
+}

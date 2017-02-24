@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -35,54 +34,48 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * by creating axiom(s) in a target ontology T. <br>
  * This composite change supports a common design pattern where primitive
  * subclasses of a class are made mutually disjoint.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
-    /**
-     * Instantiates a new make primitive sub classes mutually disjoint.
-     * 
-     * @param dataFactory
-     *        the datafactory to use
-     * @param cls
-     *        the class to convert
-     * @param targetOntology
-     *        the target ontology
-     */
-    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
-        OWLOntology targetOntology) {
-        this(dataFactory, cls, targetOntology, false);
-    }
+  /**
+   * Instantiates a new make primitive sub classes mutually disjoint.
+   *
+   * @param dataFactory the datafactory to use
+   * @param cls the class to convert
+   * @param targetOntology the target ontology
+   */
+  public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
+      OWLOntology targetOntology) {
+    this(dataFactory, cls, targetOntology, false);
+  }
 
-    /**
-     * Instantiates a new make primitive sub classes mutually disjoint.
-     * 
-     * @param dataFactory
-     *        the datafactory to use
-     * @param cls
-     *        the class to convert
-     * @param targetOntology
-     *        the target ontology
-     * @param usePairwiseDisjointAxioms
-     *        true if pairwise disjoint axioms should be used
-     */
-    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, OWLOntology targetOntology,
-        boolean usePairwiseDisjointAxioms) {
-        super(dataFactory);
-        generateChanges(checkNotNull(cls, "cls cannot be null"),
-            checkNotNull(targetOntology, "targetOntology cannot be null"), usePairwiseDisjointAxioms);
-    }
+  /**
+   * Instantiates a new make primitive sub classes mutually disjoint.
+   *
+   * @param dataFactory the datafactory to use
+   * @param cls the class to convert
+   * @param targetOntology the target ontology
+   * @param usePairwiseDisjointAxioms true if pairwise disjoint axioms should be used
+   */
+  public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
+      OWLOntology targetOntology,
+      boolean usePairwiseDisjointAxioms) {
+    super(dataFactory);
+    generateChanges(checkNotNull(cls, "cls cannot be null"),
+        checkNotNull(targetOntology, "targetOntology cannot be null"), usePairwiseDisjointAxioms);
+  }
 
-    private void generateChanges(OWLClass cls, OWLOntology o, boolean usePairwiseDisjointAxioms) {
-        Collection<OWLClassExpression> sub = asList(sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
+  private void generateChanges(OWLClass cls, OWLOntology o, boolean usePairwiseDisjointAxioms) {
+    Collection<OWLClassExpression> sub = asList(
+        sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
             .filter(c -> undefinedPrimitive(o, c)));
-        addChanges(new MakeClassesMutuallyDisjoint(df, sub, usePairwiseDisjointAxioms, o).getChanges());
-    }
+    addChanges(new MakeClassesMutuallyDisjoint(df, sub, usePairwiseDisjointAxioms, o).getChanges());
+  }
 
-    protected boolean undefinedPrimitive(OWLOntology o, OWLClassExpression subCls) {
-        return !subCls.isAnonymous() && !isDefined(subCls.asOWLClass(), o);
-    }
+  protected boolean undefinedPrimitive(OWLOntology o, OWLClassExpression subCls) {
+    return !subCls.isAnonymous() && !isDefined(subCls.asOWLClass(), o);
+  }
 }

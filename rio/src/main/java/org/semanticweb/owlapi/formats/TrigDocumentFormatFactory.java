@@ -43,13 +43,15 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class TrigDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
-    public TrigDocumentFormatFactory() {
-        super(RDFFormat.TRIG);
-    }
+  /**
+   * Default constructor.
+   */
+  public TrigDocumentFormatFactory() {
+    super(RDFFormat.TRIG);
+  }
 
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new TrigDocumentFormat();
-    }
+  @Override
+  public RioRDFDocumentFormat createFormat() {
+    return new TrigDocumentFormat();
+  }
 }

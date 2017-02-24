@@ -20,32 +20,32 @@ import java.util.List;
 /**
  * A change broadcast strategy that broadcasts changes that have been applied to
  * a specific ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
-    private final OWLOntology ontology;
+  private final OWLOntology ontology;
 
-    /**
-     * Constructs a change broadcast strategy which only causes changes that
-     * have been applied to the specific ontology to be broadcast.
-     * 
-     * @param ontology
-     *        The ontology.
-     */
-    public SpecificOntologyChangeBroadcastStrategy(OWLOntology ontology) {
-        this.ontology = checkNotNull(ontology, "ontology cannot be null");
-    }
+  /**
+   * Constructs a change broadcast strategy which only causes changes that
+   * have been applied to the specific ontology to be broadcast.
+   *
+   * @param ontology The ontology.
+   */
+  public SpecificOntologyChangeBroadcastStrategy(OWLOntology ontology) {
+    this.ontology = checkNotNull(ontology, "ontology cannot be null");
+  }
 
-    @Override
-    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
-        checkNotNull(listener, "listener cannot be null");
-        checkNotNull(changes, "changes cannot be null");
-        List<OWLOntologyChange> broadcastChanges = asList(changes.stream().filter(c -> c.getOntology().equals(
+  @Override
+  public void broadcastChanges(OWLOntologyChangeListener listener,
+      List<? extends OWLOntologyChange> changes) {
+    checkNotNull(listener, "listener cannot be null");
+    checkNotNull(changes, "changes cannot be null");
+    List<OWLOntologyChange> broadcastChanges = asList(
+        changes.stream().filter(c -> c.getOntology().equals(
             ontology)), OWLOntologyChange.class);
-        listener.ontologiesChanged(broadcastChanges);
-    }
+    listener.ontologiesChanged(broadcastChanges);
+  }
 }

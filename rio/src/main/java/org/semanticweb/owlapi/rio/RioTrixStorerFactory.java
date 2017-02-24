@@ -43,10 +43,12 @@ import org.semanticweb.owlapi.formats.TrixDocumentFormatFactory;
  * @since 4.0.0
  */
 public class RioTrixStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+    RioRDFStorerFactory {
 
-    /** Default constructor. */
-    public RioTrixStorerFactory() {
-        super(new TrixDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioTrixStorerFactory() {
+    super(new TrixDocumentFormatFactory());
+  }
 }

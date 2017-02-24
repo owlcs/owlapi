@@ -18,139 +18,132 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named
  * data range) in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
 
-    @Override
-    default int hashIndex() {
-        return 269;
-    }
+  @Override
+  default int hashIndex() {
+    return 269;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 4001;
-    }
+  @Override
+  default int typeIndex() {
+    return 4001;
+  }
 
-    @Override
-    default EntityType<?> getEntityType() {
-        return EntityType.DATATYPE;
-    }
+  @Override
+  default EntityType<?> getEntityType() {
+    return EntityType.DATATYPE;
+  }
 
-    @Override
-    default DataRangeType getDataRangeType() {
-        return DataRangeType.DATATYPE;
-    }
+  @Override
+  default DataRangeType getDataRangeType() {
+    return DataRangeType.DATATYPE;
+  }
 
-    /**
-     * Gets the built in datatype information if this datatype is a built in
-     * datatype. This method should only be called if the isBuiltIn() method
-     * returns {@code true}
-     * 
-     * @return The OWLDatatypeVocabulary that describes this built in datatype
-     * @throws OWLRuntimeException
-     *         if this datatype is not a built in datatype.
-     */
-    OWL2Datatype getBuiltInDatatype();
+  /**
+   * Gets the built in datatype information if this datatype is a built in
+   * datatype. This method should only be called if the isBuiltIn() method
+   * returns {@code true}
+   *
+   * @return The OWLDatatypeVocabulary that describes this built in datatype
+   * @throws OWLRuntimeException if this datatype is not a built in datatype.
+   */
+  OWL2Datatype getBuiltInDatatype();
 
-    /**
-     * Determines if this datatype has the IRI {@code xsd:string}.
-     * 
-     * @return {@code true} if this datatype has the IRI {@code xsd:string},
-     *         otherwise {@code false}.
-     */
-    boolean isString();
+  /**
+   * Determines if this datatype has the IRI {@code xsd:string}.
+   *
+   * @return {@code true} if this datatype has the IRI {@code xsd:string}, otherwise {@code false}.
+   */
+  boolean isString();
 
-    /**
-     * Determines if this datatype has the IRI {@code xsd:integer}.
-     * 
-     * @return {@code true} if this datatype has the IRI {@code xsd:integer},
-     *         otherwise {@code false}.
-     */
-    boolean isInteger();
+  /**
+   * Determines if this datatype has the IRI {@code xsd:integer}.
+   *
+   * @return {@code true} if this datatype has the IRI {@code xsd:integer}, otherwise {@code false}.
+   */
+  boolean isInteger();
 
-    /**
-     * Determines if this datatype has the IRI {@code xsd:float}.
-     * 
-     * @return {@code true} if this datatype has the IRI {@code xsd:float},
-     *         otherwise {@code false}.
-     */
-    boolean isFloat();
+  /**
+   * Determines if this datatype has the IRI {@code xsd:float}.
+   *
+   * @return {@code true} if this datatype has the IRI {@code xsd:float}, otherwise {@code false}.
+   */
+  boolean isFloat();
 
-    /**
-     * Determines if this datatype has the IRI {@code xsd:double}.
-     * 
-     * @return {@code true} if this datatype has the IRI {@code xsd:double},
-     *         otherwise {@code false}.
-     */
-    boolean isDouble();
+  /**
+   * Determines if this datatype has the IRI {@code xsd:double}.
+   *
+   * @return {@code true} if this datatype has the IRI {@code xsd:double}, otherwise {@code false}.
+   */
+  boolean isDouble();
 
-    /**
-     * Determines if this datatype has the IRI {@code xsd:boolean}.
-     * 
-     * @return {@code true} if this datatype has the IRI {@code xsd:boolean},
-     *         otherwise {@code false}.
-     */
-    boolean isBoolean();
+  /**
+   * Determines if this datatype has the IRI {@code xsd:boolean}.
+   *
+   * @return {@code true} if this datatype has the IRI {@code xsd:boolean}, otherwise {@code false}.
+   */
+  boolean isBoolean();
 
-    /**
-     * Determines if this datatype has the IRI {@code rdf:PlainLiteral}.
-     * 
-     * @return {@code true} if this datatype has the IRI
-     *         {@code rdf:PlainLiteral} otherwise {@code false}
-     */
-    boolean isRDFPlainLiteral();
+  /**
+   * Determines if this datatype has the IRI {@code rdf:PlainLiteral}.
+   *
+   * @return {@code true} if this datatype has the IRI {@code rdf:PlainLiteral} otherwise {@code
+   * false}
+   */
+  boolean isRDFPlainLiteral();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLEntityVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLNamedObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataRangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataRangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

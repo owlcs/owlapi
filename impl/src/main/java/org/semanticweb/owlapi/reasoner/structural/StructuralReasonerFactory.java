@@ -20,34 +20,34 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class StructuralReasonerFactory implements OWLReasonerFactory {
 
-    @Override
-    public String getReasonerName() {
-        return "Structural Reasoner";
-    }
+  @Override
+  public String getReasonerName() {
+    return "Structural Reasoner";
+  }
 
-    @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
-        return createNonBufferingReasoner(ontology, new SimpleConfiguration());
-    }
+  @Override
+  public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+    return createNonBufferingReasoner(ontology, new SimpleConfiguration());
+  }
 
-    @Override
-    public OWLReasoner createReasoner(OWLOntology ontology) {
-        return createReasoner(ontology, new SimpleConfiguration());
-    }
+  @Override
+  public OWLReasoner createReasoner(OWLOntology ontology) {
+    return createReasoner(ontology, new SimpleConfiguration());
+  }
 
-    @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) {
-        return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
-    }
+  @Override
+  public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
+      OWLReasonerConfiguration config) {
+    return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
+  }
 
-    @Override
-    public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) {
-        return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
-    }
+  @Override
+  public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) {
+    return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
+  }
 }

@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -26,55 +25,55 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
-    /**
-     * Instantiates a new average asserted named superclass count.
-     * 
-     * @param o
-     *        ontology to use
-     */
-    public AverageAssertedNamedSuperclassCount(OWLOntology o) {
-        super(o);
-    }
+  /**
+   * Instantiates a new average asserted named superclass count.
+   *
+   * @param o ontology to use
+   */
+  public AverageAssertedNamedSuperclassCount(OWLOntology o) {
+    super(o);
+  }
 
-    @Override
-    public String getName() {
-        return "Average number of named superclasses";
-    }
+  @Override
+  public String getName() {
+    return "Average number of named superclasses";
+  }
 
-    @Override
-    public Double recomputeMetric() {
-        AtomicInteger total = new AtomicInteger();
-        AtomicInteger count = new AtomicInteger();
-        Set<OWLClass> processedClasses = new HashSet<>();
-        getOntologies().forEach(ont -> ont.classesInSignature().filter(processedClasses::add)
-            .forEach(cls -> processClass(total, count, ont, cls)));
-        return Double.valueOf((double) total.get() / count.get());
-    }
+  @Override
+  public Double recomputeMetric() {
+    AtomicInteger total = new AtomicInteger();
+    AtomicInteger count = new AtomicInteger();
+    Set<OWLClass> processedClasses = new HashSet<>();
+    getOntologies().forEach(ont -> ont.classesInSignature().filter(processedClasses::add)
+        .forEach(cls -> processClass(total, count, ont, cls)));
+    return Double.valueOf((double) total.get() / count.get());
+  }
 
-    protected void processClass(AtomicInteger total, AtomicInteger count, OWLOntology ont, OWLClass cls) {
-        count.incrementAndGet();
-        int sup = (int) sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class).filter(c -> !c.isAnonymous())
-            .count();
-        if (sup == 0) {
-            total.incrementAndGet();
-        } else {
-            total.addAndGet(sup);
-        }
+  protected void processClass(AtomicInteger total, AtomicInteger count, OWLOntology ont,
+      OWLClass cls) {
+    count.incrementAndGet();
+    int sup = (int) sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
+        .filter(c -> !c.isAnonymous())
+        .count();
+    if (sup == 0) {
+      total.incrementAndGet();
+    } else {
+      total.addAndGet(sup);
     }
+  }
 
-    @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
-                return true;
-            }
-        }
-        return false;
+  @Override
+  protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    for (OWLOntologyChange chg : changes) {
+      if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+        return true;
+      }
     }
+    return false;
+  }
 }

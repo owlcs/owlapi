@@ -19,33 +19,30 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
 
-    private final OWLFacet facet;
-    private final OWLLiteral facetValue;
+  private final OWLFacet facet;
+  private final OWLLiteral facetValue;
 
-    /**
-     * @param facet
-     *        facet
-     * @param facetValue
-     *        value
-     */
-    public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
-        this.facet = checkNotNull(facet, "facet cannot be null");
-        this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
-    }
+  /**
+   * @param facet facet
+   * @param facetValue value
+   */
+  public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
+    this.facet = checkNotNull(facet, "facet cannot be null");
+    this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
+  }
 
-    @Override
-    public OWLFacet getFacet() {
-        return facet;
-    }
+  @Override
+  public OWLFacet getFacet() {
+    return facet;
+  }
 
-    @Override
-    public OWLLiteral getFacetValue() {
-        return facetValue;
-    }
+  @Override
+  public OWLLiteral getFacetValue() {
+    return facetValue;
+  }
 }

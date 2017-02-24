@@ -18,24 +18,24 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
 
 /**
  * A factory class for OWLOntologyStorers.
- * 
+ *
  * @author ignazio
  */
 public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
 
-    private final OWLDocumentFormatFactory format;
+  private final OWLDocumentFormatFactory format;
 
-    protected OWLStorerFactoryImpl(OWLDocumentFormatFactory format) {
-        this.format = format;
-    }
+  protected OWLStorerFactoryImpl(OWLDocumentFormatFactory format) {
+    this.format = format;
+  }
 
-    @Override
-    public final OWLDocumentFormatFactory getFormatFactory() {
-        return format;
-    }
+  @Override
+  public final OWLDocumentFormatFactory getFormatFactory() {
+    return format;
+  }
 
-    @Override
-    public final OWLStorer get() {
-        return createStorer();
-    }
+  @Override
+  public final OWLStorer get() {
+    return createStorer();
+  }
 }

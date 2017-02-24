@@ -20,39 +20,35 @@ class Token implements java.io.Serializable {
 
   public Token specialToken;
 
-  public Object getValue() {
-    return null;
+  public Token() {
   }
 
-  public Token() {}
-
-  public Token(int kind)
-  {
+  public Token(int kind) {
     this(kind, null);
   }
 
-  public Token(int kind, String image)
-  {
+  public Token(int kind, String image) {
     this.kind = kind;
     this.image = image;
   }
 
-  public String toString()
-  {
-    return image;
-  }
-
-  public static Token newToken(int ofKind, String image)
-  {
-    switch(ofKind)
-    {
-      default : return new Token(ofKind, image);
+  public static Token newToken(int ofKind, String image) {
+    switch (ofKind) {
+      default:
+        return new Token(ofKind, image);
     }
   }
 
-  public static Token newToken(int ofKind)
-  {
+  public static Token newToken(int ofKind) {
     return newToken(ofKind, null);
+  }
+
+  public Object getValue() {
+    return null;
+  }
+
+  public String toString() {
+    return image;
   }
 
 }

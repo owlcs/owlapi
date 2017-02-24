@@ -43,10 +43,12 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory;
  * @since 4.0.0
  */
 public class RioTurtleStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+    RioRDFStorerFactory {
 
-    /** Default constructor. */
-    public RioTurtleStorerFactory() {
-        super(new RioTurtleDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioTurtleStorerFactory() {
+    super(new RioTurtleDocumentFormatFactory());
+  }
 }

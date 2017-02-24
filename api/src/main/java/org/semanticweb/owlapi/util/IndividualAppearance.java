@@ -9,10 +9,9 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 @FunctionalInterface
 public interface IndividualAppearance {
 
-    /**
-     * @param i
-     *        an anonymous individual
-     * @return true if i appears more than once as object.
-     */
-    boolean appearsMultipleTimes(OWLAnonymousIndividual i);
+  /**
+   * @param i an anonymous individual
+   * @return true if i appears more than once as object.
+   */
+  boolean appearsMultipleTimes(OWLAnonymousIndividual i);
 }

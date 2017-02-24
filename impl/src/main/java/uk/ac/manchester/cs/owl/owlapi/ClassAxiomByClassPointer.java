@@ -13,40 +13,43 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author ignazio
  */
 public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom> {
 
-    /**
-     * @param t
-     *        axiom type
-     * @param v
-     *        visitor
-     * @param initialized
-     *        initialized
-     * @param i
-     *        internals
-     */
-    public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
-        Internals i) {
-        super(t, v, initialized, i);
-    }
+  /**
+   * @param t axiom type
+   * @param v visitor
+   * @param initialized initialized
+   * @param i internals
+   */
+  public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
+      boolean initialized,
+      Internals i) {
+    super(t, v, initialized, i);
+  }
 
-    @Override
-    public synchronized ClassAxiomByClassPointer init() {
-        if (isInitialized()) {
-            return this;
-        }
-        super.init();
-        // special case: this map needs other maps to be initialized first
-        i.get(OWLClass.class, OWLEquivalentClassesAxiom.class).get().forEach(this::put);
-        i.get(OWLClass.class, OWLSubClassOfAxiom.class).get().forEach(this::put);
-        i.get(OWLClass.class, OWLDisjointClassesAxiom.class).get().forEach(this::put);
-        i.get(OWLClass.class, OWLDisjointUnionAxiom.class).get().forEach(this::put);
-        return this;
+  @Override
+  public synchronized ClassAxiomByClassPointer init() {
+    if (isInitialized()) {
+      return this;
     }
+    super.init();
+    // special case: this map needs other maps to be initialized first
+    i.get(OWLClass.class, OWLEquivalentClassesAxiom.class).get().forEach(this::put);
+    i.get(OWLClass.class, OWLSubClassOfAxiom.class).get().forEach(this::put);
+    i.get(OWLClass.class, OWLDisjointClassesAxiom.class).get().forEach(this::put);
+    i.get(OWLClass.class, OWLDisjointUnionAxiom.class).get().forEach(this::put);
+    return this;
+  }
 }

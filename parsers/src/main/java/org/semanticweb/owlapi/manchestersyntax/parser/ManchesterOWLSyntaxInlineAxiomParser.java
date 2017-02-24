@@ -20,36 +20,35 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser<OWLAxiom> {
 
-    private final OWLDataFactory dataFactory;
-    private OWLEntityChecker checker;
+  private final OWLDataFactory dataFactory;
+  private OWLEntityChecker checker;
 
-    /**
-     * @param dataFactory
-     *        dataFactory
-     * @param checker
-     *        checker
-     */
-    public ManchesterOWLSyntaxInlineAxiomParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
-        this.dataFactory = dataFactory;
-        this.checker = checker;
-    }
+  /**
+   * @param dataFactory dataFactory
+   * @param checker checker
+   */
+  public ManchesterOWLSyntaxInlineAxiomParser(OWLDataFactory dataFactory,
+      OWLEntityChecker checker) {
+    this.dataFactory = dataFactory;
+    this.checker = checker;
+  }
 
-    @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        checker = entityChecker;
-    }
+  @Override
+  public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
+    checker = entityChecker;
+  }
 
-    @Override
-    public OWLAxiom parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
-        parser.setOWLEntityChecker(checker);
-        parser.setStringToParse(expression);
-        return parser.parseAxiom();
-    }
+  @Override
+  public OWLAxiom parse(String expression) {
+    ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(),
+        dataFactory);
+    parser.setOWLEntityChecker(checker);
+    parser.setStringToParse(expression);
+    return parser.parseAxiom();
+  }
 }

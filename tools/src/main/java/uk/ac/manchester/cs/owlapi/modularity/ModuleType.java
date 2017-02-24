@@ -14,31 +14,37 @@ package uk.ac.manchester.cs.owlapi.modularity;
 
 /**
  * Enumeration for module types.
- * 
- * @author Thomas Schneider, School of Computer Science, University of
- *         Manchester
+ *
+ * @author Thomas Schneider, School of Computer Science, University of Manchester
  */
 public enum ModuleType {
-    //@formatter:off
-    /** Module type representing top modules (aka lower modules). */                        TOP("top"), 
-    /** Module type representing bottom modules (aka upper modules). */                     BOT("bottom"), 
-    /** Module type representing fixpoint-nested modules (top-of-bottom-of-top-of-...). */  STAR("nested");
-    //@formatter:on
-    /** The name of the module type in bottom/top notation. */
-    private final String name;
+  //@formatter:off
+  /**
+   * Module type representing top modules (aka lower modules).
+   */TOP("top"),
+  /**
+   * Module type representing bottom modules (aka upper modules).
+   */BOT("bottom"),
+  /**
+   * Module type representing fixpoint-nested modules (top-of-bottom-of-top-of-...).
+   */STAR("nested");
+  //@formatter:on
+  /**
+   * The name of the module type in bottom/top notation.
+   */
+  private final String name;
 
-    /**
-     * Constructs a module type with the given name and alternative name.
-     * 
-     * @param name
-     *        the name in bottom/top notation
-     */
-    ModuleType(String name) {
-        this.name = name;
-    }
+  /**
+   * Constructs a module type with the given name and alternative name.
+   *
+   * @param name the name in bottom/top notation
+   */
+  ModuleType(String name) {
+    this.name = name;
+  }
 
-    @Override
-    public String toString() {
-        return name;
-    }
+  @Override
+  public String toString() {
+    return name;
+  }
 }

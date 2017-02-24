@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -26,112 +24,111 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
-    protected final SimpleShortFormProvider sfp = new SimpleShortFormProvider();
+  protected final SimpleShortFormProvider sfp = new SimpleShortFormProvider();
 
-    @Override
-    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
-        return ontologyFormat instanceof DLSyntaxHTMLDocumentFormat;
-    }
+  @Override
+  public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+    return ontologyFormat instanceof DLSyntaxHTMLDocumentFormat;
+  }
 
-    @Override
-    protected String getRendering(@Nullable final OWLEntity subject, OWLAxiom axiom) {
-        checkNotNull(axiom, "axiom cannot be null");
-        DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
+  @Override
+  protected String getRendering(@Nullable final OWLEntity subject, OWLAxiom axiom) {
+    checkNotNull(axiom, "axiom cannot be null");
+    DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
 
-            @Override
-            protected String renderEntity(OWLEntity entity) {
-                String shortForm = sfp.getShortForm(checkNotNull(entity, "entity cannot be null"));
-                if (entity.equals(subject)) {
-                    return shortForm;
-                }
-                return "<a href=\"#" + shortForm + "\">" + shortForm + "</a>";
-            }
+      @Override
+      protected String renderEntity(OWLEntity entity) {
+        String shortForm = sfp.getShortForm(checkNotNull(entity, "entity cannot be null"));
+        if (entity.equals(subject)) {
+          return shortForm;
+        }
+        return "<a href=\"#" + shortForm + "\">" + shortForm + "</a>";
+      }
 
-            @Override
-            protected void write(DLSyntax keyword) {
-                write(checkNotNull(keyword, "keyword cannot be null").toHTMLString());
-            }
-        };
-        ren.setFocusedObject(subject);
-        ren.setShortFormProvider(sfp);
-        return ren.render(axiom);
-    }
+      @Override
+      protected void write(DLSyntax keyword) {
+        write(checkNotNull(keyword, "keyword cannot be null").toHTMLString());
+      }
+    };
+    ren.setFocusedObject(subject);
+    ren.setShortFormProvider(sfp);
+    return ren.render(axiom);
+  }
 
-    @Override
-    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
-        writer.println("<html>");
-        writer.println("<body>");
-        writer.println("<h1>Ontology: ");
-        writer.print(ontology.getOntologyID());
-        writer.println("</h1>");
-    }
+  @Override
+  protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
+    checkNotNull(ontology, "ontology cannot be null");
+    checkNotNull(writer, "writer cannot be null");
+    writer.println("<html>");
+    writer.println("<body>");
+    writer.println("<h1>Ontology: ");
+    writer.print(ontology.getOntologyID());
+    writer.println("</h1>");
+  }
 
-    @SuppressWarnings("unused")
-    protected void writeEntity(OWLEntity entity, PrintWriter writer) {
-        // nothing to do here
-    }
+  @SuppressWarnings("unused")
+  protected void writeEntity(OWLEntity entity, PrintWriter writer) {
+    // nothing to do here
+  }
 
-    @Override
-    protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
-        writer.println("</body>");
-        writer.println("</html>");
-    }
+  @Override
+  protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
+    checkNotNull(ontology, "ontology cannot be null");
+    checkNotNull(writer, "writer cannot be null");
+    writer.println("</body>");
+    writer.println("</html>");
+  }
 
-    @Override
-    protected void beginWritingAxiom(PrintWriter writer) {
-        checkNotNull(writer, "writer cannot be null").println("<div class=\"axiombox\"> ");
-    }
+  @Override
+  protected void beginWritingAxiom(PrintWriter writer) {
+    checkNotNull(writer, "writer cannot be null").println("<div class=\"axiombox\"> ");
+  }
 
-    @Override
-    protected void endWritingAxiom(PrintWriter writer) {
-        checkNotNull(writer, "writer cannot be null").println(" </div>");
-    }
+  @Override
+  protected void endWritingAxiom(PrintWriter writer) {
+    checkNotNull(writer, "writer cannot be null").println(" </div>");
+  }
 
-    @Override
-    protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
-        checkNotNull(subject, "subject cannot be null");
-        checkNotNull(writer, "writer cannot be null");
-        writer.print("<h2><a name=\"");
-        writer.print(sfp.getShortForm(subject));
-        writer.print("\">");
-        writer.print(subject.getIRI());
-        writer.println("</a></h2>");
-        writer.println("<div class=\"entitybox\">");
-    }
+  @Override
+  protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
+    checkNotNull(subject, "subject cannot be null");
+    checkNotNull(writer, "writer cannot be null");
+    writer.print("<h2><a name=\"");
+    writer.print(sfp.getShortForm(subject));
+    writer.print("\">");
+    writer.print(subject.getIRI());
+    writer.println("</a></h2>");
+    writer.println("<div class=\"entitybox\">");
+  }
 
-    @Override
-    protected void endWritingAxioms(PrintWriter writer) {
-        writer.println("</div>");
-    }
+  @Override
+  protected void endWritingAxioms(PrintWriter writer) {
+    writer.println("</div>");
+  }
 
-    @Override
-    protected void beginWritingGeneralAxioms(PrintWriter writer) {
-        writer.println("<div>");
-    }
+  @Override
+  protected void beginWritingGeneralAxioms(PrintWriter writer) {
+    writer.println("<div>");
+  }
 
-    @Override
-    protected void endWritingGeneralAxioms(PrintWriter writer) {
-        writer.println("</div>");
-    }
+  @Override
+  protected void endWritingGeneralAxioms(PrintWriter writer) {
+    writer.println("</div>");
+  }
 
-    @Override
-    protected void beginWritingUsage(int size, PrintWriter writer) {
-        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
-        writer.println("<h3>Usages (" + size + ")</h3>");
-    }
+  @Override
+  protected void beginWritingUsage(int size, PrintWriter writer) {
+    writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
+    writer.println("<h3>Usages (" + size + ")</h3>");
+  }
 
-    @Override
-    protected void endWritingUsage(PrintWriter writer) {
-        writer.println("</div>");
-    }
+  @Override
+  protected void endWritingUsage(PrintWriter writer) {
+    writer.println("</div>");
+  }
 }

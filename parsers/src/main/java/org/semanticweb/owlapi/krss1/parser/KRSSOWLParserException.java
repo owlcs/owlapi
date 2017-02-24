@@ -21,12 +21,12 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 class KRSSOWLParserException extends OWLParserException {
 
-    KRSSOWLParserException(ParseException e) {
-        super(e.getMessage(), e.currentToken.beginLine,
-                e.currentToken.beginColumn);
-    }
+  KRSSOWLParserException(ParseException e) {
+    super(e.getMessage(), e.currentToken.beginLine,
+        e.currentToken.beginColumn);
+  }
 
-    KRSSOWLParserException(Throwable cause) {
-        super(cause);
-    }
+  KRSSOWLParserException(Throwable cause) {
+    super(cause);
+  }
 }

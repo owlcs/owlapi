@@ -16,67 +16,65 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for OWLDataComplementOf. */
-public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
+/**
+ * Builder class for OWLDataComplementOf.
+ */
+public class BuilderDataComplementOf extends
+    BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
 
-    @Nullable private OWLDataRange dataRange = null;
+  @Nullable
+  private OWLDataRange dataRange = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDataComplementOf(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDataComplementOf(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDataComplementOf(OWLDataComplementOf expected, OWLDataFactory df) {
-        this(df);
-        withRange(expected.getDataRange());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDataComplementOf(OWLDataComplementOf expected, OWLDataFactory df) {
+    this(df);
+    withRange(expected.getDataRange());
+  }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
-    public BuilderDataComplementOf withRange(OWL2Datatype arg) {
-        return withRange(arg.getDatatype(df));
-    }
+  /**
+   * @param arg range
+   * @return builder
+   */
+  public BuilderDataComplementOf withRange(OWL2Datatype arg) {
+    return withRange(arg.getDatatype(df));
+  }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
-    public BuilderDataComplementOf withRange(OWLDataRange arg) {
-        dataRange = arg;
-        return this;
-    }
+  /**
+   * @param arg range
+   * @return builder
+   */
+  public BuilderDataComplementOf withRange(OWLDataRange arg) {
+    dataRange = arg;
+    return this;
+  }
 
-    @Override
-    public OWLDataComplementOf buildObject() {
-        return df.getOWLDataComplementOf(getRange());
-    }
+  @Override
+  public OWLDataComplementOf buildObject() {
+    return df.getOWLDataComplementOf(getRange());
+  }
 
-    /**
-     * @return range
-     */
-    public OWLDataRange getRange() {
-        return verifyNotNull(dataRange);
-    }
+  /**
+   * @return range
+   */
+  public OWLDataRange getRange() {
+    return verifyNotNull(dataRange);
+  }
 }

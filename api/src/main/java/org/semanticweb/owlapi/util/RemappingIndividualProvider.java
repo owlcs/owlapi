@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.util;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -18,36 +17,34 @@ import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
  */
 public class RemappingIndividualProvider implements AnonymousIndividualByIdProvider {
 
-    private OWLDataFactory df;
-    private OWLOntologyWriterConfiguration cf;
-    private Map<String, OWLAnonymousIndividual> map;
+  private OWLDataFactory df;
+  private OWLOntologyWriterConfiguration cf;
+  private Map<String, OWLAnonymousIndividual> map;
 
-    /**
-     * @param m
-     *        ontology configurator
-     * @param df
-     *        data factory
-     */
-    public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
-        this.df = df;
-        cf = m.buildWriterConfiguration();
-        if (cf.shouldRemapAllAnonymousIndividualsIds()) {
-            map = new HashMap<>();
-        } else {
-            map = Collections.emptyMap();
-        }
+  /**
+   * @param m ontology configurator
+   * @param df data factory
+   */
+  public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
+    this.df = df;
+    cf = m.buildWriterConfiguration();
+    if (cf.shouldRemapAllAnonymousIndividualsIds()) {
+      map = new HashMap<>();
+    } else {
+      map = Collections.emptyMap();
     }
+  }
 
-    @Override
-    public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
-        if (!cf.shouldRemapAllAnonymousIndividualsIds()) {
-            return df.getOWLAnonymousIndividual(nodeId);
-        }
-        OWLAnonymousIndividual toReturn = map.get(nodeId);
-        if (toReturn == null) {
-            toReturn = df.getOWLAnonymousIndividual();
-            map.put(nodeId, toReturn);
-        }
-        return toReturn;
+  @Override
+  public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
+    if (!cf.shouldRemapAllAnonymousIndividualsIds()) {
+      return df.getOWLAnonymousIndividual(nodeId);
     }
+    OWLAnonymousIndividual toReturn = map.get(nodeId);
+    if (toReturn == null) {
+      toReturn = df.getOWLAnonymousIndividual();
+      map.put(nodeId, toReturn);
+    }
+    return toReturn;
+  }
 }

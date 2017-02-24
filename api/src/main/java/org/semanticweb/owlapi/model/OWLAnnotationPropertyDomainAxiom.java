@@ -18,59 +18,58 @@ import java.util.stream.Stream;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain" >
  * AnnotationPropertyDomain</a> axiom in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationPropertyDomainAxiom
     extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasDomain<IRI> {
 
-    @Override
-        OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getProperty(), getDomain());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getProperty(), getDomain());
+  }
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), getDomain(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getProperty(), getDomain(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getDomain());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getProperty(), getDomain());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 823;
-    }
+  @Override
+  default int hashIndex() {
+    return 823;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
+  }
 }

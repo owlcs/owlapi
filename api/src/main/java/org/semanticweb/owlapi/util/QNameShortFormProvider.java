@@ -16,54 +16,51 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * A short form provider which creates QNames for entities.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class QNameShortFormProvider implements ShortFormProvider {
 
-    private final NamespaceUtil namespaceUtil = new NamespaceUtil();
+  private final NamespaceUtil namespaceUtil = new NamespaceUtil();
 
-    /**
-     * Creates a QNameShortFormProvider where namespace prefix mappings will
-     * automatically be generated.
-     */
-    public QNameShortFormProvider() {
-        this(new HashMap<String, String>());
-    }
+  /**
+   * Creates a QNameShortFormProvider where namespace prefix mappings will
+   * automatically be generated.
+   */
+  public QNameShortFormProvider() {
+    this(new HashMap<String, String>());
+  }
 
-    /**
-     * Creates a QNameShortFormProvider where the specified map overrides any
-     * auto-generated prefix namespace mappings.
-     * 
-     * @param prefix2Ns
-     *        The map which contains a prefix to namespace mapping. The prefix
-     *        must not have a trailing ":"; if one is there, it will be removed
-     */
-    public QNameShortFormProvider(Map<String, String> prefix2Ns) {
-        checkNotNull(prefix2Ns, "prefix2NamespaceMap cannot be null");
-        prefix2Ns.forEach((key, v) -> namespaceUtil.setPrefix(v, removeColon(key)));
-    }
+  /**
+   * Creates a QNameShortFormProvider where the specified map overrides any
+   * auto-generated prefix namespace mappings.
+   *
+   * @param prefix2Ns The map which contains a prefix to namespace mapping. The prefix must not have
+   * a trailing ":"; if one is there, it will be removed
+   */
+  public QNameShortFormProvider(Map<String, String> prefix2Ns) {
+    checkNotNull(prefix2Ns, "prefix2NamespaceMap cannot be null");
+    prefix2Ns.forEach((key, v) -> namespaceUtil.setPrefix(v, removeColon(key)));
+  }
 
-    protected String removeColon(String key) {
-        int lastChar = key.length() - 1;
-        if (key.charAt(lastChar) == ':') {
-            return key.substring(0, lastChar);
-        }
-        return key;
+  protected String removeColon(String key) {
+    int lastChar = key.length() - 1;
+    if (key.charAt(lastChar) == ':') {
+      return key.substring(0, lastChar);
     }
+    return key;
+  }
 
-    @Override
-    public String getShortForm(OWLEntity entity) {
-        checkNotNull(entity, "entity cannot be null");
-        String namespace = entity.getIRI().getNamespace();
-        String prefix = namespaceUtil.getPrefix(namespace);
-        return entity.getIRI().prefixedBy(prefix + ':');
-    }
+  @Override
+  public String getShortForm(OWLEntity entity) {
+    checkNotNull(entity, "entity cannot be null");
+    String namespace = entity.getIRI().getNamespace();
+    String prefix = namespaceUtil.getPrefix(namespace);
+    return entity.getIRI().prefixedBy(prefix + ':');
+  }
 }

@@ -5,5 +5,5 @@ import org.semanticweb.owlapi.model.IRI;
 @FunctionalInterface
 interface TypeMatcher {
 
-    boolean isTypeStrict(IRI node);
+  boolean isTypeStrict(IRI node);
 }

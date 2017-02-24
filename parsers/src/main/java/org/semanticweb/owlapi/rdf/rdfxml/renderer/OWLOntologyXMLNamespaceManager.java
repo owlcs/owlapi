@@ -12,15 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -37,137 +36,132 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLDocumentFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
  * NamespaceManager (OWLDocumentFormat) this manager will create them.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
-    private final OWLOntology ontology;
-    private final NamespaceUtil namespaceUtil = new NamespaceUtil();
-    private final OWLDocumentFormat ontologyFormat;
+  private final OWLOntology ontology;
+  private final NamespaceUtil namespaceUtil = new NamespaceUtil();
+  private final OWLDocumentFormat ontologyFormat;
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param format
-     *        format
-     */
-    public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
-        super(getDefaultNamespace(ontology, format));
-        this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        ontologyFormat = checkNotNull(format, "format cannot be null");
-        addWellKnownNamespace("skos", Namespaces.SKOS.toString());
-        addWellKnownNamespace("dc", DublinCoreVocabulary.NAME_SPACE);
-        processOntology();
-    }
+  /**
+   * @param ontology ontology
+   * @param format format
+   */
+  public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
+    super(getDefaultNamespace(ontology, format));
+    this.ontology = checkNotNull(ontology, "ontology cannot be null");
+    ontologyFormat = checkNotNull(format, "format cannot be null");
+    addWellKnownNamespace("skos", Namespaces.SKOS.toString());
+    addWellKnownNamespace("dc", DublinCoreVocabulary.NAME_SPACE);
+    processOntology();
+  }
 
-    protected OWLOntology getOntology() {
-        return ontology;
+  /**
+   * Gets a suggested default namespace bases on the ID of an ontology. If the
+   * ontology has an IRI then this IRI will be used to suggest a default
+   * namespace, otherwise, the OWL namespace will be returned as the default
+   * namespace
+   *
+   * @param ontology The ontology
+   * @param format format
+   * @return A suggested default namespace
+   */
+  private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
+    checkNotNull(ontology, "ontology cannot be null");
+    checkNotNull(format, "format cannot be null");
+    if (format instanceof PrefixDocumentFormat) {
+      PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
+      String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
+      if (defaultPrefix != null) {
+        return defaultPrefix;
+      }
     }
+    if (ontology.getOntologyID().isAnonymous()) {
+      // What do we return here? Just return the OWL namespace for now.
+      return Namespaces.OWL.toString();
+    } else {
+      String base = ontology.getOntologyID().getOntologyIRI().get().toString();
+      if (!base.endsWith("#") && !base.endsWith("/")) {
+        base += "#";
+      }
+      return base;
+    }
+  }
 
-    private final void processOntology() {
-        if (ontologyFormat instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat namespaceFormat = (PrefixDocumentFormat) ontologyFormat;
-            Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
-            for (Map.Entry<String, String> e : namespacesByPrefix.entrySet()) {
-                String xmlnsPrefixName = e.getKey().substring(0, e.getKey().length() - 1);
-                namespaceUtil.setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
-            }
-        }
-        if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
-            namespaceUtil.setPrefix(Namespaces.SWRL.toString(), "swrl");
-            namespaceUtil.setPrefix(Namespaces.SWRLB.toString(), "swrlb");
-        }
-        getEntitiesThatRequireNamespaces().forEach(this::processEntity);
-        namespaceUtil.getNamespace2PrefixMap().forEach(this::setOWL2Prefix);
-    }
+  protected OWLOntology getOntology() {
+    return ontology;
+  }
 
-    protected void setOWL2Prefix(String k, String v) {
-        if (!Namespaces.OWL11.inNamespace(k) && !Namespaces.OWL11XML.inNamespace(k)) {
-            setPrefix(v, k);
-        }
+  private final void processOntology() {
+    if (ontologyFormat instanceof PrefixDocumentFormat) {
+      PrefixDocumentFormat namespaceFormat = (PrefixDocumentFormat) ontologyFormat;
+      Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
+      for (Map.Entry<String, String> e : namespacesByPrefix.entrySet()) {
+        String xmlnsPrefixName = e.getKey().substring(0, e.getKey().length() - 1);
+        namespaceUtil.setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
+      }
     }
+    if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
+      namespaceUtil.setPrefix(Namespaces.SWRL.toString(), "swrl");
+      namespaceUtil.setPrefix(Namespaces.SWRLB.toString(), "swrlb");
+    }
+    getEntitiesThatRequireNamespaces().forEach(this::processEntity);
+    namespaceUtil.getNamespace2PrefixMap().forEach(this::setOWL2Prefix);
+  }
 
-    protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        Set<OWLEntity> result = new HashSet<>();
-        add(result, ontology.classesInSignature());
-        add(result, ontology.objectPropertiesInSignature());
-        add(result, ontology.dataPropertiesInSignature());
-        add(result, ontology.individualsInSignature());
-        add(result, ontology.annotationPropertiesInSignature());
-        return result;
+  protected void setOWL2Prefix(String k, String v) {
+    if (!Namespaces.OWL11.inNamespace(k) && !Namespaces.OWL11XML.inNamespace(k)) {
+      setPrefix(v, k);
     }
+  }
 
-    private void processEntity(OWLNamedObject entity) {
-        processIRI(checkNotNull(entity, "entity cannot be null").getIRI());
-    }
+  protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
+    Set<OWLEntity> result = new HashSet<>();
+    add(result, ontology.classesInSignature());
+    add(result, ontology.objectPropertiesInSignature());
+    add(result, ontology.dataPropertiesInSignature());
+    add(result, ontology.individualsInSignature());
+    add(result, ontology.annotationPropertiesInSignature());
+    return result;
+  }
 
-    private void processIRI(IRI iri) {
-        String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
-        if (!(ns.isEmpty() || !iri.getRemainder().isPresent())) {
-            namespaceUtil.getPrefix(ns);
-        }
-    }
+  private void processEntity(OWLNamedObject entity) {
+    processIRI(checkNotNull(entity, "entity cannot be null").getIRI());
+  }
 
-    /**
-     * Gets a suggested default namespace bases on the ID of an ontology. If the
-     * ontology has an IRI then this IRI will be used to suggest a default
-     * namespace, otherwise, the OWL namespace will be returned as the default
-     * namespace
-     * 
-     * @param ontology
-     *        The ontology
-     * @param format
-     *        format
-     * @return A suggested default namespace
-     */
-    private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(format, "format cannot be null");
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
-            String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
-            if (defaultPrefix != null) {
-                return defaultPrefix;
-            }
-        }
-        if (ontology.getOntologyID().isAnonymous()) {
-            // What do we return here? Just return the OWL namespace for now.
-            return Namespaces.OWL.toString();
-        } else {
-            String base = ontology.getOntologyID().getOntologyIRI().get().toString();
-            if (!base.endsWith("#") && !base.endsWith("/")) {
-                base += "#";
-            }
-            return base;
-        }
+  private void processIRI(IRI iri) {
+    String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
+    if (!(ns.isEmpty() || !iri.getRemainder().isPresent())) {
+      namespaceUtil.getPrefix(ns);
     }
+  }
 
-    @Override
-    @Nullable
-    public String getQName(String name) {
-        checkNotNull(name, "name cannot be null");
-        String ns = XMLUtils.getNCNamePrefix(name);
-        String fragment = XMLUtils.getNCNameSuffix(name);
-        if (ns.equals(getDefaultNamespace())) {
-            return fragment;
-        }
-        if (name.startsWith("xmlns") || name.startsWith("xml:")) {
-            return name;
-        }
-        if (ns.isEmpty() || fragment == null || fragment.isEmpty()) {
-            // Couldn't split
-            return name;
-        }
-        String prefix = getPrefixForNamespace(ns);
-        if (prefix == null) {
-            return null;
-        }
-        if (prefix.isEmpty()) {
-            return fragment;
-        }
-        return prefix + ":" + fragment;
+  @Override
+  @Nullable
+  public String getQName(String name) {
+    checkNotNull(name, "name cannot be null");
+    String ns = XMLUtils.getNCNamePrefix(name);
+    String fragment = XMLUtils.getNCNameSuffix(name);
+    if (ns.equals(getDefaultNamespace())) {
+      return fragment;
     }
+    if (name.startsWith("xmlns") || name.startsWith("xml:")) {
+      return name;
+    }
+    if (ns.isEmpty() || fragment == null || fragment.isEmpty()) {
+      // Couldn't split
+      return name;
+    }
+    String prefix = getPrefixForNamespace(ns);
+    if (prefix == null) {
+      return null;
+    }
+    if (prefix.isEmpty()) {
+      return fragment;
+    }
+    return prefix + ":" + fragment;
+  }
 }

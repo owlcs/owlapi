@@ -14,25 +14,25 @@ package org.semanticweb.owlapi.model.parameters;
 
 /**
  * Parameters for ontology copying across managers.
- * 
+ *
  * @since 4.0.0
  */
 public enum OntologyCopy {
-    /**
-     * the ontology copy will create a new OWLOntology instance with same
-     * ontology annotations, same ID and same axioms. Format, document IRI will
-     * not be copied over.
-     */
-    SHALLOW,
-    /**
-     * the ontology copy will create a new OWLOntology instance with same
-     * ontology annotations, same ID and same axioms. Format, document IRI will
-     * be copied over.
-     */
-    DEEP,
-    /**
-     * the ontology copy will remove the ontology from the previous manager.
-     * Format, document IRI will be removed from the previous manager.
-     */
-    MOVE
+  /**
+   * the ontology copy will create a new OWLOntology instance with same
+   * ontology annotations, same ID and same axioms. Format, document IRI will
+   * not be copied over.
+   */
+  SHALLOW,
+  /**
+   * the ontology copy will create a new OWLOntology instance with same
+   * ontology annotations, same ID and same axioms. Format, document IRI will
+   * be copied over.
+   */
+  DEEP,
+  /**
+   * the ontology copy will remove the ontology from the previous manager.
+   * Format, document IRI will be removed from the previous manager.
+   */
+  MOVE
 }

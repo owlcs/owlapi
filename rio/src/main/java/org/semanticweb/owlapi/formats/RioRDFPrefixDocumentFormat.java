@@ -38,9 +38,7 @@ package org.semanticweb.owlapi.formats;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
@@ -48,61 +46,61 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
 /**
  * This format is designed to encapsulate any Sesame Rio RDFFormat within
  * RDFOntologyFormat, and more generally OWLDocumentFormat. <br>
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat implements MIMETypeAware,
+public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat implements
+    MIMETypeAware,
     RioRDFDocumentFormat {
 
-    private transient RDFFormat format;
-    private final String formatName;
+  private final String formatName;
+  private transient RDFFormat format;
 
-    /**
-     * Constructor for super-classes to specify which
-     * {@link RDFFormat} they support.
-     * 
-     * @param format
-     *        The {@link RDFFormat} that this instance supports.
-     */
-    public RioRDFPrefixDocumentFormat(RDFFormat format) {
-        this.format = format;
-        formatName = this.format.getName();
-    }
+  /**
+   * Constructor for super-classes to specify which
+   * {@link RDFFormat} they support.
+   *
+   * @param format The {@link RDFFormat} that this instance supports.
+   */
+  public RioRDFPrefixDocumentFormat(RDFFormat format) {
+    this.format = format;
+    formatName = this.format.getName();
+  }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
-            if (f.getName().equals(formatName)) {
-                format = f;
-                return;
-            }
-        }
+  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+    for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
+      if (f.getName().equals(formatName)) {
+        format = f;
+        return;
+      }
     }
+  }
 
-    @Override
-    public String getKey() {
-        return format.getName();
-    }
+  @Override
+  public String getKey() {
+    return format.getName();
+  }
 
-    @Override
-    public RDFFormat getRioFormat() {
-        return format;
-    }
+  @Override
+  public RDFFormat getRioFormat() {
+    return format;
+  }
 
-    @Override
-    @Nullable
-    public String getDefaultMIMEType() {
-        return format.getDefaultMIMEType();
-    }
+  @Override
+  @Nullable
+  public String getDefaultMIMEType() {
+    return format.getDefaultMIMEType();
+  }
 
-    @Override
-    public List<String> getMIMETypes() {
-        return format.getMIMETypes();
-    }
+  @Override
+  public List<String> getMIMETypes() {
+    return format.getMIMETypes();
+  }
 
-    @Override
-    public boolean handlesMimeType(String mimeType) {
-        return format.hasMIMEType(mimeType);
-    }
+  @Override
+  public boolean handlesMimeType(String mimeType) {
+    return format.hasMIMEType(mimeType);
+  }
 }

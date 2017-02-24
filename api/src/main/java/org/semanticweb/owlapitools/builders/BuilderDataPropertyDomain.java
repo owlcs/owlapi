@@ -13,40 +13,39 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
-/** Builder class for OWLDataPropertyDomainAxiom. */
+/**
+ * Builder class for OWLDataPropertyDomainAxiom.
+ */
 public class BuilderDataPropertyDomain extends
     BaseDomainBuilder<OWLDataPropertyDomainAxiom, BuilderDataPropertyDomain, OWLDataPropertyExpression> implements
     SettableProperty<OWLDataPropertyExpression, BuilderDataPropertyDomain> {
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDataPropertyDomain(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDataPropertyDomain(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDataPropertyDomain(OWLDataPropertyDomainAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withDomain(expected.getDomain()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDataPropertyDomain(OWLDataPropertyDomainAxiom expected, OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withDomain(expected.getDomain())
+        .withAnnotations(expected.annotations());
+  }
 
-    @Override
-    public OWLDataPropertyDomainAxiom buildObject() {
-        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain(), annotations);
-    }
+  @Override
+  public OWLDataPropertyDomainAxiom buildObject() {
+    return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain(), annotations);
+  }
 }

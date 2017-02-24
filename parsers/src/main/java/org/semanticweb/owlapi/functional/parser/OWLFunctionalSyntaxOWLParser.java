@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.functional.parser;
 
 import java.io.IOException;
 import java.io.Reader;
-
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.DocumentSources;
@@ -27,28 +26,27 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new FunctionalSyntaxDocumentFormatFactory();
-    }
+  @Override
+  public OWLDocumentFormatFactory getSupportedFormat() {
+    return new FunctionalSyntaxDocumentFormatFactory();
+  }
 
-    @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-        OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new StreamProvider(r));
-            parser.setUp(ontology, config);
-            return parser.parse();
-        } catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e, 0, 0);
-        } catch (OWLOntologyInputSourceException | IOException e) {
-            throw new OWLParserException(e);
-        }
+  @Override
+  public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
+      OWLOntologyLoaderConfiguration config) {
+    try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
+      OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(new StreamProvider(r));
+      parser.setUp(ontology, config);
+      return parser.parse();
+    } catch (ParseException e) {
+      throw new OWLParserException(e.getMessage(), e, 0, 0);
+    } catch (OWLOntologyInputSourceException | IOException e) {
+      throw new OWLParserException(e);
     }
+  }
 }

@@ -13,38 +13,36 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
-/** Builder class for OWLObjectOneOf. */
+/**
+ * Builder class for OWLObjectOneOf.
+ */
 public class BuilderOneOf extends BaseSetBuilder<OWLObjectOneOf, BuilderOneOf, OWLIndividual> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderOneOf(OWLObjectOneOf expected, OWLDataFactory df) {
-        this(df);
-        withItems(expected.individuals());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderOneOf(OWLObjectOneOf expected, OWLDataFactory df) {
+    this(df);
+    withItems(expected.individuals());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderOneOf(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderOneOf(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLObjectOneOf buildObject() {
-        return df.getOWLObjectOneOf(items);
-    }
+  @Override
+  public OWLObjectOneOf buildObject() {
+    return df.getOWLObjectOneOf(items);
+  }
 }

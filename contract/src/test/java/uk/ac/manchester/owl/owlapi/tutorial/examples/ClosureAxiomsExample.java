@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
 /**
@@ -35,49 +34,45 @@ import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
  * definition of the given class. For each of these, if the superclass is a
  * conjunction of existential restrictions, then an additional subclass axiom
  * will be added to the ontology, "closing" the restrictions.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 public class ClosureAxiomsExample {
 
-    /**
-     * @param inputOntology
-     *        input ontology IRI
-     * @param outputOntology
-     *        output ontology IRI
-     * @param classToClose
-     *        the class to compute the closure of
-     * @throws OWLException
-     *         if an exception is raised
-     */
-    public void closure(String inputOntology, String outputOntology, String classToClose) throws OWLException {
+  /**
+   * @param inputOntology input ontology IRI
+   * @param outputOntology output ontology IRI
+   * @param classToClose the class to compute the closure of
+   * @throws OWLException if an exception is raised
+   */
+  public void closure(String inputOntology, String outputOntology, String classToClose)
+      throws OWLException {
         /* Create and Ontology Manager */
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        IRI documentIRI = IRI.create(inputOntology);
-        IRI classIRI = IRI.create(classToClose);
-        IRI outputDocumentIRI = IRI.create(outputOntology);
+    OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+    IRI documentIRI = IRI.create(inputOntology);
+    IRI classIRI = IRI.create(classToClose);
+    IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology */
-        System.out.println("Loading: " + documentIRI);
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
-        System.out.println("Ontology Loaded...");
-        System.out.println("Logical URI : " + documentIRI);
-        System.out.println("Document IRI: " + ontology.getOntologyID());
-        System.out.println("Format      : " + ontology.getFormat());
-        ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
-        OWLClass clazz = Class(classIRI);
-        System.out.println("Class URI   : " + classIRI);
-        System.out.println(clazz);
+    System.out.println("Loading: " + documentIRI);
+    OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
+    System.out.println("Ontology Loaded...");
+    System.out.println("Logical URI : " + documentIRI);
+    System.out.println("Document IRI: " + ontology.getOntologyID());
+    System.out.println("Format      : " + ontology.getFormat());
+    ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
+    OWLClass clazz = Class(classIRI);
+    System.out.println("Class URI   : " + classIRI);
+    System.out.println(clazz);
         /* Add the closure axioms */
-        closureAxioms.addClosureAxioms(clazz);
+    closureAxioms.addClosureAxioms(clazz);
         /* Now save a copy to another location */
-        System.out.println("Saving: " + outputDocumentIRI);
-        manager.saveOntology(ontology, outputDocumentIRI);
-        System.out.println("Ontology Saved...");
-        System.out.println("Document IRI : " + outputDocumentIRI);
+    System.out.println("Saving: " + outputDocumentIRI);
+    manager.saveOntology(ontology, outputDocumentIRI);
+    System.out.println("Ontology Saved...");
+    System.out.println("Document IRI : " + outputDocumentIRI);
         /* Remove the ontology from the manager */
-        manager.removeOntology(ontology);
-        System.out.println("Done");
-    }
+    manager.removeOntology(ontology);
+    System.out.println("Done");
+  }
 }

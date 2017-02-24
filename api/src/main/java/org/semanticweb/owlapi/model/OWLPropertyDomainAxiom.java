@@ -18,29 +18,26 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
  * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <P> property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param
- *        <P>
- *        property expression
  */
 public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
     extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut, HasDomain<OWLClassExpression> {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), getDomain(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getProperty(), getDomain(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getProperty(), getDomain());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getProperty(), getDomain());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getDomain());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getProperty(), getDomain());
+  }
 }

@@ -13,13 +13,16 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,74 +36,76 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class RendererAndParserTestCase extends TestBase {
 
-    private final AxiomBuilder axioms;
+  private final AxiomBuilder axioms;
 
-    public RendererAndParserTestCase(AxiomBuilder b) {
-        axioms = b;
-    }
+  public RendererAndParserTestCase(AxiomBuilder b) {
+    axioms = b;
+  }
 
-    @Parameters
-    public static List<AxiomBuilder> getData() {
-        return Arrays.asList(
-            // AnonymousIndividual
-            () -> singleton(df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(createClass()),
-                createIndividual())),
-            // ClassAssertionAxioms
-            () -> singleton(df.getOWLClassAssertionAxiom(createClass(), createIndividual())),
-            // DifferentIndividualsAxiom
-            () -> singleton(df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
-                createIndividual(), createIndividual(), createIndividual())),
-            // EquivalentClasses
-            () -> singleton(df.getOWLEquivalentClassesAxiom(createClass(), df.getOWLObjectSomeValuesFrom(
+  @Parameters
+  public static List<AxiomBuilder> getData() {
+    return Arrays.asList(
+        // AnonymousIndividual
+        () -> singleton(df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(createClass()),
+            createIndividual())),
+        // ClassAssertionAxioms
+        () -> singleton(df.getOWLClassAssertionAxiom(createClass(), createIndividual())),
+        // DifferentIndividualsAxiom
+        () -> singleton(df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
+            createIndividual(), createIndividual(), createIndividual())),
+        // EquivalentClasses
+        () -> singleton(
+            df.getOWLEquivalentClassesAxiom(createClass(), df.getOWLObjectSomeValuesFrom(
                 createObjectProperty(), df.getOWLThing()))),
-            // NegativeDataPropertyAssertionAxiom
-            () -> singleton(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(), df
+        // NegativeDataPropertyAssertionAxiom
+        () -> singleton(
+            df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(), df
                 .getOWLLiteral("TestConstant"))),
-            // NegativeObjectPropertyAssertionAxiom
-            () -> singleton(df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(), createIndividual(),
-                createIndividual())),
-            // QCR
-            () -> singleton(df.getOWLSubClassOfAxiom(createClass(), df.getOWLObjectMinCardinality(3,
-                createObjectProperty(), df.getOWLObjectIntersectionOf(createClass(), createClass())))));
-    }
+        // NegativeObjectPropertyAssertionAxiom
+        () -> singleton(df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(),
+            createIndividual(),
+            createIndividual())),
+        // QCR
+        () -> singleton(df.getOWLSubClassOfAxiom(createClass(), df.getOWLObjectMinCardinality(3,
+            createObjectProperty(), df.getOWLObjectIntersectionOf(createClass(), createClass())))));
+  }
 
-    @Before
-    public void setUpManager() {
-        m.getOntologyStorers().set(new RDFXMLStorerFactory());
-        m.getOntologyParsers().set(new RDFXMLParserFactory());
-    }
+  @Before
+  public void setUpManager() {
+    m.getOntologyStorers().set(new RDFXMLStorerFactory());
+    m.getOntologyParsers().set(new RDFXMLParserFactory());
+  }
 
-    @Test
-    public void testSaveAndReload() throws Exception {
-        OWLOntology ontA = getOWLOntology();
-        ontA.add(axioms.build());
-        OWLOntology ontB = roundTrip(ontA);
-        Set<OWLLogicalAxiom> aMinusB = asUnorderedSet(ontA.logicalAxioms());
-        aMinusB.removeAll(asList(ontB.axioms()));
-        Set<OWLLogicalAxiom> bMinusA = asUnorderedSet(ontB.logicalAxioms());
-        bMinusA.removeAll(asList(ontA.axioms()));
-        StringBuilder msg = new StringBuilder();
-        if (aMinusB.isEmpty() && bMinusA.isEmpty()) {
-            msg.append("Ontology save/load roundtrip OK.\n");
-        } else {
-            msg.append("Ontology save/load roundtripping error.\n");
-            msg.append("=> ").append(aMinusB.size()).append(" axioms lost in roundtripping.\n");
-            for (OWLAxiom axiom : aMinusB) {
-                msg.append(axiom).append("\n");
-            }
-            msg.append("=> ").append(bMinusA.size()).append(" axioms added after roundtripping.\n");
-            for (OWLAxiom axiom : bMinusA) {
-                msg.append(axiom).append("\n");
-            }
-        }
-        assertTrue(msg.toString(), aMinusB.isEmpty() && bMinusA.isEmpty());
+  @Test
+  public void testSaveAndReload() throws Exception {
+    OWLOntology ontA = getOWLOntology();
+    ontA.add(axioms.build());
+    OWLOntology ontB = roundTrip(ontA);
+    Set<OWLLogicalAxiom> aMinusB = asUnorderedSet(ontA.logicalAxioms());
+    aMinusB.removeAll(asList(ontB.axioms()));
+    Set<OWLLogicalAxiom> bMinusA = asUnorderedSet(ontB.logicalAxioms());
+    bMinusA.removeAll(asList(ontA.axioms()));
+    StringBuilder msg = new StringBuilder();
+    if (aMinusB.isEmpty() && bMinusA.isEmpty()) {
+      msg.append("Ontology save/load roundtrip OK.\n");
+    } else {
+      msg.append("Ontology save/load roundtripping error.\n");
+      msg.append("=> ").append(aMinusB.size()).append(" axioms lost in roundtripping.\n");
+      for (OWLAxiom axiom : aMinusB) {
+        msg.append(axiom).append("\n");
+      }
+      msg.append("=> ").append(bMinusA.size()).append(" axioms added after roundtripping.\n");
+      for (OWLAxiom axiom : bMinusA) {
+        msg.append(axiom).append("\n");
+      }
     }
+    assertTrue(msg.toString(), aMinusB.isEmpty() && bMinusA.isEmpty());
+  }
 }

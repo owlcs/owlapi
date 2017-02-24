@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -21,38 +20,36 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     */
-    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
-        super(ontology, axiom, axiom);
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   */
+  public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology,
+      OWLSubDataPropertyOfAxiom axiom) {
+    super(ontology, axiom, axiom);
+  }
 
-    @Override
-    public OWLSubDataPropertyOfAxiom getExpression() {
-        return (OWLSubDataPropertyOfAxiom) super.getExpression();
-    }
+  @Override
+  public OWLSubDataPropertyOfAxiom getExpression() {
+    return (OWLSubDataPropertyOfAxiom) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Use of owl:topDataProperty as sub-property in SubDataPropertyOf axiom");
-    }
+  @Override
+  public String toString() {
+    return toString("Use of owl:topDataProperty as sub-property in SubDataPropertyOf axiom");
+  }
 }

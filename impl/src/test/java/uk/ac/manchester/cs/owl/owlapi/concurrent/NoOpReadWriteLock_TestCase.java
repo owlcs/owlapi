@@ -11,23 +11,23 @@ import org.junit.Test;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class NoOpReadWriteLock_TestCase {
 
-    private NoOpReadWriteLock lock;
+  private NoOpReadWriteLock lock;
 
-    @Before
-    public void setUp() {
-        lock = new NoOpReadWriteLock();
-    }
+  @Before
+  public void setUp() {
+    lock = new NoOpReadWriteLock();
+  }
 
-    @Test
-    public void shouldNotReturnNullForReadLock() {
-        assertThat(lock.readLock(), is(not(nullValue())));
-    }
+  @Test
+  public void shouldNotReturnNullForReadLock() {
+    assertThat(lock.readLock(), is(not(nullValue())));
+  }
 
-    @Test
-    public void shouldNotReturnNullForWriteLock() {
-        assertThat(lock.writeLock(), is(not(nullValue())));
-    }
+  @Test
+  public void shouldNotReturnNullForWriteLock() {
+    assertThat(lock.writeLock(), is(not(nullValue())));
+  }
 }

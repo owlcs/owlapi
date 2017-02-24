@@ -13,66 +13,64 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nonnull;
 
 /**
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Range" >
  * AnnotationPropertyRange</a> axiom in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationPropertyRangeAxiom
     extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
 
-    @Override
-        OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getProperty(), getRange());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getProperty(), getRange());
+  }
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), getRange(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getProperty(), getRange(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty(), getRange());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getProperty(), getRange());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 827;
-    }
+  @Override
+  default int hashIndex() {
+    return 827;
+  }
 
-    @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(@Nonnull OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.ANNOTATION_PROPERTY_RANGE;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.ANNOTATION_PROPERTY_RANGE;
+  }
 }

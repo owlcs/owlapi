@@ -43,10 +43,10 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class NTriplesDocumentFormat extends RioRDFNonPrefixDocumentFormat {
 
-    /**
-     * RDF format for {@link RDFFormat#NTRIPLES} documents.
-     */
-    public NTriplesDocumentFormat() {
-        super(RDFFormat.NTRIPLES);
-    }
+  /**
+   * RDF format for {@link RDFFormat#NTRIPLES} documents.
+   */
+  public NTriplesDocumentFormat() {
+    super(RDFFormat.NTRIPLES);
+  }
 }

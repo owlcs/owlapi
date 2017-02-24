@@ -16,62 +16,57 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
 
-    private final OWLClassExpression subClass;
-    private final OWLClassExpression superClass;
+  private final OWLClassExpression subClass;
+  private final OWLClassExpression superClass;
 
-    /**
-     * @param subClass
-     *        subclass
-     * @param superClass
-     *        superclass
-     * @param annotations
-     *        annotations
-     */
-    public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.subClass = checkNotNull(subClass, "subClass cannot be null");
-        this.superClass = checkNotNull(superClass, "superClass cannot be null");
-    }
+  /**
+   * @param subClass subclass
+   * @param superClass superclass
+   * @param annotations annotations
+   */
+  public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.subClass = checkNotNull(subClass, "subClass cannot be null");
+    this.superClass = checkNotNull(superClass, "superClass cannot be null");
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(anns));
+  }
 
-    @Override
-    public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLSubClassOfAxiomImpl(subClass, superClass, NO_ANNOTATIONS);
+  @Override
+  public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLSubClassOfAxiomImpl(subClass, superClass, NO_ANNOTATIONS);
+  }
 
-    @Override
-    public OWLClassExpression getSubClass() {
-        return subClass;
-    }
+  @Override
+  public OWLClassExpression getSubClass() {
+    return subClass;
+  }
 
-    @Override
-    public OWLClassExpression getSuperClass() {
-        return superClass;
-    }
+  @Override
+  public OWLClassExpression getSuperClass() {
+    return superClass;
+  }
 
-    @Override
-    public boolean isGCI() {
-        return subClass.isAnonymous();
-    }
+  @Override
+  public boolean isGCI() {
+    return subClass.isAnonymous();
+  }
 }

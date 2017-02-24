@@ -16,59 +16,58 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
-/** Builder class for OWLDatatypeRestriction. */
+/**
+ * Builder class for OWLDatatypeRestriction.
+ */
 public class BuilderDatatypeRestriction
-    extends BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
+    extends
+    BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
 
-    @Nullable private OWLDatatype type = null;
+  @Nullable
+  private OWLDatatype type = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDatatypeRestriction(OWLDatatypeRestriction expected, OWLDataFactory df) {
-        this(df);
-        withDatatype(expected.getDatatype()).withItems(expected.facetRestrictions());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDatatypeRestriction(OWLDatatypeRestriction expected, OWLDataFactory df) {
+    this(df);
+    withDatatype(expected.getDatatype()).withItems(expected.facetRestrictions());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDatatypeRestriction(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDatatypeRestriction(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
-    public BuilderDatatypeRestriction withDatatype(OWLDatatype arg) {
-        type = arg;
-        return this;
-    }
+  /**
+   * @param arg range
+   * @return builder
+   */
+  public BuilderDatatypeRestriction withDatatype(OWLDatatype arg) {
+    type = arg;
+    return this;
+  }
 
-    @Override
-    public OWLDatatypeRestriction buildObject() {
-        return df.getOWLDatatypeRestriction(getType(), items);
-    }
+  @Override
+  public OWLDatatypeRestriction buildObject() {
+    return df.getOWLDatatypeRestriction(getType(), items);
+  }
 
-    /**
-     * @return type
-     */
-    public OWLDatatype getType() {
-        return verifyNotNull(type);
-    }
+  /**
+   * @return type
+   */
+  public OWLDatatype getType() {
+    return verifyNotNull(type);
+  }
 }

@@ -15,7 +15,6 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -29,33 +28,33 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
  * restriction to the collection. <br>
  * The visitor returns a map of properties to collections of fillers using that
  * property.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
 public class ExistentialCollector implements OWLClassExpressionVisitor {
 
-    /* Collected axioms */
-    private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
+  /* Collected axioms */
+  private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
-    public ExistentialCollector(Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
-        this.restrictions = restrictions;
-    }
+  public ExistentialCollector(
+      Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
+    this.restrictions = restrictions;
+  }
 
-    @Override
-    public void visit(OWLObjectIntersectionOf ce) {
-        ce.operands().forEach(o -> o.accept(this));
-    }
+  @Override
+  public void visit(OWLObjectIntersectionOf ce) {
+    ce.operands().forEach(o -> o.accept(this));
+  }
 
-    @Override
-    public void visit(OWLObjectSomeValuesFrom ce) {
-        Set<OWLClassExpression> fillers = restrictions.get(ce.getProperty());
-        if (fillers == null) {
-            fillers = new HashSet<>();
-            restrictions.put(ce.getProperty(), fillers);
-        }
-        fillers.add(ce.getFiller());
+  @Override
+  public void visit(OWLObjectSomeValuesFrom ce) {
+    Set<OWLClassExpression> fillers = restrictions.get(ce.getProperty());
+    if (fillers == null) {
+      fillers = new HashSet<>();
+      restrictions.put(ce.getProperty(), fillers);
     }
+    fillers.add(ce.getFiller());
+  }
 }

@@ -13,65 +13,61 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.RemoveImportData;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class RemoveImport extends ImportChange {
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param importDeclaration
-     *        the import declaration
-     */
-    public RemoveImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
-        super(ont, importDeclaration);
-    }
+  /**
+   * @param ont the ontology to which the change is to be applied
+   * @param importDeclaration the import declaration
+   */
+  public RemoveImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
+    super(ont, importDeclaration);
+  }
 
-    @Override
-    public RemoveImportData getChangeData() {
-        return new RemoveImportData(getImportDeclaration());
-    }
+  @Override
+  public RemoveImportData getChangeData() {
+    return new RemoveImportData(getImportDeclaration());
+  }
 
-    @Override
-    public int hashCode() {
-        return getOntology().hashCode() * 37 + getImportDeclaration().hashCode() + 3;
-    }
+  @Override
+  public int hashCode() {
+    return getOntology().hashCode() * 37 + getImportDeclaration().hashCode() + 3;
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof RemoveImport)) {
-            return false;
-        }
-        RemoveImport other = (RemoveImport) obj;
-        return getImportDeclaration().equals(other.getImportDeclaration());
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
+    if (!(obj instanceof RemoveImport)) {
+      return false;
+    }
+    RemoveImport other = (RemoveImport) obj;
+    return getImportDeclaration().equals(other.getImportDeclaration());
+  }
 
-    @Override
-    public String toString() {
-        return String.format("RemoveImport(%s)", getImportDeclaration());
-    }
+  @Override
+  public String toString() {
+    return String.format("RemoveImport(%s)", getImportDeclaration());
+  }
 
-    @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLOntologyChangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public OWLOntologyChange reverseChange() {
-        return new AddImport(getOntology(), getImportDeclaration());
-    }
+  @Override
+  public OWLOntologyChange reverseChange() {
+    return new AddImport(getOntology(), getImportDeclaration());
+  }
 }

@@ -42,13 +42,15 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class RDFJsonDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
-    public RDFJsonDocumentFormatFactory() {
-        super(RDFFormat.RDFJSON);
-    }
+  /**
+   * Default constructor.
+   */
+  public RDFJsonDocumentFormatFactory() {
+    super(RDFFormat.RDFJSON);
+  }
 
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new RDFJsonDocumentFormat();
-    }
+  @Override
+  public RioRDFDocumentFormat createFormat() {
+    return new RDFJsonDocumentFormat();
+  }
 }

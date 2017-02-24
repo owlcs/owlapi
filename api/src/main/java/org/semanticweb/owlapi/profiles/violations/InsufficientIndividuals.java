@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -27,28 +25,26 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  */
 public class InsufficientIndividuals extends OWLProfileViolation {
 
-    /**
-     * @param currentOntology
-     *        currentOntology
-     * @param node
-     *        node
-     */
-    public InsufficientIndividuals(OWLOntology currentOntology, @Nullable OWLAxiom node) {
-        super(currentOntology, node, null);
-    }
+  /**
+   * @param currentOntology currentOntology
+   * @param node node
+   */
+  public InsufficientIndividuals(OWLOntology currentOntology, @Nullable OWLAxiom node) {
+    super(currentOntology, node, null);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Not enough individuals; at least two needed");
-    }
+  @Override
+  public String toString() {
+    return toString("Not enough individuals; at least two needed");
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

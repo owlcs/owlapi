@@ -14,96 +14,88 @@ package org.semanticweb.owlapi.reasoner;
 
 /**
  * A simple configuration with the general options.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
 
-    private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
-    private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
-    private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
-    private long timeOut = Long.MAX_VALUE;
+  private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
+  private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
+  private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
+  private long timeOut = Long.MAX_VALUE;
 
-    /** Default constructor. */
-    public SimpleConfiguration() {
-        super();
-    }
+  /**
+   * Default constructor.
+   */
+  public SimpleConfiguration() {
+    super();
+  }
 
-    /**
-     * @param progressMonitor
-     *        the progress monitor to use
-     */
-    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor) {
-        this.progressMonitor = progressMonitor;
-    }
+  /**
+   * @param progressMonitor the progress monitor to use
+   */
+  public SimpleConfiguration(ReasonerProgressMonitor progressMonitor) {
+    this.progressMonitor = progressMonitor;
+  }
 
-    /**
-     * @param progressMonitor
-     *        the progress monitor to use
-     * @param timeOut
-     *        the timeout in milliseconds
-     */
-    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, long timeOut) {
-        this.progressMonitor = progressMonitor;
-        this.timeOut = timeOut;
-    }
+  /**
+   * @param progressMonitor the progress monitor to use
+   * @param timeOut the timeout in milliseconds
+   */
+  public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, long timeOut) {
+    this.progressMonitor = progressMonitor;
+    this.timeOut = timeOut;
+  }
 
-    /**
-     * @param progressMonitor
-     *        the progress monitor to use
-     * @param freshEntityPolicy
-     *        the policy for fresh entities
-     * @param timeOut
-     *        the timeout in milliseconds
-     * @param individualNodeSetPolicy
-     *        the policy for individual nodes
-     */
-    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, FreshEntityPolicy freshEntityPolicy,
-        long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
-        this.progressMonitor = progressMonitor;
-        this.freshEntityPolicy = freshEntityPolicy;
-        this.timeOut = timeOut;
-        this.individualNodeSetPolicy = individualNodeSetPolicy;
-    }
+  /**
+   * @param progressMonitor the progress monitor to use
+   * @param freshEntityPolicy the policy for fresh entities
+   * @param timeOut the timeout in milliseconds
+   * @param individualNodeSetPolicy the policy for individual nodes
+   */
+  public SimpleConfiguration(ReasonerProgressMonitor progressMonitor,
+      FreshEntityPolicy freshEntityPolicy,
+      long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
+    this.progressMonitor = progressMonitor;
+    this.freshEntityPolicy = freshEntityPolicy;
+    this.timeOut = timeOut;
+    this.individualNodeSetPolicy = individualNodeSetPolicy;
+  }
 
-    /**
-     * @param freshEntityPolicy
-     *        the policy for fresh entities
-     * @param timeOut
-     *        the timeout in milliseconds
-     */
-    public SimpleConfiguration(FreshEntityPolicy freshEntityPolicy, long timeOut) {
-        this.freshEntityPolicy = freshEntityPolicy;
-        this.timeOut = timeOut;
-    }
+  /**
+   * @param freshEntityPolicy the policy for fresh entities
+   * @param timeOut the timeout in milliseconds
+   */
+  public SimpleConfiguration(FreshEntityPolicy freshEntityPolicy, long timeOut) {
+    this.freshEntityPolicy = freshEntityPolicy;
+    this.timeOut = timeOut;
+  }
 
-    /**
-     * @param timeOut
-     *        the timeout in milliseconds
-     */
-    public SimpleConfiguration(long timeOut) {
-        this.timeOut = timeOut;
-    }
+  /**
+   * @param timeOut the timeout in milliseconds
+   */
+  public SimpleConfiguration(long timeOut) {
+    this.timeOut = timeOut;
+  }
 
-    @Override
-    public ReasonerProgressMonitor getProgressMonitor() {
-        return progressMonitor;
-    }
+  @Override
+  public ReasonerProgressMonitor getProgressMonitor() {
+    return progressMonitor;
+  }
 
-    @Override
-    public long getTimeOut() {
-        return timeOut;
-    }
+  @Override
+  public long getTimeOut() {
+    return timeOut;
+  }
 
-    @Override
-    public FreshEntityPolicy getFreshEntityPolicy() {
-        return freshEntityPolicy;
-    }
+  @Override
+  public FreshEntityPolicy getFreshEntityPolicy() {
+    return freshEntityPolicy;
+  }
 
-    @Override
-    public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
-        return individualNodeSetPolicy;
-    }
+  @Override
+  public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+    return individualNodeSetPolicy;
+  }
 }

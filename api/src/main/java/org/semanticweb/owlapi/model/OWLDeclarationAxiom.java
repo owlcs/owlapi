@@ -20,63 +20,62 @@ import java.util.stream.Stream;
  * Declaration</a> in the OWL 2 Specification. <br>
  * A declaration axiom declares an entity in an ontology. It doesn't affect the
  * logical meaning of the ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDeclarationAxiom extends OWLAxiom {
 
-    @Override
-        OWLDeclarationAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLDeclarationAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 23;
-    }
+  @Override
+  default int hashIndex() {
+    return 23;
+  }
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getEntity(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getEntity(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getEntity());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getEntity());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getEntity());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getEntity());
+  }
 
-    /**
-     * @return The entity that is declared by this axiom.
-     */
-    OWLEntity getEntity();
+  /**
+   * @return The entity that is declared by this axiom.
+   */
+  OWLEntity getEntity();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.DECLARATION;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.DECLARATION;
+  }
 }

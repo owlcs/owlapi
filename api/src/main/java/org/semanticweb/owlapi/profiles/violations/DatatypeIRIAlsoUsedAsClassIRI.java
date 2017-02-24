@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,49 +29,45 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 /**
  * Specifies that an IRI that is used for a datatype is also used for a class
  * IRI.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param iri
-     *        iri
-     */
-    public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom, IRI iri) {
-        super(ontology, checkNotNull(axiom), iri);
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param iri iri
+   */
+  public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom, IRI iri) {
+    super(ontology, checkNotNull(axiom), iri);
+  }
 
-    @Override
-    public IRI getExpression() {
-        return (IRI) super.getExpression();
-    }
+  @Override
+  public IRI getExpression() {
+    return (IRI) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Datatype IRI also used as Class IRI: %s", getExpression());
-    }
+  @Override
+  public String toString() {
+    return toString("Datatype IRI also used as Class IRI: %s", getExpression());
+  }
 
-    @Override
-    public List<OWLOntologyChange> repair() {
-        // XXX arbitrary decision: drop the axiom
-        // better fix would be to look for usage and remove the smallest number
-        // of axioms
-        return list(new RemoveAxiom(ontology, getAxiom()));
-    }
+  @Override
+  public List<OWLOntologyChange> repair() {
+    // XXX arbitrary decision: drop the axiom
+    // better fix would be to look for usage and remove the smallest number
+    // of axioms
+    return list(new RemoveAxiom(ontology, getAxiom()));
+  }
 }

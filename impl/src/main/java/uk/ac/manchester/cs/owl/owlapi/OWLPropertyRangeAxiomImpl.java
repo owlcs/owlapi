@@ -15,41 +15,34 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property type
+ * @param <R> range type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
- * @param <R>
- *        range type
  */
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends
     OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
 
-    private final R range;
+  private final R range;
 
-    /**
-     * @param property
-     *        property
-     * @param range
-     *        range
-     * @param annotations
-     *        annotations
-     */
-    public OWLPropertyRangeAxiomImpl(P property, R range, Collection<OWLAnnotation> annotations) {
-        super(property, annotations);
-        this.range = checkNotNull(range, "range cannot be null");
-    }
+  /**
+   * @param property property
+   * @param range range
+   * @param annotations annotations
+   */
+  public OWLPropertyRangeAxiomImpl(P property, R range, Collection<OWLAnnotation> annotations) {
+    super(property, annotations);
+    this.range = checkNotNull(range, "range cannot be null");
+  }
 
-    @Override
-    public R getRange() {
-        return range;
-    }
+  @Override
+  public R getRange() {
+    return range;
+  }
 }

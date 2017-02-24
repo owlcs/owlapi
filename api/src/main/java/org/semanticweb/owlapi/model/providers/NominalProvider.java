@@ -12,82 +12,78 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
-/** Nominal provider interface. */
+/**
+ * Nominal provider interface.
+ */
 public interface NominalProvider {
 
-    /**
-     * Gets an OWLDataOneOf <a href=
-     * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
-     * >(see spec)</a>
-     * 
-     * @param values
-     *        The set of values that the data one of should contain.
-     * @return A data one of that enumerates the specified set of values
-     */
-    OWLDataOneOf getOWLDataOneOf(Stream<? extends OWLLiteral> values);
+  /**
+   * Gets an OWLDataOneOf <a href=
+   * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
+   * >(see spec)</a>
+   *
+   * @param values The set of values that the data one of should contain.
+   * @return A data one of that enumerates the specified set of values
+   */
+  OWLDataOneOf getOWLDataOneOf(Stream<? extends OWLLiteral> values);
 
-    /**
-     * Gets an OWLDataOneOf <a href=
-     * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
-     * >(see spec)</a>
-     * 
-     * @param values
-     *        The set of values that the data one of should contain.
-     * @return A data one of that enumerates the specified set of values
-     */
-    default OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values) {
-        checkIterableNotNull(values, "values cannot be null or contain null or empty", false);
-        return getOWLDataOneOf(values.stream());
-    }
+  /**
+   * Gets an OWLDataOneOf <a href=
+   * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
+   * >(see spec)</a>
+   *
+   * @param values The set of values that the data one of should contain.
+   * @return A data one of that enumerates the specified set of values
+   */
+  default OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values) {
+    checkIterableNotNull(values, "values cannot be null or contain null or empty", false);
+    return getOWLDataOneOf(values.stream());
+  }
 
-    /**
-     * Gets an OWLDataOneOf <a href=
-     * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
-     * >(see spec)</a>
-     * 
-     * @param values
-     *        The set of values that the data one of should contain. Cannot be
-     *        null or contain null values.
-     * @return A data one of that enumerates the specified set of values
-     */
-    default OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
-        checkIterableNotNull(values, "values cannot be null", true);
-        return getOWLDataOneOf(Stream.of(values));
-    }
+  /**
+   * Gets an OWLDataOneOf <a href=
+   * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
+   * >(see spec)</a>
+   *
+   * @param values The set of values that the data one of should contain. Cannot be null or contain
+   * null values.
+   * @return A data one of that enumerates the specified set of values
+   */
+  default OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
+    checkIterableNotNull(values, "values cannot be null", true);
+    return getOWLDataOneOf(Stream.of(values));
+  }
 
-    /**
-     * @param values
-     *        indivudals for restriction. Cannot be null or contain nulls.
-     * @return a OneOf expression on specified individuals
-     */
-    OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values);
+  /**
+   * @param values indivudals for restriction. Cannot be null or contain nulls.
+   * @return a OneOf expression on specified individuals
+   */
+  OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values);
 
-    /**
-     * @param values
-     *        indivudals for restriction. Cannot be null or contain nulls.
-     * @return a OneOf expression on specified individuals
-     */
-    default OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values) {
-        return getOWLObjectOneOf(checkNotNull(values, "values cannot be null").stream());
-    }
+  /**
+   * @param values indivudals for restriction. Cannot be null or contain nulls.
+   * @return a OneOf expression on specified individuals
+   */
+  default OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values) {
+    return getOWLObjectOneOf(checkNotNull(values, "values cannot be null").stream());
+  }
 
-    /**
-     * @param individuals
-     *        indivudals for restriction. Cannot be null or contain nulls.
-     * @return a OneOf expression on specified individuals
-     */
-    default OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {
-        checkNotNull(individuals, "individuals cannot be null");
-        return getOWLObjectOneOf(Stream.of(individuals));
-    }
+  /**
+   * @param individuals indivudals for restriction. Cannot be null or contain nulls.
+   * @return a OneOf expression on specified individuals
+   */
+  default OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {
+    checkNotNull(individuals, "individuals cannot be null");
+    return getOWLObjectOneOf(Stream.of(individuals));
+  }
 }

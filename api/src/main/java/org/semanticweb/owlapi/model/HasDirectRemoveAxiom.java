@@ -15,38 +15,31 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
 public interface HasDirectRemoveAxiom {
 
-    /**
-     * A convenience method that removes a single axiom from this object. The
-     * appropriate RemoveAxiom change object is automatically generated.
-     * 
-     * @param axiom
-     *        The axiom to be removed
-     * @return A list of ontology changes that represent the changes that
-     *         actually took place.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axiom
-     */
-    ChangeApplied removeAxiom(OWLAxiom axiom);
+  /**
+   * A convenience method that removes a single axiom from this object. The
+   * appropriate RemoveAxiom change object is automatically generated.
+   *
+   * @param axiom The axiom to be removed
+   * @return A list of ontology changes that represent the changes that actually took place.
+   * @throws OWLOntologyChangeException if there was a problem removing the axiom
+   */
+  ChangeApplied removeAxiom(OWLAxiom axiom);
 
-    /**
-     * A convenience method that removes a single axiom from this object. The
-     * appropriate RemoveAxiom change object is automatically generated.
-     * 
-     * @param axiom
-     *        The axiom to be removed
-     * @return A list of ontology changes that represent the changes that
-     *         actually took place.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axiom
-     */
-    default ChangeApplied remove(OWLAxiom axiom) {
-        return removeAxiom(axiom);
-    }
+  /**
+   * A convenience method that removes a single axiom from this object. The
+   * appropriate RemoveAxiom change object is automatically generated.
+   *
+   * @param axiom The axiom to be removed
+   * @return A list of ontology changes that represent the changes that actually took place.
+   * @throws OWLOntologyChangeException if there was a problem removing the axiom
+   */
+  default ChangeApplied remove(OWLAxiom axiom) {
+    return removeAxiom(axiom);
+  }
 }

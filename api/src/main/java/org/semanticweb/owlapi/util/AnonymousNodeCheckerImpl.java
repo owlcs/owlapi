@@ -20,39 +20,39 @@ import org.slf4j.LoggerFactory;
 /**
  * default implementation for an anonymous node checker. This implementation
  * delegates to NodeID
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public class AnonymousNodeCheckerImpl implements AnonymousNodeChecker {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(AnonymousNodeCheckerImpl.class);
+  private static final Logger LOGGER = LoggerFactory
+      .getLogger(AnonymousNodeCheckerImpl.class);
 
-    @Override
-    public boolean isAnonymousNode(IRI iri) {
-        boolean value = NodeID.isAnonymousNodeIRI(iri);
-        if (value) {
-            LOGGER.trace("anonymous iri {}", iri);
-        }
-        return value;
+  @Override
+  public boolean isAnonymousNode(IRI iri) {
+    boolean value = NodeID.isAnonymousNodeIRI(iri);
+    if (value) {
+      LOGGER.trace("anonymous iri {}", iri);
     }
+    return value;
+  }
 
-    @Override
-    public boolean isAnonymousNode(String iri) {
-        boolean value = NodeID.isAnonymousNodeIRI(iri);
-        if (value) {
-            LOGGER.trace("anonymous string {}", iri);
-        }
-        return value;
+  @Override
+  public boolean isAnonymousNode(String iri) {
+    boolean value = NodeID.isAnonymousNodeIRI(iri);
+    if (value) {
+      LOGGER.trace("anonymous string {}", iri);
     }
+    return value;
+  }
 
-    @Override
-    public boolean isAnonymousSharedNode(String iri) {
-        boolean value = NodeID.isAnonymousNodeID(iri);
-        if (value) {
-            LOGGER.trace("anonymous shared id {}", iri);
-        }
-        return value;
+  @Override
+  public boolean isAnonymousSharedNode(String iri) {
+    boolean value = NodeID.isAnonymousNodeID(iri);
+    if (value) {
+      LOGGER.trace("anonymous shared id {}", iri);
     }
+    return value;
+  }
 }

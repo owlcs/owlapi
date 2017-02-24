@@ -18,24 +18,22 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
 
-    private final OWLLiteral literal;
+  private final OWLLiteral literal;
 
-    /**
-     * @param literal
-     *        literal for argument
-     */
-    public SWRLLiteralArgumentImpl(OWLLiteral literal) {
-        this.literal = checkNotNull(literal, "literal cannot be null");
-    }
+  /**
+   * @param literal literal for argument
+   */
+  public SWRLLiteralArgumentImpl(OWLLiteral literal) {
+    this.literal = checkNotNull(literal, "literal cannot be null");
+  }
 
-    @Override
-    public OWLLiteral getLiteral() {
-        return literal;
-    }
+  @Override
+  public OWLLiteral getLiteral() {
+    return literal;
+  }
 }

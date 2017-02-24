@@ -43,13 +43,15 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class NTriplesDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
-    public NTriplesDocumentFormatFactory() {
-        super(RDFFormat.NTRIPLES);
-    }
+  /**
+   * Default constructor.
+   */
+  public NTriplesDocumentFormatFactory() {
+    super(RDFFormat.NTRIPLES);
+  }
 
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new NTriplesDocumentFormat();
-    }
+  @Override
+  public RioRDFDocumentFormat createFormat() {
+    return new NTriplesDocumentFormat();
+  }
 }

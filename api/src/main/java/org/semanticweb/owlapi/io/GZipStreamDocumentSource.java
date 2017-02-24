@@ -12,16 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
-
 import javax.annotation.Nullable;
-
 import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -31,65 +30,62 @@ import org.slf4j.LoggerFactory;
 
 /**
  * An ontology document source which can read from a GZIP stream.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */
 public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GZipStreamDocumentSource.class);
-    @Nullable private byte[] buffer;
+  private static final Logger LOGGER = LoggerFactory.getLogger(GZipStreamDocumentSource.class);
+  @Nullable
+  private byte[] buffer;
 
-    /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified file.
-     * 
-     * @param is
-     *        The stream that the ontology representation will be read from.
-     */
-    public GZipStreamDocumentSource(InputStream is) {
-        super("gzipinputstream:ontology", null, null);
-        readIntoBuffer(is);
-    }
+  /**
+   * Constructs an input source which will read an ontology from a
+   * representation from the specified file.
+   *
+   * @param is The stream that the ontology representation will be read from.
+   */
+  public GZipStreamDocumentSource(InputStream is) {
+    super("gzipinputstream:ontology", null, null);
+    readIntoBuffer(is);
+  }
 
-    /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
-     * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
-     */
-    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
-        super(documentIRI, format, mime);
-        readIntoBuffer(stream);
-    }
+  /**
+   * Constructs an input source which will read an ontology from a
+   * representation from the specified stream.
+   *
+   * @param stream The stream that the ontology representation will be read from.
+   * @param documentIRI The document IRI
+   * @param format ontology format
+   * @param mime mime type
+   */
+  public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
+      @Nullable OWLDocumentFormat format,
+      @Nullable String mime) {
+    super(documentIRI, format, mime);
+    readIntoBuffer(stream);
+  }
 
-    private void readIntoBuffer(InputStream reader) {
-        try {
-            buffer = IOUtils.toByteArray(reader);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
+  private void readIntoBuffer(InputStream reader) {
+    try {
+      buffer = IOUtils.toByteArray(reader);
+    } catch (IOException e) {
+      throw new OWLRuntimeException(e);
     }
+  }
 
-    @Override
-    public Optional<InputStream> getInputStream() {
-        if (buffer == null) {
-            return emptyOptional();
-        }
-        try {
-            return optional(new GZIPInputStream(new ByteArrayInputStream(buffer)));
-        } catch (IOException e) {
-            LOGGER.error("Buffer cannot be opened", e);
-            failedOnStreams.set(true);
-            return emptyOptional();
-        }
+  @Override
+  public Optional<InputStream> getInputStream() {
+    if (buffer == null) {
+      return emptyOptional();
     }
+    try {
+      return optional(new GZIPInputStream(new ByteArrayInputStream(buffer)));
+    } catch (IOException e) {
+      LOGGER.error("Buffer cannot be opened", e);
+      failedOnStreams.set(true);
+      return emptyOptional();
+    }
+  }
 }

@@ -13,39 +13,38 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
-/** Builder class for OWLObjectIntersectionOf. */
+/**
+ * Builder class for OWLObjectIntersectionOf.
+ */
 public class BuilderObjectIntersectionOf
-        extends BaseSetBuilder<OWLObjectIntersectionOf, BuilderObjectIntersectionOf, OWLClassExpression> {
+    extends
+    BaseSetBuilder<OWLObjectIntersectionOf, BuilderObjectIntersectionOf, OWLClassExpression> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectIntersectionOf(OWLObjectIntersectionOf expected, OWLDataFactory df) {
-        this(df);
-        withItems(expected.operands());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectIntersectionOf(OWLObjectIntersectionOf expected, OWLDataFactory df) {
+    this(df);
+    withItems(expected.operands());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectIntersectionOf(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectIntersectionOf(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLObjectIntersectionOf buildObject() {
-        return df.getOWLObjectIntersectionOf(items);
-    }
+  @Override
+  public OWLObjectIntersectionOf buildObject() {
+    return df.getOWLObjectIntersectionOf(items);
+  }
 }

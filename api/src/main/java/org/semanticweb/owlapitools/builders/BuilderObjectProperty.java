@@ -13,40 +13,39 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** Builder class for OWLObjectProperty. */
-public class BuilderObjectProperty extends BaseEntityBuilder<OWLObjectProperty, BuilderObjectProperty> {
+/**
+ * Builder class for OWLObjectProperty.
+ */
+public class BuilderObjectProperty extends
+    BaseEntityBuilder<OWLObjectProperty, BuilderObjectProperty> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectProperty(OWLObjectProperty expected, OWLDataFactory df) {
-        this(df);
-        withIRI(expected.getIRI());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectProperty(OWLObjectProperty expected, OWLDataFactory df) {
+    this(df);
+    withIRI(expected.getIRI());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectProperty(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectProperty(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLObjectProperty buildObject() {
-        if (pm != null && string != null) {
-            return df.getOWLObjectProperty(getString(), getPM());
-        }
-        return df.getOWLObjectProperty(getIRI());
+  @Override
+  public OWLObjectProperty buildObject() {
+    if (pm != null && string != null) {
+      return df.getOWLObjectProperty(getString(), getPM());
     }
+    return df.getOWLObjectProperty(getIRI());
+  }
 }

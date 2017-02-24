@@ -16,79 +16,78 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
-/** Builder class for SWRLDataPropertyAtom. */
+/**
+ * Builder class for SWRLDataPropertyAtom.
+ */
 public class BuilderSWRLDataPropertyAtom extends
     BaseDataPropertyBuilder<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
 
-    @Nullable private SWRLDArgument arg1;
-    @Nullable private SWRLIArgument arg0;
+  @Nullable
+  private SWRLDArgument arg1;
+  @Nullable
+  private SWRLIArgument arg0;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSWRLDataPropertyAtom(SWRLDataPropertyAtom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getPredicate()).with(expected.getSecondArgument()).with(expected.getFirstArgument());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSWRLDataPropertyAtom(SWRLDataPropertyAtom expected, OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getPredicate()).with(expected.getSecondArgument())
+        .with(expected.getFirstArgument());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSWRLDataPropertyAtom(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSWRLDataPropertyAtom(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        data argument
-     * @return builder
-     */
-    public BuilderSWRLDataPropertyAtom with(SWRLDArgument arg) {
-        arg1 = arg;
-        return this;
-    }
+  /**
+   * @param arg data argument
+   * @return builder
+   */
+  public BuilderSWRLDataPropertyAtom with(SWRLDArgument arg) {
+    arg1 = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        individual
-     * @return builder
-     */
-    public BuilderSWRLDataPropertyAtom with(SWRLIArgument arg) {
-        arg0 = arg;
-        return this;
-    }
+  /**
+   * @param arg individual
+   * @return builder
+   */
+  public BuilderSWRLDataPropertyAtom with(SWRLIArgument arg) {
+    arg0 = arg;
+    return this;
+  }
 
-    @Override
-    public SWRLDataPropertyAtom buildObject() {
-        return df.getSWRLDataPropertyAtom(getProperty(), verifyNotNull(arg0), verifyNotNull(arg1));
-    }
+  @Override
+  public SWRLDataPropertyAtom buildObject() {
+    return df.getSWRLDataPropertyAtom(getProperty(), verifyNotNull(arg0), verifyNotNull(arg1));
+  }
 
-    /**
-     * @return arg 1
-     */
-    @Nullable
-    public SWRLDArgument getArg1() {
-        return arg1;
-    }
+  /**
+   * @return arg 1
+   */
+  @Nullable
+  public SWRLDArgument getArg1() {
+    return arg1;
+  }
 
-    /**
-     * @return arg 0
-     */
-    @Nullable
-    public SWRLIArgument getArg0() {
-        return arg0;
-    }
+  /**
+   * @return arg 0
+   */
+  @Nullable
+  public SWRLIArgument getArg0() {
+    return arg0;
+  }
 }

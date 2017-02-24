@@ -22,65 +22,64 @@ import java.util.Collection;
  * This property axiom contains a set of two properties. inverseOf(P, Q) is
  * considered to be equal to inverseOf(Q, P) - i.e. the order in which the
  * properties are specified isn't important.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLInverseObjectPropertiesAxiom
     extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
-    @Override
-        OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 83;
-    }
+  @Override
+  default int hashIndex() {
+    return 83;
+  }
 
-    @Override
-        Collection<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
+  @Override
+  Collection<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
 
-    @Override
-        Collection<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
+  @Override
+  Collection<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
 
-    /**
-     * @return the first of the two object properties.
-     */
-    OWLObjectPropertyExpression getFirstProperty();
+  /**
+   * @return the first of the two object properties.
+   */
+  OWLObjectPropertyExpression getFirstProperty();
 
-    /**
-     * @return the second of the two object properties.
-     */
-    OWLObjectPropertyExpression getSecondProperty();
+  /**
+   * @return the second of the two object properties.
+   */
+  OWLObjectPropertyExpression getSecondProperty();
 
-    /**
-     * @return the set of subproperty axioms equivalent
-     */
-    Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
+  /**
+   * @return the set of subproperty axioms equivalent
+   */
+  Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.INVERSE_OBJECT_PROPERTIES;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.INVERSE_OBJECT_PROPERTIES;
+  }
 }

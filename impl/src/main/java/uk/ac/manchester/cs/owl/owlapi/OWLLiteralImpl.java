@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,9 +27,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -38,198 +37,201 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /**
  * Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
-    private static final int COMPRESSION_LIMIT = 160;
-    private final LiteralWrapper literal;
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
-    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
-    private final OWLDatatype datatype;
-    private final String language;
+  private static final int COMPRESSION_LIMIT = 160;
+  private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
+      OWL2Datatype.RDF_PLAIN_LITERAL);
+  private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+      OWL2Datatype.RDF_LANG_STRING);
+  private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
+  private final LiteralWrapper literal;
+  private final OWLDatatype datatype;
+  private final String language;
 
-    /**
-     * @param literal
-     *        the lexical form
-     * @param lang
-     *        the language; can be null or an empty string, in which case
-     *        datatype can be any datatype but not null
-     * @param datatype
-     *        the datatype; if lang is null or the empty string, it can be null
-     *        or it MUST be RDFPlainLiteral
-     */
-    public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
-        this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
-        if (lang == null || lang.isEmpty()) {
-            language = "";
-            if (datatype == null || datatype.equals(RDF_PLAIN_LITERAL) || datatype.equals(XSD_STRING)) {
-                this.datatype = XSD_STRING;
-            } else {
-                this.datatype = datatype;
-            }
-        } else {
-            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
-                // ERROR: attempting to build a literal with a language tag and
-                // type different from plain literal or lang string
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
-                    + " and language: " + lang);
-            }
-            language = lang;
-            this.datatype = RDF_LANG_STRING;
+  /**
+   * @param literal the lexical form
+   * @param lang the language; can be null or an empty string, in which case datatype can be any
+   * datatype but not null
+   * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST be
+   * RDFPlainLiteral
+   */
+  public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
+    this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
+    if (lang == null || lang.isEmpty()) {
+      language = "";
+      if (datatype == null || datatype.equals(RDF_PLAIN_LITERAL) || datatype.equals(XSD_STRING)) {
+        this.datatype = XSD_STRING;
+      } else {
+        this.datatype = datatype;
+      }
+    } else {
+      if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype
+          .equals(RDF_PLAIN_LITERAL))) {
+        // ERROR: attempting to build a literal with a language tag and
+        // type different from plain literal or lang string
+        throw new OWLRuntimeException(
+            "Error: cannot build a literal with type: " + datatype.getIRI()
+                + " and language: " + lang);
+      }
+      language = lang;
+      this.datatype = RDF_LANG_STRING;
+    }
+  }
+
+  static boolean asBoolean(String s) {
+    return Boolean.parseBoolean(s) || "1".equals(s.trim());
+  }
+
+  @Override
+  public String getLiteral() {
+    return literal.get();
+  }
+
+  @Override
+  public boolean hasLang() {
+    return !language.isEmpty();
+  }
+
+  @Override
+  public boolean isRDFPlainLiteral() {
+    return getDatatype().isRDFPlainLiteral();
+  }
+
+  @Override
+  public boolean isInteger() {
+    return getDatatype().isInteger();
+  }
+
+  @Override
+  public boolean isBoolean() {
+    return getDatatype().isBoolean();
+  }
+
+  @Override
+  public boolean isDouble() {
+    return getDatatype().isDouble();
+  }
+
+  @Override
+  public boolean isFloat() {
+    return getDatatype().isFloat();
+  }
+
+  @Override
+  public int parseInteger() {
+    return Integer.parseInt(literal.get());
+  }
+
+  @Override
+  public boolean parseBoolean() {
+    return asBoolean(literal.get());
+  }
+
+  @Override
+  public double parseDouble() {
+    return Double.parseDouble(literal.get());
+  }
+
+  @Override
+  public float parseFloat() {
+    return Float.parseFloat(literal.get());
+  }
+
+  @Override
+  public String getLang() {
+    return language;
+  }
+
+  @Override
+  public boolean hasLang(@Nullable String lang) {
+    if (lang == null || lang.isEmpty()) {
+      return language.isEmpty();
+    }
+    return language.equalsIgnoreCase(lang.trim());
+  }
+
+  @Override
+  public OWLDatatype getDatatype() {
+    return datatype;
+  }
+
+  @Override
+  protected int hashCode(OWLObject object) {
+    return hash(object.hashIndex(),
+        Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
+  }
+
+  private int specificHash() {
+    if (literal.l != null) {
+      return literal.l.hashCode();
+    }
+    return Arrays.hashCode(literal.bytes);
+  }
+
+  // Literal Wrapper
+  private static class LiteralWrapper implements Serializable {
+
+    private static final String COMPRESSED_ENCODING = "UTF-16";
+    @Nullable
+    String l;
+    @Nullable
+    byte[] bytes;
+
+    LiteralWrapper(String s) {
+      if (s.length() > COMPRESSION_LIMIT) {
+        try {
+          bytes = compress(s);
+          l = null;
+        } catch (@SuppressWarnings("unused") IOException e) {
+          // some problem happened - defaulting to no compression
+          l = s;
+          bytes = null;
         }
+      } else {
+        bytes = null;
+        l = s;
+      }
     }
 
-    @Override
-    public String getLiteral() {
-        return literal.get();
+    static byte[] compress(String s) throws IOException {
+      ByteArrayOutputStream out = new ByteArrayOutputStream();
+      GZIPOutputStream zipout = new GZIPOutputStream(out);
+      Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
+      writer.write(s);
+      writer.flush();
+      zipout.finish();
+      zipout.flush();
+      return out.toByteArray();
     }
 
-    @Override
-    public boolean hasLang() {
-        return !language.isEmpty();
+    static String decompress(byte[] result) throws IOException {
+      ByteArrayInputStream in = new ByteArrayInputStream(result);
+      GZIPInputStream zipin = new GZIPInputStream(in);
+      Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
+      StringBuilder b = new StringBuilder();
+      int c = reader.read();
+      while (c > -1) {
+        b.append((char) c);
+        c = reader.read();
+      }
+      return b.toString();
     }
 
-    @Override
-    public boolean isRDFPlainLiteral() {
-        return getDatatype().isRDFPlainLiteral();
+    String get() {
+      if (l != null) {
+        return verifyNotNull(l);
+      }
+      try {
+        return decompress(verifyNotNull(bytes));
+      } catch (IOException e) {
+        // some problem has happened - cannot recover from this
+        throw new OWLRuntimeException(e);
+      }
     }
-
-    @Override
-    public boolean isInteger() {
-        return getDatatype().isInteger();
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return getDatatype().isBoolean();
-    }
-
-    @Override
-    public boolean isDouble() {
-        return getDatatype().isDouble();
-    }
-
-    @Override
-    public boolean isFloat() {
-        return getDatatype().isFloat();
-    }
-
-    @Override
-    public int parseInteger() {
-        return Integer.parseInt(literal.get());
-    }
-
-    static boolean asBoolean(String s) {
-        return Boolean.parseBoolean(s) || "1".equals(s.trim());
-    }
-
-    @Override
-    public boolean parseBoolean() {
-        return asBoolean(literal.get());
-    }
-
-    @Override
-    public double parseDouble() {
-        return Double.parseDouble(literal.get());
-    }
-
-    @Override
-    public float parseFloat() {
-        return Float.parseFloat(literal.get());
-    }
-
-    @Override
-    public String getLang() {
-        return language;
-    }
-
-    @Override
-    public boolean hasLang(@Nullable String lang) {
-        if (lang == null || lang.isEmpty()) {
-            return language.isEmpty();
-        }
-        return language.equalsIgnoreCase(lang.trim());
-    }
-
-    @Override
-    public OWLDatatype getDatatype() {
-        return datatype;
-    }
-
-    @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
-    }
-
-    private int specificHash() {
-        if (literal.l != null) {
-            return literal.l.hashCode();
-        }
-        return Arrays.hashCode(literal.bytes);
-    }
-
-    // Literal Wrapper
-    private static class LiteralWrapper implements Serializable {
-
-        private static final String COMPRESSED_ENCODING = "UTF-16";
-        @Nullable String l;
-        @Nullable byte[] bytes;
-
-        LiteralWrapper(String s) {
-            if (s.length() > COMPRESSION_LIMIT) {
-                try {
-                    bytes = compress(s);
-                    l = null;
-                } catch (@SuppressWarnings("unused") IOException e) {
-                    // some problem happened - defaulting to no compression
-                    l = s;
-                    bytes = null;
-                }
-            } else {
-                bytes = null;
-                l = s;
-            }
-        }
-
-        String get() {
-            if (l != null) {
-                return verifyNotNull(l);
-            }
-            try {
-                return decompress(verifyNotNull(bytes));
-            } catch (IOException e) {
-                // some problem has happened - cannot recover from this
-                throw new OWLRuntimeException(e);
-            }
-        }
-
-        static byte[] compress(String s) throws IOException {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            GZIPOutputStream zipout = new GZIPOutputStream(out);
-            Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
-            writer.write(s);
-            writer.flush();
-            zipout.finish();
-            zipout.flush();
-            return out.toByteArray();
-        }
-
-        static String decompress(byte[] result) throws IOException {
-            ByteArrayInputStream in = new ByteArrayInputStream(result);
-            GZIPInputStream zipin = new GZIPInputStream(in);
-            Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);
-            StringBuilder b = new StringBuilder();
-            int c = reader.read();
-            while (c > -1) {
-                b.append((char) c);
-                c = reader.read();
-            }
-            return b.toString();
-        }
-    }
+  }
 }

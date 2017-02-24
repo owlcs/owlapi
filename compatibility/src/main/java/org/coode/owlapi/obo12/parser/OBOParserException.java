@@ -49,15 +49,15 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 class OBOParserException extends OWLParserException {
 
-    public OBOParserException(String message) {
-        super(message);
-    }
+  public OBOParserException(String message) {
+    super(message);
+  }
 
-    public OBOParserException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public OBOParserException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-    public OBOParserException(Throwable cause) {
-        super(cause);
-    }
+  public OBOParserException(Throwable cause) {
+    super(cause);
+  }
 }

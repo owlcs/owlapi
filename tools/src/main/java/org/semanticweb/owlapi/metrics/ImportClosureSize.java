@@ -13,39 +13,36 @@
 package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ImportClosureSize extends IntegerValuedMetric {
 
-    /**
-     * Instantiates a new import closure size.
-     * 
-     * @param o
-     *        ontology to use
-     */
-    public ImportClosureSize(OWLOntology o) {
-        super(o);
-    }
+  /**
+   * Instantiates a new import closure size.
+   *
+   * @param o ontology to use
+   */
+  public ImportClosureSize(OWLOntology o) {
+    super(o);
+  }
 
-    @Override
-    protected Integer recomputeMetric() {
-        return Integer.valueOf((int) getOntology().importsClosure().count());
-    }
+  @Override
+  protected Integer recomputeMetric() {
+    return Integer.valueOf((int) getOntology().importsClosure().count());
+  }
 
-    @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return changes.stream().anyMatch(OWLOntologyChange::isImportChange);
-    }
+  @Override
+  protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    return changes.stream().anyMatch(OWLOntologyChange::isImportChange);
+  }
 
-    @Override
-    public String getName() {
-        return "Imports closure size";
-    }
+  @Override
+  public String getName() {
+    return "Imports closure size";
+  }
 }

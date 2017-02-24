@@ -15,40 +15,36 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @HasPriority(0)
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
 
-    private final IRI iri;
-    private final IRI documentIRI;
+  private final IRI iri;
+  private final IRI documentIRI;
 
-    /**
-     * @param ontologyIRI
-     *        ontology IRI
-     * @param documentIRI
-     *        document IRI
-     */
-    public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
-        iri = checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
-        this.documentIRI = checkNotNull(documentIRI, "documentIRI cannot be null");
-    }
+  /**
+   * @param ontologyIRI ontology IRI
+   * @param documentIRI document IRI
+   */
+  public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
+    iri = checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
+    this.documentIRI = checkNotNull(documentIRI, "documentIRI cannot be null");
+  }
 
-    @Override
-    @Nullable
-    public IRI getDocumentIRI(IRI ontologyIRI) {
-        if (iri.equals(ontologyIRI)) {
-            return documentIRI;
-        } else {
-            return null;
-        }
+  @Override
+  @Nullable
+  public IRI getDocumentIRI(IRI ontologyIRI) {
+    if (iri.equals(ontologyIRI)) {
+      return documentIRI;
+    } else {
+      return null;
     }
+  }
 }

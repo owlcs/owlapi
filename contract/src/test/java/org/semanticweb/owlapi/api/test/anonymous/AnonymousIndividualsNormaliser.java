@@ -20,51 +20,47 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
-    private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<>();
-    private int counter = 0;
+  private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<>();
+  private int counter = 0;
 
-    /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory.
-     * 
-     * @param m
-     *        The manager providing data factory and config to be used for the
-     *        duplication.
-     */
-    public AnonymousIndividualsNormaliser(OWLOntologyManager m) {
-        super(m);
-    }
+  /**
+   * Creates an object duplicator that duplicates objects using the specified
+   * data factory.
+   *
+   * @param m The manager providing data factory and config to be used for the duplication.
+   */
+  public AnonymousIndividualsNormaliser(OWLOntologyManager m) {
+    super(m);
+  }
 
-    public Set<OWLAxiom> getNormalisedAxioms(Collection<OWLAxiom> axioms) {
-        return getNormalisedAxioms(axioms.stream());
-    }
+  public Set<OWLAxiom> getNormalisedAxioms(Collection<OWLAxiom> axioms) {
+    return getNormalisedAxioms(axioms.stream());
+  }
 
-    public Set<OWLAxiom> getNormalisedAxioms(Stream<OWLAxiom> axioms) {
-        return asSet(axioms.map(this::get));
-    }
+  public Set<OWLAxiom> getNormalisedAxioms(Stream<OWLAxiom> axioms) {
+    return asSet(axioms.map(this::get));
+  }
 
-    @Override
-    public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
-        OWLAnonymousIndividual ind = renamingMap.get(individual);
-        if (ind == null) {
-            counter++;
-            ind = AnonymousIndividual("anon-ind-" + counter);
-            renamingMap.put(individual, ind);
-        }
-        return ind;
+  @Override
+  public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
+    OWLAnonymousIndividual ind = renamingMap.get(individual);
+    if (ind == null) {
+      counter++;
+      ind = AnonymousIndividual("anon-ind-" + counter);
+      renamingMap.put(individual, ind);
     }
+    return ind;
+  }
 }

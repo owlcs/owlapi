@@ -13,51 +13,51 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 
-/** Builder class for OWLDataMaxCardinality. */
-public class BuilderDataMaxCardinality extends BaseDataBuilder<OWLDataMaxCardinality, BuilderDataMaxCardinality>
+/**
+ * Builder class for OWLDataMaxCardinality.
+ */
+public class BuilderDataMaxCardinality extends
+    BaseDataBuilder<OWLDataMaxCardinality, BuilderDataMaxCardinality>
     implements SettableCardinality<BuilderDataMaxCardinality> {
 
-    private int cardinality = -1;
+  private int cardinality = -1;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDataMaxCardinality(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDataMaxCardinality(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDataMaxCardinality(OWLDataMaxCardinality expected, OWLDataFactory df) {
-        this(df);
-        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDataMaxCardinality(OWLDataMaxCardinality expected, OWLDataFactory df) {
+    this(df);
+    withCardinality(expected.getCardinality()).withProperty(expected.getProperty())
+        .withRange(expected.getFiller());
+  }
 
-    @Override
-    public BuilderDataMaxCardinality withCardinality(int arg) {
-        cardinality = arg;
-        return this;
-    }
+  @Override
+  public BuilderDataMaxCardinality withCardinality(int arg) {
+    cardinality = arg;
+    return this;
+  }
 
-    @Override
-    public int getCardinality() {
-        return cardinality;
-    }
+  @Override
+  public int getCardinality() {
+    return cardinality;
+  }
 
-    @Override
-    public OWLDataMaxCardinality buildObject() {
-        return df.getOWLDataMaxCardinality(cardinality, getProperty(), getDataRange());
-    }
+  @Override
+  public OWLDataMaxCardinality buildObject() {
+    return df.getOWLDataMaxCardinality(cardinality, getProperty(), getDataRange());
+  }
 }

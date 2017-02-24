@@ -17,36 +17,33 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public abstract class AnnotationChange extends OWLOntologyChange {
 
-    private final OWLAnnotation annotation;
+  private final OWLAnnotation annotation;
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param annotation
-     *        the annotation
-     */
-    public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
-        super(ont);
-        this.annotation = checkNotNull(annotation, "annotation cannot be null");
-    }
+  /**
+   * @param ont the ontology to which the change is to be applied
+   * @param annotation the annotation
+   */
+  public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
+    super(ont);
+    this.annotation = checkNotNull(annotation, "annotation cannot be null");
+  }
 
-    @Override
-    public Stream<OWLEntity> signature() {
-        return annotation.signature();
-    }
+  @Override
+  public Stream<OWLEntity> signature() {
+    return annotation.signature();
+  }
 
-    /**
-     * Gets the annotation that was added to an ontology.
-     * 
-     * @return The annotation that was added
-     */
-    public OWLAnnotation getAnnotation() {
-        return annotation;
-    }
+  /**
+   * Gets the annotation that was added to an ontology.
+   *
+   * @return The annotation that was added
+   */
+  public OWLAnnotation getAnnotation() {
+    return annotation;
+  }
 }

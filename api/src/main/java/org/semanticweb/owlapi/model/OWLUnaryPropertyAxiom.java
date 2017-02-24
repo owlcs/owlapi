@@ -15,27 +15,25 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param
- *        <P>
- *        property expression
  */
-public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom, HasProperty<P> {
+public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom,
+    HasProperty<P> {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getProperty(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getProperty());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getProperty());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getProperty());
+  }
 }

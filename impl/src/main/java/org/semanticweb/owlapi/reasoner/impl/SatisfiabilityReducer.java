@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,33 +23,32 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiomShortCut;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClassExpression>> {
 
-    private final OWLDataFactory df;
+  private final OWLDataFactory df;
 
-    /**
-     * @param dataFactory
-     *        data factory to use
-     */
-    public SatisfiabilityReducer(OWLDataFactory dataFactory) {
-        df = checkNotNull(dataFactory, "dataFactory cannot be null");
+  /**
+   * @param dataFactory data factory to use
+   */
+  public SatisfiabilityReducer(OWLDataFactory dataFactory) {
+    df = checkNotNull(dataFactory, "dataFactory cannot be null");
+  }
+
+  @Override
+  public Optional<OWLClassExpression> doDefault(Object o) {
+    if (o instanceof OWLSubClassOfAxiomShortCut) {
+      return ((OWLSubClassOfAxiomShortCut) o).asOWLSubClassOfAxiom().accept(this);
     }
+    return emptyOptional();
+  }
 
-    @Override
-    public Optional<OWLClassExpression> doDefault(Object o) {
-        if (o instanceof OWLSubClassOfAxiomShortCut) {
-            return ((OWLSubClassOfAxiomShortCut) o).asOWLSubClassOfAxiom().accept(this);
-        }
-        return emptyOptional();
-    }
-
-    @Override
-    public Optional<OWLClassExpression> visit(OWLSubClassOfAxiom axiom) {
-        return Optional.of(df.getOWLObjectIntersectionOf(axiom.getSubClass(), df.getOWLObjectComplementOf(axiom
+  @Override
+  public Optional<OWLClassExpression> visit(OWLSubClassOfAxiom axiom) {
+    return Optional
+        .of(df.getOWLObjectIntersectionOf(axiom.getSubClass(), df.getOWLObjectComplementOf(axiom
             .getSuperClass())));
-    }
+  }
 }

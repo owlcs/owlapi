@@ -18,58 +18,57 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Asymmetric_Object_Properties" >
  * AsymmetricObjectProperty</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getProperty(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getProperty());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getProperty());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getProperty());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getProperty());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 3;
-    }
+  @Override
+  default int hashIndex() {
+    return 3;
+  }
 
-    @Override
-        OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.ASYMMETRIC_OBJECT_PROPERTY;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.ASYMMETRIC_OBJECT_PROPERTY;
+  }
 }

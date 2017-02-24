@@ -43,10 +43,10 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class RDFJsonLDDocumentFormat extends RioRDFNonPrefixDocumentFormat {
 
-    /**
-     * RDF format for {@link RDFFormat#JSONLD} documents.
-     */
-    public RDFJsonLDDocumentFormat() {
-        super(RDFFormat.JSONLD);
-    }
+  /**
+   * RDF format for {@link RDFFormat#JSONLD} documents.
+   */
+  public RDFJsonLDDocumentFormat() {
+    super(RDFFormat.JSONLD);
+  }
 }

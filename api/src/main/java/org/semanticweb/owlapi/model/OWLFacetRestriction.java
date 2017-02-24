@@ -13,75 +13,70 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
  * A facet restriction is used to restrict a particular datatype. For example
  * the set of integers greater than 18 can be obtained by restricting the
  * integer datatype using a minExclusive facet with a value of 18
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLFacetRestriction extends OWLObject {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getFacet(), getFacetValue());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getFacet(), getFacetValue());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 563;
-    }
+  @Override
+  default int hashIndex() {
+    return 563;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 4007;
-    }
+  @Override
+  default int typeIndex() {
+    return 4007;
+  }
 
-    /**
-     * Gets the retricted facet.
-     * 
-     * @return The restricted facet
-     */
-    OWLFacet getFacet();
+  /**
+   * Gets the retricted facet.
+   *
+   * @return The restricted facet
+   */
+  OWLFacet getFacet();
 
-    /**
-     * Gets the value that restricts the facet.
-     * 
-     * @return the restricting value
-     */
-    OWLLiteral getFacetValue();
+  /**
+   * Gets the value that restricts the facet.
+   *
+   * @return the restricting value
+   */
+  OWLLiteral getFacetValue();
 
-    /**
-     * @param visitor
-     *        visitor
-     */
-    default void accept(OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
+  /**
+   * @param visitor visitor
+   */
+  default void accept(OWLDataVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
-     * @return visitor return value
-     */
-    default <O> O accept(OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  /**
+   * @param visitor visitor
+   * @param <O> visitor return type
+   * @return visitor return value
+   */
+  default <O> O accept(OWLDataVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

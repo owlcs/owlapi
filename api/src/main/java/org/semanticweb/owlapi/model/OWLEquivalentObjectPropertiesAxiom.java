@@ -18,55 +18,54 @@ import java.util.Collection;
  * Represents
  * <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties" >
  * EquivalentObjectProperties</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLEquivalentObjectPropertiesAxiom
     extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
-    @Override
-        OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 61;
-    }
+  @Override
+  default int hashIndex() {
+    return 61;
+  }
 
-    @Override
-        Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
+  @Override
+  Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
 
-    @Override
-        Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
+  @Override
+  Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
 
-    /**
-     * @return the axioms equivalent to the equivalent object property axiom
-     */
-    Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
+  /**
+   * @return the axioms equivalent to the equivalent object property axiom
+   */
+  Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
+  }
 }

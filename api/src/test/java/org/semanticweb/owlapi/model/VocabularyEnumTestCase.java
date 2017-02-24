@@ -13,66 +13,78 @@
 package org.semanticweb.owlapi.model;
 
 import static java.util.Arrays.stream;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.vocab.Namespaces.*;
+import static org.semanticweb.owlapi.vocab.Namespaces.DC;
+import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
+import static org.semanticweb.owlapi.vocab.Namespaces.SKOS;
+import static org.semanticweb.owlapi.vocab.Namespaces.SWRL;
+import static org.semanticweb.owlapi.vocab.Namespaces.SWRLB;
+import static org.semanticweb.owlapi.vocab.Namespaces.XSD;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.semanticweb.owlapi.vocab.*;
+import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.vocab.SKOSVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class VocabularyEnumTestCase {
 
-    private final HasIRI iri;
-    private final HasPrefixedName name;
-    private final Namespaces expected;
+  private final HasIRI iri;
+  private final HasPrefixedName name;
+  private final Namespaces expected;
 
-    public VocabularyEnumTestCase(Object in, Namespaces expected) {
-        iri = (HasIRI) in;
-        name = (HasPrefixedName) in;
-        this.expected = expected;
-    }
+  public VocabularyEnumTestCase(Object in, Namespaces expected) {
+    iri = (HasIRI) in;
+    name = (HasPrefixedName) in;
+    this.expected = expected;
+  }
 
-    @Parameters
-    public static Collection<Object[]> getData() {
-        return asList(concat(stream(DublinCoreVocabulary.values()).map(input -> new Object[] { input, DC }),
-            stream(OWLRDFVocabulary.values()).map(input -> new Object[] { input, input.getNamespace() }),
-            stream(OWLXMLVocabulary.values()).map(input -> new Object[] { input, OWL }),
-            stream(SKOSVocabulary.values()).map(input -> new Object[] { input, SKOS }),
-            stream(SWRLBuiltInsVocabulary.values()).map(input -> new Object[] { input, SWRLB }),
-            stream(SWRLVocabulary.values()).map(input -> new Object[] { input, SWRL }),
-            stream(XSDVocabulary.values()).map(input -> new Object[] { input, XSD })));
-    }
+  @Parameters
+  public static Collection<Object[]> getData() {
+    return asList(
+        concat(stream(DublinCoreVocabulary.values()).map(input -> new Object[]{input, DC}),
+            stream(OWLRDFVocabulary.values())
+                .map(input -> new Object[]{input, input.getNamespace()}),
+            stream(OWLXMLVocabulary.values()).map(input -> new Object[]{input, OWL}),
+            stream(SKOSVocabulary.values()).map(input -> new Object[]{input, SKOS}),
+            stream(SWRLBuiltInsVocabulary.values()).map(input -> new Object[]{input, SWRLB}),
+            stream(SWRLVocabulary.values()).map(input -> new Object[]{input, SWRL}),
+            stream(XSDVocabulary.values()).map(input -> new Object[]{input, XSD})));
+  }
 
-    @SafeVarargs
-    private static <T> Stream<T> concat(Stream<T>... values) {
-        Stream<T> toReturn = values[0];
-        for (int i = 1; i < values.length; i++) {
-            toReturn = Stream.concat(toReturn, values[i]);
-        }
-        return toReturn;
+  @SafeVarargs
+  private static <T> Stream<T> concat(Stream<T>... values) {
+    Stream<T> toReturn = values[0];
+    for (int i = 1; i < values.length; i++) {
+      toReturn = Stream.concat(toReturn, values[i]);
     }
+    return toReturn;
+  }
 
-    @Test
-    public void getPrefixedNameShouldStartWithDublinCorePrefixName() {
-        assertThat(name.getPrefixedName(), startsWith(expected.getPrefixName()));
-    }
+  @Test
+  public void getPrefixedNameShouldStartWithDublinCorePrefixName() {
+    assertThat(name.getPrefixedName(), startsWith(expected.getPrefixName()));
+  }
 
-    @Test
-    public void getIRIShouldReturnAnIRIThatStartsWithDublinCorePrefix() {
-        assertThat(iri.getIRI().getNamespace(), equalTo(expected.getPrefixIRI()));
-    }
+  @Test
+  public void getIRIShouldReturnAnIRIThatStartsWithDublinCorePrefix() {
+    assertThat(iri.getIRI().getNamespace(), equalTo(expected.getPrefixIRI()));
+  }
 }

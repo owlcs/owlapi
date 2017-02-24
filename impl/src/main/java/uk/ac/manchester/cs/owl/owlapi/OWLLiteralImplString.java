@@ -13,42 +13,41 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * An OWLLiteral with xsd:string datatype and no language tag.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         26-Oct-2006
  */
 public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
-    private final String literal;
+  private final String literal;
 
-    /**
-     * @param literal
-     *        the lexical form
-     */
-    public OWLLiteralImplString(String literal) {
-        this.literal = literal;
-    }
+  /**
+   * @param literal the lexical form
+   */
+  public OWLLiteralImplString(String literal) {
+    this.literal = literal;
+  }
 
-    @Override
-    public String getLiteral() {
-        return literal;
-    }
+  @Override
+  public String getLiteral() {
+    return literal;
+  }
 
-    @Override
-    public OWLDatatype getDatatype() {
-        return InternalizedEntities.XSDSTRING;
-    }
+  @Override
+  public OWLDatatype getDatatype() {
+    return InternalizedEntities.XSDSTRING;
+  }
 
-    @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(getLiteral().hashCode() * 65536),
+  @Override
+  protected int hashCode(OWLObject object) {
+    return hash(object.hashIndex(),
+        Stream.of(getDatatype(), Integer.valueOf(getLiteral().hashCode() * 65536),
             getLang()));
-    }
+  }
 }

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /*
@@ -25,47 +24,47 @@ import org.semanticweb.owlapi.model.IRI;
  */
 class ConsoleTripleHandler implements TripleHandler {
 
-    private static final String TEMPLATE = "%s --> %s --> %s";
-    private static final String TEMPLATEPLAINLITERAL = "%s --> %s --> %s@%s";
-    private static final String TEMPLATETYPEDLITERAL = "%s --> %s --> %s^^%s";
+  private static final String TEMPLATE = "%s --> %s --> %s";
+  private static final String TEMPLATEPLAINLITERAL = "%s --> %s --> %s@%s";
+  private static final String TEMPLATETYPEDLITERAL = "%s --> %s --> %s^^%s";
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
-        System.out.println(String.format(TEMPLATE, subject, predicate, object));
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    System.out.println(String.format(TEMPLATE, subject, predicate, object));
+  }
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, String object) {
-        System.out.println(String.format(TEMPLATE, subject, predicate, object));
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, String object) {
+    System.out.println(String.format(TEMPLATE, subject, predicate, object));
+  }
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang) {
-        System.out.println(String.format(TEMPLATEPLAINLITERAL, subject, predicate, object, lang));
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang) {
+    System.out.println(String.format(TEMPLATEPLAINLITERAL, subject, predicate, object, lang));
+  }
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {
-        System.out.println(String.format(TEMPLATETYPEDLITERAL, subject, predicate, object, datatype));
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {
+    System.out.println(String.format(TEMPLATETYPEDLITERAL, subject, predicate, object, datatype));
+  }
 
-    @Override
-    public void handlePrefixDirective(String prefixName, String prefix) {
-        System.out.println("PREFIX: " + prefixName + " -> " + prefix);
-    }
+  @Override
+  public void handlePrefixDirective(String prefixName, String prefix) {
+    System.out.println("PREFIX: " + prefixName + " -> " + prefix);
+  }
 
-    @Override
-    public void handleBaseDirective(IRI base) {
-        System.out.println("BASE: " + base);
-    }
+  @Override
+  public void handleBaseDirective(IRI base) {
+    System.out.println("BASE: " + base);
+  }
 
-    @Override
-    public void handleComment(String comment) {
-        System.out.println("COMMENT: " + comment);
-    }
+  @Override
+  public void handleComment(String comment) {
+    System.out.println("COMMENT: " + comment);
+  }
 
-    @Override
-    public void handleEnd() {
-        System.out.println("END");
-    }
+  @Override
+  public void handleEnd() {
+    System.out.println("END");
+  }
 }

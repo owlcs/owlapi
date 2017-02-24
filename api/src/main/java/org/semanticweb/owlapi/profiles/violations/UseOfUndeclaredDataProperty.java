@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -29,50 +27,48 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
-public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements UndeclaredEntityViolation {
+public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements
+    UndeclaredEntityViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param prop
-     *        prop
-     */
-    public UseOfUndeclaredDataProperty(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLDataProperty prop) {
-        super(ontology, axiom, checkNotNull(prop));
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param prop prop
+   */
+  public UseOfUndeclaredDataProperty(OWLOntology ontology, @Nullable OWLAxiom axiom,
+      OWLDataProperty prop) {
+    super(ontology, axiom, checkNotNull(prop));
+  }
 
-    @Override
-    public OWLEntity getEntity() {
-        return getExpression();
-    }
+  @Override
+  public OWLEntity getEntity() {
+    return getExpression();
+  }
 
-    @Override
-    public OWLDataProperty getExpression() {
-        return (OWLDataProperty) super.getExpression();
-    }
+  @Override
+  public OWLDataProperty getExpression() {
+    return (OWLDataProperty) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Use of undeclared data property: %s", getExpression());
-    }
+  @Override
+  public String toString() {
+    return toString("Use of undeclared data property: %s", getExpression());
+  }
 
-    @Override
-    public List<OWLOntologyChange> repair() {
-        return list(addDeclaration(getExpression()));
-    }
+  @Override
+  public List<OWLOntologyChange> repair() {
+    return list(addDeclaration(getExpression()));
+  }
 }

@@ -18,77 +18,77 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Anonymous_Individuals">Anonymous
  * Individuals</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValue, OWLAnnotationSubject, OWLPrimitive {
+public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValue,
+    OWLAnnotationSubject, OWLPrimitive {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getID());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getID());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 859;
-    }
+  @Override
+  default int hashIndex() {
+    return 859;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 1007;
-    }
+  @Override
+  default int typeIndex() {
+    return 1007;
+  }
 
-    /**
-     * Gets the ID of this individual.
-     * 
-     * @return The node ID of this individual.
-     */
-    NodeID getID();
+  /**
+   * Gets the ID of this individual.
+   *
+   * @return The node ID of this individual.
+   */
+  NodeID getID();
 
-    @Override
-    public default boolean isAnonymous() {
-        return true;
-    }
+  @Override
+  public default boolean isAnonymous() {
+    return true;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLIndividualVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLIndividualVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLIndividualVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLIndividualVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAnnotationValueVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAnnotationValueVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAnnotationSubjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAnnotationSubjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
+    return visitor.visit(this);
+  }
 }

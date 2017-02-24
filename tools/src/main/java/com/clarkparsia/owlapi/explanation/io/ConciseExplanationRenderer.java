@@ -12,93 +12,101 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-/** Explanation renderer in concise form. */
+/**
+ * Explanation renderer in concise form.
+ */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
 
-    /** The Constant INDENT. */
-    private static final String INDENT = "   ";
-    /** The renderer. */
-    private final SimpleRenderer renderer = new SimpleRenderer();
-    /** The writer. */
-    @Nullable private Writer printWriter;
+  /**
+   * The Constant INDENT.
+   */
+  private static final String INDENT = "   ";
+  /**
+   * The renderer.
+   */
+  private final SimpleRenderer renderer = new SimpleRenderer();
+  /**
+   * The writer.
+   */
+  @Nullable
+  private Writer printWriter;
 
-    @Override
-    public void startRendering(Writer writer) {
-        printWriter = checkNotNull(writer, "w cannot be null");
-    }
+  @Override
+  public void startRendering(Writer writer) {
+    printWriter = checkNotNull(writer, "w cannot be null");
+  }
 
-    @Override
-    public void render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations) {
-        checkNotNull(axiom, "axiom cannot be null");
-        try {
-            getWriter().write("Axiom: " + renderer.render(axiom) + "\n");
-            int expSize = explanations.size();
-            if (expSize == 0) {
-                getWriter().write("Explanation: AXIOM IS NOT ENTAILED!\n");
-                return;
-            }
-            if (expSize == 1) {
-                getWriter().write("Explanation: ");
-                Set<OWLAxiom> explanation = explanations.iterator().next();
-                renderSingleExplanation(INDENT, explanation);
-            } else {
-                getWriter().write("Explanations (" + expSize + "): \n");
-                renderMultipleExplanations(explanations);
-            }
-            getWriter().write("\n");
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
+  @Override
+  public void render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations) {
+    checkNotNull(axiom, "axiom cannot be null");
+    try {
+      getWriter().write("Axiom: " + renderer.render(axiom) + "\n");
+      int expSize = explanations.size();
+      if (expSize == 0) {
+        getWriter().write("Explanation: AXIOM IS NOT ENTAILED!\n");
+        return;
+      }
+      if (expSize == 1) {
+        getWriter().write("Explanation: ");
+        Set<OWLAxiom> explanation = explanations.iterator().next();
+        renderSingleExplanation(INDENT, explanation);
+      } else {
+        getWriter().write("Explanations (" + expSize + "): \n");
+        renderMultipleExplanations(explanations);
+      }
+      getWriter().write("\n");
+    } catch (IOException e) {
+      throw new OWLRuntimeException(e);
     }
+  }
 
-    protected Writer getWriter() {
-        return verifyNotNull(printWriter, "printWriter not set yet");
-    }
+  protected Writer getWriter() {
+    return verifyNotNull(printWriter, "printWriter not set yet");
+  }
 
-    private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
-        int count = 1;
-        for (Set<OWLAxiom> exp : explanations) {
-            String header = count++ + ") ";
-            renderSingleExplanation(header, exp);
-        }
+  private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
+    int count = 1;
+    for (Set<OWLAxiom> exp : explanations) {
+      String header = count++ + ") ";
+      renderSingleExplanation(header, exp);
     }
+  }
 
-    private void renderSingleExplanation(String inputHeader, Set<OWLAxiom> axioms) {
-        String header = inputHeader;
-        boolean first = true;
-        for (OWLAxiom axiom : axioms) {
-            if (first) {
-                first = false;
-            } else {
-                header = INDENT;
-            }
-            try {
-                getWriter().write(header + renderer.render(axiom) + "\n");
-            } catch (IOException e) {
-                throw new OWLRuntimeException(e);
-            }
-        }
+  private void renderSingleExplanation(String inputHeader, Set<OWLAxiom> axioms) {
+    String header = inputHeader;
+    boolean first = true;
+    for (OWLAxiom axiom : axioms) {
+      if (first) {
+        first = false;
+      } else {
+        header = INDENT;
+      }
+      try {
+        getWriter().write(header + renderer.render(axiom) + "\n");
+      } catch (IOException e) {
+        throw new OWLRuntimeException(e);
+      }
     }
+  }
 
-    @Override
-    public void endRendering() {
-        try {
-            getWriter().flush();
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
+  @Override
+  public void endRendering() {
+    try {
+      getWriter().flush();
+    } catch (IOException e) {
+      throw new OWLRuntimeException(e);
     }
+  }
 }

@@ -16,50 +16,102 @@ package org.semanticweb.owlapi.krss2.renderer;
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public enum KRSSVocabulary {
-    //@formatter:off
-/** ALL. */                      ALL("all"), 
-/** AND. */                      AND("and"), 
-/** AT_LEAST. */                 AT_LEAST("at-least"), 
-/** AT_MOST. */                  AT_MOST("at-most"), 
-/** DEFINE_CONCEPT. */           DEFINE_CONCEPT("define-concept"), 
-/** DEFINE_PRIMITIVE_CONCEPT. */ DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"), 
-/** DEFINE_PRIMITIVE_ROLE. */    DEFINE_PRIMITIVE_ROLE("define-primitive-role"), 
-/** DEFINE_ROLE. */              DEFINE_ROLE("define-role"), 
-/** DISTINCT. */                 DISTINCT("distinct"), 
-/** DISJOINT. */                 DISJOINT("disjoint"), 
-/** DOMAIN. */                   DOMAIN("domain"), 
-/** EQUAL. */                    EQUAL("equal"), 
-/** EXACTLY. */                  EXACTLY("exactly"), 
-/** IMPLIES. */                  IMPLIES("implies"), 
-/** INSTANCE. */                 INSTANCE("instance"), 
-/** INVERSE. */                  INVERSE("inv"), 
-/** NIL. */                      NIL("nil"), 
-/** NOT. */                      NOT("not"), 
-/** OR. */                       OR("or"), 
-/** RANGE. */                    RANGE("range"), 
-/** RELATED. */                  RELATED("related"), 
-/** SOME. */                     SOME("some"), 
-/** SYMMETRIC. */                SYMMETRIC("symmetric"), 
-/** TRUE. */                     TRUE("t"), 
-/** TOP. */                      TOP("top"), 
-/** TRANSITIVE. */               TRANSITIVE("transitive");
-    //@formatter:on
+  //@formatter:off
+  /**
+   * ALL.
+   */ALL("all"),
+  /**
+   * AND.
+   */AND("and"),
+  /**
+   * AT_LEAST.
+   */AT_LEAST("at-least"),
+  /**
+   * AT_MOST.
+   */AT_MOST("at-most"),
+  /**
+   * DEFINE_CONCEPT.
+   */DEFINE_CONCEPT("define-concept"),
+  /**
+   * DEFINE_PRIMITIVE_CONCEPT.
+   */DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
+  /**
+   * DEFINE_PRIMITIVE_ROLE.
+   */DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
+  /**
+   * DEFINE_ROLE.
+   */DEFINE_ROLE("define-role"),
+  /**
+   * DISTINCT.
+   */DISTINCT("distinct"),
+  /**
+   * DISJOINT.
+   */DISJOINT("disjoint"),
+  /**
+   * DOMAIN.
+   */DOMAIN("domain"),
+  /**
+   * EQUAL.
+   */EQUAL("equal"),
+  /**
+   * EXACTLY.
+   */EXACTLY("exactly"),
+  /**
+   * IMPLIES.
+   */IMPLIES("implies"),
+  /**
+   * INSTANCE.
+   */INSTANCE("instance"),
+  /**
+   * INVERSE.
+   */INVERSE("inv"),
+  /**
+   * NIL.
+   */NIL("nil"),
+  /**
+   * NOT.
+   */NOT("not"),
+  /**
+   * OR.
+   */OR("or"),
+  /**
+   * RANGE.
+   */RANGE("range"),
+  /**
+   * RELATED.
+   */RELATED("related"),
+  /**
+   * SOME.
+   */SOME("some"),
+  /**
+   * SYMMETRIC.
+   */SYMMETRIC("symmetric"),
+  /**
+   * TRUE.
+   */TRUE("t"),
+  /**
+   * TOP.
+   */TOP("top"),
+  /**
+   * TRANSITIVE.
+   */TRANSITIVE("transitive");
+  //@formatter:on
 
-    private final String shortName;
+  private final String shortName;
 
-    KRSSVocabulary(String name) {
-        shortName = name;
-    }
+  KRSSVocabulary(String name) {
+    shortName = name;
+  }
 
-    /**
-     * @return short name
-     */
-    public String getShortName() {
-        return shortName;
-    }
+  /**
+   * @return short name
+   */
+  public String getShortName() {
+    return shortName;
+  }
 
-    @Override
-    public String toString() {
-        return shortName;
-    }
+  @Override
+  public String toString() {
+    return shortName;
+  }
 }

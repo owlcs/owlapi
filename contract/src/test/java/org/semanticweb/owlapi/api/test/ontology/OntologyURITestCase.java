@@ -12,92 +12,101 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends TestBase {
 
-    @Test
-    public void testNamedOntologyToString() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
-        OWLOntology ont = m.createOntology(ontIRI);
-        String s = ont.toString();
-        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount() + " Logical Axioms: "
-            + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
-        assertEquals(expected, s);
-    }
+  @Test
+  public void testNamedOntologyToString() throws OWLOntologyCreationException {
+    IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
+    OWLOntology ont = m.createOntology(ontIRI);
+    String s = ont.toString();
+    String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount()
+        + " Logical Axioms: "
+        + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
+    assertEquals(expected, s);
+  }
 
-    @Test
-    public void testOntologyID() {
-        IRI iriA = IRI("http://www.another.com/", "ont");
-        IRI iriB = IRI("http://www.another.com/ont/", "version");
-        OWLOntologyID ontIDBoth = new OWLOntologyID(optional(iriA), optional(iriB));
-        OWLOntologyID ontIDBoth2 = new OWLOntologyID(optional(iriA), optional(iriB));
-        assertEquals(ontIDBoth, ontIDBoth2);
-        OWLOntologyID ontIDURIOnly = new OWLOntologyID(optional(iriA), emptyOptional(IRI.class));
-        assertFalse(ontIDBoth.equals(ontIDURIOnly));
-        OWLOntologyID ontIDNoneA = new OWLOntologyID();
-        OWLOntologyID ontIDNoneB = new OWLOntologyID();
-        assertFalse(ontIDNoneA.equals(ontIDNoneB));
-    }
+  @Test
+  public void testOntologyID() {
+    IRI iriA = IRI("http://www.another.com/", "ont");
+    IRI iriB = IRI("http://www.another.com/ont/", "version");
+    OWLOntologyID ontIDBoth = new OWLOntologyID(optional(iriA), optional(iriB));
+    OWLOntologyID ontIDBoth2 = new OWLOntologyID(optional(iriA), optional(iriB));
+    assertEquals(ontIDBoth, ontIDBoth2);
+    OWLOntologyID ontIDURIOnly = new OWLOntologyID(optional(iriA), emptyOptional(IRI.class));
+    assertFalse(ontIDBoth.equals(ontIDURIOnly));
+    OWLOntologyID ontIDNoneA = new OWLOntologyID();
+    OWLOntologyID ontIDNoneB = new OWLOntologyID();
+    assertFalse(ontIDNoneA.equals(ontIDNoneB));
+  }
 
-    @Test
-    public void testOntologyURI() throws OWLOntologyCreationException {
-        IRI iri = IRI("http://www.another.com/", "ont");
-        OWLOntology ont = getOWLOntology(iri);
-        assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
-        assertTrue(m.contains(iri));
-        assertTrue(contains(m.ontologies(), ont));
-        OWLOntologyID ontID = new OWLOntologyID(optional(iri), emptyOptional(IRI.class));
-        assertEquals(ont.getOntologyID(), ontID);
-    }
+  @Test
+  public void testOntologyURI() throws OWLOntologyCreationException {
+    IRI iri = IRI("http://www.another.com/", "ont");
+    OWLOntology ont = getOWLOntology(iri);
+    assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
+    assertTrue(m.contains(iri));
+    assertTrue(contains(m.ontologies(), ont));
+    OWLOntologyID ontID = new OWLOntologyID(optional(iri), emptyOptional(IRI.class));
+    assertEquals(ont.getOntologyID(), ontID);
+  }
 
-    @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testDuplicateOntologyURI() throws OWLOntologyCreationException {
-        IRI uri = IRI.getNextDocumentIRI("http://www.another.com/ont");
-        getOWLOntology(uri);
-        getOWLOntology(uri);
-    }
+  @Test(expected = OWLOntologyAlreadyExistsException.class)
+  public void testDuplicateOntologyURI() throws OWLOntologyCreationException {
+    IRI uri = IRI.getNextDocumentIRI("http://www.another.com/ont");
+    getOWLOntology(uri);
+    getOWLOntology(uri);
+  }
 
-    @Test
-    public void testSetOntologyURI() throws OWLOntologyCreationException {
-        IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
-        OWLOntology ont = getOWLOntology(iri);
-        IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
-        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
-        ont.applyChange(sou);
-        assertFalse(m.contains(iri));
-        assertTrue(m.contains(newIRI));
-        assertEquals(ont.getOntologyID().getOntologyIRI().get(), newIRI);
-    }
+  @Test
+  public void testSetOntologyURI() throws OWLOntologyCreationException {
+    IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
+    OWLOntology ont = getOWLOntology(iri);
+    IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
+    SetOntologyID sou = new SetOntologyID(ont,
+        new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
+    ont.applyChange(sou);
+    assertFalse(m.contains(iri));
+    assertTrue(m.contains(newIRI));
+    assertEquals(ont.getOntologyID().getOntologyIRI().get(), newIRI);
+  }
 
-    @Test
-    public void testVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
-        IRI verIRI = IRI.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
-        OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
-        assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
-        assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
-    }
+  @Test
+  public void testVersionURI() throws OWLOntologyCreationException {
+    IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
+    IRI verIRI = IRI.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
+    OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
+    assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
+    assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
+  }
 
-    @Test
-    public void testNullVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
-        IRI verIRI = null;
-        OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
-        assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
-        assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
-    }
+  @Test
+  public void testNullVersionURI() throws OWLOntologyCreationException {
+    IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
+    IRI verIRI = null;
+    OWLOntology ont = getOWLOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
+    assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
+    assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
+  }
 }

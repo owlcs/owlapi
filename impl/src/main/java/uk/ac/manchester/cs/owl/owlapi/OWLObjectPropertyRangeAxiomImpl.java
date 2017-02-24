@@ -16,46 +16,48 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectPropertyRangeAxiomImpl extends
-    OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression> implements OWLObjectPropertyRangeAxiom {
+    OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression> implements
+    OWLObjectPropertyRangeAxiom {
 
-    /**
-     * @param property
-     *        property
-     * @param range
-     *        range
-     * @param annotations
-     *        annotations
-     */
-    public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property, OWLClassExpression range,
-        Collection<OWLAnnotation> annotations) {
-        super(property, range, annotations);
-    }
+  /**
+   * @param property property
+   * @param range range
+   * @param annotations annotations
+   */
+  public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property,
+      OWLClassExpression range,
+      Collection<OWLAnnotation> annotations) {
+    super(property, range, annotations);
+  }
 
-    @Override
-    public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
+  @Override
+  public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
+  }
 
-    @Override
-    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(), getRange());
-        return new OWLSubClassOfAxiomImpl(OWL_THING, sup, NO_ANNOTATIONS);
-    }
+  @Override
+  public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
+    OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(), getRange());
+    return new OWLSubClassOfAxiomImpl(OWL_THING, sup, NO_ANNOTATIONS);
+  }
 }

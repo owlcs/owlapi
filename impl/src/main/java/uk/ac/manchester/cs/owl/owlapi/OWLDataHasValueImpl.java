@@ -20,32 +20,30 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> implements OWLDataHasValue {
+public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> implements
+    OWLDataHasValue {
 
-    private final OWLDataPropertyExpression property;
+  private final OWLDataPropertyExpression property;
 
-    /**
-     * @param property
-     *        property
-     * @param value
-     *        value
-     */
-    public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
-        super(value);
-        this.property = checkNotNull(property, "property cannot be null");
-    }
+  /**
+   * @param property property
+   * @param value value
+   */
+  public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
+    super(value);
+    this.property = checkNotNull(property, "property cannot be null");
+  }
 
-    @Override
-    public OWLDataPropertyExpression getProperty() {
-        return property;
-    }
+  @Override
+  public OWLDataPropertyExpression getProperty() {
+    return property;
+  }
 
-    @Override
-    public OWLClassExpression asSomeValuesFrom() {
-        return new OWLDataSomeValuesFromImpl(getProperty(), new OWLDataOneOfImpl(getFiller()));
-    }
+  @Override
+  public OWLClassExpression asSomeValuesFrom() {
+    return new OWLDataSomeValuesFromImpl(getProperty(), new OWLDataOneOfImpl(getFiller()));
+  }
 }

@@ -15,38 +15,37 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 
-/** Builder class for OWLReflexiveObjectPropertyAxiom. */
+/**
+ * Builder class for OWLReflexiveObjectPropertyAxiom.
+ */
 public class BuilderReflexiveObjectProperty extends
     BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderReflexiveObjectProperty(OWLReflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderReflexiveObjectProperty(OWLReflexiveObjectPropertyAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderReflexiveObjectProperty(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderReflexiveObjectProperty(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLReflexiveObjectPropertyAxiom buildObject() {
-        return df.getOWLReflexiveObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
-    }
+  @Override
+  public OWLReflexiveObjectPropertyAxiom buildObject() {
+    return df.getOWLReflexiveObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
+  }
 }

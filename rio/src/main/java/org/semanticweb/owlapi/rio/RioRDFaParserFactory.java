@@ -43,8 +43,10 @@ import org.semanticweb.owlapi.formats.RDFaDocumentFormatFactory;
  */
 public class RioRDFaParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
-    public RioRDFaParserFactory() {
-        super(new RDFaDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioRDFaParserFactory() {
+    super(new RDFaDocumentFormatFactory());
+  }
 }

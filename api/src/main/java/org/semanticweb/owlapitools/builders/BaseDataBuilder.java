@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -24,51 +23,49 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Builder class for OWLDataAllValuesFrom.
- * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
+ *
+ * @param <T> type built
+ * @param <B> builder type
  */
-public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B> implements
+public abstract class BaseDataBuilder<T extends OWLObject, B> extends
+    BaseDataPropertyBuilder<T, B> implements
     SettableRange<OWLDataRange, B> {
 
-    @Nullable private OWLDataRange dataRange = null;
+  @Nullable
+  private OWLDataRange dataRange = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BaseDataBuilder(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BaseDataBuilder(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
-    public B withRange(OWL2Datatype arg) {
-        return withRange(arg.getDatatype(df));
-    }
+  /**
+   * @param arg range
+   * @return builder
+   */
+  public B withRange(OWL2Datatype arg) {
+    return withRange(arg.getDatatype(df));
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public B withRange(OWLDataRange arg) {
-        dataRange = arg;
-        return (B) this;
-    }
+  @Override
+  @SuppressWarnings("unchecked")
+  public B withRange(OWLDataRange arg) {
+    dataRange = arg;
+    return (B) this;
+  }
 
-    /**
-     * @return the dataRange
-     */
-    public OWLDataRange getDataRange() {
-        return verifyNotNull(dataRange);
-    }
+  /**
+   * @return the dataRange
+   */
+  public OWLDataRange getDataRange() {
+    return verifyNotNull(dataRange);
+  }
 
-    @Override
-    public OWLDataRange getRange() {
-        return getDataRange();
-    }
+  @Override
+  public OWLDataRange getRange() {
+    return getDataRange();
+  }
 }

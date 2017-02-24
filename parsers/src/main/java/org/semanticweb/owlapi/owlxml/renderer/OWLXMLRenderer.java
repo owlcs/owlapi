@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
 import java.util.Map;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -27,69 +26,64 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
-     * @throws OWLRendererException
-     *         renderer error
-     */
-    public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLRendererException {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
-        checkNotNull(format, "format cannot be null");
-        try {
-            OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
-            w.startDocument(ontology);
-            if (format instanceof PrefixDocumentFormat) {
-                PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
-                Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
-                for (Map.Entry<String, String> e : map.entrySet()) {
-                    if (e.getValue() != null && !e.getValue().isEmpty()) {
-                        w.writePrefix(e.getKey(), e.getValue());
-                    }
-                }
-                if (!map.containsKey("rdf:")) {
-                    w.writePrefix("rdf:", Namespaces.RDF.toString());
-                }
-                if (!map.containsKey("rdfs:")) {
-                    w.writePrefix("rdfs:", Namespaces.RDFS.toString());
-                }
-                if (!map.containsKey("xsd:")) {
-                    w.writePrefix("xsd:", Namespaces.XSD.toString());
-                }
-                if (!map.containsKey("owl:")) {
-                    w.writePrefix("owl:", Namespaces.OWL.toString());
-                }
-            } else {
-                w.writePrefix("rdf:", Namespaces.RDF.toString());
-                w.writePrefix("rdfs:", Namespaces.RDFS.toString());
-                w.writePrefix("xsd:", Namespaces.XSD.toString());
-                w.writePrefix("owl:", Namespaces.OWL.toString());
-            }
-            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
-            ontology.accept(ren);
-            w.endDocument();
-            writer.flush();
-        } catch (OWLRuntimeException e) {
-            throw new OWLRendererIOException(e);
+  /**
+   * @param ontology ontology
+   * @param writer writer
+   * @param format format
+   * @throws OWLRendererException renderer error
+   */
+  public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+      throws OWLRendererException {
+    checkNotNull(ontology, "ontology cannot be null");
+    checkNotNull(writer, "writer cannot be null");
+    checkNotNull(format, "format cannot be null");
+    try {
+      OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
+      w.startDocument(ontology);
+      if (format instanceof PrefixDocumentFormat) {
+        PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
+        Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
+        for (Map.Entry<String, String> e : map.entrySet()) {
+          if (e.getValue() != null && !e.getValue().isEmpty()) {
+            w.writePrefix(e.getKey(), e.getValue());
+          }
         }
+        if (!map.containsKey("rdf:")) {
+          w.writePrefix("rdf:", Namespaces.RDF.toString());
+        }
+        if (!map.containsKey("rdfs:")) {
+          w.writePrefix("rdfs:", Namespaces.RDFS.toString());
+        }
+        if (!map.containsKey("xsd:")) {
+          w.writePrefix("xsd:", Namespaces.XSD.toString());
+        }
+        if (!map.containsKey("owl:")) {
+          w.writePrefix("owl:", Namespaces.OWL.toString());
+        }
+      } else {
+        w.writePrefix("rdf:", Namespaces.RDF.toString());
+        w.writePrefix("rdfs:", Namespaces.RDFS.toString());
+        w.writePrefix("xsd:", Namespaces.XSD.toString());
+        w.writePrefix("owl:", Namespaces.OWL.toString());
+      }
+      OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
+      ontology.accept(ren);
+      w.endDocument();
+      writer.flush();
+    } catch (OWLRuntimeException e) {
+      throw new OWLRendererIOException(e);
     }
+  }
 
-    @Override
-    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null");
-        render(ontology, writer, ontology.getNonnullFormat());
-    }
+  @Override
+  public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
+    checkNotNull(ontology, "ontology cannot be null");
+    checkNotNull(writer, "writer cannot be null");
+    render(ontology, writer, ontology.getNonnullFormat());
+  }
 }

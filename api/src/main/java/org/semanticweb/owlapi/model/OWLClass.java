@@ -15,90 +15,89 @@ package org.semanticweb.owlapi.model;
 /**
  * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Classes">Class</a> in
  * the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamedObject {
 
-    @Override
-    default int hashIndex() {
-        return 157;
-    }
+  @Override
+  default int hashIndex() {
+    return 157;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 1001;
-    }
+  @Override
+  default int typeIndex() {
+    return 1001;
+  }
 
-    @Override
-    default EntityType<?> getEntityType() {
-        return EntityType.CLASS;
-    }
+  @Override
+  default EntityType<?> getEntityType() {
+    return EntityType.CLASS;
+  }
 
-    @Override
-    default ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OWL_CLASS;
-    }
+  @Override
+  default ClassExpressionType getClassExpressionType() {
+    return ClassExpressionType.OWL_CLASS;
+  }
 
-    @Override
-    default boolean isTopEntity() {
-        return isOWLThing();
-    }
+  @Override
+  default boolean isTopEntity() {
+    return isOWLThing();
+  }
 
-    @Override
-    default boolean isBottomEntity() {
-        return isOWLNothing();
-    }
+  @Override
+  default boolean isBottomEntity() {
+    return isOWLNothing();
+  }
 
-    @Override
-    default boolean isClassExpressionLiteral() {
-        return true;
-    }
+  @Override
+  default boolean isClassExpressionLiteral() {
+    return true;
+  }
 
-    @Override
-    default boolean isOWLClass() {
-        return true;
-    }
+  @Override
+  default boolean isOWLClass() {
+    return true;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLClassExpressionVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLEntityVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLNamedObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

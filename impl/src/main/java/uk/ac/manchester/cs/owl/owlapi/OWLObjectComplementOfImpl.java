@@ -18,29 +18,28 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
+public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements
+    OWLObjectComplementOf {
 
-    private final OWLClassExpression operand;
+  private final OWLClassExpression operand;
 
-    /**
-     * @param operand
-     *        class to complement
-     */
-    public OWLObjectComplementOfImpl(OWLClassExpression operand) {
-        this.operand = checkNotNull(operand, "operand cannot be null");
-    }
+  /**
+   * @param operand class to complement
+   */
+  public OWLObjectComplementOfImpl(OWLClassExpression operand) {
+    this.operand = checkNotNull(operand, "operand cannot be null");
+  }
 
-    @Override
-    public boolean isClassExpressionLiteral() {
-        return !operand.isAnonymous();
-    }
+  @Override
+  public boolean isClassExpressionLiteral() {
+    return !operand.isAnonymous();
+  }
 
-    @Override
-    public OWLClassExpression getOperand() {
-        return operand;
-    }
+  @Override
+  public OWLClassExpression getOperand() {
+    return operand;
+  }
 }

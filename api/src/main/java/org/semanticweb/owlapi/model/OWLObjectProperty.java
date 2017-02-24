@@ -18,95 +18,94 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Properties">Object
  * Property</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectProperty extends OWLObjectPropertyExpression, OWLProperty {
 
-    @Override
-    default int hashIndex() {
-        return 293;
-    }
+  @Override
+  default int hashIndex() {
+    return 293;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 1002;
-    }
+  @Override
+  default int typeIndex() {
+    return 1002;
+  }
 
-    @Override
-    default EntityType<?> getEntityType() {
-        return EntityType.OBJECT_PROPERTY;
-    }
+  @Override
+  default EntityType<?> getEntityType() {
+    return EntityType.OBJECT_PROPERTY;
+  }
 
-    @Override
-    default OWLObjectProperty getNamedProperty() {
-        return this;
-    }
+  @Override
+  default OWLObjectProperty getNamedProperty() {
+    return this;
+  }
 
-    @Override
-    default boolean isOWLObjectProperty() {
-        return true;
-    }
+  @Override
+  default boolean isOWLObjectProperty() {
+    return true;
+  }
 
-    @Override
-    default boolean isTopEntity() {
-        return isOWLTopObjectProperty();
-    }
+  @Override
+  default boolean isTopEntity() {
+    return isOWLTopObjectProperty();
+  }
 
-    @Override
-    default boolean isBottomEntity() {
-        return isOWLBottomObjectProperty();
-    }
+  @Override
+  default boolean isBottomEntity() {
+    return isOWLBottomObjectProperty();
+  }
 
-    @Override
-    default boolean isOWLTopObjectProperty() {
-        return getIRI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
-    }
+  @Override
+  default boolean isOWLTopObjectProperty() {
+    return getIRI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
+  }
 
-    @Override
-    default boolean isOWLBottomObjectProperty() {
-        return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
-    }
+  @Override
+  default boolean isOWLBottomObjectProperty() {
+    return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLPropertyExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLPropertyExpressionVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLEntityVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLNamedObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

@@ -13,54 +13,48 @@
 package org.semanticweb.owlapi.reasoner;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class IllegalConfigurationException extends OWLReasonerRuntimeException {
 
-    private final OWLReasonerConfiguration configuration;
+  private final OWLReasonerConfiguration configuration;
 
-    /**
-     * @param cause
-     *        exception cause
-     * @param configuration
-     *        loading configuration
-     */
-    public IllegalConfigurationException(Throwable cause,
-            OWLReasonerConfiguration configuration) {
-        super(cause);
-        this.configuration = configuration;
-    }
+  /**
+   * @param cause exception cause
+   * @param configuration loading configuration
+   */
+  public IllegalConfigurationException(Throwable cause,
+      OWLReasonerConfiguration configuration) {
+    super(cause);
+    this.configuration = configuration;
+  }
 
-    /**
-     * @param message
-     *        exception message
-     * @param configuration
-     *        reasoner configuration
-     */
-    public IllegalConfigurationException(String message,
-            OWLReasonerConfiguration configuration) {
-        super(message);
-        this.configuration = configuration;
-    }
+  /**
+   * @param message exception message
+   * @param configuration reasoner configuration
+   */
+  public IllegalConfigurationException(String message,
+      OWLReasonerConfiguration configuration) {
+    super(message);
+    this.configuration = configuration;
+  }
 
-    /**
-     * @param cause
-     *        exception cause
-     * @param message
-     *        exception message
-     * @param configuration
-     *        reasoner configuration
-     */
-    public IllegalConfigurationException(String message, Throwable cause,
-            OWLReasonerConfiguration configuration) {
-        super(message, cause);
-        this.configuration = configuration;
-    }
+  /**
+   * @param cause exception cause
+   * @param message exception message
+   * @param configuration reasoner configuration
+   */
+  public IllegalConfigurationException(String message, Throwable cause,
+      OWLReasonerConfiguration configuration) {
+    super(message, cause);
+    this.configuration = configuration;
+  }
 
-    /** @return reasoner configuration */
-    public OWLReasonerConfiguration getConfiguration() {
-        return configuration;
-    }
+  /**
+   * @return reasoner configuration
+   */
+  public OWLReasonerConfiguration getConfiguration() {
+    return configuration;
+  }
 }

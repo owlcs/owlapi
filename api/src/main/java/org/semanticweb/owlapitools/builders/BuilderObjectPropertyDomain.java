@@ -13,40 +13,39 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLObjectPropertyDomainAxiom. */
+/**
+ * Builder class for OWLObjectPropertyDomainAxiom.
+ */
 public class BuilderObjectPropertyDomain extends
     BaseDomainBuilder<OWLObjectPropertyDomainAxiom, BuilderObjectPropertyDomain, OWLObjectPropertyExpression> implements
     SettableProperty<OWLObjectPropertyExpression, BuilderObjectPropertyDomain> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectPropertyDomain(OWLObjectPropertyDomainAxiom expected, OWLDataFactory df) {
-        this(df);
-        withDomain(expected.getDomain()).withProperty(expected.getProperty()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectPropertyDomain(OWLObjectPropertyDomainAxiom expected, OWLDataFactory df) {
+    this(df);
+    withDomain(expected.getDomain()).withProperty(expected.getProperty())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectPropertyDomain(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectPropertyDomain(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLObjectPropertyDomainAxiom buildObject() {
-        return df.getOWLObjectPropertyDomainAxiom(getProperty(), getDomain(), annotations);
-    }
+  @Override
+  public OWLObjectPropertyDomainAxiom buildObject() {
+    return df.getOWLObjectPropertyDomainAxiom(getProperty(), getDomain(), annotations);
+  }
 }

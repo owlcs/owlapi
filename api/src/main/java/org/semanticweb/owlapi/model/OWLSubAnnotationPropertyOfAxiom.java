@@ -18,74 +18,71 @@ import java.util.stream.Stream;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties" >
  * SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
-    @Override
-        OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getSubProperty(), getSuperProperty(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getSubProperty(), getSuperProperty(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getSubProperty(), getSuperProperty());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getSubProperty(), getSuperProperty());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubProperty(), getSuperProperty());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getSubProperty(), getSuperProperty());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 829;
-    }
+  @Override
+  default int hashIndex() {
+    return 829;
+  }
 
-    /**
-     * Gets the subproperty of this axiom.
-     * 
-     * @return The annotation property that represents the subproperty in this
-     *         axiom.
-     */
-    OWLAnnotationProperty getSubProperty();
+  /**
+   * Gets the subproperty of this axiom.
+   *
+   * @return The annotation property that represents the subproperty in this axiom.
+   */
+  OWLAnnotationProperty getSubProperty();
 
-    /**
-     * Gets the superproperty of this axiom.
-     * 
-     * @return The annotation property that represents the superproperty in this
-     *         axiom.
-     */
-    OWLAnnotationProperty getSuperProperty();
+  /**
+   * Gets the superproperty of this axiom.
+   *
+   * @return The annotation property that represents the superproperty in this axiom.
+   */
+  OWLAnnotationProperty getSuperProperty();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
+  }
 }

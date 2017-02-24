@@ -16,60 +16,58 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Builder class for OWLEntity. */
+/**
+ * Builder class for OWLEntity.
+ */
 public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
 
-    @Nullable private EntityType<?> entityType = null;
+  @Nullable
+  private EntityType<?> entityType = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderEntity(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderEntity(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderEntity(OWLEntity expected, OWLDataFactory df) {
-        this(df);
-        withType(expected.getEntityType()).withIRI(expected.getIRI());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderEntity(OWLEntity expected, OWLDataFactory df) {
+    this(df);
+    withType(expected.getEntityType()).withIRI(expected.getIRI());
+  }
 
-    /**
-     * @param arg
-     *        entity type
-     * @return builder
-     */
-    public BuilderEntity withType(EntityType<?> arg) {
-        entityType = arg;
-        return this;
-    }
+  /**
+   * @param arg entity type
+   * @return builder
+   */
+  public BuilderEntity withType(EntityType<?> arg) {
+    entityType = arg;
+    return this;
+  }
 
-    /**
-     * @return entity type
-     */
-    public EntityType<?> getEntityType() {
-        return verifyNotNull(entityType);
-    }
+  /**
+   * @return entity type
+   */
+  public EntityType<?> getEntityType() {
+    return verifyNotNull(entityType);
+  }
 
-    @Override
-    public OWLEntity buildObject() {
-        if (pm != null && string != null) {
-            return df.getOWLEntity(getEntityType(), getPM().getIRI(getString()));
-        }
-        return df.getOWLEntity(getEntityType(), getIRI());
+  @Override
+  public OWLEntity buildObject() {
+    if (pm != null && string != null) {
+      return df.getOWLEntity(getEntityType(), getPM().getIRI(getString()));
     }
+    return df.getOWLEntity(getEntityType(), getIRI());
+  }
 }

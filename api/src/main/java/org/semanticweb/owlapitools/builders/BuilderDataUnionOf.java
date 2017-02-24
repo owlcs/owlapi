@@ -13,38 +13,37 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 
-/** Builder class for OWLDataUnionOf. */
-public class BuilderDataUnionOf extends BaseSetBuilder<OWLDataUnionOf, BuilderDataUnionOf, OWLDataRange> {
+/**
+ * Builder class for OWLDataUnionOf.
+ */
+public class BuilderDataUnionOf extends
+    BaseSetBuilder<OWLDataUnionOf, BuilderDataUnionOf, OWLDataRange> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDataUnionOf(OWLDataUnionOf expected, OWLDataFactory df) {
-        this(df);
-        withItems(expected.operands());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDataUnionOf(OWLDataUnionOf expected, OWLDataFactory df) {
+    this(df);
+    withItems(expected.operands());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDataUnionOf(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDataUnionOf(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLDataUnionOf buildObject() {
-        return df.getOWLDataUnionOf(items);
-    }
+  @Override
+  public OWLDataUnionOf buildObject() {
+    return df.getOWLDataUnionOf(items);
+  }
 }

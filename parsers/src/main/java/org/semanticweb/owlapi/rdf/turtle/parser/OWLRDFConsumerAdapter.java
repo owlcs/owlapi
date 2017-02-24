@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -21,56 +20,55 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
 /**
  * The Class OWLRDFConsumerAdapter.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param configuration
-     *        configuration
-     */
-    public OWLRDFConsumerAdapter(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        super(ontology, configuration);
-    }
+  /**
+   * @param ontology ontology
+   * @param configuration configuration
+   */
+  public OWLRDFConsumerAdapter(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    super(ontology, configuration);
+  }
 
-    @Override
-    public void handlePrefixDirective(String prefixName, String prefix) {}
+  @Override
+  public void handlePrefixDirective(String prefixName, String prefix) {
+  }
 
-    @Override
-    public void handleBaseDirective(IRI base) {
-        // setXMLBase(base);
-    }
+  @Override
+  public void handleBaseDirective(IRI base) {
+    // setXMLBase(base);
+  }
 
-    @Override
-    public void handleComment(String comment) {}
+  @Override
+  public void handleComment(String comment) {
+  }
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
-        statementWithResourceValue(subject, predicate, object);
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    statementWithResourceValue(subject, predicate, object);
+  }
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, String object) {
-        statementWithLiteralValue(subject, predicate, object, null, null);
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, String object) {
+    statementWithLiteralValue(subject, predicate, object, null, null);
+  }
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang) {
-        statementWithLiteralValue(subject, predicate, object, lang, null);
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang) {
+    statementWithLiteralValue(subject, predicate, object, lang, null);
+  }
 
-    @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {
-        statementWithLiteralValue(subject, predicate, object, null, datatype);
-    }
+  @Override
+  public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {
+    statementWithLiteralValue(subject, predicate, object, null, datatype);
+  }
 
-    @Override
-    public void handleEnd() {
-        endModel();
-    }
+  @Override
+  public void handleEnd() {
+    endModel();
+  }
 }

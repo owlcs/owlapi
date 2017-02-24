@@ -15,36 +15,32 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
  */
-public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl implements
+public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
+    OWLPropertyAxiomImpl implements
     OWLUnaryPropertyAxiom<P> {
 
-    private final P property;
+  private final P property;
 
-    /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
-     */
-    public OWLUnaryPropertyAxiomImpl(P property, Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.property = checkNotNull(property, "property cannot be null");
-    }
+  /**
+   * @param property property
+   * @param annotations annotations
+   */
+  public OWLUnaryPropertyAxiomImpl(P property, Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.property = checkNotNull(property, "property cannot be null");
+  }
 
-    @Override
-    public P getProperty() {
-        return property;
-    }
+  @Override
+  public P getProperty() {
+    return property;
+  }
 }

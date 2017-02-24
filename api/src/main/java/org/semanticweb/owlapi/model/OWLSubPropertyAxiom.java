@@ -15,37 +15,34 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param
- *        <P>
- *        property expression
  */
 public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getSubProperty(), getSuperProperty(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getSubProperty(), getSuperProperty(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getSubProperty(), getSuperProperty());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getSubProperty(), getSuperProperty());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubProperty(), getSuperProperty());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getSubProperty(), getSuperProperty());
+  }
 
-    /**
-     * @return the sub property
-     */
-    P getSubProperty();
+  /**
+   * @return the sub property
+   */
+  P getSubProperty();
 
-    /**
-     * @return the super property
-     */
-    P getSuperProperty();
+  /**
+   * @return the super property
+   */
+  P getSuperProperty();
 }

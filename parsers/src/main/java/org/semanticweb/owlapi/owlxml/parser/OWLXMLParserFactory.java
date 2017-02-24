@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(1)
 public class OWLXMLParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
-    public OWLXMLParserFactory() {
-        super(new OWLXMLDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public OWLXMLParserFactory() {
+    super(new OWLXMLDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLParser createParser() {
-        return new OWLXMLParser();
-    }
+  @Override
+  public OWLParser createParser() {
+    return new OWLXMLParser();
+  }
 }

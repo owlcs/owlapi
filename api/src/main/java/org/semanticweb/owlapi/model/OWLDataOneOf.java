@@ -21,78 +21,77 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals" >
  * DataOneOf</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataOneOf extends OWLDataRange {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(values());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(values());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 263;
-    }
+  @Override
+  default int hashIndex() {
+    return 263;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 4003;
-    }
+  @Override
+  default int typeIndex() {
+    return 4003;
+  }
 
-    @Override
-    default DataRangeType getDataRangeType() {
-        return DataRangeType.DATA_ONE_OF;
-    }
+  @Override
+  default DataRangeType getDataRangeType() {
+    return DataRangeType.DATA_ONE_OF;
+  }
 
-    /**
-     * Gets the values ({@link OWLLiteral}s) that this data range consists of.
-     * 
-     * @return The values that this data range consists of.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLLiteral> getValues() {
-        return asSet(values());
-    }
+  /**
+   * Gets the values ({@link OWLLiteral}s) that this data range consists of.
+   *
+   * @return The values that this data range consists of.
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLLiteral> getValues() {
+    return asSet(values());
+  }
 
-    /**
-     * Gets the values ({@link OWLLiteral}s) that this data range consists of.
-     * 
-     * @return The values that this data range consists of.
-     */
-    Stream<OWLLiteral> values();
+  /**
+   * Gets the values ({@link OWLLiteral}s) that this data range consists of.
+   *
+   * @return The values that this data range consists of.
+   */
+  Stream<OWLLiteral> values();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataRangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataRangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

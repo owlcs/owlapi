@@ -15,71 +15,69 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public final class EscapeUtils {
 
-    private EscapeUtils() {}
+  private EscapeUtils() {
+  }
 
-    /**
-     * Escapes quotes and backslashes in a string. Double quotes are replaced
-     * with a backslash followed by a double quote, and backslashes are replaced
-     * with a double backslash.
-     * 
-     * @param s
-     *        The string to be escaped
-     * @return The escaped string.
-     */
-    public static String escapeString(String s) {
-        // We replace double quotes with a back slash followed
-        // by a double quote. We replace backslashes with a double
-        // backslash
-        if (s.indexOf('\"') == -1 && s.indexOf('\\') == -1) {
-            return s;
-        }
-        StringBuilder sb = new StringBuilder(s.length() + 20);
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (ch == '\\') {
-                sb.append("\\\\");
-            } else if (ch == '\"') {
-                sb.append("\\\"");
-            } else {
-                sb.append(ch);
-            }
-        }
-        return verifyNotNull(sb.toString());
+  /**
+   * Escapes quotes and backslashes in a string. Double quotes are replaced
+   * with a backslash followed by a double quote, and backslashes are replaced
+   * with a double backslash.
+   *
+   * @param s The string to be escaped
+   * @return The escaped string.
+   */
+  public static String escapeString(String s) {
+    // We replace double quotes with a back slash followed
+    // by a double quote. We replace backslashes with a double
+    // backslash
+    if (s.indexOf('\"') == -1 && s.indexOf('\\') == -1) {
+      return s;
     }
+    StringBuilder sb = new StringBuilder(s.length() + 20);
+    for (int i = 0; i < s.length(); i++) {
+      char ch = s.charAt(i);
+      if (ch == '\\') {
+        sb.append("\\\\");
+      } else if (ch == '\"') {
+        sb.append("\\\"");
+      } else {
+        sb.append(ch);
+      }
+    }
+    return verifyNotNull(sb.toString());
+  }
 
-    /**
-     * @param s
-     *        string to unescape
-     * @return the unescaped string
-     */
-    public static String unescapeString(String s) {
-        if (s.indexOf('\\') == -1) {
-            return s;
-        }
-        StringBuilder sb = new StringBuilder(s.length());
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (ch == '\\') {
-                int j = i + 1;
-                if (j < s.length()) {
-                    char escCh = s.charAt(j);
-                    if (escCh == '\\' || escCh == '\"') {
-                        i++;
-                        sb.append(escCh);
-                    }
-                } else {
-                    sb.append('\\');
-                }
-            } else {
-                sb.append(ch);
-            }
-        }
-        return sb.toString();
+  /**
+   * @param s string to unescape
+   * @return the unescaped string
+   */
+  public static String unescapeString(String s) {
+    if (s.indexOf('\\') == -1) {
+      return s;
     }
+    StringBuilder sb = new StringBuilder(s.length());
+    for (int i = 0; i < s.length(); i++) {
+      char ch = s.charAt(i);
+      if (ch == '\\') {
+        int j = i + 1;
+        if (j < s.length()) {
+          char escCh = s.charAt(j);
+          if (escCh == '\\' || escCh == '\"') {
+            i++;
+            sb.append(escCh);
+          }
+        } else {
+          sb.append('\\');
+        }
+      } else {
+        sb.append(ch);
+      }
+    }
+    return sb.toString();
+  }
 }

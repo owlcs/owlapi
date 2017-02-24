@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -24,55 +23,56 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
+public class OWLEquivalentDataPropertiesAxiomImpl extends
+    OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
     OWLEquivalentDataPropertiesAxiom {
 
-    /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
-     */
-    public OWLEquivalentDataPropertiesAxiomImpl(Collection<? extends OWLDataPropertyExpression> properties,
-        Collection<OWLAnnotation> annotations) {
-        super(properties, annotations);
-    }
+  /**
+   * @param properties properties
+   * @param annotations annotations
+   */
+  public OWLEquivalentDataPropertiesAxiomImpl(
+      Collection<? extends OWLDataPropertyExpression> properties,
+      Collection<OWLAnnotation> annotations) {
+    super(properties, annotations);
+  }
 
-    @Override
-    public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLEquivalentDataPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+  @Override
+  public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLEquivalentDataPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLEquivalentDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLEquivalentDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
+  }
 
-    @Override
-    public Collection<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms() {
-        if (properties.size() == 2) {
-            return CollectionFactory.createSet(this);
-        }
-        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+  @Override
+  public Collection<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms() {
+    if (properties.size() == 2) {
+      return CollectionFactory.createSet(this);
     }
+    return walkPairwise(
+        (a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+  }
 
-    @Override
-    public Collection<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs() {
-        if (properties.size() == 2) {
-            return CollectionFactory.createSet(this);
-        }
-        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+  @Override
+  public Collection<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs() {
+    if (properties.size() == 2) {
+      return CollectionFactory.createSet(this);
     }
+    return walkPairwise(
+        (a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+  }
 
-    @Override
-    public Collection<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
-        return walkAllPairwise((a, b) -> new OWLSubDataPropertyOfAxiomImpl(a, b, NO_ANNOTATIONS));
-    }
+  @Override
+  public Collection<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
+    return walkAllPairwise((a, b) -> new OWLSubDataPropertyOfAxiomImpl(a, b, NO_ANNOTATIONS));
+  }
 }

@@ -13,70 +13,67 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
 /**
  * Represents an ontology change where an annotation is removed from an
  * ontology.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class RemoveOntologyAnnotation extends AnnotationChange {
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param annotation
-     *        the annotation
-     */
-    public RemoveOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
-        super(ont, annotation);
-    }
+  /**
+   * @param ont the ontology to which the change is to be applied
+   * @param annotation the annotation
+   */
+  public RemoveOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
+    super(ont, annotation);
+  }
 
-    @Override
-    public OWLOntologyChangeData getChangeData() {
-        return new RemoveOntologyAnnotationData(getAnnotation());
-    }
+  @Override
+  public OWLOntologyChangeData getChangeData() {
+    return new RemoveOntologyAnnotationData(getAnnotation());
+  }
 
-    @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLOntologyChangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public int hashCode() {
-        return 23 + getOntology().hashCode() + getAnnotation().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return 23 + getOntology().hashCode() + getAnnotation().hashCode();
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof RemoveOntologyAnnotation)) {
-            return false;
-        }
-        RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
-        return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
+    if (!(obj instanceof RemoveOntologyAnnotation)) {
+      return false;
+    }
+    RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
+    return getAnnotation().equals(other.getAnnotation()) && getOntology()
+        .equals(other.getOntology());
+  }
 
-    @Override
-    public String toString() {
-        return String.format("RemoveOntologyAnnotation(%s OntologyID(%s))", getAnnotation(),
-                getOntology().getOntologyID());
-    }
+  @Override
+  public String toString() {
+    return String.format("RemoveOntologyAnnotation(%s OntologyID(%s))", getAnnotation(),
+        getOntology().getOntologyID());
+  }
 
-    @Override
-    public OWLOntologyChange reverseChange() {
-        return new AddOntologyAnnotation(getOntology(), getAnnotation());
-    }
+  @Override
+  public OWLOntologyChange reverseChange() {
+    return new AddOntologyAnnotation(getOntology(), getAnnotation());
+  }
 }

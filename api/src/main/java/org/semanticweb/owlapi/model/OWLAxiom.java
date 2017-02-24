@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
 
 /**
@@ -25,296 +24,268 @@ import javax.annotation.Nullable;
  * the OWL 2 Specification.<br>
  * An OWL ontology contains a set of axioms. These axioms can be annotation
  * axioms, declaration axioms, imports axioms or logical axioms
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLAxiom extends OWLObject, HasAnnotations {
 
-    @Override
-    default int typeIndex() {
-        return 2000 + getAxiomType().getIndex();
+  /**
+   * Gets an axiom that is structurally equivalent to the input axiom without
+   * annotations. This essentially returns a version of the axiom stripped of
+   * any annotations.
+   *
+   * @param axiom axiom to divest of annotations
+   * @return The annotationless version of the axiom
+   */
+  @SuppressWarnings("unchecked")
+  static <T extends OWLAxiom> T getAxiomWithoutAnnotations(T axiom) {
+    return axiom.getAxiomWithoutAnnotations((Class<T>) axiom.getClass());
+  }
+
+  /**
+   * Gets a copy of the input axiom that is annotated with the specified
+   * annotations. If the axiom has any annotations on it they will be merged
+   * with the specified set of annotations. Note that the input axiom will not
+   * be modified (or removed from any ontologies).
+   *
+   * @param axiom axiom to be copied
+   * @param annotations The annotations that will be added to existing annotations to annotate the
+   * copy of this axiom
+   * @param <T> type of axiom returned
+   * @return A copy of this axiom that has the specified annotations plus any existing annotations
+   * returned by the {@code OWLAxiom#getAnnotations()} method.
+   */
+  @SuppressWarnings("unchecked")
+  static <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> annotations, T axiom) {
+    return axiom.getAnnotatedAxiom((Class<T>) axiom.getClass(), annotations);
+  }
+
+  /**
+   * Gets a copy of the input axiom that is annotated with the specified
+   * annotations. If the axiom has any annotations on it they will be merged
+   * with the specified set of annotations. Note that the input axiom will not
+   * be modified (or removed from any ontologies).
+   *
+   * @param axiom axiom to be copied
+   * @param annotations The annotations that will be added to existing annotations to annotate the
+   * copy of this axiom
+   * @param <T> type of axiom returned
+   * @return A copy of this axiom that has the specified annotations plus any existing annotations
+   * returned by the {@code OWLAxiom#getAnnotations()} method.
+   */
+  static <T extends OWLAxiom> T getAnnotatedAxiom(Collection<OWLAnnotation> annotations, T axiom) {
+    return getAnnotatedAxiom(annotations.stream(), axiom);
+  }
+
+  @Override
+  default int typeIndex() {
+    return 2000 + getAxiomType().getIndex();
+  }
+
+  @Override
+  default boolean isAnonymous() {
+    return true;
+  }
+
+  @Override
+  default boolean isIndividual() {
+    return false;
+  }
+
+  @Override
+  default boolean isAxiom() {
+    return true;
+  }
+
+  /**
+   * @param visitor visitor to accept
+   */
+  void accept(OWLAxiomVisitor visitor);
+
+  /**
+   * @param visitor visitor to accept
+   * @param <O> visitor return type
+   * @return visitor value
+   */
+  <O> O accept(OWLAxiomVisitorEx<O> visitor);
+
+  /**
+   * Gets an axiom that is structurally equivalent to this axiom without
+   * annotations. This essentially returns a version of this axiom stripped of
+   * any annotations.
+   *
+   * @return The annotationless version of this axiom
+   */
+  <T extends OWLAxiom> T getAxiomWithoutAnnotations();
+
+  /**
+   * Gets an axiom that is structurally equivalent to this axiom without
+   * annotations. This essentially returns a version of this axiom stripped of
+   * any annotations.<br>
+   * <br>
+   * Calling {@code axiom.getAxiomWithoutAnnotations(axiom.getClass())} is
+   * equivalent to {@code axiom.getAxiomWithoutAnnotations()}, but it provides
+   * compile time type safety - there will be no attempt to cast to an
+   * incompatible type.
+   *
+   * @param witness Variable to ground the generic return type
+   * @return The annotationless version of this axiom
+   */
+  @SuppressWarnings("unchecked")
+  default <T extends OWLAxiom> T getAxiomWithoutAnnotations(
+      @SuppressWarnings("unused") Class<T> witness) {
+    return (T) getAxiomWithoutAnnotations();
+  }
+
+  /**
+   * Gets a copy of this axiom that is annotated with the specified
+   * annotations. If this axiom has any annotations on it they will be merged
+   * with the specified set of annotations. Note that this axiom will not be
+   * modified (or removed from any ontologies).<br>
+   * <br>
+   * Calling {@code axiom.getAnnotatedAxiom(axiom.getClass(), annotations)} is
+   * equivalent to {@code axiom.getAnnotatedAxiom(annotations)}, but it
+   * provides compile time type safety - there will be no attempt to cast to
+   * an incompatible type.
+   *
+   * @param witness Variable to ground the generic return type
+   * @param annotations The annotations that will be added to existing annotations to annotate the
+   * copy of this axiom
+   * @return A copy of this axiom that has the specified annotations plus any existing annotations
+   * returned by the {@code OWLAxiom#getAnnotations()} method.
+   */
+  @SuppressWarnings("unchecked")
+  default <T extends OWLAxiom> T getAnnotatedAxiom(@SuppressWarnings("unused") Class<T> witness,
+      Stream<OWLAnnotation> annotations) {
+    return (T) getAnnotatedAxiom(annotations);
+  }
+
+  /**
+   * Gets a copy of this axiom that is annotated with the specified
+   * annotations. If this axiom has any annotations on it they will be merged
+   * with the specified set of annotations. Note that this axiom will not be
+   * modified (or removed from any ontologies).
+   *
+   * @param annotations The annotations that will be added to existing annotations to annotate the
+   * copy of this axiom
+   * @return A copy of this axiom that has the specified annotations plus any existing annotations
+   * returned by the {@code OWLAxiom#getAnnotations()} method.
+   */
+  <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> annotations);
+
+  /**
+   * Gets a copy of this axiom that is annotated with the specified
+   * annotations. If this axiom has any annotations on it they will be merged
+   * with the specified set of annotations. Note that this axiom will not be
+   * modified (or removed from any ontologies).
+   *
+   * @param annotations The annotations that will be added to existing annotations to annotate the
+   * copy of this axiom
+   * @return A copy of this axiom that has the specified annotations plus any existing annotations
+   * returned by the {@code OWLAxiom#getAnnotations()} method.
+   */
+  default <T extends OWLAxiom> T getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
+    return getAnnotatedAxiom(annotations.stream());
+  }
+
+  /**
+   * Determines if another axiom is equal to this axiom not taking into
+   * consideration the annotations on the axiom
+   *
+   * @param axiom The axiom to test if equal
+   * @return {@code true} if {@code axiom} without annotations is equal to this axiom without
+   * annotations otherwise {@code false}.
+   */
+  default boolean equalsIgnoreAnnotations(@Nullable OWLAxiom axiom) {
+    if (axiom == null) {
+      return false;
     }
-
-    @Override
-    default boolean isAnonymous() {
-        return true;
+    if (this == axiom) {
+      return true;
     }
-
-    @Override
-    default boolean isIndividual() {
-        return false;
+    if (typeIndex() != axiom.typeIndex()) {
+      return false;
     }
+    return equalStreams(componentsWithoutAnnotations(), axiom.componentsWithoutAnnotations());
+  }
 
-    @Override
-    default boolean isAxiom() {
-        return true;
-    }
+  /**
+   * Determines if this axiom is a logical axiom. Logical axioms are defined
+   * to be axioms other than both declaration axioms (including imports
+   * declarations) and annotation axioms.
+   *
+   * @return {@code true} if the axiom is a logical axiom, {@code false} if the axiom is not a
+   * logical axiom.
+   */
+  default boolean isLogicalAxiom() {
+    return false;
+  }
 
-    /**
-     * @param visitor
-     *        visitor to accept
-     */
-    void accept(OWLAxiomVisitor visitor);
+  /**
+   * Determines if this axioms in an annotation axiom (an instance of
+   * {@code OWLAnnotationAxiom})
+   *
+   * @return {@code true} if this axiom is an instance of {@code OWLAnnotationAxiom}, otherwise
+   * {@code false}.
+   * @since 3.2
+   */
+  default boolean isAnnotationAxiom() {
+    return false;
+  }
 
-    /**
-     * @param visitor
-     *        visitor to accept
-     * @param <O>
-     *        visitor return type
-     * @return visitor value
-     */
-    <O> O accept(OWLAxiomVisitorEx<O> visitor);
+  /**
+   * Determines if this axiom has any annotations on it
+   *
+   * @return {@code true} if this axiom has annotations on it, otherwise {@code false}
+   */
+  boolean isAnnotated();
 
-    /**
-     * Gets an axiom that is structurally equivalent to this axiom without
-     * annotations. This essentially returns a version of this axiom stripped of
-     * any annotations.
-     * 
-     * @return The annotationless version of this axiom
-     */
-    <T extends OWLAxiom> T getAxiomWithoutAnnotations();
+  /**
+   * Gets the axiom type for this axiom.
+   *
+   * @return The axiom type that corresponds to the type of this axiom.
+   */
+  AxiomType<?> getAxiomType();
 
-    /**
-     * Gets an axiom that is structurally equivalent to the input axiom without
-     * annotations. This essentially returns a version of the axiom stripped of
-     * any annotations.
-     * 
-     * @param axiom
-     *        axiom to divest of annotations
-     * @return The annotationless version of the axiom
-     */
-    @SuppressWarnings("unchecked")
-    static <T extends OWLAxiom> T getAxiomWithoutAnnotations(T axiom) {
-        return axiom.getAxiomWithoutAnnotations((Class<T>) axiom.getClass());
-    }
+  /**
+   * Determines if this axiom is one of the specified types
+   *
+   * @param axiomTypes The axiom types to check for
+   * @return {@code true} if this axiom is one of the specified types, otherwise {@code false}
+   * @since 3.0
+   */
+  default boolean isOfType(AxiomType<?>... axiomTypes) {
+    return isOfType(Arrays.stream(axiomTypes));
+  }
 
-    /**
-     * Gets an axiom that is structurally equivalent to this axiom without
-     * annotations. This essentially returns a version of this axiom stripped of
-     * any annotations.<br>
-     * <br>
-     * Calling {@code axiom.getAxiomWithoutAnnotations(axiom.getClass())} is
-     * equivalent to {@code axiom.getAxiomWithoutAnnotations()}, but it provides
-     * compile time type safety - there will be no attempt to cast to an
-     * incompatible type.
-     * 
-     * @param witness
-     *        Variable to ground the generic return type
-     * @return The annotationless version of this axiom
-     */
-    @SuppressWarnings("unchecked")
-    default <T extends OWLAxiom> T getAxiomWithoutAnnotations(@SuppressWarnings("unused") Class<T> witness) {
-        return (T) getAxiomWithoutAnnotations();
-    }
+  /**
+   * Determines if this axiom is one of the specified types
+   *
+   * @param types The axiom types to check for
+   * @return {@code true} if this axioms is one of the specified types, otherwise {@code false}
+   * @since 3.0
+   */
+  default boolean isOfType(Collection<AxiomType<?>> types) {
+    return types.contains(getAxiomType());
+  }
 
-    /**
-     * Gets a copy of the input axiom that is annotated with the specified
-     * annotations. If the axiom has any annotations on it they will be merged
-     * with the specified set of annotations. Note that the input axiom will not
-     * be modified (or removed from any ontologies).
-     * 
-     * @param axiom
-     *        axiom to be copied
-     * @param annotations
-     *        The annotations that will be added to existing annotations to
-     *        annotate the copy of this axiom
-     * @param <T>
-     *        type of axiom returned
-     * @return A copy of this axiom that has the specified annotations plus any
-     *         existing annotations returned by the
-     *         {@code OWLAxiom#getAnnotations()} method.
-     */
-    @SuppressWarnings("unchecked")
-    static <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> annotations, T axiom) {
-        return axiom.getAnnotatedAxiom((Class<T>) axiom.getClass(), annotations);
-    }
+  /**
+   * Determines if this axiom is one of the specified types
+   *
+   * @param types The axiom types to check for
+   * @return {@code true} if this axioms is one of the specified types, otherwise {@code false}
+   * @since 3.0
+   */
+  default boolean isOfType(Stream<AxiomType<?>> types) {
+    return types.anyMatch(getAxiomType()::equals);
+  }
 
-    /**
-     * Gets a copy of the input axiom that is annotated with the specified
-     * annotations. If the axiom has any annotations on it they will be merged
-     * with the specified set of annotations. Note that the input axiom will not
-     * be modified (or removed from any ontologies).
-     * 
-     * @param axiom
-     *        axiom to be copied
-     * @param annotations
-     *        The annotations that will be added to existing annotations to
-     *        annotate the copy of this axiom
-     * @param <T>
-     *        type of axiom returned
-     * @return A copy of this axiom that has the specified annotations plus any
-     *         existing annotations returned by the
-     *         {@code OWLAxiom#getAnnotations()} method.
-     */
-    static <T extends OWLAxiom> T getAnnotatedAxiom(Collection<OWLAnnotation> annotations, T axiom) {
-        return getAnnotatedAxiom(annotations.stream(), axiom);
-    }
-
-    /**
-     * Gets a copy of this axiom that is annotated with the specified
-     * annotations. If this axiom has any annotations on it they will be merged
-     * with the specified set of annotations. Note that this axiom will not be
-     * modified (or removed from any ontologies).<br>
-     * <br>
-     * Calling {@code axiom.getAnnotatedAxiom(axiom.getClass(), annotations)} is
-     * equivalent to {@code axiom.getAnnotatedAxiom(annotations)}, but it
-     * provides compile time type safety - there will be no attempt to cast to
-     * an incompatible type.
-     * 
-     * @param witness
-     *        Variable to ground the generic return type
-     * @param annotations
-     *        The annotations that will be added to existing annotations to
-     *        annotate the copy of this axiom
-     * @return A copy of this axiom that has the specified annotations plus any
-     *         existing annotations returned by the
-     *         {@code OWLAxiom#getAnnotations()} method.
-     */
-    @SuppressWarnings("unchecked")
-    default <T extends OWLAxiom> T getAnnotatedAxiom(@SuppressWarnings("unused") Class<T> witness,
-        Stream<OWLAnnotation> annotations) {
-        return (T) getAnnotatedAxiom(annotations);
-    }
-
-    /**
-     * Gets a copy of this axiom that is annotated with the specified
-     * annotations. If this axiom has any annotations on it they will be merged
-     * with the specified set of annotations. Note that this axiom will not be
-     * modified (or removed from any ontologies).
-     * 
-     * @param annotations
-     *        The annotations that will be added to existing annotations to
-     *        annotate the copy of this axiom
-     * @return A copy of this axiom that has the specified annotations plus any
-     *         existing annotations returned by the
-     *         {@code OWLAxiom#getAnnotations()} method.
-     */
-    <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> annotations);
-
-    /**
-     * Gets a copy of this axiom that is annotated with the specified
-     * annotations. If this axiom has any annotations on it they will be merged
-     * with the specified set of annotations. Note that this axiom will not be
-     * modified (or removed from any ontologies).
-     * 
-     * @param annotations
-     *        The annotations that will be added to existing annotations to
-     *        annotate the copy of this axiom
-     * @return A copy of this axiom that has the specified annotations plus any
-     *         existing annotations returned by the
-     *         {@code OWLAxiom#getAnnotations()} method.
-     */
-    default <T extends OWLAxiom> T getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
-        return getAnnotatedAxiom(annotations.stream());
-    }
-
-    /**
-     * Determines if another axiom is equal to this axiom not taking into
-     * consideration the annotations on the axiom
-     * 
-     * @param axiom
-     *        The axiom to test if equal
-     * @return {@code true} if {@code axiom} without annotations is equal to
-     *         this axiom without annotations otherwise {@code false}.
-     */
-    default boolean equalsIgnoreAnnotations(@Nullable OWLAxiom axiom) {
-        if (axiom == null) {
-            return false;
-        }
-        if (this == axiom) {
-            return true;
-        }
-        if (typeIndex() != axiom.typeIndex()) {
-            return false;
-        }
-        return equalStreams(componentsWithoutAnnotations(), axiom.componentsWithoutAnnotations());
-    }
-
-    /**
-     * Determines if this axiom is a logical axiom. Logical axioms are defined
-     * to be axioms other than both declaration axioms (including imports
-     * declarations) and annotation axioms.
-     * 
-     * @return {@code true} if the axiom is a logical axiom, {@code false} if
-     *         the axiom is not a logical axiom.
-     */
-    default boolean isLogicalAxiom() {
-        return false;
-    }
-
-    /**
-     * Determines if this axioms in an annotation axiom (an instance of
-     * {@code OWLAnnotationAxiom})
-     * 
-     * @return {@code true} if this axiom is an instance of
-     *         {@code OWLAnnotationAxiom}, otherwise {@code false}.
-     * @since 3.2
-     */
-    default boolean isAnnotationAxiom() {
-        return false;
-    }
-
-    /**
-     * Determines if this axiom has any annotations on it
-     * 
-     * @return {@code true} if this axiom has annotations on it, otherwise
-     *         {@code false}
-     */
-    boolean isAnnotated();
-
-    /**
-     * Gets the axiom type for this axiom.
-     * 
-     * @return The axiom type that corresponds to the type of this axiom.
-     */
-    AxiomType<?> getAxiomType();
-
-    /**
-     * Determines if this axiom is one of the specified types
-     * 
-     * @param axiomTypes
-     *        The axiom types to check for
-     * @return {@code true} if this axiom is one of the specified types,
-     *         otherwise {@code false}
-     * @since 3.0
-     */
-    default boolean isOfType(AxiomType<?>... axiomTypes) {
-        return isOfType(Arrays.stream(axiomTypes));
-    }
-
-    /**
-     * Determines if this axiom is one of the specified types
-     * 
-     * @param types
-     *        The axiom types to check for
-     * @return {@code true} if this axioms is one of the specified types,
-     *         otherwise {@code false}
-     * @since 3.0
-     */
-    default boolean isOfType(Collection<AxiomType<?>> types) {
-        return types.contains(getAxiomType());
-    }
-
-    /**
-     * Determines if this axiom is one of the specified types
-     * 
-     * @param types
-     *        The axiom types to check for
-     * @return {@code true} if this axioms is one of the specified types,
-     *         otherwise {@code false}
-     * @since 3.0
-     */
-    default boolean isOfType(Stream<AxiomType<?>> types) {
-        return types.anyMatch(getAxiomType()::equals);
-    }
-
-    /**
-     * Gets this axioms in negation normal form. i.e. any class expressions
-     * involved in this axiom are converted into negation normal form.
-     * 
-     * @return The axiom in negation normal form.
-     */
-    OWLAxiom getNNF();
+  /**
+   * Gets this axioms in negation normal form. i.e. any class expressions
+   * involved in this axiom are converted into negation normal form.
+   *
+   * @return The axiom in negation normal form.
+   */
+  OWLAxiom getNNF();
 }

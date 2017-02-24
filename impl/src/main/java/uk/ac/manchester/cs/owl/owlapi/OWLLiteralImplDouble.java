@@ -13,50 +13,48 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
 
-    private final double literal;
+  private final double literal;
 
-    /**
-     * @param literal
-     *        literal value
-     */
-    public OWLLiteralImplDouble(double literal) {
-        this.literal = literal;
-    }
+  /**
+   * @param literal literal value
+   */
+  public OWLLiteralImplDouble(double literal) {
+    this.literal = literal;
+  }
 
-    @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf((int) literal * 65536), getLang()));
-    }
+  @Override
+  protected int hashCode(OWLObject object) {
+    return hash(object.hashIndex(),
+        Stream.of(getDatatype(), Integer.valueOf((int) literal * 65536), getLang()));
+  }
 
-    @Override
-    public String getLiteral() {
-        return Double.toString(literal);
-    }
+  @Override
+  public String getLiteral() {
+    return Double.toString(literal);
+  }
 
-    @Override
-    public boolean isDouble() {
-        return true;
-    }
+  @Override
+  public boolean isDouble() {
+    return true;
+  }
 
-    @Override
-    public double parseDouble() {
-        return literal;
-    }
+  @Override
+  public double parseDouble() {
+    return literal;
+  }
 
-    @Override
-    public OWLDatatype getDatatype() {
-        return InternalizedEntities.XSDDOUBLE;
-    }
+  @Override
+  public OWLDatatype getDatatype() {
+    return InternalizedEntities.XSDDOUBLE;
+  }
 }

@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
@@ -24,55 +23,56 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+public class OWLEquivalentObjectPropertiesAxiomImpl extends
+    OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
     implements OWLEquivalentObjectPropertiesAxiom {
 
-    /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
-     */
-    public OWLEquivalentObjectPropertiesAxiomImpl(Collection<? extends OWLObjectPropertyExpression> properties,
-        Collection<OWLAnnotation> annotations) {
-        super(properties, annotations);
-    }
+  /**
+   * @param properties properties
+   * @param annotations annotations
+   */
+  public OWLEquivalentObjectPropertiesAxiomImpl(
+      Collection<? extends OWLObjectPropertyExpression> properties,
+      Collection<OWLAnnotation> annotations) {
+    super(properties, annotations);
+  }
 
-    @Override
-    public OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+  @Override
+  public OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLEquivalentObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLEquivalentObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLEquivalentObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
+  }
 
-    @Override
-    public Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms() {
-        if (properties.size() == 2) {
-            return CollectionFactory.createSet(this);
-        }
-        return walkPairwise((a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+  @Override
+  public Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms() {
+    if (properties.size() == 2) {
+      return CollectionFactory.createSet(this);
     }
+    return walkPairwise(
+        (a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+  }
 
-    @Override
-    public Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs() {
-        if (properties.size() == 2) {
-            return CollectionFactory.createSet(this);
-        }
-        return walkPairwise((a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+  @Override
+  public Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs() {
+    if (properties.size() == 2) {
+      return CollectionFactory.createSet(this);
     }
+    return walkPairwise(
+        (a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+  }
 
-    @Override
-    public Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
-        return walkAllPairwise((a, b) -> new OWLSubObjectPropertyOfAxiomImpl(a, b, NO_ANNOTATIONS));
-    }
+  @Override
+  public Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
+    return walkAllPairwise((a, b) -> new OWLSubObjectPropertyOfAxiomImpl(a, b, NO_ANNOTATIONS));
+  }
 }

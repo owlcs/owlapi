@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.fileroundtrip;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -26,36 +25,35 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class FileRoudTripWithEqualTestCase extends AbstractFileRoundTrippingTestCase {
 
-    public FileRoudTripWithEqualTestCase(String f) {
-        super(f);
-    }
+  public FileRoudTripWithEqualTestCase(String f) {
+    super(f);
+  }
 
-    @Parameters
-    public static List<String> getData() {
-        return Arrays.asList(
-            // AnonymousTroublesomeConversion
-            "extraBlankNodes.owl",
-            // AnonymousTurtle2
-            "testBlankNodes2.ttl",
-            // AnonymousTurtleAssertion
-            "testBlankNodesAssertions.ttl", "owlxml_anonloop.owx");
-    }
+  @Parameters
+  public static List<String> getData() {
+    return Arrays.asList(
+        // AnonymousTroublesomeConversion
+        "extraBlankNodes.owl",
+        // AnonymousTurtle2
+        "testBlankNodes2.ttl",
+        // AnonymousTurtleAssertion
+        "testBlankNodesAssertions.ttl", "owlxml_anonloop.owx");
+  }
 
-    @Override
-    @Test
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
-        OWLOntology ont = createOntology();
-        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        equal(o1, o2);
-    }
+  @Override
+  @Test
+  public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
+      OWLOntologyStorageException {
+    OWLOntology ont = createOntology();
+    OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+    OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
+    equal(o1, o2);
+  }
 }

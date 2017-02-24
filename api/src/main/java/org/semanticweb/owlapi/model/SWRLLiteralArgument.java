@@ -15,51 +15,50 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLLiteralArgument extends SWRLDArgument {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getLiteral());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getLiteral());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 683;
-    }
+  @Override
+  default int hashIndex() {
+    return 683;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 6008;
-    }
+  @Override
+  default int typeIndex() {
+    return 6008;
+  }
 
-    /**
-     * Gets the literal for this argument.
-     * 
-     * @return The literal
-     */
-    OWLLiteral getLiteral();
+  /**
+   * Gets the literal for this argument.
+   *
+   * @return The literal
+   */
+  OWLLiteral getLiteral();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(SWRLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

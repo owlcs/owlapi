@@ -13,14 +13,13 @@
 package org.semanticweb.owlapi.vocab;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asMap;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -28,121 +27,140 @@ import org.semanticweb.owlapi.model.IRI;
 
 /**
  * Represents the facets that can be used for restricting a datatype.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
+ * @since 2.0.0
  */
 public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
-    /** LENGTH. */           LENGTH          (Namespaces.XSD, "length",          "length"), 
-    /** MIN_LENGTH. */       MIN_LENGTH      (Namespaces.XSD, "minLength",       "minLength"), 
-    /** MAX_LENGTH. */       MAX_LENGTH      (Namespaces.XSD, "maxLength",       "maxLength"), 
-    /** PATTERN. */          PATTERN         (Namespaces.XSD, "pattern",         "pattern"), 
-    /** MIN_INCLUSIVE. */    MIN_INCLUSIVE   (Namespaces.XSD, "minInclusive",    ">="), 
-    /** MIN_EXCLUSIVE. */    MIN_EXCLUSIVE   (Namespaces.XSD, "minExclusive",    ">"), 
-    /** MAX_INCLUSIVE. */    MAX_INCLUSIVE   (Namespaces.XSD, "maxInclusive",    "<="), 
-    /** MAX_EXCLUSIVE. */    MAX_EXCLUSIVE   (Namespaces.XSD, "maxExclusive",    "<"), 
-    /** TOTAL_DIGITS. */     TOTAL_DIGITS    (Namespaces.XSD, "totalDigits",     "totalDigits"), 
-    /** FRACTION_DIGITS. */  FRACTION_DIGITS (Namespaces.XSD, "fractionDigits",  "fractionDigits"), 
-    /** LANG_RANGE. */       LANG_RANGE      (Namespaces.RDF, "langRange",       "langRange");
+  /**
+   * LENGTH.
+   */LENGTH(Namespaces.XSD, "length", "length"),
+  /**
+   * MIN_LENGTH.
+   */MIN_LENGTH(Namespaces.XSD, "minLength", "minLength"),
+  /**
+   * MAX_LENGTH.
+   */MAX_LENGTH(Namespaces.XSD, "maxLength", "maxLength"),
+  /**
+   * PATTERN.
+   */PATTERN(Namespaces.XSD, "pattern", "pattern"),
+  /**
+   * MIN_INCLUSIVE.
+   */MIN_INCLUSIVE(Namespaces.XSD, "minInclusive", ">="),
+  /**
+   * MIN_EXCLUSIVE.
+   */MIN_EXCLUSIVE(Namespaces.XSD, "minExclusive", ">"),
+  /**
+   * MAX_INCLUSIVE.
+   */MAX_INCLUSIVE(Namespaces.XSD, "maxInclusive", "<="),
+  /**
+   * MAX_EXCLUSIVE.
+   */MAX_EXCLUSIVE(Namespaces.XSD, "maxExclusive", "<"),
+  /**
+   * TOTAL_DIGITS.
+   */TOTAL_DIGITS(Namespaces.XSD, "totalDigits", "totalDigits"),
+  /**
+   * FRACTION_DIGITS.
+   */FRACTION_DIGITS(Namespaces.XSD, "fractionDigits", "fractionDigits"),
+  /**
+   * LANG_RANGE.
+   */LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
 //@formatter:on
-    /** All facet iris. */
-    public static final Map<IRI, OWLFacet> FACET_IRIS = asMap(stream(), HasIRI::getIRI);
-    private final IRI iri;
-    private final String shortForm;
-    private final String symbolicForm;
-    private final String prefixedName;
+  /**
+   * All facet iris.
+   */
+  public static final Map<IRI, OWLFacet> FACET_IRIS = asMap(stream(), HasIRI::getIRI);
+  private final IRI iri;
+  private final String shortForm;
+  private final String symbolicForm;
+  private final String prefixedName;
 
-    OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
-        iri = IRI.create(ns.toString(), shortForm);
-        this.shortForm = shortForm;
-        this.symbolicForm = symbolicForm;
-        prefixedName = ns.getPrefixName() + ':' + shortForm;
-    }
+  OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
+    iri = IRI.create(ns.toString(), shortForm);
+    this.shortForm = shortForm;
+    this.symbolicForm = symbolicForm;
+    prefixedName = ns.getPrefixName() + ':' + shortForm;
+  }
 
-    private static Stream<OWLFacet> stream() {
-        return Stream.of(values());
-    }
+  private static Stream<OWLFacet> stream() {
+    return Stream.of(values());
+  }
 
-    @Override
-    public String getShortForm() {
-        return shortForm;
-    }
+  /**
+   * @return all facet iris
+   */
+  public static Set<IRI> getFacetIRIs() {
+    return FACET_IRIS.keySet();
+  }
 
-    @Override
-    public IRI getIRI() {
-        return iri;
+  /**
+   * @param iri facet IRI
+   * @return facet for iri
+   */
+  public static OWLFacet getFacet(IRI iri) {
+    checkNotNull(iri, "iri cannot be null");
+    OWLFacet facet = FACET_IRIS.get(iri);
+    if (facet == null) {
+      throw new IllegalArgumentException("Unknown facet: " + iri);
     }
+    return facet;
+  }
 
-    /**
-     * @return symbolic form
-     */
-    public String getSymbolicForm() {
-        return symbolicForm;
-    }
+  /**
+   * Gets a facet by its short name.
+   *
+   * @param shortName The short name of the facet.
+   * @return The facet or {@code null} if not facet by the specified name exists.
+   */
+  @Nullable
+  public static OWLFacet getFacetByShortName(String shortName) {
+    checkNotNull(shortName);
+    return stream().filter(v -> v.getShortForm().equals(shortName)).findAny().orElse(null);
+  }
 
-    @Override
-    public String toString() {
-        return getShortForm();
-    }
+  /**
+   * @param symbolicName symbolic name for facet
+   * @return facet for name
+   */
+  @Nullable
+  public static OWLFacet getFacetBySymbolicName(String symbolicName) {
+    return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny().orElse(null);
+  }
 
-    /**
-     * @return all facet iris
-     */
-    public static Set<IRI> getFacetIRIs() {
-        return FACET_IRIS.keySet();
-    }
+  /**
+   * @return all facets
+   */
+  public static Set<String> getFacets() {
+    return asSet(stream().map(v -> v.getSymbolicForm()));
+  }
 
-    /**
-     * @param iri
-     *        facet IRI
-     * @return facet for iri
-     */
-    public static OWLFacet getFacet(IRI iri) {
-        checkNotNull(iri, "iri cannot be null");
-        OWLFacet facet = FACET_IRIS.get(iri);
-        if (facet == null) {
-            throw new IllegalArgumentException("Unknown facet: " + iri);
-        }
-        return facet;
-    }
+  @Override
+  public String getShortForm() {
+    return shortForm;
+  }
 
-    /**
-     * Gets a facet by its short name.
-     * 
-     * @param shortName
-     *        The short name of the facet.
-     * @return The facet or {@code null} if not facet by the specified name
-     *         exists.
-     */
-    @Nullable
-    public static OWLFacet getFacetByShortName(String shortName) {
-        checkNotNull(shortName);
-        return stream().filter(v -> v.getShortForm().equals(shortName)).findAny().orElse(null);
-    }
+  @Override
+  public IRI getIRI() {
+    return iri;
+  }
 
-    /**
-     * @param symbolicName
-     *        symbolic name for facet
-     * @return facet for name
-     */
-    @Nullable
-    public static OWLFacet getFacetBySymbolicName(String symbolicName) {
-        return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny().orElse(null);
-    }
+  /**
+   * @return symbolic form
+   */
+  public String getSymbolicForm() {
+    return symbolicForm;
+  }
 
-    /**
-     * @return all facets
-     */
-    public static Set<String> getFacets() {
-        return asSet(stream().map(v -> v.getSymbolicForm()));
-    }
+  @Override
+  public String toString() {
+    return getShortForm();
+  }
 
-    @Override
-    public String getPrefixedName() {
-        return prefixedName;
-    }
+  @Override
+  public String getPrefixedName() {
+    return prefixedName;
+  }
 }

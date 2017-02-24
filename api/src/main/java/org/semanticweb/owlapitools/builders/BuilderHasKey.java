@@ -16,59 +16,59 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Builder class for OWLHasKeyAxiom. */
-public class BuilderHasKey extends BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey, OWLPropertyExpression> {
+/**
+ * Builder class for OWLHasKeyAxiom.
+ */
+public class BuilderHasKey extends
+    BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey, OWLPropertyExpression> {
 
-    @Nullable private OWLClassExpression ce;
+  @Nullable
+  private OWLClassExpression ce;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderHasKey(OWLHasKeyAxiom expected, OWLDataFactory df) {
-        this(df);
-        withClass(expected.getClassExpression()).withAnnotations(expected.annotations()).withItems(expected
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderHasKey(OWLHasKeyAxiom expected, OWLDataFactory df) {
+    this(df);
+    withClass(expected.getClassExpression()).withAnnotations(expected.annotations())
+        .withItems(expected
             .dataPropertyExpressions()).withItems(expected.objectPropertyExpressions());
-    }
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderHasKey(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderHasKey(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        class expression
-     * @return builder
-     */
-    public BuilderHasKey withClass(OWLClassExpression arg) {
-        ce = arg;
-        return this;
-    }
+  /**
+   * @param arg class expression
+   * @return builder
+   */
+  public BuilderHasKey withClass(OWLClassExpression arg) {
+    ce = arg;
+    return this;
+  }
 
-    @Override
-    public OWLHasKeyAxiom buildObject() {
-        return df.getOWLHasKeyAxiom(getClassExpression(), items, annotations);
-    }
+  @Override
+  public OWLHasKeyAxiom buildObject() {
+    return df.getOWLHasKeyAxiom(getClassExpression(), items, annotations);
+  }
 
-    /**
-     * @return class expression
-     */
-    public OWLClassExpression getClassExpression() {
-        return verifyNotNull(ce);
-    }
+  /**
+   * @return class expression
+   */
+  public OWLClassExpression getClassExpression() {
+    return verifyNotNull(ce);
+  }
 }

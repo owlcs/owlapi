@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.profiles.violations;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,40 +25,37 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
  * Punning between properties is not allowed.
- * 
+ *
  * @author ignazio
  */
 public class IllegalPunning extends OWLProfileViolation {
 
-    /**
-     * @param currentOntology
-     *        ontology
-     * @param node
-     *        axiom
-     * @param iri
-     *        iri
-     */
-    public IllegalPunning(OWLOntology currentOntology, @Nullable OWLAxiom node, IRI iri) {
-        super(currentOntology, node, checkNotNull(iri));
-    }
+  /**
+   * @param currentOntology ontology
+   * @param node axiom
+   * @param iri iri
+   */
+  public IllegalPunning(OWLOntology currentOntology, @Nullable OWLAxiom node, IRI iri) {
+    super(currentOntology, node, checkNotNull(iri));
+  }
 
-    @Override
-    public IRI getExpression() {
-        return (IRI) super.getExpression();
-    }
+  @Override
+  public IRI getExpression() {
+    return (IRI) super.getExpression();
+  }
 
-    @Override
-    public String toString() {
-        return toString("Cannot pun between properties: %s", getExpression().toQuotedString());
-    }
+  @Override
+  public String toString() {
+    return toString("Cannot pun between properties: %s", getExpression().toQuotedString());
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

@@ -20,49 +20,46 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
-    protected final List<OWLClassExpression> classExpressions;
+  protected final List<OWLClassExpression> classExpressions;
 
-    /**
-     * @param classExpressions
-     *        classes
-     * @param annotations
-     *        annotations
-     */
-    public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        checkNotNull(classExpressions, "classExpressions cannot be null");
-        this.classExpressions = sortOptionally(classExpressions.stream().distinct(), OWLClassExpression.class);
-    }
+  /**
+   * @param classExpressions classes
+   * @param annotations annotations
+   */
+  public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    checkNotNull(classExpressions, "classExpressions cannot be null");
+    this.classExpressions = sortOptionally(classExpressions.stream().distinct(),
+        OWLClassExpression.class);
+  }
 
-    @Override
-    public Stream<OWLClassExpression> classExpressions() {
-        return classExpressions.stream();
-    }
+  @Override
+  public Stream<OWLClassExpression> classExpressions() {
+    return classExpressions.stream();
+  }
 
-    @Override
-    public boolean contains(OWLClassExpression ce) {
-        return classExpressions.contains(ce);
-    }
+  @Override
+  public boolean contains(OWLClassExpression ce) {
+    return classExpressions.contains(ce);
+  }
 
-    @Override
-    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
-        Set<OWLClassExpression> result = new HashSet<>(classExpressions);
-        for (OWLClassExpression d : desc) {
-            result.remove(d);
-        }
-        return result;
+  @Override
+  public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
+    Set<OWLClassExpression> result = new HashSet<>(classExpressions);
+    for (OWLClassExpression d : desc) {
+      result.remove(d);
     }
+    return result;
+  }
 }

@@ -14,100 +14,92 @@ package org.semanticweb.owlapi.model;
 
 /**
  * Represents a property or possibly the inverse of a property.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLPropertyExpression extends OWLObject, AsOWLObjectProperty, AsOWLDataProperty,
     AsOWLAnnotationProperty {
 
-    /**
-     * @param visitor
-     *        visitor to accept
-     */
-    void accept(OWLPropertyExpressionVisitor visitor);
+  /**
+   * @param visitor visitor to accept
+   */
+  void accept(OWLPropertyExpressionVisitor visitor);
 
-    /**
-     * @param visitor
-     *        visitor to accept
-     * @param <O>
-     *        visitor return type
-     * @return visitor value
-     */
-    <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
+  /**
+   * @param visitor visitor to accept
+   * @param <O> visitor return type
+   * @return visitor value
+   */
+  <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
 
-    /**
-     * @return true if this is a data property
-     */
-    default boolean isDataPropertyExpression() {
-        return false;
+  /**
+   * @return true if this is a data property
+   */
+  default boolean isDataPropertyExpression() {
+    return false;
+  }
+
+  /**
+   * @return this instance cast as an OWLDataPropertyExpression
+   */
+  default OWLDataPropertyExpression asDataPropertyExpression() {
+    if (isDataPropertyExpression()) {
+      return (OWLDataPropertyExpression) this;
     }
+    throw new ClassCastException(getClass().getName() + "is not an OWLDataPropertyExpression");
+  }
 
-    /**
-     * @return this instance cast as an OWLDataPropertyExpression
-     */
-    default OWLDataPropertyExpression asDataPropertyExpression() {
-        if (isDataPropertyExpression()) {
-            return (OWLDataPropertyExpression) this;
-        }
-        throw new ClassCastException(getClass().getName() + "is not an OWLDataPropertyExpression");
-    }
+  /**
+   * @return true if this is an object property
+   */
+  default boolean isObjectPropertyExpression() {
+    return false;
+  }
 
-    /**
-     * @return true if this is an object property
-     */
-    default boolean isObjectPropertyExpression() {
-        return false;
+  /**
+   * @return this instance cast as an OWLObjectPropertyExpression
+   */
+  default OWLObjectPropertyExpression asObjectPropertyExpression() {
+    if (isObjectPropertyExpression()) {
+      return (OWLObjectPropertyExpression) this;
     }
+    throw new ClassCastException(getClass().getName() + "is not an OWLObjectPropertyExpression");
+  }
 
-    /**
-     * @return this instance cast as an OWLObjectPropertyExpression
-     */
-    default OWLObjectPropertyExpression asObjectPropertyExpression() {
-        if (isObjectPropertyExpression()) {
-            return (OWLObjectPropertyExpression) this;
-        }
-        throw new ClassCastException(getClass().getName() + "is not an OWLObjectPropertyExpression");
-    }
+  /**
+   * Determines if this is the owl:topObjectProperty.
+   *
+   * @return {@code true} if this property is the owl:topObjectProperty otherwise {@code false}
+   */
+  default boolean isOWLTopObjectProperty() {
+    return false;
+  }
 
-    /**
-     * Determines if this is the owl:topObjectProperty.
-     * 
-     * @return {@code true} if this property is the owl:topObjectProperty
-     *         otherwise {@code false}
-     */
-    default boolean isOWLTopObjectProperty() {
-        return false;
-    }
+  /**
+   * Determines if this is the owl:bottomObjectProperty.
+   *
+   * @return {@code true} if this property is the owl:bottomObjectProperty otherwise {@code false}
+   */
+  default boolean isOWLBottomObjectProperty() {
+    return false;
+  }
 
-    /**
-     * Determines if this is the owl:bottomObjectProperty.
-     * 
-     * @return {@code true} if this property is the owl:bottomObjectProperty
-     *         otherwise {@code false}
-     */
-    default boolean isOWLBottomObjectProperty() {
-        return false;
-    }
+  /**
+   * Determines if this is the owl:topDataProperty.
+   *
+   * @return {@code true} if this property is the owl:topDataProperty otherwise {@code false}
+   */
+  default boolean isOWLTopDataProperty() {
+    return false;
+  }
 
-    /**
-     * Determines if this is the owl:topDataProperty.
-     * 
-     * @return {@code true} if this property is the owl:topDataProperty
-     *         otherwise {@code false}
-     */
-    default boolean isOWLTopDataProperty() {
-        return false;
-    }
-
-    /**
-     * Determines if this is the owl:bottomDataProperty.
-     * 
-     * @return {@code true} if this property is the owl:bottomDataProperty
-     *         otherwise {@code false}
-     */
-    default boolean isOWLBottomDataProperty() {
-        return false;
-    }
+  /**
+   * Determines if this is the owl:bottomDataProperty.
+   *
+   * @return {@code true} if this property is the owl:bottomDataProperty otherwise {@code false}
+   */
+  default boolean isOWLBottomDataProperty() {
+    return false;
+  }
 }

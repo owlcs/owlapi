@@ -15,20 +15,19 @@ package org.semanticweb.owlapi.formats;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OBODocumentFormat extends OWLDocumentFormatImpl {
 
-    /**
-     * Key for validation parameter. Currently supports Boolean.TRUE and
-     * Boolean.FALSE. No parameter is interpreted as TRUE.
-     */
-    public static final String VALIDATION = "obo.validation";
+  /**
+   * Key for validation parameter. Currently supports Boolean.TRUE and
+   * Boolean.FALSE. No parameter is interpreted as TRUE.
+   */
+  public static final String VALIDATION = "obo.validation";
 
-    @Override
-    public String getKey() {
-        return "OBO Format";
-    }
+  @Override
+  public String getKey() {
+    return "OBO Format";
+  }
 }

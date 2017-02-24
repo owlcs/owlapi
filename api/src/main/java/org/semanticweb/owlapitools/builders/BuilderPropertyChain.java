@@ -17,68 +17,67 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/** Builder class for OWLSubPropertyChainOfAxiom. */
-public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
+/**
+ * Builder class for OWLSubPropertyChainOfAxiom.
+ */
+public class BuilderPropertyChain extends
+    BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
 
-    private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
+  private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderPropertyChain(OWLSubPropertyChainOfAxiom expected, OWLDataFactory df) {
-        this(df);
-        withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty()).withAnnotations(
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderPropertyChain(OWLSubPropertyChainOfAxiom expected, OWLDataFactory df) {
+    this(df);
+    withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty())
+        .withAnnotations(
             expected.annotations());
-    }
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderPropertyChain(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderPropertyChain(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        property
-     * @return builder
-     */
-    public BuilderPropertyChain withPropertyInChain(OWLObjectPropertyExpression arg) {
-        chain.add(arg);
-        return this;
-    }
+  /**
+   * @param arg property
+   * @return builder
+   */
+  public BuilderPropertyChain withPropertyInChain(OWLObjectPropertyExpression arg) {
+    chain.add(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        properties
-     * @return builder
-     */
-    public BuilderPropertyChain withPropertiesInChain(Collection<OWLObjectPropertyExpression> arg) {
-        chain.addAll(arg);
-        return this;
-    }
+  /**
+   * @param arg properties
+   * @return builder
+   */
+  public BuilderPropertyChain withPropertiesInChain(Collection<OWLObjectPropertyExpression> arg) {
+    chain.addAll(arg);
+    return this;
+  }
 
-    /** @return size of the chain */
-    public int chainSize() {
-        return chain.size();
-    }
+  /**
+   * @return size of the chain
+   */
+  public int chainSize() {
+    return chain.size();
+  }
 
-    @Override
-    public OWLSubPropertyChainOfAxiom buildObject() {
-        return df.getOWLSubPropertyChainOfAxiom(chain, verifyNotNull(getProperty()), annotations);
-    }
+  @Override
+  public OWLSubPropertyChainOfAxiom buildObject() {
+    return df.getOWLSubPropertyChainOfAxiom(chain, verifyNotNull(getProperty()), annotations);
+  }
 }

@@ -15,38 +15,36 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 
-/** Builder class for SWRLSameIndividualAtom. */
+/**
+ * Builder class for SWRLSameIndividualAtom.
+ */
 public class BuilderSWRLSameIndividualAtom extends
     BuilderSWRLIndividualsAtom<SWRLSameIndividualAtom, BuilderSWRLSameIndividualAtom> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSWRLSameIndividualAtom(SWRLSameIndividualAtom expected, OWLDataFactory df) {
-        this(df);
-        withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSWRLSameIndividualAtom(SWRLSameIndividualAtom expected, OWLDataFactory df) {
+    this(df);
+    withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSWRLSameIndividualAtom(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSWRLSameIndividualAtom(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public SWRLSameIndividualAtom buildObject() {
-        return df.getSWRLSameIndividualAtom(verifyNotNull(getArg0()), verifyNotNull(getArg1()));
-    }
+  @Override
+  public SWRLSameIndividualAtom buildObject() {
+    return df.getSWRLSameIndividualAtom(verifyNotNull(getArg0()), verifyNotNull(getArg1()));
+  }
 }

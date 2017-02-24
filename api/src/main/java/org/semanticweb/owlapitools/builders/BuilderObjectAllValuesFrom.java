@@ -15,37 +15,36 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 
-/** Builder class for OWLObjectAllValuesFrom. */
-public class BuilderObjectAllValuesFrom extends BaseObjectBuilder<OWLObjectAllValuesFrom, BuilderObjectAllValuesFrom> {
+/**
+ * Builder class for OWLObjectAllValuesFrom.
+ */
+public class BuilderObjectAllValuesFrom extends
+    BaseObjectBuilder<OWLObjectAllValuesFrom, BuilderObjectAllValuesFrom> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectAllValuesFrom(OWLObjectAllValuesFrom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withRange(expected.getFiller());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectAllValuesFrom(OWLObjectAllValuesFrom expected, OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withRange(expected.getFiller());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectAllValuesFrom(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectAllValuesFrom(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLObjectAllValuesFrom buildObject() {
-        return df.getOWLObjectAllValuesFrom(verifyNotNull(getProperty()), getRange());
-    }
+  @Override
+  public OWLObjectAllValuesFrom buildObject() {
+    return df.getOWLObjectAllValuesFrom(verifyNotNull(getProperty()), getRange());
+  }
 }

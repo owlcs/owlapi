@@ -13,15 +13,15 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -35,128 +35,124 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
-    private final LinkedHashSet<SWRLAtom> head;
-    private final LinkedHashSet<SWRLAtom> body;
-    private final boolean containsAnonymousClassExpressions;
-    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+  protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+  private final LinkedHashSet<SWRLAtom> head;
+  private final LinkedHashSet<SWRLAtom> body;
+  private final boolean containsAnonymousClassExpressions;
 
-    /**
-     * @param body
-     *        rule body
-     * @param head
-     *        rule head
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.head = new LinkedHashSet<>(checkNotNull(head, "head cannot be null"));
-        this.body = new LinkedHashSet<>(checkNotNull(body, "body cannot be null"));
-        containsAnonymousClassExpressions = hasAnon();
+  /**
+   * @param body rule body
+   * @param head rule head
+   * @param annotations annotations on the axiom
+   */
+  public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.head = new LinkedHashSet<>(checkNotNull(head, "head cannot be null"));
+    this.body = new LinkedHashSet<>(checkNotNull(body, "body cannot be null"));
+    containsAnonymousClassExpressions = hasAnon();
+  }
+
+  /**
+   * @param body rule body
+   * @param head rule head
+   */
+  public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
+    this(body, head, NO_ANNOTATIONS);
+  }
+
+  @Override
+  public SWRLRule getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new SWRLRuleImpl(body, head, NO_ANNOTATIONS);
+  }
 
-    /**
-     * @param body
-     *        rule body
-     * @param head
-     *        rule head
-     */
-    public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
-        this(body, head, NO_ANNOTATIONS);
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new SWRLRuleImpl(body, head, mergeAnnos(anns));
+  }
+
+  @Override
+  public Stream<SWRLVariable> variables() {
+    return accept(new SWRLVariableExtractor()).stream();
+  }
+
+  private boolean hasAnon() {
+    return classAtomPredicates().anyMatch(OWLClassExpression::isAnonymous);
+  }
+
+  @Override
+  public boolean containsAnonymousClassExpressions() {
+    return containsAnonymousClassExpressions;
+  }
+
+  @Override
+  public Stream<OWLClassExpression> classAtomPredicates() {
+    return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom).map(
+        c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
+  }
+
+  @Override
+  public Stream<SWRLAtom> body() {
+    return body.stream();
+  }
+
+  @Override
+  public Stream<SWRLAtom> head() {
+    return head.stream();
+  }
+
+  @Override
+  public SWRLRule getSimplified() {
+    return (SWRLRule) accept(ATOM_SIMPLIFIER);
+  }
+
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (this == obj) {
+      return true;
     }
-
-    @Override
-    public SWRLRule getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new SWRLRuleImpl(body, head, NO_ANNOTATIONS);
+    if (obj == null) {
+      return false;
     }
-
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new SWRLRuleImpl(body, head, mergeAnnos(anns));
+    if (!(obj instanceof SWRLRule)) {
+      return false;
     }
-
-    @Override
-    public Stream<SWRLVariable> variables() {
-        return accept(new SWRLVariableExtractor()).stream();
+    if (obj instanceof SWRLRuleImpl) {
+      return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head)
+          && equalStreams(
+          annotations(), ((SWRLRuleImpl) obj).annotations());
     }
-
-    private boolean hasAnon() {
-        return classAtomPredicates().anyMatch(OWLClassExpression::isAnonymous);
-    }
-
-    @Override
-    public boolean containsAnonymousClassExpressions() {
-        return containsAnonymousClassExpressions;
-    }
-
-    @Override
-    public Stream<OWLClassExpression> classAtomPredicates() {
-        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom).map(
-            c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
-    }
-
-    @Override
-    public Stream<SWRLAtom> body() {
-        return body.stream();
-    }
-
-    @Override
-    public Stream<SWRLAtom> head() {
-        return head.stream();
-    }
-
-    @Override
-    public SWRLRule getSimplified() {
-        return (SWRLRule) accept(ATOM_SIMPLIFIER);
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof SWRLRule)) {
-            return false;
-        }
-        if (obj instanceof SWRLRuleImpl) {
-            return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head) && equalStreams(
-                annotations(), ((SWRLRuleImpl) obj).annotations());
-        }
-        SWRLRule other = (SWRLRule) obj;
-        return body.equals(asSet(other.body())) && head.equals(asSet(other.head())) && equalStreams(annotations(), other
+    SWRLRule other = (SWRLRule) obj;
+    return body.equals(asSet(other.body())) && head.equals(asSet(other.head())) && equalStreams(
+        annotations(), other
             .annotations());
+  }
+
+  protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
+
+    @Override
+    public SWRLObject doDefault(Object o) {
+      return (SWRLObject) o;
     }
 
-    protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
-
-        @Override
-        public SWRLObject doDefault(Object o) {
-            return (SWRLObject) o;
-        }
-
-        @Override
-        public SWRLRule visit(SWRLRule node) {
-            List<SWRLAtom> nodebody = asList(node.body().map(a -> (SWRLAtom) a.accept(this)));
-            List<SWRLAtom> nodehead = asList(node.head().map(a -> (SWRLAtom) a.accept(this)));
-            return new SWRLRuleImpl(nodebody, nodehead, NO_ANNOTATIONS);
-        }
-
-        @Override
-        public SWRLObjectPropertyAtom visit(SWRLObjectPropertyAtom node) {
-            return node.getSimplified();
-        }
+    @Override
+    public SWRLRule visit(SWRLRule node) {
+      List<SWRLAtom> nodebody = asList(node.body().map(a -> (SWRLAtom) a.accept(this)));
+      List<SWRLAtom> nodehead = asList(node.head().map(a -> (SWRLAtom) a.accept(this)));
+      return new SWRLRuleImpl(nodebody, nodehead, NO_ANNOTATIONS);
     }
+
+    @Override
+    public SWRLObjectPropertyAtom visit(SWRLObjectPropertyAtom node) {
+      return node.getSimplified();
+    }
+  }
 }

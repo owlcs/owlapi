@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(16)
 public class KRSS2OWLParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
-    public KRSS2OWLParserFactory() {
-        super(new KRSS2DocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public KRSS2OWLParserFactory() {
+    super(new KRSS2DocumentFormatFactory());
+  }
 
-    @Override
-    public OWLParser createParser() {
-        return new KRSS2OWLParser();
-    }
+  @Override
+  public OWLParser createParser() {
+    return new KRSS2OWLParser();
+  }
 }

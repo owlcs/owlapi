@@ -16,68 +16,67 @@ package org.semanticweb.owlapi.model;
  * Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Positive_Object_Property_Assertions" >
  * ObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectPropertyAssertionAxiom
-    extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
+    extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
+    OWLSubClassOfAxiomShortCut {
 
-    @Override
-        OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 103;
-    }
+  @Override
+  default int hashIndex() {
+    return 103;
+  }
 
-    /**
-     * Gets a simplified version of this object property axiom. This is defined
-     * recursively as follows:
-     * <ul>
-     * <li>ObjectPropertyAssertion(P S O) = ObjectPropertyAssertion(P S O)
-     * <li>ObjectPropertyAssertion(ObjectInverseOf(P) S O) =
-     * ObjectPropertyAssertion(P O S)
-     * </ul>
-     * 
-     * @return the simplified version
-     */
-    OWLObjectPropertyAssertionAxiom getSimplified();
+  /**
+   * Gets a simplified version of this object property axiom. This is defined
+   * recursively as follows:
+   * <ul>
+   * <li>ObjectPropertyAssertion(P S O) = ObjectPropertyAssertion(P S O)
+   * <li>ObjectPropertyAssertion(ObjectInverseOf(P) S O) =
+   * ObjectPropertyAssertion(P O S)
+   * </ul>
+   *
+   * @return the simplified version
+   */
+  OWLObjectPropertyAssertionAxiom getSimplified();
 
-    /**
-     * Determines if this axiom is in a simplified form, i.e. a form where the
-     * property is not a property inverse. ObjectPropertyAssertion(P S O) is in
-     * a simplified form, where as ObjectPropertyAssertion(ObjectInverseOf(P) S
-     * O) is not because it contains an inverse object property.
-     * 
-     * @return {@code true} if this axiom is in a simplified form, otherwise
-     *         {@code false}
-     */
-    boolean isInSimplifiedForm();
+  /**
+   * Determines if this axiom is in a simplified form, i.e. a form where the
+   * property is not a property inverse. ObjectPropertyAssertion(P S O) is in
+   * a simplified form, where as ObjectPropertyAssertion(ObjectInverseOf(P) S
+   * O) is not because it contains an inverse object property.
+   *
+   * @return {@code true} if this axiom is in a simplified form, otherwise {@code false}
+   */
+  boolean isInSimplifiedForm();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.OBJECT_PROPERTY_ASSERTION;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.OBJECT_PROPERTY_ASSERTION;
+  }
 }

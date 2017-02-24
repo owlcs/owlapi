@@ -15,12 +15,12 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
+import com.google.common.collect.Iterators;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -29,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
-
-import com.google.common.collect.Iterators;
 
 /**
  * This composite change will convert a defined class to a primitive class by
@@ -46,80 +44,84 @@ import com.google.common.collect.Iterators;
  * SubClassOf(A, D) will be added to the target ontology T.<br>
  * This change supports a common pattern of working, where a class is converted
  * from a defined class to a primitive class.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOntologyChange {
 
-    private static final OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>>() {
+  private static final OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>>() {
 
-        @Override
-        public Stream<? extends OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
-            return ce.operands();
-        }
-
-        @Override
-        public Stream<? extends OWLClassExpression> doDefault(Object o) {
-            return empty();
-        }
-    };
-    /** The target ontology. */
-    private final OWLOntology targetOntology;
-    /** The OWL class. */
-    private final OWLClass cls;
-    /** The ontologies. */
-    private final Collection<OWLOntology> ontologies;
-    /** true if intersections should be split. */
-    private final boolean splitIntersections;
-
-    /**
-     * Instantiates a new convert equivalent classes to super classes.
-     * 
-     * @param dataFactory
-     *        the data factory
-     * @param cls
-     *        the class to convert
-     * @param ontologies
-     *        the ontologies to use
-     * @param targetOntology
-     *        the target ontology
-     * @param splitIntersections
-     *        whether or not intersections should be split
-     */
-    public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory, OWLClass cls,
-        Collection<OWLOntology> ontologies, OWLOntology targetOntology, boolean splitIntersections) {
-        super(dataFactory);
-        this.targetOntology = checkNotNull(targetOntology, "targetOntology cannot be null");
-        this.cls = checkNotNull(cls, "cls cannot be null");
-        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
-        this.splitIntersections = splitIntersections;
-        generateChanges();
+    @Override
+    public Stream<? extends OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
+      return ce.operands();
     }
 
-    private void generateChanges() {
-        Set<OWLClassExpression> supers = new HashSet<>();
-        for (OWLOntology o : ontologies) {
-            o.equivalentClassesAxioms(cls).forEach(ax -> {
-                addChange(new RemoveAxiom(o, ax));
-                ax.classExpressions().forEach(c -> collectClassExpressions(c, supers));
-            });
-        }
-        supers.remove(cls);
-        supers.forEach(sup -> addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls, sup))));
+    @Override
+    public Stream<? extends OWLClassExpression> doDefault(Object o) {
+      return empty();
     }
+  };
+  /**
+   * The target ontology.
+   */
+  private final OWLOntology targetOntology;
+  /**
+   * The OWL class.
+   */
+  private final OWLClass cls;
+  /**
+   * The ontologies.
+   */
+  private final Collection<OWLOntology> ontologies;
+  /**
+   * true if intersections should be split.
+   */
+  private final boolean splitIntersections;
 
-    private void collectClassExpressions(OWLClassExpression desc, Collection<OWLClassExpression> supers) {
-        if (!splitIntersections) {
-            supers.add(desc);
-            return;
-        }
-        Iterator<? extends OWLClassExpression> iterator = desc.accept(INTERSECTION_SPLITTER).iterator();
-        if (iterator.hasNext()) {
-            Iterators.addAll(supers, iterator);
-        } else {
-            supers.add(desc);
-        }
+  /**
+   * Instantiates a new convert equivalent classes to super classes.
+   *
+   * @param dataFactory the data factory
+   * @param cls the class to convert
+   * @param ontologies the ontologies to use
+   * @param targetOntology the target ontology
+   * @param splitIntersections whether or not intersections should be split
+   */
+  public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory, OWLClass cls,
+      Collection<OWLOntology> ontologies, OWLOntology targetOntology, boolean splitIntersections) {
+    super(dataFactory);
+    this.targetOntology = checkNotNull(targetOntology, "targetOntology cannot be null");
+    this.cls = checkNotNull(cls, "cls cannot be null");
+    this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
+    this.splitIntersections = splitIntersections;
+    generateChanges();
+  }
+
+  private void generateChanges() {
+    Set<OWLClassExpression> supers = new HashSet<>();
+    for (OWLOntology o : ontologies) {
+      o.equivalentClassesAxioms(cls).forEach(ax -> {
+        addChange(new RemoveAxiom(o, ax));
+        ax.classExpressions().forEach(c -> collectClassExpressions(c, supers));
+      });
     }
+    supers.remove(cls);
+    supers.forEach(
+        sup -> addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls, sup))));
+  }
+
+  private void collectClassExpressions(OWLClassExpression desc,
+      Collection<OWLClassExpression> supers) {
+    if (!splitIntersections) {
+      supers.add(desc);
+      return;
+    }
+    Iterator<? extends OWLClassExpression> iterator = desc.accept(INTERSECTION_SPLITTER).iterator();
+    if (iterator.hasNext()) {
+      Iterators.addAll(supers, iterator);
+    } else {
+      supers.add(desc);
+    }
+  }
 }

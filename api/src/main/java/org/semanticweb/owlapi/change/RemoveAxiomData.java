@@ -20,31 +20,29 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * Represents the specific non-ontology data required by an {@link RemoveAxiom}
  * change. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public class RemoveAxiomData extends AxiomChangeData {
 
-    /**
-     * Constructs an {@code RemoveAxiomData} object which specifies the removal
-     * of an axiom from an ontology.
-     * 
-     * @param axiom
-     *        The {@link OWLAxiom} being added.
-     */
-    public RemoveAxiomData(OWLAxiom axiom) {
-        super(axiom);
-    }
+  /**
+   * Constructs an {@code RemoveAxiomData} object which specifies the removal
+   * of an axiom from an ontology.
+   *
+   * @param axiom The {@link OWLAxiom} being added.
+   */
+  public RemoveAxiomData(OWLAxiom axiom) {
+    super(axiom);
+  }
 
-    @Override
-    public RemoveAxiom createOntologyChange(OWLOntology ontology) {
-        return new RemoveAxiom(ontology, getAxiom());
-    }
+  @Override
+  public RemoveAxiom createOntologyChange(OWLOntology ontology) {
+    return new RemoveAxiom(ontology, getAxiom());
+  }
 
-    @Override
-    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
+    return visitor.visit(this);
+  }
 }

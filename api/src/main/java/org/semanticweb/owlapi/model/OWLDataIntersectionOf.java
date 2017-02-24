@@ -16,55 +16,54 @@ package org.semanticweb.owlapi.model;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Intersection_of_Data_Ranges" >
  * DataIntersectionOf</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLDataIntersectionOf extends OWLNaryDataRange {
 
-    @Override
-    default int hashIndex() {
-        return 839;
-    }
+  @Override
+  default int hashIndex() {
+    return 839;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 4004;
-    }
+  @Override
+  default int typeIndex() {
+    return 4004;
+  }
 
-    @Override
-    default DataRangeType getDataRangeType() {
-        return DataRangeType.DATA_INTERSECTION_OF;
-    }
+  @Override
+  default DataRangeType getDataRangeType() {
+    return DataRangeType.DATA_INTERSECTION_OF;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataRangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataRangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

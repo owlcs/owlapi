@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
@@ -22,35 +23,35 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
 public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
 
-    @Override
-    protected OWLOntology createOntology() {
-        OWLOntology ont = getAnonymousOWLOntology();
-        PrefixDocumentFormat format = (PrefixDocumentFormat) ont.getNonnullFormat();
-        format.setDefaultPrefix("http://default.com");
-        format.setPrefix("a", "http://ontology.com/a#");
-        format.setPrefix("b", "http://ontology.com/b#");
-        return ont;
-    }
+  @Override
+  protected OWLOntology createOntology() {
+    OWLOntology ont = getAnonymousOWLOntology();
+    PrefixDocumentFormat format = (PrefixDocumentFormat) ont.getNonnullFormat();
+    format.setDefaultPrefix("http://default.com");
+    format.setPrefix("a", "http://ontology.com/a#");
+    format.setPrefix("b", "http://ontology.com/b#");
+    return ont;
+  }
 
-    @Override
-    public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format) throws OWLOntologyStorageException,
-        OWLOntologyCreationException {
-        OWLOntology ont2 = super.roundTripOntology(ont, format);
-        OWLDocumentFormat ont2Format = ont2.getFormat();
-        if (format instanceof PrefixDocumentFormat && ont2Format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
-            PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
-            prefixFormat.prefixNames().forEach(prefixName -> {
-                assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
-                assertEquals(prefixFormat.getPrefix(prefixName), prefixFormat2.getPrefix(prefixName));
-            });
-        }
-        return ont2;
+  @Override
+  public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format)
+      throws OWLOntologyStorageException,
+      OWLOntologyCreationException {
+    OWLOntology ont2 = super.roundTripOntology(ont, format);
+    OWLDocumentFormat ont2Format = ont2.getFormat();
+    if (format instanceof PrefixDocumentFormat && ont2Format instanceof PrefixDocumentFormat) {
+      PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
+      PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
+      prefixFormat.prefixNames().forEach(prefixName -> {
+        assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
+        assertEquals(prefixFormat.getPrefix(prefixName), prefixFormat2.getPrefix(prefixName));
+      });
     }
+    return ont2;
+  }
 }

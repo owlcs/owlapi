@@ -13,12 +13,12 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 @SuppressWarnings("javadoc")
 public class OWLOntologyStorerFactoryRegistryTestCase {
 
-    private static final int EXPECTED_STORERS = 20;
+  private static final int EXPECTED_STORERS = 20;
 
-    @Test
-    public void setUp() {
-        PriorityCollection<OWLStorerFactory> ontologyStorers = OWLManager
+  @Test
+  public void setUp() {
+    PriorityCollection<OWLStorerFactory> ontologyStorers = OWLManager
         .createOWLOntologyManager().getOntologyStorers();
-        assertEquals(EXPECTED_STORERS, ontologyStorers.size());
-    }
+    assertEquals(EXPECTED_STORERS, ontologyStorers.size());
+  }
 }

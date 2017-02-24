@@ -18,35 +18,32 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
+    OWLNaryIndividualAxiom {
 
-    protected final List<OWLIndividual> individuals;
+  protected final List<OWLIndividual> individuals;
 
-    /**
-     * @param individuals
-     *        individuals
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        checkNotNull(individuals, "individuals cannot be null");
-        this.individuals = sortOptionally(individuals.stream().distinct(), OWLIndividual.class);
-    }
+  /**
+   * @param individuals individuals
+   * @param annotations annotations on the axiom
+   */
+  public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    checkNotNull(individuals, "individuals cannot be null");
+    this.individuals = sortOptionally(individuals.stream().distinct(), OWLIndividual.class);
+  }
 
-    @Override
-    public Stream<OWLIndividual> individuals() {
-        return individuals.stream();
-    }
+  @Override
+  public Stream<OWLIndividual> individuals() {
+    return individuals.stream();
+  }
 }

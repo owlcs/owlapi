@@ -12,136 +12,154 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public final class LatexBracketChecker implements OWLClassExpressionVisitor {
 
-    private boolean requiresBracket;
-    private static final LatexBracketChecker INSTANCE = new LatexBracketChecker();
+  private static final LatexBracketChecker INSTANCE = new LatexBracketChecker();
+  private boolean requiresBracket;
 
-    private LatexBracketChecker() {}
+  private LatexBracketChecker() {
+  }
 
-    @Override
-    public void visit(OWLObjectIntersectionOf ce) {
-        requiresBracket = true;
-    }
+  /**
+   * @param classExpression class expression
+   * @return true if bracket required
+   */
+  public static boolean requiresBracket(OWLClassExpression classExpression) {
+    INSTANCE.requiresBracket = true;
+    classExpression.accept(INSTANCE);
+    return INSTANCE.requiresBracket;
+  }
 
-    @Override
-    public void visit(OWLDataAllValuesFrom ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectIntersectionOf ce) {
+    requiresBracket = true;
+  }
 
-    /**
-     * @param node
-     *        node
-     */
-    @SuppressWarnings("unused")
-    public void visit(OWLDataCardinalityRestriction node) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLDataAllValuesFrom ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLDataSomeValuesFrom ce) {
-        requiresBracket = true;
-    }
+  /**
+   * @param node node
+   */
+  @SuppressWarnings("unused")
+  public void visit(OWLDataCardinalityRestriction node) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLDataHasValue ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLDataSomeValuesFrom ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectAllValuesFrom ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLDataHasValue ce) {
+    requiresBracket = true;
+  }
 
-    /**
-     * @param node
-     *        node
-     */
-    @SuppressWarnings("unused")
-    public void visit(OWLObjectCardinalityRestriction node) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectAllValuesFrom ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectSomeValuesFrom ce) {
-        requiresBracket = true;
-    }
+  /**
+   * @param node node
+   */
+  @SuppressWarnings("unused")
+  public void visit(OWLObjectCardinalityRestriction node) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectHasValue ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectSomeValuesFrom ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectComplementOf ce) {
-        requiresBracket = false;
-    }
+  @Override
+  public void visit(OWLObjectHasValue ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectUnionOf ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectComplementOf ce) {
+    requiresBracket = false;
+  }
 
-    @Override
-    public void visit(OWLClass ce) {
-        requiresBracket = false;
-    }
+  @Override
+  public void visit(OWLObjectUnionOf ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectOneOf ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLClass ce) {
+    requiresBracket = false;
+  }
 
-    @Override
-    public void visit(OWLDataExactCardinality ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectOneOf ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLDataMaxCardinality ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLDataExactCardinality ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLDataMinCardinality ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLDataMaxCardinality ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectExactCardinality ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLDataMinCardinality ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectMaxCardinality ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectExactCardinality ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectMinCardinality ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectMaxCardinality ce) {
+    requiresBracket = true;
+  }
 
-    @Override
-    public void visit(OWLObjectHasSelf ce) {
-        requiresBracket = true;
-    }
+  @Override
+  public void visit(OWLObjectMinCardinality ce) {
+    requiresBracket = true;
+  }
 
-    /**
-     * @param classExpression
-     *        class expression
-     * @return true if bracket required
-     */
-    public static boolean requiresBracket(OWLClassExpression classExpression) {
-        INSTANCE.requiresBracket = true;
-        classExpression.accept(INSTANCE);
-        return INSTANCE.requiresBracket;
-    }
+  @Override
+  public void visit(OWLObjectHasSelf ce) {
+    requiresBracket = true;
+  }
 }

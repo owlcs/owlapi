@@ -13,117 +13,112 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Represents an
  * <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties" >
  * AnnotationProperty</a> in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationProperty extends OWLProperty {
 
-    @Override
-    default int hashIndex() {
-        return 857;
-    }
+  @Override
+  default int hashIndex() {
+    return 857;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 1006;
-    }
+  @Override
+  default int typeIndex() {
+    return 1006;
+  }
 
-    @Override
-    default EntityType<?> getEntityType() {
-        return EntityType.ANNOTATION_PROPERTY;
-    }
+  @Override
+  default EntityType<?> getEntityType() {
+    return EntityType.ANNOTATION_PROPERTY;
+  }
 
-    /**
-     * Determines if this annotation property has an IRI corresponding to
-     * {@code rdfs:comment}.
-     * 
-     * @return {@code true} if the IRI of this annotation property is
-     *         {@code rdfs:comment}, where {@code rdfs:} expands to the usual
-     *         prefix, otherwise {@code false}.
-     */
-    default boolean isComment() {
-        return getIRI().equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
-    }
+  /**
+   * Determines if this annotation property has an IRI corresponding to
+   * {@code rdfs:comment}.
+   *
+   * @return {@code true} if the IRI of this annotation property is {@code rdfs:comment}, where
+   * {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
+   */
+  default boolean isComment() {
+    return getIRI().equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
+  }
 
-    /**
-     * Determines if this annotation property has an IRI corresponding to
-     * {@code rdfs:label}.
-     * 
-     * @return {@code true} if the IRI of this annotation property is
-     *         {@code rdfs:label}, where {@code rdfs:} expands to the usual
-     *         prefix, otherwise {@code false}.
-     */
-    default boolean isLabel() {
-        return getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
-    }
+  /**
+   * Determines if this annotation property has an IRI corresponding to
+   * {@code rdfs:label}.
+   *
+   * @return {@code true} if the IRI of this annotation property is {@code rdfs:label}, where {@code
+   * rdfs:} expands to the usual prefix, otherwise {@code false}.
+   */
+  default boolean isLabel() {
+    return getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+  }
 
-    /**
-     * Determines if this annotation property has an IRI corresponding to
-     * {@code owl:deprecated}. An annotation along the {@code owl:deprecated}
-     * property which has a value of {@code "true"^^xsd:boolean} can be used to
-     * deprecate IRIs. (See
-     * <a href ="http://www.w3.org/TR/owl2-syntax/#Annotation_Properties">
-     * Section 5.5 </a> of the OWL 2 specification.
-     * 
-     * @return {@code true} if the IRI of this annotation property is
-     *         {@code owl:deprecated}, where {@code owl:} expands to the usual
-     *         prefix, otherwise {@code false}.
-     */
-    default boolean isDeprecated() {
-        return getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
-    }
+  /**
+   * Determines if this annotation property has an IRI corresponding to
+   * {@code owl:deprecated}. An annotation along the {@code owl:deprecated}
+   * property which has a value of {@code "true"^^xsd:boolean} can be used to
+   * deprecate IRIs. (See
+   * <a href ="http://www.w3.org/TR/owl2-syntax/#Annotation_Properties">
+   * Section 5.5 </a> of the OWL 2 specification.
+   *
+   * @return {@code true} if the IRI of this annotation property is {@code owl:deprecated}, where
+   * {@code owl:} expands to the usual prefix, otherwise {@code false}.
+   */
+  default boolean isDeprecated() {
+    return getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+  }
 
-    @Override
-    default boolean isOWLAnnotationProperty() {
-        return true;
-    }
+  @Override
+  default boolean isOWLAnnotationProperty() {
+    return true;
+  }
 
-    @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(@Nonnull OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(@Nonnull OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(@Nonnull OWLEntityVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

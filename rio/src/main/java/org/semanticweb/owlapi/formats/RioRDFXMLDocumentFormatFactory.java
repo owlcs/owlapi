@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.semanticweb.owlapi.formats;
 
@@ -11,13 +11,15 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class RioRDFXMLDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
-    public RioRDFXMLDocumentFormatFactory() {
-        super(RDFFormat.RDFXML);
-    }
+  /**
+   * Default constructor.
+   */
+  public RioRDFXMLDocumentFormatFactory() {
+    super(RDFFormat.RDFXML);
+  }
 
-    @Override
-    public RioRDFXMLDocumentFormat createFormat() {
-        return new RioRDFXMLDocumentFormat();
-    }
+  @Override
+  public RioRDFXMLDocumentFormat createFormat() {
+    return new RioRDFXMLDocumentFormat();
+  }
 }

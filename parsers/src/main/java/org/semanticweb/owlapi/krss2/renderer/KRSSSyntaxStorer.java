@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -23,19 +22,19 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
 /**
  * See {@link org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer
  * KRSSObjectRenderer} for definition/explanation of the syntax.
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public class KRSSSyntaxStorer extends AbstractOWLStorer {
 
-    @Override
-    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
-        return ontologyFormat instanceof KRSSDocumentFormat;
-    }
+  @Override
+  public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+    return ontologyFormat instanceof KRSSDocumentFormat;
+  }
 
-    @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
-        new KRSSSyntaxRenderer().render(ontology, writer);
-    }
+  @Override
+  protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+      throws OWLOntologyStorageException {
+    new KRSSSyntaxRenderer().render(ontology, writer);
+  }
 }

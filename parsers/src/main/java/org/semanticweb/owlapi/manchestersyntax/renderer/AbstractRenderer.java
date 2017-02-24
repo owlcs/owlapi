@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
@@ -26,157 +24,151 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class AbstractRenderer {
 
-    private ShortFormProvider shortFormProvider;
-    private int lastNewLinePos = -1;
-    private int currentPos;
-    private final Writer writer;
-    private final List<Integer> tabs = new ArrayList<>();
-    private boolean useTabbing = true;
-    private boolean useWrapping = true;
+  private final Writer writer;
+  private final List<Integer> tabs = new ArrayList<>();
+  private ShortFormProvider shortFormProvider;
+  private int lastNewLinePos = -1;
+  private int currentPos;
+  private boolean useTabbing = true;
+  private boolean useWrapping = true;
 
-    /**
-     * @param writer
-     *        writer
-     * @param shortFormProvider
-     *        shortFormProvider
-     */
-    protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
-        this.writer = writer;
-        this.shortFormProvider = shortFormProvider;
-        pushTab(0);
-    }
+  /**
+   * @param writer writer
+   * @param shortFormProvider shortFormProvider
+   */
+  protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
+    this.writer = writer;
+    this.shortFormProvider = shortFormProvider;
+    pushTab(0);
+  }
 
-    /**
-     * @param useTabbing
-     *        useTabbing
-     */
-    protected void setUseTabbing(boolean useTabbing) {
-        this.useTabbing = useTabbing;
-    }
+  /**
+   * @return true if use wrapping
+   */
+  protected boolean isUseWrapping() {
+    return useWrapping;
+  }
 
-    /**
-     * @param useWrapping
-     *        useWrapping
-     */
-    protected void setUseWrapping(boolean useWrapping) {
-        this.useWrapping = useWrapping;
-    }
+  /**
+   * @param useWrapping useWrapping
+   */
+  protected void setUseWrapping(boolean useWrapping) {
+    this.useWrapping = useWrapping;
+  }
 
-    /**
-     * @return true if use wrapping
-     */
-    protected boolean isUseWrapping() {
-        return useWrapping;
-    }
+  /**
+   * @return true if use tabbing
+   */
+  protected boolean isUseTabbing() {
+    return useTabbing;
+  }
 
-    /**
-     * @return true if use tabbing
-     */
-    protected boolean isUseTabbing() {
-        return useTabbing;
-    }
+  /**
+   * @param useTabbing useTabbing
+   */
+  protected void setUseTabbing(boolean useTabbing) {
+    this.useTabbing = useTabbing;
+  }
 
-    /**
-     * Flush.
-     * 
-     * @throws OWLRendererException
-     *         renderer error
-     */
-    protected void flush() throws OWLRendererException {
-        try {
-            writer.flush();
-        } catch (IOException e) {
-            throw new OWLRendererIOException(e);
-        }
+  /**
+   * Flush.
+   *
+   * @throws OWLRendererException renderer error
+   */
+  protected void flush() throws OWLRendererException {
+    try {
+      writer.flush();
+    } catch (IOException e) {
+      throw new OWLRendererIOException(e);
     }
+  }
 
-    protected void pushTab(int size) {
-        tabs.add(0, Integer.valueOf(size));
-    }
+  protected void pushTab(int size) {
+    tabs.add(0, Integer.valueOf(size));
+  }
 
-    protected void incrementTab(int increment) {
-        int base = 0;
-        if (!tabs.isEmpty()) {
-            base = tabs.get(0).intValue();
-        }
-        tabs.add(0, Integer.valueOf(base + increment));
+  protected void incrementTab(int increment) {
+    int base = 0;
+    if (!tabs.isEmpty()) {
+      base = tabs.get(0).intValue();
     }
+    tabs.add(0, Integer.valueOf(base + increment));
+  }
 
-    protected void popTab() {
-        tabs.remove(0);
-    }
+  protected void popTab() {
+    tabs.remove(0);
+  }
 
-    protected void writeTab() {
-        int tab = tabs.get(0).intValue();
-        for (int i = 0; i < tab; i++) {
-            write(" ");
-        }
+  protected void writeTab() {
+    int tab = tabs.get(0).intValue();
+    for (int i = 0; i < tab; i++) {
+      write(" ");
     }
+  }
 
-    protected int getIndent() {
-        return currentPos - lastNewLinePos - 2;
-    }
+  protected int getIndent() {
+    return currentPos - lastNewLinePos - 2;
+  }
 
-    protected void write(@Nullable String s) {
-        if (s == null) {
-            return;
-        }
-        int indexOfNewLine = s.indexOf('\n');
-        if (indexOfNewLine != -1) {
-            lastNewLinePos = currentPos + indexOfNewLine;
-        }
-        currentPos += s.length();
-        try {
-            writer.write(s);
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
-        }
+  protected void write(@Nullable String s) {
+    if (s == null) {
+      return;
     }
+    int indexOfNewLine = s.indexOf('\n');
+    if (indexOfNewLine != -1) {
+      lastNewLinePos = currentPos + indexOfNewLine;
+    }
+    currentPos += s.length();
+    try {
+      writer.write(s);
+    } catch (IOException e) {
+      throw new OWLRuntimeException(e);
+    }
+  }
 
-    protected void write(char ch) {
-        write(Character.toString(ch));
-    }
+  protected void write(char ch) {
+    write(Character.toString(ch));
+  }
 
-    protected void writeSpace() {
-        write(" ");
-    }
+  protected void writeSpace() {
+    write(" ");
+  }
 
-    protected void write(ManchesterOWLSyntax keyword) {
-        write(" ", keyword, " ");
-    }
+  protected void write(ManchesterOWLSyntax keyword) {
+    write(" ", keyword, " ");
+  }
 
-    protected void writeFrameKeyword(ManchesterOWLSyntax keyword) {
-        write("", keyword, ": ");
-    }
+  protected void writeFrameKeyword(ManchesterOWLSyntax keyword) {
+    write("", keyword, ": ");
+  }
 
-    protected void writeSectionKeyword(ManchesterOWLSyntax keyword) {
-        write(" ", keyword, ": ");
-    }
+  protected void writeSectionKeyword(ManchesterOWLSyntax keyword) {
+    write(" ", keyword, ": ");
+  }
 
-    protected void writeNewLine() {
-        write("\n");
-        if (useTabbing) {
-            writeTab();
-        }
+  protected void writeNewLine() {
+    write("\n");
+    if (useTabbing) {
+      writeTab();
     }
+  }
 
-    protected void write(String prefix, ManchesterOWLSyntax keyword, String suffix) {
-        write(prefix);
-        write(keyword.toString());
-        write(suffix);
-    }
+  protected void write(String prefix, ManchesterOWLSyntax keyword, String suffix) {
+    write(prefix);
+    write(keyword.toString());
+    write(suffix);
+  }
 
-    protected ShortFormProvider getShortFormProvider() {
-        return shortFormProvider;
-    }
+  protected ShortFormProvider getShortFormProvider() {
+    return shortFormProvider;
+  }
 
-    protected void setShortFormProvider(ShortFormProvider p) {
-        shortFormProvider = p;
-    }
+  protected void setShortFormProvider(ShortFormProvider p) {
+    shortFormProvider = p;
+  }
 }

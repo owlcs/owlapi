@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -22,24 +21,24 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 /**
  * Annotation visitor that returns literal's lexical form, or empty string for
  * IRI and blank nodes.
- * 
+ *
  * @since 4.0.0
  */
 public class StringAnnotationVisitor implements OWLAnnotationValueVisitorEx<String>, Serializable {
 
-    @Override
-    public String visit(IRI iri) {
-        // TODO refactor the short form providers in here
-        return "";
-    }
+  @Override
+  public String visit(IRI iri) {
+    // TODO refactor the short form providers in here
+    return "";
+  }
 
-    @Override
-    public String visit(OWLAnonymousIndividual individual) {
-        return "";
-    }
+  @Override
+  public String visit(OWLAnonymousIndividual individual) {
+    return "";
+  }
 
-    @Override
-    public String visit(OWLLiteral literal) {
-        return literal.getLiteral();
-    }
+  @Override
+  public String visit(OWLLiteral literal) {
+    return literal.getLiteral();
+  }
 }

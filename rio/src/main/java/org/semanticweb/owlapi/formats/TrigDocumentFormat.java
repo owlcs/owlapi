@@ -43,10 +43,10 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class TrigDocumentFormat extends RioRDFPrefixDocumentFormat {
 
-    /**
-     * RDF format for {@link RDFFormat#TRIG} documents.
-     */
-    public TrigDocumentFormat() {
-        super(RDFFormat.TRIG);
-    }
+  /**
+   * RDF format for {@link RDFFormat#TRIG} documents.
+   */
+  public TrigDocumentFormat() {
+    super(RDFFormat.TRIG);
+  }
 }

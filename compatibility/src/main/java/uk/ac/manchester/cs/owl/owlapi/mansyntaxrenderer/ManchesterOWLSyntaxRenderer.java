@@ -13,13 +13,13 @@
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @deprecated use
- *             org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxRenderer
+ * @deprecated use org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxRenderer
  */
 @Deprecated
 public class ManchesterOWLSyntaxRenderer
-        extends
-        org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxRenderer {}
+    extends
+    org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxRenderer {
+
+}

@@ -13,40 +13,39 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
-/** Builder class for OWLNamedIndividual. */
-public class BuilderNamedIndividual extends BaseEntityBuilder<OWLNamedIndividual, BuilderNamedIndividual> {
+/**
+ * Builder class for OWLNamedIndividual.
+ */
+public class BuilderNamedIndividual extends
+    BaseEntityBuilder<OWLNamedIndividual, BuilderNamedIndividual> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderNamedIndividual(OWLNamedIndividual expected, OWLDataFactory df) {
-        this(df);
-        withIRI(expected.getIRI());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderNamedIndividual(OWLNamedIndividual expected, OWLDataFactory df) {
+    this(df);
+    withIRI(expected.getIRI());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderNamedIndividual(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderNamedIndividual(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLNamedIndividual buildObject() {
-        if (pm != null && string != null) {
-            return df.getOWLNamedIndividual(getString(), getPM());
-        }
-        return df.getOWLNamedIndividual(getIRI());
+  @Override
+  public OWLNamedIndividual buildObject() {
+    if (pm != null && string != null) {
+      return df.getOWLNamedIndividual(getString(), getPM());
     }
+    return df.getOWLNamedIndividual(getIRI());
+  }
 }

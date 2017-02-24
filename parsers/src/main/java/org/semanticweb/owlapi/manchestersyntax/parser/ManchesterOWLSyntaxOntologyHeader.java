@@ -17,60 +17,53 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ManchesterOWLSyntaxOntologyHeader {
 
-    private final OWLOntologyID ontologyID;
-    private final Collection<OWLAnnotation> annotations;
-    private final Collection<OWLImportsDeclaration> importsDeclarations;
+  private final OWLOntologyID ontologyID;
+  private final Collection<OWLAnnotation> annotations;
+  private final Collection<OWLImportsDeclaration> importsDeclarations;
 
-    /**
-     * @param ontologyIRI
-     *        the ontology IRI
-     * @param versionIRI
-     *        the version IRI
-     * @param annotations
-     *        the ontology annotations
-     * @param importsDeclarations
-     *        the imports declarations
-     */
-    public ManchesterOWLSyntaxOntologyHeader(@Nullable IRI ontologyIRI, @Nullable IRI versionIRI,
-        Set<OWLAnnotation> annotations, Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID = new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
-        this.annotations = new ArrayList<>(annotations);
-        this.importsDeclarations = new ArrayList<>(importsDeclarations);
-    }
+  /**
+   * @param ontologyIRI the ontology IRI
+   * @param versionIRI the version IRI
+   * @param annotations the ontology annotations
+   * @param importsDeclarations the imports declarations
+   */
+  public ManchesterOWLSyntaxOntologyHeader(@Nullable IRI ontologyIRI, @Nullable IRI versionIRI,
+      Set<OWLAnnotation> annotations, Set<OWLImportsDeclaration> importsDeclarations) {
+    ontologyID = new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
+    this.annotations = new ArrayList<>(annotations);
+    this.importsDeclarations = new ArrayList<>(importsDeclarations);
+  }
 
-    /**
-     * @return the ontology ID
-     */
-    public OWLOntologyID getOntologyID() {
-        return ontologyID;
-    }
+  /**
+   * @return the ontology ID
+   */
+  public OWLOntologyID getOntologyID() {
+    return ontologyID;
+  }
 
-    /**
-     * @return the annotations
-     */
-    public Collection<OWLAnnotation> getAnnotations() {
-        return annotations;
-    }
+  /**
+   * @return the annotations
+   */
+  public Collection<OWLAnnotation> getAnnotations() {
+    return annotations;
+  }
 
-    /**
-     * @return the imports declarations
-     */
-    public Collection<OWLImportsDeclaration> getImportsDeclarations() {
-        return importsDeclarations;
-    }
+  /**
+   * @return the imports declarations
+   */
+  public Collection<OWLImportsDeclaration> getImportsDeclarations() {
+    return importsDeclarations;
+  }
 }

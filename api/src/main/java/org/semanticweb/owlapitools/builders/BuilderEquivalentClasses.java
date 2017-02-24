@@ -13,39 +13,38 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 
-/** Builder class for OWLEquivalentClassesAxiom. */
+/**
+ * Builder class for OWLEquivalentClassesAxiom.
+ */
 public class BuilderEquivalentClasses
-        extends BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
+    extends
+    BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderEquivalentClasses(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderEquivalentClasses(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderEquivalentClasses(OWLEquivalentClassesAxiom expected, OWLDataFactory df) {
-        this(df);
-        withItems(expected.classExpressions()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderEquivalentClasses(OWLEquivalentClassesAxiom expected, OWLDataFactory df) {
+    this(df);
+    withItems(expected.classExpressions()).withAnnotations(expected.annotations());
+  }
 
-    @Override
-    public OWLEquivalentClassesAxiom buildObject() {
-        return df.getOWLEquivalentClassesAxiom(items, annotations);
-    }
+  @Override
+  public OWLEquivalentClassesAxiom buildObject() {
+    return df.getOWLEquivalentClassesAxiom(items, annotations);
+  }
 }

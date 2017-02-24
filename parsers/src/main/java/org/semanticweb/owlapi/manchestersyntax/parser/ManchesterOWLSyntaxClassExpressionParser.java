@@ -24,37 +24,37 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 /**
  * An expression parser that parses class expressions written in the Manchester
  * OWL Syntax.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class ManchesterOWLSyntaxClassExpressionParser implements OWLExpressionParser<OWLClassExpression> {
+public class ManchesterOWLSyntaxClassExpressionParser implements
+    OWLExpressionParser<OWLClassExpression> {
 
-    private final OWLDataFactory dataFactory;
-    private OWLEntityChecker checker;
+  private final OWLDataFactory dataFactory;
+  private OWLEntityChecker checker;
 
-    /**
-     * @param dataFactory
-     *        dataFactory
-     * @param checker
-     *        checker
-     */
-    public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
-        this.dataFactory = checkNotNull(dataFactory);
-        this.checker = checkNotNull(checker);
-    }
+  /**
+   * @param dataFactory dataFactory
+   * @param checker checker
+   */
+  public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory,
+      OWLEntityChecker checker) {
+    this.dataFactory = checkNotNull(dataFactory);
+    this.checker = checkNotNull(checker);
+  }
 
-    @Override
-    public OWLClassExpression parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
-        parser.setOWLEntityChecker(checker);
-        parser.setStringToParse(expression);
-        return parser.parseClassExpression();
-    }
+  @Override
+  public OWLClassExpression parse(String expression) {
+    ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(),
+        dataFactory);
+    parser.setOWLEntityChecker(checker);
+    parser.setStringToParse(expression);
+    return parser.parseClassExpression();
+  }
 
-    @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        checker = entityChecker;
-    }
+  @Override
+  public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
+    checker = entityChecker;
+  }
 }

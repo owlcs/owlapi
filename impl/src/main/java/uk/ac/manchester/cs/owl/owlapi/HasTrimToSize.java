@@ -6,9 +6,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 @FunctionalInterface
 public interface HasTrimToSize {
 
-    /**
-     * Trim the capacity of the axiom indexes. An application can use this
-     * operation to minimize the storage of the index instance.
-     */
-    void trimToSize();
+  /**
+   * Trim the capacity of the axiom indexes. An application can use this
+   * operation to minimize the storage of the index instance.
+   */
+  void trimToSize();
 }

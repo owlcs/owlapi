@@ -19,21 +19,20 @@ import java.io.Writer;
 import java.util.Optional;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private final Optional<Writer> writer = optional(new StringWriter());
+  private final Optional<Writer> writer = optional(new StringWriter());
 
-    @Override
-    public String toString() {
-        return writer.get().toString();
-    }
+  @Override
+  public String toString() {
+    return writer.get().toString();
+  }
 
-    @Override
-    public Optional<Writer> getWriter() {
-        return writer;
-    }
+  @Override
+  public Optional<Writer> getWriter() {
+    return writer;
+  }
 }

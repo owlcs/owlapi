@@ -18,113 +18,108 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Builder class for SWRLRule. */
+/**
+ * Builder class for SWRLRule.
+ */
 public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
-    private final List<SWRLAtom> body = new ArrayList<>();
-    private final List<SWRLAtom> head = new ArrayList<>();
+  private final List<SWRLAtom> body = new ArrayList<>();
+  private final List<SWRLAtom> head = new ArrayList<>();
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSWRLRule(SWRLRule expected, OWLDataFactory df) {
-        this(df);
-        withBody(expected.body()).withHead(expected.head()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSWRLRule(SWRLRule expected, OWLDataFactory df) {
+    this(df);
+    withBody(expected.body()).withHead(expected.head()).withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSWRLRule(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSWRLRule(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        body atom
-     * @return builder
-     */
-    public BuilderSWRLRule withBody(SWRLAtom arg) {
-        body.add(arg);
-        return this;
-    }
+  /**
+   * @param arg body atom
+   * @return builder
+   */
+  public BuilderSWRLRule withBody(SWRLAtom arg) {
+    body.add(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        head atom
-     * @return builder
-     */
-    public BuilderSWRLRule withHead(SWRLAtom arg) {
-        head.add(arg);
-        return this;
-    }
+  /**
+   * @param arg head atom
+   * @return builder
+   */
+  public BuilderSWRLRule withHead(SWRLAtom arg) {
+    head.add(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        body atom
-     * @return builder
-     */
-    public BuilderSWRLRule withBody(Collection<SWRLAtom> arg) {
-        body.addAll(arg);
-        return this;
-    }
+  /**
+   * @param arg body atom
+   * @return builder
+   */
+  public BuilderSWRLRule withBody(Collection<SWRLAtom> arg) {
+    body.addAll(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        body atom
-     * @return builder
-     */
-    public BuilderSWRLRule withBody(Stream<SWRLAtom> arg) {
-        add(body, arg);
-        return this;
-    }
+  /**
+   * @param arg body atom
+   * @return builder
+   */
+  public BuilderSWRLRule withBody(Stream<SWRLAtom> arg) {
+    add(body, arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        head atom
-     * @return builder
-     */
-    public BuilderSWRLRule withHead(Collection<SWRLAtom> arg) {
-        head.addAll(arg);
-        return this;
-    }
+  /**
+   * @param arg head atom
+   * @return builder
+   */
+  public BuilderSWRLRule withHead(Collection<SWRLAtom> arg) {
+    head.addAll(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        head atom
-     * @return builder
-     */
-    public BuilderSWRLRule withHead(Stream<SWRLAtom> arg) {
-        add(head, arg);
-        return this;
-    }
+  /**
+   * @param arg head atom
+   * @return builder
+   */
+  public BuilderSWRLRule withHead(Stream<SWRLAtom> arg) {
+    add(head, arg);
+    return this;
+  }
 
-    @Override
-    public SWRLRule buildObject() {
-        return df.getSWRLRule(body, head, annotations);
-    }
+  @Override
+  public SWRLRule buildObject() {
+    return df.getSWRLRule(body, head, annotations);
+  }
 
-    /** @return size of body */
-    public int bodySize() {
-        return body.size();
-    }
+  /**
+   * @return size of body
+   */
+  public int bodySize() {
+    return body.size();
+  }
 
-    /** @return size of head */
-    public int headSize() {
-        return head.size();
-    }
+  /**
+   * @return size of head
+   */
+  public int headSize() {
+    return head.size();
+  }
 }

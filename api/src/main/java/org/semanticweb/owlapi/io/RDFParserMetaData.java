@@ -14,63 +14,58 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
-import java.util.Set;
-import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.IRI;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import java.io.Serializable;
+import java.util.Set;
+import java.util.stream.Stream;
+import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
 
-    private final int tripleCount;
-    private final RDFOntologyHeaderStatus headerStatus;
-    private final Set<RDFTriple> unparsedTriples;
-    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
+  private final int tripleCount;
+  private final RDFOntologyHeaderStatus headerStatus;
+  private final Set<RDFTriple> unparsedTriples;
+  private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
 
-    /**
-     * @param headerStatus
-     *        the header status
-     * @param tripleCount
-     *        the triple count
-     * @param unparsedTriples
-     *        the set of triples not parsed
-     * @param guessedDeclarations
-     *        guessed declarations map
-     */
-    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount, Set<RDFTriple> unparsedTriples,
-        ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
-        this.tripleCount = tripleCount;
-        this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
-        this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
-        this.guessedDeclarations = checkNotNull(guessedDeclarations, "guessedDeclarations cannot be null");
-    }
+  /**
+   * @param headerStatus the header status
+   * @param tripleCount the triple count
+   * @param unparsedTriples the set of triples not parsed
+   * @param guessedDeclarations guessed declarations map
+   */
+  public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount,
+      Set<RDFTriple> unparsedTriples,
+      ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+    this.tripleCount = tripleCount;
+    this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
+    this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
+    this.guessedDeclarations = checkNotNull(guessedDeclarations,
+        "guessedDeclarations cannot be null");
+  }
 
-    @Override
-    public int getTripleCount() {
-        return tripleCount;
-    }
+  @Override
+  public int getTripleCount() {
+    return tripleCount;
+  }
 
-    @Override
-    public RDFOntologyHeaderStatus getHeaderState() {
-        return headerStatus;
-    }
+  @Override
+  public RDFOntologyHeaderStatus getHeaderState() {
+    return headerStatus;
+  }
 
-    @Override
-    public Stream<RDFTriple> getUnparsedTriples() {
-        return unparsedTriples.stream();
-    }
+  @Override
+  public Stream<RDFTriple> getUnparsedTriples() {
+    return unparsedTriples.stream();
+  }
 
-    @Override
-    public Multimap<IRI, Class<?>> getGuessedDeclarations() {
-        return Multimaps.unmodifiableMultimap(guessedDeclarations);
-    }
+  @Override
+  public Multimap<IRI, Class<?>> getGuessedDeclarations() {
+    return Multimaps.unmodifiableMultimap(guessedDeclarations);
+  }
 }

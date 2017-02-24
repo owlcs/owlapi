@@ -18,24 +18,22 @@ import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
 
-    private final OWLDataRange dataRange;
+  private final OWLDataRange dataRange;
 
-    /**
-     * @param dataRange
-     *        datarange
-     */
-    public OWLDataComplementOfImpl(OWLDataRange dataRange) {
-        this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
-    }
+  /**
+   * @param dataRange datarange
+   */
+  public OWLDataComplementOfImpl(OWLDataRange dataRange) {
+    this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
+  }
 
-    @Override
-    public OWLDataRange getDataRange() {
-        return dataRange;
-    }
+  @Override
+  public OWLDataRange getDataRange() {
+    return dataRange;
+  }
 }

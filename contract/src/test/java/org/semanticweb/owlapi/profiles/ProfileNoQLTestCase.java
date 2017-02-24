@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,20 +11,15 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class ProfileNoQLTestCase extends ProfileBase {
 
-    private final String premise;
+  private final String premise;
 
-    public ProfileNoQLTestCase(String premise) {
-        this.premise = premise;
-    }
+  public ProfileNoQLTestCase(String premise) {
+    this.premise = premise;
+  }
 
-    @Test
-    public void testNoQL() {
-        test(premise, true, false, true, true);
-    }
-
-    @Parameters
-    public static List<String> getData() {
-        return Arrays.asList(
+  @Parameters
+  public static List<String> getData() {
+    return Arrays.asList(
         "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\"  xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:Class rdf:about=\"urn:test#c1\"><owl:sameAs><owl:Class rdf:about=\"urn:test#c2\"/></owl:sameAs><first:annotate>description of c1</first:annotate></owl:Class><owl:AnnotationProperty rdf:about=\"urn:test#annotate\" /></rdf:RDF>",
         "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:ex=\"http://www.example.org#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:TransitiveProperty rdf:about=\"http://www.example.org#p\"/><rdf:Description rdf:about=\"http://www.example.org#x\"><ex:p><rdf:Description rdf:about=\"http://www.example.org#y\"><ex:p rdf:resource=\"http://www.example.org#z\"/></rdf:Description></ex:p></rdf:Description></rdf:RDF>",
         "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:ex=\"http://www.example.org#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:AllDifferent rdf:about=\"http://www.example.org#z\"><owl:members rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"http://www.example.org#w1\"><owl:sameAs rdf:resource=\"http://www.example.org#w2\"/></rdf:Description><rdf:Description rdf:about=\"http://www.example.org#w2\"/><rdf:Description rdf:about=\"http://www.example.org#w3\"/></owl:members></owl:AllDifferent></rdf:RDF>",
@@ -49,5 +43,10 @@ public class ProfileNoQLTestCase extends ProfileBase {
         "Prefix( :=<http://example.org/> ) Ontology( Declaration( ObjectProperty( :hasMother ) ) Declaration( ObjectProperty( :hasSister ) ) Declaration( ObjectProperty( :hasAunt ) ) SubObjectPropertyOf( ObjectPropertyChain( :hasMother :hasSister ) :hasAunt ) ObjectPropertyAssertion( :hasMother :Stewie :Lois ) ObjectPropertyAssertion( :hasSister :Lois :Carol ))",
         "<rdf:RDF xml:base=\"urn:test\" xmlns=\"urn:test#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/><rdf:Description rdf:about=\"urn:test#p\"><owl:propertyChainAxiom rdf:parseType=\"Collection\"><owl:ObjectProperty rdf:about=\"urn:test#p\"/><owl:ObjectProperty rdf:about=\"urn:test#q\"/></owl:propertyChainAxiom></rdf:Description><rdf:Description rdf:about=\"urn:test#a\"><p rdf:resource=\"urn:test#b\"/></rdf:Description><rdf:Description rdf:about=\"urn:test#b\"><q rdf:resource=\"urn:test#c\"/></rdf:Description></rdf:RDF>",
         "<rdf:RDF xml:base=\"urn:test\" xmlns=\"urn:test#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/><rdf:Description rdf:about=\"urn:test#p\"><owl:propertyChainAxiom rdf:parseType=\"Collection\"><owl:ObjectProperty rdf:about=\"urn:test#p\"/><owl:ObjectProperty rdf:about=\"urn:test#q\"/></owl:propertyChainAxiom></rdf:Description><rdf:Description rdf:about=\"urn:test#a\"><q rdf:resource=\"urn:test#b\"/></rdf:Description><rdf:Description rdf:about=\"urn:test#b\"><q rdf:resource=\"urn:test#c\"/></rdf:Description></rdf:RDF>");
-    }
+  }
+
+  @Test
+  public void testNoQL() {
+    test(premise, true, false, true, true);
+  }
 }

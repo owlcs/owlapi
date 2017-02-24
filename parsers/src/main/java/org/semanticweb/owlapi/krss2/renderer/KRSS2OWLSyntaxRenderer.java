@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -24,13 +23,13 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class KRSS2OWLSyntaxRenderer extends AbstractOWLRenderer {
 
-    @Override
-    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
-        try {
-            ontology.accept(new KRSS2OWLObjectRenderer(ontology, writer));
-            writer.flush();
-        } catch (OWLRuntimeException e) {
-            throw new OWLRendererException(e);
-        }
+  @Override
+  public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
+    try {
+      ontology.accept(new KRSS2OWLObjectRenderer(ontology, writer));
+      writer.flush();
+    } catch (OWLRuntimeException e) {
+      throw new OWLRendererException(e);
     }
+  }
 }

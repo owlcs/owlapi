@@ -18,66 +18,65 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLBuiltInAtom extends SWRLAtom {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(arguments(), getPredicate());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(arguments(), getPredicate());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 659;
-    }
+  @Override
+  default int hashIndex() {
+    return 659;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 6005;
-    }
+  @Override
+  default int typeIndex() {
+    return 6005;
+  }
 
-    @Override
-        IRI getPredicate();
+  @Override
+  IRI getPredicate();
 
-    /**
-     * @return list of arguments
-     */
-    default List<SWRLDArgument> getArguments() {
-        return asList(arguments());
-    }
+  /**
+   * @return list of arguments
+   */
+  default List<SWRLDArgument> getArguments() {
+    return asList(arguments());
+  }
 
-    /**
-     * @return list of arguments
-     */
-    Stream<SWRLDArgument> arguments();
+  /**
+   * @return list of arguments
+   */
+  Stream<SWRLDArgument> arguments();
 
-    /**
-     * Determines if the predicate of this atom is is a core builtin.
-     * 
-     * @return {@code true} if this is a core builtin, otherwise {@code false}
-     */
-    boolean isCoreBuiltIn();
+  /**
+   * Determines if the predicate of this atom is is a core builtin.
+   *
+   * @return {@code true} if this is a core builtin, otherwise {@code false}
+   */
+  boolean isCoreBuiltIn();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(SWRLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

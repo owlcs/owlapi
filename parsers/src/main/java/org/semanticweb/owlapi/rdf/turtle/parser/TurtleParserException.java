@@ -23,15 +23,15 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 class TurtleParserException extends OWLParserException {
 
-    TurtleParserException(String message) {
-        super(message);
-    }
+  TurtleParserException(String message) {
+    super(message);
+  }
 
-    TurtleParserException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  TurtleParserException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-    TurtleParserException(Throwable cause) {
-        super(cause);
-    }
+  TurtleParserException(Throwable cause) {
+    super(cause);
+  }
 }

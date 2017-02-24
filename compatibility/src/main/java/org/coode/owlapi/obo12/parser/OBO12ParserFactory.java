@@ -40,9 +40,7 @@ package org.coode.owlapi.obo12.parser;
 
 import java.util.Collections;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -56,33 +54,34 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  */
 public class OBO12ParserFactory implements OWLParserFactory {
 
-    @Override
-    public OWLParser get() {
-        return createParser();
-    }
+  @Override
+  public OWLParser get() {
+    return createParser();
+  }
 
-    @Override
-    public @Nullable String getDefaultMIMEType() {
-        return null;
-    }
+  @Override
+  public @Nullable
+  String getDefaultMIMEType() {
+    return null;
+  }
 
-    @Override
-    public List<String> getMIMETypes() {
-        return Collections.emptyList();
-    }
+  @Override
+  public List<String> getMIMETypes() {
+    return Collections.emptyList();
+  }
 
-    @Override
-    public boolean handlesMimeType(String mimeType) {
-        return false;
-    }
+  @Override
+  public boolean handlesMimeType(String mimeType) {
+    return false;
+  }
 
-    @Override
-    public OWLParser createParser() {
-        return new OWLOBO12Parser();
-    }
+  @Override
+  public OWLParser createParser() {
+    return new OWLOBO12Parser();
+  }
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new OBO12DocumentFormatFactory();
-    }
+  @Override
+  public OWLDocumentFormatFactory getSupportedFormat() {
+    return new OBO12DocumentFormatFactory();
+  }
 }

@@ -12,16 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 
 /**
  * OWLAPI module. Bindings can be overridden by subclassing this class, to allow
@@ -31,20 +29,19 @@ import com.google.inject.Provides;
 @OwlapiModule
 public class OWLAPIParsersModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        // nothing to configure here
-    }
+  @Override
+  protected void configure() {
+    // nothing to configure here
+  }
 
-    /**
-     * @param df
-     *        data factory for parser
-     * @param provider
-     *        config provider for parser
-     * @return implementation of manchester parser for parsing strings
-     */
-    @Provides
-    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df, OWLOntologyManager provider) {
-        return new ManchesterOWLSyntaxParserImpl(provider.getOntologyConfigurator(), df);
-    }
+  /**
+   * @param df data factory for parser
+   * @param provider config provider for parser
+   * @return implementation of manchester parser for parsing strings
+   */
+  @Provides
+  public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df,
+      OWLOntologyManager provider) {
+    return new ManchesterOWLSyntaxParserImpl(provider.getOntologyConfigurator(), df);
+  }
 }

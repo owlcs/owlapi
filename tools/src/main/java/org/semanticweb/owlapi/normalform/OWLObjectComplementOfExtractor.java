@@ -14,78 +14,86 @@ package org.semanticweb.owlapi.normalform;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /**
  * Extracts the parts of a class expression which are negated. For example, A
  * and not (B or C or not D) would extract {(B or C or notD), D}
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {
 
-    private final Set<OWLClassExpression> result = new HashSet<>();
+  private final Set<OWLClassExpression> result = new HashSet<>();
 
-    /**
-     * Gets the complemented class expressions.
-     * 
-     * @param desc
-     *        the class to look for
-     * @return the complemented expressions
-     */
-    public Set<OWLClassExpression> getComplementedClassExpressions(OWLClassExpression desc) {
-        // XXX a stateless visitor would not need copies
-        reset();
-        desc.accept(this);
-        return new HashSet<>(result);
-    }
+  /**
+   * Gets the complemented class expressions.
+   *
+   * @param desc the class to look for
+   * @return the complemented expressions
+   */
+  public Set<OWLClassExpression> getComplementedClassExpressions(OWLClassExpression desc) {
+    // XXX a stateless visitor would not need copies
+    reset();
+    desc.accept(this);
+    return new HashSet<>(result);
+  }
 
-    /** clear the visitor. */
-    public void reset() {
-        result.clear();
-    }
+  /**
+   * clear the visitor.
+   */
+  public void reset() {
+    result.clear();
+  }
 
-    @Override
-    public void visit(OWLObjectAllValuesFrom ce) {
-        ce.getFiller().accept(this);
-    }
+  @Override
+  public void visit(OWLObjectAllValuesFrom ce) {
+    ce.getFiller().accept(this);
+  }
 
-    @Override
-    public void visit(OWLObjectComplementOf ce) {
-        result.add(ce.getOperand());
-        ce.getOperand().accept(this);
-    }
+  @Override
+  public void visit(OWLObjectComplementOf ce) {
+    result.add(ce.getOperand());
+    ce.getOperand().accept(this);
+  }
 
-    @Override
-    public void visit(OWLObjectExactCardinality ce) {
-        ce.getFiller().accept(this);
-    }
+  @Override
+  public void visit(OWLObjectExactCardinality ce) {
+    ce.getFiller().accept(this);
+  }
 
-    @Override
-    public void visit(OWLObjectIntersectionOf ce) {
-        ce.operands().forEach(o -> o.accept(this));
-    }
+  @Override
+  public void visit(OWLObjectIntersectionOf ce) {
+    ce.operands().forEach(o -> o.accept(this));
+  }
 
-    @Override
-    public void visit(OWLObjectMaxCardinality ce) {
-        ce.getFiller().accept(this);
-    }
+  @Override
+  public void visit(OWLObjectMaxCardinality ce) {
+    ce.getFiller().accept(this);
+  }
 
-    @Override
-    public void visit(OWLObjectMinCardinality ce) {
-        ce.getFiller().accept(this);
-    }
+  @Override
+  public void visit(OWLObjectMinCardinality ce) {
+    ce.getFiller().accept(this);
+  }
 
-    @Override
-    public void visit(OWLObjectSomeValuesFrom ce) {
-        ce.getFiller().accept(this);
-    }
+  @Override
+  public void visit(OWLObjectSomeValuesFrom ce) {
+    ce.getFiller().accept(this);
+  }
 
-    @Override
-    public void visit(OWLObjectUnionOf ce) {
-        ce.operands().forEach(o -> o.accept(this));
-    }
+  @Override
+  public void visit(OWLObjectUnionOf ce) {
+    ce.operands().forEach(o -> o.accept(this));
+  }
 }

@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -25,56 +24,54 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
+public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements
+    OWLClassAssertionAxiom {
 
-    private final OWLIndividual individual;
-    private final OWLClassExpression classExpression;
+  private final OWLIndividual individual;
+  private final OWLClassExpression classExpression;
 
-    /**
-     * @param individual
-     *        individual
-     * @param classExpression
-     *        class
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLClassAssertionAxiomImpl(OWLIndividual individual, OWLClassExpression classExpression,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.individual = checkNotNull(individual, "individual cannot be null");
-        this.classExpression = checkNotNull(classExpression, "classExpression cannot be null");
+  /**
+   * @param individual individual
+   * @param classExpression class
+   * @param annotations annotations on the axiom
+   */
+  public OWLClassAssertionAxiomImpl(OWLIndividual individual, OWLClassExpression classExpression,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.individual = checkNotNull(individual, "individual cannot be null");
+    this.classExpression = checkNotNull(classExpression, "classExpression cannot be null");
+  }
+
+  @Override
+  public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), NO_ANNOTATIONS);
+  }
 
-    @Override
-    public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), NO_ANNOTATIONS);
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
+        mergeAnnos(anns));
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), mergeAnnos(anns));
-    }
+  @Override
+  public OWLClassExpression getClassExpression() {
+    return classExpression;
+  }
 
-    @Override
-    public OWLClassExpression getClassExpression() {
-        return classExpression;
-    }
+  @Override
+  public OWLIndividual getIndividual() {
+    return individual;
+  }
 
-    @Override
-    public OWLIndividual getIndividual() {
-        return individual;
-    }
-
-    @Override
-    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getIndividual()), getClassExpression(),
-            NO_ANNOTATIONS);
-    }
+  @Override
+  public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
+    return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getIndividual()), getClassExpression(),
+        NO_ANNOTATIONS);
+  }
 }

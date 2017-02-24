@@ -15,42 +15,39 @@ package org.semanticweb.owlapi.metrics;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
-    private final OWLReasoner reasoner;
+  private final OWLReasoner reasoner;
 
-    /**
-     * Instantiates a new unsatisfiable class count metric.
-     * 
-     * @param reasoner
-     *        the reasoner
-     */
-    public UnsatisfiableClassCountMetric(OWLReasoner reasoner) {
-        super(checkNotNull(reasoner, "reasoner cannot be null").getRootOntology());
-        this.reasoner = reasoner;
-    }
+  /**
+   * Instantiates a new unsatisfiable class count metric.
+   *
+   * @param reasoner the reasoner
+   */
+  public UnsatisfiableClassCountMetric(OWLReasoner reasoner) {
+    super(checkNotNull(reasoner, "reasoner cannot be null").getRootOntology());
+    this.reasoner = reasoner;
+  }
 
-    @Override
-    public String getName() {
-        return "Unsatisfiable class count";
-    }
+  @Override
+  public String getName() {
+    return "Unsatisfiable class count";
+  }
 
-    @Override
-    protected Integer recomputeMetric() {
-        return Integer.valueOf(reasoner.getUnsatisfiableClasses().getSize());
-    }
+  @Override
+  protected Integer recomputeMetric() {
+    return Integer.valueOf(reasoner.getUnsatisfiableClasses().getSize());
+  }
 
-    @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return false;
-    }
+  @Override
+  protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    return false;
+  }
 }

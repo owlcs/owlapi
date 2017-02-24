@@ -14,10 +14,9 @@ package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -26,112 +25,101 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
-
 /**
- * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
 
-    private final OWLDataFactory dataFactory;
-    private final MultipleExplanationGenerator gen;
+  private final OWLDataFactory dataFactory;
+  private final MultipleExplanationGenerator gen;
 
-    /**
-     * Instantiates a new default explanation generator.
-     * 
-     * @param man
-     *        manager
-     * @param reasonerFactory
-     *        reasoner factory
-     * @param ontology
-     *        ontology to reason on
-     * @param progressMonitor
-     *        progress monitor
-     */
-    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-        ExplanationProgressMonitor progressMonitor) {
-        this(man, reasonerFactory, ontology, checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
+  /**
+   * Instantiates a new default explanation generator.
+   *
+   * @param man manager
+   * @param reasonerFactory reasoner factory
+   * @param ontology ontology to reason on
+   * @param progressMonitor progress monitor
+   */
+  public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory,
+      OWLOntology ontology,
+      ExplanationProgressMonitor progressMonitor) {
+    this(man, reasonerFactory, ontology,
+        checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
             .createNonBufferingReasoner(ontology), progressMonitor);
-    }
+  }
 
-    /**
-     * Instantiates a new default explanation generator.
-     * 
-     * @param man
-     *        manager
-     * @param reasonerFactory
-     *        reasoner factory
-     * @param ontology
-     *        ontology to reason on
-     * @param reasoner
-     *        the reasoner to use
-     * @param progressMonitor
-     *        progress monitor
-     */
-    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-        OWLReasoner reasoner, @Nullable ExplanationProgressMonitor progressMonitor) {
-        dataFactory = checkNotNull(man, "man cannot be null").getOWLDataFactory();
-        BlackBoxExplanation singleGen = new BlackBoxExplanation(checkNotNull(ontology, "ontology cannot be null"),
-            checkNotNull(reasonerFactory, "reasonerFactory cannot be null"), checkNotNull(reasoner,
-                "reasoner cannot be null"));
-        gen = new HSTExplanationGenerator(singleGen);
-        if (progressMonitor != null) {
-            gen.setProgressMonitor(progressMonitor);
-        }
+  /**
+   * Instantiates a new default explanation generator.
+   *
+   * @param man manager
+   * @param reasonerFactory reasoner factory
+   * @param ontology ontology to reason on
+   * @param reasoner the reasoner to use
+   * @param progressMonitor progress monitor
+   */
+  public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory,
+      OWLOntology ontology,
+      OWLReasoner reasoner, @Nullable ExplanationProgressMonitor progressMonitor) {
+    dataFactory = checkNotNull(man, "man cannot be null").getOWLDataFactory();
+    BlackBoxExplanation singleGen = new BlackBoxExplanation(
+        checkNotNull(ontology, "ontology cannot be null"),
+        checkNotNull(reasonerFactory, "reasonerFactory cannot be null"), checkNotNull(reasoner,
+        "reasoner cannot be null"));
+    gen = new HSTExplanationGenerator(singleGen);
+    if (progressMonitor != null) {
+      gen.setProgressMonitor(progressMonitor);
     }
+  }
 
-    @Override
-    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
-        return gen.getExplanation(unsatClass);
-    }
+  @Override
+  public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
+    return gen.getExplanation(unsatClass);
+  }
 
-    /**
-     * Gets the explanation.
-     * 
-     * @param axiom
-     *        the axiom to explain
-     * @return the explanation
-     */
-    public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
-        SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanation(converter.convert(checkNotNull(axiom, "axiom cannot be null")));
-    }
+  /**
+   * Gets the explanation.
+   *
+   * @param axiom the axiom to explain
+   * @return the explanation
+   */
+  public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
+    SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
+    return getExplanation(converter.convert(checkNotNull(axiom, "axiom cannot be null")));
+  }
 
-    @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
-        return gen.getExplanations(unsatClass);
-    }
+  @Override
+  public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
+    return gen.getExplanations(unsatClass);
+  }
 
-    /**
-     * Gets the explanations.
-     * 
-     * @param axiom
-     *        the axiom to explain
-     * @return the set of explanations
-     */
-    public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
-        SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")));
-    }
+  /**
+   * Gets the explanations.
+   *
+   * @param axiom the axiom to explain
+   * @return the set of explanations
+   */
+  public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
+    SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
+    return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")));
+  }
 
-    @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
-        return gen.getExplanations(unsatClass, maxExplanations);
-    }
+  @Override
+  public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
+    return gen.getExplanations(unsatClass, maxExplanations);
+  }
 
-    /**
-     * Gets the explanations.
-     * 
-     * @param axiom
-     *        the axiom to explain
-     * @param maxExplanations
-     *        max number of explanations
-     * @return the set of explanations
-     */
-    public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
-        SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")), maxExplanations);
-    }
+  /**
+   * Gets the explanations.
+   *
+   * @param axiom the axiom to explain
+   * @param maxExplanations max number of explanations
+   * @return the set of explanations
+   */
+  public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
+    SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
+    return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")),
+        maxExplanations);
+  }
 }

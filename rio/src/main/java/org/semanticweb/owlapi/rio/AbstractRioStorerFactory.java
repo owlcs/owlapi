@@ -45,12 +45,12 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  */
 public abstract class AbstractRioStorerFactory extends OWLStorerFactoryImpl {
 
-    protected AbstractRioStorerFactory(OWLDocumentFormatFactory format) {
-        super(format);
-    }
+  protected AbstractRioStorerFactory(OWLDocumentFormatFactory format) {
+    super(format);
+  }
 
-    @Override
-    public OWLStorer createStorer() {
-        return new RioStorer(getFormatFactory());
-    }
+  @Override
+  public OWLStorer createStorer() {
+    return new RioStorer(getFormatFactory());
+  }
 }

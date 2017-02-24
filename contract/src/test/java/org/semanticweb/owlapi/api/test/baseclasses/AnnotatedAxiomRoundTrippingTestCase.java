@@ -12,47 +12,47 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annotation;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
+import com.google.common.collect.Sets;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-import com.google.common.collect.Sets;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 public abstract class AnnotatedAxiomRoundTrippingTestCase extends
     AxiomsRoundTrippingBase {
 
-    private static OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-    private static OWLLiteral lit = Literal("Test", "");
-    private static OWLAnnotation anno1 = Annotation(prop, lit);
-    private static OWLAnnotationProperty prop2 = AnnotationProperty(iri(
-        "prop2"));
-    private static OWLAnnotation anno2 = Annotation(prop2, lit);
-    private static Set<OWLAnnotation> annos = Sets.newHashSet(anno1, anno2);
+  private static OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
+  private static OWLLiteral lit = Literal("Test", "");
+  private static OWLAnnotation anno1 = Annotation(prop, lit);
+  private static OWLAnnotationProperty prop2 = AnnotationProperty(iri(
+      "prop2"));
+  private static OWLAnnotation anno2 = Annotation(prop2, lit);
+  private static Set<OWLAnnotation> annos = Sets.newHashSet(anno1, anno2);
 
-    public AnnotatedAxiomRoundTrippingTestCase(
-        Function<Set<OWLAnnotation>, OWLAxiom> f) {
-        super(() -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            OWLAxiom ax = f.apply(annos);
-            axioms.add(ax.getAnnotatedAxiom(annos));
-            axioms.add(Declaration(prop));
-            axioms.add(Declaration(prop2));
-            axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
-            axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
-            return axioms;
-        } );
-    }
+  public AnnotatedAxiomRoundTrippingTestCase(
+      Function<Set<OWLAnnotation>, OWLAxiom> f) {
+    super(() -> {
+      Set<OWLAxiom> axioms = new HashSet<>();
+      OWLAxiom ax = f.apply(annos);
+      axioms.add(ax.getAnnotatedAxiom(annos));
+      axioms.add(Declaration(prop));
+      axioms.add(Declaration(prop2));
+      axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
+      axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
+      return axioms;
+    });
+  }
 }

@@ -12,8 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import org.junit.Before;
@@ -25,59 +27,59 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class SetOntologyIDDataTestCase {
 
-    private final OWLOntology mockOntology = mock(OWLOntology.class);
-    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
+  private final OWLOntology mockOntology = mock(OWLOntology.class);
+  private final OWLOntologyID mockOntologyID = new OWLOntologyID();
 
-    @Before
-    public void setUp() {
-        when(mockOntology.getOntologyID()).thenReturn(new OWLOntologyID(optional(IRI.create("urn:test:", "onto1")),
+  @Before
+  public void setUp() {
+    when(mockOntology.getOntologyID())
+        .thenReturn(new OWLOntologyID(optional(IRI.create("urn:test:", "onto1")),
             optional(IRI.create("urn:test:", "onto1_1"))));
-    }
+  }
 
-    private SetOntologyIDData createData() {
-        return new SetOntologyIDData(mockOntologyID);
-    }
+  private SetOntologyIDData createData() {
+    return new SetOntologyIDData(mockOntologyID);
+  }
 
-    @Test
-    public void testEquals() {
-        SetOntologyIDData data1 = createData();
-        SetOntologyIDData data2 = createData();
-        assertEquals(data1, data2);
-        assertEquals(data1.hashCode(), data2.hashCode());
-    }
+  @Test
+  public void testEquals() {
+    SetOntologyIDData data1 = createData();
+    SetOntologyIDData data2 = createData();
+    assertEquals(data1, data2);
+    assertEquals(data1.hashCode(), data2.hashCode());
+  }
 
-    @Test
-    public void testGettersReturnNotNull() {
-        SetOntologyIDData data = createData();
-        assertNotNull(data.getNewId());
-        assertNotNull(data.createOntologyChange(mockOntology));
-    }
+  @Test
+  public void testGettersReturnNotNull() {
+    SetOntologyIDData data = createData();
+    assertNotNull(data.getNewId());
+    assertNotNull(data.createOntologyChange(mockOntology));
+  }
 
-    @Test
-    public void testGettersEquals() {
-        SetOntologyIDData data = createData();
-        assertEquals(mockOntologyID, data.getNewId());
-    }
+  @Test
+  public void testGettersEquals() {
+    SetOntologyIDData data = createData();
+    assertEquals(mockOntologyID, data.getNewId());
+  }
 
-    @Test
-    public void testCreateOntologyChange() {
-        SetOntologyIDData data = createData();
-        SetOntologyID change = data.createOntologyChange(mockOntology);
-        assertEquals(mockOntology, change.getOntology());
-        assertEquals(mockOntologyID, change.getNewOntologyID());
-    }
+  @Test
+  public void testCreateOntologyChange() {
+    SetOntologyIDData data = createData();
+    SetOntologyID change = data.createOntologyChange(mockOntology);
+    assertEquals(mockOntology, change.getOntology());
+    assertEquals(mockOntologyID, change.getNewOntologyID());
+  }
 
-    @Test
-    public void testOntologyChangeSymmetry() {
-        SetOntologyIDData data = createData();
-        SetOntologyID change = new SetOntologyID(mockOntology, mockOntologyID);
-        assertEquals(change.getChangeData(), data);
-    }
+  @Test
+  public void testOntologyChangeSymmetry() {
+    SetOntologyIDData data = createData();
+    SetOntologyID change = new SetOntologyID(mockOntology, mockOntologyID);
+    assertEquals(change.getChangeData(), data);
+  }
 }

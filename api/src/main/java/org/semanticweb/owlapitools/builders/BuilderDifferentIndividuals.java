@@ -13,39 +13,38 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Builder class for OWLDifferentIndividualsAxiom. */
+/**
+ * Builder class for OWLDifferentIndividualsAxiom.
+ */
 public class BuilderDifferentIndividuals
-        extends BaseSetBuilder<OWLDifferentIndividualsAxiom, BuilderDifferentIndividuals, OWLIndividual> {
+    extends
+    BaseSetBuilder<OWLDifferentIndividualsAxiom, BuilderDifferentIndividuals, OWLIndividual> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDifferentIndividuals(OWLDifferentIndividualsAxiom expected, OWLDataFactory df) {
-        this(df);
-        withItems(expected.individuals()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDifferentIndividuals(OWLDifferentIndividualsAxiom expected, OWLDataFactory df) {
+    this(df);
+    withItems(expected.individuals()).withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDifferentIndividuals(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDifferentIndividuals(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLDifferentIndividualsAxiom buildObject() {
-        return df.getOWLDifferentIndividualsAxiom(items, annotations);
-    }
+  @Override
+  public OWLDifferentIndividualsAxiom buildObject() {
+    return df.getOWLDifferentIndividualsAxiom(items, annotations);
+  }
 }

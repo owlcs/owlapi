@@ -3,27 +3,33 @@
 package org.semanticweb.owlapi.krss2.parser;
 
 @SuppressWarnings("all")
-class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException
-{
-
-  private static final long serialVersionUID = 1L;
+class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException {
 
   public static final int LEXICAL_ERROR = 0;
-
   public static final int STATIC_LEXER_ERROR = 1;
-
   public static final int INVALID_LEXICAL_STATE = 2;
-
   public static final int LOOP_DETECTED = 3;
-
+  private static final long serialVersionUID = 1L;
   int errorCode;
+
+  public TokenMgrException() {
+  }
+
+  public TokenMgrException(String message, int reason) {
+    super(message);
+    errorCode = reason;
+  }
+
+  public TokenMgrException(boolean EOFSeen, int lexState, int errorLine, int errorColumn,
+      String errorAfter, int curChar, int reason) {
+    this(LexicalErr(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
+  }
 
   protected static final String addEscapes(String str) {
     StringBuffer retval = new StringBuffer();
     char ch;
     for (int i = 0; i < str.length(); i++) {
-      switch (str.charAt(i))
-      {
+      switch (str.charAt(i)) {
         case '\b':
           retval.append("\\b");
           continue;
@@ -61,29 +67,19 @@ class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException
     return retval.toString();
   }
 
-  protected static String LexicalErr(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, int curChar) {
-    char curChar1 = (char)curChar;
-    return("Lexical error at line " +
-          errorLine + ", column " +
-          errorColumn + ".  Encountered: " +
-          (EOFSeen ? "<EOF> " : ("\"" + addEscapes(String.valueOf(curChar1)) + "\"") + " (" + (int)curChar + "), ") +
-          "after : \"" + addEscapes(errorAfter) + "\"");
+  protected static String LexicalErr(boolean EOFSeen, int lexState, int errorLine, int errorColumn,
+      String errorAfter, int curChar) {
+    char curChar1 = (char) curChar;
+    return ("Lexical error at line " +
+        errorLine + ", column " +
+        errorColumn + ".  Encountered: " +
+        (EOFSeen ? "<EOF> "
+            : ("\"" + addEscapes(String.valueOf(curChar1)) + "\"") + " (" + (int) curChar + "), ") +
+        "after : \"" + addEscapes(errorAfter) + "\"");
   }
 
   public String getMessage() {
     return super.getMessage();
-  }
-
-  public TokenMgrException() {
-  }
-
-  public TokenMgrException(String message, int reason) {
-    super(message);
-    errorCode = reason;
-  }
-
-  public TokenMgrException(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, int curChar, int reason) {
-    this(LexicalErr(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
   }
 }
 /* JavaCC - OriginalChecksum=c6adf2fe4aff6661e2c92664888bc1f4 (do not edit this line) */

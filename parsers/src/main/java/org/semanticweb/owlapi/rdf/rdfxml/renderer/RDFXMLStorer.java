@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import java.io.PrintWriter;
 import java.util.Set;
-
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -24,35 +23,34 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLStorer extends AbstractOWLStorer {
 
-    @Override
-    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
-        return ontologyFormat instanceof RDFXMLDocumentFormat;
-    }
+  @Override
+  public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+    return ontologyFormat instanceof RDFXMLDocumentFormat;
+  }
 
-    @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
-        try {
-            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
-            Set<OWLEntity> entities = renderer.getUnserialisableEntities();
-            if (!entities.isEmpty()) {
-                StringBuilder sb = new StringBuilder();
-                for (OWLEntity entity : entities) {
-                    sb.append(entity.toStringID());
-                    sb.append('\n');
-                }
-                throw new OWLOntologyStorageException(sb.toString().trim(),
-                        new IllegalElementNameException(sb.toString().trim()));
-            }
-            renderer.render();
-        } catch (OWLRuntimeException e) {
-            throw new OWLOntologyStorageException(e);
+  @Override
+  protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+      throws OWLOntologyStorageException {
+    try {
+      RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
+      Set<OWLEntity> entities = renderer.getUnserialisableEntities();
+      if (!entities.isEmpty()) {
+        StringBuilder sb = new StringBuilder();
+        for (OWLEntity entity : entities) {
+          sb.append(entity.toStringID());
+          sb.append('\n');
         }
+        throw new OWLOntologyStorageException(sb.toString().trim(),
+            new IllegalElementNameException(sb.toString().trim()));
+      }
+      renderer.render();
+    } catch (OWLRuntimeException e) {
+      throw new OWLOntologyStorageException(e);
     }
+  }
 }

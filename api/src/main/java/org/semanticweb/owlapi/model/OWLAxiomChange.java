@@ -17,37 +17,34 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLAxiomChange extends OWLOntologyChange {
 
-    private final OWLAxiom axiom;
+  private final OWLAxiom axiom;
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param axiom
-     *        the axiom to be changed
-     */
-    public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
-        super(ont);
-        this.axiom = checkNotNull(axiom, "axiom cannot be null");
-    }
+  /**
+   * @param ont the ontology to which the change is to be applied
+   * @param axiom the axiom to be changed
+   */
+  public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
+    super(ont);
+    this.axiom = checkNotNull(axiom, "axiom cannot be null");
+  }
 
-    @Override
-    public Stream<OWLEntity> signature() {
-        return axiom.signature();
-    }
+  @Override
+  public Stream<OWLEntity> signature() {
+    return axiom.signature();
+  }
 
-    @Override
-    public boolean isAxiomChange() {
-        return true;
-    }
+  @Override
+  public boolean isAxiomChange() {
+    return true;
+  }
 
-    @Override
-    public OWLAxiom getAxiom() {
-        return axiom;
-    }
+  @Override
+  public OWLAxiom getAxiom() {
+    return axiom;
+  }
 }

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,215 +23,195 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.parameters.Imports;
-
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
  * identity).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDocumentFormat extends Serializable {
 
-    /**
-     * Determines if untyped entities should automatically be typed (declared)
-     * during rendering. (This is a hint to an RDF renderer - the reference
-     * implementation will respect this).
-     * 
-     * @return {@code true} if untyped entities should automatically be typed
-     *         during rendering, otherwise {@code false}.
-     */
-    boolean isAddMissingTypes();
-
-    /**
-     * Determines if a declaration axiom (type triple) needs to be added to the
-     * specified ontology for the given entity.
-     * 
-     * @param entity
-     *        The entity
-     * @param ontology
-     *        The ontology.
-     * @return {@code false} if the entity is built in. {@code false} if the
-     *         ontology doesn't contain the entity in its signature.
-     *         {@code false} if the entity is already declared in the imports
-     *         closure of the ontology. {@code false} if the transitive imports
-     *         does not contain the ontology but the entity is contained in the
-     *         signature of one of the imported ontologies, {@code true} if none
-     *         of the previous conditions are met.
-     */
-    static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
-        // We don't need to declare built in entities
-        if (entity.isBuiltIn()) {
-            return false;
-        }
-        // If the ontology doesn't contain the entity in its signature then it
-        // shouldn't declare it
-        if (!ontology.containsEntityInSignature(entity)) {
-            return false;
-        }
-        if (ontology.isDeclared(entity, Imports.INCLUDED)) {
-            return false;
-        }
-        Set<OWLOntology> transitiveImports = asUnorderedSet(ontology.imports());
-        if (!transitiveImports.contains(ontology)) {
-            // See if the entity should be declared in an imported ontology
-            for (OWLOntology importedOntology : transitiveImports) {
-                if (importedOntology.containsEntityInSignature(entity)) {
-                    // Leave it for that ontology to declare the entity
-                    return false;
-                }
-            }
-        }
-        return true;
+  /**
+   * Determines if a declaration axiom (type triple) needs to be added to the
+   * specified ontology for the given entity.
+   *
+   * @param entity The entity
+   * @param ontology The ontology.
+   * @return {@code false} if the entity is built in. {@code false} if the ontology doesn't contain
+   * the entity in its signature. {@code false} if the entity is already declared in the imports
+   * closure of the ontology. {@code false} if the transitive imports does not contain the ontology
+   * but the entity is contained in the signature of one of the imported ontologies, {@code true} if
+   * none of the previous conditions are met.
+   */
+  static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
+    // We don't need to declare built in entities
+    if (entity.isBuiltIn()) {
+      return false;
     }
-
-    /**
-     * @param signature
-     *        signature for the ontology
-     * @param punnedEntities
-     *        the set of entities that are known already to be punned
-     * @param add
-     *        true if missing declarations should be added. If false, no
-     *        declarations will be added.
-     * @return collection of IRIS used in illegal punnings
-     */
-    static Collection<IRI> determineIllegalPunnings(boolean add, Stream<OWLEntity> signature,
-        Collection<IRI> punnedEntities) {
-        if (!add) {
-            return Collections.emptySet();
+    // If the ontology doesn't contain the entity in its signature then it
+    // shouldn't declare it
+    if (!ontology.containsEntityInSignature(entity)) {
+      return false;
+    }
+    if (ontology.isDeclared(entity, Imports.INCLUDED)) {
+      return false;
+    }
+    Set<OWLOntology> transitiveImports = asUnorderedSet(ontology.imports());
+    if (!transitiveImports.contains(ontology)) {
+      // See if the entity should be declared in an imported ontology
+      for (OWLOntology importedOntology : transitiveImports) {
+        if (importedOntology.containsEntityInSignature(entity)) {
+          // Leave it for that ontology to declare the entity
+          return false;
         }
-        // determine what entities are illegally punned
-        Multimap<IRI, EntityType<?>> punnings = LinkedListMultimap.create();
-        // disregard individuals as they do not give raise to illegal
-        // punnings; only keep track of punned entities, ignore the rest
-        signature.filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI())).forEach(e -> punnings
+      }
+    }
+    return true;
+  }
+
+  /**
+   * @param signature signature for the ontology
+   * @param punnedEntities the set of entities that are known already to be punned
+   * @param add true if missing declarations should be added. If false, no declarations will be
+   * added.
+   * @return collection of IRIS used in illegal punnings
+   */
+  static Collection<IRI> determineIllegalPunnings(boolean add, Stream<OWLEntity> signature,
+      Collection<IRI> punnedEntities) {
+    if (!add) {
+      return Collections.emptySet();
+    }
+    // determine what entities are illegally punned
+    Multimap<IRI, EntityType<?>> punnings = LinkedListMultimap.create();
+    // disregard individuals as they do not give raise to illegal
+    // punnings; only keep track of punned entities, ignore the rest
+    signature.filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI()))
+        .forEach(e -> punnings
             .put(e.getIRI(), e.getEntityType()));
-        return computeIllegals(punnings);
+    return computeIllegals(punnings);
+  }
+
+  /**
+   * @param punnings input punnings
+   * @return illegal punnings
+   */
+  static Collection<IRI> computeIllegals(Multimap<IRI, EntityType<?>> punnings) {
+    Collection<IRI> illegals = new HashSet<>();
+    for (IRI i : punnings.keySet()) {
+      Collection<EntityType<?>> puns = punnings.get(i);
+      if (puns.contains(EntityType.OBJECT_PROPERTY) && puns
+          .contains(EntityType.ANNOTATION_PROPERTY)) {
+        illegals.add(i);
+      } else if (puns.contains(EntityType.DATA_PROPERTY) && puns
+          .contains(EntityType.ANNOTATION_PROPERTY)) {
+        illegals.add(i);
+      } else if (puns.contains(EntityType.DATA_PROPERTY) && puns
+          .contains(EntityType.OBJECT_PROPERTY)) {
+        illegals.add(i);
+      } else if (puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
+        illegals.add(i);
+      }
     }
+    return illegals;
+  }
 
-    /**
-     * @param punnings
-     *        input punnings
-     * @return illegal punnings
-     */
-    static Collection<IRI> computeIllegals(Multimap<IRI, EntityType<?>> punnings) {
-        Collection<IRI> illegals = new HashSet<>();
-        for (IRI i : punnings.keySet()) {
-            Collection<EntityType<?>> puns = punnings.get(i);
-            if (puns.contains(EntityType.OBJECT_PROPERTY) && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(EntityType.OBJECT_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
-                illegals.add(i);
-            }
-        }
-        return illegals;
+  /**
+   * Determines if untyped entities should automatically be typed (declared)
+   * during rendering. (This is a hint to an RDF renderer - the reference
+   * implementation will respect this).
+   *
+   * @return {@code true} if untyped entities should automatically be typed during rendering,
+   * otherwise {@code false}.
+   */
+  boolean isAddMissingTypes();
+
+  /**
+   * Determines if untyped entities should automatically be typed during
+   * rendering. By default this is true.
+   *
+   * @param addMissingTypes {@code true} if untyped entities should automatically be typed during
+   * rendering, otherwise {@code false}.
+   */
+  void setAddMissingTypes(boolean addMissingTypes);
+
+  /**
+   * @param key key for the new entry
+   * @param value value for the new entry
+   */
+  void setParameter(Serializable key, Serializable value);
+
+  /**
+   * @param key key for the new entry
+   * @param defaultValue value for the new entry
+   * @param <T> type
+   * @return the value
+   */
+  <T> T getParameter(Serializable key, T defaultValue);
+
+  /**
+   * Determines if this format is an instance of a format that uses prefixes
+   * to shorted IRIs.
+   *
+   * @return {@code true} if this format is an instance of {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
+   * other wise {@code false}.
+   */
+  default boolean isPrefixOWLDocumentFormat() {
+    return false;
+  }
+
+  /**
+   * If this format is an instance of
+   * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} then this
+   * method will obtain it as a
+   * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
+   *
+   * @return This format as a more specific {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
+   * @throws ClassCastException if this format is not an instance of {@link
+   * org.semanticweb.owlapi.formats.PrefixDocumentFormat}
+   */
+  default PrefixDocumentFormat asPrefixOWLDocumentFormat() {
+    if (isPrefixOWLDocumentFormat()) {
+      return (PrefixDocumentFormat) this;
     }
+    throw new ClassCastException(getClass().getName() + " is not a Prefix Document Format");
+  }
 
-    /**
-     * Determines if untyped entities should automatically be typed during
-     * rendering. By default this is true.
-     * 
-     * @param addMissingTypes
-     *        {@code true} if untyped entities should automatically be typed
-     *        during rendering, otherwise {@code false}.
-     */
-    void setAddMissingTypes(boolean addMissingTypes);
+  /**
+   * If this format describes an ontology that was loaded from some ontology
+   * document (rather than created programmatically) there may be some meta
+   * data about the loading process. Subclasses of {@code OWLDocumentFormat}
+   * will provide accessors etc. to details pertaining to the meta data about
+   * loading.
+   *
+   * @return An object containing the meta data about loading. .
+   */
+  Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData();
 
-    /**
-     * @param key
-     *        key for the new entry
-     * @param value
-     *        value for the new entry
-     */
-    void setParameter(Serializable key, Serializable value);
+  /**
+   * Sets the meta data for the ontology loader.
+   *
+   * @param loaderMetaData The metadata.
+   * @throws NullPointerException if the {@code loaderMetaData} is {@code null}.
+   */
+  void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData);
 
-    /**
-     * @param key
-     *        key for the new entry
-     * @param defaultValue
-     *        value for the new entry
-     * @param <T>
-     *        type
-     * @return the value
-     */
-    <T> T getParameter(Serializable key, T defaultValue);
+  /**
+   * @return A unique key for this format.
+   */
+  String getKey();
 
-    /**
-     * Determines if this format is an instance of a format that uses prefixes
-     * to shorted IRIs.
-     * 
-     * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     *         wise {@code false}.
-     */
-    default boolean isPrefixOWLDocumentFormat() {
-        return false;
-    }
-
-    /**
-     * If this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} then this
-     * method will obtain it as a
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * 
-     * @return This format as a more specific
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException
-     *         if this format is not an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
-     */
-    default PrefixDocumentFormat asPrefixOWLDocumentFormat() {
-        if (isPrefixOWLDocumentFormat()) {
-            return (PrefixDocumentFormat) this;
-        }
-        throw new ClassCastException(getClass().getName() + " is not a Prefix Document Format");
-    }
-
-    /**
-     * If this format describes an ontology that was loaded from some ontology
-     * document (rather than created programmatically) there may be some meta
-     * data about the loading process. Subclasses of {@code OWLDocumentFormat}
-     * will provide accessors etc. to details pertaining to the meta data about
-     * loading.
-     * 
-     * @return An object containing the meta data about loading. .
-     */
-    Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData();
-
-    /**
-     * Sets the meta data for the ontology loader.
-     * 
-     * @param loaderMetaData
-     *        The metadata.
-     * @throws NullPointerException
-     *         if the {@code loaderMetaData} is {@code null}.
-     */
-    void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData);
-
-    /**
-     * @return A unique key for this format.
-     */
-    String getKey();
-
-    /**
-     * Determines whether this format contains textual output, as opposed to
-     * binary output.
-     * 
-     * @return True if this format represents a textual format, as opposed to a
-     *         binary format. Defaults to true if not overridden.
-     */
-    boolean isTextual();
+  /**
+   * Determines whether this format contains textual output, as opposed to
+   * binary output.
+   *
+   * @return True if this format represents a textual format, as opposed to a binary format.
+   * Defaults to true if not overridden.
+   */
+  boolean isTextual();
 }

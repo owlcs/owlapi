@@ -16,42 +16,37 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 
 /**
  * The Class LatexRendererException.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class LatexRendererException extends OWLRendererException {
 
-    /**
-     * Instantiates a new latex renderer exception.
-     * 
-     * @param cause
-     *        the cause
-     */
-    public LatexRendererException(Throwable cause) {
-        super(cause);
-    }
+  /**
+   * Instantiates a new latex renderer exception.
+   *
+   * @param cause the cause
+   */
+  public LatexRendererException(Throwable cause) {
+    super(cause);
+  }
 
-    /**
-     * Instantiates a new latex renderer exception.
-     * 
-     * @param message
-     *        the message
-     */
-    public LatexRendererException(String message) {
-        super(message);
-    }
+  /**
+   * Instantiates a new latex renderer exception.
+   *
+   * @param message the message
+   */
+  public LatexRendererException(String message) {
+    super(message);
+  }
 
-    /**
-     * Instantiates a new latex renderer exception.
-     * 
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
-     */
-    public LatexRendererException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  /**
+   * Instantiates a new latex renderer exception.
+   *
+   * @param message the message
+   * @param cause the cause
+   */
+  public LatexRendererException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

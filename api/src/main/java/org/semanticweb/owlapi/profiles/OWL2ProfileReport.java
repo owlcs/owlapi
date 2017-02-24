@@ -14,60 +14,55 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class OWL2ProfileReport extends OWLProfileReport {
 
-    private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
-    private final Set<OWLObjectPropertyExpression> simpleRoles;
+  private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
+  private final Set<OWLObjectPropertyExpression> simpleRoles;
 
-    /**
-     * @param profile
-     *        the profile
-     * @param disallowedConstructs
-     *        the constructs not allowed
-     * @param nonSimpleRoles
-     *        the collection of non simple roles
-     * @param simpleRoles
-     *        the collection of simple roles
-     */
-    public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs,
-        Set<OWLObjectPropertyExpression> nonSimpleRoles, Set<OWLObjectPropertyExpression> simpleRoles) {
-        super(profile, disallowedConstructs);
-        this.nonSimpleRoles = new TreeSet<>(nonSimpleRoles);
-        this.simpleRoles = new TreeSet<>(simpleRoles);
-    }
+  /**
+   * @param profile the profile
+   * @param disallowedConstructs the constructs not allowed
+   * @param nonSimpleRoles the collection of non simple roles
+   * @param simpleRoles the collection of simple roles
+   */
+  public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs,
+      Set<OWLObjectPropertyExpression> nonSimpleRoles,
+      Set<OWLObjectPropertyExpression> simpleRoles) {
+    super(profile, disallowedConstructs);
+    this.nonSimpleRoles = new TreeSet<>(nonSimpleRoles);
+    this.simpleRoles = new TreeSet<>(simpleRoles);
+  }
 
-    /**
-     * @return the non simple roles
-     */
-    public Set<OWLObjectPropertyExpression> getNonSimpleRoles() {
-        return nonSimpleRoles;
-    }
+  private static void wrap(StringBuilder sb, OWLObjectPropertyExpression p) {
+    sb.append('\t').append(p).append('\n');
+  }
 
-    /**
-     * @return he simple roles
-     */
-    public Set<OWLObjectPropertyExpression> getSimpleRoles() {
-        return simpleRoles;
-    }
+  /**
+   * @return the non simple roles
+   */
+  public Set<OWLObjectPropertyExpression> getNonSimpleRoles() {
+    return nonSimpleRoles;
+  }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder(super.toString());
-        sb.append("\n[Simple properties]\n");
-        simpleRoles.forEach(p -> wrap(sb, p));
-        sb.append("\n[Non-simple properties]\n");
-        nonSimpleRoles.forEach(p -> wrap(sb, p));
-        return sb.toString();
-    }
+  /**
+   * @return he simple roles
+   */
+  public Set<OWLObjectPropertyExpression> getSimpleRoles() {
+    return simpleRoles;
+  }
 
-    private static void wrap(StringBuilder sb, OWLObjectPropertyExpression p) {
-        sb.append('\t').append(p).append('\n');
-    }
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder(super.toString());
+    sb.append("\n[Simple properties]\n");
+    simpleRoles.forEach(p -> wrap(sb, p));
+    sb.append("\n[Non-simple properties]\n");
+    nonSimpleRoles.forEach(p -> wrap(sb, p));
+    return sb.toString();
+  }
 }

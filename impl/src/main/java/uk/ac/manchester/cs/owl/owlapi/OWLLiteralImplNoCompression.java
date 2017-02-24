@@ -13,9 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -23,151 +21,153 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
-    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
-    private final String literal;
-    private final OWLDatatype datatype;
-    private final String language;
+  private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
+      OWL2Datatype.RDF_PLAIN_LITERAL);
+  private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+      OWL2Datatype.RDF_LANG_STRING);
+  private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
+  private final String literal;
+  private final OWLDatatype datatype;
+  private final String language;
 
-    /**
-     * @param literal
-     *        actual literal form
-     * @param lang
-     *        language for literal, can be null
-     * @param datatype
-     *        datatype for literal
-     */
-    public OWLLiteralImplNoCompression(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
-        this.literal = literal;
-        if (lang == null || lang.isEmpty()) {
-            language = "";
-            if (datatype == null) {
-                this.datatype = XSD_STRING;
-            } else {
-                this.datatype = datatype;
-            }
-        } else {
-            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
-                // ERROR: attempting to build a literal with a language tag and
-                // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
-                    + " and language: " + lang);
-            }
-            language = lang;
-            this.datatype = RDF_LANG_STRING;
-        }
+  /**
+   * @param literal actual literal form
+   * @param lang language for literal, can be null
+   * @param datatype datatype for literal
+   */
+  public OWLLiteralImplNoCompression(String literal, @Nullable String lang,
+      @Nullable OWLDatatype datatype) {
+    this.literal = literal;
+    if (lang == null || lang.isEmpty()) {
+      language = "";
+      if (datatype == null) {
+        this.datatype = XSD_STRING;
+      } else {
+        this.datatype = datatype;
+      }
+    } else {
+      if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype
+          .equals(RDF_PLAIN_LITERAL))) {
+        // ERROR: attempting to build a literal with a language tag and
+        // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
+        throw new OWLRuntimeException(
+            "Error: cannot build a literal with type: " + datatype.getIRI()
+                + " and language: " + lang);
+      }
+      language = lang;
+      this.datatype = RDF_LANG_STRING;
     }
+  }
 
-    @Override
-    public String getLiteral() {
-        return literal;
-    }
+  @Override
+  public String getLiteral() {
+    return literal;
+  }
 
-    @Override
-    public boolean hasLang() {
-        return !language.isEmpty();
-    }
+  @Override
+  public boolean hasLang() {
+    return !language.isEmpty();
+  }
 
-    @Override
-    public boolean isRDFPlainLiteral() {
-        return getDatatype().isRDFPlainLiteral();
-    }
+  @Override
+  public boolean isRDFPlainLiteral() {
+    return getDatatype().isRDFPlainLiteral();
+  }
 
-    @Override
-    public boolean isInteger() {
-        return getDatatype().isInteger();
-    }
+  @Override
+  public boolean isInteger() {
+    return getDatatype().isInteger();
+  }
 
-    @Override
-    public boolean isBoolean() {
-        return getDatatype().isBoolean();
-    }
+  @Override
+  public boolean isBoolean() {
+    return getDatatype().isBoolean();
+  }
 
-    @Override
-    public boolean isDouble() {
-        return getDatatype().isDouble();
-    }
+  @Override
+  public boolean isDouble() {
+    return getDatatype().isDouble();
+  }
 
-    @Override
-    public boolean isFloat() {
-        return getDatatype().isFloat();
-    }
+  @Override
+  public boolean isFloat() {
+    return getDatatype().isFloat();
+  }
 
-    @Override
-    public int parseInteger() {
-        return Integer.parseInt(getLiteral());
-    }
+  @Override
+  public int parseInteger() {
+    return Integer.parseInt(getLiteral());
+  }
 
-    @Override
-    public boolean parseBoolean() {
-        return OWLLiteralImpl.asBoolean(literal);
-    }
+  @Override
+  public boolean parseBoolean() {
+    return OWLLiteralImpl.asBoolean(literal);
+  }
 
-    @Override
-    public double parseDouble() {
-        return Double.parseDouble(literal);
-    }
+  @Override
+  public double parseDouble() {
+    return Double.parseDouble(literal);
+  }
 
-    @Override
-    public float parseFloat() {
-        if ("inf".equalsIgnoreCase(literal)) {
-            return Float.POSITIVE_INFINITY;
-        }
-        if ("-inf".equalsIgnoreCase(literal)) {
-            return Float.NEGATIVE_INFINITY;
-        }
-        return Float.parseFloat(literal);
+  @Override
+  public float parseFloat() {
+    if ("inf".equalsIgnoreCase(literal)) {
+      return Float.POSITIVE_INFINITY;
     }
+    if ("-inf".equalsIgnoreCase(literal)) {
+      return Float.NEGATIVE_INFINITY;
+    }
+    return Float.parseFloat(literal);
+  }
 
-    @Override
-    public String getLang() {
-        return language;
-    }
+  @Override
+  public String getLang() {
+    return language;
+  }
 
-    @Override
-    public boolean hasLang(@Nullable String lang) {
-        if (lang == null) {
-            return language.isEmpty();
-        }
-        return language.equalsIgnoreCase(lang.trim());
+  @Override
+  public boolean hasLang(@Nullable String lang) {
+    if (lang == null) {
+      return language.isEmpty();
     }
+    return language.equalsIgnoreCase(lang.trim());
+  }
 
-    @Override
-    public OWLDatatype getDatatype() {
-        return datatype;
-    }
+  @Override
+  public OWLDatatype getDatatype() {
+    return datatype;
+  }
 
-    @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
-    }
+  @Override
+  protected int hashCode(OWLObject object) {
+    return hash(object.hashIndex(),
+        Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
+  }
 
-    private int specificHash() {
-        try {
-            if (isInteger()) {
-                return parseInteger();
-            }
-            if (isDouble()) {
-                return (int) parseDouble();
-            }
-            if (isFloat()) {
-                return (int) parseFloat();
-            }
-            if (isBoolean()) {
-                return parseBoolean() ? 1 : 0;
-            }
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // it is possible that a literal does not have a value that's valid
-            // for its datatype; not very useful for a consistent ontology but
-            // some W3C reasoner tests use them
-        }
-        return getLiteral().hashCode();
+  private int specificHash() {
+    try {
+      if (isInteger()) {
+        return parseInteger();
+      }
+      if (isDouble()) {
+        return (int) parseDouble();
+      }
+      if (isFloat()) {
+        return (int) parseFloat();
+      }
+      if (isBoolean()) {
+        return parseBoolean() ? 1 : 0;
+      }
+    } catch (@SuppressWarnings("unused") NumberFormatException e) {
+      // it is possible that a literal does not have a value that's valid
+      // for its datatype; not very useful for a consistent ontology but
+      // some W3C reasoner tests use them
     }
+    return getLiteral().hashCode();
+  }
 }

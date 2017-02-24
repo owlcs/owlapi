@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.apache.commons.rdf.api.Literal;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -25,180 +23,178 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
 
-    private final String lexicalValue;
-    private final String lang;
-    private final IRI datatype;
-    private int hashCode;
+  private final String lexicalValue;
+  private final String lang;
+  private final IRI datatype;
+  private int hashCode;
 
-    /**
-     * Constructor for plain literal wrappers.
-     * 
-     * @param literal
-     *        lexical form
-     * @param lang
-     *        language tag
-     * @param datatype
-     *        datatype IRI
-     */
-    public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
-        lexicalValue = checkNotNull(literal, "literal cannot be null");
-        this.lang = lang == null ? "" : lang;
-        OWL2Datatype defaultType = this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
-        this.datatype = datatype == null ? defaultType.getIRI() : datatype;
+  /**
+   * Constructor for plain literal wrappers.
+   *
+   * @param literal lexical form
+   * @param lang language tag
+   * @param datatype datatype IRI
+   */
+  public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
+    lexicalValue = checkNotNull(literal, "literal cannot be null");
+    this.lang = lang == null ? "" : lang;
+    OWL2Datatype defaultType =
+        this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
+    this.datatype = datatype == null ? defaultType.getIRI() : datatype;
+  }
+
+  /**
+   * @param literal the wrapped literal
+   */
+  public RDFLiteral(OWLLiteral literal) {
+    this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
+  }
+
+  @Override
+  public boolean isLiteral() {
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    if (hashCode == 0) {
+      hashCode = 37;
+      hashCode = hashCode * 37 + lexicalValue.hashCode();
+      hashCode = hashCode * 37 + lang.hashCode();
+      hashCode = hashCode * 37 + datatype.hashCode();
     }
+    return hashCode;
+  }
 
-    /**
-     * @param literal
-     *        the wrapped literal
-     */
-    public RDFLiteral(OWLLiteral literal) {
-        this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
-
-    @Override
-    public boolean isLiteral() {
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = 37;
-            hashCode = hashCode * 37 + lexicalValue.hashCode();
-            hashCode = hashCode * 37 + lang.hashCode();
-            hashCode = hashCode * 37 + datatype.hashCode();
-        }
-        return hashCode;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj instanceof RDFLiteral) {
-            RDFLiteral other = (RDFLiteral) obj;
-            if (!lexicalValue.equals(other.lexicalValue)) {
-                return false;
-            }
-            if (!lang.equals(other.lang)) {
-                return false;
-            }
-            return datatype.equals(other.datatype);
-        }
-        if (obj instanceof Literal) {
-            // Note: This also works on RDFLiteral
-            // but is slightly more expensive as it must call the
-            // getter methods when accessing obj.
-            //
-            // To ensure future compatibility, the Commons RDF getter
-            // methods are also called on this rather than using the fields.
-            Literal literal = (Literal) obj;
-            if (!getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
-                return false;
-            }
-            if (!getLanguageTag().equals(literal.getLanguageTag())) {
-                return false;
-            }
-            return getDatatype().equals(literal.getDatatype());
-        }
+    if (obj instanceof RDFLiteral) {
+      RDFLiteral other = (RDFLiteral) obj;
+      if (!lexicalValue.equals(other.lexicalValue)) {
         return false;
+      }
+      if (!lang.equals(other.lang)) {
+        return false;
+      }
+      return datatype.equals(other.datatype);
     }
-
-    @Override
-    public String toString() {
-        return lexicalValue;
+    if (obj instanceof Literal) {
+      // Note: This also works on RDFLiteral
+      // but is slightly more expensive as it must call the
+      // getter methods when accessing obj.
+      //
+      // To ensure future compatibility, the Commons RDF getter
+      // methods are also called on this rather than using the fields.
+      Literal literal = (Literal) obj;
+      if (!getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
+        return false;
+      }
+      if (!getLanguageTag().equals(literal.getLanguageTag())) {
+        return false;
+      }
+      return getDatatype().equals(literal.getDatatype());
     }
+    return false;
+  }
 
-    @Override
-    public IRI getIRI() {
-        throw new UnsupportedOperationException("RDF Literals do not have IRIs");
+  @Override
+  public String toString() {
+    return lexicalValue;
+  }
+
+  @Override
+  public IRI getIRI() {
+    throw new UnsupportedOperationException("RDF Literals do not have IRIs");
+  }
+
+  /**
+   * @return the lexical form for this literal
+   */
+  public String getLexicalValue() {
+    return lexicalValue;
+  }
+
+  @Override
+  public String getLexicalForm() {
+    return getLexicalValue();
+  }
+
+  /**
+   * @return the lang tag for this literal
+   */
+  public String getLang() {
+    return lang;
+  }
+
+  @Override
+  public Optional<String> getLanguageTag() {
+    if (hasLang()) {
+      return Optional.of(lang);
     }
+    return Optional.empty();
+  }
 
-    /**
-     * @return the lexical form for this literal
-     */
-    public String getLexicalValue() {
-        return lexicalValue;
+  @Override
+  public IRI getDatatype() {
+    return datatype;
+  }
+
+  /**
+   * @return true if this literal has a non empty lang tag
+   */
+  public boolean hasLang() {
+    return !lang.isEmpty();
+  }
+
+  /**
+   * @return true if the datatype of this literal is plain literal
+   */
+  public boolean isPlainLiteral() {
+    return OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().equals(datatype);
+  }
+
+  @Override
+  public int compareTo(@Nullable RDFNode o) {
+    checkNotNull(o);
+    assert o != null;
+    if (!o.isLiteral()) {
+      return -1;
     }
-
-    @Override
-    public String getLexicalForm() {
-        return getLexicalValue();
+    if (equals(o)) {
+      return 0;
     }
-
-    /**
-     * @return the lang tag for this literal
-     */
-    public String getLang() {
-        return lang;
+    RDFLiteral lit2 = (RDFLiteral) o;
+    int diff = lexicalValue.compareTo(lit2.lexicalValue);
+    if (diff == 0) {
+      diff = getDatatype().compareTo(lit2.getDatatype());
     }
-
-    @Override
-    public Optional<String> getLanguageTag() {
-        if (hasLang()) {
-            return Optional.of(lang);
-        }
-        return Optional.empty();
+    if (diff == 0) {
+      diff = getLang().compareTo(lit2.getLang());
     }
+    return diff;
+  }
 
-    @Override
-    public IRI getDatatype() {
-        return datatype;
-    }
-
-    /**
-     * @return true if this literal has a non empty lang tag
-     */
-    public boolean hasLang() {
-        return !lang.isEmpty();
-    }
-
-    /**
-     * @return true if the datatype of this literal is plain literal
-     */
-    public boolean isPlainLiteral() {
-        return OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().equals(datatype);
-    }
-
-    @Override
-    public int compareTo(@Nullable RDFNode o) {
-        checkNotNull(o);
-        assert o != null;
-        if (!o.isLiteral()) {
-            return -1;
-        }
-        if (equals(o)) {
-            return 0;
-        }
-        RDFLiteral lit2 = (RDFLiteral) o;
-        int diff = lexicalValue.compareTo(lit2.lexicalValue);
-        if (diff == 0) {
-            diff = getDatatype().compareTo(lit2.getDatatype());
-        }
-        if (diff == 0) {
-            diff = getLang().compareTo(lit2.getLang());
-        }
-        return diff;
-    }
-
-    @Override
-    public String ntriplesString() {
-        String escaped = '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n").replace("\r", "\\r")
+  @Override
+  public String ntriplesString() {
+    String escaped =
+        '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n").replace("\r", "\\r")
             + '"';
-        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || datatype.equals(OWL2Datatype.XSD_STRING
+    if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || datatype
+        .equals(OWL2Datatype.XSD_STRING
             .getIRI())) {
-            return escaped;
-        } else if (hasLang()) {
-            return escaped + "@" + getLang();
-        } else {
-            return escaped + "^^" + getDatatype().ntriplesString();
-        }
+      return escaped;
+    } else if (hasLang()) {
+      return escaped + "@" + getLang();
+    } else {
+      return escaped + "^^" + getDatatype().ntriplesString();
     }
+  }
 }

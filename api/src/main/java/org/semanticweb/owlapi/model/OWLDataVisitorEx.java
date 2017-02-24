@@ -13,77 +13,70 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <O> return type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 3.0.0
- * @param <O>
- *        return type
  */
-public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>, OWLLiteralVisitorExBase<O> {
+public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>,
+    OWLLiteralVisitorExBase<O> {
 
-    /**
-     * visit OWLDataComplementOf type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(OWLDataComplementOf node) {
-        return doDefault(node);
-    }
+  /**
+   * visit OWLDataComplementOf type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(OWLDataComplementOf node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit OWLDataOneOf type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(OWLDataOneOf node) {
-        return doDefault(node);
-    }
+  /**
+   * visit OWLDataOneOf type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(OWLDataOneOf node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit OWLDataIntersectionOf type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(OWLDataIntersectionOf node) {
-        return doDefault(node);
-    }
+  /**
+   * visit OWLDataIntersectionOf type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(OWLDataIntersectionOf node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit OWLDataUnionOf type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(OWLDataUnionOf node) {
-        return doDefault(node);
-    }
+  /**
+   * visit OWLDataUnionOf type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(OWLDataUnionOf node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit OWLDatatypeRestriction type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(OWLDatatypeRestriction node) {
-        return doDefault(node);
-    }
+  /**
+   * visit OWLDatatypeRestriction type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(OWLDatatypeRestriction node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit OWLFacetRestriction type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(OWLFacetRestriction node) {
-        return doDefault(node);
-    }
+  /**
+   * visit OWLFacetRestriction type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(OWLFacetRestriction node) {
+    return doDefault(node);
+  }
 }

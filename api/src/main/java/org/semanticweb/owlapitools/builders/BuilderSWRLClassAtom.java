@@ -16,76 +16,74 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
-/** Builder class for SWRLClassAtom. */
+/**
+ * Builder class for SWRLClassAtom.
+ */
 public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRLClassAtom> {
 
-    @Nullable private SWRLIArgument argument = null;
-    @Nullable private OWLClassExpression predicate = null;
+  @Nullable
+  private SWRLIArgument argument = null;
+  @Nullable
+  private OWLClassExpression predicate = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSWRLClassAtom(SWRLClassAtom expected, OWLDataFactory df) {
-        this(df);
-        with(expected.getPredicate()).with(expected.getArgument());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSWRLClassAtom(SWRLClassAtom expected, OWLDataFactory df) {
+    this(df);
+    with(expected.getPredicate()).with(expected.getArgument());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSWRLClassAtom(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSWRLClassAtom(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        argument
-     * @return builder
-     */
-    public BuilderSWRLClassAtom with(SWRLIArgument arg) {
-        argument = arg;
-        return this;
-    }
+  /**
+   * @param arg argument
+   * @return builder
+   */
+  public BuilderSWRLClassAtom with(SWRLIArgument arg) {
+    argument = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        class
-     * @return builder
-     */
-    public BuilderSWRLClassAtom with(OWLClassExpression arg) {
-        predicate = arg;
-        return this;
-    }
+  /**
+   * @param arg class
+   * @return builder
+   */
+  public BuilderSWRLClassAtom with(OWLClassExpression arg) {
+    predicate = arg;
+    return this;
+  }
 
-    @Override
-    public SWRLClassAtom buildObject() {
-        return df.getSWRLClassAtom(getPredicate(), getArgument());
-    }
+  @Override
+  public SWRLClassAtom buildObject() {
+    return df.getSWRLClassAtom(getPredicate(), getArgument());
+  }
 
-    /**
-     * @return predicate
-     */
-    public OWLClassExpression getPredicate() {
-        return verifyNotNull(predicate);
-    }
+  /**
+   * @return predicate
+   */
+  public OWLClassExpression getPredicate() {
+    return verifyNotNull(predicate);
+  }
 
-    /**
-     * @return predicate
-     */
-    public SWRLIArgument getArgument() {
-        return verifyNotNull(argument);
-    }
+  /**
+   * @return predicate
+   */
+  public SWRLIArgument getArgument() {
+    return verifyNotNull(argument);
+  }
 }

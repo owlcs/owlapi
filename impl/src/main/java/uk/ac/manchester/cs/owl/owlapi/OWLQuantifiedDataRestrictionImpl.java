@@ -18,25 +18,26 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataRestriction;
 
-/** Quantified data restriction. */
-public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLDataRange> implements
+/**
+ * Quantified data restriction.
+ */
+public abstract class OWLQuantifiedDataRestrictionImpl extends
+    OWLQuantifiedRestrictionImpl<OWLDataRange> implements
     OWLDataRestriction {
 
-    private final OWLDataPropertyExpression property;
+  private final OWLDataPropertyExpression property;
 
-    /**
-     * @param property
-     *        property
-     * @param filler
-     *        filler
-     */
-    public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
-        super(filler);
-        this.property = checkNotNull(property, "property cannot be null");
-    }
+  /**
+   * @param property property
+   * @param filler filler
+   */
+  public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
+    super(filler);
+    this.property = checkNotNull(property, "property cannot be null");
+  }
 
-    @Override
-    public OWLDataPropertyExpression getProperty() {
-        return property;
-    }
+  @Override
+  public OWLDataPropertyExpression getProperty() {
+    return property;
+  }
 }

@@ -15,32 +15,31 @@ package org.semanticweb.owlapi.reasoner;
 /**
  * An enumeration that denotes depth of inference: direct or indirect relations,
  * e.g., all subclasses or only direct subclasses.
- * 
+ *
  * @since 5.0.0
  */
 public enum InferenceDepth {
-    /**
-     * Only direct relations will be returned. E.g., only direct subclasses for
-     * subclasses requests.
-     */
-    DIRECT(true),
-    /**
-     * All relations will be returned, direct and indirect. E.g., all subclasses
-     * of a concept for subclasses requests.
-     */
-    ALL(false);
+  /**
+   * Only direct relations will be returned. E.g., only direct subclasses for
+   * subclasses requests.
+   */
+  DIRECT(true),
+  /**
+   * All relations will be returned, direct and indirect. E.g., all subclasses
+   * of a concept for subclasses requests.
+   */
+  ALL(false);
 
-    private final boolean direct;
+  private final boolean direct;
 
-    InferenceDepth(boolean direct) {
-        this.direct = direct;
-    }
+  InferenceDepth(boolean direct) {
+    this.direct = direct;
+  }
 
-    /**
-     * @return true if only direct relations should be retrieved, false
-     *         otherwise.
-     */
-    public boolean isDirectOnly() {
-        return direct;
-    }
+  /**
+   * @return true if only direct relations should be retrieved, false otherwise.
+   */
+  public boolean isDirectOnly() {
+    return direct;
+  }
 }

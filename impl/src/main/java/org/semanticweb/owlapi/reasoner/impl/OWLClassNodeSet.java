@@ -14,63 +14,59 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
  * A node set of OWL classes.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
 
-    /** Default constructor. */
-    public OWLClassNodeSet() {
-        super();
-    }
+  /**
+   * Default constructor.
+   */
+  public OWLClassNodeSet() {
+    super();
+  }
 
-    /**
-     * @param entity
-     *        the entity to be contained
-     */
-    public OWLClassNodeSet(OWLClass entity) {
-        super(entity);
-    }
+  /**
+   * @param entity the entity to be contained
+   */
+  public OWLClassNodeSet(OWLClass entity) {
+    super(entity);
+  }
 
-    /**
-     * @param owlClassNode
-     *        the node to be contained
-     */
-    public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
-        super(owlClassNode);
-    }
+  /**
+   * @param owlClassNode the node to be contained
+   */
+  public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
+    super(owlClassNode);
+  }
 
-    /**
-     * @param nodes
-     *        the set of nodes to be contained
-     */
-    public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
-        this(nodes.stream());
-    }
+  /**
+   * @param nodes the set of nodes to be contained
+   */
+  public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
+    this(nodes.stream());
+  }
 
-    /**
-     * @param nodes
-     *        the set of nodes to be contained
-     */
-    public OWLClassNodeSet(Stream<Node<OWLClass>> nodes) {
-        super(nodes);
-    }
+  /**
+   * @param nodes the set of nodes to be contained
+   */
+  public OWLClassNodeSet(Stream<Node<OWLClass>> nodes) {
+    super(nodes);
+  }
 
-    @Override
-    protected DefaultNode<OWLClass> getNode(OWLClass entity) {
-        return NodeFactory.getOWLClassNode(entity);
-    }
+  @Override
+  protected DefaultNode<OWLClass> getNode(OWLClass entity) {
+    return NodeFactory.getOWLClassNode(entity);
+  }
 
-    @Override
-    protected DefaultNode<OWLClass> getNode(Set<OWLClass> entities) {
-        return NodeFactory.getOWLClassNode(entities);
-    }
+  @Override
+  protected DefaultNode<OWLClass> getNode(Set<OWLClass> entities) {
+    return NodeFactory.getOWLClassNode(entities);
+  }
 }

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
 import javax.inject.Provider;
 
 /**
@@ -28,15 +27,15 @@ import javax.inject.Provider;
  */
 public interface OWLStorerFactory extends Serializable, Provider<OWLStorer> {
 
-    /**
-     * Create new storer.
-     * 
-     * @return new storer
-     */
-    OWLStorer createStorer();
+  /**
+   * Create new storer.
+   *
+   * @return new storer
+   */
+  OWLStorer createStorer();
 
-    /**
-     * @return format factory for the format parsed by this storer
-     */
-    OWLDocumentFormatFactory getFormatFactory();
+  /**
+   * @return format factory for the format parsed by this storer
+   */
+  OWLDocumentFormatFactory getFormatFactory();
 }

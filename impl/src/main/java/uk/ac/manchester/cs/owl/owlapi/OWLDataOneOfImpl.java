@@ -19,47 +19,42 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
-    private final List<OWLLiteral> values;
+  private final List<OWLLiteral> values;
 
-    /**
-     * @param values
-     *        lierals
-     */
-    public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
-        checkNotNull(values, "values cannot be null");
-        this.values = sortOptionally(values.map(l -> (OWLLiteral) l).distinct());
-    }
+  /**
+   * @param values lierals
+   */
+  public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
+    checkNotNull(values, "values cannot be null");
+    this.values = sortOptionally(values.map(l -> (OWLLiteral) l).distinct());
+  }
 
-    /**
-     * @param values
-     *        lierals
-     */
-    public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
-        this(checkNotNull(values, "values cannot be null").stream());
-    }
+  /**
+   * @param values lierals
+   */
+  public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
+    this(checkNotNull(values, "values cannot be null").stream());
+  }
 
-    /**
-     * @param value
-     *        lieral
-     */
-    public OWLDataOneOfImpl(OWLLiteral value) {
-        checkNotNull(value, "value cannot be null");
-        values = Collections.singletonList(value);
-    }
+  /**
+   * @param value lieral
+   */
+  public OWLDataOneOfImpl(OWLLiteral value) {
+    checkNotNull(value, "value cannot be null");
+    values = Collections.singletonList(value);
+  }
 
-    @Override
-    public Stream<OWLLiteral> values() {
-        return values.stream();
-    }
+  @Override
+  public Stream<OWLLiteral> values() {
+    return values.stream();
+  }
 }

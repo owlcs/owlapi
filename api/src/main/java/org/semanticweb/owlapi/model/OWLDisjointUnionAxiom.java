@@ -21,111 +21,105 @@ import java.util.stream.Stream;
  * Represents a <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Disjoint_Union_of_Class_Expressions" >
  * DisjointUnion</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
 
-    @Override
-        OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getOWLClass(), classExpressions(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getOWLClass(), classExpressions(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getOWLClass(), classExpressions());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getOWLClass(), classExpressions());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getOWLClass(), classExpressions());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getOWLClass(), classExpressions());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 43;
-    }
+  @Override
+  default int hashIndex() {
+    return 43;
+  }
 
-    /**
-     * Gets the class which is equivalent to the disjoint union.
-     * 
-     * @return the class that is equivalent to a disjoint union of other
-     *         classes.
-     */
-    OWLClass getOWLClass();
+  /**
+   * Gets the class which is equivalent to the disjoint union.
+   *
+   * @return the class that is equivalent to a disjoint union of other classes.
+   */
+  OWLClass getOWLClass();
 
-    /**
-     * Gets the class expressions which are operands of the disjoint union.
-     * 
-     * @return A {@code Set} containing the operands of the disjoint union, note
-     *         that this <b>does not</b> include the {@code OWLClass} that is
-     *         equivalent to the disjoint union.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLClassExpression> getClassExpressions() {
-        return asSet(classExpressions());
-    }
+  /**
+   * Gets the class expressions which are operands of the disjoint union.
+   *
+   * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
+   * not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLClassExpression> getClassExpressions() {
+    return asSet(classExpressions());
+  }
 
-    /**
-     * Gets the class expressions which are operands of the disjoint union.
-     * 
-     * @return A {@code Set} containing the operands of the disjoint union, note
-     *         that this <b>does not</b> include the {@code OWLClass} that is
-     *         equivalent to the disjoint union.
-     */
-    Stream<OWLClassExpression> classExpressions();
+  /**
+   * Gets the class expressions which are operands of the disjoint union.
+   *
+   * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
+   * not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
+   */
+  Stream<OWLClassExpression> classExpressions();
 
-    /**
-     * Gets the part of this axiom that corresponds to an
-     * {@code EquivalentClasses} axiom.
-     * 
-     * @return The equivalent classes axiom part of this axiom. This is
-     *         essentially, {@code EquivalentClasses(CE, CEUnion)} where
-     *         {@code CEUnion} is the union of the classes returned by the
-     *         {@link #getClassExpressions()} method and {@code CE} is the class
-     *         returned by the {@link #getOWLClass()} method.
-     */
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
+  /**
+   * Gets the part of this axiom that corresponds to an
+   * {@code EquivalentClasses} axiom.
+   *
+   * @return The equivalent classes axiom part of this axiom. This is essentially, {@code
+   * EquivalentClasses(CE, CEUnion)} where {@code CEUnion} is the union of the classes returned by
+   * the {@link #getClassExpressions()} method and {@code CE} is the class returned by the {@link
+   * #getOWLClass()} method.
+   */
+  OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
 
-    /**
-     * Gets the part of this axiom that corresponds to an
-     * {@code DisjointClasses} axiom.
-     * 
-     * @return The disjoint classes axiom part of this axiom. This is
-     *         essentially, {@code DisjointClasses(CE1, ..., CEn)} where
-     *         {@code CEi in (CE1, ..., CEn)} is contained in the classes
-     *         returned by the {@link #getClassExpressions()} method.
-     */
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
+  /**
+   * Gets the part of this axiom that corresponds to an
+   * {@code DisjointClasses} axiom.
+   *
+   * @return The disjoint classes axiom part of this axiom. This is essentially, {@code
+   * DisjointClasses(CE1, ..., CEn)} where {@code CEi in (CE1, ..., CEn)} is contained in the
+   * classes returned by the {@link #getClassExpressions()} method.
+   */
+  OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.DISJOINT_UNION;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.DISJOINT_UNION;
+  }
 }

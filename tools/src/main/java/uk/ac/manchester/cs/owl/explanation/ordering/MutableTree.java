@@ -24,251 +24,245 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <N> type of elements
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <N>
- *        type of elements
  */
 public class MutableTree<N> implements Tree<N> {
 
-    @Nullable private final N userObject;
-    @Nullable private MutableTree<N> parent;
-    private final List<MutableTree<N>> children;
-    private final Map<Tree<N>, Object> child2EdgeMap;
-    private NodeRenderer<N> toStringRenderer;
+  @Nullable
+  private final N userObject;
+  private final List<MutableTree<N>> children;
+  private final Map<Tree<N>, Object> child2EdgeMap;
+  @Nullable
+  private MutableTree<N> parent;
+  private NodeRenderer<N> toStringRenderer;
 
-    /**
-     * @param userObject
-     *        the user object
-     */
-    public MutableTree(N userObject) {
-        this.userObject = userObject;
-        children = new ArrayList<>();
-        child2EdgeMap = new HashMap<>();
-        toStringRenderer = Object::toString;
-    }
+  /**
+   * @param userObject the user object
+   */
+  public MutableTree(N userObject) {
+    this.userObject = userObject;
+    children = new ArrayList<>();
+    child2EdgeMap = new HashMap<>();
+    toStringRenderer = Object::toString;
+  }
 
-    @Override
-    @Nullable
-    public N getUserObject() {
-        return userObject;
-    }
+  @Override
+  @Nullable
+  public N getUserObject() {
+    return userObject;
+  }
 
-    /**
-     * @param parent
-     *        the new parent
-     */
-    public void setParent(MutableTree<N> parent) {
-        if (this.parent != null) {
-            this.parent.children.remove(this);
-        }
-        this.parent = parent;
-        this.parent.children.add(this);
-    }
+  /**
+   * @param child child to add
+   */
+  public void addChild(MutableTree<N> child) {
+    children.add(child);
+    child.parent = this;
+  }
 
-    /**
-     * @param child
-     *        child to add
-     */
-    public void addChild(MutableTree<N> child) {
-        children.add(child);
-        child.parent = this;
-    }
+  /**
+   * @param child child to add
+   * @param edge the edge
+   */
+  public void addChild(MutableTree<N> child, Object edge) {
+    addChild(child);
+    child2EdgeMap.put(child, edge);
+  }
 
-    /**
-     * @param child
-     *        child to add
-     * @param edge
-     *        the edge
-     */
-    public void addChild(MutableTree<N> child, Object edge) {
-        addChild(child);
-        child2EdgeMap.put(child, edge);
-    }
+  /**
+   * @param child child to remove
+   */
+  public void removeChild(MutableTree<N> child) {
+    children.remove(child);
+    child.parent = null;
+  }
 
-    /**
-     * @param child
-     *        child to remove
-     */
-    public void removeChild(MutableTree<N> child) {
-        children.remove(child);
-        child.parent = null;
-    }
+  @Override
+  @Nullable
+  public Object getEdge(Tree<N> child) {
+    return child2EdgeMap.get(child);
+  }
 
-    @Override
-    @Nullable
-    public Object getEdge(Tree<N> child) {
-        return child2EdgeMap.get(child);
-    }
+  @Override
+  public void sortChildren(Comparator<Tree<N>> comparator) {
+    Collections.sort(children, comparator);
+  }
 
-    @Override
-    public void sortChildren(Comparator<Tree<N>> comparator) {
-        Collections.sort(children, comparator);
-    }
+  /**
+   * remove all children.
+   */
+  public void clearChildren() {
+    children.forEach(c -> c.parent = null);
+    children.clear();
+  }
 
-    /** remove all children. */
-    public void clearChildren() {
-        children.forEach(c -> c.parent = null);
-        children.clear();
-    }
+  @Override
+  @Nullable
+  public Tree<N> getParent() {
+    return parent;
+  }
 
-    @Override
-    @Nullable
-    public Tree<N> getParent() {
-        return parent;
+  /**
+   * @param parent the new parent
+   */
+  public void setParent(MutableTree<N> parent) {
+    if (this.parent != null) {
+      this.parent.children.remove(this);
     }
+    this.parent = parent;
+    this.parent.children.add(this);
+  }
 
-    @Override
-    public List<Tree<N>> getChildren() {
-        return new ArrayList<>(children);
-    }
+  @Override
+  public List<Tree<N>> getChildren() {
+    return new ArrayList<>(children);
+  }
 
-    @Override
-    public int getChildCount() {
-        return children.size();
-    }
+  @Override
+  public int getChildCount() {
+    return children.size();
+  }
 
-    @Override
-    public boolean isRoot() {
-        return parent == null;
-    }
+  @Override
+  public boolean isRoot() {
+    return parent == null;
+  }
 
-    @Override
-    public boolean isLeaf() {
-        return children.isEmpty();
-    }
+  @Override
+  public boolean isLeaf() {
+    return children.isEmpty();
+  }
 
-    @Override
-    public Tree<N> getRoot() {
-        if (parent == null) {
-            return this;
-        }
-        return verifyNotNull(parent).getRoot();
+  @Override
+  public Tree<N> getRoot() {
+    if (parent == null) {
+      return this;
     }
+    return verifyNotNull(parent).getRoot();
+  }
 
-    @Override
-    public List<Tree<N>> getPathToRoot() {
-        List<Tree<N>> path = new ArrayList<>();
-        path.add(0, this);
-        Tree<N> par = parent;
-        while (par != null) {
-            path.add(0, par);
-            par = par.getParent();
-        }
-        return path;
+  @Override
+  public List<Tree<N>> getPathToRoot() {
+    List<Tree<N>> path = new ArrayList<>();
+    path.add(0, this);
+    Tree<N> par = parent;
+    while (par != null) {
+      path.add(0, par);
+      par = par.getParent();
     }
+    return path;
+  }
 
-    @Override
-    public List<N> getUserObjectPathToRoot() {
-        List<N> path = new ArrayList<>();
-        path.add(0, this.getUserObject());
-        Tree<N> par = parent;
-        while (par != null) {
-            path.add(0, par.getUserObject());
-            par = par.getParent();
-        }
-        return path;
+  @Override
+  public List<N> getUserObjectPathToRoot() {
+    List<N> path = new ArrayList<>();
+    path.add(0, this.getUserObject());
+    Tree<N> par = parent;
+    while (par != null) {
+      path.add(0, par.getUserObject());
+      par = par.getParent();
     }
+    return path;
+  }
 
-    @Override
-    public Set<N> getUserObjectClosure() {
-        Set<N> objects = new HashSet<>();
-        getUserObjectClosure(this, objects);
-        return objects;
-    }
+  @Override
+  public Set<N> getUserObjectClosure() {
+    Set<N> objects = new HashSet<>();
+    getUserObjectClosure(this, objects);
+    return objects;
+  }
 
-    private void getUserObjectClosure(Tree<N> tree, Set<N> bin) {
-        bin.add(tree.getUserObject());
-        tree.getChildren().forEach(c -> getUserObjectClosure(c, bin));
-    }
+  private void getUserObjectClosure(Tree<N> tree, Set<N> bin) {
+    bin.add(tree.getUserObject());
+    tree.getChildren().forEach(c -> getUserObjectClosure(c, bin));
+  }
 
-    @Override
-    public void dump(PrintWriter writer) {
-        dump(writer, 0);
-    }
+  @Override
+  public void dump(PrintWriter writer) {
+    dump(writer, 0);
+  }
 
-    @Override
-    public void dump(PrintWriter writer, int indent) {
-        int depth = getPathToRoot().size();
-        char[] chars = new char[depth + indent];
-        Arrays.fill(chars, '\t');
-        String tabs = new String(chars);
-        writer.print(tabs);
-        String ren = toStringRenderer.render(this);
-        ren = ren.replace("\n", "\n" + tabs);
-        writer.println(ren);
-        for (Tree<N> child : getChildren()) {
-            Object edge = getEdge(child);
-            if (edge != null) {
-                writer.print("\t--- ");
-                writer.print(edge);
-                writer.print(" ---\n\n");
-            }
-            child.dump(writer, indent);
-        }
-        writer.flush();
+  @Override
+  public void dump(PrintWriter writer, int indent) {
+    int depth = getPathToRoot().size();
+    char[] chars = new char[depth + indent];
+    Arrays.fill(chars, '\t');
+    String tabs = new String(chars);
+    writer.print(tabs);
+    String ren = toStringRenderer.render(this);
+    ren = ren.replace("\n", "\n" + tabs);
+    writer.println(ren);
+    for (Tree<N> child : getChildren()) {
+      Object edge = getEdge(child);
+      if (edge != null) {
+        writer.print("\t--- ");
+        writer.print(edge);
+        writer.print(" ---\n\n");
+      }
+      child.dump(writer, indent);
     }
+    writer.flush();
+  }
 
-    @Override
-    public void setNodeRenderer(NodeRenderer<N> renderer) {
-        this.toStringRenderer = renderer;
-        children.forEach(c -> c.setNodeRenderer(toStringRenderer));
-    }
+  @Override
+  public void setNodeRenderer(NodeRenderer<N> renderer) {
+    this.toStringRenderer = renderer;
+    children.forEach(c -> c.setNodeRenderer(toStringRenderer));
+  }
 
-    @Override
-    public List<N> fillDepthFirst() {
-        List<N> results = new ArrayList<>();
-        fillDepthFirst(this, results);
-        return results;
-    }
+  @Override
+  public List<N> fillDepthFirst() {
+    List<N> results = new ArrayList<>();
+    fillDepthFirst(this, results);
+    return results;
+  }
 
-    private void fillDepthFirst(Tree<N> tree, List<N> bin) {
-        bin.add(tree.getUserObject());
-        tree.getChildren().forEach(c -> fillDepthFirst(c, bin));
-    }
+  private void fillDepthFirst(Tree<N> tree, List<N> bin) {
+    bin.add(tree.getUserObject());
+    tree.getChildren().forEach(c -> fillDepthFirst(c, bin));
+  }
 
-    /**
-     * @param tree
-     *        the node to put in place of this one
-     */
-    public void replace(MutableTree<N> tree) {
-        verifyNotNull(parent, "parent cannot be null here").children.remove(this);
-        verifyNotNull(parent, "parent cannot be null here").children.add(tree);
-        parent = null;
-        tree.children.clear();
-        tree.children.addAll(children);
-        children.clear();
-    }
+  /**
+   * @param tree the node to put in place of this one
+   */
+  public void replace(MutableTree<N> tree) {
+    verifyNotNull(parent, "parent cannot be null here").children.remove(this);
+    verifyNotNull(parent, "parent cannot be null here").children.add(tree);
+    parent = null;
+    tree.children.clear();
+    tree.children.addAll(children);
+    children.clear();
+  }
 
-    @Override
-    public String toString() {
-        if (userObject != null) {
-            return userObject.toString();
-        }
-        return "";
+  @Override
+  public String toString() {
+    if (userObject != null) {
+      return userObject.toString();
     }
+    return "";
+  }
 
-    /**
-     * @return the size
-     */
-    public int getSize() {
-        return getUserObjectClosure().size();
-    }
+  /**
+   * @return the size
+   */
+  public int getSize() {
+    return getUserObjectClosure().size();
+  }
 
-    /**
-     * @return the max depth
-     */
-    public int getMaxDepth() {
-        return getMaxDepth(this);
-    }
+  /**
+   * @return the max depth
+   */
+  public int getMaxDepth() {
+    return getMaxDepth(this);
+  }
 
-    private int getMaxDepth(Tree<N> tree) {
-        int maxChildDepth = tree.getPathToRoot().size();
-        return tree.getChildren().stream().mapToInt(this::getMaxDepth).max().orElse(maxChildDepth);
-    }
+  private int getMaxDepth(Tree<N> tree) {
+    int maxChildDepth = tree.getPathToRoot().size();
+    return tree.getChildren().stream().mapToInt(this::getMaxDepth).max().orElse(maxChildDepth);
+  }
 }

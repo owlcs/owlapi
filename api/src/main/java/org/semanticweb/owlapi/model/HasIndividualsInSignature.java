@@ -12,39 +12,37 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 public interface HasIndividualsInSignature {
 
-    /**
-     * A convenience method that obtains the individuals that are in the
-     * signature of this object. The default implementation of this method
-     * returns an empty, modifiable set.
-     * 
-     * @return A set containing the individuals that are in the signature of
-     *         this object.The set is a subset of the signature, and is not
-     *         backed by the signature; it is a modifiable collection and
-     *         changes are not reflected by the signature.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return asSet(individualsInSignature());
-    }
+  /**
+   * A convenience method that obtains the individuals that are in the
+   * signature of this object. The default implementation of this method
+   * returns an empty, modifiable set.
+   *
+   * @return A set containing the individuals that are in the signature of this object.The set is a
+   * subset of the signature, and is not backed by the signature; it is a modifiable collection and
+   * changes are not reflected by the signature.
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLNamedIndividual> getIndividualsInSignature() {
+    return asSet(individualsInSignature());
+  }
 
-    /**
-     * @return Stream containing the individuals that are in the signature of
-     *         this object.
-     */
-    default Stream<OWLNamedIndividual> individualsInSignature() {
-        return empty();
-    }
+  /**
+   * @return Stream containing the individuals that are in the signature of this object.
+   */
+  default Stream<OWLNamedIndividual> individualsInSignature() {
+    return empty();
+  }
 }

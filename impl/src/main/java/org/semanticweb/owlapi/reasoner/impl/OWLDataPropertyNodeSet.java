@@ -14,61 +14,57 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
 
-    /** Default constructor. */
-    public OWLDataPropertyNodeSet() {
-        super();
-    }
+  /**
+   * Default constructor.
+   */
+  public OWLDataPropertyNodeSet() {
+    super();
+  }
 
-    /**
-     * @param entity
-     *        the entity to be contained
-     */
-    public OWLDataPropertyNodeSet(OWLDataProperty entity) {
-        super(entity);
-    }
+  /**
+   * @param entity the entity to be contained
+   */
+  public OWLDataPropertyNodeSet(OWLDataProperty entity) {
+    super(entity);
+  }
 
-    /**
-     * @param owlDataPropertyNode
-     *        the node to be contained
-     */
-    public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
-        super(owlDataPropertyNode);
-    }
+  /**
+   * @param owlDataPropertyNode the node to be contained
+   */
+  public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
+    super(owlDataPropertyNode);
+  }
 
-    /**
-     * @param nodes
-     *        the nodes to be contained
-     */
-    public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
-        super(nodes);
-    }
+  /**
+   * @param nodes the nodes to be contained
+   */
+  public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
+    super(nodes);
+  }
 
-    /**
-     * @param nodes
-     *        the nodes to be contained
-     */
-    public OWLDataPropertyNodeSet(Stream<Node<OWLDataProperty>> nodes) {
-        super(nodes);
-    }
+  /**
+   * @param nodes the nodes to be contained
+   */
+  public OWLDataPropertyNodeSet(Stream<Node<OWLDataProperty>> nodes) {
+    super(nodes);
+  }
 
-    @Override
-    protected DefaultNode<OWLDataProperty> getNode(OWLDataProperty entity) {
-        return NodeFactory.getOWLDataPropertyNode(entity);
-    }
+  @Override
+  protected DefaultNode<OWLDataProperty> getNode(OWLDataProperty entity) {
+    return NodeFactory.getOWLDataPropertyNode(entity);
+  }
 
-    @Override
-    protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
-        return NodeFactory.getOWLDataPropertyNode(entities);
-    }
+  @Override
+  protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
+    return NodeFactory.getOWLDataPropertyNode(entities);
+  }
 }

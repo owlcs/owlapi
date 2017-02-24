@@ -41,7 +41,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.eclipse.rdf4j.RDF4JException;
 import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 import org.eclipse.rdf4j.model.Model;
@@ -56,168 +55,158 @@ import org.semanticweb.owlapi.model.IRI;
  * implement any of the InputStream, Reader, or IRI source retrieval methods.
  * Instead it holds a reference to an iterator that will generate bare triples
  * to be interpreted by a Sesame Rio based OWLParser implementation.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
-    static final class StatementIterator implements Iterator<Statement> {
+  private final Map<String, String> namespaces = new LinkedHashMap<>();
+  private final Iterator<Statement> statementIterator;
+  private final IRI documentIRI;
+  /**
+   * Creates a RioMemoryTripleSource using an {@link Iterable} of
+   * {@link Statement} objects.
+   *
+   * @param statements An {@link Iterator} of {@link Statement} objects that make up this source.
+   */
+  public RioMemoryTripleSource(Iterator<Statement> statements) {
+    documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
+    statementIterator = checkNotNull(statements, "statements cannot be null");
+  }
 
-        private final CloseableIteration<Statement, ? extends RDF4JException> statements;
+  /**
+   * Creates a RioMemoryTripleSource using an {@link Iterable} of
+   * {@link Statement} objects.
+   *
+   * @param statements An {@link Iterator} of {@link Statement} objects that make up this source.
+   * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
+   * source.
+   */
+  public RioMemoryTripleSource(Iterator<Statement> statements, Map<String, String> namespaces) {
+    this(statements);
+    this.namespaces.putAll(namespaces);
+  }
 
-        StatementIterator(CloseableIteration<Statement, ? extends RDF4JException> statements) {
-            this.statements = statements;
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("Cannot remove statements using this iterator");
-        }
-
-        @Override
-        public Statement next() {
-            return statements.next();
-        }
-
-        @Override
-        public boolean hasNext() {
-            return statements.hasNext();
-        }
+  /**
+   * Creates a RioMemoryTripleSource using an {@link Iterable} of
+   * {@link Statement} objects. <br>
+   * If the Iterable is an instance of {@link Model}, the namespaces from the
+   * model are also used.
+   *
+   * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
+   * source.
+   */
+  public RioMemoryTripleSource(Iterable<Statement> statements) {
+    documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
+    statementIterator = statements.iterator();
+    if (statements instanceof Model) {
+      namespaces.putAll(Namespaces.asMap(((Model) statements).getNamespaces()));
     }
+  }
 
-    private final Map<String, String> namespaces = new LinkedHashMap<>();
-    private final Iterator<Statement> statementIterator;
-    private final IRI documentIRI;
+  /**
+   * Creates a RioMemoryTripleSource using a closeable iteration. Internally
+   * this wraps the statements as an Iterator, and hence all statements must
+   * be read for the iterator to be closed automatically.
+   *
+   * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
+   * source.
+   */
+  public RioMemoryTripleSource(
+      final CloseableIteration<Statement, ? extends RDF4JException> statements) {
+    documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
+    statementIterator = new StatementIterator(statements);
+  }
 
-    /**
-     * Creates a RioMemoryTripleSource using an {@link Iterable} of
-     * {@link Statement} objects.
-     * 
-     * @param statements
-     *        An {@link Iterator} of {@link Statement} objects that make up this
-     *        source.
-     */
-    public RioMemoryTripleSource(Iterator<Statement> statements) {
-        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
-        statementIterator = checkNotNull(statements, "statements cannot be null");
-    }
+  /**
+   * Creates a RioMemoryTripleSource using a closeable iteration. Internally
+   * this wraps the statements as an Iterator, and hence all statements must
+   * be read for the iterator to be closed automatically.
+   *
+   * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
+   * source.
+   * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
+   * source.
+   */
+  public RioMemoryTripleSource(
+      final CloseableIteration<Statement, ? extends RDF4JException> statements,
+      final Map<String, String> namespaces) {
+    this(statements);
+    this.namespaces.putAll(namespaces);
+  }
 
-    /**
-     * Creates a RioMemoryTripleSource using an {@link Iterable} of
-     * {@link Statement} objects.
-     * 
-     * @param statements
-     *        An {@link Iterator} of {@link Statement} objects that make up this
-     *        source.
-     * @param namespaces
-     *        A Map of namespaces from prefix to full URI which are to be used
-     *        by this source.
-     */
-    public RioMemoryTripleSource(Iterator<Statement> statements, Map<String, String> namespaces) {
-        this(statements);
-        this.namespaces.putAll(namespaces);
-    }
+  @Override
+  public IRI getDocumentIRI() {
+    return documentIRI;
+  }
 
-    /**
-     * Creates a RioMemoryTripleSource using an {@link Iterable} of
-     * {@link Statement} objects. <br>
-     * If the Iterable is an instance of {@link Model}, the namespaces from the
-     * model are also used.
-     * 
-     * @param statements
-     *        A {@link CloseableIteration} of {@link Statement} objects that
-     *        make up this source.
-     */
-    public RioMemoryTripleSource(Iterable<Statement> statements) {
-        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
-        statementIterator = statements.iterator();
-        if (statements instanceof Model) {
-            namespaces.putAll(Namespaces.asMap(((Model) statements).getNamespaces()));
-        }
-    }
+  @Override
+  public boolean hasAlredyFailedOnStreams() {
+    return false;
+  }
 
-    /**
-     * Creates a RioMemoryTripleSource using a closeable iteration. Internally
-     * this wraps the statements as an Iterator, and hence all statements must
-     * be read for the iterator to be closed automatically.
-     * 
-     * @param statements
-     *        A {@link CloseableIteration} of {@link Statement} objects that
-     *        make up this source.
-     */
-    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends RDF4JException> statements) {
-        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
-        statementIterator = new StatementIterator(statements);
-    }
+  /**
+   * @return namespace map
+   */
+  public Map<String, String> getNamespaces() {
+    return namespaces;
+  }
 
-    /**
-     * Creates a RioMemoryTripleSource using a closeable iteration. Internally
-     * this wraps the statements as an Iterator, and hence all statements must
-     * be read for the iterator to be closed automatically.
-     * 
-     * @param statements
-     *        A {@link CloseableIteration} of {@link Statement} objects that
-     *        make up this source.
-     * @param namespaces
-     *        A Map of namespaces from prefix to full URI which are to be used
-     *        by this source.
-     */
-    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends RDF4JException> statements,
-        final Map<String, String> namespaces) {
-        this(statements);
-        this.namespaces.putAll(namespaces);
-    }
+  /**
+   * @param nextNamespaces map of namespaces to set
+   */
+  public void setNamespaces(Map<String, String> nextNamespaces) {
+    namespaces.clear();
+    namespaces.putAll(nextNamespaces);
+  }
 
-    @Override
-    public IRI getDocumentIRI() {
-        return documentIRI;
-    }
+  /**
+   * @return statements
+   */
+  public Iterator<Statement> getStatementIterator() {
+    return statementIterator;
+  }
 
-    @Override
-    public boolean hasAlredyFailedOnStreams() {
-        return false;
-    }
+  /**
+   * @param nextNamespaces set of namespaces to set
+   */
+  public void setNamespaces(Set<Namespace> nextNamespaces) {
+    namespaces.clear();
+    namespaces.putAll(Namespaces.asMap(nextNamespaces));
+  }
 
-    /**
-     * @return namespace map
-     */
-    public Map<String, String> getNamespaces() {
-        return namespaces;
-    }
+  @Override
+  public boolean hasAlredyFailedOnIRIResolution() {
+    return false;
+  }
 
-    /**
-     * @return statements
-     */
-    public Iterator<Statement> getStatementIterator() {
-        return statementIterator;
-    }
+  @Override
+  public void setIRIResolutionFailed(boolean value) {
+    // unnecessary for this class
+  }
 
-    /**
-     * @param nextNamespaces
-     *        set of namespaces to set
-     */
-    public void setNamespaces(Set<Namespace> nextNamespaces) {
-        namespaces.clear();
-        namespaces.putAll(Namespaces.asMap(nextNamespaces));
-    }
+  static final class StatementIterator implements Iterator<Statement> {
 
-    /**
-     * @param nextNamespaces
-     *        map of namespaces to set
-     */
-    public void setNamespaces(Map<String, String> nextNamespaces) {
-        namespaces.clear();
-        namespaces.putAll(nextNamespaces);
+    private final CloseableIteration<Statement, ? extends RDF4JException> statements;
+
+    StatementIterator(CloseableIteration<Statement, ? extends RDF4JException> statements) {
+      this.statements = statements;
     }
 
     @Override
-    public boolean hasAlredyFailedOnIRIResolution() {
-        return false;
+    public void remove() {
+      throw new UnsupportedOperationException("Cannot remove statements using this iterator");
     }
 
     @Override
-    public void setIRIResolutionFailed(boolean value) {
-        // unnecessary for this class
+    public Statement next() {
+      return statements.next();
     }
+
+    @Override
+    public boolean hasNext() {
+      return statements.hasNext();
+    }
+  }
 }

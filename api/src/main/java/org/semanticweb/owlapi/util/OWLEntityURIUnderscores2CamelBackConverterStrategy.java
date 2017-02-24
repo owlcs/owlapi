@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -28,63 +26,63 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * present to Camel Case. For example, if the URI is
  * http://another.com/pathA/pathB#has_part then this will be converted to
  * http://another.com/pathA/pathB#hasPart
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
+public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
+    OWLEntityURIConverterStrategy {
 
-    private final Map<IRI, IRI> iriMap = new HashMap<>();
+  private final Map<IRI, IRI> iriMap = new HashMap<>();
 
-    @Override
-    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
-        IRI convIRI = iriMap.get(entity.getIRI());
-        if (convIRI == null) {
-            convIRI = convert(entity.getIRI());
-            iriMap.put(entity.getIRI(), convIRI);
-        }
-        return convIRI;
+  private static IRI convert(IRI iri) {
+    checkNotNull(iri, "iri cannot be null");
+    Optional<String> fragment = iri.getRemainder();
+    if (fragment.isPresent()) {
+      String base = iri.getNamespace();
+      String camelCaseFragment = toCamelCase(fragment.get());
+      return IRI.create(base, camelCaseFragment);
     }
-
-    private static IRI convert(IRI iri) {
-        checkNotNull(iri, "iri cannot be null");
-        Optional<String> fragment = iri.getRemainder();
-        if (fragment.isPresent()) {
-            String base = iri.getNamespace();
-            String camelCaseFragment = toCamelCase(fragment.get());
-            return IRI.create(base, camelCaseFragment);
-        }
-        // for an IRI without fragment, the part to modify is the previous
-        // fragment of the path.
-        String path = iri.toURI().getPath();
-        if (!path.isEmpty()) {
-            int index = path.lastIndexOf('/');
-            String lastPathElement = path.substring(index + 1, path.length());
-            String camelCaseElement = toCamelCase(lastPathElement);
-            String iriString = iri.toString();
-            String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
-            return IRI.create(base, camelCaseElement);
-        }
-        return iri;
+    // for an IRI without fragment, the part to modify is the previous
+    // fragment of the path.
+    String path = iri.toURI().getPath();
+    if (!path.isEmpty()) {
+      int index = path.lastIndexOf('/');
+      String lastPathElement = path.substring(index + 1, path.length());
+      String camelCaseElement = toCamelCase(lastPathElement);
+      String iriString = iri.toString();
+      String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
+      return IRI.create(base, camelCaseElement);
     }
+    return iri;
+  }
 
-    private static String toCamelCase(String s) {
-        StringBuilder sb = new StringBuilder(s.length());
-        boolean nextIsUpperCase = false;
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (ch == '_') {
-                nextIsUpperCase = true;
-            } else {
-                if (nextIsUpperCase) {
-                    sb.append(Character.toUpperCase(ch));
-                    nextIsUpperCase = false;
-                } else {
-                    sb.append(ch);
-                }
-            }
+  private static String toCamelCase(String s) {
+    StringBuilder sb = new StringBuilder(s.length());
+    boolean nextIsUpperCase = false;
+    for (int i = 0; i < s.length(); i++) {
+      char ch = s.charAt(i);
+      if (ch == '_') {
+        nextIsUpperCase = true;
+      } else {
+        if (nextIsUpperCase) {
+          sb.append(Character.toUpperCase(ch));
+          nextIsUpperCase = false;
+        } else {
+          sb.append(ch);
         }
-        return sb.toString();
+      }
     }
+    return sb.toString();
+  }
+
+  @Override
+  public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
+    IRI convIRI = iriMap.get(entity.getIRI());
+    if (convIRI == null) {
+      convIRI = convert(entity.getIRI());
+      iriMap.put(entity.getIRI(), convIRI);
+    }
+    return convIRI;
+  }
 }

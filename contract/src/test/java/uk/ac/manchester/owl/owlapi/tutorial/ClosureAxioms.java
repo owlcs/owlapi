@@ -15,7 +15,6 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -33,55 +32,54 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * each of these, if the superclass is a conjunction of existential
  * restrictions, then an additional subclass axiom will be added to the
  * ontology, "closing" the restrictions.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
 public class ClosureAxioms {
 
-    private final OWLOntologyManager manager;
-    private final OWLOntology ontology;
-    private final OWLDataFactory factory;
+  private final OWLOntologyManager manager;
+  private final OWLOntology ontology;
+  private final OWLDataFactory factory;
 
-    public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {
-        this.manager = manager;
-        this.ontology = ontology;
-        factory = manager.getOWLDataFactory();
-    }
+  public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {
+    this.manager = manager;
+    this.ontology = ontology;
+    factory = manager.getOWLDataFactory();
+  }
 
-    public void addClosureAxioms(OWLClass clazz) {
+  public void addClosureAxioms(OWLClass clazz) {
         /* Get the class axioms */
         /* Collect those that assert superclasses of the class */
-        SubClassCollector collector = new SubClassCollector(clazz);
-        ontology.axioms(AxiomType.SUBCLASS_OF).forEach(a -> a.accept(collector));
-        Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<>();
+    SubClassCollector collector = new SubClassCollector(clazz);
+    ontology.axioms(AxiomType.SUBCLASS_OF).forEach(a -> a.accept(collector));
+    Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<>();
         /* For each axiom.... */
-        for (OWLSubClassOfAxiom axiom : collector.getAxioms()) {
+    for (OWLSubClassOfAxiom axiom : collector.getAxioms()) {
             /* Get the superclass */
-            OWLClassExpression superClass = axiom.getSuperClass();
+      OWLClassExpression superClass = axiom.getSuperClass();
             /* Collect any existentials */
-            ExistentialCollector ec = new ExistentialCollector(restrictions);
-            superClass.accept(ec);
-        }
-        /* For any existentials.... */
-        for (OWLObjectPropertyExpression prop : restrictions.keySet()) {
-            System.out.println("prop: " + prop);
-            Set<OWLClassExpression> fillers = restrictions.get(prop);
-            for (OWLClassExpression filler : fillers) {
-                System.out.println("------> " + filler);
-            }
-            /* Create a union of the fillers */
-            OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
-            /* Create a universal restriction */
-            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop, union);
-            /* Create a new axiom */
-            OWLAxiom newAxiom = factory.getOWLSubClassOfAxiom(clazz, universal);
-            /* Now add the axiom to the ontology */
-            AddAxiom addAxiom = new AddAxiom(ontology, newAxiom);
-            /* Use the manager to apply the change */
-            manager.applyChange(addAxiom);
-        }
+      ExistentialCollector ec = new ExistentialCollector(restrictions);
+      superClass.accept(ec);
     }
+        /* For any existentials.... */
+    for (OWLObjectPropertyExpression prop : restrictions.keySet()) {
+      System.out.println("prop: " + prop);
+      Set<OWLClassExpression> fillers = restrictions.get(prop);
+      for (OWLClassExpression filler : fillers) {
+        System.out.println("------> " + filler);
+      }
+            /* Create a union of the fillers */
+      OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
+            /* Create a universal restriction */
+      OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop, union);
+            /* Create a new axiom */
+      OWLAxiom newAxiom = factory.getOWLSubClassOfAxiom(clazz, universal);
+            /* Now add the axiom to the ontology */
+      AddAxiom addAxiom = new AddAxiom(ontology, newAxiom);
+            /* Use the manager to apply the change */
+      manager.applyChange(addAxiom);
+    }
+  }
 }

@@ -26,86 +26,86 @@ import java.io.Serializable;
  * {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)}
  * any number of times and finally call {@link #reasonerTaskStopped()} when the
  * task ends or has been interupted. This cycle may then be repeated.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("unused")
 public interface ReasonerProgressMonitor extends Serializable {
 
-    /**
-     * A standard name for the task of loading a reasoner with axioms. Note that
-     * there is no guarantee that the reasoner will use this name for loading.
-     */
-    String LOADING = "Loading";
-    /**
-     * A standard name for the task of computing the class hierarchy. Note that
-     * there is no guarantee that the reasoner will use this name for the task
-     * of computing the class hierarchy.
-     */
-    String CLASSIFYING = "Classifying";
-    /**
-     * A standard name for the task of computing the types of individual. Note
-     * that there is no guarantee that the reasoner will use this name for the
-     * task of realising.
-     */
-    String REALIZING = "Realizing";
-    /**
-     * A standard name for the task of classifying and realising at the same
-     * time. Note that there is no guarantee that the reasoner will use this
-     * name for the task of classifying.
-     */
-    String CLASSIFYING_AND_REALIZING = "Classifying and Realizing";
+  /**
+   * A standard name for the task of loading a reasoner with axioms. Note that
+   * there is no guarantee that the reasoner will use this name for loading.
+   */
+  String LOADING = "Loading";
+  /**
+   * A standard name for the task of computing the class hierarchy. Note that
+   * there is no guarantee that the reasoner will use this name for the task
+   * of computing the class hierarchy.
+   */
+  String CLASSIFYING = "Classifying";
+  /**
+   * A standard name for the task of computing the types of individual. Note
+   * that there is no guarantee that the reasoner will use this name for the
+   * task of realising.
+   */
+  String REALIZING = "Realizing";
+  /**
+   * A standard name for the task of classifying and realising at the same
+   * time. Note that there is no guarantee that the reasoner will use this
+   * name for the task of classifying.
+   */
+  String CLASSIFYING_AND_REALIZING = "Classifying and Realizing";
 
-    /**
-     * Indicates that some reasoner task, for example, loading, consistency
-     * checking, classification, realisation etc. has started. When the task has
-     * finished the {@link #reasonerTaskStopped()} method will be called. Once
-     * this method has been called it will not be called again unless the
-     * {@link #reasonerTaskStopped()} method has been called. The notion of
-     * subtasks is not supported. <br>
-     * Note that this method may be called from a thread that is not the event
-     * dispatch thread.
-     * 
-     * @param taskName
-     *        The name of the task
-     */
-    default void reasonerTaskStarted(String taskName) {}
+  /**
+   * Indicates that some reasoner task, for example, loading, consistency
+   * checking, classification, realisation etc. has started. When the task has
+   * finished the {@link #reasonerTaskStopped()} method will be called. Once
+   * this method has been called it will not be called again unless the
+   * {@link #reasonerTaskStopped()} method has been called. The notion of
+   * subtasks is not supported. <br>
+   * Note that this method may be called from a thread that is not the event
+   * dispatch thread.
+   *
+   * @param taskName The name of the task
+   */
+  default void reasonerTaskStarted(String taskName) {
+  }
 
-    /**
-     * Indicates that a previosly started task has now stopped. This method will
-     * only be called after the {@link #reasonerTaskStarted(String)} method has
-     * been called. The notion of subtasks is not supported. <br>
-     * Note that this method may be called from a thread that is not the event
-     * dispatch thread.
-     */
-    default void reasonerTaskStopped() {}
+  /**
+   * Indicates that a previosly started task has now stopped. This method will
+   * only be called after the {@link #reasonerTaskStarted(String)} method has
+   * been called. The notion of subtasks is not supported. <br>
+   * Note that this method may be called from a thread that is not the event
+   * dispatch thread.
+   */
+  default void reasonerTaskStopped() {
+  }
 
-    /**
-     * Indicates that the reasoner is part way through a particular task, for
-     * example consistency checking, classification or reaslisation. This method
-     * will only be called after the {@link #reasonerTaskStarted(String)} method
-     * has been called. It will not be called after the
-     * {@link #reasonerTaskStopped()} method has been called. <br>
-     * Note that this method may be called from a thread that is not the event
-     * dispatch thread.
-     * 
-     * @param value
-     *        The value or portion of the task completed
-     * @param max
-     *        The total size of the task
-     */
-    default void reasonerTaskProgressChanged(int value, int max) {}
+  /**
+   * Indicates that the reasoner is part way through a particular task, for
+   * example consistency checking, classification or reaslisation. This method
+   * will only be called after the {@link #reasonerTaskStarted(String)} method
+   * has been called. It will not be called after the
+   * {@link #reasonerTaskStopped()} method has been called. <br>
+   * Note that this method may be called from a thread that is not the event
+   * dispatch thread.
+   *
+   * @param value The value or portion of the task completed
+   * @param max The total size of the task
+   */
+  default void reasonerTaskProgressChanged(int value, int max) {
+  }
 
-    /**
-     * Indicates that the reasoner is busy performing a task whose size cannot
-     * be determined. This method will only be called after the
-     * {@link #reasonerTaskStarted(String)} method has been called. It will not
-     * be called after the {@link #reasonerTaskStopped()} method has been
-     * called. <br>
-     * Note that this method may be called from a thread that is not the event
-     * dispatch thread.
-     */
-    default void reasonerTaskBusy() {}
+  /**
+   * Indicates that the reasoner is busy performing a task whose size cannot
+   * be determined. This method will only be called after the
+   * {@link #reasonerTaskStarted(String)} method has been called. It will not
+   * be called after the {@link #reasonerTaskStopped()} method has been
+   * called. <br>
+   * Note that this method may be called from a thread that is not the event
+   * dispatch thread.
+   */
+  default void reasonerTaskBusy() {
+  }
 }

@@ -13,39 +13,38 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class UnloadableImportException extends OWLRuntimeException {
 
-    private final OWLImportsDeclaration importsDeclaration;
-    private final OWLOntologyCreationException ontologyCreationException;
+  private final OWLImportsDeclaration importsDeclaration;
+  private final OWLOntologyCreationException ontologyCreationException;
 
-    /**
-     * @param e
-     *        exception
-     * @param importsDeclaration
-     *        imports declaration
-     */
-    public UnloadableImportException(OWLOntologyCreationException e, OWLImportsDeclaration importsDeclaration) {
-        super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString() + " Cause: "
-                + e.getMessage(), e);
-        this.importsDeclaration = importsDeclaration;
-        ontologyCreationException = e;
-    }
+  /**
+   * @param e exception
+   * @param importsDeclaration imports declaration
+   */
+  public UnloadableImportException(OWLOntologyCreationException e,
+      OWLImportsDeclaration importsDeclaration) {
+    super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString()
+        + " Cause: "
+        + e.getMessage(), e);
+    this.importsDeclaration = importsDeclaration;
+    ontologyCreationException = e;
+  }
 
-    /**
-     * @return imports declaration
-     */
-    public OWLImportsDeclaration getImportsDeclaration() {
-        return importsDeclaration;
-    }
+  /**
+   * @return imports declaration
+   */
+  public OWLImportsDeclaration getImportsDeclaration() {
+    return importsDeclaration;
+  }
 
-    /**
-     * @return creation exception
-     */
-    public OWLOntologyCreationException getOntologyCreationException() {
-        return ontologyCreationException;
-    }
+  /**
+   * @return creation exception
+   */
+  public OWLOntologyCreationException getOntologyCreationException() {
+    return ontologyCreationException;
+  }
 }

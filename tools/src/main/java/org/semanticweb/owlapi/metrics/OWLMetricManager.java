@@ -16,50 +16,46 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class OWLMetricManager {
 
-    private final List<OWLMetric<?>> metrics;
+  private final List<OWLMetric<?>> metrics;
 
-    /**
-     * Instantiates a new OWL metric manager.
-     * 
-     * @param metrics
-     *        the metrics to use
-     */
-    public OWLMetricManager(List<OWLMetric<?>> metrics) {
-        this.metrics = new ArrayList<>(checkNotNull(metrics, "metrics cannot be null"));
-    }
+  /**
+   * Instantiates a new OWL metric manager.
+   *
+   * @param metrics the metrics to use
+   */
+  public OWLMetricManager(List<OWLMetric<?>> metrics) {
+    this.metrics = new ArrayList<>(checkNotNull(metrics, "metrics cannot be null"));
+  }
 
-    /**
-     * @param ontology
-     *        the ontology to measure
-     */
-    public void setOntology(OWLOntology ontology) {
-        metrics.forEach(m -> m.setOntology(ontology));
-    }
+  /**
+   * @param ontology the ontology to measure
+   */
+  public void setOntology(OWLOntology ontology) {
+    metrics.forEach(m -> m.setOntology(ontology));
+  }
 
-    /**
-     * @return the metrics
-     */
-    public List<OWLMetric<?>> getMetrics() {
-        return new ArrayList<>(metrics);
-    }
+  /**
+   * @return the metrics
+   */
+  public List<OWLMetric<?>> getMetrics() {
+    return new ArrayList<>(metrics);
+  }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (OWLMetric<?> m : metrics) {
-            sb.append(m);
-            sb.append('\n');
-        }
-        return sb.toString();
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (OWLMetric<?> m : metrics) {
+      sb.append(m);
+      sb.append('\n');
     }
+    return sb.toString();
+  }
 }

@@ -13,67 +13,65 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 
 /**
  * Represents an ontology change where an annotation is added to an ontology.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class AddOntologyAnnotation extends AnnotationChange {
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param annotation
-     *        the annotation
-     */
-    public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
-        super(ont, annotation);
-    }
+  /**
+   * @param ont the ontology to which the change is to be applied
+   * @param annotation the annotation
+   */
+  public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
+    super(ont, annotation);
+  }
 
-    @Override
-    public AddOntologyAnnotationData getChangeData() {
-        return new AddOntologyAnnotationData(getAnnotation());
-    }
+  @Override
+  public AddOntologyAnnotationData getChangeData() {
+    return new AddOntologyAnnotationData(getAnnotation());
+  }
 
-    @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLOntologyChangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public int hashCode() {
-        return getAnnotation().hashCode() + getOntology().hashCode() + 317;
-    }
+  @Override
+  public int hashCode() {
+    return getAnnotation().hashCode() + getOntology().hashCode() + 317;
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof AddOntologyAnnotation)) {
-            return false;
-        }
-        AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
-        return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
+    if (!(obj instanceof AddOntologyAnnotation)) {
+      return false;
+    }
+    AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
+    return getAnnotation().equals(other.getAnnotation()) && getOntology()
+        .equals(other.getOntology());
+  }
 
-    @Override
-    public String toString() {
-        return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID(" + getOntology().getOntologyID() + "))";
-    }
+  @Override
+  public String toString() {
+    return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID(" + getOntology()
+        .getOntologyID() + "))";
+  }
 
-    @Override
-    public OWLOntologyChange reverseChange() {
-        return new RemoveOntologyAnnotation(getOntology(), getAnnotation());
-    }
+  @Override
+  public OWLOntologyChange reverseChange() {
+    return new RemoveOntologyAnnotation(getOntology(), getAnnotation());
+  }
 }

@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(0)
 public class RDFXMLParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
-    public RDFXMLParserFactory() {
-        super(new RDFXMLDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RDFXMLParserFactory() {
+    super(new RDFXMLDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLParser createParser() {
-        return new RDFXMLParser();
-    }
+  @Override
+  public OWLParser createParser() {
+    return new RDFXMLParser();
+  }
 }

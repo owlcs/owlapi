@@ -14,65 +14,70 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectPropertyAssertionAxiomImpl extends
     OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements
     OWLObjectPropertyAssertionAxiom {
 
-    /**
-     * @param subject
-     *        subject
-     * @param property
-     *        property
-     * @param object
-     *        object
-     * @param annotations
-     *        annotations
-     */
-    public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property,
-        OWLIndividual object, Collection<OWLAnnotation> annotations) {
-        super(subject, property, object, annotations);
-    }
+  /**
+   * @param subject subject
+   * @param property property
+   * @param object object
+   * @param annotations annotations
+   */
+  public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject,
+      OWLObjectPropertyExpression property,
+      OWLIndividual object, Collection<OWLAnnotation> annotations) {
+    super(subject, property, object, annotations);
+  }
 
-    @Override
-    public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), NO_ANNOTATIONS);
+  @Override
+  public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+        NO_ANNOTATIONS);
+  }
 
-    @Override
-    public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()), new OWLObjectHasValueImpl(getProperty(),
+  @Override
+  public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
+    return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
+        new OWLObjectHasValueImpl(getProperty(),
             getObject()), NO_ANNOTATIONS);
-    }
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+        mergeAnnos(anns));
+  }
 
-    @Override
-    public OWLObjectPropertyAssertionAxiom getSimplified() {
-        if (!getProperty().isAnonymous()) {
-            return this;
-        } else {
-            OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
-            OWLObjectPropertyExpression invProp = property.getInverse();
-            return new OWLObjectPropertyAssertionAxiomImpl(getObject(), invProp, getSubject(), NO_ANNOTATIONS);
-        }
+  @Override
+  public OWLObjectPropertyAssertionAxiom getSimplified() {
+    if (!getProperty().isAnonymous()) {
+      return this;
+    } else {
+      OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
+      OWLObjectPropertyExpression invProp = property.getInverse();
+      return new OWLObjectPropertyAssertionAxiomImpl(getObject(), invProp, getSubject(),
+          NO_ANNOTATIONS);
     }
+  }
 
-    @Override
-    public boolean isInSimplifiedForm() {
-        return !getProperty().isAnonymous();
-    }
+  @Override
+  public boolean isInSimplifiedForm() {
+    return !getProperty().isAnonymous();
+  }
 }

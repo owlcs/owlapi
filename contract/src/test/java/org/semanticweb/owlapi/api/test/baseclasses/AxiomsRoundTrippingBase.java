@@ -18,25 +18,24 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 public abstract class AxiomsRoundTrippingBase extends AbstractRoundTrippingTestCase {
 
-    private final AxiomBuilder createAxioms;
+  private final AxiomBuilder createAxioms;
 
-    public AxiomsRoundTrippingBase(AxiomBuilder f) {
-        createAxioms = f;
-    }
+  public AxiomsRoundTrippingBase(AxiomBuilder f) {
+    createAxioms = f;
+  }
 
-    @Override
-    protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology();
-        ont.add(createAxioms.build());
-        ont.signature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-                .forEach(e -> ont.add(Declaration(e)));
-        return ont;
-    }
+  @Override
+  protected OWLOntology createOntology() {
+    OWLOntology ont = getOWLOntology();
+    ont.add(createAxioms.build());
+    ont.signature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
+        .forEach(e -> ont.add(Declaration(e)));
+    return ont;
+  }
 }

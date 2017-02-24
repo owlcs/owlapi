@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -24,79 +23,76 @@ import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
  * Abstract builder for entities.
- * 
+ *
+ * @param <T> OWL type
+ * @param <B> builder type
  * @author ignazio
- * @param <T>
- *        OWL type
- * @param <B>
- *        builder type
  */
 public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuilder<T, B> {
 
-    @Nullable private IRI iri = null;
-    @Nullable protected String string = null;
-    @Nullable protected PrefixManager pm = null;
+  @Nullable
+  protected String string = null;
+  @Nullable
+  protected PrefixManager pm = null;
+  @Nullable
+  private IRI iri = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BaseEntityBuilder(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BaseEntityBuilder(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        property iri
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withIRI(IRI arg) {
-        iri = arg;
-        return (B) this;
-    }
+  /**
+   * @param arg property iri
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withIRI(IRI arg) {
+    iri = arg;
+    return (B) this;
+  }
 
-    /**
-     * @param arg
-     *        prefix manager
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withPrefixManager(PrefixManager arg) {
-        pm = arg;
-        return (B) this;
-    }
+  /**
+   * @param arg prefix manager
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withPrefixManager(PrefixManager arg) {
+    pm = arg;
+    return (B) this;
+  }
 
-    /**
-     * @param arg
-     *        prefixed iri
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withPrefixedIRI(String arg) {
-        string = arg;
-        return (B) this;
-    }
+  /**
+   * @param arg prefixed iri
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withPrefixedIRI(String arg) {
+    string = arg;
+    return (B) this;
+  }
 
-    /**
-     * @return iri
-     */
-    public IRI getIRI() {
-        return verifyNotNull(iri);
-    }
+  /**
+   * @return iri
+   */
+  public IRI getIRI() {
+    return verifyNotNull(iri);
+  }
 
-    /**
-     * @return string
-     */
-    public String getString() {
-        return verifyNotNull(string);
-    }
+  /**
+   * @return string
+   */
+  public String getString() {
+    return verifyNotNull(string);
+  }
 
-    /**
-     * @return prefix manager
-     */
-    public PrefixManager getPM() {
-        return verifyNotNull(pm);
-    }
+  /**
+   * @return prefix manager
+   */
+  public PrefixManager getPM() {
+    return verifyNotNull(pm);
+  }
 }

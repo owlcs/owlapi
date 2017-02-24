@@ -14,10 +14,10 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -33,84 +33,75 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator extends
+    AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
-    protected final AxiomAppearance axiomOccurrences;
-    private final AtomicInteger nextBlankNodeId;
+  protected final AxiomAppearance axiomOccurrences;
+  private final AtomicInteger nextBlankNodeId;
+  private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+      new IdentityHashingStrategy<>());
 
-    /**
-     * @param manager
-     *        the manager
-     * @param ontology
-     *        the ontology
-     * @param useStrongTyping
-     *        true if strong typing is required
-     * @param occurrences
-     *        will tell whether anonymous individuals need an id or not
-     * @param axiomOccurrences
-     *        axiom occurrences
-     * @param counter
-     *        counter for blank nodes
-     */
-    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
-        super(manager, ontology, useStrongTyping, occurrences);
-        this.axiomOccurrences = axiomOccurrences;
-        nextBlankNodeId = counter;
+  /**
+   * @param manager the manager
+   * @param ontology the ontology
+   * @param useStrongTyping true if strong typing is required
+   * @param occurrences will tell whether anonymous individuals need an id or not
+   * @param axiomOccurrences axiom occurrences
+   * @param counter counter for blank nodes
+   */
+  public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
+      IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
+    super(manager, ontology, useStrongTyping, occurrences);
+    this.axiomOccurrences = axiomOccurrences;
+    nextBlankNodeId = counter;
+  }
+
+  @Override
+  protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
+    graph.addTriple(new RDFTriple(subject, pred, object));
+  }
+
+  @Override
+  protected RDFResourceBlankNode getAnonymousNode(Object key) {
+    checkNotNull(key, "key cannot be null");
+    boolean isIndividual = key instanceof OWLAnonymousIndividual;
+    boolean needId = false;
+    if (isIndividual) {
+      OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+      needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
+      return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
+    } else if (key instanceof OWLAxiom) {
+      isIndividual = false;
+      needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
     }
+    return getBlankNodeFor(key, isIndividual, needId);
+  }
 
-    @Override
-    protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(subject, pred, object));
+  protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+    int id = blankNodeMap.get(key);
+    if (id == 0) {
+      id = nextBlankNodeId.getAndIncrement();
+      blankNodeMap.put(key, id);
     }
+    return new RDFResourceBlankNode(id, isIndividual, needId);
+  }
 
-    @Override
-    protected RDFResourceBlankNode getAnonymousNode(Object key) {
-        checkNotNull(key, "key cannot be null");
-        boolean isIndividual = key instanceof OWLAnonymousIndividual;
-        boolean needId = false;
-        if (isIndividual) {
-            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
-            needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
-        } else if (key instanceof OWLAxiom) {
-            isIndividual = false;
-            needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
-        }
-        return getBlankNodeFor(key, isIndividual, needId);
-    }
+  @Override
+  protected RDFLiteral getLiteralNode(@Nonnull OWLLiteral literal) {
+    return new RDFLiteral(literal);
+  }
 
-    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
-        int id = blankNodeMap.get(key);
-        if (id == 0) {
-            id = nextBlankNodeId.getAndIncrement();
-            blankNodeMap.put(key, id);
-        }
-        return new RDFResourceBlankNode(id, isIndividual, needId);
-    }
+  @Override
+  protected RDFResourceIRI getPredicateNode(@Nonnull IRI iri) {
+    return new RDFResourceIRI(iri);
+  }
 
-    @Override
-    protected RDFLiteral getLiteralNode(@Nonnull OWLLiteral literal) {
-        return new RDFLiteral(literal);
-    }
-
-    @Override
-    protected RDFResourceIRI getPredicateNode(@Nonnull IRI iri) {
-        return new RDFResourceIRI(iri);
-    }
-
-    @Override
-    protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
-        return new RDFResourceIRI(iri);
-    }
+  @Override
+  protected RDFResourceIRI getResourceNode(@Nonnull IRI iri) {
+    return new RDFResourceIRI(iri);
+  }
 }

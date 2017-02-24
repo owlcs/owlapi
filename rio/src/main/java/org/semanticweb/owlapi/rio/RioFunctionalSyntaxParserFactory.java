@@ -41,14 +41,14 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 /**
  * {@link RDFParserFactory} that creates RDF statements from
  * {@link FunctionalSyntaxDocumentFormat} documents.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public class RioFunctionalSyntaxParserFactory extends RioAbstractParserFactory {
 
-    @Override
-    public OWLAPIRDFFormat getRDFFormat() {
-        return OWLAPIRDFFormat.OWL_FUNCTIONAL;
-    }
+  @Override
+  public OWLAPIRDFFormat getRDFFormat() {
+    return OWLAPIRDFFormat.OWL_FUNCTIONAL;
+  }
 }

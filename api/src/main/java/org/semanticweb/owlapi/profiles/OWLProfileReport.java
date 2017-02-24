@@ -17,56 +17,54 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class OWLProfileReport {
 
-    private final OWLProfile profile;
-    private final List<OWLProfileViolation> violations;
+  private final OWLProfile profile;
+  private final List<OWLProfileViolation> violations;
 
-    /**
-     * @param profile
-     *        the profile used
-     * @param violations
-     *        the set of violations
-     */
-    public OWLProfileReport(OWLProfile profile, Collection<OWLProfileViolation> violations) {
-        this.profile = profile;
-        this.violations = new ArrayList<>(violations);
-    }
+  /**
+   * @param profile the profile used
+   * @param violations the set of violations
+   */
+  public OWLProfileReport(OWLProfile profile, Collection<OWLProfileViolation> violations) {
+    this.profile = profile;
+    this.violations = new ArrayList<>(violations);
+  }
 
-    /**
-     * @return the profile used
-     */
-    public OWLProfile getProfile() {
-        return profile;
-    }
+  /**
+   * @return the profile used
+   */
+  public OWLProfile getProfile() {
+    return profile;
+  }
 
-    /**
-     * @return true if there are no violations
-     */
-    public boolean isInProfile() {
-        return violations.isEmpty();
-    }
+  /**
+   * @return true if there are no violations
+   */
+  public boolean isInProfile() {
+    return violations.isEmpty();
+  }
 
-    /**
-     * @return the violations found
-     */
-    public List<OWLProfileViolation> getViolations() {
-        return violations;
-    }
+  /**
+   * @return the violations found
+   */
+  public List<OWLProfileViolation> getViolations() {
+    return violations;
+  }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder(profile.getName());
-        sb.append(" Profile Report: ");
-        if (isInProfile()) {
-            sb.append("[Ontology and imports closure in profile]\n");
-        } else {
-            sb.append("Ontology and imports closure NOT in profile. The following violations are present:\n");
-        }
-        violations.forEach(v -> sb.append(v).append('\n'));
-        return sb.toString();
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder(profile.getName());
+    sb.append(" Profile Report: ");
+    if (isInProfile()) {
+      sb.append("[Ontology and imports closure in profile]\n");
+    } else {
+      sb.append(
+          "Ontology and imports closure NOT in profile. The following violations are present:\n");
     }
+    violations.forEach(v -> sb.append(v).append('\n'));
+    return sb.toString();
+  }
 }

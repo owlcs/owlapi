@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -24,40 +22,37 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfAnonymousIndividual extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param individual
-     *        individual
-     */
-    public UseOfAnonymousIndividual(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLAnonymousIndividual individual) {
-        super(ontology, axiom, individual);
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param individual individual
+   */
+  public UseOfAnonymousIndividual(OWLOntology ontology, @Nullable OWLAxiom axiom,
+      OWLAnonymousIndividual individual) {
+    super(ontology, axiom, individual);
+  }
 
-    @Override
-    public OWLAnonymousIndividual getExpression() {
-        return (OWLAnonymousIndividual) super.getExpression();
-    }
+  @Override
+  public OWLAnonymousIndividual getExpression() {
+    return (OWLAnonymousIndividual) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Use of anonymous individual: %s", getExpression());
-    }
+  @Override
+  public String toString() {
+    return toString("Use of anonymous individual: %s", getExpression());
+  }
 }

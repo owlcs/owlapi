@@ -16,57 +16,56 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements OWLSubAnnotationPropertyOfAxiom {
+public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
+    OWLSubAnnotationPropertyOfAxiom {
 
-    private final OWLAnnotationProperty subProperty;
-    private final OWLAnnotationProperty superProperty;
+  private final OWLAnnotationProperty subProperty;
+  private final OWLAnnotationProperty superProperty;
 
-    /**
-     * @param subProperty
-     *        sub property
-     * @param superProperty
-     *        super property
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLSubAnnotationPropertyOfAxiomImpl(OWLAnnotationProperty subProperty, OWLAnnotationProperty superProperty,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
-        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
+  /**
+   * @param subProperty sub property
+   * @param superProperty super property
+   * @param annotations annotations on the axiom
+   */
+  public OWLSubAnnotationPropertyOfAxiomImpl(OWLAnnotationProperty subProperty,
+      OWLAnnotationProperty superProperty,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
+    this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
+  }
+
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
+        mergeAnnos(anns));
+  }
+
+  @Override
+  public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
+        NO_ANNOTATIONS);
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
-    }
+  @Override
+  public OWLAnnotationProperty getSubProperty() {
+    return subProperty;
+  }
 
-    @Override
-    public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), NO_ANNOTATIONS);
-    }
-
-    @Override
-    public OWLAnnotationProperty getSubProperty() {
-        return subProperty;
-    }
-
-    @Override
-    public OWLAnnotationProperty getSuperProperty() {
-        return superProperty;
-    }
+  @Override
+  public OWLAnnotationProperty getSuperProperty() {
+    return superProperty;
+  }
 }

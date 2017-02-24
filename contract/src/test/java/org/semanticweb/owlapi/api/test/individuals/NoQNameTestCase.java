@@ -13,11 +13,13 @@
 package org.semanticweb.owlapi.api.test.individuals;
 
 import static org.junit.Assert.fail;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -27,42 +29,41 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 public class NoQNameTestCase extends AxiomsRoundTrippingBase {
 
-    public NoQNameTestCase() {
-        super(() -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            OWLNamedIndividual indA = NamedIndividual(IRI(
-                "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", ""));
-            OWLNamedIndividual indB = NamedIndividual(IRI(
-                "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""));
-            OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123", ""));
-            axioms.add(ObjectPropertyAssertion(property, indA, indB));
-            return axioms;
-        });
-    }
+  public NoQNameTestCase() {
+    super(() -> {
+      Set<OWLAxiom> axioms = new HashSet<>();
+      OWLNamedIndividual indA = NamedIndividual(IRI(
+          "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", ""));
+      OWLNamedIndividual indB = NamedIndividual(IRI(
+          "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""));
+      OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123", ""));
+      axioms.add(ObjectPropertyAssertion(property, indA, indB));
+      return axioms;
+    });
+  }
 
-    @Override
-    @Test
-    public void testRDFXML() throws Exception {
-        try {
-            super.testRDFXML();
-            fail("Expected an exception specifying that a QName could not be generated");
-        } catch (OWLOntologyStorageException e) {
-            if (!(e.getCause() instanceof IllegalElementNameException)) {
-                throw e;
-            }
-        }
+  @Override
+  @Test
+  public void testRDFXML() throws Exception {
+    try {
+      super.testRDFXML();
+      fail("Expected an exception specifying that a QName could not be generated");
+    } catch (OWLOntologyStorageException e) {
+      if (!(e.getCause() instanceof IllegalElementNameException)) {
+        throw e;
+      }
     }
+  }
 
-    @Override
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() {
-        // Test meaningless in this case, as the RDF/XML serialization does not
-        // exist
-    }
+  @Override
+  public void roundTripRDFXMLAndFunctionalShouldBeSame() {
+    // Test meaningless in this case, as the RDF/XML serialization does not
+    // exist
+  }
 }

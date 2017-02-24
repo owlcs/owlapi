@@ -17,54 +17,53 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
-    /** The data factory. */
-    protected final OWLDataFactory df;
-    /** The changes. */
-    private final List<OWLOntologyChange> changes = new ArrayList<>();
+  /**
+   * The data factory.
+   */
+  protected final OWLDataFactory df;
+  /**
+   * The changes.
+   */
+  private final List<OWLOntologyChange> changes = new ArrayList<>();
 
-    /**
-     * Instantiates a new abstract composite ontology change.
-     * 
-     * @param dataFactory
-     *        the data factory
-     */
-    protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
-        df = checkNotNull(dataFactory, "dataFactory cannot be null");
-    }
+  /**
+   * Instantiates a new abstract composite ontology change.
+   *
+   * @param dataFactory the data factory
+   */
+  protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
+    df = checkNotNull(dataFactory, "dataFactory cannot be null");
+  }
 
-    /**
-     * Adds the change.
-     * 
-     * @param change
-     *        the change
-     */
-    protected void addChange(OWLOntologyChange change) {
-        changes.add(change);
-    }
+  /**
+   * Adds the change.
+   *
+   * @param change the change
+   */
+  protected void addChange(OWLOntologyChange change) {
+    changes.add(change);
+  }
 
-    /**
-     * Adds the changes.
-     * 
-     * @param c
-     *        the changes
-     */
-    protected void addChanges(Collection<OWLOntologyChange> c) {
-        changes.addAll(c);
-    }
+  /**
+   * Adds the changes.
+   *
+   * @param c the changes
+   */
+  protected void addChanges(Collection<OWLOntologyChange> c) {
+    changes.addAll(c);
+  }
 
-    @Override
-    public List<OWLOntologyChange> getChanges() {
-        return changes;
-    }
+  @Override
+  public List<OWLOntologyChange> getChanges() {
+    return changes;
+  }
 }

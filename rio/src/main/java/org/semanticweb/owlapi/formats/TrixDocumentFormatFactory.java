@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.semanticweb.owlapi.formats;
 
@@ -11,13 +11,15 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class TrixDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
-    public TrixDocumentFormatFactory() {
-        super(RDFFormat.TRIX);
-    }
+  /**
+   * Default constructor.
+   */
+  public TrixDocumentFormatFactory() {
+    super(RDFFormat.TRIX);
+  }
 
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new TrixDocumentFormat();
-    }
+  @Override
+  public RioRDFDocumentFormat createFormat() {
+    return new TrixDocumentFormat();
+  }
 }

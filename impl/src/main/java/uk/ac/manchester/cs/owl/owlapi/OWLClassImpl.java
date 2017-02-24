@@ -16,85 +16,82 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Serializable {
 
-    private final IRI iri;
-    private final boolean isThing;
-    private final boolean isNothing;
+  private final IRI iri;
+  private final boolean isThing;
+  private final boolean isNothing;
 
-    /**
-     * @param iri
-     *        class iri
-     */
-    public OWLClassImpl(IRI iri) {
-        this.iri = checkNotNull(iri, "iri cannot be null");
-        isThing = getIRI().isThing();
-        isNothing = getIRI().isNothing();
-    }
+  /**
+   * @param iri class iri
+   */
+  public OWLClassImpl(IRI iri) {
+    this.iri = checkNotNull(iri, "iri cannot be null");
+    isThing = getIRI().isThing();
+    isNothing = getIRI().isNothing();
+  }
 
-    @Override
-    public OWLClassExpression getObjectComplementOf() {
-        return new OWLObjectComplementOfImpl(this);
-    }
+  @Override
+  public OWLClassExpression getObjectComplementOf() {
+    return new OWLObjectComplementOfImpl(this);
+  }
 
-    @Override
-    public String toStringID() {
-        return iri.toString();
-    }
+  @Override
+  public String toStringID() {
+    return iri.toString();
+  }
 
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
+  @Override
+  public IRI getIRI() {
+    return iri;
+  }
 
-    @Override
-    public boolean isBuiltIn() {
-        return isOWLThing() || isOWLNothing();
-    }
+  @Override
+  public boolean isBuiltIn() {
+    return isOWLThing() || isOWLNothing();
+  }
 
-    @Override
-    public boolean isOWLThing() {
-        return isThing;
-    }
+  @Override
+  public boolean isOWLThing() {
+    return isThing;
+  }
 
-    @Override
-    public boolean isOWLNothing() {
-        return isNothing;
-    }
+  @Override
+  public boolean isOWLNothing() {
+    return isNothing;
+  }
 
-    @Override
-    public OWLClassExpression getNNF() {
-        return this;
-    }
+  @Override
+  public OWLClassExpression getNNF() {
+    return this;
+  }
 
-    @Override
-    public Set<OWLClassExpression> asConjunctSet() {
-        return CollectionFactory.createSet((OWLClassExpression) this);
-    }
+  @Override
+  public Set<OWLClassExpression> asConjunctSet() {
+    return CollectionFactory.createSet((OWLClassExpression) this);
+  }
 
-    @Override
-    public boolean containsConjunct(OWLClassExpression ce) {
-        return ce.equals(this);
-    }
+  @Override
+  public boolean containsConjunct(OWLClassExpression ce) {
+    return ce.equals(this);
+  }
 
-    @Override
-    public Set<OWLClassExpression> asDisjunctSet() {
-        return CollectionFactory.createSet((OWLClassExpression) this);
-    }
+  @Override
+  public Set<OWLClassExpression> asDisjunctSet() {
+    return CollectionFactory.createSet((OWLClassExpression) this);
+  }
 
-    @Override
-    public OWLClassExpression getComplementNNF() {
-        return new OWLObjectComplementOfImpl(this);
-    }
+  @Override
+  public OWLClassExpression getComplementNNF() {
+    return new OWLObjectComplementOfImpl(this);
+  }
 }

@@ -43,10 +43,12 @@ import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
  * @since 4.0.0
  */
 public class RioNTriplesStorerFactory extends AbstractRioStorerFactory
-        implements RioRDFStorerFactory {
+    implements RioRDFStorerFactory {
 
-    /** Default constructor. */
-    public RioNTriplesStorerFactory() {
-        super(new NTriplesDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioNTriplesStorerFactory() {
+    super(new NTriplesDocumentFormatFactory());
+  }
 }

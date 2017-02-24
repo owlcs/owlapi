@@ -22,11 +22,11 @@ import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("javadoc")
 public class RdfGraphComparatorTestCase {
 
-    @Test
-    public void shouldSort() {
-        RDFResourceIRI iri1 = new RDFResourceIRI(IRI.create("urn:test#", "a1"));
-        RDFTriple first = new RDFTriple(iri1, iri1, iri1);
-        RDFTriple second = new RDFTriple(iri1, iri1, iri1);
-        assertEquals(0, first.compareTo(second));
-    }
+  @Test
+  public void shouldSort() {
+    RDFResourceIRI iri1 = new RDFResourceIRI(IRI.create("urn:test#", "a1"));
+    RDFTriple first = new RDFTriple(iri1, iri1, iri1);
+    RDFTriple second = new RDFTriple(iri1, iri1, iri1);
+    assertEquals(0, first.compareTo(second));
+  }
 }

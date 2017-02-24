@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
@@ -28,60 +27,58 @@ import org.semanticweb.owlapi.util.StructureWalker;
 /**
  * A specialized walker that skips visiting annotation assertion literals. This
  * is used by profile checkers to skip literals in annotations.
- * 
+ *
  * @author ignazio
  */
 public class OWLOntologyProfileWalker extends OWLOntologyWalker {
 
-    class ProfileWalker extends StructureWalker<OWLOntology> {
+  /**
+   * @param objects ontologies to walk
+   */
+  public OWLOntologyProfileWalker(Stream<OWLOntology> objects) {
+    this(asList(objects));
+  }
 
-        ProfileWalker(OWLObjectWalker<OWLOntology> owlObjectWalker) {
-            super(owlObjectWalker);
-        }
+  /**
+   * @param objects ontologies to walk
+   */
+  public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
+    super(objects);
+    setStructureWalker(new ProfileWalker(this));
+  }
 
-        @Override
-        public void visit(OWLAnnotationAssertionAxiom axiom) {
-            process(axiom);
-            if (axiom.getSubject().isIRI()) {
-                // do not visit anonymous nodes from annotations
-                axiom.getSubject().accept(this);
-            }
-            axiom.getAnnotation().accept(this);
-        }
+  class ProfileWalker extends StructureWalker<OWLOntology> {
 
-        @Override
-        public void visit(OWLAnnotation node) {
-            process(node);
-            node.getProperty().accept(this);
-            // only visit IRIs
-            if (node.getValue().isIRI()) {
-                node.getValue().accept(this);
-            }
-        }
-
-        @Override
-        public void visit(OWLDeclarationAxiom axiom) {
-            process(axiom);
-            walkerCallback.setAxiom(axiom);
-            // do not visit entities from declarations, only their IRIs
-            axiom.getEntity().getIRI().accept(this);
-        }
+    ProfileWalker(OWLObjectWalker<OWLOntology> owlObjectWalker) {
+      super(owlObjectWalker);
     }
 
-    /**
-     * @param objects
-     *        ontologies to walk
-     */
-    public OWLOntologyProfileWalker(Stream<OWLOntology> objects) {
-        this(asList(objects));
+    @Override
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
+      process(axiom);
+      if (axiom.getSubject().isIRI()) {
+        // do not visit anonymous nodes from annotations
+        axiom.getSubject().accept(this);
+      }
+      axiom.getAnnotation().accept(this);
     }
 
-    /**
-     * @param objects
-     *        ontologies to walk
-     */
-    public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
-        super(objects);
-        setStructureWalker(new ProfileWalker(this));
+    @Override
+    public void visit(OWLAnnotation node) {
+      process(node);
+      node.getProperty().accept(this);
+      // only visit IRIs
+      if (node.getValue().isIRI()) {
+        node.getValue().accept(this);
+      }
     }
+
+    @Override
+    public void visit(OWLDeclarationAxiom axiom) {
+      process(axiom);
+      walkerCallback.setAxiom(axiom);
+      // do not visit entities from declarations, only their IRIs
+      axiom.getEntity().getIRI().accept(this);
+    }
+  }
 }

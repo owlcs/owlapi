@@ -23,21 +23,20 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
 
-    @Override
-    protected OWLOntology createOntology() {
-        IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/", "ontology");
-        IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/", "version");
-        OWLOntologyID ontologyID = new OWLOntologyID(optional(ontIRI), optional(versionIRI));
-        try {
-            return getOWLOntology(ontologyID);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
-        }
+  @Override
+  protected OWLOntology createOntology() {
+    IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/", "ontology");
+    IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/", "version");
+    OWLOntologyID ontologyID = new OWLOntologyID(optional(ontIRI), optional(versionIRI));
+    try {
+      return getOWLOntology(ontologyID);
+    } catch (OWLOntologyCreationException e) {
+      throw new OWLRuntimeException(e);
     }
+  }
 }

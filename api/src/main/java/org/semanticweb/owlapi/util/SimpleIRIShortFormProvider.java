@@ -15,22 +15,20 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
  * A IRI short form provider that generates short forms from the IRI fragment if
  * there is one, or the IRI last path component if there is one.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
 
-    @Override
-    public String getShortForm(IRI iri) {
-        checkNotNull(iri);
-        return iri.getShortForm();
-    }
+  @Override
+  public String getShortForm(IRI iri) {
+    checkNotNull(iri);
+    return iri.getShortForm();
+  }
 }

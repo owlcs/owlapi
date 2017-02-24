@@ -13,53 +13,63 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
  * Represents the different types of OWL 2 data ranges.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public enum DataRangeType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
-    //@formatter:off
-    /** Represents {@link OWLDatatype}.             */ DATATYPE             ("Datatype"             ),
-    /** Represents {@link OWLDataOneOf}.            */ DATA_ONE_OF          ("DataOneOf"            ),
-    /** Represents {@link OWLDatatypeRestriction}.  */ DATATYPE_RESTRICTION ("DatatypeRestriction"  ),
-    /** Represents {@link OWLDataComplementOf}.     */ DATA_COMPLEMENT_OF   ("DataComplementOf"     ),
-    /** Represents {@link OWLDataUnionOf}.          */ DATA_UNION_OF        ("DataUnionOf"          ),
-    /** Represents {@link OWLDataIntersectionOf}.   */ DATA_INTERSECTION_OF ("DataIntersectionOf"   );
-    //@formatter:on
-    private final String name;
-    private final String prefixedName;
-    private final IRI iri;
+  //@formatter:off
+  /**
+   * Represents {@link OWLDatatype}.
+   */DATATYPE("Datatype"),
+  /**
+   * Represents {@link OWLDataOneOf}.
+   */DATA_ONE_OF("DataOneOf"),
+  /**
+   * Represents {@link OWLDatatypeRestriction}.
+   */DATATYPE_RESTRICTION("DatatypeRestriction"),
+  /**
+   * Represents {@link OWLDataComplementOf}.
+   */DATA_COMPLEMENT_OF("DataComplementOf"),
+  /**
+   * Represents {@link OWLDataUnionOf}.
+   */DATA_UNION_OF("DataUnionOf"),
+  /**
+   * Represents {@link OWLDataIntersectionOf}.
+   */DATA_INTERSECTION_OF("DataIntersectionOf");
+  //@formatter:on
+  private final String name;
+  private final String prefixedName;
+  private final IRI iri;
 
-    DataRangeType(String name) {
-        this.name = name;
-        prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
-        iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
-    }
+  DataRangeType(String name) {
+    this.name = name;
+    prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
+    iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
+  }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    @Override
-    public String getShortForm() {
-        return name;
-    }
+  @Override
+  public String getShortForm() {
+    return name;
+  }
 
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
+  @Override
+  public IRI getIRI() {
+    return iri;
+  }
 
-    @Override
-    public String getPrefixedName() {
-        return prefixedName;
-    }
+  @Override
+  public String getPrefixedName() {
+    return prefixedName;
+  }
 }

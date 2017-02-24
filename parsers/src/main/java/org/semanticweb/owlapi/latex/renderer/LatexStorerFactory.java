@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(7)
 public class LatexStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
-    public LatexStorerFactory() {
-        super(new LatexDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public LatexStorerFactory() {
+    super(new LatexDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLStorer createStorer() {
-        return new LatexStorer();
-    }
+  @Override
+  public OWLStorer createStorer() {
+    return new LatexStorer();
+  }
 }

@@ -20,34 +20,33 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
 public class SimpleIRIShortFormProviderTestCase {
 
-    @Test
-    public void testFragmentShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#", "A");
-        SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
-        String shortForm = sfp.getShortForm(iri);
-        assertEquals("A", shortForm);
-    }
+  @Test
+  public void testFragmentShortForm() {
+    IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#", "A");
+    SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
+    String shortForm = sfp.getShortForm(iri);
+    assertEquals("A", shortForm);
+  }
 
-    @Test
-    public void testLastPathShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/", "x");
-        SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
-        String shortForm = sfp.getShortForm(iri);
-        assertEquals("x", shortForm);
-    }
+  @Test
+  public void testLastPathShortForm() {
+    IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/", "x");
+    SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
+    String shortForm = sfp.getShortForm(iri);
+    assertEquals("x", shortForm);
+  }
 
-    @Test
-    public void testEmptyPathShortForm() {
-        IRI iri = IRI("http://owl.cs.manchester.ac.uk/", "");
-        SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
-        String shortForm = sfp.getShortForm(iri);
-        assertEquals("<http://owl.cs.manchester.ac.uk/>", shortForm);
-    }
+  @Test
+  public void testEmptyPathShortForm() {
+    IRI iri = IRI("http://owl.cs.manchester.ac.uk/", "");
+    SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
+    String shortForm = sfp.getShortForm(iri);
+    assertEquals("<http://owl.cs.manchester.ac.uk/>", shortForm);
+  }
 }

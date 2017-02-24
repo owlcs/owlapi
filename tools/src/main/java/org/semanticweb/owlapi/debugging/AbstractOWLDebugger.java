@@ -17,139 +17,142 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLException;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * An abstract debugger which provides common infrastructure for finding
  * multiple justification. This functionality relies on a concrete
  * implementation of a debugger that can compute a minimal set of axioms that
  * cause the unsatisfiability.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
 
-    protected final OWLOntologyManager man;
-    protected final OWLDataFactory df;
-    private OWLOntology ontology;
+  protected final OWLOntologyManager man;
+  protected final OWLDataFactory df;
+  private OWLOntology ontology;
 
-    /**
-     * Instantiates a new abstract owl debugger.
-     * 
-     * @param owlOntologyManager
-     *        the owl ontology manager
-     * @param ontology
-     *        the ontology
-     */
-    protected AbstractOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
-        man = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
-        this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        df = man.getOWLDataFactory();
-        mergeImportsClosure();
+  /**
+   * Instantiates a new abstract owl debugger.
+   *
+   * @param owlOntologyManager the owl ontology manager
+   * @param ontology the ontology
+   */
+  protected AbstractOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
+    man = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+    this.ontology = checkNotNull(ontology, "ontology cannot be null");
+    df = man.getOWLDataFactory();
+    mergeImportsClosure();
+  }
+
+  private void mergeImportsClosure() {
+    OWLOntology o = ontology;
+    try {
+      ontology = man
+          .createOntology(IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
+              o.importsClosure(), true);
+    } catch (OWLOntologyCreationException e) {
+      throw new OWLRuntimeException(e);
     }
+  }
 
-    private void mergeImportsClosure() {
-        OWLOntology o = ontology;
-        try {
-            ontology = man.createOntology(IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
-                o.importsClosure(), true);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
+  /**
+   * Gets the current class.
+   *
+   * @return the current class
+   * @throws OWLException the OWL exception
+   */
+  protected abstract OWLClassExpression getCurrentClass() throws OWLException;
+
+  @Override
+  public OWLOntology getOWLOntology() {
+    return ontology;
+  }
+
+  @Override
+  public Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(OWLClassExpression cls)
+      throws OWLException {
+    Set<OWLAxiom> firstMups = getSOSForInconsistentClass(cls);
+    if (firstMups.isEmpty()) {
+      return Collections.emptySet();
+    }
+    Set<Set<OWLAxiom>> allMups = new HashSet<>();
+    allMups.add(firstMups);
+    Set<Set<OWLAxiom>> satPaths = new HashSet<>();
+    Set<OWLAxiom> currentPathContents = new HashSet<>();
+    constructHittingSetTree(firstMups, allMups, satPaths, currentPathContents);
+    return allMups;
+  }
+
+  // Hitting Set Stuff
+
+  /**
+   * This is a recursive method that builds a hitting set tree to obtain all
+   * justifications for an unsatisfiable class.
+   *
+   * @param mups The current justification for the current class. This corresponds to a node in the
+   * hitting set tree.
+   * @param allMups All of the MUPS that have been found - this set gets populated over the course
+   * of the tree building process. Initially this should just contain the first justification
+   * @param satPaths Paths that have been completed.
+   * @param currentPathContents The contents of the current path. Initially this should be an empty
+   * set.
+   * @throws OWLException if there is any problem
+   */
+  public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
+      Set<Set<OWLAxiom>> satPaths,
+      Set<OWLAxiom> currentPathContents) throws OWLException {
+    // We go through the current mups, axiom by axiom, and extend the tree
+    // with edges for each axiom
+    for (OWLAxiom axiom : mups) {
+      // Remove the current axiom from the ontology
+      man.applyChange(new RemoveAxiom(ontology, axiom));
+      currentPathContents.add(axiom);
+      boolean earlyTermination = false;
+      // Early path termination. If our path contents are the superset of
+      // the contents of a path then we can terminate here.
+      for (Set<OWLAxiom> satPath : satPaths) {
+        if (satPath.containsAll(currentPathContents)) {
+          earlyTermination = true;
+          break;
         }
+      }
+      handleLateTermination(allMups, satPaths, currentPathContents, earlyTermination);
+      // Back track - go one level up the tree and run for the next axiom
+      currentPathContents.remove(axiom);
+      // Done with the axiom that was removed. Add it back in
+      man.applyChange(new AddAxiom(ontology, axiom));
     }
+  }
 
-    /**
-     * Gets the current class.
-     * 
-     * @return the current class
-     * @throws OWLException
-     *         the OWL exception
-     */
-    protected abstract OWLClassExpression getCurrentClass() throws OWLException;
-
-    @Override
-    public OWLOntology getOWLOntology() {
-        return ontology;
-    }
-
-    @Override
-    public Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(OWLClassExpression cls) throws OWLException {
-        Set<OWLAxiom> firstMups = getSOSForInconsistentClass(cls);
-        if (firstMups.isEmpty()) {
-            return Collections.emptySet();
+  protected void handleLateTermination(Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
+      Set<OWLAxiom> currentPathContents, boolean earlyTermination) throws OWLException {
+    if (!earlyTermination) {
+      // Generate a new node - i.e. a new justification set
+      Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());
+      if (!newMUPS.isEmpty()) {
+        // We have a new justification set, and a new node
+        if (!allMups.contains(newMUPS)) {
+          // Entirely new justification set
+          allMups.add(newMUPS);
+          constructHittingSetTree(newMUPS, allMups, satPaths, currentPathContents);
         }
-        Set<Set<OWLAxiom>> allMups = new HashSet<>();
-        allMups.add(firstMups);
-        Set<Set<OWLAxiom>> satPaths = new HashSet<>();
-        Set<OWLAxiom> currentPathContents = new HashSet<>();
-        constructHittingSetTree(firstMups, allMups, satPaths, currentPathContents);
-        return allMups;
+      } else {
+        // End of current path - add it to the list of paths
+        satPaths.add(new HashSet<>(currentPathContents));
+      }
     }
-
-    // Hitting Set Stuff
-    /**
-     * This is a recursive method that builds a hitting set tree to obtain all
-     * justifications for an unsatisfiable class.
-     * 
-     * @param mups
-     *        The current justification for the current class. This corresponds
-     *        to a node in the hitting set tree.
-     * @param allMups
-     *        All of the MUPS that have been found - this set gets populated
-     *        over the course of the tree building process. Initially this
-     *        should just contain the first justification
-     * @param satPaths
-     *        Paths that have been completed.
-     * @param currentPathContents
-     *        The contents of the current path. Initially this should be an
-     *        empty set.
-     * @throws OWLException
-     *         if there is any problem
-     */
-    public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
-        Set<OWLAxiom> currentPathContents) throws OWLException {
-        // We go through the current mups, axiom by axiom, and extend the tree
-        // with edges for each axiom
-        for (OWLAxiom axiom : mups) {
-            // Remove the current axiom from the ontology
-            man.applyChange(new RemoveAxiom(ontology, axiom));
-            currentPathContents.add(axiom);
-            boolean earlyTermination = false;
-            // Early path termination. If our path contents are the superset of
-            // the contents of a path then we can terminate here.
-            for (Set<OWLAxiom> satPath : satPaths) {
-                if (satPath.containsAll(currentPathContents)) {
-                    earlyTermination = true;
-                    break;
-                }
-            }
-            handleLateTermination(allMups, satPaths, currentPathContents, earlyTermination);
-            // Back track - go one level up the tree and run for the next axiom
-            currentPathContents.remove(axiom);
-            // Done with the axiom that was removed. Add it back in
-            man.applyChange(new AddAxiom(ontology, axiom));
-        }
-    }
-
-    protected void handleLateTermination(Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
-        Set<OWLAxiom> currentPathContents, boolean earlyTermination) throws OWLException {
-        if (!earlyTermination) {
-            // Generate a new node - i.e. a new justification set
-            Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());
-            if (!newMUPS.isEmpty()) {
-                // We have a new justification set, and a new node
-                if (!allMups.contains(newMUPS)) {
-                    // Entirely new justification set
-                    allMups.add(newMUPS);
-                    constructHittingSetTree(newMUPS, allMups, satPaths, currentPathContents);
-                }
-            } else {
-                // End of current path - add it to the list of paths
-                satPaths.add(new HashSet<>(currentPathContents));
-            }
-        }
-    }
+  }
 }

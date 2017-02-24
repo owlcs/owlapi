@@ -18,20 +18,19 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
-    private final IRI iri;
+  private final IRI iri;
 
-    protected SWRLVariableImpl(IRI iri) {
-        this.iri = checkNotNull(iri, "iri cannot be null");
-    }
+  protected SWRLVariableImpl(IRI iri) {
+    this.iri = checkNotNull(iri, "iri cannot be null");
+  }
 
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
+  @Override
+  public IRI getIRI() {
+    return iri;
+  }
 }

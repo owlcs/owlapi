@@ -10,25 +10,25 @@ import java.util.stream.Stream;
  */
 public interface HasComponents {
 
-    /** @return components as a stream */
-    Stream<?> components();
+  /**
+   * @return components as a stream
+   */
+  Stream<?> components();
 
-    /**
-     * @return components as a stream; for objects that can have annotations on
-     *         them, annotation streams appear first. This is useful in
-     *         renderers.
-     */
-    default Stream<?> componentsAnnotationsFirst() {
-        return components();
-    }
+  /**
+   * @return components as a stream; for objects that can have annotations on them, annotation
+   * streams appear first. This is useful in renderers.
+   */
+  default Stream<?> componentsAnnotationsFirst() {
+    return components();
+  }
 
-    /**
-     * @return components as a stream; for objects that can have annotations on
-     *         them, these are skipped. This is useful for comparing axioms
-     *         without taking annotations into account. Note: annotations on
-     *         nested objects are not affected.
-     */
-    default Stream<?> componentsWithoutAnnotations() {
-        return components();
-    }
+  /**
+   * @return components as a stream; for objects that can have annotations on them, these are
+   * skipped. This is useful for comparing axioms without taking annotations into account. Note:
+   * annotations on nested objects are not affected.
+   */
+  default Stream<?> componentsWithoutAnnotations() {
+    return components();
+  }
 }

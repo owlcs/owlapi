@@ -43,9 +43,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-
 import javax.annotation.Nullable;
-
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.rio.RDFFormat;
@@ -68,182 +66,177 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  * An implementation of {@link OWLStorer} that writes statements to Sesame
  * {@link RDFHandler}s, including {@link RDFWriter} implementations based on the
  * given {@link RioRDFDocumentFormatFactory}.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public class RioStorer extends AbstractOWLStorer {
 
-    @Nullable private transient RDFHandler rioHandler;
-    private final OWLDocumentFormatFactory ontFormat;
-    private final Resource[] contexts;
+  private final OWLDocumentFormatFactory ontFormat;
+  private final Resource[] contexts;
+  @Nullable
+  private transient RDFHandler rioHandler;
 
-    /**
-     * @param ontologyFormat
-     *        format
-     * @param rioHandler
-     *        rdf handler
-     * @param contexts
-     *        contexts
-     */
-    public RioStorer(OWLDocumentFormatFactory ontologyFormat, RDFHandler rioHandler, Resource... contexts) {
-        this(ontologyFormat, contexts);
-        this.rioHandler = rioHandler;
-    }
+  /**
+   * @param ontologyFormat format
+   * @param rioHandler rdf handler
+   * @param contexts contexts
+   */
+  public RioStorer(OWLDocumentFormatFactory ontologyFormat, RDFHandler rioHandler,
+      Resource... contexts) {
+    this(ontologyFormat, contexts);
+    this.rioHandler = rioHandler;
+  }
 
-    /**
-     * @param ontologyFormat
-     *        format
-     * @param contexts
-     *        contexts
-     */
-    public RioStorer(OWLDocumentFormatFactory ontologyFormat, Resource... contexts) {
-        OpenRDFUtil.verifyContextNotNull(contexts);
-        ontFormat = ontologyFormat;
-        this.contexts = contexts;
-    }
+  /**
+   * @param ontologyFormat format
+   * @param contexts contexts
+   */
+  public RioStorer(OWLDocumentFormatFactory ontologyFormat, Resource... contexts) {
+    OpenRDFUtil.verifyContextNotNull(contexts);
+    ontFormat = ontologyFormat;
+    this.contexts = contexts;
+  }
 
-    @Override
-    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
-        return ontFormat.createFormat().equals(ontologyFormat);
+  /**
+   * If the {@link RDFFormat} is null, then it is acceptable to return an in
+   * memory {@link StatementCollector}. This method will only be called from
+   * storeOntology if {@link #setRioHandler(RDFHandler)} is not called with a
+   * non-null argument.
+   *
+   * @param format The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
+   * parameter is not null.
+   * @param outputStream The {@link OutputStream} for the resulting RDFHandler, or null to create an
+   * in-memory collection.
+   * @return An implementation of the {@link RDFHandler} interface, based on the parameters given to
+   * this method.
+   * @throws OWLOntologyStorageException If the format does not have an {@link RDFWriter}
+   * implementation available on the classpath.
+   */
+  protected static RDFHandler getRDFHandlerForOutputStream(@Nullable RDFFormat format,
+      OutputStream outputStream)
+      throws OWLOntologyStorageException {
+    // by default return a StatementCollector if they did not specify a
+    // format
+    if (format == null) {
+      return new StatementCollector();
     }
+    try {
+      return Rio.createWriter(format, outputStream);
+    } catch (final UnsupportedRDFormatException e) {
+      throw new OWLOntologyStorageException(e);
+    }
+  }
 
-    /**
-     * If the {@link RDFFormat} is null, then it is acceptable to return an in
-     * memory {@link StatementCollector}. This method will only be called from
-     * storeOntology if {@link #setRioHandler(RDFHandler)} is not called with a
-     * non-null argument.
-     * 
-     * @param format
-     *        The {@link RDFFormat} for the resulting {@link RDFHandler}, if the
-     *        writer parameter is not null.
-     * @param writer
-     *        The {@link Writer} for the resulting RDFHandler, or null to create
-     *        an in-memory collection.
-     * @return An implementation of the {@link RDFHandler} interface, based on
-     *         the parameters given to this method.
-     * @throws OWLOntologyStorageException
-     *         If the format does not have an {@link RDFWriter} implementation
-     *         available on the classpath.
-     */
-    protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format, Writer writer)
-        throws OWLOntologyStorageException {
-        // by default return a StatementCollector if they did not specify a
-        // format
-        if (format == null) {
-            return new StatementCollector();
-        }
-        try {
-            return Rio.createWriter(format, writer);
-        } catch (final UnsupportedRDFormatException e) {
-            throw new OWLOntologyStorageException(e);
-        }
-    }
+  @Override
+  public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+    return ontFormat.createFormat().equals(ontologyFormat);
+  }
 
-    /**
-     * If the {@link RDFFormat} is null, then it is acceptable to return an in
-     * memory {@link StatementCollector}. This method will only be called from
-     * storeOntology if {@link #setRioHandler(RDFHandler)} is not called with a
-     * non-null argument.
-     * 
-     * @param format
-     *        The {@link RDFFormat} for the resulting {@link RDFHandler}, if the
-     *        writer parameter is not null.
-     * @param outputStream
-     *        The {@link OutputStream} for the resulting RDFHandler, or null to
-     *        create an in-memory collection.
-     * @return An implementation of the {@link RDFHandler} interface, based on
-     *         the parameters given to this method.
-     * @throws OWLOntologyStorageException
-     *         If the format does not have an {@link RDFWriter} implementation
-     *         available on the classpath.
-     */
-    protected static RDFHandler getRDFHandlerForOutputStream(@Nullable RDFFormat format, OutputStream outputStream)
-        throws OWLOntologyStorageException {
-        // by default return a StatementCollector if they did not specify a
-        // format
-        if (format == null) {
-            return new StatementCollector();
-        }
-        try {
-            return Rio.createWriter(format, outputStream);
-        } catch (final UnsupportedRDFormatException e) {
-            throw new OWLOntologyStorageException(e);
-        }
+  /**
+   * If the {@link RDFFormat} is null, then it is acceptable to return an in
+   * memory {@link StatementCollector}. This method will only be called from
+   * storeOntology if {@link #setRioHandler(RDFHandler)} is not called with a
+   * non-null argument.
+   *
+   * @param format The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
+   * parameter is not null.
+   * @param writer The {@link Writer} for the resulting RDFHandler, or null to create an in-memory
+   * collection.
+   * @return An implementation of the {@link RDFHandler} interface, based on the parameters given to
+   * this method.
+   * @throws OWLOntologyStorageException If the format does not have an {@link RDFWriter}
+   * implementation available on the classpath.
+   */
+  protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format, Writer writer)
+      throws OWLOntologyStorageException {
+    // by default return a StatementCollector if they did not specify a
+    // format
+    if (format == null) {
+      return new StatementCollector();
     }
+    try {
+      return Rio.createWriter(format, writer);
+    } catch (final UnsupportedRDFormatException e) {
+      throw new OWLOntologyStorageException(e);
+    }
+  }
 
-    /**
-     * @return the rioHandler
-     */
-    @Nullable
-    public RDFHandler getRioHandler() {
-        return rioHandler;
-    }
+  /**
+   * @return the rioHandler
+   */
+  @Nullable
+  public RDFHandler getRioHandler() {
+    return rioHandler;
+  }
 
-    /**
-     * @param rioHandler
-     *        the rioHandler to set
-     */
-    public void setRioHandler(final RDFHandler rioHandler) {
-        this.rioHandler = rioHandler;
-    }
+  /**
+   * @param rioHandler the rioHandler to set
+   */
+  public void setRioHandler(final RDFHandler rioHandler) {
+    this.rioHandler = rioHandler;
+  }
 
-    @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
-        // This check is performed to allow any Rio RDFHandler to be used to
-        // render the output, even if it does not render to a writer. For
-        // example, it could store the triples in memory without serialising
-        // them to any particular format.
-        if (rioHandler == null) {
-            if (!(format instanceof RioRDFDocumentFormat)) {
-                throw new OWLOntologyStorageException(
-                    "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                        + format);
-            }
-            final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
-            if (format.isTextual()) {
-                rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(), writer);
-            } else {
-                throw new OWLOntologyStorageException(
-                    "Unable to use storeOntology with a Writer as the desired format is not textual. Format was "
-                        + format);
-            }
-        }
-        try {
-            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
-            ren.render();
-        } catch (OWLRuntimeException e) {
-            throw new OWLOntologyStorageException(e);
-        }
+  @Override
+  protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+      throws OWLOntologyStorageException {
+    // This check is performed to allow any Rio RDFHandler to be used to
+    // render the output, even if it does not render to a writer. For
+    // example, it could store the triples in memory without serialising
+    // them to any particular format.
+    if (rioHandler == null) {
+      if (!(format instanceof RioRDFDocumentFormat)) {
+        throw new OWLOntologyStorageException(
+            "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
+                + format);
+      }
+      final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
+      if (format.isTextual()) {
+        rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(), writer);
+      } else {
+        throw new OWLOntologyStorageException(
+            "Unable to use storeOntology with a Writer as the desired format is not textual. Format was "
+                + format);
+      }
     }
+    try {
+      final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format,
+          contexts);
+      ren.render();
+    } catch (OWLRuntimeException e) {
+      throw new OWLOntologyStorageException(e);
+    }
+  }
 
-    @Override
-    protected void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
-        // This check is performed to allow any Rio RDFHandler to be used to
-        // render the output, even if it does not render to a writer. For
-        // example, it could store the triples in memory without serialising
-        // them to any particular format.
-        if (rioHandler == null) {
-            if (!(format instanceof RioRDFDocumentFormat)) {
-                throw new OWLOntologyStorageException(
-                    "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                        + format);
-            }
-            final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
-            if (format.isTextual()) {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
-                rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(), writer);
-            } else {
-                rioHandler = getRDFHandlerForOutputStream(rioFormat.getRioFormat(), outputStream);
-            }
-        }
-        try {
-            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
-            ren.render();
-        } catch (OWLRuntimeException e) {
-            throw new OWLOntologyStorageException(e);
-        }
+  @Override
+  protected void storeOntology(OWLOntology ontology, OutputStream outputStream,
+      OWLDocumentFormat format)
+      throws OWLOntologyStorageException {
+    // This check is performed to allow any Rio RDFHandler to be used to
+    // render the output, even if it does not render to a writer. For
+    // example, it could store the triples in memory without serialising
+    // them to any particular format.
+    if (rioHandler == null) {
+      if (!(format instanceof RioRDFDocumentFormat)) {
+        throw new OWLOntologyStorageException(
+            "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
+                + format);
+      }
+      final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
+      if (format.isTextual()) {
+        Writer writer = new BufferedWriter(
+            new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+        rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(), writer);
+      } else {
+        rioHandler = getRDFHandlerForOutputStream(rioFormat.getRioFormat(), outputStream);
+      }
     }
+    try {
+      final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), format,
+          contexts);
+      ren.render();
+    } catch (OWLRuntimeException e) {
+      throw new OWLOntologyStorageException(e);
+    }
+  }
 }

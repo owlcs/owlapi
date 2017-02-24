@@ -15,39 +15,40 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
-/** Builder class for OWLSubAnnotationPropertyOfAxiom. */
+/**
+ * Builder class for OWLSubAnnotationPropertyOfAxiom.
+ */
 public class BuilderSubAnnotationPropertyOf extends
     BaseSubBuilder<OWLSubAnnotationPropertyOfAxiom, BuilderSubAnnotationPropertyOf, OWLAnnotationProperty> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSubAnnotationPropertyOf(OWLSubAnnotationPropertyOfAxiom expected, OWLDataFactory df) {
-        this(df);
-        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSubAnnotationPropertyOf(OWLSubAnnotationPropertyOfAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withSub(expected.getSubProperty()).withSup(expected.getSuperProperty())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSubAnnotationPropertyOf(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSubAnnotationPropertyOf(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLSubAnnotationPropertyOfAxiom buildObject() {
-        return df.getOWLSubAnnotationPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()), annotations);
-    }
+  @Override
+  public OWLSubAnnotationPropertyOfAxiom buildObject() {
+    return df.getOWLSubAnnotationPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()),
+        annotations);
+  }
 }

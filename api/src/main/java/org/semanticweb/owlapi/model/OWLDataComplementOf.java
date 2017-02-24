@@ -18,67 +18,66 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Data_Ranges" >
  * DataComplementOf</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataComplementOf extends OWLDataRange {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getDataRange());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getDataRange());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 257;
-    }
+  @Override
+  default int hashIndex() {
+    return 257;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 4002;
-    }
+  @Override
+  default int typeIndex() {
+    return 4002;
+  }
 
-    /**
-     * Gets the data range which this data range is a complement of.
-     * 
-     * @return The complemented data range.
-     */
-    OWLDataRange getDataRange();
+  /**
+   * Gets the data range which this data range is a complement of.
+   *
+   * @return The complemented data range.
+   */
+  OWLDataRange getDataRange();
 
-    @Override
-    default DataRangeType getDataRangeType() {
-        return DataRangeType.DATA_COMPLEMENT_OF;
-    }
+  @Override
+  default DataRangeType getDataRangeType() {
+    return DataRangeType.DATA_COMPLEMENT_OF;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataRangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataRangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

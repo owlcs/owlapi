@@ -13,49 +13,45 @@
 package org.semanticweb.owlapi.metrics;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class AxiomTypeMetric extends AxiomCountMetric {
 
-    private final AxiomType<?> axiomType;
+  private final AxiomType<?> axiomType;
 
-    /**
-     * Instantiates a new axiom type metric.
-     * 
-     * @param o
-     *        ontology to use
-     * @param axiomType
-     *        type of axioms
-     */
-    public AxiomTypeMetric(OWLOntology o, AxiomType<?> axiomType) {
-        super(o);
-        this.axiomType = axiomType;
-    }
+  /**
+   * Instantiates a new axiom type metric.
+   *
+   * @param o ontology to use
+   * @param axiomType type of axioms
+   */
+  public AxiomTypeMetric(OWLOntology o, AxiomType<?> axiomType) {
+    super(o);
+    this.axiomType = axiomType;
+  }
 
-    @Override
-    protected String getObjectTypeName() {
-        return axiomType.getName() + " axioms";
-    }
+  @Override
+  protected String getObjectTypeName() {
+    return axiomType.getName() + " axioms";
+  }
 
-    @Override
-    protected Stream<OWLAxiom> getObjects(OWLOntology ont) {
-        return ont.axioms(axiomType).map(x -> x);
-    }
+  @Override
+  protected Stream<OWLAxiom> getObjects(OWLOntology ont) {
+    return ont.axioms(axiomType).map(x -> x);
+  }
 
-    /**
-     * Gets the axiom type.
-     * 
-     * @return axiom type
-     */
-    public AxiomType<?> getAxiomType() {
-        return axiomType;
-    }
+  /**
+   * Gets the axiom type.
+   *
+   * @return axiom type
+   */
+  public AxiomType<?> getAxiomType() {
+    return axiomType;
+  }
 }

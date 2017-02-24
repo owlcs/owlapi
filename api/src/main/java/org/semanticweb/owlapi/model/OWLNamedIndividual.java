@@ -16,80 +16,79 @@ package org.semanticweb.owlapi.model;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named
  * Individual</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
 
-    @Override
-    default int hashIndex() {
-        return 311;
-    }
+  @Override
+  default int hashIndex() {
+    return 311;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 1005;
-    }
+  @Override
+  default int typeIndex() {
+    return 1005;
+  }
 
-    @Override
-    default EntityType<?> getEntityType() {
-        return EntityType.NAMED_INDIVIDUAL;
-    }
+  @Override
+  default EntityType<?> getEntityType() {
+    return EntityType.NAMED_INDIVIDUAL;
+  }
 
-    @Override
-    default boolean isOWLNamedIndividual() {
-        return true;
-    }
+  @Override
+  default boolean isOWLNamedIndividual() {
+    return true;
+  }
 
-    @Override
-    default OWLAnonymousIndividual asOWLAnonymousIndividual() {
-        throw new OWLRuntimeException("Not an anonymous individual");
-    }
+  @Override
+  default OWLAnonymousIndividual asOWLAnonymousIndividual() {
+    throw new OWLRuntimeException("Not an anonymous individual");
+  }
 
-    @Override
-    default boolean isBuiltIn() {
-        return false;
-    }
+  @Override
+  default boolean isBuiltIn() {
+    return false;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLEntityVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLNamedObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLIndividualVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLIndividualVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLIndividualVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLIndividualVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

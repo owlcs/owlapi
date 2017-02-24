@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.PrintStream;
-
 import javax.annotation.Nullable;
 
 /**
@@ -13,24 +12,28 @@ import javax.annotation.Nullable;
  */
 public class SLF4JSilencer {
 
-    private static final PrintStream originalErr = System.err;
-    private static final PrintStream filterOut = new PrintStream(System.err) {
+  private static final PrintStream originalErr = System.err;
+  private static final PrintStream filterOut = new PrintStream(System.err) {
 
-        @Override
-        public void println(@Nullable String l) {
-            if (l == null || !l.startsWith("SLF4J")) {
-                super.println(l);
-            }
-        }
-    };
-
-    /** Silence SLF4J warnings. */
-    public static void silence() {
-        System.setErr(filterOut);
+    @Override
+    public void println(@Nullable String l) {
+      if (l == null || !l.startsWith("SLF4J")) {
+        super.println(l);
+      }
     }
+  };
 
-    /** Restore regular behaviour. */
-    public static void deSilence() {
-        System.setErr(originalErr);
-    }
+  /**
+   * Silence SLF4J warnings.
+   */
+  public static void silence() {
+    System.setErr(filterOut);
+  }
+
+  /**
+   * Restore regular behaviour.
+   */
+  public static void deSilence() {
+    System.setErr(originalErr);
+  }
 }

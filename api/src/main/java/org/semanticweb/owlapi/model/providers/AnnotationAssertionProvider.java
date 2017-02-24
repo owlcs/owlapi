@@ -14,71 +14,67 @@ package org.semanticweb.owlapi.model.providers;
 
 import java.util.Collection;
 import java.util.Collections;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 
-import org.semanticweb.owlapi.model.*;
-
-/** Annotation assertion provider. */
+/**
+ * Annotation assertion provider.
+ */
 public interface AnnotationAssertionProvider extends LiteralProvider {
 
-    /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param value
-     *        value
-     * @return an annotation assertion axiom
-     */
-    default OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property,
-            OWLAnnotationSubject subject, OWLAnnotationValue value) {
-        return getOWLAnnotationAssertionAxiom(property, subject, value, Collections.emptySet());
-    }
+  /**
+   * @param property property
+   * @param subject subject
+   * @param value value
+   * @return an annotation assertion axiom
+   */
+  default OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property,
+      OWLAnnotationSubject subject, OWLAnnotationValue value) {
+    return getOWLAnnotationAssertionAxiom(property, subject, value, Collections.emptySet());
+  }
 
-    /**
-     * @param subject
-     *        subject
-     * @param annotation
-     *        annotation
-     * @return an annotation assertion axiom
-     */
-    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject, OWLAnnotation annotation);
+  /**
+   * @param subject subject
+   * @param annotation annotation
+   * @return an annotation assertion axiom
+   */
+  OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
+      OWLAnnotation annotation);
 
-    /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param value
-     *        value
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return an annotation assertion axiom - with annotations
-     */
-    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property,
-            OWLAnnotationSubject subject, OWLAnnotationValue value, Collection<OWLAnnotation> annotations);
+  /**
+   * @param property property
+   * @param subject subject
+   * @param value value
+   * @param annotations A set of annotations. Cannot be null or contain nulls.
+   * @return an annotation assertion axiom - with annotations
+   */
+  OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property,
+      OWLAnnotationSubject subject, OWLAnnotationValue value,
+      Collection<OWLAnnotation> annotations);
 
-    /**
-     * @param subject
-     *        subject
-     * @param annotation
-     *        annotation
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return an annotation assertion axiom - with annotations
-     */
-    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject, OWLAnnotation annotation,
-            Collection<OWLAnnotation> annotations);
+  /**
+   * @param subject subject
+   * @param annotation annotation
+   * @param annotations A set of annotations. Cannot be null or contain nulls.
+   * @return an annotation assertion axiom - with annotations
+   */
+  OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
+      OWLAnnotation annotation,
+      Collection<OWLAnnotation> annotations);
 
-    /**
-     * Gets an annotation assertion that specifies that an IRI is deprecated.
-     * The annotation property is owl:deprecated and the value of the annotation
-     * is {@code "true"^^xsd:boolean}. (See <a href=
-     * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties"
-     * >Annotation Properties</a> in the OWL 2 Specification
-     * 
-     * @param subject
-     *        The IRI to be deprecated.
-     * @return The annotation assertion that deprecates the specified IRI.
-     */
-    OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(IRI subject);
+  /**
+   * Gets an annotation assertion that specifies that an IRI is deprecated.
+   * The annotation property is owl:deprecated and the value of the annotation
+   * is {@code "true"^^xsd:boolean}. (See <a href=
+   * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties"
+   * >Annotation Properties</a> in the OWL 2 Specification
+   *
+   * @param subject The IRI to be deprecated.
+   * @return The annotation assertion that deprecates the specified IRI.
+   */
+  OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(IRI subject);
 }

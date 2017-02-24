@@ -18,91 +18,90 @@ import java.util.stream.Stream;
  * Represents
  * <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion" >
  * AnnotationAssertion</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLAnnotationAssertionAxiom
-    extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
+    extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>,
+    HasProperty<OWLAnnotationProperty> {
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getSubject(), getProperty(), getValue());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getSubject(), getProperty(), getValue());
+  }
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getSubject(), getProperty(), getValue(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getSubject(), getProperty(), getValue(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubject(), getProperty(), getValue());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getSubject(), getProperty(), getValue());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 47;
-    }
+  @Override
+  default int hashIndex() {
+    return 47;
+  }
 
-    /**
-     * Gets the annotation value. This is either an
-     * {@link org.semanticweb.owlapi.model.IRI}, an
-     * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} or an
-     * {@link OWLLiteral}. Annotation values can be visited with an
-     * {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}.
-     * 
-     * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
-     * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
-     * @return The annotation value.
-     */
-    OWLAnnotationValue getValue();
+  /**
+   * Gets the annotation value. This is either an
+   * {@link org.semanticweb.owlapi.model.IRI}, an
+   * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} or an
+   * {@link OWLLiteral}. Annotation values can be visited with an
+   * {@link org.semanticweb.owlapi.model.OWLAnnotationValueVisitor}.
+   *
+   * @return The annotation value.
+   * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
+   * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
+   */
+  OWLAnnotationValue getValue();
 
-    /**
-     * Gets the combination of the annotation property and the annotation value
-     * as an {@link org.semanticweb.owlapi.model.OWLAnnotation} object.
-     * 
-     * @return The annotation object that combines the property and value of
-     *         this annotation.
-     */
-    OWLAnnotation getAnnotation();
+  /**
+   * Gets the combination of the annotation property and the annotation value
+   * as an {@link org.semanticweb.owlapi.model.OWLAnnotation} object.
+   *
+   * @return The annotation object that combines the property and value of this annotation.
+   */
+  OWLAnnotation getAnnotation();
 
-    /**
-     * Determines if this annotation assertion deprecates the IRI that is the
-     * subject of the annotation.
-     * 
-     * @return {@code true} if this annotation assertion deprecates the subject
-     *         IRI of the assertion, otherwise {@code false}.
-     * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
-     */
-    boolean isDeprecatedIRIAssertion();
+  /**
+   * Determines if this annotation assertion deprecates the IRI that is the
+   * subject of the annotation.
+   *
+   * @return {@code true} if this annotation assertion deprecates the subject IRI of the assertion,
+   * otherwise {@code false}.
+   * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
+   */
+  boolean isDeprecatedIRIAssertion();
 
-    @Override
-        OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.ANNOTATION_ASSERTION;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.ANNOTATION_ASSERTION;
+  }
 }

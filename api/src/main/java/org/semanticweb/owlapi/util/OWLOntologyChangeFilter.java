@@ -15,10 +15,14 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomChange;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * Provides a convenient method to filter add/remove axiom changes based on the
@@ -35,7 +39,7 @@ import org.semanticweb.owlapi.model.*;
  * ontology change listener. We can use the {@code OWLOntologyChangeFilter} to
  * filter out the changes that alter the domain of an object property in the
  * following way:<br>
- * 
+ *
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
  * <br>
@@ -52,69 +56,65 @@ import org.semanticweb.owlapi.model.*;
  * // Process the list of changes
  * filter.processChanges(ontChanges);
  * </pre>
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChangeVisitor {
 
-    protected boolean add;
-    @Nullable protected OWLOntology ontology;
+  protected boolean add;
+  @Nullable
+  protected OWLOntology ontology;
 
-    /**
-     * @param changes
-     *        changes to process
-     */
-    public void processChanges(List<? extends OWLOntologyChange> changes) {
-        checkNotNull(changes, "changes cannot be null");
-        changes.forEach(c -> c.accept(this));
-    }
+  /**
+   * @param changes changes to process
+   */
+  public void processChanges(List<? extends OWLOntologyChange> changes) {
+    checkNotNull(changes, "changes cannot be null");
+    changes.forEach(c -> c.accept(this));
+  }
 
-    protected void processChange(OWLAxiomChange change) {
-        checkNotNull(change, "change cannot be null");
-        ontology = change.getOntology();
-        change.getAxiom().accept(this);
-        ontology = null;
-    }
+  protected void processChange(OWLAxiomChange change) {
+    checkNotNull(change, "change cannot be null");
+    ontology = change.getOntology();
+    change.getAxiom().accept(this);
+    ontology = null;
+  }
 
-    /**
-     * @return Determines if the current change caused an axiom to be added to
-     *         an ontology.
-     */
-    protected boolean isAdd() {
-        return add;
-    }
+  /**
+   * @return Determines if the current change caused an axiom to be added to an ontology.
+   */
+  protected boolean isAdd() {
+    return add;
+  }
 
-    /**
-     * @return Determines if the current change caused an axiom to be removed
-     *         from an ontology.
-     */
-    protected boolean isRemove() {
-        return !add;
-    }
+  /**
+   * @return Determines if the current change caused an axiom to be removed from an ontology.
+   */
+  protected boolean isRemove() {
+    return !add;
+  }
 
-    /**
-     * Gets the ontology which the current change being visited was applied to.
-     * 
-     * @return The ontology or {@code null} if the filter is not in a change
-     *         visit cycle. When called from within a {@code visit} method, the
-     *         return value is guarenteed not to be {@code null}.
-     */
-    @Nullable
-    protected OWLOntology getOntology() {
-        return ontology;
-    }
+  /**
+   * Gets the ontology which the current change being visited was applied to.
+   *
+   * @return The ontology or {@code null} if the filter is not in a change visit cycle. When called
+   * from within a {@code visit} method, the return value is guarenteed not to be {@code null}.
+   */
+  @Nullable
+  protected OWLOntology getOntology() {
+    return ontology;
+  }
 
-    @Override
-    public void visit(AddAxiom change) {
-        add = true;
-        processChange(change);
-    }
+  @Override
+  public void visit(AddAxiom change) {
+    add = true;
+    processChange(change);
+  }
 
-    @Override
-    public void visit(RemoveAxiom change) {
-        add = false;
-        processChange(change);
-    }
+  @Override
+  public void visit(RemoveAxiom change) {
+    add = false;
+    processChange(change);
+  }
 }

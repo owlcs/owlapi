@@ -17,35 +17,35 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * Search options.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public enum AxiomAnnotations {
-    /** Search for axioms ignoring annotations. */
-    IGNORE_AXIOM_ANNOTATIONS {
+  /**
+   * Search for axioms ignoring annotations.
+   */
+  IGNORE_AXIOM_ANNOTATIONS {
+    @Override
+    public boolean contains(OWLOntology o, OWLAxiom ax) {
+      return o.containsAxiomIgnoreAnnotations(ax);
+    }
+  },
+  /**
+   * Search for axioms taking annotations into account.
+   */
+  CONSIDER_AXIOM_ANNOTATIONS {
+    @Override
+    public boolean contains(OWLOntology o, OWLAxiom ax) {
+      return o.containsAxiom(ax);
+    }
+  };
 
-        @Override
-        public boolean contains(OWLOntology o, OWLAxiom ax) {
-            return o.containsAxiomIgnoreAnnotations(ax);
-        }
-    },
-    /** Search for axioms taking annotations into account. */
-    CONSIDER_AXIOM_ANNOTATIONS {
-
-        @Override
-        public boolean contains(OWLOntology o, OWLAxiom ax) {
-            return o.containsAxiom(ax);
-        }
-    };
-
-    /**
-     * @param o
-     *        ontology to check
-     * @param ax
-     *        axiom to check
-     * @return true if the ontology contains the axiom, considering or
-     *         disregarding annotations depending on the axiom annotation value.
-     */
-    public abstract boolean contains(OWLOntology o, OWLAxiom ax);
+  /**
+   * @param o ontology to check
+   * @param ax axiom to check
+   * @return true if the ontology contains the axiom, considering or disregarding annotations
+   * depending on the axiom annotation value.
+   */
+  public abstract boolean contains(OWLOntology o, OWLAxiom ax);
 }

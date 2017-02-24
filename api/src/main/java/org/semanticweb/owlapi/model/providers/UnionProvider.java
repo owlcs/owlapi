@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
@@ -28,56 +27,50 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public interface UnionProvider {
 
-    /**
-     * @param dataRanges
-     *        data ranges for union. Cannot be null or contain nulls.
-     * @return an OWLDataUnionOf on the specified dataranges
-     */
-    default OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges) {
-        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
-        return getOWLDataUnionOf(dataRanges.stream());
-    }
+  /**
+   * @param dataRanges data ranges for union. Cannot be null or contain nulls.
+   * @return an OWLDataUnionOf on the specified dataranges
+   */
+  default OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges) {
+    checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+    return getOWLDataUnionOf(dataRanges.stream());
+  }
 
-    /**
-     * @param dataRanges
-     *        data ranges for union. Cannot be null or contain nulls.
-     * @return an OWLDataUnionOf on the specified dataranges
-     */
-    OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges);
+  /**
+   * @param dataRanges data ranges for union. Cannot be null or contain nulls.
+   * @return an OWLDataUnionOf on the specified dataranges
+   */
+  OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges);
 
-    /**
-     * @param dataRanges
-     *        data ranges for union. Cannot be null or contain nulls.
-     * @return an OWLDataUnionOf on the specified dataranges
-     */
-    default OWLDataUnionOf getOWLDataUnionOf(OWLDataRange... dataRanges) {
-        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
-        return getOWLDataUnionOf(CollectionFactory.createSet(dataRanges));
-    }
+  /**
+   * @param dataRanges data ranges for union. Cannot be null or contain nulls.
+   * @return an OWLDataUnionOf on the specified dataranges
+   */
+  default OWLDataUnionOf getOWLDataUnionOf(OWLDataRange... dataRanges) {
+    checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+    return getOWLDataUnionOf(CollectionFactory.createSet(dataRanges));
+  }
 
-    /**
-     * @param operands
-     *        class expressions for union
-     * @return a class union over the specified arguments
-     */
-    OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands);
+  /**
+   * @param operands class expressions for union
+   * @return a class union over the specified arguments
+   */
+  OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands);
 
-    /**
-     * @param operands
-     *        class expressions for union
-     * @return a class union over the specified arguments
-     */
-    default OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
-        return getOWLObjectUnionOf(operands.stream());
-    }
+  /**
+   * @param operands class expressions for union
+   * @return a class union over the specified arguments
+   */
+  default OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
+    return getOWLObjectUnionOf(operands.stream());
+  }
 
-    /**
-     * @param operands
-     *        class expressions for union
-     * @return a class union over the specified arguments
-     */
-    default OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands) {
-        checkIterableNotNull(operands, "operands cannot be null", true);
-        return getOWLObjectUnionOf(CollectionFactory.createSet(operands));
-    }
+  /**
+   * @param operands class expressions for union
+   * @return a class union over the specified arguments
+   */
+  default OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands) {
+    checkIterableNotNull(operands, "operands cannot be null", true);
+    return getOWLObjectUnionOf(CollectionFactory.createSet(operands));
+  }
 }

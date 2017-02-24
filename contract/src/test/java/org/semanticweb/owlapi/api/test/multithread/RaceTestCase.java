@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.api.test.multithread;
 
 import static org.junit.Assert.fail;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
 import java.util.List;
@@ -49,133 +50,141 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 @SuppressWarnings("javadoc")
 public class RaceTestCase {
 
-    @Test
-    public void testSubClassLHS() throws Exception {
-        final int totalRepetitions = 200;
-        int repetitions = 0;
-        RaceTestCaseRunner r;
-        do {
-            repetitions++;
-            r = new RaceTestCaseRunner();
-            r.racing();
-        } while (!r.callback.failed() && repetitions < totalRepetitions);
-        if (r.callback.failed()) {
-            r.callback.diagnose();
-            fail("Failed after " + repetitions + " repetition(s).");
-        }
+  @Test
+  public void testSubClassLHS() throws Exception {
+    final int totalRepetitions = 200;
+    int repetitions = 0;
+    RaceTestCaseRunner r;
+    do {
+      repetitions++;
+      r = new RaceTestCaseRunner();
+      r.racing();
+    } while (!r.callback.failed() && repetitions < totalRepetitions);
+    if (r.callback.failed()) {
+      r.callback.diagnose();
+      fail("Failed after " + repetitions + " repetition(s).");
+    }
+  }
+
+  static interface RaceCallback {
+
+    void add();
+
+    boolean failed();
+
+    void diagnose();
+
+    void race();
+  }
+
+  static class RaceTestCaseRunner {
+
+    public static final String NS = "http://www.race.org#";
+    final AtomicBoolean done = new AtomicBoolean(false);
+    protected RaceCallback callback;
+    ExecutorService exec = Executors.newFixedThreadPool(5);
+    private Runnable writer = () -> {
+      while (!done.get()) {
+        callback.add();
+      }
+      callback.add();
+    };
+
+    RaceTestCaseRunner() throws OWLOntologyCreationException {
+      callback = new SubClassLHSCallback();
     }
 
-    static interface RaceCallback {
-
-        void add();
-
-        boolean failed();
-
-        void diagnose();
-
-        void race();
+    public void racing() throws InterruptedException {
+      exec.submit(writer);
+      callback.race();
+      done.set(true);
+      exec.shutdown();
+      exec.awaitTermination(5, TimeUnit.SECONDS);
     }
 
-    static class RaceTestCaseRunner {
+    public static class SubClassLHSCallback implements RaceCallback {
 
-        public static final String NS = "http://www.race.org#";
-        protected RaceCallback callback;
-        final AtomicBoolean done = new AtomicBoolean(false);
-        ExecutorService exec = Executors.newFixedThreadPool(5);
-        private Runnable writer = () -> {
-            while (!done.get()) {
-                callback.add();
-            }
-            callback.add();
-        };
+      OWLDataFactory factory;
+      OWLOntologyManager manager;
+      OWLOntology ontology;
+      OWLClass x;
+      OWLClass y;
+      private AtomicInteger counter = new AtomicInteger();
 
-        RaceTestCaseRunner() throws OWLOntologyCreationException {
-            callback = new SubClassLHSCallback();
+      public SubClassLHSCallback() throws OWLOntologyCreationException {
+        manager = OWLManager.createConcurrentOWLOntologyManager();
+        factory = manager.getOWLDataFactory();
+        ontology = manager.createOntology();
+        x = factory.getOWLClass(IRI.create(NS, "X"));
+        y = factory.getOWLClass(IRI.create(NS, "Y"));
+      }
+
+      @Override
+      public void add() {
+        OWLClass middle = createMiddleClass(counter.getAndIncrement());
+        Set<OWLAxiom> axioms = computeChanges(middle);
+        ontology.add(axioms);
+      }
+
+      @Override
+      public boolean failed() {
+        long size = computeSize();
+        return size < counter.get();
+      }
+
+      public long computeSize() {
+        return ontology.subClassAxiomsForSubClass(x).count();
+      }
+
+      public Set<OWLAxiom> computeChanges(OWLClass middle) {
+        OWLAxiom axiom1 = factory.getOWLSubClassOfAxiom(x, middle);
+        OWLAxiom axiom2 = factory.getOWLSubClassOfAxiom(middle, y);
+        Set<OWLAxiom> axioms = new HashSet<>();
+        axioms.add(axiom1);
+        axioms.add(axiom2);
+        return axioms;
+      }
+
+      @Override
+      public void diagnose() {
+        List<OWLSubClassOfAxiom> axiomsFound = asList(ontology.subClassAxiomsForSubClass(x));
+        System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
+            + " axioms but it only found " + axiomsFound.size());
+        for (int i = 0; i < counter.get(); i++) {
+          OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x, createMiddleClass(i));
+          if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe) && ontology
+              .containsAxiom(checkMe)) {
+            System.out.println(checkMe.toString()
+                + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
+            return;
+          }
         }
+      }
 
-        public void racing() throws InterruptedException {
-            exec.submit(writer);
-            callback.race();
-            done.set(true);
-            exec.shutdown();
-            exec.awaitTermination(5, TimeUnit.SECONDS);
-        }
+      @Override
+      public void race() {
+        asList(ontology
+            .subClassAxiomsForSubClass(factory.getOWLClass(IRI.create("http://www.race.org#",
+                "testclass"))));
+      }
 
-        public static class SubClassLHSCallback implements RaceCallback {
-
-            private AtomicInteger counter = new AtomicInteger();
-            OWLDataFactory factory;
-            OWLOntologyManager manager;
-            OWLOntology ontology;
-            OWLClass x;
-            OWLClass y;
-
-            public SubClassLHSCallback() throws OWLOntologyCreationException {
-                manager = OWLManager.createConcurrentOWLOntologyManager();
-                factory = manager.getOWLDataFactory();
-                ontology = manager.createOntology();
-                x = factory.getOWLClass(IRI.create(NS, "X"));
-                y = factory.getOWLClass(IRI.create(NS, "Y"));
-            }
-
-            @Override
-            public void add() {
-                OWLClass middle = createMiddleClass(counter.getAndIncrement());
-                Set<OWLAxiom> axioms = computeChanges(middle);
-                ontology.add(axioms);
-            }
-
-            @Override
-            public boolean failed() {
-                long size = computeSize();
-                return size < counter.get();
-            }
-
-            public long computeSize() {
-                return ontology.subClassAxiomsForSubClass(x).count();
-            }
-
-            public Set<OWLAxiom> computeChanges(OWLClass middle) {
-                OWLAxiom axiom1 = factory.getOWLSubClassOfAxiom(x, middle);
-                OWLAxiom axiom2 = factory.getOWLSubClassOfAxiom(middle, y);
-                Set<OWLAxiom> axioms = new HashSet<>();
-                axioms.add(axiom1);
-                axioms.add(axiom2);
-                return axioms;
-            }
-
-            @Override
-            public void diagnose() {
-                List<OWLSubClassOfAxiom> axiomsFound = asList(ontology.subClassAxiomsForSubClass(x));
-                System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
-                    + " axioms but it only found " + axiomsFound.size());
-                for (int i = 0; i < counter.get(); i++) {
-                    OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x, createMiddleClass(i));
-                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe) && ontology.containsAxiom(checkMe)) {
-                        System.out.println(checkMe.toString()
-                            + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
-                        return;
-                    }
-                }
-            }
-
-            @Override
-            public void race() {
-                asList(ontology.subClassAxiomsForSubClass(factory.getOWLClass(IRI.create("http://www.race.org#",
-                    "testclass"))));
-            }
-
-            public OWLClass createMiddleClass(int i) {
-                return factory.getOWLClass(IRI.create(NS, "P" + i));
-            }
-        }
+      public OWLClass createMiddleClass(int i) {
+        return factory.getOWLClass(IRI.create(NS, "P" + i));
+      }
     }
+  }
 }

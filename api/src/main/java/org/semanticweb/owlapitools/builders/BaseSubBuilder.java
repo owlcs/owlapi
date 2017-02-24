@@ -14,69 +14,64 @@ package org.semanticweb.owlapitools.builders;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLSubAnnotationPropertyOfAxiom.
- * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
- * @param <I>
- *        contained items type
+ *
+ * @param <T> type built
+ * @param <B> builder type
+ * @param <I> contained items type
  */
 public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
-    @Nullable private I sub = null;
-    @Nullable private I sup = null;
+  @Nullable
+  private I sub = null;
+  @Nullable
+  private I sup = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BaseSubBuilder(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BaseSubBuilder(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        sub item
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withSub(I arg) {
-        sub = arg;
-        return (B) this;
-    }
+  /**
+   * @param arg sub item
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withSub(I arg) {
+    sub = arg;
+    return (B) this;
+  }
 
-    /**
-     * @param arg
-     *        sup item
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withSup(I arg) {
-        sup = arg;
-        return (B) this;
-    }
+  /**
+   * @param arg sup item
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withSup(I arg) {
+    sup = arg;
+    return (B) this;
+  }
 
-    /**
-     * @return the sub
-     */
-    @Nullable
-    public I getSub() {
-        return sub;
-    }
+  /**
+   * @return the sub
+   */
+  @Nullable
+  public I getSub() {
+    return sub;
+  }
 
-    /**
-     * @return the sup
-     */
-    @Nullable
-    public I getSup() {
-        return sup;
-    }
+  /**
+   * @return the sup
+   */
+  @Nullable
+  public I getSup() {
+    return sup;
+  }
 }

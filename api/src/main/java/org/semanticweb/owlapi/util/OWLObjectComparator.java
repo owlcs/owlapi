@@ -15,37 +15,34 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Comparator;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * A ShortFormProvider based comparator for OWLObjects. OWLEntity instances are
  * sorted according to their short forms.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public class OWLObjectComparator implements Comparator<OWLObject> {
 
-    private final OWLEntityComparator entityComparator;
+  private final OWLEntityComparator entityComparator;
 
-    /**
-     * @param shortFormProvider
-     *        short form provider to use
-     */
-    public OWLObjectComparator(ShortFormProvider shortFormProvider) {
-        entityComparator = new OWLEntityComparator(shortFormProvider);
-    }
+  /**
+   * @param shortFormProvider short form provider to use
+   */
+  public OWLObjectComparator(ShortFormProvider shortFormProvider) {
+    entityComparator = new OWLEntityComparator(shortFormProvider);
+  }
 
-    @Override
-    public int compare(@Nullable OWLObject o1, @Nullable OWLObject o2) {
-        // if both objects are entities, compare their short forms
-        if (o1 instanceof OWLEntity && o2 instanceof OWLEntity) {
-            return entityComparator.compare((OWLEntity) o1, (OWLEntity) o2);
-        }
-        return verifyNotNull(o1).compareTo(o2);
+  @Override
+  public int compare(@Nullable OWLObject o1, @Nullable OWLObject o2) {
+    // if both objects are entities, compare their short forms
+    if (o1 instanceof OWLEntity && o2 instanceof OWLEntity) {
+      return entityComparator.compare((OWLEntity) o1, (OWLEntity) o2);
     }
+    return verifyNotNull(o1).compareTo(o2);
+  }
 }

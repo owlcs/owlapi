@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(4)
 public class TurtleStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
-    public TurtleStorerFactory() {
-        super(new TurtleDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public TurtleStorerFactory() {
+    super(new TurtleDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLStorer createStorer() {
-        return new TurtleStorer();
-    }
+  @Override
+  public OWLStorer createStorer() {
+    return new TurtleStorer();
+  }
 }

@@ -16,43 +16,43 @@ package org.semanticweb.owlapi.model;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Functional_Data_Properties" >
  * FunctionalDataProperty</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
+public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacteristicAxiom,
+    OWLSubClassOfAxiomShortCut {
 
-    @Override
-        OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 67;
-    }
+  @Override
+  default int hashIndex() {
+    return 67;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.FUNCTIONAL_DATA_PROPERTY;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.FUNCTIONAL_DATA_PROPERTY;
+  }
 }

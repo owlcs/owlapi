@@ -18,69 +18,68 @@ import java.util.stream.Stream;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
  * DatatypeDefinition</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getDatatype(), getDataRange(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getDatatype(), getDataRange(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getDatatype(), getDataRange());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getDatatype(), getDataRange());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getDatatype(), getDataRange());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getDatatype(), getDataRange());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 897;
-    }
+  @Override
+  default int hashIndex() {
+    return 897;
+  }
 
-    /**
-     * Gets the {@link OWLDatatype} that is assigned a definition.
-     * 
-     * @return The datatype
-     */
-    OWLDatatype getDatatype();
+  /**
+   * Gets the {@link OWLDatatype} that is assigned a definition.
+   *
+   * @return The datatype
+   */
+  OWLDatatype getDatatype();
 
-    /**
-     * Gets the datarange that defines the datatype.
-     * 
-     * @return The defining datarange
-     */
-    OWLDataRange getDataRange();
+  /**
+   * Gets the datarange that defines the datatype.
+   *
+   * @return The defining datarange
+   */
+  OWLDataRange getDataRange();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.DATATYPE_DEFINITION;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.DATATYPE_DEFINITION;
+  }
 }

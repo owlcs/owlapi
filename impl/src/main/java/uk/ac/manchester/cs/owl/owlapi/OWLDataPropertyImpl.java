@@ -19,37 +19,35 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDataPropertyImpl extends OWLObjectImpl implements OWLDataProperty {
 
-    private final IRI iri;
-    private final boolean builtin;
+  private final IRI iri;
+  private final boolean builtin;
 
-    /**
-     * @param iri
-     *        property iri
-     */
-    public OWLDataPropertyImpl(IRI iri) {
-        this.iri = checkNotNull(iri, "iri cannot be null");
-        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(
-            OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
-    }
+  /**
+   * @param iri property iri
+   */
+  public OWLDataPropertyImpl(IRI iri) {
+    this.iri = checkNotNull(iri, "iri cannot be null");
+    builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(
+        OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+  }
 
-    @Override
-    public String toStringID() {
-        return iri.toString();
-    }
+  @Override
+  public String toStringID() {
+    return iri.toString();
+  }
 
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
+  @Override
+  public IRI getIRI() {
+    return iri;
+  }
 
-    @Override
-    public boolean isBuiltIn() {
-        return builtin;
-    }
+  @Override
+  public boolean isBuiltIn() {
+    return builtin;
+  }
 }

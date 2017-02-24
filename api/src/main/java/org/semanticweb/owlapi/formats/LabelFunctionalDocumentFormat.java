@@ -22,8 +22,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  */
 public class LabelFunctionalDocumentFormat extends OWLDocumentFormatImpl {
 
-    @Override
-    public String getKey() {
-        return "Label functional Syntax";
-    }
+  @Override
+  public String getKey() {
+    return "Label functional Syntax";
+  }
 }

@@ -8,206 +8,334 @@ package org.semanticweb.owlapi.krss2.parser;
  */
 interface KRSS2ParserConstants {
 
-  /** End of File. */
+  /**
+   * End of File.
+   */
   int EOF = 0;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int COMMENT_START = 8;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int IRI_START = 11;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int IRI_END = 12;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int TOP = 14;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int BOTTOM = 15;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NIL = 16;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int TRUE = 17;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OPENPAR = 18;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLOSEPAR = 19;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ENDTBOX = 20;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ENDABOX = 21;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int COMPOSE = 22;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DEFINECONCEPT = 23;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DEFINEPRIMITIVECONCEPT = 24;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DISJOINT = 25;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EQUIVALENT = 26;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int IMPLIES = 27;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int AND = 28;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OR = 29;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NOT = 30;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ALL = 31;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ONEOF = 32;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SOME = 33;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ATLEAST = 34;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ATMOST = 35;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EXACTLY = 36;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DEFINEROLE = 37;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DEFINEPRIMITIVEROLE = 38;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DISJOINTROLES = 39;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DOMAIN_ATTRIBUTE = 40;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int IMPLIESROLE = 41;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INV = 42;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INVERSE = 43;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INVERSE_ATTRIBUTE = 44;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int LEFT_IDENTITY_ATTRIBUTE = 45;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PARENT = 46;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PARENTS = 47;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int RANGE = 48;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int RANGE_ATTRIBUTE = 49;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int REFLEXIVE_ATTRIBUTE = 50;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int RIGHT_IDENTITY_ATTRIBUTE = 51;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ROLESEQUIVALENT = 52;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ROLE_INCLUSION = 53;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SUBROLE = 54;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SYMMETRIC_ATTRIBUTE = 55;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int TRANSITIVE = 56;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int TRANSITIVE_ATTRIBUTE = 57;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DEFINEINDIVIDUAL = 58;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DISTINCT = 59;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EQUAL = 60;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INSTANCE = 61;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int RELATED = 62;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DPOINT = 63;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ENUM = 64;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INT = 65;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NAME = 66;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NCCHAR_FULL = 67;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NCCHAR1 = 68;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ERROR = 69;
 
-  /** Lexical state. */
+  /**
+   * Lexical state.
+   */
   int DEFAULT = 0;
-  /** Lexical state. */
+  /**
+   * Lexical state.
+   */
   int IN_COMMENT = 1;
-  /** Lexical state. */
+  /**
+   * Lexical state.
+   */
   int IN_IRI = 2;
 
-  /** Literal token values. */
+  /**
+   * Literal token values.
+   */
   String[] tokenImage = {
-    "<EOF>",
-    "\" \"",
-    "\"\\t\"",
-    "\"\\r\"",
-    "\"\\\"\"",
-    "\"|\"",
-    "\"\\\\\"",
-    "\"\\n\"",
-    "\";\"",
-    "\"\\n\"",
-    "<token of kind 10>",
-    "\"<\"",
-    "\">\"",
-    "<token of kind 13>",
-    "<TOP>",
-    "<BOTTOM>",
-    "\"NIL\"",
-    "\"t\"",
-    "\"(\"",
-    "\")\"",
-    "\"end-tbox\"",
-    "\"end-abox\"",
-    "\"compose\"",
-    "\"define-concept\"",
-    "\"define-primitive-concept\"",
-    "\"disjoint\"",
-    "\"equivalent\"",
-    "\"implies\"",
-    "\"AND\"",
-    "\"OR\"",
-    "\"NOT\"",
-    "\"ALL\"",
-    "\"one-of\"",
-    "\"SOME\"",
-    "\"AT-LEAST\"",
-    "\"AT-MOST\"",
-    "\"EXACTLY\"",
-    "\"define-role\"",
-    "\"define-primitive-role\"",
-    "\"disjoint-roles\"",
-    "\":domain\"",
-    "\"implies-role\"",
-    "\"inv\"",
-    "\"inverse\"",
-    "\":inverse\"",
-    "\":left-identity\"",
-    "\":parent\"",
-    "\":parents\"",
-    "\"range\"",
-    "\":range\"",
-    "\":reflexive\"",
-    "\":right-identity\"",
-    "\"roles-equivalent\"",
-    "\"role-inclusion\"",
-    "\"subrole\"",
-    "\":symmetric\"",
-    "\"TRANSITIVE\"",
-    "<TRANSITIVE_ATTRIBUTE>",
-    "\"define-individual\"",
-    "\"distinct\"",
-    "\"equal\"",
-    "\"instance\"",
-    "\"related\"",
-    "\":\"",
-    "\"enum\"",
-    "<INT>",
-    "<NAME>",
-    "<NCCHAR_FULL>",
-    "<NCCHAR1>",
-    "<ERROR>",
+      "<EOF>",
+      "\" \"",
+      "\"\\t\"",
+      "\"\\r\"",
+      "\"\\\"\"",
+      "\"|\"",
+      "\"\\\\\"",
+      "\"\\n\"",
+      "\";\"",
+      "\"\\n\"",
+      "<token of kind 10>",
+      "\"<\"",
+      "\">\"",
+      "<token of kind 13>",
+      "<TOP>",
+      "<BOTTOM>",
+      "\"NIL\"",
+      "\"t\"",
+      "\"(\"",
+      "\")\"",
+      "\"end-tbox\"",
+      "\"end-abox\"",
+      "\"compose\"",
+      "\"define-concept\"",
+      "\"define-primitive-concept\"",
+      "\"disjoint\"",
+      "\"equivalent\"",
+      "\"implies\"",
+      "\"AND\"",
+      "\"OR\"",
+      "\"NOT\"",
+      "\"ALL\"",
+      "\"one-of\"",
+      "\"SOME\"",
+      "\"AT-LEAST\"",
+      "\"AT-MOST\"",
+      "\"EXACTLY\"",
+      "\"define-role\"",
+      "\"define-primitive-role\"",
+      "\"disjoint-roles\"",
+      "\":domain\"",
+      "\"implies-role\"",
+      "\"inv\"",
+      "\"inverse\"",
+      "\":inverse\"",
+      "\":left-identity\"",
+      "\":parent\"",
+      "\":parents\"",
+      "\"range\"",
+      "\":range\"",
+      "\":reflexive\"",
+      "\":right-identity\"",
+      "\"roles-equivalent\"",
+      "\"role-inclusion\"",
+      "\"subrole\"",
+      "\":symmetric\"",
+      "\"TRANSITIVE\"",
+      "<TRANSITIVE_ATTRIBUTE>",
+      "\"define-individual\"",
+      "\"distinct\"",
+      "\"equal\"",
+      "\"instance\"",
+      "\"related\"",
+      "\":\"",
+      "\"enum\"",
+      "<INT>",
+      "<NAME>",
+      "<NCCHAR_FULL>",
+      "<NCCHAR1>",
+      "<ERROR>",
   };
 
 }

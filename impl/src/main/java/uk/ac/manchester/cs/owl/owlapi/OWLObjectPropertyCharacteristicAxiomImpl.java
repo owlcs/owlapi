@@ -15,35 +15,32 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl implements
+public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
+    OWLPropertyAxiomImpl implements
     OWLObjectPropertyCharacteristicAxiom {
 
-    private final OWLObjectPropertyExpression property;
+  private final OWLObjectPropertyExpression property;
 
-    /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
-     */
-    public OWLObjectPropertyCharacteristicAxiomImpl(OWLObjectPropertyExpression property,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.property = checkNotNull(property, "property cannot be null");
-    }
+  /**
+   * @param property property
+   * @param annotations annotations
+   */
+  public OWLObjectPropertyCharacteristicAxiomImpl(OWLObjectPropertyExpression property,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.property = checkNotNull(property, "property cannot be null");
+  }
 
-    @Override
-    public OWLObjectPropertyExpression getProperty() {
-        return property;
-    }
+  @Override
+  public OWLObjectPropertyExpression getProperty() {
+    return property;
+  }
 }

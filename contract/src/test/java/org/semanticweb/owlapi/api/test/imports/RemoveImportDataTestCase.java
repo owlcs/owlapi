@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
@@ -22,53 +23,52 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class RemoveImportDataTestCase {
 
-    private final OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
-    private final OWLOntology mockOntology = mock(OWLOntology.class);
+  private final OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
+  private final OWLOntology mockOntology = mock(OWLOntology.class);
 
-    private RemoveImportData createData() {
-        return new RemoveImportData(mockDeclaration);
-    }
+  private RemoveImportData createData() {
+    return new RemoveImportData(mockDeclaration);
+  }
 
-    @Test
-    public void testEquals() {
-        RemoveImportData data1 = createData();
-        RemoveImportData data2 = createData();
-        assertEquals(data1, data2);
-        assertEquals(data1.hashCode(), data2.hashCode());
-    }
+  @Test
+  public void testEquals() {
+    RemoveImportData data1 = createData();
+    RemoveImportData data2 = createData();
+    assertEquals(data1, data2);
+    assertEquals(data1.hashCode(), data2.hashCode());
+  }
 
-    @Test
-    public void testGettersReturnNotNull() {
-        RemoveImportData data = createData();
-        assertNotNull(data.getDeclaration());
-        assertNotNull(data.createOntologyChange(mockOntology));
-    }
+  @Test
+  public void testGettersReturnNotNull() {
+    RemoveImportData data = createData();
+    assertNotNull(data.getDeclaration());
+    assertNotNull(data.createOntologyChange(mockOntology));
+  }
 
-    @Test
-    public void testGettersEquals() {
-        RemoveImportData data = createData();
-        assertEquals(mockDeclaration, data.getDeclaration());
-    }
+  @Test
+  public void testGettersEquals() {
+    RemoveImportData data = createData();
+    assertEquals(mockDeclaration, data.getDeclaration());
+  }
 
-    @Test
-    public void testCreateOntologyChange() {
-        RemoveImportData data = createData();
-        RemoveImport change = data.createOntologyChange(mockOntology);
-        assertEquals(mockOntology, change.getOntology());
-        assertEquals(mockDeclaration, change.getImportDeclaration());
-    }
+  @Test
+  public void testCreateOntologyChange() {
+    RemoveImportData data = createData();
+    RemoveImport change = data.createOntologyChange(mockOntology);
+    assertEquals(mockOntology, change.getOntology());
+    assertEquals(mockDeclaration, change.getImportDeclaration());
+  }
 
-    @Test
-    public void testOntologyChangeSymmetry() {
-        RemoveImportData data = createData();
-        RemoveImport change = new RemoveImport(mockOntology, mockDeclaration);
-        assertEquals(change.getChangeData(), data);
-    }
+  @Test
+  public void testOntologyChangeSymmetry() {
+    RemoveImportData data = createData();
+    RemoveImport change = new RemoveImport(mockOntology, mockDeclaration);
+    assertEquals(change.getChangeData(), data);
+  }
 }

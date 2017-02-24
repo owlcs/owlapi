@@ -15,36 +15,33 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public abstract class ImportChange extends OWLOntologyChange {
 
-    private final OWLImportsDeclaration declaration;
+  private final OWLImportsDeclaration declaration;
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param importDeclaration
-     *        the import declaration
-     */
-    public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
-        super(ont);
-        declaration = checkNotNull(importDeclaration, "importDeclaration cannot be null");
-    }
+  /**
+   * @param ont the ontology to which the change is to be applied
+   * @param importDeclaration the import declaration
+   */
+  public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
+    super(ont);
+    declaration = checkNotNull(importDeclaration, "importDeclaration cannot be null");
+  }
 
-    /**
-     * Gets the import declaration that the change pertains to.
-     * 
-     * @return The import declaration
-     */
-    public OWLImportsDeclaration getImportDeclaration() {
-        return declaration;
-    }
+  /**
+   * Gets the import declaration that the change pertains to.
+   *
+   * @return The import declaration
+   */
+  public OWLImportsDeclaration getImportDeclaration() {
+    return declaration;
+  }
 
-    @Override
-    public boolean isImportChange() {
-        return true;
-    }
+  @Override
+  public boolean isImportChange() {
+    return true;
+  }
 }

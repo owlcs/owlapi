@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -28,35 +26,36 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 /**
  * A convenience class which is an ontology change listener which collects the
  * entities which are referenced in a set of ontology changes.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLEntityCollectingOntologyChangeListener implements
     OWLOntologyChangeListener {
 
-    private final Set<OWLEntity> entities = new HashSet<>();
+  private final Set<OWLEntity> entities = new HashSet<>();
 
-    @Override
-    public void ontologiesChanged(
-        @Nonnull List<? extends OWLOntologyChange> changes) {
-        entities.clear();
-        for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange()) {
-                entities.addAll(asList(((OWLAxiomChange) change).signature()));
-            }
-        }
-        ontologiesChanged();
+  @Override
+  public void ontologiesChanged(
+      @Nonnull List<? extends OWLOntologyChange> changes) {
+    entities.clear();
+    for (OWLOntologyChange change : changes) {
+      if (change.isAxiomChange()) {
+        entities.addAll(asList(((OWLAxiomChange) change).signature()));
+      }
     }
+    ontologiesChanged();
+  }
 
-    /**
-     * Called when a set of changes have been applied.
-     */
-    public abstract void ontologiesChanged();
+  /**
+   * Called when a set of changes have been applied.
+   */
+  public abstract void ontologiesChanged();
 
-    /** @return the entities which were referenced in the last change set. */
-    public Set<OWLEntity> getEntities() {
-        return CollectionFactory.copyMutable(entities);
-    }
+  /**
+   * @return the entities which were referenced in the last change set.
+   */
+  public Set<OWLEntity> getEntities() {
+    return CollectionFactory.copyMutable(entities);
+  }
 }

@@ -15,44 +15,43 @@ package org.semanticweb.owlapi.model;
 /**
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
  * SubObjectPropertyOf</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLSubObjectPropertyOfAxiom
     extends OWLSubPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
-    @Override
-        OWLSubObjectPropertyOfAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLSubObjectPropertyOfAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 127;
-    }
+  @Override
+  default int hashIndex() {
+    return 127;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.SUB_OBJECT_PROPERTY;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.SUB_OBJECT_PROPERTY;
+  }
 }

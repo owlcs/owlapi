@@ -16,52 +16,52 @@ package org.semanticweb.owlapi.model;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Negative_Data_Property_Assertions"
  * >NegativeDataPropertyAssertion</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLNegativeDataPropertyAssertionAxiom
-    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>, OWLSubClassOfAxiomShortCut {
+    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
+    OWLSubClassOfAxiomShortCut {
 
-    @Override
-        OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 97;
-    }
+  @Override
+  default int hashIndex() {
+    return 97;
+  }
 
-    /**
-     * Determines whether this axiom contains anonymous individuals. Anonymous
-     * individuals are not allowed in negative data property assertion axioms.
-     * 
-     * @return {@code true} if this axioms contains anonymous individual axioms
-     */
-    boolean containsAnonymousIndividuals();
+  /**
+   * Determines whether this axiom contains anonymous individuals. Anonymous
+   * individuals are not allowed in negative data property assertion axioms.
+   *
+   * @return {@code true} if this axioms contains anonymous individual axioms
+   */
+  boolean containsAnonymousIndividuals();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
+  }
 }

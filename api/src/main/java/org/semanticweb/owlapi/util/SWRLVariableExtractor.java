@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
-
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
@@ -30,88 +29,87 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
  * Extracts the variables from rules.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class SWRLVariableExtractor implements SWRLObjectVisitorEx<Collection<SWRLVariable>> {
 
-    private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<>();
+  private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<>();
 
-    /**
-     * @return the set of variables
-     */
-    public LinkedHashSet<SWRLVariable> getVariables() {
-        return variables;
-    }
+  /**
+   * @return the set of variables
+   */
+  public LinkedHashSet<SWRLVariable> getVariables() {
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLRule node) {
-        node.body().forEach(a -> a.accept(this));
-        node.head().forEach(a -> a.accept(this));
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLRule node) {
+    node.body().forEach(a -> a.accept(this));
+    node.head().forEach(a -> a.accept(this));
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLClassAtom node) {
-        node.getArgument().accept(this);
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLClassAtom node) {
+    node.getArgument().accept(this);
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLDataRangeAtom node) {
-        node.getArgument().accept(this);
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLDataRangeAtom node) {
+    node.getArgument().accept(this);
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLObjectPropertyAtom node) {
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLObjectPropertyAtom node) {
+    node.getFirstArgument().accept(this);
+    node.getSecondArgument().accept(this);
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLDataPropertyAtom node) {
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLDataPropertyAtom node) {
+    node.getFirstArgument().accept(this);
+    node.getSecondArgument().accept(this);
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLBuiltInAtom node) {
-        node.getArguments().forEach(a -> a.accept(this));
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLBuiltInAtom node) {
+    node.getArguments().forEach(a -> a.accept(this));
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLVariable node) {
-        variables.add(node);
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLVariable node) {
+    variables.add(node);
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLIndividualArgument node) {
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLIndividualArgument node) {
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLLiteralArgument node) {
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLLiteralArgument node) {
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLSameIndividualAtom node) {
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLSameIndividualAtom node) {
+    node.getFirstArgument().accept(this);
+    node.getSecondArgument().accept(this);
+    return variables;
+  }
 
-    @Override
-    public Collection<SWRLVariable> visit(SWRLDifferentIndividualsAtom node) {
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
-        return variables;
-    }
+  @Override
+  public Collection<SWRLVariable> visit(SWRLDifferentIndividualsAtom node) {
+    node.getFirstArgument().accept(this);
+    node.getSecondArgument().accept(this);
+    return variables;
+  }
 }

@@ -16,33 +16,30 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 
 /**
  * Comparator for objects with HasPriority annotations. Objects without
  * HasPriority are considered to have lowest priority (Double.MAX_VALUE).
- * 
+ *
+ * @param <T> comparator type
  * @author ignazio
- * @param <T>
- *        comparator type
  */
 public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
 
-    private static double getPriority(@Nullable Object p) {
-        HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
-        if (priority != null) {
-            return priority.value();
-        }
-        // if the object does not have a priority annotation, only use
-        // it last
-        return Double.MAX_VALUE;
+  private static double getPriority(@Nullable Object p) {
+    HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
+    if (priority != null) {
+      return priority.value();
     }
+    // if the object does not have a priority annotation, only use
+    // it last
+    return Double.MAX_VALUE;
+  }
 
-    @Override
-    public int compare(@Nullable T o1, @Nullable T o2) {
-        return Double.compare(getPriority(o1), getPriority(o2));
-    }
+  @Override
+  public int compare(@Nullable T o1, @Nullable T o2) {
+    return Double.compare(getPriority(o1), getPriority(o2));
+  }
 }

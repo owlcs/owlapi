@@ -18,74 +18,73 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Class_Assertions">ClassAssertion
  * </a> axioms in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getIndividual(), getClassExpression(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getIndividual(), getClassExpression(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getIndividual(), getClassExpression());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getIndividual(), getClassExpression());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getIndividual(), getClassExpression());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getIndividual(), getClassExpression());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 7;
-    }
+  @Override
+  default int hashIndex() {
+    return 7;
+  }
 
-    @Override
-        OWLClassAssertionAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLClassAssertionAxiom getAxiomWithoutAnnotations();
 
-    /**
-     * Gets the individual that is asserted to be an instance of a class
-     * expression by this axiom.
-     * 
-     * @return The individual
-     */
-    OWLIndividual getIndividual();
+  /**
+   * Gets the individual that is asserted to be an instance of a class
+   * expression by this axiom.
+   *
+   * @return The individual
+   */
+  OWLIndividual getIndividual();
 
-    /**
-     * Gets the class expression that is asserted to be a type for an individual
-     * by this axiom.
-     * 
-     * @return The class expression
-     */
-    OWLClassExpression getClassExpression();
+  /**
+   * Gets the class expression that is asserted to be a type for an individual
+   * by this axiom.
+   *
+   * @return The class expression
+   */
+  OWLClassExpression getClassExpression();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.CLASS_ASSERTION;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.CLASS_ASSERTION;
+  }
 }

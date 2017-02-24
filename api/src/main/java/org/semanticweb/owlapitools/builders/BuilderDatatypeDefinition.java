@@ -16,87 +16,86 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for OWLDatatypeDefinitionAxiom. */
-public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
+/**
+ * Builder class for OWLDatatypeDefinitionAxiom.
+ */
+public class BuilderDatatypeDefinition extends
+    BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
-    @Nullable private OWLDataRange range = null;
-    @Nullable private OWLDatatype type = null;
+  @Nullable
+  private OWLDataRange range = null;
+  @Nullable
+  private OWLDatatype type = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDatatypeDefinition(OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
-        this(df);
-        with(expected.getDatatype()).withType(expected.getDataRange()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDatatypeDefinition(OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
+    this(df);
+    with(expected.getDatatype()).withType(expected.getDataRange())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDatatypeDefinition(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDatatypeDefinition(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
-    public BuilderDatatypeDefinition withType(OWL2Datatype arg) {
-        return withType(arg.getDatatype(df));
-    }
+  /**
+   * @param arg range
+   * @return builder
+   */
+  public BuilderDatatypeDefinition withType(OWL2Datatype arg) {
+    return withType(arg.getDatatype(df));
+  }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
-    public BuilderDatatypeDefinition withType(OWLDataRange arg) {
-        range = arg;
-        return this;
-    }
+  /**
+   * @param arg range
+   * @return builder
+   */
+  public BuilderDatatypeDefinition withType(OWLDataRange arg) {
+    range = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        type
-     * @return builder
-     */
-    public BuilderDatatypeDefinition with(OWLDatatype arg) {
-        type = arg;
-        return this;
-    }
+  /**
+   * @param arg type
+   * @return builder
+   */
+  public BuilderDatatypeDefinition with(OWLDatatype arg) {
+    type = arg;
+    return this;
+  }
 
-    @Override
-    public OWLDatatypeDefinitionAxiom buildObject() {
-        return df.getOWLDatatypeDefinitionAxiom(verifyNotNull(type), getRange(), annotations);
-    }
+  @Override
+  public OWLDatatypeDefinitionAxiom buildObject() {
+    return df.getOWLDatatypeDefinitionAxiom(verifyNotNull(type), getRange(), annotations);
+  }
 
-    /**
-     * @return range
-     */
-    public OWLDataRange getRange() {
-        return verifyNotNull(range);
-    }
+  /**
+   * @return range
+   */
+  public OWLDataRange getRange() {
+    return verifyNotNull(range);
+  }
 
-    /**
-     * @return type
-     */
-    @Nullable
-    public OWLDatatype getType() {
-        return type;
-    }
+  /**
+   * @return type
+   */
+  @Nullable
+  public OWLDatatype getType() {
+    return type;
+  }
 }

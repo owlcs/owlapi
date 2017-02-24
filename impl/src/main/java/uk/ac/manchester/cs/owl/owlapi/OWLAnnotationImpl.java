@@ -18,50 +18,46 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
 
-    private final List<OWLAnnotation> anns;
+  private final List<OWLAnnotation> anns;
 
-    /**
-     * @param property
-     *        annotation property
-     * @param value
-     *        annotation value
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value,
-        Stream<OWLAnnotation> annotations) {
-        super(property, value);
-        checkNotNull(annotations, "annotations cannot be null");
-        anns = sortOptionally(annotations.distinct());
-    }
+  /**
+   * @param property annotation property
+   * @param value annotation value
+   * @param annotations annotations on the axiom
+   */
+  public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value,
+      Stream<OWLAnnotation> annotations) {
+    super(property, value);
+    checkNotNull(annotations, "annotations cannot be null");
+    anns = sortOptionally(annotations.distinct());
+  }
 
-    @Override
-    public Stream<OWLAnnotation> annotations() {
-        return anns.stream();
-    }
+  @Override
+  public Stream<OWLAnnotation> annotations() {
+    return anns.stream();
+  }
 
-    @Override
-    public OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations) {
-        if (annotations.isEmpty()) {
-            return this;
-        }
-        return getAnnotatedAnnotation(annotations.stream());
+  @Override
+  public OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations) {
+    if (annotations.isEmpty()) {
+      return this;
     }
+    return getAnnotatedAnnotation(annotations.stream());
+  }
 
-    @Override
-    public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationImpl(getProperty(), getValue(), Stream.concat(anns.stream(), annotations));
-    }
+  @Override
+  public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
+    return new OWLAnnotationImpl(getProperty(), getValue(),
+        Stream.concat(anns.stream(), annotations));
+  }
 }

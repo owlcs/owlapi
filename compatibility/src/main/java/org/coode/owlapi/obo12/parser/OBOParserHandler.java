@@ -50,13 +50,13 @@ import javax.annotation.Nullable;
 @SuppressWarnings("javadoc")
 public interface OBOParserHandler {
 
-    void startHeader();
+  void startHeader();
 
-    void endHeader();
+  void endHeader();
 
-    void startFrame(@Nullable String name);
+  void startFrame(@Nullable String name);
 
-    void endFrame();
+  void endFrame();
 
-    void handleTagValue(String tag, String value, String qualifierBlock, String comment);
+  void handleTagValue(String tag, String value, String qualifierBlock, String comment);
 }

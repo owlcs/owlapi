@@ -13,121 +13,109 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <O> visitor type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <O>
- *        visitor type
  */
 public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVisitorExBase<O> {
 
-    /**
-     * visit SWRLClassAtom type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLClassAtom node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLClassAtom type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLClassAtom node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLDataRangeAtom type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLDataRangeAtom node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLDataRangeAtom type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLDataRangeAtom node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLObjectPropertyAtom type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLObjectPropertyAtom node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLObjectPropertyAtom type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLObjectPropertyAtom node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLDataPropertyAtom type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLDataPropertyAtom node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLDataPropertyAtom type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLDataPropertyAtom node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLBuiltInAtom type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLBuiltInAtom node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLBuiltInAtom type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLBuiltInAtom node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLVariable type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLVariable node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLVariable type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLVariable node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLIndividualArgument type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLIndividualArgument node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLIndividualArgument type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLIndividualArgument node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLLiteralArgument type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLLiteralArgument node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLLiteralArgument type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLLiteralArgument node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLSameIndividualAtom type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLSameIndividualAtom node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLSameIndividualAtom type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLSameIndividualAtom node) {
+    return doDefault(node);
+  }
 
-    /**
-     * visit SWRLDifferentIndividualsAtom type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    default O visit(SWRLDifferentIndividualsAtom node) {
-        return doDefault(node);
-    }
+  /**
+   * visit SWRLDifferentIndividualsAtom type
+   *
+   * @param node node to visit
+   * @return visitor value
+   */
+  default O visit(SWRLDifferentIndividualsAtom node) {
+    return doDefault(node);
+  }
 }

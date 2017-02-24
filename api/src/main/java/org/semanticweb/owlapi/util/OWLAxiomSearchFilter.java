@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -23,18 +22,15 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public interface OWLAxiomSearchFilter extends Serializable {
 
-    /**
-     * @return axiom types; expected to be one, but the filter could include
-     *         multiple axiom types
-     */
-    Iterable<AxiomType<?>> getAxiomTypes();
+  /**
+   * @return axiom types; expected to be one, but the filter could include multiple axiom types
+   */
+  Iterable<AxiomType<?>> getAxiomTypes();
 
-    /**
-     * @param axiom
-     *        axiom to check
-     * @param key
-     *        key
-     * @return true if passed
-     */
-    boolean pass(OWLAxiom axiom, Object key);
+  /**
+   * @param axiom axiom to check
+   * @param key key
+   * @return true if passed
+   */
+  boolean pass(OWLAxiom axiom, Object key);
 }

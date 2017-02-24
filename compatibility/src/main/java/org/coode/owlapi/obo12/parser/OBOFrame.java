@@ -41,7 +41,6 @@ package org.coode.owlapi.obo12.parser;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.annotation.Nullable;
 
 /**
@@ -52,32 +51,33 @@ import javax.annotation.Nullable;
  */
 class OBOFrame {
 
-    @Nullable private String frameType = null;
-    private final List<OBOTagValuePair> tagValuePairs;
+  private final List<OBOTagValuePair> tagValuePairs;
+  @Nullable
+  private String frameType = null;
 
-    public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
-        this.tagValuePairs = tagValuePairs;
-    }
+  public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
+    this.tagValuePairs = tagValuePairs;
+  }
 
-    public OBOFrame(@Nullable String frameType, List<OBOTagValuePair> tagValuePairs) {
-        this.frameType = frameType;
-        this.tagValuePairs = new ArrayList<>(tagValuePairs);
-    }
+  public OBOFrame(@Nullable String frameType, List<OBOTagValuePair> tagValuePairs) {
+    this.frameType = frameType;
+    this.tagValuePairs = new ArrayList<>(tagValuePairs);
+  }
 
-    @Nullable
-    public String getFrameType() {
-        return frameType;
-    }
+  @Nullable
+  public String getFrameType() {
+    return frameType;
+  }
 
-    public List<OBOTagValuePair> getTagValuePairs() {
-        return Collections.unmodifiableList(tagValuePairs);
-    }
+  public List<OBOTagValuePair> getTagValuePairs() {
+    return Collections.unmodifiableList(tagValuePairs);
+  }
 
-    public boolean isHeaderFrame() {
-        return frameType == null;
-    }
+  public boolean isHeaderFrame() {
+    return frameType == null;
+  }
 
-    public boolean isTypeDefFrame() {
-        return OBOVocabulary.TYPEDEF.getName().equals(frameType);
-    }
+  public boolean isTypeDefFrame() {
+    return OBOVocabulary.TYPEDEF.getName().equals(frameType);
+  }
 }

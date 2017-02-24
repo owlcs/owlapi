@@ -13,58 +13,66 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createDataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * A test case which ensures that an ontology contains entity references when
  * that ontology only contains entity declaration axioms. In other words, entity
  * declaration axioms produce the correct entity references.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends TestBase {
 
-    @Test
-    public void testOWLClassDeclarationAxiom() {
-        OWLClass cls = createClass();
-        OWLAxiom ax = Declaration(cls);
-        OWLOntology ont = getOWLOntology();
-        ont.add(ax);
-        assertTrue(contains(ont.classesInSignature(), cls));
-    }
+  @Test
+  public void testOWLClassDeclarationAxiom() {
+    OWLClass cls = createClass();
+    OWLAxiom ax = Declaration(cls);
+    OWLOntology ont = getOWLOntology();
+    ont.add(ax);
+    assertTrue(contains(ont.classesInSignature(), cls));
+  }
 
-    @Test
-    public void testOWLObjectPropertyDeclarationAxiom() {
-        OWLObjectProperty prop = createObjectProperty();
-        OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = getOWLOntology();
-        ont.add(ax);
-        assertTrue(contains(ont.objectPropertiesInSignature(), prop));
-    }
+  @Test
+  public void testOWLObjectPropertyDeclarationAxiom() {
+    OWLObjectProperty prop = createObjectProperty();
+    OWLAxiom ax = Declaration(prop);
+    OWLOntology ont = getOWLOntology();
+    ont.add(ax);
+    assertTrue(contains(ont.objectPropertiesInSignature(), prop));
+  }
 
-    @Test
-    public void testOWLDataPropertyDeclarationAxiom() {
-        OWLDataProperty prop = createDataProperty();
-        OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = getOWLOntology();
-        ont.add(ax);
-        assertTrue(contains(ont.dataPropertiesInSignature(), prop));
-    }
+  @Test
+  public void testOWLDataPropertyDeclarationAxiom() {
+    OWLDataProperty prop = createDataProperty();
+    OWLAxiom ax = Declaration(prop);
+    OWLOntology ont = getOWLOntology();
+    ont.add(ax);
+    assertTrue(contains(ont.dataPropertiesInSignature(), prop));
+  }
 
-    @Test
-    public void testOWLIndividualDeclarationAxiom() {
-        OWLNamedIndividual ind = createIndividual();
-        OWLAxiom ax = Declaration(ind);
-        OWLOntology ont = getOWLOntology();
-        ont.add(ax);
-        assertTrue(contains(ont.individualsInSignature(), ind));
-    }
+  @Test
+  public void testOWLIndividualDeclarationAxiom() {
+    OWLNamedIndividual ind = createIndividual();
+    OWLAxiom ax = Declaration(ind);
+    OWLOntology ont = getOWLOntology();
+    ont.add(ax);
+    assertTrue(contains(ont.individualsInSignature(), ind));
+  }
 }

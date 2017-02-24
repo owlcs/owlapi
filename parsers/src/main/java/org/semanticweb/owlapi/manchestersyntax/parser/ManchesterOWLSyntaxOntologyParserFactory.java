@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(4)
 public class ManchesterOWLSyntaxOntologyParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
-    public ManchesterOWLSyntaxOntologyParserFactory() {
-        super(new ManchesterSyntaxDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public ManchesterOWLSyntaxOntologyParserFactory() {
+    super(new ManchesterSyntaxDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLParser createParser() {
-        return new ManchesterOWLSyntaxOntologyParser();
-    }
+  @Override
+  public OWLParser createParser() {
+    return new ManchesterOWLSyntaxOntologyParser();
+  }
 }

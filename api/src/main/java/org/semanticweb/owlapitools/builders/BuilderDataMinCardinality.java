@@ -13,51 +13,51 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 
-/** Builder class for OWLDataMinCardinality. */
-public class BuilderDataMinCardinality extends BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality>
+/**
+ * Builder class for OWLDataMinCardinality.
+ */
+public class BuilderDataMinCardinality extends
+    BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality>
     implements SettableCardinality<BuilderDataMinCardinality> {
 
-    private int cardinality = -1;
+  private int cardinality = -1;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDataMinCardinality(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDataMinCardinality(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDataMinCardinality(OWLDataMinCardinality expected, OWLDataFactory df) {
-        this(df);
-        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDataMinCardinality(OWLDataMinCardinality expected, OWLDataFactory df) {
+    this(df);
+    withCardinality(expected.getCardinality()).withProperty(expected.getProperty())
+        .withRange(expected.getFiller());
+  }
 
-    @Override
-    public BuilderDataMinCardinality withCardinality(int arg) {
-        cardinality = arg;
-        return this;
-    }
+  @Override
+  public BuilderDataMinCardinality withCardinality(int arg) {
+    cardinality = arg;
+    return this;
+  }
 
-    @Override
-    public int getCardinality() {
-        return cardinality;
-    }
+  @Override
+  public int getCardinality() {
+    return cardinality;
+  }
 
-    @Override
-    public OWLDataMinCardinality buildObject() {
-        return df.getOWLDataMinCardinality(cardinality, getProperty(), getDataRange());
-    }
+  @Override
+  public OWLDataMinCardinality buildObject() {
+    return df.getOWLDataMinCardinality(cardinality, getProperty(), getDataRange());
+  }
 }

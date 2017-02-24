@@ -19,26 +19,25 @@ import java.util.Optional;
 
 /**
  * An output target that will output an ontology to {@code System.out}.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
-    @Override
-    public Optional<OutputStream> getOutputStream() {
-        return optional(new OutputStream() {
+  @Override
+  public Optional<OutputStream> getOutputStream() {
+    return optional(new OutputStream() {
 
-            @Override
-            public void write(int b) {
-                System.out.write(b);
-            }
+      @Override
+      public void write(int b) {
+        System.out.write(b);
+      }
 
-            @Override
-            public void close() {
-                // Do nothing
-            }
-        });
-    }
+      @Override
+      public void close() {
+        // Do nothing
+      }
+    });
+  }
 }

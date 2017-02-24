@@ -41,14 +41,14 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 /**
  * {@link RDFParserFactory} that creates RDF statements from
  * {@link ManchesterSyntaxDocumentFormat} documents.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public class RioManchesterSyntaxParserFactory extends RioAbstractParserFactory {
 
-    @Override
-    public OWLAPIRDFFormat getRDFFormat() {
-        return OWLAPIRDFFormat.MANCHESTER_OWL;
-    }
+  @Override
+  public OWLAPIRDFFormat getRDFFormat() {
+    return OWLAPIRDFFormat.MANCHESTER_OWL;
+  }
 }

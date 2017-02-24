@@ -13,13 +13,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.FALSELITERAL;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.LANGSTRING;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.TRUELITERAL;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDFLOAT;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDINTEGER;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDSTRING;
 
 import java.util.Locale;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -33,195 +36,195 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * No cache used.
- * 
+ *
  * @author ignazio
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals {
 
-    private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
-    private final boolean useCompression;
+  private final boolean useCompression;
+  private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
 
-    /**
-     * @param useCompression
-     *        true if compression of literals should be used
-     */
-    public OWLDataFactoryInternalsImplNoCache(boolean useCompression) {
-        this.useCompression = useCompression;
-    }
+  /**
+   * @param useCompression true if compression of literals should be used
+   */
+  public OWLDataFactoryInternalsImplNoCache(boolean useCompression) {
+    this.useCompression = useCompression;
+  }
 
-    @Override
-    public void purge() {
-        // nothing to purge
-    }
+  @Override
+  public void purge() {
+    // nothing to purge
+  }
 
-    @Override
-    public OWLClass getOWLClass(IRI iri) {
-        return new OWLClassImpl(iri);
-    }
+  @Override
+  public OWLClass getOWLClass(IRI iri) {
+    return new OWLClassImpl(iri);
+  }
 
-    @Override
-    public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-        return new OWLObjectPropertyImpl(iri);
-    }
+  @Override
+  public OWLObjectProperty getOWLObjectProperty(IRI iri) {
+    return new OWLObjectPropertyImpl(iri);
+  }
 
-    @Override
-    public OWLDataProperty getOWLDataProperty(IRI iri) {
-        return new OWLDataPropertyImpl(iri);
-    }
+  @Override
+  public OWLDataProperty getOWLDataProperty(IRI iri) {
+    return new OWLDataPropertyImpl(iri);
+  }
 
-    @Override
-    public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
-        return new OWLNamedIndividualImpl(iri);
-    }
+  @Override
+  public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
+    return new OWLNamedIndividualImpl(iri);
+  }
 
-    @Override
-    public OWLDatatype getOWLDatatype(IRI iri) {
-        return new OWLDatatypeImpl(iri);
-    }
+  @Override
+  public OWLDatatype getOWLDatatype(IRI iri) {
+    return new OWLDatatypeImpl(iri);
+  }
 
-    @Override
-    public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
-        return new OWLAnnotationPropertyImpl(iri);
-    }
+  @Override
+  public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
+    return new OWLAnnotationPropertyImpl(iri);
+  }
 
-    @Override
-    public OWLLiteral getOWLLiteral(float value) {
-        return new OWLLiteralImplFloat(value);
-    }
+  @Override
+  public OWLLiteral getOWLLiteral(float value) {
+    return new OWLLiteralImplFloat(value);
+  }
 
-    @Override
-    public OWLLiteral getOWLLiteral(String value) {
-        if (useCompression) {
-            return new OWLLiteralImpl(value, "", XSDSTRING);
-        }
-        return new OWLLiteralImplString(value);
+  @Override
+  public OWLLiteral getOWLLiteral(String value) {
+    if (useCompression) {
+      return new OWLLiteralImpl(value, "", XSDSTRING);
     }
+    return new OWLLiteralImplString(value);
+  }
 
-    @Override
-    public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
-        String normalisedLang;
-        if (lang == null) {
-            normalisedLang = "";
-        } else {
-            normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
-        }
-        if (normalisedLang.isEmpty()) {
-            if (useCompression) {
-                return new OWLLiteralImpl(literal, null, XSDSTRING);
-            }
-            return new OWLLiteralImplString(literal);
-        } else {
-            if (useCompression) {
-                return new OWLLiteralImpl(literal, normalisedLang, null);
-            }
-            return new OWLLiteralImplPlain(literal, normalisedLang);
-        }
+  @Override
+  public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
+    String normalisedLang;
+    if (lang == null) {
+      normalisedLang = "";
+    } else {
+      normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
     }
+    if (normalisedLang.isEmpty()) {
+      if (useCompression) {
+        return new OWLLiteralImpl(literal, null, XSDSTRING);
+      }
+      return new OWLLiteralImplString(literal);
+    } else {
+      if (useCompression) {
+        return new OWLLiteralImpl(literal, normalisedLang, null);
+      }
+      return new OWLLiteralImplPlain(literal, normalisedLang);
+    }
+  }
 
-    @Override
-    public OWLLiteral getOWLLiteral(int value) {
-        return new OWLLiteralImplInteger(value);
-    }
+  @Override
+  public OWLLiteral getOWLLiteral(int value) {
+    return new OWLLiteralImplInteger(value);
+  }
 
-    @Override
-    public OWLLiteral getOWLLiteral(boolean value) {
-        return value ? TRUELITERAL : FALSELITERAL;
-    }
+  @Override
+  public OWLLiteral getOWLLiteral(boolean value) {
+    return value ? TRUELITERAL : FALSELITERAL;
+  }
 
-    @Override
-    public OWLLiteral getOWLLiteral(double value) {
-        return new OWLLiteralImplDouble(value);
-    }
+  @Override
+  public OWLLiteral getOWLLiteral(double value) {
+    return new OWLLiteralImplDouble(value);
+  }
 
-    @Override
-    public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
-        if (datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
-            int sep = lexicalValue.lastIndexOf('@');
-            if (sep != -1) {
-                String lex = lexicalValue.substring(0, sep);
-                String lang = lexicalValue.substring(sep + 1);
-                return verifyNotNull(getBasicLiteral(lex, lang, LANGSTRING));
-            } else {
-                return verifyNotNull(getBasicLiteral(lexicalValue, XSDSTRING));
-            }
-        }
-        // check the special cases
-        return verifyNotNull(parseSpecialCases(lexicalValue, datatype));
+  @Override
+  public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
+    if (datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
+      int sep = lexicalValue.lastIndexOf('@');
+      if (sep != -1) {
+        String lex = lexicalValue.substring(0, sep);
+        String lang = lexicalValue.substring(sep + 1);
+        return verifyNotNull(getBasicLiteral(lex, lang, LANGSTRING));
+      } else {
+        return verifyNotNull(getBasicLiteral(lexicalValue, XSDSTRING));
+      }
     }
+    // check the special cases
+    return verifyNotNull(parseSpecialCases(lexicalValue, datatype));
+  }
 
-    protected OWLLiteral parseSpecialCases(String lexicalValue, OWLDatatype datatype) {
-        OWLLiteral literal;
-        try {
-            if (datatype.isString()) {
-                literal = getOWLLiteral(lexicalValue);
-            } else if (datatype.isBoolean()) {
-                literal = getOWLLiteral(OWLLiteralImpl.asBoolean(lexicalValue.trim()));
-            } else if (datatype.isFloat()) {
-                literal = parseFloat(lexicalValue, datatype);
-            } else if (datatype.isDouble()) {
-                literal = getOWLLiteral(Double.parseDouble(lexicalValue));
-            } else if (datatype.isInteger()) {
-                literal = parseInteger(lexicalValue, datatype);
-            } else {
-                literal = getBasicLiteral(lexicalValue, datatype);
-            }
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // some literal is malformed, i.e., wrong format
-            literal = getBasicLiteral(lexicalValue, datatype);
-        }
-        return literal;
+  protected OWLLiteral parseSpecialCases(String lexicalValue, OWLDatatype datatype) {
+    OWLLiteral literal;
+    try {
+      if (datatype.isString()) {
+        literal = getOWLLiteral(lexicalValue);
+      } else if (datatype.isBoolean()) {
+        literal = getOWLLiteral(OWLLiteralImpl.asBoolean(lexicalValue.trim()));
+      } else if (datatype.isFloat()) {
+        literal = parseFloat(lexicalValue, datatype);
+      } else if (datatype.isDouble()) {
+        literal = getOWLLiteral(Double.parseDouble(lexicalValue));
+      } else if (datatype.isInteger()) {
+        literal = parseInteger(lexicalValue, datatype);
+      } else {
+        literal = getBasicLiteral(lexicalValue, datatype);
+      }
+    } catch (@SuppressWarnings("unused") NumberFormatException e) {
+      // some literal is malformed, i.e., wrong format
+      literal = getBasicLiteral(lexicalValue, datatype);
     }
+    return literal;
+  }
 
-    protected OWLLiteral parseInteger(String lexicalValue, OWLDatatype datatype) {
-        OWLLiteral literal;
-        // again, some W3C tests require padding zeroes to make
-        // literals different
-        if (lexicalValue.trim().charAt(0) == '0') {
-            literal = getBasicLiteral(lexicalValue, XSDINTEGER);
-        } else {
-            try {
-                // this is fine for values that can be parsed as
-                // ints - not all values are
-                literal = getOWLLiteral(Integer.parseInt(lexicalValue));
-            } catch (@SuppressWarnings("unused") NumberFormatException ex) {
-                // try as a big decimal
-                literal = getBasicLiteral(lexicalValue, datatype);
-            }
-        }
-        return literal;
+  protected OWLLiteral parseInteger(String lexicalValue, OWLDatatype datatype) {
+    OWLLiteral literal;
+    // again, some W3C tests require padding zeroes to make
+    // literals different
+    if (lexicalValue.trim().charAt(0) == '0') {
+      literal = getBasicLiteral(lexicalValue, XSDINTEGER);
+    } else {
+      try {
+        // this is fine for values that can be parsed as
+        // ints - not all values are
+        literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+      } catch (@SuppressWarnings("unused") NumberFormatException ex) {
+        // try as a big decimal
+        literal = getBasicLiteral(lexicalValue, datatype);
+      }
     }
+    return literal;
+  }
 
-    protected OWLLiteral parseFloat(String lexicalValue, OWLDatatype datatype) {
-        if ("-0.0".equals(lexicalValue.trim())) {
-            // according to some W3C test, this needs to be
-            // different from 0.0; Java floats disagree
-            return negativeFloatZero;
-        }
-        try {
-            float f = Float.parseFloat(lexicalValue);
-            return getOWLLiteral(f);
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            return getBasicLiteral(lexicalValue, datatype);
-        }
+  protected OWLLiteral parseFloat(String lexicalValue, OWLDatatype datatype) {
+    if ("-0.0".equals(lexicalValue.trim())) {
+      // according to some W3C test, this needs to be
+      // different from 0.0; Java floats disagree
+      return negativeFloatZero;
     }
+    try {
+      float f = Float.parseFloat(lexicalValue);
+      return getOWLLiteral(f);
+    } catch (@SuppressWarnings("unused") NumberFormatException e) {
+      return getBasicLiteral(lexicalValue, datatype);
+    }
+  }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, OWLDatatype datatype) {
-        return getBasicLiteral(lexicalValue, "", datatype);
-    }
+  protected OWLLiteral getBasicLiteral(String lexicalValue, OWLDatatype datatype) {
+    return getBasicLiteral(lexicalValue, "", datatype);
+  }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang, @Nullable OWLDatatype datatype) {
-        if (useCompression) {
-            if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
-                return new OWLLiteralImplPlain(lexicalValue, lang);
-            }
-            return new OWLLiteralImpl(lexicalValue, lang, datatype);
-        }
-        return new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
+  protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
+      @Nullable OWLDatatype datatype) {
+    if (useCompression) {
+      if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
+        return new OWLLiteralImplPlain(lexicalValue, lang);
+      }
+      return new OWLLiteralImpl(lexicalValue, lang, datatype);
     }
+    return new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
+  }
 
-    @Override
-    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
-        Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationImpl(property, value, annotations);
-    }
+  @Override
+  public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
+      Stream<OWLAnnotation> annotations) {
+    return new OWLAnnotationImpl(property, value, annotations);
+  }
 }

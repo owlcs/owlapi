@@ -15,83 +15,88 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLEquivalentClassesAxiom {
+public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
+    OWLEquivalentClassesAxiom {
 
-    /**
-     * @param classExpressions
-     *        equivalent classes
-     * @param annotations
-     *        annotations
-     */
-    public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
-        Collection<OWLAnnotation> annotations) {
-        super(classExpressions, annotations);
-    }
+  /**
+   * @param classExpressions equivalent classes
+   * @param annotations annotations
+   */
+  public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+      Collection<OWLAnnotation> annotations) {
+    super(classExpressions, annotations);
+  }
 
-    @Override
-    public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLEquivalentClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
-    }
+  private static boolean named(OWLClassExpression d) {
+    return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLEquivalentClassesAxiomImpl(classExpressions, mergeAnnos(anns));
+  @Override
+  public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLEquivalentClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
+  }
 
-    @Override
-    public Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
-        if (classExpressions.size() == 2) {
-            return CollectionFactory.createSet(this);
-        }
-        return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLEquivalentClassesAxiomImpl(classExpressions, mergeAnnos(anns));
+  }
 
-    @Override
-    public Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs() {
-        if (classExpressions.size() == 2) {
-            return CollectionFactory.createSet(this);
-        }
-        return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), annotations));
+  @Override
+  public Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
+    if (classExpressions.size() == 2) {
+      return CollectionFactory.createSet(this);
     }
+    return walkPairwise(
+        (a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+  }
 
-    private static boolean named(OWLClassExpression d) {
-        return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
+  @Override
+  public Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs() {
+    if (classExpressions.size() == 2) {
+      return CollectionFactory.createSet(this);
     }
+    return walkPairwise(
+        (a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), annotations));
+  }
 
-    @Override
-    public boolean containsNamedEquivalentClass() {
-        return classExpressions().anyMatch(OWLEquivalentClassesAxiomImpl::named);
-    }
+  @Override
+  public boolean containsNamedEquivalentClass() {
+    return classExpressions().anyMatch(OWLEquivalentClassesAxiomImpl::named);
+  }
 
-    @Override
-    public boolean containsOWLNothing() {
-        return classExpressions().anyMatch(OWLClassExpression::isOWLNothing);
-    }
+  @Override
+  public boolean containsOWLNothing() {
+    return classExpressions().anyMatch(OWLClassExpression::isOWLNothing);
+  }
 
-    @Override
-    public boolean containsOWLThing() {
-        return classExpressions().anyMatch(OWLClassExpression::isOWLThing);
-    }
+  @Override
+  public boolean containsOWLThing() {
+    return classExpressions().anyMatch(OWLClassExpression::isOWLThing);
+  }
 
-    @Override
-    public Stream<OWLClass> namedClasses() {
-        return classExpressions().filter(OWLEquivalentClassesAxiomImpl::named).map(OWLClassExpression::asOWLClass);
-    }
+  @Override
+  public Stream<OWLClass> namedClasses() {
+    return classExpressions().filter(OWLEquivalentClassesAxiomImpl::named)
+        .map(OWLClassExpression::asOWLClass);
+  }
 
-    @Override
-    public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(a, b, NO_ANNOTATIONS));
-    }
+  @Override
+  public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
+    return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(a, b, NO_ANNOTATIONS));
+  }
 }

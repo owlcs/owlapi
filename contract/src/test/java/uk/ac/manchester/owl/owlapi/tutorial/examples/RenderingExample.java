@@ -18,50 +18,44 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSyntaxStorerFactory;
 
 /**
  * Simple Rendering Example. Reads an ontology and then renders it.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 public class RenderingExample {
 
-    /**
-     * @param inputOntology
-     *        input ontology IRI
-     * @param outputOntology
-     *        output ontology IRI
-     * @throws OWLOntologyCreationException
-     *         OWLOntologyCreationException
-     * @throws OWLOntologyStorageException
-     *         OWLOntologyStorageException
-     */
-    public void render(String inputOntology, String outputOntology)
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        // A simple example of how to load and save an ontology
+  /**
+   * @param inputOntology input ontology IRI
+   * @param outputOntology output ontology IRI
+   * @throws OWLOntologyCreationException OWLOntologyCreationException
+   * @throws OWLOntologyStorageException OWLOntologyStorageException
+   */
+  public void render(String inputOntology, String outputOntology)
+      throws OWLOntologyCreationException, OWLOntologyStorageException {
+    // A simple example of how to load and save an ontology
         /* Get an Ontology Manager */
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        IRI inputDocumentIRI = IRI.create(inputOntology);
-        IRI outputDocumentIRI = IRI.create(outputOntology);
+    OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+    IRI inputDocumentIRI = IRI.create(inputOntology);
+    IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology from a document IRI */
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputDocumentIRI);
+    OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputDocumentIRI);
         /* Report information about the ontology */
-        System.out.println("Ontology Loaded...");
-        System.out.println("Document IRI: " + inputDocumentIRI);
-        System.out.println("Logical IRI : " + ontology.getOntologyID());
-        System.out.println("Format      : " + ontology.getFormat());
+    System.out.println("Ontology Loaded...");
+    System.out.println("Document IRI: " + inputDocumentIRI);
+    System.out.println("Logical IRI : " + ontology.getOntologyID());
+    System.out.println("Format      : " + ontology.getFormat());
         /* Register the ontology storer with the manager */
-        manager.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
+    manager.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         /* Save using a different format */
-        System.out.println("Storing     : " + outputDocumentIRI);
-        manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
+    System.out.println("Storing     : " + outputDocumentIRI);
+    manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
         /* Remove the ontology from the manager */
-        manager.removeOntology(ontology);
-        System.out.println("Done");
-    }
+    manager.removeOntology(ontology);
+    System.out.println("Done");
+  }
 }

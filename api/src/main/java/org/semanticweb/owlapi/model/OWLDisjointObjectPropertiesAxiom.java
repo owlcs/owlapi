@@ -18,50 +18,49 @@ import java.util.Collection;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Object_Properties" >
  * DisjointObjectProperties</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDisjointObjectPropertiesAxiom
     extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
-    @Override
-        OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 41;
-    }
+  @Override
+  default int hashIndex() {
+    return 41;
+  }
 
-    @Override
-        Collection<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms();
+  @Override
+  Collection<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms();
 
-    @Override
-        Collection<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs();
+  @Override
+  Collection<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.DISJOINT_OBJECT_PROPERTIES;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.DISJOINT_OBJECT_PROPERTIES;
+  }
 }

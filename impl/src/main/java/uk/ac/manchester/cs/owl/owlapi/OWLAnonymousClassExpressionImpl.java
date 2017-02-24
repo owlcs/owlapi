@@ -13,59 +13,57 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl
-        implements OWLAnonymousClassExpression {
+    implements OWLAnonymousClassExpression {
 
-    @Override
-    public boolean isOWLThing() {
-        return false;
-    }
+  @Override
+  public boolean isOWLThing() {
+    return false;
+  }
 
-    @Override
-    public boolean isOWLNothing() {
-        return false;
-    }
+  @Override
+  public boolean isOWLNothing() {
+    return false;
+  }
 
-    @Override
-    public OWLClassExpression getNNF() {
-        NNF nnf = new NNF(new OWLDataFactoryImpl());
-        return accept(nnf.getClassVisitor());
-    }
+  @Override
+  public OWLClassExpression getNNF() {
+    NNF nnf = new NNF(new OWLDataFactoryImpl());
+    return accept(nnf.getClassVisitor());
+  }
 
-    @Override
-    public OWLClassExpression getComplementNNF() {
-        NNF nnf = new NNF(new OWLDataFactoryImpl());
-        return new OWLObjectComplementOfImpl(this).accept(nnf.getClassVisitor());
-    }
+  @Override
+  public OWLClassExpression getComplementNNF() {
+    NNF nnf = new NNF(new OWLDataFactoryImpl());
+    return new OWLObjectComplementOfImpl(this).accept(nnf.getClassVisitor());
+  }
 
-    @Override
-    public OWLClassExpression getObjectComplementOf() {
-        return new OWLObjectComplementOfImpl(this);
-    }
+  @Override
+  public OWLClassExpression getObjectComplementOf() {
+    return new OWLObjectComplementOfImpl(this);
+  }
 
-    @Override
-    public Set<OWLClassExpression> asConjunctSet() {
-        return CollectionFactory.createSet((OWLClassExpression) this);
-    }
+  @Override
+  public Set<OWLClassExpression> asConjunctSet() {
+    return CollectionFactory.createSet((OWLClassExpression) this);
+  }
 
-    @Override
-    public boolean containsConjunct(OWLClassExpression ce) {
-        return ce.equals(this);
-    }
+  @Override
+  public boolean containsConjunct(OWLClassExpression ce) {
+    return ce.equals(this);
+  }
 
-    @Override
-    public Set<OWLClassExpression> asDisjunctSet() {
-        return CollectionFactory.createSet((OWLClassExpression) this);
-    }
+  @Override
+  public Set<OWLClassExpression> asDisjunctSet() {
+    return CollectionFactory.createSet((OWLClassExpression) this);
+  }
 }

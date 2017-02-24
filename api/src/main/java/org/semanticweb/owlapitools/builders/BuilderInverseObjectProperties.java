@@ -16,59 +16,60 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLInverseObjectPropertiesAxiom. */
+/**
+ * Builder class for OWLInverseObjectPropertiesAxiom.
+ */
 public class BuilderInverseObjectProperties extends
     BaseObjectPropertyBuilder<OWLInverseObjectPropertiesAxiom, BuilderInverseObjectProperties> {
 
-    @Nullable private OWLObjectPropertyExpression inverseProperty = null;
+  @Nullable
+  private OWLObjectPropertyExpression inverseProperty = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderInverseObjectProperties(OWLInverseObjectPropertiesAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getFirstProperty()).withInverseProperty(expected.getSecondProperty()).withAnnotations(
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderInverseObjectProperties(OWLInverseObjectPropertiesAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getFirstProperty()).withInverseProperty(expected.getSecondProperty())
+        .withAnnotations(
             expected.annotations());
-    }
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderInverseObjectProperties(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderInverseObjectProperties(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        inverse property
-     * @return builder
-     */
-    public BuilderInverseObjectProperties withInverseProperty(OWLObjectPropertyExpression arg) {
-        inverseProperty = arg;
-        return this;
-    }
+  /**
+   * @param arg inverse property
+   * @return builder
+   */
+  public BuilderInverseObjectProperties withInverseProperty(OWLObjectPropertyExpression arg) {
+    inverseProperty = arg;
+    return this;
+  }
 
-    @Override
-    public OWLInverseObjectPropertiesAxiom buildObject() {
-        return df.getOWLInverseObjectPropertiesAxiom(verifyNotNull(getProperty()), getInverse(), annotations);
-    }
+  @Override
+  public OWLInverseObjectPropertiesAxiom buildObject() {
+    return df.getOWLInverseObjectPropertiesAxiom(verifyNotNull(getProperty()), getInverse(),
+        annotations);
+  }
 
-    /**
-     * @return inverse
-     */
-    public OWLObjectPropertyExpression getInverse() {
-        return verifyNotNull(inverseProperty);
-    }
+  /**
+   * @return inverse
+   */
+  public OWLObjectPropertyExpression getInverse() {
+    return verifyNotNull(inverseProperty);
+  }
 }

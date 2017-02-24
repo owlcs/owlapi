@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Set;
-
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -30,28 +29,27 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 4.0.0
  */
 public class DLSyntaxOWLParser extends AbstractOWLParser {
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new DLSyntaxHTMLDocumentFormatFactory();
-    }
+  @Override
+  public OWLDocumentFormatFactory getSupportedFormat() {
+    return new DLSyntaxHTMLDocumentFormatFactory();
+  }
 
-    @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-        OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            DLSyntaxParser parser = new DLSyntaxParser(new StreamProvider(r));
-            parser.setOWLDataFactory(ontology.getOWLOntologyManager().getOWLDataFactory());
-            Set<OWLAxiom> set = parser.parseAxioms();
-            ontology.add(set);
-            return new DLSyntaxHTMLDocumentFormat();
-        } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
-            throw new OWLParserException(e.getMessage(), e);
-        }
+  @Override
+  public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
+      OWLOntologyLoaderConfiguration config) {
+    try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
+      DLSyntaxParser parser = new DLSyntaxParser(new StreamProvider(r));
+      parser.setOWLDataFactory(ontology.getOWLOntologyManager().getOWLDataFactory());
+      Set<OWLAxiom> set = parser.parseAxioms();
+      ontology.add(set);
+      return new DLSyntaxHTMLDocumentFormat();
+    } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
+      throw new OWLParserException(e.getMessage(), e);
     }
+  }
 }

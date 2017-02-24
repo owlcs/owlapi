@@ -18,31 +18,29 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asListNullsForbidden
 
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl implements
+public abstract class OWLNaryBooleanClassExpressionImpl extends
+    OWLAnonymousClassExpressionImpl implements
     OWLNaryBooleanClassExpression {
 
-    private final List<OWLClassExpression> operands;
+  private final List<OWLClassExpression> operands;
 
-    /**
-     * @param operands
-     *        operands
-     */
-    public OWLNaryBooleanClassExpressionImpl(Stream<OWLClassExpression> operands) {
-        checkNotNull(operands, "operands cannot be null");
-        this.operands = sortOptionally(asListNullsForbidden(operands.distinct()));
-    }
+  /**
+   * @param operands operands
+   */
+  public OWLNaryBooleanClassExpressionImpl(Stream<OWLClassExpression> operands) {
+    checkNotNull(operands, "operands cannot be null");
+    this.operands = sortOptionally(asListNullsForbidden(operands.distinct()));
+  }
 
-    @Override
-    public Stream<OWLClassExpression> operands() {
-        return operands.stream();
-    }
+  @Override
+  public Stream<OWLClassExpression> operands() {
+    return operands.stream();
+  }
 }

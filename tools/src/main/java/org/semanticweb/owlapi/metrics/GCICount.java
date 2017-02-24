@@ -13,34 +13,31 @@
 package org.semanticweb.owlapi.metrics;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class GCICount extends AxiomCountMetric {
 
-    /**
-     * Instantiates a new gCI count.
-     * 
-     * @param o
-     *        ontology to use
-     */
-    public GCICount(OWLOntology o) {
-        super(o);
-    }
+  /**
+   * Instantiates a new gCI count.
+   *
+   * @param o ontology to use
+   */
+  public GCICount(OWLOntology o) {
+    super(o);
+  }
 
-    @Override
-    protected String getObjectTypeName() {
-        return "GCI";
-    }
+  @Override
+  protected String getObjectTypeName() {
+    return "GCI";
+  }
 
-    @Override
-    protected Stream<OWLAxiom> getObjects(OWLOntology ont) {
-        return ont.generalClassAxioms().map(x -> x);
-    }
+  @Override
+  protected Stream<OWLAxiom> getObjects(OWLOntology ont) {
+    return ont.generalClassAxioms().map(x -> x);
+  }
 }

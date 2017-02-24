@@ -22,35 +22,34 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class AddAxiomDataTestCase {
 
-    private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
-    private final OWLOntology mockOntology = mock(OWLOntology.class);
+  private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
+  private final OWLOntology mockOntology = mock(OWLOntology.class);
 
-    @Test
-    public void testEquals() {
-        AddAxiomData data1 = new AddAxiomData(mockAxiom);
-        AddAxiomData data2 = new AddAxiomData(mockAxiom);
-        assertEquals(data1, data2);
-    }
+  @Test
+  public void testEquals() {
+    AddAxiomData data1 = new AddAxiomData(mockAxiom);
+    AddAxiomData data2 = new AddAxiomData(mockAxiom);
+    assertEquals(data1, data2);
+  }
 
-    @Test
-    public void testOntologyChange() {
-        AddAxiomData data = new AddAxiomData(mockAxiom);
-        AddAxiom change = data.createOntologyChange(mockOntology);
-        assertEquals(change.getOntology(), mockOntology);
-        assertEquals(change.getAxiom(), mockAxiom);
-    }
+  @Test
+  public void testOntologyChange() {
+    AddAxiomData data = new AddAxiomData(mockAxiom);
+    AddAxiom change = data.createOntologyChange(mockOntology);
+    assertEquals(change.getOntology(), mockOntology);
+    assertEquals(change.getAxiom(), mockAxiom);
+  }
 
-    @Test
-    public void testRoundTripChange() {
-        AddAxiomData data = new AddAxiomData(mockAxiom);
-        AddAxiom change = new AddAxiom(mockOntology, mockAxiom);
-        assertEquals(data, change.getChangeData());
-    }
+  @Test
+  public void testRoundTripChange() {
+    AddAxiomData data = new AddAxiomData(mockAxiom);
+    AddAxiom change = new AddAxiom(mockOntology, mockAxiom);
+    assertEquals(data, change.getChangeData());
+  }
 }

@@ -13,37 +13,36 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 
-/** Builder class for OWLDataSomeValuesFrom. */
-public class BuilderDataSomeValuesFrom extends BaseDataBuilder<OWLDataSomeValuesFrom, BuilderDataSomeValuesFrom> {
+/**
+ * Builder class for OWLDataSomeValuesFrom.
+ */
+public class BuilderDataSomeValuesFrom extends
+    BaseDataBuilder<OWLDataSomeValuesFrom, BuilderDataSomeValuesFrom> {
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDataSomeValuesFrom(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDataSomeValuesFrom(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDataSomeValuesFrom(OWLDataSomeValuesFrom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withRange(expected.getFiller());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDataSomeValuesFrom(OWLDataSomeValuesFrom expected, OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withRange(expected.getFiller());
+  }
 
-    @Override
-    public OWLDataSomeValuesFrom buildObject() {
-        return df.getOWLDataSomeValuesFrom(getProperty(), getDataRange());
-    }
+  @Override
+  public OWLDataSomeValuesFrom buildObject() {
+    return df.getOWLDataSomeValuesFrom(getProperty(), getDataRange());
+  }
 }

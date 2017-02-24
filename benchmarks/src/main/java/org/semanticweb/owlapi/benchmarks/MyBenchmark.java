@@ -29,54 +29,51 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
-
-import org.openjdk.jmh.annotations.*;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 @SuppressWarnings("javadoc")
 @State(Scope.Thread)
 public class MyBenchmark {
 
-    private File uncompressedTaxonFile;
+  private File uncompressedTaxonFile;
 
-    @Setup(Level.Trial)
-    public void setUp() throws IOException {
-        uncompressedTaxonFile = File.createTempFile("taxons", "ofn");
-        InputStream resourceAsStream = getClass().getResourceAsStream(
-            "/ncbitaxon.rdf.ofn.gz");
-        try (GZIPInputStream in = new GZIPInputStream(resourceAsStream);
-            FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
-            int n;
-            byte[] buf = new byte[8192];
-            while ((n = in.read(buf)) >= 0) {
-                out.write(buf, 0, n);
-            }
-            out.flush();
-        }
+  @Setup(Level.Trial)
+  public void setUp() throws IOException {
+    uncompressedTaxonFile = File.createTempFile("taxons", "ofn");
+    InputStream resourceAsStream = getClass().getResourceAsStream(
+        "/ncbitaxon.rdf.ofn.gz");
+    try (GZIPInputStream in = new GZIPInputStream(resourceAsStream);
+        FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
+      int n;
+      byte[] buf = new byte[8192];
+      while ((n = in.read(buf)) >= 0) {
+        out.write(buf, 0, n);
+      }
+      out.flush();
     }
+  }
 
-    @TearDown(Level.Trial)
-    public void tearDown() {
-        uncompressedTaxonFile.delete();
-    }
+  @TearDown(Level.Trial)
+  public void tearDown() {
+    uncompressedTaxonFile.delete();
+  }
 
-    @BenchmarkMode(Mode.AverageTime)
-    @Benchmark
-    public void testLoadTaxonFSS() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntologyDocumentSource ds = new FileDocumentSource(
-            uncompressedTaxonFile);
-        OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
-            .setStrict(false);
-        OWLOntologyImpl ontology = (OWLOntologyImpl) manager
-            .loadOntologyFromOntologyDocument(ds, config);
-        manager.removeOntology(ontology);
-    }
+  @BenchmarkMode(Mode.AverageTime)
+  @Benchmark
+  public void testLoadTaxonFSS() throws OWLOntologyCreationException {
+    OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+    OWLOntologyDocumentSource ds = new FileDocumentSource(
+        uncompressedTaxonFile);
+    OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
+        .setStrict(false);
+    OWLOntologyImpl ontology = (OWLOntologyImpl) manager
+        .loadOntologyFromOntologyDocument(ds, config);
+    manager.removeOntology(ontology);
+  }
 }

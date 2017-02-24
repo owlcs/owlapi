@@ -15,37 +15,36 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 
-/** Builder class for OWLObjectHasSelf. */
-public class BuilderObjectHasSelf extends BaseObjectPropertyBuilder<OWLObjectHasSelf, BuilderObjectHasSelf> {
+/**
+ * Builder class for OWLObjectHasSelf.
+ */
+public class BuilderObjectHasSelf extends
+    BaseObjectPropertyBuilder<OWLObjectHasSelf, BuilderObjectHasSelf> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectHasSelf(OWLObjectHasSelf expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectHasSelf(OWLObjectHasSelf expected, OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectHasSelf(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectHasSelf(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLObjectHasSelf buildObject() {
-        return df.getOWLObjectHasSelf(verifyNotNull(getProperty()));
-    }
+  @Override
+  public OWLObjectHasSelf buildObject() {
+    return df.getOWLObjectHasSelf(verifyNotNull(getProperty()));
+  }
 }

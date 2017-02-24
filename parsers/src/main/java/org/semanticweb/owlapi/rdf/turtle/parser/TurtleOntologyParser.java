@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import java.io.IOException;
 import java.io.Reader;
-
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -28,36 +27,35 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * The Class TurtleOntologyParser.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new TurtleDocumentFormatFactory();
-    }
+  @Override
+  public OWLDocumentFormatFactory getSupportedFormat() {
+    return new TurtleDocumentFormatFactory();
+  }
 
-    @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            TurtleParser parser;
-            parser = new TurtleParser(r, new ConsoleTripleHandler(),
-                    source.getDocumentIRI());
-            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
-                    ontology, config);
-            TurtleDocumentFormat format = new TurtleDocumentFormat();
-            consumer.setOntologyFormat(format);
-            consumer.startModel(source.getDocumentIRI());
-            parser.setTripleHandler(consumer);
-            parser.parseDocument();
-            format.copyPrefixesFrom(parser.getPrefixManager());
-            return format;
-        } catch (ParseException | IOException | OWLOntologyInputSourceException e) {
-            throw new TurtleParserException(e);
-        }
+  @Override
+  public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
+      OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
+    try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
+      TurtleParser parser;
+      parser = new TurtleParser(r, new ConsoleTripleHandler(),
+          source.getDocumentIRI());
+      OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
+          ontology, config);
+      TurtleDocumentFormat format = new TurtleDocumentFormat();
+      consumer.setOntologyFormat(format);
+      consumer.startModel(source.getDocumentIRI());
+      parser.setTripleHandler(consumer);
+      parser.parseDocument();
+      format.copyPrefixesFrom(parser.getPrefixManager());
+      return format;
+    } catch (ParseException | IOException | OWLOntologyInputSourceException e) {
+      throw new TurtleParserException(e);
     }
+  }
 }

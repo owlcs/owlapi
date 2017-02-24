@@ -51,63 +51,60 @@ import java.util.Set;
  */
 class Modifiers {
 
-    private final Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<>();
+  private final Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<>();
 
-    public Modifiers() {}
+  public Modifiers() {
+  }
 
-    /**
-     * Parses a list of modifiers.
-     * 
-     * @param modifiersList
-     *        The string representation of a list of modifiers. The
-     *        representation may or may not include the surrounding braces
-     *        (braces will be ignored).
-     * @return A list of modifiers
-     */
-    public static Modifiers parseModifiers(String modifiersList) {
-        Modifiers modifiers = new Modifiers();
-        for (String s : modifiersList.split(",")) {
-            String nameValuePair = s.trim();
-            String[] split = nameValuePair.split("=");
-            if (split.length == 2) {
-                modifiers.addModifier(split[0], split[1]);
-            }
-        }
-        return modifiers;
+  /**
+   * Parses a list of modifiers.
+   *
+   * @param modifiersList The string representation of a list of modifiers. The representation may
+   * or may not include the surrounding braces (braces will be ignored).
+   * @return A list of modifiers
+   */
+  public static Modifiers parseModifiers(String modifiersList) {
+    Modifiers modifiers = new Modifiers();
+    for (String s : modifiersList.split(",")) {
+      String nameValuePair = s.trim();
+      String[] split = nameValuePair.split("=");
+      if (split.length == 2) {
+        modifiers.addModifier(split[0], split[1]);
+      }
     }
+    return modifiers;
+  }
 
-    /**
-     * Adds a modifier
-     * 
-     * @param name
-     *        The modifier name
-     * @param value
-     *        The modifier value
-     */
-    public void addModifier(String name, String value) {
-        Set<String> values = modifierNameValuesMap.get(name);
-        if (values == null) {
-            values = new HashSet<>();
-            modifierNameValuesMap.put(name, values);
-        }
-        values.add(value);
+  /**
+   * Adds a modifier
+   *
+   * @param name The modifier name
+   * @param value The modifier value
+   */
+  public void addModifier(String name, String value) {
+    Set<String> values = modifierNameValuesMap.get(name);
+    if (values == null) {
+      values = new HashSet<>();
+      modifierNameValuesMap.put(name, values);
     }
+    values.add(value);
+  }
 
-    /**
-     * Returns the names of modifiers stored in this modifier object
-     * 
-     * @return The names of modifiers (may be empty)
-     */
-    public Set<String> getModifierNames() {
-        return modifierNameValuesMap.keySet();
-    }
+  /**
+   * Returns the names of modifiers stored in this modifier object
+   *
+   * @return The names of modifiers (may be empty)
+   */
+  public Set<String> getModifierNames() {
+    return modifierNameValuesMap.keySet();
+  }
 
-    public Set<String> getModifierValues(String modifierName) {
-        Set<String> valuesToReturn = new HashSet<>();
-        Set<String> values = modifierNameValuesMap.get(modifierName);
-        if (values != null) {
-            valuesToReturn.addAll(values);
-        }
-        return valuesToReturn;
+  public Set<String> getModifierValues(String modifierName) {
+    Set<String> valuesToReturn = new HashSet<>();
+    Set<String> values = modifierNameValuesMap.get(modifierName);
+    if (values != null) {
+      valuesToReturn.addAll(values);
     }
+    return valuesToReturn;
+  }
 }

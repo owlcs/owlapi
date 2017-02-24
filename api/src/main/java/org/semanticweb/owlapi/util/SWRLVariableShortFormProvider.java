@@ -15,17 +15,15 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @FunctionalInterface
 public interface SWRLVariableShortFormProvider {
 
-    /**
-     * @param variable
-     *        variable to shorten
-     * @return short form
-     */
-    String getShortForm(SWRLVariable variable);
+  /**
+   * @param variable variable to shorten
+   * @return short form
+   */
+  String getShortForm(SWRLVariable variable);
 }

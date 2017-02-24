@@ -13,39 +13,38 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface SWRLSameIndividualAtom extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
 
-    @Override
-    default int hashIndex() {
-        return 811;
-    }
+  @Override
+  default int hashIndex() {
+    return 811;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 6009;
-    }
+  @Override
+  default int typeIndex() {
+    return 6009;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(SWRLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

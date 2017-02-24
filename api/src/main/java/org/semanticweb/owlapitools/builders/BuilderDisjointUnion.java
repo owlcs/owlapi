@@ -16,61 +16,60 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 
-/** Builder class for OWLDisjointUnionAxiom. */
+/**
+ * Builder class for OWLDisjointUnionAxiom.
+ */
 public class BuilderDisjointUnion extends
     BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
 
-    @Nullable private OWLClass ce = null;
+  @Nullable
+  private OWLClass ce = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderDisjointUnion(OWLDisjointUnionAxiom expected, OWLDataFactory df) {
-        this(df);
-        withClass(expected.getOWLClass()).withItems(expected.classExpressions()).withAnnotations(expected
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderDisjointUnion(OWLDisjointUnionAxiom expected, OWLDataFactory df) {
+    this(df);
+    withClass(expected.getOWLClass()).withItems(expected.classExpressions())
+        .withAnnotations(expected
             .annotations());
-    }
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderDisjointUnion(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderDisjointUnion(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        right hand entity
-     * @return builder
-     */
-    public BuilderDisjointUnion withClass(OWLClass arg) {
-        ce = arg;
-        return this;
-    }
+  /**
+   * @param arg right hand entity
+   * @return builder
+   */
+  public BuilderDisjointUnion withClass(OWLClass arg) {
+    ce = arg;
+    return this;
+  }
 
-    @Override
-    public OWLDisjointUnionAxiom buildObject() {
-        return df.getOWLDisjointUnionAxiom(verifyNotNull(ce), items, annotations);
-    }
+  @Override
+  public OWLDisjointUnionAxiom buildObject() {
+    return df.getOWLDisjointUnionAxiom(verifyNotNull(ce), items, annotations);
+  }
 
-    /**
-     * @return class expression
-     */
-    @Nullable
-    public OWLClass getClassExpression() {
-        return ce;
-    }
+  /**
+   * @return class expression
+   */
+  @Nullable
+  public OWLClass getClassExpression() {
+    return ce;
+  }
 }

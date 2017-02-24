@@ -8,394 +8,650 @@ package org.semanticweb.owlapi.functional.parser;
  */
 interface OWLFunctionalSyntaxParserConstants {
 
-  /** End of File. */
+  /**
+   * End of File.
+   */
   int EOF = 0;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int COMMENT_START = 5;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int STRINGLITERAL_START = 8;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ANY_ESCAPED_CHAR = 9;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ANY_CHAR = 10;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int STRINGLITERAL = 11;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OPENPAR = 12;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLOSEPAR = 13;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ONTOLOGY = 14;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int LABEL = 15;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int IMPORT = 16;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int COMMENT = 17;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SUBCLASSOF = 18;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int LANGIDENTIFIER = 19;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATATYPEIDENTIFIER = 20;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EQUIVALENTCLASSES = 21;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DISJOINTCLASSES = 22;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DISJOINTUNION = 23;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ANNOTATION = 24;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ANNOTATIONPROPERTY = 25;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ANNOTATIONASSERTION = 26;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SUBANNOTATIONPROPERTYOF = 27;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ANNOTATIONPROPERTYDOMAIN = 28;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ANNOTATIONPROPERTYRANGE = 29;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int HASKEY = 30;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DECLARATION = 31;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DOCUMENTATION = 32;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLASS = 33;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTPROP = 34;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAPROP = 35;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NAMEDINDIVIDUAL = 36;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATATYPE = 37;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAONEOF = 38;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAUNIONOF = 39;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAINTERSECTIONOF = 40;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTONEOF = 41;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTUNIONOF = 42;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTHASVALUE = 43;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTINVERSEOF = 44;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INVERSEOBJECTPROPERTIES = 45;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATACOMPLEMENTOF = 46;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATATYPERESTRICTION = 47;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATATYPEDEFINITION = 48;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTINTERSECTIONOF = 49;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTCOMPLEMENTOF = 50;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTALLVALUESFROM = 51;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTSOMEVALUESFROM = 52;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTHASSELF = 53;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTMINCARDINALITY = 54;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTMAXCARDINALITY = 55;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTEXACTCARDINALITY = 56;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAALLVALUESFROM = 57;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATASOMEVALUESFROM = 58;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAHASVALUE = 59;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAMINCARDINALITY = 60;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAMAXCARDINALITY = 61;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAEXACTCARDINALITY = 62;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SUBOBJECTPROPERTYCHAIN = 63;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SUBOBJECTPROPERTYOF = 64;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EQUIVALENTOBJECTPROPERTIES = 65;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DISJOINTOBJECTPROPERTIES = 66;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTPROPERTYDOMAIN = 67;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTPROPERTYRANGE = 68;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int FUNCTIONALOBJECTPROPERTY = 69;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INVERSEFUNCTIONALOBJECTPROPERTY = 70;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int REFLEXIVEOBJECTPROPERTY = 71;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int IRREFLEXIVEOBJECTPROPERTY = 72;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SYMMETRICOBJECTPROPERTY = 73;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ASYMMETRICOBJECTPROPERTY = 74;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int TRANSITIVEOBJECTPROPERTY = 75;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SUBDATAPROPERTYOF = 76;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EQUIVALENTDATAPROPERTIES = 77;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DISJOINTDATAPROPERTIES = 78;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAPROPERTYDOMAIN = 79;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAPROPERTYRANGE = 80;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int FUNCTIONALDATAPROPERTY = 81;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SAMEINDIVIDUAL = 82;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DIFFERENTINDIVIDUALS = 83;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLASSASSERTION = 84;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTPROPERTYASSERTION = 85;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NEGATIVEOBJECTPROPERTYASSERTION = 86;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAPROPERTYASSERTION = 87;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NEGATIVEDATAPROPERTYASSERTION = 88;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PREFIX = 89;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int LENGTH = 90;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MINLENGTH = 91;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MAXLENGTH = 92;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PATTERN = 93;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MININCLUSIVE = 94;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MAXINCLUSIVE = 95;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MINEXCLUSIVE = 96;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MAXEXCLUSIVE = 97;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int TOTALDIGITS = 98;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int FRACTIONDIGITS = 99;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DLSAFERULE = 100;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int BODY = 101;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int HEAD = 102;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLASSATOM = 103;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATARANGEATOM = 104;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OBJECTPROPERTYATOM = 105;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DATAPROPERTYATOM = 106;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int BUILTINATOM = 107;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SAMEINDIVIDUALATOM = 108;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DIFFERENTINDIVIDUALSATOM = 109;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int VARIABLE = 110;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DGRULE = 111;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DESCRIPTIONGRAPH = 112;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NODES = 113;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NODEASSERTION = 114;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EDGES = 115;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EDGEASSERTION = 116;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MAINCLASSES = 117;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EQUALS = 118;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INT = 119;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int FULLIRI = 120;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PNAME_NS = 121;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PN_LOCAL = 122;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PNAME_LN = 123;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PN_PREFIX = 124;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PN_CHARS_BASE = 125;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PN_CHARS = 126;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int PN_CHARS_U = 127;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NODEID = 128;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ERROR = 129;
 
-  /** Lexical state. */
+  /**
+   * Lexical state.
+   */
   int DEFAULT = 0;
-  /** Lexical state. */
+  /**
+   * Lexical state.
+   */
   int IN_COMMENT = 1;
-  /** Lexical state. */
+  /**
+   * Lexical state.
+   */
   int IN_STRING_LITERAL = 2;
 
-  /** Literal token values. */
+  /**
+   * Literal token values.
+   */
   String[] tokenImage = {
-    "<EOF>",
-    "\" \"",
-    "\"\\n\"",
-    "\"\\t\"",
-    "\"\\r\"",
-    "\"#\"",
-    "<token of kind 6>",
-    "\"\\n\"",
-    "\"\\\"\"",
-    "<ANY_ESCAPED_CHAR>",
-    "<ANY_CHAR>",
-    "\"\\\"\"",
-    "\"(\"",
-    "\")\"",
-    "\"Ontology\"",
-    "\"Label\"",
-    "\"Import\"",
-    "\"Comment\"",
-    "\"SubClassOf\"",
-    "\"@\"",
-    "\"^^\"",
-    "\"EquivalentClasses\"",
-    "\"DisjointClasses\"",
-    "\"DisjointUnion\"",
-    "\"Annotation\"",
-    "\"AnnotationProperty\"",
-    "\"AnnotationAssertion\"",
-    "\"SubAnnotationPropertyOf\"",
-    "\"AnnotationPropertyDomain\"",
-    "\"AnnotationPropertyRange\"",
-    "\"HasKey\"",
-    "\"Declaration\"",
-    "\"Documentation\"",
-    "\"Class\"",
-    "\"ObjectProperty\"",
-    "\"DataProperty\"",
-    "\"NamedIndividual\"",
-    "\"Datatype\"",
-    "\"DataOneOf\"",
-    "\"DataUnionOf\"",
-    "\"DataIntersectionOf\"",
-    "\"ObjectOneOf\"",
-    "\"ObjectUnionOf\"",
-    "\"ObjectHasValue\"",
-    "\"ObjectInverseOf\"",
-    "\"InverseObjectProperties\"",
-    "\"DataComplementOf\"",
-    "\"DatatypeRestriction\"",
-    "\"DatatypeDefinition\"",
-    "\"ObjectIntersectionOf\"",
-    "\"ObjectComplementOf\"",
-    "\"ObjectAllValuesFrom\"",
-    "\"ObjectSomeValuesFrom\"",
-    "\"ObjectHasSelf\"",
-    "\"ObjectMinCardinality\"",
-    "\"ObjectMaxCardinality\"",
-    "\"ObjectExactCardinality\"",
-    "\"DataAllValuesFrom\"",
-    "\"DataSomeValuesFrom\"",
-    "\"DataHasValue\"",
-    "\"DataMinCardinality\"",
-    "\"DataMaxCardinality\"",
-    "\"DataExactCardinality\"",
-    "\"ObjectPropertyChain\"",
-    "\"SubObjectPropertyOf\"",
-    "\"EquivalentObjectProperties\"",
-    "\"DisjointObjectProperties\"",
-    "\"ObjectPropertyDomain\"",
-    "\"ObjectPropertyRange\"",
-    "\"FunctionalObjectProperty\"",
-    "\"InverseFunctionalObjectProperty\"",
-    "\"ReflexiveObjectProperty\"",
-    "\"IrreflexiveObjectProperty\"",
-    "\"SymmetricObjectProperty\"",
-    "\"AsymmetricObjectProperty\"",
-    "\"TransitiveObjectProperty\"",
-    "\"SubDataPropertyOf\"",
-    "\"EquivalentDataProperties\"",
-    "\"DisjointDataProperties\"",
-    "\"DataPropertyDomain\"",
-    "\"DataPropertyRange\"",
-    "\"FunctionalDataProperty\"",
-    "\"SameIndividual\"",
-    "\"DifferentIndividuals\"",
-    "\"ClassAssertion\"",
-    "\"ObjectPropertyAssertion\"",
-    "\"NegativeObjectPropertyAssertion\"",
-    "\"DataPropertyAssertion\"",
-    "\"NegativeDataPropertyAssertion\"",
-    "\"Prefix\"",
-    "\"length\"",
-    "\"minLength\"",
-    "\"maxLength\"",
-    "\"pattern\"",
-    "\"minInclusive\"",
-    "\"maxInclusive\"",
-    "\"minExclusive\"",
-    "\"maxExclusive\"",
-    "\"totalDigits\"",
-    "\"fractionDigits\"",
-    "\"DLSafeRule\"",
-    "\"Body\"",
-    "\"Head\"",
-    "\"ClassAtom\"",
-    "\"DataRangeAtom\"",
-    "\"ObjectPropertyAtom\"",
-    "\"DataPropertyAtom\"",
-    "\"BuiltInAtom\"",
-    "\"SameIndividualAtom\"",
-    "\"DifferentIndividualsAtom\"",
-    "\"Variable\"",
-    "\"DescriptionGraphRule\"",
-    "\"DescriptionGraph\"",
-    "\"Nodes\"",
-    "\"NodeAssertion\"",
-    "\"Edges\"",
-    "\"EdgeAssertion\"",
-    "\"MainClasses\"",
-    "\"=\"",
-    "<INT>",
-    "<FULLIRI>",
-    "<PNAME_NS>",
-    "<PN_LOCAL>",
-    "<PNAME_LN>",
-    "<PN_PREFIX>",
-    "<PN_CHARS_BASE>",
-    "<PN_CHARS>",
-    "<PN_CHARS_U>",
-    "<NODEID>",
-    "<ERROR>",
+      "<EOF>",
+      "\" \"",
+      "\"\\n\"",
+      "\"\\t\"",
+      "\"\\r\"",
+      "\"#\"",
+      "<token of kind 6>",
+      "\"\\n\"",
+      "\"\\\"\"",
+      "<ANY_ESCAPED_CHAR>",
+      "<ANY_CHAR>",
+      "\"\\\"\"",
+      "\"(\"",
+      "\")\"",
+      "\"Ontology\"",
+      "\"Label\"",
+      "\"Import\"",
+      "\"Comment\"",
+      "\"SubClassOf\"",
+      "\"@\"",
+      "\"^^\"",
+      "\"EquivalentClasses\"",
+      "\"DisjointClasses\"",
+      "\"DisjointUnion\"",
+      "\"Annotation\"",
+      "\"AnnotationProperty\"",
+      "\"AnnotationAssertion\"",
+      "\"SubAnnotationPropertyOf\"",
+      "\"AnnotationPropertyDomain\"",
+      "\"AnnotationPropertyRange\"",
+      "\"HasKey\"",
+      "\"Declaration\"",
+      "\"Documentation\"",
+      "\"Class\"",
+      "\"ObjectProperty\"",
+      "\"DataProperty\"",
+      "\"NamedIndividual\"",
+      "\"Datatype\"",
+      "\"DataOneOf\"",
+      "\"DataUnionOf\"",
+      "\"DataIntersectionOf\"",
+      "\"ObjectOneOf\"",
+      "\"ObjectUnionOf\"",
+      "\"ObjectHasValue\"",
+      "\"ObjectInverseOf\"",
+      "\"InverseObjectProperties\"",
+      "\"DataComplementOf\"",
+      "\"DatatypeRestriction\"",
+      "\"DatatypeDefinition\"",
+      "\"ObjectIntersectionOf\"",
+      "\"ObjectComplementOf\"",
+      "\"ObjectAllValuesFrom\"",
+      "\"ObjectSomeValuesFrom\"",
+      "\"ObjectHasSelf\"",
+      "\"ObjectMinCardinality\"",
+      "\"ObjectMaxCardinality\"",
+      "\"ObjectExactCardinality\"",
+      "\"DataAllValuesFrom\"",
+      "\"DataSomeValuesFrom\"",
+      "\"DataHasValue\"",
+      "\"DataMinCardinality\"",
+      "\"DataMaxCardinality\"",
+      "\"DataExactCardinality\"",
+      "\"ObjectPropertyChain\"",
+      "\"SubObjectPropertyOf\"",
+      "\"EquivalentObjectProperties\"",
+      "\"DisjointObjectProperties\"",
+      "\"ObjectPropertyDomain\"",
+      "\"ObjectPropertyRange\"",
+      "\"FunctionalObjectProperty\"",
+      "\"InverseFunctionalObjectProperty\"",
+      "\"ReflexiveObjectProperty\"",
+      "\"IrreflexiveObjectProperty\"",
+      "\"SymmetricObjectProperty\"",
+      "\"AsymmetricObjectProperty\"",
+      "\"TransitiveObjectProperty\"",
+      "\"SubDataPropertyOf\"",
+      "\"EquivalentDataProperties\"",
+      "\"DisjointDataProperties\"",
+      "\"DataPropertyDomain\"",
+      "\"DataPropertyRange\"",
+      "\"FunctionalDataProperty\"",
+      "\"SameIndividual\"",
+      "\"DifferentIndividuals\"",
+      "\"ClassAssertion\"",
+      "\"ObjectPropertyAssertion\"",
+      "\"NegativeObjectPropertyAssertion\"",
+      "\"DataPropertyAssertion\"",
+      "\"NegativeDataPropertyAssertion\"",
+      "\"Prefix\"",
+      "\"length\"",
+      "\"minLength\"",
+      "\"maxLength\"",
+      "\"pattern\"",
+      "\"minInclusive\"",
+      "\"maxInclusive\"",
+      "\"minExclusive\"",
+      "\"maxExclusive\"",
+      "\"totalDigits\"",
+      "\"fractionDigits\"",
+      "\"DLSafeRule\"",
+      "\"Body\"",
+      "\"Head\"",
+      "\"ClassAtom\"",
+      "\"DataRangeAtom\"",
+      "\"ObjectPropertyAtom\"",
+      "\"DataPropertyAtom\"",
+      "\"BuiltInAtom\"",
+      "\"SameIndividualAtom\"",
+      "\"DifferentIndividualsAtom\"",
+      "\"Variable\"",
+      "\"DescriptionGraphRule\"",
+      "\"DescriptionGraph\"",
+      "\"Nodes\"",
+      "\"NodeAssertion\"",
+      "\"Edges\"",
+      "\"EdgeAssertion\"",
+      "\"MainClasses\"",
+      "\"=\"",
+      "<INT>",
+      "<FULLIRI>",
+      "<PNAME_NS>",
+      "<PN_LOCAL>",
+      "<PNAME_LN>",
+      "<PN_PREFIX>",
+      "<PN_CHARS_BASE>",
+      "<PN_CHARS>",
+      "<PN_CHARS_U>",
+      "<NODEID>",
+      "<ERROR>",
   };
 
 }

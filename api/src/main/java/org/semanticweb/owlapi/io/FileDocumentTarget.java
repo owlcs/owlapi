@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -23,7 +25,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,48 +32,46 @@ import org.slf4j.LoggerFactory;
 /**
  * An {@code OWLOntologyDocumentTarget} that supports writing out to a
  * {@code File}.
- * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentTarget.class);
-    private final File file;
+  private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentTarget.class);
+  private final File file;
 
-    /**
-     * Constructs the document target, with the target being the specified file.
-     * 
-     * @param file
-     *        The file that is the target.
-     */
-    public FileDocumentTarget(File file) {
-        this.file = checkNotNull(file, "file cannot be null");
-    }
+  /**
+   * Constructs the document target, with the target being the specified file.
+   *
+   * @param file The file that is the target.
+   */
+  public FileDocumentTarget(File file) {
+    this.file = checkNotNull(file, "file cannot be null");
+  }
 
-    @Override
-    public Optional<Writer> getWriter() {
-        try {
-            return optional(new BufferedWriter(new FileWriter(file)));
-        } catch (IOException e) {
-            LOGGER.error("Writer cannot be created", e);
-            return emptyOptional();
-        }
+  @Override
+  public Optional<Writer> getWriter() {
+    try {
+      return optional(new BufferedWriter(new FileWriter(file)));
+    } catch (IOException e) {
+      LOGGER.error("Writer cannot be created", e);
+      return emptyOptional();
     }
+  }
 
-    @Override
-    public Optional<OutputStream> getOutputStream() {
-        try {
-            return optional(new BufferedOutputStream(new FileOutputStream(file)));
-        } catch (IOException e) {
-            LOGGER.error("Input stream cannot be created", e);
-            return emptyOptional();
-        }
+  @Override
+  public Optional<OutputStream> getOutputStream() {
+    try {
+      return optional(new BufferedOutputStream(new FileOutputStream(file)));
+    } catch (IOException e) {
+      LOGGER.error("Input stream cannot be created", e);
+      return emptyOptional();
     }
+  }
 
-    @Override
-    public Optional<IRI> getDocumentIRI() {
-        return optional(IRI.create(file));
-    }
+  @Override
+  public Optional<IRI> getDocumentIRI() {
+    return optional(IRI.create(file));
+  }
 }

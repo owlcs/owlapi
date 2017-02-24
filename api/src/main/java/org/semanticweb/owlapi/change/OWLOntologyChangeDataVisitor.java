@@ -13,60 +13,51 @@
 package org.semanticweb.owlapi.change;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @param <R> return type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
- * @param <R>
- *        return type
  */
 public interface OWLOntologyChangeDataVisitor<R> {
 
-    /**
-     * @param data
-     *        object to visit
-     * @return result of visit
-     */
-    R visit(AddAxiomData data);
+  /**
+   * @param data object to visit
+   * @return result of visit
+   */
+  R visit(AddAxiomData data);
 
-    /**
-     * @param data
-     *        object to visit
-     * @return result of visit
-     */
-    R visit(RemoveAxiomData data);
+  /**
+   * @param data object to visit
+   * @return result of visit
+   */
+  R visit(RemoveAxiomData data);
 
-    /**
-     * @param data
-     *        object to visit
-     * @return result of visit
-     */
-    R visit(AddOntologyAnnotationData data);
+  /**
+   * @param data object to visit
+   * @return result of visit
+   */
+  R visit(AddOntologyAnnotationData data);
 
-    /**
-     * @param data
-     *        object to visit
-     * @return result of visit
-     */
-    R visit(RemoveOntologyAnnotationData data);
+  /**
+   * @param data object to visit
+   * @return result of visit
+   */
+  R visit(RemoveOntologyAnnotationData data);
 
-    /**
-     * @param data
-     *        object to visit
-     * @return result of visit
-     */
-    R visit(SetOntologyIDData data);
+  /**
+   * @param data object to visit
+   * @return result of visit
+   */
+  R visit(SetOntologyIDData data);
 
-    /**
-     * @param data
-     *        object to visit
-     * @return result of visit
-     */
-    R visit(AddImportData data);
+  /**
+   * @param data object to visit
+   * @return result of visit
+   */
+  R visit(AddImportData data);
 
-    /**
-     * @param data
-     *        object to visit
-     * @return result of visit
-     */
-    R visit(RemoveImportData data);
+  /**
+   * @param data object to visit
+   * @return result of visit
+   */
+  R visit(RemoveImportData data);
 }

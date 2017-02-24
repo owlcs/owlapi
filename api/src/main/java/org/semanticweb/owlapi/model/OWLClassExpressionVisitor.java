@@ -16,180 +16,162 @@ package org.semanticweb.owlapi.model;
  * An interface to objects that can visit
  * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the
  * <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
- * 
- * @author Matthew Horridge, The University Of Manchester Bio-Health Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLClassExpressionVisitor extends OWLClassVisitorBase {
 
-    /**
-     * visit OWLObjectIntersectionOf type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectIntersectionOf ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectIntersectionOf type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectIntersectionOf ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectUnionOf type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectUnionOf ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectUnionOf type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectUnionOf ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectComplementOf type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectComplementOf ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectComplementOf type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectComplementOf ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectSomeValuesFrom type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectSomeValuesFrom ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectSomeValuesFrom type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectSomeValuesFrom ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectAllValuesFrom type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectAllValuesFrom ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectAllValuesFrom type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectAllValuesFrom ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectHasValue type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectHasValue ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectHasValue type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectHasValue ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectMinCardinality type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectMinCardinality ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectMinCardinality type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectMinCardinality ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectExactCardinality type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectExactCardinality ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectExactCardinality type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectExactCardinality ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectMaxCardinality type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectMaxCardinality ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectMaxCardinality type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectMaxCardinality ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectHasSelf type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectHasSelf ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectHasSelf type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectHasSelf ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLObjectOneOf type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLObjectOneOf ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLObjectOneOf type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLObjectOneOf ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLDataSomeValuesFrom type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLDataSomeValuesFrom ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLDataSomeValuesFrom type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLDataSomeValuesFrom ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLDataAllValuesFrom type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLDataAllValuesFrom ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLDataAllValuesFrom type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLDataAllValuesFrom ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLDataHasValue type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLDataHasValue ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLDataHasValue type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLDataHasValue ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLDataMinCardinality type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLDataMinCardinality ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLDataMinCardinality type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLDataMinCardinality ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLDataExactCardinality type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLDataExactCardinality ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLDataExactCardinality type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLDataExactCardinality ce) {
+    doDefault(ce);
+  }
 
-    /**
-     * visit OWLDataMaxCardinality type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    default void visit(OWLDataMaxCardinality ce) {
-        doDefault(ce);
-    }
+  /**
+   * visit OWLDataMaxCardinality type
+   *
+   * @param ce ce to visit
+   */
+  default void visit(OWLDataMaxCardinality ce) {
+    doDefault(ce);
+  }
 }

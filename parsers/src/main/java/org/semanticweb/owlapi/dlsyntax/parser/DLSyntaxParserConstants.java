@@ -21,98 +21,156 @@ package org.semanticweb.owlapi.dlsyntax.parser;
  */
 interface DLSyntaxParserConstants {
 
-  /** End of File. */
+  /**
+   * End of File.
+   */
   int EOF = 0;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SUBCLASSOF = 4;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EQUIVALENTTO = 5;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NEQ = 6;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int COMPOSE = 7;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DOT = 8;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INVERSE = 9;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OPENPAR = 10;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLOSEPAR = 11;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OPENSQPAR = 12;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLOSESQPAR = 13;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OPENBRACE = 14;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int CLOSEBRACE = 15;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int COLON = 16;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int AND = 17;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int OR = 18;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int NOT = 19;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int SOME = 20;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ALL = 21;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MIN = 22;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int MAX = 23;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int EXACT = 24;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int IN = 25;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int TRANSITIVEROLES = 26;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int INT = 27;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int DOUBLE = 28;
-  /** RegularExpression Id. */
+  /**
+   * RegularExpression Id.
+   */
   int ID = 29;
 
-  /** Lexical state. */
+  /**
+   * Lexical state.
+   */
   int DEFAULT = 0;
 
-  /** Literal token values. */
+  /**
+   * Literal token values.
+   */
   String[] tokenImage = {
-    "<EOF>",
-    "\" \"",
-    "\"\\r\"",
-    "\"\\t\"",
-    "<SUBCLASSOF>",
-    "<EQUIVALENTTO>",
-    "<NEQ>",
-    "<COMPOSE>",
-    "\".\"",
-    "<INVERSE>",
-    "\"(\"",
-    "\")\"",
-    "\"[\"",
-    "\"]\"",
-    "\"{\"",
-    "\"}\"",
-    "\":\"",
-    "<AND>",
-    "<OR>",
-    "<NOT>",
-    "<SOME>",
-    "<ALL>",
-    "<MIN>",
-    "<MAX>",
-    "<EXACT>",
-    "<IN>",
-    "<TRANSITIVEROLES>",
-    "<INT>",
-    "<DOUBLE>",
-    "<ID>",
-    "\"\\n\"",
-    "\",\"",
+      "<EOF>",
+      "\" \"",
+      "\"\\r\"",
+      "\"\\t\"",
+      "<SUBCLASSOF>",
+      "<EQUIVALENTTO>",
+      "<NEQ>",
+      "<COMPOSE>",
+      "\".\"",
+      "<INVERSE>",
+      "\"(\"",
+      "\")\"",
+      "\"[\"",
+      "\"]\"",
+      "\"{\"",
+      "\"}\"",
+      "\":\"",
+      "<AND>",
+      "<OR>",
+      "<NOT>",
+      "<SOME>",
+      "<ALL>",
+      "<MIN>",
+      "<MAX>",
+      "<EXACT>",
+      "<IN>",
+      "<TRANSITIVEROLES>",
+      "<INT>",
+      "<DOUBLE>",
+      "<ID>",
+      "\"\\n\"",
+      "\",\"",
   };
 
 }

@@ -15,24 +15,22 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class EntailedAxiomTree extends ExplanationTree {
 
-    /**
-     * Instantiates a new entailed axiom tree.
-     * 
-     * @param userObject
-     *        the axiom to wrap
-     */
-    public EntailedAxiomTree(OWLAxiom userObject) {
-        super(userObject);
-    }
+  /**
+   * Instantiates a new entailed axiom tree.
+   *
+   * @param userObject the axiom to wrap
+   */
+  public EntailedAxiomTree(OWLAxiom userObject) {
+    super(userObject);
+  }
 
-    @Override
-    public boolean isEntailed() {
-        return true;
-    }
+  @Override
+  public boolean isEntailed() {
+    return true;
+  }
 }

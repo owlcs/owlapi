@@ -20,165 +20,159 @@ import java.util.stream.Stream;
 /**
  * Represent a rule. A rule consists of a head and a body. Both the head and the
  * body consist of a conjunction of atoms.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(body(), head(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(body(), head(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(body(), head());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(body(), head());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), body(), head());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), body(), head());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 631;
-    }
+  @Override
+  default int hashIndex() {
+    return 631;
+  }
 
-    /**
-     * Gets the atoms in the body of the rule.
-     * 
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
-     *         of the rule.
-     * @deprecated use {@link #body()}
-     */
-    @Deprecated
-    default Set<SWRLAtom> getBody() {
-        return asSet(body());
-    }
+  /**
+   * Gets the atoms in the body of the rule.
+   *
+   * @return A set of {@code SWRLAtom}s, which represent the atoms in the body of the rule.
+   * @deprecated use {@link #body()}
+   */
+  @Deprecated
+  default Set<SWRLAtom> getBody() {
+    return asSet(body());
+  }
 
-    /**
-     * Gets the atoms in the body of the rule.
-     * 
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
-     *         of the rule.
-     */
-    Stream<SWRLAtom> body();
+  /**
+   * Gets the atoms in the body of the rule.
+   *
+   * @return A set of {@code SWRLAtom}s, which represent the atoms in the body of the rule.
+   */
+  Stream<SWRLAtom> body();
 
-    /**
-     * Gets the atoms in the head of the rule.
-     * 
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
-     *         of the rule
-     * @deprecated use {@link #head()}
-     */
-    @Deprecated
-    default Set<SWRLAtom> getHead() {
-        return asSet(head());
-    }
+  /**
+   * Gets the atoms in the head of the rule.
+   *
+   * @return A set of {@code SWRLAtom}s, which represent the atoms in the head of the rule
+   * @deprecated use {@link #head()}
+   */
+  @Deprecated
+  default Set<SWRLAtom> getHead() {
+    return asSet(head());
+  }
 
-    /**
-     * Gets the atoms in the head of the rule.
-     * 
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
-     *         of the rule
-     */
-    Stream<SWRLAtom> head();
+  /**
+   * Gets the atoms in the head of the rule.
+   *
+   * @return A set of {@code SWRLAtom}s, which represent the atoms in the head of the rule
+   */
+  Stream<SWRLAtom> head();
 
-    /**
-     * If this rule contains atoms that have predicates that are inverse object
-     * properties, then this method creates and returns a rule where the
-     * arguments of these atoms are fliped over and the predicate is the inverse
-     * (simplified) property.
-     * 
-     * @return The rule such that any atoms of the form inverseOf(p)(x, y) are
-     *         transformed to p(x, y).
-     */
-    SWRLRule getSimplified();
+  /**
+   * If this rule contains atoms that have predicates that are inverse object
+   * properties, then this method creates and returns a rule where the
+   * arguments of these atoms are fliped over and the predicate is the inverse
+   * (simplified) property.
+   *
+   * @return The rule such that any atoms of the form inverseOf(p)(x, y) are transformed to p(x, y).
+   */
+  SWRLRule getSimplified();
 
-    /**
-     * Gets the variables that appear in this rule.
-     * 
-     * @return A set of variables.
-     * @deprecated use {@link #variables()}
-     */
-    @Deprecated
-    default Set<SWRLVariable> getVariables() {
-        return asSet(variables());
-    }
+  /**
+   * Gets the variables that appear in this rule.
+   *
+   * @return A set of variables.
+   * @deprecated use {@link #variables()}
+   */
+  @Deprecated
+  default Set<SWRLVariable> getVariables() {
+    return asSet(variables());
+  }
 
-    /**
-     * Gets the variables that appear in this rule.
-     * 
-     * @return A set of variables.
-     */
-    Stream<SWRLVariable> variables();
+  /**
+   * Gets the variables that appear in this rule.
+   *
+   * @return A set of variables.
+   */
+  Stream<SWRLVariable> variables();
 
-    /**
-     * Determines if this rule uses anonymous class expressions in class atoms.
-     * 
-     * @return {@code true} if this rule contains anonymous class expression in
-     *         class atoms, otherwise {@code false}.
-     */
-    boolean containsAnonymousClassExpressions();
+  /**
+   * Determines if this rule uses anonymous class expressions in class atoms.
+   *
+   * @return {@code true} if this rule contains anonymous class expression in class atoms, otherwise
+   * {@code false}.
+   */
+  boolean containsAnonymousClassExpressions();
 
-    /**
-     * Gets the predicates of class atoms.
-     * 
-     * @return A set of class expressions that represent the class class
-     *         expressions that are predicates of class atoms.
-     * @deprecated use {@link #classAtomPredicates()}
-     */
-    @Deprecated
-    default Set<OWLClassExpression> getClassAtomPredicates() {
-        return asSet(classAtomPredicates());
-    }
+  /**
+   * Gets the predicates of class atoms.
+   *
+   * @return A set of class expressions that represent the class class expressions that are
+   * predicates of class atoms.
+   * @deprecated use {@link #classAtomPredicates()}
+   */
+  @Deprecated
+  default Set<OWLClassExpression> getClassAtomPredicates() {
+    return asSet(classAtomPredicates());
+  }
 
-    /**
-     * Gets the predicates of class atoms.
-     * 
-     * @return A set of class expressions that represent the class class
-     *         expressions that are predicates of class atoms.
-     */
-    Stream<OWLClassExpression> classAtomPredicates();
+  /**
+   * Gets the predicates of class atoms.
+   *
+   * @return A set of class expressions that represent the class class expressions that are
+   * predicates of class atoms.
+   */
+  Stream<OWLClassExpression> classAtomPredicates();
 
-    @Override
-        SWRLRule getAxiomWithoutAnnotations();
+  @Override
+  SWRLRule getAxiomWithoutAnnotations();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(SWRLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.SWRL_RULE;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.SWRL_RULE;
+  }
 }

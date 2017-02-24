@@ -14,69 +14,65 @@ package org.semanticweb.owlapitools.builders;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /**
  * Builder class for SWRL Individuals Atom.
- * 
- * @param <X>
- *        type to build
- * @param <B>
- *        builder
+ *
+ * @param <X> type to build
+ * @param <B> builder
  */
 abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends Builder<X>>
     extends BaseBuilder<X, B> {
 
-    @Nullable private SWRLIArgument arg0;
-    @Nullable private SWRLIArgument arg1;
+  @Nullable
+  private SWRLIArgument arg0;
+  @Nullable
+  private SWRLIArgument arg1;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSWRLIndividualsAtom(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSWRLIndividualsAtom(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        arg0
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withArg0(SWRLIArgument arg) {
-        arg0 = arg;
-        return (B) this;
-    }
+  /**
+   * @param arg arg0
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withArg0(SWRLIArgument arg) {
+    arg0 = arg;
+    return (B) this;
+  }
 
-    /**
-     * @param arg
-     *        arg0
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withArg1(SWRLIArgument arg) {
-        arg1 = arg;
-        return (B) this;
-    }
+  /**
+   * @param arg arg0
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withArg1(SWRLIArgument arg) {
+    arg1 = arg;
+    return (B) this;
+  }
 
-    /**
-     * @return arg 1
-     */
-    @Nullable
-    public SWRLIArgument getArg1() {
-        return arg1;
-    }
+  /**
+   * @return arg 1
+   */
+  @Nullable
+  public SWRLIArgument getArg1() {
+    return arg1;
+  }
 
-    /**
-     * @return arg 0
-     */
-    @Nullable
-    public SWRLIArgument getArg0() {
-        return arg0;
-    }
+  /**
+   * @return arg 0
+   */
+  @Nullable
+  public SWRLIArgument getArg0() {
+    return arg0;
+  }
 }

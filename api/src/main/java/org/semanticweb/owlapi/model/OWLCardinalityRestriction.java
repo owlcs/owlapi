@@ -15,31 +15,29 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <F> value
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <F>
- *        value
  */
 public interface OWLCardinalityRestriction<F extends OWLPropertyRange>
     extends OWLQuantifiedRestriction<F>, HasCardinality {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getProperty(), Integer.valueOf(getCardinality()), getFiller());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getProperty(), Integer.valueOf(getCardinality()), getFiller());
+  }
 
-    /**
-     * Determines if this restriction is qualified. Qualified cardinality
-     * restrictions are defined to be cardinality restrictions that have fillers
-     * which aren't TOP (owl:Thing or rdfs:Literal). An object restriction is
-     * unqualified if it has a filler that is owl:Thing. A data restriction is
-     * unqualified if it has a filler which is the top data type (rdfs:Literal).
-     * 
-     * @return {@code true} if this restriction is qualified, or {@code false}
-     *         if this restriction is unqualified.
-     */
-    default boolean isQualified() {
-        return !getFiller().isTopEntity();
-    }
+  /**
+   * Determines if this restriction is qualified. Qualified cardinality
+   * restrictions are defined to be cardinality restrictions that have fillers
+   * which aren't TOP (owl:Thing or rdfs:Literal). An object restriction is
+   * unqualified if it has a filler that is owl:Thing. A data restriction is
+   * unqualified if it has a filler which is the top data type (rdfs:Literal).
+   *
+   * @return {@code true} if this restriction is qualified, or {@code false} if this restriction is
+   * unqualified.
+   */
+  default boolean isQualified() {
+    return !getFiller().isTopEntity();
+  }
 }

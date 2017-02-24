@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
-
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -29,31 +28,31 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLParser extends AbstractOWLParser {
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new OWLXMLDocumentFormatFactory();
-    }
+  @Override
+  public OWLDocumentFormatFactory getSupportedFormat() {
+    return new OWLXMLDocumentFormatFactory();
+  }
 
-    @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
-        OWLOntologyLoaderConfiguration configuration) {
-        try {
-            OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
-            InputSource isrc = getInputSource(documentSource, configuration);
-            OWLXMLPH handler = new OWLXMLPH(ontology, configuration);
-            SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit()).parse(isrc, handler);
-            format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
-            format.setDefaultPrefix(handler.getBase().toString());
-            return format;
-        } catch (SAXException | IOException | OWLOntologyInputSourceException | IllegalStateException e) {
-            // General exception
-            throw new OWLParserException(e);
-        }
+  @Override
+  public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+      OWLOntologyLoaderConfiguration configuration) {
+    try {
+      OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
+      InputSource isrc = getInputSource(documentSource, configuration);
+      OWLXMLPH handler = new OWLXMLPH(ontology, configuration);
+      SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit())
+          .parse(isrc, handler);
+      format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
+      format.setDefaultPrefix(handler.getBase().toString());
+      return format;
+    } catch (SAXException | IOException | OWLOntologyInputSourceException | IllegalStateException e) {
+      // General exception
+      throw new OWLParserException(e);
     }
+  }
 }

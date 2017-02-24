@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -24,50 +23,47 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
+public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
+    OWLDatatypeDefinitionAxiom {
 
-    private final OWLDatatype datatype;
-    private final OWLDataRange dataRange;
+  private final OWLDatatype datatype;
+  private final OWLDataRange dataRange;
 
-    /**
-     * @param datatype
-     *        datatype
-     * @param dataRange
-     *        datarange
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
-        Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
+  /**
+   * @param datatype datatype
+   * @param dataRange datarange
+   * @param annotations annotations on the axiom
+   */
+  public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.datatype = checkNotNull(datatype, "datatype cannot be null");
+    this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
+  }
+
+  @Override
+  public OWLAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), NO_ANNOTATIONS);
+  }
 
-    @Override
-    public OWLAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), NO_ANNOTATIONS);
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), mergeAnnos(anns));
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), mergeAnnos(anns));
-    }
+  @Override
+  public OWLDatatype getDatatype() {
+    return datatype;
+  }
 
-    @Override
-    public OWLDatatype getDatatype() {
-        return datatype;
-    }
-
-    @Override
-    public OWLDataRange getDataRange() {
-        return dataRange;
-    }
+  @Override
+  public OWLDataRange getDataRange() {
+    return dataRange;
+  }
 }

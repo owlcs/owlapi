@@ -44,11 +44,11 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  */
 public interface RioRDFDocumentFormatFactory extends OWLDocumentFormatFactory {
 
-    @Override
-    RioRDFDocumentFormat createFormat();
+  @Override
+  RioRDFDocumentFormat createFormat();
 
-    /**
-     * @return The {@link RDFFormat} from Sesame which matches this factory.
-     */
-    RDFFormat getRioFormat();
+  /**
+   * @return The {@link RDFFormat} from Sesame which matches this factory.
+   */
+  RDFFormat getRioFormat();
 }

@@ -15,52 +15,51 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 
-/** Builder class for OWLObjectExactCardinality. */
+/**
+ * Builder class for OWLObjectExactCardinality.
+ */
 public class BuilderObjectExactCardinality extends
     BaseObjectBuilder<OWLObjectExactCardinality, BuilderObjectExactCardinality> implements
     SettableCardinality<BuilderObjectExactCardinality> {
 
-    private int cardinality = -1;
+  private int cardinality = -1;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectExactCardinality(OWLObjectExactCardinality expected, OWLDataFactory df) {
-        this(df);
-        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectExactCardinality(OWLObjectExactCardinality expected, OWLDataFactory df) {
+    this(df);
+    withCardinality(expected.getCardinality()).withProperty(expected.getProperty())
+        .withRange(expected.getFiller());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectExactCardinality(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectExactCardinality(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public BuilderObjectExactCardinality withCardinality(int arg) {
-        cardinality = arg;
-        return this;
-    }
+  @Override
+  public BuilderObjectExactCardinality withCardinality(int arg) {
+    cardinality = arg;
+    return this;
+  }
 
-    @Override
-    public int getCardinality() {
-        return cardinality;
-    }
+  @Override
+  public int getCardinality() {
+    return cardinality;
+  }
 
-    @Override
-    public OWLObjectExactCardinality buildObject() {
-        return df.getOWLObjectExactCardinality(cardinality, verifyNotNull(getProperty()), getRange());
-    }
+  @Override
+  public OWLObjectExactCardinality buildObject() {
+    return df.getOWLObjectExactCardinality(cardinality, verifyNotNull(getProperty()), getRange());
+  }
 }

@@ -6,18 +6,18 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 @SuppressWarnings("javadoc")
 public class OBO12DocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
-    @Override
-    public OWLDocumentFormat get() {
-        return createFormat();
-    }
+  @Override
+  public OWLDocumentFormat get() {
+    return createFormat();
+  }
 
-    @Override
-    public String getKey() {
-        return "OBO 1.2 Format";
-    }
+  @Override
+  public String getKey() {
+    return "OBO 1.2 Format";
+  }
 
-    @Override
-    public OWLDocumentFormat createFormat() {
-        return new OBO12DocumentFormat();
-    }
+  @Override
+  public OWLDocumentFormat createFormat() {
+    return new OBO12DocumentFormat();
+  }
 }

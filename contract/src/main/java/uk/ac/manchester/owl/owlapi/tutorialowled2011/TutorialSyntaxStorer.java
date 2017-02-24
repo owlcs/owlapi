@@ -13,7 +13,6 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,26 +21,25 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @HasPriority(-1)
 public class TutorialSyntaxStorer extends AbstractOWLStorer {
 
-    @Override
-    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
-        return ontologyFormat instanceof OWLTutorialSyntaxOntologyFormat;
-    }
+  @Override
+  public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+    return ontologyFormat instanceof OWLTutorialSyntaxOntologyFormat;
+  }
 
-    @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
-        try {
-            OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
-            renderer.render(ontology, writer);
-        } catch (OWLRuntimeException e) {
-            throw new OWLRuntimeException(e);
-        }
+  @Override
+  protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+      throws OWLOntologyStorageException {
+    try {
+      OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
+      renderer.render(ontology, writer);
+    } catch (OWLRuntimeException e) {
+      throw new OWLRuntimeException(e);
     }
+  }
 }

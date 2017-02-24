@@ -12,23 +12,27 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss1.parser;
 
-/** resolver strategies. */
+/**
+ * resolver strategies.
+ */
 public enum NameResolverStrategy {
-    /**
-     * if the first n names are URIs(NAMEs) all names are assumed to be URIs
-     * (NAMEs), otherwise we have to CHECK.
-     */
-    ADAPTIVE,
-    /** every found concept/role name in KRSS is an absolute IRI. */
-    IRI,
-    /**
-     * concept/roles names in KRSS are all names, URI must be created (namespace
-     * of the ontology's URI).
-     */
-    NAME,
-    /**
-     * for every concept/role name in KRSS we have to check whether it is an URI
-     * or NAME. This is very expensive.
-     */
-    CHECK
+  /**
+   * if the first n names are URIs(NAMEs) all names are assumed to be URIs
+   * (NAMEs), otherwise we have to CHECK.
+   */
+  ADAPTIVE,
+  /**
+   * every found concept/role name in KRSS is an absolute IRI.
+   */
+  IRI,
+  /**
+   * concept/roles names in KRSS are all names, URI must be created (namespace
+   * of the ontology's URI).
+   */
+  NAME,
+  /**
+   * for every concept/role name in KRSS we have to check whether it is an URI
+   * or NAME. This is very expensive.
+   */
+  CHECK
 }

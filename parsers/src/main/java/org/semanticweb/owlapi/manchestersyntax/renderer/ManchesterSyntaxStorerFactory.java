@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(3)
 public class ManchesterSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
-    public ManchesterSyntaxStorerFactory() {
-        super(new ManchesterSyntaxDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public ManchesterSyntaxStorerFactory() {
+    super(new ManchesterSyntaxDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLStorer createStorer() {
-        return new ManchesterSyntaxStorer();
-    }
+  @Override
+  public OWLStorer createStorer() {
+    return new ManchesterSyntaxStorer();
+  }
 }

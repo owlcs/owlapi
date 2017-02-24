@@ -15,50 +15,49 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class RendererEvent {
 
-    private final ManchesterOWLSyntaxFrameRenderer frameRenderer;
-    private final OWLObject frameSubject;
+  private final ManchesterOWLSyntaxFrameRenderer frameRenderer;
+  private final OWLObject frameSubject;
 
-    /**
-     * @param frameRenderer
-     *        the frame renderer
-     * @param frameSubject
-     *        the subject
-     */
-    public RendererEvent(ManchesterOWLSyntaxFrameRenderer frameRenderer,
-            OWLObject frameSubject) {
-        this.frameSubject = frameSubject;
-        this.frameRenderer = frameRenderer;
-    }
+  /**
+   * @param frameRenderer the frame renderer
+   * @param frameSubject the subject
+   */
+  public RendererEvent(ManchesterOWLSyntaxFrameRenderer frameRenderer,
+      OWLObject frameSubject) {
+    this.frameSubject = frameSubject;
+    this.frameRenderer = frameRenderer;
+  }
 
-    /** @return the frame renderer */
-    public ManchesterOWLSyntaxFrameRenderer getFrameRenderer() {
-        return frameRenderer;
-    }
+  /**
+   * @return the frame renderer
+   */
+  public ManchesterOWLSyntaxFrameRenderer getFrameRenderer() {
+    return frameRenderer;
+  }
 
-    /**
-     * @param comment
-     *        comment
-     */
-    public void writeComment(String comment) {
-        frameRenderer.writeComment(comment, false);
-    }
+  /**
+   * @param comment comment
+   */
+  public void writeComment(String comment) {
+    frameRenderer.writeComment(comment, false);
+  }
 
-    /**
-     * @param comment
-     *        comment
-     */
-    public void writeCommentOnNewLine(String comment) {
-        frameRenderer.writeComment(comment, true);
-    }
+  /**
+   * @param comment comment
+   */
+  public void writeCommentOnNewLine(String comment) {
+    frameRenderer.writeComment(comment, true);
+  }
 
-    /** @return the frame subject */
-    public OWLObject getFrameSubject() {
-        return frameSubject;
-    }
+  /**
+   * @return the frame subject
+   */
+  public OWLObject getFrameSubject() {
+    return frameSubject;
+  }
 }

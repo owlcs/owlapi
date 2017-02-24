@@ -16,93 +16,92 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationAssertionAxiom. */
+/**
+ * Builder class for OWLAnnotationAssertionAxiom.
+ */
 public class BuilderAnnotationAssertion extends
     BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> implements
     Builder<OWLAnnotationAssertionAxiom> {
 
-    @Nullable private OWLAnnotationSubject subject = null;
-    @Nullable private OWLAnnotationValue value;
+  @Nullable
+  private OWLAnnotationSubject subject = null;
+  @Nullable
+  private OWLAnnotationValue value;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderAnnotationAssertion(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderAnnotationAssertion(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderAnnotationAssertion(OWLAnnotationAssertionAxiom expected, OWLDataFactory df) {
-        this(df);
-        withAnnotations(expected.annotations()).withSubject(expected.getSubject()).withProperty(expected.getProperty())
-            .withValue(expected.getValue());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderAnnotationAssertion(OWLAnnotationAssertionAxiom expected, OWLDataFactory df) {
+    this(df);
+    withAnnotations(expected.annotations()).withSubject(expected.getSubject())
+        .withProperty(expected.getProperty())
+        .withValue(expected.getValue());
+  }
 
-    /**
-     * @param arg
-     *        subject
-     * @return builder
-     */
-    public BuilderAnnotationAssertion withSubject(OWLAnnotationSubject arg) {
-        subject = arg;
-        return this;
-    }
+  /**
+   * @param arg subject
+   * @return builder
+   */
+  public BuilderAnnotationAssertion withSubject(OWLAnnotationSubject arg) {
+    subject = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        subject
-     * @return builder
-     */
-    public BuilderAnnotationAssertion withSubject(HasIRI arg) {
-        subject = arg.getIRI();
-        return this;
-    }
+  /**
+   * @param arg subject
+   * @return builder
+   */
+  public BuilderAnnotationAssertion withSubject(HasIRI arg) {
+    subject = arg.getIRI();
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        value
-     * @return builder
-     */
-    public BuilderAnnotationAssertion withValue(OWLAnnotationValue arg) {
-        value = arg;
-        return this;
-    }
+  /**
+   * @param arg value
+   * @return builder
+   */
+  public BuilderAnnotationAssertion withValue(OWLAnnotationValue arg) {
+    value = arg;
+    return this;
+  }
 
-    @Override
-    public OWLAnnotationAssertionAxiom buildObject() {
-        return df.getOWLAnnotationAssertionAxiom(getProperty(), verifyNotNull(subject), verifyNotNull(value),
+  @Override
+  public OWLAnnotationAssertionAxiom buildObject() {
+    return df
+        .getOWLAnnotationAssertionAxiom(getProperty(), verifyNotNull(subject), verifyNotNull(value),
             annotations);
-    }
+  }
 
-    /**
-     * @return value
-     */
-    @Nullable
-    public OWLAnnotationValue getValue() {
-        return value;
-    }
+  /**
+   * @return value
+   */
+  @Nullable
+  public OWLAnnotationValue getValue() {
+    return value;
+  }
 
-    /**
-     * @return value
-     */
-    @Nullable
-    public OWLAnnotationSubject getSubject() {
-        return subject;
-    }
+  /**
+   * @return value
+   */
+  @Nullable
+  public OWLAnnotationSubject getSubject() {
+    return subject;
+  }
 }

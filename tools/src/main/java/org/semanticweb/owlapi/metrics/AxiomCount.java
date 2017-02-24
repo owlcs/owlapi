@@ -13,39 +13,36 @@
 package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class AxiomCount extends IntegerValuedMetric {
 
-    /**
-     * Instantiates a new axiom count.
-     * 
-     * @param o
-     *        ontology to use
-     */
-    public AxiomCount(OWLOntology o) {
-        super(o);
-    }
+  /**
+   * Instantiates a new axiom count.
+   *
+   * @param o ontology to use
+   */
+  public AxiomCount(OWLOntology o) {
+    super(o);
+  }
 
-    @Override
-    protected Integer recomputeMetric() {
-        return Integer.valueOf(getOntologies().mapToInt(OWLOntology::getAxiomCount).sum());
-    }
+  @Override
+  protected Integer recomputeMetric() {
+    return Integer.valueOf(getOntologies().mapToInt(OWLOntology::getAxiomCount).sum());
+  }
 
-    @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return true;
-    }
+  @Override
+  protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    return true;
+  }
 
-    @Override
-    public String getName() {
-        return "Axiom";
-    }
+  @Override
+  public String getName() {
+    return "Axiom";
+  }
 }

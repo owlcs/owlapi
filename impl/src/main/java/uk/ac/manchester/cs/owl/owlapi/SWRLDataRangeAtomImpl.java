@@ -17,24 +17,22 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> implements SWRLDataRangeAtom {
+public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> implements
+    SWRLDataRangeAtom {
 
-    /**
-     * @param predicate
-     *        predicate
-     * @param arg
-     *        range argument
-     */
-    public SWRLDataRangeAtomImpl(OWLDataRange predicate, SWRLDArgument arg) {
-        super(predicate, arg);
-    }
+  /**
+   * @param predicate predicate
+   * @param arg range argument
+   */
+  public SWRLDataRangeAtomImpl(OWLDataRange predicate, SWRLDArgument arg) {
+    super(predicate, arg);
+  }
 
-    @Override
-    public OWLDataRange getPredicate() {
-        return (OWLDataRange) super.getPredicate();
-    }
+  @Override
+  public OWLDataRange getPredicate() {
+    return (OWLDataRange) super.getPredicate();
+  }
 }

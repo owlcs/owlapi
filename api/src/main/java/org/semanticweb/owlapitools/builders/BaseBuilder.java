@@ -13,16 +13,15 @@
 package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -35,91 +34,86 @@ import org.semanticweb.owlapi.profiles.Profiles;
 
 /**
  * Base builder class, providing annotations storage.
- * 
+ *
+ * @param <T> built type
+ * @param <B> builder type
  * @author ignazio
- * @param <T>
- *        built type
- * @param <B>
- *        builder type
  */
 public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> {
 
-    protected final OWLDataFactory df;
-    protected final List<OWLAnnotation> annotations = new ArrayList<>();
+  protected final OWLDataFactory df;
+  protected final List<OWLAnnotation> annotations = new ArrayList<>();
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    protected BaseBuilder(OWLDataFactory df) {
-        this.df = checkNotNull(df);
+  /**
+   * @param df data factory
+   */
+  @Inject
+  protected BaseBuilder(OWLDataFactory df) {
+    this.df = checkNotNull(df);
+  }
+
+  /**
+   * @param arg annotation
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withAnnotation(OWLAnnotation arg) {
+    annotations.add(arg);
+    return (B) this;
+  }
+
+  /**
+   * @param arg annotations
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withAnnotations(Collection<OWLAnnotation> arg) {
+    annotations.addAll(arg);
+    return (B) this;
+  }
+
+  /**
+   * @param arg annotations
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B withAnnotations(Stream<OWLAnnotation> arg) {
+    add(annotations, arg);
+    return (B) this;
+  }
+
+  /**
+   * Clear annotations.
+   *
+   * @return builder
+   */
+  @SuppressWarnings("unchecked")
+  public B clearAnnotations() {
+    annotations.clear();
+    return (B) this;
+  }
+
+  @Override
+  public abstract T buildObject();
+
+  @Override
+  public List<OWLOntologyChange> applyChanges(OWLOntology o) {
+    T object = buildObject();
+    if (!(object instanceof OWLAxiom)) {
+      return Collections.emptyList();
     }
-
-    /**
-     * @param arg
-     *        annotation
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withAnnotation(OWLAnnotation arg) {
-        annotations.add(arg);
-        return (B) this;
-    }
-
-    /**
-     * @param arg
-     *        annotations
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withAnnotations(Collection<OWLAnnotation> arg) {
-        annotations.addAll(arg);
-        return (B) this;
-    }
-
-    /**
-     * @param arg
-     *        annotations
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B withAnnotations(Stream<OWLAnnotation> arg) {
-        add(annotations, arg);
-        return (B) this;
-    }
-
-    /**
-     * Clear annotations.
-     * 
-     * @return builder
-     */
-    @SuppressWarnings("unchecked")
-    public B clearAnnotations() {
-        annotations.clear();
-        return (B) this;
-    }
-
-    @Override
-    public abstract T buildObject();
-
-    @Override
-    public List<OWLOntologyChange> applyChanges(OWLOntology o) {
-        T object = buildObject();
-        if (!(object instanceof OWLAxiom)) {
-            return Collections.emptyList();
-        }
-        // create and apply the new change
-        AddAxiom change = new AddAxiom(o, (OWLAxiom) object);
-        o.applyChange(change);
-        // check conformity to the profile
-        OWLProfileReport report = Profiles.OWL2_DL.checkOntology(o);
-        // collect all changes to fix the ontology
-        List<OWLOntologyChange> changes = asList(report.getViolations().stream().flatMap(v -> v.repair().stream()));
-        // fix the ontology
-        o.getOWLOntologyManager().applyChanges(changes);
-        // return all applied changes for reference
-        changes.add(change);
-        return changes;
-    }
+    // create and apply the new change
+    AddAxiom change = new AddAxiom(o, (OWLAxiom) object);
+    o.applyChange(change);
+    // check conformity to the profile
+    OWLProfileReport report = Profiles.OWL2_DL.checkOntology(o);
+    // collect all changes to fix the ontology
+    List<OWLOntologyChange> changes = asList(
+        report.getViolations().stream().flatMap(v -> v.repair().stream()));
+    // fix the ontology
+    o.getOWLOntologyManager().applyChanges(changes);
+    // return all applied changes for reference
+    changes.add(change);
+    return changes;
+  }
 }

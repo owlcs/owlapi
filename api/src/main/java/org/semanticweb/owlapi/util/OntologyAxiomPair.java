@@ -15,77 +15,74 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OntologyAxiomPair {
 
-    @Nullable private final OWLOntology ontology;
-    private final OWLAxiom axiom;
+  @Nullable
+  private final OWLOntology ontology;
+  private final OWLAxiom axiom;
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     */
-    public OntologyAxiomPair(@Nullable OWLOntology ontology, OWLAxiom axiom) {
-        this.ontology = ontology;
-        this.axiom = axiom;
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   */
+  public OntologyAxiomPair(@Nullable OWLOntology ontology, OWLAxiom axiom) {
+    this.ontology = ontology;
+    this.axiom = axiom;
+  }
 
-    /**
-     * @return the ontology
-     */
-    @Nullable
-    public OWLOntology getOntology() {
-        return ontology;
-    }
+  /**
+   * @return the ontology
+   */
+  @Nullable
+  public OWLOntology getOntology() {
+    return ontology;
+  }
 
-    /**
-     * @return the axiom
-     */
-    public OWLAxiom getAxiom() {
-        return axiom;
-    }
+  /**
+   * @return the axiom
+   */
+  public OWLAxiom getAxiom() {
+    return axiom;
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OntologyAxiomPair)) {
-            return false;
-        }
-        OntologyAxiomPair other = (OntologyAxiomPair) obj;
-        if (ontology != null && other.ontology != null) {
-            return verifyNotNull(ontology).equals(other.ontology) && axiom.equals(other.axiom);
-        }
-        if (ontology != other.ontology) {
-            return false;
-        }
-        return axiom.equals(other.axiom);
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == null) {
+      return false;
     }
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof OntologyAxiomPair)) {
+      return false;
+    }
+    OntologyAxiomPair other = (OntologyAxiomPair) obj;
+    if (ontology != null && other.ontology != null) {
+      return verifyNotNull(ontology).equals(other.ontology) && axiom.equals(other.axiom);
+    }
+    if (ontology != other.ontology) {
+      return false;
+    }
+    return axiom.equals(other.axiom);
+  }
 
-    @Override
-    public int hashCode() {
-        if (ontology != null) {
-            return verifyNotNull(ontology).hashCode() + axiom.hashCode();
-        }
-        return 37 + axiom.hashCode();
+  @Override
+  public int hashCode() {
+    if (ontology != null) {
+      return verifyNotNull(ontology).hashCode() + axiom.hashCode();
     }
+    return 37 + axiom.hashCode();
+  }
 
-    @Override
-    public String toString() {
-        return axiom + " in " + (ontology != null ? verifyNotNull(ontology).toString() : "");
-    }
+  @Override
+  public String toString() {
+    return axiom + " in " + (ontology != null ? verifyNotNull(ontology).toString() : "");
+  }
 }

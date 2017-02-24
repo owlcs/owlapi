@@ -16,174 +16,167 @@ import java.io.Serializable;
 
 /**
  * A configuration object that specifies options for output.
- * 
+ *
  * @author Ignazio
  * @since 5.0.0
  */
 public class OWLOntologyWriterConfiguration implements Serializable {
 
-    private boolean saveIds = false;
-    private boolean remapIds = true;
-    private boolean useNamespaceEntities = false;
-    private boolean indenting = true;
-    private boolean labelsAsBanner = false;
-    private boolean bannersEnabled = true;
-    private int indentSize = 4;
+  private boolean saveIds = false;
+  private boolean remapIds = true;
+  private boolean useNamespaceEntities = false;
+  private boolean indenting = true;
+  private boolean labelsAsBanner = false;
+  private boolean bannersEnabled = true;
+  private int indentSize = 4;
 
-    private OWLOntologyWriterConfiguration copy() {
-        OWLOntologyWriterConfiguration toReturn = new OWLOntologyWriterConfiguration();
-        toReturn.indenting = indenting;
-        toReturn.labelsAsBanner = labelsAsBanner;
-        toReturn.useNamespaceEntities = useNamespaceEntities;
-        toReturn.remapIds = remapIds;
-        toReturn.saveIds = saveIds;
-        return toReturn;
-    }
+  private OWLOntologyWriterConfiguration copy() {
+    OWLOntologyWriterConfiguration toReturn = new OWLOntologyWriterConfiguration();
+    toReturn.indenting = indenting;
+    toReturn.labelsAsBanner = labelsAsBanner;
+    toReturn.useNamespaceEntities = useNamespaceEntities;
+    toReturn.remapIds = remapIds;
+    toReturn.saveIds = saveIds;
+    return toReturn;
+  }
 
-    /** @return should output banners */
-    public boolean shouldUseBanners() {
-        return bannersEnabled;
-    }
+  /**
+   * @return should output banners
+   */
+  public boolean shouldUseBanners() {
+    return bannersEnabled;
+  }
 
-    /**
-     * @return true if all anonymous individuals should have their ids persisted
-     */
-    public boolean shouldSaveIdsForAllAnonymousIndividuals() {
-        return saveIds;
-    }
+  /**
+   * @return true if all anonymous individuals should have their ids persisted
+   */
+  public boolean shouldSaveIdsForAllAnonymousIndividuals() {
+    return saveIds;
+  }
 
-    /**
-     * @return true if all anonymous individuals should have their ids remapped
-     *         upon reading
-     */
-    public boolean shouldRemapAllAnonymousIndividualsIds() {
-        return remapIds;
-    }
+  /**
+   * @return true if all anonymous individuals should have their ids remapped upon reading
+   */
+  public boolean shouldRemapAllAnonymousIndividualsIds() {
+    return remapIds;
+  }
 
-    /**
-     * @return use namespace entities
-     */
-    public boolean isUseNamespaceEntities() {
-        return useNamespaceEntities;
-    }
+  /**
+   * @return use namespace entities
+   */
+  public boolean isUseNamespaceEntities() {
+    return useNamespaceEntities;
+  }
 
-    /**
-     * @return indenting
-     */
-    public boolean isIndenting() {
-        return indenting;
-    }
+  /**
+   * @return indenting
+   */
+  public boolean isIndenting() {
+    return indenting;
+  }
 
-    /**
-     * @return indent size
-     */
-    public int getIndentSize() {
-        return indentSize;
-    }
+  /**
+   * @return indent size
+   */
+  public int getIndentSize() {
+    return indentSize;
+  }
 
-    /**
-     * @return true if labels should be used for banner comments
-     */
-    public boolean isLabelsAsBanner() {
-        return labelsAsBanner;
-    }
+  /**
+   * @return true if labels should be used for banner comments
+   */
+  public boolean isLabelsAsBanner() {
+    return labelsAsBanner;
+  }
 
-    /**
-     * @param label
-     *        True if banner comments should be enabled.
-     * @return new config object
-     */
-    public OWLOntologyWriterConfiguration withBannersEnabled(boolean label) {
-        if (labelsAsBanner == label) {
-            return this;
-        }
-        OWLOntologyWriterConfiguration copy = copy();
-        copy.labelsAsBanner = label;
-        return copy;
+  /**
+   * @param label True if banner comments should be enabled.
+   * @return new config object
+   */
+  public OWLOntologyWriterConfiguration withBannersEnabled(boolean label) {
+    if (labelsAsBanner == label) {
+      return this;
     }
+    OWLOntologyWriterConfiguration copy = copy();
+    copy.labelsAsBanner = label;
+    return copy;
+  }
 
-    /**
-     * @param b
-     *        true if all anonymous individuals should have their ids persisted
-     * @return new config object
-     */
-    public OWLOntologyWriterConfiguration withSaveIdsForAllAnonymousIndividuals(boolean b) {
-        if (saveIds == b) {
-            return this;
-        }
-        OWLOntologyWriterConfiguration copy = copy();
-        copy.saveIds = b;
-        return copy;
+  /**
+   * @param b true if all anonymous individuals should have their ids persisted
+   * @return new config object
+   */
+  public OWLOntologyWriterConfiguration withSaveIdsForAllAnonymousIndividuals(boolean b) {
+    if (saveIds == b) {
+      return this;
     }
+    OWLOntologyWriterConfiguration copy = copy();
+    copy.saveIds = b;
+    return copy;
+  }
 
-    /**
-     * @param b
-     *        true if all anonymous individuals should have their ids remapped
-     *        after parsing
-     * @return new config object
-     */
-    public OWLOntologyWriterConfiguration withRemapAllAnonymousIndividualsIds(boolean b) {
-        if (remapIds == b) {
-            return this;
-        }
-        OWLOntologyWriterConfiguration copy = copy();
-        copy.remapIds = b;
-        return copy;
+  /**
+   * @param b true if all anonymous individuals should have their ids remapped after parsing
+   * @return new config object
+   */
+  public OWLOntologyWriterConfiguration withRemapAllAnonymousIndividualsIds(boolean b) {
+    if (remapIds == b) {
+      return this;
     }
+    OWLOntologyWriterConfiguration copy = copy();
+    copy.remapIds = b;
+    return copy;
+  }
 
-    /**
-     * @param useEntities
-     *        useNamespaceEntities
-     * @return new config object
-     */
-    public OWLOntologyWriterConfiguration withUseNamespaceEntities(boolean useEntities) {
-        if (useNamespaceEntities == useEntities) {
-            return this;
-        }
-        OWLOntologyWriterConfiguration copy = copy();
-        copy.useNamespaceEntities = useEntities;
-        return copy;
+  /**
+   * @param useEntities useNamespaceEntities
+   * @return new config object
+   */
+  public OWLOntologyWriterConfiguration withUseNamespaceEntities(boolean useEntities) {
+    if (useNamespaceEntities == useEntities) {
+      return this;
     }
+    OWLOntologyWriterConfiguration copy = copy();
+    copy.useNamespaceEntities = useEntities;
+    return copy;
+  }
 
-    /**
-     * @param indent
-     *        indent
-     * @return new config object
-     */
-    public OWLOntologyWriterConfiguration withIndenting(boolean indent) {
-        if (indenting == indent) {
-            return this;
-        }
-        OWLOntologyWriterConfiguration copy = copy();
-        copy.indenting = indent;
-        return copy;
+  /**
+   * @param indent indent
+   * @return new config object
+   */
+  public OWLOntologyWriterConfiguration withIndenting(boolean indent) {
+    if (indenting == indent) {
+      return this;
     }
+    OWLOntologyWriterConfiguration copy = copy();
+    copy.indenting = indent;
+    return copy;
+  }
 
-    /**
-     * @param indent
-     *        indent size
-     * @return new config object
-     */
-    public OWLOntologyWriterConfiguration withIndentSize(int indent) {
-        if (indentSize == indent) {
-            return this;
-        }
-        OWLOntologyWriterConfiguration copy = copy();
-        copy.indentSize = indent;
-        return copy;
+  /**
+   * @param indent indent size
+   * @return new config object
+   */
+  public OWLOntologyWriterConfiguration withIndentSize(int indent) {
+    if (indentSize == indent) {
+      return this;
     }
+    OWLOntologyWriterConfiguration copy = copy();
+    copy.indentSize = indent;
+    return copy;
+  }
 
-    /**
-     * @param label
-     *        true if labels should be used for banner comments
-     * @return new config object
-     */
-    public OWLOntologyWriterConfiguration withLabelsAsBanner(boolean label) {
-        if (labelsAsBanner == label) {
-            return this;
-        }
-        OWLOntologyWriterConfiguration copy = copy();
-        copy.labelsAsBanner = label;
-        return copy;
+  /**
+   * @param label true if labels should be used for banner comments
+   * @return new config object
+   */
+  public OWLOntologyWriterConfiguration withLabelsAsBanner(boolean label) {
+    if (labelsAsBanner == label) {
+      return this;
     }
+    OWLOntologyWriterConfiguration copy = copy();
+    copy.labelsAsBanner = label;
+    return copy;
+  }
 }

@@ -13,22 +13,19 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @param <O> return type
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <O>
- *        return type
  */
 public interface OWLIndividualEntityVisitorExBase<O> extends OWLVisitorExBase<O> {
 
-    /**
-     * visit OWLNamedIndividual type
-     * 
-     * @param individual
-     *        individual to visit
-     * @return visitor value
-     */
-    default O visit(OWLNamedIndividual individual) {
-        return doDefault(individual);
-    }
+  /**
+   * visit OWLNamedIndividual type
+   *
+   * @param individual individual to visit
+   * @return visitor value
+   */
+  default O visit(OWLNamedIndividual individual) {
+    return doDefault(individual);
+  }
 }

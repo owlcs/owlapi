@@ -22,49 +22,47 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.SetOntologyID} change. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public class SetOntologyIDData extends OWLOntologyChangeData {
 
-    private final OWLOntologyID newId;
+  private final OWLOntologyID newId;
 
-    /**
-     * Constructs a {@code SetOntologyIDData} object that describes an
-     * {@link SetOntologyID} change for the {@link OWLOntologyID} object
-     * specified by the {@code newId} parameter.
-     * 
-     * @param newId
-     *        The {@link OWLOntologyID} that is the focus of some change.
-     */
-    public SetOntologyIDData(OWLOntologyID newId) {
-        this.newId = checkNotNull(newId, "newId must not be null");
-    }
+  /**
+   * Constructs a {@code SetOntologyIDData} object that describes an
+   * {@link SetOntologyID} change for the {@link OWLOntologyID} object
+   * specified by the {@code newId} parameter.
+   *
+   * @param newId The {@link OWLOntologyID} that is the focus of some change.
+   */
+  public SetOntologyIDData(OWLOntologyID newId) {
+    this.newId = checkNotNull(newId, "newId must not be null");
+  }
 
-    /**
-     * Gets the {@link OWLOntologyID} that is associated with some
-     * {@link SetOntologyID} change.
-     * 
-     * @return The {@link OWLOntologyID}.
-     */
-    public OWLOntologyID getNewId() {
-        return newId;
-    }
+  /**
+   * Gets the {@link OWLOntologyID} that is associated with some
+   * {@link SetOntologyID} change.
+   *
+   * @return The {@link OWLOntologyID}.
+   */
+  public OWLOntologyID getNewId() {
+    return newId;
+  }
 
-    @Override
-    public SetOntologyID createOntologyChange(OWLOntology ontology) {
-        return new SetOntologyID(ontology, newId);
-    }
+  @Override
+  public SetOntologyID createOntologyChange(OWLOntology ontology) {
+    return new SetOntologyID(ontology, newId);
+  }
 
-    @Override
-    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public OWLOntologyID getItem() {
-        return getNewId();
-    }
+  @Override
+  public OWLOntologyID getItem() {
+    return getNewId();
+  }
 }

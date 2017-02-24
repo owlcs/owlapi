@@ -43,10 +43,10 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class RioTurtleDocumentFormat extends RioRDFPrefixDocumentFormat {
 
-    /**
-     * RDF format for {@link RDFFormat#TURTLE} documents.
-     */
-    public RioTurtleDocumentFormat() {
-        super(RDFFormat.TURTLE);
-    }
+  /**
+   * RDF format for {@link RDFFormat#TURTLE} documents.
+   */
+  public RioTurtleDocumentFormat() {
+    super(RDFFormat.TURTLE);
+  }
 }

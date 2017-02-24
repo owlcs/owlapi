@@ -12,83 +12,91 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualAxiom {
+public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements
+    OWLSameIndividualAxiom {
 
-    /**
-     * @param individuals
-     *        individuals
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLSameIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
-        Collection<OWLAnnotation> annotations) {
-        super(individuals, annotations);
-    }
+  /**
+   * @param individuals individuals
+   * @param annotations annotations on the axiom
+   */
+  public OWLSameIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
+      Collection<OWLAnnotation> annotations) {
+    super(individuals, annotations);
+  }
 
-    @Override
-    public OWLSameIndividualAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLSameIndividualAxiomImpl(individuals, NO_ANNOTATIONS);
+  @Override
+  public OWLSameIndividualAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLSameIndividualAxiomImpl(individuals, NO_ANNOTATIONS);
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLSameIndividualAxiomImpl(individuals, mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLSameIndividualAxiomImpl(individuals, mergeAnnos(anns));
+  }
 
-    @Override
-    public Set<OWLSameIndividualAxiom> asPairwiseAxioms() {
-        Set<OWLSameIndividualAxiom> result = new HashSet<>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            OWLIndividual indI = individuals.get(i);
-            OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), NO_ANNOTATIONS));
-        }
-        return result;
+  @Override
+  public Set<OWLSameIndividualAxiom> asPairwiseAxioms() {
+    Set<OWLSameIndividualAxiom> result = new HashSet<>();
+    for (int i = 0; i < individuals.size() - 1; i++) {
+      OWLIndividual indI = individuals.get(i);
+      OWLIndividual indJ = individuals.get(i + 1);
+      result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), NO_ANNOTATIONS));
     }
+    return result;
+  }
 
-    @Override
-    public Set<OWLSameIndividualAxiom> splitToAnnotatedPairs() {
-        if (individuals.size() == 2) {
-            return Collections.singleton(this);
-        }
-        Set<OWLSameIndividualAxiom> result = new HashSet<>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            OWLIndividual indI = individuals.get(i);
-            OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), annotations));
-        }
-        return result;
+  @Override
+  public Set<OWLSameIndividualAxiom> splitToAnnotatedPairs() {
+    if (individuals.size() == 2) {
+      return Collections.singleton(this);
     }
+    Set<OWLSameIndividualAxiom> result = new HashSet<>();
+    for (int i = 0; i < individuals.size() - 1; i++) {
+      OWLIndividual indI = individuals.get(i);
+      OWLIndividual indJ = individuals.get(i + 1);
+      result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), annotations));
+    }
+    return result;
+  }
 
-    @Override
-    public boolean containsAnonymousIndividuals() {
-        return individuals().anyMatch(OWLIndividual::isAnonymous);
-    }
+  @Override
+  public boolean containsAnonymousIndividuals() {
+    return individuals().anyMatch(OWLIndividual::isAnonymous);
+  }
 
-    @Override
-    public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        List<OWLClassExpression> nominalsList = new ArrayList<>();
-        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(i)));
-        Set<OWLSubClassOfAxiom> result = new HashSet<>();
-        for (int i = 0; i < nominalsList.size() - 1; i++) {
-            OWLClassExpression ceI = nominalsList.get(i);
-            OWLClassExpression ceJ = nominalsList.get(i + 1);
-            result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
-            result.add(new OWLSubClassOfAxiomImpl(ceJ, ceI, NO_ANNOTATIONS));
-        }
-        return result;
+  @Override
+  public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
+    List<OWLClassExpression> nominalsList = new ArrayList<>();
+    individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(i)));
+    Set<OWLSubClassOfAxiom> result = new HashSet<>();
+    for (int i = 0; i < nominalsList.size() - 1; i++) {
+      OWLClassExpression ceI = nominalsList.get(i);
+      OWLClassExpression ceJ = nominalsList.get(i + 1);
+      result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
+      result.add(new OWLSubClassOfAxiomImpl(ceJ, ceI, NO_ANNOTATIONS));
     }
+    return result;
+  }
 }

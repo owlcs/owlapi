@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -40,86 +39,88 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * This composite change supports refactoring an ontology where punning was used
  * to simulate annotations on a class rather than using actual annotations on a
  * class.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
 
-    private final Collection<OWLOntology> ontologies;
+  private final Collection<OWLOntology> ontologies;
 
-    /**
-     * Instantiates a new convert property assertions to annotations.
-     * 
-     * @param dataFactory
-     *        factory to use
-     * @param ontologies
-     *        ontologies to change
-     */
-    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory, Collection<OWLOntology> ontologies) {
-        super(dataFactory);
-        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
-        generateChanges();
-    }
+  /**
+   * Instantiates a new convert property assertions to annotations.
+   *
+   * @param dataFactory factory to use
+   * @param ontologies ontologies to change
+   */
+  public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory,
+      Collection<OWLOntology> ontologies) {
+    super(dataFactory);
+    this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
+    generateChanges();
+  }
 
-    private Stream<OWLOntology> ontologies() {
-        return ontologies.stream();
-    }
+  private Stream<OWLOntology> ontologies() {
+    return ontologies.stream();
+  }
 
-    /**
-     * Gets the punned individuals.
-     * 
-     * @param individuals
-     *        the individuals
-     * @return the punned individuals
-     */
-    private Collection<OWLNamedIndividual> getPunnedIndividuals(Stream<OWLNamedIndividual> individuals) {
-        return asList(individuals.filter(i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI()))));
-    }
+  /**
+   * Gets the punned individuals.
+   *
+   * @param individuals the individuals
+   * @return the punned individuals
+   */
+  private Collection<OWLNamedIndividual> getPunnedIndividuals(
+      Stream<OWLNamedIndividual> individuals) {
+    return asList(individuals
+        .filter(i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI()))));
+  }
 
-    private void generateChanges() {
-        Stream<OWLNamedIndividual> inds = ontologies().flatMap(OWLOntology::individualsInSignature);
-        getPunnedIndividuals(inds).forEach(this::convertToAnnotations);
-    }
+  private void generateChanges() {
+    Stream<OWLNamedIndividual> inds = ontologies().flatMap(OWLOntology::individualsInSignature);
+    getPunnedIndividuals(inds).forEach(this::convertToAnnotations);
+  }
 
-    private void remove(Stream<? extends OWLAxiom> c, OWLOntology o) {
-        c.forEach(ax -> addChange(new RemoveAxiom(o, ax)));
-    }
+  private void remove(Stream<? extends OWLAxiom> c, OWLOntology o) {
+    c.forEach(ax -> addChange(new RemoveAxiom(o, ax)));
+  }
 
-    private void remove(OWLDataProperty prop) {
-        ontologies().forEach(o -> {
-            remove(o.declarationAxioms(prop), o);
-            remove(o.axioms(prop), o);
-        });
-    }
+  private void remove(OWLDataProperty prop) {
+    ontologies().forEach(o -> {
+      remove(o.declarationAxioms(prop), o);
+      remove(o.axioms(prop), o);
+    });
+  }
 
-    private void remove(OWLNamedIndividual ind) {
-        ontologies().forEach(o -> {
-            remove(o.declarationAxioms(ind), o);
-            remove(o.classAssertionAxioms(ind), o);
-        });
-    }
+  private void remove(OWLNamedIndividual ind) {
+    ontologies().forEach(o -> {
+      remove(o.declarationAxioms(ind), o);
+      remove(o.classAssertionAxioms(ind), o);
+    });
+  }
 
-    private void convertToAnnotations(OWLNamedIndividual ind) {
-        ontologies.forEach(ont -> addAnnotations(ind, ont));
-        remove(ind);
-    }
+  private void convertToAnnotations(OWLNamedIndividual ind) {
+    ontologies.forEach(ont -> addAnnotations(ind, ont));
+    remove(ind);
+  }
 
-    protected void addAnnotations(OWLNamedIndividual ind, OWLOntology ont) {
-        ont.dataPropertyAssertionAxioms(ind).filter(ax -> !ax.getProperty().isAnonymous()).forEach(ax -> addAnnotation(
+  protected void addAnnotations(OWLNamedIndividual ind, OWLOntology ont) {
+    ont.dataPropertyAssertionAxioms(ind).filter(ax -> !ax.getProperty().isAnonymous())
+        .forEach(ax -> addAnnotation(
             ind, ont, ax));
-    }
+  }
 
-    protected void addAnnotation(OWLNamedIndividual ind, OWLOntology ont, OWLDataPropertyAssertionAxiom ax) {
-        addChange(new RemoveAxiom(ont, ax));
-        addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
-        remove(ax.getProperty().asOWLDataProperty());
-    }
+  protected void addAnnotation(OWLNamedIndividual ind, OWLOntology ont,
+      OWLDataPropertyAssertionAxiom ax) {
+    addChange(new RemoveAxiom(ont, ax));
+    addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
+    remove(ax.getProperty().asOWLDataProperty());
+  }
 
-    private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind, OWLDataPropertyAssertionAxiom ax) {
-        OWLDataProperty hasIRI = ax.getProperty().asOWLDataProperty();
-        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(hasIRI), ax.getObject());
-        return df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
-    }
+  private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind,
+      OWLDataPropertyAssertionAxiom ax) {
+    OWLDataProperty hasIRI = ax.getProperty().asOWLDataProperty();
+    OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(hasIRI), ax.getObject());
+    return df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
+  }
 }

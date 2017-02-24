@@ -15,48 +15,47 @@ package org.semanticweb.owlapi.reasoner;
 import java.io.Serializable;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor,
-        Serializable {
+    Serializable {
 
-    private int lastPercentage;
-    private long lastTime;
-    private long beginTime;
+  private int lastPercentage;
+  private long lastTime;
+  private long beginTime;
 
-    @Override
-    public void reasonerTaskStarted(String taskName) {
-        System.out.print(taskName);
-        System.out.println(" ...");
-        lastTime = System.nanoTime();
-        beginTime = lastTime;
+  @Override
+  public void reasonerTaskStarted(String taskName) {
+    System.out.print(taskName);
+    System.out.println(" ...");
+    lastTime = System.nanoTime();
+    beginTime = lastTime;
+  }
+
+  @Override
+  public void reasonerTaskStopped() {
+    System.out.println("    ... finished in "
+        + (System.nanoTime() - beginTime) / 1000000.0D);
+    lastPercentage = 0;
+  }
+
+  @Override
+  public void reasonerTaskProgressChanged(int value, int max) {
+    long time = System.nanoTime();
+    if (max > 0) {
+      int percent = value * 100 / max;
+      if (lastPercentage != percent) {
+        System.out.println("    " + percent + "%\t" + (time - lastTime)
+            / 1000000);
+        lastTime = time;
+        lastPercentage = percent;
+      }
     }
+  }
 
-    @Override
-    public void reasonerTaskStopped() {
-        System.out.println("    ... finished in "
-                + (System.nanoTime() - beginTime) / 1000000.0D);
-        lastPercentage = 0;
-    }
-
-    @Override
-    public void reasonerTaskProgressChanged(int value, int max) {
-        long time = System.nanoTime();
-        if (max > 0) {
-            int percent = value * 100 / max;
-            if (lastPercentage != percent) {
-                System.out.println("    " + percent + "%\t" + (time - lastTime)
-                        / 1000000);
-                lastTime = time;
-                lastPercentage = percent;
-            }
-        }
-    }
-
-    @Override
-    public void reasonerTaskBusy() {
-        System.out.println("    busy ...");
-    }
+  @Override
+  public void reasonerTaskBusy() {
+    System.out.println("    busy ...");
+  }
 }

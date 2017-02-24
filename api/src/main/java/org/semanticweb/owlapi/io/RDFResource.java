@@ -15,50 +15,50 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public abstract class RDFResource extends RDFNode implements org.apache.commons.rdf.api.BlankNodeOrIRI {
+public abstract class RDFResource extends RDFNode implements
+    org.apache.commons.rdf.api.BlankNodeOrIRI {
 
-    // XXX implement equals()
-    /**
-     * @return the resource IRI
-     */
-    public abstract IRI getResource();
+  // XXX implement equals()
 
-    @Override
-    public int compareTo(@Nullable RDFNode o) {
-        checkNotNull(o);
-        assert o != null;
-        if (o.isLiteral()) {
-            return 1;
-        }
-        if (equals(o)) {
-            return 0;
-        }
-        boolean anonA = isAnonymous();
-        boolean anonB = o.isAnonymous();
-        if (anonA == anonB) {
-            // if both are anonymous or both are not anonymous,
-            // comparing the id() values corresponds to comparing IRIs or
-            // comparing bnode ids
-            return getIRI().compareTo(o.getIRI());
-        }
-        // if one is anonymous and the other is not,
-        // named nodes come first
-        if (!anonA) {
-            return -1;
-        }
-        return 1;
+  /**
+   * @return the resource IRI
+   */
+  public abstract IRI getResource();
+
+  @Override
+  public int compareTo(@Nullable RDFNode o) {
+    checkNotNull(o);
+    assert o != null;
+    if (o.isLiteral()) {
+      return 1;
     }
-
-    @Override
-    public String ntriplesString() {
-        return getResource().ntriplesString();
+    if (equals(o)) {
+      return 0;
     }
+    boolean anonA = isAnonymous();
+    boolean anonB = o.isAnonymous();
+    if (anonA == anonB) {
+      // if both are anonymous or both are not anonymous,
+      // comparing the id() values corresponds to comparing IRIs or
+      // comparing bnode ids
+      return getIRI().compareTo(o.getIRI());
+    }
+    // if one is anonymous and the other is not,
+    // named nodes come first
+    if (!anonA) {
+      return -1;
+    }
+    return 1;
+  }
+
+  @Override
+  public String ntriplesString() {
+    return getResource().ntriplesString();
+  }
 }

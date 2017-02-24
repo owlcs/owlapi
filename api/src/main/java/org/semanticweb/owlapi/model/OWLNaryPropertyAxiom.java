@@ -18,54 +18,50 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param
- *        <P>
- *        property expression
  */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
     extends OWLPropertyAxiom, OWLNaryAxiom<P>, HasOperands<P> {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(properties(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(properties(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(properties());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(properties());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), properties());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), properties());
+  }
 
-    /**
-     * @return all of the properties that appear in this axiom
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<P> getProperties() {
-        return asSet(properties());
-    }
+  /**
+   * @return all of the properties that appear in this axiom
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<P> getProperties() {
+    return asSet(properties());
+  }
 
-    /**
-     * @return all of the properties that appear in this axiom
-     */
-    Stream<P> properties();
+  /**
+   * @return all of the properties that appear in this axiom
+   */
+  Stream<P> properties();
 
-    @Override
-    default Stream<P> operands() {
-        return properties();
-    }
+  @Override
+  default Stream<P> operands() {
+    return properties();
+  }
 
-    /**
-     * @param property
-     *        the property to skip
-     * @return the set of properties minus property
-     */
-    Set<P> getPropertiesMinus(P property);
+  /**
+   * @param property the property to skip
+   * @return the set of properties minus property
+   */
+  Set<P> getPropertiesMinus(P property);
 }

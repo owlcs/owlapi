@@ -14,61 +14,57 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
 
-    /** Default constructor. */
-    public OWLDatatypeNodeSet() {
-        super();
-    }
+  /**
+   * Default constructor.
+   */
+  public OWLDatatypeNodeSet() {
+    super();
+  }
 
-    /**
-     * @param entity
-     *        datatype to include
-     */
-    public OWLDatatypeNodeSet(OWLDatatype entity) {
-        super(entity);
-    }
+  /**
+   * @param entity datatype to include
+   */
+  public OWLDatatypeNodeSet(OWLDatatype entity) {
+    super(entity);
+  }
 
-    /**
-     * @param owlDatatypeNode
-     *        node to include
-     */
-    public OWLDatatypeNodeSet(Node<OWLDatatype> owlDatatypeNode) {
-        super(owlDatatypeNode);
-    }
+  /**
+   * @param owlDatatypeNode node to include
+   */
+  public OWLDatatypeNodeSet(Node<OWLDatatype> owlDatatypeNode) {
+    super(owlDatatypeNode);
+  }
 
-    /**
-     * @param nodes
-     *        nodes to include
-     */
-    public OWLDatatypeNodeSet(Set<Node<OWLDatatype>> nodes) {
-        super(nodes);
-    }
+  /**
+   * @param nodes nodes to include
+   */
+  public OWLDatatypeNodeSet(Set<Node<OWLDatatype>> nodes) {
+    super(nodes);
+  }
 
-    /**
-     * @param nodes
-     *        nodes to include
-     */
-    public OWLDatatypeNodeSet(Stream<Node<OWLDatatype>> nodes) {
-        super(nodes);
-    }
+  /**
+   * @param nodes nodes to include
+   */
+  public OWLDatatypeNodeSet(Stream<Node<OWLDatatype>> nodes) {
+    super(nodes);
+  }
 
-    @Override
-    protected DefaultNode<OWLDatatype> getNode(OWLDatatype entity) {
-        return new OWLDatatypeNode(entity);
-    }
+  @Override
+  protected DefaultNode<OWLDatatype> getNode(OWLDatatype entity) {
+    return new OWLDatatypeNode(entity);
+  }
 
-    @Override
-    protected DefaultNode<OWLDatatype> getNode(Set<OWLDatatype> entities) {
-        return new OWLDatatypeNode(entities);
-    }
+  @Override
+  protected DefaultNode<OWLDatatype> getNode(Set<OWLDatatype> entities) {
+    return new OWLDatatypeNode(entities);
+  }
 }

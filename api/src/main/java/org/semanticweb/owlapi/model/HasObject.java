@@ -14,20 +14,18 @@ package org.semanticweb.owlapi.model;
 
 /**
  * An interface to objects that have objects (e.g. property assertion axioms).
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @param <O>
- *        object type
+ *
+ * @param <O> object type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 @FunctionalInterface
 public interface HasObject<O> {
 
-    /**
-     * Gets the object.
-     * 
-     * @return The object.
-     */
-    O getObject();
+  /**
+   * Gets the object.
+   *
+   * @return The object.
+   */
+  O getObject();
 }

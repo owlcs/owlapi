@@ -12,16 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.slf4j.Logger;
@@ -29,64 +29,54 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A convenience class which will prepare an input source from a file.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentSource.class);
-    private final File file;
+  private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentSource.class);
+  private final File file;
 
-    /**
-     * Constructs an ontology input source using the specified file.
-     * 
-     * @param file
-     *        The file from which a concrete representation of an ontology will
-     *        be obtained.
-     */
-    public FileDocumentSource(File file) {
-        this(file, null, null);
-    }
+  /**
+   * Constructs an ontology input source using the specified file.
+   *
+   * @param file The file from which a concrete representation of an ontology will be obtained.
+   */
+  public FileDocumentSource(File file) {
+    this(file, null, null);
+  }
 
-    /**
-     * Constructs an ontology input source using the specified file.
-     * 
-     * @param file
-     *        The file from which a concrete representation of an ontology will
-     *        be obtained.
-     * @param format
-     *        ontology format. Can be null.
-     */
-    public FileDocumentSource(File file, OWLDocumentFormat format) {
-        this(file, format, null);
-    }
+  /**
+   * Constructs an ontology input source using the specified file.
+   *
+   * @param file The file from which a concrete representation of an ontology will be obtained.
+   * @param format ontology format. Can be null.
+   */
+  public FileDocumentSource(File file, OWLDocumentFormat format) {
+    this(file, format, null);
+  }
 
-    /**
-     * Constructs an ontology input source using the specified file.
-     * 
-     * @param file
-     *        The file from which a concrete representation of an ontology will
-     *        be obtained.
-     * @param format
-     *        ontology format. Can be null.
-     * @param mime
-     *        mime type
-     */
-    public FileDocumentSource(File file, @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        super(IRI.create(file), format, mime);
-        this.file = checkNotNull(file, "file cannot be null");
-    }
+  /**
+   * Constructs an ontology input source using the specified file.
+   *
+   * @param file The file from which a concrete representation of an ontology will be obtained.
+   * @param format ontology format. Can be null.
+   * @param mime mime type
+   */
+  public FileDocumentSource(File file, @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    super(IRI.create(file), format, mime);
+    this.file = checkNotNull(file, "file cannot be null");
+  }
 
-    @Override
-    public Optional<InputStream> getInputStream() {
-        try {
-            return optional(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            LOGGER.error("File cannot be found", e);
-            failedOnStreams.set(true);
-            return emptyOptional();
-        }
+  @Override
+  public Optional<InputStream> getInputStream() {
+    try {
+      return optional(new FileInputStream(file));
+    } catch (FileNotFoundException e) {
+      LOGGER.error("File cannot be found", e);
+      failedOnStreams.set(true);
+      return emptyOptional();
     }
+  }
 }

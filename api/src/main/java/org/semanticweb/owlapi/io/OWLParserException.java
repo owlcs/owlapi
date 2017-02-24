@@ -16,120 +16,109 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Indicates that a parse error happened when trying to parse an ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLParserException extends OWLRuntimeException {
 
-    private final int lineNumber;
-    private final int columnNumber;
+  private final int lineNumber;
+  private final int columnNumber;
 
-    /** Default constructor. */
-    public OWLParserException() {
-        lineNumber = -1;
-        columnNumber = -1;
-    }
+  /**
+   * Default constructor.
+   */
+  public OWLParserException() {
+    lineNumber = -1;
+    columnNumber = -1;
+  }
 
-    /**
-     * @param message
-     *        the message
-     */
-    public OWLParserException(String message) {
-        super(message);
-        lineNumber = -1;
-        columnNumber = -1;
-    }
+  /**
+   * @param message the message
+   */
+  public OWLParserException(String message) {
+    super(message);
+    lineNumber = -1;
+    columnNumber = -1;
+  }
 
-    /**
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
-     */
-    public OWLParserException(String message, Throwable cause) {
-        super(message, cause);
-        lineNumber = -1;
-        columnNumber = -1;
-    }
+  /**
+   * @param message the message
+   * @param cause the cause
+   */
+  public OWLParserException(String message, Throwable cause) {
+    super(message, cause);
+    lineNumber = -1;
+    columnNumber = -1;
+  }
 
-    /**
-     * @param cause
-     *        the cause
-     */
-    public OWLParserException(Throwable cause) {
-        super(cause);
-        lineNumber = -1;
-        columnNumber = -1;
-    }
+  /**
+   * @param cause the cause
+   */
+  public OWLParserException(Throwable cause) {
+    super(cause);
+    lineNumber = -1;
+    columnNumber = -1;
+  }
 
-    /**
-     * @param message
-     *        the message
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     */
-    public OWLParserException(String message, int lineNumber, int columnNumber) {
-        super(message);
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-    }
+  /**
+   * @param message the message
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   */
+  public OWLParserException(String message, int lineNumber, int columnNumber) {
+    super(message);
+    this.lineNumber = lineNumber;
+    this.columnNumber = columnNumber;
+  }
 
-    /**
-     * @param cause
-     *        the cause
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     */
-    public OWLParserException(Throwable cause, int lineNumber, int columnNumber) {
-        super(cause);
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-    }
+  /**
+   * @param cause the cause
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   */
+  public OWLParserException(Throwable cause, int lineNumber, int columnNumber) {
+    super(cause);
+    this.lineNumber = lineNumber;
+    this.columnNumber = columnNumber;
+  }
 
-    /**
-     * @param cause
-     *        the cause
-     * @param message
-     *        the message
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     */
-    public OWLParserException(String message, Throwable cause, int lineNumber,
-            int columnNumber) {
-        super(message, cause);
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-    }
+  /**
+   * @param cause the cause
+   * @param message the message
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   */
+  public OWLParserException(String message, Throwable cause, int lineNumber,
+      int columnNumber) {
+    super(message, cause);
+    this.lineNumber = lineNumber;
+    this.columnNumber = columnNumber;
+  }
 
-    /**
-     * Gets the line number of the line that the parser was parsing when the
-     * error occurred.
-     * 
-     * @return A positive integer which represents the line number, or -1 if the
-     *         line number could not be determined.
-     */
-    public int getLineNumber() {
-        return lineNumber;
-    }
+  /**
+   * Gets the line number of the line that the parser was parsing when the
+   * error occurred.
+   *
+   * @return A positive integer which represents the line number, or -1 if the line number could not
+   * be determined.
+   */
+  public int getLineNumber() {
+    return lineNumber;
+  }
 
-    /** @return the column number */
-    public int getColumnNumber() {
-        return columnNumber;
-    }
+  /**
+   * @return the column number
+   */
+  public int getColumnNumber() {
+    return columnNumber;
+  }
 
-    @Override
-    public String getMessage() {
-        if (lineNumber != -1) {
-            return super.getMessage() + " (Line " + lineNumber + ')';
-        }
-        return super.getMessage();
+  @Override
+  public String getMessage() {
+    if (lineNumber != -1) {
+      return super.getMessage() + " (Line " + lineNumber + ')';
     }
+    return super.getMessage();
+  }
 }

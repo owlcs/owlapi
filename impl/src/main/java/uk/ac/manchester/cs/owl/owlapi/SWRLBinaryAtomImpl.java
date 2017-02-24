@@ -15,44 +15,41 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <A> atom type
+ * @param <B> atom type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <A>
- *        atom type
- * @param <B>
- *        atom type
  */
-public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl implements
+public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends
+    SWRLAtomImpl implements
     SWRLBinaryAtom<A, B> {
 
-    private final A arg0;
-    private final B arg1;
+  private final A arg0;
+  private final B arg1;
 
-    protected SWRLBinaryAtomImpl(SWRLPredicate predicate, A arg0, B arg1) {
-        super(predicate);
-        this.arg0 = checkNotNull(arg0, "arg0 cannot be null");
-        this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
-    }
+  protected SWRLBinaryAtomImpl(SWRLPredicate predicate, A arg0, B arg1) {
+    super(predicate);
+    this.arg0 = checkNotNull(arg0, "arg0 cannot be null");
+    this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
+  }
 
-    @Override
-    public Stream<SWRLArgument> allArguments() {
-        return Stream.of(arg0, arg1);
-    }
+  @Override
+  public Stream<SWRLArgument> allArguments() {
+    return Stream.of(arg0, arg1);
+  }
 
-    @Override
-    public A getFirstArgument() {
-        return arg0;
-    }
+  @Override
+  public A getFirstArgument() {
+    return arg0;
+  }
 
-    @Override
-    public B getSecondArgument() {
-        return arg1;
-    }
+  @Override
+  public B getSecondArgument() {
+    return arg1;
+  }
 }

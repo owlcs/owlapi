@@ -15,58 +15,54 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
 
-    private final IRI iri;
+  private final IRI iri;
 
-    /**
-     * @param iri
-     *        iri to import
-     */
-    public OWLImportsDeclarationImpl(IRI iri) {
-        this.iri = checkNotNull(iri, "iri cannot be null");
-    }
+  /**
+   * @param iri iri to import
+   */
+  public OWLImportsDeclarationImpl(IRI iri) {
+    this.iri = checkNotNull(iri, "iri cannot be null");
+  }
 
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
+  @Override
+  public IRI getIRI() {
+    return iri;
+  }
 
-    @Override
-    public int hashCode() {
-        return iri.hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return iri.hashCode();
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLImportsDeclaration)) {
-            return false;
-        }
-        OWLImportsDeclaration other = (OWLImportsDeclaration) obj;
-        return iri.equals(other.getIRI());
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
+    if (!(obj instanceof OWLImportsDeclaration)) {
+      return false;
+    }
+    OWLImportsDeclaration other = (OWLImportsDeclaration) obj;
+    return iri.equals(other.getIRI());
+  }
 
-    @Override
-    public int compareTo(@Nullable OWLImportsDeclaration o) {
-        return iri.compareTo(checkNotNull(o).getIRI());
-    }
+  @Override
+  public int compareTo(@Nullable OWLImportsDeclaration o) {
+    return iri.compareTo(checkNotNull(o).getIRI());
+  }
 
-    @Override
-    public String toString() {
-        return String.format("Import(%s)", iri.toQuotedString());
-    }
+  @Override
+  public String toString() {
+    return String.format("Import(%s)", iri.toQuotedString());
+  }
 }

@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -28,59 +27,52 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public interface IntersectionProvider {
 
-    /**
-     * @param dataRanges
-     *        data ranges for intersection. Cannot be null or contain nulls.
-     * @return an OWLDataIntersectionOf on the specified dataranges
-     */
-    default OWLDataIntersectionOf getOWLDataIntersectionOf(Collection<? extends OWLDataRange> dataRanges) {
-        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
-        return getOWLDataIntersectionOf(dataRanges.stream());
-    }
+  /**
+   * @param dataRanges data ranges for intersection. Cannot be null or contain nulls.
+   * @return an OWLDataIntersectionOf on the specified dataranges
+   */
+  default OWLDataIntersectionOf getOWLDataIntersectionOf(
+      Collection<? extends OWLDataRange> dataRanges) {
+    checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+    return getOWLDataIntersectionOf(dataRanges.stream());
+  }
 
-    /**
-     * @param dataRanges
-     *        data ranges for intersection. Cannot be null or contain nulls.
-     * @return an OWLDataIntersectionOf on the specified dataranges
-     */
-    OWLDataIntersectionOf getOWLDataIntersectionOf(Stream<? extends OWLDataRange> dataRanges);
+  /**
+   * @param dataRanges data ranges for intersection. Cannot be null or contain nulls.
+   * @return an OWLDataIntersectionOf on the specified dataranges
+   */
+  OWLDataIntersectionOf getOWLDataIntersectionOf(Stream<? extends OWLDataRange> dataRanges);
 
-    /**
-     * @param dataRanges
-     *        data ranges for intersection. Cannot be null or contain nulls.
-     * @return an OWLDataIntersectionOf on the specified dataranges
-     */
-    default OWLDataIntersectionOf getOWLDataIntersectionOf(OWLDataRange... dataRanges) {
-        checkIterableNotNull(dataRanges, "dataRange cannot be nulls", true);
-        return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
-    }
+  /**
+   * @param dataRanges data ranges for intersection. Cannot be null or contain nulls.
+   * @return an OWLDataIntersectionOf on the specified dataranges
+   */
+  default OWLDataIntersectionOf getOWLDataIntersectionOf(OWLDataRange... dataRanges) {
+    checkIterableNotNull(dataRanges, "dataRange cannot be nulls", true);
+    return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
+  }
 
-    /**
-     * @param operands
-     *        class expressions for intersection. Cannot be null or contain
-     *        nulls.
-     * @return an OWLObjectIntersectionOf on the specified operands
-     */
-    OWLObjectIntersectionOf getOWLObjectIntersectionOf(Stream<? extends OWLClassExpression> operands);
+  /**
+   * @param operands class expressions for intersection. Cannot be null or contain nulls.
+   * @return an OWLObjectIntersectionOf on the specified operands
+   */
+  OWLObjectIntersectionOf getOWLObjectIntersectionOf(Stream<? extends OWLClassExpression> operands);
 
-    /**
-     * @param operands
-     *        class expressions for intersection. Cannot be null or contain
-     *        nulls.
-     * @return an OWLObjectIntersectionOf on the specified operands
-     */
-    default OWLObjectIntersectionOf getOWLObjectIntersectionOf(Collection<? extends OWLClassExpression> operands) {
-        return getOWLObjectIntersectionOf(operands.stream());
-    }
+  /**
+   * @param operands class expressions for intersection. Cannot be null or contain nulls.
+   * @return an OWLObjectIntersectionOf on the specified operands
+   */
+  default OWLObjectIntersectionOf getOWLObjectIntersectionOf(
+      Collection<? extends OWLClassExpression> operands) {
+    return getOWLObjectIntersectionOf(operands.stream());
+  }
 
-    /**
-     * @param operands
-     *        class expressions for intersection. Cannot be null or contain
-     *        nulls.
-     * @return an OWLObjectIntersectionOf on the specified operands
-     */
-    default OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands) {
-        checkIterableNotNull(operands, "operands cannot be null", true);
-        return getOWLObjectIntersectionOf(CollectionFactory.createList(operands));
-    }
+  /**
+   * @param operands class expressions for intersection. Cannot be null or contain nulls.
+   * @return an OWLObjectIntersectionOf on the specified operands
+   */
+  default OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands) {
+    checkIterableNotNull(operands, "operands cannot be null", true);
+    return getOWLObjectIntersectionOf(CollectionFactory.createList(operands));
+  }
 }

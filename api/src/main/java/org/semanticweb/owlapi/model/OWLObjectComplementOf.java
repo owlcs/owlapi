@@ -18,55 +18,54 @@ import java.util.stream.Stream;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Class_Expressions" >
  * ObjectComplementOf</a> class expression in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getOperand());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getOperand());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 197;
-    }
+  @Override
+  default int hashIndex() {
+    return 197;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 3003;
-    }
+  @Override
+  default int typeIndex() {
+    return 3003;
+  }
 
-    @Override
-    default ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_COMPLEMENT_OF;
-    }
+  @Override
+  default ClassExpressionType getClassExpressionType() {
+    return ClassExpressionType.OBJECT_COMPLEMENT_OF;
+  }
 
-    /**
-     * @return the wrapped expression
-     */
-    OWLClassExpression getOperand();
+  /**
+   * @return the wrapped expression
+   */
+  OWLClassExpression getOperand();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLClassExpressionVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

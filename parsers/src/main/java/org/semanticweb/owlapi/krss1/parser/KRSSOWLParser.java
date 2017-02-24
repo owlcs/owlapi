@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.krss1.parser;
 
 import java.io.IOException;
 import java.io.Reader;
-
 import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
 import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -27,28 +26,27 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class KRSSOWLParser extends AbstractOWLParser {
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new KRSSDocumentFormatFactory();
-    }
+  @Override
+  public OWLDocumentFormatFactory getSupportedFormat() {
+    return new KRSSDocumentFormatFactory();
+  }
 
-    @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-        OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            KRSSDocumentFormat format = new KRSSDocumentFormat();
-            KRSSParser parser = new KRSSParser(new StreamProvider(r));
-            parser.setOntology(ontology);
-            parser.parse();
-            return format;
-        } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
-            throw new KRSSOWLParserException(e);
-        }
+  @Override
+  public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
+      OWLOntologyLoaderConfiguration config) {
+    try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
+      KRSSDocumentFormat format = new KRSSDocumentFormat();
+      KRSSParser parser = new KRSSParser(new StreamProvider(r));
+      parser.setOntology(ontology);
+      parser.parse();
+      return format;
+    } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
+      throw new KRSSOWLParserException(e);
     }
+  }
 }

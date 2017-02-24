@@ -18,57 +18,56 @@ import java.util.Set;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality">
  * SameIndividual</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
 
-    @Override
-        OWLSameIndividualAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLSameIndividualAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 137;
-    }
+  @Override
+  default int hashIndex() {
+    return 137;
+  }
 
-    /**
-     * Determines whether this axiom contains anonymous individuals. Anonymous
-     * individuals are not allowed in same individuals axioms.
-     * 
-     * @return {@code true} if this axioms contains anonymous individual axioms
-     */
-    boolean containsAnonymousIndividuals();
+  /**
+   * Determines whether this axiom contains anonymous individuals. Anonymous
+   * individuals are not allowed in same individuals axioms.
+   *
+   * @return {@code true} if this axioms contains anonymous individual axioms
+   */
+  boolean containsAnonymousIndividuals();
 
-    @Override
-        Set<OWLSameIndividualAxiom> asPairwiseAxioms();
+  @Override
+  Set<OWLSameIndividualAxiom> asPairwiseAxioms();
 
-    @Override
-        Set<OWLSameIndividualAxiom> splitToAnnotatedPairs();
+  @Override
+  Set<OWLSameIndividualAxiom> splitToAnnotatedPairs();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.SAME_INDIVIDUAL;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.SAME_INDIVIDUAL;
+  }
 }

@@ -13,66 +13,65 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("unused")
 public interface OWLOntologyChangeVisitor {
 
-    /**
-     * visit AddAxiom type
-     * 
-     * @param change
-     *        change to visit
-     */
-    default void visit(AddAxiom change) {}
+  /**
+   * visit AddAxiom type
+   *
+   * @param change change to visit
+   */
+  default void visit(AddAxiom change) {
+  }
 
-    /**
-     * visit RemoveAxiom type
-     * 
-     * @param change
-     *        change to visit
-     */
-    default void visit(RemoveAxiom change) {}
+  /**
+   * visit RemoveAxiom type
+   *
+   * @param change change to visit
+   */
+  default void visit(RemoveAxiom change) {
+  }
 
-    /**
-     * visit SetOntologyID type
-     * 
-     * @param change
-     *        change to visit
-     */
-    default void visit(SetOntologyID change) {}
+  /**
+   * visit SetOntologyID type
+   *
+   * @param change change to visit
+   */
+  default void visit(SetOntologyID change) {
+  }
 
-    /**
-     * visit AddImport type
-     * 
-     * @param change
-     *        change to visit
-     */
-    default void visit(AddImport change) {}
+  /**
+   * visit AddImport type
+   *
+   * @param change change to visit
+   */
+  default void visit(AddImport change) {
+  }
 
-    /**
-     * visit RemoveImport type
-     * 
-     * @param change
-     *        change to visit
-     */
-    default void visit(RemoveImport change) {}
+  /**
+   * visit RemoveImport type
+   *
+   * @param change change to visit
+   */
+  default void visit(RemoveImport change) {
+  }
 
-    /**
-     * visit AddOntologyAnnotation type
-     * 
-     * @param change
-     *        change to visit
-     */
-    default void visit(AddOntologyAnnotation change) {}
+  /**
+   * visit AddOntologyAnnotation type
+   *
+   * @param change change to visit
+   */
+  default void visit(AddOntologyAnnotation change) {
+  }
 
-    /**
-     * visit RemoveOntologyAnnotation type
-     * 
-     * @param change
-     *        change to visit
-     */
-    default void visit(RemoveOntologyAnnotation change) {}
+  /**
+   * visit RemoveOntologyAnnotation type
+   *
+   * @param change change to visit
+   */
+  default void visit(RemoveOntologyAnnotation change) {
+  }
 }

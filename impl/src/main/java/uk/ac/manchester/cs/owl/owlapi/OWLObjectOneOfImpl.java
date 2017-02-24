@@ -18,56 +18,51 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asListNullsForbidden
 
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
-    private final List<OWLIndividual> values;
+  private final List<OWLIndividual> values;
 
-    /**
-     * @param values
-     *        values for oneof
-     */
-    public OWLObjectOneOfImpl(Stream<OWLIndividual> values) {
-        checkNotNull(values, "values cannot be null");
-        this.values = sortOptionally(asListNullsForbidden(values.distinct()));
-    }
+  /**
+   * @param values values for oneof
+   */
+  public OWLObjectOneOfImpl(Stream<OWLIndividual> values) {
+    checkNotNull(values, "values cannot be null");
+    this.values = sortOptionally(asListNullsForbidden(values.distinct()));
+  }
 
-    /**
-     * @param values
-     *        values for oneof
-     */
-    public OWLObjectOneOfImpl(OWLIndividual... values) {
-        this(Stream.of(values));
-    }
+  /**
+   * @param values values for oneof
+   */
+  public OWLObjectOneOfImpl(OWLIndividual... values) {
+    this(Stream.of(values));
+  }
 
-    /**
-     * @param value
-     *        value for oneof
-     */
-    public OWLObjectOneOfImpl(OWLIndividual value) {
-        this(Stream.of(value));
-    }
+  /**
+   * @param value value for oneof
+   */
+  public OWLObjectOneOfImpl(OWLIndividual value) {
+    this(Stream.of(value));
+  }
 
-    @Override
-    public Stream<OWLIndividual> individuals() {
-        return values.stream();
-    }
+  @Override
+  public Stream<OWLIndividual> individuals() {
+    return values.stream();
+  }
 
-    @Override
-    public OWLClassExpression asObjectUnionOf() {
-        if (values.size() == 1) {
-            return this;
-        } else {
-            return new OWLObjectUnionOfImpl(individuals().map(i -> new OWLObjectOneOfImpl(i)));
-        }
+  @Override
+  public OWLClassExpression asObjectUnionOf() {
+    if (values.size() == 1) {
+      return this;
+    } else {
+      return new OWLObjectUnionOfImpl(individuals().map(i -> new OWLObjectOneOfImpl(i)));
     }
+  }
 }

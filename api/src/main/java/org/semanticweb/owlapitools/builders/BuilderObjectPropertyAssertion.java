@@ -16,80 +16,81 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
-/** Builder class for OWLObjectPropertyAssertionAxiom. */
+/**
+ * Builder class for OWLObjectPropertyAssertionAxiom.
+ */
 public class BuilderObjectPropertyAssertion extends
     BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
 
-    @Nullable private OWLIndividual subject = null;
-    @Nullable private OWLIndividual value = null;
+  @Nullable
+  private OWLIndividual subject = null;
+  @Nullable
+  private OWLIndividual value = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectPropertyAssertion(OWLObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
-        this(df);
-        withSubject(expected.getSubject()).withProperty(expected.getProperty()).withValue(expected.getObject())
-            .withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectPropertyAssertion(OWLObjectPropertyAssertionAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withSubject(expected.getSubject()).withProperty(expected.getProperty())
+        .withValue(expected.getObject())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectPropertyAssertion(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectPropertyAssertion(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        subject
-     * @return builder
-     */
-    public BuilderObjectPropertyAssertion withSubject(OWLIndividual arg) {
-        subject = arg;
-        return this;
-    }
+  /**
+   * @param arg subject
+   * @return builder
+   */
+  public BuilderObjectPropertyAssertion withSubject(OWLIndividual arg) {
+    subject = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        value
-     * @return builder
-     */
-    public BuilderObjectPropertyAssertion withValue(OWLIndividual arg) {
-        value = arg;
-        return this;
-    }
+  /**
+   * @param arg value
+   * @return builder
+   */
+  public BuilderObjectPropertyAssertion withValue(OWLIndividual arg) {
+    value = arg;
+    return this;
+  }
 
-    @Override
-    public OWLObjectPropertyAssertionAxiom buildObject() {
-        return df.getOWLObjectPropertyAssertionAxiom(verifyNotNull(getProperty()), verifyNotNull(subject),
+  @Override
+  public OWLObjectPropertyAssertionAxiom buildObject() {
+    return df
+        .getOWLObjectPropertyAssertionAxiom(verifyNotNull(getProperty()), verifyNotNull(subject),
             verifyNotNull(value), annotations);
-    }
+  }
 
-    /**
-     * @return individual
-     */
-    @Nullable
-    public OWLIndividual getValue() {
-        return value;
-    }
+  /**
+   * @return individual
+   */
+  @Nullable
+  public OWLIndividual getValue() {
+    return value;
+  }
 
-    /**
-     * @return individual
-     */
-    @Nullable
-    public OWLIndividual getSubject() {
-        return subject;
-    }
+  /**
+   * @return individual
+   */
+  @Nullable
+  public OWLIndividual getSubject() {
+    return subject;
+  }
 }

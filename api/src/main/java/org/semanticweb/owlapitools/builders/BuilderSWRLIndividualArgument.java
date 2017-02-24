@@ -16,57 +16,56 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
-/** Builder class for SWRLIndividualArgument. */
-public class BuilderSWRLIndividualArgument extends BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
+/**
+ * Builder class for SWRLIndividualArgument.
+ */
+public class BuilderSWRLIndividualArgument extends
+    BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
 
-    @Nullable private OWLIndividual individual;
+  @Nullable
+  private OWLIndividual individual;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSWRLIndividualArgument(SWRLIndividualArgument expected, OWLDataFactory df) {
-        this(df);
-        with(expected.getIndividual());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSWRLIndividualArgument(SWRLIndividualArgument expected, OWLDataFactory df) {
+    this(df);
+    with(expected.getIndividual());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSWRLIndividualArgument(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSWRLIndividualArgument(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        individual
-     * @return builder
-     */
-    public BuilderSWRLIndividualArgument with(OWLIndividual arg) {
-        individual = arg;
-        return this;
-    }
+  /**
+   * @param arg individual
+   * @return builder
+   */
+  public BuilderSWRLIndividualArgument with(OWLIndividual arg) {
+    individual = arg;
+    return this;
+  }
 
-    @Override
-    public SWRLIndividualArgument buildObject() {
-        return df.getSWRLIndividualArgument(getIndividual());
-    }
+  @Override
+  public SWRLIndividualArgument buildObject() {
+    return df.getSWRLIndividualArgument(getIndividual());
+  }
 
-    /**
-     * @return individual
-     */
-    public OWLIndividual getIndividual() {
-        return verifyNotNull(individual);
-    }
+  /**
+   * @return individual
+   */
+  public OWLIndividual getIndividual() {
+    return verifyNotNull(individual);
+  }
 }

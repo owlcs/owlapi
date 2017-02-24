@@ -16,43 +16,42 @@ package org.semanticweb.owlapi.model;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Transitive_Object_Properties" >
  * TransitiveObjectProperty</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLTransitiveObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
-    @Override
-        OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 151;
-    }
+  @Override
+  default int hashIndex() {
+    return 151;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.TRANSITIVE_OBJECT_PROPERTY;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.TRANSITIVE_OBJECT_PROPERTY;
+  }
 }

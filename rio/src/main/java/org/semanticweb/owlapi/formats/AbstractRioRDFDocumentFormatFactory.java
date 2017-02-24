@@ -37,7 +37,6 @@ package org.semanticweb.owlapi.formats;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
@@ -45,40 +44,40 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 /**
  * An abstract implementation of the RioRDFOntologyFormatFactory interface that
  * uses the Rio RDFFormat class to provide information for common methods.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public abstract class AbstractRioRDFDocumentFormatFactory extends
     OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
 
-    private transient RDFFormat rioFormat;
-    private final String formatName;
+  private final String formatName;
+  private transient RDFFormat rioFormat;
 
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
-        this(rioFormat, true);
-    }
+  protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
+    this(rioFormat, true);
+  }
 
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat,
-        boolean isTextual) {
-        super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
-        this.rioFormat = rioFormat;
-        formatName = this.rioFormat.getName();
-    }
+  protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat,
+      boolean isTextual) {
+    super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
+    this.rioFormat = rioFormat;
+    formatName = this.rioFormat.getName();
+  }
 
-    private void readObject(ObjectInputStream in) throws IOException,
-        ClassNotFoundException {
-        in.defaultReadObject();
-        for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
-            if (f.getName().equals(formatName)) {
-                rioFormat = f;
-                return;
-            }
-        }
+  private void readObject(ObjectInputStream in) throws IOException,
+      ClassNotFoundException {
+    in.defaultReadObject();
+    for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
+      if (f.getName().equals(formatName)) {
+        rioFormat = f;
+        return;
+      }
     }
+  }
 
-    @Override
-    public RDFFormat getRioFormat() {
-        return rioFormat;
-    }
+  @Override
+  public RDFFormat getRioFormat() {
+    return rioFormat;
+  }
 }

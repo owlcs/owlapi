@@ -12,105 +12,116 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.*;
+import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
+import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.LatexDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * Test the generic factory and all the formats it can build.
- * 
+ *
  * @author ignazio
  */
 @SuppressWarnings("javadoc")
 public class OWLDocumentFormatFactoryImplTestCase {
 
-    @Test
-    public void testDLSyntaxHTMLFormat() {
-        OWLDocumentFormatFactory f = new DLSyntaxHTMLDocumentFormatFactory();
-        assertEquals("DL Syntax - HTML Format", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testDLSyntaxHTMLFormat() {
+    OWLDocumentFormatFactory f = new DLSyntaxHTMLDocumentFormatFactory();
+    assertEquals("DL Syntax - HTML Format", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testDLSyntaxOntologyFormat() {
-        OWLDocumentFormatFactory f = new DLSyntaxDocumentFormatFactory();
-        assertEquals("DL Syntax Format", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testDLSyntaxOntologyFormat() {
+    OWLDocumentFormatFactory f = new DLSyntaxDocumentFormatFactory();
+    assertEquals("DL Syntax Format", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testKRSS2OntologyFormat() {
-        OWLDocumentFormatFactory f = new KRSS2DocumentFormatFactory();
-        assertEquals("KRSS2 Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testKRSS2OntologyFormat() {
+    OWLDocumentFormatFactory f = new KRSS2DocumentFormatFactory();
+    assertEquals("KRSS2 Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testKRSSOntologyFormat() {
-        OWLDocumentFormatFactory f = new KRSSDocumentFormatFactory();
-        assertEquals("KRSS Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testKRSSOntologyFormat() {
+    OWLDocumentFormatFactory f = new KRSSDocumentFormatFactory();
+    assertEquals("KRSS Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testLabelFunctionalFormat() {
-        OWLDocumentFormatFactory f = new LabelFunctionalDocumentFormatFactory();
-        assertEquals("Label functional Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testLabelFunctionalFormat() {
+    OWLDocumentFormatFactory f = new LabelFunctionalDocumentFormatFactory();
+    assertEquals("Label functional Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testLatexAxiomsListOntologyFormat() {
-        OWLDocumentFormatFactory f = new LatexAxiomsListDocumentFormatFactory();
-        assertEquals("Latex Axiom List", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testLatexAxiomsListOntologyFormat() {
+    OWLDocumentFormatFactory f = new LatexAxiomsListDocumentFormatFactory();
+    assertEquals("Latex Axiom List", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testLatexOntologyFormat() {
-        OWLDocumentFormatFactory f = new LatexDocumentFormatFactory();
-        assertEquals("LaTeX Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testLatexOntologyFormat() {
+    OWLDocumentFormatFactory f = new LatexDocumentFormatFactory();
+    assertEquals("LaTeX Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testOWLFunctionalSyntaxOntologyFormat() {
-        OWLDocumentFormatFactory f = new FunctionalSyntaxDocumentFormatFactory();
-        assertEquals("OWL Functional Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testOWLFunctionalSyntaxOntologyFormat() {
+    OWLDocumentFormatFactory f = new FunctionalSyntaxDocumentFormatFactory();
+    assertEquals("OWL Functional Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testOWLXMLOntologyFormat() {
-        OWLDocumentFormatFactory f = new OWLXMLDocumentFormatFactory();
-        assertEquals("OWL/XML Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testOWLXMLOntologyFormat() {
+    OWLDocumentFormatFactory f = new OWLXMLDocumentFormatFactory();
+    assertEquals("OWL/XML Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testRDFXMLOntologyFormat() {
-        OWLDocumentFormatFactory f = new RDFXMLDocumentFormatFactory();
-        assertEquals("RDF/XML Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testRDFXMLOntologyFormat() {
+    OWLDocumentFormatFactory f = new RDFXMLDocumentFormatFactory();
+    assertEquals("RDF/XML Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 
-    @Test
-    public void testTurtleOntologyFormat() {
-        OWLDocumentFormatFactory f = new TurtleDocumentFormatFactory();
-        assertEquals("Turtle Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
+  @Test
+  public void testTurtleOntologyFormat() {
+    OWLDocumentFormatFactory f = new TurtleDocumentFormatFactory();
+    assertEquals("Turtle Syntax", f.getKey());
+    assertEquals(0, f.getMIMETypes().size());
+    assertNull(f.getDefaultMIMEType());
+  }
 }

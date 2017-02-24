@@ -7,9 +7,9 @@ package org.semanticweb.owlapi.model;
 @FunctionalInterface
 public interface HasIndex {
 
-    /**
-     * @return index for this type. This is not a hashcode for instances, rather
-     *         a sorting index for the types.
-     */
-    int typeIndex();
+  /**
+   * @return index for this type. This is not a hashcode for instances, rather a sorting index for
+   * the types.
+   */
+  int typeIndex();
 }

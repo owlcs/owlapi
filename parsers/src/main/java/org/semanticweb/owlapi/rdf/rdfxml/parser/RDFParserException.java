@@ -13,78 +13,74 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.Locator;
 
-/** Thrown if an RDF error is encountered while parsing RDF. */
+/**
+ * Thrown if an RDF error is encountered while parsing RDF.
+ */
 public class RDFParserException extends OWLRuntimeException {
 
-    protected final String publicId;
-    protected final String systemId;
-    protected final int lineNumber;
-    protected final int columnNumber;
+  protected final String publicId;
+  protected final String systemId;
+  protected final int lineNumber;
+  protected final int columnNumber;
 
-    /**
-     * @param message
-     *        message
-     * @param locator
-     *        locator
-     */
-    public RDFParserException(String message, Locator locator) {
-        this(null, message, locator);
-    }
+  /**
+   * @param message message
+   * @param locator locator
+   */
+  public RDFParserException(String message, Locator locator) {
+    this(null, message, locator);
+  }
 
-    /**
-     * @param e
-     *        cause
-     * @param message
-     *        message
-     * @param locator
-     *        locator
-     */
-    public RDFParserException(@Nullable Exception e, String message, Locator locator) {
-        super(message(locator, message), e);
-        publicId = locator.getPublicId();
-        systemId = locator.getSystemId();
-        lineNumber = locator.getLineNumber();
-        columnNumber = locator.getColumnNumber();
-    }
+  /**
+   * @param e cause
+   * @param message message
+   * @param locator locator
+   */
+  public RDFParserException(@Nullable Exception e, String message, Locator locator) {
+    super(message(locator, message), e);
+    publicId = locator.getPublicId();
+    systemId = locator.getSystemId();
+    lineNumber = locator.getLineNumber();
+    columnNumber = locator.getColumnNumber();
+  }
 
-    private static String message(Locator locator, String message) {
-        int lineNumber = locator.getLineNumber();
-        int columnNumber = locator.getColumnNumber();
-        if (lineNumber == -1 && columnNumber == -1) {
-            return message;
-        }
-        return "[line=" + lineNumber + ':' + "column=" + columnNumber + "] " + message;
+  private static String message(Locator locator, String message) {
+    int lineNumber = locator.getLineNumber();
+    int columnNumber = locator.getColumnNumber();
+    if (lineNumber == -1 && columnNumber == -1) {
+      return message;
     }
+    return "[line=" + lineNumber + ':' + "column=" + columnNumber + "] " + message;
+  }
 
-    /**
-     * @return public id
-     */
-    public String getPublicId() {
-        return publicId;
-    }
+  /**
+   * @return public id
+   */
+  public String getPublicId() {
+    return publicId;
+  }
 
-    /**
-     * @return system id
-     */
-    public String getSystemId() {
-        return systemId;
-    }
+  /**
+   * @return system id
+   */
+  public String getSystemId() {
+    return systemId;
+  }
 
-    /**
-     * @return line number
-     */
-    public int getLineNumber() {
-        return lineNumber;
-    }
+  /**
+   * @return line number
+   */
+  public int getLineNumber() {
+    return lineNumber;
+  }
 
-    /**
-     * @return column number
-     */
-    public int getColumnNumber() {
-        return columnNumber;
-    }
+  /**
+   * @return column number
+   */
+  public int getColumnNumber() {
+    return columnNumber;
+  }
 }

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.krss2.parser;
 
 import java.io.IOException;
 import java.io.Reader;
-
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -226,27 +225,27 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * <td></td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public class KRSS2OWLParser extends AbstractOWLParser {
 
-    @Override
-    public OWLDocumentFormatFactory getSupportedFormat() {
-        return new KRSS2DocumentFormatFactory();
-    }
+  @Override
+  public OWLDocumentFormatFactory getSupportedFormat() {
+    return new KRSS2DocumentFormatFactory();
+  }
 
-    @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
-        OWLOntologyLoaderConfiguration config) {
-        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
-            KRSS2DocumentFormat format = new KRSS2DocumentFormat();
-            KRSS2Parser parser = new KRSS2Parser(new StreamProvider(r));
-            parser.setOntology(ontology);
-            parser.parse();
-            return format;
-        } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
-            throw new KRSS2OWLParserException(e);
-        }
+  @Override
+  public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
+      OWLOntologyLoaderConfiguration config) {
+    try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
+      KRSS2DocumentFormat format = new KRSS2DocumentFormat();
+      KRSS2Parser parser = new KRSS2Parser(new StreamProvider(r));
+      parser.setOntology(ontology);
+      parser.parse();
+      return format;
+    } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
+      throw new KRSS2OWLParserException(e);
     }
+  }
 }

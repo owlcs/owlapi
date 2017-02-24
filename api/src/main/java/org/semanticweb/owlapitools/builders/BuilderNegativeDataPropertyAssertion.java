@@ -16,78 +16,80 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 
-/** Builder class for OWLNegativeDataPropertyAssertionAxiom. */
+/**
+ * Builder class for OWLNegativeDataPropertyAssertionAxiom.
+ */
 public class BuilderNegativeDataPropertyAssertion
-    extends BaseDataPropertyBuilder<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
+    extends
+    BaseDataPropertyBuilder<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
 
-    @Nullable private OWLIndividual subject = null;
-    @Nullable private OWLLiteral value = null;
+  @Nullable
+  private OWLIndividual subject = null;
+  @Nullable
+  private OWLLiteral value = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderNegativeDataPropertyAssertion(OWLNegativeDataPropertyAssertionAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withSubject(expected.getSubject()).withValue(expected.getObject())
-            .withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderNegativeDataPropertyAssertion(OWLNegativeDataPropertyAssertionAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withSubject(expected.getSubject())
+        .withValue(expected.getObject())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderNegativeDataPropertyAssertion(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderNegativeDataPropertyAssertion(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        value
-     * @return builder
-     */
-    public BuilderNegativeDataPropertyAssertion withValue(OWLLiteral arg) {
-        value = arg;
-        return this;
-    }
+  /**
+   * @param arg value
+   * @return builder
+   */
+  public BuilderNegativeDataPropertyAssertion withValue(OWLLiteral arg) {
+    value = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        subject
-     * @return builder
-     */
-    public BuilderNegativeDataPropertyAssertion withSubject(OWLIndividual arg) {
-        subject = arg;
-        return this;
-    }
+  /**
+   * @param arg subject
+   * @return builder
+   */
+  public BuilderNegativeDataPropertyAssertion withSubject(OWLIndividual arg) {
+    subject = arg;
+    return this;
+  }
 
-    @Override
-    public OWLNegativeDataPropertyAssertionAxiom buildObject() {
-        return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getLiteral(), annotations);
-    }
+  @Override
+  public OWLNegativeDataPropertyAssertionAxiom buildObject() {
+    return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getLiteral(),
+        annotations);
+  }
 
-    /**
-     * @return individual
-     */
-    public OWLIndividual getSubject() {
-        return verifyNotNull(subject);
-    }
+  /**
+   * @return individual
+   */
+  public OWLIndividual getSubject() {
+    return verifyNotNull(subject);
+  }
 
-    /**
-     * @return literal
-     */
-    public OWLLiteral getLiteral() {
-        return verifyNotNull(value);
-    }
+  /**
+   * @return literal
+   */
+  public OWLLiteral getLiteral() {
+    return verifyNotNull(value);
+  }
 }

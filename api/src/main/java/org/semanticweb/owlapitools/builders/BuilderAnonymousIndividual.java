@@ -16,59 +16,58 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnonymousIndividual. */
-public class BuilderAnonymousIndividual extends BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
+/**
+ * Builder class for OWLAnonymousIndividual.
+ */
+public class BuilderAnonymousIndividual extends
+    BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
 
-    @Nullable private String id = null;
+  @Nullable
+  private String id = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderAnonymousIndividual(OWLDataFactory df) {
-        super(df);
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderAnonymousIndividual(OWLDataFactory df) {
+    super(df);
+  }
+
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderAnonymousIndividual(OWLAnonymousIndividual expected, OWLDataFactory df) {
+    this(df);
+    withId(expected.getID().getID());
+  }
+
+  /**
+   * @param arg blank node id
+   * @return builder
+   */
+  public BuilderAnonymousIndividual withId(String arg) {
+    id = arg;
+    return this;
+  }
+
+  @Override
+  public OWLAnonymousIndividual buildObject() {
+    if (id == null) {
+      return df.getOWLAnonymousIndividual();
     }
+    return df.getOWLAnonymousIndividual(getId());
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderAnonymousIndividual(OWLAnonymousIndividual expected, OWLDataFactory df) {
-        this(df);
-        withId(expected.getID().getID());
-    }
-
-    /**
-     * @param arg
-     *        blank node id
-     * @return builder
-     */
-    public BuilderAnonymousIndividual withId(String arg) {
-        id = arg;
-        return this;
-    }
-
-    @Override
-    public OWLAnonymousIndividual buildObject() {
-        if (id == null) {
-            return df.getOWLAnonymousIndividual();
-        }
-        return df.getOWLAnonymousIndividual(getId());
-    }
-
-    /**
-     * @return id
-     */
-    public String getId() {
-        return verifyNotNull(id);
-    }
+  /**
+   * @return id
+   */
+  public String getId() {
+    return verifyNotNull(id);
+  }
 }

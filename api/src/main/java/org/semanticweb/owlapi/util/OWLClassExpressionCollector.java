@@ -14,137 +14,156 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
 import java.util.HashSet;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * Collects all of the nested class expression that are used in some OWLObject.
  * For example, given SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F))
  * the collector could be used to obtain ObjectUnionOf(D C), D, C,
  * ObjectSomeValuesFrom(R F), F
- * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public class OWLClassExpressionCollector extends AbstractCollectorEx<OWLClassExpression> {
 
-    /** The default collection is a set */
-    public OWLClassExpressionCollector() {
-        super(new HashSet<>());
-    }
+  /**
+   * The default collection is a set
+   */
+  public OWLClassExpressionCollector() {
+    super(new HashSet<>());
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLOntology ontology) {
-        ontology.logicalAxioms().forEach(ax -> ax.accept(this));
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLOntology ontology) {
+    ontology.logicalAxioms().forEach(ax -> ax.accept(this));
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLClass ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLClass ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectUnionOf ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectUnionOf ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectComplementOf ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectComplementOf ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectSomeValuesFrom ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectSomeValuesFrom ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectAllValuesFrom ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectAllValuesFrom ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectHasValue ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectHasValue ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectMinCardinality ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectMinCardinality ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectExactCardinality ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectExactCardinality ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectMaxCardinality ce) {
-        objects.add(ce);
-        return super.visit(ce);
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectMaxCardinality ce) {
+    objects.add(ce);
+    return super.visit(ce);
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectHasSelf ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectHasSelf ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLObjectOneOf ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLObjectOneOf ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLDataSomeValuesFrom ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLDataSomeValuesFrom ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLDataAllValuesFrom ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLDataAllValuesFrom ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLDataHasValue ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLDataHasValue ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLDataMinCardinality ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLDataMinCardinality ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLDataExactCardinality ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLDataExactCardinality ce) {
+    objects.add(ce);
+    return objects;
+  }
 
-    @Override
-    public Collection<OWLClassExpression> visit(OWLDataMaxCardinality ce) {
-        objects.add(ce);
-        return objects;
-    }
+  @Override
+  public Collection<OWLClassExpression> visit(OWLDataMaxCardinality ce) {
+    objects.add(ce);
+    return objects;
+  }
 }

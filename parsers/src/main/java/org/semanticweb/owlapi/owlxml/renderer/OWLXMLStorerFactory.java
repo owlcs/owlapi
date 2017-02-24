@@ -47,13 +47,15 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(1)
 public class OWLXMLStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
-    public OWLXMLStorerFactory() {
-        super(new OWLXMLDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public OWLXMLStorerFactory() {
+    super(new OWLXMLDocumentFormatFactory());
+  }
 
-    @Override
-    public OWLStorer createStorer() {
-        return new OWLXMLStorer();
-    }
+  @Override
+  public OWLStorer createStorer() {
+    return new OWLXMLStorer();
+  }
 }

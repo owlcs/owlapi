@@ -25,54 +25,56 @@ import java.util.regex.Pattern;
 @SuppressWarnings("javadoc")
 public final class Formatter {
 
-    private Formatter() {}
+  private Formatter() {
+  }
 
-    @SuppressWarnings("resource")
-    public static void main(String[] args) throws Exception {
-        Map<String, String> specials = new HashMap<>();
-        specials.put("public void test", "\\begin{beamerboxesrounded}{");
-        specials.put("() throws Exception \\{", "}\n\\scriptsize");
-        String[] keywords = { " class ", " void ", " extends ", "public", " static final", "return", "throws" };
-        Pattern stringPattern = Pattern.compile("(\"[\\w\\.\\:\\s\\#/\\-]*\")");
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(
-            "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")));
-        String line = r.readLine();
-        while (line != null) {
-            if (line.trim().isEmpty()) {
-                System.out.println("\\end{beamerboxesrounded}\n\n");
-            } else {
-                line = line.replace("{", "\\{").replace("}", "\\}").replace("_", "\\_");
-                if (line.trim().startsWith("//")) {
-                    System.out.println("\\codecomment{" + line.trim() + "}\\\\");
-                } else {
-                    // regular code
-                    for (Map.Entry<String, String> e : specials.entrySet()) {
-                        line = line.replace(e.getKey(), e.getValue());
-                    }
-                    for (String s : keywords) {
-                        line = line.replace(s, "\\codekeyword{" + s + '}');
-                    }
-                    line = line.replace("\t", "\\hspace{4mm}").replace("    ", "\\hspace{4mm}").replace(
-                        "\\hspace{4mm}\\hspace{4mm}", "\\hspace{4mm}");
-                    Matcher match = stringPattern.matcher(line);
-                    List<String> strings = new ArrayList<>();
-                    while (match.find()) {
-                        strings.add(match.group(1));
-                    }
-                    for (String s : strings) {
-                        line = line.replace(s, "\\codestring{" + s + '}');
-                    }
-                    if (!line.contains("beamerboxesrounded")) {
-                        System.out.print("\\coderegular{");
-                        System.out.print(line.trim());
-                        System.out.println("}\\\\");
-                    } else {
-                        System.out.println(line.trim());
-                    }
-                }
-            }
-            line = r.readLine();
+  @SuppressWarnings("resource")
+  public static void main(String[] args) throws Exception {
+    Map<String, String> specials = new HashMap<>();
+    specials.put("public void test", "\\begin{beamerboxesrounded}{");
+    specials.put("() throws Exception \\{", "}\n\\scriptsize");
+    String[] keywords = {" class ", " void ", " extends ", "public", " static final", "return",
+        "throws"};
+    Pattern stringPattern = Pattern.compile("(\"[\\w\\.\\:\\s\\#/\\-]*\")");
+    BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(
+        "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")));
+    String line = r.readLine();
+    while (line != null) {
+      if (line.trim().isEmpty()) {
+        System.out.println("\\end{beamerboxesrounded}\n\n");
+      } else {
+        line = line.replace("{", "\\{").replace("}", "\\}").replace("_", "\\_");
+        if (line.trim().startsWith("//")) {
+          System.out.println("\\codecomment{" + line.trim() + "}\\\\");
+        } else {
+          // regular code
+          for (Map.Entry<String, String> e : specials.entrySet()) {
+            line = line.replace(e.getKey(), e.getValue());
+          }
+          for (String s : keywords) {
+            line = line.replace(s, "\\codekeyword{" + s + '}');
+          }
+          line = line.replace("\t", "\\hspace{4mm}").replace("    ", "\\hspace{4mm}").replace(
+              "\\hspace{4mm}\\hspace{4mm}", "\\hspace{4mm}");
+          Matcher match = stringPattern.matcher(line);
+          List<String> strings = new ArrayList<>();
+          while (match.find()) {
+            strings.add(match.group(1));
+          }
+          for (String s : strings) {
+            line = line.replace(s, "\\codestring{" + s + '}');
+          }
+          if (!line.contains("beamerboxesrounded")) {
+            System.out.print("\\coderegular{");
+            System.out.print(line.trim());
+            System.out.println("}\\\\");
+          } else {
+            System.out.println(line.trim());
+          }
         }
-        r.close();
+      }
+      line = r.readLine();
     }
+    r.close();
+  }
 }

@@ -6,15 +6,12 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 @FunctionalInterface
 interface LiteralTripleIterator {
 
-    /**
-     * Handle literal triple.
-     * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     */
-    void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object);
+  /**
+   * Handle literal triple.
+   *
+   * @param subject the subject
+   * @param predicate the predicate
+   * @param object the object
+   */
+  void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object);
 }

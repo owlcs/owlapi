@@ -16,20 +16,18 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @FunctionalInterface
 public interface OWLOntologyChangesVetoedListener extends Serializable {
 
-    /**
-     * Called when a list of ontology changes has been vetoed for some reason.
-     * 
-     * @param changes
-     *        The changes that were vetoed.
-     * @param veto
-     *        The cause of the veto.
-     */
-    void ontologyChangesVetoed(List<? extends OWLOntologyChange> changes, OWLOntologyChangeVetoException veto);
+  /**
+   * Called when a list of ontology changes has been vetoed for some reason.
+   *
+   * @param changes The changes that were vetoed.
+   * @param veto The cause of the veto.
+   */
+  void ontologyChangesVetoed(List<? extends OWLOntologyChange> changes,
+      OWLOntologyChangeVetoException veto);
 }

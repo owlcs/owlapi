@@ -16,58 +16,59 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationPropertyRangeAxiom. */
+/**
+ * Builder class for OWLAnnotationPropertyRangeAxiom.
+ */
 public class BuilderAnnotationPropertyRange
-    extends BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
+    extends
+    BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
 
-    @Nullable private IRI iri = null;
+  @Nullable
+  private IRI iri = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderAnnotationPropertyRange(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderAnnotationPropertyRange(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderAnnotationPropertyRange(OWLAnnotationPropertyRangeAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withRange(expected.getRange()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderAnnotationPropertyRange(OWLAnnotationPropertyRangeAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withRange(expected.getRange())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param arg
-     *        range
-     * @return builder
-     */
-    public BuilderAnnotationPropertyRange withRange(IRI arg) {
-        iri = arg;
-        return this;
-    }
+  /**
+   * @param arg range
+   * @return builder
+   */
+  public BuilderAnnotationPropertyRange withRange(IRI arg) {
+    iri = arg;
+    return this;
+  }
 
-    @Override
-    public OWLAnnotationPropertyRangeAxiom buildObject() {
-        return df.getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange(), annotations);
-    }
+  @Override
+  public OWLAnnotationPropertyRangeAxiom buildObject() {
+    return df.getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange(), annotations);
+  }
 
-    /**
-     * @return range
-     */
-    public IRI getRange() {
-        return verifyNotNull(iri);
-    }
+  /**
+   * @return range
+   */
+  public IRI getRange() {
+    return verifyNotNull(iri);
+  }
 }

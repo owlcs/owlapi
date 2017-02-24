@@ -45,21 +45,29 @@ package org.coode.owlapi.obo12.parser;
  * Date: 18/04/2012
  */
 public enum OBOPrefix {
-    /** obo prefix */
-    OBO("http://purl.obolibrary.org/obo/"),
-    /** iao prefix */
-    IAO(OBOPrefix.OBO + "IAO_"),
-    /** obo owl prefix */
-    OBO_IN_OWL("http://www.geneontology.org/formats/oboInOWL#");
+  /**
+   * obo prefix
+   */
+  OBO("http://purl.obolibrary.org/obo/"),
+  /**
+   * iao prefix
+   */
+  IAO(OBOPrefix.OBO + "IAO_"),
+  /**
+   * obo owl prefix
+   */
+  OBO_IN_OWL("http://www.geneontology.org/formats/oboInOWL#");
 
-    private final String prefix;
+  private final String prefix;
 
-    private OBOPrefix(String prefix) {
-        this.prefix = prefix;
-    }
+  private OBOPrefix(String prefix) {
+    this.prefix = prefix;
+  }
 
-    /** @return the prefix */
-    public String getPrefix() {
-        return prefix;
-    }
+  /**
+   * @return the prefix
+   */
+  public String getPrefix() {
+    return prefix;
+  }
 }

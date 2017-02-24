@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,38 +21,35 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfIllegalAxiom extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     */
-    public UseOfIllegalAxiom(OWLOntology ontology, OWLAxiom axiom) {
-        super(ontology, axiom, axiom.getAxiomType());
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   */
+  public UseOfIllegalAxiom(OWLOntology ontology, OWLAxiom axiom) {
+    super(ontology, axiom, axiom.getAxiomType());
+  }
 
-    @Override
-    public AxiomType<?> getExpression() {
-        return (AxiomType<?>) super.getExpression();
-    }
+  @Override
+  public AxiomType<?> getExpression() {
+    return (AxiomType<?>) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Axiom type not allowed in profile");
-    }
+  @Override
+  public String toString() {
+    return toString("Axiom type not allowed in profile");
+  }
 }

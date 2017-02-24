@@ -18,13 +18,15 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Tests annotation
- * 
+ *
  * @author ignazio
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Tests {
 
-    /** method name */
-    String method();
+  /**
+   * method name
+   */
+  String method();
 }

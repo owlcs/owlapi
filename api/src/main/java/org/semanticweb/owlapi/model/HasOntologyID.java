@@ -14,18 +14,17 @@ package org.semanticweb.owlapi.model;
 
 /**
  * An interface to objects that have an {@link OWLOntologyID}.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 @FunctionalInterface
 public interface HasOntologyID {
 
-    /**
-     * Gets the {@link OWLOntologyID} belonging to this object.
-     * 
-     * @return The {@link OWLOntologyID}
-     */
-    OWLOntologyID getOntologyID();
+  /**
+   * Gets the {@link OWLOntologyID} belonging to this object.
+   *
+   * @return The {@link OWLOntologyID}
+   */
+  OWLOntologyID getOntologyID();
 }

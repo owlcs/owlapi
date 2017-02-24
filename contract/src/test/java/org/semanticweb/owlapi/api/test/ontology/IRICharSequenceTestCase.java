@@ -19,66 +19,65 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3.0
  */
 @SuppressWarnings("javadoc")
 public class IRICharSequenceTestCase {
 
-    @Test
-    public void testCharAt() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
-        }
+  @Test
+  public void testCharAt() {
+    String str = "http://owlapi.sourceforge.net#ABC";
+    IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
+    for (int i = 0; i < str.length(); i++) {
+      assertEquals(str.charAt(i), iri.charAt(i));
     }
+  }
 
-    @Test
-    public void testCharAtNoRemainder() {
-        String str = "http://owlapi.sourceforge.net";
-        IRI iri = IRI(str, "");
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
-        }
+  @Test
+  public void testCharAtNoRemainder() {
+    String str = "http://owlapi.sourceforge.net";
+    IRI iri = IRI(str, "");
+    for (int i = 0; i < str.length(); i++) {
+      assertEquals(str.charAt(i), iri.charAt(i));
     }
+  }
 
-    @Test
-    public void testCharAtNoPrefix() {
-        String str = "#ABC";
-        IRI iri = IRI("#", "ABC");
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
-        }
+  @Test
+  public void testCharAtNoPrefix() {
+    String str = "#ABC";
+    IRI iri = IRI("#", "ABC");
+    for (int i = 0; i < str.length(); i++) {
+      assertEquals(str.charAt(i), iri.charAt(i));
     }
+  }
 
-    @Test
-    public void testSubSequence() {
-        String str = "http://owlapi.sourceforge.net#ABC";
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
-        for (int i = 0; i < str.length(); i++) {
-            for (int j = i; j < str.length(); j++) {
-                assertEquals(str.subSequence(i, j), iri.subSequence(i, j));
-            }
-        }
+  @Test
+  public void testSubSequence() {
+    String str = "http://owlapi.sourceforge.net#ABC";
+    IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
+    for (int i = 0; i < str.length(); i++) {
+      for (int j = i; j < str.length(); j++) {
+        assertEquals(str.subSequence(i, j), iri.subSequence(i, j));
+      }
     }
+  }
 
-    @Test
-    public void testLength() {
-        IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
-        assertEquals(33, iri.length());
-    }
+  @Test
+  public void testLength() {
+    IRI iri = IRI("http://owlapi.sourceforge.net#", "ABC");
+    assertEquals(33, iri.length());
+  }
 
-    @Test
-    public void testLengthNoRemainder() {
-        IRI iri = IRI("http://owlapi.sourceforge.net", "");
-        assertEquals(29, iri.length());
-    }
+  @Test
+  public void testLengthNoRemainder() {
+    IRI iri = IRI("http://owlapi.sourceforge.net", "");
+    assertEquals(29, iri.length());
+  }
 
-    @Test
-    public void testLengthNoPrefix() {
-        IRI iri = IRI("#", "ABC");
-        assertEquals(4, iri.length());
-    }
+  @Test
+  public void testLengthNoPrefix() {
+    IRI iri = IRI("#", "ABC");
+    assertEquals(4, iri.length());
+  }
 }

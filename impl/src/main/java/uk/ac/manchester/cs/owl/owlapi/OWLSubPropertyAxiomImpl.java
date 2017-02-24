@@ -15,45 +15,41 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
  */
-public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl implements
+public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> extends
+    OWLPropertyAxiomImpl implements
     OWLSubPropertyAxiom<P> {
 
-    private final P subProperty;
-    private final P superProperty;
+  private final P subProperty;
+  private final P superProperty;
 
-    /**
-     * @param subProperty
-     *        subProperty
-     * @param superProperty
-     *        superProperty
-     * @param annotations
-     *        annotations
-     */
-    public OWLSubPropertyAxiomImpl(P subProperty, P superProperty, Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
-        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
-    }
+  /**
+   * @param subProperty subProperty
+   * @param superProperty superProperty
+   * @param annotations annotations
+   */
+  public OWLSubPropertyAxiomImpl(P subProperty, P superProperty,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
+    this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
+  }
 
-    @Override
-    public P getSubProperty() {
-        return subProperty;
-    }
+  @Override
+  public P getSubProperty() {
+    return subProperty;
+  }
 
-    @Override
-    public P getSuperProperty() {
-        return superProperty;
-    }
+  @Override
+  public P getSuperProperty() {
+    return superProperty;
+  }
 }

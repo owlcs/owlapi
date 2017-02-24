@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,61 +26,59 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.NamedConjunctChecker;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
 
-    /**
-     * Instantiates a new number of classes with multiple inheritance.
-     * 
-     * @param o
-     *        ontology to use
-     */
-    public NumberOfClassesWithMultipleInheritance(OWLOntology o) {
-        super(o);
-    }
+  /**
+   * Instantiates a new number of classes with multiple inheritance.
+   *
+   * @param o ontology to use
+   */
+  public NumberOfClassesWithMultipleInheritance(OWLOntology o) {
+    super(o);
+  }
 
-    @Override
-    public String getName() {
-        return "Number of classes with asserted multiple inheritance";
-    }
+  @Override
+  public String getName() {
+    return "Number of classes with asserted multiple inheritance";
+  }
 
-    @Override
-    public Integer recomputeMetric() {
-        Set<OWLClass> processed = new HashSet<>();
-        Set<OWLClass> clses = new HashSet<>();
-        NamedConjunctChecker checker = new NamedConjunctChecker();
-        for (OWLOntology ont : asList(getOntologies())) {
-            for (OWLClass cls : asList(ont.classesInSignature())) {
-                if (processed.contains(cls)) {
-                    continue;
-                }
-                processed.add(cls);
-                int count = 0;
-                for (OWLClassExpression sup : asList(
-                    equivalent(ont.equivalentClassesAxioms(cls), OWLClassExpression.class))) {
-                    if (checker.hasNamedConjunct(sup)) {
-                        count++;
-                    }
-                    if (count > 1) {
-                        clses.add(cls);
-                        break;
-                    }
-                }
-            }
+  @Override
+  public Integer recomputeMetric() {
+    Set<OWLClass> processed = new HashSet<>();
+    Set<OWLClass> clses = new HashSet<>();
+    NamedConjunctChecker checker = new NamedConjunctChecker();
+    for (OWLOntology ont : asList(getOntologies())) {
+      for (OWLClass cls : asList(ont.classesInSignature())) {
+        if (processed.contains(cls)) {
+          continue;
         }
-        return Integer.valueOf(clses.size());
-    }
-
-    @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange() && change.getAxiom() instanceof OWLSubClassOfAxiom) {
-                return true;
-            }
+        processed.add(cls);
+        int count = 0;
+        for (OWLClassExpression sup : asList(
+            equivalent(ont.equivalentClassesAxioms(cls), OWLClassExpression.class))) {
+          if (checker.hasNamedConjunct(sup)) {
+            count++;
+          }
+          if (count > 1) {
+            clses.add(cls);
+            break;
+          }
         }
-        return false;
+      }
     }
+    return Integer.valueOf(clses.size());
+  }
+
+  @Override
+  protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    for (OWLOntologyChange change : changes) {
+      if (change.isAxiomChange() && change.getAxiom() instanceof OWLSubClassOfAxiom) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -31,62 +29,59 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
-public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements UndeclaredEntityViolation {
+public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements
+    UndeclaredEntityViolation {
 
-    @Nullable private final OWLAnnotation annotation;
+  @Nullable
+  private final OWLAnnotation annotation;
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param annotation
-     *        annotation
-     * @param prop
-     *        prop
-     */
-    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, @Nullable OWLAxiom axiom,
-        @Nullable OWLAnnotation annotation, OWLAnnotationProperty prop) {
-        super(ontology, axiom, checkNotNull(prop));
-        this.annotation = annotation;
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param annotation annotation
+   * @param prop prop
+   */
+  public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, @Nullable OWLAxiom axiom,
+      @Nullable OWLAnnotation annotation, OWLAnnotationProperty prop) {
+    super(ontology, axiom, checkNotNull(prop));
+    this.annotation = annotation;
+  }
 
-    @Override
-    public OWLAnnotationProperty getExpression() {
-        return (OWLAnnotationProperty) super.getExpression();
-    }
+  @Override
+  public OWLAnnotationProperty getExpression() {
+    return (OWLAnnotationProperty) super.getExpression();
+  }
 
-    @Override
-    public OWLEntity getEntity() {
-        return getExpression();
-    }
+  @Override
+  public OWLEntity getEntity() {
+    return getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Use of undeclared annotation property: %s in annotation", getExpression(),
-            nullSafeAnnotation());
-    }
+  @Override
+  public String toString() {
+    return toString("Use of undeclared annotation property: %s in annotation", getExpression(),
+        nullSafeAnnotation());
+  }
 
-    @SuppressWarnings("null")
-    protected String nullSafeAnnotation() {
-        return annotation == null ? "" : annotation.toString();
-    }
+  @SuppressWarnings("null")
+  protected String nullSafeAnnotation() {
+    return annotation == null ? "" : annotation.toString();
+  }
 
-    @Override
-    public List<OWLOntologyChange> repair() {
-        return list(new AddAxiom(ontology, df.getOWLDeclarationAxiom(getExpression())));
-    }
+  @Override
+  public List<OWLOntologyChange> repair() {
+    return list(new AddAxiom(ontology, df.getOWLDeclarationAxiom(getExpression())));
+  }
 }

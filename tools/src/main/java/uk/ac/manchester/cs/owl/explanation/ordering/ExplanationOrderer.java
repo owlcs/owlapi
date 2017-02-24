@@ -13,28 +13,24 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 @FunctionalInterface
 public interface ExplanationOrderer {
 
-    /**
-     * Gets an ordered (and possibly indented) explanation. The orderer really
-     * provides some kind of "presentation" layer to make an explanation easier
-     * to read.
-     * 
-     * @param entailment
-     *        The axiom that represents the entailment that the explanation
-     *        being ordered is a justification for.
-     * @param axioms
-     *        The axioms that constitute the unordered explanation
-     * @return An order explanation.
-     */
-    ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms);
+  /**
+   * Gets an ordered (and possibly indented) explanation. The orderer really
+   * provides some kind of "presentation" layer to make an explanation easier
+   * to read.
+   *
+   * @param entailment The axiom that represents the entailment that the explanation being ordered
+   * is a justification for.
+   * @param axioms The axioms that constitute the unordered explanation
+   * @return An order explanation.
+   */
+  ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms);
 }

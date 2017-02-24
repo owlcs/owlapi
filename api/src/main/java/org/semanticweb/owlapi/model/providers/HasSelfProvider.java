@@ -21,10 +21,9 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 @FunctionalInterface
 public interface HasSelfProvider {
 
-    /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @return a ObjectHasSelf class expression on the specified property
-     */
-    OWLObjectHasSelf getOWLObjectHasSelf(OWLObjectPropertyExpression property);
+  /**
+   * @param property The property that the restriction acts along.
+   * @return a ObjectHasSelf class expression on the specified property
+   */
+  OWLObjectHasSelf getOWLObjectHasSelf(OWLObjectPropertyExpression property);
 }

@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
@@ -24,32 +23,30 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  * An {@code OWLOntologySetProvider} which provides a set of ontologies which
  * correspond to the imports closure of a given ontology. Note that the set of
  * provided ontologies will be updated if the imports closure gets updated.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
 
-    private final OWLOntologyManager manager;
-    private final OWLOntology rootOntology;
+  private final OWLOntologyManager manager;
+  private final OWLOntology rootOntology;
 
-    /**
-     * Constructs an {@code OWLOntologySetProvider} which provides a set
-     * containing the imports closure of a given ontology.
-     * 
-     * @param manager
-     *        The manager which should be used to determine the imports closure.
-     * @param rootOntology
-     *        The ontology which is the "root" of the imports closure.
-     */
-    public OWLOntologyImportsClosureSetProvider(OWLOntologyManager manager, OWLOntology rootOntology) {
-        this.manager = checkNotNull(manager, "manager cannot be null");
-        this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
-    }
+  /**
+   * Constructs an {@code OWLOntologySetProvider} which provides a set
+   * containing the imports closure of a given ontology.
+   *
+   * @param manager The manager which should be used to determine the imports closure.
+   * @param rootOntology The ontology which is the "root" of the imports closure.
+   */
+  public OWLOntologyImportsClosureSetProvider(OWLOntologyManager manager,
+      OWLOntology rootOntology) {
+    this.manager = checkNotNull(manager, "manager cannot be null");
+    this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
+  }
 
-    @Override
-    public Stream<OWLOntology> ontologies() {
-        return manager.importsClosure(rootOntology);
-    }
+  @Override
+  public Stream<OWLOntology> ontologies() {
+    return manager.importsClosure(rootOntology);
+  }
 }

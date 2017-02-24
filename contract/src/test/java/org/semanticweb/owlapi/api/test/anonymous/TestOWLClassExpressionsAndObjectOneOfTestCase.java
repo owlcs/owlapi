@@ -22,13 +22,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class TestOWLClassExpressionsAndObjectOneOfTestCase extends TestBase {
 
-    @Test
-    public void testAnonymous() throws OWLOntologyCreationException {
-        String text = "Prefix(:=<http://example.org/#>)\n "
-                + "Ontology(<http://example.org/>\n "
-                + "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n "
-                + "ObjectOneOf(\n_:c\n)\n)\n)\n\n ClassAssertion(\n:car\n_:c\n)\n)";
-        OWLOntology o = loadOntologyFromString(text);
-        assertNotNull(o);
-    }
+  @Test
+  public void testAnonymous() throws OWLOntologyCreationException {
+    String text = "Prefix(:=<http://example.org/#>)\n "
+        + "Ontology(<http://example.org/>\n "
+        + "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n "
+        + "ObjectOneOf(\n_:c\n)\n)\n)\n\n ClassAssertion(\n:car\n_:c\n)\n)";
+    OWLOntology o = loadOntologyFromString(text);
+    assertNotNull(o);
+  }
 }

@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -27,46 +26,41 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * mutually disjoint. The composite change offers the option of using one
  * disjoint classes axiom to do this or using multiple disjoint classes axioms
  * to make them pairwise disjoint (for backwards compatibility with OWL 1.0).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
-    /**
-     * Creates a composite change which makes a set of classes mutually
-     * disjoint.
-     * 
-     * @param dataFactory
-     *        The data factory which should be used for creating the axioms
-     * @param classExpressions
-     *        The class expressions which should be made mutually disjoint.
-     * @param usePairwiseDisjointAxioms
-     *        the use pairwise disjoint axioms
-     * @param targetOntology
-     *        The target ontology which the changes will be applied to.
-     *        {@code true} if multiple disjoint classes axioms should be used to
-     *        make the class expressions pairwise disjoint (for backwards
-     *        compatibility with OWL 1.0), or {@code false} if one disjoint
-     *        classes axiom should be used (preferred OWL 1.1 method).
-     */
-    public MakeClassesMutuallyDisjoint(OWLDataFactory dataFactory,
-        Collection<? extends OWLClassExpression> classExpressions, boolean usePairwiseDisjointAxioms,
-        OWLOntology targetOntology) {
-        super(dataFactory);
-        checkNotNull(classExpressions, "classExpressions cannot be null");
-        checkNotNull(targetOntology, "targetOntology cannot be null");
-        generateChanges(classExpressions, usePairwiseDisjointAxioms, targetOntology);
-    }
+  /**
+   * Creates a composite change which makes a set of classes mutually
+   * disjoint.
+   *
+   * @param dataFactory The data factory which should be used for creating the axioms
+   * @param classExpressions The class expressions which should be made mutually disjoint.
+   * @param usePairwiseDisjointAxioms the use pairwise disjoint axioms
+   * @param targetOntology The target ontology which the changes will be applied to. {@code true} if
+   * multiple disjoint classes axioms should be used to make the class expressions pairwise disjoint
+   * (for backwards compatibility with OWL 1.0), or {@code false} if one disjoint classes axiom
+   * should be used (preferred OWL 1.1 method).
+   */
+  public MakeClassesMutuallyDisjoint(OWLDataFactory dataFactory,
+      Collection<? extends OWLClassExpression> classExpressions, boolean usePairwiseDisjointAxioms,
+      OWLOntology targetOntology) {
+    super(dataFactory);
+    checkNotNull(classExpressions, "classExpressions cannot be null");
+    checkNotNull(targetOntology, "targetOntology cannot be null");
+    generateChanges(classExpressions, usePairwiseDisjointAxioms, targetOntology);
+  }
 
-    private void generateChanges(Collection<? extends OWLClassExpression> classExpressions,
-        boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
-        if (usePairwiseDisjointAxioms) {
-            pairs(classExpressions)
-                .forEach(v -> addChange(new AddAxiom(targetOntology, df.getOWLDisjointClassesAxiom(v.i, v.j))));
-        } else {
-            addChange(new AddAxiom(targetOntology, df.getOWLDisjointClassesAxiom(classExpressions)));
-        }
+  private void generateChanges(Collection<? extends OWLClassExpression> classExpressions,
+      boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
+    if (usePairwiseDisjointAxioms) {
+      pairs(classExpressions)
+          .forEach(v -> addChange(
+              new AddAxiom(targetOntology, df.getOWLDisjointClassesAxiom(v.i, v.j))));
+    } else {
+      addChange(new AddAxiom(targetOntology, df.getOWLDisjointClassesAxiom(classExpressions)));
     }
+  }
 }

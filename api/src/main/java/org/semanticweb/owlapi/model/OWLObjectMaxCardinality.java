@@ -16,45 +16,44 @@ package org.semanticweb.owlapi.model;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Maximum_Cardinality_2" >
  * ObjectMaxCardinality</a> restriction in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectMaxCardinality extends OWLObjectCardinalityRestriction {
 
-    @Override
-    default int hashIndex() {
-        return 223;
-    }
+  @Override
+  default int hashIndex() {
+    return 223;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 3010;
-    }
+  @Override
+  default int typeIndex() {
+    return 3010;
+  }
 
-    @Override
-    default ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_MAX_CARDINALITY;
-    }
+  @Override
+  default ClassExpressionType getClassExpressionType() {
+    return ClassExpressionType.OBJECT_MAX_CARDINALITY;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLClassExpressionVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

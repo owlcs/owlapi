@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -37,79 +36,76 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * supplied with a set of ontologies and a conversion strategy. All of the
  * entities that are referenced in the specified ontologies will have their URIs
  * converted according the specified conversion strategy.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OWLEntityURIConverter {
 
-    private final OWLOntologyManager manager;
-    // The ontologies that reference the
-    // entities whose names will be converted
-    private final Collection<OWLOntology> ontologies;
-    private final Map<OWLEntity, IRI> replacementMap = new HashMap<>();
-    private final Set<OWLEntity> processedEntities = new HashSet<>();
-    private final OWLEntityURIConverterStrategy strategy;
+  private final OWLOntologyManager manager;
+  // The ontologies that reference the
+  // entities whose names will be converted
+  private final Collection<OWLOntology> ontologies;
+  private final Map<OWLEntity, IRI> replacementMap = new HashMap<>();
+  private final Set<OWLEntity> processedEntities = new HashSet<>();
+  private final OWLEntityURIConverterStrategy strategy;
 
-    /**
-     * Creates a converter that will convert the URIs of entities in the
-     * specified ontologies using the specified conversion strategy.
-     * 
-     * @param manager
-     *        The manager which managers the specified ontologies.
-     * @param ontologies
-     *        The ontologies whose entity URIs will be converted
-     * @param strategy
-     *        The conversion strategy to be used.
-     */
-    public OWLEntityURIConverter(OWLOntologyManager manager, Collection<OWLOntology> ontologies,
-        OWLEntityURIConverterStrategy strategy) {
-        this.manager = checkNotNull(manager, "manager cannot be null");
-        this.ontologies = new ArrayList<>(checkNotNull(ontologies, "ontologies cannot be null"));
-        this.strategy = checkNotNull(strategy, "strategy cannot be null");
+  /**
+   * Creates a converter that will convert the URIs of entities in the
+   * specified ontologies using the specified conversion strategy.
+   *
+   * @param manager The manager which managers the specified ontologies.
+   * @param ontologies The ontologies whose entity URIs will be converted
+   * @param strategy The conversion strategy to be used.
+   */
+  public OWLEntityURIConverter(OWLOntologyManager manager, Collection<OWLOntology> ontologies,
+      OWLEntityURIConverterStrategy strategy) {
+    this.manager = checkNotNull(manager, "manager cannot be null");
+    this.ontologies = new ArrayList<>(checkNotNull(ontologies, "ontologies cannot be null"));
+    this.strategy = checkNotNull(strategy, "strategy cannot be null");
+  }
+
+  /**
+   * Gets the changes required to perform the conversion.
+   *
+   * @return A list of ontology changes that should be applied in order to convert the URI of
+   * entities in the specified ontologies.
+   */
+  public List<OWLOntologyChange> getChanges() {
+    replacementMap.clear();
+    processedEntities.clear();
+    List<OWLOntologyChange> changes = new ArrayList<>();
+    for (OWLOntology ont : ontologies) {
+      ont.classesInSignature().filter(c -> !c.isOWLThing() && !c.isOWLNothing())
+          .forEach(this::processEntity);
+      ont.objectPropertiesInSignature().forEach(this::processEntity);
+      ont.dataPropertiesInSignature().forEach(this::processEntity);
+      ont.individualsInSignature().forEach(this::processEntity);
     }
-
-    /**
-     * Gets the changes required to perform the conversion.
-     * 
-     * @return A list of ontology changes that should be applied in order to
-     *         convert the URI of entities in the specified ontologies.
-     */
-    public List<OWLOntologyChange> getChanges() {
-        replacementMap.clear();
-        processedEntities.clear();
-        List<OWLOntologyChange> changes = new ArrayList<>();
-        for (OWLOntology ont : ontologies) {
-            ont.classesInSignature().filter(c -> !c.isOWLThing() && !c.isOWLNothing()).forEach(this::processEntity);
-            ont.objectPropertiesInSignature().forEach(this::processEntity);
-            ont.dataPropertiesInSignature().forEach(this::processEntity);
-            ont.individualsInSignature().forEach(this::processEntity);
+    OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager);
+    for (OWLOntology ont : ontologies) {
+      ont.axioms().forEach(ax -> {
+        OWLAxiom dupAx = dup.duplicateObject(ax);
+        if (!dupAx.equals(ax)) {
+          changes.add(new RemoveAxiom(ont, ax));
+          changes.add(new AddAxiom(ont, dupAx));
         }
-        OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager);
-        for (OWLOntology ont : ontologies) {
-            ont.axioms().forEach(ax -> {
-                OWLAxiom dupAx = dup.duplicateObject(ax);
-                if (!dupAx.equals(ax)) {
-                    changes.add(new RemoveAxiom(ont, ax));
-                    changes.add(new AddAxiom(ont, dupAx));
-                }
-            });
-        }
-        return changes;
+      });
     }
+    return changes;
+  }
 
-    private void processEntity(OWLEntity ent) {
-        if (processedEntities.contains(ent)) {
-            return;
-        }
-        // Add label?
-        IRI rep = getTinyIRI(ent);
-        replacementMap.put(ent, rep);
-        processedEntities.add(ent);
+  private void processEntity(OWLEntity ent) {
+    if (processedEntities.contains(ent)) {
+      return;
     }
+    // Add label?
+    IRI rep = getTinyIRI(ent);
+    replacementMap.put(ent, rep);
+    processedEntities.add(ent);
+  }
 
-    private IRI getTinyIRI(OWLEntity ent) {
-        return strategy.getConvertedIRI(ent);
-    }
+  private IRI getTinyIRI(OWLEntity ent) {
+    return strategy.getConvertedIRI(ent);
+  }
 }

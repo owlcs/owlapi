@@ -45,22 +45,22 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  */
 public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
 
-    private final RioRDFDocumentFormatFactory rioFormat;
+  private final RioRDFDocumentFormatFactory rioFormat;
 
-    protected AbstractRioParserFactory(RioRDFDocumentFormatFactory rioFormat) {
-        super(rioFormat);
-        this.rioFormat = rioFormat;
-    }
+  protected AbstractRioParserFactory(RioRDFDocumentFormatFactory rioFormat) {
+    super(rioFormat);
+    this.rioFormat = rioFormat;
+  }
 
-    @Override
-    public OWLParser createParser() {
-        return new RioParserImpl(getRioFormatFactory());
-    }
+  @Override
+  public OWLParser createParser() {
+    return new RioParserImpl(getRioFormatFactory());
+  }
 
-    /**
-     * @return Rio format factory
-     */
-    public RioRDFDocumentFormatFactory getRioFormatFactory() {
-        return rioFormat;
-    }
+  /**
+   * @return Rio format factory
+   */
+  public RioRDFDocumentFormatFactory getRioFormatFactory() {
+    return rioFormat;
+  }
 }

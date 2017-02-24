@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.change;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -25,85 +23,82 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * particular kind of {@link OWLOntologyChange}. There is a concrete subclass of
  * this class for each concrete class of {@link OWLOntologyChange}. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @since 3.3
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
+ * @since 3.3
  */
 public abstract class OWLOntologyChangeData implements HasSignature, Serializable {
 
-    /** Default constructor for serialization purposes. */
-    protected OWLOntologyChangeData() {
-        super();
+  /**
+   * Default constructor for serialization purposes.
+   */
+  protected OWLOntologyChangeData() {
+    super();
+  }
+
+  /**
+   * Accepts a visit from an {@link OWLOntologyChangeDataVisitor}.
+   *
+   * @param visitor The visitor
+   * @param <R> The return type for visitor's visit methods.
+   * @return The object returned by the visitor's visit methods.
+   */
+  public abstract <R> R accept(OWLOntologyChangeDataVisitor<R> visitor);
+
+  /**
+   * Creates an {@link OWLOntologyChange} object that pertains to the
+   * specified {@code ontology}, which when applied to the specified ontology
+   * enacts the change described by this info object.
+   *
+   * @param ontology The {@link OWLOntology} that the change should apply to.
+   * @return An {@link OWLOntologyChange} object that applies to {@code ontology} and changes {@code
+   * ontology} in a way that is consistent with this the information held in this {@code
+   * OWLOntologyChangeData} object.
+   **/
+  public abstract OWLOntologyChange createOntologyChange(OWLOntology ontology);
+
+  /**
+   * @return a name for the object class
+   */
+  protected String getName() {
+    return getClass().getSimpleName();
+  }
+
+  protected String getTemplate() {
+    return getName() + "(%s)";
+  }
+
+  protected String toString(Object o) {
+    return String.format(getTemplate(), o);
+  }
+
+  @Override
+  public String toString() {
+    return toString(getItem());
+  }
+
+  /**
+   * @return the object this change is adding or removing
+   */
+  public abstract Object getItem();
+
+  @Override
+  public int hashCode() {
+    return getClass().hashCode() + getItem().hashCode();
+  }
+
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
-
-    /**
-     * Accepts a visit from an {@link OWLOntologyChangeDataVisitor}.
-     * 
-     * @param visitor
-     *        The visitor
-     * @param <R>
-     *        The return type for visitor's visit methods.
-     * @return The object returned by the visitor's visit methods.
-     */
-    public abstract <R> R accept(OWLOntologyChangeDataVisitor<R> visitor);
-
-    /**
-     * Creates an {@link OWLOntologyChange} object that pertains to the
-     * specified {@code ontology}, which when applied to the specified ontology
-     * enacts the change described by this info object.
-     * 
-     * @param ontology
-     *        The {@link OWLOntology} that the change should apply to.
-     * @return An {@link OWLOntologyChange} object that applies to
-     *         {@code ontology} and changes {@code ontology} in a way that is
-     *         consistent with this the information held in this
-     *         {@code OWLOntologyChangeData} object.
-     **/
-    public abstract OWLOntologyChange createOntologyChange(OWLOntology ontology);
-
-    /**
-     * @return a name for the object class
-     */
-    protected String getName() {
-        return getClass().getSimpleName();
+    if (obj == null) {
+      return false;
     }
-
-    protected String getTemplate() {
-        return getName() + "(%s)";
+    if (!getClass().equals(obj.getClass())) {
+      return false;
     }
-
-    protected String toString(Object o) {
-        return String.format(getTemplate(), o);
-    }
-
-    @Override
-    public String toString() {
-        return toString(getItem());
-    }
-
-    /**
-     * @return the object this change is adding or removing
-     */
-    public abstract Object getItem();
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode() + getItem().hashCode();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!getClass().equals(obj.getClass())) {
-            return false;
-        }
-        return getItem().equals(((OWLOntologyChangeData) obj).getItem());
-    }
+    return getItem().equals(((OWLOntologyChangeData) obj).getItem());
+  }
 }

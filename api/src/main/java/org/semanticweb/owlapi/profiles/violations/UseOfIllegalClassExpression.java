@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.profiles.violations;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,43 +25,40 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
  * Indicates that a class expression in an axiom is not in the profile.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfIllegalClassExpression extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param classExpression
-     *        classExpression
-     */
-    public UseOfIllegalClassExpression(OWLOntology ontology, @Nullable OWLAxiom axiom,
-        OWLClassExpression classExpression) {
-        super(ontology, axiom, checkNotNull(classExpression));
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param classExpression classExpression
+   */
+  public UseOfIllegalClassExpression(OWLOntology ontology, @Nullable OWLAxiom axiom,
+      OWLClassExpression classExpression) {
+    super(ontology, axiom, checkNotNull(classExpression));
+  }
 
-    @Override
-    public OWLClassExpression getExpression() {
-        return (OWLClassExpression) super.getExpression();
-    }
+  @Override
+  public OWLClassExpression getExpression() {
+    return (OWLClassExpression) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Class expressions not allowed in profile: %s", getExpression().getClassExpressionType()
+  @Override
+  public String toString() {
+    return toString("Class expressions not allowed in profile: %s",
+        getExpression().getClassExpressionType()
             .getName());
-    }
+  }
 }

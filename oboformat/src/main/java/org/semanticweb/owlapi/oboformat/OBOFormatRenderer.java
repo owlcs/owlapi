@@ -20,9 +20,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
-
 import javax.annotation.Nullable;
-
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
@@ -35,64 +33,64 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** Renderer for obo. */
+/**
+ * Renderer for obo.
+ */
 public class OBOFormatRenderer implements OWLRenderer {
 
-    @Override
-    public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
-    }
+  /**
+   * @param ontology ontology
+   * @param writer writer
+   * @param format format to render
+   * @throws OWLOntologyStorageException OWLOntologyStorageException
+   */
+  public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format)
+      throws OWLOntologyStorageException {
+    try {
+      OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
+      final OBODoc result = translator.convert(ontology);
+      boolean hasImports = !asList(ontology.imports()).isEmpty();
+      NameProvider nameProvider;
+      if (hasImports) {
+        // if the ontology has imports
+        // use it as secondary lookup for labels
+        final NameProvider primary = new OBODocNameProvider(result);
+        final NameProvider secondary = new OWLOntologyNameProvider(ontology,
+            primary.getDefaultOboNamespace());
+        // combine primary and secondary name provider
+        nameProvider = new NameProvider() {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format to render
-     * @throws OWLOntologyStorageException
-     *         OWLOntologyStorageException
-     */
-    public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
-        try {
-            OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
-            final OBODoc result = translator.convert(ontology);
-            boolean hasImports = !asList(ontology.imports()).isEmpty();
-            NameProvider nameProvider;
-            if (hasImports) {
-                // if the ontology has imports
-                // use it as secondary lookup for labels
-                final NameProvider primary = new OBODocNameProvider(result);
-                final NameProvider secondary = new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace());
-                // combine primary and secondary name provider
-                nameProvider = new NameProvider() {
-
-                    @Override
-                    @Nullable
-                    public String getName(String id) {
-                        String name = primary.getName(id);
-                        if (name != null) {
-                            return name;
-                        }
-                        return secondary.getName(id);
-                    }
-
-                    @Override
-                    @Nullable
-                    public String getDefaultOboNamespace() {
-                        return primary.getDefaultOboNamespace();
-                    }
-                };
-            } else {
-                nameProvider = new OBODocNameProvider(result);
+          @Override
+          @Nullable
+          public String getName(String id) {
+            String name = primary.getName(id);
+            if (name != null) {
+              return name;
             }
-            OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
-            oboFormatWriter.setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
-                .booleanValue());
-            oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
-        } catch (IOException e) {
-            throw new OWLOntologyStorageException(e);
-        }
+            return secondary.getName(id);
+          }
+
+          @Override
+          @Nullable
+          public String getDefaultOboNamespace() {
+            return primary.getDefaultOboNamespace();
+          }
+        };
+      } else {
+        nameProvider = new OBODocNameProvider(result);
+      }
+      OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
+      oboFormatWriter
+          .setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
+              .booleanValue());
+      oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
+    } catch (IOException e) {
+      throw new OWLOntologyStorageException(e);
     }
+  }
+
+  @Override
+  public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
+    render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
+  }
 }

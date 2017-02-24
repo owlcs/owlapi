@@ -18,55 +18,52 @@ import java.util.stream.Stream;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in the
  * OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <P> property expression
+ * @param <O> object
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param
- *        <P>
- *        property expression
- * @param <O>
- *        object
  */
 public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
-    extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut, HasSubject<OWLIndividual>, HasProperty<P>, HasObject<O> {
+    extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut, HasSubject<OWLIndividual>,
+    HasProperty<P>, HasObject<O> {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getSubject(), getProperty(), getObject(), annotations());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getSubject(), getProperty(), getObject(), annotations());
+  }
 
-    @Override
-    default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(getSubject(), getProperty(), getObject());
-    }
+  @Override
+  default Stream<?> componentsWithoutAnnotations() {
+    return Stream.of(getSubject(), getProperty(), getObject());
+  }
 
-    @Override
-    default Stream<?> componentsAnnotationsFirst() {
-        return Stream.of(annotations(), getSubject(), getProperty(), getObject());
-    }
+  @Override
+  default Stream<?> componentsAnnotationsFirst() {
+    return Stream.of(annotations(), getSubject(), getProperty(), getObject());
+  }
 
-    /**
-     * Gets the individual that is the subject of this assertion.
-     * 
-     * @return The individual that represents the subject of this assertion.
-     */
-    @Override
-        OWLIndividual getSubject();
+  /**
+   * Gets the individual that is the subject of this assertion.
+   *
+   * @return The individual that represents the subject of this assertion.
+   */
+  @Override
+  OWLIndividual getSubject();
 
-    /**
-     * Gets the property that this assertion acts along.
-     * 
-     * @return The property
-     */
-    @Override
-        P getProperty();
+  /**
+   * Gets the property that this assertion acts along.
+   *
+   * @return The property
+   */
+  @Override
+  P getProperty();
 
-    /**
-     * Gets the object of this assertion.
-     * 
-     * @return The object that this assertion points to.
-     */
-    @Override
-        O getObject();
+  /**
+   * Gets the object of this assertion.
+   *
+   * @return The object that this assertion points to.
+   */
+  @Override
+  O getObject();
 }

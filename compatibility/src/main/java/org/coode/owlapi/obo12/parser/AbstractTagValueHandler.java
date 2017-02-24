@@ -46,10 +46,24 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -106,202 +120,198 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 interface TagValueHandler {
 
-    /**
-     * Gets the name of the tag handled by this tag value handler
-     * 
-     * @return The name of the tag
-     */
-    String getTagName();
+  /**
+   * Gets the name of the tag handled by this tag value handler
+   *
+   * @return The name of the tag
+   */
+  String getTagName();
 
-    /**
-     * Handles a tag. This is called by the OBOConsumer during parsing to handle
-     * tags that match the value returned by the {@link #getTagName()} method.
-     * 
-     * @param currentId
-     *        The id of the current frame.
-     * @param value
-     *        The value of the tag
-     * @param qualifierBlock
-     *        qualifier block
-     * @param comment
-     *        The hidden comment. This is made up of any characters between !
-     *        and the end of line.
-     */
-    void handle(String currentId, String value, String qualifierBlock, String comment);
+  /**
+   * Handles a tag. This is called by the OBOConsumer during parsing to handle
+   * tags that match the value returned by the {@link #getTagName()} method.
+   *
+   * @param currentId The id of the current frame.
+   * @param value The value of the tag
+   * @param qualifierBlock qualifier block
+   * @param comment The hidden comment. This is made up of any characters between ! and the end of
+   * line.
+   */
+  void handle(String currentId, String value, String qualifierBlock, String comment);
 }
 
 abstract class AbstractTagValueHandler implements TagValueHandler {
 
-    private final String tag;
-    private final OBOConsumer consumer;
+  private final String tag;
+  private final OBOConsumer consumer;
 
-    public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
-        this.tag = tag;
-        this.consumer = consumer;
-    }
+  public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
+    this.tag = tag;
+    this.consumer = consumer;
+  }
 
-    @Override
-    public String getTagName() {
-        return tag;
-    }
+  @Override
+  public String getTagName() {
+    return tag;
+  }
 
-    public OWLOntologyManager getOWLOntologyManager() {
-        return consumer.getOWLOntologyManager();
-    }
+  public OWLOntologyManager getOWLOntologyManager() {
+    return consumer.getOWLOntologyManager();
+  }
 
-    public OWLOntology getOntology() {
-        return consumer.getOntology();
-    }
+  public OWLOntology getOntology() {
+    return consumer.getOntology();
+  }
 
-    public void applyChange(OWLOntologyChange change) {
-        consumer.getOWLOntologyManager().applyChange(change);
-    }
+  public void applyChange(OWLOntologyChange change) {
+    consumer.getOWLOntologyManager().applyChange(change);
+  }
 
-    public OBOConsumer getConsumer() {
-        return consumer;
-    }
+  public OBOConsumer getConsumer() {
+    return consumer;
+  }
 
-    public OWLDataFactory getDataFactory() {
-        return consumer.getOWLOntologyManager().getOWLDataFactory();
-    }
+  public OWLDataFactory getDataFactory() {
+    return consumer.getOWLOntologyManager().getOWLDataFactory();
+  }
 
-    public IRI getTagIRI(OBOVocabulary vocabulary) {
-        return consumer.getIRIFromTagName(vocabulary.getName());
-    }
+  public IRI getTagIRI(OBOVocabulary vocabulary) {
+    return consumer.getIRIFromTagName(vocabulary.getName());
+  }
 
-    /**
-     * Gets an IRI for a tag name. This is a helper method, which ultimately
-     * calls {@link OBOConsumer#getIRIFromTagName(String)}.
-     * 
-     * @param tagName
-     *        The tag name.
-     * @return The IRI corresponding to the tag name.
-     */
-    public IRI getTagIRI(String tagName) {
-        return consumer.getIRIFromTagName(tagName);
-    }
+  /**
+   * Gets an IRI for a tag name. This is a helper method, which ultimately
+   * calls {@link OBOConsumer#getIRIFromTagName(String)}.
+   *
+   * @param tagName The tag name.
+   * @return The IRI corresponding to the tag name.
+   */
+  public IRI getTagIRI(String tagName) {
+    return consumer.getIRIFromTagName(tagName);
+  }
 
-    public IRI getIRIFromOBOId(String id) {
-        return consumer.getIRIFromOBOId(id);
-    }
+  public IRI getIRIFromOBOId(String id) {
+    return consumer.getIRIFromOBOId(id);
+  }
 
-    /**
-     * Gets an {@link OWLAnnotation} for a tag value pair.
-     * 
-     * @param tagName
-     *        The tag name.
-     * @param value
-     *        The tag value. Note that the tag value is un-escaped and stripped
-     *        of double quotes if they exist.
-     * @return An {@link OWLAnnotation} that is formed by converting the tagName
-     *         to an IRI and then to an {@link OWLAnnotationProperty} and the
-     *         value to an {@link OWLLiteral}.
-     */
-    public OWLAnnotation getAnnotationForTagValuePair(String tagName, String value) {
-        IRI tagIRI = getTagIRI(tagName);
-        OWLDataFactory df = getDataFactory();
-        OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(tagIRI);
-        String unescapedString = getUnquotedString(value);
-        OWLLiteral annotationValue = df.getOWLLiteral(unescapedString);
-        return df.getOWLAnnotation(annotationProperty, annotationValue);
-    }
+  /**
+   * Gets an {@link OWLAnnotation} for a tag value pair.
+   *
+   * @param tagName The tag name.
+   * @param value The tag value. Note that the tag value is un-escaped and stripped of double quotes
+   * if they exist.
+   * @return An {@link OWLAnnotation} that is formed by converting the tagName to an IRI and then to
+   * an {@link OWLAnnotationProperty} and the value to an {@link OWLLiteral}.
+   */
+  public OWLAnnotation getAnnotationForTagValuePair(String tagName, String value) {
+    IRI tagIRI = getTagIRI(tagName);
+    OWLDataFactory df = getDataFactory();
+    OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(tagIRI);
+    String unescapedString = getUnquotedString(value);
+    OWLLiteral annotationValue = df.getOWLLiteral(unescapedString);
+    return df.getOWLAnnotation(annotationProperty, annotationValue);
+  }
 
-    public OWLClass getClassFromId(String s) {
-        return getDataFactory().getOWLClass(getIRIFromOBOId(s));
-    }
+  public OWLClass getClassFromId(String s) {
+    return getDataFactory().getOWLClass(getIRIFromOBOId(s));
+  }
 
-    public OWLClass getCurrentClass() {
-        return getDataFactory().getOWLClass(getIRIFromOBOId(consumer.getCurrentId()));
-    }
+  public OWLClass getCurrentClass() {
+    return getDataFactory().getOWLClass(getIRIFromOBOId(consumer.getCurrentId()));
+  }
 
-    protected OWLClass getOWLClass(String id) {
-        return getDataFactory().getOWLClass(getIRIFromOBOId(id));
-    }
+  protected OWLClass getOWLClass(String id) {
+    return getDataFactory().getOWLClass(getIRIFromOBOId(id));
+  }
 
-    protected OWLObjectProperty getOWLObjectProperty(String id) {
-        return getDataFactory().getOWLObjectProperty(getIRIFromOBOId(id));
-    }
+  protected OWLObjectProperty getOWLObjectProperty(String id) {
+    return getDataFactory().getOWLObjectProperty(getIRIFromOBOId(id));
+  }
 
-    protected String getUnquotedString(String value) {
-        String unquotedString;
-        if (value.startsWith("\"") && value.endsWith("\"")) {
-            unquotedString = value.substring(1, value.length() - 1);
-        } else {
-            unquotedString = value;
-        }
-        return unquotedString;
+  protected String getUnquotedString(String value) {
+    String unquotedString;
+    if (value.startsWith("\"") && value.endsWith("\"")) {
+      unquotedString = value.substring(1, value.length() - 1);
+    } else {
+      unquotedString = value;
     }
+    return unquotedString;
+  }
 
-    protected OWLClassExpression getOWLClassOrRestriction(String termList) {
-        String[] strings = termList.split(" ");
-        if (strings.length == 1) {
-            return getDataFactory().getOWLClass(getIRIFromOBOId(strings[0]));
-        }
-        String id0 = strings[0];
-        String id1 = strings[1];
-        IRI propertyIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(id0);
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propertyIRI);
-        OWLClass filler = getDataFactory().getOWLClass(getIRIFromOBOId(id1));
-        return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+  protected OWLClassExpression getOWLClassOrRestriction(String termList) {
+    String[] strings = termList.split(" ");
+    if (strings.length == 1) {
+      return getDataFactory().getOWLClass(getIRIFromOBOId(strings[0]));
     }
+    String id0 = strings[0];
+    String id1 = strings[1];
+    IRI propertyIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(id0);
+    OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propertyIRI);
+    OWLClass filler = getDataFactory().getOWLClass(getIRIFromOBOId(id1));
+    return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+  }
 
-    protected OWLLiteral getBooleanConstant(boolean b) {
-        return getDataFactory().getOWLLiteral(b);
-    }
+  protected OWLLiteral getBooleanConstant(boolean b) {
+    return getDataFactory().getOWLLiteral(b);
+  }
 
-    protected void addAnnotation(String id, String uriID, OWLLiteral value) {
-        IRI subject = getIRIFromOBOId(id);
-        OWLAnnotationProperty annotationProperty = getDataFactory().getOWLAnnotationProperty(getIRIFromOBOId(uriID));
-        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(annotationProperty, subject, value);
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+  protected void addAnnotation(String id, String uriID, OWLLiteral value) {
+    IRI subject = getIRIFromOBOId(id);
+    OWLAnnotationProperty annotationProperty = getDataFactory()
+        .getOWLAnnotationProperty(getIRIFromOBOId(uriID));
+    OWLAxiom ax = getDataFactory()
+        .getOWLAnnotationAssertionAxiom(annotationProperty, subject, value);
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class AltIdTagValueHandler extends AbstractTagValueHandler {
 
-    public AltIdTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.ALT_ID.getName(), consumer);
-    }
+  public AltIdTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.ALT_ID.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        HasIRI subject = getConsumer().getCurrentEntity();
-        OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(OBOVocabulary.ALT_ID);
-        IRI object = getIRIFromOBOId(value);
-        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    HasIRI subject = getConsumer().getCurrentEntity();
+    OWLAnnotationProperty property = getDataFactory()
+        .getOWLAnnotationProperty(OBOVocabulary.ALT_ID);
+    IRI object = getIRIFromOBOId(value);
+    OWLAnnotationAssertionAxiom ax = getDataFactory()
+        .getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
             object);
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class AsymmetricHandler extends AbstractTagValueHandler {
 
-    public AsymmetricHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.IS_ASYMMETRIC.getName(), consumer);
-    }
+  public AsymmetricHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.IS_ASYMMETRIC.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getOWLObjectProperty(currentId);
-            OWLAxiom ax = getDataFactory().getOWLAsymmetricObjectPropertyAxiom(prop);
-            applyChange(new AddAxiom(getOntology(), ax));
-        } else {
-            addAnnotation(currentId, OBOVocabulary.IS_ASYMMETRIC.getName(), getBooleanConstant(false));
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    if (Boolean.parseBoolean(value)) {
+      OWLObjectProperty prop = getOWLObjectProperty(currentId);
+      OWLAxiom ax = getDataFactory().getOWLAsymmetricObjectPropertyAxiom(prop);
+      applyChange(new AddAxiom(getOntology(), ax));
+    } else {
+      addAnnotation(currentId, OBOVocabulary.IS_ASYMMETRIC.getName(), getBooleanConstant(false));
     }
+  }
 }
 
 class DataVersionTagValueHandler extends AbstractTagValueHandler {
 
-    public DataVersionTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.DATA_VERSION.getName(), consumer);
-    }
+  public DataVersionTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.DATA_VERSION.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        getConsumer().setDataVersionTagValue(value);
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    getConsumer().setDataVersionTagValue(value);
+  }
 }
 
 /**
@@ -358,562 +368,580 @@ class DataVersionTagValueHandler extends AbstractTagValueHandler {
  */
 class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
 
-    public DefaultNamespaceTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.DEFAULT_NAMESPACE.getName(), consumer);
-    }
+  public DefaultNamespaceTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.DEFAULT_NAMESPACE.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        // Just register the namespace with the consumer and add it as an
-        // annotation to the ontology
-        getConsumer().setDefaultNamespaceTagValue(value);
-        // Add an annotation to the ontology
-        OWLAnnotation annotation = getAnnotationForTagValuePair(OBOVocabulary.DEFAULT_NAMESPACE.getName(), value);
-        applyChange(new AddOntologyAnnotation(getOntology(), annotation));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    // Just register the namespace with the consumer and add it as an
+    // annotation to the ontology
+    getConsumer().setDefaultNamespaceTagValue(value);
+    // Add an annotation to the ontology
+    OWLAnnotation annotation = getAnnotationForTagValuePair(
+        OBOVocabulary.DEFAULT_NAMESPACE.getName(), value);
+    applyChange(new AddOntologyAnnotation(getOntology(), annotation));
+  }
 }
 
 class DefTagValueHandler extends AbstractTagValueHandler {
 
-    private static final Pattern PATTERN = Pattern.compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
-    private static final int QUOTED_STRING_CONTENT_GROUP = 1;
-    private static final int XREF_GROUP = 3;
+  private static final Pattern PATTERN = Pattern.compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
+  private static final int QUOTED_STRING_CONTENT_GROUP = 1;
+  private static final int XREF_GROUP = 3;
 
-    public DefTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.DEF.getName(), consumer);
+  public DefTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.DEF.getName(), consumer);
+  }
+
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    Matcher matcher = PATTERN.matcher(value);
+    OWLDataFactory df = getDataFactory();
+    String annotationValue;
+    Set<OWLAnnotation> xrefAnnotations = Collections.emptySet();
+    if (matcher.matches()) {
+      annotationValue = matcher.group(QUOTED_STRING_CONTENT_GROUP);
+      xrefAnnotations = getXRefAnnotations(matcher);
+    } else {
+      annotationValue = getUnquotedString(value);
     }
-
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        Matcher matcher = PATTERN.matcher(value);
-        OWLDataFactory df = getDataFactory();
-        String annotationValue;
-        Set<OWLAnnotation> xrefAnnotations = Collections.emptySet();
-        if (matcher.matches()) {
-            annotationValue = matcher.group(QUOTED_STRING_CONTENT_GROUP);
-            xrefAnnotations = getXRefAnnotations(matcher);
-        } else {
-            annotationValue = getUnquotedString(value);
-        }
-        IRI propertyIRI = getTagIRI(getTagName());
-        OWLAnnotationProperty property = df.getOWLAnnotationProperty(propertyIRI);
-        OWLEntity currentEntity = getConsumer().getCurrentEntity();
-        OWLLiteral literal = df.getOWLLiteral(annotationValue);
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(property, currentEntity.getIRI(), literal,
+    IRI propertyIRI = getTagIRI(getTagName());
+    OWLAnnotationProperty property = df.getOWLAnnotationProperty(propertyIRI);
+    OWLEntity currentEntity = getConsumer().getCurrentEntity();
+    OWLLiteral literal = df.getOWLLiteral(annotationValue);
+    OWLAnnotationAssertionAxiom ax = df
+        .getOWLAnnotationAssertionAxiom(property, currentEntity.getIRI(), literal,
             xrefAnnotations);
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 
-    private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
-        Set<OWLAnnotation> annotations = new HashSet<>();
-        String xrefs = matcher.group(XREF_GROUP);
-        if (xrefs != null) {
-            for (String xrefValue : xrefs.split(",")) {
-                annotations.add(getConsumer().parseXRef(xrefValue));
-            }
-        }
-        return annotations;
+  private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
+    Set<OWLAnnotation> annotations = new HashSet<>();
+    String xrefs = matcher.group(XREF_GROUP);
+    if (xrefs != null) {
+      for (String xrefValue : xrefs.split(",")) {
+        annotations.add(getConsumer().parseXRef(xrefValue));
+      }
     }
+    return annotations;
+  }
 }
 
 class DisjointFromHandler extends AbstractTagValueHandler {
 
-    public DisjointFromHandler(OBOConsumer consumer) {
-        super("disjoint_from", consumer);
-    }
+  public DisjointFromHandler(OBOConsumer consumer) {
+    super("disjoint_from", consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLAxiom ax = getDataFactory().getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    OWLAxiom ax = getDataFactory()
+        .getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
             getOWLClass(value)));
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class DomainHandler extends AbstractTagValueHandler {
 
-    public DomainHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.DOMAIN.getName(), consumer);
-    }
+  public DomainHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.DOMAIN.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLObjectProperty prop = getOWLObjectProperty(getConsumer().getCurrentId());
-        OWLClass cls = getOWLClass(value);
-        applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLObjectPropertyDomainAxiom(prop, cls)));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    OWLObjectProperty prop = getOWLObjectProperty(getConsumer().getCurrentId());
+    OWLClass cls = getOWLClass(value);
+    applyChange(
+        new AddAxiom(getOntology(), getDataFactory().getOWLObjectPropertyDomainAxiom(prop, cls)));
+  }
 }
 
 class IDSpaceTagValueHandler extends AbstractTagValueHandler {
 
-    private static final Pattern PATTERN = Pattern.compile("([^\\s]*)\\s+([^\\s]*)");
-    private static final int ID_PREFIX_GROUP = 1;
-    private static final int IRI_PREFIX_GROUP = 2;
+  private static final Pattern PATTERN = Pattern.compile("([^\\s]*)\\s+([^\\s]*)");
+  private static final int ID_PREFIX_GROUP = 1;
+  private static final int IRI_PREFIX_GROUP = 2;
 
-    public IDSpaceTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.ID_SPACE.getName(), consumer);
-    }
+  public IDSpaceTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.ID_SPACE.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        Matcher matcher = PATTERN.matcher(value);
-        if (matcher.matches()) {
-            String idPrefix = matcher.group(ID_PREFIX_GROUP);
-            String iriPrefix = matcher.group(IRI_PREFIX_GROUP);
-            getConsumer().registerIdSpace(idPrefix, iriPrefix);
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    Matcher matcher = PATTERN.matcher(value);
+    if (matcher.matches()) {
+      String idPrefix = matcher.group(ID_PREFIX_GROUP);
+      String iriPrefix = matcher.group(IRI_PREFIX_GROUP);
+      getConsumer().registerIdSpace(idPrefix, iriPrefix);
     }
+  }
 }
 
 class IDTagValueHandler extends AbstractTagValueHandler {
 
-    public IDTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.ID.getName(), consumer);
-    }
+  public IDTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.ID.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        getConsumer().setCurrentId(value);
-        OWLEntity entity = getConsumer().getCurrentEntity();
-        applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(entity)));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    getConsumer().setCurrentId(value);
+    OWLEntity entity = getConsumer().getCurrentEntity();
+    applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(entity)));
+  }
 }
 
 class IntersectionOfHandler extends AbstractTagValueHandler {
 
-    public IntersectionOfHandler(OBOConsumer consumer) {
-        super("intersection_of", consumer);
-    }
+  public IntersectionOfHandler(OBOConsumer consumer) {
+    super("intersection_of", consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        getConsumer().addIntersectionOfOperand(getOWLClassOrRestriction(value));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    getConsumer().addIntersectionOfOperand(getOWLClassOrRestriction(value));
+  }
 }
 
 class InverseHandler extends AbstractTagValueHandler {
 
-    public InverseHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.INVERSE.getName(), consumer);
-    }
+  public InverseHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.INVERSE.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLAxiom ax = getDataFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty(currentId),
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    OWLAxiom ax = getDataFactory()
+        .getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty(currentId),
             getOWLObjectProperty(value));
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class IsATagValueHandler extends AbstractTagValueHandler {
 
-    public IsATagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.IS_A.getName(), consumer);
-    }
+  public IsATagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.IS_A.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        if (getConsumer().isTerm()) {
-            // We simply add a subclass axiom
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(getClassFromId(currentId),
-                getClassFromId(value))));
-        } else if (getConsumer().isTypedef()) {
-            // We simply add a sub property axiom
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubObjectPropertyOfAxiom(
-                getOWLObjectProperty(currentId), getOWLObjectProperty(value))));
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    if (getConsumer().isTerm()) {
+      // We simply add a subclass axiom
+      applyChange(new AddAxiom(getOntology(),
+          getDataFactory().getOWLSubClassOfAxiom(getClassFromId(currentId),
+              getClassFromId(value))));
+    } else if (getConsumer().isTypedef()) {
+      // We simply add a sub property axiom
+      applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubObjectPropertyOfAxiom(
+          getOWLObjectProperty(currentId), getOWLObjectProperty(value))));
     }
+  }
 }
 
 class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
 
-    public IsObsoleteTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.IS_OBSOLETE.getName(), consumer);
-    }
+  public IsObsoleteTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.IS_OBSOLETE.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLDataFactory df = getDataFactory();
-        OWLAnnotationProperty deprecatedProperty = df.getOWLDeprecated();
-        OWLLiteral annotationValue = df.getOWLLiteral(true);
-        IRI subject = getIRIFromOBOId(currentId);
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(deprecatedProperty, subject,
-            annotationValue);
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    OWLDataFactory df = getDataFactory();
+    OWLAnnotationProperty deprecatedProperty = df.getOWLDeprecated();
+    OWLLiteral annotationValue = df.getOWLLiteral(true);
+    IRI subject = getIRIFromOBOId(currentId);
+    OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(deprecatedProperty, subject,
+        annotationValue);
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class NameTagValueHandler extends AbstractTagValueHandler {
 
-    public NameTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.NAME.getName(), consumer);
-    }
+  public NameTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.NAME.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        // This is an annotation - but add as a label
-        OWLEntity ent;
-        if (getConsumer().isTerm()) {
-            ent = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
-        } else if (getConsumer().isTypedef()) {
-            ent = getDataFactory().getOWLObjectProperty(getIRIFromOBOId(currentId));
-        } else {
-            ent = getDataFactory().getOWLNamedIndividual(getIRIFromOBOId(currentId));
-        }
-        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(ent.getIRI(), getDataFactory().getRDFSLabel(
-            value));
-        applyChange(new AddAxiom(getOntology(), ax));
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    // This is an annotation - but add as a label
+    OWLEntity ent;
+    if (getConsumer().isTerm()) {
+      ent = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
+    } else if (getConsumer().isTypedef()) {
+      ent = getDataFactory().getOWLObjectProperty(getIRIFromOBOId(currentId));
+    } else {
+      ent = getDataFactory().getOWLNamedIndividual(getIRIFromOBOId(currentId));
     }
+    OWLAxiom ax = getDataFactory()
+        .getOWLAnnotationAssertionAxiom(ent.getIRI(), getDataFactory().getRDFSLabel(
+            value));
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class OntologyTagValueHandler extends AbstractTagValueHandler {
 
-    public OntologyTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.ONTOLOGY.getName(), consumer);
-    }
+  public OntologyTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.ONTOLOGY.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        getConsumer().setOntologyTagValue(value);
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    getConsumer().setOntologyTagValue(value);
+  }
 }
 
 class PartOfTagValueHandler extends AbstractTagValueHandler {
 
-    public PartOfTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
-    }
+  public PartOfTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        int index = value.indexOf(' ');
-        String propLocalName = value.substring(0, index);
-        String val = value.substring(index + 1, value.length());
-        OWLDataFactory df = getDataFactory();
-        OWLObjectProperty prop = df.getOWLObjectProperty(getIRIFromOBOId(propLocalName));
-        OWLClass filler = getClassFromId(val);
-        OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(prop, filler);
-        OWLAxiom ax = df.getOWLSubClassOfAxiom(getCurrentClass(), desc);
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    int index = value.indexOf(' ');
+    String propLocalName = value.substring(0, index);
+    String val = value.substring(index + 1, value.length());
+    OWLDataFactory df = getDataFactory();
+    OWLObjectProperty prop = df.getOWLObjectProperty(getIRIFromOBOId(propLocalName));
+    OWLClass filler = getClassFromId(val);
+    OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(prop, filler);
+    OWLAxiom ax = df.getOWLSubClassOfAxiom(getCurrentClass(), desc);
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class RawFrameHandler implements OBOParserHandler {
 
-    @Nullable private String currentFrameType = "";
-    private final List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
-    @Nullable private OBOFrame headerFrame;
-    private final List<OBOFrame> typeDefFrames = new ArrayList<>();
-    private final List<OBOFrame> nonTypeDefFrames = new ArrayList<>();
+  private final List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
+  private final List<OBOFrame> typeDefFrames = new ArrayList<>();
+  private final List<OBOFrame> nonTypeDefFrames = new ArrayList<>();
+  @Nullable
+  private String currentFrameType = "";
+  @Nullable
+  private OBOFrame headerFrame;
 
-    @Override
-    public void startHeader() {
-        currentTagValuePairs.clear();
-    }
+  @Override
+  public void startHeader() {
+    currentTagValuePairs.clear();
+  }
 
-    @Override
-    public void endHeader() {
-        headerFrame = new OBOFrame(currentTagValuePairs);
-    }
+  @Override
+  public void endHeader() {
+    headerFrame = new OBOFrame(currentTagValuePairs);
+  }
 
-    @Override
-    public void startFrame(@Nullable String frameType) {
-        currentFrameType = frameType;
-        currentTagValuePairs.clear();
-    }
+  @Override
+  public void startFrame(@Nullable String frameType) {
+    currentFrameType = frameType;
+    currentTagValuePairs.clear();
+  }
 
-    @Override
-    public void endFrame() {
-        storeCurrentFrame();
-    }
+  @Override
+  public void endFrame() {
+    storeCurrentFrame();
+  }
 
-    private OBOFrame storeCurrentFrame() {
-        OBOFrame frame = new OBOFrame(currentFrameType, currentTagValuePairs);
-        if (frame.isTypeDefFrame()) {
-            typeDefFrames.add(frame);
-        } else {
-            nonTypeDefFrames.add(frame);
-        }
-        return frame;
+  private OBOFrame storeCurrentFrame() {
+    OBOFrame frame = new OBOFrame(currentFrameType, currentTagValuePairs);
+    if (frame.isTypeDefFrame()) {
+      typeDefFrames.add(frame);
+    } else {
+      nonTypeDefFrames.add(frame);
     }
+    return frame;
+  }
 
-    @Override
-    public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
-        OBOTagValuePair tvp = new OBOTagValuePair(tag, value, qualifierBlock, comment);
-        currentTagValuePairs.add(tvp);
-    }
+  @Override
+  public void handleTagValue(String tag, String value, String qualifierBlock, String comment) {
+    OBOTagValuePair tvp = new OBOTagValuePair(tag, value, qualifierBlock, comment);
+    currentTagValuePairs.add(tvp);
+  }
 
-    /**
-     * @return the header frame
-     */
-    @Nullable
-    public OBOFrame getHeaderFrame() {
-        return headerFrame;
-    }
+  /**
+   * @return the header frame
+   */
+  @Nullable
+  public OBOFrame getHeaderFrame() {
+    return headerFrame;
+  }
 
-    /**
-     * @return the typedef frames
-     */
-    public List<OBOFrame> getTypeDefFrames() {
-        return typeDefFrames;
-    }
+  /**
+   * @return the typedef frames
+   */
+  public List<OBOFrame> getTypeDefFrames() {
+    return typeDefFrames;
+  }
 
-    /**
-     * @return the non typedef frames
-     */
-    public List<OBOFrame> getNonTypeDefFrames() {
-        return nonTypeDefFrames;
-    }
+  /**
+   * @return the non typedef frames
+   */
+  public List<OBOFrame> getNonTypeDefFrames() {
+    return nonTypeDefFrames;
+  }
 }
 
 class ReflexiveHandler extends AbstractTagValueHandler {
 
-    public ReflexiveHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.IS_REFLEXIVE.getName(), consumer);
-    }
+  public ReflexiveHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.IS_REFLEXIVE.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getOWLObjectProperty(currentId);
-            OWLAxiom ax = getDataFactory().getOWLReflexiveObjectPropertyAxiom(prop);
-            applyChange(new AddAxiom(getOntology(), ax));
-        } else {
-            addAnnotation(currentId, OBOVocabulary.IS_REFLEXIVE.getName(), getBooleanConstant(false));
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    if (Boolean.parseBoolean(value)) {
+      OWLObjectProperty prop = getOWLObjectProperty(currentId);
+      OWLAxiom ax = getDataFactory().getOWLReflexiveObjectPropertyAxiom(prop);
+      applyChange(new AddAxiom(getOntology(), ax));
+    } else {
+      addAnnotation(currentId, OBOVocabulary.IS_REFLEXIVE.getName(), getBooleanConstant(false));
     }
+  }
 }
 
 class RelationshipTagValueHandler extends AbstractTagValueHandler {
 
-    private final Pattern tagValuePattern = Pattern.compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
+  private final Pattern tagValuePattern = Pattern
+      .compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
 
-    public RelationshipTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
-    }
+  public RelationshipTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        Matcher matcher = tagValuePattern.matcher(value);
-        if (matcher.matches()) {
-            IRI propIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(matcher.group(1));
-            IRI fillerIRI = getIRIFromOBOId(matcher.group(2));
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
-            OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
-            OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
-            OWLClass subCls = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(prop)));
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    Matcher matcher = tagValuePattern.matcher(value);
+    if (matcher.matches()) {
+      IRI propIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(matcher.group(1));
+      IRI fillerIRI = getIRIFromOBOId(matcher.group(2));
+      OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
+      OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
+      OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+      OWLClass subCls = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
+      applyChange(
+          new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
+      applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(prop)));
     }
+  }
 }
 
 class SymmetricTagValueHandler extends AbstractTagValueHandler {
 
-    public SymmetricTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.IS_SYMMETRIC.getName(), consumer);
-    }
+  public SymmetricTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.IS_SYMMETRIC.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getOWLObjectProperty(currentId);
-            OWLAxiom ax = getDataFactory().getOWLSymmetricObjectPropertyAxiom(prop);
-            applyChange(new AddAxiom(getOntology(), ax));
-        } else {
-            addAnnotation(currentId, OBOVocabulary.IS_SYMMETRIC.getName(), getBooleanConstant(false));
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    if (Boolean.parseBoolean(value)) {
+      OWLObjectProperty prop = getOWLObjectProperty(currentId);
+      OWLAxiom ax = getDataFactory().getOWLSymmetricObjectPropertyAxiom(prop);
+      applyChange(new AddAxiom(getOntology(), ax));
+    } else {
+      addAnnotation(currentId, OBOVocabulary.IS_SYMMETRIC.getName(), getBooleanConstant(false));
     }
+  }
 }
 
 class SynonymTagValueHandler extends AbstractTagValueHandler {
 
-    private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
-    // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
-    private static final Pattern VALUEPATTERN = Pattern.compile(
-        "\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
-    private static final int VALUE_GROUP = 1;
-    private static final int SCOPE_GROUP = 2;
-    private static final int SYNONYM_TYPE_GROUP = 3;
-    private static final int XREF_GROUP = 4;
-    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
-    public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
+  public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
+  public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
+  private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
+  // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
+  private static final Pattern VALUEPATTERN = Pattern.compile(
+      "\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
+  private static final int VALUE_GROUP = 1;
+  private static final int SCOPE_GROUP = 2;
+  private static final int SYNONYM_TYPE_GROUP = 3;
+  private static final int XREF_GROUP = 4;
 
-    public SynonymTagValueHandler(OBOConsumer consumer) {
-        super(TAG_NAME, consumer);
-    }
+  public SynonymTagValueHandler(OBOConsumer consumer) {
+    super(TAG_NAME, consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        Matcher matcher = VALUEPATTERN.matcher(value);
-        if (matcher.matches()) {
-            OWLDataFactory df = getDataFactory();
-            OWLAnnotationProperty property = getSynonymAnnotationProperty(matcher);
-            Set<OWLAnnotation> annotations = new HashSet<>();
-            annotations.addAll(getSynonymTypeAnnotations(matcher));
-            annotations.addAll(getXRefAnnotations(matcher));
-            OWLEntity subject = getConsumer().getCurrentEntity();
-            String synonym = matcher.group(VALUE_GROUP);
-            OWLLiteral synonymLiteral = df.getOWLLiteral(synonym);
-            OWLAnnotationAssertionAxiom annoAssertion = df.getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
-                synonymLiteral, annotations);
-            applyChange(new AddAxiom(getOntology(), annoAssertion));
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    Matcher matcher = VALUEPATTERN.matcher(value);
+    if (matcher.matches()) {
+      OWLDataFactory df = getDataFactory();
+      OWLAnnotationProperty property = getSynonymAnnotationProperty(matcher);
+      Set<OWLAnnotation> annotations = new HashSet<>();
+      annotations.addAll(getSynonymTypeAnnotations(matcher));
+      annotations.addAll(getXRefAnnotations(matcher));
+      OWLEntity subject = getConsumer().getCurrentEntity();
+      String synonym = matcher.group(VALUE_GROUP);
+      OWLLiteral synonymLiteral = df.getOWLLiteral(synonym);
+      OWLAnnotationAssertionAxiom annoAssertion = df
+          .getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
+              synonymLiteral, annotations);
+      applyChange(new AddAxiom(getOntology(), annoAssertion));
     }
+  }
 
-    private Set<OWLAnnotation> getSynonymTypeAnnotations(Matcher matcher) {
-        if (matcher.group(SYNONYM_TYPE_GROUP) != null) {
-            OWLAnnotation typeAnnotation = getSynonymTypeAnnotation(matcher);
-            return Collections.singleton(typeAnnotation);
-        } else {
-            return Collections.emptySet();
-        }
+  private Set<OWLAnnotation> getSynonymTypeAnnotations(Matcher matcher) {
+    if (matcher.group(SYNONYM_TYPE_GROUP) != null) {
+      OWLAnnotation typeAnnotation = getSynonymTypeAnnotation(matcher);
+      return Collections.singleton(typeAnnotation);
+    } else {
+      return Collections.emptySet();
     }
+  }
 
-    private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
-        Set<OWLAnnotation> annotations = new HashSet<>();
-        String xrefs = matcher.group(XREF_GROUP);
-        if (xrefs != null) {
-            StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
-            while (tokenizer.hasMoreTokens()) {
-                String xref = tokenizer.nextToken();
-                OWLAnnotation xrefAnnotation = getConsumer().parseXRef(xref);
-                annotations.add(xrefAnnotation);
-            }
-        }
-        return annotations;
+  private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
+    Set<OWLAnnotation> annotations = new HashSet<>();
+    String xrefs = matcher.group(XREF_GROUP);
+    if (xrefs != null) {
+      StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
+      while (tokenizer.hasMoreTokens()) {
+        String xref = tokenizer.nextToken();
+        OWLAnnotation xrefAnnotation = getConsumer().parseXRef(xref);
+        annotations.add(xrefAnnotation);
+      }
     }
+    return annotations;
+  }
 
-    private OWLAnnotationProperty getSynonymAnnotationProperty(Matcher matcher) {
-        String synonymScope = matcher.group(SCOPE_GROUP);
-        IRI annotationPropertyIRI;
-        if (SynonymScope.BROAD.name().equals(synonymScope)) {
-            annotationPropertyIRI = getTagIRI(OBOVocabulary.BROAD_SYNONYM);
-        } else if (SynonymScope.EXACT.name().equals(synonymScope)) {
-            annotationPropertyIRI = getTagIRI(OBOVocabulary.EXACT_SYNONYM);
-        } else if (SynonymScope.NARROW.name().equals(synonymScope)) {
-            annotationPropertyIRI = getTagIRI(OBOVocabulary.NARROW_SYNONYM);
-        } else if (SynonymScope.RELATED.name().equals(synonymScope)) {
-            annotationPropertyIRI = getTagIRI(OBOVocabulary.RELATED_SYNONYM);
-        } else {
-            annotationPropertyIRI = getTagIRI(OBOVocabulary.SYNONYM);
-        }
-        return getDataFactory().getOWLAnnotationProperty(annotationPropertyIRI);
+  private OWLAnnotationProperty getSynonymAnnotationProperty(Matcher matcher) {
+    String synonymScope = matcher.group(SCOPE_GROUP);
+    IRI annotationPropertyIRI;
+    if (SynonymScope.BROAD.name().equals(synonymScope)) {
+      annotationPropertyIRI = getTagIRI(OBOVocabulary.BROAD_SYNONYM);
+    } else if (SynonymScope.EXACT.name().equals(synonymScope)) {
+      annotationPropertyIRI = getTagIRI(OBOVocabulary.EXACT_SYNONYM);
+    } else if (SynonymScope.NARROW.name().equals(synonymScope)) {
+      annotationPropertyIRI = getTagIRI(OBOVocabulary.NARROW_SYNONYM);
+    } else if (SynonymScope.RELATED.name().equals(synonymScope)) {
+      annotationPropertyIRI = getTagIRI(OBOVocabulary.RELATED_SYNONYM);
+    } else {
+      annotationPropertyIRI = getTagIRI(OBOVocabulary.SYNONYM);
     }
+    return getDataFactory().getOWLAnnotationProperty(annotationPropertyIRI);
+  }
 
-    private OWLAnnotation getSynonymTypeAnnotation(Matcher matcher) {
-        OWLDataFactory df = getDataFactory();
-        String synonymType = matcher.group(SYNONYM_TYPE_GROUP);
-        return df.getOWLAnnotation(df.getOWLAnnotationProperty(SYNONYM_TYPE_IRI), df.getOWLLiteral(synonymType));
-    }
+  private OWLAnnotation getSynonymTypeAnnotation(Matcher matcher) {
+    OWLDataFactory df = getDataFactory();
+    String synonymType = matcher.group(SYNONYM_TYPE_GROUP);
+    return df.getOWLAnnotation(df.getOWLAnnotationProperty(SYNONYM_TYPE_IRI),
+        df.getOWLLiteral(synonymType));
+  }
 }
 
 class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
 
-    private static final Pattern PATTERN = Pattern.compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
-    private static final int ID_GROUP = 1;
-    private static final int NAME_GROUP = 2;
+  private static final Pattern PATTERN = Pattern
+      .compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
+  private static final int ID_GROUP = 1;
+  private static final int NAME_GROUP = 2;
 
-    public SynonymTypeDefTagHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), consumer);
-    }
+  public SynonymTypeDefTagHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        Matcher matcher = PATTERN.matcher(value);
-        if (matcher.matches()) {
-            String id = matcher.group(ID_GROUP);
-            IRI annotationPropertyIRI = getIRIFromOBOId(id);
-            String name = matcher.group(NAME_GROUP);
-            OWLDataFactory df = getDataFactory();
-            OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(annotationPropertyIRI);
-            applyChange(new AddAxiom(getOntology(), df.getOWLDeclarationAxiom(annotationProperty)));
-            IRI subsetdefIRI = getTagIRI(OBOVocabulary.SUBSETDEF.getName());
-            OWLAnnotationProperty subsetdefAnnotationProperty = df.getOWLAnnotationProperty(subsetdefIRI);
-            applyChange(new AddAxiom(getOntology(), df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty,
-                subsetdefAnnotationProperty)));
-            applyChange(new AddAxiom(getOntology(), df.getOWLAnnotationAssertionAxiom(annotationPropertyIRI, df
-                .getRDFSLabel(name))));
-        } else {
-            OWLAnnotation annotation = getAnnotationForTagValuePair(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
-            applyChange(new AddOntologyAnnotation(getOntology(), annotation));
-        }
-        // ID QuotedString [Scope]
-        // 18th April 2012
-        // AnnotationProperty(T(ID))
-        // SubAnnotationPropertyOf(T(ID) T(subsetdef))
-        // AnnotationAssertion(T(name) T(ID) ID)
-        // AnnotationAssertion(T(hasScope) T(ID) Scope)
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    Matcher matcher = PATTERN.matcher(value);
+    if (matcher.matches()) {
+      String id = matcher.group(ID_GROUP);
+      IRI annotationPropertyIRI = getIRIFromOBOId(id);
+      String name = matcher.group(NAME_GROUP);
+      OWLDataFactory df = getDataFactory();
+      OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(annotationPropertyIRI);
+      applyChange(new AddAxiom(getOntology(), df.getOWLDeclarationAxiom(annotationProperty)));
+      IRI subsetdefIRI = getTagIRI(OBOVocabulary.SUBSETDEF.getName());
+      OWLAnnotationProperty subsetdefAnnotationProperty = df.getOWLAnnotationProperty(subsetdefIRI);
+      applyChange(
+          new AddAxiom(getOntology(), df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty,
+              subsetdefAnnotationProperty)));
+      applyChange(
+          new AddAxiom(getOntology(), df.getOWLAnnotationAssertionAxiom(annotationPropertyIRI, df
+              .getRDFSLabel(name))));
+    } else {
+      OWLAnnotation annotation = getAnnotationForTagValuePair(
+          OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
+      applyChange(new AddOntologyAnnotation(getOntology(), annotation));
     }
+    // ID QuotedString [Scope]
+    // 18th April 2012
+    // AnnotationProperty(T(ID))
+    // SubAnnotationPropertyOf(T(ID) T(subsetdef))
+    // AnnotationAssertion(T(name) T(ID) ID)
+    // AnnotationAssertion(T(hasScope) T(ID) Scope)
+  }
 }
 
 class TransitiveOverHandler extends AbstractTagValueHandler {
 
-    public TransitiveOverHandler(OBOConsumer consumer) {
-        super("is_transitive_over", consumer);
-    }
+  public TransitiveOverHandler(OBOConsumer consumer) {
+    super("is_transitive_over", consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLObjectProperty first = getOWLObjectProperty(currentId);
-        OWLObjectProperty second = getOWLObjectProperty(value);
-        List<OWLObjectProperty> chain = new ArrayList<>();
-        chain.add(first);
-        chain.add(second);
-        OWLAxiom ax = getDataFactory().getOWLSubPropertyChainOfAxiom(chain, first);
-        applyChange(new AddAxiom(getOntology(), ax));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    OWLObjectProperty first = getOWLObjectProperty(currentId);
+    OWLObjectProperty second = getOWLObjectProperty(value);
+    List<OWLObjectProperty> chain = new ArrayList<>();
+    chain.add(first);
+    chain.add(second);
+    OWLAxiom ax = getDataFactory().getOWLSubPropertyChainOfAxiom(chain, first);
+    applyChange(new AddAxiom(getOntology(), ax));
+  }
 }
 
 class TransitiveTagValueHandler extends AbstractTagValueHandler {
 
-    public TransitiveTagValueHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.IS_TRANSITIVE.getName(), consumer);
-    }
+  public TransitiveTagValueHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.IS_TRANSITIVE.getName(), consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIRIFromOBOId(currentId));
-            OWLAxiom ax = getDataFactory().getOWLTransitiveObjectPropertyAxiom(prop);
-            applyChange(new AddAxiom(getOntology(), ax));
-        }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    if (Boolean.parseBoolean(value)) {
+      OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(getIRIFromOBOId(currentId));
+      OWLAxiom ax = getDataFactory().getOWLTransitiveObjectPropertyAxiom(prop);
+      applyChange(new AddAxiom(getOntology(), ax));
     }
+  }
 }
 
 class UnionOfHandler extends AbstractTagValueHandler {
 
-    public UnionOfHandler(OBOConsumer consumer) {
-        super("union_of", consumer);
-    }
+  public UnionOfHandler(OBOConsumer consumer) {
+    super("union_of", consumer);
+  }
 
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        getConsumer().addUnionOfOperand(getOWLClassOrRestriction(value));
-    }
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    getConsumer().addUnionOfOperand(getOWLClassOrRestriction(value));
+  }
 }
 
 class XRefTagHandler extends AbstractTagValueHandler {
 
-    public XRefTagHandler(OBOConsumer consumer) {
-        super(OBOVocabulary.XREF.getName(), consumer);
-    }
+  public XRefTagHandler(OBOConsumer consumer) {
+    super(OBOVocabulary.XREF.getName(), consumer);
+  }
 
-    @SuppressWarnings({ "null", "unused" })
-    @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        if (currentId == null) {
-            return;
-        }
-        OWLAnnotation xrefAnnotation = getConsumer().parseXRef(value);
-        IRI subject = getIRIFromOBOId(currentId);
-        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(xrefAnnotation.getProperty(),
-            subject, xrefAnnotation.getValue());
-        applyChange(new AddAxiom(getOntology(), ax));
-        if (getConsumer().isTypedef() && xrefAnnotation.getValue().isIRI()) {
-            IRI xrefIRI = (IRI) xrefAnnotation.getValue();
-            String typedefId = getConsumer().getCurrentId();
-            getConsumer().addSymbolicIdMapping(typedefId, xrefIRI);
-        }
+  @SuppressWarnings({"null", "unused"})
+  @Override
+  public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    if (currentId == null) {
+      return;
     }
+    OWLAnnotation xrefAnnotation = getConsumer().parseXRef(value);
+    IRI subject = getIRIFromOBOId(currentId);
+    OWLAnnotationAssertionAxiom ax = getDataFactory()
+        .getOWLAnnotationAssertionAxiom(xrefAnnotation.getProperty(),
+            subject, xrefAnnotation.getValue());
+    applyChange(new AddAxiom(getOntology(), ax));
+    if (getConsumer().isTypedef() && xrefAnnotation.getValue().isIRI()) {
+      IRI xrefIRI = (IRI) xrefAnnotation.getValue();
+      String typedefId = getConsumer().getCurrentId();
+      getConsumer().addSymbolicIdMapping(typedefId, xrefIRI);
+    }
+  }
 }

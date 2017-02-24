@@ -17,66 +17,61 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <E> the entity type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <E>
- *        the entity type
  */
 public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
 
-    /**
-     * Instantiates a new object count metric.
-     * 
-     * @param o
-     *        ontology to use
-     */
-    public ObjectCountMetric(OWLOntology o) {
-        super(o);
-    }
+  /**
+   * Instantiates a new object count metric.
+   *
+   * @param o ontology to use
+   */
+  public ObjectCountMetric(OWLOntology o) {
+    super(o);
+  }
 
-    /**
-     * Gets the object type name.
-     * 
-     * @return the object type name
-     */
-    protected abstract String getObjectTypeName();
+  /**
+   * Gets the object type name.
+   *
+   * @return the object type name
+   */
+  protected abstract String getObjectTypeName();
 
-    @Override
-    public String getName() {
-        return getObjectTypeName() + " count";
-    }
+  @Override
+  public String getName() {
+    return getObjectTypeName() + " count";
+  }
 
-    /**
-     * Gets the objects.
-     * 
-     * @param ont
-     *        the ont
-     * @return the objects
-     */
-    protected abstract Stream<E> getObjects(OWLOntology ont);
+  /**
+   * Gets the objects.
+   *
+   * @param ont the ont
+   * @return the objects
+   */
+  protected abstract Stream<E> getObjects(OWLOntology ont);
 
-    @Override
-    public Integer recomputeMetric() {
-        return Integer.valueOf(getObjects().size());
-    }
+  @Override
+  public Integer recomputeMetric() {
+    return Integer.valueOf(getObjects().size());
+  }
 
-    /**
-     * Gets the objects.
-     * 
-     * @return the objects
-     */
-    protected Set<E> getObjects() {
-        return asUnorderedSet(getOntologies().flatMap(this::getObjects));
-    }
+  /**
+   * Gets the objects.
+   *
+   * @return the objects
+   */
+  protected Set<E> getObjects() {
+    return asUnorderedSet(getOntologies().flatMap(this::getObjects));
+  }
 
-    @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return true;
-    }
+  @Override
+  protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    return true;
+  }
 }

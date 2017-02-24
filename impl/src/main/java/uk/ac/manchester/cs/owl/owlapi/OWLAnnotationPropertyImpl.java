@@ -18,29 +18,27 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnotationProperty {
 
-    private final IRI iri;
+  private final IRI iri;
 
-    /**
-     * @param i
-     *        iri for property
-     */
-    public OWLAnnotationPropertyImpl(IRI i) {
-        iri = checkNotNull(i, "i cannot be null");
-    }
+  /**
+   * @param i iri for property
+   */
+  public OWLAnnotationPropertyImpl(IRI i) {
+    iri = checkNotNull(i, "i cannot be null");
+  }
 
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
+  @Override
+  public IRI getIRI() {
+    return iri;
+  }
 
-    @Override
-    public String toStringID() {
-        return iri.toString();
-    }
+  @Override
+  public String toStringID() {
+    return iri.toString();
+  }
 }

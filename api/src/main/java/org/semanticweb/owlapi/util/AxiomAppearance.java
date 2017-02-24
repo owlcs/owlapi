@@ -9,10 +9,9 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 @FunctionalInterface
 public interface AxiomAppearance {
 
-    /**
-     * @param ax
-     *        an axiom
-     * @return true if ax appears more than once as annotated source.
-     */
-    boolean appearsMultipleTimes(OWLAxiom ax);
+  /**
+   * @param ax an axiom
+   * @return true if ax appears more than once as annotated source.
+   */
+  boolean appearsMultipleTimes(OWLAxiom ax);
 }

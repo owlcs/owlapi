@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -28,33 +26,31 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  */
 public class InsufficientPropertyExpressions extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     */
-    public InsufficientPropertyExpressions(OWLOntology ontology, @Nullable OWLAxiom axiom) {
-        super(ontology, axiom, null);
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   */
+  public InsufficientPropertyExpressions(OWLOntology ontology, @Nullable OWLAxiom axiom) {
+    super(ontology, axiom, null);
+  }
 
-    @Override
-    public OWLObject getExpression() {
-        return (OWLObject) super.getExpression();
-    }
+  @Override
+  public OWLObject getExpression() {
+    return (OWLObject) super.getExpression();
+  }
 
-    @Override
-    public String toString() {
-        return toString("Not enough property expressions; at least two needed");
-    }
+  @Override
+  public String toString() {
+    return toString("Not enough property expressions; at least two needed");
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

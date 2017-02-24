@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.HasComponents;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -23,27 +22,27 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
  * A utility class that visits all components of classes and axioms; this base
  * class allows subclasses to choose lements of interest and override handling
  * of such elements.
- * 
+ *
  * @since 5.0.0
  */
 public abstract class AbstractCollector implements OWLObjectVisitor {
 
-    @Override
-    public void doDefault(Object object) {
-        if (object instanceof HasComponents) {
-            processStream(((HasComponents) object).components());
-        }
+  @Override
+  public void doDefault(Object object) {
+    if (object instanceof HasComponents) {
+      processStream(((HasComponents) object).components());
     }
+  }
 
-    protected void processStream(Stream<?> s) {
-        s.forEach(o -> {
-            if (o instanceof OWLObject) {
-                ((OWLObject) o).accept(this);
-            } else if (o instanceof Stream) {
-                processStream((Stream<?>) o);
-            } else if (o instanceof Collection) {
-                processStream(((Collection<?>) o).stream());
-            }
-        });
-    }
+  protected void processStream(Stream<?> s) {
+    s.forEach(o -> {
+      if (o instanceof OWLObject) {
+        ((OWLObject) o).accept(this);
+      } else if (o instanceof Stream) {
+        processStream((Stream<?>) o);
+      } else if (o instanceof Collection) {
+        processStream(((Collection<?>) o).stream());
+      }
+    });
+  }
 }

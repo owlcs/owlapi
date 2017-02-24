@@ -43,10 +43,10 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class BinaryRDFDocumentFormat extends RioRDFPrefixDocumentFormat {
 
-    /**
-     * RDF format for {@link RDFFormat#BINARY} documents.
-     */
-    public BinaryRDFDocumentFormat() {
-        super(RDFFormat.BINARY);
-    }
+  /**
+   * RDF format for {@link RDFFormat#BINARY} documents.
+   */
+  public BinaryRDFDocumentFormat() {
+    super(RDFFormat.BINARY);
+  }
 }

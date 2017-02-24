@@ -14,20 +14,18 @@ package org.semanticweb.owlapi.model;
 
 /**
  * An interface to objects that have a range.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @param <R>
- *        range type
+ *
+ * @param <R> range type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 @FunctionalInterface
 public interface HasRange<R extends OWLObject> {
 
-    /**
-     * Gets the range.
-     * 
-     * @return The range.
-     */
-    R getRange();
+  /**
+   * Gets the range.
+   *
+   * @return The range.
+   */
+  R getRange();
 }

@@ -15,38 +15,37 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAsymmetricObjectPropertyAxiom. */
+/**
+ * Builder class for OWLAsymmetricObjectPropertyAxiom.
+ */
 public class BuilderAsymmetricObjectProperty extends
     BaseObjectPropertyBuilder<OWLAsymmetricObjectPropertyAxiom, BuilderAsymmetricObjectProperty> {
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderAsymmetricObjectProperty(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderAsymmetricObjectProperty(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderAsymmetricObjectProperty(OWLAsymmetricObjectPropertyAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderAsymmetricObjectProperty(OWLAsymmetricObjectPropertyAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withAnnotations(expected.annotations());
+  }
 
-    @Override
-    public OWLAsymmetricObjectPropertyAxiom buildObject() {
-        return df.getOWLAsymmetricObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
-    }
+  @Override
+  public OWLAsymmetricObjectPropertyAxiom buildObject() {
+    return df.getOWLAsymmetricObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
+  }
 }

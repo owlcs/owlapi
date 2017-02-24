@@ -38,7 +38,6 @@ package org.semanticweb.owlapi.rio;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
@@ -69,184 +68,182 @@ import org.slf4j.LoggerFactory;
  */
 public class RioRenderer extends RDFRendererBase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
-    private final RDFHandler writer;
-    private final DefaultPrefixManager pm;
-    private final Set<RDFResource> pending = new LinkedHashSet<>();
-    private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
-    private final Resource[] contexts;
+  private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
+  private final RDFHandler writer;
+  private final DefaultPrefixManager pm;
+  private final Set<RDFResource> pending = new LinkedHashSet<>();
+  private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
+  private final Resource[] contexts;
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
-     * @param contexts
-     *        contexts
-     */
-    public RioRenderer(final OWLOntology ontology, final RDFHandler writer, final OWLDocumentFormat format,
-        final Resource... contexts) {
-        super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
-        OpenRDFUtil.verifyContextNotNull(contexts);
-        this.contexts = contexts;
-        this.writer = writer;
-        pm = new DefaultPrefixManager();
-        if (!ontology.isAnonymous()) {
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
-            String defaultPrefix = ontologyIRIString;
-            if (!ontologyIRIString.endsWith("/")) {
-                defaultPrefix = ontologyIRIString + '#';
+  /**
+   * @param ontology ontology
+   * @param writer writer
+   * @param format format
+   * @param contexts contexts
+   */
+  public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
+      final OWLDocumentFormat format,
+      final Resource... contexts) {
+    super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+    OpenRDFUtil.verifyContextNotNull(contexts);
+    this.contexts = contexts;
+    this.writer = writer;
+    pm = new DefaultPrefixManager();
+    if (!ontology.isAnonymous()) {
+      String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
+      String defaultPrefix = ontologyIRIString;
+      if (!ontologyIRIString.endsWith("/")) {
+        defaultPrefix = ontologyIRIString + '#';
+      }
+      pm.setDefaultPrefix(defaultPrefix);
+    }
+    // copy prefixes out of the given format if it is a
+    // PrefixOWLDocumentFormat
+    if (format instanceof PrefixDocumentFormat) {
+      PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
+      pm.copyPrefixesFrom(prefixFormat);
+      pm.setPrefixComparator(prefixFormat.getPrefixComparator());
+    }
+  }
+
+  @Override
+  protected void beginDocument() {
+    pending.clear();
+    renderedStatements.clear();
+    try {
+      writer.startRDF();
+    } catch (RDFHandlerException e) {
+      throw new OWLRuntimeException(e);
+    }
+    // Namespaces
+    writeNamespaces();
+  }
+
+  @Override
+  protected void endDocument() {
+    writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
+    try {
+      writer.endRDF();
+    } catch (RDFHandlerException e) {
+      throw new OWLRuntimeException(e);
+    }
+    if (LOGGER.isTraceEnabled()) {
+      LOGGER.trace("pendingNodes={}", Integer.valueOf(pending.size()));
+      LOGGER.trace("renderedStatements={}", Integer.valueOf(renderedStatements.size()));
+    }
+    pending.clear();
+    renderedStatements.clear();
+  }
+
+  @Override
+  protected void endObject() {
+    writeComment("");
+  }
+
+  @Override
+  protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+    writeComment(prop.getIRI().toString());
+  }
+
+  @Override
+  protected void writeClassComment(final OWLClass cls) {
+    writeComment(cls.getIRI().toString());
+  }
+
+  @Override
+  protected void writeDataPropertyComment(OWLDataProperty prop) {
+    writeComment(prop.getIRI().toString());
+  }
+
+  @Override
+  protected void writeDatatypeComment(OWLDatatype datatype) {
+    writeComment(datatype.getIRI().toString());
+  }
+
+  @Override
+  protected void writeIndividualComments(OWLNamedIndividual ind) {
+    writeComment(ind.getIRI().toString());
+  }
+
+  @Override
+  protected void writeObjectPropertyComment(final OWLObjectProperty prop) {
+    writeComment(prop.getIRI().toString());
+  }
+
+  @Override
+  protected void writeBanner(final String name) {
+    writeComment("");
+    writeComment("");
+    writeComment("#################################################################");
+    writeComment("#");
+    writeComment("#    " + name);
+    writeComment("#");
+    writeComment("#################################################################");
+    writeComment("");
+    writeComment("");
+  }
+
+  private void writeComment(final String comment) {
+    try {
+      writer.handleComment(comment);
+    } catch (RDFHandlerException e) {
+      throw new OWLRuntimeException(e);
+    }
+  }
+
+  private void writeNamespaces() {
+    // Send the prefixes from the prefixmanager to the RDFHandler
+    // NOTE: These may be derived from a PrefixOWLDocumentFormat
+    for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
+      final String prefix = pm.getPrefix(prefixName);
+      // OWLAPI generally stores prefixes with a colon at the end, while
+      // Sesame Rio expects
+      // prefixes without the colon
+      if (prefixName.endsWith(":")) {
+        prefixName = prefixName.substring(0, prefixName.length() - 1);
+      }
+      try {
+        writer.handleNamespace(prefixName, prefix);
+      } catch (RDFHandlerException e) {
+        throw new OWLRuntimeException(e);
+      }
+    }
+  }
+
+  @Override
+  public void render(final RDFResource node) {
+    if (pending.contains(node)) {
+      return;
+    }
+    pending.add(node);
+    final Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
+    if (LOGGER.isTraceEnabled()) {
+      LOGGER.trace("triples.size()={}", Integer.valueOf(triples.size()));
+      if (!triples.isEmpty()) {
+        LOGGER.trace("triples={}", triples);
+      }
+    }
+    for (final RDFTriple triple : triples) {
+      RDFTriple tripleToRender = remapNodesIfNecessary(node, triple);
+      try {
+        if (!renderedStatements.contains(tripleToRender)) {
+          renderedStatements.add(tripleToRender);
+          // then we go back and get context-sensitive statements and
+          // actually pass those to the RDFHandler
+          for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
+            writer.handleStatement(statement);
+            if (tripleToRender.getObject() instanceof RDFResource) {
+              render((RDFResource) tripleToRender.getObject());
             }
-            pm.setDefaultPrefix(defaultPrefix);
+          }
+        } else if (LOGGER.isTraceEnabled()) {
+          LOGGER.trace("not printing duplicate statement, or recursing on its object: {}",
+              tripleToRender);
         }
-        // copy prefixes out of the given format if it is a
-        // PrefixOWLDocumentFormat
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
-            pm.copyPrefixesFrom(prefixFormat);
-            pm.setPrefixComparator(prefixFormat.getPrefixComparator());
-        }
+      } catch (RDFHandlerException e) {
+        throw new OWLRuntimeException(e);
+      }
     }
-
-    @Override
-    protected void beginDocument() {
-        pending.clear();
-        renderedStatements.clear();
-        try {
-            writer.startRDF();
-        } catch (RDFHandlerException e) {
-            throw new OWLRuntimeException(e);
-        }
-        // Namespaces
-        writeNamespaces();
-    }
-
-    @Override
-    protected void endDocument() {
-        writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
-        try {
-            writer.endRDF();
-        } catch (RDFHandlerException e) {
-            throw new OWLRuntimeException(e);
-        }
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("pendingNodes={}", Integer.valueOf(pending.size()));
-            LOGGER.trace("renderedStatements={}", Integer.valueOf(renderedStatements.size()));
-        }
-        pending.clear();
-        renderedStatements.clear();
-    }
-
-    @Override
-    protected void endObject() {
-        writeComment("");
-    }
-
-    @Override
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
-        writeComment(prop.getIRI().toString());
-    }
-
-    @Override
-    protected void writeClassComment(final OWLClass cls) {
-        writeComment(cls.getIRI().toString());
-    }
-
-    @Override
-    protected void writeDataPropertyComment(OWLDataProperty prop) {
-        writeComment(prop.getIRI().toString());
-    }
-
-    @Override
-    protected void writeDatatypeComment(OWLDatatype datatype) {
-        writeComment(datatype.getIRI().toString());
-    }
-
-    @Override
-    protected void writeIndividualComments(OWLNamedIndividual ind) {
-        writeComment(ind.getIRI().toString());
-    }
-
-    @Override
-    protected void writeObjectPropertyComment(final OWLObjectProperty prop) {
-        writeComment(prop.getIRI().toString());
-    }
-
-    @Override
-    protected void writeBanner(final String name) {
-        writeComment("");
-        writeComment("");
-        writeComment("#################################################################");
-        writeComment("#");
-        writeComment("#    " + name);
-        writeComment("#");
-        writeComment("#################################################################");
-        writeComment("");
-        writeComment("");
-    }
-
-    private void writeComment(final String comment) {
-        try {
-            writer.handleComment(comment);
-        } catch (RDFHandlerException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    private void writeNamespaces() {
-        // Send the prefixes from the prefixmanager to the RDFHandler
-        // NOTE: These may be derived from a PrefixOWLDocumentFormat
-        for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
-            final String prefix = pm.getPrefix(prefixName);
-            // OWLAPI generally stores prefixes with a colon at the end, while
-            // Sesame Rio expects
-            // prefixes without the colon
-            if (prefixName.endsWith(":")) {
-                prefixName = prefixName.substring(0, prefixName.length() - 1);
-            }
-            try {
-                writer.handleNamespace(prefixName, prefix);
-            } catch (RDFHandlerException e) {
-                throw new OWLRuntimeException(e);
-            }
-        }
-    }
-
-    @Override
-    public void render(final RDFResource node) {
-        if (pending.contains(node)) {
-            return;
-        }
-        pending.add(node);
-        final Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("triples.size()={}", Integer.valueOf(triples.size()));
-            if (!triples.isEmpty()) {
-                LOGGER.trace("triples={}", triples);
-            }
-        }
-        for (final RDFTriple triple : triples) {
-            RDFTriple tripleToRender = remapNodesIfNecessary(node, triple);
-            try {
-                if (!renderedStatements.contains(tripleToRender)) {
-                    renderedStatements.add(tripleToRender);
-                    // then we go back and get context-sensitive statements and
-                    // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
-                        writer.handleStatement(statement);
-                        if (tripleToRender.getObject() instanceof RDFResource) {
-                            render((RDFResource) tripleToRender.getObject());
-                        }
-                    }
-                } else if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}", tripleToRender);
-                }
-            } catch (RDFHandlerException e) {
-                throw new OWLRuntimeException(e);
-            }
-        }
-        pending.remove(node);
-    }
+    pending.remove(node);
+  }
 }

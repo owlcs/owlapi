@@ -15,47 +15,46 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getArgument(), getPredicate());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getArgument(), getPredicate());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 643;
-    }
+  @Override
+  default int hashIndex() {
+    return 643;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 6002;
-    }
+  @Override
+  default int typeIndex() {
+    return 6002;
+  }
 
-    @Override
-        OWLDataRange getPredicate();
+  @Override
+  OWLDataRange getPredicate();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(SWRLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

@@ -13,50 +13,48 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 
-    private final int literal;
+  private final int literal;
 
-    /**
-     * @param literal
-     *        literal value
-     */
-    public OWLLiteralImplInteger(int literal) {
-        this.literal = literal;
-    }
+  /**
+   * @param literal literal value
+   */
+  public OWLLiteralImplInteger(int literal) {
+    this.literal = literal;
+  }
 
-    @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(literal * 65536), getLang()));
-    }
+  @Override
+  protected int hashCode(OWLObject object) {
+    return hash(object.hashIndex(),
+        Stream.of(getDatatype(), Integer.valueOf(literal * 65536), getLang()));
+  }
 
-    @Override
-    public String getLiteral() {
-        return Integer.toString(literal);
-    }
+  @Override
+  public String getLiteral() {
+    return Integer.toString(literal);
+  }
 
-    @Override
-    public boolean isInteger() {
-        return true;
-    }
+  @Override
+  public boolean isInteger() {
+    return true;
+  }
 
-    @Override
-    public int parseInteger() {
-        return literal;
-    }
+  @Override
+  public int parseInteger() {
+    return literal;
+  }
 
-    @Override
-    public OWLDatatype getDatatype() {
-        return InternalizedEntities.XSDINTEGER;
-    }
+  @Override
+  public OWLDatatype getDatatype() {
+    return InternalizedEntities.XSDINTEGER;
+  }
 }

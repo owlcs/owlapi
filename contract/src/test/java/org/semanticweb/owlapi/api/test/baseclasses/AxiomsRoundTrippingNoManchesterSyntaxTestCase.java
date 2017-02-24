@@ -12,22 +12,31 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyDomain;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectPropertyRange;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
 
+import com.google.common.collect.Sets;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-import com.google.common.collect.Sets;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -35,44 +44,44 @@ import com.google.common.collect.Sets;
 public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
     AxiomsRoundTrippingBase {
 
-    public AxiomsRoundTrippingNoManchesterSyntaxTestCase(AxiomBuilder f) {
-        super(f);
-    }
+  public AxiomsRoundTrippingNoManchesterSyntaxTestCase(AxiomBuilder f) {
+    super(f);
+  }
 
-    @Override
-    public void testManchesterOWLSyntax() {
-        // no valid Manchester OWL Syntax roundtrip
-    }
+  @Parameters
+  public static List<AxiomBuilder> getData() {
+    OWLObjectPropertyExpression p = ObjectProperty(iri("p"))
+        .getInverseProperty();
+    OWLObjectPropertyExpression q = ObjectProperty(iri("q"))
+        .getInverseProperty();
+    OWLClass clsA = Class(iri("A"));
+    return Arrays.asList(
+        // AsymmetricObjectPropertyInverse
+        () -> Sets.newHashSet(AsymmetricObjectProperty(p)),
+        // EquivalentObjectPropertiesWithInverses
+        () -> Sets.newHashSet(EquivalentObjectProperties(p, q)),
+        // FunctionalObjectPropertyInverse
+        () -> Sets.newHashSet(FunctionalObjectProperty(p)),
+        // InverseFunctionalObjectPropertyInverse
+        () -> Sets.newHashSet(InverseFunctionalObjectProperty(p)),
+        // IrreflexiveObjectPropertyInverse
+        () -> Sets.newHashSet(IrreflexiveObjectProperty(p)),
+        // ObjectPropertyDomainInverse
+        () -> Sets.newHashSet(ObjectPropertyDomain(p, clsA)),
+        // ObjectPropertyRangeInverse
+        () -> Sets.newHashSet(ObjectPropertyRange(p, clsA)),
+        // ReflexiveObjectPropertyInverse
+        () -> Sets.newHashSet(ReflexiveObjectProperty(p)),
+        // SubObjectPropertyOfInverse
+        () -> Sets.newHashSet(SubObjectPropertyOf(p, q)),
+        // SymmetricObjectPropertyInverse
+        () -> Sets.newHashSet(SymmetricObjectProperty(p)),
+        // TransitiveObjectPropertyInverse
+        () -> Sets.newHashSet(TransitiveObjectProperty(p)));
+  }
 
-    @Parameters
-    public static List<AxiomBuilder> getData() {
-        OWLObjectPropertyExpression p = ObjectProperty(iri("p"))
-            .getInverseProperty();
-        OWLObjectPropertyExpression q = ObjectProperty(iri("q"))
-            .getInverseProperty();
-        OWLClass clsA = Class(iri("A"));
-        return Arrays.asList(
-            // AsymmetricObjectPropertyInverse
-            () -> Sets.newHashSet(AsymmetricObjectProperty(p)),
-            // EquivalentObjectPropertiesWithInverses
-            () -> Sets.newHashSet(EquivalentObjectProperties(p, q)),
-            // FunctionalObjectPropertyInverse
-            () -> Sets.newHashSet(FunctionalObjectProperty(p)),
-            // InverseFunctionalObjectPropertyInverse
-            () -> Sets.newHashSet(InverseFunctionalObjectProperty(p)),
-            // IrreflexiveObjectPropertyInverse
-            () -> Sets.newHashSet(IrreflexiveObjectProperty(p)),
-            // ObjectPropertyDomainInverse
-            () -> Sets.newHashSet(ObjectPropertyDomain(p, clsA)),
-            // ObjectPropertyRangeInverse
-            () -> Sets.newHashSet(ObjectPropertyRange(p, clsA)),
-            // ReflexiveObjectPropertyInverse
-            () -> Sets.newHashSet(ReflexiveObjectProperty(p)),
-            // SubObjectPropertyOfInverse
-            () -> Sets.newHashSet(SubObjectPropertyOf(p, q)),
-            // SymmetricObjectPropertyInverse
-            () -> Sets.newHashSet(SymmetricObjectProperty(p)),
-            // TransitiveObjectPropertyInverse
-            () -> Sets.newHashSet(TransitiveObjectProperty(p)));
-    }
+  @Override
+  public void testManchesterOWLSyntax() {
+    // no valid Manchester OWL Syntax roundtrip
+  }
 }

@@ -18,264 +18,261 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxTokenizer {
 
-    /** EOF. */
-    public static final String EOFTOKEN = "|EOF|";
-    protected final Set<Character> skip = new HashSet<>();
-    protected final Set<Character> commentDelimiters = new HashSet<>();
-    protected final Set<Character> delims = new HashSet<>();
-    private final String buffer;
-    private int pos;
-    private int col;
-    private int row;
-    int startPos = 0;
-    int startCol = 1;
-    int startRow = 1;
-    List<Token> tokens = new ArrayList<>();
-    private StringBuilder sb = new StringBuilder();
-    private static final char ESCAPE_CHAR = '\\';
+  /**
+   * EOF.
+   */
+  public static final String EOFTOKEN = "|EOF|";
+  private static final char ESCAPE_CHAR = '\\';
+  protected final Set<Character> skip = new HashSet<>();
+  protected final Set<Character> commentDelimiters = new HashSet<>();
+  protected final Set<Character> delims = new HashSet<>();
+  private final String buffer;
+  int startPos = 0;
+  int startCol = 1;
+  int startRow = 1;
+  List<Token> tokens = new ArrayList<>();
+  private int pos;
+  private int col;
+  private int row;
+  private StringBuilder sb = new StringBuilder();
 
-    /**
-     * @param buffer
-     *        buffer
-     */
-    public ManchesterOWLSyntaxTokenizer(String buffer) {
-        this.buffer = buffer;
-        skip.add(Character.valueOf(' '));
-        skip.add(Character.valueOf('\n'));
-        skip.add(Character.valueOf('\r'));
-        skip.add(Character.valueOf('\t'));
-        commentDelimiters.add(Character.valueOf('#'));
-        commentDelimiters.add(Character.valueOf('*'));
-        delims.add(Character.valueOf('('));
-        delims.add(Character.valueOf(')'));
-        delims.add(Character.valueOf('['));
-        delims.add(Character.valueOf(']'));
-        delims.add(Character.valueOf(','));
-        delims.add(Character.valueOf('{'));
-        delims.add(Character.valueOf('}'));
-        delims.add(Character.valueOf('^'));
-        delims.add(Character.valueOf('@'));
-        delims.add(Character.valueOf('<'));
-        delims.add(Character.valueOf('>'));
-        delims.add(Character.valueOf('='));
-        delims.add(Character.valueOf('?'));
+  /**
+   * @param buffer buffer
+   */
+  public ManchesterOWLSyntaxTokenizer(String buffer) {
+    this.buffer = buffer;
+    skip.add(Character.valueOf(' '));
+    skip.add(Character.valueOf('\n'));
+    skip.add(Character.valueOf('\r'));
+    skip.add(Character.valueOf('\t'));
+    commentDelimiters.add(Character.valueOf('#'));
+    commentDelimiters.add(Character.valueOf('*'));
+    delims.add(Character.valueOf('('));
+    delims.add(Character.valueOf(')'));
+    delims.add(Character.valueOf('['));
+    delims.add(Character.valueOf(']'));
+    delims.add(Character.valueOf(','));
+    delims.add(Character.valueOf('{'));
+    delims.add(Character.valueOf('}'));
+    delims.add(Character.valueOf('^'));
+    delims.add(Character.valueOf('@'));
+    delims.add(Character.valueOf('<'));
+    delims.add(Character.valueOf('>'));
+    delims.add(Character.valueOf('='));
+    delims.add(Character.valueOf('?'));
+  }
+
+  /**
+   * @param s string to check
+   * @return true if EOF
+   */
+  public static boolean eof(String s) {
+    return EOFTOKEN.equals(s);
+  }
+
+  private void reset() {
+    sb = new StringBuilder();
+    tokens.clear();
+    startRow = 1;
+    startCol = 1;
+    startPos = 0;
+    pos = 0;
+    row = 1;
+    col = 1;
+  }
+
+  /**
+   * @return tokens
+   */
+  public List<Token> tokenize() {
+    reset();
+    int bufferLen = buffer.length();
+    char lastChar = ' ';
+    while (pos < bufferLen) {
+      lastChar = handleChar(lastChar);
     }
+    consumeToken();
+    tokens.add(new Token(EOFTOKEN, pos, col, row));
+    return new ArrayList<>(tokens);
+  }
 
-    /**
-     * @param s
-     *        string to check
-     * @return true if EOF
-     */
-    public static boolean eof(String s) {
-        return EOFTOKEN.equals(s);
+  protected char handleChar(char last) {
+    char lastChar = last;
+    char ch = readChar();
+    if (ch == ESCAPE_CHAR) {
+      lastChar = ch;
+      ch = readChar();
     }
-
-    private void reset() {
-        sb = new StringBuilder();
-        tokens.clear();
-        startRow = 1;
-        startCol = 1;
-        startPos = 0;
-        pos = 0;
-        row = 1;
-        col = 1;
-    }
-
-    /**
-     * @return tokens
-     */
-    public List<Token> tokenize() {
-        reset();
-        int bufferLen = buffer.length();
-        char lastChar = ' ';
-        while (pos < bufferLen) {
-            lastChar = handleChar(lastChar);
-        }
+    if (ch == '\"' && lastChar != '\\') {
+      readString('\"', true);
+    } else if (ch == '\'' && lastChar != '\\') {
+      readString('\'', true);
+    } else if (ch == '<') {
+      // Potentially the start of an IRI
+      readIRI();
+    } else if (skip.contains(Character.valueOf(ch))) {
+      consumeToken();
+    } else if (commentDelimiters.contains(Character.valueOf(ch))) {
+      consumeToken();
+      readComment();
+    } else if (delims.contains(Character.valueOf(ch))) {
+      consumeToken();
+      sb.append(ch);
+      if (ch != '@') {
         consumeToken();
-        tokens.add(new Token(EOFTOKEN, pos, col, row));
-        return new ArrayList<>(tokens);
+      }
+    } else {
+      sb.append(ch);
     }
+    return ch;
+  }
 
-    protected char handleChar(char last) {
-        char lastChar = last;
-        char ch = readChar();
-        if (ch == ESCAPE_CHAR) {
-            lastChar = ch;
-            ch = readChar();
-        }
-        if (ch == '\"' && lastChar != '\\') {
-            readString('\"', true);
-        } else if (ch == '\'' && lastChar != '\\') {
-            readString('\'', true);
-        } else if (ch == '<') {
-            // Potentially the start of an IRI
-            readIRI();
-        } else if (skip.contains(Character.valueOf(ch))) {
-            consumeToken();
-        } else if (commentDelimiters.contains(Character.valueOf(ch))) {
-            consumeToken();
-            readComment();
-        } else if (delims.contains(Character.valueOf(ch))) {
-            consumeToken();
-            sb.append(ch);
-            if (ch != '@') {
-                consumeToken();
-            }
-        } else {
-            sb.append(ch);
-        }
-        return ch;
+  private void consumeToken() {
+    if (sb.length() > 0) {
+      String string = sb.toString();
+      tokens.add(new Token(string, startPos, startCol, startRow));
+      sb = new StringBuilder();
     }
+    startPos = pos;
+    startCol = col;
+    startRow = row;
+  }
 
-    private void consumeToken() {
-        if (sb.length() > 0) {
-            String string = sb.toString();
-            tokens.add(new Token(string, startPos, startCol, startRow));
-            sb = new StringBuilder();
-        }
-        startPos = pos;
-        startCol = col;
-        startRow = row;
+  private void readComment() {
+    char ch = '#';
+    while (ch != '\n' && pos < buffer.length()) {
+      ch = readChar();
     }
+    consumeToken();
+  }
 
-    private void readComment() {
-        char ch = '#';
-        while (ch != '\n' && pos < buffer.length()) {
-            ch = readChar();
-        }
-        consumeToken();
+  private void readString(char terminator, boolean appendTerminator) {
+    if (appendTerminator) {
+      sb.append(terminator);
     }
-
-    private void readString(char terminator, boolean appendTerminator) {
+    while (pos < buffer.length()) {
+      char ch = readChar();
+      if (ch == ESCAPE_CHAR) {
+        int j = pos + 1;
+        handleEscapeChar(ch, j);
+      } else if (ch == terminator) {
         if (appendTerminator) {
-            sb.append(terminator);
+          sb.append(ch);
         }
-        while (pos < buffer.length()) {
-            char ch = readChar();
-            if (ch == ESCAPE_CHAR) {
-                int j = pos + 1;
-                handleEscapeChar(ch, j);
-            } else if (ch == terminator) {
-                if (appendTerminator) {
-                    sb.append(ch);
-                }
-                break;
-            } else {
-                sb.append(ch);
-            }
-        }
-        consumeToken();
+        break;
+      } else {
+        sb.append(ch);
+      }
     }
+    consumeToken();
+  }
 
-    protected void handleEscapeChar(char ch, int j) {
-        if (j < buffer.length()) {
-            char escapedChar = readChar();
-            if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
-                sb.append(escapedChar);
-            } else {
-                sb.append(ch);
-                sb.append(escapedChar);
-            }
-        } else {
-            sb.append('\\');
-        }
+  protected void handleEscapeChar(char ch, int j) {
+    if (j < buffer.length()) {
+      char escapedChar = readChar();
+      if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
+        sb.append(escapedChar);
+      } else {
+        sb.append(ch);
+        sb.append(escapedChar);
+      }
+    } else {
+      sb.append('\\');
     }
+  }
 
-    private void readIRI() {
+  private void readIRI() {
+    sb = new StringBuilder("<");
+    int startPos1 = pos;
+    while (pos < buffer.length()) {
+      char ch = readChar();
+      if (Character.isWhitespace(ch)) {
+        // Not an IRI -- go back to where we started
+        pos = startPos1;
         sb = new StringBuilder("<");
-        int startPos1 = pos;
-        while (pos < buffer.length()) {
-            char ch = readChar();
-            if (Character.isWhitespace(ch)) {
-                // Not an IRI -- go back to where we started
-                pos = startPos1;
-                sb = new StringBuilder("<");
-                consumeToken();
-                return;
-            } else if (ch == '>') {
-                // End of IRI
-                sb.append('>');
-                consumeToken();
-                return;
-            } else {
-                sb.append(ch);
-            }
-        }
+        consumeToken();
+        return;
+      } else if (ch == '>') {
+        // End of IRI
+        sb.append('>');
+        consumeToken();
+        return;
+      } else {
+        sb.append(ch);
+      }
+    }
+  }
+
+  private char readChar() {
+    char ch = buffer.charAt(pos);
+    pos++;
+    col++;
+    if (ch == '\n') {
+      row++;
+      col = 0;
+    }
+    return ch;
+  }
+
+  /**
+   * Token.
+   */
+  public static class Token {
+
+    private final String currentToken;
+    private final int pos;
+    private final int col;
+    private final int row;
+
+    /**
+     * @param token token
+     * @param pos pos
+     * @param col col
+     * @param row row
+     */
+    public Token(String token, int pos, int col, int row) {
+      currentToken = token;
+      this.pos = pos;
+      this.col = col;
+      this.row = row;
     }
 
-    private char readChar() {
-        char ch = buffer.charAt(pos);
-        pos++;
-        col++;
-        if (ch == '\n') {
-            row++;
-            col = 0;
-        }
-        return ch;
+    /**
+     * @return token
+     */
+    public String getToken() {
+      return currentToken;
     }
 
-    /** Token. */
-    public static class Token {
-
-        private final String currentToken;
-        private final int pos;
-        private final int col;
-        private final int row;
-
-        /**
-         * @param token
-         *        token
-         * @param pos
-         *        pos
-         * @param col
-         *        col
-         * @param row
-         *        row
-         */
-        public Token(String token, int pos, int col, int row) {
-            currentToken = token;
-            this.pos = pos;
-            this.col = col;
-            this.row = row;
-        }
-
-        /**
-         * @return token
-         */
-        public String getToken() {
-            return currentToken;
-        }
-
-        /**
-         * @return position
-         */
-        public int getPos() {
-            return pos;
-        }
-
-        /**
-         * @return column
-         */
-        public int getCol() {
-            return col;
-        }
-
-        /**
-         * @return row
-         */
-        public int getRow() {
-            return row;
-        }
-
-        @Override
-        public String toString() {
-            return currentToken + " [" + pos + ", " + col + ", " + row + ']';
-        }
+    /**
+     * @return position
+     */
+    public int getPos() {
+      return pos;
     }
+
+    /**
+     * @return column
+     */
+    public int getCol() {
+      return col;
+    }
+
+    /**
+     * @return row
+     */
+    public int getRow() {
+      return row;
+    }
+
+    @Override
+    public String toString() {
+      return currentToken + " [" + pos + ", " + col + ", " + row + ']';
+    }
+  }
 }

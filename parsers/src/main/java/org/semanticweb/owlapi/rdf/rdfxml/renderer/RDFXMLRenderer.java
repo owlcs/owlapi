@@ -12,8 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +28,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -48,224 +51,223 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLRenderer extends RDFRendererBase {
 
-    private final RDFXMLWriter writer;
-    private final Set<RDFResource> pending = new HashSet<>();
-    private final RDFXMLNamespaceManager qnameManager;
-    private final OWLDocumentFormat format;
-    private final ShortFormProvider labelMaker;
+  private final RDFXMLWriter writer;
+  private final Set<RDFResource> pending = new HashSet<>();
+  private final RDFXMLNamespaceManager qnameManager;
+  private final OWLDocumentFormat format;
+  private final ShortFormProvider labelMaker;
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
-     */
-    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w) {
-        this(ontology, w, verifyNotNull(ontology.getFormat()));
-    }
+  /**
+   * @param ontology ontology
+   * @param w writer
+   */
+  public RDFXMLRenderer(OWLOntology ontology, PrintWriter w) {
+    this(ontology, w, verifyNotNull(ontology.getFormat()));
+  }
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
-     * @param format
-     *        format
-     */
-    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
-        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"), ontology
+  /**
+   * @param ontology ontology
+   * @param w writer
+   * @param format format
+   */
+  public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
+    super(checkNotNull(ontology, "ontology cannot be null"),
+        checkNotNull(format, "format cannot be null"), ontology
             .getOWLOntologyManager().getOntologyWriterConfiguration());
-        this.format = checkNotNull(format, "format cannot be null");
-        qnameManager = new RDFXMLNamespaceManager(ontology, format);
-        String defaultNamespace = qnameManager.getDefaultNamespace();
-        String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(new XMLWriterImpl(checkNotNull(w, "w cannot be null"), qnameManager, base, ontology
+    this.format = checkNotNull(format, "format cannot be null");
+    qnameManager = new RDFXMLNamespaceManager(ontology, format);
+    String defaultNamespace = qnameManager.getDefaultNamespace();
+    String base = base(defaultNamespace);
+    writer = new RDFXMLWriter(
+        new XMLWriterImpl(checkNotNull(w, "w cannot be null"), qnameManager, base, ontology
             .getOWLOntologyManager().getOntologyWriterConfiguration()));
-        Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager);
-    }
+    Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
+    OWLOntologyManager manager = ontology.getOWLOntologyManager();
+    OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
+    labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
+        prefLangMap, manager);
+  }
 
-    private static String base(String defaultNamespace) {
-        String base;
-        if (defaultNamespace.endsWith("#")) {
-            base = defaultNamespace.substring(0, defaultNamespace.length() - 1);
+  private static String base(String defaultNamespace) {
+    String base;
+    if (defaultNamespace.endsWith("#")) {
+      base = defaultNamespace.substring(0, defaultNamespace.length() - 1);
+    } else {
+      base = defaultNamespace;
+    }
+    return base;
+  }
+
+  @Override
+  protected void beginDocument() {
+    writer.startDocument();
+  }
+
+  @Override
+  protected void endDocument() {
+    writer.endDocument();
+    writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
+    if (!format.isAddMissingTypes()) {
+      // missing type declarations could have been omitted, adding a
+      // comment to document it
+      writer.writeComment("Warning: type declarations were not added automatically.");
+    }
+  }
+
+  @Override
+  protected void writeIndividualComments(OWLNamedIndividual ind) {
+    writeCommentForEntity("ind cannot be null", ind);
+  }
+
+  @Override
+  protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+    writeCommentForEntity("prop cannot be null", prop);
+  }
+
+  @Override
+  protected void writeClassComment(OWLClass cls) {
+    writeCommentForEntity("cls cannot be null", cls);
+  }
+
+  @Override
+  protected void writeDataPropertyComment(OWLDataProperty prop) {
+    writeCommentForEntity("prop cannot be null", prop);
+  }
+
+  @Override
+  protected void writeDatatypeComment(OWLDatatype datatype) {
+    writeCommentForEntity("datatype cannot be null", datatype);
+  }
+
+  @Override
+  protected void writeObjectPropertyComment(OWLObjectProperty prop) {
+    writeCommentForEntity("prop cannot be null", prop);
+  }
+
+  @Override
+  protected void writeBanner(String name) {
+    writer.writeComment(
+        "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
+            + checkNotNull(name, "name cannot be null")
+            + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
+  }
+
+  private void writeCommentForEntity(String msg, OWLEntity entity) {
+    if (config.shouldUseBanners()) {
+      checkNotNull(entity, msg);
+      String iriString = entity.getIRI().toString();
+      if (config.isLabelsAsBanner()) {
+        String labelString = labelMaker.getShortForm(entity);
+        String commentString;
+        if (!iriString.equals(labelString)) {
+          commentString = labelString;
         } else {
-            base = defaultNamespace;
+          commentString = iriString;
         }
-        return base;
+        writer.writeComment(XMLUtils.escapeXML(commentString));
+      } else {
+        writer.writeComment(XMLUtils.escapeXML(iriString));
+      }
     }
+  }
 
-    @Override
-    protected void beginDocument() {
-        writer.startDocument();
+  @Override
+  public void render(RDFResource node) {
+    checkNotNull(node, "node cannot be null");
+    if (pending.contains(node)) {
+      return;
     }
-
-    @Override
-    protected void endDocument() {
-        writer.endDocument();
-        writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
-        if (!format.isAddMissingTypes()) {
-            // missing type declarations could have been omitted, adding a
-            // comment to document it
-            writer.writeComment("Warning: type declarations were not added automatically.");
-        }
+    pending.add(node);
+    RDFTriple candidatePrettyPrintTypeTriple = null;
+    Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
+    for (RDFTriple triple : triples) {
+      IRI propertyIRI = triple.getPredicate().getIRI();
+      if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
+          && BUILT_IN_VOCABULARY_IRIS
+          .contains(triple.getObject().getIRI()) && prettyPrintedTypes
+          .contains(triple.getObject().getIRI())) {
+        candidatePrettyPrintTypeTriple = triple;
+      }
     }
-
-    @Override
-    protected void writeIndividualComments(OWLNamedIndividual ind) {
-        writeCommentForEntity("ind cannot be null", ind);
+    if (candidatePrettyPrintTypeTriple == null) {
+      writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+    } else {
+      writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
     }
-
-    @Override
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
-        writeCommentForEntity("prop cannot be null", prop);
+    if (!node.isAnonymous()) {
+      writer.writeAboutAttribute(node.getIRI());
+    } else if (node.isIndividual() && node.shouldOutputId()) {
+      writer.writeNodeIDAttribute(node);
     }
-
-    @Override
-    protected void writeClassComment(OWLClass cls) {
-        writeCommentForEntity("cls cannot be null", cls);
-    }
-
-    @Override
-    protected void writeDataPropertyComment(OWLDataProperty prop) {
-        writeCommentForEntity("prop cannot be null", prop);
-    }
-
-    @Override
-    protected void writeDatatypeComment(OWLDatatype datatype) {
-        writeCommentForEntity("datatype cannot be null", datatype);
-    }
-
-    @Override
-    protected void writeObjectPropertyComment(OWLObjectProperty prop) {
-        writeCommentForEntity("prop cannot be null", prop);
-    }
-
-    @Override
-    protected void writeBanner(String name) {
-        writer.writeComment(
-            "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
-                + checkNotNull(name, "name cannot be null")
-                + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
-    }
-
-    private void writeCommentForEntity(String msg, OWLEntity entity) {
-        if (config.shouldUseBanners()) {
-            checkNotNull(entity, msg);
-            String iriString = entity.getIRI().toString();
-            if (config.isLabelsAsBanner()) {
-                String labelString = labelMaker.getShortForm(entity);
-                String commentString;
-                if (!iriString.equals(labelString)) {
-                    commentString = labelString;
+    for (RDFTriple triple : triples) {
+      if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
+        continue;
+      }
+      writer.writeStartElement(triple.getPredicate().getIRI());
+      triple = remapNodesIfNecessary(node, triple);
+      RDFNode objectNode = triple.getObject();
+      if (!objectNode.isLiteral()) {
+        RDFResource objectRes = (RDFResource) objectNode;
+        if (objectRes.isAnonymous()) {
+          // Special rendering for lists
+          if (isObjectList(objectRes)) {
+            writer.writeParseTypeAttribute();
+            List<RDFNode> list = new ArrayList<>();
+            toJavaList(objectRes, list);
+            for (RDFNode n : list) {
+              if (n.isAnonymous()) {
+                render((RDFResourceBlankNode) n);
+              } else {
+                if (n.isLiteral()) {
+                  RDFLiteral litNode = (RDFLiteral) n;
+                  writer.writeStartElement(RDFS_LITERAL.getIRI());
+                  if (!litNode.isPlainLiteral()) {
+                    writer.writeDatatypeAttribute(litNode.getDatatype());
+                  } else if (litNode.hasLang()) {
+                    writer.writeLangAttribute(litNode.getLang());
+                  }
+                  writer.writeTextContent(litNode.getLexicalValue());
+                  writer.writeEndElement();
                 } else {
-                    commentString = iriString;
+                  writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+                  writer.writeAboutAttribute(n.getIRI());
+                  writer.writeEndElement();
                 }
-                writer.writeComment(XMLUtils.escapeXML(commentString));
-            } else {
-                writer.writeComment(XMLUtils.escapeXML(iriString));
+              }
             }
-        }
-    }
-
-    @Override
-    public void render(RDFResource node) {
-        checkNotNull(node, "node cannot be null");
-        if (pending.contains(node)) {
-            return;
-        }
-        pending.add(node);
-        RDFTriple candidatePrettyPrintTypeTriple = null;
-        Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
-        for (RDFTriple triple : triples) {
-            IRI propertyIRI = triple.getPredicate().getIRI();
-            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && BUILT_IN_VOCABULARY_IRIS
-                .contains(triple.getObject().getIRI()) && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
-                candidatePrettyPrintTypeTriple = triple;
-            }
-        }
-        if (candidatePrettyPrintTypeTriple == null) {
-            writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+          } else if (objectRes.equals(node)) {
+            // special case for triples with same object and subject
+            writer.writeNodeIDAttribute(objectRes);
+          } else {
+            render(objectRes);
+          }
         } else {
-            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
+          writer.writeResourceAttribute(objectRes.getIRI());
         }
-        if (!node.isAnonymous()) {
-            writer.writeAboutAttribute(node.getIRI());
-        } else if (node.isIndividual() && node.shouldOutputId()) {
-            writer.writeNodeIDAttribute(node);
+      } else {
+        RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
+        if (rdfLiteralNode.hasLang()) {
+          writer.writeLangAttribute(rdfLiteralNode.getLang());
+        } else if (!rdfLiteralNode.isPlainLiteral()) {
+          writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
         }
-        for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
-                continue;
-            }
-            writer.writeStartElement(triple.getPredicate().getIRI());
-            triple = remapNodesIfNecessary(node, triple);
-            RDFNode objectNode = triple.getObject();
-            if (!objectNode.isLiteral()) {
-                RDFResource objectRes = (RDFResource) objectNode;
-                if (objectRes.isAnonymous()) {
-                    // Special rendering for lists
-                    if (isObjectList(objectRes)) {
-                        writer.writeParseTypeAttribute();
-                        List<RDFNode> list = new ArrayList<>();
-                        toJavaList(objectRes, list);
-                        for (RDFNode n : list) {
-                            if (n.isAnonymous()) {
-                                render((RDFResourceBlankNode) n);
-                            } else {
-                                if (n.isLiteral()) {
-                                    RDFLiteral litNode = (RDFLiteral) n;
-                                    writer.writeStartElement(RDFS_LITERAL.getIRI());
-                                    if (!litNode.isPlainLiteral()) {
-                                        writer.writeDatatypeAttribute(litNode.getDatatype());
-                                    } else if (litNode.hasLang()) {
-                                        writer.writeLangAttribute(litNode.getLang());
-                                    }
-                                    writer.writeTextContent(litNode.getLexicalValue());
-                                    writer.writeEndElement();
-                                } else {
-                                    writer.writeStartElement(RDF_DESCRIPTION.getIRI());
-                                    writer.writeAboutAttribute(n.getIRI());
-                                    writer.writeEndElement();
-                                }
-                            }
-                        }
-                    } else if (objectRes.equals(node)) {
-                        // special case for triples with same object and subject
-                        writer.writeNodeIDAttribute(objectRes);
-                    } else {
-                        render(objectRes);
-                    }
-                } else {
-                    writer.writeResourceAttribute(objectRes.getIRI());
-                }
-            } else {
-                RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
-                if (rdfLiteralNode.hasLang()) {
-                    writer.writeLangAttribute(rdfLiteralNode.getLang());
-                } else if (!rdfLiteralNode.isPlainLiteral()) {
-                    writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
-                }
-                writer.writeTextContent(rdfLiteralNode.getLexicalValue());
-            }
-            writer.writeEndElement();
-        }
-        writer.writeEndElement();
-        pending.remove(node);
+        writer.writeTextContent(rdfLiteralNode.getLexicalValue());
+      }
+      writer.writeEndElement();
     }
+    writer.writeEndElement();
+    pending.remove(node);
+  }
 
-    /**
-     * @return unserializable entities
-     */
-    public Set<OWLEntity> getUnserialisableEntities() {
-        return qnameManager.getEntitiesWithInvalidQNames();
-    }
+  /**
+   * @return unserializable entities
+   */
+  public Set<OWLEntity> getUnserialisableEntities() {
+    return qnameManager.getEntitiesWithInvalidQNames();
+  }
 }

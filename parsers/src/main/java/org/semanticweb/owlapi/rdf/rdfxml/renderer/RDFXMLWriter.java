@@ -21,144 +21,134 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLWriter {
 
-    private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
-    private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(), "resource");
-    private static final String XML_LANG = "xml:lang";
-    private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(), "nodeID");
-    private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(), "about");
-    private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(), "datatype");
-    private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(), "parseType");
-    private final XMLWriter writer;
+  private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
+  private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(), "resource");
+  private static final String XML_LANG = "xml:lang";
+  private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(), "nodeID");
+  private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(), "about");
+  private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(), "datatype");
+  private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(), "parseType");
+  private final XMLWriter writer;
 
-    protected RDFXMLWriter(XMLWriter writer) {
-        this.writer = checkNotNull(writer, "writer cannot be null");
-    }
+  protected RDFXMLWriter(XMLWriter writer) {
+    this.writer = checkNotNull(writer, "writer cannot be null");
+  }
 
-    /**
-     * @param elementName
-     *        elementName
-     */
-    public void writeStartElement(IRI elementName) {
-        // Sort out with namespace
-        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
-    }
+  /**
+   * @param elementName elementName
+   */
+  public void writeStartElement(IRI elementName) {
+    // Sort out with namespace
+    writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
+  }
 
-    /**
-     * Parse type attribute.
-     */
-    public void writeParseTypeAttribute() {
-        writer.writeAttribute(PARSETYPE_IRI, "Collection");
-    }
+  /**
+   * Parse type attribute.
+   */
+  public void writeParseTypeAttribute() {
+    writer.writeAttribute(PARSETYPE_IRI, "Collection");
+  }
 
-    /**
-     * Parse type attribute for literals.
-     */
-    public void writeParseTypeLiteralAttribute() {
-        writer.writeAttribute(PARSETYPE_IRI, "Literal");
-    }
+  /**
+   * Parse type attribute for literals.
+   */
+  public void writeParseTypeLiteralAttribute() {
+    writer.writeAttribute(PARSETYPE_IRI, "Literal");
+  }
 
-    /**
-     * @param datatypeIRI
-     *        datatypeIRI
-     */
-    public void writeDatatypeAttribute(IRI datatypeIRI) {
-        checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
-        if (OWL2Datatype.RDF_XML_LITERAL.getIRI().equals(datatypeIRI)) {
-            writeParseTypeLiteralAttribute();
-        } else {
-            writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
-        }
+  /**
+   * @param datatypeIRI datatypeIRI
+   */
+  public void writeDatatypeAttribute(IRI datatypeIRI) {
+    checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
+    if (OWL2Datatype.RDF_XML_LITERAL.getIRI().equals(datatypeIRI)) {
+      writeParseTypeLiteralAttribute();
+    } else {
+      writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
     }
+  }
 
-    /**
-     * @param text
-     *        text
-     */
-    public void writeTextContent(String text) {
-        writer.writeTextContent(text);
-    }
+  /**
+   * @param text text
+   */
+  public void writeTextContent(String text) {
+    writer.writeTextContent(text);
+  }
 
-    /**
-     * @param lang
-     *        lang
-     */
-    public void writeLangAttribute(String lang) {
-        writer.writeAttribute(XML_LANG, lang);
-    }
+  /**
+   * @param lang lang
+   */
+  public void writeLangAttribute(String lang) {
+    writer.writeAttribute(XML_LANG, lang);
+  }
 
-    /** Write end element. */
-    public void writeEndElement() {
-        writer.writeEndElement();
-    }
+  /**
+   * Write end element.
+   */
+  public void writeEndElement() {
+    writer.writeEndElement();
+  }
 
-    /**
-     * @param value
-     *        value
-     */
-    public void writeAboutAttribute(IRI value) {
-        writeAttribute(RDF_ABOUT, value);
-    }
+  /**
+   * @param value value
+   */
+  public void writeAboutAttribute(IRI value) {
+    writeAttribute(RDF_ABOUT, value);
+  }
 
-    /**
-     * @param node
-     *        node
-     */
-    public void writeNodeIDAttribute(RDFResource node) {
-        writer.writeAttribute(RDF_NODEID, node.toString());
-    }
+  /**
+   * @param node node
+   */
+  public void writeNodeIDAttribute(RDFResource node) {
+    writer.writeAttribute(RDF_NODEID, node.toString());
+  }
 
-    /**
-     * @param attributeName
-     *        attribute name
-     * @param value
-     *        value
-     */
-    public void writeAttribute(IRI attributeName, IRI value) {
-        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
-    }
+  /**
+   * @param attributeName attribute name
+   * @param value value
+   */
+  public void writeAttribute(IRI attributeName, IRI value) {
+    writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
+  }
 
-    /**
-     * @param owlObject
-     *        owlObject
-     */
-    @SuppressWarnings("unused")
-    public void writeOWLObject(OWLObject owlObject) {
-        // nothing to do here
-    }
+  /**
+   * @param owlObject owlObject
+   */
+  @SuppressWarnings("unused")
+  public void writeOWLObject(OWLObject owlObject) {
+    // nothing to do here
+  }
 
-    /**
-     * @param value
-     *        value
-     */
-    public void writeResourceAttribute(IRI value) {
-        writeAttribute(RDF_RESOURCE, value);
-    }
+  /**
+   * @param value value
+   */
+  public void writeResourceAttribute(IRI value) {
+    writeAttribute(RDF_RESOURCE, value);
+  }
 
-    /**
-     * Start document.
-     */
-    public void startDocument() {
-        writer.startDocument(RDF_RDF);
-    }
+  /**
+   * Start document.
+   */
+  public void startDocument() {
+    writer.startDocument(RDF_RDF);
+  }
 
-    /**
-     * End document.
-     */
-    public void endDocument() {
-        writer.endDocument();
-    }
+  /**
+   * End document.
+   */
+  public void endDocument() {
+    writer.endDocument();
+  }
 
-    /**
-     * @param comment
-     *        comment
-     */
-    public void writeComment(String comment) {
-        writer.writeComment(comment);
-    }
+  /**
+   * @param comment comment
+   */
+  public void writeComment(String comment) {
+    writer.writeComment(comment);
+  }
 }

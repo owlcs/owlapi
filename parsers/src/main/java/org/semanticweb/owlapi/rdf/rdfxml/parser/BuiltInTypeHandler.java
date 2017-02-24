@@ -4,5 +4,5 @@ import org.semanticweb.owlapi.model.IRI;
 
 interface BuiltInTypeHandler extends TriplePredicateHandler {
 
-    IRI getTypeIRI();
+  IRI getTypeIRI();
 }

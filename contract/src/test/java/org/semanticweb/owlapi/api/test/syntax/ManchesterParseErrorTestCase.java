@@ -13,92 +13,104 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import javax.annotation.Nullable;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 @SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase extends TestBase {
 
-    @Test(expected = ParserException.class)
-    public void shouldNotParse() {
-        parse("p some rdfs:Literal");
-        String text1 = "p some Litera";
-        parse(text1);
+  private static OWLClassExpression parse(String text) {
+    MockEntityChecker checker = new MockEntityChecker(df);
+    ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+    parser.setStringToParse(text);
+    parser.setOWLEntityChecker(checker);
+    return parser.parseClassExpression();
+  }
+
+  @Test(expected = ParserException.class)
+  public void shouldNotParse() {
+    parse("p some rdfs:Literal");
+    String text1 = "p some Litera";
+    parse(text1);
+  }
+
+  @Test(expected = ParserException.class)
+  public void shouldNotParseToo() {
+    parse("p some rdfs:Literal");
+    String text1 = "p some Literal";
+    parse(text1);
+  }
+
+  /**
+   * A very simple entity checker that only understands that "p" is a property
+   * and rdfs:Literal is a datatype. He is an extreme simplification of the
+   * entity checker that runs when Protege is set to render entities as
+   * qnames.
+   *
+   * @author tredmond
+   */
+  private static class MockEntityChecker implements OWLEntityChecker {
+
+    private final OWLDataFactory factory;
+
+    MockEntityChecker(OWLDataFactory factory) {
+      this.factory = factory;
     }
 
-    @Test(expected = ParserException.class)
-    public void shouldNotParseToo() {
-        parse("p some rdfs:Literal");
-        String text1 = "p some Literal";
-        parse(text1);
+    @Override
+    public @Nullable
+    OWLClass getOWLClass(String name) {
+      return null;
     }
 
-    private static OWLClassExpression parse(String text) {
-        MockEntityChecker checker = new MockEntityChecker(df);
-        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
-        parser.setStringToParse(text);
-        parser.setOWLEntityChecker(checker);
-        return parser.parseClassExpression();
+    @Override
+    public @Nullable
+    OWLObjectProperty getOWLObjectProperty(String name) {
+      return null;
     }
 
-    /**
-     * A very simple entity checker that only understands that "p" is a property
-     * and rdfs:Literal is a datatype. He is an extreme simplification of the
-     * entity checker that runs when Protege is set to render entities as
-     * qnames.
-     * 
-     * @author tredmond
-     */
-    private static class MockEntityChecker implements OWLEntityChecker {
-
-        private final OWLDataFactory factory;
-
-        MockEntityChecker(OWLDataFactory factory) {
-            this.factory = factory;
-        }
-
-        @Override
-        public @Nullable OWLClass getOWLClass(String name) {
-            return null;
-        }
-
-        @Override
-        public @Nullable OWLObjectProperty getOWLObjectProperty(String name) {
-            return null;
-        }
-
-        @Override
-        public @Nullable OWLDataProperty getOWLDataProperty(@Nullable String name) {
-            if ("p".equals(name)) {
-                return factory.getOWLDataProperty("http://protege.org/Test.owl#", "p");
-            } else {
-                return null;
-            }
-        }
-
-        @Override
-        public @Nullable OWLAnnotationProperty getOWLAnnotationProperty(String name) {
-            return null;
-        }
-
-        @Override
-        public @Nullable OWLNamedIndividual getOWLIndividual(String name) {
-            return null;
-        }
-
-        @Override
-        public @Nullable OWLDatatype getOWLDatatype(@Nullable String name) {
-            if ("rdfs:Literal".equals(name)) {
-                return factory.getTopDatatype();
-            } else {
-                return null;
-            }
-        }
+    @Override
+    public @Nullable
+    OWLDataProperty getOWLDataProperty(@Nullable String name) {
+      if ("p".equals(name)) {
+        return factory.getOWLDataProperty("http://protege.org/Test.owl#", "p");
+      } else {
+        return null;
+      }
     }
+
+    @Override
+    public @Nullable
+    OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+      return null;
+    }
+
+    @Override
+    public @Nullable
+    OWLNamedIndividual getOWLIndividual(String name) {
+      return null;
+    }
+
+    @Override
+    public @Nullable
+    OWLDatatype getOWLDatatype(@Nullable String name) {
+      if ("rdfs:Literal".equals(name)) {
+        return factory.getTopDatatype();
+      } else {
+        return null;
+      }
+    }
+  }
 }

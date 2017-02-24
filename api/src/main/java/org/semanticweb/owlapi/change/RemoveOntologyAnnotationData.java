@@ -20,32 +20,30 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  * Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
 
-    /**
-     * Constructs a {@code RemoveOntologyAnnotationData} object that describes a
-     * {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change for
-     * the {@link OWLAnnotation} specified by the {@code annotation} parameter.
-     * 
-     * @param annotation
-     *        The {@link OWLAnnotation} that is the focus of some change.
-     */
-    public RemoveOntologyAnnotationData(OWLAnnotation annotation) {
-        super(annotation);
-    }
+  /**
+   * Constructs a {@code RemoveOntologyAnnotationData} object that describes a
+   * {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change for
+   * the {@link OWLAnnotation} specified by the {@code annotation} parameter.
+   *
+   * @param annotation The {@link OWLAnnotation} that is the focus of some change.
+   */
+  public RemoveOntologyAnnotationData(OWLAnnotation annotation) {
+    super(annotation);
+  }
 
-    @Override
-    public RemoveOntologyAnnotation createOntologyChange(OWLOntology ontology) {
-        return new RemoveOntologyAnnotation(ontology, getAnnotation());
-    }
+  @Override
+  public RemoveOntologyAnnotation createOntologyChange(OWLOntology ontology) {
+    return new RemoveOntologyAnnotation(ontology, getAnnotation());
+  }
 
-    @Override
-    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
+    return visitor.visit(this);
+  }
 }

@@ -16,77 +16,76 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Builder class for OWLClassAssertionAxiom. */
-public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
+/**
+ * Builder class for OWLClassAssertionAxiom.
+ */
+public class BuilderClassAssertion extends
+    BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
-    @Nullable private OWLIndividual i = null;
-    @Nullable private OWLClassExpression ce = null;
+  @Nullable
+  private OWLIndividual i = null;
+  @Nullable
+  private OWLClassExpression ce = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderClassAssertion(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderClassAssertion(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderClassAssertion(OWLClassAssertionAxiom expected, OWLDataFactory df) {
-        this(df);
-        withClass(expected.getClassExpression()).withIndividual(expected.getIndividual())
-            .withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderClassAssertion(OWLClassAssertionAxiom expected, OWLDataFactory df) {
+    this(df);
+    withClass(expected.getClassExpression()).withIndividual(expected.getIndividual())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param arg
-     *        individual
-     * @return builder
-     */
-    public BuilderClassAssertion withIndividual(OWLIndividual arg) {
-        i = arg;
-        return this;
-    }
+  /**
+   * @param arg individual
+   * @return builder
+   */
+  public BuilderClassAssertion withIndividual(OWLIndividual arg) {
+    i = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        argument
-     * @return builder
-     */
-    public BuilderClassAssertion withClass(OWLClassExpression arg) {
-        ce = arg;
-        return this;
-    }
+  /**
+   * @param arg argument
+   * @return builder
+   */
+  public BuilderClassAssertion withClass(OWLClassExpression arg) {
+    ce = arg;
+    return this;
+  }
 
-    @Override
-    public OWLClassAssertionAxiom buildObject() {
-        return df.getOWLClassAssertionAxiom(getClassExpression(), getIndividual(), annotations);
-    }
+  @Override
+  public OWLClassAssertionAxiom buildObject() {
+    return df.getOWLClassAssertionAxiom(getClassExpression(), getIndividual(), annotations);
+  }
 
-    /**
-     * @return class expression
-     */
-    public OWLClassExpression getClassExpression() {
-        return verifyNotNull(ce);
-    }
+  /**
+   * @return class expression
+   */
+  public OWLClassExpression getClassExpression() {
+    return verifyNotNull(ce);
+  }
 
-    /**
-     * @return individual
-     */
-    public OWLIndividual getIndividual() {
-        return verifyNotNull(i);
-    }
+  /**
+   * @return individual
+   */
+  public OWLIndividual getIndividual() {
+    return verifyNotNull(i);
+  }
 }

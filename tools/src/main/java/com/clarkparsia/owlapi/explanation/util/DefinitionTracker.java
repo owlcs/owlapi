@@ -21,91 +21,96 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-import org.semanticweb.owlapi.model.*;
-
-/** Tracker for definitions. */
+/**
+ * Tracker for definitions.
+ */
 public class DefinitionTracker implements OWLOntologyChangeListener {
 
-    /** Mapping from entities to the number of axioms. */
-    private final Map<OWLEntity, AtomicInteger> referenceCounts = new HashMap<>();
-    private final OWLOntology ontology;
-    private final Set<OWLAxiom> axioms = new HashSet<>();
+  /**
+   * Mapping from entities to the number of axioms.
+   */
+  private final Map<OWLEntity, AtomicInteger> referenceCounts = new HashMap<>();
+  private final OWLOntology ontology;
+  private final Set<OWLAxiom> axioms = new HashSet<>();
 
-    /**
-     * Instantiates a new definition tracker.
-     * 
-     * @param ontology
-     *        ontology to track
-     */
-    public DefinitionTracker(OWLOntology ontology) {
-        this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        ontology.importsClosure().flatMap(OWLOntology::axioms).forEach(this::addAxiom);
-        ontology.getOWLOntologyManager().addOntologyChangeListener(this);
+  /**
+   * Instantiates a new definition tracker.
+   *
+   * @param ontology ontology to track
+   */
+  public DefinitionTracker(OWLOntology ontology) {
+    this.ontology = checkNotNull(ontology, "ontology cannot be null");
+    ontology.importsClosure().flatMap(OWLOntology::axioms).forEach(this::addAxiom);
+    ontology.getOWLOntologyManager().addOntologyChangeListener(this);
+  }
+
+  private void addAxiom(OWLAxiom axiom) {
+    if (axioms.add(axiom)) {
+      axiom.signature()
+          .forEach(
+              e -> referenceCounts.computeIfAbsent(e, x -> new AtomicInteger(0)).incrementAndGet());
     }
+  }
 
-    private void addAxiom(OWLAxiom axiom) {
-        if (axioms.add(axiom)) {
-            axiom.signature()
-                .forEach(e -> referenceCounts.computeIfAbsent(e, x -> new AtomicInteger(0)).incrementAndGet());
+  private void removeAxiom(OWLAxiom axiom) {
+    if (axioms.remove(axiom)) {
+      axiom.signature().forEach(e -> {
+        AtomicInteger count = referenceCounts.get(e);
+        if (count != null && count.decrementAndGet() == 0) {
+          referenceCounts.remove(e);
         }
+      });
     }
+  }
 
-    private void removeAxiom(OWLAxiom axiom) {
-        if (axioms.remove(axiom)) {
-            axiom.signature().forEach(e -> {
-                AtomicInteger count = referenceCounts.get(e);
-                if (count != null && count.decrementAndGet() == 0) {
-                    referenceCounts.remove(e);
-                }
-            });
-        }
-    }
+  /**
+   * Checks if this entity is referred by a logical axiom in the imports
+   * closure of the designated ontology.
+   *
+   * @param entity entity we are searching for
+   * @return {@code true} if there is at least one logical axiom in the imports closure of the given
+   * ontology that refers the given entity
+   */
+  public boolean isDefined(OWLEntity entity) {
+    return checkNotNull(entity, "entity cannot be null").isBuiltIn() || referenceCounts
+        .containsKey(entity);
+  }
 
-    /**
-     * Checks if this entity is referred by a logical axiom in the imports
-     * closure of the designated ontology.
-     * 
-     * @param entity
-     *        entity we are searching for
-     * @return {@code true} if there is at least one logical axiom in the
-     *         imports closure of the given ontology that refers the given
-     *         entity
-     */
-    public boolean isDefined(OWLEntity entity) {
-        return checkNotNull(entity, "entity cannot be null").isBuiltIn() || referenceCounts.containsKey(entity);
-    }
+  /**
+   * Checks if all the entities referred in the given concept are also
+   * referred by a logical axiom in the imports closure of the designated
+   * ontology.
+   *
+   * @param classExpression description that contains the entities we are searching for
+   * @return {@code true} if all the entities in the given description are referred by at least one
+   * logical axiom in the imports closure of the given ontology
+   */
+  public boolean isDefined(OWLClassExpression classExpression) {
+    checkNotNull(classExpression, "classExpression cannot be null");
+    return !classExpression.signature().anyMatch(e -> !isDefined(e));
+  }
 
-    /**
-     * Checks if all the entities referred in the given concept are also
-     * referred by a logical axiom in the imports closure of the designated
-     * ontology.
-     * 
-     * @param classExpression
-     *        description that contains the entities we are searching for
-     * @return {@code true} if all the entities in the given description are
-     *         referred by at least one logical axiom in the imports closure of
-     *         the given ontology
-     */
-    public boolean isDefined(OWLClassExpression classExpression) {
-        checkNotNull(classExpression, "classExpression cannot be null");
-        return !classExpression.signature().anyMatch(e -> !isDefined(e));
+  @Override
+  public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
+    for (OWLOntologyChange change : changes) {
+      if (!change.isAxiomChange() || !contains(ontology.importsClosure(), change.getOntology())) {
+        continue;
+      }
+      OWLAxiom axiom = change.getAxiom();
+      if (change.isAddAxiom()) {
+        addAxiom(axiom);
+      } else if (change.isRemoveAxiom()) {
+        removeAxiom(axiom);
+      } else {
+        throw new UnsupportedOperationException("Unrecognized axiom change: " + change);
+      }
     }
-
-    @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
-            if (!change.isAxiomChange() || !contains(ontology.importsClosure(), change.getOntology())) {
-                continue;
-            }
-            OWLAxiom axiom = change.getAxiom();
-            if (change.isAddAxiom()) {
-                addAxiom(axiom);
-            } else if (change.isRemoveAxiom()) {
-                removeAxiom(axiom);
-            } else {
-                throw new UnsupportedOperationException("Unrecognized axiom change: " + change);
-            }
-        }
-    }
+  }
 }

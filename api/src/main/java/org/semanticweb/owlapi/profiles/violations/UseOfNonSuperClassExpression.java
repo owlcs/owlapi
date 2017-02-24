@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,41 +21,39 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSuperClassExpression extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param classExpression
-     *        classExpression
-     */
-    public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
-        super(ontology, axiom, classExpression);
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param classExpression classExpression
+   */
+  public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom,
+      OWLClassExpression classExpression) {
+    super(ontology, axiom, classExpression);
+  }
 
-    @Override
-    public OWLClassExpression getExpression() {
-        return (OWLClassExpression) super.getExpression();
-    }
+  @Override
+  public OWLClassExpression getExpression() {
+    return (OWLClassExpression) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Use of non-superclass expression in position that requires a superclass expression: %s",
-                getExpression());
-    }
+  @Override
+  public String toString() {
+    return toString(
+        "Use of non-superclass expression in position that requires a superclass expression: %s",
+        getExpression());
+  }
 }

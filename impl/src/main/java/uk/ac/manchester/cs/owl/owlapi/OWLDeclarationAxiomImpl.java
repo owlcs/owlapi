@@ -16,47 +16,43 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
 
-    private final OWLEntity entity;
+  private final OWLEntity entity;
 
-    /**
-     * @param entity
-     *        entity to declare
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLDeclarationAxiomImpl(OWLEntity entity, Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.entity = checkNotNull(entity, "entity cannot be null");
-    }
+  /**
+   * @param entity entity to declare
+   * @param annotations annotations on the axiom
+   */
+  public OWLDeclarationAxiomImpl(OWLEntity entity, Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.entity = checkNotNull(entity, "entity cannot be null");
+  }
 
-    @Override
-    public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLDeclarationAxiomImpl(getEntity(), NO_ANNOTATIONS);
+  @Override
+  public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLDeclarationAxiomImpl(getEntity(), NO_ANNOTATIONS);
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(anns));
+  }
 
-    @Override
-    public OWLEntity getEntity() {
-        return entity;
-    }
+  @Override
+  public OWLEntity getEntity() {
+    return entity;
+  }
 }

@@ -15,49 +15,48 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLIndividualArgument extends SWRLIArgument {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getIndividual());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getIndividual());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 677;
-    }
+  @Override
+  default int hashIndex() {
+    return 677;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 6007;
-    }
+  @Override
+  default int typeIndex() {
+    return 6007;
+  }
 
-    /**
-     * @return the wrapped individual
-     */
-    OWLIndividual getIndividual();
+  /**
+   * @return the wrapped individual
+   */
+  OWLIndividual getIndividual();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(SWRLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

@@ -45,8 +45,10 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory;
 @HasPriority(3)
 public class RioTurtleParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
-    public RioTurtleParserFactory() {
-        super(new RioTurtleDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioTurtleParserFactory() {
+    super(new RioTurtleDocumentFormatFactory());
+  }
 }

@@ -13,68 +13,65 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.AddImportData;
 
 /**
  * Represents an ontology change where an import statement is added to an
  * ontology.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class AddImport extends ImportChange {
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param importDeclaration
-     *        the import declaration
-     */
-    public AddImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
-        super(ont, importDeclaration);
-    }
+  /**
+   * @param ont the ontology to which the change is to be applied
+   * @param importDeclaration the import declaration
+   */
+  public AddImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
+    super(ont, importDeclaration);
+  }
 
-    @Override
-    public AddImportData getChangeData() {
-        return new AddImportData(getImportDeclaration());
-    }
+  @Override
+  public AddImportData getChangeData() {
+    return new AddImportData(getImportDeclaration());
+  }
 
-    @Override
-    public int hashCode() {
-        return getOntology().hashCode() * 37 + getImportDeclaration().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return getOntology().hashCode() * 37 + getImportDeclaration().hashCode();
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof AddImport)) {
-            return false;
-        }
-        AddImport other = (AddImport) obj;
-        return getImportDeclaration().equals(other.getImportDeclaration());
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == this) {
+      return true;
     }
+    if (!(obj instanceof AddImport)) {
+      return false;
+    }
+    AddImport other = (AddImport) obj;
+    return getImportDeclaration().equals(other.getImportDeclaration());
+  }
 
-    @Override
-    public String toString() {
-        return "AddImport(" + getImportDeclaration() + " OntologyID(" + getOntology().getOntologyID() + "))";
-    }
+  @Override
+  public String toString() {
+    return "AddImport(" + getImportDeclaration() + " OntologyID(" + getOntology().getOntologyID()
+        + "))";
+  }
 
-    @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLOntologyChangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public OWLOntologyChange reverseChange() {
-        return new RemoveImport(getOntology(), getImportDeclaration());
-    }
+  @Override
+  public OWLOntologyChange reverseChange() {
+    return new RemoveImport(getOntology(), getImportDeclaration());
+  }
 }

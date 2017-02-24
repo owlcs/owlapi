@@ -16,58 +16,59 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationPropertyDomainAxiom. */
+/**
+ * Builder class for OWLAnnotationPropertyDomainAxiom.
+ */
 public class BuilderAnnotationPropertyDomain
-    extends BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
+    extends
+    BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
 
-    @Nullable private IRI domain = null;
+  @Nullable
+  private IRI domain = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderAnnotationPropertyDomain(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderAnnotationPropertyDomain(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderAnnotationPropertyDomain(OWLAnnotationPropertyDomainAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withDomain(expected.getDomain()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderAnnotationPropertyDomain(OWLAnnotationPropertyDomainAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withDomain(expected.getDomain())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param arg
-     *        domain
-     * @return builder
-     */
-    public BuilderAnnotationPropertyDomain withDomain(IRI arg) {
-        domain = arg;
-        return this;
-    }
+  /**
+   * @param arg domain
+   * @return builder
+   */
+  public BuilderAnnotationPropertyDomain withDomain(IRI arg) {
+    domain = arg;
+    return this;
+  }
 
-    @Override
-    public OWLAnnotationPropertyDomainAxiom buildObject() {
-        return df.getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain(), annotations);
-    }
+  @Override
+  public OWLAnnotationPropertyDomainAxiom buildObject() {
+    return df.getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain(), annotations);
+  }
 
-    /**
-     * @return domain
-     */
-    public IRI getDomain() {
-        return verifyNotNull(domain);
-    }
+  /**
+   * @return domain
+   */
+  public IRI getDomain() {
+    return verifyNotNull(domain);
+  }
 }

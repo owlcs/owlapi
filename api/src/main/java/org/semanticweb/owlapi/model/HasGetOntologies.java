@@ -18,24 +18,23 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
 public interface HasGetOntologies {
 
-    /**
-     * @return The set of ontologies contained within this object
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLOntology> getOntologies() {
-        return asSet(ontologies());
-    }
+  /**
+   * @return The set of ontologies contained within this object
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLOntology> getOntologies() {
+    return asSet(ontologies());
+  }
 
-    /**
-     * @return stream of ontologies contained within this object
-     */
-    Stream<OWLOntology> ontologies();
+  /**
+   * @return stream of ontologies contained within this object
+   */
+  Stream<OWLOntology> ontologies();
 }

@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -26,52 +25,50 @@ import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
-    private final OWLClassExpression expression;
-    private final List<OWLPropertyExpression> propertyExpressions;
+  private final OWLClassExpression expression;
+  private final List<OWLPropertyExpression> propertyExpressions;
 
-    /**
-     * @param expression
-     *        class expression
-     * @param propertyExpressions
-     *        properties
-     * @param annotations
-     *        annotations on the axiom
-     */
-    public OWLHasKeyAxiomImpl(OWLClassExpression expression,
-        Collection<? extends OWLPropertyExpression> propertyExpressions, Collection<OWLAnnotation> annotations) {
-        super(annotations);
-        this.expression = checkNotNull(expression, "expression cannot be null");
-        checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
-        this.propertyExpressions = sortOptionally(propertyExpressions.stream().map(p -> (OWLPropertyExpression) p)
+  /**
+   * @param expression class expression
+   * @param propertyExpressions properties
+   * @param annotations annotations on the axiom
+   */
+  public OWLHasKeyAxiomImpl(OWLClassExpression expression,
+      Collection<? extends OWLPropertyExpression> propertyExpressions,
+      Collection<OWLAnnotation> annotations) {
+    super(annotations);
+    this.expression = checkNotNull(expression, "expression cannot be null");
+    checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
+    this.propertyExpressions = sortOptionally(
+        propertyExpressions.stream().map(p -> (OWLPropertyExpression) p)
             .distinct());
-    }
+  }
 
-    @Override
-    public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
-        if (!isAnnotated()) {
-            return this;
-        }
-        return new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, NO_ANNOTATIONS);
+  @Override
+  public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
+    if (!isAnnotated()) {
+      return this;
     }
+    return new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, NO_ANNOTATIONS);
+  }
 
-    @Override
-    public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, mergeAnnos(anns));
-    }
+  @Override
+  public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+    return (T) new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, mergeAnnos(anns));
+  }
 
-    @Override
-    public OWLClassExpression getClassExpression() {
-        return expression;
-    }
+  @Override
+  public OWLClassExpression getClassExpression() {
+    return expression;
+  }
 
-    @Override
-    public Stream<OWLPropertyExpression> propertyExpressions() {
-        return propertyExpressions.stream();
-    }
+  @Override
+  public Stream<OWLPropertyExpression> propertyExpressions() {
+    return propertyExpressions.stream();
+  }
 }

@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -27,28 +25,26 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  */
 public class EmptyOneOfAxiom extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        the ontology with the violation
-     * @param axiom
-     *        the axiom with the violation
-     */
-    public EmptyOneOfAxiom(OWLOntology ontology, @Nullable OWLAxiom axiom) {
-        super(ontology, axiom, null);
-    }
+  /**
+   * @param ontology the ontology with the violation
+   * @param axiom the axiom with the violation
+   */
+  public EmptyOneOfAxiom(OWLOntology ontology, @Nullable OWLAxiom axiom) {
+    super(ontology, axiom, null);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Empty OneOf: at least one value needed");
-    }
+  @Override
+  public String toString() {
+    return toString("Empty OneOf: at least one value needed");
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

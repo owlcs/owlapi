@@ -15,38 +15,37 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** Builder class for OWLTransitiveObjectPropertyAxiom. */
+/**
+ * Builder class for OWLTransitiveObjectPropertyAxiom.
+ */
 public class BuilderTransitiveObjectProperty extends
     BaseObjectPropertyBuilder<OWLTransitiveObjectPropertyAxiom, BuilderTransitiveObjectProperty> {
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderTransitiveObjectProperty(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderTransitiveObjectProperty(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderTransitiveObjectProperty(OWLTransitiveObjectPropertyAxiom expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderTransitiveObjectProperty(OWLTransitiveObjectPropertyAxiom expected,
+      OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withAnnotations(expected.annotations());
+  }
 
-    @Override
-    public OWLTransitiveObjectPropertyAxiom buildObject() {
-        return df.getOWLTransitiveObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
-    }
+  @Override
+  public OWLTransitiveObjectPropertyAxiom buildObject() {
+    return df.getOWLTransitiveObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
+  }
 }

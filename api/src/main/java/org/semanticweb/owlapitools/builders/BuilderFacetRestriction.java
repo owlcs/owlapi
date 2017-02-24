@@ -16,106 +16,102 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Builder class for OWLFacetRestriction. */
-public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
+/**
+ * Builder class for OWLFacetRestriction.
+ */
+public class BuilderFacetRestriction extends
+    BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
 
-    @Nullable private OWLLiteral literal = null;
-    @Nullable private OWLFacet facet = null;
+  @Nullable
+  private OWLLiteral literal = null;
+  @Nullable
+  private OWLFacet facet = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderFacetRestriction(OWLFacetRestriction expected, OWLDataFactory df) {
-        this(df);
-        withFacet(expected.getFacet()).withLiteral(expected.getFacetValue());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderFacetRestriction(OWLFacetRestriction expected, OWLDataFactory df) {
+    this(df);
+    withFacet(expected.getFacet()).withLiteral(expected.getFacetValue());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderFacetRestriction(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderFacetRestriction(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        int value
-     * @return builder
-     */
-    public BuilderFacetRestriction withLiteral(int arg) {
-        literal = df.getOWLLiteral(arg);
-        return this;
-    }
+  /**
+   * @param arg int value
+   * @return builder
+   */
+  public BuilderFacetRestriction withLiteral(int arg) {
+    literal = df.getOWLLiteral(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        literal value
-     * @return builder
-     */
-    public BuilderFacetRestriction withLiteral(OWLLiteral arg) {
-        literal = arg;
-        return this;
-    }
+  /**
+   * @param arg literal value
+   * @return builder
+   */
+  public BuilderFacetRestriction withLiteral(OWLLiteral arg) {
+    literal = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        double value
-     * @return builder
-     */
-    public BuilderFacetRestriction withLiteral(double arg) {
-        literal = df.getOWLLiteral(arg);
-        return this;
-    }
+  /**
+   * @param arg double value
+   * @return builder
+   */
+  public BuilderFacetRestriction withLiteral(double arg) {
+    literal = df.getOWLLiteral(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        float value
-     * @return builder
-     */
-    public BuilderFacetRestriction withLiteral(float arg) {
-        literal = df.getOWLLiteral(arg);
-        return this;
-    }
+  /**
+   * @param arg float value
+   * @return builder
+   */
+  public BuilderFacetRestriction withLiteral(float arg) {
+    literal = df.getOWLLiteral(arg);
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        facet
-     * @return builder
-     */
-    public BuilderFacetRestriction withFacet(OWLFacet arg) {
-        facet = arg;
-        return this;
-    }
+  /**
+   * @param arg facet
+   * @return builder
+   */
+  public BuilderFacetRestriction withFacet(OWLFacet arg) {
+    facet = arg;
+    return this;
+  }
 
-    @Override
-    public OWLFacetRestriction buildObject() {
-        return df.getOWLFacetRestriction(getFacet(), getLiteral());
-    }
+  @Override
+  public OWLFacetRestriction buildObject() {
+    return df.getOWLFacetRestriction(getFacet(), getLiteral());
+  }
 
-    /**
-     * @return facet
-     */
-    public OWLFacet getFacet() {
-        return verifyNotNull(facet);
-    }
+  /**
+   * @return facet
+   */
+  public OWLFacet getFacet() {
+    return verifyNotNull(facet);
+  }
 
-    /**
-     * @return literal
-     */
-    public OWLLiteral getLiteral() {
-        return verifyNotNull(literal);
-    }
+  /**
+   * @return literal
+   */
+  public OWLLiteral getLiteral() {
+    return verifyNotNull(literal);
+  }
 }

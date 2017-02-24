@@ -16,87 +16,85 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
  * identity).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
-    private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
-    @Nullable private OWLOntologyLoaderMetaData loaderMetaData = null;
-    private boolean addMissingTypes = true;
+  private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
+  @Nullable
+  private OWLOntologyLoaderMetaData loaderMetaData = null;
+  private boolean addMissingTypes = true;
 
-    @Override
-    public boolean isAddMissingTypes() {
-        return addMissingTypes;
-    }
+  @Override
+  public boolean isAddMissingTypes() {
+    return addMissingTypes;
+  }
 
-    @Override
-    public void setAddMissingTypes(boolean addMissingTypes) {
-        this.addMissingTypes = addMissingTypes;
-    }
+  @Override
+  public void setAddMissingTypes(boolean addMissingTypes) {
+    this.addMissingTypes = addMissingTypes;
+  }
 
-    @Override
-    public void setParameter(Serializable key, Serializable value) {
-        parameterMap.put(key, value);
-    }
+  @Override
+  public void setParameter(Serializable key, Serializable value) {
+    parameterMap.put(key, value);
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> T getParameter(Serializable key, T defaultValue) {
-        Serializable val = parameterMap.get(key);
-        if (val == null) {
-            return defaultValue;
-        }
-        return (T) val;
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> T getParameter(Serializable key, T defaultValue) {
+    Serializable val = parameterMap.get(key);
+    if (val == null) {
+      return defaultValue;
     }
+    return (T) val;
+  }
 
-    @Override
-    public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
-        return Optional.ofNullable(loaderMetaData);
-    }
+  @Override
+  public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
+    return Optional.ofNullable(loaderMetaData);
+  }
 
-    @Override
-    public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
-        this.loaderMetaData = loaderMetaData;
-    }
+  @Override
+  public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
+    this.loaderMetaData = loaderMetaData;
+  }
 
-    @Override
-    public boolean isTextual() {
-        return true;
-    }
+  @Override
+  public boolean isTextual() {
+    return true;
+  }
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (obj instanceof OWLDocumentFormat) {
-            return ((OWLDocumentFormat) obj).getKey().equals(getKey());
-        }
-        return false;
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    if (obj == null) {
+      return false;
     }
+    if (obj == this) {
+      return true;
+    }
+    if (obj instanceof OWLDocumentFormat) {
+      return ((OWLDocumentFormat) obj).getKey().equals(getKey());
+    }
+    return false;
+  }
 
-    @Override
-    public int hashCode() {
-        return getKey().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return getKey().hashCode();
+  }
 
-    @Override
-    public String toString() {
-        return getKey();
-    }
+  @Override
+  public String toString() {
+    return getKey();
+  }
 }

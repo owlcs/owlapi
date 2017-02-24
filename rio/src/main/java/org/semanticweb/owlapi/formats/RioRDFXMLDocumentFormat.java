@@ -43,10 +43,10 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class RioRDFXMLDocumentFormat extends RioRDFPrefixDocumentFormat {
 
-    /**
-     * RDF format for {@link RDFFormat#RDFXML} documents.
-     */
-    public RioRDFXMLDocumentFormat() {
-        super(RDFFormat.RDFXML);
-    }
+  /**
+   * RDF format for {@link RDFFormat#RDFXML} documents.
+   */
+  public RioRDFXMLDocumentFormat() {
+    super(RDFFormat.RDFXML);
+  }
 }

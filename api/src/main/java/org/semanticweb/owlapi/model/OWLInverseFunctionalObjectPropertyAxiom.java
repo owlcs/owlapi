@@ -16,44 +16,43 @@ package org.semanticweb.owlapi.model;
  * Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Inverse-Functional_Object_Properties" >
  * InverseFunctionalObjectProperty</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLInverseFunctionalObjectPropertyAxiom
     extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
-    @Override
-        OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 79;
-    }
+  @Override
+  default int hashIndex() {
+    return 79;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
+  }
 }

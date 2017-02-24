@@ -14,89 +14,83 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.semanticweb.owlapi.util.HasPriorityComparator;
 
 /**
  * Specifies how PriorityCollection should sort its entries.
- * 
+ *
  * @author Ignazio
  * @since 4.0.2
  */
 public enum PriorityCollectionSorting implements ByName<PriorityCollectionSorting> {
-    /** Always keep the collection sorted by HasPriority annotation values. */
-    ALWAYS {
-
-        @Override
-        public <O> List<O> sort(List<O> list) {
-            Collections.sort(list, new HasPriorityComparator<>());
-            return list;
-        }
-
-        @Override
-        public <O> List<O> sortInputSet(List<O> list) {
-            return sort(list);
-        }
-    },
-    /**
-     * Only sort according to HasPriority annotation when a Set is passed in
-     * (this happens on Guice injection of entries), do not sort otherwise. This
-     * allows for fine tuning of the order in which entries appear, but does not
-     * lose the default prioritisation. This is important for parsers. When this
-     * sorting is used, addition of new elements causes the elements to be added
-     * at the front of the collection (First In, First Out)
-     */
-    ON_SET_INJECTION_ONLY {
-
-        @Override
-        public <O> List<O> sort(List<O> list) {
-            return list;
-        }
-
-        @Override
-        public <O> List<O> sortInputSet(List<O> list) {
-            Collections.sort(list, new HasPriorityComparator<>());
-            return list;
-        }
-    },
-    /**
-     * Sorting of entries is disabled. When this sorting is used, addition of
-     * new elements causes the elements to be added at the front of the
-     * collection (First In, First Out)
-     */
-    NEVER {
-
-        @Override
-        public <O> List<O> sort(List<O> list) {
-            return list;
-        }
-
-        @Override
-        public <O> List<O> sortInputSet(List<O> list) {
-            return list;
-        }
-    };
-
-    /**
-     * @param list
-     *        list to sort
-     * @param <O>
-     *        type of elements
-     * @return sorted list
-     */
-    public abstract <O> List<O> sort(List<O> list);
-
-    /**
-     * @param list
-     *        list to sort
-     * @param <O>
-     *        type of elements
-     * @return sorted list
-     */
-    public abstract <O> List<O> sortInputSet(List<O> list);
+  /**
+   * Always keep the collection sorted by HasPriority annotation values.
+   */
+  ALWAYS {
+    @Override
+    public <O> List<O> sort(List<O> list) {
+      Collections.sort(list, new HasPriorityComparator<>());
+      return list;
+    }
 
     @Override
-    public PriorityCollectionSorting byName(CharSequence name) {
-        return valueOf(name.toString());
+    public <O> List<O> sortInputSet(List<O> list) {
+      return sort(list);
     }
+  },
+  /**
+   * Only sort according to HasPriority annotation when a Set is passed in
+   * (this happens on Guice injection of entries), do not sort otherwise. This
+   * allows for fine tuning of the order in which entries appear, but does not
+   * lose the default prioritisation. This is important for parsers. When this
+   * sorting is used, addition of new elements causes the elements to be added
+   * at the front of the collection (First In, First Out)
+   */
+  ON_SET_INJECTION_ONLY {
+    @Override
+    public <O> List<O> sort(List<O> list) {
+      return list;
+    }
+
+    @Override
+    public <O> List<O> sortInputSet(List<O> list) {
+      Collections.sort(list, new HasPriorityComparator<>());
+      return list;
+    }
+  },
+  /**
+   * Sorting of entries is disabled. When this sorting is used, addition of
+   * new elements causes the elements to be added at the front of the
+   * collection (First In, First Out)
+   */
+  NEVER {
+    @Override
+    public <O> List<O> sort(List<O> list) {
+      return list;
+    }
+
+    @Override
+    public <O> List<O> sortInputSet(List<O> list) {
+      return list;
+    }
+  };
+
+  /**
+   * @param list list to sort
+   * @param <O> type of elements
+   * @return sorted list
+   */
+  public abstract <O> List<O> sort(List<O> list);
+
+  /**
+   * @param list list to sort
+   * @param <O> type of elements
+   * @return sorted list
+   */
+  public abstract <O> List<O> sortInputSet(List<O> list);
+
+  @Override
+  public PriorityCollectionSorting byName(CharSequence name) {
+    return valueOf(name.toString());
+  }
 }

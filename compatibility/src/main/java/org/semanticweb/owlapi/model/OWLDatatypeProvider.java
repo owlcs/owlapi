@@ -15,10 +15,11 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.providers.DatatypeProvider;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  * @deprecated use DatatypeProvider
  */
 @Deprecated
-public interface OWLDatatypeProvider extends DatatypeProvider {}
+public interface OWLDatatypeProvider extends DatatypeProvider {
+
+}

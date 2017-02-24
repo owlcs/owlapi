@@ -16,86 +16,84 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for SWRLDataRangeAtom. */
-public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
+/**
+ * Builder class for SWRLDataRangeAtom.
+ */
+public class BuilderSWRLDataRangeAtom extends
+    BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
 
-    @Nullable private SWRLDArgument argument;
-    @Nullable private OWLDataRange predicate;
+  @Nullable
+  private SWRLDArgument argument;
+  @Nullable
+  private OWLDataRange predicate;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSWRLDataRangeAtom(SWRLDataRangeAtom expected, OWLDataFactory df) {
-        this(df);
-        with(expected.getArgument()).with(expected.getPredicate());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSWRLDataRangeAtom(SWRLDataRangeAtom expected, OWLDataFactory df) {
+    this(df);
+    with(expected.getArgument()).with(expected.getPredicate());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSWRLDataRangeAtom(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSWRLDataRangeAtom(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        argument
-     * @return builder
-     */
-    public BuilderSWRLDataRangeAtom with(SWRLDArgument arg) {
-        argument = arg;
-        return this;
-    }
+  /**
+   * @param arg argument
+   * @return builder
+   */
+  public BuilderSWRLDataRangeAtom with(SWRLDArgument arg) {
+    argument = arg;
+    return this;
+  }
 
-    /**
-     * @param arg
-     *        predicate
-     * @return builder
-     */
-    public BuilderSWRLDataRangeAtom with(OWL2Datatype arg) {
-        return with(arg.getDatatype(df));
-    }
+  /**
+   * @param arg predicate
+   * @return builder
+   */
+  public BuilderSWRLDataRangeAtom with(OWL2Datatype arg) {
+    return with(arg.getDatatype(df));
+  }
 
-    /**
-     * @param arg
-     *        predicate
-     * @return builder
-     */
-    public BuilderSWRLDataRangeAtom with(OWLDataRange arg) {
-        predicate = arg;
-        return this;
-    }
+  /**
+   * @param arg predicate
+   * @return builder
+   */
+  public BuilderSWRLDataRangeAtom with(OWLDataRange arg) {
+    predicate = arg;
+    return this;
+  }
 
-    @Override
-    public SWRLDataRangeAtom buildObject() {
-        return df.getSWRLDataRangeAtom(getPredicate(), getArgument());
-    }
+  @Override
+  public SWRLDataRangeAtom buildObject() {
+    return df.getSWRLDataRangeAtom(getPredicate(), getArgument());
+  }
 
-    /**
-     * @return the argument
-     */
-    public SWRLDArgument getArgument() {
-        return verifyNotNull(argument);
-    }
+  /**
+   * @return the argument
+   */
+  public SWRLDArgument getArgument() {
+    return verifyNotNull(argument);
+  }
 
-    /**
-     * @return the predicate
-     */
-    public OWLDataRange getPredicate() {
-        return verifyNotNull(predicate);
-    }
+  /**
+   * @return the predicate
+   */
+  public OWLDataRange getPredicate() {
+    return verifyNotNull(predicate);
+  }
 }

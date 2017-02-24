@@ -15,38 +15,38 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Builder class for OWLSubClassOfAxiom. */
-public class BuilderSubClass extends BaseSubBuilder<OWLSubClassOfAxiom, BuilderSubClass, OWLClassExpression> {
+/**
+ * Builder class for OWLSubClassOfAxiom.
+ */
+public class BuilderSubClass extends
+    BaseSubBuilder<OWLSubClassOfAxiom, BuilderSubClass, OWLClassExpression> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSubClass(OWLSubClassOfAxiom expected, OWLDataFactory df) {
-        this(df);
-        withSub(expected.getSubClass()).withSup(expected.getSuperClass()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSubClass(OWLSubClassOfAxiom expected, OWLDataFactory df) {
+    this(df);
+    withSub(expected.getSubClass()).withSup(expected.getSuperClass())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSubClass(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSubClass(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLSubClassOfAxiom buildObject() {
-        return df.getOWLSubClassOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()), annotations);
-    }
+  @Override
+  public OWLSubClassOfAxiom buildObject() {
+    return df.getOWLSubClassOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()), annotations);
+  }
 }

@@ -16,380 +16,373 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * The Class ParserException.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ParserException extends OWLParserException {
 
-    /** The current token. */
-    private final String currentToken;
-    /** The line number. */
-    private final int lineNumber;
-    /** The column number. */
-    private final int columnNumber;
-    /** The token sequence. */
-    private final List<String> tokenSequence;
-    /** The class name expected. */
-    private final boolean classNameExpected;
-    /** The object property name expected. */
-    private final boolean objectPropertyNameExpected;
-    /** The data property name expected. */
-    private final boolean dataPropertyNameExpected;
-    /** The individual name expected. */
-    private final boolean individualNameExpected;
-    /** The datatype name expected. */
-    private final boolean datatypeNameExpected;
-    /** The integer expected. */
-    private boolean integerExpected;
-    /** The annotation property expected. */
-    private final boolean annotationPropertyExpected;
-    /** The ontology name expected. */
-    private boolean ontologyNameExpected;
-    /** The expected keywords. */
-    private final Set<String> expectedKeywords = new LinkedHashSet<>();
-    /** The start pos. */
-    private final int startPos;
+  /**
+   * The current token.
+   */
+  private final String currentToken;
+  /**
+   * The line number.
+   */
+  private final int lineNumber;
+  /**
+   * The column number.
+   */
+  private final int columnNumber;
+  /**
+   * The token sequence.
+   */
+  private final List<String> tokenSequence;
+  /**
+   * The class name expected.
+   */
+  private final boolean classNameExpected;
+  /**
+   * The object property name expected.
+   */
+  private final boolean objectPropertyNameExpected;
+  /**
+   * The data property name expected.
+   */
+  private final boolean dataPropertyNameExpected;
+  /**
+   * The individual name expected.
+   */
+  private final boolean individualNameExpected;
+  /**
+   * The datatype name expected.
+   */
+  private final boolean datatypeNameExpected;
+  /**
+   * The annotation property expected.
+   */
+  private final boolean annotationPropertyExpected;
+  /**
+   * The expected keywords.
+   */
+  private final Set<String> expectedKeywords = new LinkedHashSet<>();
+  /**
+   * The start pos.
+   */
+  private final int startPos;
+  /**
+   * The integer expected.
+   */
+  private boolean integerExpected;
+  /**
+   * The ontology name expected.
+   */
+  private boolean ontologyNameExpected;
 
-    /**
-     * Instantiates a new parser exception.
-     * 
-     * @param tokenSequence
-     *        the token sequence
-     * @param startPos
-     *        the start pos
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     * @param ontologyNameExpected
-     *        the ontology name expected
-     * @param classNameExpected
-     *        the class name expected
-     * @param objectPropertyNameExpected
-     *        the object property name expected
-     * @param dataPropertyNameExpected
-     *        the data property name expected
-     * @param individualNameExpected
-     *        the individual name expected
-     * @param datatypeNameExpected
-     *        the datatype name expected
-     * @param annotationPropertyExpected
-     *        the annotation property expected
-     * @param integerExpected
-     *        the integer expected
-     * @param expectedKeywords
-     *        the expected keywords
-     */
-    public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
-        boolean ontologyNameExpected, boolean classNameExpected, boolean objectPropertyNameExpected,
-        boolean dataPropertyNameExpected, boolean individualNameExpected, boolean datatypeNameExpected,
-        boolean annotationPropertyExpected, boolean integerExpected, Set<String> expectedKeywords) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, classNameExpected, objectPropertyNameExpected,
-            dataPropertyNameExpected, individualNameExpected, datatypeNameExpected, annotationPropertyExpected,
-            expectedKeywords);
-        this.ontologyNameExpected = ontologyNameExpected;
-        this.integerExpected = integerExpected;
-    }
+  /**
+   * Instantiates a new parser exception.
+   *
+   * @param tokenSequence the token sequence
+   * @param startPos the start pos
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   * @param ontologyNameExpected the ontology name expected
+   * @param classNameExpected the class name expected
+   * @param objectPropertyNameExpected the object property name expected
+   * @param dataPropertyNameExpected the data property name expected
+   * @param individualNameExpected the individual name expected
+   * @param datatypeNameExpected the datatype name expected
+   * @param annotationPropertyExpected the annotation property expected
+   * @param integerExpected the integer expected
+   * @param expectedKeywords the expected keywords
+   */
+  public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
+      boolean ontologyNameExpected, boolean classNameExpected, boolean objectPropertyNameExpected,
+      boolean dataPropertyNameExpected, boolean individualNameExpected,
+      boolean datatypeNameExpected,
+      boolean annotationPropertyExpected, boolean integerExpected, Set<String> expectedKeywords) {
+    this(tokenSequence, startPos, lineNumber, columnNumber, classNameExpected,
+        objectPropertyNameExpected,
+        dataPropertyNameExpected, individualNameExpected, datatypeNameExpected,
+        annotationPropertyExpected,
+        expectedKeywords);
+    this.ontologyNameExpected = ontologyNameExpected;
+    this.integerExpected = integerExpected;
+  }
 
-    /**
-     * Instantiates a new parser exception.
-     * 
-     * @param tokenSequence
-     *        the token sequence
-     * @param startPos
-     *        the start pos
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     * @param classNameExpected
-     *        the class name expected
-     * @param objectPropertyNameExpected
-     *        the object property name expected
-     * @param dataPropertyNameExpected
-     *        the data property name expected
-     * @param individualNameExpected
-     *        the individual name expected
-     * @param datatypeNameExpected
-     *        the datatype name expected
-     * @param annotationPropertyExpected
-     *        the annotation property expected
-     * @param expectedKeywords
-     *        the expected keywords
-     */
-    public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
-        boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
-        boolean individualNameExpected, boolean datatypeNameExpected, boolean annotationPropertyExpected,
-        @Nullable Set<String> expectedKeywords) {
-        currentToken = tokenSequence.iterator().next();
-        this.tokenSequence = tokenSequence;
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-        this.classNameExpected = classNameExpected;
-        this.objectPropertyNameExpected = objectPropertyNameExpected;
-        this.dataPropertyNameExpected = dataPropertyNameExpected;
-        this.individualNameExpected = individualNameExpected;
-        this.datatypeNameExpected = datatypeNameExpected;
-        this.annotationPropertyExpected = annotationPropertyExpected;
-        if (expectedKeywords != null) {
-            this.expectedKeywords.addAll(expectedKeywords);
-        }
-        this.startPos = startPos;
+  /**
+   * Instantiates a new parser exception.
+   *
+   * @param tokenSequence the token sequence
+   * @param startPos the start pos
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   * @param classNameExpected the class name expected
+   * @param objectPropertyNameExpected the object property name expected
+   * @param dataPropertyNameExpected the data property name expected
+   * @param individualNameExpected the individual name expected
+   * @param datatypeNameExpected the datatype name expected
+   * @param annotationPropertyExpected the annotation property expected
+   * @param expectedKeywords the expected keywords
+   */
+  public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
+      boolean classNameExpected, boolean objectPropertyNameExpected,
+      boolean dataPropertyNameExpected,
+      boolean individualNameExpected, boolean datatypeNameExpected,
+      boolean annotationPropertyExpected,
+      @Nullable Set<String> expectedKeywords) {
+    currentToken = tokenSequence.iterator().next();
+    this.tokenSequence = tokenSequence;
+    this.lineNumber = lineNumber;
+    this.columnNumber = columnNumber;
+    this.classNameExpected = classNameExpected;
+    this.objectPropertyNameExpected = objectPropertyNameExpected;
+    this.dataPropertyNameExpected = dataPropertyNameExpected;
+    this.individualNameExpected = individualNameExpected;
+    this.datatypeNameExpected = datatypeNameExpected;
+    this.annotationPropertyExpected = annotationPropertyExpected;
+    if (expectedKeywords != null) {
+      this.expectedKeywords.addAll(expectedKeywords);
     }
+    this.startPos = startPos;
+  }
 
-    /**
-     * Instantiates a new parser exception.
-     * 
-     * @param tokenSeqence
-     *        the token seqence
-     * @param startPos
-     *        the start pos
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     * @param classNameExpected
-     *        the class name expected
-     * @param objectPropertyNameExpected
-     *        the object property name expected
-     * @param dataPropertyNameExpected
-     *        the data property name expected
-     * @param individualNameExpected
-     *        the individual name expected
-     * @param datatypeNameExpected
-     *        the datatype name expected
-     * @param annotationPropertyExpected
-     *        the annotation property expected
-     * @param keywords
-     *        the keywords
-     */
-    public ParserException(List<String> tokenSeqence, int startPos, int lineNumber, int columnNumber,
-        boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
-        boolean individualNameExpected, boolean datatypeNameExpected, boolean annotationPropertyExpected,
-        String... keywords) {
-        this(tokenSeqence, startPos, lineNumber, columnNumber, classNameExpected, objectPropertyNameExpected,
-            dataPropertyNameExpected, individualNameExpected, datatypeNameExpected, annotationPropertyExpected,
-            CollectionFactory.createSet(keywords));
-    }
+  /**
+   * Instantiates a new parser exception.
+   *
+   * @param tokenSeqence the token seqence
+   * @param startPos the start pos
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   * @param classNameExpected the class name expected
+   * @param objectPropertyNameExpected the object property name expected
+   * @param dataPropertyNameExpected the data property name expected
+   * @param individualNameExpected the individual name expected
+   * @param datatypeNameExpected the datatype name expected
+   * @param annotationPropertyExpected the annotation property expected
+   * @param keywords the keywords
+   */
+  public ParserException(List<String> tokenSeqence, int startPos, int lineNumber, int columnNumber,
+      boolean classNameExpected, boolean objectPropertyNameExpected,
+      boolean dataPropertyNameExpected,
+      boolean individualNameExpected, boolean datatypeNameExpected,
+      boolean annotationPropertyExpected,
+      String... keywords) {
+    this(tokenSeqence, startPos, lineNumber, columnNumber, classNameExpected,
+        objectPropertyNameExpected,
+        dataPropertyNameExpected, individualNameExpected, datatypeNameExpected,
+        annotationPropertyExpected,
+        CollectionFactory.createSet(keywords));
+  }
 
-    /**
-     * Instantiates a new parser exception.
-     * 
-     * @param tokenSequence
-     *        the token sequence
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     * @param integerExpected
-     *        the integer expected
-     * @param startPos
-     *        the start pos
-     */
-    public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber, boolean integerExpected,
-        int startPos) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false,
-            new HashSet<String>());
-        this.integerExpected = integerExpected;
-    }
+  /**
+   * Instantiates a new parser exception.
+   *
+   * @param tokenSequence the token sequence
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   * @param integerExpected the integer expected
+   * @param startPos the start pos
+   */
+  public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber,
+      boolean integerExpected,
+      int startPos) {
+    this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false,
+        false,
+        new HashSet<String>());
+    this.integerExpected = integerExpected;
+  }
 
-    /**
-     * Instantiates a new parser exception.
-     * 
-     * @param tokenSequence
-     *        the token sequence
-     * @param startPos
-     *        the start pos
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
-     * @param keywords
-     *        the keywords
-     */
-    public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
-        String... keywords) {
-        this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false, false, keywords);
-    }
+  /**
+   * Instantiates a new parser exception.
+   *
+   * @param tokenSequence the token sequence
+   * @param startPos the start pos
+   * @param lineNumber the line number
+   * @param columnNumber the column number
+   * @param keywords the keywords
+   */
+  public ParserException(List<String> tokenSequence, int startPos, int lineNumber, int columnNumber,
+      String... keywords) {
+    this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false, false, false,
+        false, keywords);
+  }
 
-    /**
-     * @param delegate
-     *        delegate
-     */
-    public ParserException(ParserException delegate) {
-        this(delegate.tokenSequence, delegate.startPos, delegate.lineNumber, delegate.columnNumber,
-            delegate.ontologyNameExpected, delegate.classNameExpected, delegate.objectPropertyNameExpected,
-            delegate.dataPropertyNameExpected, delegate.individualNameExpected, delegate.datatypeNameExpected,
-            delegate.annotationPropertyExpected, delegate.integerExpected, delegate.expectedKeywords);
-    }
+  /**
+   * @param delegate delegate
+   */
+  public ParserException(ParserException delegate) {
+    this(delegate.tokenSequence, delegate.startPos, delegate.lineNumber, delegate.columnNumber,
+        delegate.ontologyNameExpected, delegate.classNameExpected,
+        delegate.objectPropertyNameExpected,
+        delegate.dataPropertyNameExpected, delegate.individualNameExpected,
+        delegate.datatypeNameExpected,
+        delegate.annotationPropertyExpected, delegate.integerExpected, delegate.expectedKeywords);
+  }
 
-    /**
-     * Gets the token sequence.
-     * 
-     * @return the token sequence
-     */
-    public List<String> getTokenSequence() {
-        return tokenSequence;
-    }
+  /**
+   * Gets the token sequence.
+   *
+   * @return the token sequence
+   */
+  public List<String> getTokenSequence() {
+    return tokenSequence;
+  }
 
-    /**
-     * Gets the start pos.
-     * 
-     * @return the start pos
-     */
-    public int getStartPos() {
-        return startPos;
-    }
+  /**
+   * Gets the start pos.
+   *
+   * @return the start pos
+   */
+  public int getStartPos() {
+    return startPos;
+  }
 
-    /**
-     * Checks if is class name expected.
-     * 
-     * @return true, if is class name expected
-     */
-    public boolean isClassNameExpected() {
-        return classNameExpected;
-    }
+  /**
+   * Checks if is class name expected.
+   *
+   * @return true, if is class name expected
+   */
+  public boolean isClassNameExpected() {
+    return classNameExpected;
+  }
 
-    /**
-     * Checks if is object property name expected.
-     * 
-     * @return true, if is object property name expected
-     */
-    public boolean isObjectPropertyNameExpected() {
-        return objectPropertyNameExpected;
-    }
+  /**
+   * Checks if is object property name expected.
+   *
+   * @return true, if is object property name expected
+   */
+  public boolean isObjectPropertyNameExpected() {
+    return objectPropertyNameExpected;
+  }
 
-    /**
-     * Checks if is data property name expected.
-     * 
-     * @return true, if is data property name expected
-     */
-    public boolean isDataPropertyNameExpected() {
-        return dataPropertyNameExpected;
-    }
+  /**
+   * Checks if is data property name expected.
+   *
+   * @return true, if is data property name expected
+   */
+  public boolean isDataPropertyNameExpected() {
+    return dataPropertyNameExpected;
+  }
 
-    /**
-     * Checks if is individual name expected.
-     * 
-     * @return true, if is individual name expected
-     */
-    public boolean isIndividualNameExpected() {
-        return individualNameExpected;
-    }
+  /**
+   * Checks if is individual name expected.
+   *
+   * @return true, if is individual name expected
+   */
+  public boolean isIndividualNameExpected() {
+    return individualNameExpected;
+  }
 
-    /**
-     * Checks if is datatype name expected.
-     * 
-     * @return true, if is datatype name expected
-     */
-    public boolean isDatatypeNameExpected() {
-        return datatypeNameExpected;
-    }
+  /**
+   * Checks if is datatype name expected.
+   *
+   * @return true, if is datatype name expected
+   */
+  public boolean isDatatypeNameExpected() {
+    return datatypeNameExpected;
+  }
 
-    /**
-     * Checks if is annotation property name expected.
-     * 
-     * @return true, if is annotation property name expected
-     */
-    public boolean isAnnotationPropertyNameExpected() {
-        return annotationPropertyExpected;
-    }
+  /**
+   * Checks if is annotation property name expected.
+   *
+   * @return true, if is annotation property name expected
+   */
+  public boolean isAnnotationPropertyNameExpected() {
+    return annotationPropertyExpected;
+  }
 
-    /**
-     * Checks if is ontology name expected.
-     * 
-     * @return true, if is ontology name expected
-     */
-    public boolean isOntologyNameExpected() {
-        return ontologyNameExpected;
-    }
+  /**
+   * Checks if is ontology name expected.
+   *
+   * @return true, if is ontology name expected
+   */
+  public boolean isOntologyNameExpected() {
+    return ontologyNameExpected;
+  }
 
-    /**
-     * Gets the expected keywords.
-     * 
-     * @return the expected keywords
-     */
-    public Set<String> getExpectedKeywords() {
-        return expectedKeywords;
-    }
+  /**
+   * Gets the expected keywords.
+   *
+   * @return the expected keywords
+   */
+  public Set<String> getExpectedKeywords() {
+    return expectedKeywords;
+  }
 
-    /**
-     * Gets the current token.
-     * 
-     * @return the current token
-     */
-    public String getCurrentToken() {
-        return currentToken;
-    }
+  /**
+   * Gets the current token.
+   *
+   * @return the current token
+   */
+  public String getCurrentToken() {
+    return currentToken;
+  }
 
-    /*
-     * (non-Javadoc)
-     * @see org.semanticweb.owlapi.io.OWLParserException#getLineNumber()
-     */
-    @Override
-    public int getLineNumber() {
-        return lineNumber;
-    }
+  /*
+   * (non-Javadoc)
+   * @see org.semanticweb.owlapi.io.OWLParserException#getLineNumber()
+   */
+  @Override
+  public int getLineNumber() {
+    return lineNumber;
+  }
 
-    @Override
-    public int getColumnNumber() {
-        return columnNumber;
-    }
+  @Override
+  public int getColumnNumber() {
+    return columnNumber;
+  }
 
-    /**
-     * Checks if is integer expected.
-     * 
-     * @return true, if is integer expected
-     */
-    public boolean isIntegerExpected() {
-        return integerExpected;
-    }
+  /**
+   * Checks if is integer expected.
+   *
+   * @return true, if is integer expected
+   */
+  public boolean isIntegerExpected() {
+    return integerExpected;
+  }
 
-    @Override
-    public String getMessage() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Encountered ");
-        sb.append(currentToken);
-        sb.append(" at line ");
-        sb.append(lineNumber);
-        sb.append(" column ");
-        sb.append(columnNumber);
-        sb.append(". Expected one of:\n");
-        if (ontologyNameExpected) {
-            sb.append("\tOntology name\n");
-        }
-        if (classNameExpected) {
-            sb.append("\tClass name\n");
-        }
-        if (objectPropertyNameExpected) {
-            sb.append("\tObject property name\n");
-        }
-        if (dataPropertyNameExpected) {
-            sb.append("\tData property name\n");
-        }
-        if (individualNameExpected) {
-            sb.append("\tIndividual name\n");
-        }
-        if (datatypeNameExpected) {
-            sb.append("\tDatatype name\n");
-        }
-        if (annotationPropertyExpected) {
-            sb.append("\tAnnotation property\n");
-        }
-        if (integerExpected) {
-            sb.append("\tInteger\n");
-        }
-        expectedKeywords.forEach(kw -> sb.append('\t').append(kw).append('\n'));
-        return sb.toString();
+  @Override
+  public String getMessage() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Encountered ");
+    sb.append(currentToken);
+    sb.append(" at line ");
+    sb.append(lineNumber);
+    sb.append(" column ");
+    sb.append(columnNumber);
+    sb.append(". Expected one of:\n");
+    if (ontologyNameExpected) {
+      sb.append("\tOntology name\n");
     }
+    if (classNameExpected) {
+      sb.append("\tClass name\n");
+    }
+    if (objectPropertyNameExpected) {
+      sb.append("\tObject property name\n");
+    }
+    if (dataPropertyNameExpected) {
+      sb.append("\tData property name\n");
+    }
+    if (individualNameExpected) {
+      sb.append("\tIndividual name\n");
+    }
+    if (datatypeNameExpected) {
+      sb.append("\tDatatype name\n");
+    }
+    if (annotationPropertyExpected) {
+      sb.append("\tAnnotation property\n");
+    }
+    if (integerExpected) {
+      sb.append("\tInteger\n");
+    }
+    expectedKeywords.forEach(kw -> sb.append('\t').append(kw).append('\n'));
+    return sb.toString();
+  }
 }

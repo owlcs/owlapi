@@ -16,27 +16,26 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
 public abstract class AbstractFileRoundTrippingTestCase extends
     AbstractRoundTrippingTestCase {
 
-    protected String fileName;
+  protected String fileName;
 
-    public AbstractFileRoundTrippingTestCase(String f) {
-        fileName = f;
-    }
+  public AbstractFileRoundTrippingTestCase(String f) {
+    fileName = f;
+  }
 
-    @Override
-    protected OWLOntology createOntology() {
-        OWLOntology o = ontologyFromClasspathFile(fileName);
-        if (logger.isTraceEnabled()) {
-            logger.trace("ontology as parsed from input file:");
-            o.axioms().forEach(ax -> logger.trace(ax.toString()));
-        }
-        return o;
+  @Override
+  protected OWLOntology createOntology() {
+    OWLOntology o = ontologyFromClasspathFile(fileName);
+    if (logger.isTraceEnabled()) {
+      logger.trace("ontology as parsed from input file:");
+      o.axioms().forEach(ax -> logger.trace(ax.toString()));
     }
+    return o;
+  }
 }

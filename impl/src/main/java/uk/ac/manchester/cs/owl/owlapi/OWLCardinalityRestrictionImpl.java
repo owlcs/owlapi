@@ -18,30 +18,29 @@ import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <F> filler type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <F>
- *        filler type
  */
-public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends OWLAnonymousClassExpressionImpl
+public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends
+    OWLAnonymousClassExpressionImpl
     implements OWLCardinalityRestriction<F> {
 
-    private final int cardinality;
-    private final F filler;
+  private final int cardinality;
+  private final F filler;
 
-    protected OWLCardinalityRestrictionImpl(int cardinality, F filler) {
-        this.cardinality = cardinality;
-        this.filler = checkNotNull(filler, "filler cannot be null");
-    }
+  protected OWLCardinalityRestrictionImpl(int cardinality, F filler) {
+    this.cardinality = cardinality;
+    this.filler = checkNotNull(filler, "filler cannot be null");
+  }
 
-    @Override
-    public int getCardinality() {
-        return cardinality;
-    }
+  @Override
+  public int getCardinality() {
+    return cardinality;
+  }
 
-    @Override
-    public F getFiller() {
-        return filler;
-    }
+  @Override
+  public F getFiller() {
+    return filler;
+  }
 }

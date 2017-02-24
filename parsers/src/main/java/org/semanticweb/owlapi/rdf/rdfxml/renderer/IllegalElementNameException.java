@@ -17,26 +17,26 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /**
  * An exception which indicates that a caller tried to write an XML Element with
  * a name that is not a QName.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class IllegalElementNameException extends OWLRuntimeException {
 
-    private final String elementName;
+  private final String elementName;
 
-    /**
-     * @param elementName
-     *        elementName
-     */
-    public IllegalElementNameException(String elementName) {
-        super("Illegal Element Name (Element Is Not A QName): " + elementName);
-        this.elementName = elementName;
-    }
+  /**
+   * @param elementName elementName
+   */
+  public IllegalElementNameException(String elementName) {
+    super("Illegal Element Name (Element Is Not A QName): " + elementName);
+    this.elementName = elementName;
+  }
 
-    /** @return element name */
-    public String getElementName() {
-        return elementName;
-    }
+  /**
+   * @return element name
+   */
+  public String getElementName() {
+    return elementName;
+  }
 }

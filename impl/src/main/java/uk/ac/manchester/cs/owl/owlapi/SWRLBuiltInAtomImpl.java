@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
@@ -25,42 +24,39 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
 
-    private final List<SWRLDArgument> args;
+  private final List<SWRLDArgument> args;
 
-    /**
-     * @param predicate
-     *        predicate
-     * @param args
-     *        builtin argument
-     */
-    public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
-        super(predicate);
-        this.args = new ArrayList<>(checkNotNull(args, "args cannot be null"));
-    }
+  /**
+   * @param predicate predicate
+   * @param args builtin argument
+   */
+  public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
+    super(predicate);
+    this.args = new ArrayList<>(checkNotNull(args, "args cannot be null"));
+  }
 
-    @Override
-    public IRI getPredicate() {
-        return (IRI) super.getPredicate();
-    }
+  @Override
+  public IRI getPredicate() {
+    return (IRI) super.getPredicate();
+  }
 
-    @Override
-    public boolean isCoreBuiltIn() {
-        return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate()) != null;
-    }
+  @Override
+  public boolean isCoreBuiltIn() {
+    return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate()) != null;
+  }
 
-    @Override
-    public Stream<SWRLDArgument> arguments() {
-        return args.stream();
-    }
+  @Override
+  public Stream<SWRLDArgument> arguments() {
+    return args.stream();
+  }
 
-    @Override
-    public Stream<SWRLArgument> allArguments() {
-        return args.stream().map(x -> x);
-    }
+  @Override
+  public Stream<SWRLArgument> allArguments() {
+    return args.stream().map(x -> x);
+  }
 }

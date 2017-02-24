@@ -45,8 +45,10 @@ import org.semanticweb.owlapi.formats.NQuadsDocumentFormatFactory;
 @HasPriority(8)
 public class RioNQuadsParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
-    public RioNQuadsParserFactory() {
-        super(new NQuadsDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioNQuadsParserFactory() {
+    super(new NQuadsDocumentFormatFactory());
+  }
 }

@@ -19,8 +19,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  */
 public class KRSS2DocumentFormat extends OWLDocumentFormatImpl {
 
-    @Override
-    public String getKey() {
-        return "KRSS2 Syntax";
-    }
+  @Override
+  public String getKey() {
+    return "KRSS2 Syntax";
+  }
 }

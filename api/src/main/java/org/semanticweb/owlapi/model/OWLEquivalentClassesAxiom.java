@@ -22,102 +22,96 @@ import java.util.stream.Stream;
  * Represents an
  * <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Classes" >
  * EquivalentClasses</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
 
-    @Override
-        OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
+  @Override
+  OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
 
-    @Override
-    default int hashIndex() {
-        return 53;
-    }
+  @Override
+  default int hashIndex() {
+    return 53;
+  }
 
-    /**
-     * Determines if this equivalent classes axiom contains at least one named
-     * class (excluding owl:Thing or owl:Nothing).
-     * 
-     * @return {@code true} if the axiom contains at least one named class
-     *         otherwise {@code false}. Note that this method will return
-     *         {@code false} if the only named classes are owl:Thing or
-     *         owl:Nothing.
-     */
-    boolean containsNamedEquivalentClass();
+  /**
+   * Determines if this equivalent classes axiom contains at least one named
+   * class (excluding owl:Thing or owl:Nothing).
+   *
+   * @return {@code true} if the axiom contains at least one named class otherwise {@code false}.
+   * Note that this method will return {@code false} if the only named classes are owl:Thing or
+   * owl:Nothing.
+   */
+  boolean containsNamedEquivalentClass();
 
-    /**
-     * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in
-     * this equivalent classes axiom.
-     * 
-     * @return A set of classes that represents the named classes that are
-     *         specified to be equivalent to some other class (expression),
-     *         excluding the built in classes owl:Thing and owl:Nothing
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLClass> getNamedClasses() {
-        return asSet(namedClasses());
-    }
+  /**
+   * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in
+   * this equivalent classes axiom.
+   *
+   * @return A set of classes that represents the named classes that are specified to be equivalent
+   * to some other class (expression), excluding the built in classes owl:Thing and owl:Nothing
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLClass> getNamedClasses() {
+    return asSet(namedClasses());
+  }
 
-    /**
-     * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in
-     * this equivalent classes axiom.
-     * 
-     * @return A set of classes that represents the named classes that are
-     *         specified to be equivalent to some other class (expression),
-     *         excluding the built in classes owl:Thing and owl:Nothing
-     */
-    Stream<OWLClass> namedClasses();
+  /**
+   * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in
+   * this equivalent classes axiom.
+   *
+   * @return A set of classes that represents the named classes that are specified to be equivalent
+   * to some other class (expression), excluding the built in classes owl:Thing and owl:Nothing
+   */
+  Stream<OWLClass> namedClasses();
 
-    /**
-     * Determines if this class axiom makes a class expression equivalent to
-     * nothing.
-     * 
-     * @return {@code true} if this axiom contains owl:Nothing as an equivalent
-     *         class.
-     */
-    boolean containsOWLNothing();
+  /**
+   * Determines if this class axiom makes a class expression equivalent to
+   * nothing.
+   *
+   * @return {@code true} if this axiom contains owl:Nothing as an equivalent class.
+   */
+  boolean containsOWLNothing();
 
-    /**
-     * Determines if this class axiom makes a class expression equivalent to
-     * thing.
-     * 
-     * @return {@code true} if this axioms contains owl:Thing as an equivalent
-     *         class.
-     */
-    boolean containsOWLThing();
+  /**
+   * Determines if this class axiom makes a class expression equivalent to
+   * thing.
+   *
+   * @return {@code true} if this axioms contains owl:Thing as an equivalent class.
+   */
+  boolean containsOWLThing();
 
-    @Override
-        Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms();
+  @Override
+  Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
-    @Override
-        Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
+  @Override
+  Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLAxiomVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default AxiomType<?> getAxiomType() {
-        return AxiomType.EQUIVALENT_CLASSES;
-    }
+  @Override
+  default AxiomType<?> getAxiomType() {
+    return AxiomType.EQUIVALENT_CLASSES;
+  }
 }

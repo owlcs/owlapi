@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
-
 import javax.inject.Provider;
-
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -33,9 +33,6 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
-
 /**
  * OWLAPI module for dynamic loading - uses ServiceLoader to add extra bindings
  * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper.
@@ -43,76 +40,75 @@ import com.google.inject.multibindings.Multibinder;
 @OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
 
-    private static Logger logger = LoggerFactory.getLogger(OWLAPIServiceLoaderModule.class);
+  private static Logger logger = LoggerFactory.getLogger(OWLAPIServiceLoaderModule.class);
 
-    @Override
-    protected void configure() {
-        loadInstancesFromServiceLoader(OWLParser.class);
-        loadInstancesFromServiceLoader(OWLStorer.class);
-        loadInstancesFromServiceLoader(OWLOntologyFactory.class);
-        loadInstancesFromServiceLoader(OWLOntologyIRIMapper.class);
-        loadFactories(OWLDocumentFormatFactory.class, OWLDocumentFormat.class);
-        loadFactories(OWLParserFactory.class, OWLParser.class);
-        loadFactories(OWLStorerFactory.class, OWLStorer.class);
-        loadOntologyManagerFactory();
-    }
+  @Override
+  protected void configure() {
+    loadInstancesFromServiceLoader(OWLParser.class);
+    loadInstancesFromServiceLoader(OWLStorer.class);
+    loadInstancesFromServiceLoader(OWLOntologyFactory.class);
+    loadInstancesFromServiceLoader(OWLOntologyIRIMapper.class);
+    loadFactories(OWLDocumentFormatFactory.class, OWLDocumentFormat.class);
+    loadFactories(OWLParserFactory.class, OWLParser.class);
+    loadFactories(OWLStorerFactory.class, OWLStorer.class);
+    loadOntologyManagerFactory();
+  }
 
-    protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
-        try {
-            Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            load(type).forEach(o -> binder.addBinding().toInstance(o));
-        } catch (ServiceConfigurationError e) {
-            throw new OWLRuntimeException("Injection failed for " + type, e);
-        }
+  protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
+    try {
+      Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
+      load(type).forEach(o -> binder.addBinding().toInstance(o));
+    } catch (ServiceConfigurationError e) {
+      throw new OWLRuntimeException("Injection failed for " + type, e);
     }
+  }
 
-    /**
-     * @param type
-     *        type to load
-     * @param <T>
-     *        return type
-     * @return itrable over T implementations
-     */
-    protected <T> Iterable<T> load(Class<T> type) {
-        // J2EE compatible search
-        Collection<T> result = new ArrayList<>();
-        try {
-            ServiceLoader.load(type).forEach(result::add);
-        } catch (ServiceConfigurationError e) {
-            logger.debug("ServiceLoading: ", e);
-        }
-        // in OSGi, the context class loader is likely null.
-        // This would trigger the use of the system class loader, which would
-        // not see the OWLAPI jar, nor any other jar containing implementations.
-        // In that case, use this class classloader to load, at a minimum, the
-        // services provided by the OWLAPI jar itself.
-        if (result.isEmpty()) {
-            ClassLoader classLoader = getClass().getClassLoader();
-            ServiceLoader.load(type, classLoader).forEach(result::add);
-        }
-        return result;
+  /**
+   * @param type type to load
+   * @param <T> return type
+   * @return itrable over T implementations
+   */
+  protected <T> Iterable<T> load(Class<T> type) {
+    // J2EE compatible search
+    Collection<T> result = new ArrayList<>();
+    try {
+      ServiceLoader.load(type).forEach(result::add);
+    } catch (ServiceConfigurationError e) {
+      logger.debug("ServiceLoading: ", e);
     }
+    // in OSGi, the context class loader is likely null.
+    // This would trigger the use of the system class loader, which would
+    // not see the OWLAPI jar, nor any other jar containing implementations.
+    // In that case, use this class classloader to load, at a minimum, the
+    // services provided by the OWLAPI jar itself.
+    if (result.isEmpty()) {
+      ClassLoader classLoader = getClass().getClassLoader();
+      ServiceLoader.load(type, classLoader).forEach(result::add);
+    }
+    return result;
+  }
 
-    protected <T, F extends Provider<T>> void loadFactories(Class<F> factory, Class<T> type) {
-        try {
-            Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(), factory);
-            Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            load(factory).forEach(o -> {
-                factoryBinder.addBinding().toInstance(o);
-                binder.addBinding().toInstance(o.get());
-            });
-        } catch (ServiceConfigurationError e) {
-            throw new OWLRuntimeException("Injection failed for factory: " + factory + " type: " + type, e);
-        }
+  protected <T, F extends Provider<T>> void loadFactories(Class<F> factory, Class<T> type) {
+    try {
+      Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(), factory);
+      Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
+      load(factory).forEach(o -> {
+        factoryBinder.addBinding().toInstance(o);
+        binder.addBinding().toInstance(o.get());
+      });
+    } catch (ServiceConfigurationError e) {
+      throw new OWLRuntimeException("Injection failed for factory: " + factory + " type: " + type,
+          e);
     }
+  }
 
-    protected void loadOntologyManagerFactory() {
-        try {
-            Multibinder<OWLOntologyManagerFactory> binder = Multibinder.newSetBinder(binder(),
-                OWLOntologyManagerFactory.class);
-            load(OWLOntologyManagerFactory.class).forEach(o -> binder.addBinding().toInstance(o));
-        } catch (ServiceConfigurationError e) {
-            throw new OWLRuntimeException("Injection failed for OWLOntologyManager factory", e);
-        }
+  protected void loadOntologyManagerFactory() {
+    try {
+      Multibinder<OWLOntologyManagerFactory> binder = Multibinder.newSetBinder(binder(),
+          OWLOntologyManagerFactory.class);
+      load(OWLOntologyManagerFactory.class).forEach(o -> binder.addBinding().toInstance(o));
+    } catch (ServiceConfigurationError e) {
+      throw new OWLRuntimeException("Injection failed for OWLOntologyManager factory", e);
     }
+  }
 }

@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -32,70 +30,69 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 /**
  * An entity checker that maps from string to entities using a bidirectional
  * short form provider.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ShortFormEntityChecker implements OWLEntityChecker {
 
-    private final BidirectionalShortFormProvider shortFormProvider;
+  private final BidirectionalShortFormProvider shortFormProvider;
 
-    /**
-     * Creates a short form entity checker, which uses the specified
-     * bidirectional short form provider to map entity name strings to entities.
-     * 
-     * @param shortFormProvider
-     *        The BidirectionalShortFormProvider that should be used to perform
-     *        the required mapping.
-     */
-    public ShortFormEntityChecker(BidirectionalShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
-    }
+  /**
+   * Creates a short form entity checker, which uses the specified
+   * bidirectional short form provider to map entity name strings to entities.
+   *
+   * @param shortFormProvider The BidirectionalShortFormProvider that should be used to perform the
+   * required mapping.
+   */
+  public ShortFormEntityChecker(BidirectionalShortFormProvider shortFormProvider) {
+    this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+  }
 
-    @Override
-    @Nullable
-    public OWLClass getOWLClass(String name) {
-        return find(name, OWLEntity::isOWLClass, OWLEntity::asOWLClass);
-    }
+  @Override
+  @Nullable
+  public OWLClass getOWLClass(String name) {
+    return find(name, OWLEntity::isOWLClass, OWLEntity::asOWLClass);
+  }
 
-    @Override
-    @Nullable
-    public OWLDataProperty getOWLDataProperty(String name) {
-        return find(name, OWLEntity::isOWLDataProperty, OWLEntity::asOWLDataProperty);
-    }
+  @Override
+  @Nullable
+  public OWLDataProperty getOWLDataProperty(String name) {
+    return find(name, OWLEntity::isOWLDataProperty, OWLEntity::asOWLDataProperty);
+  }
 
-    @Override
-    @Nullable
-    public OWLDatatype getOWLDatatype(String name) {
-        return find(name, OWLEntity::isOWLDatatype, OWLEntity::asOWLDatatype);
-    }
+  @Override
+  @Nullable
+  public OWLDatatype getOWLDatatype(String name) {
+    return find(name, OWLEntity::isOWLDatatype, OWLEntity::asOWLDatatype);
+  }
 
-    @Override
-    @Nullable
-    public OWLNamedIndividual getOWLIndividual(String name) {
-        return find(name, OWLEntity::isOWLNamedIndividual, OWLEntity::asOWLNamedIndividual);
-    }
+  @Override
+  @Nullable
+  public OWLNamedIndividual getOWLIndividual(String name) {
+    return find(name, OWLEntity::isOWLNamedIndividual, OWLEntity::asOWLNamedIndividual);
+  }
 
-    @Override
-    @Nullable
-    public OWLObjectProperty getOWLObjectProperty(String name) {
-        return find(name, OWLEntity::isOWLObjectProperty, OWLEntity::asOWLObjectProperty);
-    }
+  @Override
+  @Nullable
+  public OWLObjectProperty getOWLObjectProperty(String name) {
+    return find(name, OWLEntity::isOWLObjectProperty, OWLEntity::asOWLObjectProperty);
+  }
 
-    @Override
-    @Nullable
-    public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
-        return find(name, OWLEntity::isOWLAnnotationProperty, OWLEntity::asOWLAnnotationProperty);
-    }
+  @Override
+  @Nullable
+  public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+    return find(name, OWLEntity::isOWLAnnotationProperty, OWLEntity::asOWLAnnotationProperty);
+  }
 
-    @Nullable
-    protected <T extends OWLEntity> T find(String name, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
-        checkNotNull(name, "name cannot be null");
-        Optional<OWLEntity> findFirst = shortFormProvider.entities(name).filter(p).findFirst();
-        if (findFirst.isPresent()) {
-            return f.apply(findFirst.get());
-        }
-        return null;
+  @Nullable
+  protected <T extends OWLEntity> T find(String name, Predicate<OWLEntity> p,
+      Function<OWLEntity, T> f) {
+    checkNotNull(name, "name cannot be null");
+    Optional<OWLEntity> findFirst = shortFormProvider.entities(name).filter(p).findFirst();
+    if (findFirst.isPresent()) {
+      return f.apply(findFirst.get());
     }
+    return null;
+  }
 }

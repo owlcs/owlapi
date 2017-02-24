@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -23,26 +22,27 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class InferredEquivalentObjectPropertyAxiomGenerator extends
     InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
 
-    @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-        Set<OWLEquivalentObjectPropertiesAxiom> result) {
-        Set<OWLObjectPropertyExpression> equivProps = asUnorderedSet(reasoner.getEquivalentObjectProperties(entity)
+  @Override
+  protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
+      OWLDataFactory dataFactory,
+      Set<OWLEquivalentObjectPropertiesAxiom> result) {
+    Set<OWLObjectPropertyExpression> equivProps = asUnorderedSet(
+        reasoner.getEquivalentObjectProperties(entity)
             .entities());
-        equivProps.add(entity);
-        if (equivProps.size() > 1) {
-            result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
-        }
+    equivProps.add(entity);
+    if (equivProps.size() > 1) {
+      result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
     }
+  }
 
-    @Override
-    public String getLabel() {
-        return "Equivalent object properties";
-    }
+  @Override
+  public String getLabel() {
+    return "Equivalent object properties";
+  }
 }

@@ -13,28 +13,23 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
-
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @FunctionalInterface
 public interface OWLRenderer {
 
-    /**
-     * Renders the specified ontology to a concrete representation which should
-     * be written to the specified output stream.
-     * 
-     * @param ontology
-     *        The ontology
-     * @param os
-     *        The OutputStream
-     * @throws OWLException
-     *         for any exception raised
-     */
-    void render(OWLOntology ontology, OutputStream os) throws OWLException;
+  /**
+   * Renders the specified ontology to a concrete representation which should
+   * be written to the specified output stream.
+   *
+   * @param ontology The ontology
+   * @param os The OutputStream
+   * @throws OWLException for any exception raised
+   */
+  void render(OWLOntology ontology, OutputStream os) throws OWLException;
 }

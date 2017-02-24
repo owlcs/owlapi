@@ -13,14 +13,13 @@
 package org.semanticweb.owlapi.formats;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLDocumentFormat extends AbstractRDFPrefixDocumentFormat {
 
-    @Override
-    public String getKey() {
-        return "RDF/XML Syntax";
-    }
+  @Override
+  public String getKey() {
+    return "RDF/XML Syntax";
+  }
 }

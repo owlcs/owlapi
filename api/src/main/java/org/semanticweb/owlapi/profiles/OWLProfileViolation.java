@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -33,107 +31,103 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 /**
  * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
  * part of the axiom that violates the profile rather than the complete axiom.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 4.0.0
  */
 public abstract class OWLProfileViolation {
 
-    protected final OWLOntology ontology;
-    protected final OWLDataFactory df;
-    @Nullable protected final OWLAxiom axiom;
-    @Nullable protected final Object expression;
+  protected final OWLOntology ontology;
+  protected final OWLDataFactory df;
+  @Nullable
+  protected final OWLAxiom axiom;
+  @Nullable
+  protected final Object expression;
 
-    /**
-     * @param ontology
-     *        the ontology with the violation
-     * @param axiom
-     *        the axiom with the violation
-     * @param o
-     *        violation expression
-     */
-    public OWLProfileViolation(OWLOntology ontology, @Nullable OWLAxiom axiom, @Nullable Object o) {
-        this.axiom = axiom;
-        this.ontology = ontology;
-        df = ontology.getOWLOntologyManager().getOWLDataFactory();
-        expression = o;
+  /**
+   * @param ontology the ontology with the violation
+   * @param axiom the axiom with the violation
+   * @param o violation expression
+   */
+  public OWLProfileViolation(OWLOntology ontology, @Nullable OWLAxiom axiom, @Nullable Object o) {
+    this.axiom = axiom;
+    this.ontology = ontology;
+    df = ontology.getOWLOntologyManager().getOWLDataFactory();
+    expression = o;
+  }
+
+  /**
+   * @return ontology id
+   */
+  public OWLOntologyID getOntologyID() {
+    return ontology.getOntologyID();
+  }
+
+  /**
+   * @return ontology
+   */
+  public OWLOntology getOntology() {
+    return ontology;
+  }
+
+  /**
+   * @return the expression object of this violation
+   */
+  public Object getExpression() {
+    return verifyNotNull(expression);
+  }
+
+  /**
+   * @return the offending axiom
+   */
+  public OWLAxiom getAxiom() {
+    return verifyNotNull(axiom);
+  }
+
+  /**
+   * @return a set of changes to fix the violation - it might be just an axiom removal, or a
+   * rewrite, or addition of other needed axioms.
+   */
+  public List<OWLOntologyChange> repair() {
+    // default fix is to drop the axiom
+    if (axiom != null) {
+      return list(new RemoveAxiom(ontology, getAxiom()));
     }
+    return Collections.emptyList();
+  }
 
-    /**
-     * @return ontology id
-     */
-    public OWLOntologyID getOntologyID() {
-        return ontology.getOntologyID();
-    }
+  protected AddAxiom addDeclaration(OWLEntity e) {
+    return new AddAxiom(ontology, df.getOWLDeclarationAxiom(e));
+  }
 
-    /**
-     * @return ontology
-     */
-    public OWLOntology getOntology() {
-        return ontology;
-    }
+  /**
+   * Visitor accept method.
+   *
+   * @param visitor visitor
+   */
+  public abstract void accept(OWLProfileViolationVisitor visitor);
 
-    /**
-     * @return the expression object of this violation
-     */
-    public Object getExpression() {
-        return verifyNotNull(expression);
-    }
+  /**
+   * @param visitor visitor
+   * @param <O> visitor return type
+   * @return visitor return value
+   */
+  public abstract <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor);
 
-    /**
-     * @return the offending axiom
-     */
-    public OWLAxiom getAxiom() {
-        return verifyNotNull(axiom);
-    }
+  protected String toString(String template) {
+    return String.format(template + " [%s in %s]", axiom, ontology.getOntologyID());
+  }
 
-    /**
-     * @return a set of changes to fix the violation - it might be just an axiom
-     *         removal, or a rewrite, or addition of other needed axioms.
-     */
-    public List<OWLOntologyChange> repair() {
-        // default fix is to drop the axiom
-        if (axiom != null) {
-            return list(new RemoveAxiom(ontology, getAxiom()));
-        }
-        return Collections.emptyList();
-    }
+  protected String toString(String template, Object object) {
+    return String.format(template + " [%s in %s]", object, axiom, ontology.getOntologyID());
+  }
 
-    protected AddAxiom addDeclaration(OWLEntity e) {
-        return new AddAxiom(ontology, df.getOWLDeclarationAxiom(e));
-    }
+  protected String toString(String template, Object object1, Object object2) {
+    return String
+        .format(template + " [%s in %s]", object1, object2, axiom, ontology.getOntologyID());
+  }
 
-    /**
-     * Visitor accept method.
-     * 
-     * @param visitor
-     *        visitor
-     */
-    public abstract void accept(OWLProfileViolationVisitor visitor);
-
-    /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
-     * @return visitor return value
-     */
-    public abstract <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor);
-
-    protected String toString(String template) {
-        return String.format(template + " [%s in %s]", axiom, ontology.getOntologyID());
-    }
-
-    protected String toString(String template, Object object) {
-        return String.format(template + " [%s in %s]", object, axiom, ontology.getOntologyID());
-    }
-
-    protected String toString(String template, Object object1, Object object2) {
-        return String.format(template + " [%s in %s]", object1, object2, axiom, ontology.getOntologyID());
-    }
-
-    protected List<OWLOntologyChange> list(OWLOntologyChange... changes) {
-        return CollectionFactory.list(changes);
-    }
+  protected List<OWLOntologyChange> list(OWLOntologyChange... changes) {
+    return CollectionFactory.list(changes);
+  }
 }

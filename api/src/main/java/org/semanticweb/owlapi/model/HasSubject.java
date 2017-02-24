@@ -13,19 +13,17 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @param <T> subject type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
- * @param <T>
- *        subject type
  */
 @FunctionalInterface
 public interface HasSubject<T extends OWLObject> {
 
-    /**
-     * Gets the subject of this object.
-     * 
-     * @return The subject
-     */
-    T getSubject();
+  /**
+   * Gets the subject of this object.
+   *
+   * @return The subject
+   */
+  T getSubject();
 }

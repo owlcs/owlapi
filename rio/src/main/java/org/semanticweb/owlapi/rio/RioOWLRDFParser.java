@@ -41,100 +41,98 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.helpers.AbstractRDFParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
  * s.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public class RioOWLRDFParser extends AbstractRDFParser {
 
-    private final OWLAPIRDFFormat owlFormat;
-    private final Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<>();
+  private final OWLAPIRDFFormat owlFormat;
+  private final Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<>();
 
-    /**
-     * @param owlFormat
-     *        OWL format
-     */
-    public RioOWLRDFParser(OWLAPIRDFFormat owlFormat) {
-        this.owlFormat = owlFormat;
-    }
+  /**
+   * @param owlFormat OWL format
+   */
+  public RioOWLRDFParser(OWLAPIRDFFormat owlFormat) {
+    this.owlFormat = owlFormat;
+  }
 
-    /**
-     * @param owlFormat
-     *        OWL format
-     * @param valueFactory
-     *        value factory
-     */
-    public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {
-        super(valueFactory);
-        this.owlFormat = owlFormat;
-    }
+  /**
+   * @param owlFormat OWL format
+   * @param valueFactory value factory
+   */
+  public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {
+    super(valueFactory);
+    this.owlFormat = owlFormat;
+  }
 
-    /**
-     * @param factories
-     *        factories for ontology managers. This method is used for Guice
-     *        injection.
-     */
-    @Inject
-    public void setOntologyManagerFactories(Set<OWLOntologyManagerFactory> factories) {
-        ontologyManagerFactories.clear();
-        ontologyManagerFactories.addAll(factories);
-    }
+  /**
+   * @param factories factories for ontology managers. This method is used for Guice injection.
+   */
+  @Inject
+  public void setOntologyManagerFactories(Set<OWLOntologyManagerFactory> factories) {
+    ontologyManagerFactories.clear();
+    ontologyManagerFactories.addAll(factories);
+  }
 
-    @Override
-    public OWLAPIRDFFormat getRDFFormat() {
-        return owlFormat;
-    }
+  @Override
+  public OWLAPIRDFFormat getRDFFormat() {
+    return owlFormat;
+  }
 
-    @Override
-    public void parse(@Nullable InputStream in, @Nullable String baseURI) {
-        OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        String mime = getRDFFormat().getDefaultMIMEType();
-        IRI iri = IRI.create(checkNotNull(baseURI));
-        render(new StreamDocumentSource(checkNotNull(in), iri, nextFormat, mime));
-    }
+  @Override
+  public void parse(@Nullable InputStream in, @Nullable String baseURI) {
+    OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
+    String mime = getRDFFormat().getDefaultMIMEType();
+    IRI iri = IRI.create(checkNotNull(baseURI));
+    render(new StreamDocumentSource(checkNotNull(in), iri, nextFormat, mime));
+  }
 
-    /**
-     * @param source
-     *        the ontology source to parse
-     */
-    void render(OWLOntologyDocumentSource source) {
-        if (ontologyManagerFactories.isEmpty()) {
-            throw new OWLRuntimeException("No ontology manager factories available, parsing is impossible");
-        }
-        // it is expected that only one implementation of
-        // OWLOntologyManagerFactory will be available, but if there is more
-        // than one, no harm done
-        try {
-            for (OWLOntologyManagerFactory f : ontologyManagerFactories) {
-                OWLOntology ontology = f.get().loadOntologyFromOntologyDocument(source);
-                new RioRenderer(ontology, getRDFHandler(), getRDFFormat().getOWLFormat()).render();
-                return;
-            }
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
-        }
+  /**
+   * @param source the ontology source to parse
+   */
+  void render(OWLOntologyDocumentSource source) {
+    if (ontologyManagerFactories.isEmpty()) {
+      throw new OWLRuntimeException(
+          "No ontology manager factories available, parsing is impossible");
     }
+    // it is expected that only one implementation of
+    // OWLOntologyManagerFactory will be available, but if there is more
+    // than one, no harm done
+    try {
+      for (OWLOntologyManagerFactory f : ontologyManagerFactories) {
+        OWLOntology ontology = f.get().loadOntologyFromOntologyDocument(source);
+        new RioRenderer(ontology, getRDFHandler(), getRDFFormat().getOWLFormat()).render();
+        return;
+      }
+    } catch (OWLOntologyCreationException e) {
+      throw new OWLRuntimeException(e);
+    }
+  }
 
-    @Override
-    public void parse(@Nullable Reader reader, @Nullable String baseURI) {
-        OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        String mime = getRDFFormat().getDefaultMIMEType();
-        IRI iri = IRI.create(checkNotNull(baseURI));
-        render(new ReaderDocumentSource(checkNotNull(reader), iri, nextFormat, mime));
-    }
+  @Override
+  public void parse(@Nullable Reader reader, @Nullable String baseURI) {
+    OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
+    String mime = getRDFFormat().getDefaultMIMEType();
+    IRI iri = IRI.create(checkNotNull(baseURI));
+    render(new ReaderDocumentSource(checkNotNull(reader), iri, nextFormat, mime));
+  }
 }

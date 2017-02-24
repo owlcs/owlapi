@@ -19,39 +19,37 @@ import java.util.stream.Stream;
 
 /**
  * An interface to objects that provide an imports closure of themselves.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 @FunctionalInterface
 public interface HasImportsClosure {
 
-    /**
-     * Gets the set of <em>loaded</em> ontologies that this ontology is related
-     * to via the <em>reflexive transitive closure</em> of the directlyImports
-     * relation as defined in Section 3.4 of the OWL 2 Structural Specification.
-     * For example, if this ontology imports ontology B, and ontology B imports
-     * ontology C, then this method will return the set consisting of this
-     * ontology, ontology B and ontology C.
-     * 
-     * @return The set of ontologies in the reflexive transitive closure of the
-     *         directlyImports relation.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLOntology> getImportsClosure() {
-        return asSet(importsClosure());
-    }
+  /**
+   * Gets the set of <em>loaded</em> ontologies that this ontology is related
+   * to via the <em>reflexive transitive closure</em> of the directlyImports
+   * relation as defined in Section 3.4 of the OWL 2 Structural Specification.
+   * For example, if this ontology imports ontology B, and ontology B imports
+   * ontology C, then this method will return the set consisting of this
+   * ontology, ontology B and ontology C.
+   *
+   * @return The set of ontologies in the reflexive transitive closure of the directlyImports
+   * relation.
+   * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
+   * because it was removed from the manager.
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLOntology> getImportsClosure() {
+    return asSet(importsClosure());
+  }
 
-    /**
-     * Gets the imports closure, including the root object.
-     * 
-     * @return Stream of ontologies representing the imports closure of this
-     *         object (includes this object).
-     */
-    Stream<OWLOntology> importsClosure();
+  /**
+   * Gets the imports closure, including the root object.
+   *
+   * @return Stream of ontologies representing the imports closure of this object (includes this
+   * object).
+   */
+  Stream<OWLOntology> importsClosure();
 }

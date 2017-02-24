@@ -16,32 +16,29 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * Provides a set of entities to inputs that require this.
- * 
- * @param <E>
- *        the entity type
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <E> the entity type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @FunctionalInterface
 public interface OWLEntitySetProvider<E extends OWLEntity> {
 
-    /**
-     * @return the entities that are provided by this provider.
-     * @deprecated use {@link #entities()}
-     */
-    @Deprecated
-    default Set<E> getEntities() {
-        return asSet(entities());
-    }
+  /**
+   * @return the entities that are provided by this provider.
+   * @deprecated use {@link #entities()}
+   */
+  @Deprecated
+  default Set<E> getEntities() {
+    return asSet(entities());
+  }
 
-    /**
-     * @return the entities that are provided by this provider.
-     */
-    Stream<E> entities();
+  /**
+   * @return the entities that are provided by this provider.
+   */
+  Stream<E> entities();
 }

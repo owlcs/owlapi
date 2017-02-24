@@ -15,39 +15,39 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-/** Builder class for OWLSubObjectPropertyOfAxiom. */
+/**
+ * Builder class for OWLSubObjectPropertyOfAxiom.
+ */
 public class BuilderSubObjectProperty extends
     BaseSubBuilder<OWLSubObjectPropertyOfAxiom, BuilderSubObjectProperty, OWLObjectPropertyExpression> {
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderSubObjectProperty(OWLSubObjectPropertyOfAxiom expected, OWLDataFactory df) {
-        this(df);
-        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty()).withAnnotations(expected.annotations());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderSubObjectProperty(OWLSubObjectPropertyOfAxiom expected, OWLDataFactory df) {
+    this(df);
+    withSub(expected.getSubProperty()).withSup(expected.getSuperProperty())
+        .withAnnotations(expected.annotations());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderSubObjectProperty(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderSubObjectProperty(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    public OWLSubObjectPropertyOfAxiom buildObject() {
-        return df.getOWLSubObjectPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()), annotations);
-    }
+  @Override
+  public OWLSubObjectPropertyOfAxiom buildObject() {
+    return df.getOWLSubObjectPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()),
+        annotations);
+  }
 }

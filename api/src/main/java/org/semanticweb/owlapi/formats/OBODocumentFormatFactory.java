@@ -16,19 +16,18 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OBODocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
-    @Override
-    public String getKey() {
-        return "OBO Format";
-    }
+  @Override
+  public String getKey() {
+    return "OBO Format";
+  }
 
-    @Override
-    public OWLDocumentFormat createFormat() {
-        return new OBODocumentFormat();
-    }
+  @Override
+  public OWLDocumentFormat createFormat() {
+    return new OBODocumentFormat();
+  }
 }

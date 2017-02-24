@@ -45,8 +45,10 @@ import org.semanticweb.owlapi.formats.TrigDocumentFormatFactory;
 @HasPriority(9)
 public class RioTrigParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
-    public RioTrigParserFactory() {
-        super(new TrigDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioTrigParserFactory() {
+    super(new TrigDocumentFormatFactory());
+  }
 }

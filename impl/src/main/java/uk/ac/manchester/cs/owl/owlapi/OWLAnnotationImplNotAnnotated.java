@@ -16,59 +16,56 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLAnnotation {
 
-    private final OWLAnnotationProperty property;
-    private final OWLAnnotationValue value;
+  private final OWLAnnotationProperty property;
+  private final OWLAnnotationValue value;
 
-    /**
-     * @param property
-     *        annotation property
-     * @param value
-     *        annotation value
-     */
-    public OWLAnnotationImplNotAnnotated(OWLAnnotationProperty property, OWLAnnotationValue value) {
-        this.property = checkNotNull(property, "property cannot be null");
-        this.value = checkNotNull(value, "value cannot be null");
-    }
+  /**
+   * @param property annotation property
+   * @param value annotation value
+   */
+  public OWLAnnotationImplNotAnnotated(OWLAnnotationProperty property, OWLAnnotationValue value) {
+    this.property = checkNotNull(property, "property cannot be null");
+    this.value = checkNotNull(value, "value cannot be null");
+  }
 
-    @Override
-    public OWLAnnotationProperty getProperty() {
-        return property;
-    }
+  @Override
+  public OWLAnnotationProperty getProperty() {
+    return property;
+  }
 
-    @Override
-    public OWLAnnotationValue getValue() {
-        return value;
-    }
+  @Override
+  public OWLAnnotationValue getValue() {
+    return value;
+  }
 
-    @Override
-    public OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations) {
-        if (annotations.isEmpty()) {
-            return this;
-        }
-        return getAnnotatedAnnotation(annotations.stream());
+  @Override
+  public OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations) {
+    if (annotations.isEmpty()) {
+      return this;
     }
+    return getAnnotatedAnnotation(annotations.stream());
+  }
 
-    @Override
-    public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationImpl(property, value, annotations);
-    }
+  @Override
+  public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
+    return new OWLAnnotationImpl(property, value, annotations);
+  }
 
-    @Override
-    public boolean isDeprecatedIRIAnnotation() {
-        return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean()
-            && ((OWLLiteral) value).parseBoolean();
-    }
+  @Override
+  public boolean isDeprecatedIRIAnnotation() {
+    return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value)
+        .isBoolean()
+        && ((OWLLiteral) value).parseBoolean();
+  }
 }

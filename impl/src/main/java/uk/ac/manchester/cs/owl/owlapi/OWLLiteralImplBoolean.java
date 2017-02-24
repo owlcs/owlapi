@@ -13,50 +13,48 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
-    private final boolean literal;
+  private final boolean literal;
 
-    /**
-     * @param literal
-     *        literal value
-     */
-    public OWLLiteralImplBoolean(boolean literal) {
-        this.literal = literal;
-    }
+  /**
+   * @param literal literal value
+   */
+  public OWLLiteralImplBoolean(boolean literal) {
+    this.literal = literal;
+  }
 
-    @Override
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(literal ? 65536 : 0), getLang()));
-    }
+  @Override
+  protected int hashCode(OWLObject object) {
+    return hash(object.hashIndex(),
+        Stream.of(getDatatype(), Integer.valueOf(literal ? 65536 : 0), getLang()));
+  }
 
-    @Override
-    public String getLiteral() {
-        return Boolean.toString(literal);
-    }
+  @Override
+  public String getLiteral() {
+    return Boolean.toString(literal);
+  }
 
-    @Override
-    public boolean isBoolean() {
-        return true;
-    }
+  @Override
+  public boolean isBoolean() {
+    return true;
+  }
 
-    @Override
-    public boolean parseBoolean() {
-        return literal;
-    }
+  @Override
+  public boolean parseBoolean() {
+    return literal;
+  }
 
-    @Override
-    public OWLDatatype getDatatype() {
-        return InternalizedEntities.XSDBOOLEAN;
-    }
+  @Override
+  public OWLDatatype getDatatype() {
+    return InternalizedEntities.XSDBOOLEAN;
+  }
 }

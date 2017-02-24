@@ -49,49 +49,53 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("all")
 class OBOTagValuePair {
 
-    private final @Nonnull String tagName;
-    private final @Nonnull String value;
-    private final @Nonnull String qualifier;
-    private final @Nonnull String comment;
+  private final @Nonnull
+  String tagName;
+  private final @Nonnull
+  String value;
+  private final @Nonnull
+  String qualifier;
+  private final @Nonnull
+  String comment;
 
-    /**
-     * @param tagName
-     * @param value
-     * @param qualifier
-     * @param comment
-     */
-    public OBOTagValuePair(String tagName, String value, String qualifier, String comment) {
-        this.tagName = tagName;
-        this.value = value;
-        this.qualifier = qualifier;
-        this.comment = comment;
-    }
+  /**
+   * @param tagName
+   * @param value
+   * @param qualifier
+   * @param comment
+   */
+  public OBOTagValuePair(String tagName, String value, String qualifier, String comment) {
+    this.tagName = tagName;
+    this.value = value;
+    this.qualifier = qualifier;
+    this.comment = comment;
+  }
 
-    /**
-     * @return the tag name
-     */
-    public String getTagName() {
-        return tagName;
-    }
+  /**
+   * @return the tag name
+   */
+  public String getTagName() {
+    return tagName;
+  }
 
-    /**
-     * @return the value
-     */
-    public String getValue() {
-        return value;
-    }
+  /**
+   * @return the value
+   */
+  public String getValue() {
+    return value;
+  }
 
-    /**
-     * @return the qualifier
-     */
-    public String getQualifier() {
-        return qualifier;
-    }
+  /**
+   * @return the qualifier
+   */
+  public String getQualifier() {
+    return qualifier;
+  }
 
-    /**
-     * @return the comment
-     */
-    public String getComment() {
-        return comment;
-    }
+  /**
+   * @return the comment
+   */
+  public String getComment() {
+    return comment;
+  }
 }

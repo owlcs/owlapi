@@ -14,22 +14,22 @@ package org.semanticweb.owlapi.formats;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
  * An abstract base class for RDF Document Formats that are not prefix aware.
- * 
+ *
  * @since 4.0.1
  */
-public abstract class AbstractRDFNonPrefixDocumentFormat extends OWLDocumentFormatImpl implements RDFDocumentFormat {
+public abstract class AbstractRDFNonPrefixDocumentFormat extends OWLDocumentFormatImpl implements
+    RDFDocumentFormat {
 
-    // TODO make something of these
-    private final Set<RDFResourceParseError> errors = new HashSet<>();
+  // TODO make something of these
+  private final Set<RDFResourceParseError> errors = new HashSet<>();
 
-    @Override
-    public void addError(RDFResourceParseError error) {
-        errors.add(error);
-    }
+  @Override
+  public void addError(RDFResourceParseError error) {
+    errors.add(error);
+  }
 }

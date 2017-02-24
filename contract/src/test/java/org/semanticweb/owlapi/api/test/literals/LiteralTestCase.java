@@ -12,136 +12,148 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.PlainLiteral;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
 public class LiteralTestCase extends TestBase {
 
-    @Test
-    public void testHasLangMethod() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
-        assertTrue(literalWithLang.hasLang());
-        OWLLiteral literalWithoutLang = Literal("abc", "");
-        assertFalse(literalWithoutLang.hasLang());
-    }
+  @Test
+  public void testHasLangMethod() {
+    OWLLiteral literalWithLang = Literal("abc", "en");
+    assertTrue(literalWithLang.hasLang());
+    OWLLiteral literalWithoutLang = Literal("abc", "");
+    assertFalse(literalWithoutLang.hasLang());
+  }
 
-    @Test
-    public void testGetLangMethod() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
-        assertEquals("en", literalWithLang.getLang());
-        OWLLiteral literalWithoutLang = Literal("abc", "");
-        assertEquals("", literalWithoutLang.getLang());
-    }
+  @Test
+  public void testGetLangMethod() {
+    OWLLiteral literalWithLang = Literal("abc", "en");
+    assertEquals("en", literalWithLang.getLang());
+    OWLLiteral literalWithoutLang = Literal("abc", "");
+    assertEquals("", literalWithoutLang.getLang());
+  }
 
-    @Test
-    public void testNormalisation() {
-        OWLLiteral literalWithLang = Literal("abc", "EN");
-        assertEquals("en", literalWithLang.getLang());
-        assertTrue(literalWithLang.hasLang("EN"));
-    }
+  @Test
+  public void testNormalisation() {
+    OWLLiteral literalWithLang = Literal("abc", "EN");
+    assertEquals("en", literalWithLang.getLang());
+    assertTrue(literalWithLang.hasLang("EN"));
+  }
 
-    @Test
-    public void testPlainLiteralWithLang() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
-        assertFalse(literalWithLang.getDatatype().getIRI().isPlainLiteral());
-        assertFalse(literalWithLang.isRDFPlainLiteral());
-        assertTrue(literalWithLang.hasLang());
-        assertEquals("en", literalWithLang.getLang());
-        assertEquals(literalWithLang.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
-    }
+  @Test
+  public void testPlainLiteralWithLang() {
+    OWLLiteral literalWithLang = Literal("abc", "en");
+    assertFalse(literalWithLang.getDatatype().getIRI().isPlainLiteral());
+    assertFalse(literalWithLang.isRDFPlainLiteral());
+    assertTrue(literalWithLang.hasLang());
+    assertEquals("en", literalWithLang.getLang());
+    assertEquals(literalWithLang.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
+  }
 
-    @Test
-    public void testPlainLiteralWithEmbeddedLang() {
-        OWLLiteral literal = Literal("abc@en", PlainLiteral());
-        assertTrue(literal.hasLang());
-        assertFalse(literal.isRDFPlainLiteral());
-        assertEquals("en", literal.getLang());
-        assertEquals("abc", literal.getLiteral());
-        assertEquals(literal.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
-    }
+  @Test
+  public void testPlainLiteralWithEmbeddedLang() {
+    OWLLiteral literal = Literal("abc@en", PlainLiteral());
+    assertTrue(literal.hasLang());
+    assertFalse(literal.isRDFPlainLiteral());
+    assertEquals("en", literal.getLang());
+    assertEquals("abc", literal.getLiteral());
+    assertEquals(literal.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
+  }
 
-    public void tesPlainLiteralWithEmbeddedEmptyLang() {
-        OWLLiteral literal = Literal("abc@", PlainLiteral());
-        assertFalse(literal.hasLang());
-        assertFalse(literal.isRDFPlainLiteral());
-        assertEquals("", literal.getLang());
-        assertEquals("abc", literal.getLiteral());
-        assertEquals(literal.getDatatype(), OWL2Datatype.XSD_STRING.getDatatype(df));
-    }
+  public void tesPlainLiteralWithEmbeddedEmptyLang() {
+    OWLLiteral literal = Literal("abc@", PlainLiteral());
+    assertFalse(literal.hasLang());
+    assertFalse(literal.isRDFPlainLiteral());
+    assertEquals("", literal.getLang());
+    assertEquals("abc", literal.getLiteral());
+    assertEquals(literal.getDatatype(), OWL2Datatype.XSD_STRING.getDatatype(df));
+  }
 
-    public void tesPlainLiteralWithDoubleSep() {
-        OWLLiteral literal = Literal("abc@@en", PlainLiteral());
-        assertTrue(literal.hasLang());
-        assertFalse(literal.isRDFPlainLiteral());
-        assertEquals("en", literal.getLang());
-        assertEquals("abc@", literal.getLiteral());
-        assertEquals(literal.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
-    }
+  public void tesPlainLiteralWithDoubleSep() {
+    OWLLiteral literal = Literal("abc@@en", PlainLiteral());
+    assertTrue(literal.hasLang());
+    assertFalse(literal.isRDFPlainLiteral());
+    assertEquals("en", literal.getLang());
+    assertEquals("abc@", literal.getLiteral());
+    assertEquals(literal.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
+  }
 
-    @Test
-    public void testBoolean() {
-        OWLLiteral literal = Literal(true);
-        assertTrue(literal.isBoolean());
-        assertTrue(literal.parseBoolean());
-        OWLLiteral trueLiteral = Literal("true", OWL2Datatype.XSD_BOOLEAN);
-        assertTrue(trueLiteral.isBoolean());
-        assertTrue(trueLiteral.parseBoolean());
-        OWLLiteral falseLiteral = Literal("false", OWL2Datatype.XSD_BOOLEAN);
-        assertTrue(falseLiteral.isBoolean());
-        assertFalse(falseLiteral.parseBoolean());
-        OWLLiteral oneLiteral = Literal("1", OWL2Datatype.XSD_BOOLEAN);
-        assertTrue(oneLiteral.isBoolean());
-        assertTrue(oneLiteral.parseBoolean());
-        OWLLiteral zeroLiteral = Literal("0", OWL2Datatype.XSD_BOOLEAN);
-        assertTrue(zeroLiteral.isBoolean());
-        assertFalse(zeroLiteral.parseBoolean());
-    }
+  @Test
+  public void testBoolean() {
+    OWLLiteral literal = Literal(true);
+    assertTrue(literal.isBoolean());
+    assertTrue(literal.parseBoolean());
+    OWLLiteral trueLiteral = Literal("true", OWL2Datatype.XSD_BOOLEAN);
+    assertTrue(trueLiteral.isBoolean());
+    assertTrue(trueLiteral.parseBoolean());
+    OWLLiteral falseLiteral = Literal("false", OWL2Datatype.XSD_BOOLEAN);
+    assertTrue(falseLiteral.isBoolean());
+    assertFalse(falseLiteral.parseBoolean());
+    OWLLiteral oneLiteral = Literal("1", OWL2Datatype.XSD_BOOLEAN);
+    assertTrue(oneLiteral.isBoolean());
+    assertTrue(oneLiteral.parseBoolean());
+    OWLLiteral zeroLiteral = Literal("0", OWL2Datatype.XSD_BOOLEAN);
+    assertTrue(zeroLiteral.isBoolean());
+    assertFalse(zeroLiteral.parseBoolean());
+  }
 
-    @Test
-    public void testBuiltInDatatypes() {
-        OWL2Datatype dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL);
-        assertNotNull("object should not be null", dt);
-        dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL);
-        assertNotNull("object should not be null", dt);
-        OWLDatatype datatype = df.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL);
-        assertNotNull("object should not be null", datatype);
-        OWL2Datatype test = datatype.getBuiltInDatatype();
-        assertEquals(test, dt);
-    }
+  @Test
+  public void testBuiltInDatatypes() {
+    OWL2Datatype dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL);
+    assertNotNull("object should not be null", dt);
+    dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL);
+    assertNotNull("object should not be null", dt);
+    OWLDatatype datatype = df.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL);
+    assertNotNull("object should not be null", datatype);
+    OWL2Datatype test = datatype.getBuiltInDatatype();
+    assertEquals(test, dt);
+  }
 
-    @Test
-    public void testFailure() {
-        for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
-            OWLDatatype datatype = df.getOWLDatatype(type);
-            if (datatype.isBuiltIn()) {
-                OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
-                assertNotNull("object should not be null", builtInDatatype);
-            }
-        }
+  @Test
+  public void testFailure() {
+    for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
+      OWLDatatype datatype = df.getOWLDatatype(type);
+      if (datatype.isBuiltIn()) {
+        OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
+        assertNotNull("object should not be null", builtInDatatype);
+      }
     }
+  }
 
-    @Test
-    public void shouldStoreTagsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String in = "See more at <a href=\"http://abc.com\">abc</a>";
-        OWLOntology o = getOWLOntology();
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(createIndividual().getIRI(), df
+  @Test
+  public void shouldStoreTagsCorrectly()
+      throws OWLOntologyCreationException, OWLOntologyStorageException {
+    String in = "See more at <a href=\"http://abc.com\">abc</a>";
+    OWLOntology o = getOWLOntology();
+    OWLAnnotationAssertionAxiom ax = df
+        .getOWLAnnotationAssertionAxiom(createIndividual().getIRI(), df
             .getRDFSComment(in));
-        o.add(ax);
-        OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
-        assertTrue(o1.containsAxiom(ax));
-        equal(o, o1);
-    }
+    o.add(ax);
+    OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
+    assertTrue(o1.containsAxiom(ax));
+    equal(o, o1);
+  }
 }

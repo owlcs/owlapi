@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.model.axiomproviders;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -26,27 +25,24 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 @FunctionalInterface
 public interface PropertyChainAxiomProvider {
 
-    /**
-     * @param chain
-     *        Chain of properties. Cannot be null or contain nulls.
-     * @param superProperty
-     *        super property
-     * @return a subproperty chain axiom
-     */
-    default OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(List<? extends OWLObjectPropertyExpression> chain,
-        OWLObjectPropertyExpression superProperty) {
-        return getOWLSubPropertyChainOfAxiom(chain, superProperty, Collections.emptySet());
-    }
+  /**
+   * @param chain Chain of properties. Cannot be null or contain nulls.
+   * @param superProperty super property
+   * @return a subproperty chain axiom
+   */
+  default OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
+      List<? extends OWLObjectPropertyExpression> chain,
+      OWLObjectPropertyExpression superProperty) {
+    return getOWLSubPropertyChainOfAxiom(chain, superProperty, Collections.emptySet());
+  }
 
-    /**
-     * @param chain
-     *        Chain of properties. Cannot be null or contain nulls.
-     * @param superProperty
-     *        super property
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return a subproperty chain axiom
-     */
-    OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(List<? extends OWLObjectPropertyExpression> chain,
-        OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
+  /**
+   * @param chain Chain of properties. Cannot be null or contain nulls.
+   * @param superProperty super property
+   * @param annotations A set of annotations. Cannot be null or contain nulls.
+   * @return a subproperty chain axiom
+   */
+  OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
+      List<? extends OWLObjectPropertyExpression> chain,
+      OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
 }

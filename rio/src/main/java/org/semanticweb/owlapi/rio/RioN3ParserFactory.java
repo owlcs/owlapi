@@ -45,8 +45,10 @@ import org.semanticweb.owlapi.formats.N3DocumentFormatFactory;
 @HasPriority(11)
 public class RioN3ParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
-    public RioN3ParserFactory() {
-        super(new N3DocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioN3ParserFactory() {
+    super(new N3DocumentFormatFactory());
+  }
 }

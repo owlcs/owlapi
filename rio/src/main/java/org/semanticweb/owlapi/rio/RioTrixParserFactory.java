@@ -45,8 +45,10 @@ import org.semanticweb.owlapi.formats.TrixDocumentFormatFactory;
 @HasPriority(12)
 public class RioTrixParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
-    public RioTrixParserFactory() {
-        super(new TrixDocumentFormatFactory());
-    }
+  /**
+   * Default constructor.
+   */
+  public RioTrixParserFactory() {
+    super(new TrixDocumentFormatFactory());
+  }
 }

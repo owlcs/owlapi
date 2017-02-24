@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -23,49 +22,46 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @param <E> visitor type
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
- * @param <E>
- *        visitor type
  */
 public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
 
-    private final OWLOntologyWalker walker;
+  private final OWLOntologyWalker walker;
 
-    /**
-     * @param walker
-     *        walker
-     */
-    public OWLOntologyWalkerVisitorEx(OWLOntologyWalker walker) {
-        this.walker = checkNotNull(walker, "walker cannot be null");
-    }
+  /**
+   * @param walker walker
+   */
+  public OWLOntologyWalkerVisitorEx(OWLOntologyWalker walker) {
+    this.walker = checkNotNull(walker, "walker cannot be null");
+  }
 
-    /**
-     * @return current axiom
-     */
-    @Nullable
-    public OWLAxiom getCurrentAxiom() {
-        return walker.getAxiom();
-    }
+  /**
+   * @return current axiom
+   */
+  @Nullable
+  public OWLAxiom getCurrentAxiom() {
+    return walker.getAxiom();
+  }
 
-    /**
-     * @return current ontology
-     */
-    public OWLOntology getCurrentOntology() {
-        OWLOntology ontology = walker.getOntology();
-        if (ontology == null) {
-            throw new OWLRuntimeException(
-                "No current ontology; is the walker being used outside of an ontology visit?");
-        }
-        return ontology;
+  /**
+   * @return current ontology
+   */
+  public OWLOntology getCurrentOntology() {
+    OWLOntology ontology = walker.getOntology();
+    if (ontology == null) {
+      throw new OWLRuntimeException(
+          "No current ontology; is the walker being used outside of an ontology visit?");
     }
+    return ontology;
+  }
 
-    /**
-     * @return annotation
-     */
-    @Nullable
-    public OWLAnnotation getCurrentAnnotation() {
-        return walker.getAnnotation();
-    }
+  /**
+   * @return annotation
+   */
+  @Nullable
+  public OWLAnnotation getCurrentAnnotation() {
+    return walker.getAnnotation();
+  }
 }

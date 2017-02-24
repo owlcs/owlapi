@@ -16,45 +16,44 @@ package org.semanticweb.owlapi.model;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Existential_Quantification_2" >
  * DataSomeValuesFrom</a> restriction in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataSomeValuesFrom extends OWLQuantifiedDataRestriction {
 
-    @Override
-    default int hashIndex() {
-        return 181;
-    }
+  @Override
+  default int hashIndex() {
+    return 181;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 3012;
-    }
+  @Override
+  default int typeIndex() {
+    return 3012;
+  }
 
-    @Override
-    default ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.DATA_SOME_VALUES_FROM;
-    }
+  @Override
+  default ClassExpressionType getClassExpressionType() {
+    return ClassExpressionType.DATA_SOME_VALUES_FROM;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLClassExpressionVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

@@ -49,38 +49,36 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  * <br>
  */
 public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
-        OWLDocumentFormat {
+    OWLDocumentFormat {
 
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+  private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
-    @Override
-    public String toString() {
-        return getKey();
-    }
+  @Override
+  public String toString() {
+    return getKey();
+  }
 
-    /**
-     * @param m
-     *        An {@link IDSpaceManager} which specifies mappings between id
-     *        prefixes and IRI prefixes.
-     */
-    public void setIDSpaceManager(IDSpaceManager m) {
-        idSpaceManager = m;
-    }
+  /**
+   * @param m An {@link IDSpaceManager} which specifies mappings between id prefixes and IRI
+   * prefixes.
+   */
+  public void setIDSpaceManager(IDSpaceManager m) {
+    idSpaceManager = m;
+  }
 
-    /**
-     * Gets the OBO id-space manager. This is NOT the same as a prefix manager.
-     * 
-     * @return The {@link IDSpaceManager} for this format. For ontologies parsed
-     *         from an OBO file this will contain any id prefix to IRI prefix
-     *         mappings that were parsed out of the file (from id-space tags).
-     *         Not null.
-     */
-    public IDSpaceManager getIdSpaceManager() {
-        return idSpaceManager;
-    }
+  /**
+   * Gets the OBO id-space manager. This is NOT the same as a prefix manager.
+   *
+   * @return The {@link IDSpaceManager} for this format. For ontologies parsed from an OBO file this
+   * will contain any id prefix to IRI prefix mappings that were parsed out of the file (from
+   * id-space tags). Not null.
+   */
+  public IDSpaceManager getIdSpaceManager() {
+    return idSpaceManager;
+  }
 
-    @Override
-    public String getKey() {
-        return "OBO 1.2 Format";
-    }
+  @Override
+  public String getKey() {
+    return "OBO 1.2 Format";
+  }
 }

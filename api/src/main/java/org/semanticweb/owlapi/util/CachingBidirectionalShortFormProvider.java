@@ -19,115 +19,110 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * A bidirectional short form provider that caches entity short forms. The
  * provider has various methods to add, remove, update entities in the cache and
  * also to rebuild the cache from scratch.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class CachingBidirectionalShortFormProvider implements BidirectionalShortFormProvider {
+public abstract class CachingBidirectionalShortFormProvider implements
+    BidirectionalShortFormProvider {
 
-    private final Map<String, Set<OWLEntity>> shortForm2EntityMap = createSyncMap();
-    private final Map<OWLEntity, String> entity2ShortFormMap = createSyncMap();
+  private final Map<String, Set<OWLEntity>> shortForm2EntityMap = createSyncMap();
+  private final Map<OWLEntity, String> entity2ShortFormMap = createSyncMap();
 
-    protected CachingBidirectionalShortFormProvider() {}
+  protected CachingBidirectionalShortFormProvider() {
+  }
 
-    /**
-     * Generates the short form for the specified entity. This short form will
-     * be cached so that it can be retrieved efficiently and so that the entity
-     * can be obtained from the short form. If the short form for the entity
-     * changes then the cach must explicilty be updated using the {@code update}
-     * method.
-     * 
-     * @param entity
-     *        The entity whose short form should be generated.
-     * @return short form
-     */
-    protected abstract String generateShortForm(OWLEntity entity);
+  /**
+   * Generates the short form for the specified entity. This short form will
+   * be cached so that it can be retrieved efficiently and so that the entity
+   * can be obtained from the short form. If the short form for the entity
+   * changes then the cach must explicilty be updated using the {@code update}
+   * method.
+   *
+   * @param entity The entity whose short form should be generated.
+   * @return short form
+   */
+  protected abstract String generateShortForm(OWLEntity entity);
 
-    @Override
-    public Stream<String> shortForms() {
-        return shortForm2EntityMap.keySet().stream();
+  @Override
+  public Stream<String> shortForms() {
+    return shortForm2EntityMap.keySet().stream();
+  }
+
+  /**
+   * Rebuilds the cache using entities obtained from the specified entity set
+   * provider.
+   *
+   * @param entities The entities whose short forms will be cached.
+   */
+  protected void rebuild(Stream<OWLEntity> entities) {
+    shortForm2EntityMap.clear();
+    entity2ShortFormMap.clear();
+    entities.forEach(this::add);
+  }
+
+  /**
+   * Adds an entity to the cache.
+   *
+   * @param entity The entity to be added to the cache - the short form will automatically be
+   * generated and added to the cache.
+   */
+  public void add(OWLEntity entity) {
+    String shortForm = generateShortForm(entity);
+    entity2ShortFormMap.put(entity, shortForm);
+    shortForm2EntityMap.computeIfAbsent(shortForm, s -> new HashSet<>(1)).add(entity);
+  }
+
+  /**
+   * Removes an entity and its short form from the cache.
+   *
+   * @param entity The entity to be removed.
+   */
+  protected void remove(OWLEntity entity) {
+    String shortForm = entity2ShortFormMap.remove(entity);
+    if (shortForm != null) {
+      shortForm2EntityMap.remove(shortForm);
     }
+  }
 
-    /**
-     * Rebuilds the cache using entities obtained from the specified entity set
-     * provider.
-     * 
-     * @param entities
-     *        The entities whose short forms will be cached.
-     */
-    protected void rebuild(Stream<OWLEntity> entities) {
-        shortForm2EntityMap.clear();
-        entity2ShortFormMap.clear();
-        entities.forEach(this::add);
+  @Override
+  public Stream<OWLEntity> entities(String shortForm) {
+    Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
+    if (entities != null && !entities.isEmpty()) {
+      return entities.stream();
     }
+    return empty();
+  }
 
-    /**
-     * Adds an entity to the cache.
-     * 
-     * @param entity
-     *        The entity to be added to the cache - the short form will
-     *        automatically be generated and added to the cache.
-     */
-    public void add(OWLEntity entity) {
-        String shortForm = generateShortForm(entity);
-        entity2ShortFormMap.put(entity, shortForm);
-        shortForm2EntityMap.computeIfAbsent(shortForm, s -> new HashSet<>(1)).add(entity);
+  @Override
+  @Nullable
+  public OWLEntity getEntity(String shortForm) {
+    Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
+    if (entities != null && !entities.isEmpty()) {
+      return entities.iterator().next();
     }
+    return null;
+  }
 
-    /**
-     * Removes an entity and its short form from the cache.
-     * 
-     * @param entity
-     *        The entity to be removed.
-     */
-    protected void remove(OWLEntity entity) {
-        String shortForm = entity2ShortFormMap.remove(entity);
-        if (shortForm != null) {
-            shortForm2EntityMap.remove(shortForm);
-        }
+  @Override
+  public String getShortForm(OWLEntity entity) {
+    String sf = entity2ShortFormMap.get(entity);
+    if (sf != null) {
+      return sf;
     }
+    return generateShortForm(entity);
+  }
 
-    @Override
-    public Stream<OWLEntity> entities(String shortForm) {
-        Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
-        if (entities != null && !entities.isEmpty()) {
-            return entities.stream();
-        }
-        return empty();
-    }
-
-    @Override
-    @Nullable
-    public OWLEntity getEntity(String shortForm) {
-        Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
-        if (entities != null && !entities.isEmpty()) {
-            return entities.iterator().next();
-        }
-        return null;
-    }
-
-    @Override
-    public String getShortForm(OWLEntity entity) {
-        String sf = entity2ShortFormMap.get(entity);
-        if (sf != null) {
-            return sf;
-        }
-        return generateShortForm(entity);
-    }
-
-    @Override
-    public void dispose() {
-        shortForm2EntityMap.clear();
-        entity2ShortFormMap.clear();
-    }
+  @Override
+  public void dispose() {
+    shortForm2EntityMap.clear();
+    entity2ShortFormMap.clear();
+  }
 }

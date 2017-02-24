@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -24,40 +22,37 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class LexicalNotInLexicalSpace extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param literal
-     *        literal
-     */
-    public LexicalNotInLexicalSpace(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLLiteral literal) {
-        super(ontology, axiom, literal);
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   * @param literal literal
+   */
+  public LexicalNotInLexicalSpace(OWLOntology ontology, @Nullable OWLAxiom axiom,
+      OWLLiteral literal) {
+    super(ontology, axiom, literal);
+  }
 
-    @Override
-    public OWLLiteral getExpression() {
-        return (OWLLiteral) super.getExpression();
-    }
+  @Override
+  public OWLLiteral getExpression() {
+    return (OWLLiteral) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Literal lexical value not in lexical space: %s", getExpression());
-    }
+  @Override
+  public String toString() {
+    return toString("Literal lexical value not in lexical space: %s", getExpression());
+  }
 }

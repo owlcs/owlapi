@@ -21,85 +21,84 @@ import java.util.stream.Stream;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions" >
  * DatatypeRestriction</a> data range in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDatatypeRestriction extends OWLDataRange {
 
-    @Override
-    default Stream<?> components() {
-        return Stream.of(getDatatype(), facetRestrictions());
-    }
+  @Override
+  default Stream<?> components() {
+    return Stream.of(getDatatype(), facetRestrictions());
+  }
 
-    @Override
-    default int hashIndex() {
-        return 271;
-    }
+  @Override
+  default int hashIndex() {
+    return 271;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 4006;
-    }
+  @Override
+  default int typeIndex() {
+    return 4006;
+  }
 
-    @Override
-    default DataRangeType getDataRangeType() {
-        return DataRangeType.DATATYPE_RESTRICTION;
-    }
+  @Override
+  default DataRangeType getDataRangeType() {
+    return DataRangeType.DATATYPE_RESTRICTION;
+  }
 
-    /**
-     * Gets the data range that this data range restricts.
-     * 
-     * @return The datatype that is restricted
-     */
-    OWLDatatype getDatatype();
+  /**
+   * Gets the data range that this data range restricts.
+   *
+   * @return The datatype that is restricted
+   */
+  OWLDatatype getDatatype();
 
-    /**
-     * Gets the facet restrictions on this data range.
-     * 
-     * @return A {@code Set} of facet restrictions that apply to this data range
-     * @deprecated use the stream method
-     */
-    @Deprecated
-    default Set<OWLFacetRestriction> getFacetRestrictions() {
-        return asSet(facetRestrictions());
-    }
+  /**
+   * Gets the facet restrictions on this data range.
+   *
+   * @return A {@code Set} of facet restrictions that apply to this data range
+   * @deprecated use the stream method
+   */
+  @Deprecated
+  default Set<OWLFacetRestriction> getFacetRestrictions() {
+    return asSet(facetRestrictions());
+  }
 
-    /**
-     * Gets the facet restrictions on this data range.
-     * 
-     * @return A {@code Set} of facet restrictions that apply to this data range
-     */
-    Stream<OWLFacetRestriction> facetRestrictions();
+  /**
+   * Gets the facet restrictions on this data range.
+   *
+   * @return A {@code Set} of facet restrictions that apply to this data range
+   */
+  Stream<OWLFacetRestriction> facetRestrictions();
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLDataRangeVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLDataRangeVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

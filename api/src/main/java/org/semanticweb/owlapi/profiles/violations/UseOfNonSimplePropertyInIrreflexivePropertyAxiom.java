@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,39 +21,36 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfileViolation {
 
-    /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     */
-    public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology,
-            OWLIrreflexiveObjectPropertyAxiom axiom) {
-        super(ontology, axiom, axiom.getProperty());
-    }
+  /**
+   * @param ontology ontology
+   * @param axiom axiom
+   */
+  public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology,
+      OWLIrreflexiveObjectPropertyAxiom axiom) {
+    super(ontology, axiom, axiom.getProperty());
+  }
 
-    @Override
-    public OWLObjectPropertyExpression getExpression() {
-        return (OWLObjectPropertyExpression) super.getExpression();
-    }
+  @Override
+  public OWLObjectPropertyExpression getExpression() {
+    return (OWLObjectPropertyExpression) super.getExpression();
+  }
 
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  public void accept(OWLProfileViolationVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    public String toString() {
-        return toString("Use of non-simple property in irreflexive property axiom %s", getExpression());
-    }
+  @Override
+  public String toString() {
+    return toString("Use of non-simple property in irreflexive property axiom %s", getExpression());
+  }
 }

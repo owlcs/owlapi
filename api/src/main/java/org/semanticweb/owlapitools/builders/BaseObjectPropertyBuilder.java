@@ -14,44 +14,42 @@ package org.semanticweb.owlapitools.builders;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
  * Builder class for OWLDataAllValuesFrom.
- * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
+ *
+ * @param <T> type built
+ * @param <B> builder type
  */
-public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> implements
+public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends
+    BaseBuilder<T, B> implements
     SettableProperty<OWLObjectPropertyExpression, B> {
 
-    @Nullable private OWLObjectPropertyExpression property = null;
+  @Nullable
+  private OWLObjectPropertyExpression property = null;
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BaseObjectPropertyBuilder(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BaseObjectPropertyBuilder(OWLDataFactory df) {
+    super(df);
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public B withProperty(OWLObjectPropertyExpression arg) {
-        property = arg;
-        return (B) this;
-    }
+  @Override
+  @SuppressWarnings("unchecked")
+  public B withProperty(OWLObjectPropertyExpression arg) {
+    property = arg;
+    return (B) this;
+  }
 
-    @SuppressWarnings("null")
-    @Override
-    @Nullable
-    public OWLObjectPropertyExpression getProperty() {
-        return property;
-    }
+  @SuppressWarnings("null")
+  @Override
+  @Nullable
+  public OWLObjectPropertyExpression getProperty() {
+    return property;
+  }
 }

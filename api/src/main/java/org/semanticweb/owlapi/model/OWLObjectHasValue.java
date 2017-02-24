@@ -16,45 +16,45 @@ package org.semanticweb.owlapi.model;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Value_Restriction" >
  * ObjectHasValue</a> class expression in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectHasValue extends OWLHasValueRestriction<OWLIndividual>, OWLObjectRestriction {
+public interface OWLObjectHasValue extends OWLHasValueRestriction<OWLIndividual>,
+    OWLObjectRestriction {
 
-    @Override
-    default int hashIndex() {
-        return 251;
-    }
+  @Override
+  default int hashIndex() {
+    return 251;
+  }
 
-    @Override
-    default int typeIndex() {
-        return 3007;
-    }
+  @Override
+  default int typeIndex() {
+    return 3007;
+  }
 
-    @Override
-    default ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_HAS_VALUE;
-    }
+  @Override
+  default ClassExpressionType getClassExpressionType() {
+    return ClassExpressionType.OBJECT_HAS_VALUE;
+  }
 
-    @Override
-    default void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLObjectVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 
-    @Override
-    default void accept(OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+  @Override
+  default void accept(OWLClassExpressionVisitor visitor) {
+    visitor.visit(this);
+  }
 
-    @Override
-    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    return visitor.visit(this);
+  }
 }

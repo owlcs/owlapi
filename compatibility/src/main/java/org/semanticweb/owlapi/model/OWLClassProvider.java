@@ -15,10 +15,11 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.providers.ClassProvider;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  * @deprecated use ClassProvider
  */
 @Deprecated
-public interface OWLClassProvider extends ClassProvider {}
+public interface OWLClassProvider extends ClassProvider {
+
+}

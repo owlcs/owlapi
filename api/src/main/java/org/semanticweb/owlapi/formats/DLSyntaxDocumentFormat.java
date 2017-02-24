@@ -15,14 +15,13 @@ package org.semanticweb.owlapi.formats;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class DLSyntaxDocumentFormat extends OWLDocumentFormatImpl {
 
-    @Override
-    public String getKey() {
-        return "DL Syntax Format";
-    }
+  @Override
+  public String getKey() {
+    return "DL Syntax Format";
+  }
 }

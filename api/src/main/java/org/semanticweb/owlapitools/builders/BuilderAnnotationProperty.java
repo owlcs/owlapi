@@ -13,40 +13,39 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationProperty. */
-public class BuilderAnnotationProperty extends BaseEntityBuilder<OWLAnnotationProperty, BuilderAnnotationProperty> {
+/**
+ * Builder class for OWLAnnotationProperty.
+ */
+public class BuilderAnnotationProperty extends
+    BaseEntityBuilder<OWLAnnotationProperty, BuilderAnnotationProperty> {
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderAnnotationProperty(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderAnnotationProperty(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderAnnotationProperty(OWLAnnotationProperty expected, OWLDataFactory df) {
-        this(df);
-        withIRI(expected.getIRI());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderAnnotationProperty(OWLAnnotationProperty expected, OWLDataFactory df) {
+    this(df);
+    withIRI(expected.getIRI());
+  }
 
-    @Override
-    public OWLAnnotationProperty buildObject() {
-        if (pm != null && string != null) {
-            return df.getOWLAnnotationProperty(getString(), getPM());
-        }
-        return df.getOWLAnnotationProperty(getIRI());
+  @Override
+  public OWLAnnotationProperty buildObject() {
+    if (pm != null && string != null) {
+      return df.getOWLAnnotationProperty(getString(), getPM());
     }
+    return df.getOWLAnnotationProperty(getIRI());
+  }
 }

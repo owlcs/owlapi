@@ -12,14 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -47,132 +46,134 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * not all "orphan" classes are asserted to be subclasses of owl:Thing. For
  * example, if the only referencing axiom of class A was ObjectDomain(propP A)
  * then A is a syntactic subclass of owl:Thing.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SimpleRootClassChecker implements RootClassChecker {
 
-    private final Collection<OWLOntology> ontologies;
-    // Rules for determining if a class is a direct subclass of Thing
-    // 1) It isn't referenced by ANY subclass axiom or equivalent class axioms
-    // 2) It is reference only by subclass axioms, but doesn't appear on the LHS
-    // of these axioms
-    // 3) It is on the LHS of a subclass axiom where the RHS is Thing
-    // 4) It is referenced only by equivalent class axioms, where all other
-    // operands in these axioms are named
-    // 5) It is not referenced by subclass axioms and is not referenced by any
-    // equivalent class axiom where there is
-    // at least one operand in the equivalent class axiom which is an
-    // intersection containing a named operand i.e.
-    // EquivalentClasses(A (B and hasP some C)) would not be a subclass of Thing
-    private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
-    private final NamedSuperChecker superChecker = new NamedSuperChecker();
+  private final Collection<OWLOntology> ontologies;
+  // Rules for determining if a class is a direct subclass of Thing
+  // 1) It isn't referenced by ANY subclass axiom or equivalent class axioms
+  // 2) It is reference only by subclass axioms, but doesn't appear on the LHS
+  // of these axioms
+  // 3) It is on the LHS of a subclass axiom where the RHS is Thing
+  // 4) It is referenced only by equivalent class axioms, where all other
+  // operands in these axioms are named
+  // 5) It is not referenced by subclass axioms and is not referenced by any
+  // equivalent class axiom where there is
+  // at least one operand in the equivalent class axiom which is an
+  // intersection containing a named operand i.e.
+  // EquivalentClasses(A (B and hasP some C)) would not be a subclass of Thing
+  private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
+  private final NamedSuperChecker superChecker = new NamedSuperChecker();
 
-    /**
-     * Creates a root class checker, which examines axioms contained in
-     * ontologies from the specified set in order to determine if a class is a
-     * syntactic subclass of owl:Thing.
-     * 
-     * @param ontologies
-     *        The ontologies whose axioms are to be taken into consideration
-     *        when determining if a class is a syntactic direct subclass of
-     *        owl:Thing
-     */
-    public SimpleRootClassChecker(Collection<OWLOntology> ontologies) {
-        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
+  /**
+   * Creates a root class checker, which examines axioms contained in
+   * ontologies from the specified set in order to determine if a class is a
+   * syntactic subclass of owl:Thing.
+   *
+   * @param ontologies The ontologies whose axioms are to be taken into consideration when
+   * determining if a class is a syntactic direct subclass of owl:Thing
+   */
+  public SimpleRootClassChecker(Collection<OWLOntology> ontologies) {
+    this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
+  }
+
+  @Override
+  public boolean isRootClass(OWLClass cls) {
+    return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls))
+        .anyMatch(ax -> isRootClass(cls, ax));
+  }
+
+  private boolean isRootClass(OWLClass cls, OWLAxiom ax) {
+    return !ax.accept(checker.setOWLClass(cls)).booleanValue();
+  }
+
+  protected boolean check(OWLClassExpression e) {
+    superChecker.reset();
+    e.accept(superChecker);
+    return !superChecker.namedSuper;
+  }
+
+  private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {
+
+    protected boolean namedSuper;
+
+    NamedSuperChecker() {
+    }
+
+    public void reset() {
+      namedSuper = false;
     }
 
     @Override
-    public boolean isRootClass(OWLClass cls) {
-        return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls)).anyMatch(ax -> isRootClass(cls, ax));
+    public Boolean visit(OWLClass ce) {
+      namedSuper = true;
+      return Boolean.TRUE;
     }
 
-    private boolean isRootClass(OWLClass cls, OWLAxiom ax) {
-        return !ax.accept(checker.setOWLClass(cls)).booleanValue();
+    @Override
+    public Boolean visit(OWLObjectIntersectionOf ce) {
+      return Boolean.valueOf(ce.operands().anyMatch(op -> op.accept(this).booleanValue()));
+    }
+  }
+
+  /**
+   * A utility class that checks if an axiom gives rise to a class being a
+   * subclass of Thing.
+   */
+  private class RootClassCheckerHelper implements OWLAxiomVisitorEx<Boolean> {
+
+    private Boolean isRoot = Boolean.TRUE;
+    @Nullable
+    private OWLClass cls = null;
+
+    public RootClassCheckerHelper() {
     }
 
-    private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {
-
-        protected boolean namedSuper;
-
-        NamedSuperChecker() {}
-
-        public void reset() {
-            namedSuper = false;
-        }
-
-        @Override
-        public Boolean visit(OWLClass ce) {
-            namedSuper = true;
-            return Boolean.TRUE;
-        }
-
-        @Override
-        public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(ce.operands().anyMatch(op -> op.accept(this).booleanValue()));
-        }
+    public RootClassCheckerHelper setOWLClass(OWLClass cls) {
+      // Start off with the assumption that the class is
+      // a root class. This means if the class isn't referenced
+      // by any equivalent class axioms or subclass axioms then
+      // we correctly identify it as a root
+      isRoot = Boolean.TRUE;
+      this.cls = cls;
+      return this;
     }
 
-    protected boolean check(OWLClassExpression e) {
-        superChecker.reset();
-        e.accept(superChecker);
-        return !superChecker.namedSuper;
+    private OWLClass cls() {
+      return verifyNotNull(cls,
+          "cls cannot be null. Has the helper been initialised with a valid value?");
     }
 
-    /**
-     * A utility class that checks if an axiom gives rise to a class being a
-     * subclass of Thing.
-     */
-    private class RootClassCheckerHelper implements OWLAxiomVisitorEx<Boolean> {
+    @Override
+    public Boolean visit(OWLSubClassOfAxiom axiom) {
+      if (axiom.getSubClass().equals(cls())) {
+        isRoot = Boolean.valueOf(check(axiom.getSuperClass()));
+      }
+      return isRoot;
+    }
 
-        private Boolean isRoot = Boolean.TRUE;
-        @Nullable private OWLClass cls = null;
-
-        public RootClassCheckerHelper() {}
-
-        public RootClassCheckerHelper setOWLClass(OWLClass cls) {
-            // Start off with the assumption that the class is
-            // a root class. This means if the class isn't referenced
-            // by any equivalent class axioms or subclass axioms then
-            // we correctly identify it as a root
-            isRoot = Boolean.TRUE;
-            this.cls = cls;
-            return this;
-        }
-
-        private OWLClass cls() {
-            return verifyNotNull(cls, "cls cannot be null. Has the helper been initialised with a valid value?");
-        }
-
-        @Override
-        public Boolean visit(OWLSubClassOfAxiom axiom) {
-            if (axiom.getSubClass().equals(cls())) {
-                isRoot = Boolean.valueOf(check(axiom.getSuperClass()));
-            }
+    @Override
+    public Boolean visit(OWLEquivalentClassesAxiom axiom) {
+      if (!contains(axiom.classExpressions(), cls())) {
+        return isRoot;
+      }
+      boolean check = false;
+      Iterator<OWLClassExpression> it = axiom.classExpressions().iterator();
+      while (it.hasNext()) {
+        OWLClassExpression desc = it.next();
+        if (!desc.equals(cls)) {
+          check = check(desc);
+          if (check) {
+            isRoot = Boolean.FALSE;
             return isRoot;
+          }
         }
-
-        @Override
-        public Boolean visit(OWLEquivalentClassesAxiom axiom) {
-            if (!contains(axiom.classExpressions(), cls())) {
-                return isRoot;
-            }
-            boolean check = false;
-            Iterator<OWLClassExpression> it = axiom.classExpressions().iterator();
-            while (it.hasNext()) {
-                OWLClassExpression desc = it.next();
-                if (!desc.equals(cls)) {
-                    check = check(desc);
-                    if (check) {
-                        isRoot = Boolean.FALSE;
-                        return isRoot;
-                    }
-                }
-            }
-            isRoot = Boolean.valueOf(check);
-            return isRoot;
-        }
+      }
+      isRoot = Boolean.valueOf(check);
+      return isRoot;
     }
+  }
 }

@@ -14,29 +14,27 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public final class AxiomTypeCountMetricFactory {
 
-    private AxiomTypeCountMetricFactory() {}
+  private AxiomTypeCountMetricFactory() {
+  }
 
-    /**
-     * Creates a new AxiomTypeCountMetric object.
-     * 
-     * @param o
-     *        ontology to use
-     * @return set of metrics
-     */
-    public static Set<OWLMetric<?>> createMetrics(OWLOntology o) {
-        Set<OWLMetric<?>> metrics = new HashSet<>();
-        AxiomType.AXIOM_TYPES.forEach(t -> metrics.add(new AxiomTypeMetric(o, t)));
-        return metrics;
-    }
+  /**
+   * Creates a new AxiomTypeCountMetric object.
+   *
+   * @param o ontology to use
+   * @return set of metrics
+   */
+  public static Set<OWLMetric<?>> createMetrics(OWLOntology o) {
+    Set<OWLMetric<?>> metrics = new HashSet<>();
+    AxiomType.AXIOM_TYPES.forEach(t -> metrics.add(new AxiomTypeMetric(o, t)));
+    return metrics;
+  }
 }

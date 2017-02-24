@@ -16,57 +16,56 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 
-/** Builder class for OWLObjectHasValue. */
-public class BuilderObjectHasValue extends BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
+/**
+ * Builder class for OWLObjectHasValue.
+ */
+public class BuilderObjectHasValue extends
+    BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
 
-    @Nullable private OWLIndividual value = null;
+  @Nullable
+  private OWLIndividual value = null;
 
-    /**
-     * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
-     */
-    public BuilderObjectHasValue(OWLObjectHasValue expected, OWLDataFactory df) {
-        this(df);
-        withProperty(expected.getProperty()).withValue(expected.getFiller());
-    }
+  /**
+   * Builder initialized from an existing object.
+   *
+   * @param expected the existing object
+   * @param df data factory
+   */
+  public BuilderObjectHasValue(OWLObjectHasValue expected, OWLDataFactory df) {
+    this(df);
+    withProperty(expected.getProperty()).withValue(expected.getFiller());
+  }
 
-    /**
-     * @param df
-     *        data factory
-     */
-    @Inject
-    public BuilderObjectHasValue(OWLDataFactory df) {
-        super(df);
-    }
+  /**
+   * @param df data factory
+   */
+  @Inject
+  public BuilderObjectHasValue(OWLDataFactory df) {
+    super(df);
+  }
 
-    /**
-     * @param arg
-     *        argument
-     * @return builder
-     */
-    public BuilderObjectHasValue withValue(OWLIndividual arg) {
-        value = arg;
-        return this;
-    }
+  /**
+   * @param arg argument
+   * @return builder
+   */
+  public BuilderObjectHasValue withValue(OWLIndividual arg) {
+    value = arg;
+    return this;
+  }
 
-    @Override
-    public OWLObjectHasValue buildObject() {
-        return df.getOWLObjectHasValue(verifyNotNull(getProperty()), getValue());
-    }
+  @Override
+  public OWLObjectHasValue buildObject() {
+    return df.getOWLObjectHasValue(verifyNotNull(getProperty()), getValue());
+  }
 
-    /**
-     * @return value
-     */
-    public OWLIndividual getValue() {
-        return verifyNotNull(value);
-    }
+  /**
+   * @return value
+   */
+  public OWLIndividual getValue() {
+    return verifyNotNull(value);
+  }
 }

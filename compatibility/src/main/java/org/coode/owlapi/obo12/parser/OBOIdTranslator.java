@@ -49,16 +49,17 @@ import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("all")
 class OBOIdTranslator {
 
-    /**
-     * @param oboId
-     * @return null
-     */
-    public IRI getIRIFromOBOId(String oboId) {
-        return null;
-    }
+  /**
+   * @return null
+   */
+  public IRI getIRIFromOBOId(String oboId) {
+    return null;
+  }
 
-    /** @return null */
-    public String getOBOIdFromIRI() {
-        return null;
-    }
+  /**
+   * @return null
+   */
+  public String getOBOIdFromIRI() {
+    return null;
+  }
 }

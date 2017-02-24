@@ -14,24 +14,25 @@ package com.clarkparsia.owlapi.explanation.io;
 
 import java.io.Writer;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Null implementation. */
+/**
+ * Null implementation.
+ */
 public class SilentExplanationRenderer implements ExplanationRenderer {
 
-    @Override
-    public void endRendering() {
-        // do nothing
-    }
+  @Override
+  public void endRendering() {
+    // do nothing
+  }
 
-    @Override
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) {
-        // do nothing
-    }
+  @Override
+  public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) {
+    // do nothing
+  }
 
-    @Override
-    public void startRendering(Writer writer) {
-        // do nothing
-    }
+  @Override
+  public void startRendering(Writer writer) {
+    // do nothing
+  }
 }

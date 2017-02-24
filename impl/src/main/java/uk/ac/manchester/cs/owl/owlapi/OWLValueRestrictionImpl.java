@@ -18,23 +18,22 @@ import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @param <V>
- *        the value
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <V> the value
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends OWLAnonymousClassExpressionImpl implements
+public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
+    OWLAnonymousClassExpressionImpl implements
     OWLHasValueRestriction<V> {
 
-    protected final V value;
+  protected final V value;
 
-    protected OWLValueRestrictionImpl(V value) {
-        this.value = checkNotNull(value, "value cannot be null");
-    }
+  protected OWLValueRestrictionImpl(V value) {
+    this.value = checkNotNull(value, "value cannot be null");
+  }
 
-    @Override
-    public V getFiller() {
-        return value;
-    }
+  @Override
+  public V getFiller() {
+    return value;
+  }
 }
