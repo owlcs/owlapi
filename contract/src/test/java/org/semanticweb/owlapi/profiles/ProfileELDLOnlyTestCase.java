@@ -17,11 +17,6 @@ public class ProfileELDLOnlyTestCase extends ProfileBase {
         this.premise = premise;
     }
 
-    @Test
-    public void testELDLONLY() {
-        test(premise, true, false, false, true);
-    }
-
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
@@ -35,5 +30,10 @@ public class ProfileELDLOnlyTestCase extends ProfileBase {
             "<rdf:RDF xml:base=\"http://example.org/\" xmlns=\"http://example.org/\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/><owl:DatatypeProperty rdf:about=\"hasSSN\" /><rdf:Description rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"><owl:hasKey rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"hasSSN\" /></owl:hasKey></rdf:Description><rdf:Description rdf:about=\"Peter\"><hasSSN>123-45-6789</hasSSN></rdf:Description><rdf:Description rdf:about=\"Peter_Griffin\"><hasSSN>123-45-6789</hasSSN></rdf:Description><rdf:Description rdf:about=\"Peter\"><owl:differentFrom rdf:resource=\"Peter_Griffin\" /></rdf:Description></rdf:RDF>",
             "Prefix( owl:=<http://www.w3.org/2002/07/owl#> ) Prefix( :=<http://example.org/> ) Ontology( Declaration( DataProperty( :hasSSN ) ) HasKey( owl:Thing () ( :hasSSN ) ) DataPropertyAssertion( :hasSSN :Peter \"123-45-6789\" ) DataPropertyAssertion( :hasSSN :Peter_Griffin \"123-45-6789\" ) DifferentIndividuals( :Peter :Peter_Griffin ))",
             "<rdf:RDF xml:base=\"http://example.org/\" xmlns=\"http://example.org/\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/><owl:Class rdf:about=\"Person\" /><owl:Class rdf:about=\"Man\" /><owl:DatatypeProperty rdf:about=\"hasSSN\" /><owl:ObjectProperty rdf:about=\"marriedTo\" /><rdf:Description rdf:about=\"Person\"><owl:hasKey rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"hasSSN\" /></owl:hasKey></rdf:Description><rdf:Description rdf:about=\"Peter\"><hasSSN>123-45-6789</hasSSN><rdf:type rdf:resource=\"Person\" /></rdf:Description><rdf:Description rdf:about=\"Lois\"><rdf:type><owl:Restriction><owl:onProperty rdf:resource=\"marriedTo\" /><owl:someValuesFrom><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"Man\" /><owl:Restriction><owl:onProperty rdf:resource=\"hasSSN\" /><owl:hasValue>123-45-6789</owl:hasValue></owl:Restriction></owl:intersectionOf></owl:Class></owl:someValuesFrom></owl:Restriction></rdf:type></rdf:Description></rdf:RDF>");
+    }
+
+    @Test
+    public void testELDLONLY() {
+        test(premise, true, false, false, true);
     }
 }

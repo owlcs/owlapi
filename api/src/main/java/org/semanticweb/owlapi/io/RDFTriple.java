@@ -53,10 +53,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class RDFTriple implements Serializable, Comparable<RDFTriple>,
     org.apache.commons.rdf.api.Triple {
 
+    static final TObjectIntHashMap<IRI> specialPredicateRanks = initMap();
     private final RDFResource subject;
     private final RDFResourceIRI predicate;
     private final RDFNode object;
-    static final TObjectIntHashMap<IRI> specialPredicateRanks = initMap();
 
     /**
      * @param subject the subject
@@ -99,6 +99,43 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
             return new RDFResourceBlankNode(iri, true, true);
         }
         return new RDFResourceIRI(iri);
+    }
+
+    static TObjectIntHashMap<IRI> initMap() {
+        TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
+        AtomicInteger nextId = new AtomicInteger(1);
+        List<OWLRDFVocabulary> ORDERED_URIS = Arrays
+            .asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED, RDFS_COMMENT,
+                RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
+                OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF,
+                RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN, RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY,
+                OWL_DATA_RANGE,
+                OWL_ON_CLASS, OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
+        ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
+        Stream.of(OWLRDFVocabulary.values())
+            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId
+                .getAndIncrement()));
+        return predicates;
+    }
+
+    private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
+        IRI predicateIRI = predicate.getIRI();
+        int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
+        IRI otherPredicateIRI = otherPredicate.getIRI();
+        int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
+        if (specialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
+                return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
+            } else {
+                return -1;
+            }
+        } else {
+            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
+                return +1;
+            } else {
+                return predicateIRI.compareTo(otherPredicateIRI);
+            }
+        }
     }
 
     /**
@@ -159,23 +196,6 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
         return String.format("%s %s %s.", subject, predicate, object);
     }
 
-    static TObjectIntHashMap<IRI> initMap() {
-        TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
-        AtomicInteger nextId = new AtomicInteger(1);
-        List<OWLRDFVocabulary> ORDERED_URIS = Arrays
-            .asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED, RDFS_COMMENT,
-                RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
-                OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF,
-                RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN, RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY,
-                OWL_DATA_RANGE,
-                OWL_ON_CLASS, OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
-        ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
-        Stream.of(OWLRDFVocabulary.values())
-            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId
-                .getAndIncrement()));
-        return predicates;
-    }
-
     @Override
     public int compareTo(@Nullable RDFTriple o) {
         checkNotNull(o);
@@ -189,25 +209,5 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
             diff = object.compareTo(o.object);
         }
         return diff;
-    }
-
-    private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
-        IRI predicateIRI = predicate.getIRI();
-        int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
-        IRI otherPredicateIRI = otherPredicate.getIRI();
-        int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
-        if (specialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
-                return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
-            } else {
-                return -1;
-            }
-        } else {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getNoEntryValue()) {
-                return +1;
-            } else {
-                return predicateIRI.compareTo(otherPredicateIRI);
-            }
-        }
     }
 }

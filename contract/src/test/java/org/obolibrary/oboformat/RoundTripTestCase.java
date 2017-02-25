@@ -52,6 +52,21 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 @SuppressWarnings("javadoc")
 public class RoundTripTestCase extends RoundTripTestBasics {
 
+    private static void checkAsAltId(IRI iri, OWLOntology ont, String replacedBy) {
+        assertTrue(
+            ont.annotationAssertionAxioms(iri).anyMatch(ax -> ax.getProperty().isDeprecated()));
+        assertTrue(ont.annotationAssertionAxioms(iri).filter(ax -> ax.getProperty().getIRI().equals(
+            Obo2OWLConstants.IRI_IAO_0000231)).map(ax -> ax.getValue().asIRI())
+            .filter(Optional::isPresent).anyMatch(
+                p -> Obo2OWLConstants.IRI_IAO_0000227.equals(p.get())));
+        String altId = ont.annotationAssertionAxioms(iri)
+            .filter(ax -> ax.getProperty().getIRI().equals(
+                Obo2OWLVocabulary.IRI_IAO_0100001.getIRI())).map(ax -> ax.getValue().asIRI())
+            .filter(Optional::isPresent)
+            .map(p -> OWLAPIOwl2Obo.getIdentifier(p.get())).findAny().orElse(null);
+        assertEquals(replacedBy, altId);
+    }
+
     @Test
     public void testAltIds() throws Exception {
         OBODoc input = parseOBOFile("alt_id_test.obo");
@@ -67,21 +82,6 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         IRI alt_id_r1 = IRI.create("http://purl.obolibrary.org/obo/", "TEST_REL_1000");
         checkAsAltId(alt_id_t1, owl, "TEST:0001");
         checkAsAltId(alt_id_r1, owl, "TEST_REL:0001");
-    }
-
-    private static void checkAsAltId(IRI iri, OWLOntology ont, String replacedBy) {
-        assertTrue(
-            ont.annotationAssertionAxioms(iri).anyMatch(ax -> ax.getProperty().isDeprecated()));
-        assertTrue(ont.annotationAssertionAxioms(iri).filter(ax -> ax.getProperty().getIRI().equals(
-            Obo2OWLConstants.IRI_IAO_0000231)).map(ax -> ax.getValue().asIRI())
-            .filter(Optional::isPresent).anyMatch(
-                p -> Obo2OWLConstants.IRI_IAO_0000227.equals(p.get())));
-        String altId = ont.annotationAssertionAxioms(iri)
-            .filter(ax -> ax.getProperty().getIRI().equals(
-                Obo2OWLVocabulary.IRI_IAO_0100001.getIRI())).map(ax -> ax.getValue().asIRI())
-            .filter(Optional::isPresent)
-            .map(p -> OWLAPIOwl2Obo.getIdentifier(p.get())).findAny().orElse(null);
-        assertEquals(replacedBy, altId);
     }
 
     @Test

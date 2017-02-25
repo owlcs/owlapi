@@ -45,6 +45,20 @@ public abstract class AbstractOWLStorer implements OWLStorer {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractOWLStorer.class);
 
+    private static OutputStream prepareActualOutput(IRI documentIRI) throws IOException {
+        // files opened with FileOutputStream
+        if ("file".equals(documentIRI.getScheme())) {
+            File file = new File(documentIRI.toURI());
+            // Ensure that the necessary directories exist.
+            file.getParentFile().mkdirs();
+            return new FileOutputStream(file);
+        }
+        // URLs
+        URL url = documentIRI.toURI().toURL();
+        URLConnection conn = url.openConnection();
+        return conn.getOutputStream();
+    }
+
     @Override
     public void storeOntology(OWLOntology ontology, IRI documentIRI,
         OWLDocumentFormat ontologyFormat)
@@ -59,20 +73,6 @@ public abstract class AbstractOWLStorer implements OWLStorer {
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }
-    }
-
-    private static OutputStream prepareActualOutput(IRI documentIRI) throws IOException {
-        // files opened with FileOutputStream
-        if ("file".equals(documentIRI.getScheme())) {
-            File file = new File(documentIRI.toURI());
-            // Ensure that the necessary directories exist.
-            file.getParentFile().mkdirs();
-            return new FileOutputStream(file);
-        }
-        // URLs
-        URL url = documentIRI.toURI().toURL();
-        URLConnection conn = url.openConnection();
-        return conn.getOutputStream();
     }
 
     private void store(OWLOntology ontology, OWLDocumentFormat ontologyFormat,

@@ -58,28 +58,6 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         this.ontologyBuilder = verifyNotNull(ontologyBuilder);
     }
 
-    @Override
-    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
-        return true;
-    }
-
-    @Override
-    public boolean canAttemptLoading(OWLOntologyDocumentSource source) {
-        return !source.hasAlredyFailedOnStreams()
-            || !source.hasAlredyFailedOnIRIResolution() && parsableSchemes
-            .contains(source.getDocumentIRI().getScheme());
-    }
-
-    @Override
-    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
-        IRI documentIRI,
-        OWLOntologyCreationHandler handler) {
-        OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
-        handler.ontologyCreated(ont);
-        handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
-        return ont;
-    }
-
     /**
      * Select parsers by MIME type and format of the input source, if known. If
      * format and MIME type are not known or not matched by any parser, return
@@ -142,6 +120,28 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     private static PriorityCollection<OWLParserFactory> getParserCandidatesByMIME(String mimeType,
         PriorityCollection<OWLParserFactory> parsers) {
         return parsers.getByMIMEType(mimeType);
+    }
+
+    @Override
+    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
+        return true;
+    }
+
+    @Override
+    public boolean canAttemptLoading(OWLOntologyDocumentSource source) {
+        return !source.hasAlredyFailedOnStreams()
+            || !source.hasAlredyFailedOnIRIResolution() && parsableSchemes
+            .contains(source.getDocumentIRI().getScheme());
+    }
+
+    @Override
+    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
+        IRI documentIRI,
+        OWLOntologyCreationHandler handler) {
+        OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
+        handler.ontologyCreated(ont);
+        handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
+        return ont;
     }
 
     @Override

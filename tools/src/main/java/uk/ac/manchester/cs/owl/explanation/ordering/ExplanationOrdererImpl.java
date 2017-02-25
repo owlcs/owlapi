@@ -123,16 +123,16 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
         return 1;
     };
-    private Set<OWLAxiom> currentExplanation;
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
     private final SeedExtractor seedExtractor = new SeedExtractor();
     private final OWLOntologyManager man;
-    @Nullable
-    private OWLOntology ont;
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
     private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
     private final Set<AxiomType<?>> passTypes = createLinkedSet();
+    private Set<OWLAxiom> currentExplanation;
+    @Nullable
+    private OWLOntology ont;
 
     /**
      * Instantiates a new explanation orderer impl.
@@ -145,6 +145,41 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         // I'm not sure what to do with disjoint classes yet. At the
         // moment, we just shove them at the end at the top level.
         passTypes.add(AxiomType.DISJOINT_CLASSES);
+    }
+
+    private static void sortChildrenAxioms(ExplanationTree tree) {
+        tree.sortChildren(COMPARATOR);
+    }
+
+    /**
+     * A utility method that obtains a set of axioms that are indexed by some
+     * object.
+     *
+     * @param <K> the key type
+     * @param <E> the element type
+     * @param obj The object that indexed the axioms
+     * @param map The map that provides the index structure
+     * @param addIfEmpty A flag that indicates whether an empty set of axiom should be added to the
+     * index if there is not value present for the indexing object.
+     * @return A set of axioms (may be empty)
+     */
+    private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
+        if (addIfEmpty) {
+            return map.computeIfAbsent(obj, x -> CollectionFactory.<E>createLinkedSet());
+        }
+        Set<E> set = map.get(obj);
+        if (set == null) {
+            return createLinkedSet();
+        }
+        return set;
+    }
+
+    private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+        int childCount1 = o1.getChildCount();
+        childCount1 = childCount1 > 0 ? 0 : 1;
+        int childCount2 = o2.getChildCount();
+        childCount2 = childCount2 > 0 ? 0 : 1;
+        return childCount1 - childCount2;
     }
 
     private void reset() {
@@ -246,10 +281,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         return empty();
     }
 
-    private static void sortChildrenAxioms(ExplanationTree tree) {
-        tree.sortChildren(COMPARATOR);
-    }
-
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
@@ -270,29 +301,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-    }
-
-    /**
-     * A utility method that obtains a set of axioms that are indexed by some
-     * object.
-     *
-     * @param <K> the key type
-     * @param <E> the element type
-     * @param obj The object that indexed the axioms
-     * @param map The map that provides the index structure
-     * @param addIfEmpty A flag that indicates whether an empty set of axiom should be added to the
-     * index if there is not value present for the indexing object.
-     * @return A set of axioms (may be empty)
-     */
-    private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
-        if (addIfEmpty) {
-            return map.computeIfAbsent(obj, x -> CollectionFactory.<E>createLinkedSet());
-        }
-        Set<E> set = map.get(obj);
-        if (set == null) {
-            return createLinkedSet();
-        }
-        return set;
     }
 
     /**
@@ -323,14 +331,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      */
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {
         add(getIndexedSet(axiom, entitiesByAxiomRHS, true), rhs.signature());
-    }
-
-    private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
-        int childCount1 = o1.getChildCount();
-        childCount1 = childCount1 > 0 ? 0 : 1;
-        int childCount2 = o2.getChildCount();
-        childCount2 = childCount2 > 0 ? 0 : 1;
-        return childCount1 - childCount2;
     }
 
     /**

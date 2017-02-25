@@ -192,15 +192,23 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
      */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLRDFConsumer.class);
-    final TripleLogger tripleLogger;
-    /**
-     * The configuration.
-     */
-    private final OWLOntologyLoaderConfiguration configuration;
+    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
+    private static final Set<IRI> entityTypes = Sets
+        .newHashSet(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
+            OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), RDFS_DATATYPE.getIRI(),
+            OWL_NAMED_INDIVIDUAL
+                .getIRI());
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
     // has the domain or range of owl:Class
+    final TripleLogger tripleLogger;
+    final HandlerAccessor handlerAccessor;
+    final TranslatorAccessor translatorAccessor;
+    /**
+     * The configuration.
+     */
+    private final OWLOntologyLoaderConfiguration configuration;
     /**
      * The class expression iris.
      */
@@ -234,11 +242,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
      * IRIs that had a type triple to rdfs:Datatange
      */
     private final Set<IRI> dataRangeIRIs = createSet();
-    /**
-     * The IRI of the first reource that is typed as an ontology
-     */
-    @Nullable
-    private IRI firstOntologyIRI;
     /**
      * IRIs that had a type triple to owl:Ontology
      */
@@ -280,24 +283,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
      */
     private final OWLOntology ontology;
     /**
-     * The ontology format.
-     */
-    @Nullable
-    private RDFDocumentFormat ontologyFormat;
-    /**
      * The data factory.
      */
     private final OWLDataFactory df;
-    /**
-     * The last added axiom.
-     */
-    @Nullable
-    private OWLAxiom lastAddedAxiom;
+    // SWRL Stuff
     /**
      * The synonym map.
      */
     private final Map<IRI, IRI> synonymMap = createMap();
-    // SWRL Stuff
     /**
      * The swrl rules.
      */
@@ -335,11 +328,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
      */
     private final Set<IRI> swrlDifferentFromAtoms = createSet();
     /**
-     * The iri provider.
-     */
-    @Nullable
-    private IRIProvider iriProvider;
-    /**
      * A cache of annotation axioms to be added at the end - saves some peek
      * memory doing this.
      */
@@ -348,19 +336,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
      * The axioms to be removed.
      */
     private final Collection<OWLAxiom> axiomsToBeRemoved = new ArrayList<>();
-    /**
-     * The parsed all triples.
-     */
-    private boolean parsedAllTriples = false;
-    final HandlerAccessor handlerAccessor;
-    final TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
     private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
     /**
      * The translated properties.
      */
     private final Map<IRI, OWLObjectPropertyExpression> translatedProperties = createMap();
-    // Resource triples
     /**
      * Subject, predicate, object
      */
@@ -373,6 +354,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
      * Literal triples
      */
     private final Map<IRI, Map<IRI, Collection<OWLLiteral>>> litTriplesBySubject = createMap();
+    // Resource triples
     /**
      * Predicate, subject, object
      */
@@ -383,13 +365,31 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
     // consumer, so the cache size itself is much smaller than the total memory
     // footprint
     private final Map<String, IRI> IRIMap = createMap();
-    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
-    private static final Set<IRI> entityTypes = Sets
-        .newHashSet(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
-            OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), RDFS_DATATYPE.getIRI(),
-            OWL_NAMED_INDIVIDUAL
-                .getIRI());
     RemappingIndividualProvider anonProvider;
+    /**
+     * The IRI of the first reource that is typed as an ontology
+     */
+    @Nullable
+    private IRI firstOntologyIRI;
+    /**
+     * The ontology format.
+     */
+    @Nullable
+    private RDFDocumentFormat ontologyFormat;
+    /**
+     * The last added axiom.
+     */
+    @Nullable
+    private OWLAxiom lastAddedAxiom;
+    /**
+     * The iri provider.
+     */
+    @Nullable
+    private IRIProvider iriProvider;
+    /**
+     * The parsed all triples.
+     */
+    private boolean parsedAllTriples = false;
 
     /**
      * Instantiates a new oWLRDF consumer.
@@ -440,6 +440,40 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
         tripleLogger = new TripleLogger();
     }
 
+    private static IRI daml(String i) {
+        return IRI.create(DAML_OIL, i);
+    }
+
+    /**
+     * Determines if the specified IRI is an IRI corresponding to owl:Class,
+     * owl:DatatypeProperty, rdfs:Datatype, owl:ObjectProperty,
+     * owl:AnnotationProperty, or owl:NamedIndividual.
+     *
+     * @param iri The IRI to check
+     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI otherwise {@code
+     * false}.
+     */
+    private static boolean isEntityTypeIRI(IRI iri) {
+        return entityTypes.contains(iri);
+    }
+
+    // RDFConsumer implementation
+    private static void printTriple(Object subject, Object predicate, Object object) {
+        LOGGER.info("Unparsed triple: {} -> {} -> {}", subject, predicate, object);
+    }
+
+    /**
+     * Checks if is general predicate.
+     *
+     * @param predicate the predicate
+     * @return true, if is general predicate
+     */
+    protected static boolean isGeneralPredicate(IRI predicate) {
+        return !predicate.isReservedVocabulary() || BUILT_IN_AP_IRIS.contains(predicate) || SWRL
+            .inNamespace(predicate)
+            || SWRLB.inNamespace(predicate);
+    }
+
     @Override
     public void addPrefix(String abbreviation, String value) {
         if (getOntologyFormat().isPrefixOWLDocumentFormat()) {
@@ -473,10 +507,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
             addDAMLOILVocabulary();
             addIntermediateOWLSpecVocabulary();
         }
-    }
-
-    private static IRI daml(String i) {
-        return IRI.create(DAML_OIL, i);
     }
 
     /**
@@ -749,19 +779,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
             // This will add and record the declaration for us
             handlerAccessor.handle(subject, property, object);
         }
-    }
-
-    /**
-     * Determines if the specified IRI is an IRI corresponding to owl:Class,
-     * owl:DatatypeProperty, rdfs:Datatype, owl:ObjectProperty,
-     * owl:AnnotationProperty, or owl:NamedIndividual.
-     *
-     * @param iri The IRI to check
-     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI otherwise {@code
-     * false}.
-     */
-    private static boolean isEntityTypeIRI(IRI iri) {
-        return entityTypes.contains(iri);
     }
 
     /**
@@ -1063,6 +1080,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
         return ontology.getOWLOntologyManager();
     }
 
+    // Helper methods for creating entities
+
     /**
      * Records an annotation of an anonymous node (either an annotation of an
      * annotation, or an annotation of an axiom for example).
@@ -1085,8 +1104,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
     public Set<IRI> getAnnotatedSourceAnnotationMainNodes(IRI source) {
         return annotatedAnonSource2AnnotationMap.getOrDefault(source, Collections.emptySet());
     }
-
-    // Helper methods for creating entities
 
     /**
      * Gets the oWL class.
@@ -1137,6 +1154,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
         return anonProvider.getOWLAnonymousIndividual(nodeId);
     }
 
+    // SWRL Stuff
+
     /**
      * Consume triple.
      *
@@ -1162,8 +1181,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
         tripleLogger.justLog(subject, predicate, con);
         isTriplePresent(subject, predicate, con, true);
     }
-
-    // SWRL Stuff
 
     /**
      * Adds the swrl rule.
@@ -1334,11 +1351,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
      */
     protected boolean isSWRLVariable(IRI iri) {
         return swrlVariables.contains(iri);
-    }
-
-    // RDFConsumer implementation
-    private static void printTriple(Object subject, Object predicate, Object object) {
-        LOGGER.info("Unparsed triple: {} -> {} -> {}", subject, predicate, object);
     }
 
     /**
@@ -1657,6 +1669,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
         return generateAndLogParseError(EntityType.DATATYPE, n);
     }
 
+    // Basic node translation - translation of entities
+
     /**
      * Translate data property expression.
      *
@@ -1666,8 +1680,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
     public OWLDataPropertyExpression translateDataPropertyExpression(IRI iri) {
         return df.getOWLDataProperty(iri);
     }
-
-    // Basic node translation - translation of entities
 
     /**
      * Translate object property expression.
@@ -2053,18 +2065,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker,
             }
         }
         return false;
-    }
-
-    /**
-     * Checks if is general predicate.
-     *
-     * @param predicate the predicate
-     * @return true, if is general predicate
-     */
-    protected static boolean isGeneralPredicate(IRI predicate) {
-        return !predicate.isReservedVocabulary() || BUILT_IN_AP_IRIS.contains(predicate) || SWRL
-            .inNamespace(predicate)
-            || SWRLB.inNamespace(predicate);
     }
 
     /**

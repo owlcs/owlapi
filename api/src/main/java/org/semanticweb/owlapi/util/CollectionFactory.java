@@ -157,18 +157,18 @@ public class CollectionFactory {
     }
 
     /**
+     * @return The current number of expected threads.
+     */
+    public static int getExpectedThreads() {
+        return EXPECTEDTHREADS.get();
+    }
+
+    /**
      * @param value the number of expected threads that will access threadsafe collections; useful
      * for increasing the concurrency in ConcurrentHashMaps
      */
     public static void setExpectedThreads(int value) {
         EXPECTEDTHREADS.set(value);
-    }
-
-    /**
-     * @return The current number of expected threads.
-     */
-    public static int getExpectedThreads() {
-        return EXPECTEDTHREADS.get();
     }
 
     /**
@@ -396,8 +396,8 @@ public class CollectionFactory {
     public static class ConditionalCopySet<T> implements Set<T> {
 
         private static final int MAXCONTAINS = 10;
-        private boolean copyDone = false;
         protected Collection<T> delegate;
+        private boolean copyDone = false;
         private int containsCounter = 0;
 
         /**

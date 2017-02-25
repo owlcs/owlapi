@@ -31,20 +31,6 @@ public class OwlStringTools {
     }
 
     /**
-     * Exception indicating an un-recoverable error during the handling of axiom
-     * strings.
-     */
-    public static class OwlStringException extends OWLRuntimeException {
-
-        /**
-         * @param cause cause
-         */
-        protected OwlStringException(Throwable cause) {
-            super(cause);
-        }
-    }
-
-    /**
      * Create a string for the given set of axioms. Return null for empty sets
      * or if the set is null.
      *
@@ -94,6 +80,20 @@ public class OwlStringTools {
             return asList(ontology.axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException | OWLParserException e) {
             throw new OWLRuntimeException(e);
+        }
+    }
+
+    /**
+     * Exception indicating an un-recoverable error during the handling of axiom
+     * strings.
+     */
+    public static class OwlStringException extends OWLRuntimeException {
+
+        /**
+         * @param cause cause
+         */
+        protected OwlStringException(Throwable cause) {
+            super(cause);
         }
     }
 }

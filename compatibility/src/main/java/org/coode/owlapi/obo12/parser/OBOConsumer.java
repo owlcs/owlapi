@@ -89,13 +89,22 @@ class OBOConsumer implements OBOParserHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OBOConsumer.class.getName());
     private static final String IMPORT_TAG_NAME = "import";
+    private static final Pattern XREF_PATTERN = Pattern
+        .compile("([^\"]*)\\s*(\"((\\\"|[^\"])*)\")?");
+    private static final int XREF_ID_GROUP = 1;
+    private static final int XREF_QUOTED_STRING_GROUP = 3;
     private final OWLOntologyLoaderConfiguration configuration;
     private final OWLOntologyManager owlOntologyManager;
     private final OWLOntology ontology;
+    private final Map<String, TagValueHandler> handlerMap = new HashMap<>();
+    private final Set<OWLClassExpression> intersectionOfOperands;
+    private final Set<OWLClassExpression> unionOfOperands = new HashSet<>();
+    private final Map<String, IRI> symbolicIdCache = new HashMap<>();
+    private final Map<String, IRI> tagIRICache = new HashMap<>();
+    private final IDSpaceManager idSpaceManager = new IDSpaceManager();
     private boolean inHeader;
     @Nullable
     private String currentId;
-    private final Map<String, TagValueHandler> handlerMap = new HashMap<>();
     // private String defaultNamespace;
     @Nullable
     private String defaultNamespaceTagValue = OBOVocabulary.OBO_IRI_BASE;
@@ -104,18 +113,9 @@ class OBOConsumer implements OBOParserHandler {
     private boolean termType;
     private boolean typedefType;
     private boolean instanceType;
-    private final Set<OWLClassExpression> intersectionOfOperands;
-    private final Set<OWLClassExpression> unionOfOperands = new HashSet<>();
     private Map<String, IRI> uriCache = new HashMap<>();
-    private final Map<String, IRI> symbolicIdCache = new HashMap<>();
-    private final Map<String, IRI> tagIRICache = new HashMap<>();
-    private final IDSpaceManager idSpaceManager = new IDSpaceManager();
     private String ontologyTagValue = "";
     private String dataVersionTagValue = "";
-    private static final Pattern XREF_PATTERN = Pattern
-        .compile("([^\"]*)\\s*(\"((\\\"|[^\"])*)\")?");
-    private static final int XREF_ID_GROUP = 1;
-    private static final int XREF_QUOTED_STRING_GROUP = 3;
 
     public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration,
         IRI baseIRI) {
@@ -157,18 +157,12 @@ class OBOConsumer implements OBOParserHandler {
         return verifyNotNull(currentId);
     }
 
-    public void addSymbolicIdMapping(String symbolicName, IRI fullIRI) {
-        symbolicIdCache.put(symbolicName, fullIRI);
+    public void setCurrentId(String currentId) {
+        this.currentId = currentId;
     }
 
-    /**
-     * Sets the value of the default-namespace tag for the current ontology
-     * being parsed.
-     *
-     * @param defaultNamespaceTagValue The value of the default-namespace tag.
-     */
-    public void setDefaultNamespaceTagValue(String defaultNamespaceTagValue) {
-        this.defaultNamespaceTagValue = defaultNamespaceTagValue;
+    public void addSymbolicIdMapping(String symbolicName, IRI fullIRI) {
+        symbolicIdCache.put(symbolicName, fullIRI);
     }
 
     /**
@@ -182,6 +176,16 @@ class OBOConsumer implements OBOParserHandler {
     @Nullable
     public String getDefaultNamespaceTagValue() {
         return defaultNamespaceTagValue;
+    }
+
+    /**
+     * Sets the value of the default-namespace tag for the current ontology
+     * being parsed.
+     *
+     * @param defaultNamespaceTagValue The value of the default-namespace tag.
+     */
+    public void setDefaultNamespaceTagValue(String defaultNamespaceTagValue) {
+        this.defaultNamespaceTagValue = defaultNamespaceTagValue;
     }
 
     /**
@@ -221,10 +225,6 @@ class OBOConsumer implements OBOParserHandler {
      */
     public IDSpaceManager getIdSpaceManager() {
         return idSpaceManager;
-    }
-
-    public void setCurrentId(String currentId) {
-        this.currentId = currentId;
     }
 
     public void addUnionOfOperand(OWLClassExpression classExpression) {

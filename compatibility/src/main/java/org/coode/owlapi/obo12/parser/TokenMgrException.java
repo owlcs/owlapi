@@ -5,17 +5,25 @@ package org.coode.owlapi.obo12.parser;
 @SuppressWarnings("all")
 class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException {
 
-    private static final long serialVersionUID = 1L;
-
     public static final int LEXICAL_ERROR = 0;
-
     public static final int STATIC_LEXER_ERROR = 1;
-
     public static final int INVALID_LEXICAL_STATE = 2;
-
     public static final int LOOP_DETECTED = 3;
-
+    private static final long serialVersionUID = 1L;
     int errorCode;
+
+    public TokenMgrException() {
+    }
+
+    public TokenMgrException(String message, int reason) {
+        super(message);
+        errorCode = reason;
+    }
+
+    public TokenMgrException(boolean EOFSeen, int lexState, int errorLine, int errorColumn,
+        String errorAfter, int curChar, int reason) {
+        this(LexicalErr(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
+    }
 
     protected static final String addEscapes(String str) {
         StringBuffer retval = new StringBuffer();
@@ -73,19 +81,6 @@ class TokenMgrException extends org.semanticweb.owlapi.io.OWLParserException {
 
     public String getMessage() {
         return super.getMessage();
-    }
-
-    public TokenMgrException() {
-    }
-
-    public TokenMgrException(String message, int reason) {
-        super(message);
-        errorCode = reason;
-    }
-
-    public TokenMgrException(boolean EOFSeen, int lexState, int errorLine, int errorColumn,
-        String errorAfter, int curChar, int reason) {
-        this(LexicalErr(EOFSeen, lexState, errorLine, errorColumn, errorAfter, curChar), reason);
     }
 }
 /* JavaCC - OriginalChecksum=4cb75ec0b3b91e2164de3b1ccd0a9301 (do not edit this line) */

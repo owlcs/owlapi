@@ -36,9 +36,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalShortFormProvider {
 
-    private final ShortFormProvider shortFormProvider;
     @Nullable
     protected final Collection<OWLOntology> ontologies;
+    private final ShortFormProvider shortFormProvider;
     @Nullable
     private OWLOntologyManager man;
 

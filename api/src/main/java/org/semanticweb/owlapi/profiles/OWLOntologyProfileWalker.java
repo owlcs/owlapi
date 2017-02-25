@@ -32,6 +32,21 @@ import org.semanticweb.owlapi.util.StructureWalker;
  */
 public class OWLOntologyProfileWalker extends OWLOntologyWalker {
 
+    /**
+     * @param objects ontologies to walk
+     */
+    public OWLOntologyProfileWalker(Stream<OWLOntology> objects) {
+        this(asList(objects));
+    }
+
+    /**
+     * @param objects ontologies to walk
+     */
+    public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
+        super(objects);
+        setStructureWalker(new ProfileWalker(this));
+    }
+
     class ProfileWalker extends StructureWalker<OWLOntology> {
 
         ProfileWalker(OWLObjectWalker<OWLOntology> owlObjectWalker) {
@@ -65,20 +80,5 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
             // do not visit entities from declarations, only their IRIs
             axiom.getEntity().getIRI().accept(this);
         }
-    }
-
-    /**
-     * @param objects ontologies to walk
-     */
-    public OWLOntologyProfileWalker(Stream<OWLOntology> objects) {
-        this(asList(objects));
-    }
-
-    /**
-     * @param objects ontologies to walk
-     */
-    public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
-        super(objects);
-        setStructureWalker(new ProfileWalker(this));
     }
 }

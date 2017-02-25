@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class TurtleRenderer extends RDFRendererBase {
 
+    protected final Deque<Integer> tabs = new LinkedList<>();
     private final PrintWriter writer;
     private final PrefixManager pm;
     private final Set<RDFResource> pending = new HashSet<>();
@@ -67,7 +68,6 @@ public class TurtleRenderer extends RDFRendererBase {
     private final OWLDocumentFormat format;
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    protected final Deque<Integer> tabs = new LinkedList<>();
     int level = 0;
 
     /**

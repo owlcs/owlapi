@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 @SuppressWarnings({"javadoc", "null"})
 public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
 
+    private final PriorityCollectionSorting hasOntologyLoaderConfiguration = PriorityCollectionSorting.NEVER;
     private ConcurrentPriorityCollection<T> collection;
     @Mock
     private ReadWriteLock readWriteLock;
@@ -33,7 +34,6 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
     private Lock readLock, writeLock;
     @Mock
     private T element;
-    private final PriorityCollectionSorting hasOntologyLoaderConfiguration = PriorityCollectionSorting.NEVER;
     private Iterable<T> iterable;
 
     @Before

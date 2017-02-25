@@ -41,6 +41,18 @@ public class TripleComparatorTestCase {
     private final RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
     private final RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
 
+    private static RDFResourceIRI r(OWLEntity e) {
+        return new RDFResourceIRI(e.getIRI());
+    }
+
+    private static RDFResourceIRI r(IRI e) {
+        return new RDFResourceIRI(e);
+    }
+
+    private static RDFNode r(int s) {
+        return new RDFResourceBlankNode(s, false, false);
+    }
+
     @Test
     public void shouldSort() {
         List<RDFTriple> list = new ArrayList<>(Arrays.asList(
@@ -125,17 +137,5 @@ public class TripleComparatorTestCase {
 
     private RDFTriple triple(int n) {
         return new RDFTriple(g, subtype, r(n));
-    }
-
-    private static RDFResourceIRI r(OWLEntity e) {
-        return new RDFResourceIRI(e.getIRI());
-    }
-
-    private static RDFResourceIRI r(IRI e) {
-        return new RDFResourceIRI(e);
-    }
-
-    private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(s, false, false);
     }
 }

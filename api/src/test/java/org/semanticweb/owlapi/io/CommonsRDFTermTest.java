@@ -28,6 +28,72 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings({"javadoc", "null"})
 public class CommonsRDFTermTest extends AbstractRDFTest {
 
+    @Ignore
+    @Override
+    public void hashCodeBlankNode() {
+        // TODO Auto-generated method stub
+        // super.hashCodeBlankNode();
+    }
+
+    @Ignore
+    @Override
+    public void hashCodeLiteral() {
+        // TODO Auto-generated method stub
+        // super.hashCodeLiteral();
+    }
+
+    @Ignore
+    @Override
+    public void testCreateGraph() {
+        // TODO Auto-generated method stub
+        // super.testCreateGraph();
+    }
+
+    @Ignore
+    @Override
+    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() {
+        // TODO Auto-generated method stub
+        // super.testCreateBlankNodeIdentifierTwiceDifferentFactories();
+    }
+
+    @Ignore
+    @Override
+    public void hashCodeTriple() {
+        // TODO Auto-generated method stub
+        // super.hashCodeTriple();
+    }
+
+    @Override
+    public RDF createFactory() {
+        return new OWLAPIRDFTermFactory();
+    }
+
+    @Override
+    @Ignore
+    @Test
+    public void testPossiblyInvalidBlankNode() throws Exception {
+        // FIXME: Should BlankNode identifiers be validated? At least
+        // ntriplesString() output should be checked - but could
+        // this also affect load/save issues?
+        Assume.assumeTrue("BlankNode identifiers are not validated", false);
+        super.testPossiblyInvalidBlankNode();
+    }
+
+    @Ignore
+    @Override
+    public void testInvalidLiteralLang() throws Exception {
+        // FIXME: RDFLiteral should not allow spaces in lang
+        Assume.assumeTrue("RDFLiteral does not validate lang", false);
+        super.testInvalidLiteralLang();
+    }
+
+    @Ignore
+    @Override
+    public void testInvalidIRI() throws Exception {
+        Assume.assumeTrue("IRI string is not validated", false);
+        super.testInvalidIRI();
+    }
+
     private final class OWLAPIRDFTermFactory implements RDF {
 
         private AtomicInteger bnodeCounter = new AtomicInteger();
@@ -146,71 +212,5 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
             // TODO Auto-generated method stub
             return null;
         }
-    }
-
-    @Ignore
-    @Override
-    public void hashCodeBlankNode() {
-        // TODO Auto-generated method stub
-        // super.hashCodeBlankNode();
-    }
-
-    @Ignore
-    @Override
-    public void hashCodeLiteral() {
-        // TODO Auto-generated method stub
-        // super.hashCodeLiteral();
-    }
-
-    @Ignore
-    @Override
-    public void testCreateGraph() {
-        // TODO Auto-generated method stub
-        // super.testCreateGraph();
-    }
-
-    @Ignore
-    @Override
-    public void testCreateBlankNodeIdentifierTwiceDifferentFactories() {
-        // TODO Auto-generated method stub
-        // super.testCreateBlankNodeIdentifierTwiceDifferentFactories();
-    }
-
-    @Ignore
-    @Override
-    public void hashCodeTriple() {
-        // TODO Auto-generated method stub
-        // super.hashCodeTriple();
-    }
-
-    @Override
-    public RDF createFactory() {
-        return new OWLAPIRDFTermFactory();
-    }
-
-    @Override
-    @Ignore
-    @Test
-    public void testPossiblyInvalidBlankNode() throws Exception {
-        // FIXME: Should BlankNode identifiers be validated? At least
-        // ntriplesString() output should be checked - but could
-        // this also affect load/save issues?
-        Assume.assumeTrue("BlankNode identifiers are not validated", false);
-        super.testPossiblyInvalidBlankNode();
-    }
-
-    @Ignore
-    @Override
-    public void testInvalidLiteralLang() throws Exception {
-        // FIXME: RDFLiteral should not allow spaces in lang
-        Assume.assumeTrue("RDFLiteral does not validate lang", false);
-        super.testInvalidLiteralLang();
-    }
-
-    @Ignore
-    @Override
-    public void testInvalidIRI() throws Exception {
-        Assume.assumeTrue("IRI string is not validated", false);
-        super.testInvalidIRI();
     }
 }

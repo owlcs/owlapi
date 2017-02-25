@@ -157,6 +157,106 @@ public class Examples extends TestBase {
         + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
         + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
 
+    private static void print(Node<OWLClass> parent, OWLReasoner reasoner, int depth) {
+        // We don't want to print out the bottom node (containing owl:Nothing
+        // and unsatisfiable classes) because this would appear as a leaf node
+        // everywhere
+        if (parent.isBottomNode()) {
+            return;
+        }
+        // Print an indent to denote parent-child relationships
+        printIndent(depth);
+        // Now print the node (containing the child classes)
+        printNode(parent);
+        for (Node<OWLClass> child : reasoner
+            .getSubClasses(parent.getRepresentativeElement(), true)) {
+            // Recurse to do the children. Note that we don't have to worry
+            // about cycles as there are non in the inferred class hierarchy
+            // graph - a cycle gets collapsed into a single node since each
+            // class in the cycle is equivalent.
+            print(child, reasoner, depth + 1);
+        }
+    }
+
+    private static void printIndent(int depth) {
+        for (int i = 0; i < depth; i++) {
+            // System.out.print(" ");
+        }
+    }
+
+    private static void printNode(Node<OWLClass> node) {
+        // The default prefix used here is only an example.
+        // For real ontologies, choose a meaningful prefix - the best
+        // choice depends on the actual ontology.
+        DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
+            "http://owl.man.ac.uk/2005/07/sssw/people#");
+        // Print out a node as a list of class names in curly brackets
+        for (Iterator<OWLClass> it = node.entities().iterator(); it.hasNext(); ) {
+            OWLClass cls = it.next();
+            // User a prefix manager to provide a slightly nicer shorter name
+            String shortForm = pm.getShortForm(cls);
+            assertNotNull(shortForm);
+        }
+    }
+
+    private static boolean hasProperty(OWLOntologyManager man, OWLReasoner reasoner, OWLClass cls,
+        OWLObjectPropertyExpression prop) {
+        // To test whether the instances of a class must have a property we
+        // create a some values from restriction and then ask for the
+        // satisfiability of the class interesected with the complement of this
+        // some values from restriction. If the intersection is satisfiable then
+        // the instances of the class don't have to have the property,
+        // otherwise, they do.
+        OWLDataFactory dataFactory = man.getOWLDataFactory();
+        OWLClassExpression restriction = dataFactory
+            .getOWLObjectSomeValuesFrom(prop, dataFactory.getOWLThing());
+        // Now we see if the intersection of the class and the complement of
+        // this restriction is satisfiable
+        OWLClassExpression complement = dataFactory.getOWLObjectComplementOf(restriction);
+        OWLClassExpression intersection = dataFactory.getOWLObjectIntersectionOf(cls, complement);
+        return !reasoner.isSatisfiable(intersection);
+    }
+
+    private static void printOntologyAndImports(OWLOntologyManager manager, OWLOntology ontology) {
+        // Print ontology IRI and where it was loaded from (they will be the
+        // same)
+        printOntology(manager, ontology);
+        // List the imported ontologies
+        ontology.imports().forEach(o -> printOntology(manager, o));
+    }
+
+    /**
+     * Prints the IRI of an ontology and its document IRI.
+     *
+     * @param manager The manager that manages the ontology
+     * @param ontology The ontology
+     */
+    private static void printOntology(OWLOntologyManager manager, OWLOntology ontology) {
+        IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI().get();
+        IRI documentIRI = manager.getOntologyDocumentIRI(ontology);
+        // System.out.println(ontologyIRI == null ? "anonymous" : ontologyIRI
+        // .toQuotedString());
+        // System.out.println(" from " + documentIRI.toQuotedString());
+    }
+
+    /**
+     * Convenience method that obtains the document IRI of an ontology contained
+     * in the TONES ontology repository given the ontology IRI. The TONES
+     * repository contains various ontologies of interest to reasoner developers
+     * and tools developers. Ontologies in the repository may be accessed in a
+     * RESTful way (see http://owl.cs.manchester.ac.uk/repository/) for more
+     * details). We basically get an ontology by specifying the repository IRI
+     * with an ontology query parameter that has the ontology IRI that we're
+     * after as its value.
+     *
+     * @param ontologyIRI The IRI of the ontology.
+     * @param tones tones iri
+     * @return The document IRI of the ontology in the TONES repository.
+     */
+    private static IRI getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI tones) {
+        return IRI.create(tones + "?ontology=" + ontologyIRI);
+    }
+
     /**
      * The examples here show how to load ontologies.
      *
@@ -996,48 +1096,6 @@ public class Examples extends TestBase {
         print(topNode, reasoner, 0);
     }
 
-    private static void print(Node<OWLClass> parent, OWLReasoner reasoner, int depth) {
-        // We don't want to print out the bottom node (containing owl:Nothing
-        // and unsatisfiable classes) because this would appear as a leaf node
-        // everywhere
-        if (parent.isBottomNode()) {
-            return;
-        }
-        // Print an indent to denote parent-child relationships
-        printIndent(depth);
-        // Now print the node (containing the child classes)
-        printNode(parent);
-        for (Node<OWLClass> child : reasoner
-            .getSubClasses(parent.getRepresentativeElement(), true)) {
-            // Recurse to do the children. Note that we don't have to worry
-            // about cycles as there are non in the inferred class hierarchy
-            // graph - a cycle gets collapsed into a single node since each
-            // class in the cycle is equivalent.
-            print(child, reasoner, depth + 1);
-        }
-    }
-
-    private static void printIndent(int depth) {
-        for (int i = 0; i < depth; i++) {
-            // System.out.print(" ");
-        }
-    }
-
-    private static void printNode(Node<OWLClass> node) {
-        // The default prefix used here is only an example.
-        // For real ontologies, choose a meaningful prefix - the best
-        // choice depends on the actual ontology.
-        DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
-            "http://owl.man.ac.uk/2005/07/sssw/people#");
-        // Print out a node as a list of class names in curly brackets
-        for (Iterator<OWLClass> it = node.entities().iterator(); it.hasNext(); ) {
-            OWLClass cls = it.next();
-            // User a prefix manager to provide a slightly nicer shorter name
-            String shortForm = pm.getShortForm(cls);
-            assertNotNull(shortForm);
-        }
-    }
-
     /**
      * This example shows how to examine the restrictions on a class.
      *
@@ -1080,42 +1138,6 @@ public class Examples extends TestBase {
         // .getRestrictedProperties()) {
         // System.out.println(" " + prop);
         // }
-    }
-
-    /**
-     * Visits existential restrictions and collects the properties which are
-     * restricted.
-     */
-    private static class RestrictionVisitor implements OWLClassExpressionVisitor {
-
-        private final Set<OWLClass> processedClasses;
-        private final Set<OWLOntology> onts;
-
-        RestrictionVisitor(Set<OWLOntology> onts) {
-            processedClasses = new HashSet<OWLClass>();
-            this.onts = onts;
-        }
-
-        @Override
-        public void visit(OWLClass ce) {
-            if (!processedClasses.contains(ce)) {
-                // If we are processing inherited restrictions then we
-                // recursively visit named supers. Note that we need to keep
-                // track of the classes that we have processed so that we don't
-                // get caught out by cycles in the taxonomy
-                processedClasses.add(ce);
-                for (OWLOntology ont : onts) {
-                    ont.subClassAxiomsForSubClass(ce)
-                        .forEach(ax -> ax.getSuperClass().accept(this));
-                }
-            }
-        }
-
-        @Override
-        public void visit(OWLObjectSomeValuesFrom ce) {
-            // This method gets called when a class expression is an existential
-            // (someValuesFrom) restriction and it asks us to visit it
-        }
     }
 
     /**
@@ -1322,24 +1344,6 @@ public class Examples extends TestBase {
         }
     }
 
-    private static boolean hasProperty(OWLOntologyManager man, OWLReasoner reasoner, OWLClass cls,
-        OWLObjectPropertyExpression prop) {
-        // To test whether the instances of a class must have a property we
-        // create a some values from restriction and then ask for the
-        // satisfiability of the class interesected with the complement of this
-        // some values from restriction. If the intersection is satisfiable then
-        // the instances of the class don't have to have the property,
-        // otherwise, they do.
-        OWLDataFactory dataFactory = man.getOWLDataFactory();
-        OWLClassExpression restriction = dataFactory
-            .getOWLObjectSomeValuesFrom(prop, dataFactory.getOWLThing());
-        // Now we see if the intersection of the class and the complement of
-        // this restriction is satisfiable
-        OWLClassExpression complement = dataFactory.getOWLObjectComplementOf(restriction);
-        OWLClassExpression intersection = dataFactory.getOWLObjectIntersectionOf(cls, complement);
-        return !reasoner.isSatisfiable(intersection);
-    }
-
     /**
      * This example shows how to use IRI mappers to redirect imports and
      * loading.
@@ -1399,46 +1403,6 @@ public class Examples extends TestBase {
         manager2.getIRIMappers().add(autoIRIMapper);
         // Of course, applications (such as Protege) usually implement their own
         // mappers to deal with specific application requirements.
-    }
-
-    private static void printOntologyAndImports(OWLOntologyManager manager, OWLOntology ontology) {
-        // Print ontology IRI and where it was loaded from (they will be the
-        // same)
-        printOntology(manager, ontology);
-        // List the imported ontologies
-        ontology.imports().forEach(o -> printOntology(manager, o));
-    }
-
-    /**
-     * Prints the IRI of an ontology and its document IRI.
-     *
-     * @param manager The manager that manages the ontology
-     * @param ontology The ontology
-     */
-    private static void printOntology(OWLOntologyManager manager, OWLOntology ontology) {
-        IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI().get();
-        IRI documentIRI = manager.getOntologyDocumentIRI(ontology);
-        // System.out.println(ontologyIRI == null ? "anonymous" : ontologyIRI
-        // .toQuotedString());
-        // System.out.println(" from " + documentIRI.toQuotedString());
-    }
-
-    /**
-     * Convenience method that obtains the document IRI of an ontology contained
-     * in the TONES ontology repository given the ontology IRI. The TONES
-     * repository contains various ontologies of interest to reasoner developers
-     * and tools developers. Ontologies in the repository may be accessed in a
-     * RESTful way (see http://owl.cs.manchester.ac.uk/repository/) for more
-     * details). We basically get an ontology by specifying the repository IRI
-     * with an ontology query parameter that has the ontology IRI that we're
-     * after as its value.
-     *
-     * @param ontologyIRI The IRI of the ontology.
-     * @param tones tones iri
-     * @return The document IRI of the ontology in the TONES repository.
-     */
-    private static IRI getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI tones) {
-        return IRI.create(tones + "?ontology=" + ontologyIRI);
     }
 
     /**
@@ -1831,5 +1795,41 @@ public class Examples extends TestBase {
         // Turtle
         // System.out.println("Turtle: ");
         manager.saveOntology(ont, new TurtleDocumentFormat(), new StringDocumentTarget());
+    }
+
+    /**
+     * Visits existential restrictions and collects the properties which are
+     * restricted.
+     */
+    private static class RestrictionVisitor implements OWLClassExpressionVisitor {
+
+        private final Set<OWLClass> processedClasses;
+        private final Set<OWLOntology> onts;
+
+        RestrictionVisitor(Set<OWLOntology> onts) {
+            processedClasses = new HashSet<OWLClass>();
+            this.onts = onts;
+        }
+
+        @Override
+        public void visit(OWLClass ce) {
+            if (!processedClasses.contains(ce)) {
+                // If we are processing inherited restrictions then we
+                // recursively visit named supers. Note that we need to keep
+                // track of the classes that we have processed so that we don't
+                // get caught out by cycles in the taxonomy
+                processedClasses.add(ce);
+                for (OWLOntology ont : onts) {
+                    ont.subClassAxiomsForSubClass(ce)
+                        .forEach(ax -> ax.getSuperClass().accept(this));
+                }
+            }
+        }
+
+        @Override
+        public void visit(OWLObjectSomeValuesFrom ce) {
+            // This method gets called when a class expression is an existential
+            // (someValuesFrom) restriction and it asks us to visit it
+        }
     }
 }

@@ -80,14 +80,105 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
 @SuppressWarnings({"javadoc", "null"})
 public abstract class TestBase {
 
-    protected interface AxiomBuilder {
-
-        Set<OWLAxiom> build();
-    }
-
     protected static final Logger logger = LoggerFactory.getLogger(TestBase.class);
+    protected static final @Nonnull
+    String uriBase = "http://www.semanticweb.org/owlapi/test";
+    protected static @Nonnull
+    OWLDataFactory df;
+    protected static @Nonnull
+    Object masterInjector;
+    protected static @Nonnull
+    OntologyConfigurator masterConfigurator;
     protected final @Nonnull
     File RESOURCES = resources();
+    @Nonnull
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+    @Nonnull
+    @Rule
+    public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
+    protected @Nonnull
+    OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+    protected @Nonnull
+    OWLOntologyManager m;
+    protected @Nonnull
+    OWLOntologyManager m1;
+
+    private static final File resources() {
+        try {
+            return new File(TestBase.class.getResource("/owlapi.properties").toURI())
+                .getParentFile();
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException("NO RESOURCE FOLDER ACCESSIBLE", e);
+        }
+    }
+
+    @BeforeClass
+    public static void setupManagers() {
+        masterInjector = OWLManager.createInjector(Concurrency.NON_CONCURRENT);
+        masterConfigurator = new OntologyConfigurator();
+        df = OWLManager.getOWLDataFactory(masterInjector);
+    }
+
+    protected static OWLOntologyManager setupManager() {
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager(masterInjector);
+        man.setOntologyConfigurator(masterConfigurator);
+        return man;
+    }
+
+    protected static <S> Set<S> singleton(S s) {
+        return Collections.singleton(s);
+    }
+
+    private static Set<OWLAnnotation> reannotate(Stream<OWLAnnotation> anns) {
+        OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING);
+        Set<OWLAnnotation> toReturn = new HashSet<>();
+        anns.forEach(a -> {
+            Optional<OWLLiteral> asLiteral = a.getValue().asLiteral();
+            if (asLiteral.isPresent() && asLiteral.get().isRDFPlainLiteral()) {
+                OWLAnnotation replacement = df
+                    .getOWLAnnotation(a.getProperty(), df.getOWLLiteral(asLiteral.get()
+                        .getLiteral(), stringType));
+                toReturn.add(replacement);
+            } else {
+                toReturn.add(a);
+            }
+        });
+        return toReturn;
+    }
+
+    private static String topOfStackTrace() {
+        StackTraceElement[] elements = new RuntimeException().getStackTrace();
+        return elements[1] + "\n" + elements[2] + '\n' + elements[3];
+    }
+
+    /**
+     * @param leftOnly
+     * @param rightOnly
+     * @return
+     */
+    public static boolean verifyErrorIsDueToBlankNodesId(Set<OWLAxiom> leftOnly,
+        Set<OWLAxiom> rightOnly) {
+        Set<String> leftOnlyStrings = new HashSet<>();
+        Set<String> rightOnlyStrings = new HashSet<>();
+        for (OWLAxiom ax : leftOnly) {
+            leftOnlyStrings.add(
+                ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+",
+                    "blank"));
+        }
+        for (OWLAxiom ax : rightOnly) {
+            rightOnlyStrings.add(
+                ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+",
+                    "blank"));
+        }
+        return rightOnlyStrings.equals(leftOnlyStrings);
+    }
+
+    public static IRI iri(String name) {
+        return IRI(uriBase + '#', name);
+    }
 
     protected <T> T get(Optional<T> t) {
         return t.get();
@@ -108,57 +199,10 @@ public abstract class TestBase {
         }
     }
 
-    private static final File resources() {
-        try {
-            return new File(TestBase.class.getResource("/owlapi.properties").toURI())
-                .getParentFile();
-        } catch (URISyntaxException e) {
-            throw new OWLRuntimeException("NO RESOURCE FOLDER ACCESSIBLE", e);
-        }
-    }
-
-    @Nonnull
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-    @Nonnull
-    @Rule
-    public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
-    protected @Nonnull
-    OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
-    protected static @Nonnull
-    OWLDataFactory df;
-    protected static @Nonnull
-    Object masterInjector;
-    protected static @Nonnull
-    OntologyConfigurator masterConfigurator;
-    protected @Nonnull
-    OWLOntologyManager m;
-    protected @Nonnull
-    OWLOntologyManager m1;
-
-    @BeforeClass
-    public static void setupManagers() {
-        masterInjector = OWLManager.createInjector(Concurrency.NON_CONCURRENT);
-        masterConfigurator = new OntologyConfigurator();
-        df = OWLManager.getOWLDataFactory(masterInjector);
-    }
-
     @Before
     public void setupManagersClean() {
         m = setupManager();
         m1 = setupManager();
-    }
-
-    protected static OWLOntologyManager setupManager() {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager(masterInjector);
-        man.setOntologyConfigurator(masterConfigurator);
-        return man;
-    }
-
-    protected static <S> Set<S> singleton(S s) {
-        return Collections.singleton(s);
     }
 
     protected Set<OWLAxiom> stripSimpleDeclarations(Collection<OWLAxiom> axioms) {
@@ -340,50 +384,6 @@ public abstract class TestBase {
         return reannotated;
     }
 
-    private static Set<OWLAnnotation> reannotate(Stream<OWLAnnotation> anns) {
-        OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING);
-        Set<OWLAnnotation> toReturn = new HashSet<>();
-        anns.forEach(a -> {
-            Optional<OWLLiteral> asLiteral = a.getValue().asLiteral();
-            if (asLiteral.isPresent() && asLiteral.get().isRDFPlainLiteral()) {
-                OWLAnnotation replacement = df
-                    .getOWLAnnotation(a.getProperty(), df.getOWLLiteral(asLiteral.get()
-                        .getLiteral(), stringType));
-                toReturn.add(replacement);
-            } else {
-                toReturn.add(a);
-            }
-        });
-        return toReturn;
-    }
-
-    private static String topOfStackTrace() {
-        StackTraceElement[] elements = new RuntimeException().getStackTrace();
-        return elements[1] + "\n" + elements[2] + '\n' + elements[3];
-    }
-
-    /**
-     * @param leftOnly
-     * @param rightOnly
-     * @return
-     */
-    public static boolean verifyErrorIsDueToBlankNodesId(Set<OWLAxiom> leftOnly,
-        Set<OWLAxiom> rightOnly) {
-        Set<String> leftOnlyStrings = new HashSet<>();
-        Set<String> rightOnlyStrings = new HashSet<>();
-        for (OWLAxiom ax : leftOnly) {
-            leftOnlyStrings.add(
-                ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+",
-                    "blank"));
-        }
-        for (OWLAxiom ax : rightOnly) {
-            rightOnlyStrings.add(
-                ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+",
-                    "blank"));
-        }
-        return rightOnlyStrings.equals(leftOnlyStrings);
-    }
-
     /**
      * ignore declarations of builtins and of named individuals - named
      * individuals do not /need/ a declaration, but addiong one is not an error.
@@ -403,9 +403,6 @@ public abstract class TestBase {
         }
         return false;
     }
-
-    protected static final @Nonnull
-    String uriBase = "http://www.semanticweb.org/owlapi/test";
 
     public OWLOntology getOWLOntology() {
         try {
@@ -429,10 +426,6 @@ public abstract class TestBase {
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-    }
-
-    public static IRI iri(String name) {
-        return IRI(uriBase + '#', name);
     }
 
     public void roundTripOntology(OWLOntology ont)
@@ -586,5 +579,10 @@ public abstract class TestBase {
     protected OWLOntology roundTrip(OWLOntology o)
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o));
+    }
+
+    protected interface AxiomBuilder {
+
+        Set<OWLAxiom> build();
     }
 }

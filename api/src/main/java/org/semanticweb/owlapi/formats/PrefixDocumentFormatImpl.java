@@ -70,11 +70,6 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
     }
 
     @Override
-    public void setDefaultPrefix(@Nullable String defaultPrefix) {
-        nsm.setDefaultPrefix(defaultPrefix);
-    }
-
-    @Override
     public boolean containsPrefixMapping(String prefixName) {
         return nsm.containsPrefixMapping(prefixName);
     }
@@ -83,6 +78,11 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
     @Nullable
     public String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
+    }
+
+    @Override
+    public void setDefaultPrefix(@Nullable String defaultPrefix) {
+        nsm.setDefaultPrefix(defaultPrefix);
     }
 
     @Override

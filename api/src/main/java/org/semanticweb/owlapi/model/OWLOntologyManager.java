@@ -988,6 +988,12 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     void clearOntologyStorers();
 
     /**
+     * @return the collection of IRI mappers. This allows for iteration and modification of the
+     * list.
+     */
+    PriorityCollection<OWLOntologyIRIMapper> getIRIMappers();
+
+    /**
      * Set the collection of IRI mappers. The mappers are used to obtain
      * ontology document IRIs for ontology IRIs. If their type is annotated with
      * a HasPriority type, this will be used to decide the order they are used.
@@ -999,10 +1005,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     void setIRIMappers(Set<OWLOntologyIRIMapper> mappers);
 
     /**
-     * @return the collection of IRI mappers. This allows for iteration and modification of the
-     * list.
+     * @return the collection of parsers. This allows for iteration and modification of the list.
      */
-    PriorityCollection<OWLOntologyIRIMapper> getIRIMappers();
+    PriorityCollection<OWLParserFactory> getOntologyParsers();
 
     /**
      * Set the collection of parsers. If the parsers are annotated with a
@@ -1015,9 +1020,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     void setOntologyParsers(Set<OWLParserFactory> parsers);
 
     /**
-     * @return the collection of parsers. This allows for iteration and modification of the list.
+     * @return the collection of ontology factories. This allows for iteration and modification of
+     * the list.
      */
-    PriorityCollection<OWLParserFactory> getOntologyParsers();
+    PriorityCollection<OWLOntologyFactory> getOntologyFactories();
 
     /**
      * Set the collection of ontology factories. If the factories are annotated
@@ -1030,10 +1036,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
     void setOntologyFactories(Set<OWLOntologyFactory> factories);
 
     /**
-     * @return the collection of ontology factories. This allows for iteration and modification of
-     * the list.
+     * @return the collection of storers. This allows for iteration and modification of the list.
      */
-    PriorityCollection<OWLOntologyFactory> getOntologyFactories();
+    PriorityCollection<OWLStorerFactory> getOntologyStorers();
 
     /**
      * Set the list of ontology storers. If their type is annotated with a
@@ -1044,11 +1049,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @param storers The storers to be used
      */
     void setOntologyStorers(Set<OWLStorerFactory> storers);
-
-    /**
-     * @return the collection of storers. This allows for iteration and modification of the list.
-     */
-    PriorityCollection<OWLStorerFactory> getOntologyStorers();
 
     /**
      * Adds an ontology change listener, which listens to ontology changes. An

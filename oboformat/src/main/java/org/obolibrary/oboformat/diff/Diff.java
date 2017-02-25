@@ -11,8 +11,9 @@ import org.obolibrary.oboformat.model.Frame;
  */
 public class Diff {
 
-    String type;
     final String frameType;
+    final int frameNum;
+    String type;
     @Nullable
     Frame frame1;
     @Nullable
@@ -21,7 +22,6 @@ public class Diff {
     Clause clause1;
     @Nullable
     Clause clause2;
-    final int frameNum;
 
     /**
      * @param ftype ftype

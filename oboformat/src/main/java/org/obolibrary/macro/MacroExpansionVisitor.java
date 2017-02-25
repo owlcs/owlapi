@@ -35,8 +35,8 @@ public class MacroExpansionVisitor {
     protected final OWLOntologyManager manager;
     protected final Visitor visitor;
     protected final AbstractDataVisitorEx dataVisitor;
-    protected boolean shouldTransferAnnotations = false;
     protected final boolean shouldAddExpansionMarker;
+    protected boolean shouldTransferAnnotations = false;
     protected Set<OWLAnnotation> extraAnnotations;
 
     /**
@@ -101,6 +101,27 @@ public class MacroExpansionVisitor {
         inputOntology.add(newAxioms);
         inputOntology.remove(rmAxioms);
         return inputOntology;
+    }
+
+    /**
+     * @return true if annotations should be transferred
+     */
+    public boolean shouldTransferAnnotations() {
+        return shouldTransferAnnotations;
+    }
+
+    /**
+     * @param shouldTransferAnnotations new value
+     */
+    public void setShouldTransferAnnotations(boolean shouldTransferAnnotations) {
+        this.shouldTransferAnnotations = shouldTransferAnnotations;
+    }
+
+    /**
+     * Call this method to clear internal references.
+     */
+    public void dispose() {
+        visitor.getTool().dispose();
     }
 
     private class MacroExpansions {
@@ -234,26 +255,5 @@ public class MacroExpansionVisitor {
                 }
             };
         }
-    }
-
-    /**
-     * @return true if annotations should be transferred
-     */
-    public boolean shouldTransferAnnotations() {
-        return shouldTransferAnnotations;
-    }
-
-    /**
-     * @param shouldTransferAnnotations new value
-     */
-    public void setShouldTransferAnnotations(boolean shouldTransferAnnotations) {
-        this.shouldTransferAnnotations = shouldTransferAnnotations;
-    }
-
-    /**
-     * Call this method to clear internal references.
-     */
-    public void dispose() {
-        visitor.getTool().dispose();
     }
 }

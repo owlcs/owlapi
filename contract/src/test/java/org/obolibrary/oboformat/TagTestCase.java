@@ -14,6 +14,34 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 @SuppressWarnings({"javadoc"})
 public class TagTestCase extends OboFormatTestBasics {
 
+    private static Clause parseLine(String line) {
+        StringReader sr = new StringReader(line);
+        OBOFormatParser p = new OBOFormatParser();
+        BufferedReader br = new BufferedReader(sr);
+        p.setReader(br);
+        return p.parseTermFrameClause();
+    }
+
+    private static OBODoc parseFrames(String s) {
+        StringReader sr = new StringReader(s);
+        OBOFormatParser p = new OBOFormatParser();
+        BufferedReader br = new BufferedReader(sr);
+        p.setReader(br);
+        OBODoc obodoc = new OBODoc();
+        p.parseTermFrame(obodoc);
+        return obodoc;
+    }
+
+    private static OBODoc parseOBODoc(String s) {
+        StringReader sr = new StringReader(s);
+        OBOFormatParser p = new OBOFormatParser();
+        BufferedReader br = new BufferedReader(sr);
+        p.setReader(br);
+        OBODoc obodoc = new OBODoc();
+        p.parseOBODoc(obodoc);
+        return obodoc;
+    }
+
     @Test
     public void testParseOBOFile() {
         OBODoc obodoc = parseOBOFile("tag_test.obo");
@@ -95,33 +123,5 @@ public class TagTestCase extends OboFormatTestBasics {
         Clause cl = parseLine("is_a: x ! foo");
         assertEquals(OboFormatTag.TAG_IS_A.getTag(), cl.getTag());
         assertEquals("x", cl.getValue());
-    }
-
-    private static Clause parseLine(String line) {
-        StringReader sr = new StringReader(line);
-        OBOFormatParser p = new OBOFormatParser();
-        BufferedReader br = new BufferedReader(sr);
-        p.setReader(br);
-        return p.parseTermFrameClause();
-    }
-
-    private static OBODoc parseFrames(String s) {
-        StringReader sr = new StringReader(s);
-        OBOFormatParser p = new OBOFormatParser();
-        BufferedReader br = new BufferedReader(sr);
-        p.setReader(br);
-        OBODoc obodoc = new OBODoc();
-        p.parseTermFrame(obodoc);
-        return obodoc;
-    }
-
-    private static OBODoc parseOBODoc(String s) {
-        StringReader sr = new StringReader(s);
-        OBOFormatParser p = new OBOFormatParser();
-        BufferedReader br = new BufferedReader(sr);
-        p.setReader(br);
-        OBODoc obodoc = new OBODoc();
-        p.parseOBODoc(obodoc);
-        return obodoc;
     }
 }

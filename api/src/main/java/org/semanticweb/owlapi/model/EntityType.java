@@ -37,18 +37,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName,
     HasIRI {
 
-    @FunctionalInterface
-    private static interface Builder<T> {
-
-        T buildEntity(IRI i, EntityProvider p);
-    }
-
-//@formatter:off
     /**
      * Class entity.
      */
     public static final EntityType<OWLClass> CLASS = new EntityType<>("Class", "Class", "Classes",
         OWL_CLASS, (i, p) -> p.getOWLClass(i));
+
+//@formatter:off
     /**
      * Object property entity.
      */
@@ -97,6 +92,13 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     }
 
     /**
+     * @return the list of known entity types
+     */
+    public static List<EntityType<?>> values() {
+        return VALUES;
+    }
+
+    /**
      * @return toe vocabulary enum corresponding to this entity
      */
     public OWLRDFVocabulary getVocabulary() {
@@ -113,13 +115,6 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     @Override
     public String toString() {
         return name;
-    }
-
-    /**
-     * @return the list of known entity types
-     */
-    public static List<EntityType<?>> values() {
-        return VALUES;
     }
 
     /**
@@ -169,5 +164,11 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
      */
     public E buildEntity(IRI i, EntityProvider df) {
         return builder.buildEntity(i, df);
+    }
+
+    @FunctionalInterface
+    private static interface Builder<T> {
+
+        T buildEntity(IRI i, EntityProvider p);
     }
 }

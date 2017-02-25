@@ -17,11 +17,11 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocumentSource {
 
+    protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
+    protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
     private final IRI documentIRI;
     private final Optional<OWLDocumentFormat> format;
     private final Optional<String> mimeType;
-    protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
-    protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
 
     /**
      * Constructs an ontology input source using the specified file.

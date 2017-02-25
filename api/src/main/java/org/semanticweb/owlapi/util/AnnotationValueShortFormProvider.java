@@ -181,6 +181,13 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         return preferredLanguageMap;
     }
 
+    /**
+     * @param literalRenderer the literalRenderer to set
+     */
+    public void setLiteralRenderer(StringAnnotationVisitor literalRenderer) {
+        this.literalRenderer = checkNotNull(literalRenderer);
+    }
+
     private static class AnnotationLanguageFilter implements OWLObjectVisitor {
 
         private final OWLAnnotationProperty prop;
@@ -229,12 +236,5 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             // No language
             candidateValue = iri;
         }
-    }
-
-    /**
-     * @param literalRenderer the literalRenderer to set
-     */
-    public void setLiteralRenderer(StringAnnotationVisitor literalRenderer) {
-        this.literalRenderer = checkNotNull(literalRenderer);
     }
 }

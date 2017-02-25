@@ -16,6 +16,10 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 public class Modularizer {
 
     /**
+     * pointer to a sig index; if not NULL then use optimized algo
+     */
+    private final SigIndex sigIndex;
+    /**
      * shared signature signature
      */
     private Signature sig;
@@ -27,10 +31,6 @@ public class Modularizer {
      * module as a list of axioms
      */
     private List<AxiomWrapper> module = new ArrayList<>();
-    /**
-     * pointer to a sig index; if not NULL then use optimized algo
-     */
-    private final SigIndex sigIndex;
     /**
      * queue of unprocessed entities
      */

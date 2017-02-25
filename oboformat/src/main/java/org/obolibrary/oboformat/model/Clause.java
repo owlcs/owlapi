@@ -69,6 +69,29 @@ public class Clause {
         super();
     }
 
+    private static boolean collectionsEquals(@Nullable Collection<?> c1,
+        @Nullable Collection<?> c2) {
+        if (c1 == null || c1.isEmpty()) {
+            return c2 == null || c2.isEmpty();
+        }
+        if (c2 == null || c1.size() != c2.size()) {
+            return false;
+        }
+        return checkContents(c1, c2);
+    }
+
+    protected static boolean checkContents(Collection<?> c1, Collection<?> c2) {
+        // xrefs are stored as lists to preserve order, but order is not
+        // important for comparisons
+        Set<?> s = new HashSet<>(c2);
+        for (Object x : c1) {
+            if (!s.contains(x)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * @param value value to set
      * @return modified clause
@@ -189,18 +212,6 @@ public class Clause {
     /**
      * @param v v
      */
-    public void setValue(Object v) {
-        if (values instanceof ArrayList) {
-            values.clear();// TODO: Remove this line after profile gathering
-            values.add(v);
-        } else {
-            values = Collections.singletonList(v);
-        }
-    }
-
-    /**
-     * @param v v
-     */
     public void addValue(@Nullable Object v) {
         if (!(values instanceof ArrayList)) {
             List<Object> newValues = new ArrayList<>(values.size() + 1);
@@ -225,6 +236,18 @@ public class Clause {
             throw new FrameStructureException("Clause value is null: " + this);
         }
         return value;
+    }
+
+    /**
+     * @param v v
+     */
+    public void setValue(Object v) {
+        if (values instanceof ArrayList) {
+            values.clear();// TODO: Remove this line after profile gathering
+            values.add(v);
+        } else {
+            values = Collections.singletonList(v);
+        }
     }
 
     /**
@@ -372,29 +395,6 @@ public class Clause {
         }
         sb.append(')');
         return sb.toString();
-    }
-
-    private static boolean collectionsEquals(@Nullable Collection<?> c1,
-        @Nullable Collection<?> c2) {
-        if (c1 == null || c1.isEmpty()) {
-            return c2 == null || c2.isEmpty();
-        }
-        if (c2 == null || c1.size() != c2.size()) {
-            return false;
-        }
-        return checkContents(c1, c2);
-    }
-
-    protected static boolean checkContents(Collection<?> c1, Collection<?> c2) {
-        // xrefs are stored as lists to preserve order, but order is not
-        // important for comparisons
-        Set<?> s = new HashSet<>(c2);
-        for (Object x : c1) {
-            if (!s.contains(x)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @Override

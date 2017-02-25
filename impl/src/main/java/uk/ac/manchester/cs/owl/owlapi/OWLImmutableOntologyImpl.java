@@ -72,11 +72,11 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology,
     Serializable {
 
+    private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
     @Nullable
     protected OWLOntologyManager manager;
     protected OWLDataFactory df;
     protected OWLOntologyID ontologyID;
-    private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
     /**
      * @param manager ontology manager
@@ -86,6 +86,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
+    }
+
+    private static void add(Set<IRI> punned, Set<IRI> test, OWLEntity e) {
+        if (!test.add(e.getIRI())) {
+            punned.add(e.getIRI());
+        }
     }
 
     @Override
@@ -277,12 +283,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             x -> x);
     }
 
-    private static void add(Set<IRI> punned, Set<IRI> test, OWLEntity e) {
-        if (!test.add(e.getIRI())) {
-            punned.add(e.getIRI());
-        }
-    }
-
     @Override
     public Set<IRI> getPunnedIRIs(Imports includeImportsClosure) {
         Set<IRI> punned = new HashSet<>();
@@ -406,51 +406,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     public Stream<OWLOntology> importsClosure() {
         return getOWLOntologyManager().importsClosure(this);
-    }
-
-    private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
-
-        private boolean ref;
-
-        OWLEntityReferenceChecker() {
-        }
-
-        public boolean containsReference(OWLEntity entity) {
-            ref = false;
-            entity.accept(this);
-            return ref;
-        }
-
-        @Override
-        public void visit(OWLClass cls) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsClassInSignature(cls);
-        }
-
-        @Override
-        public void visit(OWLDatatype datatype) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsDatatypeInSignature(datatype);
-        }
-
-        @Override
-        public void visit(OWLNamedIndividual individual) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsIndividualInSignature(individual);
-        }
-
-        @Override
-        public void visit(OWLDataProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsDataPropertyInSignature(property);
-        }
-
-        @Override
-        public void visit(OWLObjectProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsObjectPropertyInSignature(property);
-        }
-
-        @Override
-        public void visit(OWLAnnotationProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints
-                .containsAnnotationPropertyInSignature(property);
-        }
     }
 
     @Override
@@ -629,5 +584,50 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     public boolean containsReference(OWLEntity entity) {
         return ints.containsReference(entity);
+    }
+
+    private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
+
+        private boolean ref;
+
+        OWLEntityReferenceChecker() {
+        }
+
+        public boolean containsReference(OWLEntity entity) {
+            ref = false;
+            entity.accept(this);
+            return ref;
+        }
+
+        @Override
+        public void visit(OWLClass cls) {
+            ref = OWLImmutableOntologyImpl.this.ints.containsClassInSignature(cls);
+        }
+
+        @Override
+        public void visit(OWLDatatype datatype) {
+            ref = OWLImmutableOntologyImpl.this.ints.containsDatatypeInSignature(datatype);
+        }
+
+        @Override
+        public void visit(OWLNamedIndividual individual) {
+            ref = OWLImmutableOntologyImpl.this.ints.containsIndividualInSignature(individual);
+        }
+
+        @Override
+        public void visit(OWLDataProperty property) {
+            ref = OWLImmutableOntologyImpl.this.ints.containsDataPropertyInSignature(property);
+        }
+
+        @Override
+        public void visit(OWLObjectProperty property) {
+            ref = OWLImmutableOntologyImpl.this.ints.containsObjectPropertyInSignature(property);
+        }
+
+        @Override
+        public void visit(OWLAnnotationProperty property) {
+            ref = OWLImmutableOntologyImpl.this.ints
+                .containsAnnotationPropertyInSignature(property);
+        }
     }
 }

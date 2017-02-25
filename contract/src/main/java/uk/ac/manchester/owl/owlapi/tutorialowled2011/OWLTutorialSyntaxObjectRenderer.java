@@ -100,21 +100,21 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 @SuppressWarnings({"javadoc"})
 public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
+    private static final boolean TABLES = true;
+    private static final int TABLE_COLUMNS = 3;
     private final @Nonnull
     ShortFormProvider shortForms;
     private final Writer writer;
-    private int pos;
     int lastNewLinePos;
-    private static final boolean TABLES = true;
-    private static final int TABLE_COLUMNS = 3;
-
-    public String labelFor(OWLEntity entity) {
-        return shortForms.getShortForm(entity);
-    }
+    private int pos;
 
     public OWLTutorialSyntaxObjectRenderer(Writer writer) {
         this.writer = writer;
         shortForms = new QNameShortFormProvider();
+    }
+
+    public String labelFor(OWLEntity entity) {
+        return shortForms.getShortForm(entity);
     }
 
     private OWLTutorialSyntaxObjectRenderer write(String s) {

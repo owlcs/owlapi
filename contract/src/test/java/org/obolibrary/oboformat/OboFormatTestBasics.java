@@ -39,6 +39,18 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 @SuppressWarnings({"javadoc"})
 public class OboFormatTestBasics extends TestBase {
 
+    protected static String renderOboToString(OBODoc oboDoc) throws IOException {
+        OBOFormatWriter writer = new OBOFormatWriter();
+        writer.setCheckStructure(true);
+        StringWriter out = new StringWriter();
+        writer.write(oboDoc, new PrintWriter(out));
+        return out.getBuffer().toString();
+    }
+
+    protected static OBODoc parseOboToString(String oboString) throws IOException {
+        return new OBOFormatParser().parse(new StringReader(oboString));
+    }
+
     protected OBODoc parseOBOFile(String fn) {
         return parseOBOFile(fn, false);
     }
@@ -152,18 +164,6 @@ public class OboFormatTestBasics extends TestBase {
             throw new OWLRuntimeException(e);
         }
         return target;
-    }
-
-    protected static String renderOboToString(OBODoc oboDoc) throws IOException {
-        OBOFormatWriter writer = new OBOFormatWriter();
-        writer.setCheckStructure(true);
-        StringWriter out = new StringWriter();
-        writer.write(oboDoc, new PrintWriter(out));
-        return out.getBuffer().toString();
-    }
-
-    protected static OBODoc parseOboToString(String oboString) throws IOException {
-        return new OBOFormatParser().parse(new StringReader(oboString));
     }
 
     protected @Nullable

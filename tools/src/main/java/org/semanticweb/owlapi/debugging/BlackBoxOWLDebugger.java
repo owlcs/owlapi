@@ -55,10 +55,8 @@ import org.slf4j.LoggerFactory;
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BlackBoxOWLDebugger.class);
-    @Nullable
-    private OWLClass currentClass;
-    @Nullable
-    private OWLOntology debuggingOntology;
+    private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
+    private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<>();
     private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<>();
@@ -66,9 +64,11 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
     private final OWLReasonerFactory reasonerFactory;
     private final Set<OWLAxiom> temporaryAxioms = new HashSet<>();
-    private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
+    @Nullable
+    private OWLClass currentClass;
+    @Nullable
+    private OWLOntology debuggingOntology;
     private int expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
-    private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     private int fastPruningWindowSize = 0;
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount = 0;
@@ -84,6 +84,33 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         OWLReasonerFactory reasonerFactory) {
         super(owlOntologyManager, ontology);
         this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
+    }
+
+    /**
+     * A utility method. Adds axioms from one set to another set upto a
+     * specified limit. Annotation axioms are stripped out
+     *
+     * @param <N> the number type
+     * @param source The source set. Objects from this set will be added to the destination set
+     * @param dest The destination set. Objects will be added to this set
+     * @param limit The maximum number of objects to be added.
+     * @return The number of objects that were actuall added.
+     */
+    private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
+        int count = 0;
+        for (N obj : source) {
+            if (count == limit) {
+                break;
+            }
+            if (!(obj instanceof OWLAnnotationAxiom) && dest.add(obj)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static IRI createIRI() {
+        return IRI.getNextDocumentIRI("http://debugging.blackbox#A");
     }
 
     @Override
@@ -241,29 +268,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }
 
-    /**
-     * A utility method. Adds axioms from one set to another set upto a
-     * specified limit. Annotation axioms are stripped out
-     *
-     * @param <N> the number type
-     * @param source The source set. Objects from this set will be added to the destination set
-     * @param dest The destination set. Objects will be added to this set
-     * @param limit The maximum number of objects to be added.
-     * @return The number of objects that were actuall added.
-     */
-    private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
-        int count = 0;
-        for (N obj : source) {
-            if (count == limit) {
-                break;
-            }
-            if (!(obj instanceof OWLAnnotationAxiom) && dest.add(obj)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
     // Contraction/Pruning - Fast pruning is performed and then slow pruning is
     // performed.
     private void performFastPruning() {
@@ -405,9 +409,5 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         totalSatTests += satTestCount;
         LOGGER.info("Total number of satisfiability tests performed: {}",
             Integer.valueOf(totalSatTests));
-    }
-
-    private static IRI createIRI() {
-        return IRI.getNextDocumentIRI("http://debugging.blackbox#A");
     }
 }

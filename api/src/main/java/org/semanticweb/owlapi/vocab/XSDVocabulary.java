@@ -179,21 +179,6 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         iri = IRI.create(Namespaces.XSD.toString(), name);
     }
 
-    @Override
-    public String getShortForm() {
-        return shortName;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
-
-    @Override
-    public String toString() {
-        return iri.toString();
-    }
-
     /**
      * Easy parse of short names of the kind "xsd:typename". Note that the match
      * must be exact - uppercase or lowercase variants are not accepted. An
@@ -215,6 +200,21 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         }
         throw new IllegalArgumentException(
             "the input value does not match any of the known xsd types: " + s);
+    }
+
+    @Override
+    public String getShortForm() {
+        return shortName;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
+    }
+
+    @Override
+    public String toString() {
+        return iri.toString();
     }
 
     @Override

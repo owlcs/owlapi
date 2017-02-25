@@ -81,14 +81,37 @@ import org.slf4j.LoggerFactory;
 public class OWLAPIObo2Owl {
 
     /**
-     * The log.
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
-    /**
      * The Constant IRI_PROP_isReversiblePropertyChain.
      */
     public static final String IRI_PROP_ISREVERSIBLEPROPERTYCHAIN = DEFAULT_IRI_PREFIX
         + "IAO_isReversiblePropertyChain";
+    /**
+     * The annotation property map.
+     */
+    protected static final Map<String, IRI> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
+    /**
+     * The log.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
+    private static final Set<String> SKIPPED_QUALIFIERS = Sets
+        .newHashSet("gci_relation", "gci_filler", "cardinality",
+            "minCardinality", "maxCardinality", "all_some", "all_only");
+    /**
+     * The id space map.
+     */
+    protected final Map<String, String> idSpaceMap;
+    /**
+     * The ap to declare.
+     */
+    protected final Set<OWLAnnotationProperty> apToDeclare;
+    /**
+     * The cls to declar.
+     */
+    protected final Map<String, OWLClass> clsToDeclare;
+    /**
+     * The typedef to annotation property.
+     */
+    protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
     /**
      * The default id space.
      */
@@ -109,29 +132,6 @@ public class OWLAPIObo2Owl {
      * The obodoc.
      */
     protected OBODoc obodoc;
-    /**
-     * The id space map.
-     */
-    protected final Map<String, String> idSpaceMap;
-    /**
-     * The annotation property map.
-     */
-    protected static final Map<String, IRI> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
-    /**
-     * The ap to declare.
-     */
-    protected final Set<OWLAnnotationProperty> apToDeclare;
-    /**
-     * The cls to declar.
-     */
-    protected final Map<String, OWLClass> clsToDeclare;
-    /**
-     * The typedef to annotation property.
-     */
-    protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
-    private static final Set<String> SKIPPED_QUALIFIERS = Sets
-        .newHashSet("gci_relation", "gci_filler", "cardinality",
-            "minCardinality", "maxCardinality", "all_some", "all_only");
     /**
      * Cache for the id to IRI conversion. This cannot be replaced with a
      * Caffeine cache - the loading of keys is recursive, and a bug in
@@ -160,17 +160,6 @@ public class OWLAPIObo2Owl {
         clsToDeclare = new HashMap<>();
         typedefToAnnotationProperty = new HashMap<>();
         init(manager);
-    }
-
-    protected void init(OWLOntologyManager m) {
-        // use the given manager and its factory
-        manager = m;
-        fac = manager.getOWLDataFactory();
-        // clear all internal maps.
-        idSpaceMap.clear();
-        apToDeclare.clear();
-        clsToDeclare.clear();
-        typedefToAnnotationProperty.clear();
     }
 
     /**
@@ -241,6 +230,147 @@ public class OWLAPIObo2Owl {
             map.put(vac.getMappedTag(), vac.getIRI());
         }
         return map;
+    }
+
+    /**
+     * Gets the uri.
+     *
+     * @param path the path
+     * @return the uri
+     */
+    protected static String getURI(String path) {
+        if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("file:")) {
+            return path;
+        }
+        File f = new File(path);
+        return f.toURI().toString();
+    }
+
+    /**
+     * Tr relation union of.
+     *
+     * @param id the id
+     * @param p the p
+     * @param clauses the clauses
+     * @return the oWL axiom
+     */
+    @SuppressWarnings("unused")
+    @Nullable
+    protected static OWLAxiom trRelationUnionOf(String id, OWLProperty p,
+        Collection<Clause> clauses) {
+        // TODO not expressible in OWL - use APs. SWRL?
+        LOG.error(
+            "The relation union_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
+            id,
+            clauses);
+        return null;
+    }
+
+    /**
+     * Tr relation intersection of.
+     *
+     * @param id the id
+     * @param p the p
+     * @param clauses the clauses
+     * @return the oWL axiom
+     */
+    @SuppressWarnings("unused")
+    @Nullable
+    protected static OWLAxiom trRelationIntersectionOf(String id, OWLProperty p,
+        Collection<Clause> clauses) {
+        // TODO not expressible in OWL - use APs. SWRL?
+        LOG.error(
+            "The relation intersection_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
+            id,
+            clauses);
+        return null;
+    }
+
+    /**
+     * Gets the qV string.
+     *
+     * @param q the q
+     * @param quals the quals
+     * @return the qV string
+     */
+    protected static String getQVString(String q, Collection<QualifierValue> quals) {
+        for (QualifierValue qv : quals) {
+            if (qv.getQualifier().equals(q)) {
+                return qv.getValue();
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Gets the qV boolean.
+     *
+     * @param q the q
+     * @param quals the quals
+     * @return the qV boolean
+     */
+    protected static boolean getQVBoolean(String q, Collection<QualifierValue> quals) {
+        for (QualifierValue qv : quals) {
+            if (qv.getQualifier().equals(q)) {
+                Object v = qv.getValue();
+                return Boolean.parseBoolean((String) v);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets the qV int.
+     *
+     * @param q the q
+     * @param quals the quals
+     * @return the qV int
+     */
+    @Nullable
+    protected static Integer getQVInt(String q, Collection<QualifierValue> quals) {
+        for (QualifierValue qv : quals) {
+            if (qv.getQualifier().equals(q)) {
+                Object v = qv.getValue();
+                return Integer.valueOf((String) v);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the id prefix.
+     *
+     * @param x the x
+     * @return the id prefix
+     */
+    protected static String getIdPrefix(String x) {
+        String[] parts = x.split(":", 2);
+        return parts[0];
+    }
+
+    /**
+     * Tr tag to iri.
+     *
+     * @param tag the tag
+     * @return the iri
+     */
+    public static IRI trTagToIRI(String tag) {
+        IRI iri = ANNOTATIONPROPERTYMAP.get(tag);
+        if (iri == null) {
+            iri = IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, tag);
+        }
+        return iri;
+    }
+
+    protected void init(OWLOntologyManager m) {
+        // use the given manager and its factory
+        manager = m;
+        fac = manager.getOWLDataFactory();
+        // clear all internal maps.
+        idSpaceMap.clear();
+        apToDeclare.clear();
+        clsToDeclare.clear();
+        typedefToAnnotationProperty.clear();
     }
 
     /**
@@ -448,20 +578,6 @@ public class OWLAPIObo2Owl {
         });
         ontology.remove(rmAxioms);
         ontology.add(newAxioms);
-    }
-
-    /**
-     * Gets the uri.
-     *
-     * @param path the path
-     * @return the uri
-     */
-    protected static String getURI(String path) {
-        if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("file:")) {
-            return path;
-        }
-        File f = new File(path);
-        return f.toURI().toString();
     }
 
     /**
@@ -777,46 +893,6 @@ public class OWLAPIObo2Owl {
     }
 
     /**
-     * Tr relation union of.
-     *
-     * @param id the id
-     * @param p the p
-     * @param clauses the clauses
-     * @return the oWL axiom
-     */
-    @SuppressWarnings("unused")
-    @Nullable
-    protected static OWLAxiom trRelationUnionOf(String id, OWLProperty p,
-        Collection<Clause> clauses) {
-        // TODO not expressible in OWL - use APs. SWRL?
-        LOG.error(
-            "The relation union_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
-            id,
-            clauses);
-        return null;
-    }
-
-    /**
-     * Tr relation intersection of.
-     *
-     * @param id the id
-     * @param p the p
-     * @param clauses the clauses
-     * @return the oWL axiom
-     */
-    @SuppressWarnings("unused")
-    @Nullable
-    protected static OWLAxiom trRelationIntersectionOf(String id, OWLProperty p,
-        Collection<Clause> clauses) {
-        // TODO not expressible in OWL - use APs. SWRL?
-        LOG.error(
-            "The relation intersection_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
-            id,
-            clauses);
-        return null;
-    }
-
-    /**
      * Tr union of.
      *
      * @param cls the cls
@@ -875,6 +951,8 @@ public class OWLAPIObo2Owl {
             return fac.getOWLEquivalentClassesAxiom(eSet, annotations);
         }
     }
+
+    // no data properties in obo
 
     /**
      * Adds the.
@@ -977,8 +1055,6 @@ public class OWLAPIObo2Owl {
         }
         return ax;
     }
-
-    // no data properties in obo
 
     /**
      * Tr typedef clause.
@@ -1298,57 +1374,6 @@ public class OWLAPIObo2Owl {
     }
 
     /**
-     * Gets the qV string.
-     *
-     * @param q the q
-     * @param quals the quals
-     * @return the qV string
-     */
-    protected static String getQVString(String q, Collection<QualifierValue> quals) {
-        for (QualifierValue qv : quals) {
-            if (qv.getQualifier().equals(q)) {
-                return qv.getValue();
-            }
-        }
-        return "";
-    }
-
-    /**
-     * Gets the qV boolean.
-     *
-     * @param q the q
-     * @param quals the quals
-     * @return the qV boolean
-     */
-    protected static boolean getQVBoolean(String q, Collection<QualifierValue> quals) {
-        for (QualifierValue qv : quals) {
-            if (qv.getQualifier().equals(q)) {
-                Object v = qv.getValue();
-                return Boolean.parseBoolean((String) v);
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Gets the qV int.
-     *
-     * @param q the q
-     * @param quals the quals
-     * @return the qV int
-     */
-    @Nullable
-    protected static Integer getQVInt(String q, Collection<QualifierValue> quals) {
-        for (QualifierValue qv : quals) {
-            if (qv.getQualifier().equals(q)) {
-                Object v = qv.getValue();
-                return Integer.valueOf((String) v);
-            }
-        }
-        return null;
-    }
-
-    /**
      * Tr class.
      *
      * @param classId the class id
@@ -1389,17 +1414,6 @@ public class OWLAPIObo2Owl {
     }
 
     /**
-     * Gets the id prefix.
-     *
-     * @param x the x
-     * @return the id prefix
-     */
-    protected static String getIdPrefix(String x) {
-        String[] parts = x.split(":", 2);
-        return parts[0];
-    }
-
-    /**
      * Tr individual.
      *
      * @param instId the inst id
@@ -1408,20 +1422,6 @@ public class OWLAPIObo2Owl {
     protected OWLIndividual trIndividual(String instId) {
         IRI iri = oboIdToIRI(instId);
         return fac.getOWLNamedIndividual(iri);
-    }
-
-    /**
-     * Tr tag to iri.
-     *
-     * @param tag the tag
-     * @return the iri
-     */
-    public static IRI trTagToIRI(String tag) {
-        IRI iri = ANNOTATIONPROPERTYMAP.get(tag);
-        if (iri == null) {
-            iri = IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, tag);
-        }
-        return iri;
     }
 
     /**

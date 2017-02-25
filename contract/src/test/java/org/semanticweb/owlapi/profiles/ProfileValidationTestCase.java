@@ -46,6 +46,12 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class ProfileValidationTestCase extends TestBase {
 
+    private static void checkProfile(OWLOntology ontology, OWLProfile profile,
+        boolean shouldBeInProfile) {
+        OWLProfileReport report = profile.checkOntology(ontology);
+        assertTrue(shouldBeInProfile == report.isInProfile());
+    }
+
     @Test
     public void testProfiles() throws OWLOntologyCreationException {
         String ns = "http://www.w3.org/2007/OWL/testOntology#";
@@ -121,12 +127,6 @@ public class ProfileValidationTestCase extends TestBase {
             }
             m.removeOntology(ontology);
         }
-    }
-
-    private static void checkProfile(OWLOntology ontology, OWLProfile profile,
-        boolean shouldBeInProfile) {
-        OWLProfileReport report = profile.checkOntology(ontology);
-        assertTrue(shouldBeInProfile == report.isInProfile());
     }
 
     @Test

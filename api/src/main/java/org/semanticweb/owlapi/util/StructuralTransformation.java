@@ -66,8 +66,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class StructuralTransformation implements Serializable {
 
     protected final OWLDataFactory df;
-    private int nameCounter = 0;
     protected final Set<OWLEntity> signature = new HashSet<>();
+    private int nameCounter = 0;
 
     /**
      * @param dataFactory factory to use

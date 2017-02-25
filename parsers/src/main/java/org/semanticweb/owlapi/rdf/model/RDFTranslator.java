@@ -40,10 +40,10 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
 public class RDFTranslator extends
     AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+        new IdentityHashingStrategy<>());
 
     /**
      * @param manager the manager

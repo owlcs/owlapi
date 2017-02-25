@@ -201,8 +201,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * XSD_DATE_TIME_STAMP.
      */XSD_DATE_TIME_STAMP(DATE_TIME_STAMP, Category.CAT_TIME, false,
         "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
-    //@formatter:on
-    private static final Map<IRI, OWL2Datatype> ALL_IRIS = asMap(stream(), HasIRI::getIRI);
     /**
      * Datatypes allowed in the EL and QL profiles.
      */
@@ -227,6 +225,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI,
             XSD_DATE_TIME,
             XSD_DATE_TIME_STAMP);
+    //@formatter:on
+    private static final Map<IRI, OWL2Datatype> ALL_IRIS = asMap(stream(), HasIRI::getIRI);
     private final String shortForm;
     private final IRI iri;
     private final Category category;
@@ -270,26 +270,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     /**
-     * Gets the Pattern that specifies the regular expression for the allowed
-     * lexical values of a datatype.
-     *
-     * @return The Pattern, or {@code null}
-     */
-    public Pattern getPattern() {
-        return pattern;
-    }
-
-    /**
-     * Gets the Pattern string that specifies the regular expression for the
-     * allowed lexical values of a datatype.
-     *
-     * @return The Pattern string. Not null.
-     */
-    public String getPatternString() {
-        return regExpression;
-    }
-
-    /**
      * Determines if the specified IRI identifies a built in datatype.
      *
      * @param datatypeIRI The datatype IRI
@@ -326,6 +306,26 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      */
     public static OWL2Datatype getDatatype(HasIRI datatype) {
         return getDatatype(datatype.getIRI());
+    }
+
+    /**
+     * Gets the Pattern that specifies the regular expression for the allowed
+     * lexical values of a datatype.
+     *
+     * @return The Pattern, or {@code null}
+     */
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+    /**
+     * Gets the Pattern string that specifies the regular expression for the
+     * allowed lexical values of a datatype.
+     *
+     * @return The Pattern string. Not null.
+     */
+    public String getPatternString() {
+        return regExpression;
     }
 
     @Override

@@ -35,10 +35,10 @@ public class MutableTree<N> implements Tree<N> {
 
     @Nullable
     private final N userObject;
-    @Nullable
-    private MutableTree<N> parent;
     private final List<MutableTree<N>> children;
     private final Map<Tree<N>, Object> child2EdgeMap;
+    @Nullable
+    private MutableTree<N> parent;
     private NodeRenderer<N> toStringRenderer;
 
     /**
@@ -55,17 +55,6 @@ public class MutableTree<N> implements Tree<N> {
     @Nullable
     public N getUserObject() {
         return userObject;
-    }
-
-    /**
-     * @param parent the new parent
-     */
-    public void setParent(MutableTree<N> parent) {
-        if (this.parent != null) {
-            this.parent.children.remove(this);
-        }
-        this.parent = parent;
-        this.parent.children.add(this);
     }
 
     /**
@@ -116,6 +105,17 @@ public class MutableTree<N> implements Tree<N> {
     @Nullable
     public Tree<N> getParent() {
         return parent;
+    }
+
+    /**
+     * @param parent the new parent
+     */
+    public void setParent(MutableTree<N> parent) {
+        if (this.parent != null) {
+            this.parent.children.remove(this);
+        }
+        this.parent = parent;
+        this.parent.children.add(this);
     }
 
     @Override

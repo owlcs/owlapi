@@ -44,12 +44,12 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final int COMPRESSION_LIMIT = 160;
-    private final LiteralWrapper literal;
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
         OWL2Datatype.RDF_PLAIN_LITERAL);
     private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
         OWL2Datatype.RDF_LANG_STRING);
     private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
+    private final LiteralWrapper literal;
     private final OWLDatatype datatype;
     private final String language;
 
@@ -82,6 +82,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             language = lang;
             this.datatype = RDF_LANG_STRING;
         }
+    }
+
+    static boolean asBoolean(String s) {
+        return Boolean.parseBoolean(s) || "1".equals(s.trim());
     }
 
     @Override
@@ -122,10 +126,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Override
     public int parseInteger() {
         return Integer.parseInt(literal.get());
-    }
-
-    static boolean asBoolean(String s) {
-        return Boolean.parseBoolean(s) || "1".equals(s.trim());
     }
 
     @Override
@@ -199,18 +199,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        String get() {
-            if (l != null) {
-                return verifyNotNull(l);
-            }
-            try {
-                return decompress(verifyNotNull(bytes));
-            } catch (IOException e) {
-                // some problem has happened - cannot recover from this
-                throw new OWLRuntimeException(e);
-            }
-        }
-
         static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             GZIPOutputStream zipout = new GZIPOutputStream(out);
@@ -233,6 +221,18 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 c = reader.read();
             }
             return b.toString();
+        }
+
+        String get() {
+            if (l != null) {
+                return verifyNotNull(l);
+            }
+            try {
+                return decompress(verifyNotNull(bytes));
+            } catch (IOException e) {
+                // some problem has happened - cannot recover from this
+                throw new OWLRuntimeException(e);
+            }
         }
     }
 }

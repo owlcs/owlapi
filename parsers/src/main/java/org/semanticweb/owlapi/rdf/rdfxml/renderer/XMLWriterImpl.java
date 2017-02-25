@@ -48,16 +48,16 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    private final Deque<XMLElement> elementStack = new LinkedList<>();
+    private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
+    private static final String PERCENT_ENTITY = "&#37;";
     protected final PrintWriter writer;
-    private String encoding = "";
+    protected final OWLOntologyWriterConfiguration xmlPreferences;
+    private final Deque<XMLElement> elementStack = new LinkedList<>();
     private final String xmlBase;
     private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    private String encoding = "";
     private Map<String, String> entities;
-    private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
-    private static final String PERCENT_ENTITY = "&#37;";
-    protected final OWLOntologyWriterConfiguration xmlPreferences;
 
     /**
      * @param writer writer

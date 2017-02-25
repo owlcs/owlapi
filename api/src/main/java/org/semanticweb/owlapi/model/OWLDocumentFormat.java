@@ -38,16 +38,6 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 public interface OWLDocumentFormat extends Serializable {
 
     /**
-     * Determines if untyped entities should automatically be typed (declared)
-     * during rendering. (This is a hint to an RDF renderer - the reference
-     * implementation will respect this).
-     *
-     * @return {@code true} if untyped entities should automatically be typed during rendering,
-     * otherwise {@code false}.
-     */
-    boolean isAddMissingTypes();
-
-    /**
      * Determines if a declaration axiom (type triple) needs to be added to the
      * specified ontology for the given entity.
      *
@@ -130,6 +120,16 @@ public interface OWLDocumentFormat extends Serializable {
         }
         return illegals;
     }
+
+    /**
+     * Determines if untyped entities should automatically be typed (declared)
+     * during rendering. (This is a hint to an RDF renderer - the reference
+     * implementation will respect this).
+     *
+     * @return {@code true} if untyped entities should automatically be typed during rendering,
+     * otherwise {@code false}.
+     */
+    boolean isAddMissingTypes();
 
     /**
      * Determines if untyped entities should automatically be typed during

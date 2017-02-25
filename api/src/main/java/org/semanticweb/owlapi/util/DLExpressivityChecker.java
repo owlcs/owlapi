@@ -123,6 +123,10 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         constructs = new HashSet<>();
     }
 
+    private static boolean isTop(OWLClassExpression classExpression) {
+        return classExpression.isOWLThing();
+    }
+
     /**
      * @return ordered constructs
      */
@@ -227,10 +231,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(OWLObjectUnionOf ce) {
         constructs.add(U);
         ce.operands().forEach(o -> o.accept(this));
-    }
-
-    private static boolean isTop(OWLClassExpression classExpression) {
-        return classExpression.isOWLThing();
     }
 
     private boolean isAtomic(OWLClassExpression classExpression) {

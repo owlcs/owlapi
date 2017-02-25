@@ -143,8 +143,8 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
 
-    private ShortFormProvider shortFormProvider;
     private final IRIShortFormProvider iriShortFormProvider;
+    private ShortFormProvider shortFormProvider;
     private StringBuilder buffer;
     @Nullable
     private OWLObject focusedObject;
@@ -156,6 +156,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         shortFormProvider = new SimpleShortFormProvider();
         iriShortFormProvider = new SimpleIRIShortFormProvider();
         buffer = new StringBuilder();
+    }
+
+    protected static boolean isBracketedIfNested(OWLObject object) {
+        checkNotNull(object, "object cannot be null");
+        return !(object instanceof OWLEntity);
     }
 
     /**
@@ -227,11 +232,6 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         if (isBracketedIfNested(object)) {
             write(")");
         }
-    }
-
-    protected static boolean isBracketedIfNested(OWLObject object) {
-        checkNotNull(object, "object cannot be null");
-        return !(object instanceof OWLEntity);
     }
 
     private void writeObject(OWLObject object, boolean nest) {

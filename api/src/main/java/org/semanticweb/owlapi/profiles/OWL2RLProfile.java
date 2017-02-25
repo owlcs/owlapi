@@ -106,6 +106,58 @@ public class OWL2RLProfile implements OWLProfile {
         return new OWLProfileReport(this, violations);
     }
 
+    protected boolean isOWL2RLSubClassExpression(OWLClassExpression ce) {
+        return ce.accept(subClassExpressionChecker).booleanValue();
+    }
+
+    /**
+     * @param ce class
+     * @return true if OWL 2 RL superclass
+     */
+    public boolean isOWL2RLSuperClassExpression(OWLClassExpression ce) {
+        return ce.accept(superClassExpressionChecker).booleanValue();
+    }
+
+    /**
+     * @param ce class
+     * @return true if equivalent classes expression
+     */
+    public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
+        return ce.accept(equivalentClassExpressionChecker).booleanValue();
+    }
+
+    private static class OWL2RLEquivalentClassExpressionChecker implements
+        OWLClassExpressionVisitorEx<Boolean> {
+
+        OWL2RLEquivalentClassExpressionChecker() {
+        }
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
+        }
+
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.valueOf(!ce.isOWLThing());
+        }
+
+        @Override
+        public Boolean visit(OWLObjectIntersectionOf ce) {
+            return Boolean.valueOf(!ce.operands().anyMatch(e -> !e.accept(this).booleanValue()));
+        }
+
+        @Override
+        public Boolean visit(OWLObjectHasValue ce) {
+            return Boolean.TRUE;
+        }
+
+        @Override
+        public Boolean visit(OWLDataHasValue ce) {
+            return Boolean.TRUE;
+        }
+    }
+
     private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitor {
 
         private final Set<OWLProfileViolation> violations = new HashSet<>();
@@ -284,10 +336,6 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    protected boolean isOWL2RLSubClassExpression(OWLClassExpression ce) {
-        return ce.accept(subClassExpressionChecker).booleanValue();
-    }
-
     private class OWL2RLSuperClassExpressionChecker implements
         OWLClassExpressionVisitorEx<Boolean> {
 
@@ -346,53 +394,5 @@ public class OWL2RLProfile implements OWLProfile {
         public Boolean visit(OWLDataMaxCardinality ce) {
             return Boolean.valueOf(ce.getCardinality() == 0 || ce.getCardinality() == 1);
         }
-    }
-
-    /**
-     * @param ce class
-     * @return true if OWL 2 RL superclass
-     */
-    public boolean isOWL2RLSuperClassExpression(OWLClassExpression ce) {
-        return ce.accept(superClassExpressionChecker).booleanValue();
-    }
-
-    private static class OWL2RLEquivalentClassExpressionChecker implements
-        OWLClassExpressionVisitorEx<Boolean> {
-
-        OWL2RLEquivalentClassExpressionChecker() {
-        }
-
-        @Override
-        public Boolean doDefault(Object o) {
-            return Boolean.FALSE;
-        }
-
-        @Override
-        public Boolean visit(OWLClass ce) {
-            return Boolean.valueOf(!ce.isOWLThing());
-        }
-
-        @Override
-        public Boolean visit(OWLObjectIntersectionOf ce) {
-            return Boolean.valueOf(!ce.operands().anyMatch(e -> !e.accept(this).booleanValue()));
-        }
-
-        @Override
-        public Boolean visit(OWLObjectHasValue ce) {
-            return Boolean.TRUE;
-        }
-
-        @Override
-        public Boolean visit(OWLDataHasValue ce) {
-            return Boolean.TRUE;
-        }
-    }
-
-    /**
-     * @param ce class
-     * @return true if equivalent classes expression
-     */
-    public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
-        return ce.accept(equivalentClassExpressionChecker).booleanValue();
     }
 }

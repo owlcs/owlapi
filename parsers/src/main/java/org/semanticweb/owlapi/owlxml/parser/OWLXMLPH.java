@@ -147,12 +147,12 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     private final List<OWLEH<?, ?>> handlerStack = new ArrayList<>();
     private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
-    @Nullable
-    private Locator locator;
     private final Deque<URI> bases = new LinkedList<>();
     private final OWLOntologyLoaderConfiguration configuration;
     private final Map<String, IRI> iriMap = new HashMap<>();
     private final RemappingIndividualProvider anonProvider;
+    @Nullable
+    private Locator locator;
 
     /**
      * @param ontology ontology to parse into
@@ -295,6 +295,13 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         addFactory(PARSER_SAME_INDIVIDUAL_ATOM);
     }
 
+    private static String getNormalisedAbbreviatedIRI(String input) {
+        if (input.indexOf(':') != -1) {
+            return input;
+        }
+        return ':' + input;
+    }
+
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
         return anonProvider.getOWLAnonymousIndividual(nodeId);
@@ -367,13 +374,6 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         } catch (URISyntaxException e) {
             throw new OWLParserException(e, getLineNumber(), getColumnNumber());
         }
-    }
-
-    private static String getNormalisedAbbreviatedIRI(String input) {
-        if (input.indexOf(':') != -1) {
-            return input;
-        }
-        return ':' + input;
     }
 
     /**

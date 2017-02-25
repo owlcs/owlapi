@@ -72,13 +72,13 @@ public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker
      */
     Multimap<OWLAxiom, OWLClassExpression> exprMap = LinkedHashMultimap.create();
     /**
-     * signature to keep
-     */
-    private Signature sig = new Signature();
-    /**
      * remember the axiom locality value here
      */
     boolean isLocal;
+    /**
+     * signature to keep
+     */
+    private Signature sig = new Signature();
     private OWLOntologyManager manager;
 
     /**

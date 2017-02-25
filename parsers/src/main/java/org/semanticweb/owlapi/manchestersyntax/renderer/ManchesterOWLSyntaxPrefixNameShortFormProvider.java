@@ -71,6 +71,16 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
     }
 
     /**
+     * Gets the short form for an IRI.
+     *
+     * @param iri The IRI
+     * @return The short form for the specified IRI
+     */
+    public static String getShortForm(IRI iri) {
+        return iri.toQuotedString();
+    }
+
+    /**
      * @return prefix manager map. The map is a copy.
      */
     public Map<String, String> getPrefixName2PrefixMap() {
@@ -85,15 +95,5 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
         } else {
             return sf;
         }
-    }
-
-    /**
-     * Gets the short form for an IRI.
-     *
-     * @param iri The IRI
-     * @return The short form for the specified IRI
-     */
-    public static String getShortForm(IRI iri) {
-        return iri.toQuotedString();
     }
 }

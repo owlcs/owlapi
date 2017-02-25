@@ -36,10 +36,10 @@ import org.slf4j.LoggerFactory;
 public class OBOFormatParser {
 
     static final Logger LOG = LoggerFactory.getLogger(OBOFormatParser.class);
-    private boolean followImport;
-    private Object location;
     protected final MyStream stream;
     private final LoadingCache<String, String> stringCache;
+    private boolean followImport;
+    private Object location;
 
     /**
      *
@@ -63,127 +63,37 @@ public class OBOFormatParser {
         stringCache = builder.build(key -> key);
     }
 
-    protected static class MyStream {
-
-        int pos = 0;
-        @Nullable
-        String line;
-        int lineNo = 0;
-        @Nullable
-        BufferedReader reader;
-
-        public MyStream() {
-            pos = 0;
-        }
-
-        protected String line() {
-            return verifyNotNull(line);
-        }
-
-        public MyStream(BufferedReader r) {
-            reader = r;
-        }
-
-        protected char peekChar() {
-            prepare();
-            return line().charAt(pos);
-        }
-
-        public char nextChar() {
-            pos++;
-            return line().charAt(pos - 1);
-        }
-
-        public String rest() {
-            prepare();
-            if (line == null) {
-                return "";
-            }
-            if (pos >= line().length()) {
-                return "";
-            }
-            return line().substring(pos);
-        }
-
-        public void advance(int dist) {
-            pos += dist;
-        }
-
-        public void prepare() {
-            if (line == null) {
-                advanceLine();
+    private static void addOboNamespace(@Nullable Collection<Frame> frames,
+        String defaultOboNamespace) {
+        if (frames != null && !frames.isEmpty()) {
+            for (Frame termFrame : frames) {
+                Clause clause = termFrame.getClause(OboFormatTag.TAG_NAMESPACE);
+                if (clause == null) {
+                    clause = new Clause(OboFormatTag.TAG_NAMESPACE, defaultOboNamespace);
+                    termFrame.addClause(clause);
+                }
             }
         }
+    }
 
-        public void advanceLine() {
-            try {
-                line = verifyNotNull(reader, "reader must be set before accessing it").readLine();
-                lineNo++;
-                pos = 0;
-            } catch (IOException e) {
-                throw new OBOFormatParserException(e, lineNo, "Error reading from input.");
-            }
+    private static String mapDeprecatedTag(String tag) {
+        if ("inverse_of_on_instance_level".equals(tag)) {
+            return OboFormatTag.TAG_INVERSE_OF.getTag();
         }
+        if ("xref_analog".equals(tag)) {
+            return OboFormatTag.TAG_XREF.getTag();
+        }
+        if ("xref_unknown".equals(tag)) {
+            return OboFormatTag.TAG_XREF.getTag();
+        }
+        if ("instance_level_is_transitive".equals(tag)) {
+            return OboFormatTag.TAG_IS_TRANSITIVE.getTag();
+        }
+        return tag;
+    }
 
-        public void forceEol() {
-            if (line == null) {
-                return;
-            }
-            pos = line().length();
-        }
-
-        public boolean eol() {
-            prepare();
-            if (line == null) {
-                return false;
-            }
-            return pos >= line().length();
-        }
-
-        public boolean eof() {
-            prepare();
-            return line == null;
-        }
-
-        public static String getTag() {
-            return "";
-        }
-
-        public boolean consume(String s) {
-            String r = rest();
-            if (r.isEmpty()) {
-                return false;
-            }
-            if (r.startsWith(s)) {
-                pos += s.length();
-                return true;
-            }
-            return false;
-        }
-
-        public int indexOf(char c) {
-            prepare();
-            if (line == null) {
-                return -1;
-            }
-            return line().substring(pos).indexOf(c);
-        }
-
-        @Override
-        public String toString() {
-            return line + "//" + pos + " LINE:" + lineNo;
-        }
-
-        public boolean peekCharIs(char c) {
-            if (eol() || eof()) {
-                return false;
-            }
-            return peekChar() == c;
-        }
-
-        public int getLineNo() {
-            return lineNo;
-        }
+    private static String removeTrailingWS(String s) {
+        return s.replaceAll("\\s*$", "");
     }
 
     /**
@@ -194,17 +104,17 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param followImports followImports
-     */
-    public void setFollowImports(boolean followImports) {
-        followImport = followImports;
-    }
-
-    /**
      * @return follow imports
      */
     public boolean getFollowImports() {
         return followImport;
+    }
+
+    /**
+     * @param followImports followImports
+     */
+    public void setFollowImports(boolean followImports) {
+        followImport = followImports;
     }
 
     /**
@@ -267,6 +177,10 @@ public class OBOFormatParser {
         return parse(url);
     }
 
+    // ----------------------------------------
+    // GRAMMAR
+    // ----------------------------------------
+
     private String resolvePath(String inputPath) {
         String path = inputPath;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path.startsWith("https:"))) {
@@ -315,10 +229,6 @@ public class OBOFormatParser {
         return obodoc;
     }
 
-    // ----------------------------------------
-    // GRAMMAR
-    // ----------------------------------------
-
     /**
      * @param obodoc obodoc
      * @throws OBOFormatParserException parser exception
@@ -340,19 +250,6 @@ public class OBOFormatParser {
             addOboNamespace(obodoc.getTermFrames(), defaultOboNamespace);
             addOboNamespace(obodoc.getTypedefFrames(), defaultOboNamespace);
             addOboNamespace(obodoc.getInstanceFrames(), defaultOboNamespace);
-        }
-    }
-
-    private static void addOboNamespace(@Nullable Collection<Frame> frames,
-        String defaultOboNamespace) {
-        if (frames != null && !frames.isEmpty()) {
-            for (Frame termFrame : frames) {
-                Clause clause = termFrame.getClause(OboFormatTag.TAG_NAMESPACE);
-                if (clause == null) {
-                    clause = new Clause(OboFormatTag.TAG_NAMESPACE, defaultOboNamespace);
-                    termFrame.addClause(clause);
-                }
-            }
         }
     }
 
@@ -510,6 +407,10 @@ public class OBOFormatParser {
         }
     }
 
+    // ----------------------------------------
+    // [Term] Frames
+    // ----------------------------------------
+
     /**
      * @param obodoc obodoc
      * @throws OBOFormatParserException parser exception
@@ -530,10 +431,6 @@ public class OBOFormatParser {
             parseTypedefFrame(obodoc);
         }
     }
-
-    // ----------------------------------------
-    // [Term] Frames
-    // ----------------------------------------
 
     /**
      * term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL { term-frame-clause
@@ -584,6 +481,10 @@ public class OBOFormatParser {
             f.addClause(cl);
         }
     }
+
+    // ----------------------------------------
+    // [Typedef] Frames
+    // ----------------------------------------
 
     /**
      * @return parsed clause
@@ -657,10 +558,6 @@ public class OBOFormatParser {
         }
         return cl;
     }
-
-    // ----------------------------------------
-    // [Typedef] Frames
-    // ----------------------------------------
 
     /**
      * Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL {
@@ -1212,6 +1109,10 @@ public class OBOFormatParser {
         }
     }
 
+    // ----------------------------------------
+    // End-of-line matter
+    // ----------------------------------------
+
     protected void parseIdLine(Frame f) {
         String t = getParseTag();
         OboFormatTag tag = OBOFormatConstants.getTag(t);
@@ -1228,10 +1129,6 @@ public class OBOFormatParser {
         f.setId(id);
         parseEOL(cl);
     }
-
-    // ----------------------------------------
-    // End-of-line matter
-    // ----------------------------------------
 
     /**
      * @param cl cl
@@ -1409,31 +1306,134 @@ public class OBOFormatParser {
         }
     }
 
-    private static String mapDeprecatedTag(String tag) {
-        if ("inverse_of_on_instance_level".equals(tag)) {
-            return OboFormatTag.TAG_INVERSE_OF.getTag();
-        }
-        if ("xref_analog".equals(tag)) {
-            return OboFormatTag.TAG_XREF.getTag();
-        }
-        if ("xref_unknown".equals(tag)) {
-            return OboFormatTag.TAG_XREF.getTag();
-        }
-        if ("instance_level_is_transitive".equals(tag)) {
-            return OboFormatTag.TAG_IS_TRANSITIVE.getTag();
-        }
-        return tag;
-    }
-
-    private static String removeTrailingWS(String s) {
-        return s.replaceAll("\\s*$", "");
-    }
-
     private void error(String message) {
         throw new OBOFormatParserException(message, stream.lineNo, stream.line);
     }
 
     private void warn(String message) {
         LOG.warn("LINE: {} {}  LINE:\n{}", Integer.valueOf(stream.lineNo), message, stream.line);
+    }
+
+    protected static class MyStream {
+
+        int pos = 0;
+        @Nullable
+        String line;
+        int lineNo = 0;
+        @Nullable
+        BufferedReader reader;
+
+        public MyStream() {
+            pos = 0;
+        }
+
+        public MyStream(BufferedReader r) {
+            reader = r;
+        }
+
+        public static String getTag() {
+            return "";
+        }
+
+        protected String line() {
+            return verifyNotNull(line);
+        }
+
+        protected char peekChar() {
+            prepare();
+            return line().charAt(pos);
+        }
+
+        public char nextChar() {
+            pos++;
+            return line().charAt(pos - 1);
+        }
+
+        public String rest() {
+            prepare();
+            if (line == null) {
+                return "";
+            }
+            if (pos >= line().length()) {
+                return "";
+            }
+            return line().substring(pos);
+        }
+
+        public void advance(int dist) {
+            pos += dist;
+        }
+
+        public void prepare() {
+            if (line == null) {
+                advanceLine();
+            }
+        }
+
+        public void advanceLine() {
+            try {
+                line = verifyNotNull(reader, "reader must be set before accessing it").readLine();
+                lineNo++;
+                pos = 0;
+            } catch (IOException e) {
+                throw new OBOFormatParserException(e, lineNo, "Error reading from input.");
+            }
+        }
+
+        public void forceEol() {
+            if (line == null) {
+                return;
+            }
+            pos = line().length();
+        }
+
+        public boolean eol() {
+            prepare();
+            if (line == null) {
+                return false;
+            }
+            return pos >= line().length();
+        }
+
+        public boolean eof() {
+            prepare();
+            return line == null;
+        }
+
+        public boolean consume(String s) {
+            String r = rest();
+            if (r.isEmpty()) {
+                return false;
+            }
+            if (r.startsWith(s)) {
+                pos += s.length();
+                return true;
+            }
+            return false;
+        }
+
+        public int indexOf(char c) {
+            prepare();
+            if (line == null) {
+                return -1;
+            }
+            return line().substring(pos).indexOf(c);
+        }
+
+        @Override
+        public String toString() {
+            return line + "//" + pos + " LINE:" + lineNo;
+        }
+
+        public boolean peekCharIs(char c) {
+            if (eol() || eof()) {
+                return false;
+            }
+            return peekChar() == c;
+        }
+
+        public int getLineNo() {
+            return lineNo;
+        }
     }
 }

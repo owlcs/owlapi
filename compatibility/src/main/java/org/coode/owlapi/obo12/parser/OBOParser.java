@@ -5,7 +5,72 @@ package org.coode.owlapi.obo12.parser;
 @SuppressWarnings("all")
 public class OBOParser implements OBOParserConstants {
 
+    static private int[] jj_la1_0;
+
+    static {
+        jj_la1_init_0();
+    }
+
+    final private int[] jj_la1 = new int[6];
+    /**
+     * Generated Token Manager.
+     */
+    public OBOParserTokenManager token_source;
+    /**
+     * Current token.
+     */
+    public Token token;
+    /**
+     * Next token.
+     */
+    public Token jj_nt;
+    JavaCharStream jj_input_stream;
     private OBOParserHandler handler;
+    private int jj_ntk;
+    private int jj_gen;
+    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+    private int[] jj_expentry;
+    private int jj_kind = -1;
+    private int trace_indent = 0;
+    private boolean trace_enabled;
+
+    /**
+     * Constructor.
+     */
+    public OBOParser(Provider stream) {
+        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        token_source = new OBOParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 6; i++) {
+            jj_la1[i] = -1;
+        }
+    }
+
+    /**
+     * Constructor.
+     */
+    public OBOParser(String dsl) throws ParseException, TokenMgrException {
+        this(new StringProvider(dsl));
+    }
+
+    /**
+     * Constructor with generated Token Manager.
+     */
+    public OBOParser(OBOParserTokenManager tm) {
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 6; i++) {
+            jj_la1[i] = -1;
+        }
+    }
+
+    private static void jj_la1_init_0() {
+        jj_la1_0 = new int[]{0x8, 0x40, 0x40, 0x3200, 0x3200, 0x10000,};
+    }
 
     public void setHandler(OBOParserHandler handler) {
         this.handler = handler;
@@ -141,53 +206,6 @@ public class OBOParser implements OBOParserConstants {
         return t.image;
     }
 
-    /**
-     * Generated Token Manager.
-     */
-    public OBOParserTokenManager token_source;
-    JavaCharStream jj_input_stream;
-    /**
-     * Current token.
-     */
-    public Token token;
-    /**
-     * Next token.
-     */
-    public Token jj_nt;
-    private int jj_ntk;
-    private int jj_gen;
-    final private int[] jj_la1 = new int[6];
-    static private int[] jj_la1_0;
-
-    static {
-        jj_la1_init_0();
-    }
-
-    private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0x8, 0x40, 0x40, 0x3200, 0x3200, 0x10000,};
-    }
-
-    /**
-     * Constructor.
-     */
-    public OBOParser(Provider stream) {
-        jj_input_stream = new JavaCharStream(stream, 1, 1);
-        token_source = new OBOParserTokenManager(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 6; i++) {
-            jj_la1[i] = -1;
-        }
-    }
-
-    /**
-     * Constructor.
-     */
-    public OBOParser(String dsl) throws ParseException, TokenMgrException {
-        this(new StringProvider(dsl));
-    }
-
     public void ReInit(String s) {
         ReInit(new StringProvider(s));
     }
@@ -206,19 +224,6 @@ public class OBOParser implements OBOParserConstants {
         }
 
         token_source.ReInit(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 6; i++) {
-            jj_la1[i] = -1;
-        }
-    }
-
-    /**
-     * Constructor with generated Token Manager.
-     */
-    public OBOParser(OBOParserTokenManager tm) {
-        token_source = tm;
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
@@ -257,7 +262,6 @@ public class OBOParser implements OBOParserConstants {
         throw generateParseException();
     }
 
-
     /**
      * Get the next Token.
      */
@@ -295,10 +299,6 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
-    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    private int[] jj_expentry;
-    private int jj_kind = -1;
-
     /**
      * Generate ParseException.
      */
@@ -332,9 +332,6 @@ public class OBOParser implements OBOParserConstants {
         return new ParseException(token, exptokseq, tokenImage, token_source == null ? null
             : OBOParserTokenManager.lexStateNames[token_source.curLexState]);
     }
-
-    private int trace_indent = 0;
-    private boolean trace_enabled;
 
     /**
      * Trace enabled.

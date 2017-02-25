@@ -50,6 +50,15 @@ public class RDFGraph implements Serializable {
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
 
     /**
+     * @param predicate predicate to check for inclusion
+     * @return true if the predicate IRI is not in the set of predicates that should be skipped from
+     * blank node reuse analysis.
+     */
+    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
+        return !skippedPredicates.contains(predicate.getIRI());
+    }
+
+    /**
      * Determines if this graph is empty (i.e. whether or not it contains any
      * triples).
      *
@@ -126,15 +135,6 @@ public class RDFGraph implements Serializable {
             }
         }
         return toReturn;
-    }
-
-    /**
-     * @param predicate predicate to check for inclusion
-     * @return true if the predicate IRI is not in the set of predicates that should be skipped from
-     * blank node reuse analysis.
-     */
-    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
-        return !skippedPredicates.contains(predicate.getIRI());
     }
 
     /**

@@ -39,6 +39,7 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
         BOTTOM_OBJECT_PROPERTY = DF.getOWLBottomObjectProperty();
         BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(BOTTOM_OBJECT_PROPERTY);
     }
+
     /**
      * Default constructor.
      */
@@ -67,16 +68,6 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
         super(entities);
     }
 
-    @Override
-    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
-        return Optional.of(TOP_OBJECT_PROPERTY);
-    }
-
-    @Override
-    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
-        return Optional.of(BOTTOM_OBJECT_PROPERTY);
-    }
-
     /**
      * @return top node
      */
@@ -89,5 +80,15 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
      */
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
+    }
+
+    @Override
+    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
+        return Optional.of(TOP_OBJECT_PROPERTY);
+    }
+
+    @Override
+    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
+        return Optional.of(BOTTOM_OBJECT_PROPERTY);
     }
 }

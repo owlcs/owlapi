@@ -207,11 +207,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
      * INVERSE
      */
     public static final String INVERSE = "\\ensuremath{^-}";
+    private final LatexWriter writer;
+    private final OWLDataFactory df;
     //@formatter:on
     private OWLObject subject;
-    private final LatexWriter writer;
     private boolean prettyPrint = true;
-    private final OWLDataFactory df;
     private ShortFormProvider shortFormProvider;
 
     /**
@@ -223,6 +223,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         this.df = df;
         shortFormProvider = new SimpleShortFormProvider();
         subject = df.getOWLThing();
+    }
+
+    private static String escapeName(String name) {
+        return name.replace("_", "\\_").replace("#", "\\#");
     }
 
     /**
@@ -925,10 +929,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         if (LatexBracketChecker.requiresBracket(classExpression)) {
             write(")");
         }
-    }
-
-    private static String escapeName(String name) {
-        return name.replace("_", "\\_").replace("#", "\\#");
     }
 
     @Override

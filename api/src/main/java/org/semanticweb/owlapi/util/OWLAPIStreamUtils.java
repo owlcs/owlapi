@@ -22,32 +22,6 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLAPIStreamUtils {
 
-    /**
-     * Class for pairwise partition
-     *
-     * @param <T> type
-     */
-    public static class Pair<T> {
-
-        /**
-         * First element.
-         */
-        public final T i;
-        /**
-         * Second element.
-         */
-        public final T j;
-
-        /**
-         * @param i first
-         * @param j second
-         */
-        public Pair(T i, T j) {
-            this.i = i;
-            this.j = j;
-        }
-    }
-
     private OWLAPIStreamUtils() {
     }
 
@@ -449,5 +423,31 @@ public class OWLAPIStreamUtils {
      */
     public static <T> Pair<T> pair(T i, T j) {
         return new Pair<>(i, j);
+    }
+
+    /**
+     * Class for pairwise partition
+     *
+     * @param <T> type
+     */
+    public static class Pair<T> {
+
+        /**
+         * First element.
+         */
+        public final T i;
+        /**
+         * Second element.
+         */
+        public final T j;
+
+        /**
+         * @param i first
+         * @param j second
+         */
+        public Pair(T i, T j) {
+            this.i = i;
+            this.j = j;
+        }
     }
 }

@@ -255,6 +255,18 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIR
         this.maxArity = maxArity;
     }
 
+    /**
+     * Gets a builtin vocabulary value for a given IRI.
+     *
+     * @param iri The IRI
+     * @return The builtin vocabulary having the specified IRI, or {@code null} if there is no
+     * builtin vocabulary with the specified IRI
+     */
+    @Nullable
+    public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
+        return Stream.of(values()).filter(v -> v.iri.equals(iri)).findAny().orElse(null);
+    }
+
     @Override
     public String getShortForm() {
         return shortName;
@@ -281,18 +293,6 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIR
      */
     public int getMaxArity() {
         return maxArity;
-    }
-
-    /**
-     * Gets a builtin vocabulary value for a given IRI.
-     *
-     * @param iri The IRI
-     * @return The builtin vocabulary having the specified IRI, or {@code null} if there is no
-     * builtin vocabulary with the specified IRI
-     */
-    @Nullable
-    public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
-        return Stream.of(values()).filter(v -> v.iri.equals(iri)).findAny().orElse(null);
     }
 
     @Override

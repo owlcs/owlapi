@@ -34,11 +34,6 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
  */
 public class OWLManager implements OWLOntologyManagerFactory {
 
-    @Override
-    public OWLOntologyManager get() {
-        return createOWLOntologyManager();
-    }
-
     /**
      * Creates an OWL ontology manager that is configured with standard parsers,
      * storeres etc.
@@ -121,5 +116,10 @@ public class OWLManager implements OWLOntologyManagerFactory {
         OWLOntologyManager instance = inj.getInstance(OWLOntologyManager.class);
         inj.injectMembers(instance);
         return verifyNotNull(instance);
+    }
+
+    @Override
+    public OWLOntologyManager get() {
+        return createOWLOntologyManager();
     }
 }

@@ -103,9 +103,9 @@ public class OWL2ELProfile implements OWLProfile {
 
     protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor {
 
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
         @Nullable
         private OWLObjectPropertyManager propertyManager;
-        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         public OWL2ELProfileObjectVisitor(OWLOntologyWalker walker) {
             super(walker);

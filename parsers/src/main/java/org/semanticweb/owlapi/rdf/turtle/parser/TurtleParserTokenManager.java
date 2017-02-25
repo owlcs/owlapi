@@ -9,9 +9,188 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 class TurtleParserTokenManager implements TurtleParserConstants {
 
     /**
+     * Token literal values.
+     */
+    public static final String[] jjstrLiteralImages = {
+        "", null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        "\50", "\51", "\133", "\135", "\54", "\56", "\73", "\100\160\162\145\146\151\170",
+        "\136\136", "\100\142\141\163\145", "\100", "\141", null, "\137\72", "\164\162\165\145",
+        "\146\141\154\163\145", "\123\105\114\105\103\124", "\127\110\105\122\105",
+        "\106\111\114\124\105\122", null, null, null, null, null, null, null, null, null, null,
+        null,};
+    /**
+     * Lexer state names.
+     */
+    public static final String[] lexStateNames = {
+        "DEFAULT",
+        "IN_STRING",
+        "IN_SINGLESTRING",
+        "IN_LONG_STRING",
+        "IN_LONG_SINGLESTRING",
+    };
+    /**
+     * Lex State array.
+     */
+    public static final int[] jjnewLexState = {
+        -1, -1, -1, -1, -1, -1, 1, -1, -1, 0, 2, -1, -1, 0, 3, -1, -1, 0, 4, -1, -1, 0, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1,
+        -1, -1, -1, -1, -1, -1, -1,
+    };
+    static final long[] jjbitVec0 = {
+        0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec2 = {
+        0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec3 = {
+        0xfffe7000fffffff6L, 0xffffffffffffffffL, 0xffffffffffffffffL, 0x5e00000000ffffffL
+    };
+    static final long[] jjbitVec4 = {
+        0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL
+    };
+    static final long[] jjbitVec5 = {
+        0x0L, 0xbfff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec6 = {
+        0x3000L, 0xffff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec7 = {
+        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffL, 0x0L
+    };
+    static final long[] jjbitVec8 = {
+        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffL
+    };
+    static final long[] jjbitVec9 = {
+        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffff00000000ffffL
+    };
+    static final long[] jjbitVec10 = {
+        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0x3fffffffffffffffL
+    };
+    static final long[] jjbitVec11 = {
+        0x0L, 0x0L, 0x80000000000000L, 0xff7fffffff7fffffL
+    };
+    static final long[] jjbitVec12 = {
+        0xffffffffffffffffL, 0xbfffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec13 = {
+        0x8000000000003000L, 0xffff000000000001L, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final int[] jjnextStates = {
+        22, 23, 24, 26, 29, 30, 32, 22, 23, 34, 39, 41, 23, 24, 26, 29,
+        30, 32, 44, 45, 46, 47, 48, 49, 53, 54, 3, 4, 9, 10, 27, 28,
+        37, 38,
+    };
+    static final long[] jjtoToken = {
+        0x1ffffffffe22201L,
+    };
+    static final long[] jjtoSkip = {
+        0x3eL,
+    };
+    static final long[] jjtoSpecial = {
+        0x0L,
+    };
+    static final long[] jjtoMore = {
+        0x1dddc0L,
+    };
+    private final int[] jjrounds = new int[56];
+    private final int[] jjstateSet = new int[2 * 56];
+    private final StringBuilder jjimage = new StringBuilder();
+    /**
      * Debug output.
      */
     public java.io.PrintStream debugStream = System.out;
+    protected JavaCharStream input_stream;
+    protected int curChar;
+    int curLexState = 0;
+    int defaultLexState = 0;
+    int jjnewStateCnt;
+    int jjround;
+    int jjmatchedPos;
+    int jjmatchedKind;
+    private StringBuilder image = jjimage;
+    private int jjimageLen;
+    private int lengthOfMatch;
+
+    public TurtleParserTokenManager(JavaCharStream stream) {
+
+        if (JavaCharStream.staticFlag) {
+            throw new RuntimeException(
+                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+        }
+
+        input_stream = stream;
+    }
+
+    public TurtleParserTokenManager(JavaCharStream stream, int lexState) {
+        ReInit(stream);
+        SwitchTo(lexState);
+    }
+
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec2[i2] & l2) != 0L);
+            default:
+                if ((jjbitVec0[i1] & l1) != 0L) {
+                    return true;
+                }
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec4[i2] & l2) != 0L);
+            case 3:
+                return ((jjbitVec5[i2] & l2) != 0L);
+            case 32:
+                return ((jjbitVec6[i2] & l2) != 0L);
+            case 33:
+                return ((jjbitVec7[i2] & l2) != 0L);
+            case 47:
+                return ((jjbitVec8[i2] & l2) != 0L);
+            case 48:
+                return ((jjbitVec0[i2] & l2) != 0L);
+            case 253:
+                return ((jjbitVec9[i2] & l2) != 0L);
+            case 255:
+                return ((jjbitVec10[i2] & l2) != 0L);
+            default:
+                if ((jjbitVec3[i1] & l1) != 0L) {
+                    return true;
+                }
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec11[i2] & l2) != 0L);
+            case 3:
+                return ((jjbitVec12[i2] & l2) != 0L);
+            case 32:
+                return ((jjbitVec13[i2] & l2) != 0L);
+            case 33:
+                return ((jjbitVec7[i2] & l2) != 0L);
+            case 47:
+                return ((jjbitVec8[i2] & l2) != 0L);
+            case 48:
+                return ((jjbitVec0[i2] & l2) != 0L);
+            case 253:
+                return ((jjbitVec9[i2] & l2) != 0L);
+            case 255:
+                return ((jjbitVec10[i2] & l2) != 0L);
+            default:
+                if ((jjbitVec3[i1] & l1) != 0L) {
+                    return true;
+                }
+                return false;
+        }
+    }
 
     /**
      * Set debug output.
@@ -349,46 +528,6 @@ class TurtleParserTokenManager implements TurtleParserConstants {
         }
         return jjMoveNfa_0(state, pos + 1);
     }
-
-    static final long[] jjbitVec0 = {
-        0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec2 = {
-        0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec3 = {
-        0xfffe7000fffffff6L, 0xffffffffffffffffL, 0xffffffffffffffffL, 0x5e00000000ffffffL
-    };
-    static final long[] jjbitVec4 = {
-        0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL
-    };
-    static final long[] jjbitVec5 = {
-        0x0L, 0xbfff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec6 = {
-        0x3000L, 0xffff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec7 = {
-        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffL, 0x0L
-    };
-    static final long[] jjbitVec8 = {
-        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffL
-    };
-    static final long[] jjbitVec9 = {
-        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffff00000000ffffL
-    };
-    static final long[] jjbitVec10 = {
-        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0x3fffffffffffffffL
-    };
-    static final long[] jjbitVec11 = {
-        0x0L, 0x0L, 0x80000000000000L, 0xff7fffffff7fffffL
-    };
-    static final long[] jjbitVec12 = {
-        0xffffffffffffffffL, 0xbfffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec13 = {
-        0x8000000000003000L, 0xffff000000000001L, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
 
     private int jjMoveNfa_0(int startState, int curPos) {
         int startsAt = 0;
@@ -1812,18 +1951,6 @@ class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /**
-     * Token literal values.
-     */
-    public static final String[] jjstrLiteralImages = {
-        "", null, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-        "\50", "\51", "\133", "\135", "\54", "\56", "\73", "\100\160\162\145\146\151\170",
-        "\136\136", "\100\142\141\163\145", "\100", "\141", null, "\137\72", "\164\162\165\145",
-        "\146\141\154\163\145", "\123\105\114\105\103\124", "\127\110\105\122\105",
-        "\106\111\114\124\105\122", null, null, null, null, null, null, null, null, null, null,
-        null,};
-
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -1846,83 +1973,6 @@ class TurtleParserTokenManager implements TurtleParserConstants {
 
         return t;
     }
-
-    static final int[] jjnextStates = {
-        22, 23, 24, 26, 29, 30, 32, 22, 23, 34, 39, 41, 23, 24, 26, 29,
-        30, 32, 44, 45, 46, 47, 48, 49, 53, 54, 3, 4, 9, 10, 27, 28,
-        37, 38,
-    };
-
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec2[i2] & l2) != 0L);
-            default:
-                if ((jjbitVec0[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec4[i2] & l2) != 0L);
-            case 3:
-                return ((jjbitVec5[i2] & l2) != 0L);
-            case 32:
-                return ((jjbitVec6[i2] & l2) != 0L);
-            case 33:
-                return ((jjbitVec7[i2] & l2) != 0L);
-            case 47:
-                return ((jjbitVec8[i2] & l2) != 0L);
-            case 48:
-                return ((jjbitVec0[i2] & l2) != 0L);
-            case 253:
-                return ((jjbitVec9[i2] & l2) != 0L);
-            case 255:
-                return ((jjbitVec10[i2] & l2) != 0L);
-            default:
-                if ((jjbitVec3[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec11[i2] & l2) != 0L);
-            case 3:
-                return ((jjbitVec12[i2] & l2) != 0L);
-            case 32:
-                return ((jjbitVec13[i2] & l2) != 0L);
-            case 33:
-                return ((jjbitVec7[i2] & l2) != 0L);
-            case 47:
-                return ((jjbitVec8[i2] & l2) != 0L);
-            case 48:
-                return ((jjbitVec0[i2] & l2) != 0L);
-            case 253:
-                return ((jjbitVec9[i2] & l2) != 0L);
-            case 255:
-                return ((jjbitVec10[i2] & l2) != 0L);
-            default:
-                if ((jjbitVec3[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
-        }
-    }
-
-    int curLexState = 0;
-    int defaultLexState = 0;
-    int jjnewStateCnt;
-    int jjround;
-    int jjmatchedPos;
-    int jjmatchedKind;
 
     /**
      * Get the next Token.
@@ -2088,21 +2138,6 @@ class TurtleParserTokenManager implements TurtleParserConstants {
         } while (start++ != end);
     }
 
-    public TurtleParserTokenManager(JavaCharStream stream) {
-
-        if (JavaCharStream.staticFlag) {
-            throw new RuntimeException(
-                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
-        }
-
-        input_stream = stream;
-    }
-
-    public TurtleParserTokenManager(JavaCharStream stream, int lexState) {
-        ReInit(stream);
-        SwitchTo(lexState);
-    }
-
     public void ReInit(JavaCharStream stream) {
 
         jjmatchedPos =
@@ -2137,47 +2172,4 @@ class TurtleParserTokenManager implements TurtleParserConstants {
             curLexState = lexState;
         }
     }
-
-
-    /**
-     * Lexer state names.
-     */
-    public static final String[] lexStateNames = {
-        "DEFAULT",
-        "IN_STRING",
-        "IN_SINGLESTRING",
-        "IN_LONG_STRING",
-        "IN_LONG_SINGLESTRING",
-    };
-
-    /**
-     * Lex State array.
-     */
-    public static final int[] jjnewLexState = {
-        -1, -1, -1, -1, -1, -1, 1, -1, -1, 0, 2, -1, -1, 0, 3, -1, -1, 0, 4, -1, -1, 0, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1,
-        -1, -1, -1, -1, -1, -1, -1,
-    };
-    static final long[] jjtoToken = {
-        0x1ffffffffe22201L,
-    };
-    static final long[] jjtoSkip = {
-        0x3eL,
-    };
-    static final long[] jjtoSpecial = {
-        0x0L,
-    };
-    static final long[] jjtoMore = {
-        0x1dddc0L,
-    };
-    protected JavaCharStream input_stream;
-
-    private final int[] jjrounds = new int[56];
-    private final int[] jjstateSet = new int[2 * 56];
-    private final StringBuilder jjimage = new StringBuilder();
-    private StringBuilder image = jjimage;
-    private int jjimageLen;
-    private int lengthOfMatch;
-    protected int curChar;
 }

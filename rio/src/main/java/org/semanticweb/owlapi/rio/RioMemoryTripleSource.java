@@ -61,34 +61,9 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
-    static final class StatementIterator implements Iterator<Statement> {
-
-        private final CloseableIteration<Statement, ? extends RDF4JException> statements;
-
-        StatementIterator(CloseableIteration<Statement, ? extends RDF4JException> statements) {
-            this.statements = statements;
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("Cannot remove statements using this iterator");
-        }
-
-        @Override
-        public Statement next() {
-            return statements.next();
-        }
-
-        @Override
-        public boolean hasNext() {
-            return statements.hasNext();
-        }
-    }
-
     private final Map<String, String> namespaces = new LinkedHashMap<>();
     private final Iterator<Statement> statementIterator;
     private final IRI documentIRI;
-
     /**
      * Creates a RioMemoryTripleSource using an {@link Iterable} of
      * {@link Statement} objects.
@@ -179,6 +154,14 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     /**
+     * @param nextNamespaces map of namespaces to set
+     */
+    public void setNamespaces(Map<String, String> nextNamespaces) {
+        namespaces.clear();
+        namespaces.putAll(nextNamespaces);
+    }
+
+    /**
      * @return statements
      */
     public Iterator<Statement> getStatementIterator() {
@@ -193,14 +176,6 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
         namespaces.putAll(Namespaces.asMap(nextNamespaces));
     }
 
-    /**
-     * @param nextNamespaces map of namespaces to set
-     */
-    public void setNamespaces(Map<String, String> nextNamespaces) {
-        namespaces.clear();
-        namespaces.putAll(nextNamespaces);
-    }
-
     @Override
     public boolean hasAlredyFailedOnIRIResolution() {
         return false;
@@ -209,5 +184,29 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     @Override
     public void setIRIResolutionFailed(boolean value) {
         // unnecessary for this class
+    }
+
+    static final class StatementIterator implements Iterator<Statement> {
+
+        private final CloseableIteration<Statement, ? extends RDF4JException> statements;
+
+        StatementIterator(CloseableIteration<Statement, ? extends RDF4JException> statements) {
+            this.statements = statements;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Cannot remove statements using this iterator");
+        }
+
+        @Override
+        public Statement next() {
+            return statements.next();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return statements.hasNext();
+        }
     }
 }

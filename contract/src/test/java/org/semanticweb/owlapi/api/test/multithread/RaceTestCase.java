@@ -94,8 +94,8 @@ public class RaceTestCase {
     static class RaceTestCaseRunner {
 
         public static final String NS = "http://www.race.org#";
-        protected RaceCallback callback;
         final AtomicBoolean done = new AtomicBoolean(false);
+        protected RaceCallback callback;
         ExecutorService exec = Executors.newFixedThreadPool(5);
         private Runnable writer = () -> {
             while (!done.get()) {
@@ -118,12 +118,12 @@ public class RaceTestCase {
 
         public static class SubClassLHSCallback implements RaceCallback {
 
-            private AtomicInteger counter = new AtomicInteger();
             OWLDataFactory factory;
             OWLOntologyManager manager;
             OWLOntology ontology;
             OWLClass x;
             OWLClass y;
+            private AtomicInteger counter = new AtomicInteger();
 
             public SubClassLHSCallback() throws OWLOntologyCreationException {
                 manager = OWLManager.createConcurrentOWLOntologyManager();

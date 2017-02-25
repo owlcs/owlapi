@@ -119,9 +119,9 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
+    protected final RemappingIndividualProvider anonProvider;
     private final OWLDataFactory df;
     private final Map<OWLEntity, IRI> replacementMap;
-    protected final RemappingIndividualProvider anonProvider;
     private final Map<OWLLiteral, OWLLiteral> replacementLiterals;
 
     /**

@@ -108,11 +108,6 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings({"javadoc"})
 public class TutorialSnippetsTestCase {
 
-    @Nonnull
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
-    private static final @Nonnull
-    Logger LOG = LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
     public static final @Nonnull
     IRI KOALA_IRI = IRI.create("http://protege.stanford.edu/plugins/owl/owl-library/",
         "koala.owl");
@@ -121,21 +116,29 @@ public class TutorialSnippetsTestCase {
     public static final @Nonnull
     IRI EXAMPLE_SAVE_IRI = IRI.create("file:materializedOntologies/",
         "ont1290535967123.owl");
+    private static final @Nonnull
+    Logger LOG = LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
+    @Nonnull
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
     protected @Nonnull
     OWLDataFactory df = OWLManager.getOWLDataFactory();
     protected @Nonnull
     OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+    // a visitor to extract label annotations
+    protected @Nonnull
+    LabelExtractor le = new LabelExtractor();
+
+    private static OWLOntology loadPizzaOntology(OWLOntologyManager m)
+        throws OWLOntologyCreationException {
+        return m.loadOntologyFromOntologyDocument(new StringDocumentSource(Examples.KOALA));
+    }
 
     public OWLOntologyManager create() {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         PriorityCollection<OWLOntologyIRIMapper> iriMappers = m.getIRIMappers();
         iriMappers.add(new AutoIRIMapper(new File("materializedOntologies"), true));
         return m;
-    }
-
-    private static OWLOntology loadPizzaOntology(OWLOntologyManager m)
-        throws OWLOntologyCreationException {
-        return m.loadOntologyFromOntologyDocument(new StringDocumentSource(Examples.KOALA));
     }
 
     @Test
@@ -478,51 +481,6 @@ public class TutorialSnippetsTestCase {
         });
     }
 
-    /**
-     * Visits existential restrictions and collects the properties which are
-     * restricted.
-     */
-    private static class RestrictionVisitor implements OWLClassExpressionVisitor {
-
-        private final @Nonnull
-        Set<OWLClass> processedClasses;
-        private final @Nonnull
-        Set<OWLObjectPropertyExpression> restrictedProperties;
-        private final Set<OWLOntology> onts;
-
-        RestrictionVisitor(Set<OWLOntology> onts) {
-            restrictedProperties = new HashSet<>();
-            processedClasses = new HashSet<>();
-            this.onts = onts;
-        }
-
-        public Set<OWLObjectPropertyExpression> getRestrictedProperties() {
-            return restrictedProperties;
-        }
-
-        @Override
-        public void visit(OWLClass ce) {
-            // avoid cycles
-            if (!processedClasses.contains(ce)) {
-                // If we are processing inherited restrictions then
-                // we recursively visit named supers.
-                processedClasses.add(ce);
-                for (OWLOntology ont : onts) {
-                    ont.subClassAxiomsForSubClass(ce)
-                        .forEach(ax -> ax.getSuperClass().accept(this));
-                }
-            }
-        }
-
-        @Override
-        public void visit(OWLObjectSomeValuesFrom ce) {
-            // This method gets called when a class expression is an
-            // existential (someValuesFrom) restriction and it asks us to visit
-            // it
-            restrictedProperties.add(ce.getProperty());
-        }
-    }
-
     @Test
     public void testComment() throws OWLException {
         OWLOntologyManager m = create();
@@ -797,45 +755,6 @@ public class TutorialSnippetsTestCase {
         reasoner.dispose();
     }
 
-    public static class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
-
-        private static Logger logger;
-
-        public LoggingReasonerProgressMonitor(Logger log) {
-            logger = log;
-        }
-
-        public LoggingReasonerProgressMonitor(Logger log, String methodName) {
-            String loggerName = log.getName() + '.' + methodName;
-            logger = LoggerFactory.getLogger(loggerName);
-        }
-
-        @Override
-        public void reasonerTaskStarted(String taskName) {
-            logger.info("Reasoner Task Started: {}.", taskName);
-        }
-
-        @Override
-        public void reasonerTaskStopped() {
-            logger.info("Task stopped.");
-        }
-
-        @Override
-        public void reasonerTaskProgressChanged(int value, int max) {
-            logger.info("Reasoner Task made progress: {}/{}", Integer.valueOf(value),
-                Integer.valueOf(max));
-        }
-
-        @Override
-        public void reasonerTaskBusy() {
-            logger.info("Reasoner Task is busy");
-        }
-    }
-
-    // a visitor to extract label annotations
-    protected @Nonnull
-    LabelExtractor le = new LabelExtractor();
-
     private String labelFor(OWLEntity clazz, OWLOntology o) {
         return getAnnotationObjects(clazz, o).map(a -> a.accept(le)).filter(v -> !v.isEmpty())
             .findAny().orElseGet(
@@ -891,6 +810,86 @@ public class TutorialSnippetsTestCase {
         for (OWLProfileViolation v : report.getViolations()) {
             // deal with violations
             System.out.println(v);
+        }
+    }
+
+    /**
+     * Visits existential restrictions and collects the properties which are
+     * restricted.
+     */
+    private static class RestrictionVisitor implements OWLClassExpressionVisitor {
+
+        private final @Nonnull
+        Set<OWLClass> processedClasses;
+        private final @Nonnull
+        Set<OWLObjectPropertyExpression> restrictedProperties;
+        private final Set<OWLOntology> onts;
+
+        RestrictionVisitor(Set<OWLOntology> onts) {
+            restrictedProperties = new HashSet<>();
+            processedClasses = new HashSet<>();
+            this.onts = onts;
+        }
+
+        public Set<OWLObjectPropertyExpression> getRestrictedProperties() {
+            return restrictedProperties;
+        }
+
+        @Override
+        public void visit(OWLClass ce) {
+            // avoid cycles
+            if (!processedClasses.contains(ce)) {
+                // If we are processing inherited restrictions then
+                // we recursively visit named supers.
+                processedClasses.add(ce);
+                for (OWLOntology ont : onts) {
+                    ont.subClassAxiomsForSubClass(ce)
+                        .forEach(ax -> ax.getSuperClass().accept(this));
+                }
+            }
+        }
+
+        @Override
+        public void visit(OWLObjectSomeValuesFrom ce) {
+            // This method gets called when a class expression is an
+            // existential (someValuesFrom) restriction and it asks us to visit
+            // it
+            restrictedProperties.add(ce.getProperty());
+        }
+    }
+
+    public static class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
+
+        private static Logger logger;
+
+        public LoggingReasonerProgressMonitor(Logger log) {
+            logger = log;
+        }
+
+        public LoggingReasonerProgressMonitor(Logger log, String methodName) {
+            String loggerName = log.getName() + '.' + methodName;
+            logger = LoggerFactory.getLogger(loggerName);
+        }
+
+        @Override
+        public void reasonerTaskStarted(String taskName) {
+            logger.info("Reasoner Task Started: {}.", taskName);
+        }
+
+        @Override
+        public void reasonerTaskStopped() {
+            logger.info("Task stopped.");
+        }
+
+        @Override
+        public void reasonerTaskProgressChanged(int value, int max) {
+            logger.info("Reasoner Task made progress: {}/{}", Integer.valueOf(value),
+                Integer.valueOf(max));
+        }
+
+        @Override
+        public void reasonerTaskBusy() {
+            logger.info("Reasoner Task is busy");
         }
     }
 }

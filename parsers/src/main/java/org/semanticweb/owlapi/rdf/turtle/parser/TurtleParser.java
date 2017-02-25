@@ -21,10 +21,47 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings("all")
 public class TurtleParser implements TurtleParserConstants {
 
+    static private int[] jj_la1_0;
+    static private int[] jj_la1_1;
+
+    static {
+        jj_la1_init_0();
+        jj_la1_init_1();
+    }
+
+    final private int[] jj_la1 = new int[21];
+    final private JJCalls[] jj_2_rtns = new JJCalls[3];
+    final private LookaheadSuccess jj_ls = new LookaheadSuccess();
+    /**
+     * Generated Token Manager.
+     */
+    public TurtleParserTokenManager token_source;
+    /**
+     * Current token.
+     */
+    public Token token;
+    /**
+     * Next token.
+     */
+    public Token jj_nt;
+    JavaCharStream jj_input_stream;
     private Map<String, IRI> string2IRI;
     private IRI base;
     private TripleHandler handler;
     private PrefixManager pm = new DefaultPrefixManager();
+    private int jj_ntk;
+    private Token jj_scanpos, jj_lastpos;
+    private int jj_la;
+    private int jj_gen;
+    private boolean jj_rescan = false;
+    private int jj_gc = 0;
+    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+    private int[] jj_expentry;
+    private int jj_kind = -1;
+    private int[] jj_lasttokens = new int[100];
+    private int jj_endpos;
+    private int trace_indent = 0;
+    private boolean trace_enabled;
 
     /**
      * Instantiates a new turtle parser.
@@ -54,6 +91,58 @@ public class TurtleParser implements TurtleParserConstants {
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
+    }
+
+    /**
+     * Constructor.
+     */
+    public TurtleParser(Provider stream) {
+        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        token_source = new TurtleParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 21; i++) {
+            jj_la1[i] = -1;
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+            jj_2_rtns[i] = new JJCalls();
+        }
+    }
+
+    /**
+     * Constructor.
+     */
+    public TurtleParser(String dsl) throws ParseException, TokenMgrException {
+        this(new StringProvider(dsl));
+    }
+
+    /**
+     * Constructor with generated Token Manager.
+     */
+    public TurtleParser(TurtleParserTokenManager tm) {
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 21; i++) {
+            jj_la1[i] = -1;
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+            jj_2_rtns[i] = new JJCalls();
+        }
+    }
+
+    private static void jj_la1_init_0() {
+        jj_la1_0 = new int[]{0x28000000, 0x28000000, 0x0, 0x0, 0x28000000, 0x0, 0x0, 0x28000000,
+            0x0, 0x0, 0x0, 0x80000000, 0x28000000, 0x2be22200, 0x2be22200, 0x0, 0x0, 0x3e22200,
+            0xc00000, 0x0, 0x222200,};
+    }
+
+    private static void jj_la1_init_1() {
+        jj_la1_1 = new int[]{0x858094, 0x858094, 0x14, 0x58040, 0x858080, 0x1, 0x58040, 0x800080,
+            0x2, 0x58040, 0x8000, 0x0, 0x858080, 0x858680, 0x858680, 0x28, 0x28, 0x600, 0x0, 0x600,
+            0x0,};
     }
 
     /**
@@ -862,72 +951,6 @@ public class TurtleParser implements TurtleParserConstants {
         return false;
     }
 
-    /**
-     * Generated Token Manager.
-     */
-    public TurtleParserTokenManager token_source;
-    JavaCharStream jj_input_stream;
-    /**
-     * Current token.
-     */
-    public Token token;
-    /**
-     * Next token.
-     */
-    public Token jj_nt;
-    private int jj_ntk;
-    private Token jj_scanpos, jj_lastpos;
-    private int jj_la;
-    private int jj_gen;
-    final private int[] jj_la1 = new int[21];
-    static private int[] jj_la1_0;
-    static private int[] jj_la1_1;
-
-    static {
-        jj_la1_init_0();
-        jj_la1_init_1();
-    }
-
-    private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0x28000000, 0x28000000, 0x0, 0x0, 0x28000000, 0x0, 0x0, 0x28000000,
-            0x0, 0x0, 0x0, 0x80000000, 0x28000000, 0x2be22200, 0x2be22200, 0x0, 0x0, 0x3e22200,
-            0xc00000, 0x0, 0x222200,};
-    }
-
-    private static void jj_la1_init_1() {
-        jj_la1_1 = new int[]{0x858094, 0x858094, 0x14, 0x58040, 0x858080, 0x1, 0x58040, 0x800080,
-            0x2, 0x58040, 0x8000, 0x0, 0x858080, 0x858680, 0x858680, 0x28, 0x28, 0x600, 0x0, 0x600,
-            0x0,};
-    }
-
-    final private JJCalls[] jj_2_rtns = new JJCalls[3];
-    private boolean jj_rescan = false;
-    private int jj_gc = 0;
-
-    /**
-     * Constructor.
-     */
-    public TurtleParser(Provider stream) {
-        jj_input_stream = new JavaCharStream(stream, 1, 1);
-        token_source = new TurtleParserTokenManager(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 21; i++) {
-            jj_la1[i] = -1;
-        }
-        for (int i = 0; i < jj_2_rtns.length; i++) {
-            jj_2_rtns[i] = new JJCalls();
-        }
-    }
-
-    /**
-     * Constructor.
-     */
-    public TurtleParser(String dsl) throws ParseException, TokenMgrException {
-        this(new StringProvider(dsl));
-    }
-
     public void ReInit(String s) {
         ReInit(new StringProvider(s));
     }
@@ -946,22 +969,6 @@ public class TurtleParser implements TurtleParserConstants {
         }
 
         token_source.ReInit(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 21; i++) {
-            jj_la1[i] = -1;
-        }
-        for (int i = 0; i < jj_2_rtns.length; i++) {
-            jj_2_rtns[i] = new JJCalls();
-        }
-    }
-
-    /**
-     * Constructor with generated Token Manager.
-     */
-    public TurtleParser(TurtleParserTokenManager tm) {
-        token_source = tm;
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
@@ -1018,13 +1025,6 @@ public class TurtleParser implements TurtleParserConstants {
         throw generateParseException();
     }
 
-    @SuppressWarnings("serial")
-    static private final class LookaheadSuccess extends java.lang.RuntimeException {
-
-    }
-
-    final private LookaheadSuccess jj_ls = new LookaheadSuccess();
-
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
@@ -1055,7 +1055,6 @@ public class TurtleParser implements TurtleParserConstants {
         }
         return false;
     }
-
 
     /**
      * Get the next Token.
@@ -1093,12 +1092,6 @@ public class TurtleParser implements TurtleParserConstants {
             return (jj_ntk = jj_nt.kind);
         }
     }
-
-    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    private int[] jj_expentry;
-    private int jj_kind = -1;
-    private int[] jj_lasttokens = new int[100];
-    private int jj_endpos;
 
     private void jj_add_error_token(int kind, int pos) {
         if (pos >= 100) {
@@ -1178,9 +1171,6 @@ public class TurtleParser implements TurtleParserConstants {
             : TurtleParserTokenManager.lexStateNames[token_source.curLexState]);
     }
 
-    private int trace_indent = 0;
-    private boolean trace_enabled;
-
     /**
      * Trace enabled.
      */
@@ -1244,6 +1234,11 @@ public class TurtleParser implements TurtleParserConstants {
         p.gen = jj_gen + xla - jj_la;
         p.first = token;
         p.arg = xla;
+    }
+
+    @SuppressWarnings("serial")
+    static private final class LookaheadSuccess extends java.lang.RuntimeException {
+
     }
 
     static final class JJCalls {

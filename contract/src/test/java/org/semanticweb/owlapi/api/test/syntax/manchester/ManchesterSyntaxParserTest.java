@@ -28,6 +28,13 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @RunWith(Parameterized.class)
 public class ManchesterSyntaxParserTest extends TestBase {
 
+    private String input;
+    private Object expected;
+    public ManchesterSyntaxParserTest(String input, Object expected) {
+        this.input = input;
+        this.expected = expected;
+    }
+
     @Parameters
     public static Collection<Object[]> data() {
         OWLDataFactory df = OWLManager.getOWLDataFactory();
@@ -44,14 +51,6 @@ public class ManchesterSyntaxParserTest extends TestBase {
                 df.getOWLDataMaxCardinality(1, hasAge, OWL2Datatype.XSD_INT)},
             new Object[]{"hasAge max 1", df.getOWLDataMaxCardinality(1, hasAge)});
         //@formatter:on
-    }
-
-    private String input;
-    private Object expected;
-
-    public ManchesterSyntaxParserTest(String input, Object expected) {
-        this.input = input;
-        this.expected = expected;
     }
 
     @Test

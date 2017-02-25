@@ -31,17 +31,17 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param id id for the wrapper
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * @return id
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * @param id id for the wrapper
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -59,13 +59,6 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param b value for used
-     */
-    public void setUsed(boolean b) {
-        used = b;
-    }
-
-    /**
      * @return value for used
      */
     public boolean isUsed() {
@@ -73,10 +66,10 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param b value for in search space
+     * @param b value for used
      */
-    public void setInSearchSpace(boolean b) {
-        searchspace = b;
+    public void setUsed(boolean b) {
+        used = b;
     }
 
     /**
@@ -87,10 +80,10 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param b value for in module
+     * @param b value for in search space
      */
-    public void setInModule(boolean b) {
-        module = b;
+    public void setInSearchSpace(boolean b) {
+        searchspace = b;
     }
 
     /**
@@ -101,10 +94,10 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param atom atom including the axiom
+     * @param b value for in module
      */
-    public void setAtom(@Nullable OntologyAtom atom) {
-        this.atom = atom;
+    public void setInModule(boolean b) {
+        module = b;
     }
 
     /**
@@ -112,5 +105,12 @@ public class AxiomWrapper implements Serializable {
      */
     public Optional<OntologyAtom> getAtom() {
         return Optional.ofNullable(atom);
+    }
+
+    /**
+     * @param atom atom including the axiom
+     */
+    public void setAtom(@Nullable OntologyAtom atom) {
+        this.atom = atom;
     }
 }
