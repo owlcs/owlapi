@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public enum RDFOntologyHeaderStatus {

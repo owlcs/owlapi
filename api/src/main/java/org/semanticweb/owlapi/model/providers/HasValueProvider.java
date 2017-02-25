@@ -25,20 +25,17 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public interface HasValueProvider {
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param value
-     *        value for restriction
+     * @param property The property that the restriction acts along.
+     * @param value value for restriction
      * @return a HasValue restriction with specified property and value
      */
     OWLDataHasValue getOWLDataHasValue(OWLDataPropertyExpression property, OWLLiteral value);
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param individual
-     *        individual for restriction
+     * @param property The property that the restriction acts along.
+     * @param individual individual for restriction
      * @return a HasValue restriction with specified property and value
      */
-    OWLObjectHasValue getOWLObjectHasValue(OWLObjectPropertyExpression property, OWLIndividual individual);
+    OWLObjectHasValue getOWLObjectHasValue(OWLObjectPropertyExpression property,
+        OWLIndividual individual);
 }

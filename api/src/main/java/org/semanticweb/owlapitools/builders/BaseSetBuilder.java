@@ -24,22 +24,18 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Abstract builder for entities.
- * 
+ *
+ * @param <T> type built
+ * @param <B> builder type
+ * @param <I> contained items type
  * @author ignazio
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
- * @param <I>
- *        contained items type
  */
 public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
     protected final Set<I> items = new HashSet<>();
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseSetBuilder(OWLDataFactory df) {
@@ -47,8 +43,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        item to add
+     * @param arg item to add
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -58,8 +53,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        items to add
+     * @param arg items to add
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -69,19 +63,17 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        items to add
+     * @param arg items to add
      * @return builder
      */
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public B withItems(Stream<? extends I> arg) {
         add(items, arg);
         return (B) this;
     }
 
     /**
-     * @param arg
-     *        items to add
+     * @param arg items to add
      * @return builder
      */
     @java.lang.SafeVarargs

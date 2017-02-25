@@ -14,36 +14,32 @@ package org.semanticweb.owlapi.model;
 
 /**
  * The root of checked exceptions in the OWL API.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLException extends Exception {
 
-    protected OWLException() {}
+    protected OWLException() {
+    }
 
     /**
-     * @param message
-     *        the message
+     * @param message the message
      */
     public OWLException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
+     * @param message the message
+     * @param cause the cause
      */
     public OWLException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * @param cause
-     *        the cause
+     * @param cause the cause
      */
     public OWLException(Throwable cause) {
         super(cause);

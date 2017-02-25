@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  * A configuration object that specifies options for output.
- * 
+ *
  * @author Ignazio
  * @since 5.0.0
  */
@@ -40,7 +40,9 @@ public class OWLOntologyWriterConfiguration implements Serializable {
         return toReturn;
     }
 
-    /** @return should output banners */
+    /**
+     * @return should output banners
+     */
     public boolean shouldUseBanners() {
         return bannersEnabled;
     }
@@ -53,8 +55,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @return true if all anonymous individuals should have their ids remapped
-     *         upon reading
+     * @return true if all anonymous individuals should have their ids remapped upon reading
      */
     public boolean shouldRemapAllAnonymousIndividualsIds() {
         return remapIds;
@@ -89,8 +90,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param label
-     *        True if banner comments should be enabled.
+     * @param label True if banner comments should be enabled.
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withBannersEnabled(boolean label) {
@@ -103,8 +103,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param b
-     *        true if all anonymous individuals should have their ids persisted
+     * @param b true if all anonymous individuals should have their ids persisted
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withSaveIdsForAllAnonymousIndividuals(boolean b) {
@@ -117,9 +116,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param b
-     *        true if all anonymous individuals should have their ids remapped
-     *        after parsing
+     * @param b true if all anonymous individuals should have their ids remapped after parsing
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withRemapAllAnonymousIndividualsIds(boolean b) {
@@ -132,8 +129,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param useEntities
-     *        useNamespaceEntities
+     * @param useEntities useNamespaceEntities
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withUseNamespaceEntities(boolean useEntities) {
@@ -146,8 +142,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param indent
-     *        indent
+     * @param indent indent
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withIndenting(boolean indent) {
@@ -160,8 +155,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param indent
-     *        indent size
+     * @param indent indent size
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withIndentSize(int indent) {
@@ -174,8 +168,7 @@ public class OWLOntologyWriterConfiguration implements Serializable {
     }
 
     /**
-     * @param label
-     *        true if labels should be used for banner comments
+     * @param label true if labels should be used for banner comments
      * @return new config object
      */
     public OWLOntologyWriterConfiguration withLabelsAsBanner(boolean label) {

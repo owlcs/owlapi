@@ -42,21 +42,25 @@ import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
  * A configuration builder that specifies all available options in the OWL API.
  * Can be used to build OWLOntologyLoaderConfiguration and
  * OWLOntologyWriterConfiguration objects
- * 
+ *
  * @author Ignazio
  * @since 5.0.0
  */
 public class OntologyConfigurator implements Serializable {
 
-    /** Set of imports to ignore. */
+    /**
+     * Set of imports to ignore.
+     */
     private final Set<IRI> ignoredImports = new HashSet<>();
-    /** Local override map. */
-    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(ConfigurationOptions.class);
+    /**
+     * Local override map.
+     */
+    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(
+        ConfigurationOptions.class);
 
     /**
-     * @param ban
-     *        list of parser factory class names that should be skipped when
-     *        attempting ontology parsing. The list is space separated.
+     * @param ban list of parser factory class names that should be skipped when attempting ontology
+     * parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OntologyConfigurator withBannedParsers(String ban) {
@@ -65,8 +69,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @return list of parser factory class names that should be skipped when
-     *         attempting ontology parsing. The list is space separated.
+     * @return list of parser factory class names that should be skipped when attempting ontology
+     * parsing. The list is space separated.
      */
     public String getBannedParsers() {
         return BANNED_PARSERS.getValue(String.class, overrides);
@@ -74,9 +78,8 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * Set the priorty collection sorting option.
-     * 
-     * @param sorting
-     *        the sorting option to be used.
+     *
+     * @param sorting the sorting option to be used.
      * @return An {@code OntologyConfigurator} with the new sorting option set.
      */
     public OntologyConfigurator setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
@@ -84,7 +87,9 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return the priorty collection sorting option */
+    /**
+     * @return the priorty collection sorting option
+     */
     public PriorityCollectionSorting getPriorityCollectionSorting() {
         return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
     }
@@ -92,12 +97,10 @@ public class OntologyConfigurator implements Serializable {
     /**
      * Adds an ontology document IRI to the list of ontology imports that will
      * be ignored during ontology loading.
-     * 
-     * @param ontologyDocumentIRI
-     *        The ontology document IRI that will be ignored if it is
-     *        encountered as an imported ontology during loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
-     *         ontology document IRI set.
+     *
+     * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
+     * encountered as an imported ontology during loading.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
      */
     public OntologyConfigurator addIgnoredImport(IRI ontologyDocumentIRI) {
         ignoredImports.add(ontologyDocumentIRI);
@@ -107,9 +110,9 @@ public class OntologyConfigurator implements Serializable {
     /**
      * Clears all ontology document IRIs from the list of ignored ontology
      * document IRIs.
-     * 
-     * @return An {@code OWLOntologyLoaderConfiguration} with the list of
-     *         ignored ontology document IRIs set to be empty.
+     *
+     * @return An {@code OWLOntologyLoaderConfiguration} with the list of ignored ontology document
+     * IRIs set to be empty.
      */
     public OntologyConfigurator clearIgnoredImports() {
         ignoredImports.clear();
@@ -119,12 +122,11 @@ public class OntologyConfigurator implements Serializable {
     /**
      * Removes an ontology document IRI from the list of ontology imports that
      * will be ignored during ontology loading.
-     * 
-     * @param ontologyDocumentIRI
-     *        The ontology document IRI that would be ignored if it is
-     *        encountered as an imported ontology during loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
-     *         ontology document IRI removed.
+     *
+     * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
+     * encountered as an imported ontology during loading.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
+     * removed.
      */
     public OntologyConfigurator removeIgnoredImport(IRI ontologyDocumentIRI) {
         ignoredImports.remove(ontologyDocumentIRI);
@@ -132,10 +134,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param b
-     *        true if HTTP compression should be accepted
-     * @return a copy of this configuration with accepting HTTP compression set
-     *         to the new value
+     * @param b true if HTTP compression should be accepted
+     * @return a copy of this configuration with accepting HTTP compression set to the new value
      */
     public OntologyConfigurator setAcceptingHTTPCompression(boolean b) {
         overrides.put(ACCEPT_HTTP_COMPRESSION, Boolean.valueOf(b));
@@ -150,35 +150,35 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @param l
-     *        new timeout Note: the timeout is an int and represents
-     *        milliseconds. This is necessary for use in {@code URLConnection}
-     * @return A {@code OWLOntologyLoaderConfiguration} with the connection
-     *         timeout set to the new value.
+     * @param l new timeout Note: the timeout is an int and represents milliseconds. This is
+     * necessary for use in {@code URLConnection}
+     * @return A {@code OWLOntologyLoaderConfiguration} with the connection timeout set to the new
+     * value.
      */
     public OntologyConfigurator setConnectionTimeout(int l) {
         overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
         return this;
     }
 
-    /** @return the connection timeout */
+    /**
+     * @return the connection timeout
+     */
     public int getConnectionTimeout() {
         return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
     }
 
     /**
-     * @param value
-     *        true if redirects should be followed across protocols, false
-     *        otherwise.
-     * @return a copy of the current object with followRedirects set to the new
-     *         value.
+     * @param value true if redirects should be followed across protocols, false otherwise.
+     * @return a copy of the current object with followRedirects set to the new value.
      */
     public OntologyConfigurator setFollowRedirects(boolean value) {
         overrides.put(FOLLOW_REDIRECTS, Boolean.valueOf(value));
         return this;
     }
 
-    /** @return follow redirects */
+    /**
+     * @return follow redirects
+     */
     public boolean shouldFollowRedirects() {
         return FOLLOW_REDIRECTS.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -188,20 +188,19 @@ public class OntologyConfigurator implements Serializable {
      * {@code OWLAnnotationAxiom}) should be loaded or whether they should be
      * discarded on loading. By default, the loading of annotation axioms is
      * enabled.
-     * 
-     * @param b
-     *        {@code true} if annotation axioms should be loaded, or
-     *        {@code false} if annotation axioms should not be loaded and should
-     *        be discarded on loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} object with the option
-     *         set.
+     *
+     * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
+     * axioms should not be loaded and should be discarded on loading.
+     * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
      */
     public OntologyConfigurator setLoadAnnotationAxioms(boolean b) {
         overrides.put(LOAD_ANNOTATIONS, Boolean.valueOf(b));
         return this;
     }
 
-    /** @return load annotations */
+    /**
+     * @return load annotations
+     */
     public boolean shouldLoadAnnotations() {
         return LOAD_ANNOTATIONS.getValue(Boolean.class, overrides).booleanValue();
     }
@@ -210,61 +209,65 @@ public class OntologyConfigurator implements Serializable {
      * Sets the strategy that is used for missing imports handling. See
      * {@link MissingImportHandlingStrategy} for the strategies and their
      * descriptions.
-     * 
-     * @param strategy
-     *        The strategy to be used.
-     * @return An {@code OWLOntologyLoaderConfiguration} object with the
-     *         strategy set.
+     *
+     * @param strategy The strategy to be used.
+     * @return An {@code OWLOntologyLoaderConfiguration} object with the strategy set.
      * @since 3.3
      */
-    public OntologyConfigurator setMissingImportHandlingStrategy(MissingImportHandlingStrategy strategy) {
+    public OntologyConfigurator setMissingImportHandlingStrategy(
+        MissingImportHandlingStrategy strategy) {
         overrides.put(MISSING_IMPORT_HANDLING_STRATEGY, strategy);
         return this;
     }
 
-    /** @return missing import handling strategy */
+    /**
+     * @return missing import handling strategy
+     */
     public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
-        return MISSING_IMPORT_HANDLING_STRATEGY.getValue(MissingImportHandlingStrategy.class, overrides);
+        return MISSING_IMPORT_HANDLING_STRATEGY
+            .getValue(MissingImportHandlingStrategy.class, overrides);
     }
 
     /**
-     * @param strategy
-     *        new value
+     * @param strategy new value
      * @return a copy of this configuration object with a different strategy
      */
-    public OntologyConfigurator setMissingOntologyHeaderStrategy(MissingOntologyHeaderStrategy strategy) {
+    public OntologyConfigurator setMissingOntologyHeaderStrategy(
+        MissingOntologyHeaderStrategy strategy) {
         overrides.put(MISSING_ONTOLOGY_HEADER_STRATEGY, strategy);
         return this;
     }
 
-    /** @return missing ontology header strategy */
+    /**
+     * @return missing ontology header strategy
+     */
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
-        return MISSING_ONTOLOGY_HEADER_STRATEGY.getValue(MissingOntologyHeaderStrategy.class, overrides);
+        return MISSING_ONTOLOGY_HEADER_STRATEGY
+            .getValue(MissingOntologyHeaderStrategy.class, overrides);
     }
 
     /**
      * Set the value for the report stack traces flag. If true, parsing
      * exceptions will have the full stack trace for the source exceptions.
      * Default is false.
-     * 
-     * @param b
-     *        the new value for the flag
-     * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set
-     *         to the new value.
+     *
+     * @param b the new value for the flag
+     * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set to the new value.
      */
     public OntologyConfigurator setReportStackTraces(boolean b) {
         overrides.put(REPORT_STACK_TRACES, Boolean.valueOf(b));
         return this;
     }
 
-    /** @return report stack traces */
+    /**
+     * @return report stack traces
+     */
     public boolean shouldReportStackTraces() {
         return REPORT_STACK_TRACES.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param retries
-     *        new value of retries to attempt
+     * @param retries new value of retries to attempt
      * @return copy of this configuration with modified retries attempts.
      */
     public OntologyConfigurator setRetriesToAttempt(int retries) {
@@ -272,14 +275,15 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return value of retries to attempt */
+    /**
+     * @return value of retries to attempt
+     */
     public int getRetriesToAttempt() {
         return RETRIES_TO_ATTEMPT.getValue(Integer.class, overrides).intValue();
     }
 
     /**
-     * @param strict
-     *        new value for strict
+     * @param strict new value for strict
      * @return copy of the configuration with new strict value
      */
     public OntologyConfigurator setStrict(boolean strict) {
@@ -287,46 +291,50 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return true if parsing should be strict */
+    /**
+     * @return true if parsing should be strict
+     */
     public boolean shouldParseWithStrictConfiguration() {
         return PARSE_WITH_STRICT_CONFIGURATION.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param value
-     *        true if Dublin Core vocabulary should be treated as built in.
-     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to
-     *         the new value.
+     * @param value true if Dublin Core vocabulary should be treated as built in.
+     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to the new value.
      */
     public OntologyConfigurator setTreatDublinCoreAsBuiltIn(boolean value) {
         overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.valueOf(value));
         return this;
     }
 
-    /** @return true if Dublin Core vocabulary should be treated as built in. */
+    /**
+     * @return true if Dublin Core vocabulary should be treated as built in.
+     */
     public boolean shouldTreatDublinCoreAsBuiltin() {
         return TREAT_DUBLINCORE_AS_BUILTIN.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @return a new OWLOntologyLoaderConfiguration from the builder current
-     *         settings
+     * @return a new OWLOntologyLoaderConfiguration from the builder current settings
      */
     public OWLOntologyLoaderConfiguration buildLoaderConfiguration() {
-        return new OWLOntologyLoaderConfiguration().setAcceptingHTTPCompression(shouldAcceptHTTPCompression())
-            .setConnectionTimeout(getConnectionTimeout()).setFollowRedirects(shouldFollowRedirects())
+        return new OWLOntologyLoaderConfiguration()
+            .setAcceptingHTTPCompression(shouldAcceptHTTPCompression())
+            .setConnectionTimeout(getConnectionTimeout())
+            .setFollowRedirects(shouldFollowRedirects())
             .setLoadAnnotationAxioms(shouldLoadAnnotations()).setMissingImportHandlingStrategy(
-                getMissingImportHandlingStrategy()).setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
+                getMissingImportHandlingStrategy())
+            .setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
             .setPriorityCollectionSorting(getPriorityCollectionSorting()).setReportStackTraces(
                 shouldReportStackTraces()).setRetriesToAttempt(getRetriesToAttempt()).setStrict(
-                    shouldParseWithStrictConfiguration()).setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin())
+                shouldParseWithStrictConfiguration())
+            .setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin())
             .setBannedParsers(getBannedParsers());
     }
 
     /**
-     * @param b
-     *        True if ids for blank nodes should always be written (axioms and
-     *        anonymous individuals only).
+     * @param b True if ids for blank nodes should always be written (axioms and anonymous
+     * individuals only).
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
@@ -334,15 +342,15 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return should save ids */
+    /**
+     * @return should save ids
+     */
     public boolean shouldSaveIds() {
         return SAVE_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param b
-     *        True if all anonymous individuals should have their ids remapped
-     *        after parsing.
+     * @param b True if all anonymous individuals should have their ids remapped after parsing.
      * @return new config object
      */
     public OntologyConfigurator withRemapAllAnonymousIndividualsIds(boolean b) {
@@ -350,14 +358,15 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return should remap ids */
+    /**
+     * @return should remap ids
+     */
     public boolean shouldRemapIds() {
         return REMAP_IDS.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param useEntities
-     *        True if entities should be used for namespace abbreviations.
+     * @param useEntities True if entities should be used for namespace abbreviations.
      * @return new config object
      */
     public OntologyConfigurator withUseNamespaceEntities(boolean useEntities) {
@@ -365,14 +374,15 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return should use namespace entities */
+    /**
+     * @return should use namespace entities
+     */
     public boolean shouldUseNamespaceEntities() {
         return USE_NAMESPACE_ENTITIES.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param indent
-     *        True if indenting should be used when writing out a file.
+     * @param indent True if indenting should be used when writing out a file.
      * @return new config object
      */
     public OntologyConfigurator withIndenting(boolean indent) {
@@ -380,15 +390,15 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return should indent */
+    /**
+     * @return should indent
+     */
     public boolean shouldIndent() {
         return INDENTING.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param indent
-     *        Size of indentation between levels. Only used if indenting is set
-     *        to true.
+     * @param indent Size of indentation between levels. Only used if indenting is set to true.
      * @return new config object
      */
     public OntologyConfigurator withIndentSize(int indent) {
@@ -396,14 +406,15 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return indent size */
+    /**
+     * @return indent size
+     */
     public int getIndentSize() {
         return INDENT_SIZE.getValue(Integer.class, overrides).intValue();
     }
 
     /**
-     * @param label
-     *        True if {@code rdfs:labels} should be used for banner comments.
+     * @param label True if {@code rdfs:labels} should be used for banner comments.
      * @return new config object
      */
     public OntologyConfigurator withLabelsAsBanner(boolean label) {
@@ -411,14 +422,15 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return should use labels as banner */
+    /**
+     * @return should use labels as banner
+     */
     public boolean shouldUseLabelsAsBanner() {
         return LABELS_AS_BANNER.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @param label
-     *        True if banner comments should be enabled.
+     * @param label True if banner comments should be enabled.
      * @return new config object
      */
     public OntologyConfigurator withBannersEnabled(boolean label) {
@@ -426,18 +438,21 @@ public class OntologyConfigurator implements Serializable {
         return this;
     }
 
-    /** @return should output banners */
+    /**
+     * @return should output banners
+     */
     public boolean shouldUseBanners() {
         return BANNERS_ENABLED.getValue(Boolean.class, overrides).booleanValue();
     }
 
     /**
-     * @return a new OWLOntologyWriterConfiguration from the builder current
-     *         settings
+     * @return a new OWLOntologyWriterConfiguration from the builder current settings
      */
     public OWLOntologyWriterConfiguration buildWriterConfiguration() {
-        return new OWLOntologyWriterConfiguration().withIndenting(shouldIndent()).withIndentSize(getIndentSize())
-            .withLabelsAsBanner(shouldUseLabelsAsBanner()).withRemapAllAnonymousIndividualsIds(shouldRemapIds())
+        return new OWLOntologyWriterConfiguration().withIndenting(shouldIndent())
+            .withIndentSize(getIndentSize())
+            .withLabelsAsBanner(shouldUseLabelsAsBanner())
+            .withRemapAllAnonymousIndividualsIds(shouldRemapIds())
             .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds()).withUseNamespaceEntities(
                 shouldUseNamespaceEntities()).withBannersEnabled(shouldUseBanners());
     }

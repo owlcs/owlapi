@@ -30,21 +30,21 @@ import org.slf4j.LoggerFactory;
 
 /**
  * An ontology document source which can read from a GZIP stream.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */
 public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GZipStreamDocumentSource.class);
-    @Nullable private byte[] buffer;
+    @Nullable
+    private byte[] buffer;
 
     /**
      * Constructs an input source which will read an ontology from a
      * representation from the specified file.
-     * 
-     * @param is
-     *        The stream that the ontology representation will be read from.
+     *
+     * @param is The stream that the ontology representation will be read from.
      */
     public GZipStreamDocumentSource(InputStream is) {
         super("gzipinputstream:ontology", null, null);
@@ -54,17 +54,14 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
-     * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     *
+     * @param stream The stream that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
-    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
+        @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);

@@ -20,15 +20,14 @@ import java.util.stream.Stream;
  * Declaration</a> in the OWL 2 Specification. <br>
  * A declaration axiom declares an entity in an ontology. It doesn't affect the
  * logical meaning of the ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDeclarationAxiom extends OWLAxiom {
 
     @Override
-        OWLDeclarationAxiom getAxiomWithoutAnnotations();
+    OWLDeclarationAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

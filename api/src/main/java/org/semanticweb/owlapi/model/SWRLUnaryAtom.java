@@ -13,11 +13,9 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @param <A> the type of argument
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
- * @param <A>
- *        the type of argument
  */
 public interface SWRLUnaryAtom<A extends SWRLArgument> extends SWRLAtom {
 

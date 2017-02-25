@@ -30,7 +30,7 @@ import org.tukaani.xz.XZInputStream;
 
 /**
  * An ontology document source which can read from a XZ (LZMA) compressed File.
- * 
+ *
  * @author ses
  * @since 4.0.2
  */
@@ -43,8 +43,7 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      *
-     * @param is
-     *        The file that the ontology representation will be read from.
+     * @param is The file that the ontology representation will be read from.
      */
     public XZFileDocumentSource(File is) {
         super("file:ontology", null, null);
@@ -55,14 +54,10 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      *
-     * @param stream
-     *        The file that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param stream The file that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
     public XZFileDocumentSource(File stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {

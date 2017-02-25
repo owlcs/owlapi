@@ -29,9 +29,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A convenience class which will prepare an input source from a file.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
@@ -41,10 +40,8 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /**
      * Constructs an ontology input source using the specified file.
-     * 
-     * @param file
-     *        The file from which a concrete representation of an ontology will
-     *        be obtained.
+     *
+     * @param file The file from which a concrete representation of an ontology will be obtained.
      */
     public FileDocumentSource(File file) {
         this(file, null, null);
@@ -52,12 +49,9 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /**
      * Constructs an ontology input source using the specified file.
-     * 
-     * @param file
-     *        The file from which a concrete representation of an ontology will
-     *        be obtained.
-     * @param format
-     *        ontology format. Can be null.
+     *
+     * @param file The file from which a concrete representation of an ontology will be obtained.
+     * @param format ontology format. Can be null.
      */
     public FileDocumentSource(File file, OWLDocumentFormat format) {
         this(file, format, null);
@@ -65,16 +59,13 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /**
      * Constructs an ontology input source using the specified file.
-     * 
-     * @param file
-     *        The file from which a concrete representation of an ontology will
-     *        be obtained.
-     * @param format
-     *        ontology format. Can be null.
-     * @param mime
-     *        mime type
+     *
+     * @param file The file from which a concrete representation of an ontology will be obtained.
+     * @param format ontology format. Can be null.
+     * @param mime mime type
      */
-    public FileDocumentSource(File file, @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public FileDocumentSource(File file, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         super(IRI.create(file), format, mime);
         this.file = checkNotNull(file, "file cannot be null");
     }

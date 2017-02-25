@@ -24,8 +24,7 @@ public class OWLEntityFragmentProvider implements OWLEntityVisitorEx<String> {
     private static final AtomicInteger datatypeCount = new AtomicInteger();
 
     /**
-     * @param entity
-     *        entity to rename
+     * @param entity entity to rename
      * @return new name
      */
     public String getName(OWLEntity entity) {

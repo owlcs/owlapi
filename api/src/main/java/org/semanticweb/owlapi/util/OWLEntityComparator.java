@@ -31,9 +31,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * their type (in the following order: Class, Object property, Data property,
  * Individual, Datatype) then by their short form (using the specified short
  * form provider).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor {
@@ -44,12 +43,12 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     /**
      * Constructs an entity comparator which uses the specified short form
      * provider.
-     * 
-     * @param shortFormProvider
-     *        the short form provider to use
+     *
+     * @param shortFormProvider the short form provider to use
      */
     public OWLEntityComparator(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+            "shortFormProvider cannot be null");
     }
 
     @Override

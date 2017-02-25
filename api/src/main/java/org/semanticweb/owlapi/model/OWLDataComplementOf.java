@@ -18,9 +18,8 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Data_Ranges" >
  * DataComplementOf</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataComplementOf extends OWLDataRange {
@@ -42,7 +41,7 @@ public interface OWLDataComplementOf extends OWLDataRange {
 
     /**
      * Gets the data range which this data range is a complement of.
-     * 
+     *
      * @return The complemented data range.
      */
     OWLDataRange getDataRange();

@@ -15,11 +15,12 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLEntity}s.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLEntityVisitor extends OWLIndividualEntityVisitorBase,
-        OWLPropertyEntityVisitorBase, OWLClassVisitorBase,
-        OWLDataEntityVisitorBase {}
+    OWLPropertyEntityVisitorBase, OWLClassVisitorBase,
+    OWLDataEntityVisitorBase {
+
+}

@@ -20,9 +20,8 @@ import org.semanticweb.owlapi.model.RemoveImport;
  * Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.RemoveImport} change. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public class RemoveImportData extends ImportChangeData {
@@ -32,10 +31,8 @@ public class RemoveImportData extends ImportChangeData {
      * {@link org.semanticweb.owlapi.model.RemoveImport} change for the
      * {@link OWLImportsDeclaration} specified by the {@code declaration}
      * parameter.
-     * 
-     * @param declaration
-     *        The {@link OWLImportsDeclaration} that is the focus of some
-     *        change.
+     *
+     * @param declaration The {@link OWLImportsDeclaration} that is the focus of some change.
      */
     public RemoveImportData(OWLImportsDeclaration declaration) {
         super(declaration);

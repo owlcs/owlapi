@@ -28,8 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
@@ -38,8 +37,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
     private final File file;
 
     /**
-     * @param file
-     *        the file to use
+     * @param file the file to use
      */
     public ZipDocumentTarget(File file) {
         this.file = checkNotNull(file, "file cannot be null");

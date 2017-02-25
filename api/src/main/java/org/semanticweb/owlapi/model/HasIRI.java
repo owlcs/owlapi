@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 @FunctionalInterface
@@ -22,7 +21,7 @@ public interface HasIRI {
 
     /**
      * Gets the IRI of this object.
-     * 
+     *
      * @return The IRI of this object
      */
     IRI getIRI();

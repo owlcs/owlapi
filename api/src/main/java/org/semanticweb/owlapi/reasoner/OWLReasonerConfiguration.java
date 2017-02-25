@@ -23,21 +23,19 @@ import java.io.Serializable;
  * defined by this configuration object. <br>
  * Note that once a reasoner has been created, changing fields (via setter
  * methods or directly) on the configuration object will have no effect.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
  * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration
+ * @since 3.0.0
  */
 public interface OWLReasonerConfiguration extends Serializable {
 
     /**
      * Gets a progress monitor that the reasoner may update with information
      * about the progress of its reasoning process.
-     * 
-     * @return A progress monitor. By default this returns
-     *         {@link NullReasonerProgressMonitor}
+     *
+     * @return A progress monitor. By default this returns {@link NullReasonerProgressMonitor}
      */
     ReasonerProgressMonitor getProgressMonitor();
 
@@ -55,17 +53,16 @@ public interface OWLReasonerConfiguration extends Serializable {
      * Note that this is not a timeout for method calls such as "getSubClasses",
      * which may involve many satisfiability (or other basic reasoning task)
      * checks, the sum of which may well exceed the timeout.
-     * 
-     * @return The time out in milliseconds. By default this is set to the value
-     *         of {@link Long#MAX_VALUE}, which means the reasoner SHOULD NOT
-     *         timeout.
+     *
+     * @return The time out in milliseconds. By default this is set to the value of {@link
+     * Long#MAX_VALUE}, which means the reasoner SHOULD NOT timeout.
      */
     long getTimeOut();
 
     /**
      * Gets the fresh entity policy that should be used. By default this is set
      * to {@link FreshEntityPolicy#ALLOW}.
-     * 
+     *
      * @return The fresh entity policy.
      */
     FreshEntityPolicy getFreshEntityPolicy();
@@ -74,12 +71,11 @@ public interface OWLReasonerConfiguration extends Serializable {
      * Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
      * which determines how {@code NodeSet}s of named individuals are returned
      * from the reasoner.
-     * 
-     * @return The {@code IndividualNodeSetPolicy} that should be used. By
-     *         default the policy is
-     *         {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy#BY_NAME}
-     *         i.e. by default individuals that are the same as each other are
-     *         not grouped into the same node within a node set.
+     *
+     * @return The {@code IndividualNodeSetPolicy} that should be used. By default the policy is
+     * {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy#BY_NAME} i.e. by default
+     * individuals that are the same as each other are not grouped into the same node within a node
+     * set.
      */
     IndividualNodeSetPolicy getIndividualNodeSetPolicy();
 }

@@ -33,21 +33,21 @@ import org.tukaani.xz.XZInputStream;
 
 /**
  * An ontology document source which can read from a XZ stream.
- * 
+ *
  * @author ses
  * @since 4.0.2
  */
 public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XZStreamDocumentSource.class);
-    @Nullable private byte[] buffer;
+    @Nullable
+    private byte[] buffer;
 
     /**
      * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      *
-     * @param is
-     *        The stream that the ontology representation will be read from.
+     * @param is The stream that the ontology representation will be read from.
      */
     public XZStreamDocumentSource(InputStream is) {
         super("xzinputstream:ontology", null, null);
@@ -58,16 +58,13 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      *
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param stream The stream that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
-    public XZStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+    public XZStreamDocumentSource(InputStream stream, IRI documentIRI,
+        @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);

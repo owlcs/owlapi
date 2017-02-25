@@ -22,10 +22,8 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
     private Map<String, OWLAnonymousIndividual> map;
 
     /**
-     * @param m
-     *        ontology configurator
-     * @param df
-     *        data factory
+     * @param m ontology configurator
+     * @param df data factory
      */
     public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
         this.df = df;

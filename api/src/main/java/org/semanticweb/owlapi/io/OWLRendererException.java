@@ -15,33 +15,28 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLRendererException extends OWLOntologyStorageException {
 
     /**
-     * @param message
-     *        the message
+     * @param message the message
      */
     public OWLRendererException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
+     * @param message the message
+     * @param cause the cause
      */
     public OWLRendererException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * @param cause
-     *        the cause
+     * @param cause the cause
      */
     public OWLRendererException(Throwable cause) {
         super(cause);

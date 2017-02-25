@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * An ontology document source which can read from a GZIP File.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */
@@ -41,9 +41,8 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * Constructs an input source which will read an ontology from a
      * representation from the specified file.
-     * 
-     * @param is
-     *        The file that the ontology representation will be read from.
+     *
+     * @param is The file that the ontology representation will be read from.
      */
     public GZipFileDocumentSource(File is) {
         super("file:ontology", null, null);
@@ -53,15 +52,11 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * Constructs an input source which will read an ontology from a
      * representation from the specified file.
-     * 
-     * @param stream
-     *        The file that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     *
+     * @param stream The file that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
     public GZipFileDocumentSource(File stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {

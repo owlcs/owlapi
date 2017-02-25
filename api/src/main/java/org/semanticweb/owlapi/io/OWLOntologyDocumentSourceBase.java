@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * Base class for OWLOntologyDocumentSource.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
@@ -25,15 +25,13 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
 
     /**
      * Constructs an ontology input source using the specified file.
-     * 
-     * @param iri
-     *        document IRI
-     * @param format
-     *        ontology format. If null, it is considered unspecified
-     * @param mime
-     *        mime type. If null or empty, it is considered unspecified.
+     *
+     * @param iri document IRI
+     * @param format ontology format. If null, it is considered unspecified
+     * @param mime mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(IRI iri, @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public OWLOntologyDocumentSourceBase(IRI iri, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         this.format = optional(format);
         mimeType = optional(mime);
         documentIRI = checkNotNull(iri, "document iri cannot be null");
@@ -41,15 +39,13 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
 
     /**
      * Constructs an ontology input source using the specified file.
-     * 
-     * @param iriPrefix
-     *        document IRI prefix - used to generate a new IRI
-     * @param format
-     *        ontology format. If null, it is considered unspecified
-     * @param mime
-     *        mime type. If null or empty, it is considered unspecified.
+     *
+     * @param iriPrefix document IRI prefix - used to generate a new IRI
+     * @param format ontology format. If null, it is considered unspecified
+     * @param mime mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(String iriPrefix, @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public OWLOntologyDocumentSourceBase(String iriPrefix, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
     }
 

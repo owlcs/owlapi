@@ -18,15 +18,16 @@ import java.util.List;
 /**
  * A change broadcast strategy that simple broadcasts all changes made to all
  * ontologies.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class DefaultChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy, Serializable {
+public class DefaultChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy,
+    Serializable {
 
     @Override
-    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
+    public void broadcastChanges(OWLOntologyChangeListener listener,
+        List<? extends OWLOntologyChange> changes) {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);
     }

@@ -20,34 +20,32 @@ import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Universal provider interface. */
+/**
+ * Universal provider interface.
+ */
 public interface UniversalProvider {
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param dataRange
-     *        The data range that is the filler.
-     * @return An OWLDataAllValuesFrom restriction that acts along the specified
-     *         property and has the specified filler
+     * @param property The property that the restriction acts along.
+     * @param dataRange The data range that is the filler.
+     * @return An OWLDataAllValuesFrom restriction that acts along the specified property and has
+     * the specified filler
      */
-    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
+    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
+        OWLDataRange dataRange);
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param dataRange
-     *        The data range that is the filler.
-     * @return An OWLDataAllValuesFrom restriction that acts along the specified
-     *         property and has the specified filler
+     * @param property The property that the restriction acts along.
+     * @param dataRange The data range that is the filler.
+     * @return An OWLDataAllValuesFrom restriction that acts along the specified property and has
+     * the specified filler
      */
-    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWL2Datatype dataRange);
+    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
+        OWL2Datatype dataRange);
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param classExpression
-     *        the class expression for the restriction
+     * @param property The property that the restriction acts along.
+     * @param classExpression the class expression for the restriction
      * @return an AllValuesFrom on specified property and class expression
      */
     OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,

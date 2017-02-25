@@ -18,15 +18,14 @@ import java.util.Set;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Symmetric_Object_Properties" >
  * SymmetricObjectProperty</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     @Override
-        OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
+    OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

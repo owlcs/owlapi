@@ -23,22 +23,22 @@ import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
  * Abstract builder for entities.
- * 
+ *
+ * @param <T> OWL type
+ * @param <B> builder type
  * @author ignazio
- * @param <T>
- *        OWL type
- * @param <B>
- *        builder type
  */
 public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuilder<T, B> {
 
-    @Nullable private IRI iri = null;
-    @Nullable protected String string = null;
-    @Nullable protected PrefixManager pm = null;
+    @Nullable
+    private IRI iri = null;
+    @Nullable
+    protected String string = null;
+    @Nullable
+    protected PrefixManager pm = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseEntityBuilder(OWLDataFactory df) {
@@ -46,8 +46,7 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        property iri
+     * @param arg property iri
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -57,8 +56,7 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        prefix manager
+     * @param arg prefix manager
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -68,8 +66,7 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        prefixed iri
+     * @param arg prefixed iri
      * @return builder
      */
     @SuppressWarnings("unchecked")

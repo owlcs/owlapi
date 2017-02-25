@@ -27,9 +27,8 @@ import org.semanticweb.owlapi.model.IRI;
  * from a document IRI. <br>
  * A client that writes an ontology to a database or some similar storage will
  * simply try to use the {@link IRI} returned by {@link #getDocumentIRI()}.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface OWLOntologyDocumentTarget {
@@ -39,7 +38,7 @@ public interface OWLOntologyDocumentTarget {
      * ontology document. If none is available, return Optional.absent. Do not
      * call multiple times for the same file: the output file will be opened for
      * write multiple times.
-     * 
+     *
      * @return The writer
      */
     default Optional<Writer> getWriter() {
@@ -51,7 +50,7 @@ public interface OWLOntologyDocumentTarget {
      * ontology to an ontology document. If none is available, return
      * Optional.absent. Do not call multiple times for the same file: the output
      * file will be opened for write multiple times.
-     * 
+     *
      * @return The output stream
      */
     default Optional<OutputStream> getOutputStream() {
@@ -61,7 +60,7 @@ public interface OWLOntologyDocumentTarget {
     /**
      * Gets an IRI that points to an ontology document. If none is available,
      * return Optional.absent.
-     * 
+     *
      * @return The IRI
      */
     default Optional<IRI> getDocumentIRI() {

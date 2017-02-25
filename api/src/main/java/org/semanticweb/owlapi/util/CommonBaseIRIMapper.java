@@ -23,9 +23,8 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 /**
  * An ontology IRI mapper that can be used to map ontology IRIs to ontology
  * document IRIs which share the same base.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
@@ -36,9 +35,8 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
     /**
      * Creates a mapper, which maps ontology URIs to URIs which share the
      * specified base.
-     * 
-     * @param base
-     *        the base IRI
+     *
+     * @param base the base IRI
      */
     public CommonBaseIRIMapper(IRI base) {
         this.base = checkNotNull(base, "base cannot be null");
@@ -49,11 +47,9 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      * a base of this mapper and a specified local name - in other words the
      * document IRI will be determined by resolving the local name against the
      * URI base of this mapper.
-     * 
-     * @param ontologyIRI
-     *        the ontology IRI
-     * @param localName
-     *        the document IRI
+     *
+     * @param ontologyIRI the ontology IRI
+     * @param localName the document IRI
      */
     public void addMapping(IRI ontologyIRI, String localName) {
         checkNotNull(localName, "localName cannot be null");

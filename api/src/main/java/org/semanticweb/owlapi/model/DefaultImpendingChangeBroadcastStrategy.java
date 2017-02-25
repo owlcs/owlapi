@@ -16,16 +16,15 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public class DefaultImpendingChangeBroadcastStrategy
-        implements ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
+    implements ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
 
     @Override
     public void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange> changes) {
+        List<? extends OWLOntologyChange> changes) {
         listener.handleImpendingOntologyChanges(changes);
     }
 }

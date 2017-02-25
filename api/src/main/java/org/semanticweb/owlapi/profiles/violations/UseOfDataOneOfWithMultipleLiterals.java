@@ -21,20 +21,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param dataOneOf
-     *        dataOneOf
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param dataOneOf dataOneOf
      */
-    public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLDataOneOf dataOneOf) {
+    public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLDataOneOf dataOneOf) {
         super(ontology, axiom, dataOneOf);
     }
 

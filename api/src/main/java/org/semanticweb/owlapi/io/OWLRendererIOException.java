@@ -14,15 +14,13 @@ package org.semanticweb.owlapi.io;
 
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLRendererIOException extends OWLRendererException {
 
     /**
-     * @param cause
-     *        the cause
+     * @param cause the cause
      */
     public OWLRendererIOException(Exception cause) {
         super(cause);

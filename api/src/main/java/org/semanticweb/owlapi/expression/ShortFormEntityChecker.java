@@ -30,9 +30,8 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 /**
  * An entity checker that maps from string to entities using a bidirectional
  * short form provider.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ShortFormEntityChecker implements OWLEntityChecker {
@@ -42,13 +41,13 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     /**
      * Creates a short form entity checker, which uses the specified
      * bidirectional short form provider to map entity name strings to entities.
-     * 
-     * @param shortFormProvider
-     *        The BidirectionalShortFormProvider that should be used to perform
-     *        the required mapping.
+     *
+     * @param shortFormProvider The BidirectionalShortFormProvider that should be used to perform
+     * the required mapping.
      */
     public ShortFormEntityChecker(BidirectionalShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+            "shortFormProvider cannot be null");
     }
 
     @Override
@@ -88,7 +87,8 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Nullable
-    protected <T extends OWLEntity> T find(String name, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
+    protected <T extends OWLEntity> T find(String name, Predicate<OWLEntity> p,
+        Function<OWLEntity, T> f) {
         checkNotNull(name, "name cannot be null");
         Optional<OWLEntity> findFirst = shortFormProvider.entities(name).filter(p).findFirst();
         if (findFirst.isPresent()) {

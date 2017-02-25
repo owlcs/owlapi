@@ -9,8 +9,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @SuppressWarnings("javadoc")
@@ -32,13 +31,15 @@ public class OWLOntologyIRIShortFormProviderTestCase {
      */
     @Test
     public void shouldReturnLastNonNumericPathElement() {
-        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/1.1.11", ""));
+        String shortForm = sfp
+            .getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/1.1.11", ""));
         assertThat(shortForm, is(equalTo("ont")));
     }
 
     @Test
     public void shouldReturnLastNonVersionPathElement() {
-        String shortForm = sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/", "v1.1.11"));
+        String shortForm = sfp
+            .getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/", "v1.1.11"));
         assertThat(shortForm, is(equalTo("ont")));
     }
 

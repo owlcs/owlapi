@@ -22,19 +22,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @param <E> visitor type
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
- * @param <E>
- *        visitor type
  */
 public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
 
     private final OWLOntologyWalker walker;
 
     /**
-     * @param walker
-     *        walker
+     * @param walker walker
      */
     public OWLOntologyWalkerVisitorEx(OWLOntologyWalker walker) {
         this.walker = checkNotNull(walker, "walker cannot be null");

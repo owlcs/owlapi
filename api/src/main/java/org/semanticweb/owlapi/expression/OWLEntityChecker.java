@@ -22,56 +22,49 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * Maps strings to OWL objects.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface OWLEntityChecker {
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLClass corresponding to name
      */
     @Nullable
     OWLClass getOWLClass(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLObjectProperty corresponding to name
      */
     @Nullable
     OWLObjectProperty getOWLObjectProperty(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLDataProperty corresponding to name
      */
     @Nullable
     OWLDataProperty getOWLDataProperty(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLNamedIndividual corresponding to name
      */
     @Nullable
     OWLNamedIndividual getOWLIndividual(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLDatatype corresponding to name
      */
     @Nullable
     OWLDatatype getOWLDatatype(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLAnnotationProperty corresponding to name
      */
     @Nullable

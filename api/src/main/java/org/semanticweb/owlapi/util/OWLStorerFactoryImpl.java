@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
 
 /**
  * A factory class for OWLOntologyStorers.
- * 
+ *
  * @author ignazio
  */
 public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {

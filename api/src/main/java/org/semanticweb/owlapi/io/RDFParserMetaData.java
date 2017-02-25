@@ -23,8 +23,7 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
@@ -35,21 +34,19 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
     private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
 
     /**
-     * @param headerStatus
-     *        the header status
-     * @param tripleCount
-     *        the triple count
-     * @param unparsedTriples
-     *        the set of triples not parsed
-     * @param guessedDeclarations
-     *        guessed declarations map
+     * @param headerStatus the header status
+     * @param tripleCount the triple count
+     * @param unparsedTriples the set of triples not parsed
+     * @param guessedDeclarations guessed declarations map
      */
-    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount, Set<RDFTriple> unparsedTriples,
+    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount,
+        Set<RDFTriple> unparsedTriples,
         ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
         this.tripleCount = tripleCount;
         this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
         this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
-        this.guessedDeclarations = checkNotNull(guessedDeclarations, "guessedDeclarations cannot be null");
+        this.guessedDeclarations = checkNotNull(guessedDeclarations,
+            "guessedDeclarations cannot be null");
     }
 
     @Override

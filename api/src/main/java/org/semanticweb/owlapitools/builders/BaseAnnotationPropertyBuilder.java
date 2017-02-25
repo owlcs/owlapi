@@ -23,20 +23,19 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLDataAllValuesFrom.
- * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
+ *
+ * @param <T> type built
+ * @param <B> builder type
  */
-public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> implements
+public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> extends
+    BaseBuilder<T, B> implements
     SettableProperty<OWLAnnotationProperty, B> {
 
-    @Nullable private OWLAnnotationProperty property = null;
+    @Nullable
+    private OWLAnnotationProperty property = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseAnnotationPropertyBuilder(OWLDataFactory df) {
@@ -51,8 +50,7 @@ public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> exte
     }
 
     /**
-     * @param arg
-     *        property
+     * @param arg property
      * @return builder
      */
     @SuppressWarnings("unchecked")

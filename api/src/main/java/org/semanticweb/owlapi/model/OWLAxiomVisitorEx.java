@@ -15,20 +15,18 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface for objects that can accept visits from axioms. (See the
  * <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <O> visitor return type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <O>
- *        visitor return type
  */
-public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>, OWLLogicalAxiomVisitorEx<O> {
+public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
+    OWLLogicalAxiomVisitorEx<O> {
 
     /**
      * visit OWLDeclarationAxiom type
-     * 
-     * @param axiom
-     *        axiom to visit
+     *
+     * @param axiom axiom to visit
      * @return visitor value
      */
     default O visit(OWLDeclarationAxiom axiom) {
@@ -37,9 +35,8 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>, OW
 
     /**
      * visit OWLDatatypeDefinitionAxiom type
-     * 
-     * @param axiom
-     *        axiom to visit
+     *
+     * @param axiom axiom to visit
      * @return visitor value
      */
     default O visit(OWLDatatypeDefinitionAxiom axiom) {

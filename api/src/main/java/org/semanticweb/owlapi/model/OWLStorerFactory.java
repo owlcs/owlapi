@@ -29,7 +29,7 @@ public interface OWLStorerFactory extends Serializable, Provider<OWLStorer> {
 
     /**
      * Create new storer.
-     * 
+     *
      * @return new storer
      */
     OWLStorer createStorer();

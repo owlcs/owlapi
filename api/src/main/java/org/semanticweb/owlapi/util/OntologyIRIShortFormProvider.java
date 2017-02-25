@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
@@ -40,7 +39,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final String RDF_EXTENSION = ".rdf";
     private static final String XML_EXTENSION = ".xml";
     private static final String OBO_EXTENSION = ".obo";
-    private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION, OBO_EXTENSION };
+    private static final String[] EXTENSIONS = {OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION,
+        OBO_EXTENSION};
     private static final Map<IRI, String> WELL_KNOWN_SHORTFORMS = initWellKnownShortForms();
 
     private static Map<IRI, String> initWellKnownShortForms() {
@@ -60,8 +60,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     }
 
     /**
-     * @param ont
-     *        ontology to use
+     * @param ont ontology to use
      * @return short form of the ontology IRI
      */
     public String getShortForm(OWLOntology ont) {
@@ -108,11 +107,10 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     /**
      * Removes commonly used file name extensions to make the resulting short
      * form look nicer.
-     * 
-     * @param shortForm
-     *        The short form.
-     * @return The short form with the extension removed if it was present, or
-     *         the original short form if no extension was present.
+     *
+     * @param shortForm The short form.
+     * @return The short form with the extension removed if it was present, or the original short
+     * form if no extension was present.
      */
     private static String stripExtensionIfPresent(String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();
@@ -126,11 +124,10 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
     /**
      * Determines if the specified path element is a candidate short form.
-     * 
-     * @param pathElement
-     *        The path element to test. Not {@code null}.
-     * @return {@code true} if the specified path element is a candidate short
-     *         form, otherwise {@code false}.
+     *
+     * @param pathElement The path element to test. Not {@code null}.
+     * @return {@code true} if the specified path element is a candidate short form, otherwise
+     * {@code false}.
      */
     private static boolean isCandidatePathElement(String pathElement) {
         return !pathElement.isEmpty() && !isVersionString(pathElement);
@@ -139,11 +136,9 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     /**
      * Determines if the specified string is a version number string. A version
      * string is a sequence of digits and periods.
-     * 
-     * @param s
-     *        The string to test for.
-     * @return {@code true} if the string is a version string, otherwise
-     *         {@code false}.
+     *
+     * @param s The string to test for.
+     * @return {@code true} if the string is a version string, otherwise {@code false}.
      */
     private static boolean isVersionString(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -158,11 +153,9 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     /**
      * Determines if the specified character is a version string character
      * (either a digit or a period).
-     * 
-     * @param ch
-     *        The character to test for.
-     * @return {@code true} of the specified char is a version string char,
-     *         otherwise {@code false}.
+     *
+     * @param ch The character to test for.
+     * @return {@code true} of the specified char is a version string char, otherwise {@code false}.
      */
     private static boolean isVersionStringChar(char ch) {
         return isDigit(ch) || ch == '.' || ch == 'v';
@@ -170,11 +163,9 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
     /**
      * Determines if the specified char is a digit.
-     * 
-     * @param ch
-     *        The char to test for.
-     * @return {@code true} if the specified char is a digit, otherwise
-     *         {@code false}.
+     *
+     * @param ch The char to test for.
+     * @return {@code true} if the specified char is a digit, otherwise {@code false}.
      */
     private static boolean isDigit(char ch) {
         return ch >= '0' && ch <= '9';

@@ -16,11 +16,9 @@ import java.util.stream.Stream;
 
 /**
  * An interface to objects that have a collection of operands.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @param <T>
- *        operand type
+ *
+ * @param <T> operand type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 5.0.0
  */
 @FunctionalInterface
@@ -29,7 +27,7 @@ public interface HasOperands<T extends OWLObject> {
     /**
      * Gets the operands - e.g., the individuals in a sameAs axiom, or the
      * classes in an equivalent classes axiom.
-     * 
+     *
      * @return The operands.
      */
     Stream<T> operands();

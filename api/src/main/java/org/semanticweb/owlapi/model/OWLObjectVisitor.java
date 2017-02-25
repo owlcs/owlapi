@@ -13,13 +13,14 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectVisitor extends OWLAxiomVisitor,
-        OWLClassExpressionVisitor, OWLDataVisitor,
-        OWLPropertyExpressionVisitor, OWLEntityVisitor,
-        OWLAnnotationAxiomVisitor, OWLIndividualVisitor,
-        OWLAnnotationValueVisitor, OWLAnnotationObjectVisitor,
-        SWRLObjectVisitor, OWLNamedObjectVisitor {}
+    OWLClassExpressionVisitor, OWLDataVisitor,
+    OWLPropertyExpressionVisitor, OWLEntityVisitor,
+    OWLAnnotationAxiomVisitor, OWLIndividualVisitor,
+    OWLAnnotationValueVisitor, OWLAnnotationObjectVisitor,
+    SWRLObjectVisitor, OWLNamedObjectVisitor {
+
+}

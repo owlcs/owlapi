@@ -13,19 +13,16 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <O> visitor type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <O>
- *        visitor type
  */
 public interface OWLPropertyEntityVisitorExBase<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLObjectProperty type
-     * 
-     * @param property
-     *        property to visit
+     *
+     * @param property property to visit
      * @return visitor value
      */
     default O visit(OWLObjectProperty property) {
@@ -34,9 +31,8 @@ public interface OWLPropertyEntityVisitorExBase<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLDataProperty type
-     * 
-     * @param property
-     *        property to visit
+     *
+     * @param property property to visit
      * @return visitor value
      */
     default O visit(OWLDataProperty property) {
@@ -45,9 +41,8 @@ public interface OWLPropertyEntityVisitorExBase<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLAnnotationProperty type
-     * 
-     * @param property
-     *        property to visit
+     *
+     * @param property property to visit
      * @return visitor value
      */
     default O visit(OWLAnnotationProperty property) {

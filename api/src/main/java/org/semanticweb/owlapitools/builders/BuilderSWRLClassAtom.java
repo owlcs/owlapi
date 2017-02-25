@@ -21,19 +21,21 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
-/** Builder class for SWRLClassAtom. */
+/**
+ * Builder class for SWRLClassAtom.
+ */
 public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRLClassAtom> {
 
-    @Nullable private SWRLIArgument argument = null;
-    @Nullable private OWLClassExpression predicate = null;
+    @Nullable
+    private SWRLIArgument argument = null;
+    @Nullable
+    private OWLClassExpression predicate = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSWRLClassAtom(SWRLClassAtom expected, OWLDataFactory df) {
         this(df);
@@ -41,8 +43,7 @@ public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRL
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLClassAtom(OWLDataFactory df) {
@@ -50,8 +51,7 @@ public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRL
     }
 
     /**
-     * @param arg
-     *        argument
+     * @param arg argument
      * @return builder
      */
     public BuilderSWRLClassAtom with(SWRLIArgument arg) {
@@ -60,8 +60,7 @@ public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRL
     }
 
     /**
-     * @param arg
-     *        class
+     * @param arg class
      * @return builder
      */
     public BuilderSWRLClassAtom with(OWLClassExpression arg) {

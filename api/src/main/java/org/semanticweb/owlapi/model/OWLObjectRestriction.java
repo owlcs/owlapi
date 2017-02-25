@@ -18,21 +18,21 @@ package org.semanticweb.owlapi.model;
  * >Object Property Restriction</a> or <a href=
  * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Property_Restrictions"
  * >Data Property Restriction</a>) in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectRestriction extends OWLRestriction, HasProperty<OWLObjectPropertyExpression> {
+public interface OWLObjectRestriction extends OWLRestriction,
+    HasProperty<OWLObjectPropertyExpression> {
 
     /**
      * Gets the property/properties that the restriction acts along depending on
      * R being a scalar or collection type.
-     * 
+     *
      * @return The property
      */
     @Override
-        OWLObjectPropertyExpression getProperty();
+    OWLObjectPropertyExpression getProperty();
 
     @Override
     default boolean isObjectRestriction() {

@@ -19,8 +19,7 @@ import java.io.Writer;
 import java.util.Optional;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
