@@ -39,11 +39,10 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class OWL2DatatypeImplTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;

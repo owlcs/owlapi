@@ -28,7 +28,8 @@ public class LatexRendererTestCase extends TestBase {
     @Test
     public void shouldRenderEscapingUnderscores() throws Exception {
         String input = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
-            + "     xml:base=\"http://namespace.owl\"\n" + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "     xml:base=\"http://namespace.owl\"\n"
+            + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
             + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
             + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
@@ -40,17 +41,20 @@ public class LatexRendererTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSaveInverses() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        String input = "@prefix : <http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61#> .\n"
-            + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
-            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
-            + "@base <http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61> .\n\n"
-            + "<http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61> rdf:type owl:Ontology .\n\n"
-            + ":buzz_of rdf:type owl:ObjectProperty ;\n owl:inverseOf :fizzle_of .\n\n :fizzle_of rdf:type owl:ObjectProperty .";
+    public void shouldSaveInverses()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input =
+            "@prefix : <http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61#> .\n"
+                + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@base <http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61> .\n\n"
+                + "<http://www.semanticweb.org/jslob/ontologies/2014/9/untitled-ontology-61> rdf:type owl:Ontology .\n\n"
+                + ":buzz_of rdf:type owl:ObjectProperty ;\n owl:inverseOf :fizzle_of .\n\n :fizzle_of rdf:type owl:ObjectProperty .";
         String expected = "\\documentclass{article}\n\\usepackage{breqn}\n"
             + "\\parskip 0pt\n\\parindent 0pt\n\\oddsidemargin 0cm\n\\textwidth 19cm\n\\begin{document}\n\n"
             + "\\section*{Object properties}\\subsubsection*{buzz\\_of}\n\n"
-            + "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n" + "\\subsubsection*{fizzle\\_of}\n\n"
+            + "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n"
+            + "\\subsubsection*{fizzle\\_of}\n\n"
             + "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n"
             + "\\section*{Data properties}\\section*{Individuals}\\section*{Datatypes}\\end{document}\n";
         OWLOntology o = loadOntologyFromString(input);

@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.HornAxiomVisitorEx;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class HornAxiomVisitorExTestCase {
 
@@ -113,7 +113,7 @@ public class HornAxiomVisitorExTestCase {
         map.put(b.hasKey(), Boolean.FALSE);
         map.put(b.bigRule(), Boolean.FALSE);
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
+        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
         return toReturn;
     }
 

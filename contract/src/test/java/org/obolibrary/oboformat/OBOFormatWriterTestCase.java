@@ -17,8 +17,10 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 
-/** Tests for {@link OBOFormatWriter}. */
-@SuppressWarnings({ "javadoc" })
+/**
+ * Tests for {@link OBOFormatWriter}.
+ */
+@SuppressWarnings({"javadoc"})
 public class OBOFormatWriterTestCase extends OboFormatTestBasics {
 
     /**

@@ -16,7 +16,7 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyImpl;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class OWLManagerTestCase {
 
     private OWLOntologyManager manager;

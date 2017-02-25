@@ -70,7 +70,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class OwlOntologyMultipleThreadsTest extends TestBase {
 
-    private static final @Nonnull String KOALA = "<?xml version=\"1.0\"?>\n"
+    private static final @Nonnull
+    String KOALA = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
         + "  <owl:Ontology rdf:about=\"\"/>\n"
         + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -128,7 +129,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                 List<OWLClass> classes = asList(o1.classesInSignature());
                 asList(o1.classesInSignature(INCLUDED));
                 asList(o1.classesInSignature(EXCLUDED));
-                List<OWLObjectProperty> objectProperties = asList(o1.objectPropertiesInSignature(INCLUDED));
+                List<OWLObjectProperty> objectProperties = asList(
+                    o1.objectPropertiesInSignature(INCLUDED));
                 asList(o1.objectPropertiesInSignature(EXCLUDED));
                 asList(o1.objectPropertiesInSignature());
                 List<OWLDataProperty> dataProperties = asList(o1.dataPropertiesInSignature());
@@ -137,7 +139,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                 List<OWLNamedIndividual> individuals = asList(o1.individualsInSignature());
                 asList(o1.individualsInSignature(INCLUDED));
                 asList(o1.individualsInSignature(EXCLUDED));
-                List<OWLAnonymousIndividual> anonIndividuals = asList(o1.referencedAnonymousIndividuals(EXCLUDED));
+                List<OWLAnonymousIndividual> anonIndividuals = asList(
+                    o1.referencedAnonymousIndividuals(EXCLUDED));
                 asList(o1.datatypesInSignature());
                 asList(o1.datatypesInSignature(INCLUDED));
                 asList(o1.datatypesInSignature(EXCLUDED));
@@ -344,7 +347,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
 
         protected void printout(long end, AtomicLong counter) {
             long expected = rep * rep;
-            p.println("elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get() + "\t expected: "
+            p.println("elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get()
+                + "\t expected: "
                 + expected);
             successful = counter.get() == expected;
         }

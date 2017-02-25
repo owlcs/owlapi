@@ -50,24 +50,27 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    private @Nonnull OWLOntology o;
+    private @Nonnull
+    OWLOntology o;
 
     @Before
     public void setUpO() {
         o = getOWLOntology();
     }
 
-    private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom, OWLOntology reloaded) {
+    private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
+        OWLOntology reloaded) {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
         assertEquals(1, reloaded.getLogicalAxiomCount());
     }
 
-    private OWLOntology saveAndReload() throws OWLOntologyStorageException, OWLOntologyCreationException {
+    private OWLOntology saveAndReload()
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
         return roundTrip(o, new FunctionalSyntaxDocumentFormat());
     }
 
@@ -88,7 +91,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDisjointObjectProperties() throws OWLOntologyCreationException,
+    public void shouldRoundTripInvalidDisjointObjectProperties()
+        throws OWLOntologyCreationException,
         OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
@@ -202,7 +206,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentObjectProperties() throws OWLOntologyCreationException,
+    public void shouldRoundTripInvalidEquivalentObjectProperties()
+        throws OWLOntologyCreationException,
         OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
@@ -222,7 +227,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentDataProperties() throws OWLOntologyCreationException,
+    public void shouldRoundTripInvalidEquivalentDataProperties()
+        throws OWLOntologyCreationException,
         OWLOntologyStorageException {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:tes#", "t1"));

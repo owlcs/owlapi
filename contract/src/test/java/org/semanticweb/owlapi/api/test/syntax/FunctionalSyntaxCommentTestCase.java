@@ -42,15 +42,18 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
 
     @Test
     public void shouldParseCommentAndSkipIt() throws OWLOntologyCreationException {
-        String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\nPrefix(skos:=<http://www.w3.org/2004/02/skos/core#>)\n\n"
-            + "Ontology(<file:test.owl>\n" + "Declaration(Class(<urn:test.owl#ContactInformation>))\n"
-            + "#Test comment\n" + "Declaration(DataProperty(<urn:test.owl#city>))\n"
-            + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
-            + ')';
+        String input =
+            "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\nPrefix(skos:=<http://www.w3.org/2004/02/skos/core#>)\n\n"
+                + "Ontology(<file:test.owl>\n"
+                + "Declaration(Class(<urn:test.owl#ContactInformation>))\n"
+                + "#Test comment\n" + "Declaration(DataProperty(<urn:test.owl#city>))\n"
+                + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
+                + ')';
         OWLOntology o = loadOntologyFromString(input);
         OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#", "city")));
-        OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#", "ContactInformation")), DataMaxCardinality(1, DataProperty(
-            IRI("urn:test.owl#", "city")), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
+        OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#", "ContactInformation")),
+            DataMaxCardinality(1, DataProperty(
+                IRI("urn:test.owl#", "city")), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
         OWLAxiom ax3 = Declaration(Class(IRI("urn:test.owl#", "ContactInformation")));
         assertTrue(o.containsAxiom(ax1));
         assertTrue(o.containsAxiom(ax2));
@@ -58,12 +61,15 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseCardinalityRestrictionWithMoreThanOneDigitRange() throws OWLOntologyCreationException {
+    public void shouldParseCardinalityRestrictionWithMoreThanOneDigitRange()
+        throws OWLOntologyCreationException {
         String in = "Prefix(:=<urn:test#>)" + "Prefix(a:=<urn:test#>)"
             + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)"
             + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)" + "Prefix(test:=<urn:test#>)"
-            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)" + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)"
-            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n" + "Ontology(<urn:test>\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Ontology(<urn:test>\n"
             + "Declaration(NamedIndividual(test:a)) \n" + "    Declaration(Class(test:A)) \n"
             + "    Declaration(DataProperty(test:dp)) \n"
             + "    SubClassOf( test:A DataMinCardinality( 257 test:dp rdfs:Literal ) ) \n"

@@ -105,14 +105,14 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.DelegatingObjectVisitorEx;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class DelegatingObjectVisitorExTestCase extends TestBase {
 
     @Test
     public void testAssertion() {
         OWLObjectVisitorEx<Object> test = mock(OWLObjectVisitorEx.class);
         DelegatingObjectVisitorEx<Object> testsubject = new DelegatingObjectVisitorEx<>(
-                test);
+            test);
         testsubject.visit(mock(OWLDeclarationAxiom.class));
         testsubject.visit(mock(OWLDatatypeDefinitionAxiom.class));
         testsubject.visit(mock(OWLAnnotationPropertyRangeAxiom.class));

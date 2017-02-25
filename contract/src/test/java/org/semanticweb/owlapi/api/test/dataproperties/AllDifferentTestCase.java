@@ -23,24 +23,24 @@ public class AllDifferentTestCase extends TestBase {
     @Test
     public void testDistinctMembers() throws OWLOntologyCreationException {
         String onto1 = "<?xml version=\"1.0\"?>\n"
-                + "<rdf:RDF xml:base = \"http://example.org/\" "
-                + "xmlns = \"http://example.org/\" xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
-                + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"> <owl:Ontology/>"
-                + "<owl:AllDifferent> "
-                + "<owl:distinctMembers rdf:parseType=\"Collection\"> "
-                + "<rdf:Description rdf:about=\"Peter\" /> "
-                + "<rdf:Description rdf:about=\"Peter_Griffin\" /> "
-                + "<rdf:Description rdf:about=\"Petre\" /> "
-                + "</owl:distinctMembers> </owl:AllDifferent> </rdf:RDF>";
+            + "<rdf:RDF xml:base = \"http://example.org/\" "
+            + "xmlns = \"http://example.org/\" xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
+            + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"> <owl:Ontology/>"
+            + "<owl:AllDifferent> "
+            + "<owl:distinctMembers rdf:parseType=\"Collection\"> "
+            + "<rdf:Description rdf:about=\"Peter\" /> "
+            + "<rdf:Description rdf:about=\"Peter_Griffin\" /> "
+            + "<rdf:Description rdf:about=\"Petre\" /> "
+            + "</owl:distinctMembers> </owl:AllDifferent> </rdf:RDF>";
         String onto2 = "<?xml version=\"1.0\"?>\n"
-                + "<rdf:RDF xml:base = \"http://example.org/\" xmlns = \"http://example.org/\" "
-                + "xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
-                + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/>"
-                + "<owl:AllDifferent><owl:members rdf:parseType=\"Collection\">"
-                + "<rdf:Description rdf:about=\"Peter\" />"
-                + "<rdf:Description rdf:about=\"Peter_Griffin\" />"
-                + "<rdf:Description rdf:about=\"Petre\" />"
-                + "</owl:members></owl:AllDifferent></rdf:RDF>";
+            + "<rdf:RDF xml:base = \"http://example.org/\" xmlns = \"http://example.org/\" "
+            + "xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
+            + "xmlns:rdf = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/>"
+            + "<owl:AllDifferent><owl:members rdf:parseType=\"Collection\">"
+            + "<rdf:Description rdf:about=\"Peter\" />"
+            + "<rdf:Description rdf:about=\"Peter_Griffin\" />"
+            + "<rdf:Description rdf:about=\"Petre\" />"
+            + "</owl:members></owl:AllDifferent></rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(onto1);
         OWLOntology o2 = loadOntologyFromString(onto2);
         equal(o2, o1);

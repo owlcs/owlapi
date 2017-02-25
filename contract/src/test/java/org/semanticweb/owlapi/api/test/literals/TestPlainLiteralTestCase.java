@@ -56,8 +56,9 @@ public class TestPlainLiteralTestCase extends TestBase {
             + "        </rdf:Description>\n" + "    </rdf:RDF>";
         OWLOntology o = loadOntologyFromString(input);
         IRI i = IRI("urn:test#", "ind");
-        assertEquals(o.annotationAssertionAxioms(i).iterator().next(), AnnotationAssertion(RDFSComment(), i, Literal(
-            "test", OWL2Datatype.RDF_PLAIN_LITERAL)));
+        assertEquals(o.annotationAssertionAxioms(i).iterator().next(),
+            AnnotationAssertion(RDFSComment(), i, Literal(
+                "test", OWL2Datatype.RDF_PLAIN_LITERAL)));
     }
 
     @Test
@@ -87,7 +88,8 @@ public class TestPlainLiteralTestCase extends TestBase {
         OWLOntology o = getOWLOntology();
         OWLIndividual i = df.getOWLNamedIndividual("urn:test#", "ind");
         OWLLiteral l = df.getOWLLiteral("test", OWL2Datatype.RDF_PLAIN_LITERAL);
-        o.add(df.getOWLAnnotationAssertionAxiom(i.asOWLNamedIndividual().getIRI(), df.getRDFSComment(l)));
+        o.add(df.getOWLAnnotationAssertionAxiom(i.asOWLNamedIndividual().getIRI(),
+            df.getRDFSComment(l)));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         o.saveOntology(out);
         String expectedStart = "<rdfs:comment";
