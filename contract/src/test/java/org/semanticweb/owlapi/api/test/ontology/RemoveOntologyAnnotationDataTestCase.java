@@ -23,11 +23,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class RemoveOntologyAnnotationDataTestCase {
 
     private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
@@ -69,7 +68,8 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testGetChangeData() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology, mockAnnotation);
+        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology,
+            mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

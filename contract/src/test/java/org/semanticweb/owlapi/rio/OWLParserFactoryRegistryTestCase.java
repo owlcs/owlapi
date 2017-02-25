@@ -49,14 +49,14 @@ public class OWLParserFactoryRegistryTestCase {
         factories.add(RioTrixParserFactory.class);
         factories.add(RioRDFaParserFactory.class);
         PriorityCollection<OWLParserFactory> ontologyParsers = OWLManager
-        .createOWLOntologyManager().getOntologyParsers();
+            .createOWLOntologyManager().getOntologyParsers();
         Set<Class<? extends OWLParserFactory>> found = new HashSet<>();
         for (OWLParserFactory p : ontologyParsers) {
             found.add(p.getClass());
         }
         for (Class<? extends OWLParserFactory> p : factories) {
             assertTrue("Expected among parsers: " + p.getSimpleName(), found
-            .contains(p));
+                .contains(p));
         }
     }
 }

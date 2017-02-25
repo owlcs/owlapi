@@ -28,11 +28,10 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class ChangeOntologyURITestCase extends TestBase {
 
     @Test
@@ -40,9 +39,11 @@ public class ChangeOntologyURITestCase extends TestBase {
         IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/", "ontA");
         IRI newIRI = IRI("http://www.semanticweb.org/ontologies/", "ontB");
         OWLOntology ont = m.createOntology(oldIRI);
-        OWLOntology importingOnt = m.createOntology(IRI("http://www.semanticweb.org/ontologies/", "ontC"));
-        m.applyChange(new AddImport(importingOnt, df.getOWLImportsDeclaration(get(ont.getOntologyID()
-            .getOntologyIRI()))));
+        OWLOntology importingOnt = m
+            .createOntology(IRI("http://www.semanticweb.org/ontologies/", "ontC"));
+        m.applyChange(
+            new AddImport(importingOnt, df.getOWLImportsDeclaration(get(ont.getOntologyID()
+                .getOntologyIRI()))));
         assertTrue(m.contains(oldIRI));
         OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m);
         m.applyChanges(changer.getChanges(ont, newIRI));

@@ -34,7 +34,7 @@ public class SimpleRoundTripTestCase extends RoundTripTestBasics {
              * slightly modified test file. Idspace tags do not survive the
              * obo2owl translation. They are only directives for the
              * translation.
-             * 
+             *
              * @see TrailingQualifierTest
              */
             "trailing_qualifier_roundtrip.obo", "relationship_vs_property.obo",

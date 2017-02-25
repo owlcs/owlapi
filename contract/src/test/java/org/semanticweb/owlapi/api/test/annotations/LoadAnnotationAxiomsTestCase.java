@@ -48,8 +48,7 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -66,12 +65,15 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         OWLLiteral lit = Literal("Hello world");
         OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment, clsA.getIRI(), lit);
         ont.add(annoAx1);
-        OWLAnnotationPropertyDomainAxiom annoAx2 = df.getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
+        OWLAnnotationPropertyDomainAxiom annoAx2 = df
+            .getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
         ont.add(annoAx2);
-        OWLAnnotationPropertyRangeAxiom annoAx3 = df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
+        OWLAnnotationPropertyRangeAxiom annoAx3 = df
+            .getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
         ont.add(annoAx3);
         OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#", "myComment"));
-        OWLSubAnnotationPropertyOfAxiom annoAx4 = df.getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
+        OWLSubAnnotationPropertyOfAxiom annoAx4 = df
+            .getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
         ont.add(annoAx4);
         reload(ont, new RDFXMLDocumentFormat());
         reload(ont, new OWLXMLDocumentFormat());
@@ -79,10 +81,12 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         reload(ont, new FunctionalSyntaxDocumentFormat());
     }
 
-    private void reload(OWLOntology ontology, OWLDocumentFormat format) throws OWLOntologyStorageException,
+    private void reload(OWLOntology ontology, OWLDocumentFormat format)
+        throws OWLOntologyStorageException,
         OWLOntologyCreationException {
         Set<OWLAxiom> axioms = asUnorderedSet(ontology.axioms());
-        Set<OWLAxiom> annotationAxioms = asUnorderedSet(axioms.stream().filter(OWLAxiom::isAnnotationAxiom));
+        Set<OWLAxiom> annotationAxioms = asUnorderedSet(
+            axioms.stream().filter(OWLAxiom::isAnnotationAxiom));
         OWLOntologyLoaderConfiguration withAnnosConfig = new OWLOntologyLoaderConfiguration();
         OWLOntology reloadedWithAnnoAxioms = reload(ontology, format, withAnnosConfig);
         Set<OWLAxiom> axioms2 = asUnorderedSet(reloadedWithAnnoAxioms.axioms());
@@ -93,12 +97,15 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         assertFalse(axioms.equals(asUnorderedSet(reloadedWithoutAnnoAxioms.axioms())));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
-        assertEquals(axiomsMinusAnnotationAxioms, asUnorderedSet(reloadedWithoutAnnoAxioms.axioms()));
+        assertEquals(axiomsMinusAnnotationAxioms,
+            asUnorderedSet(reloadedWithoutAnnoAxioms.axioms()));
     }
 
     private OWLOntology reload(OWLOntology ontology, OWLDocumentFormat format,
-        OWLOntologyLoaderConfiguration configuration) throws OWLOntologyStorageException, OWLOntologyCreationException {
-        OWLOntology reloaded = loadOntologyWithConfig(saveOntology(ontology, format), configuration);
+        OWLOntologyLoaderConfiguration configuration)
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
+        OWLOntology reloaded = loadOntologyWithConfig(saveOntology(ontology, format),
+            configuration);
         reloaded.remove(reloaded.axioms(AxiomType.DECLARATION));
         return reloaded;
     }

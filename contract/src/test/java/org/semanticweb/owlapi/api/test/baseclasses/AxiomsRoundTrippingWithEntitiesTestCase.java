@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -38,7 +37,8 @@ public class AxiomsRoundTrippingWithEntitiesTestCase extends AxiomsRoundTripping
     private static final OWLAnnotationProperty apropB = AnnotationProperty(iri("apropB"));
 
     public AxiomsRoundTrippingWithEntitiesTestCase() {
-        super(() -> Sets.newHashSet(Declaration(clsA), AnnotationAssertion(apropA, clsA.getIRI(), Literal("value1")),
+        super(() -> Sets.newHashSet(Declaration(clsA),
+            AnnotationAssertion(apropA, clsA.getIRI(), Literal("value1")),
             AnnotationAssertion(apropB, clsA.getIRI(), Literal("value2"))));
     }
 

@@ -29,9 +29,8 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 /**
  * Simple example. Read an ontology, and display the class hierarchy. May use a
  * reasoner to calculate the hierarchy.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -57,8 +56,9 @@ public final class SimpleHierarchyExample {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ontology);
         printHierarchy(reasoner, clazz, 0);
         /* Now print out any unsatisfiable classes */
-        ontology.classesInSignature().filter(c -> !reasoner.isSatisfiable(c)).forEach(c -> out.println("XXX: "
-            + labelFor(c)));
+        ontology.classesInSignature().filter(c -> !reasoner.isSatisfiable(c))
+            .forEach(c -> out.println("XXX: "
+                + labelFor(c)));
         reasoner.dispose();
     }
 
@@ -92,12 +92,14 @@ public final class SimpleHierarchyExample {
             }
             out.println(labelFor(clazz));
             /* Find the children and recurse */
-            reasoner.getSubClasses(clazz, true).entities().filter(c -> !c.equals(clazz)).forEach(c -> printHierarchy(
-                reasoner, c, level + 1));
+            reasoner.getSubClasses(clazz, true).entities().filter(c -> !c.equals(clazz))
+                .forEach(c -> printHierarchy(
+                    reasoner, c, level + 1));
         }
     }
 
-    public static void main(String[] args) throws OWLException, InstantiationException, IllegalAccessException,
+    public static void main(String[] args)
+        throws OWLException, InstantiationException, IllegalAccessException,
         ClassNotFoundException {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an
@@ -117,8 +119,9 @@ public final class SimpleHierarchyExample {
         System.out.println("Ontology : " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
         // / Create a new SimpleHierarchy object with the given reasoner.
-        SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample((OWLReasonerFactory) Class.forName(
-            reasonerFactoryClassName).newInstance(), ontology);
+        SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
+            (OWLReasonerFactory) Class.forName(
+                reasonerFactoryClassName).newInstance(), ontology);
         // Get Thing
         OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
         System.out.println("Class       : " + clazz);

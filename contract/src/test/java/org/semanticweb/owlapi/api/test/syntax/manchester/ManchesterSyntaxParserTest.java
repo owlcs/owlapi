@@ -34,13 +34,16 @@ public class ManchesterSyntaxParserTest extends TestBase {
         OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         return Arrays.asList(
             //@formatter:off
-            new Object[] { "hasAge exactly 1 xsd:int",  df.getOWLDataExactCardinality(1, hasAge, OWL2Datatype.XSD_INT) },
-            new Object[] { "hasAge exactly 1",          df.getOWLDataExactCardinality(1, hasAge) }, 
-            new Object[] { "hasAge min 1 xsd:int",      df.getOWLDataMinCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
-            new Object[] { "hasAge min 1",              df.getOWLDataMinCardinality(1, hasAge) }, 
-            new Object[] { "hasAge max 1 xsd:int",      df.getOWLDataMaxCardinality(1, hasAge, OWL2Datatype.XSD_INT) }, 
-            new Object[] { "hasAge max 1",              df.getOWLDataMaxCardinality(1, hasAge) });
-            //@formatter:on
+            new Object[]{"hasAge exactly 1 xsd:int",
+                df.getOWLDataExactCardinality(1, hasAge, OWL2Datatype.XSD_INT)},
+            new Object[]{"hasAge exactly 1", df.getOWLDataExactCardinality(1, hasAge)},
+            new Object[]{"hasAge min 1 xsd:int",
+                df.getOWLDataMinCardinality(1, hasAge, OWL2Datatype.XSD_INT)},
+            new Object[]{"hasAge min 1", df.getOWLDataMinCardinality(1, hasAge)},
+            new Object[]{"hasAge max 1 xsd:int",
+                df.getOWLDataMaxCardinality(1, hasAge, OWL2Datatype.XSD_INT)},
+            new Object[]{"hasAge max 1", df.getOWLDataMaxCardinality(1, hasAge)});
+        //@formatter:on
     }
 
     private String input;
@@ -56,13 +59,15 @@ public class ManchesterSyntaxParserTest extends TestBase {
         OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         OWLOntology ont = m.createOntology();
         m.addAxiom(ont, df.getOWLDeclarationAxiom(hasAge));
-        ManchesterOWLSyntaxClassExpressionParser parser = new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));
+        ManchesterOWLSyntaxClassExpressionParser parser = new ManchesterOWLSyntaxClassExpressionParser(
+            df, checker(m));
         assertEquals(expected, parser.parse(input));
     }
 
     protected OWLEntityChecker checker(OWLOntologyManager manager) {
-        BidirectionalShortFormProviderAdapter adapter = new BidirectionalShortFormProviderAdapter(asList(manager
-            .ontologies()), new SimpleShortFormProvider());
+        BidirectionalShortFormProviderAdapter adapter = new BidirectionalShortFormProviderAdapter(
+            asList(manager
+                .ontologies()), new SimpleShortFormProvider());
         OWLEntityChecker checker = new ShortFormEntityChecker(adapter);
         return checker;
     }

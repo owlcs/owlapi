@@ -28,8 +28,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
@@ -38,11 +37,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsInt() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_INTEGER.getIRI());
+            OWL2Datatype.XSD_INTEGER.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplInteger(3);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -54,11 +53,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsDouble() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_DOUBLE.getIRI());
+            OWL2Datatype.XSD_DOUBLE.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplDouble(3.0D);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -70,11 +69,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsFloat() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_FLOAT.getIRI());
+            OWL2Datatype.XSD_FLOAT.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplFloat(3.0F);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -86,11 +85,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsBoolean() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_BOOLEAN.getIRI());
+            OWL2Datatype.XSD_BOOLEAN.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("true", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();

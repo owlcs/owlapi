@@ -54,8 +54,10 @@ public class AnonymousRoundTripTestCase extends TestBase {
         OWLOntology ontology = getOWLOntology();
         OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
         OWLAnnotation annotation2 = df.getRDFSLabel(Literal("Second", "en"));
-        ontology.add(df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1), ClassAssertion(a, h),
-            ObjectPropertyAssertion(q, h, i), df.getOWLAnnotationAssertionAxiom(h, annotation2));
+        ontology
+            .add(df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1), ClassAssertion(a, h),
+                ObjectPropertyAssertion(q, h, i),
+                df.getOWLAnnotationAssertionAxiom(h, annotation2));
         OWLOntology o = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
         equal(ontology, o);
     }

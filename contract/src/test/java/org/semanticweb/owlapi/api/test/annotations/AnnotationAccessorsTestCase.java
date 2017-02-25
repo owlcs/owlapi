@@ -41,19 +41,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotationAccessorsTestCase extends TestBase {
 
-    private static final IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+    private static final IRI SUBJECT = IRI
+        .create("http://owlapi.sourceforge.net/ontologies/test#", "X");
 
     @Parameters
     public static Collection<OWLPrimitive> getData() {
-        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT), ObjectProperty(SUBJECT),
+        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT),
+            ObjectProperty(SUBJECT),
             Datatype(SUBJECT), AnnotationProperty(SUBJECT), AnonymousIndividual());
     }
 
@@ -76,7 +77,8 @@ public class AnnotationAccessorsTestCase extends TestBase {
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
-            assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI()).anyMatch(a -> a.equals(ax)));
+            assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
+                .anyMatch(a -> a.equals(ax)));
             assertTrue(contains(getAnnotationObjects((OWLEntity) e, ont), ax.getAnnotation()));
         }
     }

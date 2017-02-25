@@ -24,7 +24,7 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.MaximumModalDepthFinder;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class MaximumModalDepthFinderTestCase {
 
@@ -115,7 +115,7 @@ public class MaximumModalDepthFinderTestCase {
         map.put(b.bigRule(), zero);
         map.put(b.onto(), zero);
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
+        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
         return toReturn;
     }
 

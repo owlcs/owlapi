@@ -41,8 +41,8 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_UNSIGNED_SHORT;
 import org.junit.Test;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 04/04/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
+ *         04/04/2014
  */
 @SuppressWarnings("javadoc")
 public class OWL2DatatypePrefixedNameTestCase {
