@@ -46,11 +46,12 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
 /**
  * This format is designed to encapsulate any Sesame Rio RDFFormat within
  * RDFOntologyFormat, and more generally OWLDocumentFormat. <br>
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat implements MIMETypeAware,
+public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat implements
+    MIMETypeAware,
     RioRDFDocumentFormat {
 
     private transient RDFFormat format;
@@ -59,9 +60,8 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat 
     /**
      * Constructor for super-classes to specify which
      * {@link RDFFormat} they support.
-     * 
-     * @param format
-     *        The {@link RDFFormat} that this instance supports.
+     *
+     * @param format The {@link RDFFormat} that this instance supports.
      */
     public RioRDFPrefixDocumentFormat(RDFFormat format) {
         this.format = format;

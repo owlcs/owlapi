@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
 /**
  * An {@link OWLRDFConsumer} implementation that implements the Sesame
  * {@link RDFHandler} interface.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
@@ -66,12 +66,9 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     private static final Logger LOGGER = LoggerFactory.getLogger(RioOWLRDFConsumerAdapter.class);
 
     /**
-     * @param ontology
-     *        ontology to update
-     * @param checker
-     *        node checker
-     * @param configuration
-     *        loading configuration
+     * @param ontology ontology to update
+     * @param checker node checker
+     * @param configuration loading configuration
      */
     public RioOWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
         OWLOntologyLoaderConfiguration configuration) {
@@ -125,7 +122,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
         }
         if (st.getObject() instanceof Resource) {
             LOGGER.trace("statement with resource value");
-            statementWithResourceValue(subjectString, st.getPredicate().stringValue(), objectString);
+            statementWithResourceValue(subjectString, st.getPredicate().stringValue(),
+                objectString);
         } else {
             final Literal literalObject = (Literal) st.getObject();
             String literalDatatype = null;
@@ -134,7 +132,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
                 literalDatatype = literalObject.getDatatype().stringValue();
             }
             LOGGER.trace("statement with literal value");
-            statementWithLiteralValue(subjectString, st.getPredicate().stringValue(), objectString, literalLanguage,
+            statementWithLiteralValue(subjectString, st.getPredicate().stringValue(), objectString,
+                literalLanguage,
                 literalDatatype);
         }
     }

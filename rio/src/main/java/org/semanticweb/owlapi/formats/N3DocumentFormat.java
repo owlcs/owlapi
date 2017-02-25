@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.semanticweb.owlapi.formats;
 
