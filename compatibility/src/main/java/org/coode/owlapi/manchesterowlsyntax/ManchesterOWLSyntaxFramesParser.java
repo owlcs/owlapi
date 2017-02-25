@@ -16,20 +16,17 @@ import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 05-Feb-2009
- * @deprecated use
- *             {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxFramesParser}
+ * @author Matthew Horridge, The University of Manchester, Information Management Group, Date:
+ *         05-Feb-2009
+ * @deprecated use {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxFramesParser}
  */
 @Deprecated
 public class ManchesterOWLSyntaxFramesParser
-        extends org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxFramesParser {
+    extends org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxFramesParser {
 
     /**
-     * @param dataFactory
-     *        the data factory
-     * @param checker
-     *        the entity checker
+     * @param dataFactory the data factory
+     * @param checker the entity checker
      */
     public ManchesterOWLSyntaxFramesParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         super(dataFactory, checker);

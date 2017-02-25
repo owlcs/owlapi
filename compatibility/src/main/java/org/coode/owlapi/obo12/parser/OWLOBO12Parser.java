@@ -81,10 +81,12 @@ class OWLOBO12Parser extends AbstractOWLParser {
                 throw (OWLOntologyChangeException) e.getCause();
             }
             if (e.getCause() != null && e.getCause() instanceof OWLOntologyAlreadyExistsException) {
-                OWLOntologyAlreadyExistsException ex = (OWLOntologyAlreadyExistsException) e.getCause();
+                OWLOntologyAlreadyExistsException ex = (OWLOntologyAlreadyExistsException) e
+                    .getCause();
                 IRI importedOntologyIRI = ex.getOntologyID().getOntologyIRI().get();
-                throw new UnloadableImportException(ex, ontology.getOWLOntologyManager().getOWLDataFactory()
-                    .getOWLImportsDeclaration(importedOntologyIRI));
+                throw new UnloadableImportException(ex,
+                    ontology.getOWLOntologyManager().getOWLDataFactory()
+                        .getOWLImportsDeclaration(importedOntologyIRI));
             }
             Token currentToken = e.currentToken;
             if (currentToken != null) {
@@ -128,7 +130,8 @@ class OWLOBO12Parser extends AbstractOWLParser {
 
     private static void parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
         for (OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
-            oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(), tagValuePair.getQualifier(),
+            oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(),
+                tagValuePair.getQualifier(),
                 tagValuePair.getComment());
         }
     }

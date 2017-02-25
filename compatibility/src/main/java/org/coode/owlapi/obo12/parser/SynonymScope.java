@@ -45,12 +45,20 @@ package org.coode.owlapi.obo12.parser;
  * Date: 18/04/2012
  */
 public enum SynonymScope {
-    /** exact synonym */
+    /**
+     * exact synonym
+     */
     EXACT,
-    /** less specific */
+    /**
+     * less specific
+     */
     BROAD,
-    /** more specific */
+    /**
+     * more specific
+     */
     NARROW,
-    /** related */
+    /**
+     * related
+     */
     RELATED
 }

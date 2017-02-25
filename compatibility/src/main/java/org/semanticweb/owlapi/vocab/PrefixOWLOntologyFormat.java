@@ -6,9 +6,11 @@ import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
  * Transition interface, for compatibility purposes.
- * 
+ *
  * @deprecated use PrefixDocumentFormat instead
  */
 @Deprecated
 public interface PrefixOWLOntologyFormat extends OWLOntologyFormat,
-        PrefixManager, Serializable {}
+    PrefixManager, Serializable {
+
+}

@@ -14,19 +14,18 @@ package org.semanticweb.owlapi.expression;
 
 /**
  * The Class ParserException.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  * @deprecated use org.semanticweb.owlapi.mansyntax.renderer.ParserException
  */
 @Deprecated
 public class ParserException extends
-        org.semanticweb.owlapi.manchestersyntax.renderer.ParserException {
+    org.semanticweb.owlapi.manchestersyntax.renderer.ParserException {
 
     @SuppressWarnings("javadoc")
     public ParserException(
-            org.semanticweb.owlapi.manchestersyntax.renderer.ParserException delegate) {
+        org.semanticweb.owlapi.manchestersyntax.renderer.ParserException delegate) {
         super(delegate);
     }
 }
