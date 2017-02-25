@@ -1,16 +1,51 @@
 package org.obolibrary.obo2owl;
 
-import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.*;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_AUTO_GENERATED_BY;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_COMMENT;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_CREATED_BY;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_CREATION_DATE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_DATE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_DEF;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_DEFAULT_NAMESPACE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_DOMAIN;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_FORMAT_VERSION;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_ANONYMOUS;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_ANTI_SYMMETRIC;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_CYCLIC;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_FUNCTIONAL;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_OBSELETE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_REFLEXIVE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_SYMMETRIC;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_IS_TRANSITIVE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_NAME;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_NAMESPACE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_ONTOLOGY;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_RANGE;
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.TAG_SAVED_BY;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
-import java.util.*;
-
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nullable;
-
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

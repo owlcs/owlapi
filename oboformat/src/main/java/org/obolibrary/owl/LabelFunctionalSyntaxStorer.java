@@ -5,10 +5,8 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
