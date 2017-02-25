@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.expression;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**

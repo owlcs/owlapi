@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.io;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 

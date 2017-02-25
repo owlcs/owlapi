@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-
 import javax.inject.Provider;
-
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 

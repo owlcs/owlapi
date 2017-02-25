@@ -1,7 +1,10 @@
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
+import com.google.common.base.Charsets;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,9 +25,7 @@ import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
 import javax.annotation.Nullable;
-
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.model.IRI;
@@ -32,8 +33,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tukaani.xz.XZInputStream;
-
-import com.google.common.base.Charsets;
 
 /**
  * Static methods from AbstractOWLParser. Mostly used by

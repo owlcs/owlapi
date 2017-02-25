@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**

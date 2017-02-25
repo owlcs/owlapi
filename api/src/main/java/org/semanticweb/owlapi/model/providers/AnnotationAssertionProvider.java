@@ -14,8 +14,12 @@ package org.semanticweb.owlapi.model.providers;
 
 import java.util.Collection;
 import java.util.Collections;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 
 /** Annotation assertion provider. */
 public interface AnnotationAssertionProvider extends LiteralProvider {

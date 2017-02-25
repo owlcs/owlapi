@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
 
 /**

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;

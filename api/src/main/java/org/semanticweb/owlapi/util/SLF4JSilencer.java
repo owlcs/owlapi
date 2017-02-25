@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.PrintStream;
-
 import javax.annotation.Nullable;
 
 /**

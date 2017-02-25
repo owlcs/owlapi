@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**

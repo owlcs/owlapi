@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
-
 import javax.annotation.Nullable;
 
 /**

@@ -15,8 +15,52 @@ package org.semanticweb.owlapi.profiles;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 
 import java.util.Optional;
-
-import org.semanticweb.owlapi.profiles.violations.*;
+import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
+import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
+import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
+import org.semanticweb.owlapi.profiles.violations.IllegalPunning;
+import org.semanticweb.owlapi.profiles.violations.InsufficientIndividuals;
+import org.semanticweb.owlapi.profiles.violations.InsufficientOperands;
+import org.semanticweb.owlapi.profiles.violations.InsufficientPropertyExpressions;
+import org.semanticweb.owlapi.profiles.violations.LastPropertyInChainNotInImposedRange;
+import org.semanticweb.owlapi.profiles.violations.LexicalNotInLexicalSpace;
+import org.semanticweb.owlapi.profiles.violations.OntologyIRINotAbsolute;
+import org.semanticweb.owlapi.profiles.violations.OntologyVersionIRINotAbsolute;
+import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
+import org.semanticweb.owlapi.profiles.violations.UseOfBuiltInDatatypeInDatatypeDefinition;
+import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatypeRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
+import org.semanticweb.owlapi.profiles.violations.UseOfIllegalFacetRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonAbsoluteIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonAtomicClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonEquivalentClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInCardinalityRestriction;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInDisjointPropertiesAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInFunctionalPropertyAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInIrreflexivePropertyAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInObjectHasSelf;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSubClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfNonSuperClassExpression;
+import org.semanticweb.owlapi.profiles.violations.UseOfObjectPropertyInverse;
+import org.semanticweb.owlapi.profiles.violations.UseOfPropertyInChainCausesCycle;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForClassIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForDataPropertyIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForIndividualIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForObjectPropertyIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForOntologyIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForVersionIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom;
+import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredAnnotationProperty;
+import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredClass;
+import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDataProperty;
+import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
+import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
+import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information

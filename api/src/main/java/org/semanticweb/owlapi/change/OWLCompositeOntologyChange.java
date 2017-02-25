@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.change;
 
 import java.io.Serializable;
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**

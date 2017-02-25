@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
 /**

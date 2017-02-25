@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 

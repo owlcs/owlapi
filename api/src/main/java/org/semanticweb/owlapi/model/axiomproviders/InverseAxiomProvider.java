@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model.axiomproviders;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;

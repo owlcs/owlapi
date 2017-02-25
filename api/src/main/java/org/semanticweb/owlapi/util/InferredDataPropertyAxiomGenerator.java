@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 

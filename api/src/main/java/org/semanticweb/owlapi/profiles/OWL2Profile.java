@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;

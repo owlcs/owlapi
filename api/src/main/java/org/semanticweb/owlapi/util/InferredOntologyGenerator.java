@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;

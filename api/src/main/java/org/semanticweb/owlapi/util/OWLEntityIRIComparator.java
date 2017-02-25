@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Comparator that uses IRI ordering to order entities. */
