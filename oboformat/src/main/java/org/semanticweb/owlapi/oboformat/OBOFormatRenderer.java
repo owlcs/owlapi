@@ -33,7 +33,9 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** Renderer for obo. */
+/**
+ * Renderer for obo.
+ */
 public class OBOFormatRenderer implements OWLRenderer {
 
     @Override
@@ -42,14 +44,10 @@ public class OBOFormatRenderer implements OWLRenderer {
     }
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format to render
-     * @throws OWLOntologyStorageException
-     *         OWLOntologyStorageException
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format to render
+     * @throws OWLOntologyStorageException OWLOntologyStorageException
      */
     public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
@@ -62,7 +60,8 @@ public class OBOFormatRenderer implements OWLRenderer {
                 // if the ontology has imports
                 // use it as secondary lookup for labels
                 final NameProvider primary = new OBODocNameProvider(result);
-                final NameProvider secondary = new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace());
+                final NameProvider secondary = new OWLOntologyNameProvider(ontology,
+                    primary.getDefaultOboNamespace());
                 // combine primary and secondary name provider
                 nameProvider = new NameProvider() {
 
@@ -86,9 +85,11 @@ public class OBOFormatRenderer implements OWLRenderer {
                 nameProvider = new OBODocNameProvider(result);
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
-            oboFormatWriter.setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
-                .booleanValue());
-            oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
+            oboFormatWriter
+                .setCheckStructure(format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
+                    .booleanValue());
+            oboFormatWriter
+                .write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }

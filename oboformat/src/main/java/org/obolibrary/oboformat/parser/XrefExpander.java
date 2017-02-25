@@ -17,21 +17,23 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Xref expander. */
+/**
+ * Xref expander.
+ */
 public class XrefExpander {
 
     protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
-    @Nullable OBODoc targetOBODoc;
-    @Nullable String targetBase;
+    @Nullable
+    OBODoc targetOBODoc;
+    @Nullable
+    String targetBase;
     protected Map<String, Rule> treatMap = new HashMap<>();
     protected Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
-     * @param src
-     *        src
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @param src src
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     @SuppressWarnings("null")
     public XrefExpander(OBODoc src) {
@@ -48,12 +50,9 @@ public class XrefExpander {
     }
 
     /**
-     * @param src
-     *        src
-     * @param targetBase
-     *        targetBase
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @param src src
+     * @param targetBase targetBase
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     public XrefExpander(OBODoc src, String targetBase) {
         sourceOBODoc = src;
@@ -62,12 +61,9 @@ public class XrefExpander {
     }
 
     /**
-     * @param src
-     *        src
-     * @param tgt
-     *        tgt
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @param src src
+     * @param tgt tgt
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     public XrefExpander(OBODoc src, OBODoc tgt) {
         sourceOBODoc = src;
@@ -76,8 +72,7 @@ public class XrefExpander {
     }
 
     /**
-     * @throws InvalidXrefMapException
-     *         InvalidXrefMapException
+     * @throws InvalidXrefMapException InvalidXrefMapException
      */
     public final void setUp() {
         // required for translation of IDs
@@ -100,7 +95,8 @@ public class XrefExpander {
                     addRule(idSpace, new GenusDifferentiaExpansion(parts[1], parts[2]));
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];
-                } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
+                } else if (tag
+                    .equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
                     addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];
@@ -119,7 +115,8 @@ public class XrefExpander {
                     // create a new bridge ontology for every expansion macro
                     OBODoc tgt = new OBODoc();
                     Frame thf = new Frame(FrameType.HEADER);
-                    thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, targetBase + "-" + idSpace.toLowerCase()));
+                    thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY,
+                        targetBase + "-" + idSpace.toLowerCase()));
                     tgt.setHeaderFrame(thf);
                     targetDocMap.put(idSpace, tgt);
                     sourceOBODoc.addImportedOBODoc(tgt);
@@ -143,8 +140,7 @@ public class XrefExpander {
     }
 
     /**
-     * @param idSpace
-     *        idSpace
+     * @param idSpace idSpace
      * @return target doc
      */
     public OBODoc getTargetDoc(String idSpace) {
@@ -162,7 +158,9 @@ public class XrefExpander {
         treatMap.put(db, rule);
     }
 
-    /** Expand xrefs. */
+    /**
+     * Expand xrefs.
+     */
     public void expandXrefs() {
         for (Frame f : sourceOBODoc.getTermFrames()) {
             String id = checkNotNull(f.getTagValue(OboFormatTag.TAG_ID, String.class));
@@ -183,20 +181,23 @@ public class XrefExpander {
         return parts[0];
     }
 
-    /** Rule. */
+    /**
+     * Rule.
+     */
     public abstract class Rule {
 
-        @Nullable protected String xref;
-        /** Id space. */
-        @Nullable protected String idSpace;
+        @Nullable
+        protected String xref;
+        /**
+         * Id space.
+         */
+        @Nullable
+        protected String idSpace;
 
         /**
-         * @param sf
-         *        sf
-         * @param id
-         *        id
-         * @param xRef
-         *        xref
+         * @param sf sf
+         * @param id id
+         * @param xRef xref
          */
         public abstract void expand(Frame sf, String id, String xRef);
 
@@ -217,7 +218,9 @@ public class XrefExpander {
         }
     }
 
-    /** Equivalence expansion. */
+    /**
+     * Equivalence expansion.
+     */
     public class EquivalenceExpansion extends Rule {
 
         @Override
@@ -227,7 +230,9 @@ public class XrefExpander {
         }
     }
 
-    /** Subclass expansion. */
+    /**
+     * Subclass expansion.
+     */
     public class HasSubClassExpansion extends Rule {
 
         @Override
@@ -237,17 +242,17 @@ public class XrefExpander {
         }
     }
 
-    /** Genus diff expansion. */
+    /**
+     * Genus diff expansion.
+     */
     public class GenusDifferentiaExpansion extends Rule {
 
         protected final String rel;
         protected final String tgt;
 
         /**
-         * @param rel
-         *        rel
-         * @param tgt
-         *        tgt
+         * @param rel rel
+         * @param tgt tgt
          */
         public GenusDifferentiaExpansion(String rel, String tgt) {
             this.rel = rel;
@@ -265,17 +270,17 @@ public class XrefExpander {
         }
     }
 
-    /** Reverse genus differentia expansion. */
+    /**
+     * Reverse genus differentia expansion.
+     */
     public class ReverseGenusDifferentiaExpansion extends Rule {
 
         protected final String rel;
         protected final String tgt;
 
         /**
-         * @param rel
-         *        rel
-         * @param tgt
-         *        tgt
+         * @param rel rel
+         * @param tgt tgt
          */
         public ReverseGenusDifferentiaExpansion(String rel, String tgt) {
             this.rel = rel;
@@ -293,7 +298,9 @@ public class XrefExpander {
         }
     }
 
-    /** Is a expansion. */
+    /**
+     * Is a expansion.
+     */
     public class IsaExpansion extends Rule {
 
         @Override
@@ -303,14 +310,15 @@ public class XrefExpander {
         }
     }
 
-    /** Relationship expansion. */
+    /**
+     * Relationship expansion.
+     */
     public class RelationshipExpansion extends Rule {
 
         protected final String rel;
 
         /**
-         * @param rel
-         *        rel
+         * @param rel rel
          */
         public RelationshipExpansion(String rel) {
             this.rel = rel;

@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(13)
 public class OBOFormatOWLAPIParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OBOFormatOWLAPIParserFactory() {
         super(new OBODocumentFormatFactory());
     }

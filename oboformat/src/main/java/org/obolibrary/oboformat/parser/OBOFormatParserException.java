@@ -2,35 +2,32 @@ package org.obolibrary.oboformat.parser;
 
 import javax.annotation.Nullable;
 
-/** The Class OBOFormatParserException. */
+/**
+ * The Class OBOFormatParserException.
+ */
 public class OBOFormatParserException extends OBOFormatException {
 
     private final int lineNo;
-    @Nullable private final String line;
+    @Nullable
+    private final String line;
 
     /**
-     * @param message
-     *        the message
-     * @param e
-     *        the cause
-     * @param lineNo
-     *        the line no
-     * @param line
-     *        the line
+     * @param message the message
+     * @param e the cause
+     * @param lineNo the line no
+     * @param line the line
      */
-    public OBOFormatParserException(String message, Throwable e, int lineNo, @Nullable String line) {
+    public OBOFormatParserException(String message, Throwable e, int lineNo,
+        @Nullable String line) {
         super(message, e);
         this.lineNo = lineNo;
         this.line = line;
     }
 
     /**
-     * @param message
-     *        the message
-     * @param lineNo
-     *        the line no
-     * @param line
-     *        the line
+     * @param message the message
+     * @param lineNo the line no
+     * @param line the line
      */
     public OBOFormatParserException(String message, int lineNo, @Nullable String line) {
         super(message);
@@ -39,12 +36,9 @@ public class OBOFormatParserException extends OBOFormatException {
     }
 
     /**
-     * @param e
-     *        the cause
-     * @param lineNo
-     *        the line no
-     * @param line
-     *        the line
+     * @param e the cause
+     * @param lineNo the line no
+     * @param line the line
      */
     public OBOFormatParserException(Throwable e, int lineNo, @Nullable String line) {
         super(e);
