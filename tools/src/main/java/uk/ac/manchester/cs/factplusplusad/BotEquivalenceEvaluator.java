@@ -43,9 +43,13 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
-    /** keep the value here */
+    /**
+     * keep the value here
+     */
     boolean isBotEq = false;
-    /** corresponding top evaluator */
+    /**
+     * corresponding top evaluator
+     */
     TopEquivalenceEvaluator topEval;
 
     public BotEquivalenceEvaluator(Signature s) {
@@ -54,9 +58,8 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * check whether the expression is top-equivalent
-     * 
-     * @param expr
-     *        expression
+     *
+     * @param expr expression
      * @return true if top equivalent
      */
     boolean isTopEquivalent(OWLObject expr) {
@@ -65,9 +68,8 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * non-empty Concept/Data expression
-     * 
-     * @param c
-     *        class
+     *
+     * @param c class
      * @return true iff C^I is non-empty
      */
     private boolean isBotDistinct(OWLObject c) {
@@ -82,12 +84,10 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * cardinality of a concept/data expression interpretation
-     * 
+     *
+     * @param c class
+     * @param n cardinality
      * @return true if #C^I > n
-     * @param c
-     *        class
-     * @param n
-     *        cardinality
      */
     private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
@@ -110,12 +110,9 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param n
-     *        cardinality
-     * @param r
-     *        property
-     * @param c
-     *        class
+     * @param n cardinality
+     * @param r property
+     * @param c class
      * @return true iff (<= n R.C) is botEq
      */
     private boolean isMaxBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
@@ -125,13 +122,10 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * QCRs
-     * 
-     * @param n
-     *        cardinality
-     * @param r
-     *        property
-     * @param c
-     *        class
+     *
+     * @param n cardinality
+     * @param r property
+     * @param c class
      * @return true iff (>= n R.C) is botEq
      */
     private boolean isMinBotEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
@@ -139,19 +133,18 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     // set fields
+
     /**
      * set the corresponding top evaluator
-     * 
-     * @param eval
-     *        top evaluator
+     *
+     * @param eval top evaluator
      */
     void setTopEval(TopEquivalenceEvaluator eval) {
         topEval = eval;
     }
 
     /**
-     * @param expr
-     *        expression
+     * @param expr expression
      * @return true iff an EXPRession is equivalent to bottom wrt defined policy
      */
     boolean isBotEquivalent(OWLObject expr) {
@@ -225,8 +218,10 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
-        isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller()) || isMaxBotEquivalent(n, expr
-            .getProperty(), expr.getFiller());
+        isBotEq =
+            isMinBotEquivalent(n, expr.getProperty(), expr.getFiller()) || isMaxBotEquivalent(n,
+                expr
+                    .getProperty(), expr.getFiller());
     }
 
     @Override
@@ -257,8 +252,10 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
-        isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller()) || isMaxBotEquivalent(n, expr
-            .getProperty(), expr.getFiller());
+        isBotEq =
+            isMinBotEquivalent(n, expr.getProperty(), expr.getFiller()) || isMaxBotEquivalent(n,
+                expr
+                    .getProperty(), expr.getFiller());
     }
 
     @Override

@@ -19,8 +19,7 @@ import java.util.List;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class OWLMetricManager {
@@ -29,17 +28,15 @@ public class OWLMetricManager {
 
     /**
      * Instantiates a new OWL metric manager.
-     * 
-     * @param metrics
-     *        the metrics to use
+     *
+     * @param metrics the metrics to use
      */
     public OWLMetricManager(List<OWLMetric<?>> metrics) {
         this.metrics = new ArrayList<>(checkNotNull(metrics, "metrics cannot be null"));
     }
 
     /**
-     * @param ontology
-     *        the ontology to measure
+     * @param ontology the ontology to measure
      */
     public void setOntology(OWLOntology ontology) {
         metrics.forEach(m -> m.setOntology(ontology));

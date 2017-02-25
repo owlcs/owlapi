@@ -17,17 +17,15 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ImportClosureSize extends IntegerValuedMetric {
 
     /**
      * Instantiates a new import closure size.
-     * 
-     * @param o
-     *        ontology to use
+     *
+     * @param o ontology to use
      */
     public ImportClosureSize(OWLOntology o) {
         super(o);

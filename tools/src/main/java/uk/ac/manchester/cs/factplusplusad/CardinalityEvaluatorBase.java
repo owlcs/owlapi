@@ -26,14 +26,15 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     LowerBoundDirectEvaluator lbd;
     UpperBoundComplementEvaluator ubc;
     LowerBoundComplementEvaluator lbc;
-    /** keep the value here */
+    /**
+     * keep the value here
+     */
     int value = 0;
 
     /**
      * init c'tor
-     * 
-     * @param s
-     *        signature
+     *
+     * @param s signature
      */
     CardinalityEvaluatorBase(Signature s) {
         super(s);
@@ -41,11 +42,9 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
 
     /**
      * return minimal of the two Upper Bounds
-     * 
-     * @param uv1
-     *        values to compare
-     * @param uv2
-     *        values to compare
+     *
+     * @param uv1 values to compare
+     * @param uv2 values to compare
      * @return min value
      */
     int minUpperValue(int uv1, int uv2) {
@@ -68,14 +67,15 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
         return -1;
     }
 
-    /** @return special value for concepts that are in C[C]^{<= n} for all n */
+    /**
+     * @return special value for concepts that are in C[C]^{<= n} for all n
+     */
     int anyUpperValue() {
         return 0;
     }
 
     /**
-     * @param condition
-     *        condition to test
+     * @param condition condition to test
      * @return all or none values depending on the condition
      */
     int getAllNoneUpper(boolean condition) {
@@ -97,20 +97,23 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     /**
-     * @param condition
-     *        condition to test
+     * @param condition condition to test
      * @return 1 or none values depending on the condition
      */
     int getOneNoneLower(boolean condition) {
         return condition ? 1 : noLowerValue();
     }
 
-    /** @return special value for concepts that are in C^{<= n} for all n */
+    /**
+     * @return special value for concepts that are in C^{<= n} for all n
+     */
     int getAllValue() {
         return 0;
     }
 
-    /** @return special value for concepts that are not in C^{<= n} */
+    /**
+     * @return special value for concepts that are not in C^{<= n}
+     */
     int getNoneValue() {
         return -1;
     }
@@ -133,9 +136,8 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
 
     /**
      * Main method to use.
-     * 
-     * @param expr
-     *        expression
+     *
+     * @param expr expression
      * @return value
      */
     int getValue(OWLObject expr) {
@@ -144,10 +146,8 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     /**
-     * @param v
-     *        value to test
-     * @param m
-     *        upper limit
+     * @param v value to test
+     * @param m upper limit
      * @return true if given upper VALUE is less than M
      */
     boolean isUpperLT(int v, int m) {
@@ -158,10 +158,8 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     /**
-     * @param v
-     *        value to test
-     * @param m
-     *        upper limit
+     * @param v value to test
+     * @param m upper limit
      * @return true if given upper VALUE is less than or equal to M
      */
     boolean isUpperLE(int v, int m) {
@@ -169,10 +167,8 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     /**
-     * @param v
-     *        value to test
-     * @param m
-     *        upper limit
+     * @param v value to test
+     * @param m upper limit
      * @return true if given lower VALUE is greater than or equal to M
      */
     boolean isLowerGE(int v, int m) {
@@ -183,10 +179,8 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     /**
-     * @param v
-     *        value to test
-     * @param m
-     *        upper limit
+     * @param v value to test
+     * @param m upper limit
      * @return true if given upper VALUE is greater than M
      */
     boolean isLowerGT(int v, int m) {
@@ -211,7 +205,8 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
 
     abstract int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c);
 
-    void setEvaluators(UpperBoundDirectEvaluator pUD, LowerBoundDirectEvaluator pLD, UpperBoundComplementEvaluator pUC,
+    void setEvaluators(UpperBoundDirectEvaluator pUD, LowerBoundDirectEvaluator pLD,
+        UpperBoundComplementEvaluator pUC,
         LowerBoundComplementEvaluator pLC) {
         ubd = pUD;
         lbd = pLD;

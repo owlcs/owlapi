@@ -15,26 +15,23 @@ package org.semanticweb.owlapi.normalform;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface NormalFormRewriter {
 
     /**
      * Checks if is in normal form.
-     * 
-     * @param classExpression
-     *        expression to check
+     *
+     * @param classExpression expression to check
      * @return true if classExpression is in normal form
      */
     boolean isInNormalForm(OWLClassExpression classExpression);
 
     /**
      * Convert to normal form.
-     * 
-     * @param classExpression
-     *        the expression to convert
+     *
+     * @param classExpression the expression to convert
      * @return the converted expression
      */
     OWLClassExpression convertToNormalForm(OWLClassExpression classExpression);

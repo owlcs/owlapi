@@ -19,17 +19,15 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <N> the kind of elements in the tree
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <N>
- *        the kind of elements in the tree
  */
 public interface Tree<N> {
 
     /**
      * Gets the "content" of this tree node.
-     * 
+     *
      * @return The user content of this node.
      */
     @Nullable
@@ -37,24 +35,22 @@ public interface Tree<N> {
 
     /**
      * Gets the parent of this tree node.
-     * 
-     * @return The parent tree node, or {@code null} if this node doesn't have a
-     *         parent.
+     *
+     * @return The parent tree node, or {@code null} if this node doesn't have a parent.
      */
     @Nullable
     Tree<N> getParent();
 
     /**
      * Gets the children of this tree node.
-     * 
-     * @return A list of children. If this tree node doesn't have any children
-     *         then the list will be empty.
+     *
+     * @return A list of children. If this tree node doesn't have any children then the list will be
+     * empty.
      */
     List<Tree<N>> getChildren();
 
     /**
-     * @param child
-     *        the child to use
+     * @param child the child to use
      * @return the object stored as edge
      */
     @Nullable
@@ -62,16 +58,15 @@ public interface Tree<N> {
 
     /**
      * Sorts the children using the specified comparator.
-     * 
-     * @param comparator
-     *        The comparator to be used for the sorting.
+     *
+     * @param comparator The comparator to be used for the sorting.
      */
     void sortChildren(Comparator<Tree<N>> comparator);
 
     /**
      * A convenience method that gets the number of child nodes that this node
      * has.
-     * 
+     *
      * @return The count of the number of children of this node.
      */
     int getChildCount();
@@ -79,7 +74,7 @@ public interface Tree<N> {
     /**
      * A convenience method that determines if this is a root node (because it
      * has no parent node).
-     * 
+     *
      * @return {@code true} if this is a root node, otherwise {@code false}.
      */
     boolean isRoot();
@@ -87,68 +82,64 @@ public interface Tree<N> {
     /**
      * A convenience method that determines if this node is a leaf node (because
      * it has no children).
-     * 
+     *
      * @return {@code true} if this node is a leaf node otherwise {@code false}.
      */
     boolean isLeaf();
 
     /**
      * A convenience method that gets the root of this tree.
-     * 
+     *
      * @return The root node, which could be this node.
      */
     Tree<N> getRoot();
 
     /**
      * Gets the path to root.
-     * 
+     *
      * @return the path to the root
      */
     List<Tree<N>> getPathToRoot();
 
     /**
      * Gets the user object path to root.
-     * 
+     *
      * @return the elements in the path to root
      */
     List<N> getUserObjectPathToRoot();
 
     /**
      * Dump.
-     * 
-     * @param writer
-     *        the writer to print to
+     *
+     * @param writer the writer to print to
      */
     void dump(PrintWriter writer);
 
     /**
      * Dump.
-     * 
-     * @param writer
-     *        the writer to print to
-     * @param indent
-     *        how much to indent
+     *
+     * @param writer the writer to print to
+     * @param indent how much to indent
      */
     void dump(PrintWriter writer, int indent);
 
     /**
      * Sets the node renderer.
-     * 
-     * @param renderer
-     *        the renderer to use
+     *
+     * @param renderer the renderer to use
      */
     void setNodeRenderer(NodeRenderer<N> renderer);
 
     /**
      * Gets the user object closure.
-     * 
+     *
      * @return the set of user objects
      */
     Set<N> getUserObjectClosure();
 
     /**
      * Fill depth first.
-     * 
+     *
      * @return the list of elements
      */
     List<N> fillDepthFirst();

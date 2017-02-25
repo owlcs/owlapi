@@ -24,15 +24,24 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-/** Explanation renderer in concise form. */
+/**
+ * Explanation renderer in concise form.
+ */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
 
-    /** The Constant INDENT. */
+    /**
+     * The Constant INDENT.
+     */
     private static final String INDENT = "   ";
-    /** The renderer. */
+    /**
+     * The renderer.
+     */
     private final SimpleRenderer renderer = new SimpleRenderer();
-    /** The writer. */
-    @Nullable private Writer printWriter;
+    /**
+     * The writer.
+     */
+    @Nullable
+    private Writer printWriter;
 
     @Override
     public void startRendering(Writer writer) {
