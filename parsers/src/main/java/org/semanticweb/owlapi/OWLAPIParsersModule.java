@@ -35,14 +35,13 @@ public class OWLAPIParsersModule extends AbstractModule {
     }
 
     /**
-     * @param df
-     *        data factory for parser
-     * @param provider
-     *        config provider for parser
+     * @param df data factory for parser
+     * @param provider config provider for parser
      * @return implementation of manchester parser for parsing strings
      */
     @Provides
-    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df, OWLOntologyManager provider) {
+    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df,
+        OWLOntologyManager provider) {
         return new ManchesterOWLSyntaxParserImpl(provider.getOntologyConfigurator(), df);
     }
 }

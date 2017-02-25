@@ -13,33 +13,74 @@
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public enum DLSyntax {
     //@formatter:off
-    /** SUBCLASS */         SUBCLASS        ("\u2291","&#8849;"),
-    /** EQUIVALENT_TO */    EQUIVALENT_TO   ("\u2261","&#8801;"),
-    /** NOT */              NOT             ("\u00AC","&#172;"),
-    /** DISJOINT_WITH */    DISJOINT_WITH   (SUBCLASS + " " + NOT,"&#8849; &#172;"),
-    /** EXISTS */           EXISTS          ("\u2203","&#8707;"),
-    /** FORALL */           FORALL          ("\u2200","&#8704;"),
-    /** IN */               IN              ("\u2208","&#8712;"),
-    /** MIN */              MIN             ("\u2265","&#8805;"),
-    /** EQUAL */            EQUAL           ("=","="),
-    /** NOT_EQUAL */        NOT_EQUAL       ("\u2260","&#8800;"),
-    /** MAX */              MAX             ("\u2264","&#8804;"),
-    /** INVERSE */          INVERSE         ("\u207B","&#8315;"),// Superscript minus
-    /** AND */              AND             ("\u2293","&#8851;"),
-    /** TOP */              TOP             ("\u22A4","&#8868;"),
-    /** BOTTOM */           BOTTOM          ("\u22A5","&#8869;"),
-    /** OR */               OR              ("\u2294","&#8852;"),
-    /** COMP */             COMP            ("\u2218","&#8728;"),
-    /** WEDGE */            WEDGE           ("\u22C0","&#8896;"),
-    /** IMPLIES */          IMPLIES         ("\u2190","&#8592;"),
-    /** COMMA */            COMMA           (",",","),
-    /** SELF */             SELF            ("self","self");
+    /**
+     * SUBCLASS
+     */SUBCLASS("\u2291", "&#8849;"),
+    /**
+     * EQUIVALENT_TO
+     */EQUIVALENT_TO("\u2261", "&#8801;"),
+    /**
+     * NOT
+     */NOT("\u00AC", "&#172;"),
+    /**
+     * DISJOINT_WITH
+     */DISJOINT_WITH(SUBCLASS + " " + NOT, "&#8849; &#172;"),
+    /**
+     * EXISTS
+     */EXISTS("\u2203", "&#8707;"),
+    /**
+     * FORALL
+     */FORALL("\u2200", "&#8704;"),
+    /**
+     * IN
+     */IN("\u2208", "&#8712;"),
+    /**
+     * MIN
+     */MIN("\u2265", "&#8805;"),
+    /**
+     * EQUAL
+     */EQUAL("=", "="),
+    /**
+     * NOT_EQUAL
+     */NOT_EQUAL("\u2260", "&#8800;"),
+    /**
+     * MAX
+     */MAX("\u2264", "&#8804;"),
+    /**
+     * INVERSE
+     */INVERSE("\u207B", "&#8315;"),// Superscript minus
+    /**
+     * AND
+     */AND("\u2293", "&#8851;"),
+    /**
+     * TOP
+     */TOP("\u22A4", "&#8868;"),
+    /**
+     * BOTTOM
+     */BOTTOM("\u22A5", "&#8869;"),
+    /**
+     * OR
+     */OR("\u2294", "&#8852;"),
+    /**
+     * COMP
+     */COMP("\u2218", "&#8728;"),
+    /**
+     * WEDGE
+     */WEDGE("\u22C0", "&#8896;"),
+    /**
+     * IMPLIES
+     */IMPLIES("\u2190", "&#8592;"),
+    /**
+     * COMMA
+     */COMMA(",", ","),
+    /**
+     * SELF
+     */SELF("self", "self");
     //@formatter:on
 
     private final String unicodeSymbol;
@@ -47,7 +88,7 @@ public enum DLSyntax {
 
     DLSyntax(String unicode, String htmlEscape) {
         unicodeSymbol = unicode;
-        this.htmlEscape=htmlEscape;
+        this.htmlEscape = htmlEscape;
     }
 
     @Override
@@ -55,7 +96,9 @@ public enum DLSyntax {
         return unicodeSymbol;
     }
 
-    /**@return HTML escaped version of the DLSyntax keyword*/
+    /**
+     * @return HTML escaped version of the DLSyntax keyword
+     */
     public String toHTMLString() {
         return htmlEscape;
     }

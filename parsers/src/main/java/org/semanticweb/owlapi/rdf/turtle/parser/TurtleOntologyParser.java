@@ -27,9 +27,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * The Class TurtleOntologyParser.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
@@ -41,13 +40,13 @@ public class TurtleOntologyParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
+        OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
         try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
             TurtleParser parser;
             parser = new TurtleParser(r, new ConsoleTripleHandler(),
-                    source.getDocumentIRI());
+                source.getDocumentIRI());
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
-                    ontology, config);
+                ontology, config);
             TurtleDocumentFormat format = new TurtleDocumentFormat();
             consumer.setOntologyFormat(format);
             consumer.startModel(source.getDocumentIRI());

@@ -18,55 +18,51 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 @SuppressWarnings("all")
 class Token implements java.io.Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public int kind;
+    public int kind;
 
-  public int beginLine;
-  public int beginColumn;
-  public int endLine;
-  public int endColumn;
+    public int beginLine;
+    public int beginColumn;
+    public int endLine;
+    public int endColumn;
 
-  public String image;
+    public String image;
 
-  public Token next;
+    public Token next;
 
-  public Token specialToken;
+    public Token specialToken;
 
-  public Object getValue() {
-    return null;
-  }
-
-  public Token() {}
-
-  public Token(int kind)
-  {
-    this(kind, null);
-  }
-
-  public Token(int kind, String image)
-  {
-    this.kind = kind;
-    this.image = image;
-  }
-
-  public String toString()
-  {
-    return image;
-  }
-
-  public static Token newToken(int ofKind, String image)
-  {
-    switch(ofKind)
-    {
-      default : return new Token(ofKind, image);
+    public Object getValue() {
+        return null;
     }
-  }
 
-  public static Token newToken(int ofKind)
-  {
-    return newToken(ofKind, null);
-  }
+    public Token() {
+    }
+
+    public Token(int kind) {
+        this(kind, null);
+    }
+
+    public Token(int kind, String image) {
+        this.kind = kind;
+        this.image = image;
+    }
+
+    public String toString() {
+        return image;
+    }
+
+    public static Token newToken(int ofKind, String image) {
+        switch (ofKind) {
+            default:
+                return new Token(ofKind, image);
+        }
+    }
+
+    public static Token newToken(int ofKind) {
+        return newToken(ofKind, null);
+    }
 
 }
 /* JavaCC - OriginalChecksum=a3991d4e5a67ff4f6cf5fd5e09069614 (do not edit this line) */

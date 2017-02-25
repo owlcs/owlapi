@@ -15,34 +15,29 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class ManchesterSyntaxStorerException extends
-        OWLOntologyStorageException {
+    OWLOntologyStorageException {
 
     /**
-     * @param message
-     *        the message
+     * @param message the message
      */
     public ManchesterSyntaxStorerException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
+     * @param message the message
+     * @param cause the cause
      */
     public ManchesterSyntaxStorerException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * @param cause
-     *        the cause
+     * @param cause the cause
      */
     public ManchesterSyntaxStorerException(Throwable cause) {
         super(cause);

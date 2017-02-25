@@ -20,90 +20,73 @@ import javax.annotation.Nullable;
  * object created with that class is registered with a component using the
  * component's {@code addRendererListener} method. When the renderer event
  * occurs, that object's appropriate method is invoked.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface RendererListener {
 
     /**
      * Frame rendering prepared.
-     * 
-     * @param frameName
-     *        the frame name
-     * @param event
-     *        the event
+     *
+     * @param frameName the frame name
+     * @param event the event
      */
     void frameRenderingPrepared(String frameName, @Nullable RendererEvent event);
 
     /**
      * Frame rendering started.
-     * 
-     * @param frameName
-     *        the frame name
-     * @param event
-     *        the event
+     *
+     * @param frameName the frame name
+     * @param event the event
      */
     void frameRenderingStarted(String frameName, @Nullable RendererEvent event);
 
     /**
      * Frame rendering finished.
-     * 
-     * @param frameName
-     *        the frame name
-     * @param event
-     *        the event
+     *
+     * @param frameName the frame name
+     * @param event the event
      */
     void frameRenderingFinished(String frameName, @Nullable RendererEvent event);
 
     /**
      * Section rendering prepared.
-     * 
-     * @param sectionName
-     *        the section name
-     * @param event
-     *        the event
+     *
+     * @param sectionName the section name
+     * @param event the event
      */
     void sectionRenderingPrepared(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section rendering started.
-     * 
-     * @param sectionName
-     *        the section name
-     * @param event
-     *        the event
+     *
+     * @param sectionName the section name
+     * @param event the event
      */
     void sectionRenderingStarted(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section item prepared.
-     * 
-     * @param sectionName
-     *        the section name
-     * @param event
-     *        the event
+     *
+     * @param sectionName the section name
+     * @param event the event
      */
     void sectionItemPrepared(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section item finished.
-     * 
-     * @param sectionName
-     *        the section name
-     * @param event
-     *        the event
+     *
+     * @param sectionName the section name
+     * @param event the event
      */
     void sectionItemFinished(String sectionName, @Nullable RendererEvent event);
 
     /**
      * Section rendering finished.
-     * 
-     * @param sectionName
-     *        the section name
-     * @param event
-     *        the event
+     *
+     * @param sectionName the section name
+     * @param event the event
      */
     void sectionRenderingFinished(String sectionName, @Nullable RendererEvent event);
 }

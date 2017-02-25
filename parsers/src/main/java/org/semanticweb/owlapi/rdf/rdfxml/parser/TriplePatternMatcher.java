@@ -16,24 +16,20 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public interface TriplePatternMatcher {
 
     /**
-     * @param consumer
-     *        consumer
-     * @param mainNode
-     *        node to match
+     * @param consumer consumer
+     * @param mainNode node to match
      * @return true if matches
      */
     boolean matches(OWLRDFConsumer consumer, IRI mainNode);
 
     /**
-     * @param consumer
-     *        consumer
+     * @param consumer consumer
      * @return new object
      */
     OWLObject createObject(OWLRDFConsumer consumer);

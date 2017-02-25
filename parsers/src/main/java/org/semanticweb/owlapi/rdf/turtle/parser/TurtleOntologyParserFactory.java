@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(12)
 public class TurtleOntologyParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public TurtleOntologyParserFactory() {
         super(new TurtleDocumentFormatFactory());
     }

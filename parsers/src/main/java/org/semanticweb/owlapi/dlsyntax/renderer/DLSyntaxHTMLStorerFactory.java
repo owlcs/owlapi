@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  */
 public class DLSyntaxHTMLStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public DLSyntaxHTMLStorerFactory() {
         super(new DLSyntaxHTMLDocumentFormatFactory());
     }
