@@ -13,12 +13,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_PLAIN_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BOOLEAN;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DOUBLE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_FLOAT;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;

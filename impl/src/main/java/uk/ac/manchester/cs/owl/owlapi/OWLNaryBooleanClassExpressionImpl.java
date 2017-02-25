@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asListNullsForbidden
 
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 

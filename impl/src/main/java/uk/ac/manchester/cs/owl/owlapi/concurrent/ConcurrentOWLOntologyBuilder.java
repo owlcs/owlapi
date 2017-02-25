@@ -3,9 +3,7 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.concurrent.locks.ReadWriteLock;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyID;

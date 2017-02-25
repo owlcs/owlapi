@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
