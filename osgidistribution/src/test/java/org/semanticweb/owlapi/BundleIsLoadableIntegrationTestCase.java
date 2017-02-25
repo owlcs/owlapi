@@ -3,7 +3,10 @@ package org.semanticweb.owlapi;
 /**
  * Created by ses on 3/5/15.
  */
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.net.URI;
@@ -13,9 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Nonnull;
-
 import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
