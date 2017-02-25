@@ -135,9 +135,8 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * A handler which knows about OWLXML.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider {
@@ -148,38 +147,35 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     private final List<OWLEH<?, ?>> handlerStack = new ArrayList<>();
     private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
-    @Nullable private Locator locator;
+    @Nullable
+    private Locator locator;
     private final Deque<URI> bases = new LinkedList<>();
     private final OWLOntologyLoaderConfiguration configuration;
     private final Map<String, IRI> iriMap = new HashMap<>();
     private final RemappingIndividualProvider anonProvider;
 
     /**
-     * @param ontology
-     *        ontology to parse into
+     * @param ontology ontology to parse into
      */
     public OWLXMLPH(OWLOntology ontology) {
         this(ontology, null, ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     /**
-     * @param ontology
-     *        ontology to add to
-     * @param configuration
-     *        load configuration
+     * @param ontology ontology to add to
+     * @param configuration load configuration
      */
     public OWLXMLPH(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
     }
 
     /**
-     * @param ontology
-     *        ontology to parse into
-     * @param topHandler
-     *        top level handler
+     * @param ontology ontology to parse into
+     * @param topHandler top level handler
      */
     public OWLXMLPH(OWLOntology ontology, OWLEH<?, ?> topHandler) {
-        this(ontology, topHandler, ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
+        this(ontology, topHandler,
+            ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     /**
@@ -187,22 +183,19 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * allows OWL/XML representations of axioms to be embedded in abitrary XML
      * documents e.g. DIG 2.0 documents. (The default handler behaviour expects
      * the top level element to be an Ontology element).
-     * 
-     * @param ontology
-     *        The ontology object that the XML representation should be parsed
-     *        into.
-     * @param topHandler
-     *        top level handler
-     * @param configuration
-     *        load configuration
+     *
+     * @param ontology The ontology object that the XML representation should be parsed into.
+     * @param topHandler top level handler
+     * @param configuration load configuration
      */
     public OWLXMLPH(OWLOntology ontology, @Nullable OWLEH<?, ?> topHandler,
         OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
-        anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOntologyConfigurator(), owlOntologyManager
-            .getOWLDataFactory());
+        anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOntologyConfigurator(),
+            owlOntologyManager
+                .getOWLDataFactory());
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -330,9 +323,9 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     /**
      * Gets the line number that the parser is at.
-     * 
-     * @return A positive integer that represents the line number or -1 if the
-     *         line number is not known.
+     *
+     * @return A positive integer that represents the line number or -1 if the line number is not
+     * known.
      */
     public int getLineNumber() {
         if (locator != null) {
@@ -352,8 +345,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     }
 
     /**
-     * @param iriStr
-     *        iri
+     * @param iriStr iri
      * @return parsed, absolute iri
      */
     public IRI getIRI(String iriStr) {
@@ -385,8 +377,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     }
 
     /**
-     * @param abbreviatedIRI
-     *        short iri
+     * @param abbreviatedIRI short iri
      * @return extended iri
      */
     public IRI getAbbreviatedIRI(String abbreviatedIRI) {
@@ -454,7 +445,8 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     }
 
     @Override
-    public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
+    public void startElement(@Nullable String uri, @Nullable String localName,
+        @Nullable String qName,
         @Nullable Attributes attributes) {
         if (localName == null || attributes == null) {
             // this should never happen, but DefaultHandler does not specify
@@ -499,16 +491,17 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     /**
      * Return the base URI for resolution of relative URIs.
-     * 
-     * @return base URI or null if unavailable (xml:base not present and the
-     *         document locator does not provide a URI)
+     *
+     * @return base URI or null if unavailable (xml:base not present and the document locator does
+     * not provide a URI)
      */
     public URI getBase() {
         return bases.peek();
     }
 
     @Override
-    public void endElement(@Nullable String uri, @Nullable String localName, @Nullable String qName) {
+    public void endElement(@Nullable String uri, @Nullable String localName,
+        @Nullable String qName) {
         if (PREFIX.getShortForm().equals(localName)) {
             return;
         }

@@ -4,10 +4,12 @@ package org.semanticweb.owlapi.krss2.parser;
 
 
 import java.io.IOException;
+
 @SuppressWarnings("all")
 public interface Provider {
+
     int read(char buffer[], int offset, int length) throws IOException;
-    
-     void close() throws IOException;    
+
+    void close() throws IOException;
 }
 /* JavaCC - OriginalChecksum=dfe806c54a68728df8d83aa89ca104b2 (do not edit this line) */

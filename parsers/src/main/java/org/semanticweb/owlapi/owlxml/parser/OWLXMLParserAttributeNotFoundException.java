@@ -13,17 +13,14 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
 
     /**
-     * @param h
-     *        handler
-     * @param attributeName
-     *        attributeName
+     * @param h handler
+     * @param attributeName attributeName
      */
     public OWLXMLParserAttributeNotFoundException(OWLXMLPH h, String attributeName) {
         super(h, "Attribute not found: " + attributeName);

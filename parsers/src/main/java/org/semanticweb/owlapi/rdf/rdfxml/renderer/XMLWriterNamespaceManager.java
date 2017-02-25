@@ -21,9 +21,8 @@ import org.semanticweb.owlapi.model.IRI;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class XMLWriterNamespaceManager {
@@ -34,29 +33,25 @@ public class XMLWriterNamespaceManager {
     private String defaultNamespace;
 
     /**
-     * @param defaultNamespace
-     *        default namespace
+     * @param defaultNamespace default namespace
      */
     public XMLWriterNamespaceManager(String defaultNamespace) {
         this.defaultNamespace = checkNotNull(defaultNamespace, "defaultNamespace cannot be null");
     }
 
     /**
-     * @param prefix
-     *        prefix
-     * @param namespace
-     *        namespace
+     * @param prefix prefix
+     * @param namespace namespace
      */
     public void addWellKnownNamespace(String prefix, String namespace) {
-        wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"), checkNotNull(namespace,
-            "namespace cannot be null"));
+        wellknownNamespaces
+            .put(checkNotNull(prefix, "prefix cannot be null"), checkNotNull(namespace,
+                "namespace cannot be null"));
     }
 
     /**
-     * @param prefix
-     *        prefix
-     * @param namespace
-     *        namespace
+     * @param prefix prefix
+     * @param namespace namespace
      */
     public void setPrefix(String prefix, String namespace) {
         checkNotNull(prefix, "prefix cannot be null");
@@ -66,8 +61,7 @@ public class XMLWriterNamespaceManager {
     }
 
     /**
-     * @param namespace
-     *        namespace
+     * @param namespace namespace
      * @return prefix for namespace, or null
      */
     @Nullable
@@ -76,16 +70,14 @@ public class XMLWriterNamespaceManager {
     }
 
     /**
-     * @param namespace
-     *        namespace
+     * @param namespace namespace
      */
     public void setDefaultNamespace(String namespace) {
         defaultNamespace = checkNotNull(namespace, "namespace cannot be null");
     }
 
     /**
-     * @param prefix
-     *        prefix
+     * @param prefix prefix
      * @return namespace for prefix or null
      */
     @Nullable
@@ -95,11 +87,9 @@ public class XMLWriterNamespaceManager {
 
     /**
      * Gets a QName for a full URI.
-     * 
-     * @param name
-     *        The name which represents the full name.
-     * @return The QName representation or the input name if a QName could not
-     *         be generated.
+     *
+     * @param name The name which represents the full name.
+     * @return The QName representation or the input name if a QName could not be generated.
      */
     @Nullable
     public String getQName(String name) {
@@ -118,11 +108,9 @@ public class XMLWriterNamespaceManager {
 
     /**
      * Gets a QName for an IRI.
-     * 
-     * @param name
-     *        The name which represents the full name.
-     * @return The QName representation or the input IRI if a QName could not be
-     *         generated.
+     *
+     * @param name The name which represents the full name.
+     * @return The QName representation or the input IRI if a QName could not be generated.
      */
     public String getQName(IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
@@ -136,8 +124,7 @@ public class XMLWriterNamespaceManager {
     }
 
     /**
-     * @param namespace
-     *        namespace
+     * @param namespace namespace
      */
     public void createPrefixForNamespace(String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
@@ -180,7 +167,7 @@ public class XMLWriterNamespaceManager {
 
     /**
      * Search for a prefix other than "" for the default namespace.
-     * 
+     *
      * @return the first prefix found for the default namespace that is not ""
      */
     public String getDefaultPrefix() {

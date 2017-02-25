@@ -23,18 +23,17 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class LatexOWLObjectRenderer implements OWLObjectRenderer {
 
     private final OWLDataFactory dataFactory;
-    @Nullable private ShortFormProvider shortFormProvider;
+    @Nullable
+    private ShortFormProvider shortFormProvider;
 
     /**
-     * @param dataFactory
-     *        dataFactory
+     * @param dataFactory dataFactory
      */
     public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory);
@@ -45,7 +44,8 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
         StringWriter writer = new StringWriter();
         LatexWriter latexWriter = new LatexWriter(writer);
         LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
-        visitor.setShortFormProvider(verifyNotNull(shortFormProvider, "shortFormProvider not set yet"));
+        visitor.setShortFormProvider(
+            verifyNotNull(shortFormProvider, "shortFormProvider not set yet"));
         object.accept(visitor);
         return writer.getBuffer().toString();
     }

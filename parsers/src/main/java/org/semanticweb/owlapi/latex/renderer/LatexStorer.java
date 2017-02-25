@@ -21,15 +21,14 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class LatexStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try {
             new LatexRenderer().render(ontology, writer);
             writer.flush();

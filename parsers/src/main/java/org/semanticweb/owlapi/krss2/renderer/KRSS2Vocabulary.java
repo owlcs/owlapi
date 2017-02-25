@@ -14,52 +14,134 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 /**
  * Vocabulary of KRSS2 syntax.
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public enum KRSS2Vocabulary {
     //@formatter:off
-    /** ALL. */                      ALL("all"),
-    /** AND. */                      AND("and"),
-    /** AT_LEAST. */                 AT_LEAST("at-least"),
-    /** AT_MOST. */                  AT_MOST("at-most"),
-    /** COMPOSE. */                  COMPOSE("compose"),
-    /** DEFINE_CONCEPT. */           DEFINE_CONCEPT("define-concept"),
-    /** DEFINE_INDIVIDUAL. */        DEFINE_INDIVIDUAL("define-individual"),
-    /** DEFINE_PRIMITIVE_CONCEPT. */ DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
-    /** DEFINE_PRIMITIVE_ROLE. */    DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
-    /** DEFINE_ROLE. */              DEFINE_ROLE("define-role"),
-    /** DISJOINT. */                 DISJOINT("disjoint"),
-    /** DISJOINT_ROLES. */           DISJOINT_ROLES("disjoint-roles"),
-    /** DISTINCT. */                 DISTINCT("distinct"),
-    /** DOMAIN. */                   DOMAIN("domain"),
-    /** DOMAIN_ATTR. */              DOMAIN_ATTR(":domain"),
-    /** EQUIVALENT. */               EQUIVALENT("equivalent"),
-    /** EXACTLY. */                  EXACTLY("exactly"),
-    /** IMPLIES. */                  IMPLIES("implies"),
-    /** IMPLIES_ROLE. */             IMPLIES_ROLE("implies-role"),
-    /** INSTANCE. */                 INSTANCE("instace"),
-    /** INV. */                      INV("inv"),
-    /** INVERSE. */                  INVERSE("inverse"),
-    /** INVERSE_ATTR. */             INVERSE_ATTR(":inverse"),
-    /** LEFTIDENTITY_ATTR. */        LEFTIDENTITY_ATTR(":left-identity"),
-    /** NIL. */                      NIL("nil"),
-    /** NOT. */                      NOT("not"),
-    /** OR. */                       OR("or"),
-    /** ONE_OF. */                   ONE_OF("one-of"),
-    /** PARENTS_ATTR. */             PARENTS_ATTR(":parents"),
-    /** PARENT_ATTR. */              PARENT_ATTR(":parent"),
-    /** RANGE_ATTR. */               RANGE_ATTR(":range"),
-    /** REFLEXIVE_ATTR. */           REFLEXIVE_ATTR(":reflexive"),
-    /** RELATED. */                  RELATED("related"),
-    /** RIGHTIDENTITY_ATTR. */       RIGHTIDENTITY_ATTR(":right-identity"),
-    /** ROLES_EQUIVALENT. */         ROLES_EQUIVALENT("roles-equivalent"),
-    /** ROLE_INCLUSTION. */          ROLE_INCLUSTION("role-inclusion"),
-    /** SOME. */                     SOME("some"),
-    /** SUBROLE. */                  SUBROLE("subrole"),
-    /** SYMMETRIC_ATTR. */           SYMMETRIC_ATTR(":symmetric"),
-    /** TRUE. */                     TRUE("t"),
-    /** TRANSITIVE_ATTR. */          TRANSITIVE_ATTR(":transitive");
+    /**
+     * ALL.
+     */ALL("all"),
+    /**
+     * AND.
+     */AND("and"),
+    /**
+     * AT_LEAST.
+     */AT_LEAST("at-least"),
+    /**
+     * AT_MOST.
+     */AT_MOST("at-most"),
+    /**
+     * COMPOSE.
+     */COMPOSE("compose"),
+    /**
+     * DEFINE_CONCEPT.
+     */DEFINE_CONCEPT("define-concept"),
+    /**
+     * DEFINE_INDIVIDUAL.
+     */DEFINE_INDIVIDUAL("define-individual"),
+    /**
+     * DEFINE_PRIMITIVE_CONCEPT.
+     */DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
+    /**
+     * DEFINE_PRIMITIVE_ROLE.
+     */DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
+    /**
+     * DEFINE_ROLE.
+     */DEFINE_ROLE("define-role"),
+    /**
+     * DISJOINT.
+     */DISJOINT("disjoint"),
+    /**
+     * DISJOINT_ROLES.
+     */DISJOINT_ROLES("disjoint-roles"),
+    /**
+     * DISTINCT.
+     */DISTINCT("distinct"),
+    /**
+     * DOMAIN.
+     */DOMAIN("domain"),
+    /**
+     * DOMAIN_ATTR.
+     */DOMAIN_ATTR(":domain"),
+    /**
+     * EQUIVALENT.
+     */EQUIVALENT("equivalent"),
+    /**
+     * EXACTLY.
+     */EXACTLY("exactly"),
+    /**
+     * IMPLIES.
+     */IMPLIES("implies"),
+    /**
+     * IMPLIES_ROLE.
+     */IMPLIES_ROLE("implies-role"),
+    /**
+     * INSTANCE.
+     */INSTANCE("instace"),
+    /**
+     * INV.
+     */INV("inv"),
+    /**
+     * INVERSE.
+     */INVERSE("inverse"),
+    /**
+     * INVERSE_ATTR.
+     */INVERSE_ATTR(":inverse"),
+    /**
+     * LEFTIDENTITY_ATTR.
+     */LEFTIDENTITY_ATTR(":left-identity"),
+    /**
+     * NIL.
+     */NIL("nil"),
+    /**
+     * NOT.
+     */NOT("not"),
+    /**
+     * OR.
+     */OR("or"),
+    /**
+     * ONE_OF.
+     */ONE_OF("one-of"),
+    /**
+     * PARENTS_ATTR.
+     */PARENTS_ATTR(":parents"),
+    /**
+     * PARENT_ATTR.
+     */PARENT_ATTR(":parent"),
+    /**
+     * RANGE_ATTR.
+     */RANGE_ATTR(":range"),
+    /**
+     * REFLEXIVE_ATTR.
+     */REFLEXIVE_ATTR(":reflexive"),
+    /**
+     * RELATED.
+     */RELATED("related"),
+    /**
+     * RIGHTIDENTITY_ATTR.
+     */RIGHTIDENTITY_ATTR(":right-identity"),
+    /**
+     * ROLES_EQUIVALENT.
+     */ROLES_EQUIVALENT("roles-equivalent"),
+    /**
+     * ROLE_INCLUSTION.
+     */ROLE_INCLUSTION("role-inclusion"),
+    /**
+     * SOME.
+     */SOME("some"),
+    /**
+     * SUBROLE.
+     */SUBROLE("subrole"),
+    /**
+     * SYMMETRIC_ATTR.
+     */SYMMETRIC_ATTR(":symmetric"),
+    /**
+     * TRUE.
+     */TRUE("t"),
+    /**
+     * TRANSITIVE_ATTR.
+     */TRANSITIVE_ATTR(":transitive");
     //@formatter:on
 
     private final String shortName;

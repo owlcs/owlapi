@@ -17,91 +17,74 @@ import org.semanticweb.owlapi.model.IRI;
 
 /**
  * The Interface TripleHandler.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface TripleHandler {
 
     /**
      * Handle prefix directive.
-     * 
-     * @param prefixName
-     *        the prefix name
-     * @param prefix
-     *        the prefix
+     *
+     * @param prefixName the prefix name
+     * @param prefix the prefix
      */
     void handlePrefixDirective(String prefixName, String prefix);
 
     /**
      * Handle base directive.
-     * 
-     * @param base
-     *        the base
+     *
+     * @param base the base
      */
     void handleBaseDirective(IRI base);
 
     /**
      * Handle comment.
-     * 
-     * @param comment
-     *        the comment
+     *
+     * @param comment the comment
      */
     void handleComment(String comment);
 
     /**
      * Handle triple.
-     * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     *
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
      */
     void handleTriple(IRI subject, IRI predicate, IRI object);
 
     /**
      * Handle triple.
-     * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     *
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
      */
     void handleTriple(IRI subject, IRI predicate, String object);
 
     /**
      * Handle triple.
-     * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     * @param lang
-     *        the lang
+     *
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
+     * @param lang the lang
      */
     void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang);
 
     /**
      * Handle triple.
-     * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     * @param datatype
-     *        the datatype
+     *
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
+     * @param datatype the datatype
      */
     void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype);
 
-    /** Handle end. */
+    /**
+     * Handle end.
+     */
     void handleEnd();
 }

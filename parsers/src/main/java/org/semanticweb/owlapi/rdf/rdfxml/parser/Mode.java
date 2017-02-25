@@ -13,13 +13,16 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
 public enum Mode {
-    /** Strict parsing mode. */
+    /**
+     * Strict parsing mode.
+     */
     STRICT,
-    /** Lax parsing mode. */
+    /**
+     * Lax parsing mode.
+     */
     LAX
 }

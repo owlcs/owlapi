@@ -195,8 +195,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
@@ -204,8 +203,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private final OWLXMLWriter writer;
 
     /**
-     * @param writer
-     *        writer
+     * @param writer writer
      */
     public OWLXMLObjectRenderer(OWLXMLWriter writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");
@@ -236,18 +234,22 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             OWLDocumentFormat format = ontology.getNonnullFormat();
             boolean addMissing = format.isAddMissingTypes();
             if (addMissing) {
-                Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(addMissing, ontology
-                    .signature(), ontology.getPunnedIRIs(Imports.INCLUDED));
+                Collection<IRI> illegalPunnings = OWLDocumentFormat
+                    .determineIllegalPunnings(addMissing, ontology
+                        .signature(), ontology.getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
-                    if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI()) && !ontology.isDeclared(e,
-                        Imports.INCLUDED)) {
-                        ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e).accept(this);
+                    if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI()) && !ontology
+                        .isDeclared(e,
+                            Imports.INCLUDED)) {
+                        ontology.getOWLOntologyManager().getOWLDataFactory()
+                            .getOWLDeclarationAxiom(e).accept(this);
                     }
                 }
             }
         }
-        Stream<AxiomType<? extends OWLAxiom>> skipDeclarations = AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(
-            AxiomType.DECLARATION));
+        Stream<AxiomType<? extends OWLAxiom>> skipDeclarations = AxiomType.AXIOM_TYPES.stream()
+            .filter(t -> !t.equals(
+                AxiomType.DECLARATION));
         Stream<? extends OWLAxiom> axioms = skipDeclarations.flatMap(t -> ontology.axioms(t));
         render(CollectionFactory.sortOptionally(axioms).stream());
     }
