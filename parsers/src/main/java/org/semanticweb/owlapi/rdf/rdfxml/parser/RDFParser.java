@@ -12,8 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_OBJECT;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_PREDICATE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_STATEMENT;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_SUBJECT;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_TYPE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLLANG;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLNS;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -25,9 +32,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.util.SAXParsers;

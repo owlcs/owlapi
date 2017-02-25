@@ -14,10 +14,10 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -32,9 +32,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
-
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

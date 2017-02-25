@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**

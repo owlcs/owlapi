@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /*

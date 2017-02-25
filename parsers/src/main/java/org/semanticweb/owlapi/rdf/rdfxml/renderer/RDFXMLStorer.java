@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import java.io.PrintWriter;
 import java.util.Set;
-
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.turtle.renderer;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;

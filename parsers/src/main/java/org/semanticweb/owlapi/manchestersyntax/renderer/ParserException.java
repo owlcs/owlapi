@@ -16,9 +16,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
