@@ -65,17 +65,9 @@ public class ParserException extends OWLParserException {
      */
     private final boolean datatypeNameExpected;
     /**
-     * The integer expected.
-     */
-    private boolean integerExpected;
-    /**
      * The annotation property expected.
      */
     private final boolean annotationPropertyExpected;
-    /**
-     * The ontology name expected.
-     */
-    private boolean ontologyNameExpected;
     /**
      * The expected keywords.
      */
@@ -84,6 +76,14 @@ public class ParserException extends OWLParserException {
      * The start pos.
      */
     private final int startPos;
+    /**
+     * The integer expected.
+     */
+    private boolean integerExpected;
+    /**
+     * The ontology name expected.
+     */
+    private boolean ontologyNameExpected;
 
     /**
      * Instantiates a new parser exception.

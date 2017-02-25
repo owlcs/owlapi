@@ -72,14 +72,14 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
 
     static final Logger LOG = LoggerFactory.getLogger(AbstractMacroExpansionVisitor.class);
     static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
+    protected final Map<IRI, String> expandExpressionMap;
+    protected final OWLAnnotationProperty OIO_ISEXPANSION;
+    protected final OWLAnnotation expansionMarkerAnnotation;
     final OWLDataFactory df;
     final Map<IRI, String> expandAssertionToMap;
-    protected final Map<IRI, String> expandExpressionMap;
     protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
     protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
-    protected final OWLAnnotationProperty OIO_ISEXPANSION;
-    protected final OWLAnnotation expansionMarkerAnnotation;
     private boolean shouldAddExpansionMarker = false;
 
     protected AbstractMacroExpansionVisitor(OWLOntology ontology,
@@ -129,141 +129,6 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
      */
     public OWLAnnotationProperty getOIO_ISEXPANSION() {
         return OIO_ISEXPANSION;
-    }
-
-    /**
-     * class expression visitor
-     */
-    public abstract class AbstractClassExpressionVisitorEx implements
-        OWLClassExpressionVisitorEx<OWLClassExpression> {
-
-        protected AbstractClassExpressionVisitorEx() {
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
-            return df.getOWLObjectIntersectionOf(ce.operands().map(o -> o.accept(this)));
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectUnionOf ce) {
-            return df.getOWLObjectUnionOf(ce.operands().map(o -> o.accept(this)));
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectComplementOf ce) {
-            return df.getOWLObjectComplementOf(ce.getOperand().accept(this));
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectSomeValuesFrom ce) {
-            OWLClassExpression filler = ce.getFiller();
-            OWLObjectPropertyExpression p = ce.getProperty();
-            OWLClassExpression result = null;
-            if (p.isOWLObjectProperty()) {
-                result = expandOWLObjSomeVal(filler, p);
-            }
-            if (result == null) {
-                result = df.getOWLObjectSomeValuesFrom(ce.getProperty(), filler.accept(this));
-            }
-            return result;
-        }
-
-        @Nullable
-        protected abstract OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
-            OWLObjectPropertyExpression p);
-
-        @Override
-        public OWLClassExpression visit(OWLObjectHasValue ce) {
-            OWLClassExpression result = null;
-            OWLIndividual filler = ce.getFiller();
-            OWLObjectPropertyExpression p = ce.getProperty();
-            if (p.isOWLObjectProperty()) {
-                result = expandOWLObjHasVal(ce, filler, p);
-            }
-            if (result == null) {
-                result = df.getOWLObjectHasValue(ce.getProperty(), filler);
-            }
-            return result;
-        }
-
-        @Nullable
-        protected abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
-            OWLIndividual filler,
-            OWLObjectPropertyExpression p);
-
-        @Override
-        public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {
-            return ce.getFiller().accept(this);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectMinCardinality ce) {
-            OWLClassExpression filler = ce.getFiller().accept(this);
-            return df.getOWLObjectMinCardinality(ce.getCardinality(), ce.getProperty(), filler);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectExactCardinality ce) {
-            return ce.asIntersectionOfMinMax().accept(this);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectMaxCardinality ce) {
-            OWLClassExpression filler = ce.getFiller().accept(this);
-            return df.getOWLObjectMaxCardinality(ce.getCardinality(), ce.getProperty(), filler);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataSomeValuesFrom ce) {
-            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
-            return df.getOWLDataSomeValuesFrom(ce.getProperty(), filler);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataAllValuesFrom ce) {
-            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
-            return df.getOWLDataAllValuesFrom(ce.getProperty(), filler);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataHasValue ce) {
-            return ce.asSomeValuesFrom().accept(this);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataExactCardinality ce) {
-            return ce.asIntersectionOfMinMax().accept(this);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataMaxCardinality ce) {
-            int card = ce.getCardinality();
-            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
-            return df.getOWLDataMaxCardinality(card, ce.getProperty(), filler);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataMinCardinality ce) {
-            int card = ce.getCardinality();
-            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
-            return df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLClass ce) {
-            return ce;
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectHasSelf ce) {
-            return ce;
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectOneOf ce) {
-            return ce;
-        }
     }
 
     /**
@@ -474,5 +339,140 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         }
         return df.getOWLEquivalentClassesAxiom(newExpressions,
             getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    /**
+     * class expression visitor
+     */
+    public abstract class AbstractClassExpressionVisitorEx implements
+        OWLClassExpressionVisitorEx<OWLClassExpression> {
+
+        protected AbstractClassExpressionVisitorEx() {
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
+            return df.getOWLObjectIntersectionOf(ce.operands().map(o -> o.accept(this)));
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectUnionOf ce) {
+            return df.getOWLObjectUnionOf(ce.operands().map(o -> o.accept(this)));
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectComplementOf ce) {
+            return df.getOWLObjectComplementOf(ce.getOperand().accept(this));
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectSomeValuesFrom ce) {
+            OWLClassExpression filler = ce.getFiller();
+            OWLObjectPropertyExpression p = ce.getProperty();
+            OWLClassExpression result = null;
+            if (p.isOWLObjectProperty()) {
+                result = expandOWLObjSomeVal(filler, p);
+            }
+            if (result == null) {
+                result = df.getOWLObjectSomeValuesFrom(ce.getProperty(), filler.accept(this));
+            }
+            return result;
+        }
+
+        @Nullable
+        protected abstract OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+            OWLObjectPropertyExpression p);
+
+        @Override
+        public OWLClassExpression visit(OWLObjectHasValue ce) {
+            OWLClassExpression result = null;
+            OWLIndividual filler = ce.getFiller();
+            OWLObjectPropertyExpression p = ce.getProperty();
+            if (p.isOWLObjectProperty()) {
+                result = expandOWLObjHasVal(ce, filler, p);
+            }
+            if (result == null) {
+                result = df.getOWLObjectHasValue(ce.getProperty(), filler);
+            }
+            return result;
+        }
+
+        @Nullable
+        protected abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
+            OWLIndividual filler,
+            OWLObjectPropertyExpression p);
+
+        @Override
+        public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {
+            return ce.getFiller().accept(this);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectMinCardinality ce) {
+            OWLClassExpression filler = ce.getFiller().accept(this);
+            return df.getOWLObjectMinCardinality(ce.getCardinality(), ce.getProperty(), filler);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectExactCardinality ce) {
+            return ce.asIntersectionOfMinMax().accept(this);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectMaxCardinality ce) {
+            OWLClassExpression filler = ce.getFiller().accept(this);
+            return df.getOWLObjectMaxCardinality(ce.getCardinality(), ce.getProperty(), filler);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataSomeValuesFrom ce) {
+            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
+            return df.getOWLDataSomeValuesFrom(ce.getProperty(), filler);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataAllValuesFrom ce) {
+            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
+            return df.getOWLDataAllValuesFrom(ce.getProperty(), filler);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataHasValue ce) {
+            return ce.asSomeValuesFrom().accept(this);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataExactCardinality ce) {
+            return ce.asIntersectionOfMinMax().accept(this);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataMaxCardinality ce) {
+            int card = ce.getCardinality();
+            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
+            return df.getOWLDataMaxCardinality(card, ce.getProperty(), filler);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataMinCardinality ce) {
+            int card = ce.getCardinality();
+            OWLDataRange filler = ce.getFiller().accept(rangeVisitor);
+            return df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLClass ce) {
+            return ce;
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectHasSelf ce) {
+            return ce;
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectOneOf ce) {
+            return ce;
+        }
     }
 }

@@ -38,26 +38,6 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 @SuppressWarnings("javadoc")
 public class StructuralReasonerTestCase extends TestBase {
 
-    @Test
-    public void testClassHierarchy() {
-        OWLClass clsX = Class(iri("X"));
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsAp = Class(iri("Ap"));
-        OWLClass clsB = Class(iri("B"));
-        OWLOntology ont = getOWLOntology();
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        man.addAxiom(ont, EquivalentClasses(OWLThing(), clsX));
-        man.addAxiom(ont, SubClassOf(clsB, clsA));
-        man.addAxiom(ont, EquivalentClasses(clsA, clsAp));
-        StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(),
-            BufferingMode.NON_BUFFERING);
-        testClassHierarchy(reasoner);
-        ont.add(SubClassOf(clsA, OWLThing()));
-        testClassHierarchy(reasoner);
-        ont.remove(SubClassOf(clsA, OWLThing()));
-        testClassHierarchy(reasoner);
-    }
-
     private static void testClassHierarchy(StructuralReasoner reasoner) {
         OWLClass clsX = Class(iri("X"));
         OWLClass clsA = Class(iri("A"));
@@ -89,5 +69,25 @@ public class StructuralReasonerTestCase extends TestBase {
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
         assertEquals(2, equivsOfTop.entities().count());
         assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(clsX)));
+    }
+
+    @Test
+    public void testClassHierarchy() {
+        OWLClass clsX = Class(iri("X"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsAp = Class(iri("Ap"));
+        OWLClass clsB = Class(iri("B"));
+        OWLOntology ont = getOWLOntology();
+        OWLOntologyManager man = ont.getOWLOntologyManager();
+        man.addAxiom(ont, EquivalentClasses(OWLThing(), clsX));
+        man.addAxiom(ont, SubClassOf(clsB, clsA));
+        man.addAxiom(ont, EquivalentClasses(clsA, clsAp));
+        StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(),
+            BufferingMode.NON_BUFFERING);
+        testClassHierarchy(reasoner);
+        ont.add(SubClassOf(clsA, OWLThing()));
+        testClassHierarchy(reasoner);
+        ont.remove(SubClassOf(clsA, OWLThing()));
+        testClassHierarchy(reasoner);
     }
 }

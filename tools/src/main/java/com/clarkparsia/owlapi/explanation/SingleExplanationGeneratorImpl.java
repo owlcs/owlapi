@@ -26,12 +26,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  */
 public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {
 
-    private boolean inTransaction;
     private final OWLOntologyManager owlOntologyManager;
     private final OWLOntology ontology;
     private final OWLReasoner reasoner;
     private final OWLReasonerFactory reasonerFactory;
     private final DefinitionTracker definitionTracker;
+    private boolean inTransaction;
 
     /**
      * Instantiates a new single explanation generator impl.

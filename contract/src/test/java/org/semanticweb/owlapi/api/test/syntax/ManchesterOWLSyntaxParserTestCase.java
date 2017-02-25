@@ -66,6 +66,13 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings({"javadoc", "null"})
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
+    public static final @Nonnull
+    String NS = "http://protege.org/ontologies/Test.owl";
+    protected @Nonnull
+    OWLDataProperty p;
+    protected @Nonnull
+    OWLDatatype dateTime;
+
     @Test
     public void shouldRoundtripAnnotationAssertionsWithAnnotations()
         throws OWLOntologyCreationException,
@@ -213,13 +220,6 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         assertTrue(o.containsAxiom(Declaration(man)));
         assertTrue(o.containsAxiom(SubClassOf(man, person)));
     }
-
-    public static final @Nonnull
-    String NS = "http://protege.org/ontologies/Test.owl";
-    protected @Nonnull
-    OWLDataProperty p;
-    protected @Nonnull
-    OWLDatatype dateTime;
 
     @Before
     public void setUpPAndDateTime() {

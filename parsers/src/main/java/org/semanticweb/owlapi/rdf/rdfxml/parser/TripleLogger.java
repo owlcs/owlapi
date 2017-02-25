@@ -19,10 +19,17 @@ import org.slf4j.LoggerFactory;
 public class TripleLogger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TripleLogger.class);
-    @Nullable
-    private PrefixManager prefixManager;
     // Debug stuff
     private final AtomicInteger count = new AtomicInteger();
+    @Nullable
+    private PrefixManager prefixManager;
+
+    /**
+     * @param id log ontology id
+     */
+    public static void logOntologyID(OWLOntologyID id) {
+        LOGGER.debug("Loaded {}", id);
+    }
 
     /**
      * @param prefixManager prefix manager
@@ -127,12 +134,5 @@ public class TripleLogger {
      */
     public void logNumberOfTriples() {
         LOGGER.debug("Total number of triples: {}", count);
-    }
-
-    /**
-     * @param id log ontology id
-     */
-    public static void logOntologyID(OWLOntologyID id) {
-        LOGGER.debug("Loaded {}", id);
     }
 }

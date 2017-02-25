@@ -14,6 +14,30 @@ import javax.annotation.Nullable;
  */
 public class OBOFormatConstants {
 
+    private static final Map<String, OboFormatTag> TAGSTABLE = Maps
+        .uniqueIndex(Arrays.asList(OboFormatTag.values()),
+            OboFormatTag::getTag);
+    /**
+     * tags
+     */
+    public static final Set<String> TAGS = TAGSTABLE.keySet();
+
+    /**
+     * @param tag tag
+     * @return oboformat tag
+     */
+    @Nullable
+    public static OboFormatTag getTag(String tag) {
+        return TAGSTABLE.get(tag);
+    }
+
+    /**
+     * @return Date format for OboFormatTag.TAG_DATE
+     */
+    public static final DateFormat headerDateFormat() {
+        return new SimpleDateFormat("dd:MM:yyyy HH:mm");
+    }
+
     /**
      * OBOformat tags.
      */
@@ -236,7 +260,6 @@ public class OBOFormatConstants {
          */
         TAG_RELATED("RELATED");
 
-        private final String tag;
         /**
          * Term frames.
          */
@@ -250,6 +273,7 @@ public class OBOFormatConstants {
             .of(TAG_INTERSECTION_OF, TAG_UNION_OF,
                 TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_INVERSE_OF, TAG_TRANSITIVE_OVER,
                 TAG_DISJOINT_OVER, TAG_IS_A);
+        private final String tag;
 
         OboFormatTag(String tag) {
             this.tag = tag;
@@ -266,29 +290,5 @@ public class OBOFormatConstants {
         public String toString() {
             return tag;
         }
-    }
-
-    private static final Map<String, OboFormatTag> TAGSTABLE = Maps
-        .uniqueIndex(Arrays.asList(OboFormatTag.values()),
-            OboFormatTag::getTag);
-    /**
-     * tags
-     */
-    public static final Set<String> TAGS = TAGSTABLE.keySet();
-
-    /**
-     * @param tag tag
-     * @return oboformat tag
-     */
-    @Nullable
-    public static OboFormatTag getTag(String tag) {
-        return TAGSTABLE.get(tag);
-    }
-
-    /**
-     * @return Date format for OboFormatTag.TAG_DATE
-     */
-    public static final DateFormat headerDateFormat() {
-        return new SimpleDateFormat("dd:MM:yyyy HH:mm");
     }
 }

@@ -37,6 +37,23 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 @SuppressWarnings("javadoc")
 public class LoadAnonymousTestCase extends TestBase {
 
+    private static OWLLiteral literal(String s) {
+        return Literal(s, XSD_STRING);
+    }
+
+    private static OWLAnnotationAssertionAxiom comment(OWLAnnotationSubject s,
+        OWLAnnotationValue v) {
+        return AnnotationAssertion(RDFSComment(), s, v);
+    }
+
+    private static OWLAnnotationAssertionAxiom label(OWLAnnotationSubject s, OWLAnnotationValue v) {
+        return AnnotationAssertion(RDFSLabel(), s, v);
+    }
+
+    private static OWLAnnotationProperty ap(String s, String r) {
+        return df.getOWLAnnotationProperty(s, r);
+    }
+
     @Test
     public void shouldLoad() throws OWLOntologyCreationException {
         String input = "format-version: 1.2\n" + "date: 27:06:2013 17:08\n" + "saved-by: gkoutos\n"
@@ -183,22 +200,5 @@ public class LoadAnonymousTestCase extends TestBase {
                     "A unit which is a standard measure of the distance between two points."),
                     singleton(Annotation(hasDbXref, literal))));
         assertEquals(expected, asUnorderedSet(ontology.axioms()));
-    }
-
-    private static OWLLiteral literal(String s) {
-        return Literal(s, XSD_STRING);
-    }
-
-    private static OWLAnnotationAssertionAxiom comment(OWLAnnotationSubject s,
-        OWLAnnotationValue v) {
-        return AnnotationAssertion(RDFSComment(), s, v);
-    }
-
-    private static OWLAnnotationAssertionAxiom label(OWLAnnotationSubject s, OWLAnnotationValue v) {
-        return AnnotationAssertion(RDFSLabel(), s, v);
-    }
-
-    private static OWLAnnotationProperty ap(String s, String r) {
-        return df.getOWLAnnotationProperty(s, r);
     }
 }

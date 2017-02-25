@@ -90,6 +90,86 @@ public class BasicsTestCase extends OboFormatTestBasics {
     private static final IRI BAR1 = IRI.create("http://purl.obolibrary.org/obo/", "BAR_0000001");
     private static final IRI BFO51 = IRI.create("http://purl.obolibrary.org/obo/", "BFO_0000051");
 
+    private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI,
+        OWLAnnotationProperty property, int expected) {
+        List<OWLAnnotationAssertionAxiom> matches = asList(
+            owlOnt.annotationAssertionAxioms(subjectIRI).filter(ax -> ax
+                .getProperty().equals(property)));
+        assertEquals(
+            subjectIRI + " has too many annotations of type " + property + ":\n\t" + matches,
+            expected, matches
+                .size());
+    }
+
+    private static void checkIdSpace(OBODoc doc) {
+        Frame headerFrame = doc.getHeaderFrame();
+        assertNotNull(headerFrame);
+        Clause clause = headerFrame.getClause(OboFormatTag.TAG_IDSPACE);
+        Collection<Object> values = clause.getValues();
+        assertNotNull(values);
+        assertEquals(3, values.size());
+        Iterator<Object> it = values.iterator();
+        assertEquals("GO", it.next());
+        assertEquals("urn:lsid:bioontology.org:GO:", it.next());
+        assertEquals("gene ontology terms", it.next());
+    }
+
+    private static void checkIntersection(OWLClassExpression expression, String genus, String relId,
+        String differentia) {
+        OWLObjectIntersectionOf intersection = (OWLObjectIntersectionOf) expression;
+        List<? extends OWLClassExpression> list = intersection.getOperandsAsList();
+        OWLClass cls = (OWLClass) list.get(0);
+        assertEquals(genus, OWLAPIOwl2Obo.getIdentifier(cls.getIRI()));
+        OWLClassExpression rhs = list.get(1);
+        OWLClass cls2 = rhs.classesInSignature().iterator().next();
+        assertEquals(differentia, OWLAPIOwl2Obo.getIdentifier(cls2.getIRI()));
+        OWLObjectProperty property = rhs.objectPropertiesInSignature().iterator().next();
+        assertEquals(relId, OWLAPIOwl2Obo.getIdentifier(property.getIRI()));
+    }
+
+    private static OBODoc createPVDoc() {
+        OBODoc oboDoc = new OBODoc();
+        Frame headerFrame = new Frame(FrameType.HEADER);
+        headerFrame.addClause(new Clause(OboFormatTag.TAG_FORMAT_VERSION, "1.2"));
+        headerFrame.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, "test"));
+        addPropertyValue(headerFrame, "http://purl.org/dc/elements/1.1/title",
+            "Ontology for Biomedical Investigation",
+            "xsd:string");
+        addPropertyValue(headerFrame, "defaultLanguage", "en", "xsd:string");
+        oboDoc.setHeaderFrame(headerFrame);
+        return oboDoc;
+    }
+
+    private static void addPropertyValue(Frame frame, String v1, String v2, @Nullable String v3) {
+        Clause cl = new Clause(OboFormatTag.TAG_PROPERTY_VALUE);
+        cl.addValue(v1);
+        cl.addValue(v2);
+        if (v3 != null) {
+            cl.addValue(v3);
+        }
+        frame.addClause(cl);
+    }
+
+    private static void checkFrame(OBODoc doc, String id, String name, String namespace) {
+        Frame frame = doc.getTermFrame(id);
+        if (frame == null) {
+            frame = doc.getTypedefFrame(id);
+        }
+        assertNotNull(frame);
+        assertEquals(name, frame.getTagValue(OboFormatTag.TAG_NAME));
+        assertEquals(namespace, frame.getTagValue(OboFormatTag.TAG_NAMESPACE));
+    }
+
+    private static void checkOBODoc2(OBODoc obodoc) {
+        // OBODoc tests
+        Frame tf = obodoc.getTermFrame("x1"); // TODO - may change
+        assert tf != null;
+        Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
+        assertTrue(cs.size() != 1);
+        // there should NEVER be a situation with single intersection tags
+        // TODO - add validation step prior to saving
+    }
+
     @Test
     public void testCommentRemarkConversion() throws Exception {
         OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true);
@@ -168,17 +248,6 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assert rc != null;
         assertEquals("part_of", rc.getValue());
         assertEquals("TEST:b", rc.getValue2());
-    }
-
-    private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI,
-        OWLAnnotationProperty property, int expected) {
-        List<OWLAnnotationAssertionAxiom> matches = asList(
-            owlOnt.annotationAssertionAxioms(subjectIRI).filter(ax -> ax
-                .getProperty().equals(property)));
-        assertEquals(
-            subjectIRI + " has too many annotations of type " + property + ":\n\t" + matches,
-            expected, matches
-                .size());
     }
 
     @Test
@@ -558,19 +627,6 @@ public class BasicsTestCase extends OboFormatTestBasics {
         checkIdSpace(doc2);
     }
 
-    private static void checkIdSpace(OBODoc doc) {
-        Frame headerFrame = doc.getHeaderFrame();
-        assertNotNull(headerFrame);
-        Clause clause = headerFrame.getClause(OboFormatTag.TAG_IDSPACE);
-        Collection<Object> values = clause.getValues();
-        assertNotNull(values);
-        assertEquals(3, values.size());
-        Iterator<Object> it = values.iterator();
-        assertEquals("GO", it.next());
-        assertEquals("urn:lsid:bioontology.org:GO:", it.next());
-        assertEquals("gene ontology terms", it.next());
-    }
-
     @Test
     public void testIgnoreImportAnnotations() {
         OBODoc oboDoc = parseOBOFile("annotated_import.obo");
@@ -602,9 +658,9 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     /*
-    * 
+    *
     * Note there is currently a bug whereby blocks of constraints are not translated. E.g
-    * 
+    *
     * [Term]
     id: GO:0009657
     name: plastid organization
@@ -612,8 +668,8 @@ public class BasicsTestCase extends OboFormatTestBasics {
     relationship: never_in_taxon NCBITaxon:4751 {id="GOTAX:0000502", source="PMID:21311032"} ! Fungi
     relationship: never_in_taxon NCBITaxon:28009 {id="GOTAX:0000503", source="PMID:21311032"} ! Choanoflagellida
     relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000504", source="PMID:21311032"} ! Amoebozoa
-    
-    * 
+
+    *
     */
     @Test
     public void testExpandTaxonConstraints() {
@@ -639,19 +695,6 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLClassExpression expression = parser.parseManchesterExpression(
             "'2,4-dichlorophenoxyacetic acid metabolic process' AND 'part_of' some 'premature neural plate formation'");
         checkIntersection(expression, "GO:0018901", "BFO:0000050", "GO:0055124");
-    }
-
-    private static void checkIntersection(OWLClassExpression expression, String genus, String relId,
-        String differentia) {
-        OWLObjectIntersectionOf intersection = (OWLObjectIntersectionOf) expression;
-        List<? extends OWLClassExpression> list = intersection.getOperandsAsList();
-        OWLClass cls = (OWLClass) list.get(0);
-        assertEquals(genus, OWLAPIOwl2Obo.getIdentifier(cls.getIRI()));
-        OWLClassExpression rhs = list.get(1);
-        OWLClass cls2 = rhs.classesInSignature().iterator().next();
-        assertEquals(differentia, OWLAPIOwl2Obo.getIdentifier(cls2.getIRI()));
-        OWLObjectProperty property = rhs.objectPropertiesInSignature().iterator().next();
-        assertEquals(relId, OWLAPIOwl2Obo.getIdentifier(property.getIRI()));
     }
 
     @Test(expected = FrameStructureException.class)
@@ -746,29 +789,6 @@ public class BasicsTestCase extends OboFormatTestBasics {
         assertEquals("Expected no diffs", 0, diffs.size());
     }
 
-    private static OBODoc createPVDoc() {
-        OBODoc oboDoc = new OBODoc();
-        Frame headerFrame = new Frame(FrameType.HEADER);
-        headerFrame.addClause(new Clause(OboFormatTag.TAG_FORMAT_VERSION, "1.2"));
-        headerFrame.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, "test"));
-        addPropertyValue(headerFrame, "http://purl.org/dc/elements/1.1/title",
-            "Ontology for Biomedical Investigation",
-            "xsd:string");
-        addPropertyValue(headerFrame, "defaultLanguage", "en", "xsd:string");
-        oboDoc.setHeaderFrame(headerFrame);
-        return oboDoc;
-    }
-
-    private static void addPropertyValue(Frame frame, String v1, String v2, @Nullable String v3) {
-        Clause cl = new Clause(OboFormatTag.TAG_PROPERTY_VALUE);
-        cl.addValue(v1);
-        cl.addValue(v2);
-        if (v3 != null) {
-            cl.addValue(v3);
-        }
-        frame.addClause(cl);
-    }
-
     @Test
     public void testParseOBOFileSimpleGO() {
         OBODoc obodoc = parseOBOFile("simplego.obo");
@@ -783,16 +803,6 @@ public class BasicsTestCase extends OboFormatTestBasics {
         checkFrame(obodoc, "part_of", "part_of", "gene_ontology");
         checkFrame(obodoc, "positively_regulates", "positively_regulates", "gene_ontology");
         checkFrame(obodoc, "regulates", "regulates", "gene_ontology");
-    }
-
-    private static void checkFrame(OBODoc doc, String id, String name, String namespace) {
-        Frame frame = doc.getTermFrame(id);
-        if (frame == null) {
-            frame = doc.getTypedefFrame(id);
-        }
-        assertNotNull(frame);
-        assertEquals(name, frame.getTagValue(OboFormatTag.TAG_NAME));
-        assertEquals(namespace, frame.getTagValue(OboFormatTag.TAG_NAMESPACE));
     }
 
     @Test(expected = FrameStructureException.class)
@@ -1049,16 +1059,6 @@ public class BasicsTestCase extends OboFormatTestBasics {
         String file = writeOBO(obodoc);
         obodoc = parseOBOFile(new StringReader(file), false);
         checkOBODoc2(obodoc);
-    }
-
-    private static void checkOBODoc2(OBODoc obodoc) {
-        // OBODoc tests
-        Frame tf = obodoc.getTermFrame("x1"); // TODO - may change
-        assert tf != null;
-        Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
-        assertTrue(cs.size() != 1);
-        // there should NEVER be a situation with single intersection tags
-        // TODO - add validation step prior to saving
     }
 
     @Test

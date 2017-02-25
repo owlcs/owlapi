@@ -620,13 +620,13 @@ class PartOfTagValueHandler extends AbstractTagValueHandler {
 
 class RawFrameHandler implements OBOParserHandler {
 
-    @Nullable
-    private String currentFrameType = "";
     private final List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
-    @Nullable
-    private OBOFrame headerFrame;
     private final List<OBOFrame> typeDefFrames = new ArrayList<>();
     private final List<OBOFrame> nonTypeDefFrames = new ArrayList<>();
+    @Nullable
+    private String currentFrameType = "";
+    @Nullable
+    private OBOFrame headerFrame;
 
     @Override
     public void startHeader() {
@@ -755,6 +755,8 @@ class SymmetricTagValueHandler extends AbstractTagValueHandler {
 
 class SynonymTagValueHandler extends AbstractTagValueHandler {
 
+    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
+    public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
     private static final Pattern VALUEPATTERN = Pattern.compile(
@@ -763,8 +765,6 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
     private static final int XREF_GROUP = 4;
-    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
-    public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
 
     public SynonymTagValueHandler(OBOConsumer consumer) {
         super(TAG_NAME, consumer);

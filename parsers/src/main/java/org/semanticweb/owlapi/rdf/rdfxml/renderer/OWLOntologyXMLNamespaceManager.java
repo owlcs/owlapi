@@ -59,6 +59,38 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         processOntology();
     }
 
+    /**
+     * Gets a suggested default namespace bases on the ID of an ontology. If the
+     * ontology has an IRI then this IRI will be used to suggest a default
+     * namespace, otherwise, the OWL namespace will be returned as the default
+     * namespace
+     *
+     * @param ontology The ontology
+     * @param format format
+     * @return A suggested default namespace
+     */
+    private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(format, "format cannot be null");
+        if (format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
+            String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
+            if (defaultPrefix != null) {
+                return defaultPrefix;
+            }
+        }
+        if (ontology.getOntologyID().isAnonymous()) {
+            // What do we return here? Just return the OWL namespace for now.
+            return Namespaces.OWL.toString();
+        } else {
+            String base = ontology.getOntologyID().getOntologyIRI().get().toString();
+            if (!base.endsWith("#") && !base.endsWith("/")) {
+                base += "#";
+            }
+            return base;
+        }
+    }
+
     protected OWLOntology getOntology() {
         return ontology;
     }
@@ -105,38 +137,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
         if (!(ns.isEmpty() || !iri.getRemainder().isPresent())) {
             namespaceUtil.getPrefix(ns);
-        }
-    }
-
-    /**
-     * Gets a suggested default namespace bases on the ID of an ontology. If the
-     * ontology has an IRI then this IRI will be used to suggest a default
-     * namespace, otherwise, the OWL namespace will be returned as the default
-     * namespace
-     *
-     * @param ontology The ontology
-     * @param format format
-     * @return A suggested default namespace
-     */
-    private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(format, "format cannot be null");
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
-            String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
-            if (defaultPrefix != null) {
-                return defaultPrefix;
-            }
-        }
-        if (ontology.getOntologyID().isAnonymous()) {
-            // What do we return here? Just return the OWL namespace for now.
-            return Namespaces.OWL.toString();
-        } else {
-            String base = ontology.getOntologyID().getOntologyIRI().get().toString();
-            if (!base.endsWith("#") && !base.endsWith("/")) {
-                base += "#";
-            }
-            return base;
         }
     }
 

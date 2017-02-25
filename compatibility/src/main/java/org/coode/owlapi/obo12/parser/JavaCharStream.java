@@ -6,6 +6,45 @@ package org.coode.owlapi.obo12.parser;
 class JavaCharStream {
 
     public static final boolean staticFlag = false;
+    public int bufpos = -1;
+    protected int bufline[];
+    protected int bufcolumn[];
+    protected int column = 0;
+    protected int line = 1;
+    protected boolean prevCharIsCR = false;
+    protected boolean prevCharIsLF = false;
+    protected Provider inputStream;
+    protected char[] nextCharBuf;
+    protected char[] buffer;
+    protected int maxNextCharInd = 0;
+    protected int nextCharInd = -1;
+    protected int inBuf = 0;
+    protected int tabSize = 1;
+    protected boolean trackLineColumn = true;
+    int bufsize;
+    int available;
+    int tokenBegin;
+    public JavaCharStream(Provider dstream,
+        int startline, int startcolumn, int buffersize) {
+        inputStream = dstream;
+        line = startline;
+        column = startcolumn - 1;
+
+        available = bufsize = buffersize;
+        buffer = new char[buffersize];
+        bufline = new int[buffersize];
+        bufcolumn = new int[buffersize];
+        nextCharBuf = new char[4096];
+    }
+
+    public JavaCharStream(Provider dstream,
+        int startline, int startcolumn) {
+        this(dstream, startline, startcolumn, 4096);
+    }
+
+    public JavaCharStream(Provider dstream) {
+        this(dstream, 1, 1, 4096);
+    }
 
     static final int hexval(char c) throws java.io.IOException {
         switch (c) {
@@ -52,29 +91,6 @@ class JavaCharStream {
 
         throw new java.io.IOException(); // Should never come here
     }
-
-    public int bufpos = -1;
-    int bufsize;
-    int available;
-    int tokenBegin;
-    protected int bufline[];
-    protected int bufcolumn[];
-
-    protected int column = 0;
-    protected int line = 1;
-
-    protected boolean prevCharIsCR = false;
-    protected boolean prevCharIsLF = false;
-
-    protected Provider inputStream;
-
-    protected char[] nextCharBuf;
-    protected char[] buffer;
-    protected int maxNextCharInd = 0;
-    protected int nextCharInd = -1;
-    protected int inBuf = 0;
-    protected int tabSize = 1;
-    protected boolean trackLineColumn = true;
 
     public void setTabSize(int i) {
         tabSize = i;
@@ -345,28 +361,6 @@ class JavaCharStream {
         if ((bufpos -= amount) < 0) {
             bufpos += bufsize;
         }
-    }
-
-    public JavaCharStream(Provider dstream,
-        int startline, int startcolumn, int buffersize) {
-        inputStream = dstream;
-        line = startline;
-        column = startcolumn - 1;
-
-        available = bufsize = buffersize;
-        buffer = new char[buffersize];
-        bufline = new int[buffersize];
-        bufcolumn = new int[buffersize];
-        nextCharBuf = new char[4096];
-    }
-
-    public JavaCharStream(Provider dstream,
-        int startline, int startcolumn) {
-        this(dstream, startline, startcolumn, 4096);
-    }
-
-    public JavaCharStream(Provider dstream) {
-        this(dstream, 1, 1, 4096);
     }
 
     public void ReInit(Provider dstream,

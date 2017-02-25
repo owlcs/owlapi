@@ -14,10 +14,10 @@ import javax.annotation.Nullable;
  */
 public class FastSetSimple extends AbstractFastSet {
 
+    protected static final int DEFAULTSIZE = 16;
     @Nullable
     protected int[] values;
     protected int size = 0;
-    protected static final int DEFAULTSIZE = 16;
 
     /**
      * Default constructor.

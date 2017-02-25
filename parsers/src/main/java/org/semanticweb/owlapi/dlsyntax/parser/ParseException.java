@@ -23,7 +23,9 @@ public class ParseException extends org.semanticweb.owlapi.io.OWLParserException
     private static final String INDENT = "    ";
 
     protected static String EOL = "\n";
-
+    public Token currentToken;
+    public int[][] expectedTokenSequences;
+    public String[] tokenImage;
 
     public ParseException(Token currentTokenVal,
         int[][] expectedTokenSequencesVal,
@@ -52,13 +54,6 @@ public class ParseException extends org.semanticweb.owlapi.io.OWLParserException
     public ParseException(String message) {
         super(message);
     }
-
-
-    public Token currentToken;
-
-    public int[][] expectedTokenSequences;
-
-    public String[] tokenImage;
 
     private static String initialise(Token currentToken,
         int[][] expectedTokenSequences,

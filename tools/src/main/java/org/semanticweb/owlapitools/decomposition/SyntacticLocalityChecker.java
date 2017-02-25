@@ -56,7 +56,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecker {
 
-    private Signature sig = new Signature();
     /**
      * top evaluator
      */
@@ -69,6 +68,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
      * remember the axiom locality value here
      */
     boolean isLocal;
+    private Signature sig = new Signature();
 
     /**
      * init c'tor

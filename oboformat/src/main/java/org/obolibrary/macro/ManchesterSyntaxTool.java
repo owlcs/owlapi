@@ -156,6 +156,16 @@ public class ManchesterSyntaxTool {
     }
 
     /**
+     * Call this method to dispose the internal data structures. This will
+     * remove also the listeners registered with the ontology manager.
+     */
+    public void dispose() {
+        if (!disposed.getAndSet(true)) {
+            shortFormProvider.dispose();
+        }
+    }
+
+    /**
      * {@link OWLEntityChecker} which additionally checks for corresponding
      * identifiers and labels to retrieve entities. The intended behavior is
      * specified as follows:
@@ -181,6 +191,14 @@ public class ManchesterSyntaxTool {
             this.defaultInstance = defaultInstance;
             this.ontologies = ontologies;
             this.manager = manager;
+        }
+
+        private static boolean isQuoted(String s) {
+            int length = s.length();
+            if (length >= 2) {
+                return s.charAt(0) == '\'' && s.charAt(length - 1) == '\'';
+            }
+            return false;
         }
 
         @Override
@@ -252,14 +270,6 @@ public class ManchesterSyntaxTool {
                 return IRI.create(name.substring(1, name.length() - 1));
             }
             return getIRIByIdentifier(name);
-        }
-
-        private static boolean isQuoted(String s) {
-            int length = s.length();
-            if (length >= 2) {
-                return s.charAt(0) == '\'' && s.charAt(length - 1) == '\'';
-            }
-            return false;
         }
 
         @Nullable
@@ -361,16 +371,6 @@ public class ManchesterSyntaxTool {
                 }
             }
             return null;
-        }
-    }
-
-    /**
-     * Call this method to dispose the internal data structures. This will
-     * remove also the listeners registered with the ontology manager.
-     */
-    public void dispose() {
-        if (!disposed.getAndSet(true)) {
-            shortFormProvider.dispose();
         }
     }
 }

@@ -42,14 +42,18 @@ public class LatexRenderer extends AbstractOWLRenderer {
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
     private final OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
 
+    private static String escapeName(String name) {
+        return name.replace("_", "\\_");
+    }
+
+    private static Collection<? extends OWLAxiom> sortAxioms(Stream<? extends OWLAxiom> axioms) {
+        return asList(axioms.sorted(new OWLAxiomComparator()));
+    }
+
     private void writeEntitySection(OWLEntity entity, LatexWriter w) {
         w.write("\\subsubsection*{");
         w.write(escapeName(shortFormProvider.getShortForm(entity)));
         w.write("}\n\n");
-    }
-
-    private static String escapeName(String name) {
-        return name.replace("_", "\\_");
     }
 
     @Override
@@ -104,10 +108,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private <T extends OWLEntity> Collection<T> sortEntities(Stream<T> entities) {
         return asList(entities.sorted(entityComparator));
-    }
-
-    private static Collection<? extends OWLAxiom> sortAxioms(Stream<? extends OWLAxiom> axioms) {
-        return asList(axioms.sorted(new OWLAxiomComparator()));
     }
 
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {

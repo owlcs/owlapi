@@ -9,9 +9,94 @@ package org.coode.owlapi.obo12.parser;
 class OBOParserTokenManager implements OBOParserConstants {
 
     /**
+     * Token literal values.
+     */
+    public static final String[] jjstrLiteralImages = {
+        "", null, null, "\133", null, "\135", null, null, null, null, null, null, null,
+        null, null, null, null, null, null,};
+    /**
+     * Lexer state names.
+     */
+    public static final String[] lexStateNames = {
+        "DEFAULT",
+        "IN_STANZA_HEADER",
+        "IN_TAG_VALUE_PAIR",
+        "IN_TAG_VALUE",
+        "IN_QUOTED_STRING",
+        "IN_COMMENT",
+    };
+    /**
+     * Lex State array.
+     */
+    public static final int[] jjnewLexState = {
+        -1, -1, -1, 1, -1, 0, 2, 3, 4, -1, 3, 0, -1, -1, 0, 5, -1, 0, -1,
+    };
+    static final long[] jjbitVec0 = {
+        0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec2 = {
+        0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final int[] jjnextStates = {
+        2, 3, 4, 2, 3,
+    };
+    static final long[] jjtoToken = {
+        0x53279L,
+    };
+    static final long[] jjtoSkip = {
+        0x2cd86L,
+    };
+    static final long[] jjtoSpecial = {
+        0x0L,
+    };
+    static final long[] jjtoMore = {
+        0x0L,
+    };
+    private final int[] jjrounds = new int[7];
+    private final int[] jjstateSet = new int[2 * 7];
+    private final StringBuilder jjimage = new StringBuilder();
+    /**
      * Debug output.
      */
     public java.io.PrintStream debugStream = System.out;
+    protected JavaCharStream input_stream;
+    protected int curChar;
+    int curLexState = 0;
+    int defaultLexState = 0;
+    int jjnewStateCnt;
+    int jjround;
+    int jjmatchedPos;
+    int jjmatchedKind;
+    private StringBuilder image = jjimage;
+    private int jjimageLen;
+    private int lengthOfMatch;
+
+    public OBOParserTokenManager(JavaCharStream stream) {
+
+        if (JavaCharStream.staticFlag) {
+            throw new RuntimeException(
+                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+        }
+
+        input_stream = stream;
+    }
+
+    public OBOParserTokenManager(JavaCharStream stream, int lexState) {
+        ReInit(stream);
+        SwitchTo(lexState);
+    }
+
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec2[i2] & l2) != 0L);
+            default:
+                if ((jjbitVec0[i1] & l1) != 0L) {
+                    return true;
+                }
+                return false;
+        }
+    }
 
     /**
      * Set debug output.
@@ -23,13 +108,6 @@ class OBOParserTokenManager implements OBOParserConstants {
     private int jjMoveStringLiteralDfa0_4() {
         return jjMoveNfa_4(5, 0);
     }
-
-    static final long[] jjbitVec0 = {
-        0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec2 = {
-        0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
 
     private int jjMoveNfa_4(int startState, int curPos) {
         int startsAt = 0;
@@ -864,13 +942,6 @@ class OBOParserTokenManager implements OBOParserConstants {
         }
     }
 
-    /**
-     * Token literal values.
-     */
-    public static final String[] jjstrLiteralImages = {
-        "", null, null, "\133", null, "\135", null, null, null, null, null, null, null,
-        null, null, null, null, null, null,};
-
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -893,29 +964,6 @@ class OBOParserTokenManager implements OBOParserConstants {
 
         return t;
     }
-
-    static final int[] jjnextStates = {
-        2, 3, 4, 2, 3,
-    };
-
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec2[i2] & l2) != 0L);
-            default:
-                if ((jjbitVec0[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
-        }
-    }
-
-    int curLexState = 0;
-    int defaultLexState = 0;
-    int jjnewStateCnt;
-    int jjround;
-    int jjmatchedPos;
-    int jjmatchedKind;
 
     /**
      * Get the next Token.
@@ -1053,21 +1101,6 @@ class OBOParserTokenManager implements OBOParserConstants {
         jjCheckNAdd(state2);
     }
 
-    public OBOParserTokenManager(JavaCharStream stream) {
-
-        if (JavaCharStream.staticFlag) {
-            throw new RuntimeException(
-                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
-        }
-
-        input_stream = stream;
-    }
-
-    public OBOParserTokenManager(JavaCharStream stream, int lexState) {
-        ReInit(stream);
-        SwitchTo(lexState);
-    }
-
     public void ReInit(JavaCharStream stream) {
 
         jjmatchedPos =
@@ -1102,45 +1135,4 @@ class OBOParserTokenManager implements OBOParserConstants {
             curLexState = lexState;
         }
     }
-
-
-    /**
-     * Lexer state names.
-     */
-    public static final String[] lexStateNames = {
-        "DEFAULT",
-        "IN_STANZA_HEADER",
-        "IN_TAG_VALUE_PAIR",
-        "IN_TAG_VALUE",
-        "IN_QUOTED_STRING",
-        "IN_COMMENT",
-    };
-
-    /**
-     * Lex State array.
-     */
-    public static final int[] jjnewLexState = {
-        -1, -1, -1, 1, -1, 0, 2, 3, 4, -1, 3, 0, -1, -1, 0, 5, -1, 0, -1,
-    };
-    static final long[] jjtoToken = {
-        0x53279L,
-    };
-    static final long[] jjtoSkip = {
-        0x2cd86L,
-    };
-    static final long[] jjtoSpecial = {
-        0x0L,
-    };
-    static final long[] jjtoMore = {
-        0x0L,
-    };
-    protected JavaCharStream input_stream;
-
-    private final int[] jjrounds = new int[7];
-    private final int[] jjstateSet = new int[2 * 7];
-    private final StringBuilder jjimage = new StringBuilder();
-    private StringBuilder image = jjimage;
-    private int jjimageLen;
-    private int lengthOfMatch;
-    protected int curChar;
 }

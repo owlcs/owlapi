@@ -27,19 +27,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
 
     /**
-     * Interface for a tableaux node.
-     */
-    @FunctionalInterface
-    interface RootNode {
-
-        /**
-         * @param <T> actual node type
-         * @return inner node representation
-         */
-        <T> T getNode();
-    }
-
-    /**
      * @param expression the expression of which the completion tree is to be computed
      * @return compute and return the root node of the completion tree for the expression
      */
@@ -93,4 +80,17 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      * @return a node that blocks given node, or null if there is no such blocker
      */
     RootNode getBlocker(RootNode node);
+
+    /**
+     * Interface for a tableaux node.
+     */
+    @FunctionalInterface
+    interface RootNode {
+
+        /**
+         * @param <T> actual node type
+         * @return inner node representation
+         */
+        <T> T getNode();
+    }
 }

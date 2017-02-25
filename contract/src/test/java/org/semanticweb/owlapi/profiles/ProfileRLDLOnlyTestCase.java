@@ -17,11 +17,6 @@ public class ProfileRLDLOnlyTestCase extends ProfileBase {
         this.premise = premise;
     }
 
-    @Test
-    public void testRLDLOnly() {
-        test(premise, false, false, true, true);
-    }
-
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
@@ -43,5 +38,10 @@ public class ProfileRLDLOnlyTestCase extends ProfileBase {
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:j.0=\"http://owl2.test/rules#\"><owl:Ontology /><owl:ObjectProperty rdf:about=\"http://owl2.test/rules#op\"/><owl:NamedIndividual rdf:about=\"http://owl2.test/rules#I\"/><owl:NamedIndividual><j.0:op rdf:resource=\"http://owl2.test/rules#I\"/></owl:NamedIndividual></rdf:RDF>",
             "<rdf:RDF xml:base=\"urn:test\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"><owl:Ontology rdf:about=\"\"/><owl:Class rdf:about=\"urn:test#Unsatisfiable\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"urn:test#c\"/><owl:Class rdf:about=\"urn:test#d\"/></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class><owl:Class rdf:about=\"urn:test#c\"><rdfs:subClassOf><owl:Class><owl:complementOf><owl:Class rdf:about=\"urn:test#d\"/></owl:complementOf></owl:Class></rdfs:subClassOf></owl:Class><owl:Class rdf:about=\"urn:test#d\"/><owl:Class rdf:about=\"urn:test#f\"><rdfs:subClassOf><owl:Class rdf:about=\"urn:test#d\"/></rdfs:subClassOf></owl:Class><owl:Class rdf:about=\"urn:test#c1\"><rdfs:subClassOf><owl:Class rdf:about=\"urn:test#d1\"/></rdfs:subClassOf><rdfs:subClassOf><owl:Class><owl:complementOf><owl:Class rdf:about=\"urn:test#d1\"/></owl:complementOf></owl:Class></rdfs:subClassOf></owl:Class><owl:Class rdf:about=\"urn:test#d1\"/><owl:Class rdf:about=\"urn:test#e3\"><rdfs:subClassOf><owl:Class rdf:about=\"urn:test#c\"/></rdfs:subClassOf></owl:Class><owl:ObjectProperty rdf:about=\"urn:test#r\"/><rdf:Description><rdf:type rdf:resource=\"urn:test#Unsatisfiable\"/></rdf:Description></rdf:RDF>",
             "<rdf:RDF xml:base=\"urn:test\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"><owl:Ontology rdf:about=\"\"/><owl:Class rdf:about=\"urn:test#Unsatisfiable\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"urn:test#e3\"/><owl:Class rdf:about=\"urn:test#f\"/></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class><owl:Class rdf:about=\"urn:test#c\"><rdfs:subClassOf><owl:Class><owl:complementOf><owl:Class rdf:about=\"urn:test#d\"/></owl:complementOf></owl:Class></rdfs:subClassOf></owl:Class><owl:Class rdf:about=\"urn:test#d\"/><owl:Class rdf:about=\"urn:test#f\"><rdfs:subClassOf><owl:Class rdf:about=\"urn:test#d\"/></rdfs:subClassOf></owl:Class><owl:Class rdf:about=\"urn:test#c1\"><rdfs:subClassOf><owl:Class rdf:about=\"urn:test#d1\"/></rdfs:subClassOf><rdfs:subClassOf><owl:Class><owl:complementOf><owl:Class rdf:about=\"urn:test#d1\"/></owl:complementOf></owl:Class></rdfs:subClassOf></owl:Class><owl:Class rdf:about=\"urn:test#d1\"/><owl:Class rdf:about=\"urn:test#e3\"><rdfs:subClassOf><owl:Class rdf:about=\"urn:test#c\"/></rdfs:subClassOf></owl:Class><owl:ObjectProperty rdf:about=\"urn:test#r\"/><rdf:Description><rdf:type rdf:resource=\"urn:test#Unsatisfiable\"/></rdf:Description></rdf:RDF>");
+    }
+
+    @Test
+    public void testRLDLOnly() {
+        test(premise, false, false, true, true);
     }
 }

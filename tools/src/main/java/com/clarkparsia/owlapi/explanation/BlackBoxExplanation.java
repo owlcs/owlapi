@@ -49,17 +49,16 @@ import org.slf4j.LoggerFactory;
 public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implements
     SingleExplanationGenerator {
 
+    /**
+     * default expansion limit.
+     */
+    public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     private static final Logger LOGGER = LoggerFactory
         .getLogger(BlackBoxExplanation.class.getName());
     /**
-     * The debugging ontology.
+     * The Constant DEFAULT_FAST_PRUNING_WINDOW_SIZE.
      */
-    @Nullable
-    private OWLOntology debuggingOntology;
-    /**
-     * The debugging axioms.
-     */
-    protected Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
+    private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     /**
      * The objects expanded with defining axioms.
      */
@@ -77,29 +76,30 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
      */
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
     /**
-     * default expansion limit.
-     */
-    public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
-    /**
      * The initial expansion limit.
      */
     private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
+    /**
+     * The owl ontology manager.
+     */
+    private final OWLOntologyManager man;
+    /**
+     * The debugging axioms.
+     */
+    protected Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
+    /**
+     * The debugging ontology.
+     */
+    @Nullable
+    private OWLOntology debuggingOntology;
     /**
      * The expansion limit.
      */
     private int expansionLimit = initialExpansionLimit;
     /**
-     * The Constant DEFAULT_FAST_PRUNING_WINDOW_SIZE.
-     */
-    private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
-    /**
      * The fast pruning window size.
      */
     private int fastPruningWindowSize;
-    /**
-     * The owl ontology manager.
-     */
-    private final OWLOntologyManager man;
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount;
 
@@ -114,6 +114,29 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         OWLReasoner reasoner) {
         super(ontology, reasonerFactory, reasoner);
         man = ontology.getOWLOntologyManager();
+    }
+
+    /**
+     * A utility method. Adds axioms from one set to another set upto a
+     * specified limit. Annotation axioms are stripped out
+     *
+     * @param <N> the number type
+     * @param source The source set. Objects from this set will be added to the destination set
+     * @param dest The destination set. Objects will be added to this set
+     * @param limit The maximum number of objects to be added.
+     * @return The number of objects that were actually added.
+     */
+    private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
+        int count = 0;
+        for (N obj : source) {
+            if (count == limit) {
+                break;
+            }
+            if (!(obj instanceof OWLAnnotationAxiom) && dest.add(obj)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -257,29 +280,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             getOntology().referencingAxioms(obj, INCLUDED));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
-    }
-
-    /**
-     * A utility method. Adds axioms from one set to another set upto a
-     * specified limit. Annotation axioms are stripped out
-     *
-     * @param <N> the number type
-     * @param source The source set. Objects from this set will be added to the destination set
-     * @param dest The destination set. Objects will be added to this set
-     * @param limit The maximum number of objects to be added.
-     * @return The number of objects that were actually added.
-     */
-    private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
-        int count = 0;
-        for (N obj : source) {
-            if (count == limit) {
-                break;
-            }
-            if (!(obj instanceof OWLAnnotationAxiom) && dest.add(obj)) {
-                count++;
-            }
-        }
-        return count;
     }
 
     // Contraction/Pruning - Fast pruning is performed and then slow pruning is

@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     OWLAnnotationPropertyRangeAxiom {
 
-    private final OWLAnnotationProperty property;
     protected final IRI range;
+    private final OWLAnnotationProperty property;
 
     /**
      * @param property property

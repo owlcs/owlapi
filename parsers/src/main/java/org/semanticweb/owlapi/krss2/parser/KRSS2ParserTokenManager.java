@@ -9,9 +9,154 @@ package org.semanticweb.owlapi.krss2.parser;
 class KRSS2ParserTokenManager implements KRSS2ParserConstants {
 
     /**
+     * Token literal values.
+     */
+    public static final String[] jjstrLiteralImages = {
+        "", null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, "\50", "\51", null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        "\72\144\157\155\141\151\156", "\151\155\160\154\151\145\163\55\162\157\154\145",
+        "\151\156\166",
+        "\151\156\166\145\162\163\145", "\72\151\156\166\145\162\163\145",
+        "\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null, null, null,
+        "\72\162\141\156\147\145",
+        "\72\162\145\146\154\145\170\151\166\145",
+        "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", null, null,
+        "\163\165\142\162\157\154\145", "\72\163\171\155\155\145\164\162\151\143", null, null, null,
+        null, null, null,
+        null, "\72", null, null, null, null, null, null,};
+    /**
+     * Lexer state names.
+     */
+    public static final String[] lexStateNames = {
+        "DEFAULT",
+        "IN_COMMENT",
+        "IN_IRI",
+    };
+    /**
+     * Lex State array.
+     */
+    public static final int[] jjnewLexState = {
+        -1, -1, -1, -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    };
+    static final long[] jjbitVec0 = {
+        0xfffe7000fffffff6L, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xfe00000000ffffffL
+    };
+    static final long[] jjbitVec2 = {
+        0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL
+    };
+    static final long[] jjbitVec3 = {
+        0x0L, 0xbfff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec4 = {
+        0x3000L, 0xffff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec5 = {
+        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffL, 0x0L
+    };
+    static final long[] jjbitVec6 = {
+        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffL
+    };
+    static final long[] jjbitVec7 = {
+        0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec8 = {
+        0x0L, 0x0L, 0x80000000000000L, 0xff7fffffff7fffffL
+    };
+    static final int[] jjnextStates = {
+        36, 43, 49, 21, 31,
+    };
+    static final long[] jjtoToken = {
+        0xffffffffffffd001L, 0x3fL,
+    };
+    static final long[] jjtoSkip = {
+        0x2feL, 0x0L,
+    };
+    static final long[] jjtoSpecial = {
+        0x0L, 0x0L,
+    };
+    static final long[] jjtoMore = {
+        0x2d00L, 0x0L,
+    };
+    private final int[] jjrounds = new int[51];
+    private final int[] jjstateSet = new int[2 * 51];
+    private final StringBuilder jjimage = new StringBuilder();
+    /**
      * Debug output.
      */
     public java.io.PrintStream debugStream = System.out;
+    protected JavaCharStream input_stream;
+    protected int curChar;
+    int curLexState = 0;
+    int defaultLexState = 0;
+    int jjnewStateCnt;
+    int jjround;
+    int jjmatchedPos;
+    int jjmatchedKind;
+    private StringBuilder image = jjimage;
+    private int jjimageLen;
+    private int lengthOfMatch;
+    public KRSS2ParserTokenManager(JavaCharStream stream) {
+
+        if (JavaCharStream.staticFlag) {
+            throw new RuntimeException(
+                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+        }
+
+        input_stream = stream;
+    }
+    public KRSS2ParserTokenManager(JavaCharStream stream, int lexState) {
+        ReInit(stream);
+        SwitchTo(lexState);
+    }
+
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec2[i2] & l2) != 0L);
+            case 3:
+                return ((jjbitVec3[i2] & l2) != 0L);
+            case 32:
+                return ((jjbitVec4[i2] & l2) != 0L);
+            case 33:
+                return ((jjbitVec5[i2] & l2) != 0L);
+            case 47:
+                return ((jjbitVec6[i2] & l2) != 0L);
+            case 48:
+                return ((jjbitVec7[i2] & l2) != 0L);
+            default:
+                if ((jjbitVec0[i1] & l1) != 0L) {
+                    return true;
+                }
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec8[i2] & l2) != 0L);
+            case 3:
+                return ((jjbitVec3[i2] & l2) != 0L);
+            case 32:
+                return ((jjbitVec4[i2] & l2) != 0L);
+            case 33:
+                return ((jjbitVec5[i2] & l2) != 0L);
+            case 47:
+                return ((jjbitVec6[i2] & l2) != 0L);
+            case 48:
+                return ((jjbitVec7[i2] & l2) != 0L);
+            default:
+                if ((jjbitVec0[i1] & l1) != 0L) {
+                    return true;
+                }
+                return false;
+        }
+    }
 
     /**
      * Set debug output.
@@ -1346,31 +1491,6 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 23);
     }
 
-    static final long[] jjbitVec0 = {
-        0xfffe7000fffffff6L, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xfe00000000ffffffL
-    };
-    static final long[] jjbitVec2 = {
-        0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL
-    };
-    static final long[] jjbitVec3 = {
-        0x0L, 0xbfff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec4 = {
-        0x3000L, 0xffff000000000000L, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec5 = {
-        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffL, 0x0L
-    };
-    static final long[] jjbitVec6 = {
-        0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffL
-    };
-    static final long[] jjbitVec7 = {
-        0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec8 = {
-        0x0L, 0x0L, 0x80000000000000L, 0xff7fffffff7fffffL
-    };
-
     private int jjMoveNfa_0(int startState, int curPos) {
         int strKind = jjmatchedKind;
         int strPos = jjmatchedPos;
@@ -1835,24 +1955,6 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /**
-     * Token literal values.
-     */
-    public static final String[] jjstrLiteralImages = {
-        "", null, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, null, null, null, "\50", "\51", null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null, null, null, null, null, null,
-        "\72\144\157\155\141\151\156", "\151\155\160\154\151\145\163\55\162\157\154\145",
-        "\151\156\166",
-        "\151\156\166\145\162\163\145", "\72\151\156\166\145\162\163\145",
-        "\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null, null, null,
-        "\72\162\141\156\147\145",
-        "\72\162\145\146\154\145\170\151\166\145",
-        "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", null, null,
-        "\163\165\142\162\157\154\145", "\72\163\171\155\155\145\164\162\151\143", null, null, null,
-        null, null, null,
-        null, "\72", null, null, null, null, null, null,};
-
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -1875,61 +1977,6 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
 
         return t;
     }
-
-    static final int[] jjnextStates = {
-        36, 43, 49, 21, 31,
-    };
-
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec2[i2] & l2) != 0L);
-            case 3:
-                return ((jjbitVec3[i2] & l2) != 0L);
-            case 32:
-                return ((jjbitVec4[i2] & l2) != 0L);
-            case 33:
-                return ((jjbitVec5[i2] & l2) != 0L);
-            case 47:
-                return ((jjbitVec6[i2] & l2) != 0L);
-            case 48:
-                return ((jjbitVec7[i2] & l2) != 0L);
-            default:
-                if ((jjbitVec0[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec8[i2] & l2) != 0L);
-            case 3:
-                return ((jjbitVec3[i2] & l2) != 0L);
-            case 32:
-                return ((jjbitVec4[i2] & l2) != 0L);
-            case 33:
-                return ((jjbitVec5[i2] & l2) != 0L);
-            case 47:
-                return ((jjbitVec6[i2] & l2) != 0L);
-            case 48:
-                return ((jjbitVec7[i2] & l2) != 0L);
-            default:
-                if ((jjbitVec0[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
-        }
-    }
-
-    int curLexState = 0;
-    int defaultLexState = 0;
-    int jjnewStateCnt;
-    int jjround;
-    int jjmatchedPos;
-    int jjmatchedKind;
 
     /**
      * Get the next Token.
@@ -2071,21 +2118,6 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         jjCheckNAdd(state2);
     }
 
-    public KRSS2ParserTokenManager(JavaCharStream stream) {
-
-        if (JavaCharStream.staticFlag) {
-            throw new RuntimeException(
-                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
-        }
-
-        input_stream = stream;
-    }
-
-    public KRSS2ParserTokenManager(JavaCharStream stream, int lexState) {
-        ReInit(stream);
-        SwitchTo(lexState);
-    }
-
     public void ReInit(JavaCharStream stream) {
 
         jjmatchedPos =
@@ -2120,46 +2152,4 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
             curLexState = lexState;
         }
     }
-
-
-    /**
-     * Lexer state names.
-     */
-    public static final String[] lexStateNames = {
-        "DEFAULT",
-        "IN_COMMENT",
-        "IN_IRI",
-    };
-
-    /**
-     * Lex State array.
-     */
-    public static final int[] jjnewLexState = {
-        -1, -1, -1, -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-    };
-    static final long[] jjtoToken = {
-        0xffffffffffffd001L, 0x3fL,
-    };
-    static final long[] jjtoSkip = {
-        0x2feL, 0x0L,
-    };
-    static final long[] jjtoSpecial = {
-        0x0L, 0x0L,
-    };
-    static final long[] jjtoMore = {
-        0x2d00L, 0x0L,
-    };
-    protected JavaCharStream input_stream;
-
-    private final int[] jjrounds = new int[51];
-    private final int[] jjstateSet = new int[2 * 51];
-    private final StringBuilder jjimage = new StringBuilder();
-    private StringBuilder image = jjimage;
-    private int jjimageLen;
-    private int lengthOfMatch;
-    protected int curChar;
 }

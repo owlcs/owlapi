@@ -679,12 +679,19 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     }
 }
 
+interface ObjectPropertyEH {
+
+    <T> T getOWLObject();
+
+    <T> T getOWLObject(Class<T> witness);
+}
+
 @SuppressWarnings({"unused", "null"})
 abstract class OWLEH<O, B extends Builder<O>> {
 
+    final StringBuilder sb = new StringBuilder();
     OWLXMLPH handler;
     OWLEH<?, ?> parentHandler;
-    final StringBuilder sb = new StringBuilder();
     String elementName;
     OWLDataFactory df;
     Function<OWLDataFactory, B> provider;
@@ -729,12 +736,12 @@ abstract class OWLEH<O, B extends Builder<O>> {
         throw new OWLXMLParserException(handler, elementLocalName + " is not an IRI element");
     }
 
-    void setParentHandler(OWLEH<?, ?> handler) {
-        parentHandler = handler;
-    }
-
     OWLEH<?, ?> getParentHandler() {
         return verifyNotNull(parentHandler, "parentHandler cannot be null at this point");
+    }
+
+    void setParentHandler(OWLEH<?, ?> handler) {
+        parentHandler = handler;
     }
 
     void attribute(String localName, String value) {
@@ -928,13 +935,6 @@ class ObjectCardEH<X extends OWLClassExpression, B extends Builder<X> & Settable
             builder.withCardinality(Integer.parseInt(value));
         }
     }
-}
-
-interface ObjectPropertyEH {
-
-    <T> T getOWLObject();
-
-    <T> T getOWLObject(Class<T> witness);
 }
 
 class ObjectPEH extends OWLEH<OWLObjectProperty, BuilderObjectProperty> implements

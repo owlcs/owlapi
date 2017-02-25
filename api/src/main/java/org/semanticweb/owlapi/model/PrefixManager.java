@@ -49,6 +49,15 @@ public interface PrefixManager extends Serializable {
     String getDefaultPrefix();
 
     /**
+     * Sets the default namespace. This will also bind the prefix name ":" to
+     * this prefix
+     *
+     * @param defaultPrefix The namespace to be used as the default namespace. Note that the value
+     * may be {@code null} in order to clear the default namespace.
+     */
+    void setDefaultPrefix(@Nullable String defaultPrefix);
+
+    /**
      * Determines if this manager knows about a given prefix name and it
      * contains a (non-null) mapping for the prefix.
      *
@@ -119,15 +128,6 @@ public interface PrefixManager extends Serializable {
      * @return The prefix names as a set of strings.
      */
     Stream<String> prefixNames();
-
-    /**
-     * Sets the default namespace. This will also bind the prefix name ":" to
-     * this prefix
-     *
-     * @param defaultPrefix The namespace to be used as the default namespace. Note that the value
-     * may be {@code null} in order to clear the default namespace.
-     */
-    void setDefaultPrefix(@Nullable String defaultPrefix);
 
     /**
      * Adds a prefix name to prefix mapping.

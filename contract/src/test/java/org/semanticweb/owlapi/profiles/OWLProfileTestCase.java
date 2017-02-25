@@ -161,6 +161,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings({"javadoc", "rawtypes", "null"})
 public class OWLProfileTestCase extends TestBase {
 
+    protected static final Comparator<Class> comp = (o1, o2) -> o1.getSimpleName()
+        .compareTo(o2.getSimpleName());
     private static final String START = OWLThing().getIRI().getNamespace();
     private static final OWLClass CL = Class(IRI("urn:test#", "fakeclass"));
     private static final OWLDataProperty DATAP = DataProperty(
@@ -197,9 +199,6 @@ public class OWLProfileTestCase extends TestBase {
     public void declare(OWLOntology ont, OWLEntity... entities) {
         Stream.of(entities).map(e -> Declaration(e)).forEach(ax -> ont.add(ax));
     }
-
-    protected static final Comparator<Class> comp = (o1, o2) -> o1.getSimpleName()
-        .compareTo(o2.getSimpleName());
 
     public void checkInCollection(List<OWLProfileViolation> violations, Class[] inputList) {
         List<Class> list = new ArrayList<>(Arrays.asList(inputList));

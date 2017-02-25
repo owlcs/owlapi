@@ -11,6 +11,10 @@ public class LocalFastSet implements FastSet, Serializable {
 
     private BitSet pos = new BitSet();
 
+    private static int asPositive(int p) {
+        return p >= 0 ? 2 * p : 1 - 2 * p;
+    }
+
     @Override
     public int[] toIntArray() {
         throw new UnsupportedOperationException();
@@ -64,10 +68,6 @@ public class LocalFastSet implements FastSet, Serializable {
     @Override
     public boolean containsAll(FastSet c) {
         throw new UnsupportedOperationException();
-    }
-
-    private static int asPositive(int p) {
-        return p >= 0 ? 2 * p : 1 - 2 * p;
     }
 
     @Override

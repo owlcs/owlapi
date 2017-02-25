@@ -98,11 +98,11 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
     static final String DESC_CANNOT_BE_NULL = "desc cannot be null";
     static final String SIG_CANNOT_BE_NULL = "sig cannot be null";
-    protected final LocalityClass localityCls;
-    private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet
         .of(LocalityClass.TOP_BOTTOM,
             LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
+    protected final LocalityClass localityCls;
+    private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
 
     /**
      * Constructs a new locality evaluator for the given locality class.
@@ -164,630 +164,9 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    // TODO (TS): only visit logical axioms if possible
-    private class AxiomLocalityVisitor implements OWLAxiomVisitor {
-
-        private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
-        private boolean isLocal;
-        private Collection<OWLEntity> signature;
-        private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
-
-        /**
-         * Instantiates a new axiom locality visitor.
-         */
-        @SuppressWarnings("null")
-        AxiomLocalityVisitor() {
-            topEvaluator.setBottomEvaluator(bottomEvaluator);
-            bottomEvaluator.setTopEvaluator(topEvaluator);
-        }
-
-        protected Collection<OWLEntity> getSignature() {
-            return verifyNotNull(signature);
-        }
-
-        /**
-         * Checks if is local.
-         *
-         * @param axiom the axiom
-         * @param sig the sig
-         * @return true, if is local
-         */
-        public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> sig) {
-            signature = checkNotNull(sig, SIG_CANNOT_BE_NULL);
-            isLocal = false;
-            checkNotNull(axiom, "axiom cannot be null").accept(this);
-            return isLocal;
-        }
-
-        @Override
-        public void visit(OWLDatatypeDefinitionAxiom axiom) {
-            isLocal = true;
-        }
-
-        // BUGFIX: (TS) Asymm OP axioms are local in the *_BOTTOM case:
-        // The empty object property is asymmetric!
-        // BUGFIX: (DT) OP in signature makes the axiom non-local
-        @Override
-        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLClassAssertionAxiom axiom) {
-            isLocal = topEvaluator
-                .isTopEquivalent(axiom.getClassExpression(), getSignature(), localityCls);
-        }
-
-        @Override
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = false;
-                    break;
-                case TOP_TOP:
-                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty());
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLDataPropertyDomainAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty())
-                        || topEvaluator
-                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
-                    break;
-                case TOP_TOP:
-                    isLocal = topEvaluator
-                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
-        @Override
-        public void visit(OWLDataPropertyRangeAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal =
-                        !getSignature().contains(axiom.getProperty().asOWLDataProperty()) || axiom
-                            .getRange()
-                            .isTopDatatype();
-                    break;
-                case TOP_TOP:
-                    isLocal = axiom.getRange().isTopDatatype();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLSubDataPropertyOfAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getSubProperty().asOWLDataProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = !getSignature()
-                        .contains(axiom.getSuperProperty().asOWLDataProperty());
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX: (TS) Declaration axioms are local.
-        // They need to be added to the module after the locality checks have
-        // been performed.
-        @Override
-        public void visit(OWLDeclarationAxiom axiom) {
-            isLocal = true;
-        }
-
-        // BUGFIX: (TS) Different individuals axioms are local, too.
-        // They need to be added to the module after the locality checks have
-        // been performed.
-        @Override
-        public void visit(OWLDifferentIndividualsAxiom axiom) {
-            isLocal = true;
-        }
-
-        // BUGFIX: (TS) An n-ary disj classes axiom is local
-        // iff at most one of the involved class expressions is not
-        // bot-equivalent.
-        @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
-            Collection<OWLClassExpression> disjs = asList(axiom.classExpressions());
-            int size = disjs.size();
-            if (size == 1) {
-                // XXX actually being here means the axiom is not OWL 2
-                // conformant
-                isLocal = true;
-            } else {
-                boolean nonBottomEquivDescFound = false;
-                for (OWLClassExpression desc : disjs) {
-                    if (!bottomEvaluator.isBottomEquivalent(desc, getSignature(), localityCls)) {
-                        if (nonBottomEquivDescFound) {
-                            isLocal = false;
-                            return;
-                        } else {
-                            nonBottomEquivDescFound = true;
-                        }
-                    }
-                }
-            }
-            isLocal = true;
-        }
-
-        // BUGFIX (TS): Added the case where it *is* local
-        @Override
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = checkIfLocalProperties(axiom);
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        protected boolean checkIfLocalProperties(
-            OWLNaryPropertyAxiom<? extends OWLPropertyExpression> axiom) {
-            Collection<? extends OWLPropertyExpression> disjs = asList(axiom.properties());
-            int size = disjs.size();
-            if (size > 1) {
-                boolean nonBottomEquivPropFound = false;
-                for (OWLPropertyExpression dpe : disjs) {
-                    if (dpe.isOWLDataProperty() && getSignature().contains(dpe.asOWLDataProperty())
-                        || dpe
-                        .isOWLObjectProperty() && getSignature()
-                        .contains(dpe.asOWLObjectProperty())) {
-                        if (nonBottomEquivPropFound) {
-                            return false;
-                        } else {
-                            nonBottomEquivPropFound = true;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-
-        // BUGFIX (TS): Added the case where it *is* local
-        @Override
-        public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = checkIfLocalProperties(axiom);
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX (TS): added the two cases where a disj union axiom *is* local:
-        // - if LHS and all class expr on RHS are bot-equiv
-        // - if LHS is top-equiv, one expr on RHS is top-equiv and the others
-        // are bot-equiv
-        @Override
-        public void visit(OWLDisjointUnionAxiom axiom) {
-            OWLClass lhs = axiom.getOWLClass();
-            Collection<OWLClassExpression> rhs = asList(axiom.classExpressions(),
-                OWLClassExpression.class);
-            if (localityCls == LocalityClass.BOTTOM_BOTTOM) {
-                // TODO (TS): signature not containing lhs is not enough
-                // because lhs could be bot
-                if (!getSignature().contains(lhs)) {
-                    for (OWLClassExpression desc : rhs) {
-                        if (!bottomEvaluator
-                            .isBottomEquivalent(desc, getSignature(), localityCls)) {
-                            isLocal = false;
-                            return;
-                        }
-                    }
-                    isLocal = true;
-                } else {
-                    isLocal = false;
-                }
-            } else {
-                // case TOP_BOTTOM:
-                // case TOP_TOP:
-                // TODO (TS): signature not containing lhs is not enough
-                // because lhs could be top
-                if (!getSignature().contains(lhs)) {
-                    boolean topEquivDescFound = false;
-                    for (OWLClassExpression desc : rhs) {
-                        if (!bottomEvaluator
-                            .isBottomEquivalent(desc, getSignature(), localityCls)) {
-                            if (topEvaluator.isTopEquivalent(desc, getSignature(), localityCls)) {
-                                if (topEquivDescFound) {
-                                    isLocal = false;
-                                    return;
-                                } else {
-                                    topEquivDescFound = true;
-                                }
-                            } else {
-                                isLocal = false;
-                                return;
-                            }
-                        }
-                    }
-                    isLocal = true;
-                } else {
-                    isLocal = false;
-                }
-            }
-        }
-
-        @Override
-        public void visit(OWLAnnotationAssertionAxiom axiom) {
-            isLocal = true;
-        }
-
-        @Override
-        public void visit(OWLEquivalentClassesAxiom axiom) {
-            isLocal = true;
-            Iterator<OWLClassExpression> eqs = axiom.classExpressions().iterator();
-            OWLClassExpression first = eqs.next();
-            // axiom is local if it contains a single class expression
-            if (!eqs.hasNext()) {
-                return;
-            }
-            // axiom is local iff either all class expressions evaluate to TOP
-            // or all evaluate to BOTTOM
-            // check if first class expr. is BOTTOM
-            boolean isBottom = bottomEvaluator
-                .isBottomEquivalent(first, getSignature(), localityCls);
-            // if not BOTTOM or not TOP then this axiom is non-local
-            if (!isBottom && !topEvaluator.isTopEquivalent(first, getSignature(), localityCls)) {
-                isLocal = false;
-            }
-            if (isBottom) {
-                // unless we find a non-locality, process all the class
-                // expressions
-                while (isLocal && eqs.hasNext()) {
-                    OWLClassExpression next = eqs.next();
-                    // first class expr. was BOTTOM, so this one should be
-                    // BOTTOM too
-                    if (!bottomEvaluator.isBottomEquivalent(next, getSignature(), localityCls)) {
-                        isLocal = false;
-                    }
-                }
-            } else {
-                // unless we find a non-locality, process all the class
-                // expressions
-                while (isLocal && eqs.hasNext()) {
-                    OWLClassExpression next = eqs.next();
-                    // first class expr. was TOP, so this one should be TOP too
-                    if (!topEvaluator.isTopEquivalent(next, getSignature(), localityCls)) {
-                        isLocal = false;
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            Collection<OWLDataPropertyExpression> eqs = asList(axiom.properties());
-            int size = eqs.size();
-            if (size == 1) {
-                isLocal = true;
-            } else {
-                for (OWLDataPropertyExpression p : eqs) {
-                    if (getSignature().contains(p.asOWLDataProperty())) {
-                        isLocal = false;
-                        return;
-                    }
-                }
-                isLocal = true;
-            }
-        }
-
-        @Override
-        public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            Collection<OWLObjectPropertyExpression> eqs = asList(axiom.properties());
-            int size = eqs.size();
-            if (size == 1) {
-                isLocal = true;
-            } else {
-                for (OWLObjectPropertyExpression p : eqs) {
-                    if (getSignature().contains(p.getNamedProperty())) {
-                        isLocal = false;
-                        return;
-                    }
-                }
-                isLocal = true;
-            }
-        }
-
-        @Override
-        public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX (TS): replaced call to asOWLObjectProperty() with
-        // getNamedProperty()
-        @Override
-        public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            isLocal = !getSignature().contains(axiom.getFirstProperty().getNamedProperty())
-                && !getSignature().contains(
-                axiom.getSecondProperty().getNamedProperty());
-        }
-
-        // BUGFIX: (TS) Irreflexive OP axioms are local in the *_BOTTOM case:
-        // The empty object property is irreflexive!
-        // BUGFIX: (DT) OP in signature makes the axiom non-local
-        @Override
-        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX: (TS) Added the case where this is local. (This is dual to the
-        // case of a "positive" DP assertion.)
-        @Override
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX: (TS) Added the case where this is local. (This is dual to the
-        // case of a "positive" OP assertion.)
-        @Override
-        public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = false;
-                    break;
-                case TOP_TOP:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX: (TS) Added the cases where this is local
-        @Override
-        public void visit(OWLSubPropertyChainOfAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    // Axiom is local iff at least one prop in the chain is
-                    // bot-equiv
-                    isLocal = axiom.getPropertyChain().stream()
-                        .anyMatch(ope -> !getSignature().contains(ope
-                            .getNamedProperty()));
-                    break;
-                case TOP_TOP:
-                    // Axiom is local iff RHS is top-equiv
-                    isLocal = !getSignature().contains(axiom.getSuperProperty().getNamedProperty());
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty())
-                        || topEvaluator
-                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
-                    break;
-                case TOP_TOP:
-                    isLocal = topEvaluator
-                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty())
-                        || topEvaluator
-                        .isTopEquivalent(axiom.getRange(), getSignature(), localityCls);
-                    break;
-                case TOP_TOP:
-                    isLocal = topEvaluator
-                        .isTopEquivalent(axiom.getRange(), getSignature(), localityCls);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        @Override
-        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = !getSignature().contains(axiom.getSubProperty().getNamedProperty());
-                    break;
-                case TOP_TOP:
-                    isLocal = !getSignature().contains(axiom.getSuperProperty().getNamedProperty());
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX: (DT) Bottom property is not reflexive
-        @Override
-        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                case TOP_BOTTOM:
-                    isLocal = false;
-                    break;
-                case TOP_TOP:
-                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // BUGFIX: (TS) Same individuals axioms are local, too.
-        // They need to be added to the module after the locality checks have
-        // been performed.
-        @Override
-        public void visit(OWLSameIndividualAxiom axiom) {
-            isLocal = true;
-        }
-
-        @Override
-        public void visit(OWLSubClassOfAxiom axiom) {
-            isLocal =
-                bottomEvaluator.isBottomEquivalent(axiom.getSubClass(), getSignature(), localityCls)
-                    || topEvaluator
-                    .isTopEquivalent(axiom.getSuperClass(), getSignature(), localityCls);
-        }
-
-        @Override
-        public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-            isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-        }
-
-        @Override
-        public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-            isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
-        }
-
-        // TODO: (TS) Can't we treat this in a more differentiated way?
-        @Override
-        public void visit(SWRLRule rule) {
-            isLocal = false;
-        }
-
-        @Override
-        public void visit(OWLHasKeyAxiom axiom) {
-            isLocal = true;
-        }
-
-        @Override
-        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-            isLocal = true;
-        }
-
-        @Override
-        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-            isLocal = true;
-        }
-
-        @Override
-        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-            isLocal = true;
-        }
+    @Override
+    public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
+        return axiomVisitor.isLocal(axiom, signature);
     }
 
     /**
@@ -1498,8 +877,629 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    @Override
-    public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
-        return axiomVisitor.isLocal(axiom, signature);
+    // TODO (TS): only visit logical axioms if possible
+    private class AxiomLocalityVisitor implements OWLAxiomVisitor {
+
+        private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
+        private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
+        private boolean isLocal;
+        private Collection<OWLEntity> signature;
+
+        /**
+         * Instantiates a new axiom locality visitor.
+         */
+        @SuppressWarnings("null")
+        AxiomLocalityVisitor() {
+            topEvaluator.setBottomEvaluator(bottomEvaluator);
+            bottomEvaluator.setTopEvaluator(topEvaluator);
+        }
+
+        protected Collection<OWLEntity> getSignature() {
+            return verifyNotNull(signature);
+        }
+
+        /**
+         * Checks if is local.
+         *
+         * @param axiom the axiom
+         * @param sig the sig
+         * @return true, if is local
+         */
+        public boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> sig) {
+            signature = checkNotNull(sig, SIG_CANNOT_BE_NULL);
+            isLocal = false;
+            checkNotNull(axiom, "axiom cannot be null").accept(this);
+            return isLocal;
+        }
+
+        @Override
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {
+            isLocal = true;
+        }
+
+        // BUGFIX: (TS) Asymm OP axioms are local in the *_BOTTOM case:
+        // The empty object property is asymmetric!
+        // BUGFIX: (DT) OP in signature makes the axiom non-local
+        @Override
+        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLClassAssertionAxiom axiom) {
+            isLocal = topEvaluator
+                .isTopEquivalent(axiom.getClassExpression(), getSignature(), localityCls);
+        }
+
+        @Override
+        public void visit(OWLDataPropertyAssertionAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = false;
+                    break;
+                case TOP_TOP:
+                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLDataPropertyDomainAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty())
+                        || topEvaluator
+                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
+                    break;
+                case TOP_TOP:
+                    isLocal = topEvaluator
+                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
+        @Override
+        public void visit(OWLDataPropertyRangeAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal =
+                        !getSignature().contains(axiom.getProperty().asOWLDataProperty()) || axiom
+                            .getRange()
+                            .isTopDatatype();
+                    break;
+                case TOP_TOP:
+                    isLocal = axiom.getRange().isTopDatatype();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLSubDataPropertyOfAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getSubProperty().asOWLDataProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = !getSignature()
+                        .contains(axiom.getSuperProperty().asOWLDataProperty());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX: (TS) Declaration axioms are local.
+        // They need to be added to the module after the locality checks have
+        // been performed.
+        @Override
+        public void visit(OWLDeclarationAxiom axiom) {
+            isLocal = true;
+        }
+
+        // BUGFIX: (TS) Different individuals axioms are local, too.
+        // They need to be added to the module after the locality checks have
+        // been performed.
+        @Override
+        public void visit(OWLDifferentIndividualsAxiom axiom) {
+            isLocal = true;
+        }
+
+        // BUGFIX: (TS) An n-ary disj classes axiom is local
+        // iff at most one of the involved class expressions is not
+        // bot-equivalent.
+        @Override
+        public void visit(OWLDisjointClassesAxiom axiom) {
+            Collection<OWLClassExpression> disjs = asList(axiom.classExpressions());
+            int size = disjs.size();
+            if (size == 1) {
+                // XXX actually being here means the axiom is not OWL 2
+                // conformant
+                isLocal = true;
+            } else {
+                boolean nonBottomEquivDescFound = false;
+                for (OWLClassExpression desc : disjs) {
+                    if (!bottomEvaluator.isBottomEquivalent(desc, getSignature(), localityCls)) {
+                        if (nonBottomEquivDescFound) {
+                            isLocal = false;
+                            return;
+                        } else {
+                            nonBottomEquivDescFound = true;
+                        }
+                    }
+                }
+            }
+            isLocal = true;
+        }
+
+        // BUGFIX (TS): Added the case where it *is* local
+        @Override
+        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = checkIfLocalProperties(axiom);
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        protected boolean checkIfLocalProperties(
+            OWLNaryPropertyAxiom<? extends OWLPropertyExpression> axiom) {
+            Collection<? extends OWLPropertyExpression> disjs = asList(axiom.properties());
+            int size = disjs.size();
+            if (size > 1) {
+                boolean nonBottomEquivPropFound = false;
+                for (OWLPropertyExpression dpe : disjs) {
+                    if (dpe.isOWLDataProperty() && getSignature().contains(dpe.asOWLDataProperty())
+                        || dpe
+                        .isOWLObjectProperty() && getSignature()
+                        .contains(dpe.asOWLObjectProperty())) {
+                        if (nonBottomEquivPropFound) {
+                            return false;
+                        } else {
+                            nonBottomEquivPropFound = true;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        // BUGFIX (TS): Added the case where it *is* local
+        @Override
+        public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = checkIfLocalProperties(axiom);
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX (TS): added the two cases where a disj union axiom *is* local:
+        // - if LHS and all class expr on RHS are bot-equiv
+        // - if LHS is top-equiv, one expr on RHS is top-equiv and the others
+        // are bot-equiv
+        @Override
+        public void visit(OWLDisjointUnionAxiom axiom) {
+            OWLClass lhs = axiom.getOWLClass();
+            Collection<OWLClassExpression> rhs = asList(axiom.classExpressions(),
+                OWLClassExpression.class);
+            if (localityCls == LocalityClass.BOTTOM_BOTTOM) {
+                // TODO (TS): signature not containing lhs is not enough
+                // because lhs could be bot
+                if (!getSignature().contains(lhs)) {
+                    for (OWLClassExpression desc : rhs) {
+                        if (!bottomEvaluator
+                            .isBottomEquivalent(desc, getSignature(), localityCls)) {
+                            isLocal = false;
+                            return;
+                        }
+                    }
+                    isLocal = true;
+                } else {
+                    isLocal = false;
+                }
+            } else {
+                // case TOP_BOTTOM:
+                // case TOP_TOP:
+                // TODO (TS): signature not containing lhs is not enough
+                // because lhs could be top
+                if (!getSignature().contains(lhs)) {
+                    boolean topEquivDescFound = false;
+                    for (OWLClassExpression desc : rhs) {
+                        if (!bottomEvaluator
+                            .isBottomEquivalent(desc, getSignature(), localityCls)) {
+                            if (topEvaluator.isTopEquivalent(desc, getSignature(), localityCls)) {
+                                if (topEquivDescFound) {
+                                    isLocal = false;
+                                    return;
+                                } else {
+                                    topEquivDescFound = true;
+                                }
+                            } else {
+                                isLocal = false;
+                                return;
+                            }
+                        }
+                    }
+                    isLocal = true;
+                } else {
+                    isLocal = false;
+                }
+            }
+        }
+
+        @Override
+        public void visit(OWLAnnotationAssertionAxiom axiom) {
+            isLocal = true;
+        }
+
+        @Override
+        public void visit(OWLEquivalentClassesAxiom axiom) {
+            isLocal = true;
+            Iterator<OWLClassExpression> eqs = axiom.classExpressions().iterator();
+            OWLClassExpression first = eqs.next();
+            // axiom is local if it contains a single class expression
+            if (!eqs.hasNext()) {
+                return;
+            }
+            // axiom is local iff either all class expressions evaluate to TOP
+            // or all evaluate to BOTTOM
+            // check if first class expr. is BOTTOM
+            boolean isBottom = bottomEvaluator
+                .isBottomEquivalent(first, getSignature(), localityCls);
+            // if not BOTTOM or not TOP then this axiom is non-local
+            if (!isBottom && !topEvaluator.isTopEquivalent(first, getSignature(), localityCls)) {
+                isLocal = false;
+            }
+            if (isBottom) {
+                // unless we find a non-locality, process all the class
+                // expressions
+                while (isLocal && eqs.hasNext()) {
+                    OWLClassExpression next = eqs.next();
+                    // first class expr. was BOTTOM, so this one should be
+                    // BOTTOM too
+                    if (!bottomEvaluator.isBottomEquivalent(next, getSignature(), localityCls)) {
+                        isLocal = false;
+                    }
+                }
+            } else {
+                // unless we find a non-locality, process all the class
+                // expressions
+                while (isLocal && eqs.hasNext()) {
+                    OWLClassExpression next = eqs.next();
+                    // first class expr. was TOP, so this one should be TOP too
+                    if (!topEvaluator.isTopEquivalent(next, getSignature(), localityCls)) {
+                        isLocal = false;
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+            Collection<OWLDataPropertyExpression> eqs = asList(axiom.properties());
+            int size = eqs.size();
+            if (size == 1) {
+                isLocal = true;
+            } else {
+                for (OWLDataPropertyExpression p : eqs) {
+                    if (getSignature().contains(p.asOWLDataProperty())) {
+                        isLocal = false;
+                        return;
+                    }
+                }
+                isLocal = true;
+            }
+        }
+
+        @Override
+        public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+            Collection<OWLObjectPropertyExpression> eqs = asList(axiom.properties());
+            int size = eqs.size();
+            if (size == 1) {
+                isLocal = true;
+            } else {
+                for (OWLObjectPropertyExpression p : eqs) {
+                    if (getSignature().contains(p.getNamedProperty())) {
+                        isLocal = false;
+                        return;
+                    }
+                }
+                isLocal = true;
+            }
+        }
+
+        @Override
+        public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX (TS): replaced call to asOWLObjectProperty() with
+        // getNamedProperty()
+        @Override
+        public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+            isLocal = !getSignature().contains(axiom.getFirstProperty().getNamedProperty())
+                && !getSignature().contains(
+                axiom.getSecondProperty().getNamedProperty());
+        }
+
+        // BUGFIX: (TS) Irreflexive OP axioms are local in the *_BOTTOM case:
+        // The empty object property is irreflexive!
+        // BUGFIX: (DT) OP in signature makes the axiom non-local
+        @Override
+        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX: (TS) Added the case where this is local. (This is dual to the
+        // case of a "positive" DP assertion.)
+        @Override
+        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().asOWLDataProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX: (TS) Added the case where this is local. (This is dual to the
+        // case of a "positive" OP assertion.)
+        @Override
+        public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = false;
+                    break;
+                case TOP_TOP:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX: (TS) Added the cases where this is local
+        @Override
+        public void visit(OWLSubPropertyChainOfAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    // Axiom is local iff at least one prop in the chain is
+                    // bot-equiv
+                    isLocal = axiom.getPropertyChain().stream()
+                        .anyMatch(ope -> !getSignature().contains(ope
+                            .getNamedProperty()));
+                    break;
+                case TOP_TOP:
+                    // Axiom is local iff RHS is top-equiv
+                    isLocal = !getSignature().contains(axiom.getSuperProperty().getNamedProperty());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLObjectPropertyDomainAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty())
+                        || topEvaluator
+                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
+                    break;
+                case TOP_TOP:
+                    isLocal = topEvaluator
+                        .isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLObjectPropertyRangeAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty())
+                        || topEvaluator
+                        .isTopEquivalent(axiom.getRange(), getSignature(), localityCls);
+                    break;
+                case TOP_TOP:
+                    isLocal = topEvaluator
+                        .isTopEquivalent(axiom.getRange(), getSignature(), localityCls);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = !getSignature().contains(axiom.getSubProperty().getNamedProperty());
+                    break;
+                case TOP_TOP:
+                    isLocal = !getSignature().contains(axiom.getSuperProperty().getNamedProperty());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX: (DT) Bottom property is not reflexive
+        @Override
+        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+            switch (localityCls) {
+                case BOTTOM_BOTTOM:
+                case TOP_BOTTOM:
+                    isLocal = false;
+                    break;
+                case TOP_TOP:
+                    isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // BUGFIX: (TS) Same individuals axioms are local, too.
+        // They need to be added to the module after the locality checks have
+        // been performed.
+        @Override
+        public void visit(OWLSameIndividualAxiom axiom) {
+            isLocal = true;
+        }
+
+        @Override
+        public void visit(OWLSubClassOfAxiom axiom) {
+            isLocal =
+                bottomEvaluator.isBottomEquivalent(axiom.getSubClass(), getSignature(), localityCls)
+                    || topEvaluator
+                    .isTopEquivalent(axiom.getSuperClass(), getSignature(), localityCls);
+        }
+
+        @Override
+        public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+            isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+        }
+
+        @Override
+        public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+            isLocal = !getSignature().contains(axiom.getProperty().getNamedProperty());
+        }
+
+        // TODO: (TS) Can't we treat this in a more differentiated way?
+        @Override
+        public void visit(SWRLRule rule) {
+            isLocal = false;
+        }
+
+        @Override
+        public void visit(OWLHasKeyAxiom axiom) {
+            isLocal = true;
+        }
+
+        @Override
+        public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+            isLocal = true;
+        }
+
+        @Override
+        public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+            isLocal = true;
+        }
+
+        @Override
+        public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+            isLocal = true;
+        }
     }
 }

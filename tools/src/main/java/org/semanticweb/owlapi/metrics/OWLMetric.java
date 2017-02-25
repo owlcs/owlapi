@@ -43,19 +43,19 @@ public interface OWLMetric<M> {
     M getValue();
 
     /**
+     * Gets the ontology which the value of the metric should be based on.
+     *
+     * @return The ontology.
+     */
+    OWLOntology getOntology();
+
+    /**
      * Sets the "root" ontology. The metric will be recomputed from this
      * ontology (and potentially its imports closure if selected).
      *
      * @param ontology The ontology for which the metric should be computed.
      */
     void setOntology(OWLOntology ontology);
-
-    /**
-     * Gets the ontology which the value of the metric should be based on.
-     *
-     * @return The ontology.
-     */
-    OWLOntology getOntology();
 
     /**
      * Determines if the computation of the metric should take into account the

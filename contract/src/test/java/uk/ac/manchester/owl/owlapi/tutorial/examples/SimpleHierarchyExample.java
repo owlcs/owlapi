@@ -47,6 +47,37 @@ public final class SimpleHierarchyExample {
         out = System.out;
     }
 
+    public static void main(String[] args)
+        throws OWLException, InstantiationException, IllegalAccessException,
+        ClassNotFoundException {
+        String reasonerFactoryClassName = null;
+        // We first need to obtain a copy of an
+        // OWLOntologyManager, which, as the name
+        // suggests, manages a set of ontologies.
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        // We load an ontology from the URI specified
+        // on the command line
+        @Nonnull String x = args[0];
+        System.out.println(x);
+        IRI documentIRI = IRI.create(x);
+        // Now load the ontology.
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
+        // Report information about the ontology
+        System.out.println("Ontology Loaded...");
+        System.out.println("Document IRI: " + documentIRI);
+        System.out.println("Ontology : " + ontology.getOntologyID());
+        System.out.println("Format      : " + ontology.getFormat());
+        // / Create a new SimpleHierarchy object with the given reasoner.
+        SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
+            (OWLReasonerFactory) Class.forName(
+                reasonerFactoryClassName).newInstance(), ontology);
+        // Get Thing
+        OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
+        System.out.println("Class       : " + clazz);
+        // Print the hierarchy below thing
+        simpleHierarchy.printHierarchy(clazz);
+    }
+
     /**
      * Print the class hierarchy for the given ontology from this class down,
      * assuming this class is at the given level. Makes no attempt to deal
@@ -96,36 +127,5 @@ public final class SimpleHierarchyExample {
                 .forEach(c -> printHierarchy(
                     reasoner, c, level + 1));
         }
-    }
-
-    public static void main(String[] args)
-        throws OWLException, InstantiationException, IllegalAccessException,
-        ClassNotFoundException {
-        String reasonerFactoryClassName = null;
-        // We first need to obtain a copy of an
-        // OWLOntologyManager, which, as the name
-        // suggests, manages a set of ontologies.
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        // We load an ontology from the URI specified
-        // on the command line
-        @Nonnull String x = args[0];
-        System.out.println(x);
-        IRI documentIRI = IRI.create(x);
-        // Now load the ontology.
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
-        // Report information about the ontology
-        System.out.println("Ontology Loaded...");
-        System.out.println("Document IRI: " + documentIRI);
-        System.out.println("Ontology : " + ontology.getOntologyID());
-        System.out.println("Format      : " + ontology.getFormat());
-        // / Create a new SimpleHierarchy object with the given reasoner.
-        SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
-            (OWLReasonerFactory) Class.forName(
-                reasonerFactoryClassName).newInstance(), ontology);
-        // Get Thing
-        OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
-        System.out.println("Class       : " + clazz);
-        // Print the hierarchy below thing
-        simpleHierarchy.printHierarchy(clazz);
     }
 }

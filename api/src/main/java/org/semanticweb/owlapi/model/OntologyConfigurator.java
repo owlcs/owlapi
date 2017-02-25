@@ -77,6 +77,13 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * @return the priorty collection sorting option
+     */
+    public PriorityCollectionSorting getPriorityCollectionSorting() {
+        return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
+    }
+
+    /**
      * Set the priorty collection sorting option.
      *
      * @param sorting the sorting option to be used.
@@ -85,13 +92,6 @@ public class OntologyConfigurator implements Serializable {
     public OntologyConfigurator setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
         overrides.put(PRIORITY_COLLECTION_SORTING, sorting);
         return this;
-    }
-
-    /**
-     * @return the priorty collection sorting option
-     */
-    public PriorityCollectionSorting getPriorityCollectionSorting() {
-        return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
     }
 
     /**
@@ -150,6 +150,13 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * @return the connection timeout
+     */
+    public int getConnectionTimeout() {
+        return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
+    }
+
+    /**
      * @param l new timeout Note: the timeout is an int and represents milliseconds. This is
      * necessary for use in {@code URLConnection}
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection timeout set to the new
@@ -158,13 +165,6 @@ public class OntologyConfigurator implements Serializable {
     public OntologyConfigurator setConnectionTimeout(int l) {
         overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
         return this;
-    }
-
-    /**
-     * @return the connection timeout
-     */
-    public int getConnectionTimeout() {
-        return CONNECTION_TIMEOUT.getValue(Integer.class, overrides).intValue();
     }
 
     /**
@@ -206,6 +206,14 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * @return missing import handling strategy
+     */
+    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
+        return MISSING_IMPORT_HANDLING_STRATEGY
+            .getValue(MissingImportHandlingStrategy.class, overrides);
+    }
+
+    /**
      * Sets the strategy that is used for missing imports handling. See
      * {@link MissingImportHandlingStrategy} for the strategies and their
      * descriptions.
@@ -221,11 +229,11 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @return missing import handling strategy
+     * @return missing ontology header strategy
      */
-    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
-        return MISSING_IMPORT_HANDLING_STRATEGY
-            .getValue(MissingImportHandlingStrategy.class, overrides);
+    public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
+        return MISSING_ONTOLOGY_HEADER_STRATEGY
+            .getValue(MissingOntologyHeaderStrategy.class, overrides);
     }
 
     /**
@@ -236,14 +244,6 @@ public class OntologyConfigurator implements Serializable {
         MissingOntologyHeaderStrategy strategy) {
         overrides.put(MISSING_ONTOLOGY_HEADER_STRATEGY, strategy);
         return this;
-    }
-
-    /**
-     * @return missing ontology header strategy
-     */
-    public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
-        return MISSING_ONTOLOGY_HEADER_STRATEGY
-            .getValue(MissingOntologyHeaderStrategy.class, overrides);
     }
 
     /**
@@ -267,19 +267,19 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * @return value of retries to attempt
+     */
+    public int getRetriesToAttempt() {
+        return RETRIES_TO_ATTEMPT.getValue(Integer.class, overrides).intValue();
+    }
+
+    /**
      * @param retries new value of retries to attempt
      * @return copy of this configuration with modified retries attempts.
      */
     public OntologyConfigurator setRetriesToAttempt(int retries) {
         overrides.put(RETRIES_TO_ATTEMPT, Integer.valueOf(retries));
         return this;
-    }
-
-    /**
-     * @return value of retries to attempt
-     */
-    public int getRetriesToAttempt() {
-        return RETRIES_TO_ATTEMPT.getValue(Integer.class, overrides).intValue();
     }
 
     /**

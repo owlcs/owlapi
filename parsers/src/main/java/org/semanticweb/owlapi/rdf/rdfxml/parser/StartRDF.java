@@ -54,6 +54,8 @@ import org.xml.sax.SAXException;
 
 abstract class AbstractState {
 
+    //@formatter:on
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractState.class);
     //@formatter:off
     static final String DATATYPE_RESOURCE = "rdf:datatype specified on a node with resource value.";
     static final String TEXT_SEEN = "Text was seen and new node is started.";
@@ -68,8 +70,6 @@ abstract class AbstractState {
     static final String NO_RDF_ID_AND_ABOUT = "Element cannot specify both rdf:ID and rdf:about attributes.";
     static final String ABOUT_EACH_PREFIX_UNSUPPORTED = "rdf:aboutEachPrefix attribute is not supported.";
     static final String ABOUT_EACH_UNSUPPORTED = "rdf:aboutEach attribute is not supported.";
-    //@formatter:on
-    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractState.class);
     protected final RDFParser parser;
 
     AbstractState(RDFParser parser) {
@@ -273,11 +273,11 @@ class EmptyPropertyElement extends AbstractState implements State {
  */
 class NodeElement extends AbstractState implements State {
 
+    protected final AtomicLong nextLi = new AtomicLong(1);
     @Nullable
     protected String subjectIRI;
     @Nullable
     protected ReificationManager reificationManager;
-    protected final AtomicLong nextLi = new AtomicLong(1);
 
     NodeElement(RDFParser parser) {
         super(parser);
@@ -573,12 +573,12 @@ class ResourceOrLiteralElement extends AbstractState implements State {
 class ParseTypeLiteralElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
+    protected final StringBuilder m_content = new StringBuilder();
     @Nullable
     protected String pIRI;
     @Nullable
     protected String reificationID;
     protected int depth;
-    protected final StringBuilder m_content = new StringBuilder();
     // avoid multiple redeclarations of namespace abbreviations in XML Literals
     protected Set<String> declaredNamespaces = new HashSet<>(2);
 

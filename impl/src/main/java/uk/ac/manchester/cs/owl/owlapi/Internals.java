@@ -147,6 +147,10 @@ import org.slf4j.LoggerFactory;
 public class Internals implements Serializable {
 
     protected static Logger LOGGER = LoggerFactory.getLogger(Internals.class);
+    private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
+    private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
+    private final ReferenceChecker refChecker = new ReferenceChecker();
+    private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
     //@formatter:off
     protected transient MapPointer<OWLClassExpression, OWLClassAssertionAxiom> classAssertionAxiomsByClass = buildLazy(
         CLASS_ASSERTION, CLASSEXPRESSIONS);
@@ -164,7 +168,6 @@ public class Internals implements Serializable {
         SUB_DATA_PROPERTY, DPSUBNAMED);
     protected transient MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsBySuperPosition = buildLazy(
         SUB_DATA_PROPERTY, DPSUPERNAMED);
-
     protected transient MapPointer<OWLClass, OWLClassAxiom> classAxiomsByClass = buildClassAxiomByClass();
     protected transient MapPointer<OWLClass, OWLEquivalentClassesAxiom> equivalentClassesAxiomsByClass = buildLazy(
         EQUIVALENT_CLASSES, CLASSCOLLECTIONS);
@@ -174,7 +177,6 @@ public class Internals implements Serializable {
         DISJOINT_UNION, CLASSCOLLECTIONS);
     protected transient MapPointer<OWLClass, OWLHasKeyAxiom> hasKeyAxiomsByClass = buildLazy(
         HAS_KEY, CLASSSUPERNAMED);
-
     protected transient MapPointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom> equivalentObjectPropertyAxiomsByProperty = buildLazy(
         EQUIVALENT_OBJECT_PROPERTIES, OPCOLLECTIONS);
     protected transient MapPointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom> disjointObjectPropertyAxiomsByProperty = buildLazy(
@@ -199,7 +201,6 @@ public class Internals implements Serializable {
         TRANSITIVE_OBJECT_PROPERTY, OPSUBNAMED);
     protected transient MapPointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom> inversePropertyAxiomsByProperty = buildLazy(
         INVERSE_OBJECT_PROPERTIES, OPCOLLECTIONS);
-
     protected transient MapPointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom> equivalentDataPropertyAxiomsByProperty = buildLazy(
         EQUIVALENT_DATA_PROPERTIES, DPCOLLECTIONS);
     protected transient MapPointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom> disjointDataPropertyAxiomsByProperty = buildLazy(
@@ -210,7 +211,6 @@ public class Internals implements Serializable {
         DATA_PROPERTY_RANGE, DPSUBNAMED);
     protected transient MapPointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxiomsByProperty = buildLazy(
         FUNCTIONAL_DATA_PROPERTY, DPSUBNAMED);
-
     protected transient MapPointer<OWLIndividual, OWLClassAssertionAxiom> classAssertionAxiomsByIndividual = buildLazy(
         CLASS_ASSERTION, INDIVIDUALSUBNAMED);
     protected transient MapPointer<OWLIndividual, OWLObjectPropertyAssertionAxiom> objectPropertyAssertionsByIndividual = buildLazy(
@@ -225,14 +225,11 @@ public class Internals implements Serializable {
         DIFFERENT_INDIVIDUALS, ICOLLECTIONS);
     protected transient MapPointer<OWLIndividual, OWLSameIndividualAxiom> sameIndividualsAxiomsByIndividual = buildLazy(
         SAME_INDIVIDUAL, ICOLLECTIONS);
-
     protected SetPointer<OWLImportsDeclaration> importsDeclarations = new SetPointer<>();
     protected SetPointer<OWLAnnotation> ontologyAnnotations = new SetPointer<>();
     protected SetPointer<OWLClassAxiom> generalClassAxioms = new SetPointer<>();
     protected SetPointer<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms = new SetPointer<>();
-
     protected transient MapPointer<AxiomType<?>, OWLAxiom> axiomsByType = build();
-
     protected transient MapPointer<OWLClass, OWLAxiom> owlClassReferences = build();
     protected transient MapPointer<OWLObjectProperty, OWLAxiom> owlObjectPropertyReferences = build();
     protected transient MapPointer<OWLDataProperty, OWLAxiom> owlDataPropertyReferences = build();
@@ -241,80 +238,19 @@ public class Internals implements Serializable {
     protected transient MapPointer<OWLDatatype, OWLAxiom> owlDatatypeReferences = build();
     protected transient MapPointer<OWLAnnotationProperty, OWLAxiom> owlAnnotationPropertyReferences = build();
     protected transient MapPointer<OWLEntity, OWLDeclarationAxiom> declarationsByEntity = build();
-
     @Nullable
     private List<OWLAxiom> axiomsForSerialization;
-    private final AddAxiomVisitor addChangeVisitor = new AddAxiomVisitor();
-    private final RemoveAxiomVisitor removeChangeVisitor = new RemoveAxiomVisitor();
-    private final ReferenceChecker refChecker = new ReferenceChecker();
-    private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
 
-    //@formatter:on
-    private class ReferenceChecker implements OWLEntityVisitorEx<Boolean>, Serializable {
-
-        ReferenceChecker() {
-        }
-
-        @Override
-        public Boolean visit(OWLClass cls) {
-            return Boolean.valueOf(owlClassReferences.containsKey(cls));
-        }
-
-        @Override
-        public Boolean visit(OWLObjectProperty property) {
-            return Boolean.valueOf(owlObjectPropertyReferences.containsKey(property));
-        }
-
-        @Override
-        public Boolean visit(OWLDataProperty property) {
-            return Boolean.valueOf(owlDataPropertyReferences.containsKey(property));
-        }
-
-        @Override
-        public Boolean visit(OWLNamedIndividual individual) {
-            return Boolean.valueOf(owlIndividualReferences.containsKey(individual));
-        }
-
-        @Override
-        public Boolean visit(OWLDatatype datatype) {
-            return Boolean.valueOf(owlDatatypeReferences.containsKey(datatype));
-        }
-
-        @Override
-        public Boolean visit(OWLAnnotationProperty property) {
-            return Boolean.valueOf(owlAnnotationPropertyReferences.containsKey(property));
-        }
-    }
-
-    protected class SetPointer<K extends Serializable> implements Serializable {
-
-        private final Set<K> set = createSyncSet();
-
-        public boolean isEmpty() {
-            return set.isEmpty();
-        }
-
-        public boolean add(K k) {
-            return set.add(k);
-        }
-
-        public boolean remove(K k) {
-            return set.remove(k);
-        }
-
-        public Stream<K> stream() {
-            if (set.isEmpty()) {
-                return Stream.empty();
-            }
-            List<K> toReturn = new ArrayList<>(set);
-            try {
-                toReturn.sort(null);
-            } catch (IllegalArgumentException e) {
-                // print a warning and leave the list unsorted
-                LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
-            }
-            return toReturn.stream();
-        }
+    /**
+     * @param p pointer
+     * @param <K> key type
+     * @param <V> value type
+     * @param k key
+     * @param v value
+     * @return true if the pair (key, value) is contained
+     */
+    public static <K, V extends OWLAxiom> boolean contains(MapPointer<K, V> p, K k, V v) {
+        return p.contains(k, v);
     }
 
     @SuppressWarnings("null")
@@ -926,18 +862,6 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param p pointer
-     * @param <K> key type
-     * @param <V> value type
-     * @param k key
-     * @param v value
-     * @return true if the pair (key, value) is contained
-     */
-    public static <K, V extends OWLAxiom> boolean contains(MapPointer<K, V> p, K k, V v) {
-        return p.contains(k, v);
-    }
-
-    /**
      * @return count of all axioms
      */
     public int getAxiomCount() {
@@ -1029,6 +953,98 @@ public class Internals implements Serializable {
      */
     public MapPointer<AxiomType<?>, OWLAxiom> getAxiomsByType() {
         return axiomsByType;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder("Internals{(first 20 axioms) ");
+        axiomsByType.getAllValues().limit(20).forEach(a -> b.append(a).append('\n'));
+        b.append('}');
+        return b.toString();
+    }
+
+    /**
+     * @param entity entity to check
+     * @return true if reference is contained
+     */
+    public boolean containsReference(OWLEntity entity) {
+        return entity.accept(refChecker).booleanValue();
+    }
+
+    /**
+     * @param owlEntity entity to describe
+     * @return referencing axioms
+     */
+    public Stream<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
+        return owlEntity.accept(refAxiomsCollector);
+    }
+
+    //@formatter:on
+    private class ReferenceChecker implements OWLEntityVisitorEx<Boolean>, Serializable {
+
+        ReferenceChecker() {
+        }
+
+        @Override
+        public Boolean visit(OWLClass cls) {
+            return Boolean.valueOf(owlClassReferences.containsKey(cls));
+        }
+
+        @Override
+        public Boolean visit(OWLObjectProperty property) {
+            return Boolean.valueOf(owlObjectPropertyReferences.containsKey(property));
+        }
+
+        @Override
+        public Boolean visit(OWLDataProperty property) {
+            return Boolean.valueOf(owlDataPropertyReferences.containsKey(property));
+        }
+
+        @Override
+        public Boolean visit(OWLNamedIndividual individual) {
+            return Boolean.valueOf(owlIndividualReferences.containsKey(individual));
+        }
+
+        @Override
+        public Boolean visit(OWLDatatype datatype) {
+            return Boolean.valueOf(owlDatatypeReferences.containsKey(datatype));
+        }
+
+        @Override
+        public Boolean visit(OWLAnnotationProperty property) {
+            return Boolean.valueOf(owlAnnotationPropertyReferences.containsKey(property));
+        }
+    }
+
+    protected class SetPointer<K extends Serializable> implements Serializable {
+
+        private final Set<K> set = createSyncSet();
+
+        public boolean isEmpty() {
+            return set.isEmpty();
+        }
+
+        public boolean add(K k) {
+            return set.add(k);
+        }
+
+        public boolean remove(K k) {
+            return set.remove(k);
+        }
+
+        public Stream<K> stream() {
+            if (set.isEmpty()) {
+                return Stream.empty();
+            }
+            List<K> toReturn = new ArrayList<>(set);
+            try {
+                toReturn.sort(null);
+            } catch (IllegalArgumentException e) {
+                // print a warning and leave the list unsorted
+                LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
+            }
+            return toReturn.stream();
+        }
     }
 
     class AddAxiomVisitor implements OWLAxiomVisitor, Serializable {
@@ -1456,30 +1472,6 @@ public class Internals implements Serializable {
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
             removePropertyChainSubPropertyAxioms(axiom);
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder b = new StringBuilder("Internals{(first 20 axioms) ");
-        axiomsByType.getAllValues().limit(20).forEach(a -> b.append(a).append('\n'));
-        b.append('}');
-        return b.toString();
-    }
-
-    /**
-     * @param entity entity to check
-     * @return true if reference is contained
-     */
-    public boolean containsReference(OWLEntity entity) {
-        return entity.accept(refChecker).booleanValue();
-    }
-
-    /**
-     * @param owlEntity entity to describe
-     * @return referencing axioms
-     */
-    public Stream<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
-        return owlEntity.accept(refAxiomsCollector);
     }
 
     private class ReferencedAxiomsCollector implements OWLEntityVisitorEx<Stream<OWLAxiom>>,

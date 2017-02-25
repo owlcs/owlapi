@@ -54,8 +54,8 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat 
     MIMETypeAware,
     RioRDFDocumentFormat {
 
-    private transient RDFFormat format;
     private final String formatName;
+    private transient RDFFormat format;
 
     /**
      * Constructor for super-classes to specify which

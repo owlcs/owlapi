@@ -51,8 +51,8 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 public abstract class AbstractRioRDFDocumentFormatFactory extends
     OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
 
-    private transient RDFFormat rioFormat;
     private final String formatName;
+    private transient RDFFormat rioFormat;
 
     protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
         this(rioFormat, true);

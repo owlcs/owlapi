@@ -61,15 +61,6 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
         super(f);
     }
 
-    @Override
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
-        OWLOntology ont = createOntology();
-        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        equal(o1, o2);
-    }
-
     @Parameters
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
@@ -185,5 +176,14 @@ public class AxiomsRoundTrippingUsingEqualTestCase extends AxiomsRoundTrippingBa
                 axioms.add(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
                 return axioms;
             });
+    }
+
+    @Override
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyCreationException,
+        OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
+        equal(o1, o2);
     }
 }

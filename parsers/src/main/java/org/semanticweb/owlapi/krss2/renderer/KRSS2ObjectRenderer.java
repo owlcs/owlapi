@@ -318,6 +318,35 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         leftRightIdentityUsed = new HashSet<>();
     }
 
+    protected static boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
+        OWLObjectProperty property) {
+        if (axiom.getSuperProperty().equals(property)) {
+            List<OWLObjectPropertyExpression> propertyChain = axiom.getPropertyChain();
+            if (propertyChain.size() < 3) {
+                return false;
+            }
+            if (propertyChain.get(0).isOWLObjectProperty() && propertyChain.get(1)
+                .equals(property)) {
+                return propertyChain.size() > 2;
+            }
+        }
+        return false;
+    }
+
+    protected static boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
+        OWLObjectProperty property) {
+        if (axiom.getSuperProperty().equals(property)) {
+            List<OWLObjectPropertyExpression> propertyChain = axiom.getPropertyChain();
+            if (propertyChain.size() < 2) {
+                return false;
+            }
+            if (propertyChain.get(0).equals(property)) {
+                return propertyChain.size() > 2;
+            }
+        }
+        return false;
+    }
+
     /**
      * @param ignoreDeclarations true if declarations should be ignored
      */
@@ -636,35 +665,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         property.getInverseProperty();
         property.getInverse().accept(this);
         writeCloseBracket();
-    }
-
-    protected static boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
-        OWLObjectProperty property) {
-        if (axiom.getSuperProperty().equals(property)) {
-            List<OWLObjectPropertyExpression> propertyChain = axiom.getPropertyChain();
-            if (propertyChain.size() < 3) {
-                return false;
-            }
-            if (propertyChain.get(0).isOWLObjectProperty() && propertyChain.get(1)
-                .equals(property)) {
-                return propertyChain.size() > 2;
-            }
-        }
-        return false;
-    }
-
-    protected static boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
-        OWLObjectProperty property) {
-        if (axiom.getSuperProperty().equals(property)) {
-            List<OWLObjectPropertyExpression> propertyChain = axiom.getPropertyChain();
-            if (propertyChain.size() < 2) {
-                return false;
-            }
-            if (propertyChain.get(0).equals(property)) {
-                return propertyChain.size() > 2;
-            }
-        }
-        return false;
     }
 
     protected Collection<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxiomsFor(

@@ -58,58 +58,6 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
  */
 class SemanticLocalityChecker extends LocalityChecker {
 
-    static class ExpressionManager implements OWLAxiomVisitorEx<OWLClassExpression> {
-
-        private OWLDataFactory df;
-
-        public ExpressionManager(OWLDataFactory df) {
-            this.df = df;
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom ax) {
-            return df.getOWLObjectHasValue(ax.getProperty(), ax.getObject());
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataPropertyAssertionAxiom ax) {
-            return df.getOWLDataHasValue(ax.getProperty(), ax.getObject());
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectPropertyDomainAxiom ax) {
-            return df.getOWLObjectSomeValuesFrom(ax.getProperty(), df.getOWLThing());
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLObjectPropertyRangeAxiom ax) {
-            return df.getOWLObjectSomeValuesFrom(ax.getProperty(), ax.getRange());
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataPropertyDomainAxiom ax) {
-            return df.getOWLDataSomeValuesFrom(ax.getProperty(), df.getTopDatatype());
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLDataPropertyRangeAxiom ax) {
-            return df.getOWLDataSomeValuesFrom(ax.getProperty(),
-                df.getOWLDataComplementOf(ax.getRange()));
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom ax) {
-            return df.getOWLObjectComplementOf(
-                df.getOWLObjectHasValue(ax.getProperty(), ax.getObject()));
-        }
-
-        @Override
-        public OWLClassExpression visit(OWLNegativeDataPropertyAssertionAxiom ax) {
-            return df
-                .getOWLObjectComplementOf(df.getOWLDataHasValue(ax.getProperty(), ax.getObject()));
-        }
-    }
-
     /**
      * Reasoner to detect the tautology
      */
@@ -122,7 +70,6 @@ class SemanticLocalityChecker extends LocalityChecker {
     private OWLDataFactory df;
     private OWLReasonerFactory factory;
     private ExpressionManager expressionManager;
-
     /**
      * init c'tor
      *
@@ -403,5 +350,57 @@ class SemanticLocalityChecker extends LocalityChecker {
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         isLocal = kernel.isEntailed(axiom);
+    }
+
+    static class ExpressionManager implements OWLAxiomVisitorEx<OWLClassExpression> {
+
+        private OWLDataFactory df;
+
+        public ExpressionManager(OWLDataFactory df) {
+            this.df = df;
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom ax) {
+            return df.getOWLObjectHasValue(ax.getProperty(), ax.getObject());
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataPropertyAssertionAxiom ax) {
+            return df.getOWLDataHasValue(ax.getProperty(), ax.getObject());
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectPropertyDomainAxiom ax) {
+            return df.getOWLObjectSomeValuesFrom(ax.getProperty(), df.getOWLThing());
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLObjectPropertyRangeAxiom ax) {
+            return df.getOWLObjectSomeValuesFrom(ax.getProperty(), ax.getRange());
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataPropertyDomainAxiom ax) {
+            return df.getOWLDataSomeValuesFrom(ax.getProperty(), df.getTopDatatype());
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLDataPropertyRangeAxiom ax) {
+            return df.getOWLDataSomeValuesFrom(ax.getProperty(),
+                df.getOWLDataComplementOf(ax.getRange()));
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom ax) {
+            return df.getOWLObjectComplementOf(
+                df.getOWLObjectHasValue(ax.getProperty(), ax.getObject()));
+        }
+
+        @Override
+        public OWLClassExpression visit(OWLNegativeDataPropertyAssertionAxiom ax) {
+            return df
+                .getOWLObjectComplementOf(df.getOWLDataHasValue(ax.getProperty(), ax.getObject()));
+        }
     }
 }

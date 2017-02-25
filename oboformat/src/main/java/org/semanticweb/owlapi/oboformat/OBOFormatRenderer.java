@@ -38,11 +38,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 public class OBOFormatRenderer implements OWLRenderer {
 
-    @Override
-    public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
-    }
-
     /**
      * @param ontology ontology
      * @param writer writer
@@ -93,5 +88,10 @@ public class OBOFormatRenderer implements OWLRenderer {
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }
+    }
+
+    @Override
+    public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
+        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
     }
 }

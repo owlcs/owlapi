@@ -84,6 +84,12 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
+        public void setDefaultPrefix(@Nullable String defaultPrefix) {
+            // do not propagate changes to the original manager
+            // there should be no changes during rendering anyway
+        }
+
+        @Override
         public boolean containsPrefixMapping(String prefixName) {
             return delegate.containsPrefixMapping(prefixName);
         }
@@ -117,12 +123,6 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         @Override
         public void setPrefixComparator(StringComparator comparator) {
             delegate.setPrefixComparator(comparator);
-        }
-
-        @Override
-        public void setDefaultPrefix(@Nullable String defaultPrefix) {
-            // do not propagate changes to the original manager
-            // there should be no changes during rendering anyway
         }
 
         @Override

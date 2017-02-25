@@ -181,25 +181,6 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     }
 
     /**
-     * @return entity type
-     */
-    public EntityType<?> getEntityType() {
-        return entityType;
-    }
-
-    /**
-     * @return local name
-     */
-    public String getLocalName() {
-        return localName;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
-
-    /**
      * @param dataFactory data factory to use
      * @return set of SKOS annotation properties
      */
@@ -236,6 +217,25 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
         return asSet(stream().filter(v -> v.entityType.equals(CLASS))
             .map(v -> dataFactory.getOWLClass(v.iri)));
+    }
+
+    /**
+     * @return entity type
+     */
+    public EntityType<?> getEntityType() {
+        return entityType;
+    }
+
+    /**
+     * @return local name
+     */
+    public String getLocalName() {
+        return localName;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
     }
 
     @Override

@@ -41,8 +41,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals {
 
-    private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
     private final boolean useCompression;
+    private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
 
     /**
      * @param useCompression true if compression of literals should be used

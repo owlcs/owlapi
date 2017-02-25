@@ -29,9 +29,9 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
  */
 public class BuilderSWRLBuiltInAtom extends BaseBuilder<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 
+    private final List<SWRLDArgument> args = new ArrayList<>();
     @Nullable
     private IRI iri = null;
-    private final List<SWRLDArgument> args = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.

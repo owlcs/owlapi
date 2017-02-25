@@ -27,19 +27,19 @@ public class ManchesterOWLSyntaxTokenizer {
      * EOF.
      */
     public static final String EOFTOKEN = "|EOF|";
+    private static final char ESCAPE_CHAR = '\\';
     protected final Set<Character> skip = new HashSet<>();
     protected final Set<Character> commentDelimiters = new HashSet<>();
     protected final Set<Character> delims = new HashSet<>();
     private final String buffer;
-    private int pos;
-    private int col;
-    private int row;
     int startPos = 0;
     int startCol = 1;
     int startRow = 1;
     List<Token> tokens = new ArrayList<>();
+    private int pos;
+    private int col;
+    private int row;
     private StringBuilder sb = new StringBuilder();
-    private static final char ESCAPE_CHAR = '\\';
 
     /**
      * @param buffer buffer

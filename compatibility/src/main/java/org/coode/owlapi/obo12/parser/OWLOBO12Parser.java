@@ -66,6 +66,38 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  */
 class OWLOBO12Parser extends AbstractOWLParser {
 
+    private static void parseFrames(RawFrameHandler rawFrameHandler, OBOConsumer oboConsumer) {
+        parseHeaderFrame(rawFrameHandler, oboConsumer);
+        parseFrames(oboConsumer, rawFrameHandler.getTypeDefFrames());
+        parseFrames(oboConsumer, rawFrameHandler.getNonTypeDefFrames());
+    }
+
+    private static void parseHeaderFrame(RawFrameHandler rawFrameHandler, OBOConsumer consumer) {
+        consumer.startHeader();
+        parseFrameTagValuePairs(consumer, verifyNotNull(rawFrameHandler.getHeaderFrame()));
+        consumer.endHeader();
+    }
+
+    private static void parseFrames(OBOConsumer oboConsumer, List<OBOFrame> frames) {
+        for (OBOFrame frame : frames) {
+            parseFrame(oboConsumer, frame);
+        }
+    }
+
+    private static void parseFrame(OBOConsumer oboConsumer, OBOFrame frame) {
+        oboConsumer.startFrame(frame.getFrameType());
+        parseFrameTagValuePairs(oboConsumer, frame);
+        oboConsumer.endFrame();
+    }
+
+    private static void parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
+        for (OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
+            oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(),
+                tagValuePair.getQualifier(),
+                tagValuePair.getComment());
+        }
+    }
+
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology ontology,
         OWLOntologyLoaderConfiguration config) {
@@ -102,38 +134,6 @@ class OWLOBO12Parser extends AbstractOWLParser {
         OBO12DocumentFormat format = new OBO12DocumentFormat();
         format.setIDSpaceManager(oboConsumer.getIdSpaceManager());
         return format;
-    }
-
-    private static void parseFrames(RawFrameHandler rawFrameHandler, OBOConsumer oboConsumer) {
-        parseHeaderFrame(rawFrameHandler, oboConsumer);
-        parseFrames(oboConsumer, rawFrameHandler.getTypeDefFrames());
-        parseFrames(oboConsumer, rawFrameHandler.getNonTypeDefFrames());
-    }
-
-    private static void parseHeaderFrame(RawFrameHandler rawFrameHandler, OBOConsumer consumer) {
-        consumer.startHeader();
-        parseFrameTagValuePairs(consumer, verifyNotNull(rawFrameHandler.getHeaderFrame()));
-        consumer.endHeader();
-    }
-
-    private static void parseFrames(OBOConsumer oboConsumer, List<OBOFrame> frames) {
-        for (OBOFrame frame : frames) {
-            parseFrame(oboConsumer, frame);
-        }
-    }
-
-    private static void parseFrame(OBOConsumer oboConsumer, OBOFrame frame) {
-        oboConsumer.startFrame(frame.getFrameType());
-        parseFrameTagValuePairs(oboConsumer, frame);
-        oboConsumer.endFrame();
-    }
-
-    private static void parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
-        for (OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
-            oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(),
-                tagValuePair.getQualifier(),
-                tagValuePair.getComment());
-        }
     }
 
     @Override

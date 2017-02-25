@@ -54,25 +54,14 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
      * a convenience reference for an empty annotation set, saves on typing.
      */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
-    protected int hashCode = 0;
+    protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
     protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder()
         .weakKeys()
         .softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
     protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = Caffeine
         .newBuilder()
         .weakKeys().softValues().build(key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
-    protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
-
-    /**
-     * Override point to change hashing strategy if needed - only used in
-     * OWLLiteral implementations at the moment.
-     *
-     * @param object the object to compute the hashcode for
-     * @return the hashcode
-     */
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), object.components());
-    }
+    protected int hashCode = 0;
 
     /**
      * Streams from components need a start point and the order of the
@@ -93,16 +82,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         return o.hashCode();
     }
 
-    @Override
-    public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
-        return anonCaches.get(this).stream();
-    }
-
-    @Override
-    public Stream<OWLEntity> signature() {
-        return signatures.get(this).stream();
-    }
-
     protected static List<OWLAnnotation> asAnnotations(Collection<OWLAnnotation> anns) {
         if (anns.isEmpty()) {
             return emptyList();
@@ -111,6 +90,27 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
             return Collections.singletonList(anns.iterator().next());
         }
         return sortOptionally(anns.stream().distinct());
+    }
+
+    /**
+     * Override point to change hashing strategy if needed - only used in
+     * OWLLiteral implementations at the moment.
+     *
+     * @param object the object to compute the hashcode for
+     * @return the hashcode
+     */
+    protected int hashCode(OWLObject object) {
+        return hash(object.hashIndex(), object.components());
+    }
+
+    @Override
+    public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
+        return anonCaches.get(this).stream();
+    }
+
+    @Override
+    public Stream<OWLEntity> signature() {
+        return signatures.get(this).stream();
     }
 
     @Override

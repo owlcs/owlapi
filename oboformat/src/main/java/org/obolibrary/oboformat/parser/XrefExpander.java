@@ -23,13 +23,13 @@ import org.slf4j.LoggerFactory;
 public class XrefExpander {
 
     protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
+    protected Map<String, Rule> treatMap = new HashMap<>();
+    protected Map<String, OBODoc> targetDocMap = new HashMap<>();
     OBODoc sourceOBODoc;
     @Nullable
     OBODoc targetOBODoc;
     @Nullable
     String targetBase;
-    protected Map<String, Rule> treatMap = new HashMap<>();
-    protected Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
      * @param src src
@@ -69,6 +69,11 @@ public class XrefExpander {
         sourceOBODoc = src;
         targetOBODoc = tgt;
         setUp();
+    }
+
+    private static String getIDSpace(String x) {
+        String[] parts = x.split(":", 2);
+        return parts[0];
     }
 
     /**
@@ -174,11 +179,6 @@ public class XrefExpander {
                 }
             }
         }
-    }
-
-    private static String getIDSpace(String x) {
-        String[] parts = x.split(":", 2);
-        return parts[0];
     }
 
     /**

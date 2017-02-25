@@ -43,6 +43,18 @@ import org.semanticweb.owlapi.util.NNF;
 @SuppressWarnings("javadoc")
 public class NNFTestCase extends TestBase {
 
+    private final OWLClass clsA = Class(iri("A"));
+    private final OWLClass clsB = Class(iri("B"));
+    private final OWLClass clsC = Class(iri("C"));
+    private final OWLClass clsD = Class(iri("D"));
+    private final OWLObjectProperty propP = ObjectProperty(iri("p"));
+    private final OWLNamedIndividual indA = NamedIndividual(iri("a"));
+
+    private static OWLClassExpression getNNF(OWLClassExpression classExpression) {
+        NNF nnf = new NNF(df);
+        return classExpression.accept(nnf.getClassVisitor());
+    }
+
     @Test
     public void testPosOWLClass() {
         OWLClass cls = Class(iri("A"));
@@ -153,18 +165,6 @@ public class NNFTestCase extends TestBase {
         OWLClassExpression cls = ObjectMaxCardinality(3, prop, filler).getObjectComplementOf();
         OWLClassExpression nnf = ObjectMinCardinality(4, prop, filler);
         assertEquals(cls.getNNF(), nnf);
-    }
-
-    private final OWLClass clsA = Class(iri("A"));
-    private final OWLClass clsB = Class(iri("B"));
-    private final OWLClass clsC = Class(iri("C"));
-    private final OWLClass clsD = Class(iri("D"));
-    private final OWLObjectProperty propP = ObjectProperty(iri("p"));
-    private final OWLNamedIndividual indA = NamedIndividual(iri("a"));
-
-    private static OWLClassExpression getNNF(OWLClassExpression classExpression) {
-        NNF nnf = new NNF(df);
-        return classExpression.accept(nnf.getClassVisitor());
     }
 
     @Test

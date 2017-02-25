@@ -17,11 +17,6 @@ public class ProfileNoRLTestCase extends ProfileBase {
         this.premise = premise;
     }
 
-    @Test
-    public void testNoRL() {
-        test(premise, true, true, false, true);
-    }
-
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
@@ -32,5 +27,10 @@ public class ProfileNoRLTestCase extends ProfileBase {
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\"  xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:ObjectProperty rdf:about=\"urn:test#hasHead\"><owl:equivalentProperty><owl:ObjectProperty rdf:about=\"urn:test#hasLeader\"/></owl:equivalentProperty></owl:ObjectProperty><owl:Thing rdf:about=\"urn:test#X\"><first:hasLeader><owl:Thing rdf:about=\"urn:test#Y\"/></first:hasLeader></owl:Thing></rdf:RDF>",
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:AnnotationProperty rdf:about=\"urn:test#prop\" /><owl:Thing rdf:about=\"urn:test#a\"><first:prop>foo</first:prop></owl:Thing></rdf:RDF>",
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:Class rdf:about=\"urn:test#A\"><owl:disjointWith><owl:Class rdf:about=\"urn:test#B\"/></owl:disjointWith></owl:Class><first:A rdf:about=\"urn:test#a\"/><owl:Thing rdf:about=\"urn:test#a\"/><first:B rdf:about=\"urn:test#b\"/><owl:Thing rdf:about=\"urn:test#b\"/></rdf:RDF>");
+    }
+
+    @Test
+    public void testNoRL() {
+        test(premise, true, true, false, true);
     }
 }

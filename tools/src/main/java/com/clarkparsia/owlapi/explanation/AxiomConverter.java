@@ -44,6 +44,13 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
         factory = df;
     }
 
+    private static <T> Set<T> set(T desc1, T desc2) {
+        Set<T> set = new HashSet<>();
+        set.add(desc1);
+        set.add(desc2);
+        return set;
+    }
+
     private OWLObjectIntersectionOf and(OWLClassExpression desc1, OWLClassExpression desc2) {
         return factory.getOWLObjectIntersectionOf(set(desc1, desc2));
     }
@@ -62,13 +69,6 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     private OWLObjectUnionOf or(OWLClassExpression desc1, OWLClassExpression desc2) {
         return factory.getOWLObjectUnionOf(set(desc1, desc2));
-    }
-
-    private static <T> Set<T> set(T desc1, T desc2) {
-        Set<T> set = new HashSet<>();
-        set.add(desc1);
-        set.add(desc2);
-        return set;
     }
 
     @Override

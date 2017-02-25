@@ -52,6 +52,32 @@ public class OWLEntityRenamer {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
+    private static Stream<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
+        return Stream.of(ont.referencingAxioms(entity), ont.declarationAxioms(entity),
+            ont.annotationAssertionAxioms(
+                entity.getIRI())).flatMap(x -> x);
+    }
+
+    /**
+     * Fills a list with ontology changes which will replace a set of axioms
+     * with duplicated/transformed axioms.
+     *
+     * @param changes A list that will be filled with ontology changes which will remove the
+     * specified axioms from the specified ontology, and add the duplicated/transformed version
+     * @param axioms The axioms to be duplicated/transformed
+     * @param ont The ontology to which the changed should be applied
+     * @param duplicator The duplicator that will do the duplicating
+     */
+    private static void fillListWithTransformChanges(List<OWLOntologyChange> changes,
+        Stream<OWLAxiom> axioms,
+        OWLOntology ont, OWLObjectDuplicator duplicator) {
+        axioms.forEach(ax -> {
+            changes.add(new RemoveAxiom(ont, ax));
+            OWLAxiom dupAx = duplicator.duplicateObject(ax);
+            changes.add(new AddAxiom(ont, dupAx));
+        });
+    }
+
     /**
      * Changes a IRI for another IRI. This creates the appropriate changes to be
      * applied in order to change a IRI.
@@ -102,31 +128,5 @@ public class OWLEntityRenamer {
                     duplicator));
         }
         return changes;
-    }
-
-    private static Stream<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
-        return Stream.of(ont.referencingAxioms(entity), ont.declarationAxioms(entity),
-            ont.annotationAssertionAxioms(
-                entity.getIRI())).flatMap(x -> x);
-    }
-
-    /**
-     * Fills a list with ontology changes which will replace a set of axioms
-     * with duplicated/transformed axioms.
-     *
-     * @param changes A list that will be filled with ontology changes which will remove the
-     * specified axioms from the specified ontology, and add the duplicated/transformed version
-     * @param axioms The axioms to be duplicated/transformed
-     * @param ont The ontology to which the changed should be applied
-     * @param duplicator The duplicator that will do the duplicating
-     */
-    private static void fillListWithTransformChanges(List<OWLOntologyChange> changes,
-        Stream<OWLAxiom> axioms,
-        OWLOntology ont, OWLObjectDuplicator duplicator) {
-        axioms.forEach(ax -> {
-            changes.add(new RemoveAxiom(ont, ax));
-            OWLAxiom dupAx = duplicator.duplicateObject(ax);
-            changes.add(new AddAxiom(ont, dupAx));
-        });
     }
 }

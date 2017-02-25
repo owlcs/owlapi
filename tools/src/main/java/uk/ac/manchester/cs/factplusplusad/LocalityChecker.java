@@ -26,6 +26,24 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
         super(s);
     }
 
+    /**
+     * @param moduleMethod modularisation method
+     * @param pSig signature
+     * @return locality checker by a method
+     */
+    static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
+        switch (moduleMethod) {
+            case SYNTACTIC_STANDARD:
+                return new SyntacticLocalityChecker(pSig);
+            case SYNTACTIC_COUNTING:
+                return new ExtendedSyntacticLocalityChecker(pSig);
+            case QUERY_ANSWERING:
+                // return new SemanticLocalityChecker(pSig);
+            default:
+                throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
+        }
+    }
+
     public void preprocessOntology(@SuppressWarnings("unused") Collection<AxiomWrapper> axioms) {
         // nothing to do here
     }
@@ -44,23 +62,5 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
      */
     void setSignatureValue(Signature sig) {
         this.sig.setSignature(sig);
-    }
-
-    /**
-     * @param moduleMethod modularisation method
-     * @param pSig signature
-     * @return locality checker by a method
-     */
-    static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
-        switch (moduleMethod) {
-            case SYNTACTIC_STANDARD:
-                return new SyntacticLocalityChecker(pSig);
-            case SYNTACTIC_COUNTING:
-                return new ExtendedSyntacticLocalityChecker(pSig);
-            case QUERY_ANSWERING:
-                // return new SemanticLocalityChecker(pSig);
-            default:
-                throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
-        }
     }
 }

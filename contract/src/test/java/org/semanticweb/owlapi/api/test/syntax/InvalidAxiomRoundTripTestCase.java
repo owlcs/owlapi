@@ -56,17 +56,17 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     private @Nonnull
     OWLOntology o;
 
-    @Before
-    public void setUpO() {
-        o = getOWLOntology();
-    }
-
     private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
         OWLOntology reloaded) {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
         assertEquals(1, reloaded.getLogicalAxiomCount());
+    }
+
+    @Before
+    public void setUpO() {
+        o = getOWLOntology();
     }
 
     private OWLOntology saveAndReload()

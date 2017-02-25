@@ -60,6 +60,11 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
     private static String ns = "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#";
     private static OWLDataFactory f = OWLManager.getOWLDataFactory();
+    private Set<OWLEntity> signature;
+
+    public OldModularisationEquivalenceTestCase(Set<OWLEntity> l) {
+        signature = l;
+    }
 
     private static Set<OWLEntity> l(String... s) {
         return asSet(Stream.of(s).map(st -> f.getOWLClass(ns, st)), OWLEntity.class);
@@ -116,12 +121,6 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         l.add(l("Gender", "Koala", "KoalaWithPhD", "Quokka"));
         l.add(l("DryEucalyptForest", "Koala", "KoalaWithPhD", "Quokka"));
         return l;
-    }
-
-    private Set<OWLEntity> signature;
-
-    public OldModularisationEquivalenceTestCase(Set<OWLEntity> l) {
-        signature = l;
     }
 
     @Test

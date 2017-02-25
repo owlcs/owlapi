@@ -198,20 +198,6 @@ public enum OBOVocabulary implements HasIRI {
         this.iri = iri;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
-
     /**
      * Converts OBO Ids to IRIs. The conversion is defined at
      * <a href="http://www.obofoundry.org/id-policy.shtml" >http://www.
@@ -296,5 +282,19 @@ public enum OBOVocabulary implements HasIRI {
 
     public static List<OBOVocabulary> getInstanceStanzaTags() {
         return new ArrayList<>(instanceStanzaTags);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

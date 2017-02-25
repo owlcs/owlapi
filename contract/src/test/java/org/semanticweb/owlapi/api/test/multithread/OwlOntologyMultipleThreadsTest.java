@@ -99,6 +99,15 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
         + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
         + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
 
+    @Test
+    public void testLockingOwlOntologyImpl() throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(KOALA);
+        MultiThreadChecker checker = new MultiThreadChecker(5);
+        checker.check(new TestCallback(o, m.createOntology()));
+        String trace = checker.getTrace();
+        System.out.println(trace);
+    }
+
     private static class TestCallback implements Runnable {
 
         private final OWLOntology o1;
@@ -290,21 +299,12 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
         }
     }
 
-    @Test
-    public void testLockingOwlOntologyImpl() throws OWLOntologyCreationException {
-        OWLOntology o = loadOntologyFromString(KOALA);
-        MultiThreadChecker checker = new MultiThreadChecker(5);
-        checker.check(new TestCallback(o, m.createOntology()));
-        String trace = checker.getTrace();
-        System.out.println(trace);
-    }
-
     static class MultiThreadChecker {
 
         public static final int defaultRep = 10;
-        protected int rep = defaultRep;
         protected final PrintStream p;
         private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        protected int rep = defaultRep;
         private boolean successful = false;
 
         public MultiThreadChecker(int i) {

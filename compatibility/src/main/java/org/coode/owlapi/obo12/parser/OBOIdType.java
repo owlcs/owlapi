@@ -137,21 +137,6 @@ enum OBOIdType {
     }
 
     /**
-     * @return the pattern
-     */
-    public Pattern getPattern() {
-        return pattern;
-    }
-
-    /**
-     * @return the translated iri
-     */
-    public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
-        String oboId) {
-        return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);
-    }
-
-    /**
      * Gets the OBOIdType for a given OBO ID.
      *
      * @param oboId The OBO ID. Must not be null.
@@ -169,6 +154,21 @@ enum OBOIdType {
             }
         }
         return null;
+    }
+
+    /**
+     * @return the pattern
+     */
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+    /**
+     * @return the translated iri
+     */
+    public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
+        String oboId) {
+        return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);
     }
 
     private static interface OBOIIdTranslator {

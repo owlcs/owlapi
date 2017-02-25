@@ -41,10 +41,20 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  */
 public final class LatexBracketChecker implements OWLClassExpressionVisitor {
 
-    private boolean requiresBracket;
     private static final LatexBracketChecker INSTANCE = new LatexBracketChecker();
+    private boolean requiresBracket;
 
     private LatexBracketChecker() {
+    }
+
+    /**
+     * @param classExpression class expression
+     * @return true if bracket required
+     */
+    public static boolean requiresBracket(OWLClassExpression classExpression) {
+        INSTANCE.requiresBracket = true;
+        classExpression.accept(INSTANCE);
+        return INSTANCE.requiresBracket;
     }
 
     @Override
@@ -151,15 +161,5 @@ public final class LatexBracketChecker implements OWLClassExpressionVisitor {
     @Override
     public void visit(OWLObjectHasSelf ce) {
         requiresBracket = true;
-    }
-
-    /**
-     * @param classExpression class expression
-     * @return true if bracket required
-     */
-    public static boolean requiresBracket(OWLClassExpression classExpression) {
-        INSTANCE.requiresBracket = true;
-        classExpression.accept(INSTANCE);
-        return INSTANCE.requiresBracket;
     }
 }

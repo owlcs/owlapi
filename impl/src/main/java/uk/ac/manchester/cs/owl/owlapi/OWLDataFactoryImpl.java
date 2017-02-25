@@ -159,11 +159,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private final boolean useCompression;
     private transient OWLDataFactoryInternals dataFactoryInternals;
 
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        dataFactoryInternals = new OWLDataFactoryInternalsImpl(useCompression);
-    }
-
     /**
      * Constructs an OWLDataFactoryImpl that uses caching but no compression.
      */
@@ -180,13 +175,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         dataFactoryInternals = new OWLDataFactoryInternalsImpl(this.useCompression);
     }
 
+    private static void checkAnnotations(Collection<OWLAnnotation> o) {
+        checkIterableNotNull(o, "annotations cannot be null", true);
+    }
+
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        dataFactoryInternals = new OWLDataFactoryInternalsImpl(useCompression);
+    }
+
     @Override
     public void purge() {
         dataFactoryInternals.purge();
-    }
-
-    private static void checkAnnotations(Collection<OWLAnnotation> o) {
-        checkIterableNotNull(o, "annotations cannot be null", true);
     }
 
     @Override

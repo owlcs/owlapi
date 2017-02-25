@@ -35,71 +35,6 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  */
 public class Filters {
 
-    @FunctionalInterface
-    private interface Filter<A extends OWLAxiom> {
-
-        Object filter(A axiom);
-    }
-
-    /**
-     * @param <A> axiom type
-     * @author ignazio
-     */
-    public static class AxiomFilter<A extends OWLAxiom> implements OWLAxiomSearchFilter {
-
-        private final Collection<AxiomType<?>> types;
-        private final Filter<A> filter;
-
-        /**
-         * @param type axiom type to filter on
-         * @param f filter lambda
-         */
-        public AxiomFilter(AxiomType<?> type, Filter<A> f) {
-            types = CollectionFactory.<AxiomType<?>>list(type);
-            filter = f;
-        }
-
-        /**
-         * @param types axiom types to filter on
-         * @param f filter lambda
-         */
-        public AxiomFilter(Collection<AxiomType<?>> types, Filter<A> f) {
-            this.types = types;
-            filter = f;
-        }
-
-        /**
-         * @param f filter lambda
-         * @param types axiom types to filter on
-         */
-        public AxiomFilter(Filter<A> f, AxiomType<?>... types) {
-            this.types = CollectionFactory.list(types);
-            filter = f;
-        }
-
-        @Override
-        public Iterable<AxiomType<?>> getAxiomTypes() {
-            return types;
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public boolean pass(OWLAxiom axiom, Object key) {
-            return axiomValue((A) axiom).equals(key);
-        }
-
-        /**
-         * Override this method to select what part of the axiom should be
-         * compared with the input key.
-         *
-         * @param axiom axiom to check
-         * @return Object to compare to the input key
-         */
-        protected Object axiomValue(A axiom) {
-            return filter.filter(axiom);
-        }
-    }
-
     /**
      * filter returning subannotation axioms where the super property matches
      * the input key.
@@ -213,7 +148,70 @@ public class Filters {
             return !AxiomType.TBoxAndRBoxAxiomTypes.contains(axiom.getAxiomType());
         }
     };
-
     private Filters() {
+    }
+    @FunctionalInterface
+    private interface Filter<A extends OWLAxiom> {
+
+        Object filter(A axiom);
+    }
+
+    /**
+     * @param <A> axiom type
+     * @author ignazio
+     */
+    public static class AxiomFilter<A extends OWLAxiom> implements OWLAxiomSearchFilter {
+
+        private final Collection<AxiomType<?>> types;
+        private final Filter<A> filter;
+
+        /**
+         * @param type axiom type to filter on
+         * @param f filter lambda
+         */
+        public AxiomFilter(AxiomType<?> type, Filter<A> f) {
+            types = CollectionFactory.<AxiomType<?>>list(type);
+            filter = f;
+        }
+
+        /**
+         * @param types axiom types to filter on
+         * @param f filter lambda
+         */
+        public AxiomFilter(Collection<AxiomType<?>> types, Filter<A> f) {
+            this.types = types;
+            filter = f;
+        }
+
+        /**
+         * @param f filter lambda
+         * @param types axiom types to filter on
+         */
+        public AxiomFilter(Filter<A> f, AxiomType<?>... types) {
+            this.types = CollectionFactory.list(types);
+            filter = f;
+        }
+
+        @Override
+        public Iterable<AxiomType<?>> getAxiomTypes() {
+            return types;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public boolean pass(OWLAxiom axiom, Object key) {
+            return axiomValue((A) axiom).equals(key);
+        }
+
+        /**
+         * Override this method to select what part of the axiom should be
+         * compared with the input key.
+         *
+         * @param axiom axiom to check
+         * @return Object to compare to the input key
+         */
+        protected Object axiomValue(A axiom) {
+            return filter.filter(axiom);
+        }
     }
 }

@@ -40,10 +40,10 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
+    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
-    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     /**
      * @param body rule body

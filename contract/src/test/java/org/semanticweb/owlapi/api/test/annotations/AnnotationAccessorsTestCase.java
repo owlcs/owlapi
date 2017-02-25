@@ -50,18 +50,17 @@ public class AnnotationAccessorsTestCase extends TestBase {
 
     private static final IRI SUBJECT = IRI
         .create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+    private final OWLPrimitive e;
+
+    public AnnotationAccessorsTestCase(OWLPrimitive e) {
+        this.e = e;
+    }
 
     @Parameters
     public static Collection<OWLPrimitive> getData() {
         return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT),
             ObjectProperty(SUBJECT),
             Datatype(SUBJECT), AnnotationProperty(SUBJECT), AnonymousIndividual());
-    }
-
-    private final OWLPrimitive e;
-
-    public AnnotationAccessorsTestCase(OWLPrimitive e) {
-        this.e = e;
     }
 
     private static OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {

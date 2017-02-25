@@ -37,20 +37,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLObjectWalker<O extends OWLObject> {
 
+    protected final boolean visitDuplicates;
+    private final Collection<O> objects;
+    private final List<OWLClassExpression> classExpressionPath = new ArrayList<>();
+    private final List<OWLDataRange> dataRangePath = new ArrayList<>();
     @Nullable
     protected OWLOntology ontology;
-    private final Collection<O> objects;
     @Nullable
     protected OWLObjectVisitor visitor;
-    @Nullable
-    private OWLObjectVisitorEx<?> visitorEx;
-    protected final boolean visitDuplicates;
     @Nullable
     protected OWLAxiom ax;
     @Nullable
     protected OWLAnnotation annotation;
-    private final List<OWLClassExpression> classExpressionPath = new ArrayList<>();
-    private final List<OWLDataRange> dataRangePath = new ArrayList<>();
+    @Nullable
+    private OWLObjectVisitorEx<?> visitorEx;
     private StructureWalker<O> walker;
 
     /**
@@ -169,6 +169,15 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     /**
+     * Allow the structure walker to set the current axiom.
+     *
+     * @param axiom the axiom to set
+     */
+    public void setAxiom(@Nullable OWLAxiom axiom) {
+        ax = axiom;
+    }
+
+    /**
      * Gets the last annotation to be visited.
      *
      * @return The last annotation to be visited (may be {@code null})
@@ -176,6 +185,15 @@ public class OWLObjectWalker<O extends OWLObject> {
     @Nullable
     public OWLAnnotation getAnnotation() {
         return annotation;
+    }
+
+    /**
+     * Allow the structure walker to set the current annotation.
+     *
+     * @param node the annotation to set
+     */
+    public void setAnnotation(OWLAnnotation node) {
+        annotation = node;
     }
 
     /**
@@ -260,23 +278,5 @@ public class OWLObjectWalker<O extends OWLObject> {
         if (!dataRangePath.isEmpty()) {
             dataRangePath.remove(dataRangePath.size() - 1);
         }
-    }
-
-    /**
-     * Allow the structure walker to set the current axiom.
-     *
-     * @param axiom the axiom to set
-     */
-    public void setAxiom(@Nullable OWLAxiom axiom) {
-        ax = axiom;
-    }
-
-    /**
-     * Allow the structure walker to set the current annotation.
-     *
-     * @param node the annotation to set
-     */
-    public void setAnnotation(OWLAnnotation node) {
-        annotation = node;
     }
 }

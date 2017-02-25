@@ -48,13 +48,6 @@ public enum Extensions {
     }
 
     /**
-     * @return common extensions for this type
-     */
-    public Iterable<String> getCommonExtensions() {
-        return extensions;
-    }
-
-    /**
      * @param format the format for which extensions are desired
      * @return common extensions list. Empty list if no matching type is found.
      */
@@ -65,5 +58,12 @@ public enum Extensions {
             }
         }
         return Collections.emptyList();
+    }
+
+    /**
+     * @return common extensions for this type
+     */
+    public Iterable<String> getCommonExtensions() {
+        return extensions;
     }
 }

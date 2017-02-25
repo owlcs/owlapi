@@ -106,6 +106,45 @@ public class OWL2QLProfile implements OWLProfile {
         return new OWLProfileReport(this, violations);
     }
 
+    protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
+        return ce.accept(subClassExpressionChecker).booleanValue();
+    }
+
+    /**
+     * @param ce class
+     * @return true if ce is superclass expression
+     */
+    public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
+        return ce.accept(superClassExpressionChecker).booleanValue();
+    }
+
+    private static class OWL2QLSubClassExpressionChecker implements
+        OWLClassExpressionVisitorEx<Boolean> {
+
+        OWL2QLSubClassExpressionChecker() {
+        }
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
+        }
+
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.TRUE;
+        }
+
+        @Override
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+            return Boolean.valueOf(ce.getFiller().isOWLThing());
+        }
+
+        @Override
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
+            return Boolean.TRUE;
+        }
+    }
+
     private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor {
 
         private final Set<OWLProfileViolation> violations = new HashSet<>();
@@ -270,37 +309,6 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    private static class OWL2QLSubClassExpressionChecker implements
-        OWLClassExpressionVisitorEx<Boolean> {
-
-        OWL2QLSubClassExpressionChecker() {
-        }
-
-        @Override
-        public Boolean doDefault(Object o) {
-            return Boolean.FALSE;
-        }
-
-        @Override
-        public Boolean visit(OWLClass ce) {
-            return Boolean.TRUE;
-        }
-
-        @Override
-        public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return Boolean.valueOf(ce.getFiller().isOWLThing());
-        }
-
-        @Override
-        public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return Boolean.TRUE;
-        }
-    }
-
-    protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
-        return ce.accept(subClassExpressionChecker).booleanValue();
-    }
-
     private class OWL2QLSuperClassExpressionChecker implements
         OWLClassExpressionVisitorEx<Boolean> {
 
@@ -336,13 +344,5 @@ public class OWL2QLProfile implements OWLProfile {
         public Boolean visit(OWLDataSomeValuesFrom ce) {
             return Boolean.TRUE;
         }
-    }
-
-    /**
-     * @param ce class
-     * @return true if ce is superclass expression
-     */
-    public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
-        return ce.accept(superClassExpressionChecker).booleanValue();
     }
 }

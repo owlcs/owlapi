@@ -64,15 +64,6 @@ public class OntologyAtom {
     // fill in the sets
 
     /**
-     * set the module axioms
-     *
-     * @param module the module axioms
-     */
-    public void setModule(Collection<AxiomWrapper> module) {
-        this.module = new ArrayList<>(module);
-    }
-
-    /**
      * @param ax axiom to add to the atom
      */
     public void addAxiom(AxiomWrapper ax) {
@@ -109,8 +100,6 @@ public class OntologyAtom {
         return allDependencies;
     }
 
-    // access to axioms
-
     /**
      * @return all the atom's axioms
      */
@@ -118,11 +107,22 @@ public class OntologyAtom {
         return axioms;
     }
 
+    // access to axioms
+
     /**
      * @return all the module axioms
      */
     public List<AxiomWrapper> getModule() {
         return module;
+    }
+
+    /**
+     * set the module axioms
+     *
+     * @param module the module axioms
+     */
+    public void setModule(Collection<AxiomWrapper> module) {
+        this.module = new ArrayList<>(module);
     }
 
     /**

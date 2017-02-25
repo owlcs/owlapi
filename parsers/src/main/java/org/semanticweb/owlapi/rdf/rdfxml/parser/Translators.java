@@ -112,6 +112,70 @@ public class Translators {
         return new OptimisedListTranslator<>(consumer, new HasKeyListItemTranslator(consumer));
     }
 
+    /**
+     * Give a node in an RDF graph, which represents the main node of an OWL
+     * class expression, the {@code ClassExpressionTranslator} consumes the
+     * triples that represent the class expression, and translates the triples
+     * to the appropriate OWL API {@code OWLClassExpression} object.
+     */
+    public interface ClassExpressionTranslator {
+
+        /**
+         * @param mainNode mainNode
+         * @param mode mode
+         * @return true if parameter matches
+         */
+        boolean matches(IRI mainNode, Mode mode);
+
+        /**
+         * @param mainNode mainNode
+         * @return true if parameter matches strictly
+         */
+        boolean matchesStrict(IRI mainNode);
+
+        /**
+         * @param mainNode mainNode
+         * @return true if parameter matches in lax mode
+         */
+        boolean matchesLax(IRI mainNode);
+
+        /**
+         * Translates the specified main node into an {@code OWLClassExpression}
+         * . All triples used in the translation are consumed.
+         *
+         * @param mainNode The main node of the set of triples that represent the class expression.
+         * @return The class expression that represents the translation.
+         */
+        OWLClassExpression translate(IRI mainNode);
+    }
+
+    /**
+     * Translates and consumes an item in an RDF list.
+     *
+     * @param <O> type
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+     * @since 2.0.0
+     */
+    public interface ListItemTranslator<O extends OWLObject> {
+
+        /**
+         * The rdf:first triple that represents the item to be translated. This
+         * triple will point to something like a class expression, individual.
+         *
+         * @param firstObject The rdf:first triple that points to the item to be translated.
+         * @return The translated item.
+         */
+        @Nullable
+        O translate(IRI firstObject);
+
+        /**
+         * @param firstObject firstObject
+         * @return translated item
+         */
+        @Nullable
+        O translate(OWLLiteral firstObject);
+    }
+
     static class TranslatorAccessor {
 
         /**
@@ -263,11 +327,11 @@ public class Translators {
 
     abstract static class AbstractClassExpressionTranslator implements ClassExpressionTranslator {
 
+        protected final TranslatorAccessor accessor;
         private final OWLRDFConsumer consumer;
         private final ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
         private final DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
         private final IndividualMatcher individualMatcher = new IndividualMatcher();
-        protected final TranslatorAccessor accessor;
 
         protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer,
             TranslatorAccessor accessor) {
@@ -510,8 +574,8 @@ public class Translators {
     static class ClassExpressionListItemTranslator implements
         ListItemTranslator<OWLClassExpression> {
 
-        private final OWLRDFConsumer consumer;
         protected final TranslatorAccessor accessor;
+        private final OWLRDFConsumer consumer;
 
         ClassExpressionListItemTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
             this.consumer = consumer;
@@ -530,43 +594,6 @@ public class Translators {
         public OWLClassExpression translate(OWLLiteral firstObject) {
             return consumer.getDataFactory().getOWLThing();
         }
-    }
-
-    /**
-     * Give a node in an RDF graph, which represents the main node of an OWL
-     * class expression, the {@code ClassExpressionTranslator} consumes the
-     * triples that represent the class expression, and translates the triples
-     * to the appropriate OWL API {@code OWLClassExpression} object.
-     */
-    public interface ClassExpressionTranslator {
-
-        /**
-         * @param mainNode mainNode
-         * @param mode mode
-         * @return true if parameter matches
-         */
-        boolean matches(IRI mainNode, Mode mode);
-
-        /**
-         * @param mainNode mainNode
-         * @return true if parameter matches strictly
-         */
-        boolean matchesStrict(IRI mainNode);
-
-        /**
-         * @param mainNode mainNode
-         * @return true if parameter matches in lax mode
-         */
-        boolean matchesLax(IRI mainNode);
-
-        /**
-         * Translates the specified main node into an {@code OWLClassExpression}
-         * . All triples used in the translation are consumed.
-         *
-         * @param mainNode The main node of the set of triples that represent the class expression.
-         * @return The class expression that represents the translation.
-         */
-        OWLClassExpression translate(IRI mainNode);
     }
 
     static class DataAllValuesFromTranslator extends AbstractClassExpressionTranslator {
@@ -1006,33 +1033,6 @@ public class Translators {
         }
     }
 
-    /**
-     * Translates and consumes an item in an RDF list.
-     *
-     * @param <O> type
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
-     * @since 2.0.0
-     */
-    public interface ListItemTranslator<O extends OWLObject> {
-
-        /**
-         * The rdf:first triple that represents the item to be translated. This
-         * triple will point to something like a class expression, individual.
-         *
-         * @param firstObject The rdf:first triple that points to the item to be translated.
-         * @return The translated item.
-         */
-        @Nullable
-        O translate(IRI firstObject);
-
-        /**
-         * @param firstObject firstObject
-         * @return translated item
-         */
-        @Nullable
-        O translate(OWLLiteral firstObject);
-    }
-
     static class NamedClassTranslator extends AbstractClassExpressionTranslator {
 
         NamedClassTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
@@ -1226,17 +1226,17 @@ public class Translators {
             super(consumer, accessor);
         }
 
+        private static boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
+            return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI())
+                && Boolean.parseBoolean(literal.getLiteral());
+        }
+
         @Override
         public boolean matchesStrict(IRI mainNode) {
             OWLLiteral literal = getConsumer()
                 .getLiteralObject(mainNode, OWL_HAS_SELF.getIRI(), false);
             return literal != null && isStrictBooleanTrueLiteral(literal)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
-        }
-
-        private static boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
-            return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI())
-                && Boolean.parseBoolean(literal.getLiteral());
         }
 
         @Override
@@ -1644,9 +1644,9 @@ public class Translators {
 
     static class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> {
 
-        private final OWLRDFConsumer consumer;
         protected final OWLDataFactory dataFactory;
         protected final TranslatorAccessor accessor;
+        private final OWLRDFConsumer consumer;
 
         SWRLAtomListItemTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
             this.consumer = consumer;

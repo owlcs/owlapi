@@ -55,30 +55,6 @@ public class ReasonerTestCase extends TestBase {
     private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
     private OWLReasoner reasoner;
 
-    private OWLOntology createOntology() {
-        OWLOntology o = getOWLOntology();
-        OWLClass clsA = getClsA();
-        OWLClass clsB = getClsB();
-        OWLClass clsC = getClsC();
-        OWLClass clsD = getClsD();
-        OWLClass clsE = getClsE();
-        OWLClass clsF = getClsF();
-        OWLClass clsG = getClsG();
-        OWLClass clsK = getClsK();
-        OWLObjectPropertyExpression propP = getPropP();
-        OWLObjectPropertyExpression propQ = getPropQ();
-        OWLObjectPropertyExpression propR = getPropR();
-        OWLObjectPropertyExpression propS = getPropS();
-        o.add(SubClassOf(clsG, OWLThing()), SubClassOf(OWLThing(), clsG),
-            EquivalentClasses(clsA, clsB), SubClassOf(
-                clsC, clsB), SubClassOf(clsD, clsA), SubClassOf(clsD, clsF), SubClassOf(clsF, clsD),
-            SubClassOf(clsE, clsC),
-            SubClassOf(clsK, clsD), EquivalentClasses(clsK, OWLNothing()),
-            EquivalentObjectProperties(propP, propQ),
-            SubObjectPropertyOf(propP, propR), InverseObjectProperties(propR, propS));
-        return o;
-    }
-
     private static OWLObjectProperty getPropS() {
         return ObjectProperty(iri("s"));
     }
@@ -125,6 +101,30 @@ public class ReasonerTestCase extends TestBase {
 
     private static OWLClass getClsA() {
         return Class(iri("A"));
+    }
+
+    private OWLOntology createOntology() {
+        OWLOntology o = getOWLOntology();
+        OWLClass clsA = getClsA();
+        OWLClass clsB = getClsB();
+        OWLClass clsC = getClsC();
+        OWLClass clsD = getClsD();
+        OWLClass clsE = getClsE();
+        OWLClass clsF = getClsF();
+        OWLClass clsG = getClsG();
+        OWLClass clsK = getClsK();
+        OWLObjectPropertyExpression propP = getPropP();
+        OWLObjectPropertyExpression propQ = getPropQ();
+        OWLObjectPropertyExpression propR = getPropR();
+        OWLObjectPropertyExpression propS = getPropS();
+        o.add(SubClassOf(clsG, OWLThing()), SubClassOf(OWLThing(), clsG),
+            EquivalentClasses(clsA, clsB), SubClassOf(
+                clsC, clsB), SubClassOf(clsD, clsA), SubClassOf(clsD, clsF), SubClassOf(clsF, clsD),
+            SubClassOf(clsE, clsC),
+            SubClassOf(clsK, clsD), EquivalentClasses(clsK, OWLNothing()),
+            EquivalentObjectProperties(propP, propQ),
+            SubObjectPropertyOf(propP, propR), InverseObjectProperties(propR, propS));
+        return o;
     }
 
     @Before

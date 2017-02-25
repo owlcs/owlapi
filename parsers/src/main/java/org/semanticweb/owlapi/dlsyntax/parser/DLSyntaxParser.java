@@ -43,6 +43,28 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("all")
 public class DLSyntaxParser implements DLSyntaxParserConstants {
 
+    static private int[] jj_la1_0;
+
+    static {
+        jj_la1_init_0();
+    }
+
+    final private int[] jj_la1 = new int[23];
+    final private JJCalls[] jj_2_rtns = new JJCalls[14];
+    final private LookaheadSuccess jj_ls = new LookaheadSuccess();
+    /**
+     * Generated Token Manager.
+     */
+    public DLSyntaxParserTokenManager token_source;
+    /**
+     * Current token.
+     */
+    public Token token;
+    /**
+     * Next token.
+     */
+    public Token jj_nt;
+    JavaCharStream jj_input_stream;
     private String defaultNamespace = IRI
         .getNextDocumentIRI("http://www.semanticweb.org/ontologies/Ontology").toString();
     private Map<String, String> namespaceMap = new HashMap<String, String>();
@@ -50,6 +72,65 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
     private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
     private Set<OWLAxiom> axioms = new LinkedHashSet<OWLAxiom>();
+    private int jj_ntk;
+    private Token jj_scanpos, jj_lastpos;
+    private int jj_la;
+    private int jj_gen;
+    private boolean jj_rescan = false;
+    private int jj_gc = 0;
+    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+    private int[] jj_expentry;
+    private int jj_kind = -1;
+    private int[] jj_lasttokens = new int[100];
+    private int jj_endpos;
+    private int trace_indent = 0;
+    private boolean trace_enabled;
+
+    /**
+     * Constructor.
+     */
+    public DLSyntaxParser(Provider stream) {
+        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        token_source = new DLSyntaxParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 23; i++) {
+            jj_la1[i] = -1;
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+            jj_2_rtns[i] = new JJCalls();
+        }
+    }
+
+    /**
+     * Constructor.
+     */
+    public DLSyntaxParser(String dsl) throws ParseException, TokenMgrException {
+        this(new StringProvider(dsl));
+    }
+
+    /**
+     * Constructor with generated Token Manager.
+     */
+    public DLSyntaxParser(DLSyntaxParserTokenManager tm) {
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 23; i++) {
+            jj_la1[i] = -1;
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+            jj_2_rtns[i] = new JJCalls();
+        }
+    }
+
+    private static void jj_la1_init_0() {
+        jj_la1_0 = new int[]{0x61f94400, 0x40000000, 0x10000, 0x40, 0x40000001, 0x30, 0x80,
+            0x2000030, 0x40000, 0x20000, 0x21f84400, 0x200, 0x1e00000, 0x100, 0x100, 0x100,
+            0x1c00000, 0x100, 0x20000000, 0x18000000, 0x20004400, 0x4400, 0x18000000,};
+    }
 
     public void setOWLDataFactory(OWLDataFactory factory) {
         this.factory = factory;
@@ -1611,64 +1692,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /**
-     * Generated Token Manager.
-     */
-    public DLSyntaxParserTokenManager token_source;
-    JavaCharStream jj_input_stream;
-    /**
-     * Current token.
-     */
-    public Token token;
-    /**
-     * Next token.
-     */
-    public Token jj_nt;
-    private int jj_ntk;
-    private Token jj_scanpos, jj_lastpos;
-    private int jj_la;
-    private int jj_gen;
-    final private int[] jj_la1 = new int[23];
-    static private int[] jj_la1_0;
-
-    static {
-        jj_la1_init_0();
-    }
-
-    private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0x61f94400, 0x40000000, 0x10000, 0x40, 0x40000001, 0x30, 0x80,
-            0x2000030, 0x40000, 0x20000, 0x21f84400, 0x200, 0x1e00000, 0x100, 0x100, 0x100,
-            0x1c00000, 0x100, 0x20000000, 0x18000000, 0x20004400, 0x4400, 0x18000000,};
-    }
-
-    final private JJCalls[] jj_2_rtns = new JJCalls[14];
-    private boolean jj_rescan = false;
-    private int jj_gc = 0;
-
-    /**
-     * Constructor.
-     */
-    public DLSyntaxParser(Provider stream) {
-        jj_input_stream = new JavaCharStream(stream, 1, 1);
-        token_source = new DLSyntaxParserTokenManager(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 23; i++) {
-            jj_la1[i] = -1;
-        }
-        for (int i = 0; i < jj_2_rtns.length; i++) {
-            jj_2_rtns[i] = new JJCalls();
-        }
-    }
-
-    /**
-     * Constructor.
-     */
-    public DLSyntaxParser(String dsl) throws ParseException, TokenMgrException {
-        this(new StringProvider(dsl));
-    }
-
     public void ReInit(String s) {
         ReInit(new StringProvider(s));
     }
@@ -1687,22 +1710,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
 
         token_source.ReInit(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 23; i++) {
-            jj_la1[i] = -1;
-        }
-        for (int i = 0; i < jj_2_rtns.length; i++) {
-            jj_2_rtns[i] = new JJCalls();
-        }
-    }
-
-    /**
-     * Constructor with generated Token Manager.
-     */
-    public DLSyntaxParser(DLSyntaxParserTokenManager tm) {
-        token_source = tm;
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
@@ -1759,13 +1766,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw generateParseException();
     }
 
-    @SuppressWarnings("serial")
-    static private final class LookaheadSuccess extends java.lang.RuntimeException {
-
-    }
-
-    final private LookaheadSuccess jj_ls = new LookaheadSuccess();
-
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
@@ -1796,7 +1796,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
         return false;
     }
-
 
     /**
      * Get the next Token.
@@ -1834,12 +1833,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
             return (jj_ntk = jj_nt.kind);
         }
     }
-
-    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    private int[] jj_expentry;
-    private int jj_kind = -1;
-    private int[] jj_lasttokens = new int[100];
-    private int jj_endpos;
 
     private void jj_add_error_token(int kind, int pos) {
         if (pos >= 100) {
@@ -1915,9 +1908,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return new ParseException(token, exptokseq, tokenImage, token_source == null ? null
             : DLSyntaxParserTokenManager.lexStateNames[token_source.curLexState]);
     }
-
-    private int trace_indent = 0;
-    private boolean trace_enabled;
 
     /**
      * Trace enabled.
@@ -2015,6 +2005,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         p.gen = jj_gen + xla - jj_la;
         p.first = token;
         p.arg = xla;
+    }
+
+    @SuppressWarnings("serial")
+    static private final class LookaheadSuccess extends java.lang.RuntimeException {
+
     }
 
     static final class JJCalls {

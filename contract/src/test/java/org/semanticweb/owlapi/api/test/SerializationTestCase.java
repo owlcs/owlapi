@@ -75,8 +75,8 @@ public class SerializationTestCase extends TestBase {
     private final List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
     private final Set<OWLIndividual> setowlindividual = new HashSet<>();
     private final Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
-    IRI ontologyIRI;
     protected OWLOntology o;
+    IRI ontologyIRI;
 
     @Before
     public void setUp() throws OWLOntologyCreationException {

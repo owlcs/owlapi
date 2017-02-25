@@ -114,12 +114,6 @@ class Signature {
         topRLocality = s.topRLocality;
     }
 
-    void setSignature(Stream<OWLEntity> s) {
-        set.clear();
-        addAll(s);
-    }
-    // comparison
-
     @Override
     public boolean equals(@Nullable Object obj) {
         if (obj == null) {
@@ -133,6 +127,7 @@ class Signature {
         }
         return false;
     }
+    // comparison
 
     /**
      * @param p element to check
@@ -169,6 +164,11 @@ class Signature {
      */
     Stream<OWLEntity> getSignature() {
         return set.stream();
+    }
+
+    void setSignature(Stream<OWLEntity> s) {
+        set.clear();
+        addAll(s);
     }
 
     /**

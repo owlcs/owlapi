@@ -17,11 +17,6 @@ public class SimpleRoundTripTestCase extends RoundTripTestBasics {
         file = f;
     }
 
-    @Test
-    public void roundTrip() throws Exception {
-        roundTripOBOFile(file, true);
-    }
-
     @Parameters(name = "{0}")
     public static List<String> getData() {
         return Arrays.asList("roundtrip_cardinality.obo", "caro.obo",
@@ -41,5 +36,10 @@ public class SimpleRoundTripTestCase extends RoundTripTestBasics {
             "simplego.obo", "synonym_test.obo", "version_iri_test.obo",
             "xref_escapecolon.obo", "xref_annotation.obo",
             "relation_shorthand_test.obo");
+    }
+
+    @Test
+    public void roundTrip() throws Exception {
+        roundTripOBOFile(file, true);
     }
 }

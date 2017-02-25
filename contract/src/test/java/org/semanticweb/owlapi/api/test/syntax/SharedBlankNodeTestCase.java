@@ -48,6 +48,13 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class SharedBlankNodeTestCase extends TestBase {
 
+    public static void testAnnotation(OWLOntology o) {
+        o.individualsInSignature()
+            .forEach(i -> assertEquals(2L, o.objectPropertyAssertionAxioms(i).count()));
+        o.annotations().map(a -> (OWLIndividual) a.getValue()).forEach(i -> assertEquals(1L, o
+            .dataPropertyAssertionAxioms(i).count()));
+    }
+
     @Test
     public void shouldSaveOneIndividual() throws Exception {
         OWLOntology ontology = createOntology();
@@ -79,13 +86,6 @@ public class SharedBlankNodeTestCase extends TestBase {
         m.addAxiom(ontology, ax1);
         m.addAxiom(ontology, ax2);
         return ontology;
-    }
-
-    public static void testAnnotation(OWLOntology o) {
-        o.individualsInSignature()
-            .forEach(i -> assertEquals(2L, o.objectPropertyAssertionAxioms(i).count()));
-        o.annotations().map(a -> (OWLIndividual) a.getValue()).forEach(i -> assertEquals(1L, o
-            .dataPropertyAssertionAxioms(i).count()));
     }
 
     @Test

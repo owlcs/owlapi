@@ -70,13 +70,6 @@ public class XMLWriterNamespaceManager {
     }
 
     /**
-     * @param namespace namespace
-     */
-    public void setDefaultNamespace(String namespace) {
-        defaultNamespace = checkNotNull(namespace, "namespace cannot be null");
-    }
-
-    /**
      * @param prefix prefix
      * @return namespace for prefix or null
      */
@@ -149,6 +142,13 @@ public class XMLWriterNamespaceManager {
      */
     public String getDefaultNamespace() {
         return defaultNamespace;
+    }
+
+    /**
+     * @param namespace namespace
+     */
+    public void setDefaultNamespace(String namespace) {
+        defaultNamespace = checkNotNull(namespace, "namespace cannot be null");
     }
 
     /**
