@@ -1,7 +1,10 @@
 package org.semanticweb.owlapi.profiles;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.profiles.Profiles.*;
+import static org.semanticweb.owlapi.profiles.Profiles.OWL2_DL;
+import static org.semanticweb.owlapi.profiles.Profiles.OWL2_EL;
+import static org.semanticweb.owlapi.profiles.Profiles.OWL2_QL;
+import static org.semanticweb.owlapi.profiles.Profiles.OWL2_RL;
 
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;

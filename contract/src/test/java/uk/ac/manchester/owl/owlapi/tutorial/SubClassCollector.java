@@ -14,7 +14,6 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;

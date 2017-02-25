@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 /**
  * Created by ses on 3/2/15.
  */
+
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
@@ -16,9 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;

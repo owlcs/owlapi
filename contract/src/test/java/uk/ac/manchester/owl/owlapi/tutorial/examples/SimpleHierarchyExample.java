@@ -15,9 +15,7 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 
 import java.io.PrintStream;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -26,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
 /**

@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.PrintWriter;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
 import org.semanticweb.owlapi.model.OWLAxiom;

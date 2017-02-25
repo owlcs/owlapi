@@ -15,7 +15,6 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
