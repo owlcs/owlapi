@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /**
  * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
  * s.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
@@ -69,18 +69,15 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     private final Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<>();
 
     /**
-     * @param owlFormat
-     *        OWL format
+     * @param owlFormat OWL format
      */
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat) {
         this.owlFormat = owlFormat;
     }
 
     /**
-     * @param owlFormat
-     *        OWL format
-     * @param valueFactory
-     *        value factory
+     * @param owlFormat OWL format
+     * @param valueFactory value factory
      */
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {
         super(valueFactory);
@@ -88,9 +85,7 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     }
 
     /**
-     * @param factories
-     *        factories for ontology managers. This method is used for Guice
-     *        injection.
+     * @param factories factories for ontology managers. This method is used for Guice injection.
      */
     @Inject
     public void setOntologyManagerFactories(Set<OWLOntologyManagerFactory> factories) {
@@ -112,12 +107,12 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     }
 
     /**
-     * @param source
-     *        the ontology source to parse
+     * @param source the ontology source to parse
      */
     void render(OWLOntologyDocumentSource source) {
         if (ontologyManagerFactories.isEmpty()) {
-            throw new OWLRuntimeException("No ontology manager factories available, parsing is impossible");
+            throw new OWLRuntimeException(
+                "No ontology manager factories available, parsing is impossible");
         }
         // it is expected that only one implementation of
         // OWLOntologyManagerFactory will be available, but if there is more

@@ -44,14 +44,14 @@ import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 /**
  * {@link RDFParserFactory} that creates RDF statements from OWL Ontologies. It
  * is used to access OWLAPI parsers from Sesame Rio APIs.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public abstract class RioAbstractParserFactory implements RDFParserFactory {
 
     private static final Injector INJECTOR = Guice
-            .createInjector(new OWLAPIServiceLoaderModule());
+        .createInjector(new OWLAPIServiceLoaderModule());
 
     @Override
     public abstract OWLAPIRDFFormat getRDFFormat();

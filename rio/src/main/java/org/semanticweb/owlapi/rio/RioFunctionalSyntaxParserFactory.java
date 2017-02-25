@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 /**
  * {@link RDFParserFactory} that creates RDF statements from
  * {@link FunctionalSyntaxDocumentFormat} documents.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
