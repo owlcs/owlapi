@@ -40,9 +40,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.Resource;
