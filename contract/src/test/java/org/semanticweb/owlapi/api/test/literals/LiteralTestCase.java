@@ -34,8 +34,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -145,11 +144,13 @@ public class LiteralTestCase extends TestBase {
     }
 
     @Test
-    public void shouldStoreTagsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldStoreTagsCorrectly()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         String in = "See more at <a href=\"http://abc.com\">abc</a>";
         OWLOntology o = getOWLOntology();
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(createIndividual().getIRI(), df
-            .getRDFSComment(in));
+        OWLAnnotationAssertionAxiom ax = df
+            .getOWLAnnotationAssertionAxiom(createIndividual().getIRI(), df
+                .getRDFSComment(in));
         o.add(ax);
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         assertTrue(o1.containsAxiom(ax));

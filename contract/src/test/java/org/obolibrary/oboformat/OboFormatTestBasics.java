@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class OboFormatTestBasics extends TestBase {
 
     protected OBODoc parseOBOFile(String fn) {
@@ -166,10 +166,14 @@ public class OboFormatTestBasics extends TestBase {
         return new OBOFormatParser().parse(new StringReader(oboString));
     }
 
-    protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
-        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label.equals(
-                ((OWLLiteral) aa.getValue()).getLiteral())).filter(aa -> aa.getSubject().isIRI()).findAny();
+    protected @Nullable
+    IRI getIriByLabel(OWLOntology ontology, String label) {
+        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology
+            .axioms(AxiomType.ANNOTATION_ASSERTION)
+            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label
+                .equals(
+                    ((OWLLiteral) aa.getValue()).getLiteral()))
+            .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }

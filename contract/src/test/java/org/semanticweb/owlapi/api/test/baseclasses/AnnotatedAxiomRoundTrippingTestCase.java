@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -54,6 +53,6 @@ public abstract class AnnotatedAxiomRoundTrippingTestCase extends
             axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
             axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
             return axioms;
-        } );
+        });
     }
 }

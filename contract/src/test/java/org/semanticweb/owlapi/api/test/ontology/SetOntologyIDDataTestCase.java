@@ -27,11 +27,10 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class SetOntologyIDDataTestCase {
 
     private final OWLOntology mockOntology = mock(OWLOntology.class);
@@ -39,8 +38,9 @@ public class SetOntologyIDDataTestCase {
 
     @Before
     public void setUp() {
-        when(mockOntology.getOntologyID()).thenReturn(new OWLOntologyID(optional(IRI.create("urn:test:", "onto1")),
-            optional(IRI.create("urn:test:", "onto1_1"))));
+        when(mockOntology.getOntologyID())
+            .thenReturn(new OWLOntologyID(optional(IRI.create("urn:test:", "onto1")),
+                optional(IRI.create("urn:test:", "onto1_1"))));
     }
 
     private SetOntologyIDData createData() {

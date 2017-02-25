@@ -114,8 +114,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -169,7 +168,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         OWLClass clsD = Class(iri("D"));
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, clsB, clsC, ObjectSomeValuesFrom(prop, clsD));
+        OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, clsB, clsC,
+            ObjectSomeValuesFrom(prop, clsD));
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.equivalentClassesAxioms(clsA), ax));
@@ -189,7 +189,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         OWLClass clsD = Class(iri("D"));
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLDisjointClassesAxiom ax = DisjointClasses(clsA, clsB, clsC, ObjectSomeValuesFrom(prop, clsD));
+        OWLDisjointClassesAxiom ax = DisjointClasses(clsA, clsB, clsC,
+            ObjectSomeValuesFrom(prop, clsD));
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.disjointClassesAxioms(clsA), ax));
@@ -497,7 +498,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         OWLNamedIndividual indA = NamedIndividual(iri("indA"));
         OWLNamedIndividual indB = NamedIndividual(iri("indB"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
-        OWLNegativeObjectPropertyAssertionAxiom ax = NegativeObjectPropertyAssertion(prop, indA, indB);
+        OWLNegativeObjectPropertyAssertionAxiom ax = NegativeObjectPropertyAssertion(prop, indA,
+            indB);
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.negativeObjectPropertyAssertionAxioms(indA), ax));
@@ -546,7 +548,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.sameIndividualAxioms(indB), ax));
         assertTrue(contains(ont.sameIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> equivalent = asUnorderedSet(equivalent(ont.sameIndividualAxioms(indA)));
+        Collection<OWLObject> equivalent = asUnorderedSet(
+            equivalent(ont.sameIndividualAxioms(indA)));
         assertTrue(equivalent.contains(indB));
         assertTrue(equivalent.contains(indC));
     }
@@ -565,7 +568,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.differentIndividualAxioms(indB), ax));
         assertTrue(contains(ont.differentIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> different = asUnorderedSet(different(ont.differentIndividualAxioms(indA)));
+        Collection<OWLObject> different = asUnorderedSet(
+            different(ont.differentIndividualAxioms(indA)));
         assertTrue(different.contains(indB));
         assertTrue(different.contains(indC));
     }

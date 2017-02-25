@@ -30,12 +30,11 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * A test case to ensure that the reference implementation data factories do not
  * create duplicate objects for distinguished values (e.g. owl:Thing,
  * rdfs:Literal etc.)
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class OWLDataFactoryImplTestCase {
 

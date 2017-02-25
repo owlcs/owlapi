@@ -24,12 +24,12 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
 @SuppressWarnings("javadoc")
-public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends AbstractFileRoundTrippingTestCase {
+public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
+    AbstractFileRoundTrippingTestCase {
 
     public FileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
         super("SubClassOfUntypedOWLClass.rdf");
@@ -44,7 +44,8 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends Abstra
         assertTrue(format instanceof RDFXMLDocumentFormat);
         RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
         assertTrue(rdfxmlFormat.getOntologyLoaderMetaData().isPresent());
-        Stream<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData().get().getUnparsedTriples();
+        Stream<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData().get()
+            .getUnparsedTriples();
         assertEquals(1, triples.count());
     }
 }

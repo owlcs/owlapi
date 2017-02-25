@@ -28,9 +28,8 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
  * restriction to the collection. <br>
  * The visitor returns a map of properties to collections of fillers using that
  * property.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -39,7 +38,8 @@ public class ExistentialCollector implements OWLClassExpressionVisitor {
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
-    public ExistentialCollector(Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
+    public ExistentialCollector(
+        Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
         this.restrictions = restrictions;
     }
 

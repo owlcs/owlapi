@@ -45,8 +45,9 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
         o.add(df.getOWLDeclarationAxiom(op));
         o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
-            iri("otherTest")));
+        OWLAnnotationAssertionAxiom assertion = df
+            .getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
+                iri("otherTest")));
         o.add(assertion);
         return o;
     }
@@ -56,8 +57,9 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
         o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
-            iri("otherTest")));
+        OWLAnnotationAssertionAxiom assertion = df
+            .getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
+                iri("otherTest")));
         o.add(assertion);
         return o;
     }
@@ -73,7 +75,8 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDeclareMissingEntities() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDeclareMissingEntities()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));

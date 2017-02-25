@@ -22,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -54,7 +53,8 @@ public class OntologyIRITestCase extends AbstractRoundTrippingTestCase {
                 + "        <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
                 + "        <!ENTITY owl2xml \"http://www.w3.org/2006/12/owl2-xml#\" >\n"
                 + "        <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n"
-                + "        <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\n" + "        ]>\n"
+                + "        <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\n"
+                + "        ]>\n"
                 + "<rdf:RDF xmlns=\"http://www.test.com/Ambiguous.owl#\"\n"
                 + "         xml:base=\"http://www.test.com/Ambiguous.owl\"\n"
                 + "         xmlns:owl2xml=\"http://www.w3.org/2006/12/owl2-xml#\"\n"
@@ -64,8 +64,10 @@ public class OntologyIRITestCase extends AbstractRoundTrippingTestCase {
                 + "         xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
                 + "    <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
                 + "    <owl:OntologyProperty rdf:about=\"p\"/>\n"
-                + "    <owl:Ontology rdf:about=\"http://www.test.com/right.owl\">\n" + "        <p>\n"
-                + "            <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n" + "        </p>\n"
+                + "    <owl:Ontology rdf:about=\"http://www.test.com/right.owl\">\n"
+                + "        <p>\n"
+                + "            <owl:Ontology rdf:about=\"http://www.test.com/wrong.owl\"/>\n"
+                + "        </p>\n"
                 + "    </owl:Ontology>\n" + "</rdf:RDF>");
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
