@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class StructuralReasonerFactory implements OWLReasonerFactory {
@@ -42,7 +41,8 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
     }
 
     @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) {
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
+        OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
     }
 

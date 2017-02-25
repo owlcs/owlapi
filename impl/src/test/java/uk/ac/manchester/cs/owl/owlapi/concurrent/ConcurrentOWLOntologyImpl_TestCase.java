@@ -51,14 +51,19 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "javadoc", "deprecation", "null" })
+@SuppressWarnings({"javadoc", "deprecation", "null"})
 public class ConcurrentOWLOntologyImpl_TestCase {
 
-    @Mock private ReentrantReadWriteLock readWriteLock;
-    @Mock private ReentrantReadWriteLock.ReadLock readLock;
-    @Mock private ReentrantReadWriteLock.WriteLock writeLock;
-    @Mock private OWLMutableOntology delegate;
-    @Mock private IRI iri;
+    @Mock
+    private ReentrantReadWriteLock readWriteLock;
+    @Mock
+    private ReentrantReadWriteLock.ReadLock readLock;
+    @Mock
+    private ReentrantReadWriteLock.WriteLock writeLock;
+    @Mock
+    private OWLMutableOntology delegate;
+    @Mock
+    private IRI iri;
     private ConcurrentOWLOntologyImpl ontology;
 
     interface TestConsumer {
@@ -70,8 +75,9 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     public void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
-        when(delegate.applyChangesAndGetDetails(anyListOf(OWLOntologyChange.class))).thenReturn(new ChangeDetails(
-            ChangeApplied.NO_OPERATION, Collections.emptyList()));
+        when(delegate.applyChangesAndGetDetails(anyListOf(OWLOntologyChange.class)))
+            .thenReturn(new ChangeDetails(
+                ChangeApplied.NO_OPERATION, Collections.emptyList()));
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
     }
 
@@ -131,7 +137,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         writeLock(i -> i.verify(delegate).setOWLOntologyManager(manager));
     }
 
-    @Mock OWLOntologyManager manager;
+    @Mock
+    OWLOntologyManager manager;
 
     @Test
     public void shouldDelegateTo_getOntologyID_withReadLock() {
@@ -199,7 +206,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getGeneralClassAxioms());
     }
 
-    @Mock OWLEntity entity;
+    @Mock
+    OWLEntity entity;
 
     @Test
     public void shouldDelegateTo_isDeclared_withReadLock() {
@@ -225,8 +233,10 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).saveOntology(format, outputStream));
     }
 
-    @Mock OutputStream outputStream;
-    @Mock OWLDocumentFormat format;
+    @Mock
+    OutputStream outputStream;
+    @Mock
+    OWLDocumentFormat format;
 
     @Test
     public void shouldDelegateTo_saveOntology_withReadLock_3() throws OWLOntologyStorageException {
@@ -234,7 +244,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).saveOntology(target));
     }
 
-    @Mock OWLOntologyDocumentTarget target;
+    @Mock
+    OWLOntologyDocumentTarget target;
 
     @Test
     public void shouldDelegateTo_saveOntology_withReadLock_4() throws OWLOntologyStorageException {
@@ -338,7 +349,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getAxioms(datatype, INCLUDED));
     }
 
-    @Mock OWLDatatype datatype;
+    @Mock
+    OWLDatatype datatype;
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_2() {
@@ -409,10 +421,12 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_containsAxiom_withReadLock() {
         ontology.containsAxiom(axiom, INCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
-        readLock(i -> i.verify(delegate).containsAxiom(axiom, INCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
+        readLock(i -> i.verify(delegate)
+            .containsAxiom(axiom, INCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
     }
 
-    @Mock OWLAxiom axiom;
+    @Mock
+    OWLAxiom axiom;
 
     @Test
     public void shouldDelegateTo_getAxiomsIgnoreAnnotations_withReadLock() {
@@ -426,7 +440,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getReferencingAxioms(primitive, INCLUDED));
     }
 
-    @Mock OWLPrimitive primitive;
+    @Mock
+    OWLPrimitive primitive;
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_9() {
@@ -476,7 +491,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getAxioms(dataProperty, true));
     }
 
-    @Mock OWLDataProperty dataProperty;
+    @Mock
+    OWLDataProperty dataProperty;
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_15() {
@@ -484,7 +500,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getAxioms(individual, true));
     }
 
-    @Mock OWLIndividual individual;
+    @Mock
+    OWLIndividual individual;
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_16() {
@@ -559,7 +576,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getAxioms(datatype));
     }
 
-    @Mock OWLObjectPropertyExpression objectProperty;
+    @Mock
+    OWLObjectPropertyExpression objectProperty;
 
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_20() {
@@ -909,9 +927,10 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).contains(searchFilter, arg1, INCLUDED));
     }
 
-    @Mock OWLAxiomSearchFilter searchFilter;
+    @Mock
+    OWLAxiomSearchFilter searchFilter;
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_25() {
         Class arg0 = OWLClass.class;
@@ -921,9 +940,10 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getAxioms(arg0, arg1, object, INCLUDED, arg4));
     }
 
-    @Mock OWLObject object;
+    @Mock
+    OWLObject object;
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Test
     public void shouldDelegateTo_getAxioms_withReadLock_26() {
         Class arg0 = OWLClass.class;
@@ -945,7 +965,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getSubAnnotationPropertyOfAxioms(annotationProperty));
     }
 
-    @Mock OWLAnnotationProperty annotationProperty;
+    @Mock
+    OWLAnnotationProperty annotationProperty;
 
     @Test
     public void shouldDelegateTo_getAnnotationPropertyDomainAxioms_withReadLock() {
@@ -971,7 +992,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getAnnotationAssertionAxioms(subject));
     }
 
-    @Mock OWLAnnotationSubject subject;
+    @Mock
+    OWLAnnotationSubject subject;
 
     @Test
     public void shouldDelegateTo_getSubClassAxiomsForSubClass_withReadLock() {
@@ -991,7 +1013,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getEquivalentClassesAxioms(owlClass));
     }
 
-    @Mock OWLClass owlClass;
+    @Mock
+    OWLClass owlClass;
 
     @Test
     public void shouldDelegateTo_getDisjointClassesAxioms_withReadLock() {
@@ -1020,7 +1043,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getObjectSubPropertyAxiomsForSuperProperty_withReadLock() {
         ontology.getObjectSubPropertyAxiomsForSuperProperty(objectProperty);
-        readLock(i -> i.verify(delegate).getObjectSubPropertyAxiomsForSuperProperty(objectProperty));
+        readLock(
+            i -> i.verify(delegate).getObjectSubPropertyAxiomsForSuperProperty(objectProperty));
     }
 
     @Test
@@ -1104,10 +1128,12 @@ public class ConcurrentOWLOntologyImpl_TestCase {
     @Test
     public void shouldDelegateTo_getDataSubPropertyAxiomsForSuperProperty_withReadLock() {
         ontology.getDataSubPropertyAxiomsForSuperProperty(dataPropertyExpression);
-        readLock(i -> i.verify(delegate).getDataSubPropertyAxiomsForSuperProperty(dataPropertyExpression));
+        readLock(i -> i.verify(delegate)
+            .getDataSubPropertyAxiomsForSuperProperty(dataPropertyExpression));
     }
 
-    @Mock OWLDataPropertyExpression dataPropertyExpression;
+    @Mock
+    OWLDataPropertyExpression dataPropertyExpression;
 
     @Test
     public void shouldDelegateTo_getDataPropertyDomainAxioms_withReadLock() {
@@ -1145,7 +1171,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         readLock(i -> i.verify(delegate).getClassAssertionAxioms(classExpression));
     }
 
-    @Mock OWLClassExpression classExpression;
+    @Mock
+    OWLClassExpression classExpression;
 
     @Test
     public void shouldDelegateTo_getClassAssertionAxioms_withReadLock_2() {
@@ -1213,7 +1240,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         writeLock(i -> i.verify(delegate).applyChange(change));
     }
 
-    @Mock OWLOntologyChange change;
+    @Mock
+    OWLOntologyChange change;
 
     @Test
     public void shouldDelegateTo_applyChanges_withWriteLock() {
@@ -1221,7 +1249,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         writeLock(i -> i.verify(delegate).applyChangesAndGetDetails(list));
     }
 
-    @Mock List<OWLOntologyChange> list;
+    @Mock
+    List<OWLOntologyChange> list;
 
     @Test
     public void shouldDelegateTo_addAxioms_withWriteLock() {
@@ -1229,7 +1258,8 @@ public class ConcurrentOWLOntologyImpl_TestCase {
         writeLock(i -> i.verify(delegate).addAxioms(set));
     }
 
-    @Mock Set<OWLAxiom> set;
+    @Mock
+    Set<OWLAxiom> set;
 
     @Test
     public void shouldDelegateTo_addAxiom_withWriteLock() {

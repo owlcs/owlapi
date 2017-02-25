@@ -38,8 +38,7 @@ public class OWLAPIImplModule extends AbstractModule {
     private final Concurrency concurrency;
 
     /**
-     * @param concurrency
-     *        concurrency type to use
+     * @param concurrency concurrency type to use
      */
     public OWLAPIImplModule(Concurrency concurrency) {
         this.concurrency = concurrency;
@@ -55,17 +54,20 @@ public class OWLAPIImplModule extends AbstractModule {
         bind(boolean.class).annotatedWith(CompressionEnabled.class).toInstance(Boolean.FALSE);
         bind(OWLDataFactory.class).to(OWLDataFactoryImpl.class).asEagerSingleton();
         bind(OWLOntologyManager.class).to(OWLOntologyManagerImpl.class);
-        bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class).to(OWLOntologyManagerImpl.class);
+        bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class)
+            .to(OWLOntologyManagerImpl.class);
         bind(OWLOntologyBuilder.class).to(ConcurrentOWLOntologyBuilder.class);
         bind(OWLOntologyBuilder.class).annotatedWith(NonConcurrentDelegate.class).to(
             NonConcurrentOWLOntologyBuilder.class);
-        install(new FactoryModuleBuilder().implement(OWLOntology.class, OWLOntologyImpl.class).build(
-            OWLOntologyImplementationFactory.class));
+        install(
+            new FactoryModuleBuilder().implement(OWLOntology.class, OWLOntologyImpl.class).build(
+                OWLOntologyImplementationFactory.class));
         multibind(OWLOntologyFactory.class, OWLOntologyFactoryImpl.class);
     }
 
     @SafeVarargs
-    private final <T> Multibinder<T> multibind(Class<T> type, Class<? extends T>... implementations) {
+    private final <T> Multibinder<T> multibind(Class<T> type,
+        Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {
             binder.addBinding().to(i);

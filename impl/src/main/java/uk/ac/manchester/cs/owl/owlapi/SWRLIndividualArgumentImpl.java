@@ -18,8 +18,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLIndividualArgument {
@@ -27,8 +26,7 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
     private final OWLIndividual individual;
 
     /**
-     * @param individual
-     *        individual for argument
+     * @param individual individual for argument
      */
     public SWRLIndividualArgumentImpl(OWLIndividual individual) {
         this.individual = checkNotNull(individual, "individual cannot be null");

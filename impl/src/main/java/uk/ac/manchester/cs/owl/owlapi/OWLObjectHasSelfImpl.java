@@ -18,17 +18,16 @@ import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectHasSelfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectHasSelf {
+public class OWLObjectHasSelfImpl extends OWLAnonymousClassExpressionImpl implements
+    OWLObjectHasSelf {
 
     private final OWLObjectPropertyExpression property;
 
     /**
-     * @param property
-     *        self property
+     * @param property self property
      */
     public OWLObjectHasSelfImpl(OWLObjectPropertyExpression property) {
         this.property = checkNotNull(property, "property cannot be null");

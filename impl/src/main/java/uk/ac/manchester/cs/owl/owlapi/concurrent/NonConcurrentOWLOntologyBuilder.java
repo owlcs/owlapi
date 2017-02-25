@@ -17,8 +17,7 @@ public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
     private final transient OWLOntologyImplementationFactory implementationFactory;
 
     /**
-     * @param implementationFactory
-     *        implementation factory
+     * @param implementationFactory implementation factory
      */
     @Inject
     public NonConcurrentOWLOntologyBuilder(OWLOntologyImplementationFactory implementationFactory) {

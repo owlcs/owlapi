@@ -23,19 +23,17 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
+    OWLNaryIndividualAxiom {
 
     protected final List<OWLIndividual> individuals;
 
     /**
-     * @param individuals
-     *        individuals
-     * @param annotations
-     *        annotations on the axiom
+     * @param individuals individuals
+     * @param annotations annotations on the axiom
      */
     public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {

@@ -12,10 +12,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public interface OWLOntologyImplementationFactory extends Serializable {
 
     /**
-     * @param manager
-     *        manager that will host the ontology
-     * @param ontologyID
-     *        ontology id
+     * @param manager manager that will host the ontology
+     * @param ontologyID ontology id
      * @return new ontology instance
      */
     OWLOntology createOWLOntology(OWLOntologyManager manager,

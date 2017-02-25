@@ -25,35 +25,32 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> the property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <P>
- *        the property expression
  */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl implements
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
+    OWLPropertyAxiomImpl implements
     OWLNaryPropertyAxiom<P> {
 
     protected final List<P> properties;
 
     /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
+     * @param properties properties
+     * @param annotations annotations
      */
-    public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties, Collection<OWLAnnotation> annotations) {
+    public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties,
+        Collection<OWLAnnotation> annotations) {
         this(checkNotNull(properties, "properties cannot be null").stream(), annotations);
     }
 
     /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
+     * @param properties properties
+     * @param annotations annotations
      */
     @SuppressWarnings("unchecked")
-    public OWLNaryPropertyAxiomImpl(Stream<? extends P> properties, Collection<OWLAnnotation> annotations) {
+    public OWLNaryPropertyAxiomImpl(Stream<? extends P> properties,
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
         this.properties = (List<P>) CollectionFactory.sortOptionally(properties.distinct());

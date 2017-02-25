@@ -18,8 +18,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
@@ -27,8 +26,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
     private final int literal;
 
     /**
-     * @param literal
-     *        literal value
+     * @param literal literal value
      */
     public OWLLiteralImplInteger(int literal) {
         this.literal = literal;
@@ -36,7 +34,8 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(literal * 65536), getLang()));
+        return hash(object.hashIndex(),
+            Stream.of(getDatatype(), Integer.valueOf(literal * 65536), getLang()));
     }
 
     @Override

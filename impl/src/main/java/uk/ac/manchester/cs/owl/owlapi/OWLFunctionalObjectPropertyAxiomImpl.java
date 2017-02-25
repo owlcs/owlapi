@@ -23,18 +23,16 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements
+public class OWLFunctionalObjectPropertyAxiomImpl extends
+    OWLObjectPropertyCharacteristicAxiomImpl implements
     OWLFunctionalObjectPropertyAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
         Collection<OWLAnnotation> annotations) {
@@ -56,7 +54,8 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectMaxCardinalityImpl(getProperty(), 1, OWL_THING),
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+            new OWLObjectMaxCardinalityImpl(getProperty(), 1, OWL_THING),
             NO_ANNOTATIONS);
     }
 }
