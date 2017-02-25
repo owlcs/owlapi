@@ -75,6 +75,34 @@ class TokenMgrError extends OWLRuntimeException {
     int errorCode;
 
     /**
+     * No arg constructor.
+     */
+    public TokenMgrError() {
+    }
+
+    /**
+     * Constructor with message and reason.
+     */
+    public TokenMgrError(String message, int reason) {
+        super(message);
+        errorCode = reason;
+    }
+
+    /**
+     * Full Constructor.
+     */
+    public TokenMgrError(boolean EOFSeen, int errorLine, int errorColumn,
+        String errorAfter, char curChar, int reason) {
+        this(
+            LexicalError(EOFSeen, errorLine, errorColumn, errorAfter,
+                curChar), reason);
+    }
+
+    /*
+     * Constructors of various flavors follow.
+     */
+
+    /**
      * Replaces unprintable characters by their escaped (or unicode escaped)
      * equivalents in the given string
      */
@@ -156,34 +184,6 @@ class TokenMgrError extends OWLRuntimeException {
     @Override
     public String getMessage() {
         return super.getMessage();
-    }
-
-    /*
-     * Constructors of various flavors follow.
-     */
-
-    /**
-     * No arg constructor.
-     */
-    public TokenMgrError() {
-    }
-
-    /**
-     * Constructor with message and reason.
-     */
-    public TokenMgrError(String message, int reason) {
-        super(message);
-        errorCode = reason;
-    }
-
-    /**
-     * Full Constructor.
-     */
-    public TokenMgrError(boolean EOFSeen, int errorLine, int errorColumn,
-        String errorAfter, char curChar, int reason) {
-        this(
-            LexicalError(EOFSeen, errorLine, errorColumn, errorAfter,
-                curChar), reason);
     }
 }
 /* JavaCC - OriginalChecksum=859631795247d8e08a6fc52abe1a8c01 (do not edit this line) */

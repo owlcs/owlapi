@@ -55,6 +55,33 @@ public class OWLLiteralReplacer {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
+    private static Collection<OWLAxiom> getAxioms(OWLOntology ont, OWLLiteral entity) {
+        List<OWLAxiom> axioms = asList(ont.referencingAxioms(entity, EXCLUDED));
+        add(axioms, ont.declarationAxioms(entity.getDatatype()));
+        return axioms;
+    }
+
+    /**
+     * Fills a list with ontology changes which will replace a set of axioms
+     * with duplicated/transformed axioms.
+     *
+     * @param changes A list that will be filled with ontology changes which will remove the
+     * specified axioms from the specified ontology, and add the duplicated/transformed version
+     * @param axioms The axioms to be duplicated/transformed
+     * @param ont The ontology to which the changed should be applied
+     * @param duplicator The duplicator that will do the duplicating
+     */
+    private static void fillListWithTransformChanges(List<OWLOntologyChange> changes,
+        Collection<OWLAxiom> axioms,
+        OWLOntology ont, OWLObjectDuplicator duplicator) {
+        for (OWLAxiom ax : axioms) {
+            assert ax != null;
+            changes.add(new RemoveAxiom(ont, ax));
+            OWLAxiom dupAx = duplicator.duplicateObject(ax);
+            changes.add(new AddAxiom(ont, dupAx));
+        }
+    }
+
     /**
      * Changes a literal for another literal. This creates the appropriate
      * changes to be applied.
@@ -96,32 +123,5 @@ public class OWLLiteralReplacer {
             }
         }
         return changes;
-    }
-
-    private static Collection<OWLAxiom> getAxioms(OWLOntology ont, OWLLiteral entity) {
-        List<OWLAxiom> axioms = asList(ont.referencingAxioms(entity, EXCLUDED));
-        add(axioms, ont.declarationAxioms(entity.getDatatype()));
-        return axioms;
-    }
-
-    /**
-     * Fills a list with ontology changes which will replace a set of axioms
-     * with duplicated/transformed axioms.
-     *
-     * @param changes A list that will be filled with ontology changes which will remove the
-     * specified axioms from the specified ontology, and add the duplicated/transformed version
-     * @param axioms The axioms to be duplicated/transformed
-     * @param ont The ontology to which the changed should be applied
-     * @param duplicator The duplicator that will do the duplicating
-     */
-    private static void fillListWithTransformChanges(List<OWLOntologyChange> changes,
-        Collection<OWLAxiom> axioms,
-        OWLOntology ont, OWLObjectDuplicator duplicator) {
-        for (OWLAxiom ax : axioms) {
-            assert ax != null;
-            changes.add(new RemoveAxiom(ont, ax));
-            OWLAxiom dupAx = duplicator.duplicateObject(ax);
-            changes.add(new AddAxiom(ont, dupAx));
-        }
     }
 }

@@ -26,13 +26,13 @@ import org.semanticweb.owlapi.model.NodeID;
 public class RDFResourceBlankNode extends RDFResource implements
     org.apache.commons.rdf.api.BlankNode {
 
-    private final IRI resource;
-    private final boolean isIndividual;
-    private final boolean forceIdOutput;
     /**
      * Random UUID, used by {@link #uniqueReference()}
      */
     private static final UUID UNIQUE_BASE = UUID.randomUUID();
+    private final IRI resource;
+    private final boolean isIndividual;
+    private final boolean forceIdOutput;
 
     /**
      * Create an RDFResource that is anonymous.

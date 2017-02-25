@@ -48,11 +48,6 @@ public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
         super(f);
     }
 
-    @Override
-    public void testManchesterOWLSyntax() {
-        // no valid Manchester OWL Syntax roundtrip
-    }
-
     @Parameters
     public static List<AxiomBuilder> getData() {
         OWLObjectPropertyExpression p = ObjectProperty(iri("p"))
@@ -83,5 +78,10 @@ public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
             () -> Sets.newHashSet(SymmetricObjectProperty(p)),
             // TransitiveObjectPropertyInverse
             () -> Sets.newHashSet(TransitiveObjectProperty(p)));
+    }
+
+    @Override
+    public void testManchesterOWLSyntax() {
+        // no valid Manchester OWL Syntax roundtrip
     }
 }

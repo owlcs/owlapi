@@ -18,29 +18,6 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class Frame {
 
     /**
-     * The Enum FrameType.
-     */
-    public enum FrameType {
-        //@formatter:off
-        /**
-         * HEADER.
-         */HEADER,
-        /**
-         * TERM.
-         */TERM,
-        /**
-         * TYPEDEF.
-         */TYPEDEF,
-        /**
-         * INSTANCE.
-         */INSTANCE,
-        /**
-         * ANNOTATION.
-         */ANNOTATION
-        //@formatter:on
-    }
-
-    /**
      * The clauses.
      */
     protected Collection<Clause> clauses = new ArrayList<>();
@@ -54,7 +31,6 @@ public class Frame {
      */
     @Nullable
     protected FrameType type;
-
     /**
      * Instantiates a new frame.
      */
@@ -133,6 +109,13 @@ public class Frame {
     }
 
     /**
+     * @param clauses the new clauses
+     */
+    public void setClauses(Collection<Clause> clauses) {
+        this.clauses = clauses;
+    }
+
+    /**
      * @param tag the tag
      * @return the clauses for tag
      */
@@ -182,13 +165,6 @@ public class Frame {
     @Nullable
     public Clause getClause(OboFormatTag tag) {
         return getClause(tag.getTag());
-    }
-
-    /**
-     * @param clauses the new clauses
-     */
-    public void setClauses(Collection<Clause> clauses) {
-        this.clauses = clauses;
     }
 
     /**
@@ -420,5 +396,28 @@ public class Frame {
                     "multiple " + tag.getTag() + " tags not allowed.");
             }
         }
+    }
+
+    /**
+     * The Enum FrameType.
+     */
+    public enum FrameType {
+        //@formatter:off
+        /**
+         * HEADER.
+         */HEADER,
+        /**
+         * TERM.
+         */TERM,
+        /**
+         * TYPEDEF.
+         */TYPEDEF,
+        /**
+         * INSTANCE.
+         */INSTANCE,
+        /**
+         * ANNOTATION.
+         */ANNOTATION
+        //@formatter:on
     }
 }

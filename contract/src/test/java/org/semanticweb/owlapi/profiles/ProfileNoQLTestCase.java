@@ -17,11 +17,6 @@ public class ProfileNoQLTestCase extends ProfileBase {
         this.premise = premise;
     }
 
-    @Test
-    public void testNoQL() {
-        test(premise, true, false, true, true);
-    }
-
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
@@ -48,5 +43,10 @@ public class ProfileNoQLTestCase extends ProfileBase {
             "Prefix( :=<http://example.org/> ) Ontology( Declaration( ObjectProperty( :hasMother ) ) Declaration( ObjectProperty( :hasSister ) ) Declaration( ObjectProperty( :hasAunt ) ) SubObjectPropertyOf( ObjectPropertyChain( :hasMother :hasSister ) :hasAunt ) ObjectPropertyAssertion( :hasMother :Stewie :Lois ) ObjectPropertyAssertion( :hasSister :Lois :Carol ))",
             "<rdf:RDF xml:base=\"urn:test\" xmlns=\"urn:test#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/><rdf:Description rdf:about=\"urn:test#p\"><owl:propertyChainAxiom rdf:parseType=\"Collection\"><owl:ObjectProperty rdf:about=\"urn:test#p\"/><owl:ObjectProperty rdf:about=\"urn:test#q\"/></owl:propertyChainAxiom></rdf:Description><rdf:Description rdf:about=\"urn:test#a\"><p rdf:resource=\"urn:test#b\"/></rdf:Description><rdf:Description rdf:about=\"urn:test#b\"><q rdf:resource=\"urn:test#c\"/></rdf:Description></rdf:RDF>",
             "<rdf:RDF xml:base=\"urn:test\" xmlns=\"urn:test#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/><rdf:Description rdf:about=\"urn:test#p\"><owl:propertyChainAxiom rdf:parseType=\"Collection\"><owl:ObjectProperty rdf:about=\"urn:test#p\"/><owl:ObjectProperty rdf:about=\"urn:test#q\"/></owl:propertyChainAxiom></rdf:Description><rdf:Description rdf:about=\"urn:test#a\"><q rdf:resource=\"urn:test#b\"/></rdf:Description><rdf:Description rdf:about=\"urn:test#b\"><q rdf:resource=\"urn:test#c\"/></rdf:Description></rdf:RDF>");
+    }
+
+    @Test
+    public void testNoQL() {
+        test(premise, true, false, true, true);
     }
 }

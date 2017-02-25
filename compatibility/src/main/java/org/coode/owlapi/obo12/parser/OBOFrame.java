@@ -51,9 +51,9 @@ import javax.annotation.Nullable;
  */
 class OBOFrame {
 
+    private final List<OBOTagValuePair> tagValuePairs;
     @Nullable
     private String frameType = null;
-    private final List<OBOTagValuePair> tagValuePairs;
 
     public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
         this.tagValuePairs = tagValuePairs;

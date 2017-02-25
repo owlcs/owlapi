@@ -98,8 +98,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
 
-    protected int hashCode;
     protected static final int MULT = 37;
+    protected int hashCode;
 
     public static int hashCode(@Nullable OWLObject object) {
         checkNotNull(object, "object cannot be null");

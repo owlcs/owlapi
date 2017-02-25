@@ -324,6 +324,20 @@ public enum ManchesterOWLSyntax {
     }
 
     /**
+     * @param rendering rendering
+     * @return manchester owl syntax object
+     */
+    public static @Nullable
+    ManchesterOWLSyntax parse(String rendering) {
+        for (ManchesterOWLSyntax m : values()) {
+            if (m.matches(rendering)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    /**
      * @return frame keyword
      */
     public boolean isFrameKeyword() {
@@ -395,19 +409,5 @@ public enum ManchesterOWLSyntax {
      */
     public boolean matches(String s, String v) {
         return legacy.matches(s, v);
-    }
-
-    /**
-     * @param rendering rendering
-     * @return manchester owl syntax object
-     */
-    public static @Nullable
-    ManchesterOWLSyntax parse(String rendering) {
-        for (ManchesterOWLSyntax m : values()) {
-            if (m.matches(rendering)) {
-                return m;
-            }
-        }
-        return null;
     }
 }

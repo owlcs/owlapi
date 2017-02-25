@@ -122,61 +122,21 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer implements
     OWLEntityVisitor {
 
-    private class SectionMap<O, V extends OWLAxiom> {
-
-        private final Map<O, Collection<V>> object2Axioms = new LinkedHashMap<>();
-
-        SectionMap() {
-        }
-
-        boolean isNotEmpty() {
-            return !object2Axioms.isEmpty();
-        }
-
-        void put(O obj, V forAxiom) {
-            Collection<V> axioms = object2Axioms.get(obj);
-            if (axioms == null) {
-                axioms = sortedCollection();
-                object2Axioms.put(obj, axioms);
-            }
-            axioms.add(forAxiom);
-        }
-
-        void remove(O obj) {
-            object2Axioms.remove(obj);
-        }
-
-        Collection<O> getSectionObjects() {
-            return object2Axioms.keySet();
-        }
-
-        Collection<Collection<OWLAnnotation>> getAnnotationsForSectionObject(Object sectionObject) {
-            Collection<V> axioms = object2Axioms.get(sectionObject);
-            if (axioms == null) {
-                return sortedSet();
-            }
-            Collection<Collection<OWLAnnotation>> annos = new ArrayList<>();
-            axioms.forEach(ax -> annos.add(asList(ax.annotations().sorted(ooc))));
-            return annos;
-        }
-    }
-
-    private final OWLOntology o;
-    private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
-    private final Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
-    private boolean renderExtensions = false;
-    private final List<RendererListener> listeners = new ArrayList<>();
-    private OWLAxiomFilter axiomFilter = axiom -> true;
-    private RenderingDirector renderingDirector = new DefaultRenderingDirector();
     protected final OWLObjectComparator ooc;
+    private final OWLOntology o;
+    private final Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
+    private final List<RendererListener> listeners = new ArrayList<>();
     private final Predicate<OWLAxiom> props = ax ->
         ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
+    private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
+    private boolean renderExtensions = false;
+    private OWLAxiomFilter axiomFilter = axiom -> true;
+    private RenderingDirector renderingDirector = new DefaultRenderingDirector();
     /**
      * The event.
      */
     @Nullable
     private RendererEvent event;
-
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      *
@@ -206,6 +166,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         o = ontologies.iterator().next();
         ooc = new OWLObjectComparator(entityShortFormProvider);
+    }
+
+    static <E> Collection<E> sortedSet() {
+        return new TreeSet<>();
     }
 
     /**
@@ -1277,6 +1241,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         listeners.forEach(l -> l.sectionItemFinished(section, event));
     }
 
+    <E extends OWLObject> Collection<E> sortedCollection() {
+        return new TreeSet<>(ooc);
+    }
+
     /**
      * The Class DefaultRenderingDirector.
      */
@@ -1295,11 +1263,42 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
-    <E extends OWLObject> Collection<E> sortedCollection() {
-        return new TreeSet<>(ooc);
-    }
+    private class SectionMap<O, V extends OWLAxiom> {
 
-    static <E> Collection<E> sortedSet() {
-        return new TreeSet<>();
+        private final Map<O, Collection<V>> object2Axioms = new LinkedHashMap<>();
+
+        SectionMap() {
+        }
+
+        boolean isNotEmpty() {
+            return !object2Axioms.isEmpty();
+        }
+
+        void put(O obj, V forAxiom) {
+            Collection<V> axioms = object2Axioms.get(obj);
+            if (axioms == null) {
+                axioms = sortedCollection();
+                object2Axioms.put(obj, axioms);
+            }
+            axioms.add(forAxiom);
+        }
+
+        void remove(O obj) {
+            object2Axioms.remove(obj);
+        }
+
+        Collection<O> getSectionObjects() {
+            return object2Axioms.keySet();
+        }
+
+        Collection<Collection<OWLAnnotation>> getAnnotationsForSectionObject(Object sectionObject) {
+            Collection<V> axioms = object2Axioms.get(sectionObject);
+            if (axioms == null) {
+                return sortedSet();
+            }
+            Collection<Collection<OWLAnnotation>> annos = new ArrayList<>();
+            axioms.forEach(ax -> annos.add(asList(ax.annotations().sorted(ooc))));
+            return annos;
+        }
     }
 }

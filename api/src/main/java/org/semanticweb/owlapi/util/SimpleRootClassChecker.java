@@ -90,6 +90,12 @@ public class SimpleRootClassChecker implements RootClassChecker {
         return !ax.accept(checker.setOWLClass(cls)).booleanValue();
     }
 
+    protected boolean check(OWLClassExpression e) {
+        superChecker.reset();
+        e.accept(superChecker);
+        return !superChecker.namedSuper;
+    }
+
     private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
         protected boolean namedSuper;
@@ -111,12 +117,6 @@ public class SimpleRootClassChecker implements RootClassChecker {
         public Boolean visit(OWLObjectIntersectionOf ce) {
             return Boolean.valueOf(ce.operands().anyMatch(op -> op.accept(this).booleanValue()));
         }
-    }
-
-    protected boolean check(OWLClassExpression e) {
-        superChecker.reset();
-        e.accept(superChecker);
-        return !superChecker.namedSuper;
     }
 
     /**

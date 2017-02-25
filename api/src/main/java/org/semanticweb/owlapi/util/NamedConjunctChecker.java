@@ -32,12 +32,12 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  */
 public class NamedConjunctChecker {
 
+    final Set<OWLClass> conjuncts = new HashSet<>();
+    private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
     @Nullable
     protected OWLClass conjunct;
     boolean found;
     boolean collect;
-    final Set<OWLClass> conjuncts = new HashSet<>();
-    private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
 
     /**
      * @param conj The conjunct to check for

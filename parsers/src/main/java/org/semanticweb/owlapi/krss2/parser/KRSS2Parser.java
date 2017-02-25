@@ -26,6 +26,32 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("all")
 public class KRSS2Parser implements KRSS2ParserConstants {
 
+    static private int[] jj_la1_0;
+    static private int[] jj_la1_1;
+    static private int[] jj_la1_2;
+
+    static {
+        jj_la1_init_0();
+        jj_la1_init_1();
+        jj_la1_init_2();
+    }
+
+    final private int[] jj_la1 = new int[32];
+    final private JJCalls[] jj_2_rtns = new JJCalls[34];
+    final private LookaheadSuccess jj_ls = new LookaheadSuccess();
+    /**
+     * Generated Token Manager.
+     */
+    public KRSS2ParserTokenManager token_source;
+    /**
+     * Current token.
+     */
+    public Token token;
+    /**
+     * Next token.
+     */
+    public Token jj_nt;
+    JavaCharStream jj_input_stream;
     private OWLOntology ontology;
     private OWLDataFactory df;
     private Map<String, IRI> string2IRI;
@@ -38,6 +64,77 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     private boolean alwaysNames = false;
     //
     private String[] splitted = new String[2];
+    private int jj_ntk;
+    private Token jj_scanpos, jj_lastpos;
+    private int jj_la;
+    private int jj_gen;
+    private boolean jj_rescan = false;
+    private int jj_gc = 0;
+    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+    private int[] jj_expentry;
+    private int jj_kind = -1;
+    private int[] jj_lasttokens = new int[100];
+    private int jj_endpos;
+    private int trace_indent = 0;
+    private boolean trace_enabled;
+
+    /**
+     * Constructor.
+     */
+    public KRSS2Parser(Provider stream) {
+        jj_input_stream = new JavaCharStream(stream, 1, 1);
+        token_source = new KRSS2ParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 32; i++) {
+            jj_la1[i] = -1;
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+            jj_2_rtns[i] = new JJCalls();
+        }
+    }
+
+    /**
+     * Constructor.
+     */
+    public KRSS2Parser(String dsl) throws ParseException, TokenMgrException {
+        this(new StringProvider(dsl));
+    }
+
+    /**
+     * Constructor with generated Token Manager.
+     */
+    public KRSS2Parser(KRSS2ParserTokenManager tm) {
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 32; i++) {
+            jj_la1[i] = -1;
+        }
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+            jj_2_rtns[i] = new JJCalls();
+        }
+    }
+
+    private static void jj_la1_init_0() {
+        jj_la1_0 = new int[]{0x4c000, 0x0, 0x0, 0x0, 0x4c000, 0x4c000, 0x0, 0x4c000, 0x4c000, 0x0,
+            0x30000, 0x0, 0x30000, 0x0, 0x30000, 0x0, 0x50000, 0x1c000, 0x0, 0x0, 0xc000, 0x4c000,
+            0x4c000, 0x4c000, 0x4c000, 0x4c000, 0xc000, 0x4c000, 0x30000, 0x0, 0xc000, 0xc000,};
+    }
+
+    private static void jj_la1_init_1() {
+        jj_la1_1 = new int[]{0x0, 0x80000, 0x2000, 0x1000, 0x0, 0x0, 0x100, 0x0, 0x0, 0x20000, 0x0,
+            0x2000000, 0x0, 0x800000, 0x0, 0x40000, 0x0, 0x0, 0xc000, 0xc000, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,};
+    }
+
+    private static void jj_la1_init_2() {
+        jj_la1_2 = new int[]{0x6, 0x0, 0x0, 0x0, 0x6, 0x6, 0x0, 0x6, 0x6, 0x0, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x6, 0x0, 0x0, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x0, 0x6, 0x0,
+            0x6,};
+    }
 
     public KRSS2Parser setOntology(OWLOntology ontology) {
         this.ontology = ontology;
@@ -2212,80 +2309,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         return false;
     }
 
-    /**
-     * Generated Token Manager.
-     */
-    public KRSS2ParserTokenManager token_source;
-    JavaCharStream jj_input_stream;
-    /**
-     * Current token.
-     */
-    public Token token;
-    /**
-     * Next token.
-     */
-    public Token jj_nt;
-    private int jj_ntk;
-    private Token jj_scanpos, jj_lastpos;
-    private int jj_la;
-    private int jj_gen;
-    final private int[] jj_la1 = new int[32];
-    static private int[] jj_la1_0;
-    static private int[] jj_la1_1;
-    static private int[] jj_la1_2;
-
-    static {
-        jj_la1_init_0();
-        jj_la1_init_1();
-        jj_la1_init_2();
-    }
-
-    private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0x4c000, 0x0, 0x0, 0x0, 0x4c000, 0x4c000, 0x0, 0x4c000, 0x4c000, 0x0,
-            0x30000, 0x0, 0x30000, 0x0, 0x30000, 0x0, 0x50000, 0x1c000, 0x0, 0x0, 0xc000, 0x4c000,
-            0x4c000, 0x4c000, 0x4c000, 0x4c000, 0xc000, 0x4c000, 0x30000, 0x0, 0xc000, 0xc000,};
-    }
-
-    private static void jj_la1_init_1() {
-        jj_la1_1 = new int[]{0x0, 0x80000, 0x2000, 0x1000, 0x0, 0x0, 0x100, 0x0, 0x0, 0x20000, 0x0,
-            0x2000000, 0x0, 0x800000, 0x0, 0x40000, 0x0, 0x0, 0xc000, 0xc000, 0x0, 0x0, 0x0, 0x0,
-            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,};
-    }
-
-    private static void jj_la1_init_2() {
-        jj_la1_2 = new int[]{0x6, 0x0, 0x0, 0x0, 0x6, 0x6, 0x0, 0x6, 0x6, 0x0, 0x0, 0x0, 0x0, 0x0,
-            0x0, 0x0, 0x0, 0x6, 0x0, 0x0, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x0, 0x6, 0x0,
-            0x6,};
-    }
-
-    final private JJCalls[] jj_2_rtns = new JJCalls[34];
-    private boolean jj_rescan = false;
-    private int jj_gc = 0;
-
-    /**
-     * Constructor.
-     */
-    public KRSS2Parser(Provider stream) {
-        jj_input_stream = new JavaCharStream(stream, 1, 1);
-        token_source = new KRSS2ParserTokenManager(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 32; i++) {
-            jj_la1[i] = -1;
-        }
-        for (int i = 0; i < jj_2_rtns.length; i++) {
-            jj_2_rtns[i] = new JJCalls();
-        }
-    }
-
-    /**
-     * Constructor.
-     */
-    public KRSS2Parser(String dsl) throws ParseException, TokenMgrException {
-        this(new StringProvider(dsl));
-    }
-
     public void ReInit(String s) {
         ReInit(new StringProvider(s));
     }
@@ -2304,22 +2327,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
 
         token_source.ReInit(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 32; i++) {
-            jj_la1[i] = -1;
-        }
-        for (int i = 0; i < jj_2_rtns.length; i++) {
-            jj_2_rtns[i] = new JJCalls();
-        }
-    }
-
-    /**
-     * Constructor with generated Token Manager.
-     */
-    public KRSS2Parser(KRSS2ParserTokenManager tm) {
-        token_source = tm;
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
@@ -2376,13 +2383,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         throw generateParseException();
     }
 
-    @SuppressWarnings("serial")
-    static private final class LookaheadSuccess extends java.lang.RuntimeException {
-
-    }
-
-    final private LookaheadSuccess jj_ls = new LookaheadSuccess();
-
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
@@ -2413,7 +2413,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
         return false;
     }
-
 
     /**
      * Get the next Token.
@@ -2451,12 +2450,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             return (jj_ntk = jj_nt.kind);
         }
     }
-
-    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    private int[] jj_expentry;
-    private int jj_kind = -1;
-    private int[] jj_lasttokens = new int[100];
-    private int jj_endpos;
 
     private void jj_add_error_token(int kind, int pos) {
         if (pos >= 100) {
@@ -2538,9 +2531,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         return new ParseException(token, exptokseq, tokenImage, token_source == null ? null
             : KRSS2ParserTokenManager.lexStateNames[token_source.curLexState]);
     }
-
-    private int trace_indent = 0;
-    private boolean trace_enabled;
 
     /**
      * Trace enabled.
@@ -2698,6 +2688,11 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         p.gen = jj_gen + xla - jj_la;
         p.first = token;
         p.arg = xla;
+    }
+
+    @SuppressWarnings("serial")
+    static private final class LookaheadSuccess extends java.lang.RuntimeException {
+
     }
 
     static final class JJCalls {

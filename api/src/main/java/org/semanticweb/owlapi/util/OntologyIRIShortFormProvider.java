@@ -59,42 +59,6 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         return Collections.unmodifiableMap(map);
     }
 
-    /**
-     * @param ont ontology to use
-     * @return short form of the ontology IRI
-     */
-    public String getShortForm(OWLOntology ont) {
-        OWLOntologyID ontologyID = ont.getOntologyID();
-        if (ontologyID.getOntologyIRI().isPresent()) {
-            return getShortForm(verifyNotNull(ontologyID.getOntologyIRI().get()));
-        } else {
-            return ontologyID.toString();
-        }
-    }
-
-    @Override
-    public String getShortForm(IRI iri) {
-        String wellKnownShortForm = getWellKnownShortForm(iri);
-        if (wellKnownShortForm != null) {
-            return wellKnownShortForm;
-        }
-        URI uri = iri.toURI();
-        String path = uri.getPath();
-        if (path != null && !path.isEmpty()) {
-            String candidatePathElement = "";
-            for (String tok : Splitter.on('/').split(path)) {
-                if (isCandidatePathElement(tok)) {
-                    candidatePathElement = stripExtensionIfPresent(tok);
-                }
-            }
-            return candidatePathElement;
-        }
-        if (uri.getHost() != null) {
-            return iri.toString();
-        }
-        return iri.toString();
-    }
-
     @Nullable
     private static String getWellKnownShortForm(IRI iri) {
         String wellKnownShortForm = WELL_KNOWN_SHORTFORMS.get(iri);
@@ -169,5 +133,41 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      */
     private static boolean isDigit(char ch) {
         return ch >= '0' && ch <= '9';
+    }
+
+    /**
+     * @param ont ontology to use
+     * @return short form of the ontology IRI
+     */
+    public String getShortForm(OWLOntology ont) {
+        OWLOntologyID ontologyID = ont.getOntologyID();
+        if (ontologyID.getOntologyIRI().isPresent()) {
+            return getShortForm(verifyNotNull(ontologyID.getOntologyIRI().get()));
+        } else {
+            return ontologyID.toString();
+        }
+    }
+
+    @Override
+    public String getShortForm(IRI iri) {
+        String wellKnownShortForm = getWellKnownShortForm(iri);
+        if (wellKnownShortForm != null) {
+            return wellKnownShortForm;
+        }
+        URI uri = iri.toURI();
+        String path = uri.getPath();
+        if (path != null && !path.isEmpty()) {
+            String candidatePathElement = "";
+            for (String tok : Splitter.on('/').split(path)) {
+                if (isCandidatePathElement(tok)) {
+                    candidatePathElement = stripExtensionIfPresent(tok);
+                }
+            }
+            return candidatePathElement;
+        }
+        if (uri.getHost() != null) {
+            return iri.toString();
+        }
+        return iri.toString();
     }
 }

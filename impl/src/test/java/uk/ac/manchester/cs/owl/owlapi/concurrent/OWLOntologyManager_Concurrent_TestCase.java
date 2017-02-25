@@ -79,6 +79,15 @@ public class OWLOntologyManager_Concurrent_TestCase {
     private ReadWriteLock readWriteLock;
     private OWLOntology ontology;
 
+    private static OWLOntology notify(int i, InvocationOnMock o, OWLOntology ont) {
+        ((OWLOntologyFactory.OWLOntologyCreationHandler) o.getArguments()[i]).ontologyCreated(ont);
+        return ont;
+    }
+
+    private static IRI mockIRI() {
+        return IRI.create("http://owlapi.sourceforge.net/", "stuff");
+    }
+
     @Before
     public void setUp() throws Exception {
         when(readWriteLock.readLock()).thenReturn(readLock);
@@ -111,11 +120,6 @@ public class OWLOntologyManager_Concurrent_TestCase {
                 any(OWLOntologyLoaderConfiguration.class)))
             .thenAnswer(i -> notify(2, i, owlOntology));
         manager.setOntologyFactories(Collections.singleton(ontologyFactory));
-    }
-
-    private static OWLOntology notify(int i, InvocationOnMock o, OWLOntology ont) {
-        ((OWLOntologyFactory.OWLOntologyCreationHandler) o.getArguments()[i]).ontologyCreated(ont);
-        return ont;
     }
 
     @SuppressWarnings("boxing")
@@ -199,10 +203,6 @@ public class OWLOntologyManager_Concurrent_TestCase {
         IRI arg0 = mockIRI();
         manager.getOntology(arg0);
         verifyReadLock_LockUnlock();
-    }
-
-    private static IRI mockIRI() {
-        return IRI.create("http://owlapi.sourceforge.net/", "stuff");
     }
 
     @Test

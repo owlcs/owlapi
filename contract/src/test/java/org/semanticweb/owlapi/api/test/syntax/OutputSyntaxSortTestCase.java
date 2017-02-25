@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @RunWith(Parameterized.class)
 public class OutputSyntaxSortTestCase extends TestBase {
 
+    private final OWLDocumentFormat format;
     String[] input = new String[]{"Prefix(:=<http://www.co-ode.org/ontologies/pizza/pizza.owl#>)\n"
         + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
         + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
@@ -278,7 +279,6 @@ public class OutputSyntaxSortTestCase extends TestBase {
             + "DataPropertyAssertion(<urn:dp> _:genid1 \"testString\"^^xsd:int)\n"
             + "DataPropertyAssertion(<urn:dp> _:genid1 \"true\"^^xsd:boolean)\n"
             + "AnnotationAssertion(<urn:ap> <urn:i> \"true\"^^xsd:boolean))"};
-    private final OWLDocumentFormat format;
 
     public OutputSyntaxSortTestCase(OWLDocumentFormat format) {
         this.format = format;

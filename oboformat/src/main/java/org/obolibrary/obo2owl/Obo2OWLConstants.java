@@ -32,6 +32,18 @@ public class Obo2OWLConstants {
      * IRI for the 'terms merged' individual
      */
     public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
+    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps
+        .uniqueIndex(Arrays.asList(Obo2OWLVocabulary
+            .values()), v -> v.mappedTag);
+
+    /**
+     * @param tag tag
+     * @return obj for tag
+     */
+    @Nullable
+    public static Obo2OWLVocabulary getVocabularyObj(String tag) {
+        return TAGSTOVOCAB.get(tag);
+    }
 
     /**
      * OBO to OWL vocabulary.
@@ -221,18 +233,5 @@ public class Obo2OWLConstants {
             }
             return iri.equals(e.getIRI());
         }
-    }
-
-    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps
-        .uniqueIndex(Arrays.asList(Obo2OWLVocabulary
-            .values()), v -> v.mappedTag);
-
-    /**
-     * @param tag tag
-     * @return obj for tag
-     */
-    @Nullable
-    public static Obo2OWLVocabulary getVocabularyObj(String tag) {
-        return TAGSTOVOCAB.get(tag);
     }
 }

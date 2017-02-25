@@ -161,10 +161,6 @@ public class TripleHandlers {
     static class HandlerAccessor {
 
         /**
-         * Handlers for built in types
-         */
-        private final Map<IRI, BuiltInTypeHandler> builtInTypes;
-        /**
          * Handler for triples that denote nodes which represent axioms. i.e.
          * owl:AllDisjointClasses owl:AllDisjointProperties owl:AllDifferent
          * owl:NegativePropertyAssertion owl:Axiom These need to be handled
@@ -195,11 +191,15 @@ public class TripleHandlers {
          * The inverse of handler.
          */
         protected final TPInverseOfHandler inverseOf;
+        protected final OWLRDFConsumer consumer;
+        /**
+         * Handlers for built in types
+         */
+        private final Map<IRI, BuiltInTypeHandler> builtInTypes;
         /**
          * The non built in type handler.
          */
         private final TPTypeHandler nonBuiltInTypes;
-        protected final OWLRDFConsumer consumer;
 
         HandlerAccessor(OWLRDFConsumer r) {
             consumer = r;
@@ -216,6 +216,91 @@ public class TripleHandlers {
             // is typed as both an annotation and data property then the
             // statement will be translated as an annotation on a:A
             resources = getResourceTripleHandlers(r);
+        }
+
+        private static List<ResourceTripleHandler> getResourceTripleHandlers(OWLRDFConsumer r) {
+            return CollectionFactory
+                .list((ResourceTripleHandler) new GTPObjectPropertyAssertionHandler(r),
+                    new GTPAnnotationResourceTripleHandler(r));
+        }
+
+        public static Map<IRI, BuiltInTypeHandler> getAxiomTypeHandlers(OWLRDFConsumer r) {
+            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<>();
+            add(map, new TypeAxiomHandler(r));
+            add(map, new TypeAllDifferentHandler(r));
+            add(map, new TypeAllDisjointClassesHandler(r));
+            add(map, new TypeAllDisjointPropertiesHandler(r));
+            add(map, new TypeNegativePropertyAssertionHandler(r));
+            return map;
+        }
+
+        /**
+         * General literal triples - i.e. triples which have a predicate that is
+         * not a built in IRI. Annotation properties get precedence over data
+         * properties, so that if we have the statement<br>
+         * a:A a:foo a:B<br>
+         * and a:foo is typed as both an annotation and data property then the
+         * statement will be translated as an annotation on a:A
+         *
+         * @param r consumer
+         * @return handlers
+         */
+        public static List<LiteralTripleHandler> getLiteralTripleHandlers(OWLRDFConsumer r) {
+            return CollectionFactory
+                .list((LiteralTripleHandler) new GTPDataPropertyAssertionHandler(r),
+                    new TPFirstLiteralHandler(r), new GTPAnnotationLiteralHandler(r));
+        }
+
+        private static void add(Map<IRI, BuiltInTypeHandler> m, BuiltInTypeHandler h) {
+            m.put(h.getTypeIRI(), h);
+        }
+
+        private static void add(Map<IRI, TriplePredicateHandler> map, TriplePredicateHandler h) {
+            map.put(h.getPredicateIRI(), h);
+        }
+
+        public static Map<IRI, BuiltInTypeHandler> getBasicTypeHandlers(OWLRDFConsumer r,
+            OWLOntologyLoaderConfiguration config) {
+            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<>();
+            add(map, new TypeOntologyPropertyHandler(r));
+            add(map, new TypeAsymmetricPropertyHandler(r));
+            add(map, new TypeClassHandler(r));
+            add(map, new TypeObjectPropertyHandler(r));
+            add(map, new TypeDataPropertyHandler(r));
+            add(map, new TypeDatatypeHandler(r));
+            add(map, new TypeFunctionalPropertyHandler(r));
+            add(map, new TypeInverseFunctionalPropertyHandler(r));
+            add(map, new TypeIrreflexivePropertyHandler(r));
+            add(map, new TypeReflexivePropertyHandler(r));
+            add(map, new TypeSymmetricPropertyHandler(r));
+            add(map, new TypeTransitivePropertyHandler(r));
+            add(map, new TypeRestrictionHandler(r));
+            add(map, new TypeListHandler(r));
+            add(map, new TypeAnnotationPropertyHandler(r));
+            add(map, new TypeDeprecatedClassHandler(r));
+            add(map, new TypeDeprecatedPropertyHandler(r));
+            add(map, new TypeDataRangeHandler(r));
+            add(map, new TypeOntologyHandler(r));
+            add(map, new TypeNegativeDataPropertyAssertionHandler(r));
+            add(map, new TypeRDFSClassHandler(r));
+            add(map, new TypeSelfRestrictionHandler(r));
+            add(map, new TypePropertyHandler(r));
+            add(map, new TypeNamedIndividualHandler(r));
+            add(map, new TypeAnnotationHandler(r));
+            if (!config.isStrict()) {
+                add(map, new TypeSWRLAtomListHandler(r));
+                add(map, new TypeSWRLBuiltInAtomHandler(r));
+                add(map, new TypeSWRLBuiltInHandler(r));
+                add(map, new TypeSWRLClassAtomHandler(r));
+                add(map, new TypeSWRLDataRangeAtomHandler(r));
+                add(map, new TypeSWRLDataValuedPropertyAtomHandler(r));
+                add(map, new TypeSWRLDifferentIndividualsAtomHandler(r));
+                add(map, new TypeSWRLImpHandler(r));
+                add(map, new TypeSWRLIndividualPropertyAtomHandler(r));
+                add(map, new TypeSWRLSameIndividualAtomHandler(r));
+                add(map, new TypeSWRLVariableHandler(r));
+            }
+            return map;
         }
 
         void apply(IRI s, IRI p, OWLLiteral o) {
@@ -417,12 +502,6 @@ public class TripleHandlers {
             return remaining;
         }
 
-        private static List<ResourceTripleHandler> getResourceTripleHandlers(OWLRDFConsumer r) {
-            return CollectionFactory
-                .list((ResourceTripleHandler) new GTPObjectPropertyAssertionHandler(r),
-                    new GTPAnnotationResourceTripleHandler(r));
-        }
-
         protected Map<IRI, TriplePredicateHandler> getPredicateHandlers(OWLRDFConsumer r) {
             Map<IRI, TriplePredicateHandler> predicateHandlers = new ConcurrentHashMap<>();
             add(predicateHandlers, new TPDifferentFromHandler(r));
@@ -460,85 +539,6 @@ public class TripleHandlers {
             add(predicateHandlers, new TPComplementOfHandler(r));
             add(predicateHandlers, new TPDatatypeComplementOfHandler(r));
             return predicateHandlers;
-        }
-
-        public static Map<IRI, BuiltInTypeHandler> getAxiomTypeHandlers(OWLRDFConsumer r) {
-            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<>();
-            add(map, new TypeAxiomHandler(r));
-            add(map, new TypeAllDifferentHandler(r));
-            add(map, new TypeAllDisjointClassesHandler(r));
-            add(map, new TypeAllDisjointPropertiesHandler(r));
-            add(map, new TypeNegativePropertyAssertionHandler(r));
-            return map;
-        }
-
-        /**
-         * General literal triples - i.e. triples which have a predicate that is
-         * not a built in IRI. Annotation properties get precedence over data
-         * properties, so that if we have the statement<br>
-         * a:A a:foo a:B<br>
-         * and a:foo is typed as both an annotation and data property then the
-         * statement will be translated as an annotation on a:A
-         *
-         * @param r consumer
-         * @return handlers
-         */
-        public static List<LiteralTripleHandler> getLiteralTripleHandlers(OWLRDFConsumer r) {
-            return CollectionFactory
-                .list((LiteralTripleHandler) new GTPDataPropertyAssertionHandler(r),
-                    new TPFirstLiteralHandler(r), new GTPAnnotationLiteralHandler(r));
-        }
-
-        private static void add(Map<IRI, BuiltInTypeHandler> m, BuiltInTypeHandler h) {
-            m.put(h.getTypeIRI(), h);
-        }
-
-        private static void add(Map<IRI, TriplePredicateHandler> map, TriplePredicateHandler h) {
-            map.put(h.getPredicateIRI(), h);
-        }
-
-        public static Map<IRI, BuiltInTypeHandler> getBasicTypeHandlers(OWLRDFConsumer r,
-            OWLOntologyLoaderConfiguration config) {
-            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<>();
-            add(map, new TypeOntologyPropertyHandler(r));
-            add(map, new TypeAsymmetricPropertyHandler(r));
-            add(map, new TypeClassHandler(r));
-            add(map, new TypeObjectPropertyHandler(r));
-            add(map, new TypeDataPropertyHandler(r));
-            add(map, new TypeDatatypeHandler(r));
-            add(map, new TypeFunctionalPropertyHandler(r));
-            add(map, new TypeInverseFunctionalPropertyHandler(r));
-            add(map, new TypeIrreflexivePropertyHandler(r));
-            add(map, new TypeReflexivePropertyHandler(r));
-            add(map, new TypeSymmetricPropertyHandler(r));
-            add(map, new TypeTransitivePropertyHandler(r));
-            add(map, new TypeRestrictionHandler(r));
-            add(map, new TypeListHandler(r));
-            add(map, new TypeAnnotationPropertyHandler(r));
-            add(map, new TypeDeprecatedClassHandler(r));
-            add(map, new TypeDeprecatedPropertyHandler(r));
-            add(map, new TypeDataRangeHandler(r));
-            add(map, new TypeOntologyHandler(r));
-            add(map, new TypeNegativeDataPropertyAssertionHandler(r));
-            add(map, new TypeRDFSClassHandler(r));
-            add(map, new TypeSelfRestrictionHandler(r));
-            add(map, new TypePropertyHandler(r));
-            add(map, new TypeNamedIndividualHandler(r));
-            add(map, new TypeAnnotationHandler(r));
-            if (!config.isStrict()) {
-                add(map, new TypeSWRLAtomListHandler(r));
-                add(map, new TypeSWRLBuiltInAtomHandler(r));
-                add(map, new TypeSWRLBuiltInHandler(r));
-                add(map, new TypeSWRLClassAtomHandler(r));
-                add(map, new TypeSWRLDataRangeAtomHandler(r));
-                add(map, new TypeSWRLDataValuedPropertyAtomHandler(r));
-                add(map, new TypeSWRLDifferentIndividualsAtomHandler(r));
-                add(map, new TypeSWRLImpHandler(r));
-                add(map, new TypeSWRLIndividualPropertyAtomHandler(r));
-                add(map, new TypeSWRLSameIndividualAtomHandler(r));
-                add(map, new TypeSWRLVariableHandler(r));
-            }
-            return map;
         }
     }
 
@@ -617,10 +617,10 @@ public class TripleHandlers {
     static class AbstractTripleHandler {
 
         protected final OWLRDFConsumer consumer;
+        protected final OWLDataFactory df;
         private final TypeMatcher ceMatcher = this::isClassExpressionStrict;
         private final TypeMatcher drMatcher = this::isDataRangeStrict;
         private final TypeMatcher indMatcher = node -> true;
-        protected final OWLDataFactory df;
 
         protected AbstractTripleHandler(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -2339,15 +2339,6 @@ public class TripleHandlers {
             super(consumer, typeIRI);
         }
 
-        @Override
-        public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
-            // We can't handle this is a streaming fashion, because we can't
-            // be sure that the s, p, o triples have been
-            // parsed.
-            consumer.addAxiom(s);
-            return false;
-        }
-
         /**
          * Gets the IRI of the p of the triple that specifies the target of a
          * reified axiom
@@ -2376,6 +2367,15 @@ public class TripleHandlers {
          */
         protected static OWLRDFVocabulary getSourceTriplePredicate() {
             return OWL_ANNOTATED_SOURCE;
+        }
+
+        @Override
+        public boolean canHandleStreaming(IRI s, IRI p, IRI o) {
+            // We can't handle this is a streaming fashion, because we can't
+            // be sure that the s, p, o triples have been
+            // parsed.
+            consumer.addAxiom(s);
+            return false;
         }
 
         @Override

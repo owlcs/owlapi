@@ -89,12 +89,12 @@ import org.semanticweb.owlapi.util.Version;
  */
 public class StructuralReasoner extends OWLReasonerBase {
 
+    private static final Version VERSION = new Version(1, 0, 0, 0);
+    protected final ReasonerProgressMonitor pm;
     private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
     private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
     private final DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
-    private static final Version VERSION = new Version(1, 0, 0, 0);
     private boolean interrupted = false;
-    protected final ReasonerProgressMonitor pm;
     private boolean prepared = false;
 
     /**
@@ -108,6 +108,20 @@ public class StructuralReasoner extends OWLReasonerBase {
         checkNotNull(configuration, "configuration cannot be null");
         pm = configuration.getProgressMonitor();
         prepareReasoner();
+    }
+
+    private static <T extends OWLObject> void handleChanges(Set<OWLAxiom> added,
+        Set<OWLAxiom> removed,
+        AbstractHierarchyInfo<T> hierarchyInfo) {
+        Set<T> sig = hierarchyInfo.getEntitiesInSignature(added);
+        sig.addAll(hierarchyInfo.getEntitiesInSignature(removed));
+        hierarchyInfo.processChanges(sig, added, removed);
+    }
+
+    private static void printIndent(int level) {
+        for (int i = 0; i < level; i++) {
+            System.out.print("    ");
+        }
     }
 
     @Override
@@ -135,14 +149,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         handleChanges(addAxioms, removeAxioms, classHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, objectPropertyHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, dataPropertyHierarchyInfo);
-    }
-
-    private static <T extends OWLObject> void handleChanges(Set<OWLAxiom> added,
-        Set<OWLAxiom> removed,
-        AbstractHierarchyInfo<T> hierarchyInfo) {
-        Set<T> sig = hierarchyInfo.getEntitiesInSignature(added);
-        sig.addAll(hierarchyInfo.getEntitiesInSignature(removed));
-        hierarchyInfo.processChanges(sig, added, removed);
     }
 
     @Override
@@ -660,9 +666,119 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-    private static void printIndent(int level) {
-        for (int i = 0; i < level; i++) {
-            System.out.print("    ");
+    /**
+     * An interface for objects who can provide the parents and children of some
+     * object.
+     *
+     * @param <T> type of elements
+     */
+    private interface RawHierarchyProvider<T> {
+
+        /**
+         * Gets the parents as asserted. These parents may also be children
+         * (resulting in equivalences).
+         *
+         * @param child The child whose parents are to be retrieved
+         * @return The raw asserted parents of the specified child. If the child does not have any
+         * parents then the empty set can be returned.
+         */
+        Collection<T> getParents(T child);
+
+        /**
+         * Gets the children as asserted.
+         *
+         * @param parent The parent whose children are to be retrieved
+         * @return The raw asserted children of the speicified parent
+         */
+        Collection<T> getChildren(T parent);
+    }
+
+    private static class NodeCache<T extends OWLObject> {
+
+        private final AbstractHierarchyInfo<T> hierarchyInfo;
+        private final Map<T, Node<T>> map = new HashMap<>();
+        @Nullable
+        private Node<T> topNode;
+        @Nullable
+        private Node<T> bottomNode;
+
+        protected NodeCache(AbstractHierarchyInfo<T> hierarchyInfo) {
+            this.hierarchyInfo = hierarchyInfo;
+            clearTopNode();
+            clearBottomNode();
+        }
+
+        public void addNode(Node<T> node) {
+            node.entities().forEach(e -> {
+                map.put(e, node);
+                if (e.isTopEntity()) {
+                    topNode = node;
+                } else if (e.isBottomEntity()) {
+                    bottomNode = node;
+                }
+            });
+        }
+
+        public Set<Node<T>> getNodes(Set<T> elements) {
+            Set<Node<T>> result = new HashSet<>();
+            for (T element : elements) {
+                result.add(getNode(element));
+            }
+            return result;
+        }
+
+        public Node<T> getNode(T containing) {
+            Node<T> parentNode = map.get(containing);
+            if (parentNode != null) {
+                return parentNode;
+            } else {
+                return hierarchyInfo.createNode(CollectionFactory.createSet(containing));
+            }
+        }
+
+        public void addNode(Set<T> elements) {
+            addNode(hierarchyInfo.createNode(elements));
+        }
+
+        public Node<T> getTopNode() {
+            return verifyNotNull(topNode);
+        }
+
+        public Node<T> getBottomNode() {
+            return verifyNotNull(bottomNode);
+        }
+
+        public final void clearTopNode() {
+            removeNode(hierarchyInfo.topEntity);
+            topNode = hierarchyInfo
+                .createNode(CollectionFactory.createSet(hierarchyInfo.topEntity));
+            addNode(getTopNode());
+        }
+
+        public final void clearBottomNode() {
+            removeNode(hierarchyInfo.bottomEntity);
+            bottomNode = hierarchyInfo
+                .createNode(CollectionFactory.createSet(hierarchyInfo.bottomEntity));
+            addNode(getBottomNode());
+        }
+
+        public void clearNodes(Set<T> containing) {
+            for (T entity : containing) {
+                removeNode(entity);
+            }
+        }
+
+        public void clear() {
+            map.clear();
+            clearTopNode();
+            clearBottomNode();
+        }
+
+        public void removeNode(T containing) {
+            Node<T> node = map.remove(containing);
+            if (node != null) {
+                node.entities().forEach(map::remove);
+            }
         }
     }
 
@@ -670,6 +786,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     private abstract class AbstractHierarchyInfo<T extends OWLObject> {
 
         private final RawHierarchyProvider<T> rawParentChildProvider;
+        private final Set<T> directChildrenOfTopNode = new HashSet<>();
+        private final Set<T> directParentsOfBottomNode = new HashSet<>();
+        private final NodeCache<T> nodeCache;
+        private final String name;
         /**
          * The entity that always appears in the top node in the hierarchy.
          */
@@ -678,10 +798,6 @@ public class StructuralReasoner extends OWLReasonerBase {
          * The entity that always appears as the bottom node in the hierarchy.
          */
         protected T bottomEntity;
-        private final Set<T> directChildrenOfTopNode = new HashSet<>();
-        private final Set<T> directParentsOfBottomNode = new HashSet<>();
-        private final NodeCache<T> nodeCache;
-        private final String name;
         private int classificationSize;
 
         AbstractHierarchyInfo(String name, T topEntity, T bottomEntity,
@@ -958,95 +1074,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-    private static class NodeCache<T extends OWLObject> {
-
-        private final AbstractHierarchyInfo<T> hierarchyInfo;
-        @Nullable
-        private Node<T> topNode;
-        @Nullable
-        private Node<T> bottomNode;
-        private final Map<T, Node<T>> map = new HashMap<>();
-
-        protected NodeCache(AbstractHierarchyInfo<T> hierarchyInfo) {
-            this.hierarchyInfo = hierarchyInfo;
-            clearTopNode();
-            clearBottomNode();
-        }
-
-        public void addNode(Node<T> node) {
-            node.entities().forEach(e -> {
-                map.put(e, node);
-                if (e.isTopEntity()) {
-                    topNode = node;
-                } else if (e.isBottomEntity()) {
-                    bottomNode = node;
-                }
-            });
-        }
-
-        public Set<Node<T>> getNodes(Set<T> elements) {
-            Set<Node<T>> result = new HashSet<>();
-            for (T element : elements) {
-                result.add(getNode(element));
-            }
-            return result;
-        }
-
-        public Node<T> getNode(T containing) {
-            Node<T> parentNode = map.get(containing);
-            if (parentNode != null) {
-                return parentNode;
-            } else {
-                return hierarchyInfo.createNode(CollectionFactory.createSet(containing));
-            }
-        }
-
-        public void addNode(Set<T> elements) {
-            addNode(hierarchyInfo.createNode(elements));
-        }
-
-        public Node<T> getTopNode() {
-            return verifyNotNull(topNode);
-        }
-
-        public Node<T> getBottomNode() {
-            return verifyNotNull(bottomNode);
-        }
-
-        public final void clearTopNode() {
-            removeNode(hierarchyInfo.topEntity);
-            topNode = hierarchyInfo
-                .createNode(CollectionFactory.createSet(hierarchyInfo.topEntity));
-            addNode(getTopNode());
-        }
-
-        public final void clearBottomNode() {
-            removeNode(hierarchyInfo.bottomEntity);
-            bottomNode = hierarchyInfo
-                .createNode(CollectionFactory.createSet(hierarchyInfo.bottomEntity));
-            addNode(getBottomNode());
-        }
-
-        public void clearNodes(Set<T> containing) {
-            for (T entity : containing) {
-                removeNode(entity);
-            }
-        }
-
-        public void clear() {
-            map.clear();
-            clearTopNode();
-            clearBottomNode();
-        }
-
-        public void removeNode(T containing) {
-            Node<T> node = map.remove(containing);
-            if (node != null) {
-                node.entities().forEach(map::remove);
-            }
-        }
-    }
-
     private class ClassHierarchyInfo extends AbstractHierarchyInfo<OWLClass> {
 
         ClassHierarchyInfo() {
@@ -1165,33 +1192,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         protected DefaultNode<OWLDataProperty> createNode() {
             return new OWLDataPropertyNode();
         }
-    }
-
-    /**
-     * An interface for objects who can provide the parents and children of some
-     * object.
-     *
-     * @param <T> type of elements
-     */
-    private interface RawHierarchyProvider<T> {
-
-        /**
-         * Gets the parents as asserted. These parents may also be children
-         * (resulting in equivalences).
-         *
-         * @param child The child whose parents are to be retrieved
-         * @return The raw asserted parents of the specified child. If the child does not have any
-         * parents then the empty set can be returned.
-         */
-        Collection<T> getParents(T child);
-
-        /**
-         * Gets the children as asserted.
-         *
-         * @param parent The parent whose children are to be retrieved
-         * @return The raw asserted children of the speicified parent
-         */
-        Collection<T> getChildren(T parent);
     }
 
     private class RawClassHierarchyProvider implements RawHierarchyProvider<OWLClass> {

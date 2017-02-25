@@ -57,17 +57,17 @@ import org.xml.sax.helpers.DefaultHandler;
 @HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
+    static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
     private static final Logger LOGGER = LoggerFactory.getLogger(AutoIRIMapper.class);
     private final Set<String> fileExtensions = new HashSet<>();
-    private boolean mapped;
     private final boolean recursive;
     private final Map<String, OntologyRootElementHandler> handlerMap = createMap();
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = createMap();
     private final Map<String, IRI> oboFileMap = createMap();
     private final String directoryPath;
+    private boolean mapped;
     @Nullable
     private transient File currentFile;
-    static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
 
     /**
      * Creates an auto-mapper which examines ontologies that reside in the
@@ -108,6 +108,16 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             }
             return IRI.create(ontURI);
         });
+    }
+
+    /**
+     * @param tok token
+     * @return IRI without quotes (&lt; and &gt;)
+     */
+    static IRI unquote(String tok) {
+        String substring = tok.substring(1, tok.length() - 1);
+        assert substring != null;
+        return IRI.create(substring);
     }
 
     protected File getDirectory() {
@@ -288,16 +298,6 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             }
         }
         return null;
-    }
-
-    /**
-     * @param tok token
-     * @return IRI without quotes (&lt; and &gt;)
-     */
-    static IRI unquote(String tok) {
-        String substring = tok.substring(1, tok.length() - 1);
-        assert substring != null;
-        return IRI.create(substring);
     }
 
     @Override

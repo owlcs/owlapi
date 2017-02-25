@@ -231,6 +231,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N> implements
     OWLObjectVisitor, SWRLObjectVisitor {
 
+    protected final IndividualAppearance multipleOccurrences;
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
     private final boolean useStrongTyping;
@@ -240,7 +241,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      */
     private final Map<OWLObject, N> nodeMap = new HashMap<>();
     private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
-    protected final IndividualAppearance multipleOccurrences;
     protected RDFGraph graph = new RDFGraph();
 
     /**

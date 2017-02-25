@@ -101,92 +101,6 @@ public final class OboInOwlCardinalityTools {
     }
 
     /**
-     * Functor for resolving conflicts for an annotation property and its
-     * cardinality constraint.
-     */
-    public interface AnnotationCardinalityConfictHandler {
-
-        /**
-         * Resolve a conflict for a given annotation property and axioms. The
-         * result is either a list of resolved axioms or an exception thrown by
-         * this method.
-         *
-         * @param entity entity
-         * @param property property
-         * @param axioms axioms
-         * @return list of resolved axioms
-         */
-        List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity,
-            OWLAnnotationProperty property,
-            Collection<OWLAnnotationAssertionAxiom> axioms);
-
-        /**
-         * Resolve a conflict for a given annotation property and ontology
-         * annotations. The result is either a list of resolved annotations or
-         * an exception thrown by this method.
-         *
-         * @param property property
-         * @param ontologyAnnotations ontologyAnnotations
-         * @return list of resolved annotations
-         */
-        List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
-            Collection<OWLAnnotation> ontologyAnnotations);
-    }
-
-    /**
-     * Functor for reporting conflicts for an annotation property and its
-     * cardinality constraint.
-     */
-    public interface AnnotationCardinalityReporter {
-
-        /**
-         * Report a conflict for a given annotation property and axioms.
-         *
-         * @param entity entity
-         * @param property property
-         * @param axioms axioms
-         */
-        void reportConflict(OWLEntity entity, OWLAnnotationProperty property,
-            Collection<OWLAnnotationAssertionAxiom> axioms);
-
-        /**
-         * Report a conflict for a given annotation property and ontology
-         * annotations.
-         *
-         * @param property property
-         * @param ontologyAnnotations ontologyAnnotations
-         */
-        void reportConflict(OWLAnnotationProperty property,
-            Collection<OWLAnnotation> ontologyAnnotations);
-    }
-
-    /**
-     * Exception indication a non-resolvable conflict for an annotation property
-     * and its cardinality constraint.
-     */
-    public static class AnnotationCardinalityException extends OWLRuntimeException {
-
-        /**
-         * Create a new Exception.
-         *
-         * @param message message
-         * @param cause cause
-         */
-        public AnnotationCardinalityException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        /**
-         * Create a new Exception.
-         *
-         * @param message message
-         */
-        public AnnotationCardinalityException(String message) {
-            super(message);
-        }
-    }
-
-    /**
      * Check the annotations for cardinality violations. Try to resolve
      * conflicts with the given handler.
      *
@@ -347,5 +261,91 @@ public final class OboInOwlCardinalityTools {
 
     static <T> List<T> listOfFirst(Collection<T> t) {
         return Collections.singletonList(t.iterator().next());
+    }
+
+    /**
+     * Functor for resolving conflicts for an annotation property and its
+     * cardinality constraint.
+     */
+    public interface AnnotationCardinalityConfictHandler {
+
+        /**
+         * Resolve a conflict for a given annotation property and axioms. The
+         * result is either a list of resolved axioms or an exception thrown by
+         * this method.
+         *
+         * @param entity entity
+         * @param property property
+         * @param axioms axioms
+         * @return list of resolved axioms
+         */
+        List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity,
+            OWLAnnotationProperty property,
+            Collection<OWLAnnotationAssertionAxiom> axioms);
+
+        /**
+         * Resolve a conflict for a given annotation property and ontology
+         * annotations. The result is either a list of resolved annotations or
+         * an exception thrown by this method.
+         *
+         * @param property property
+         * @param ontologyAnnotations ontologyAnnotations
+         * @return list of resolved annotations
+         */
+        List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
+            Collection<OWLAnnotation> ontologyAnnotations);
+    }
+
+    /**
+     * Functor for reporting conflicts for an annotation property and its
+     * cardinality constraint.
+     */
+    public interface AnnotationCardinalityReporter {
+
+        /**
+         * Report a conflict for a given annotation property and axioms.
+         *
+         * @param entity entity
+         * @param property property
+         * @param axioms axioms
+         */
+        void reportConflict(OWLEntity entity, OWLAnnotationProperty property,
+            Collection<OWLAnnotationAssertionAxiom> axioms);
+
+        /**
+         * Report a conflict for a given annotation property and ontology
+         * annotations.
+         *
+         * @param property property
+         * @param ontologyAnnotations ontologyAnnotations
+         */
+        void reportConflict(OWLAnnotationProperty property,
+            Collection<OWLAnnotation> ontologyAnnotations);
+    }
+
+    /**
+     * Exception indication a non-resolvable conflict for an annotation property
+     * and its cardinality constraint.
+     */
+    public static class AnnotationCardinalityException extends OWLRuntimeException {
+
+        /**
+         * Create a new Exception.
+         *
+         * @param message message
+         * @param cause cause
+         */
+        public AnnotationCardinalityException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        /**
+         * Create a new Exception.
+         *
+         * @param message message
+         */
+        public AnnotationCardinalityException(String message) {
+            super(message);
+        }
     }
 }

@@ -23,23 +23,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/*
- * Not a pretty pattern but I didn't want to have long strings repeated across
- * constructors, and no static constants are allowed before members declaration
- * in an enum.
- */
-interface KnownFactories {
-
-    String FaCTPlusPlus = "uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory";
-    String HermiT = "org.semanticweb.HermiT.Reasoner.ReasonerFactory";
-    String JFact = "uk.ac.manchester.cs.jfact.JFactFactory";
-    String TrOWL = "eu.trowl.owlapi3.rel.reasoner.dl.RELReasonerFactory";
-    String Pellet = "com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory";
-    String MORe = "org.semanticweb.more.MOReRLrewReasonerFactory";
-    String Elk = "org.semanticweb.elk.owlapi.ElkReasonerFactory";
-    String Snorocket = "au.csiro.snorocket.owlapi.SnorocketReasonerFactory";
-}
-
 /**
  * This enumeration includes all currently implemented profile checkers and
  * known information about available reasoners for those profiles. Note that
@@ -107,6 +90,34 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
         this.supportingFactories = CollectionFactory.list(supportingFactories);
     }
 
+    /**
+     * @param factoryClassName class name to instantiate
+     * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
+     * implementation available on the classpath. Any exception raised by {@code
+     * Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
+     */
+    public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
+        try {
+            Class<?> c = Class.forName(factoryClassName);
+            if (OWLReasonerFactory.class.isAssignableFrom(c)) {
+                return (OWLReasonerFactory) c.newInstance();
+            }
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
+        }
+    }
+
+    /**
+     * @param i IRI to match
+     * @return Profiles with matching IRI, or null if none is found
+     */
+    public static Profiles valueForIRI(IRI i) {
+        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny().orElse(null);
+    }
+
     @Override
     public String getName() {
         return getOWLProfile().getName();
@@ -141,32 +152,21 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     public Collection<String> supportingReasoners() {
         return supportingFactories;
     }
+}
 
-    /**
-     * @param factoryClassName class name to instantiate
-     * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
-     * implementation available on the classpath. Any exception raised by {@code
-     * Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
-     */
-    public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
-        try {
-            Class<?> c = Class.forName(factoryClassName);
-            if (OWLReasonerFactory.class.isAssignableFrom(c)) {
-                return (OWLReasonerFactory) c.newInstance();
-            }
-            throw new OWLRuntimeException(
-                "Reasoner factory cannot be instantiated: " + factoryClassName);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new OWLRuntimeException(
-                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
-        }
-    }
+/*
+ * Not a pretty pattern but I didn't want to have long strings repeated across
+ * constructors, and no static constants are allowed before members declaration
+ * in an enum.
+ */
+interface KnownFactories {
 
-    /**
-     * @param i IRI to match
-     * @return Profiles with matching IRI, or null if none is found
-     */
-    public static Profiles valueForIRI(IRI i) {
-        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny().orElse(null);
-    }
+    String FaCTPlusPlus = "uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory";
+    String HermiT = "org.semanticweb.HermiT.Reasoner.ReasonerFactory";
+    String JFact = "uk.ac.manchester.cs.jfact.JFactFactory";
+    String TrOWL = "eu.trowl.owlapi3.rel.reasoner.dl.RELReasonerFactory";
+    String Pellet = "com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory";
+    String MORe = "org.semanticweb.more.MOReRLrewReasonerFactory";
+    String Elk = "org.semanticweb.elk.owlapi.ElkReasonerFactory";
+    String Snorocket = "au.csiro.snorocket.owlapi.SnorocketReasonerFactory";
 }

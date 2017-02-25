@@ -19,6 +19,20 @@ import uk.ac.manchester.cs.atomicdecomposition.AtomicDecompositionImpl;
 @SuppressWarnings("javadoc")
 public class AtomicDecomposerDepedenciesTest {
 
+    private static OWLOntology getOntology() throws OWLOntologyCreationException {
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLOntology o = m.createOntology();
+        OWLDataFactory f = m.getOWLDataFactory();
+        OWLClass powerYoga = f.getOWLClass(IRI.create("urn:test#", "PowerYoga"));
+        OWLClass yoga = f.getOWLClass(IRI.create("urn:test#", "Yoga"));
+        OWLClass relaxation = f.getOWLClass(IRI.create("urn:test#", "Relaxation"));
+        OWLClass activity = f.getOWLClass(IRI.create("urn:test#", "Activity"));
+        m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
+        m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
+        m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));
+        return o;
+    }
+
     @Test
     public void atomicDecomposerDepedenciesTest() throws OWLOntologyCreationException {
         // given
@@ -35,19 +49,5 @@ public class AtomicDecomposerDepedenciesTest {
         // then
         assertEquals(0, dependencies2.size());
         assertEquals(0, dependencies.size());
-    }
-
-    private static OWLOntology getOntology() throws OWLOntologyCreationException {
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        OWLOntology o = m.createOntology();
-        OWLDataFactory f = m.getOWLDataFactory();
-        OWLClass powerYoga = f.getOWLClass(IRI.create("urn:test#", "PowerYoga"));
-        OWLClass yoga = f.getOWLClass(IRI.create("urn:test#", "Yoga"));
-        OWLClass relaxation = f.getOWLClass(IRI.create("urn:test#", "Relaxation"));
-        OWLClass activity = f.getOWLClass(IRI.create("urn:test#", "Activity"));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(powerYoga, yoga));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(yoga, relaxation));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(relaxation, activity));
-        return o;
     }
 }

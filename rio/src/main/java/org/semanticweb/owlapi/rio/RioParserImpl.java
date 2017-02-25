@@ -79,8 +79,8 @@ import org.slf4j.LoggerFactory;
 @HasPriority(7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
-    private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
     protected static final Logger LOGGER = LoggerFactory.getLogger(RioParserImpl.class);
+    private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
     private final RioRDFDocumentFormatFactory owlFormatFactory;
 
     /**
@@ -254,9 +254,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
         private static final Logger LOG = LoggerFactory.getLogger(RioParserRDFHandler.class);
         private final RDFHandler consumer;
-        private long owlParseStart;
         private final Set<Resource> typedLists = new HashSet<>();
         private final ValueFactory vf = SimpleValueFactory.getInstance();
+        private long owlParseStart;
 
         RioParserRDFHandler(RDFHandler consumer) {
             this.consumer = consumer;

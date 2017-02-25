@@ -27,16 +27,16 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @RunWith(Parameterized.class)
 public class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
-    @Parameters(name = "{0}")
-    public static Collection<OWLDocumentFormat> data() {
-        return Arrays.asList(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
-            new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
-    }
-
     private final OWLDocumentFormat format;
 
     public PunnedDeclarationsNotAddedTestCase(OWLDocumentFormat format) {
         this.format = format;
+    }
+
+    @Parameters(name = "{0}")
+    public static Collection<OWLDocumentFormat> data() {
+        return Arrays.asList(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
+            new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
     }
 
     protected OWLOntology getOntologyWithPunnedInvalidDeclarations() {

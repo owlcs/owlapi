@@ -20,16 +20,16 @@ package org.semanticweb.owlapi.model;
 public interface HasOntologyWriterConfiguration {
 
     /**
-     * Sets the configuration.
-     *
-     * @param config configuration to be used
-     */
-    void setOntologyWriterConfiguration(OWLOntologyWriterConfiguration config);
-
-    /**
      * @return the configuration for this object. This is a read only accessor, since the
      * configuration is an immutable object. To change the configuration, use the setter in this
      * interface to set a modified configuration.
      */
     OWLOntologyWriterConfiguration getOntologyWriterConfiguration();
+
+    /**
+     * Sets the configuration.
+     *
+     * @param config configuration to be used
+     */
+    void setOntologyWriterConfiguration(OWLOntologyWriterConfiguration config);
 }

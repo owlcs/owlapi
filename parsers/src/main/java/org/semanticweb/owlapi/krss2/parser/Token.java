@@ -20,10 +20,6 @@ class Token implements java.io.Serializable {
 
     public Token specialToken;
 
-    public Object getValue() {
-        return null;
-    }
-
     public Token() {
     }
 
@@ -36,10 +32,6 @@ class Token implements java.io.Serializable {
         this.image = image;
     }
 
-    public String toString() {
-        return image;
-    }
-
     public static Token newToken(int ofKind, String image) {
         switch (ofKind) {
             default:
@@ -49,6 +41,14 @@ class Token implements java.io.Serializable {
 
     public static Token newToken(int ofKind) {
         return newToken(ofKind, null);
+    }
+
+    public Object getValue() {
+        return null;
+    }
+
+    public String toString() {
+        return image;
     }
 
 }

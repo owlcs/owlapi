@@ -49,6 +49,12 @@ public class Utf8TestCase extends TestBase {
         + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
         + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
 
+    private static boolean checkOntology(OWLOntology ontology, OWLClass c, String chinese) {
+        return getAnnotationObjects(c, ontology)
+            .anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(
+                chinese));
+    }
+
     @Test
     public void testUTF8roundTrip() throws Exception {
         String onto = "Ontology(<http://protege.org/UTF8.owl>"
@@ -152,11 +158,5 @@ public class Utf8TestCase extends TestBase {
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);
         return ontology;
-    }
-
-    private static boolean checkOntology(OWLOntology ontology, OWLClass c, String chinese) {
-        return getAnnotationObjects(c, ontology)
-            .anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(
-                chinese));
     }
 }

@@ -27,6 +27,20 @@ public class IdTranslator {
     }
 
     /**
+     * True if id starts with a standard URI prefix (http, ftp, https) followed
+     * by a ":". Does not check if it actually conforms to URI syntax.
+     *
+     * @param id id
+     * @return boolean
+     */
+    public static boolean isURI(String id) {
+        if (id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @param id id
      * @return string for id
      */
@@ -46,20 +60,6 @@ public class IdTranslator {
             }
         }
         return null;
-    }
-
-    /**
-     * True if id starts with a standard URI prefix (http, ftp, https) followed
-     * by a ":". Does not check if it actually conforms to URI syntax.
-     *
-     * @param id id
-     * @return boolean
-     */
-    public static boolean isURI(String id) {
-        if (id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:")) {
-            return true;
-        }
-        return false;
     }
 
     /**

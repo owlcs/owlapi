@@ -53,36 +53,23 @@ import org.xml.sax.helpers.LocatorImpl;
  */
 public class RDFParser extends DefaultHandler implements IRIProvider {
 
-    class DeclarationHandler implements DeclHandler {
-
-        @Override
-        public void internalEntityDecl(@Nullable String name, @Nullable String value) {
-            getRDFConsumer().addPrefix(checkNotNull(name), checkNotNull(value));
-        }
-
-        @Override
-        public void externalEntityDecl(@Nullable String name, @Nullable String publicId,
-            @Nullable String systemId) {
-            // nothing to do here
-        }
-
-        @Override
-        public void elementDecl(@Nullable String name, @Nullable String model) {
-            // nothing to do here
-        }
-
-        @Override
-        public void attributeDecl(@Nullable String eName, @Nullable String aName,
-            @Nullable String type,
-            @Nullable String mode, @Nullable String value) {
-            // nothing to do here
-        }
-    }
-
-    private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     protected static final Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
-    private final Map<String, String> resolvedIRIs = new HashMap<>();
+    private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     protected final Map<String, IRI> uriCache = new HashMap<>();
+    /**
+     * Stack of base IRIs.
+     */
+    protected final LinkedList<IRI> baseIRIs = new LinkedList<>();
+    /**
+     * The stack of languages.
+     */
+    protected final LinkedList<String> languages = new LinkedList<>();
+    /**
+     * Stack of parser states.
+     */
+    protected final List<State> states = new ArrayList<>();
+    private final Map<String, String> resolvedIRIs = new HashMap<>();
+    private final Map<IRI, URI> baseURICache = new HashMap<>();
     /**
      * Registered error handler.
      */
@@ -104,19 +91,10 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     };
     /**
-     * Stack of base IRIs.
-     */
-    protected final LinkedList<IRI> baseIRIs = new LinkedList<>();
-    private final Map<IRI, URI> baseURICache = new HashMap<>();
-    /**
      * IRI of the document being parsed.
      */
     @Nullable
     protected IRI baseIRI;
-    /**
-     * The stack of languages.
-     */
-    protected final LinkedList<String> languages = new LinkedList<>();
     /**
      * The current language.
      */
@@ -133,10 +111,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     @Nullable
     protected State state;
     /**
-     * Stack of parser states.
-     */
-    protected final List<State> states = new ArrayList<>();
-    /**
      * Document locator.
      */
     @Nullable
@@ -151,6 +125,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             return verifyNotNull(documentLocator);
         }
         return NULLDOCUMENTLOCATOR;
+    }
+
+    @Override
+    public void setDocumentLocator(@Nullable Locator locator) {
+        documentLocator = checkNotNull(locator, "locator cannot be null");
     }
 
     /**
@@ -186,11 +165,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             states.clear();
             baseIRIs.clear();
         }
-    }
-
-    @Override
-    public void setDocumentLocator(@Nullable Locator locator) {
-        documentLocator = checkNotNull(locator, "locator cannot be null");
     }
 
     /**
@@ -480,6 +454,32 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void verify(boolean b, String message) {
         if (b) {
             throw new RDFParserException(message, getDocumentLocator());
+        }
+    }
+
+    class DeclarationHandler implements DeclHandler {
+
+        @Override
+        public void internalEntityDecl(@Nullable String name, @Nullable String value) {
+            getRDFConsumer().addPrefix(checkNotNull(name), checkNotNull(value));
+        }
+
+        @Override
+        public void externalEntityDecl(@Nullable String name, @Nullable String publicId,
+            @Nullable String systemId) {
+            // nothing to do here
+        }
+
+        @Override
+        public void elementDecl(@Nullable String name, @Nullable String model) {
+            // nothing to do here
+        }
+
+        @Override
+        public void attributeDecl(@Nullable String eName, @Nullable String aName,
+            @Nullable String type,
+            @Nullable String mode, @Nullable String value) {
+            // nothing to do here
         }
     }
 }

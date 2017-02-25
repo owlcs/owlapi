@@ -55,6 +55,22 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends TestBase {
 
+    private static RDFXMLDocumentFormat createRDFXMLFormat() {
+        RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
+        // This test case relies on certain declarations being in certain
+        // ontologies. The default
+        // behaviour is to add missing declarations. Therefore, this needs to be
+        // turned off.
+        format.setAddMissingTypes(false);
+        return format;
+    }
+
+    private static TurtleDocumentFormat createTurtleOntologyFormat() {
+        TurtleDocumentFormat format = new TurtleDocumentFormat();
+        format.setAddMissingTypes(false);
+        return format;
+    }
+
     @Test
     public void testOntologyContainsPlainAxiom() {
         OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")));
@@ -85,16 +101,6 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         runTestOntologyContainsAxioms1(format);
     }
 
-    private static RDFXMLDocumentFormat createRDFXMLFormat() {
-        RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
-        // This test case relies on certain declarations being in certain
-        // ontologies. The default
-        // behaviour is to add missing declarations. Therefore, this needs to be
-        // turned off.
-        format.setAddMissingTypes(false);
-        return format;
-    }
-
     @Test
     public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
         runTestOntologyContainsAxioms1(new OWLXMLDocumentFormat());
@@ -109,12 +115,6 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     public void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
         TurtleDocumentFormat format = createTurtleOntologyFormat();
         runTestOntologyContainsAxioms1(format);
-    }
-
-    private static TurtleDocumentFormat createTurtleOntologyFormat() {
-        TurtleDocumentFormat format = new TurtleDocumentFormat();
-        format.setAddMissingTypes(false);
-        return format;
     }
 
     @SuppressWarnings("resource")

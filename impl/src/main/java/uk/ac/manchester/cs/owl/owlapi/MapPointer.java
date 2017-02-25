@@ -58,16 +58,16 @@ public class MapPointer<K, V extends OWLAxiom> {
     private static final AtomicLong totalAllocated = new AtomicLong(0);
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 5;
+    protected final Internals i;
     @Nullable
     private final AxiomType<?> type;
     @Nullable
     private final OWLAxiomVisitorEx<?> visitor;
+    private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
     private boolean initialized;
-    protected final Internals i;
     @Nullable
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
-    private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
     private boolean neverTrimmed = true;
 
     /**
@@ -82,6 +82,19 @@ public class MapPointer<K, V extends OWLAxiom> {
         visitor = v;
         this.initialized = initialized;
         this.i = checkNotNull(i, "i cannot be null");
+    }
+
+    static synchronized void resetCounts() {
+        totalAllocated.set(0);
+        totalInUse.set(0);
+    }
+
+    static synchronized long getTotalInUse() {
+        return totalInUse.get();
+    }
+
+    static synchronized long getTotalAllocated() {
+        return totalAllocated.get();
     }
 
     /**
@@ -432,41 +445,6 @@ public class MapPointer<K, V extends OWLAxiom> {
         return removed;
     }
 
-    private static class THashSetForSet<E> extends THashSet<E> {
-
-        private boolean constructing = true;
-
-        public THashSetForSet(Collection<E> set, E toAdd, int capacity, float load) {
-            super(capacity, load);
-            for (E e : set) {
-                add(e);
-            }
-            add(toAdd);
-            constructing = false;
-        }
-
-        public THashSetForSet(int capacity, float load) {
-            super(capacity, load);
-            constructing = false;
-        }
-
-        @Override
-        protected boolean equals(@Nullable Object notnull, @Nullable Object two) {
-            // shortcut: during construction from a set, no element is
-            // duplicate. The extra element is also guaranteed to be unique,
-            // given the use made in this class.
-            if (constructing) {
-                return notnull == two;
-            }
-            return super.equals(notnull, two);
-        }
-
-        @Override
-        public Stream<E> stream() {
-            return new ArrayList<>(this).stream();
-        }
-    }
-
     private Collection<V> makeSet(Collection<V> collection, V extra) {
         if (neverTrimmed) {
             List<V> list = new ArrayList<>(collection);
@@ -522,16 +500,38 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
     }
 
-    static synchronized void resetCounts() {
-        totalAllocated.set(0);
-        totalInUse.set(0);
-    }
+    private static class THashSetForSet<E> extends THashSet<E> {
 
-    static synchronized long getTotalInUse() {
-        return totalInUse.get();
-    }
+        private boolean constructing = true;
 
-    static synchronized long getTotalAllocated() {
-        return totalAllocated.get();
+        public THashSetForSet(Collection<E> set, E toAdd, int capacity, float load) {
+            super(capacity, load);
+            for (E e : set) {
+                add(e);
+            }
+            add(toAdd);
+            constructing = false;
+        }
+
+        public THashSetForSet(int capacity, float load) {
+            super(capacity, load);
+            constructing = false;
+        }
+
+        @Override
+        protected boolean equals(@Nullable Object notnull, @Nullable Object two) {
+            // shortcut: during construction from a set, no element is
+            // duplicate. The extra element is also guaranteed to be unique,
+            // given the use made in this class.
+            if (constructing) {
+                return notnull == two;
+            }
+            return super.equals(notnull, two);
+        }
+
+        @Override
+        public Stream<E> stream() {
+            return new ArrayList<>(this).stream();
+        }
     }
 }

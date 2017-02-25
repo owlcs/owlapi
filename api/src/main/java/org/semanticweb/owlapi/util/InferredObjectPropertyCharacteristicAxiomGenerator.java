@@ -26,20 +26,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredObjectPropertyCharacteristicAxiomGenerator
     extends InferredObjectPropertyAxiomGenerator<OWLObjectPropertyCharacteristicAxiom> {
 
-    @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-        OWLDataFactory dataFactory,
-        Set<OWLObjectPropertyCharacteristicAxiom> result) {
-        addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity), reasoner, result);
-        addIfEntailed(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity), reasoner,
-            result);
-        addIfEntailed(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
-        addIfEntailed(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity), reasoner, result);
-        addTransitiveAxiomIfEntailed(entity, reasoner, dataFactory, result);
-        addIfEntailed(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
-        addIfEntailed(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity), reasoner, result);
-    }
-
     protected static void addTransitiveAxiomIfEntailed(OWLObjectProperty property,
         OWLReasoner reasoner,
         OWLDataFactory dataFactory, Set<OWLObjectPropertyCharacteristicAxiom> result) {
@@ -81,6 +67,20 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
             .isEntailed(axiom)) {
             result.add(axiom);
         }
+    }
+
+    @Override
+    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
+        OWLDataFactory dataFactory,
+        Set<OWLObjectPropertyCharacteristicAxiom> result) {
+        addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity), reasoner,
+            result);
+        addIfEntailed(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity), reasoner, result);
+        addTransitiveAxiomIfEntailed(entity, reasoner, dataFactory, result);
+        addIfEntailed(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity), reasoner, result);
     }
 
     @Override

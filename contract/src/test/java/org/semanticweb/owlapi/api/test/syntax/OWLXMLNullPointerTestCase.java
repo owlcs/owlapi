@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends TestBase {
 
-    private static final String NS = "urn:test";
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
+    private static final String NS = "urn:test";
 
     @Test
     public void testRoundTrip() throws Exception {

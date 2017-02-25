@@ -70,6 +70,110 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         this(checkNotNull(uri, "uri cannot be null").toString());
     }
 
+    /**
+     * Creates an IRI from the specified String.
+     *
+     * @param str The String that specifies the IRI
+     * @return The IRI that has the specified string representation.
+     */
+    public static IRI create(String str) {
+        checkNotNull(str, "str cannot be null");
+        int index = XMLUtils.getNCNameSuffixIndex(str);
+        if (index < 0) {
+            // no ncname
+            return new IRI(str, "");
+        }
+        return new IRI(str.substring(0, index), str.substring(index));
+    }
+
+    /**
+     * Creates an IRI by concatenating two strings. The full IRI is an IRI that
+     * contains the characters in prefix + suffix.
+     *
+     * @param prefix The first string
+     * @param suffix The second string
+     * @return An IRI whose characters consist of prefix + suffix.
+     * @since 3.3
+     */
+    public static IRI create(@Nullable String prefix, @Nullable String suffix) {
+        if (prefix == null && suffix == null) {
+            throw new IllegalArgumentException("prefix and suffix cannot both be null");
+        }
+        if (prefix == null) {
+            return create(verifyNotNull(suffix));
+        }
+        if (suffix == null) {
+            // suffix set deliberately to null is used only in blank node
+            // management
+            // this is not great but blank nodes should be changed to not refer
+            // to IRIs at all
+            // XXX address blank node issues with iris
+            return create(prefix);
+        }
+        int index = XMLUtils.getNCNameSuffixIndex(prefix);
+        int test = XMLUtils.getNCNameSuffixIndex(suffix);
+        if (index == -1 && test == 0) {
+            // the prefix does not contain an ncname character and there is
+            // no illegal character in the suffix
+            // the split is therefore correct
+            return new IRI(prefix, suffix);
+        }
+        // otherwise the split is wrong; we could obtain the right split by
+        // using index and test, but it's just as easy to use the other
+        // constructor
+        return create(prefix + suffix);
+    }
+
+    /**
+     * @param file the file to create the IRI from
+     * @return file.toURI() IRI
+     */
+    public static IRI create(File file) {
+        checkNotNull(file, "file cannot be null");
+        return new IRI(file.toURI());
+    }
+
+    /**
+     * @param uri the uri to create the IRI from
+     * @return the IRI wrapping the uri
+     */
+    public static IRI create(URI uri) {
+        checkNotNull(uri, "uri cannot be null");
+        return new IRI(uri);
+    }
+
+    /**
+     * @param url the url to create the IRI from
+     * @return an IRI wrapping url.toURI()
+     * @throws OWLRuntimeException if the URL is ill formed
+     */
+    public static IRI create(URL url) {
+        checkNotNull(url, "url cannot be null");
+        try {
+            return new IRI(url.toURI());
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    /**
+     * Gets an auto-generated ontology document IRI.
+     *
+     * @return An auto-generated ontology document IRI. The IRI has the form {@code
+     * owlapi:ontologyNNNNNNNNNNN}
+     */
+    public static IRI generateDocumentIRI() {
+        return getNextDocumentIRI("owlapi:ontology");
+    }
+
+    /**
+     * @param prefix prefix for result
+     * @return a fresh IRI
+     */
+    public static IRI getNextDocumentIRI(String prefix) {
+        return IRI.create(prefix + COUNTER.incrementAndGet());
+    }
+
     @Override
     public int typeIndex() {
         return 0;
@@ -226,110 +330,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      */
     public String toQuotedString() {
         return ntriplesString();
-    }
-
-    /**
-     * Creates an IRI from the specified String.
-     *
-     * @param str The String that specifies the IRI
-     * @return The IRI that has the specified string representation.
-     */
-    public static IRI create(String str) {
-        checkNotNull(str, "str cannot be null");
-        int index = XMLUtils.getNCNameSuffixIndex(str);
-        if (index < 0) {
-            // no ncname
-            return new IRI(str, "");
-        }
-        return new IRI(str.substring(0, index), str.substring(index));
-    }
-
-    /**
-     * Creates an IRI by concatenating two strings. The full IRI is an IRI that
-     * contains the characters in prefix + suffix.
-     *
-     * @param prefix The first string
-     * @param suffix The second string
-     * @return An IRI whose characters consist of prefix + suffix.
-     * @since 3.3
-     */
-    public static IRI create(@Nullable String prefix, @Nullable String suffix) {
-        if (prefix == null && suffix == null) {
-            throw new IllegalArgumentException("prefix and suffix cannot both be null");
-        }
-        if (prefix == null) {
-            return create(verifyNotNull(suffix));
-        }
-        if (suffix == null) {
-            // suffix set deliberately to null is used only in blank node
-            // management
-            // this is not great but blank nodes should be changed to not refer
-            // to IRIs at all
-            // XXX address blank node issues with iris
-            return create(prefix);
-        }
-        int index = XMLUtils.getNCNameSuffixIndex(prefix);
-        int test = XMLUtils.getNCNameSuffixIndex(suffix);
-        if (index == -1 && test == 0) {
-            // the prefix does not contain an ncname character and there is
-            // no illegal character in the suffix
-            // the split is therefore correct
-            return new IRI(prefix, suffix);
-        }
-        // otherwise the split is wrong; we could obtain the right split by
-        // using index and test, but it's just as easy to use the other
-        // constructor
-        return create(prefix + suffix);
-    }
-
-    /**
-     * @param file the file to create the IRI from
-     * @return file.toURI() IRI
-     */
-    public static IRI create(File file) {
-        checkNotNull(file, "file cannot be null");
-        return new IRI(file.toURI());
-    }
-
-    /**
-     * @param uri the uri to create the IRI from
-     * @return the IRI wrapping the uri
-     */
-    public static IRI create(URI uri) {
-        checkNotNull(uri, "uri cannot be null");
-        return new IRI(uri);
-    }
-
-    /**
-     * @param url the url to create the IRI from
-     * @return an IRI wrapping url.toURI()
-     * @throws OWLRuntimeException if the URL is ill formed
-     */
-    public static IRI create(URL url) {
-        checkNotNull(url, "url cannot be null");
-        try {
-            return new IRI(url.toURI());
-        } catch (URISyntaxException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    /**
-     * Gets an auto-generated ontology document IRI.
-     *
-     * @return An auto-generated ontology document IRI. The IRI has the form {@code
-     * owlapi:ontologyNNNNNNNNNNN}
-     */
-    public static IRI generateDocumentIRI() {
-        return getNextDocumentIRI("owlapi:ontology");
-    }
-
-    /**
-     * @param prefix prefix for result
-     * @return a fresh IRI
-     */
-    public static IRI getNextDocumentIRI(String prefix) {
-        return IRI.create(prefix + COUNTER.incrementAndGet());
     }
 
     /**

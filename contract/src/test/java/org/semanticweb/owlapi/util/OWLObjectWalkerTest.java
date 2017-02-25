@@ -32,24 +32,6 @@ public class OWLObjectWalkerTest extends TestBase {
     private OWLAnnotation goodbye;
     private OWLAnnotation hello;
 
-    @Before
-    public void setUp() {
-        ap = df.getOWLAnnotationProperty(iri("ap"));
-        cruelWorld = df.getOWLAnnotation(ap, df.getOWLLiteral("cruel world"));
-        goodbye = df.getOWLAnnotation(ap, df.getOWLLiteral("goodbye"), singleton(cruelWorld));
-        world = df.getOWLAnnotation(ap, df.getOWLLiteral("world"));
-        hello = df.getOWLAnnotation(ap, df.getOWLLiteral("hello"), singleton(world));
-    }
-
-    @Test
-    public void testWalkAnnotations() {
-        OWLOntology o = getOwlOntology();
-        List<OWLAnnotation> emptyAnnotationList = Collections.emptyList();
-        checkWalkWithFlags(o, DONT_WALK_ANNOTATIONS, emptyAnnotationList);
-        checkWalkWithFlags(o, WALK_ONTOLOGY_ANNOTATIONS_ONLY, Arrays.asList(hello));
-        checkWalkWithFlags(o, WALK_ANNOTATIONS, Arrays.asList(hello, world, goodbye, cruelWorld));
-    }
-
     private static void checkWalkWithFlags(OWLOntology o, AnnotationWalkingControl walkFlag,
         List<OWLAnnotation> expected) {
         final List<OWLAnnotation> visitedAnnotations = new ArrayList<>();
@@ -69,6 +51,24 @@ public class OWLObjectWalkerTest extends TestBase {
         }
         walker.walkStructure(visitor);
         assertEquals(expected, visitedAnnotations);
+    }
+
+    @Before
+    public void setUp() {
+        ap = df.getOWLAnnotationProperty(iri("ap"));
+        cruelWorld = df.getOWLAnnotation(ap, df.getOWLLiteral("cruel world"));
+        goodbye = df.getOWLAnnotation(ap, df.getOWLLiteral("goodbye"), singleton(cruelWorld));
+        world = df.getOWLAnnotation(ap, df.getOWLLiteral("world"));
+        hello = df.getOWLAnnotation(ap, df.getOWLLiteral("hello"), singleton(world));
+    }
+
+    @Test
+    public void testWalkAnnotations() {
+        OWLOntology o = getOwlOntology();
+        List<OWLAnnotation> emptyAnnotationList = Collections.emptyList();
+        checkWalkWithFlags(o, DONT_WALK_ANNOTATIONS, emptyAnnotationList);
+        checkWalkWithFlags(o, WALK_ONTOLOGY_ANNOTATIONS_ONLY, Arrays.asList(hello));
+        checkWalkWithFlags(o, WALK_ANNOTATIONS, Arrays.asList(hello, world, goodbye, cruelWorld));
     }
 
     private OWLOntology getOwlOntology() {

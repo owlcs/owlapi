@@ -35,16 +35,6 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
 
     private final Map<IRI, IRI> iriMap = new HashMap<>();
 
-    @Override
-    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
-        IRI convIRI = iriMap.get(entity.getIRI());
-        if (convIRI == null) {
-            convIRI = convert(entity.getIRI());
-            iriMap.put(entity.getIRI(), convIRI);
-        }
-        return convIRI;
-    }
-
     private static IRI convert(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
         Optional<String> fragment = iri.getRemainder();
@@ -84,5 +74,15 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
+        IRI convIRI = iriMap.get(entity.getIRI());
+        if (convIRI == null) {
+            convIRI = convert(entity.getIRI());
+            iriMap.put(entity.getIRI(), convIRI);
+        }
+        return convIRI;
     }
 }

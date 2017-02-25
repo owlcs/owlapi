@@ -39,6 +39,10 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         super(classExpressions, annotations);
     }
 
+    private static boolean named(OWLClassExpression d) {
+        return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
+    }
+
     @Override
     public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -68,10 +72,6 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         }
         return walkPairwise(
             (a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), annotations));
-    }
-
-    private static boolean named(OWLClassExpression d) {
-        return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
     }
 
     @Override

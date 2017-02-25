@@ -30,15 +30,15 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
  */
 public class AtomicDecompositionImpl implements AtomicDecomposition {
 
+    final Multimap<OWLEntity, Atom> termBasedIndex = LinkedHashMultimap.create();
+    private final ModuleType type;
     Set<OWLAxiom> globalAxioms;
     Set<OWLAxiom> tautologies;
-    final Multimap<OWLEntity, Atom> termBasedIndex = LinkedHashMultimap.create();
     List<Atom> atoms;
     TObjectIntHashMap<Atom> atomIndex = new TObjectIntHashMap<>();
     IdentityMultiMap<Atom, Atom> dependents = new IdentityMultiMap<>();
     IdentityMultiMap<Atom, Atom> dependencies = new IdentityMultiMap<>();
     Decomposer decomposer;
-    private final ModuleType type;
 
     /**
      * @param o o

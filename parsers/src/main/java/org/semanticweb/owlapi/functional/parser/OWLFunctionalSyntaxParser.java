@@ -75,6 +75,35 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings("all")
 public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
+    static private int[] jj_la1_0;
+    static private int[] jj_la1_1;
+    static private int[] jj_la1_2;
+    static private int[] jj_la1_3;
+    static private int[] jj_la1_4;
+
+    static {
+        jj_la1_init_0();
+        jj_la1_init_1();
+        jj_la1_init_2();
+        jj_la1_init_3();
+        jj_la1_init_4();
+    }
+
+    final private int[] jj_la1 = new int[49];
+    /**
+     * Generated Token Manager.
+     */
+    public OWLFunctionalSyntaxParserTokenManager token_source;
+    /**
+     * Current token.
+     */
+    public Token token;
+    /**
+     * Next token.
+     */
+    public Token jj_nt;
+    protected RemappingIndividualProvider anonProvider;
+    SimpleCharStream jj_input_stream;
     private OWLOntologyManager man;
     private OWLOntologyLoaderConfiguration configuration;
     private OWLOntology ontology;
@@ -84,7 +113,84 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     private IRI ontologyIRI;
     private boolean ignoreAnnotationsAndDeclarations = false;
     private Set<OWLAnnotation> currentAnnotations;
-    protected RemappingIndividualProvider anonProvider;
+    private int jj_ntk;
+    private int jj_gen;
+    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+    private int[] jj_expentry;
+    private int jj_kind = -1;
+    private int trace_indent = 0;
+    private boolean trace_enabled;
+
+    /**
+     * Constructor.
+     */
+    public OWLFunctionalSyntaxParser(Provider stream) {
+        jj_input_stream = new SimpleCharStream(stream, 1, 1);
+        token_source = new OWLFunctionalSyntaxParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 49; i++) {
+            jj_la1[i] = -1;
+        }
+    }
+
+    /**
+     * Constructor.
+     */
+    public OWLFunctionalSyntaxParser(String dsl) throws ParseException, TokenMgrException {
+        this(new StringProvider(dsl));
+    }
+
+    /**
+     * Constructor with generated Token Manager.
+     */
+    public OWLFunctionalSyntaxParser(OWLFunctionalSyntaxParserTokenManager tm) {
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 49; i++) {
+            jj_la1[i] = -1;
+        }
+    }
+
+    private static void jj_la1_init_0() {
+        jj_la1_0 = new int[]{0x0, 0x0, 0x0, 0x1010000, 0x1010000, 0xfce40000, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x800, 0x0, 0x0, 0x0, 0xfce40000, 0xe40000, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3c000000, 0x1000000, 0x0, 0x800, 0x1000000,
+            0x0, 0x0, 0x2000000, 0x180000, 0x180000, 0x0, 0x0, 0x0, 0x800, 0x0, 0x800,};
+    }
+
+    private static void jj_la1_init_1() {
+        jj_la1_1 = new int[]{0x0, 0x0, 0x0, 0x0, 0x0, 0x12000, 0x0, 0x7ffe0e00, 0x7ffe0e00, 0x0,
+            0x7ffe0e00, 0x7ffe0e00, 0x7ffe0e00, 0xc1c0, 0xc1c0, 0xc1c0, 0x1000, 0xc1c0, 0x0, 0xc1c0,
+            0xc1c0, 0x0, 0x12000, 0x0, 0x2000, 0x1000, 0x80001000, 0x1000, 0x0, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x1000, 0x0, 0x3e, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,};
+    }
+
+    private static void jj_la1_init_2() {
+        jj_la1_2 = new int[]{0x2000000, 0x0, 0x0, 0x0, 0x0, 0x1ffffff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1ffffff, 0x0, 0xfff, 0x0, 0x0, 0x0,
+            0x3f000, 0x0, 0x1fc0000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0,};
+    }
+
+    private static void jj_la1_init_3() {
+        jj_la1_3 = new int[]{0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x10, 0x9000000, 0x9000000,
+            0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000,
+            0x9000000, 0x9000000, 0x0, 0x9000000, 0x9000000, 0x9000000, 0x10, 0x0, 0x0, 0x9000000,
+            0x9000000, 0x9000000, 0x0, 0x9000000, 0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x9000000,
+            0x9000000, 0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x0, 0x3f80, 0x3f80, 0x3f80, 0x4000,
+            0x9004000, 0x4000,};
+    }
+
+    private static void jj_la1_init_4() {
+        jj_la1_4 = new int[]{0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+            0x1, 0x1, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+            0x0,};
+    }
 
     public void setUp(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this.man = ontology.getOWLOntologyManager();
@@ -2512,94 +2618,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return arg;
     }
 
-    /**
-     * Generated Token Manager.
-     */
-    public OWLFunctionalSyntaxParserTokenManager token_source;
-    SimpleCharStream jj_input_stream;
-    /**
-     * Current token.
-     */
-    public Token token;
-    /**
-     * Next token.
-     */
-    public Token jj_nt;
-    private int jj_ntk;
-    private int jj_gen;
-    final private int[] jj_la1 = new int[49];
-    static private int[] jj_la1_0;
-    static private int[] jj_la1_1;
-    static private int[] jj_la1_2;
-    static private int[] jj_la1_3;
-    static private int[] jj_la1_4;
-
-    static {
-        jj_la1_init_0();
-        jj_la1_init_1();
-        jj_la1_init_2();
-        jj_la1_init_3();
-        jj_la1_init_4();
-    }
-
-    private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0x0, 0x0, 0x0, 0x1010000, 0x1010000, 0xfce40000, 0x0, 0x0, 0x0, 0x0,
-            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x800, 0x0, 0x0, 0x0, 0xfce40000, 0xe40000, 0x0,
-            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3c000000, 0x1000000, 0x0, 0x800, 0x1000000,
-            0x0, 0x0, 0x2000000, 0x180000, 0x180000, 0x0, 0x0, 0x0, 0x800, 0x0, 0x800,};
-    }
-
-    private static void jj_la1_init_1() {
-        jj_la1_1 = new int[]{0x0, 0x0, 0x0, 0x0, 0x0, 0x12000, 0x0, 0x7ffe0e00, 0x7ffe0e00, 0x0,
-            0x7ffe0e00, 0x7ffe0e00, 0x7ffe0e00, 0xc1c0, 0xc1c0, 0xc1c0, 0x1000, 0xc1c0, 0x0, 0xc1c0,
-            0xc1c0, 0x0, 0x12000, 0x0, 0x2000, 0x1000, 0x80001000, 0x1000, 0x0, 0x0, 0x0, 0x0, 0x0,
-            0x0, 0x0, 0x0, 0x0, 0x0, 0x1000, 0x0, 0x3e, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,};
-    }
-
-    private static void jj_la1_init_2() {
-        jj_la1_2 = new int[]{0x2000000, 0x0, 0x0, 0x0, 0x0, 0x1ffffff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1ffffff, 0x0, 0xfff, 0x0, 0x0, 0x0,
-            0x3f000, 0x0, 0x1fc0000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-            0x0, 0x0, 0x0, 0x0, 0x0, 0x0,};
-    }
-
-    private static void jj_la1_init_3() {
-        jj_la1_3 = new int[]{0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x10, 0x9000000, 0x9000000,
-            0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000,
-            0x9000000, 0x9000000, 0x0, 0x9000000, 0x9000000, 0x9000000, 0x10, 0x0, 0x0, 0x9000000,
-            0x9000000, 0x9000000, 0x0, 0x9000000, 0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x9000000,
-            0x9000000, 0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x0, 0x3f80, 0x3f80, 0x3f80, 0x4000,
-            0x9004000, 0x4000,};
-    }
-
-    private static void jj_la1_init_4() {
-        jj_la1_4 = new int[]{0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x0,
-            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-            0x1, 0x1, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-            0x0,};
-    }
-
-    /**
-     * Constructor.
-     */
-    public OWLFunctionalSyntaxParser(Provider stream) {
-        jj_input_stream = new SimpleCharStream(stream, 1, 1);
-        token_source = new OWLFunctionalSyntaxParserTokenManager(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 49; i++) {
-            jj_la1[i] = -1;
-        }
-    }
-
-    /**
-     * Constructor.
-     */
-    public OWLFunctionalSyntaxParser(String dsl) throws ParseException, TokenMgrException {
-        this(new StringProvider(dsl));
-    }
-
     public void ReInit(String s) {
         ReInit(new StringProvider(s));
     }
@@ -2618,19 +2636,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
 
         token_source.ReInit(jj_input_stream);
-        token = new Token();
-        jj_ntk = -1;
-        jj_gen = 0;
-        for (int i = 0; i < 49; i++) {
-            jj_la1[i] = -1;
-        }
-    }
-
-    /**
-     * Constructor with generated Token Manager.
-     */
-    public OWLFunctionalSyntaxParser(OWLFunctionalSyntaxParserTokenManager tm) {
-        token_source = tm;
         token = new Token();
         jj_ntk = -1;
         jj_gen = 0;
@@ -2669,7 +2674,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         throw generateParseException();
     }
 
-
     /**
      * Get the next Token.
      */
@@ -2706,10 +2710,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
             return (jj_ntk = jj_nt.kind);
         }
     }
-
-    private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    private int[] jj_expentry;
-    private int jj_kind = -1;
 
     /**
      * Generate ParseException.
@@ -2756,9 +2756,6 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return new ParseException(token, exptokseq, tokenImage, token_source == null ? null
             : OWLFunctionalSyntaxParserTokenManager.lexStateNames[token_source.curLexState]);
     }
-
-    private int trace_indent = 0;
-    private boolean trace_enabled;
 
     /**
      * Trace enabled.

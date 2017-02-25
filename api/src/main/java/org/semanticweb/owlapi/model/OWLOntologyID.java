@@ -101,20 +101,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
         this(emptyOptional(IRI.class), emptyOptional(IRI.class));
     }
 
-    private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
-        stream.defaultReadObject();
-        ontologyIRI = optional((IRI) stream.readObject());
-        versionIRI = optional((IRI) stream.readObject());
-        internalID = optional((String) stream.readObject());
-    }
-
-    private void writeObject(ObjectOutputStream stream) throws IOException {
-        stream.defaultWriteObject();
-        stream.writeObject(ontologyIRI.orElse(null));
-        stream.writeObject(versionIRI.orElse(null));
-        stream.writeObject(internalID.orElse(null));
-    }
-
     private static Optional<IRI> opt(@Nullable IRI i) {
         if (i == null || NodeID.isAnonymousNodeIRI(i)) {
             return emptyOptional();
@@ -139,6 +125,20 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
             return emptyOptional();
         }
         return i;
+    }
+
+    private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
+        stream.defaultReadObject();
+        ontologyIRI = optional((IRI) stream.readObject());
+        versionIRI = optional((IRI) stream.readObject());
+        internalID = optional((String) stream.readObject());
+    }
+
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        stream.writeObject(ontologyIRI.orElse(null));
+        stream.writeObject(versionIRI.orElse(null));
+        stream.writeObject(internalID.orElse(null));
     }
 
     /**

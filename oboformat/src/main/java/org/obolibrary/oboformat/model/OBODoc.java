@@ -19,11 +19,6 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class OBODoc {
 
     /**
-     * The header frame.
-     */
-    @Nullable
-    protected Frame headerFrame;
-    /**
      * The term frame map.
      */
     protected final Map<String, Frame> termFrameMap = new HashMap<>();
@@ -43,6 +38,44 @@ public class OBODoc {
      * The imported obo docs.
      */
     protected final Collection<OBODoc> importedOBODocs = new LinkedList<>();
+    /**
+     * The header frame.
+     */
+    @Nullable
+    protected Frame headerFrame;
+
+    private static void freezeFrameMap(Map<String, Frame> frameMap) {
+        for (Frame frame : frameMap.values()) {
+            frame.freeze();
+        }
+    }
+
+    /**
+     * Looks up the ID prefix to IRI prefix mapping. Header-Tag: idspace
+     *
+     * @param prefix prefix
+     * @return IRI prefix as string
+     */
+    @Nullable
+    public static String getIDSpace(String prefix) {
+        // built-in
+        if (prefix.equals("RO")) {
+            return "http://purl.obolibrary.org/obo/RO_";
+        }
+        // TODO
+        return null;
+    }
+
+    /**
+     * @param prefix the prefix
+     * @return true, if is treat xrefs as equivalent
+     */
+    public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
+        if ("RO".equals(prefix)) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @return the header frame
@@ -92,12 +125,6 @@ public class OBODoc {
         freezeFrameMap(typedefFrameMap);
         freezeFrameMap(instanceFrameMap);
         for (Frame frame : annotationFrames) {
-            frame.freeze();
-        }
-    }
-
-    private static void freezeFrameMap(Map<String, Frame> frameMap) {
-        for (Frame frame : frameMap.values()) {
             frame.freeze();
         }
     }
@@ -291,33 +318,6 @@ public class OBODoc {
         } else {
             instanceFrameMap.put(id, f);
         }
-    }
-
-    /**
-     * Looks up the ID prefix to IRI prefix mapping. Header-Tag: idspace
-     *
-     * @param prefix prefix
-     * @return IRI prefix as string
-     */
-    @Nullable
-    public static String getIDSpace(String prefix) {
-        // built-in
-        if (prefix.equals("RO")) {
-            return "http://purl.obolibrary.org/obo/RO_";
-        }
-        // TODO
-        return null;
-    }
-
-    /**
-     * @param prefix the prefix
-     * @return true, if is treat xrefs as equivalent
-     */
-    public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
-        if ("RO".equals(prefix)) {
-            return true;
-        }
-        return false;
     }
 
     /**

@@ -261,10 +261,15 @@ public class BuildersTestCase<Q> {
     Set<SWRLAtom> body = Sets.newHashSet(v1);
     protected static @Nonnull
     Set<SWRLAtom> head = Sets.newHashSet(v2);
-
-    private static interface Prepare<T> {
-
-        Builder<T> build(T t);
+    private final Builder<Q> b;
+    private final Q expected;
+    private final @Nonnull
+    OWLOntologyManager m = getManager();
+    private Prepare<Q> p;
+    public BuildersTestCase(Prepare<Q> p, Builder<Q> b, Q o) {
+        this.b = b;
+        expected = o;
+        this.p = p;
     }
 
     @Parameterized.Parameters
@@ -616,24 +621,12 @@ public class BuildersTestCase<Q> {
         return toReturn;
     }
 
-    private final Builder<Q> b;
-    private final Q expected;
-    private final @Nonnull
-    OWLOntologyManager m = getManager();
-    private Prepare<Q> p;
-
     // no parsers and storers injected
     private static OWLOntologyManager getManager() {
         OWLOntologyManager instance = new OWLOntologyManagerImpl(df, new ReentrantReadWriteLock());
         instance.getOntologyFactories()
             .set(new OWLOntologyFactoryImpl((o, id) -> new OWLOntologyImpl(o, id)));
         return instance;
-    }
-
-    public BuildersTestCase(Prepare<Q> p, Builder<Q> b, Q o) {
-        this.b = b;
-        expected = o;
-        this.p = p;
     }
 
     @Test
@@ -646,5 +639,10 @@ public class BuildersTestCase<Q> {
                 o.containsAxiom((OWLAxiom) expected));
         }
         assertEquals(expected, p.build(expected).buildObject());
+    }
+
+    private static interface Prepare<T> {
+
+        Builder<T> build(T t);
     }
 }

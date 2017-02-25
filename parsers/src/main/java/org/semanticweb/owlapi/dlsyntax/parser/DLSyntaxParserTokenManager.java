@@ -22,9 +22,271 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
 
     /**
+     * Token literal values.
+     */
+    public static final String[] jjstrLiteralImages = {
+        "", null, null, null, null, null, null, null, "\56", null, "\50", "\51",
+        "\133", "\135", "\173", "\175", "\72", null, null, null, null, null, null, null, null,
+        null, null, null, null, null, "\12", "\54",};
+    /**
+     * Lexer state names.
+     */
+    public static final String[] lexStateNames = {
+        "DEFAULT",
+    };
+    /**
+     * Lex State array.
+     */
+    public static final int[] jjnewLexState = {
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1,
+        -1, -1, -1, -1, -1, -1, -1,
+    };
+    static final long[] jjbitVec0 = {
+        0x0L, 0x0L, 0x20000L, 0x0L
+    };
+    static final long[] jjbitVec1 = {
+        0x0L, 0x200000000L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec2 = {
+        0x0L, 0x100000000L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec3 = {
+        0x1000000L, 0x0L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec4 = {
+        0x0L, 0x800000000000000L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec5 = {
+        0x0L, 0x0L, 0x80000L, 0x0L
+    };
+    static final long[] jjbitVec6 = {
+        0x0L, 0x0L, 0x100000L, 0x0L
+    };
+    static final long[] jjbitVec7 = {
+        0x0L, 0x0L, 0x100000000000L, 0x0L
+    };
+    static final long[] jjbitVec8 = {
+        0x8L, 0x0L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec9 = {
+        0x1L, 0x0L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec10 = {
+        0x0L, 0x2000000000L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec11 = {
+        0x0L, 0x1000000000L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec12 = {
+        0x100L, 0x0L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec13 = {
+        0x0L, 0x400000000000000L, 0x0L, 0x0L
+    };
+    static final long[] jjbitVec14 = {
+        0xfffffffafffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec16 = {
+        0x0L, 0x0L, 0xffffefffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec17 = {
+        0xffffffffffffffffL, 0xf7ffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final long[] jjbitVec18 = {
+        0xfffffffffffffeffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
+    };
+    static final int[] jjnextStates = {
+        117, 118, 119, 111, 115, 68, 73, 76, 81, 86, 89, 95, 100, 103, 106, 48,
+        57,
+    };
+    static final long[] jjtoToken = {
+        0xfffffff1L,
+    };
+    static final long[] jjtoSkip = {
+        0xeL,
+    };
+    static final long[] jjtoSpecial = {
+        0x0L,
+    };
+    static final long[] jjtoMore = {
+        0x0L,
+    };
+    private final int[] jjrounds = new int[121];
+    private final int[] jjstateSet = new int[2 * 121];
+    private final StringBuilder jjimage = new StringBuilder();
+    /**
      * Debug output.
      */
     public java.io.PrintStream debugStream = System.out;
+    protected JavaCharStream input_stream;
+    protected int curChar;
+    int curLexState = 0;
+    int defaultLexState = 0;
+    int jjnewStateCnt;
+    int jjround;
+    int jjmatchedPos;
+    int jjmatchedKind;
+    private StringBuilder image = jjimage;
+    private int jjimageLen;
+    private int lengthOfMatch;
+
+    public DLSyntaxParserTokenManager(JavaCharStream stream) {
+
+        if (JavaCharStream.staticFlag) {
+            throw new RuntimeException(
+                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+        }
+
+        input_stream = stream;
+    }
+
+    public DLSyntaxParserTokenManager(JavaCharStream stream, int lexState) {
+        ReInit(stream);
+        SwitchTo(lexState);
+    }
+
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec0[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec1[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec2[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_3(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec3[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_4(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 32:
+                return ((jjbitVec4[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_5(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec5[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_6(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec6[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_7(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec7[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_8(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec8[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_9(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec9[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_10(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec10[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_11(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec11[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_12(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 34:
+                return ((jjbitVec12[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_13(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 32:
+                return ((jjbitVec13[i2] & l2) != 0L);
+            default:
+                return false;
+        }
+    }
+
+    private static final boolean jjCanMove_14(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return ((jjbitVec16[i2] & l2) != 0L);
+            case 32:
+                return ((jjbitVec17[i2] & l2) != 0L);
+            case 34:
+                return ((jjbitVec18[i2] & l2) != 0L);
+            default:
+                if ((jjbitVec14[i1] & l1) != 0L) {
+                    return true;
+                }
+                return false;
+        }
+    }
 
     /**
      * Set debug output.
@@ -89,61 +351,6 @@ class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
         return jjMoveNfa_0(state, pos + 1);
     }
-
-    static final long[] jjbitVec0 = {
-        0x0L, 0x0L, 0x20000L, 0x0L
-    };
-    static final long[] jjbitVec1 = {
-        0x0L, 0x200000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec2 = {
-        0x0L, 0x100000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec3 = {
-        0x1000000L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec4 = {
-        0x0L, 0x800000000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec5 = {
-        0x0L, 0x0L, 0x80000L, 0x0L
-    };
-    static final long[] jjbitVec6 = {
-        0x0L, 0x0L, 0x100000L, 0x0L
-    };
-    static final long[] jjbitVec7 = {
-        0x0L, 0x0L, 0x100000000000L, 0x0L
-    };
-    static final long[] jjbitVec8 = {
-        0x8L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec9 = {
-        0x1L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec10 = {
-        0x0L, 0x2000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec11 = {
-        0x0L, 0x1000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec12 = {
-        0x100L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec13 = {
-        0x0L, 0x400000000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec14 = {
-        0xfffffffafffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec16 = {
-        0x0L, 0x0L, 0xffffefffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec17 = {
-        0xffffffffffffffffL, 0xf7ffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec18 = {
-        0xfffffffffffffeffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
 
     private int jjMoveNfa_0(int startState, int curPos) {
         int startsAt = 0;
@@ -1007,14 +1214,6 @@ class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /**
-     * Token literal values.
-     */
-    public static final String[] jjstrLiteralImages = {
-        "", null, null, null, null, null, null, null, "\56", null, "\50", "\51",
-        "\133", "\135", "\173", "\175", "\72", null, null, null, null, null, null, null, null,
-        null, null, null, null, null, "\12", "\54",};
-
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -1037,160 +1236,6 @@ class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
 
         return t;
     }
-
-    static final int[] jjnextStates = {
-        117, 118, 119, 111, 115, 68, 73, 76, 81, 86, 89, 95, 100, 103, 106, 48,
-        57,
-    };
-
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec0[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec1[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec2[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_3(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec3[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_4(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 32:
-                return ((jjbitVec4[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_5(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec5[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_6(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec6[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_7(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec7[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_8(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec8[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_9(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec9[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_10(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec10[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_11(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec11[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_12(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 34:
-                return ((jjbitVec12[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_13(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 32:
-                return ((jjbitVec13[i2] & l2) != 0L);
-            default:
-                return false;
-        }
-    }
-
-    private static final boolean jjCanMove_14(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return ((jjbitVec16[i2] & l2) != 0L);
-            case 32:
-                return ((jjbitVec17[i2] & l2) != 0L);
-            case 34:
-                return ((jjbitVec18[i2] & l2) != 0L);
-            default:
-                if ((jjbitVec14[i1] & l1) != 0L) {
-                    return true;
-                }
-                return false;
-        }
-    }
-
-    int curLexState = 0;
-    int defaultLexState = 0;
-    int jjnewStateCnt;
-    int jjround;
-    int jjmatchedPos;
-    int jjmatchedKind;
 
     /**
      * Get the next Token.
@@ -1304,21 +1349,6 @@ class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         } while (start++ != end);
     }
 
-    public DLSyntaxParserTokenManager(JavaCharStream stream) {
-
-        if (JavaCharStream.staticFlag) {
-            throw new RuntimeException(
-                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
-        }
-
-        input_stream = stream;
-    }
-
-    public DLSyntaxParserTokenManager(JavaCharStream stream, int lexState) {
-        ReInit(stream);
-        SwitchTo(lexState);
-    }
-
     public void ReInit(JavaCharStream stream) {
 
         jjmatchedPos =
@@ -1353,42 +1383,4 @@ class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
             curLexState = lexState;
         }
     }
-
-
-    /**
-     * Lexer state names.
-     */
-    public static final String[] lexStateNames = {
-        "DEFAULT",
-    };
-
-    /**
-     * Lex State array.
-     */
-    public static final int[] jjnewLexState = {
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1,
-        -1, -1, -1, -1, -1, -1, -1,
-    };
-    static final long[] jjtoToken = {
-        0xfffffff1L,
-    };
-    static final long[] jjtoSkip = {
-        0xeL,
-    };
-    static final long[] jjtoSpecial = {
-        0x0L,
-    };
-    static final long[] jjtoMore = {
-        0x0L,
-    };
-    protected JavaCharStream input_stream;
-
-    private final int[] jjrounds = new int[121];
-    private final int[] jjstateSet = new int[2 * 121];
-    private final StringBuilder jjimage = new StringBuilder();
-    private StringBuilder image = jjimage;
-    private int jjimageLen;
-    private int lengthOfMatch;
-    protected int curChar;
 }

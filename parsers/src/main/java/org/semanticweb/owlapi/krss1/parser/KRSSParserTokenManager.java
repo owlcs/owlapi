@@ -9,9 +9,88 @@ package org.semanticweb.owlapi.krss1.parser;
 class KRSSParserTokenManager implements KRSSParserConstants {
 
     /**
+     * Token literal values.
+     */
+    public static final String[] jjstrLiteralImages = {
+        "", null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, "\50", "\51", "\145\156\144\55\164\142\157\170",
+        "\145\156\144\55\141\142\157\170",
+        "\160\162\151\155\151\164\151\166\145\55\143\157\156\143\145\160\164",
+        "\144\145\146\151\156\145\55\160\162\151\155\151\164\151\166\145\55\143\157\156\143\145\160\164",
+        "\144\145\146\151\156\145\55\143\157\156\143\145\160\164",
+        "\144\145\146\151\156\145\55\160\162\151\155\151\164\151\166\145\55\162\157\154\145",
+        "\163\165\142\162\157\154\145", "\164\162\141\156\163\151\164\151\166\145",
+        "\145\156\165\155", "\162\141\156\147\145", "\141\156\144", "\157\162", "\156\157\164",
+        "\141\154\154", "\163\157\155\145", "\156\157\156\145", "\141\164\55\154\145\141\163\164",
+        "\141\164\55\155\157\163\164", "\145\170\141\143\164\154\171",
+        "\151\156\163\164\141\156\143\145",
+        "\162\145\154\141\164\145\144", "\145\161\165\141\154", "\144\151\163\164\151\156\143\164",
+        null, null,
+        "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171",};
+    /**
+     * Lexer state names.
+     */
+    public static final String[] lexStateNames = {
+        "DEFAULT",
+        "IN_COMMENT",
+        "IN_IRI",
+        "IN_STRING_LITERAL",
+    };
+    /**
+     * Lex State array.
+     */
+    public static final int[] jjnewLexState = {
+        -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1, 3, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    };
+    static final int[] jjnextStates = {0
+    };
+    static final long[] jjtoToken = {
+        0x7ffffffa201L,
+    };
+    static final long[] jjtoSkip = {
+        0x5eL,
+    };
+    static final long[] jjtoSpecial = {
+        0x0L,
+    };
+    static final long[] jjtoMore = {
+        0x5da0L,
+    };
+    private final int[] jjrounds = new int[2];
+    private final int[] jjstateSet = new int[2 * 2];
+    private final StringBuilder jjimage = new StringBuilder();
+    /**
      * Debug output.
      */
     public java.io.PrintStream debugStream = System.out;
+    protected JavaCharStream input_stream;
+    protected int curChar;
+    int curLexState = 0;
+    int defaultLexState = 0;
+    int jjnewStateCnt;
+    int jjround;
+    int jjmatchedPos;
+    int jjmatchedKind;
+    private StringBuilder image = jjimage;
+    private int jjimageLen;
+    private int lengthOfMatch;
+
+    public KRSSParserTokenManager(JavaCharStream stream) {
+
+        if (JavaCharStream.staticFlag) {
+            throw new RuntimeException(
+                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+        }
+
+        input_stream = stream;
+    }
+
+    public KRSSParserTokenManager(JavaCharStream stream, int lexState) {
+        ReInit(stream);
+        SwitchTo(lexState);
+    }
 
     /**
      * Set debug output.
@@ -1278,26 +1357,6 @@ class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Token literal values.
-     */
-    public static final String[] jjstrLiteralImages = {
-        "", null, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, "\50", "\51", "\145\156\144\55\164\142\157\170",
-        "\145\156\144\55\141\142\157\170",
-        "\160\162\151\155\151\164\151\166\145\55\143\157\156\143\145\160\164",
-        "\144\145\146\151\156\145\55\160\162\151\155\151\164\151\166\145\55\143\157\156\143\145\160\164",
-        "\144\145\146\151\156\145\55\143\157\156\143\145\160\164",
-        "\144\145\146\151\156\145\55\160\162\151\155\151\164\151\166\145\55\162\157\154\145",
-        "\163\165\142\162\157\154\145", "\164\162\141\156\163\151\164\151\166\145",
-        "\145\156\165\155", "\162\141\156\147\145", "\141\156\144", "\157\162", "\156\157\164",
-        "\141\154\154", "\163\157\155\145", "\156\157\156\145", "\141\164\55\154\145\141\163\164",
-        "\141\164\55\155\157\163\164", "\145\170\141\143\164\154\171",
-        "\151\156\163\164\141\156\143\145",
-        "\162\145\154\141\164\145\144", "\145\161\165\141\154", "\144\151\163\164\151\156\143\164",
-        null, null,
-        "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171",};
-
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -1320,16 +1379,6 @@ class KRSSParserTokenManager implements KRSSParserConstants {
 
         return t;
     }
-
-    static final int[] jjnextStates = {0
-    };
-
-    int curLexState = 0;
-    int defaultLexState = 0;
-    int jjnewStateCnt;
-    int jjround;
-    int jjmatchedPos;
-    int jjmatchedKind;
 
     /**
      * Get the next Token.
@@ -1484,21 +1533,6 @@ class KRSSParserTokenManager implements KRSSParserConstants {
         jjCheckNAdd(state2);
     }
 
-    public KRSSParserTokenManager(JavaCharStream stream) {
-
-        if (JavaCharStream.staticFlag) {
-            throw new RuntimeException(
-                "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
-        }
-
-        input_stream = stream;
-    }
-
-    public KRSSParserTokenManager(JavaCharStream stream, int lexState) {
-        ReInit(stream);
-        SwitchTo(lexState);
-    }
-
     public void ReInit(JavaCharStream stream) {
 
         jjmatchedPos =
@@ -1533,45 +1567,4 @@ class KRSSParserTokenManager implements KRSSParserConstants {
             curLexState = lexState;
         }
     }
-
-
-    /**
-     * Lexer state names.
-     */
-    public static final String[] lexStateNames = {
-        "DEFAULT",
-        "IN_COMMENT",
-        "IN_IRI",
-        "IN_STRING_LITERAL",
-    };
-
-    /**
-     * Lex State array.
-     */
-    public static final int[] jjnewLexState = {
-        -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1, 3, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-    };
-    static final long[] jjtoToken = {
-        0x7ffffffa201L,
-    };
-    static final long[] jjtoSkip = {
-        0x5eL,
-    };
-    static final long[] jjtoSpecial = {
-        0x0L,
-    };
-    static final long[] jjtoMore = {
-        0x5da0L,
-    };
-    protected JavaCharStream input_stream;
-
-    private final int[] jjrounds = new int[2];
-    private final int[] jjstateSet = new int[2 * 2];
-    private final StringBuilder jjimage = new StringBuilder();
-    private StringBuilder image = jjimage;
-    private int jjimageLen;
-    private int lengthOfMatch;
-    protected int curChar;
 }

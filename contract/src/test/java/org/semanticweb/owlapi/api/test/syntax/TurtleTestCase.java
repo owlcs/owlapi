@@ -52,15 +52,15 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class TurtleTestCase extends TestBase {
 
+    private final IRI iri = IRI.create("urn:test#", "literals");
+    private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
+    private final IRI s = IRI.create("urn:test#", "s");
+
     @Test
     public void testLoadingUTF8BOM() throws Exception {
         IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl").toURI());
         m.loadOntologyFromOntologyDocument(uri);
     }
-
-    private final IRI iri = IRI.create("urn:test#", "literals");
-    private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
-    private final IRI s = IRI.create("urn:test#", "s");
 
     @Test
     public void shouldParseFixedQuotesLiterals1() throws OWLOntologyCreationException {

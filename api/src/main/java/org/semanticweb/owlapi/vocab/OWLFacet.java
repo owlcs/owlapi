@@ -89,28 +89,6 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         return Stream.of(values());
     }
 
-    @Override
-    public String getShortForm() {
-        return shortForm;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
-
-    /**
-     * @return symbolic form
-     */
-    public String getSymbolicForm() {
-        return symbolicForm;
-    }
-
-    @Override
-    public String toString() {
-        return getShortForm();
-    }
-
     /**
      * @return all facet iris
      */
@@ -158,6 +136,28 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<String> getFacets() {
         return asSet(stream().map(v -> v.getSymbolicForm()));
+    }
+
+    @Override
+    public String getShortForm() {
+        return shortForm;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
+    }
+
+    /**
+     * @return symbolic form
+     */
+    public String getSymbolicForm() {
+        return symbolicForm;
+    }
+
+    @Override
+    public String toString() {
+        return getShortForm();
     }
 
     @Override

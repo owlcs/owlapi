@@ -42,26 +42,34 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 public class PunRunner extends org.junit.runner.Runner {
 
     private final Class<?> testClass;
-    private Description suiteDescription;
     private final Map<Description, TestSetting> testSettings = new HashMap<>();
+    private Description suiteDescription;
 
     @SuppressWarnings("null")
     public PunRunner(Class<?> testClass) {
         this.testClass = testClass;
     }
 
-    class TestSetting {
-
-        OWLEntity[] entities;
-        Class<? extends PrefixDocumentFormat> formatClass;
-        OWLOntologyManager manager;
-
-        public TestSetting(Class<? extends PrefixDocumentFormat> formatClass, OWLOntologyManager m,
-            OWLEntity... entities) {
-            this.formatClass = formatClass;
-            this.entities = entities;
-            manager = m;
+    public static OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
+        OWLAnnotationProperty annotationProperty, OWLOntologyManager manager, OWLEntity... entities)
+        throws OWLOntologyCreationException {
+        Set<OWLAxiom> axioms = new HashSet<>();
+        OWLDataFactory dataFactory = manager.getOWLDataFactory();
+        axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
+        for (OWLEntity entity : entities) {
+            axioms.add(dataFactory
+                .getOWLAnnotationAssertionAxiom(annotationProperty, entity.getIRI(), dataFactory
+                    .getOWLAnonymousIndividual()));
+            axioms.add(dataFactory.getOWLDeclarationAxiom(entity));
         }
+        return manager.createOntology(axioms);
+    }
+
+    public static ByteArrayInputStream saveForRereading(OWLOntology o, PrefixDocumentFormat format,
+        OWLOntologyManager manager) throws OWLOntologyStorageException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        manager.saveOntology(o, format, out);
+        return new ByteArrayInputStream(out.toByteArray());
     }
 
     @Override
@@ -164,25 +172,17 @@ public class PunRunner extends org.junit.runner.Runner {
             o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
     }
 
-    public static OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
-        OWLAnnotationProperty annotationProperty, OWLOntologyManager manager, OWLEntity... entities)
-        throws OWLOntologyCreationException {
-        Set<OWLAxiom> axioms = new HashSet<>();
-        OWLDataFactory dataFactory = manager.getOWLDataFactory();
-        axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
-        for (OWLEntity entity : entities) {
-            axioms.add(dataFactory
-                .getOWLAnnotationAssertionAxiom(annotationProperty, entity.getIRI(), dataFactory
-                    .getOWLAnonymousIndividual()));
-            axioms.add(dataFactory.getOWLDeclarationAxiom(entity));
-        }
-        return manager.createOntology(axioms);
-    }
+    class TestSetting {
 
-    public static ByteArrayInputStream saveForRereading(OWLOntology o, PrefixDocumentFormat format,
-        OWLOntologyManager manager) throws OWLOntologyStorageException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        manager.saveOntology(o, format, out);
-        return new ByteArrayInputStream(out.toByteArray());
+        OWLEntity[] entities;
+        Class<? extends PrefixDocumentFormat> formatClass;
+        OWLOntologyManager manager;
+
+        public TestSetting(Class<? extends PrefixDocumentFormat> formatClass, OWLOntologyManager m,
+            OWLEntity... entities) {
+            this.formatClass = formatClass;
+            this.entities = entities;
+            manager = m;
+        }
     }
 }

@@ -130,9 +130,9 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
     private static final Logger LOGGER = LoggerFactory
         .getLogger(OWLAnnotationPropertyTransformer.class);
     private final OWLDataFactory df;
+    private final Map<OWLEntity, OWLEntity> replacementMap;
     @Nullable
     private Object obj;
-    private final Map<OWLEntity, OWLEntity> replacementMap;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified

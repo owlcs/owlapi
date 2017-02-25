@@ -28,12 +28,12 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class SWRLAtomOrderingTestCase extends TestBase {
 
+    private final Set<SWRLAtom> body = new LinkedHashSet<>();
     protected SWRLAtom atomA;
     protected SWRLAtom atomB;
     protected SWRLAtom atomC;
     protected SWRLAtom atomD;
     private SWRLRuleImpl rule;
-    private final Set<SWRLAtom> body = new LinkedHashSet<>();
 
     @Before
     public void setUp() {

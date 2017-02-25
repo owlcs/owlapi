@@ -36,6 +36,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     private static final String COMMENT_START_CHAR = "#";
 
+    private static boolean startsWithMagicNumber(String line) {
+        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
+            || line.indexOf(ManchesterOWLSyntax.ONTOLOGY
+            .toString()) != -1;
+    }
+
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
         return new ManchesterSyntaxDocumentFormatFactory();
@@ -91,11 +97,5 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
         } catch (OWLOntologyInputSourceException | IOException e) {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, 1, 1);
         }
-    }
-
-    private static boolean startsWithMagicNumber(String line) {
-        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
-            || line.indexOf(ManchesterOWLSyntax.ONTOLOGY
-            .toString()) != -1;
     }
 }

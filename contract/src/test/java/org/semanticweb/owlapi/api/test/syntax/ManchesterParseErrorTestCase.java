@@ -31,6 +31,14 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 @SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase extends TestBase {
 
+    private static OWLClassExpression parse(String text) {
+        MockEntityChecker checker = new MockEntityChecker(df);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(text);
+        parser.setOWLEntityChecker(checker);
+        return parser.parseClassExpression();
+    }
+
     @Test(expected = ParserException.class)
     public void shouldNotParse() {
         parse("p some rdfs:Literal");
@@ -43,14 +51,6 @@ public class ManchesterParseErrorTestCase extends TestBase {
         parse("p some rdfs:Literal");
         String text1 = "p some Literal";
         parse(text1);
-    }
-
-    private static OWLClassExpression parse(String text) {
-        MockEntityChecker checker = new MockEntityChecker(df);
-        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
-        parser.setStringToParse(text);
-        parser.setOWLEntityChecker(checker);
-        return parser.parseClassExpression();
     }
 
     /**

@@ -17,11 +17,6 @@ public class ProfileDLOnlyTestCase extends ProfileBase {
         this.premise = premise;
     }
 
-    @Test
-    public void testDLOnly() {
-        test(premise, false, false, false, true);
-    }
-
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
@@ -174,5 +169,10 @@ public class ProfileDLOnlyTestCase extends ProfileBase {
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:DatatypeProperty rdf:about=\"urn:test#fp\" /><owl:FunctionalProperty rdf:about=\"urn:test#fp\" /><owl:Thing><first:fp rdf:parseType=\"Literal\"><br /><img src=\"vn.png\" alt=\"Venn diagram\" longdesc=\"vn.html\" title=\"Venn\"></img></first:fp><first:fp rdf:parseType=\"Literal\"><br></br><img src=\"vn.png\" title=\"Venn\" alt=\"Venn diagram\" longdesc=\"vn.html\" /></first:fp></owl:Thing></rdf:RDF>",
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\"  xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:Class><owl:oneOf rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"urn:test#amy\"/><rdf:Description rdf:about=\"urn:test#bob\"/><rdf:Description rdf:about=\"urn:test#caroline\"/></owl:oneOf><owl:equivalentClass><owl:Class><owl:oneOf rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"urn:test#yolanda\"/><rdf:Description rdf:about=\"urn:test#zebedee\"/></owl:oneOf></owl:Class></owl:equivalentClass></owl:Class></rdf:RDF>",
             "<!DOCTYPE rdf:RDF [ <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\"><!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"> ]><rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:first=\"urn:test#\" xml:base=\"urn:test\"><owl:Ontology/><owl:DatatypeProperty rdf:about=\"urn:test#p\"><rdfs:range><owl:DataRange><owl:oneOf><rdf:List><rdf:first rdf:datatype=\"&xsd;integer\">1</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype=\"&xsd;integer\">2</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype=\"&xsd;integer\">3</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype=\"&xsd;integer\">4</rdf:first><rdf:rest rdf:resource=\"&rdf;nil\"/></rdf:List></rdf:rest></rdf:List></rdf:rest></rdf:List></rdf:rest></rdf:List></owl:oneOf></owl:DataRange></rdfs:range><rdfs:range><owl:DataRange><owl:oneOf><rdf:List><rdf:first rdf:datatype=\"&xsd;integer\">4</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype=\"&xsd;integer\">5</rdf:first><rdf:rest><rdf:List><rdf:first rdf:datatype=\"&xsd;integer\">6</rdf:first><rdf:rest rdf:resource=\"&rdf;nil\"/></rdf:List></rdf:rest></rdf:List></rdf:rest></rdf:List></owl:oneOf></owl:DataRange></rdfs:range></owl:DatatypeProperty><owl:Thing rdf:about=\"urn:test#i\"><rdf:type><owl:Restriction><owl:onProperty rdf:resource=\"urn:test#p\"/><owl:minCardinality rdf:datatype=\"&xsd;int\">1</owl:minCardinality></owl:Restriction></rdf:type></owl:Thing></rdf:RDF>");
+    }
+
+    @Test
+    public void testDLOnly() {
+        test(premise, false, false, false, true);
     }
 }

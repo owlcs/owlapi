@@ -29,11 +29,11 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  */
 public class AbstractRenderer {
 
+    private final Writer writer;
+    private final List<Integer> tabs = new ArrayList<>();
     private ShortFormProvider shortFormProvider;
     private int lastNewLinePos = -1;
     private int currentPos;
-    private final Writer writer;
-    private final List<Integer> tabs = new ArrayList<>();
     private boolean useTabbing = true;
     private boolean useWrapping = true;
 
@@ -48,10 +48,10 @@ public class AbstractRenderer {
     }
 
     /**
-     * @param useTabbing useTabbing
+     * @return true if use wrapping
      */
-    protected void setUseTabbing(boolean useTabbing) {
-        this.useTabbing = useTabbing;
+    protected boolean isUseWrapping() {
+        return useWrapping;
     }
 
     /**
@@ -62,17 +62,17 @@ public class AbstractRenderer {
     }
 
     /**
-     * @return true if use wrapping
-     */
-    protected boolean isUseWrapping() {
-        return useWrapping;
-    }
-
-    /**
      * @return true if use tabbing
      */
     protected boolean isUseTabbing() {
         return useTabbing;
+    }
+
+    /**
+     * @param useTabbing useTabbing
+     */
+    protected void setUseTabbing(boolean useTabbing) {
+        this.useTabbing = useTabbing;
     }
 
     /**

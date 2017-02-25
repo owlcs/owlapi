@@ -135,9 +135,9 @@ public enum ConfigurationOptions {
     ENTITY_EXPANSION_LIMIT("100000000");
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
-    private Object defaultValue;
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationOptions.class);
     private static final EnumMap<ConfigurationOptions, Object> owlapiProperties = loadProperties();
+    private Object defaultValue;
 
     ConfigurationOptions(Object o) {
         defaultValue = o;

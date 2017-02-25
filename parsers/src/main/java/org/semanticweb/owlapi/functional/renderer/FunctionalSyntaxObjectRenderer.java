@@ -232,48 +232,14 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
-    class AxiomRetriever implements OWLEntityVisitorEx<Stream<? extends OWLAxiom>> {
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLClass cls) {
-            return ont.axioms(cls, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
-            return ont.axioms(individual, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
-            return ont.axioms(datatype, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-    }
-
-    private DefaultPrefixManager defaultPrefixManager;
-    private PrefixManager prefixManager;
     protected final OWLOntology ont;
     private final Writer writer;
-    private boolean writeEntitiesAsURIs = true;
-    private boolean addMissingDeclarations = true;
     @Nullable
     protected AnnotationValueShortFormProvider labelMaker = null;
-
+    private DefaultPrefixManager defaultPrefixManager;
+    private PrefixManager prefixManager;
+    private boolean writeEntitiesAsURIs = true;
+    private boolean addMissingDeclarations = true;
     /**
      * @param ontology the ontology
      * @param writer the writer
@@ -1411,5 +1377,38 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         acceptAndSpace(node.getFirstArgument());
         node.getSecondArgument().accept(this);
         writeCloseBracket();
+    }
+
+    class AxiomRetriever implements OWLEntityVisitorEx<Stream<? extends OWLAxiom>> {
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLClass cls) {
+            return ont.axioms(cls, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
+            return ont.axioms(individual, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
+            return ont.axioms(datatype, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
     }
 }

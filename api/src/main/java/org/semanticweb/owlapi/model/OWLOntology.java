@@ -169,6 +169,15 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     OWLOntologyManager getOWLOntologyManager();
 
     /**
+     * Sets the manager for this ontology. This method is used when moving
+     * ontologies from one manager to another and when removing an ontology form
+     * a manager, and should be used by OWLOntologyManager implementations only.
+     *
+     * @param manager the new manager for this ontology
+     */
+    void setOWLOntologyManager(@Nullable OWLOntologyManager manager);
+
+    /**
      * @return ontology format for this ontology; can be null if the ontology has been created
      * programmatically and not loaded/saved, so it does not have any format information
      * associated.
@@ -192,15 +201,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
                 + getOntologyID()
                 + ", the ontology format needs to be set before saving or specified in the save call");
     }
-
-    /**
-     * Sets the manager for this ontology. This method is used when moving
-     * ontologies from one manager to another and when removing an ontology form
-     * a manager, and should be used by OWLOntologyManager implementations only.
-     *
-     * @param manager the new manager for this ontology
-     */
-    void setOWLOntologyManager(@Nullable OWLOntologyManager manager);
 
     // Imported ontologies
 

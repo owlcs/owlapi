@@ -6,35 +6,52 @@ package org.semanticweb.owlapi.functional.parser;
 class SimpleCharStream {
 
     public static final boolean staticFlag = false;
-    int bufsize;
-    int available;
-    int tokenBegin;
     public int bufpos = -1;
     protected int bufline[];
     protected int bufcolumn[];
-
     protected int column = 0;
     protected int line = 1;
-
     protected boolean prevCharIsCR = false;
     protected boolean prevCharIsLF = false;
-
     protected Provider inputStream;
-
     protected char[] buffer;
     protected int maxNextCharInd = 0;
     protected int inBuf = 0;
     protected int tabSize = 1;
     protected boolean trackLineColumn = true;
+    int bufsize;
+    int available;
+    int tokenBegin;
 
-    public void setTabSize(int i) {
-        tabSize = i;
+    public SimpleCharStream(Provider dstream, int startline,
+        int startcolumn, int buffersize) {
+        inputStream = dstream;
+        line = startline;
+        column = startcolumn - 1;
+
+        available = bufsize = buffersize;
+        buffer = new char[buffersize];
+        bufline = new int[buffersize];
+        bufcolumn = new int[buffersize];
+    }
+
+    public SimpleCharStream(Provider dstream, int startline,
+        int startcolumn) {
+        this(dstream, startline, startcolumn, 4096);
+    }
+
+
+    public SimpleCharStream(Provider dstream) {
+        this(dstream, 1, 1, 4096);
     }
 
     public int getTabSize() {
         return tabSize;
     }
 
+    public void setTabSize(int i) {
+        tabSize = i;
+    }
 
     protected void ExpandBuff(boolean wrapAround) {
         char[] newbuffer = new char[bufsize + 2048];
@@ -211,27 +228,6 @@ class SimpleCharStream {
         if ((bufpos -= amount) < 0) {
             bufpos += bufsize;
         }
-    }
-
-    public SimpleCharStream(Provider dstream, int startline,
-        int startcolumn, int buffersize) {
-        inputStream = dstream;
-        line = startline;
-        column = startcolumn - 1;
-
-        available = bufsize = buffersize;
-        buffer = new char[buffersize];
-        bufline = new int[buffersize];
-        bufcolumn = new int[buffersize];
-    }
-
-    public SimpleCharStream(Provider dstream, int startline,
-        int startcolumn) {
-        this(dstream, startline, startcolumn, 4096);
-    }
-
-    public SimpleCharStream(Provider dstream) {
-        this(dstream, 1, 1, 4096);
     }
 
     public void ReInit(Provider dstream, int startline,

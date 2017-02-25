@@ -31,8 +31,8 @@ public class MacroExpansionGCIVisitor {
     protected final OWLOntology inputOntology;
     protected final OWLOntology outputOntology;
     protected final AbstractDataVisitorEx dataVisitor;
-    protected boolean preserveAnnotationsWhenExpanding = false;
     protected final boolean shouldAddExpansionMarker;
+    protected boolean preserveAnnotationsWhenExpanding = false;
 
     /**
      * @param inputOntology ontology to use
@@ -72,6 +72,20 @@ public class MacroExpansionGCIVisitor {
         outputOntology.add(expansions.getNewAxioms());
         outputOntology.remove(expansions.getRmAxioms());
         return outputOntology;
+    }
+
+    /**
+     * @return true if annotations should be preserved
+     */
+    public boolean shouldPreserveAnnotationsWhenExpanding() {
+        return preserveAnnotationsWhenExpanding;
+    }
+
+    /**
+     * @param preserveAnnotationsWhenExpanding new value
+     */
+    public void setPreserveAnnotationsWhenExpanding(boolean preserveAnnotationsWhenExpanding) {
+        this.preserveAnnotationsWhenExpanding = preserveAnnotationsWhenExpanding;
     }
 
     private class MacroExpansions {
@@ -128,6 +142,20 @@ public class MacroExpansionGCIVisitor {
 
     private class GCIVisitor extends AbstractMacroExpansionVisitor {
 
+        final Set<OWLAnnotation> expansionMarkingAnnotations;
+
+        GCIVisitor(OWLOntology inputOntology, Set<OWLAxiom> newAxioms) {
+            super(inputOntology, shouldAddExpansionMarker);
+            if (shouldAddExpansionMarker) {
+                expansionMarkingAnnotations = Collections.singleton(expansionMarkerAnnotation);
+            } else {
+                expansionMarkingAnnotations = EMPTY_ANNOTATIONS;
+            }
+            rangeVisitor = dataVisitor;
+            classVisitor = new ClassVisitor(newAxioms);
+            rebuild(inputOntology);
+        }
+
         class ClassVisitor extends AbstractMacroExpansionVisitor.AbstractClassExpressionVisitorEx {
 
             private Set<OWLAxiom> newAxioms;
@@ -165,33 +193,5 @@ public class MacroExpansionGCIVisitor {
                 return gciRHS;
             }
         }
-
-        final Set<OWLAnnotation> expansionMarkingAnnotations;
-
-        GCIVisitor(OWLOntology inputOntology, Set<OWLAxiom> newAxioms) {
-            super(inputOntology, shouldAddExpansionMarker);
-            if (shouldAddExpansionMarker) {
-                expansionMarkingAnnotations = Collections.singleton(expansionMarkerAnnotation);
-            } else {
-                expansionMarkingAnnotations = EMPTY_ANNOTATIONS;
-            }
-            rangeVisitor = dataVisitor;
-            classVisitor = new ClassVisitor(newAxioms);
-            rebuild(inputOntology);
-        }
-    }
-
-    /**
-     * @return true if annotations should be preserved
-     */
-    public boolean shouldPreserveAnnotationsWhenExpanding() {
-        return preserveAnnotationsWhenExpanding;
-    }
-
-    /**
-     * @param preserveAnnotationsWhenExpanding new value
-     */
-    public void setPreserveAnnotationsWhenExpanding(boolean preserveAnnotationsWhenExpanding) {
-        this.preserveAnnotationsWhenExpanding = preserveAnnotationsWhenExpanding;
     }
 }

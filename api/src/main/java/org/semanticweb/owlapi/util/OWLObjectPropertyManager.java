@@ -70,6 +70,151 @@ public class OWLObjectPropertyManager {
         reset();
     }
 
+    /**
+     * @param ontologies ontologies to search
+     * @return sets of equivalent properties
+     */
+    public static Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties(
+        Stream<OWLOntology> ontologies) {
+        checkNotNull(ontologies, "ontologies cannot be null");
+        Set<Set<OWLObjectPropertyExpression>> result = new HashSet<>();
+        Set<OWLObjectPropertyExpression> processed = new HashSet<>();
+        Stream<OWLObjectPropertyExpression> properties = ontologies
+            .flatMap(OWLOntology::objectPropertiesInSignature);
+        properties.forEach(p -> {
+            if (!processed.contains(p)) {
+                tarjan(ontologies, p, 0, new LinkedList<OWLObjectPropertyExpression>(),
+                    new HashMap<OWLObjectPropertyExpression, Integer>(),
+                    new HashMap<OWLObjectPropertyExpression, Integer>(), result, processed,
+                    new HashSet<OWLObjectPropertyExpression>());
+            }
+        });
+        // Get maximal
+        List<Set<OWLObjectPropertyExpression>> equivs = new ArrayList<>(result);
+        Collections.sort(equivs, (o1, o2) -> Integer.compare(o1.size(), o2.size()));
+        for (int i = 0; i < equivs.size(); i++) {
+            for (int j = i; j < equivs.size(); j++) {
+                if (equivs.get(j).containsAll(equivs.get(i))) {
+                    equivs.remove(i);
+                    break;
+                }
+            }
+        }
+        return equivs;
+    }
+
+    /**
+     * @param ontologies The ontologies
+     * @param prop the property
+     * @param index index
+     * @param stack stack
+     * @param indexMap index map
+     * @param lowlinkMap low link map
+     * @param result result
+     * @param processed processed
+     * @param stackProps stack entities
+     */
+    public static void tarjan(Stream<OWLOntology> ontologies, OWLObjectPropertyExpression prop,
+        int index,
+        Deque<OWLObjectPropertyExpression> stack,
+        Map<OWLObjectPropertyExpression, Integer> indexMap,
+        Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
+        Set<Set<OWLObjectPropertyExpression>> result,
+        Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps) {
+        checkNotNull(ontologies, "ontologies cannot be null");
+        checkNotNull(prop, "prop cannot be null");
+        checkNotNull(stack, "stack cannot be null");
+        checkNotNull(indexMap, "indexMap cannot be null");
+        checkNotNull(lowlinkMap, "lowlinkMap cannot be null");
+        checkNotNull(result, "result cannot be null");
+        checkNotNull(processed, "processed cannot be null");
+        checkNotNull(stackProps, "stackProps cannot be null");
+        processed.add(prop);
+        indexMap.put(prop, Integer.valueOf(index));
+        lowlinkMap.put(prop, Integer.valueOf(index));
+        stack.push(prop);
+        stackProps.add(prop);
+        ontologies.flatMap(ont -> ont.objectSubPropertyAxiomsForSubProperty(prop))
+            .filter(ax -> ax.getSubProperty()
+                .equals(prop)).forEach(
+            ax -> callTarjanAndPut(ontologies, prop, index, stack, indexMap, lowlinkMap, result,
+                processed, stackProps, ax.getSuperProperty()));
+        if (lowlinkMap.get(prop).equals(indexMap.get(prop))) {
+            Set<OWLObjectPropertyExpression> scc = new HashSet<>();
+            OWLObjectPropertyExpression propPrime;
+            while (true) {
+                propPrime = stack.pop();
+                stackProps.remove(propPrime);
+                scc.add(propPrime);
+                if (propPrime.equals(prop)) {
+                    break;
+                }
+            }
+            if (scc.size() > 1) {
+                result.add(scc);
+            }
+        }
+    }
+
+    protected static void callTarjanAndPut(Stream<OWLOntology> ontologies,
+        OWLObjectPropertyExpression prop, int index,
+        Deque<OWLObjectPropertyExpression> stack,
+        Map<OWLObjectPropertyExpression, Integer> indexMap,
+        Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
+        Set<Set<OWLObjectPropertyExpression>> result,
+        Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps,
+        OWLObjectPropertyExpression supProp) {
+        if (!indexMap.containsKey(supProp)) {
+            tarjan(ontologies, supProp, index + 1, stack, indexMap, lowlinkMap, result, processed,
+                stackProps);
+            put(prop, lowlinkMap, supProp);
+        } else if (stackProps.contains(supProp)) {
+            putIndex(prop, indexMap, lowlinkMap, supProp);
+        }
+    }
+
+    protected static void putIndex(OWLObjectPropertyExpression prop,
+        Map<OWLObjectPropertyExpression, Integer> indexMap,
+        Map<OWLObjectPropertyExpression, Integer> lowlinkMap, OWLObjectPropertyExpression supProp) {
+        lowlinkMap.put(prop,
+            Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(), indexMap.get(supProp)
+                .intValue())));
+    }
+
+    protected static void put(OWLObjectPropertyExpression prop,
+        Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
+        OWLObjectPropertyExpression supProp) {
+        putIndex(prop, lowlinkMap, lowlinkMap, supProp);
+    }
+
+    // Util methods
+    private static Set<OWLObjectPropertyExpression> getReflexiveTransitiveClosure(
+        OWLObjectPropertyExpression prop,
+        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
+        Set<OWLObjectPropertyExpression> rtc,
+        Set<OWLObjectPropertyExpression> processed) {
+        checkNotNull(prop, "prop cannot be null");
+        checkNotNull(map, "map cannot be null");
+        checkNotNull(rtc, "rtc cannot be null");
+        checkNotNull(processed, "processed cannot be null");
+        if (processed.contains(prop)) {
+            return rtc;
+        }
+        rtc.add(prop);
+        processed.add(prop);
+        Set<OWLObjectPropertyExpression> supers = map.get(prop);
+        if (supers == null) {
+            return rtc;
+        }
+        supers.forEach(sup -> getReflexiveTransitiveClosure(sup, map, rtc, processed));
+        return rtc;
+    }
+
+    private static Set<OWLObjectPropertyExpression> getKeyValue(OWLObjectPropertyExpression key,
+        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map) {
+        return map.computeIfAbsent(key, k -> new HashSet<>(4));
+    }
+
     private void reset() {
         compositeDirty = true;
         hierarchyDirty = true;
@@ -316,154 +461,9 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * @param ontologies ontologies to search
-     * @return sets of equivalent properties
-     */
-    public static Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties(
-        Stream<OWLOntology> ontologies) {
-        checkNotNull(ontologies, "ontologies cannot be null");
-        Set<Set<OWLObjectPropertyExpression>> result = new HashSet<>();
-        Set<OWLObjectPropertyExpression> processed = new HashSet<>();
-        Stream<OWLObjectPropertyExpression> properties = ontologies
-            .flatMap(OWLOntology::objectPropertiesInSignature);
-        properties.forEach(p -> {
-            if (!processed.contains(p)) {
-                tarjan(ontologies, p, 0, new LinkedList<OWLObjectPropertyExpression>(),
-                    new HashMap<OWLObjectPropertyExpression, Integer>(),
-                    new HashMap<OWLObjectPropertyExpression, Integer>(), result, processed,
-                    new HashSet<OWLObjectPropertyExpression>());
-            }
-        });
-        // Get maximal
-        List<Set<OWLObjectPropertyExpression>> equivs = new ArrayList<>(result);
-        Collections.sort(equivs, (o1, o2) -> Integer.compare(o1.size(), o2.size()));
-        for (int i = 0; i < equivs.size(); i++) {
-            for (int j = i; j < equivs.size(); j++) {
-                if (equivs.get(j).containsAll(equivs.get(i))) {
-                    equivs.remove(i);
-                    break;
-                }
-            }
-        }
-        return equivs;
-    }
-
-    /**
      * @return sets of equivalent properties
      */
     public Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties() {
         return getEquivalentObjectProperties(ontology.importsClosure());
-    }
-
-    /**
-     * @param ontologies The ontologies
-     * @param prop the property
-     * @param index index
-     * @param stack stack
-     * @param indexMap index map
-     * @param lowlinkMap low link map
-     * @param result result
-     * @param processed processed
-     * @param stackProps stack entities
-     */
-    public static void tarjan(Stream<OWLOntology> ontologies, OWLObjectPropertyExpression prop,
-        int index,
-        Deque<OWLObjectPropertyExpression> stack,
-        Map<OWLObjectPropertyExpression, Integer> indexMap,
-        Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
-        Set<Set<OWLObjectPropertyExpression>> result,
-        Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps) {
-        checkNotNull(ontologies, "ontologies cannot be null");
-        checkNotNull(prop, "prop cannot be null");
-        checkNotNull(stack, "stack cannot be null");
-        checkNotNull(indexMap, "indexMap cannot be null");
-        checkNotNull(lowlinkMap, "lowlinkMap cannot be null");
-        checkNotNull(result, "result cannot be null");
-        checkNotNull(processed, "processed cannot be null");
-        checkNotNull(stackProps, "stackProps cannot be null");
-        processed.add(prop);
-        indexMap.put(prop, Integer.valueOf(index));
-        lowlinkMap.put(prop, Integer.valueOf(index));
-        stack.push(prop);
-        stackProps.add(prop);
-        ontologies.flatMap(ont -> ont.objectSubPropertyAxiomsForSubProperty(prop))
-            .filter(ax -> ax.getSubProperty()
-                .equals(prop)).forEach(
-            ax -> callTarjanAndPut(ontologies, prop, index, stack, indexMap, lowlinkMap, result,
-                processed, stackProps, ax.getSuperProperty()));
-        if (lowlinkMap.get(prop).equals(indexMap.get(prop))) {
-            Set<OWLObjectPropertyExpression> scc = new HashSet<>();
-            OWLObjectPropertyExpression propPrime;
-            while (true) {
-                propPrime = stack.pop();
-                stackProps.remove(propPrime);
-                scc.add(propPrime);
-                if (propPrime.equals(prop)) {
-                    break;
-                }
-            }
-            if (scc.size() > 1) {
-                result.add(scc);
-            }
-        }
-    }
-
-    protected static void callTarjanAndPut(Stream<OWLOntology> ontologies,
-        OWLObjectPropertyExpression prop, int index,
-        Deque<OWLObjectPropertyExpression> stack,
-        Map<OWLObjectPropertyExpression, Integer> indexMap,
-        Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
-        Set<Set<OWLObjectPropertyExpression>> result,
-        Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps,
-        OWLObjectPropertyExpression supProp) {
-        if (!indexMap.containsKey(supProp)) {
-            tarjan(ontologies, supProp, index + 1, stack, indexMap, lowlinkMap, result, processed,
-                stackProps);
-            put(prop, lowlinkMap, supProp);
-        } else if (stackProps.contains(supProp)) {
-            putIndex(prop, indexMap, lowlinkMap, supProp);
-        }
-    }
-
-    protected static void putIndex(OWLObjectPropertyExpression prop,
-        Map<OWLObjectPropertyExpression, Integer> indexMap,
-        Map<OWLObjectPropertyExpression, Integer> lowlinkMap, OWLObjectPropertyExpression supProp) {
-        lowlinkMap.put(prop,
-            Integer.valueOf(Math.min(lowlinkMap.get(prop).intValue(), indexMap.get(supProp)
-                .intValue())));
-    }
-
-    protected static void put(OWLObjectPropertyExpression prop,
-        Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
-        OWLObjectPropertyExpression supProp) {
-        putIndex(prop, lowlinkMap, lowlinkMap, supProp);
-    }
-
-    // Util methods
-    private static Set<OWLObjectPropertyExpression> getReflexiveTransitiveClosure(
-        OWLObjectPropertyExpression prop,
-        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
-        Set<OWLObjectPropertyExpression> rtc,
-        Set<OWLObjectPropertyExpression> processed) {
-        checkNotNull(prop, "prop cannot be null");
-        checkNotNull(map, "map cannot be null");
-        checkNotNull(rtc, "rtc cannot be null");
-        checkNotNull(processed, "processed cannot be null");
-        if (processed.contains(prop)) {
-            return rtc;
-        }
-        rtc.add(prop);
-        processed.add(prop);
-        Set<OWLObjectPropertyExpression> supers = map.get(prop);
-        if (supers == null) {
-            return rtc;
-        }
-        supers.forEach(sup -> getReflexiveTransitiveClosure(sup, map, rtc, processed));
-        return rtc;
-    }
-
-    private static Set<OWLObjectPropertyExpression> getKeyValue(OWLObjectPropertyExpression key,
-        Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map) {
-        return map.computeIfAbsent(key, k -> new HashSet<>(4));
     }
 }

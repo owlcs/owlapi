@@ -61,88 +61,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             "singleExplanationGenerator cannot be null");
     }
 
-    @Override
-    public void setProgressMonitor(ExplanationProgressMonitor progressMonitor) {
-        this.progressMonitor = checkNotNull(progressMonitor, "progressMonitor cannot be null");
-    }
-
-    @Override
-    public OWLOntologyManager getOntologyManager() {
-        return singleExplanationGenerator.getOntologyManager();
-    }
-
-    @Override
-    public OWLOntology getOntology() {
-        return singleExplanationGenerator.getOntology();
-    }
-
-    @Override
-    public OWLReasoner getReasoner() {
-        return singleExplanationGenerator.getReasoner();
-    }
-
-    @Override
-    public OWLReasonerFactory getReasonerFactory() {
-        return singleExplanationGenerator.getReasonerFactory();
-    }
-
-    /**
-     * Gets the single explanation generator.
-     *
-     * @return the explanation generator
-     */
-    public TransactionAwareSingleExpGen getSingleExplanationGenerator() {
-        return singleExplanationGenerator;
-    }
-
-    @Override
-    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
-        return singleExplanationGenerator.getExplanation(unsatClass);
-    }
-
-    @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
-        return getExplanations(unsatClass, 0);
-    }
-
-    @Override
-    public void dispose() {
-        singleExplanationGenerator.dispose();
-    }
-
-    @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
-        @Nonnegative int maxExplanations) {
-        OWLAPIPreconditions
-            .checkNotNegative(maxExplanations, "max explanations cannot be negative");
-        Object max = maxExplanations == 0 ? "all" : Integer.valueOf(maxExplanations);
-        LOGGER.info("Get {} explanation(s) for: {}", max, unsatClass);
-        try {
-            Set<OWLAxiom> firstMups = getExplanation(unsatClass);
-            if (firstMups.isEmpty()) {
-                return Collections.emptySet();
-            }
-            Set<Set<OWLAxiom>> allMups = new LinkedHashSet<>();
-            progressMonitor.foundExplanation(firstMups);
-            allMups.add(firstMups);
-            Set<Set<OWLAxiom>> satPaths = new HashSet<>();
-            Set<OWLAxiom> currentPathContents = new HashSet<>();
-            singleExplanationGenerator.beginTransaction();
-            try {
-                constructHittingSetTree(unsatClass, firstMups, allMups, satPaths,
-                    currentPathContents, maxExplanations);
-            } finally {
-                singleExplanationGenerator.endTransaction();
-            }
-            progressMonitor.foundAllExplanations();
-            return allMups;
-        } catch (OWLException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    // Hitting Set Stuff
-
     /**
      * Orders the axioms in a single MUPS by the frequency of which they appear
      * in all MUPS.
@@ -199,6 +117,110 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
     /**
+     * Check early termination.
+     *
+     * @param satPaths the sat paths
+     * @param currentPathContents the current path contents
+     * @return true, if successful
+     */
+    private static boolean checkEarlyTermination(Set<Set<OWLAxiom>> satPaths,
+        Set<OWLAxiom> currentPathContents) {
+        boolean earlyTermination = false;
+        // Early path termination. If our path contents are the superset of
+        // the contents of a path then we can terminate here.
+        for (Set<OWLAxiom> satPath : satPaths) {
+            if (currentPathContents.containsAll(satPath)) {
+                earlyTermination = true;
+                LOGGER.info("Stop - satisfiable (early termination)");
+                break;
+            }
+        }
+        return earlyTermination;
+    }
+
+    @Override
+    public void setProgressMonitor(ExplanationProgressMonitor progressMonitor) {
+        this.progressMonitor = checkNotNull(progressMonitor, "progressMonitor cannot be null");
+    }
+
+    @Override
+    public OWLOntologyManager getOntologyManager() {
+        return singleExplanationGenerator.getOntologyManager();
+    }
+
+    @Override
+    public OWLOntology getOntology() {
+        return singleExplanationGenerator.getOntology();
+    }
+
+    @Override
+    public OWLReasoner getReasoner() {
+        return singleExplanationGenerator.getReasoner();
+    }
+
+    @Override
+    public OWLReasonerFactory getReasonerFactory() {
+        return singleExplanationGenerator.getReasonerFactory();
+    }
+
+    /**
+     * Gets the single explanation generator.
+     *
+     * @return the explanation generator
+     */
+    public TransactionAwareSingleExpGen getSingleExplanationGenerator() {
+        return singleExplanationGenerator;
+    }
+
+    // Hitting Set Stuff
+
+    @Override
+    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
+        return singleExplanationGenerator.getExplanation(unsatClass);
+    }
+
+    @Override
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
+        return getExplanations(unsatClass, 0);
+    }
+
+    @Override
+    public void dispose() {
+        singleExplanationGenerator.dispose();
+    }
+
+    @Override
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
+        @Nonnegative int maxExplanations) {
+        OWLAPIPreconditions
+            .checkNotNegative(maxExplanations, "max explanations cannot be negative");
+        Object max = maxExplanations == 0 ? "all" : Integer.valueOf(maxExplanations);
+        LOGGER.info("Get {} explanation(s) for: {}", max, unsatClass);
+        try {
+            Set<OWLAxiom> firstMups = getExplanation(unsatClass);
+            if (firstMups.isEmpty()) {
+                return Collections.emptySet();
+            }
+            Set<Set<OWLAxiom>> allMups = new LinkedHashSet<>();
+            progressMonitor.foundExplanation(firstMups);
+            allMups.add(firstMups);
+            Set<Set<OWLAxiom>> satPaths = new HashSet<>();
+            Set<OWLAxiom> currentPathContents = new HashSet<>();
+            singleExplanationGenerator.beginTransaction();
+            try {
+                constructHittingSetTree(unsatClass, firstMups, allMups, satPaths,
+                    currentPathContents, maxExplanations);
+            } finally {
+                singleExplanationGenerator.endTransaction();
+            }
+            progressMonitor.foundAllExplanations();
+            return allMups;
+        } catch (OWLException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    /**
      * This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
      *
@@ -251,28 +273,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             }
             backtrack(currentPathContents, axiom, temporaryDeclarations, ontologies);
         }
-    }
-
-    /**
-     * Check early termination.
-     *
-     * @param satPaths the sat paths
-     * @param currentPathContents the current path contents
-     * @return true, if successful
-     */
-    private static boolean checkEarlyTermination(Set<Set<OWLAxiom>> satPaths,
-        Set<OWLAxiom> currentPathContents) {
-        boolean earlyTermination = false;
-        // Early path termination. If our path contents are the superset of
-        // the contents of a path then we can terminate here.
-        for (Set<OWLAxiom> satPath : satPaths) {
-            if (currentPathContents.containsAll(satPath)) {
-                earlyTermination = true;
-                LOGGER.info("Stop - satisfiable (early termination)");
-                break;
-            }
-        }
-        return earlyTermination;
     }
 
     /**
