@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
-
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;

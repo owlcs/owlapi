@@ -3,12 +3,7 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nullable;
-
-// NOTE: Always fully qualified IRI  to avoid confusion between
-//import org.apache.commons.rdf.api.IRI;
-//import org.semanticweb.owlapi.model.IRI;
 import org.apache.commons.rdf.api.AbstractRDFTest;
 import org.apache.commons.rdf.api.BlankNode;
 import org.apache.commons.rdf.api.BlankNodeOrIRI;
@@ -25,6 +20,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+
+// NOTE: Always fully qualified IRI  to avoid confusion between
+//import org.apache.commons.rdf.api.IRI;
+//import org.semanticweb.owlapi.model.IRI;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class CommonsRDFTermTest extends AbstractRDFTest {

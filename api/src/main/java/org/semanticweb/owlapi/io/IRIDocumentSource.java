@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.io;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 

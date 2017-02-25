@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
 
 /**

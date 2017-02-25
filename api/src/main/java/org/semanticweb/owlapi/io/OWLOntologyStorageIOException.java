@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
-
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**

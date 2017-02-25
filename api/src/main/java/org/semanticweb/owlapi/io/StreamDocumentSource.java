@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.InputStream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 

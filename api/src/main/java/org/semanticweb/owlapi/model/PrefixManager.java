@@ -18,9 +18,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.util.StringComparator;
 
 /**

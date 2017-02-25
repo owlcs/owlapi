@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model.parameters;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.HasImportsClosure;
 import org.semanticweb.owlapi.model.OWLOntology;
 

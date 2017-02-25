@@ -14,9 +14,7 @@ package org.semanticweb.owlapi.reasoner;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**

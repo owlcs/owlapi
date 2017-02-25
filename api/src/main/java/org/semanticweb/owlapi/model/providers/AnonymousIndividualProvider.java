@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model.providers;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 

@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
-
 import javax.inject.Provider;
-
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -32,9 +32,6 @@ import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
 
 /**
  * OWLAPI module for dynamic loading - uses ServiceLoader to add extra bindings

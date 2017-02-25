@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
-
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 

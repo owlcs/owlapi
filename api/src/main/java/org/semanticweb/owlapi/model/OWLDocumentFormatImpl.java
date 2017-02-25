@@ -16,9 +16,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /**

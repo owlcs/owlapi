@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
