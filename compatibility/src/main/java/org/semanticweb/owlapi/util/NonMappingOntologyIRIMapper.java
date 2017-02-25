@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;

@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.io.Writer;
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 

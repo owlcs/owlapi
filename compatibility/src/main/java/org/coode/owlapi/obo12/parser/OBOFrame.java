@@ -41,7 +41,6 @@ package org.coode.owlapi.obo12.parser;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.annotation.Nullable;
 
 /**

@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.vocab;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 
