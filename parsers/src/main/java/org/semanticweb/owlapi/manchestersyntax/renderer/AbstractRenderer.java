@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class AbstractRenderer {
@@ -39,10 +38,8 @@ public class AbstractRenderer {
     private boolean useWrapping = true;
 
     /**
-     * @param writer
-     *        writer
-     * @param shortFormProvider
-     *        shortFormProvider
+     * @param writer writer
+     * @param shortFormProvider shortFormProvider
      */
     protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
@@ -51,16 +48,14 @@ public class AbstractRenderer {
     }
 
     /**
-     * @param useTabbing
-     *        useTabbing
+     * @param useTabbing useTabbing
      */
     protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
     }
 
     /**
-     * @param useWrapping
-     *        useWrapping
+     * @param useWrapping useWrapping
      */
     protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
@@ -82,9 +77,8 @@ public class AbstractRenderer {
 
     /**
      * Flush.
-     * 
-     * @throws OWLRendererException
-     *         renderer error
+     *
+     * @throws OWLRendererException renderer error
      */
     protected void flush() throws OWLRendererException {
         try {

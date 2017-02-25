@@ -53,10 +53,8 @@ import org.semanticweb.owlapi.search.Filters;
 public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
+     * @param ontology ontology
+     * @param writer writer
      */
     public KRSS2OWLObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
@@ -81,11 +79,13 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
+                flatten(asList(
+                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> classes = asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                    OWLClassExpression.class));
+                Collection<OWLClassExpression> classes = asList(
+                    equivalent(ontology.equivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class));
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -99,8 +99,9 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Collection<OWLClassExpression> classes = asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                    OWLClassExpression.class));
+                Collection<OWLClassExpression> classes = asList(
+                    equivalent(ontology.equivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class));
                 if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
@@ -141,18 +142,21 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 writeSpace();
                 write(TRUE);
             }
-            List<OWLClassExpression> domains = asList(domain(ontology.objectPropertyDomainAxioms(property)));
+            List<OWLClassExpression> domains = asList(
+                domain(ontology.objectPropertyDomainAxioms(property)));
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            List<OWLClassExpression> ranges = asList(range(ontology.objectPropertyRangeAxioms(property)));
+            List<OWLClassExpression> ranges = asList(
+                range(ontology.objectPropertyRangeAxioms(property)));
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
-            Stream<OWLObjectPropertyExpression> superProperties = sup(ontology.axioms(Filters.subObjectPropertyWithSub,
-                property, INCLUDED), OWLObjectPropertyExpression.class);
+            Stream<OWLObjectPropertyExpression> superProperties = sup(
+                ontology.axioms(Filters.subObjectPropertyWithSub,
+                    property, INCLUDED), OWLObjectPropertyExpression.class);
             Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
             if (it.hasNext()) {
                 writeAttribute(PARENTS_ATTR);

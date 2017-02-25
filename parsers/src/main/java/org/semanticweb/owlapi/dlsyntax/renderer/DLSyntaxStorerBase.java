@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
@@ -44,10 +43,14 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         checkNotNull(printWriter, "writer cannot be null");
         Set<OWLAxiom> printed = new HashSet<>();
         beginWritingOntology(o, printWriter);
-        sortOptionally(o.objectPropertiesInSignature()).forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
-        sortOptionally(o.dataPropertiesInSignature()).forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
-        sortOptionally(o.classesInSignature()).forEach(c -> write(o, c, o.axioms(c), printWriter, printed));
-        sortOptionally(o.individualsInSignature()).forEach(i -> write(o, i, o.axioms(i), printWriter, printed));
+        sortOptionally(o.objectPropertiesInSignature())
+            .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
+        sortOptionally(o.dataPropertiesInSignature())
+            .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
+        sortOptionally(o.classesInSignature())
+            .forEach(c -> write(o, c, o.axioms(c), printWriter, printed));
+        sortOptionally(o.individualsInSignature())
+            .forEach(i -> write(o, i, o.axioms(i), printWriter, printed));
         beginWritingGeneralAxioms(printWriter);
         sortOptionally(o.generalClassAxioms()).forEach(ax -> {
             if (printed.add(ax)) {
@@ -61,7 +64,8 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         printWriter.flush();
     }
 
-    private void write(OWLOntology ont, OWLEntity entity, Collection<? extends OWLAxiom> axioms, PrintWriter writer,
+    private void write(OWLOntology ont, OWLEntity entity, Collection<? extends OWLAxiom> axioms,
+        PrintWriter writer,
         Set<OWLAxiom> printed) {
         beginWritingAxioms(entity, writer);
         for (OWLAxiom ax : axioms) {
@@ -85,7 +89,8 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         endWritingAxioms(writer);
     }
 
-    private void write(OWLOntology ont, OWLEntity entity, Stream<? extends OWLAxiom> axioms, PrintWriter writer,
+    private void write(OWLOntology ont, OWLEntity entity, Stream<? extends OWLAxiom> axioms,
+        PrintWriter writer,
         Set<OWLAxiom> printed) {
         write(ont, entity, asList(axioms), writer, printed);
     }
@@ -100,32 +105,42 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     @SuppressWarnings("unused")
-    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {}
+    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {}
+    protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void beginWritingAxiom(PrintWriter writer) {}
+    protected void beginWritingAxiom(PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void endWritingAxiom(PrintWriter writer) {}
+    protected void endWritingAxiom(PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {}
+    protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void endWritingAxioms(PrintWriter writer) {}
+    protected void endWritingAxioms(PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void beginWritingUsage(int size, PrintWriter writer) {}
+    protected void beginWritingUsage(int size, PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void endWritingUsage(PrintWriter writer) {}
+    protected void endWritingUsage(PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void beginWritingGeneralAxioms(PrintWriter writer) {}
+    protected void beginWritingGeneralAxioms(PrintWriter writer) {
+    }
 
     @SuppressWarnings("unused")
-    protected void endWritingGeneralAxioms(PrintWriter writer) {}
+    protected void endWritingGeneralAxioms(PrintWriter writer) {
+    }
 }

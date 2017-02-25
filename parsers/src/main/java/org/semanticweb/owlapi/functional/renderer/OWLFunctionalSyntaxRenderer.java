@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
@@ -29,7 +28,8 @@ public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
     @Override
     public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
         try {
-            FunctionalSyntaxObjectRenderer ren = new FunctionalSyntaxObjectRenderer(ontology, writer);
+            FunctionalSyntaxObjectRenderer ren = new FunctionalSyntaxObjectRenderer(ontology,
+                writer);
             ontology.accept(ren);
             writer.flush();
         } catch (OWLRuntimeException e) {

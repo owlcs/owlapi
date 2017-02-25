@@ -245,7 +245,7 @@ import org.semanticweb.owlapi.search.Filters;
  * </td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public class KRSSObjectRenderer implements OWLObjectVisitor {
@@ -259,10 +259,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     private int lastNewLinePos = 0;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
+     * @param ontology ontology
+     * @param writer writer
      */
     public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
         ont = checkNotNull(ontology);
@@ -340,7 +338,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    protected void flattenProperties(List<OWLObjectPropertyExpression> props, @Nullable KRSSVocabulary junctor) {
+    protected void flattenProperties(List<OWLObjectPropertyExpression> props,
+        @Nullable KRSSVocabulary junctor) {
         int size = props.size();
         if (size == 0) {
             return;
@@ -398,7 +397,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
+                flatten(asList(
+                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
             } else {
@@ -412,8 +412,9 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         }
         for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
             writeOpenBracket();
-            Stream<OWLObjectPropertyExpression> pStream = equivalent(ontology.equivalentObjectPropertiesAxioms(
-                property));
+            Stream<OWLObjectPropertyExpression> pStream = equivalent(
+                ontology.equivalentObjectPropertiesAxioms(
+                    property));
             Collection<OWLObjectPropertyExpression> properties = asList(pStream);
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
@@ -428,8 +429,9 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                Iterator<OWLObjectPropertyExpression> i = sup(ontology.axioms(Filters.subObjectPropertyWithSub,
-                    property, INCLUDED), OWLObjectPropertyExpression.class).iterator();
+                Iterator<OWLObjectPropertyExpression> i = sup(
+                    ontology.axioms(Filters.subObjectPropertyWithSub,
+                        property, INCLUDED), OWLObjectPropertyExpression.class).iterator();
                 if (i.hasNext()) {
                     write(i.next());
                 }

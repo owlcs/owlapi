@@ -34,11 +34,11 @@ import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator extends
+    AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
         new IdentityHashingStrategy<>());
@@ -46,18 +46,12 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     private final AtomicInteger nextBlankNodeId;
 
     /**
-     * @param manager
-     *        the manager
-     * @param ontology
-     *        the ontology
-     * @param useStrongTyping
-     *        true if strong typing is required
-     * @param occurrences
-     *        will tell whether anonymous individuals need an id or not
-     * @param axiomOccurrences
-     *        axiom occurrences
-     * @param counter
-     *        counter for blank nodes
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param useStrongTyping true if strong typing is required
+     * @param occurrences will tell whether anonymous individuals need an id or not
+     * @param axiomOccurrences axiom occurrences
+     * @param counter counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
         IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
@@ -87,7 +81,8 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
         return getBlankNodeFor(key, isIndividual, needId);
     }
 
-    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
+        boolean needId) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
             id = nextBlankNodeId.getAndIncrement();

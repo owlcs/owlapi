@@ -36,9 +36,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLDocumentFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
  * NamespaceManager (OWLDocumentFormat) this manager will create them.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
@@ -48,10 +47,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     private final OWLDocumentFormat ontologyFormat;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param format format
      */
     public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
         super(getDefaultNamespace(ontology, format));
@@ -72,7 +69,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
             for (Map.Entry<String, String> e : namespacesByPrefix.entrySet()) {
                 String xmlnsPrefixName = e.getKey().substring(0, e.getKey().length() - 1);
-                namespaceUtil.setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
+                namespaceUtil
+                    .setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
             }
         }
         if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
@@ -115,11 +113,9 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      * ontology has an IRI then this IRI will be used to suggest a default
      * namespace, otherwise, the OWL namespace will be returned as the default
      * namespace
-     * 
-     * @param ontology
-     *        The ontology
-     * @param format
-     *        format
+     *
+     * @param ontology The ontology
+     * @param format format
      * @return A suggested default namespace
      */
     private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {

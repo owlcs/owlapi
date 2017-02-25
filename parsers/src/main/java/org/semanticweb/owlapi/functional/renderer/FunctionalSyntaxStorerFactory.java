@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(2)
 public class FunctionalSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public FunctionalSyntaxStorerFactory() {
         super(new FunctionalSyntaxDocumentFormatFactory());
     }

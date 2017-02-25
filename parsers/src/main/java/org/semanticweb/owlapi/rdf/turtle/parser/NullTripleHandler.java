@@ -17,34 +17,41 @@ import org.semanticweb.owlapi.model.IRI;
 
 /**
  * The Class NullTripleHandler.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class NullTripleHandler implements TripleHandler {
 
     @Override
-    public void handlePrefixDirective(String prefixName, String prefix) {}
+    public void handlePrefixDirective(String prefixName, String prefix) {
+    }
 
     @Override
-    public void handleBaseDirective(IRI base) {}
+    public void handleBaseDirective(IRI base) {
+    }
 
     @Override
-    public void handleComment(String comment) {}
+    public void handleComment(String comment) {
+    }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {}
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object) {}
+    public void handleTriple(IRI subject, IRI predicate, String object) {
+    }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang) {}
+    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang) {
+    }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {}
+    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {
+    }
 
     @Override
-    public void handleEnd() {}
+    public void handleEnd() {
+    }
 }

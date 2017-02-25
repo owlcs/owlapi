@@ -23,7 +23,7 @@ class KRSSOWLParserException extends OWLParserException {
 
     KRSSOWLParserException(ParseException e) {
         super(e.getMessage(), e.currentToken.beginLine,
-                e.currentToken.beginColumn);
+            e.currentToken.beginColumn);
     }
 
     KRSSOWLParserException(Throwable cause) {

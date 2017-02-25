@@ -21,8 +21,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLWriter {
@@ -41,8 +40,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param elementName
-     *        elementName
+     * @param elementName elementName
      */
     public void writeStartElement(IRI elementName) {
         // Sort out with namespace
@@ -64,8 +62,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param datatypeIRI
-     *        datatypeIRI
+     * @param datatypeIRI datatypeIRI
      */
     public void writeDatatypeAttribute(IRI datatypeIRI) {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
@@ -77,55 +74,51 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param text
-     *        text
+     * @param text text
      */
     public void writeTextContent(String text) {
         writer.writeTextContent(text);
     }
 
     /**
-     * @param lang
-     *        lang
+     * @param lang lang
      */
     public void writeLangAttribute(String lang) {
         writer.writeAttribute(XML_LANG, lang);
     }
 
-    /** Write end element. */
+    /**
+     * Write end element.
+     */
     public void writeEndElement() {
         writer.writeEndElement();
     }
 
     /**
-     * @param value
-     *        value
+     * @param value value
      */
     public void writeAboutAttribute(IRI value) {
         writeAttribute(RDF_ABOUT, value);
     }
 
     /**
-     * @param node
-     *        node
+     * @param node node
      */
     public void writeNodeIDAttribute(RDFResource node) {
         writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
     /**
-     * @param attributeName
-     *        attribute name
-     * @param value
-     *        value
+     * @param attributeName attribute name
+     * @param value value
      */
     public void writeAttribute(IRI attributeName, IRI value) {
-        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
+        writer
+            .writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
     }
 
     /**
-     * @param owlObject
-     *        owlObject
+     * @param owlObject owlObject
      */
     @SuppressWarnings("unused")
     public void writeOWLObject(OWLObject owlObject) {
@@ -133,8 +126,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param value
-     *        value
+     * @param value value
      */
     public void writeResourceAttribute(IRI value) {
         writeAttribute(RDF_RESOURCE, value);
@@ -155,8 +147,7 @@ public class RDFXMLWriter {
     }
 
     /**
-     * @param comment
-     *        comment
+     * @param comment comment
      */
     public void writeComment(String comment) {
         writer.writeComment(comment);

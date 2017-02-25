@@ -54,8 +54,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleRenderer extends RDFRendererBase {
@@ -72,12 +71,9 @@ public class TurtleRenderer extends RDFRendererBase {
     int level = 0;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
      */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
@@ -180,7 +176,8 @@ public class TurtleRenderer extends RDFRendererBase {
     // TODO move to PrefixManager
     @Nullable
     private String forceSplitIfPrefixExists(IRI iri) {
-        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(
+            pm.getPrefixName2PrefixMap().entrySet());
         // sort the entries in reverse lexicographic order by value (longest
         // prefix first)
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
@@ -277,7 +274,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 write("(");
                 writeSpace();
                 pushTab();
-                for (Iterator<RDFNode> it = list.iterator(); it.hasNext();) {
+                for (Iterator<RDFNode> it = list.iterator(); it.hasNext(); ) {
                     write(verifyNotNull(it.next()));
                     if (it.hasNext()) {
                         writeNewLine();

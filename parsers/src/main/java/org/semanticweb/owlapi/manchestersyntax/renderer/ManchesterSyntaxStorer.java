@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class ManchesterSyntaxStorer extends AbstractOWLStorer {
@@ -33,10 +32,10 @@ public class ManchesterSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(OWLOntology ontology, PrintWriter writer,
-            OWLDocumentFormat format) throws OWLOntologyStorageException {
+        OWLDocumentFormat format) throws OWLOntologyStorageException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
-                ontology, writer,
-                new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
+            ontology, writer,
+            new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
         ren.writeOntology();
     }
 }

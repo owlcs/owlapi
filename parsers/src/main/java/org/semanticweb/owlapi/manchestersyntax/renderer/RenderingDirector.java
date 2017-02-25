@@ -16,18 +16,15 @@ import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.1.0
  */
 @FunctionalInterface
 public interface RenderingDirector {
 
     /**
-     * @param frameSectionKeyword
-     *        frameSectionKeyword
-     * @param ontologies
-     *        ontologies
+     * @param frameSectionKeyword frameSectionKeyword
+     * @param ontologies ontologies
      * @return false
      */
     boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,
