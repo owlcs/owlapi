@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.factplusplusad;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;

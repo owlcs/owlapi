@@ -1,7 +1,6 @@
 package org.semanticweb.owlapitools.decomposition;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 

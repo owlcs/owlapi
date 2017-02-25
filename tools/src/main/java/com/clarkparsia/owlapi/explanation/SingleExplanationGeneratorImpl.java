@@ -14,13 +14,12 @@ package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-
-import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 
 /** The Class SingleExplanationGeneratorImpl. */
 public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {

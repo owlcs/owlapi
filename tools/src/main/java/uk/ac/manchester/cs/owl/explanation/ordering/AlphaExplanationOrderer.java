@@ -19,7 +19,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 

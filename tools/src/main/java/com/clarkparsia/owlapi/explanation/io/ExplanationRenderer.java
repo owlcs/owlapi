@@ -15,7 +15,6 @@ package com.clarkparsia.owlapi.explanation.io;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 

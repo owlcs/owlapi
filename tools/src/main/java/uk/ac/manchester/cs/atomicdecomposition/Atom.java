@@ -6,9 +6,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 

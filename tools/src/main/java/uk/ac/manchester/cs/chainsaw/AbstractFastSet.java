@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.chainsaw;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 abstract class AbstractFastSet implements FastSet, Serializable {

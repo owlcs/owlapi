@@ -4,13 +4,11 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
-
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /** Ontology based modularizer. */

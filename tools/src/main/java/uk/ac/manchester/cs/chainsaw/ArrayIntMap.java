@@ -1,10 +1,9 @@
 package uk.ac.manchester.cs.chainsaw;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 /** a multimap for int to collection of int values. */
 public class ArrayIntMap {

@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;

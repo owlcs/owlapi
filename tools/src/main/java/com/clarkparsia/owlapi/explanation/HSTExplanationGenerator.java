@@ -15,6 +15,9 @@ package com.clarkparsia.owlapi.explanation;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
+import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
+import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,10 +25,8 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
@@ -40,10 +41,6 @@ import org.semanticweb.owlapi.util.OWLAPIPreconditions;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
-import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
-import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 
 /** HST explanation generator. */
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {

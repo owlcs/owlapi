@@ -14,17 +14,18 @@ package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
+import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -41,8 +42,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 
 /** A black box explanation. */
 public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implements SingleExplanationGenerator {
