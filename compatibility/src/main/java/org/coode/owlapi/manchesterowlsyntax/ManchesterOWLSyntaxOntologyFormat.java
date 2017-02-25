@@ -15,12 +15,13 @@ package org.coode.owlapi.manchesterowlsyntax;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-May-2007
- * @deprecated use
- *             {@link org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat}
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         10-May-2007
+ * @deprecated use {@link org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat}
  */
 @Deprecated
 public class ManchesterOWLSyntaxOntologyFormat extends
-        org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat implements
-        PrefixOWLOntologyFormat {}
+    org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat implements
+    PrefixOWLOntologyFormat {
+
+}

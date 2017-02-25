@@ -15,11 +15,13 @@ package org.coode.owl.krssparser;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 02-Jan-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         02-Jan-2007
  * @deprecated use {@link org.semanticweb.owlapi.formats.KRSSDocumentFormat}
  */
 @Deprecated
 public class KRSSOntologyFormat extends
-        org.semanticweb.owlapi.formats.KRSSDocumentFormat implements
-        OWLOntologyFormat {}
+    org.semanticweb.owlapi.formats.KRSSDocumentFormat implements
+    OWLOntologyFormat {
+
+}
