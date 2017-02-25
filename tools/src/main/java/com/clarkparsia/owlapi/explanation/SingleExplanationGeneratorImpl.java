@@ -21,7 +21,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-/** The Class SingleExplanationGeneratorImpl. */
+/**
+ * The Class SingleExplanationGeneratorImpl.
+ */
 public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {
 
     private boolean inTransaction;
@@ -33,13 +35,10 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
 
     /**
      * Instantiates a new single explanation generator impl.
-     * 
-     * @param ontology
-     *        the ontology
-     * @param reasonerFactory
-     *        the reasoner factory
-     * @param reasoner
-     *        the reasoner
+     *
+     * @param ontology the ontology
+     * @param reasonerFactory the reasoner factory
+     * @param reasoner the reasoner
      */
     public SingleExplanationGeneratorImpl(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
         OWLReasoner reasoner) {

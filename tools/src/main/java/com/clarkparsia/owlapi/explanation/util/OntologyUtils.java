@@ -23,31 +23,33 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Some ontology utils methods. */
+/**
+ * Some ontology utils methods.
+ */
 public final class OntologyUtils {
 
     private static final String AXIOM_CANNOT_BE_NULL = "axiom cannot be null";
     private static final String ONTOLOGIES_CANNOT_BE_NULL = "ontologies cannot be null";
 
-    private OntologyUtils() {}
+    private OntologyUtils() {
+    }
 
     /**
      * Determines if a class description contains any unreferenced entities with
      * respect to the ontology that contains the entailments which are being
      * explained.
-     * 
-     * @param ontology
-     *        the ontology to search
-     * @param desc
-     *        The description to be searched
-     * @return {@code true} if the description references entities that the
-     *         ontology that contains entailments which are being explained,
-     *         otherwise {@code false}
+     *
+     * @param ontology the ontology to search
+     * @param desc The description to be searched
+     * @return {@code true} if the description references entities that the ontology that contains
+     * entailments which are being explained, otherwise {@code false}
      */
-    public static boolean containsUnreferencedEntity(OWLOntology ontology, OWLClassExpression desc) {
+    public static boolean containsUnreferencedEntity(OWLOntology ontology,
+        OWLClassExpression desc) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(desc, "desc cannot be null");
-        return desc.signature().anyMatch(e -> !ontology.containsEntityInSignature(e) && !thingOrNothing(e));
+        return desc.signature()
+            .anyMatch(e -> !ontology.containsEntityInSignature(e) && !thingOrNothing(e));
     }
 
     protected static boolean thingOrNothing(OWLEntity entity) {
@@ -57,11 +59,9 @@ public final class OntologyUtils {
     /**
      * Removes an axiom from all the given ontologies that contains the axiom
      * and returns those ontologies.
-     * 
-     * @param axiom
-     *        axiom being removed
-     * @param ontologies
-     *        ontologies from which axiom is being removed
+     *
+     * @param axiom axiom being removed
+     * @param ontologies ontologies from which axiom is being removed
      * @return set of ontologies that have been affected
      */
     public static Set<OWLOntology> removeAxiom(OWLAxiom axiom, Stream<OWLOntology> ontologies) {
@@ -71,23 +71,21 @@ public final class OntologyUtils {
         ontologies.filter(o -> o.containsAxiom(axiom)).forEach(ont -> {
             modifiedOnts.add(ont);
             ont.remove(axiom);
-        } );
+        });
         return modifiedOnts;
     }
 
     /**
      * Add the axiom to all the given ontologies.
-     * 
-     * @param axiom
-     *        the axiom to add
-     * @param ontologies
-     *        the ontologies to add the axiom to
-     * @param manager
-     *        the manager for the application
+     *
+     * @param axiom the axiom to add
+     * @param ontologies the ontologies to add the axiom to
+     * @param manager the manager for the application
      * @deprecated use {@link #addAxiom(OWLAxiom, Stream)}
      */
     @Deprecated
-    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) {
+    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
+        OWLOntologyManager manager) {
         checkNotNull(manager, "manager cannot be null");
         checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);
         checkNotNull(ontologies, ONTOLOGIES_CANNOT_BE_NULL);
@@ -96,11 +94,9 @@ public final class OntologyUtils {
 
     /**
      * Add the axiom to all the given ontologies.
-     * 
-     * @param axiom
-     *        the axiom to add
-     * @param ontologies
-     *        the ontologies to add the axiom to
+     *
+     * @param axiom the axiom to add
+     * @param ontologies the ontologies to add the axiom to
      */
     public static void addAxiom(OWLAxiom axiom, Stream<OWLOntology> ontologies) {
         checkNotNull(axiom, AXIOM_CANNOT_BE_NULL);

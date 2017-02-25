@@ -18,18 +18,17 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 /**
  * A progress monitor for an explanation generator. The progress monitor should
  * be used with an {@code MultipleExpalanationGenerator}
- * 
- * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
- *         Group
+ *
+ * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface ExplanationProgressMonitor {
 
     /**
      * Determines if the process of generating explanations has been cancelled.
-     * 
-     * @return {@code true} if the process has been cancelled, or {@code false}
-     *         if the process hasn't been cancelled.
+     *
+     * @return {@code true} if the process has been cancelled, or {@code false} if the process
+     * hasn't been cancelled.
      */
     default boolean isCancelled() {
         return false;
@@ -37,12 +36,15 @@ public interface ExplanationProgressMonitor {
 
     /**
      * Called when an explanation has been found.
-     * 
-     * @param axioms
-     *        The axioms that constitute the explanation
+     *
+     * @param axioms The axioms that constitute the explanation
      */
-    default void foundExplanation(@SuppressWarnings("unused") Set<OWLAxiom> axioms) {}
+    default void foundExplanation(@SuppressWarnings("unused") Set<OWLAxiom> axioms) {
+    }
 
-    /** Called when all explanations have been found. */
-    default void foundAllExplanations() {}
+    /**
+     * Called when all explanations have been found.
+     */
+    default void foundAllExplanations() {
+    }
 }

@@ -7,39 +7,56 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 import org.semanticweb.owlapitools.decomposition.OntologyAtom;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
-/** atomical decomposer of the ontology */
+/**
+ * atomical decomposer of the ontology
+ */
 class AtomicDecomposer {
 
-    /** atomic structure to build */
+    /**
+     * atomic structure to build
+     */
     AOStructure aos = null;
-    /** modularizer to build modules */
+    /**
+     * modularizer to build modules
+     */
     Modularizer modularizer;
-    /** tautologies of the ontology */
+    /**
+     * tautologies of the ontology
+     */
     Set<AxiomWrapper> tautologies;
-    /** fake atom that represents the whole ontology */
+    /**
+     * fake atom that represents the whole ontology
+     */
     OntologyAtom rootAtom = null;
-    /** module type for current AOS creation */
+    /**
+     * module type for current AOS creation
+     */
     ModuleType type;
 
     /**
-     * @param m
-     *        modulariser
+     * @param m modulariser
      */
     AtomicDecomposer(Modularizer m) {
         modularizer = m;
     }
 
-    /** restore all tautologies back */
+    /**
+     * restore all tautologies back
+     */
     void restoreTautologies() {
         tautologies.forEach(p -> p.setUsed(true));
     }
 
-    /** @return already created atomic structure */
+    /**
+     * @return already created atomic structure
+     */
     AOStructure getAOS() {
         return aos;
     }
 
-    /** @return number of performed locality checks */
+    /**
+     * @return number of performed locality checks
+     */
     long getLocChekNumber() {
         return modularizer.getNChecks();
     }
@@ -47,9 +64,8 @@ class AtomicDecomposer {
     /**
      * Remove tautologies (axioms that are always local) from the ontology
      * temporarily.
-     * 
-     * @param o
-     *        ontology
+     *
+     * @param o ontology
      */
     void removeTautologies(Collection<AxiomWrapper> o) {
         // we might use it for another decomposition
@@ -65,11 +81,9 @@ class AtomicDecomposer {
     /**
      * Build a module for given axiom AX; use parent atom's module as a base for
      * the module search.
-     * 
-     * @param sig
-     *        signature
-     * @param parent
-     *        parent atom
+     *
+     * @param sig signature
+     * @param parent parent atom
      * @return module atom
      */
     Optional<OntologyAtom> buildModule(Signature sig, OntologyAtom parent) {
@@ -94,11 +108,9 @@ class AtomicDecomposer {
     /**
      * Create atom for given axiom AX; use parent atom's module as a base for
      * the module search.
-     * 
-     * @param ax
-     *        axiom
-     * @param parent
-     *        parent atom
+     *
+     * @param ax axiom
+     * @param parent parent atom
      * @return atom
      */
     OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
@@ -127,10 +139,8 @@ class AtomicDecomposer {
     }
 
     /**
-     * @param o
-     *        ontology
-     * @param t
-     *        module type
+     * @param o ontology
+     * @param t module type
      * @return atomic structure for given module type T
      */
     AOStructure getAOS(Collection<AxiomWrapper> o, ModuleType t) {

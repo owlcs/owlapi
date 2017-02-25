@@ -16,7 +16,9 @@ import java.io.Writer;
 import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Null implementation. */
+/**
+ * Null implementation.
+ */
 public class SilentExplanationRenderer implements ExplanationRenderer {
 
     @Override

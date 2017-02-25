@@ -8,21 +8,28 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
-/** class to hold the signature of a module */
+/**
+ * class to hold the signature of a module
+ */
 class Signature {
 
-    /** set to keep all the elements in signature */
+    /**
+     * set to keep all the elements in signature
+     */
     private final Set<OWLEntity> set = new HashSet<>();
-    /** true if concept TOP-locality; false if concept BOTTOM-locality */
+    /**
+     * true if concept TOP-locality; false if concept BOTTOM-locality
+     */
     private boolean topCLocality = false;
-    /** true if role TOP-locality; false if role BOTTOM-locality */
+    /**
+     * true if role TOP-locality; false if role BOTTOM-locality
+     */
     private boolean topRLocality = false;
 
     /**
      * copy c'tor
-     * 
-     * @param copy
-     *        signature to copy
+     *
+     * @param copy signature to copy
      */
     Signature(Signature copy) {
         set.addAll(copy.set);
@@ -35,16 +42,14 @@ class Signature {
     }
 
     /**
-     * @param sig
-     *        signature elements
+     * @param sig signature elements
      */
     public Signature(Stream<OWLEntity> sig) {
         addAll(sig);
     }
 
     /**
-     * @param p
-     *        entity to add to signature
+     * @param p entity to add to signature
      * @return true if p was not in the signature already
      */
     public boolean add(OWLEntity p) {
@@ -52,8 +57,7 @@ class Signature {
     }
 
     /**
-     * @param p
-     *        all entities to add
+     * @param p all entities to add
      */
     public void addAll(Stream<OWLEntity> p) {
         OWLAPIStreamUtils.add(set, p);
@@ -61,9 +65,8 @@ class Signature {
 
     /**
      * Add set of named entities to signature.
-     * 
-     * @param aSet
-     *        set to add
+     *
+     * @param aSet set to add
      */
     void add(Set<OWLEntity> aSet) {
         set.addAll(aSet);
@@ -71,9 +74,8 @@ class Signature {
 
     /**
      * Add another signature to a given one.
-     * 
-     * @param sig
-     *        signature to add
+     *
+     * @param sig signature to add
      */
     void add(Signature sig) {
         add(sig.set);
@@ -81,9 +83,8 @@ class Signature {
 
     /**
      * Remove given element from a signature.
-     * 
-     * @param p
-     *        element to remove
+     *
+     * @param p element to remove
      */
     void remove(OWLEntity p) {
         set.remove(p);
@@ -91,19 +92,16 @@ class Signature {
 
     /**
      * Set new locality polarity.
-     * 
-     * @param top
-     *        locality polarity
+     *
+     * @param top locality polarity
      */
     void setLocality(boolean top) {
         setLocality(top, top);
     }
 
     /**
-     * @param topC
-     *        new concept locality polarity
-     * @param topR
-     *        new role locality polarity
+     * @param topC new concept locality polarity
+     * @param topR new role locality polarity
      */
     public void setLocality(boolean topC, boolean topR) {
         topCLocality = topC;
@@ -137,8 +135,7 @@ class Signature {
     }
 
     /**
-     * @param p
-     *        element to check
+     * @param p element to check
      * @return true iff signature contains given element
      */
     boolean contains(OWLEntity p) {
@@ -146,45 +143,58 @@ class Signature {
     }
 
     /**
-     * @param p
-     *        element to check
+     * @param p element to check
      * @return true iff signature contains given element
      */
     boolean contains(OWLObjectInverseOf p) {
         return set.contains(p.getNamedProperty());
     }
 
-    /** @return size of the signature */
+    /**
+     * @return size of the signature
+     */
     int size() {
         return set.size();
     }
 
-    /** clear the signature */
+    /**
+     * clear the signature
+     */
     void clear() {
         set.clear();
     }
 
-    /** @return elements of signature */
+    /**
+     * @return elements of signature
+     */
     Stream<OWLEntity> getSignature() {
         return set.stream();
     }
 
-    /** @return true iff concepts are treated as TOPs */
+    /**
+     * @return true iff concepts are treated as TOPs
+     */
     public boolean topCLocal() {
         return topCLocality;
     }
 
-    /** @return true iff concepts are treated as BOTTOMs */
+    /**
+     * @return true iff concepts are treated as BOTTOMs
+     */
     boolean botCLocal() {
         return !topCLocality;
     }
 
-    /** @return true iff roles are treated as TOPs */
+    /**
+     * @return true iff roles are treated as TOPs
+     */
     public boolean topRLocal() {
         return topRLocality;
     }
 
-    /** @return true iff roles are treated as BOTTOMs */
+    /**
+     * @return true iff roles are treated as BOTTOMs
+     */
     boolean botRLocal() {
         return !topRLocality;
     }

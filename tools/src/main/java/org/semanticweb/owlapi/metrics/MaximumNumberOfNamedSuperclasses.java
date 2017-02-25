@@ -25,17 +25,15 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
     /**
      * Instantiates a new maximum number of named superclasses.
-     * 
-     * @param o
-     *        ontology to use
+     *
+     * @param o ontology to use
      */
     public MaximumNumberOfNamedSuperclasses(OWLOntology o) {
         super(o);
@@ -49,9 +47,11 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     @Override
     public Integer recomputeMetric() {
         Set<OWLClass> processedClasses = new HashSet<>();
-        OptionalLong max = getOntologies().flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add)
-            .mapToLong(cls -> equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
-                .filter(d -> !d.isAnonymous()).count()))
+        OptionalLong max = getOntologies()
+            .flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add)
+                .mapToLong(
+                    cls -> equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
+                        .filter(d -> !d.isAnonymous()).count()))
             .max();
         return Integer.valueOf((int) max.orElse(0L));
     }

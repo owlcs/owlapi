@@ -7,17 +7,20 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 
-/** base class for checking locality of a DL axiom */
+/**
+ * base class for checking locality of a DL axiom
+ */
 class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
 
-    /** remember the axiom locality value here */
+    /**
+     * remember the axiom locality value here
+     */
     boolean isLocal = true;
 
     /**
      * init c'tor
-     * 
-     * @param s
-     *        signature
+     *
+     * @param s signature
      */
     LocalityChecker(Signature s) {
         super(s);
@@ -28,8 +31,7 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
     }
 
     /**
-     * @param axiom
-     *        axiom to check
+     * @param axiom axiom to check
      * @return true iff an AXIOM is local wrt signature
      */
     boolean local(OWLAxiom axiom) {
@@ -38,18 +40,15 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
     }
 
     /**
-     * @param sig
-     *        new value of signature (without changing locality parameters)
+     * @param sig new value of signature (without changing locality parameters)
      */
     void setSignatureValue(Signature sig) {
         this.sig.setSignature(sig);
     }
 
     /**
-     * @param moduleMethod
-     *        modularisation method
-     * @param pSig
-     *        signature
+     * @param moduleMethod modularisation method
+     * @param pSig signature
      * @return locality checker by a method
      */
     static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {

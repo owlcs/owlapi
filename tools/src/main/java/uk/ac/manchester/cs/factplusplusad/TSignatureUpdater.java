@@ -35,17 +35,20 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** update signature by adding the signature of a given axiom to it */
+/**
+ * update signature by adding the signature of a given axiom to it
+ */
 class TSignatureUpdater implements OWLAxiomVisitor {
 
-    /** helper with expressions */
+    /**
+     * helper with expressions
+     */
     TExpressionSignatureUpdater updater;
 
     /**
      * init c'tor
-     * 
-     * @param sig
-     *        signature
+     *
+     * @param sig signature
      */
     TSignatureUpdater(Signature sig) {
         updater = new TExpressionSignatureUpdater(sig);

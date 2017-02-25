@@ -25,17 +25,15 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
     /**
      * Instantiates a new average asserted named superclass count.
-     * 
-     * @param o
-     *        ontology to use
+     *
+     * @param o ontology to use
      */
     public AverageAssertedNamedSuperclassCount(OWLOntology o) {
         super(o);
@@ -56,9 +54,11 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         return Double.valueOf((double) total.get() / count.get());
     }
 
-    protected void processClass(AtomicInteger total, AtomicInteger count, OWLOntology ont, OWLClass cls) {
+    protected void processClass(AtomicInteger total, AtomicInteger count, OWLOntology ont,
+        OWLClass cls) {
         count.incrementAndGet();
-        int sup = (int) sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class).filter(c -> !c.isAnonymous())
+        int sup = (int) sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
+            .filter(c -> !c.isAnonymous())
             .count();
         if (sup == 0) {
             total.incrementAndGet();

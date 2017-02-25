@@ -43,16 +43,19 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
-    /** corresponding bottom evaluator */
+    /**
+     * corresponding bottom evaluator
+     */
     BotEquivalenceEvaluator botEval;
-    /** keep the value here */
+    /**
+     * keep the value here
+     */
     boolean isTopEq = false;
 
     /**
      * init c'tor
-     * 
-     * @param s
-     *        signature
+     *
+     * @param s signature
      */
     @SuppressWarnings("null")
     TopEquivalenceEvaluator(Signature s) {
@@ -64,9 +67,9 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     // non-empty Concept/Data expression
+
     /**
-     * @param c
-     *        C
+     * @param c C
      * @return true iff C^I is non-empty
      */
     private boolean isBotDistinct(OWLObject c) {
@@ -81,10 +84,8 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     // cardinality of a concept/data expression interpretation
 
     /**
-     * @param c
-     *        C
-     * @param n
-     *        cardinality
+     * @param c C
+     * @param n cardinality
      * @return true if #C^I > n
      */
     private boolean isCardLargerThan(OWLObject c, int n) {
@@ -108,12 +109,9 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param n
-     *        cardinality
-     * @param r
-     *        role
-     * @param c
-     *        filler
+     * @param n cardinality
+     * @param r role
+     * @param c filler
      * @return true iff (>= n R.C) is topEq
      */
     private boolean isMinTopEquivalent(int n, OWLPropertyExpression r, OWLPropertyRange c) {
@@ -121,15 +119,13 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param n
-     *        cardinality
-     * @param r
-     *        role
-     * @param c
-     *        filler
+     * @param n cardinality
+     * @param r role
+     * @param c filler
      * @return true iff (<= n R.C) is topEq
      */
-    private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r, OWLPropertyRange c) {
+    private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r,
+        OWLPropertyRange c) {
         return isBotEquivalent(r) || isBotEquivalent(c);
     }
 
@@ -138,8 +134,7 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * @param expr
-     *        expression to check
+     * @param expr expression to check
      * @return true iff an EXPRession is equivalent to top wrt defined policy
      */
     public boolean isTopEquivalent(OWLObject expr) {
@@ -213,8 +208,10 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
-        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n, expr
-            .getProperty(), expr.getFiller());
+        isTopEq =
+            isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n,
+                expr
+                    .getProperty(), expr.getFiller());
     }
 
     @Override
@@ -245,8 +242,10 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
-        isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n, expr
-            .getProperty(), expr.getFiller());
+        isTopEq =
+            isMinTopEquivalent(n, expr.getProperty(), expr.getFiller()) && isMaxTopEquivalent(n,
+                expr
+                    .getProperty(), expr.getFiller());
     }
 
     @Override

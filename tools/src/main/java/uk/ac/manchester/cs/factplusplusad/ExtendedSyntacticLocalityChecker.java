@@ -2,7 +2,9 @@ package uk.ac.manchester.cs.factplusplusad;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** syntactic locality checker for DL axioms */
+/**
+ * syntactic locality checker for DL axioms
+ */
 class ExtendedSyntacticLocalityChecker extends SyntacticLocalityChecker {
 
     UpperBoundDirectEvaluator ubd;
@@ -12,9 +14,8 @@ class ExtendedSyntacticLocalityChecker extends SyntacticLocalityChecker {
 
     /**
      * init c'tor
-     * 
-     * @param s
-     *        signature
+     *
+     * @param s signature
      */
     ExtendedSyntacticLocalityChecker(Signature s) {
         super(s);
@@ -28,13 +29,17 @@ class ExtendedSyntacticLocalityChecker extends SyntacticLocalityChecker {
         lbc.setEvaluators(ubd, lbd, ubc, lbc);
     }
 
-    /** @return true iff EXPR is top equivalent */
+    /**
+     * @return true iff EXPR is top equivalent
+     */
     @Override
     public boolean isTopEquivalent(OWLObject expr) {
         return ubc.getUpperBoundComplement(expr) == 0;
     }
 
-    /** @return true iff EXPR is bottom equivalent */
+    /**
+     * @return true iff EXPR is bottom equivalent
+     */
     @Override
     public boolean isBotEquivalent(OWLObject expr) {
         return ubd.getUpperBoundDirect(expr) == 0;
