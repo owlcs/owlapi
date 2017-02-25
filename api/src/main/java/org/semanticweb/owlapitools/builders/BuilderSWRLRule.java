@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Builder class for SWRLRule. */
+/**
+ * Builder class for SWRLRule.
+ */
 public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
     private final List<SWRLAtom> body = new ArrayList<>();
@@ -33,11 +33,9 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSWRLRule(SWRLRule expected, OWLDataFactory df) {
         this(df);
@@ -45,8 +43,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLRule(OWLDataFactory df) {
@@ -54,8 +51,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     }
 
     /**
-     * @param arg
-     *        body atom
+     * @param arg body atom
      * @return builder
      */
     public BuilderSWRLRule withBody(SWRLAtom arg) {
@@ -64,8 +60,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     }
 
     /**
-     * @param arg
-     *        head atom
+     * @param arg head atom
      * @return builder
      */
     public BuilderSWRLRule withHead(SWRLAtom arg) {
@@ -74,8 +69,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     }
 
     /**
-     * @param arg
-     *        body atom
+     * @param arg body atom
      * @return builder
      */
     public BuilderSWRLRule withBody(Collection<SWRLAtom> arg) {
@@ -84,8 +78,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     }
 
     /**
-     * @param arg
-     *        body atom
+     * @param arg body atom
      * @return builder
      */
     public BuilderSWRLRule withBody(Stream<SWRLAtom> arg) {
@@ -94,8 +87,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     }
 
     /**
-     * @param arg
-     *        head atom
+     * @param arg head atom
      * @return builder
      */
     public BuilderSWRLRule withHead(Collection<SWRLAtom> arg) {
@@ -104,8 +96,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     }
 
     /**
-     * @param arg
-     *        head atom
+     * @param arg head atom
      * @return builder
      */
     public BuilderSWRLRule withHead(Stream<SWRLAtom> arg) {
@@ -118,12 +109,16 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
         return df.getSWRLRule(body, head, annotations);
     }
 
-    /** @return size of body */
+    /**
+     * @return size of body
+     */
     public int bodySize() {
         return body.size();
     }
 
-    /** @return size of head */
+    /**
+     * @return size of head
+     */
     public int headSize() {
         return head.size();
     }

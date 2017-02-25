@@ -12,8 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.reasoners;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNothing;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -27,32 +32,11 @@ import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
 public class StructuralReasonerTestCase extends TestBase {
-
-    @Test
-    public void testClassHierarchy() {
-        OWLClass clsX = Class(iri("X"));
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsAp = Class(iri("Ap"));
-        OWLClass clsB = Class(iri("B"));
-        OWLOntology ont = getOWLOntology();
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        man.addAxiom(ont, EquivalentClasses(OWLThing(), clsX));
-        man.addAxiom(ont, SubClassOf(clsB, clsA));
-        man.addAxiom(ont, EquivalentClasses(clsA, clsAp));
-        StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(),
-                BufferingMode.NON_BUFFERING);
-        testClassHierarchy(reasoner);
-        ont.add(SubClassOf(clsA, OWLThing()));
-        testClassHierarchy(reasoner);
-        ont.remove(SubClassOf(clsA, OWLThing()));
-        testClassHierarchy(reasoner);
-    }
 
     private static void testClassHierarchy(StructuralReasoner reasoner) {
         OWLClass clsX = Class(iri("X"));
@@ -66,10 +50,12 @@ public class StructuralReasonerTestCase extends TestBase {
         assertEquals(1, subsOfAp.nodes().count());
         assertTrue(subsOfAp.containsEntity(clsB));
         Node<OWLClass> topNode = reasoner.getTopClassNode();
-        NodeSet<OWLClass> subsOfTop = reasoner.getSubClasses(topNode.getRepresentativeElement(), true);
+        NodeSet<OWLClass> subsOfTop = reasoner
+            .getSubClasses(topNode.getRepresentativeElement(), true);
         assertEquals(1, subsOfTop.nodes().count());
         assertTrue(subsOfTop.containsEntity(clsA));
-        NodeSet<OWLClass> descOfTop = reasoner.getSubClasses(topNode.getRepresentativeElement(), false);
+        NodeSet<OWLClass> descOfTop = reasoner
+            .getSubClasses(topNode.getRepresentativeElement(), false);
         assertEquals(3, descOfTop.nodes().count());
         assertTrue(descOfTop.containsEntity(clsA));
         assertTrue(descOfTop.containsEntity(clsB));
@@ -83,5 +69,25 @@ public class StructuralReasonerTestCase extends TestBase {
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
         assertEquals(2, equivsOfTop.entities().count());
         assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(clsX)));
+    }
+
+    @Test
+    public void testClassHierarchy() {
+        OWLClass clsX = Class(iri("X"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsAp = Class(iri("Ap"));
+        OWLClass clsB = Class(iri("B"));
+        OWLOntology ont = getOWLOntology();
+        OWLOntologyManager man = ont.getOWLOntologyManager();
+        man.addAxiom(ont, EquivalentClasses(OWLThing(), clsX));
+        man.addAxiom(ont, SubClassOf(clsB, clsA));
+        man.addAxiom(ont, EquivalentClasses(clsA, clsAp));
+        StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(),
+            BufferingMode.NON_BUFFERING);
+        testClassHierarchy(reasoner);
+        ont.add(SubClassOf(clsA, OWLThing()));
+        testClassHierarchy(reasoner);
+        ont.remove(SubClassOf(clsA, OWLThing()));
+        testClassHierarchy(reasoner);
     }
 }

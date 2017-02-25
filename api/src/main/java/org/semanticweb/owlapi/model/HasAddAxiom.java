@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 4.0.0
  */
 @FunctionalInterface
@@ -25,15 +24,12 @@ public interface HasAddAxiom {
     /**
      * A convenience method that adds a single axiom to an ontology. The
      * appropriate AddAxiom change object is automatically generated.
-     * 
-     * @param ont
-     *        The ontology to add the axiom to.
-     * @param axiom
-     *        The axiom to be added
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem adding the axiom
+     *
+     * @param ont The ontology to add the axiom to.
+     * @param axiom The axiom to be added
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
+     * @throws OWLOntologyChangeException if there was a problem adding the axiom
      */
     ChangeApplied addAxiom(OWLOntology ont, OWLAxiom axiom);
 }

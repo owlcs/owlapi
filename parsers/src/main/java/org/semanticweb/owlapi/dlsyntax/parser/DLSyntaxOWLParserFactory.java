@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(15)
 public class DLSyntaxOWLParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public DLSyntaxOWLParserFactory() {
         super(new DLSyntaxDocumentFormatFactory());
     }

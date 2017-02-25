@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
 
 import java.io.IOException;
 import java.io.Serializable;
-
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
@@ -32,12 +31,14 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** OBOformat parser. */
+/**
+ * OBOformat parser.
+ */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology in,
-            OWLOntologyLoaderConfiguration config) {
+        OWLOntologyLoaderConfiguration config) {
         try {
             OBOFormatParser p = new OBOFormatParser();
             OBODoc obodoc = p.parse(wrapInputAsReader(source, config));

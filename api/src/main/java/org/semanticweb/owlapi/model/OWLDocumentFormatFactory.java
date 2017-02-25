@@ -13,22 +13,22 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
 import javax.inject.Provider;
 
 /**
  * Factory for ontology formats.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public interface OWLDocumentFormatFactory extends Serializable, Provider<OWLDocumentFormat>, MIMETypeAware {
+public interface OWLDocumentFormatFactory extends Serializable, Provider<OWLDocumentFormat>,
+    MIMETypeAware {
 
     /**
      * Create a new format. Note that ontology formats currently carry prefix
      * information for the ontology, so an instance cannot, in general, be
      * reused for multiple parsings.
-     * 
+     *
      * @return new storer
      */
     OWLDocumentFormat createFormat();
@@ -36,7 +36,7 @@ public interface OWLDocumentFormatFactory extends Serializable, Provider<OWLDocu
     /**
      * Returns the key for the OWLDocumentFormat that this class is a factory
      * for without necessarily creating an instance of the OWLDocumentFormat.
-     * 
+     *
      * @return The key for the OWLDocumentFormat.
      */
     String getKey();
@@ -44,9 +44,8 @@ public interface OWLDocumentFormatFactory extends Serializable, Provider<OWLDocu
     /**
      * Returns true if this format can be represented using textual characters.
      * Returns false if this format must be dealt with using binary methods.
-     * 
-     * @return True if this format is textual, and false if it is a binary
-     *         format.
+     *
+     * @return True if this format is textual, and false if it is a binary format.
      */
     boolean isTextual();
 }

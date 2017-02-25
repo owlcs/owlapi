@@ -15,29 +15,25 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface AnonymousNodeChecker {
 
     /**
-     * @param iri
-     *        iri to check
+     * @param iri iri to check
      * @return true if iri is a blank node iri
      */
     boolean isAnonymousNode(IRI iri);
 
     /**
-     * @param iri
-     *        iri to check
+     * @param iri iri to check
      * @return true if iri is a blank node iri
      */
     boolean isAnonymousNode(String iri);
 
     /**
-     * @param iri
-     *        iri to check
+     * @param iri iri to check
      * @return true if iri is a blank node iri for shared nodes
      */
     boolean isAnonymousSharedNode(String iri);

@@ -13,44 +13,40 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 /**
  * The root of runtime exceptions in the OWL API.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLRuntimeException extends RuntimeException implements Serializable {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLRuntimeException() {
         super();
     }
 
     /**
-     * @param message
-     *        message
+     * @param message message
      */
     public OWLRuntimeException(@Nullable String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        message
-     * @param cause
-     *        cause
+     * @param message message
+     * @param cause cause
      */
     public OWLRuntimeException(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * @param cause
-     *        cause
+     * @param cause cause
      */
     public OWLRuntimeException(@Nullable Throwable cause) {
         super(cause);

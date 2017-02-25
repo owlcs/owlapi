@@ -14,23 +14,19 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import com.google.common.base.Splitter;
 import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-import com.google.common.base.Splitter;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
@@ -43,7 +39,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final String RDF_EXTENSION = ".rdf";
     private static final String XML_EXTENSION = ".xml";
     private static final String OBO_EXTENSION = ".obo";
-    private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION, OBO_EXTENSION };
+    private static final String[] EXTENSIONS = {OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION,
+        OBO_EXTENSION};
     private static final Map<IRI, String> WELL_KNOWN_SHORTFORMS = initWellKnownShortForms();
 
     private static Map<IRI, String> initWellKnownShortForms() {
@@ -62,9 +59,84 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         return Collections.unmodifiableMap(map);
     }
 
+    @Nullable
+    private static String getWellKnownShortForm(IRI iri) {
+        String wellKnownShortForm = WELL_KNOWN_SHORTFORMS.get(iri);
+        if (wellKnownShortForm != null) {
+            return wellKnownShortForm;
+        }
+        return null;
+    }
+
     /**
-     * @param ont
-     *        ontology to use
+     * Removes commonly used file name extensions to make the resulting short
+     * form look nicer.
+     *
+     * @param shortForm The short form.
+     * @return The short form with the extension removed if it was present, or the original short
+     * form if no extension was present.
+     */
+    private static String stripExtensionIfPresent(String shortForm) {
+        String lowerCaseShortForm = shortForm.toLowerCase();
+        for (String extension : EXTENSIONS) {
+            if (lowerCaseShortForm.endsWith(extension)) {
+                return shortForm.substring(0, shortForm.length() - extension.length());
+            }
+        }
+        return shortForm;
+    }
+
+    /**
+     * Determines if the specified path element is a candidate short form.
+     *
+     * @param pathElement The path element to test. Not {@code null}.
+     * @return {@code true} if the specified path element is a candidate short form, otherwise
+     * {@code false}.
+     */
+    private static boolean isCandidatePathElement(String pathElement) {
+        return !pathElement.isEmpty() && !isVersionString(pathElement);
+    }
+
+    /**
+     * Determines if the specified string is a version number string. A version
+     * string is a sequence of digits and periods.
+     *
+     * @param s The string to test for.
+     * @return {@code true} if the string is a version string, otherwise {@code false}.
+     */
+    private static boolean isVersionString(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (!isVersionStringChar(ch)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Determines if the specified character is a version string character
+     * (either a digit or a period).
+     *
+     * @param ch The character to test for.
+     * @return {@code true} of the specified char is a version string char, otherwise {@code false}.
+     */
+    private static boolean isVersionStringChar(char ch) {
+        return isDigit(ch) || ch == '.' || ch == 'v';
+    }
+
+    /**
+     * Determines if the specified char is a digit.
+     *
+     * @param ch The char to test for.
+     * @return {@code true} if the specified char is a digit, otherwise {@code false}.
+     */
+    private static boolean isDigit(char ch) {
+        return ch >= '0' && ch <= '9';
+    }
+
+    /**
+     * @param ont ontology to use
      * @return short form of the ontology IRI
      */
     public String getShortForm(OWLOntology ont) {
@@ -97,89 +169,5 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
             return iri.toString();
         }
         return iri.toString();
-    }
-
-    @Nullable
-    private static String getWellKnownShortForm(IRI iri) {
-        String wellKnownShortForm = WELL_KNOWN_SHORTFORMS.get(iri);
-        if (wellKnownShortForm != null) {
-            return wellKnownShortForm;
-        }
-        return null;
-    }
-
-    /**
-     * Removes commonly used file name extensions to make the resulting short
-     * form look nicer.
-     * 
-     * @param shortForm
-     *        The short form.
-     * @return The short form with the extension removed if it was present, or
-     *         the original short form if no extension was present.
-     */
-    private static String stripExtensionIfPresent(String shortForm) {
-        String lowerCaseShortForm = shortForm.toLowerCase();
-        for (String extension : EXTENSIONS) {
-            if (lowerCaseShortForm.endsWith(extension)) {
-                return shortForm.substring(0, shortForm.length() - extension.length());
-            }
-        }
-        return shortForm;
-    }
-
-    /**
-     * Determines if the specified path element is a candidate short form.
-     * 
-     * @param pathElement
-     *        The path element to test. Not {@code null}.
-     * @return {@code true} if the specified path element is a candidate short
-     *         form, otherwise {@code false}.
-     */
-    private static boolean isCandidatePathElement(String pathElement) {
-        return !pathElement.isEmpty() && !isVersionString(pathElement);
-    }
-
-    /**
-     * Determines if the specified string is a version number string. A version
-     * string is a sequence of digits and periods.
-     * 
-     * @param s
-     *        The string to test for.
-     * @return {@code true} if the string is a version string, otherwise
-     *         {@code false}.
-     */
-    private static boolean isVersionString(String s) {
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (!isVersionStringChar(ch)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Determines if the specified character is a version string character
-     * (either a digit or a period).
-     * 
-     * @param ch
-     *        The character to test for.
-     * @return {@code true} of the specified char is a version string char,
-     *         otherwise {@code false}.
-     */
-    private static boolean isVersionStringChar(char ch) {
-        return isDigit(ch) || ch == '.' || ch == 'v';
-    }
-
-    /**
-     * Determines if the specified char is a digit.
-     * 
-     * @param ch
-     *        The char to test for.
-     * @return {@code true} if the specified char is a digit, otherwise
-     *         {@code false}.
-     */
-    private static boolean isDigit(char ch) {
-        return ch >= '0' && ch <= '9';
     }
 }

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,21 +21,18 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param prop
-     *        prop
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param prop prop
      */
-    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom,
-            OWLObjectPropertyExpression prop) {
+    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology,
+        OWLDisjointObjectPropertiesAxiom axiom,
+        OWLObjectPropertyExpression prop) {
         super(ontology, axiom, prop);
     }
 

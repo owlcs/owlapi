@@ -43,9 +43,11 @@ import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
  * @since 4.0.0
  */
 public class RioNQuadsStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+    RioRDFStorerFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioNQuadsStorerFactory() {
         super(new NQuadsDocumentFormatFactory());
     }

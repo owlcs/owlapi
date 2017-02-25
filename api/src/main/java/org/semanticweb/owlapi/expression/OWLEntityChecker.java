@@ -13,61 +13,58 @@
 package org.semanticweb.owlapi.expression;
 
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * Maps strings to OWL objects.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface OWLEntityChecker {
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLClass corresponding to name
      */
     @Nullable
     OWLClass getOWLClass(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLObjectProperty corresponding to name
      */
     @Nullable
     OWLObjectProperty getOWLObjectProperty(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLDataProperty corresponding to name
      */
     @Nullable
     OWLDataProperty getOWLDataProperty(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLNamedIndividual corresponding to name
      */
     @Nullable
     OWLNamedIndividual getOWLIndividual(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLDatatype corresponding to name
      */
     @Nullable
     OWLDatatype getOWLDatatype(String name);
 
     /**
-     * @param name
-     *        name to resolve
+     * @param name name to resolve
      * @return OWLAnnotationProperty corresponding to name
      */
     @Nullable

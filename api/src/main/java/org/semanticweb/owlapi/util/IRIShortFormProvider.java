@@ -13,22 +13,19 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
  * A short form provider that produces short forms for URIs.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 @FunctionalInterface
 public interface IRIShortFormProvider extends Serializable {
 
     /**
-     * @param iri
-     *        the IRI to shorten
+     * @param iri the IRI to shorten
      * @return the short form
      */
     String getShortForm(IRI iri);

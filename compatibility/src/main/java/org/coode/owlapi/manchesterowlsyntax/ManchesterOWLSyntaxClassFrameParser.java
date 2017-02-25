@@ -18,23 +18,21 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 /**
  * An expression parser that parses a Manchester OWL Syntax Class Frame to
  * produce a set of axioms that represent the class frame.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Sep-2007
- * @deprecated use
- *             {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxClassFrameParser}
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         13-Sep-2007
+ * @deprecated use {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxClassFrameParser}
  */
 @Deprecated
 public class ManchesterOWLSyntaxClassFrameParser
-        extends org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxClassFrameParser {
+    extends org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxClassFrameParser {
 
     /**
-     * @param dataFactory
-     *        dataFactory
-     * @param checker
-     *        checker
+     * @param dataFactory dataFactory
+     * @param checker checker
      */
-    public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
+    public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory,
+        OWLEntityChecker checker) {
         super(dataFactory, checker);
     }
 }

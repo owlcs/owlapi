@@ -7,6 +7,8 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public interface RioRDFDocumentFormat extends RDFDocumentFormat {
 
-    /** @return Rio format for this format */
+    /**
+     * @return Rio format for this format
+     */
     RDFFormat getRioFormat();
 }

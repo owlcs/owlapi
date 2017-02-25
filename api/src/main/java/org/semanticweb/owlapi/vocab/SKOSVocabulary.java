@@ -12,12 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static org.semanticweb.owlapi.model.EntityType.*;
+import static org.semanticweb.owlapi.model.EntityType.ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.model.EntityType.CLASS;
+import static org.semanticweb.owlapi.model.EntityType.DATA_PROPERTY;
+import static org.semanticweb.owlapi.model.EntityType.OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
@@ -31,61 +33,136 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.providers.AnnotationPropertyProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
-    /** BROADMATCH.       */  BROADMATCH          ("broadMatch",          OBJECT_PROPERTY), 
-    /** BROADER.          */  BROADER             ("broader",             OBJECT_PROPERTY), 
-    /** BROADERTRANSITIVE.*/  BROADERTRANSITIVE   ("broaderTransitive",   OBJECT_PROPERTY), 
-    /** CLOSEMATCH.       */  CLOSEMATCH          ("closeMatch",          OBJECT_PROPERTY), 
-    /** EXACTMATCH.       */  EXACTMATCH          ("exactMatch",          OBJECT_PROPERTY), 
-    /** HASTOPCONCEPT.    */  HASTOPCONCEPT       ("hasTopConcept",       OBJECT_PROPERTY), 
-    /** INSCHEME.         */  INSCHEME            ("inScheme",            OBJECT_PROPERTY), 
-    /** MAPPINGRELATION.  */  MAPPINGRELATION     ("mappingRelation",     OBJECT_PROPERTY), 
-    /** MEMBER.           */  MEMBER              ("member",              OBJECT_PROPERTY), 
-    /** MEMBERLIST.       */  MEMBERLIST          ("memberList",          OBJECT_PROPERTY), 
-    /** NARROWMATCH.      */  NARROWMATCH         ("narrowMatch",         OBJECT_PROPERTY), 
-    /** NARROWER.         */  NARROWER            ("narrower",            OBJECT_PROPERTY), 
-    /** NARROWTRANSITIVE. */  NARROWTRANSITIVE    ("narrowTransitive",    OBJECT_PROPERTY), 
-    /** RELATED.          */  RELATED             ("related",             OBJECT_PROPERTY), 
-    /** RELATEDMATCH.     */  RELATEDMATCH        ("relatedMatch",        OBJECT_PROPERTY), 
-    /** SEMANTICRELATION. */  SEMANTICRELATION    ("semanticRelation",    OBJECT_PROPERTY), 
-    /** TOPCONCEPTOF.     */  TOPCONCEPTOF        ("topConceptOf",        OBJECT_PROPERTY), 
-    /** COLLECTION.       */  COLLECTION          ("Collection",          CLASS), 
-    /** CONCEPT.          */  CONCEPT             ("Concept",             CLASS), 
-    /** CONCEPTSCHEME.    */  CONCEPTSCHEME       ("ConceptScheme",       CLASS), 
-    /** ORDEREDCOLLECTION.*/  ORDEREDCOLLECTION   ("OrderedCollection",   CLASS), 
-    /** TOPCONCEPT.       */  TOPCONCEPT          ("TopConcept",          CLASS), 
-    /** ALTLABEL.         */  ALTLABEL            ("altLabel",            ANNOTATION_PROPERTY), 
-    /** CHANGENOTE.       */  CHANGENOTE          ("changeNote",          ANNOTATION_PROPERTY), 
-    /** DEFINITION.       */  DEFINITION          ("definition",          ANNOTATION_PROPERTY), 
-    /** EDITORIALNOTE.    */  EDITORIALNOTE       ("editorialNote",       ANNOTATION_PROPERTY), 
-    /** EXAMPLE.          */  EXAMPLE             ("example",             ANNOTATION_PROPERTY), 
-    /** HIDDENLABEL.      */  HIDDENLABEL         ("hiddenLabel",         ANNOTATION_PROPERTY), 
-    /** HISTORYNOTE.      */  HISTORYNOTE         ("historyNote",         ANNOTATION_PROPERTY), 
-    /** NOTE.             */  NOTE                ("note",                ANNOTATION_PROPERTY), 
-    /** PREFLABEL.        */  PREFLABEL           ("prefLabel",           ANNOTATION_PROPERTY), 
-    /** SCOPENOTE.        */  SCOPENOTE           ("scopeNote",           ANNOTATION_PROPERTY),
-    /** @deprecated No longer used */
+    /**
+     * BROADMATCH.
+     */BROADMATCH("broadMatch", OBJECT_PROPERTY),
+    /**
+     * BROADER.
+     */BROADER("broader", OBJECT_PROPERTY),
+    /**
+     * BROADERTRANSITIVE.
+     */BROADERTRANSITIVE("broaderTransitive", OBJECT_PROPERTY),
+    /**
+     * CLOSEMATCH.
+     */CLOSEMATCH("closeMatch", OBJECT_PROPERTY),
+    /**
+     * EXACTMATCH.
+     */EXACTMATCH("exactMatch", OBJECT_PROPERTY),
+    /**
+     * HASTOPCONCEPT.
+     */HASTOPCONCEPT("hasTopConcept", OBJECT_PROPERTY),
+    /**
+     * INSCHEME.
+     */INSCHEME("inScheme", OBJECT_PROPERTY),
+    /**
+     * MAPPINGRELATION.
+     */MAPPINGRELATION("mappingRelation", OBJECT_PROPERTY),
+    /**
+     * MEMBER.
+     */MEMBER("member", OBJECT_PROPERTY),
+    /**
+     * MEMBERLIST.
+     */MEMBERLIST("memberList", OBJECT_PROPERTY),
+    /**
+     * NARROWMATCH.
+     */NARROWMATCH("narrowMatch", OBJECT_PROPERTY),
+    /**
+     * NARROWER.
+     */NARROWER("narrower", OBJECT_PROPERTY),
+    /**
+     * NARROWTRANSITIVE.
+     */NARROWTRANSITIVE("narrowTransitive", OBJECT_PROPERTY),
+    /**
+     * RELATED.
+     */RELATED("related", OBJECT_PROPERTY),
+    /**
+     * RELATEDMATCH.
+     */RELATEDMATCH("relatedMatch", OBJECT_PROPERTY),
+    /**
+     * SEMANTICRELATION.
+     */SEMANTICRELATION("semanticRelation", OBJECT_PROPERTY),
+    /**
+     * TOPCONCEPTOF.
+     */TOPCONCEPTOF("topConceptOf", OBJECT_PROPERTY),
+    /**
+     * COLLECTION.
+     */COLLECTION("Collection", CLASS),
+    /**
+     * CONCEPT.
+     */CONCEPT("Concept", CLASS),
+    /**
+     * CONCEPTSCHEME.
+     */CONCEPTSCHEME("ConceptScheme", CLASS),
+    /**
+     * ORDEREDCOLLECTION.
+     */ORDEREDCOLLECTION("OrderedCollection", CLASS),
+    /**
+     * TOPCONCEPT.
+     */TOPCONCEPT("TopConcept", CLASS),
+    /**
+     * ALTLABEL.
+     */ALTLABEL("altLabel", ANNOTATION_PROPERTY),
+    /**
+     * CHANGENOTE.
+     */CHANGENOTE("changeNote", ANNOTATION_PROPERTY),
+    /**
+     * DEFINITION.
+     */DEFINITION("definition", ANNOTATION_PROPERTY),
+    /**
+     * EDITORIALNOTE.
+     */EDITORIALNOTE("editorialNote", ANNOTATION_PROPERTY),
+    /**
+     * EXAMPLE.
+     */EXAMPLE("example", ANNOTATION_PROPERTY),
+    /**
+     * HIDDENLABEL.
+     */HIDDENLABEL("hiddenLabel", ANNOTATION_PROPERTY),
+    /**
+     * HISTORYNOTE.
+     */HISTORYNOTE("historyNote", ANNOTATION_PROPERTY),
+    /**
+     * NOTE.
+     */NOTE("note", ANNOTATION_PROPERTY),
+    /**
+     * PREFLABEL.
+     */PREFLABEL("prefLabel", ANNOTATION_PROPERTY),
+    /**
+     * SCOPENOTE.
+     */SCOPENOTE("scopeNote", ANNOTATION_PROPERTY),
+    /**
+     * @deprecated No longer used
+     */
     @Deprecated
     DOCUMENT("Document", CLASS),
-    /** @deprecated No longer used */
+    /**
+     * @deprecated No longer used
+     */
     @Deprecated
     IMAGE("Image", CLASS),
-    /** @deprecated No longer used */
+    /**
+     * @deprecated No longer used
+     */
     @Deprecated
     COLLECTABLEPROPERTY("CollectableProperty", ANNOTATION_PROPERTY),
-    /** @deprecated No longer used */
+    /**
+     * @deprecated No longer used
+     */
     @Deprecated
     RESOURCE("Resource", CLASS),
-    /** @deprecated No longer used */
+    /**
+     * @deprecated No longer used
+     */
     @Deprecated
     COMMENT("comment", ANNOTATION_PROPERTY);
 //@formatter:on
-    /** All IRIs. */
+    /**
+     * All IRIs.
+     */
     public static final Set<IRI> ALL_IRIS = asSet(stream().map(v -> v.getIRI()));
     private final String localName;
     private final IRI iri;
@@ -101,6 +178,45 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
     private static Stream<SKOSVocabulary> stream() {
         return Stream.of(values());
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS annotation properties
+     */
+    public static Set<OWLAnnotationProperty> getAnnotationProperties(
+        AnnotationPropertyProvider dataFactory) {
+        return asSet(
+            stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY)).map(v -> dataFactory
+                .getOWLAnnotationProperty(v.iri)));
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS object properties
+     */
+    public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY)).map(v -> dataFactory
+            .getOWLObjectProperty(v.iri)));
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS data properties
+     */
+    public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY))
+            .map(v -> dataFactory.getOWLDataProperty(
+                v.iri)));
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS classes
+     */
+    public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(CLASS))
+            .map(v -> dataFactory.getOWLClass(v.iri)));
     }
 
     /**
@@ -120,45 +236,6 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    /**
-     * @param dataFactory
-     *        data factory to use
-     * @return set of SKOS annotation properties
-     */
-    public static Set<OWLAnnotationProperty> getAnnotationProperties(AnnotationPropertyProvider dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY)).map(v -> dataFactory
-            .getOWLAnnotationProperty(v.iri)));
-    }
-
-    /**
-     * @param dataFactory
-     *        data factory to use
-     * @return set of SKOS object properties
-     */
-    public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY)).map(v -> dataFactory
-            .getOWLObjectProperty(v.iri)));
-    }
-
-    /**
-     * @param dataFactory
-     *        data factory to use
-     * @return set of SKOS data properties
-     */
-    public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY)).map(v -> dataFactory.getOWLDataProperty(
-            v.iri)));
-    }
-
-    /**
-     * @param dataFactory
-     *        data factory to use
-     * @return set of SKOS classes
-     */
-    public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(CLASS)).map(v -> dataFactory.getOWLClass(v.iri)));
     }
 
     @Override

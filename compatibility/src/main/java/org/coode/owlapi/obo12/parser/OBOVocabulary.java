@@ -43,7 +43,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -127,11 +126,13 @@ public enum OBOVocabulary implements HasIRI {
     /**
      * @deprecated Use {@link #OBO_IRI_BASE}
      */
-    @Deprecated public static final String ONTOLOGY_URI_BASE = "http://purl.org/obo/owl";
+    @Deprecated
+    public static final String ONTOLOGY_URI_BASE = "http://purl.org/obo/owl";
     /**
      * @deprecated Use {@link #OBO_IRI_BASE}
      */
-    @Deprecated public static final String ANNOTATION_URI_BASE = OBOPrefix.OBO_IN_OWL.getPrefix();
+    @Deprecated
+    public static final String ANNOTATION_URI_BASE = OBOPrefix.OBO_IN_OWL.getPrefix();
     public static final String OBO_IRI_BASE = OBOPrefix.OBO.getPrefix();
     public static final String LEGACY_OBO_IRI_BASE = "http://purl.org/obo/owl/";//
     /**
@@ -140,29 +141,40 @@ public enum OBOVocabulary implements HasIRI {
      * obofoundry.org/id-policy.shtml</a>
      */
     public static final Pattern OBO_ID_PATTERN = Pattern.compile("(([^:]+):)?(.+)");
-    private static final String bases = Pattern.quote(OBO_IRI_BASE) + "|" + Pattern.quote(ONTOLOGY_URI_BASE + "/") + "|"
-        + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|" + Pattern.quote(ANNOTATION_URI_BASE);
+    private static final String bases =
+        Pattern.quote(OBO_IRI_BASE) + "|" + Pattern.quote(ONTOLOGY_URI_BASE + "/") + "|"
+            + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|" + Pattern.quote(ANNOTATION_URI_BASE);
     public static final Pattern OBO_IRI_PATTERN = Pattern.compile("(" + bases + ")"
         + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
     private static final IDSpaceManager DEFAULT_ID_SPACE_MANAGER = new IDSpaceManager() {
 
         @Override
         public void setIRIPrefix(String idPrefix, String iriPrefix) {
-            throw new OWLRuntimeException("The default id space manager must not be used for custom prefixes.");
+            throw new OWLRuntimeException(
+                "The default id space manager must not be used for custom prefixes.");
         }
     };
-    private static final List<OBOVocabulary> headerTags = Arrays.asList(FORMAT_VERSION, DATA_VERSION, DATE, SAVED_BY,
-        AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF, ID_SPACE, DEFAULT_RELATIONSHIP_ID_PREFIX, ID_MAPPING,
-        REMARK);
-    private static final List<OBOVocabulary> termStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT,
-        SUBSET, SYNONYM, XREF, IS_A, INTERSECTION_OF, UNION_OF, DISJOINT_FROM, RELATIONSHIP, IS_OBSOLETE, REPLACED_BY,
-        CONSIDER);
-    private static final List<OBOVocabulary> typeDefStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
-        COMMENT, SUBSET, SYNONYM, XREF, DOMAIN, RANGE, IS_ASYMMETRIC, IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC,
-        IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER, RELATIONSHIP, IS_METADATA_TAG, IS_OBSOLETE, REPLACED_BY,
-        CONSIDER);
-    private static final List<OBOVocabulary> instanceStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
-        COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY, CONSIDER);
+    private static final List<OBOVocabulary> headerTags = Arrays
+        .asList(FORMAT_VERSION, DATA_VERSION, DATE, SAVED_BY,
+            AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF, ID_SPACE,
+            DEFAULT_RELATIONSHIP_ID_PREFIX, ID_MAPPING,
+            REMARK);
+    private static final List<OBOVocabulary> termStanzaTags = Arrays
+        .asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT,
+            SUBSET, SYNONYM, XREF, IS_A, INTERSECTION_OF, UNION_OF, DISJOINT_FROM, RELATIONSHIP,
+            IS_OBSOLETE, REPLACED_BY,
+            CONSIDER);
+    private static final List<OBOVocabulary> typeDefStanzaTags = Arrays
+        .asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
+            COMMENT, SUBSET, SYNONYM, XREF, DOMAIN, RANGE, IS_ASYMMETRIC, IS_CYCLIC, IS_REFLEXIVE,
+            IS_SYMMETRIC,
+            IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER, RELATIONSHIP, IS_METADATA_TAG,
+            IS_OBSOLETE, REPLACED_BY,
+            CONSIDER);
+    private static final List<OBOVocabulary> instanceStanzaTags = Arrays
+        .asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
+            COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY,
+            CONSIDER);
     private final String name;
     private final IRI iri;
 
@@ -186,27 +198,12 @@ public enum OBOVocabulary implements HasIRI {
         this.iri = iri;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
-
     /**
      * Converts OBO Ids to IRIs. The conversion is defined at
      * <a href="http://www.obofoundry.org/id-policy.shtml" >http://www.
      * obofoundry.org/id-policy.shtml</a>
-     * 
-     * @param oboId
-     *        The Id to convert
+     *
+     * @param oboId The Id to convert
      * @return The IRI of the converted Id
      */
     public static IRI ID2IRI(String oboId) {
@@ -217,12 +214,10 @@ public enum OBOVocabulary implements HasIRI {
      * Converts OBO Ids to IRIs. The conversion is defined at
      * <a href="http://www.obofoundry.org/id-policy.shtml" >http://www.
      * obofoundry.org/id-policy.shtml</a>.
-     * 
-     * @param oboId
-     *        The OBO Id to convert.
-     * @param idSpaceManager
-     *        An {@link IDSpaceManager} which can be used to customise the IRI
-     *        prefixes used in the conversion.
+     *
+     * @param oboId The OBO Id to convert.
+     * @param idSpaceManager An {@link IDSpaceManager} which can be used to customise the IRI
+     * prefixes used in the conversion.
      * @return The IRI of the converted Id.
      */
     public static IRI ID2IRI(String oboId, IDSpaceManager idSpaceManager) {
@@ -287,5 +282,19 @@ public enum OBOVocabulary implements HasIRI {
 
     public static List<OBOVocabulary> getInstanceStanzaTags() {
         return new ArrayList<>(instanceStanzaTags);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

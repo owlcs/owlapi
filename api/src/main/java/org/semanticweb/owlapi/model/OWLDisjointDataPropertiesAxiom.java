@@ -18,16 +18,15 @@ import java.util.Collection;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Data_Properties" >
  * DisjointDataProperties</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDisjointDataPropertiesAxiom
     extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
-        OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
+    OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -35,10 +34,10 @@ public interface OWLDisjointDataPropertiesAxiom
     }
 
     @Override
-        Collection<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
+    Collection<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs();
+    Collection<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

@@ -12,11 +12,94 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DIFFERENT;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ASSERTION_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_AXIOM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATATYPE_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISJOINT_WITH;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DISTINCT_MEMBERS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_FUNCTIONAL_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_KEY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_SELF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INVERSE_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MAX_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MEMBERS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MIN_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MIN_QUALIFIED_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NEGATIVE_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONE_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONTOLOGY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_DATA_TYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_PROPERTY_CHAIN_AXIOM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_PROPERTY_DISJOINT_WITH;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_REFLEXIVE_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_RESTRICTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SAME_AS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TARGET_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TARGET_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_WITH_RESTRICTIONS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DOMAIN;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUBCLASS_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_LIST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_NIL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.ARGUMENTS;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.ARGUMENT_1;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.ARGUMENT_2;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.ATOM_LIST;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.BODY;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.BUILT_IN;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.BUILT_IN_ATOM;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.BUILT_IN_CLASS;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.CLASS_ATOM;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.CLASS_PREDICATE;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.DATAVALUED_PROPERTY_ATOM;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.DATA_RANGE_ATOM;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.DIFFERENT_INDIVIDUALS_ATOM;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.HEAD;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.IMP;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.INDIVIDUAL_PROPERTY_ATOM;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.PROPERTY_PREDICATE;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.SAME_INDIVIDUAL_ATOM;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.VARIABLE;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,10 +111,107 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLProperty;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRestriction;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLArgument;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLObjectVisitor;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -40,43 +220,37 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * An abstract translator that can produce an RDF graph from an OWLOntology.
  * Subclasses must provide implementations to create concrete representations of
  * resources, triples etc.
- * 
- * @param <N>
- *        the basic node
- * @param <R>
- *        a resource node
- * @param <P>
- *        a predicate node
- * @param <L>
- *        a literal node
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <N> the basic node
+ * @param <R> a resource node
+ * @param <P> a predicate node
+ * @param <L> a literal node
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N> implements
     OWLObjectVisitor, SWRLObjectVisitor {
 
+    protected final IndividualAppearance multipleOccurrences;
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
     private final boolean useStrongTyping;
     private final Set<OWLIndividual> currentIndividuals = createLinkedSet();
-    /** Maps Objects to nodes. */
+    /**
+     * Maps Objects to nodes.
+     */
     private final Map<OWLObject, N> nodeMap = new HashMap<>();
     private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
-    protected final IndividualAppearance multipleOccurrences;
     protected RDFGraph graph = new RDFGraph();
 
     /**
-     * @param manager
-     *        the manager
-     * @param ontology
-     *        the ontology
-     * @param useStrongTyping
-     *        true if strong typing should be used
-     * @param multiple
-     *        will tell whether anonymous individuals need an id or not
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param useStrongTyping true if strong typing should be used
+     * @param multiple will tell whether anonymous individuals need an id or not
      */
-    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
+    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology,
+        boolean useStrongTyping,
         IndividualAppearance multiple) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
@@ -86,7 +260,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(), axiom.getEntity().getEntityType().getIRI());
+        addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(),
+            axiom.getEntity().getEntityType().getIRI());
     }
 
     @Override
@@ -161,27 +336,29 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     // Translation of restrictions
+
     /**
      * Add type triples and the owl:onProperty triples for an OWLRestriction.
-     * 
-     * @param desc
-     *        The restriction
-     * @param property
-     *        property
+     *
+     * @param desc The restriction
+     * @param property property
      */
-    private void addRestrictionCommonTriplePropertyRange(OWLRestriction desc, OWLPropertyExpression property) {
+    private void addRestrictionCommonTriplePropertyRange(OWLRestriction desc,
+        OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
-    private void addRestrictionCommonTriplePropertyExpression(OWLRestriction desc, OWLPropertyExpression property) {
+    private void addRestrictionCommonTriplePropertyExpression(OWLRestriction desc,
+        OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
-    private void addObjectCardinalityRestrictionTriples(OWLCardinalityRestriction<OWLClassExpression> ce,
+    private void addObjectCardinalityRestrictionTriples(
+        OWLCardinalityRestriction<OWLClassExpression> ce,
         OWLPropertyExpression p, OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce, p);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
@@ -237,7 +414,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLObjectMinCardinality ce) {
         if (ce.isQualified()) {
-            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_QUALIFIED_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MIN_QUALIFIED_CARDINALITY);
         } else {
             addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_CARDINALITY);
         }
@@ -246,7 +424,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLObjectMaxCardinality ce) {
         if (ce.isQualified()) {
-            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_QUALIFIED_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MAX_QUALIFIED_CARDINALITY);
         } else {
             addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_CARDINALITY);
         }
@@ -282,7 +461,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLDataMinCardinality ce) {
         if (ce.isQualified()) {
-            addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_QUALIFIED_CARDINALITY);
+            addDataCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MIN_QUALIFIED_CARDINALITY);
         } else {
             addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_CARDINALITY);
         }
@@ -291,7 +471,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLDataMaxCardinality ce) {
         if (ce.isQualified()) {
-            addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_QUALIFIED_CARDINALITY);
+            addDataCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MAX_QUALIFIED_CARDINALITY);
         } else {
             addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_CARDINALITY);
         }
@@ -309,7 +490,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     // Axioms
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubClass(), RDFS_SUBCLASS_OF.getIRI(), axiom.getSuperClass());
+        addSingleTripleAxiom(axiom, axiom.getSubClass(), RDFS_SUBCLASS_OF.getIRI(),
+            axiom.getSuperClass());
     }
 
     @Override
@@ -335,18 +517,21 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getIRI(), axiom.classExpressions());
+        addSingleTripleAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getIRI(),
+            axiom.classExpressions());
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(),
+            axiom.getSuperProperty());
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSuperProperty(), OWL_PROPERTY_CHAIN_AXIOM.getIRI(), axiom
-            .getPropertyChain().stream());
+        addSingleTripleAxiom(axiom, axiom.getSuperProperty(), OWL_PROPERTY_CHAIN_AXIOM.getIRI(),
+            axiom
+                .getPropertyChain().stream());
     }
 
     @Override
@@ -382,47 +567,56 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getFirstProperty(), OWL_INVERSE_OF.getIRI(), axiom.getSecondProperty());
+        addSingleTripleAxiom(axiom, axiom.getFirstProperty(), OWL_INVERSE_OF.getIRI(),
+            axiom.getSecondProperty());
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_REFLEXIVE_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_REFLEXIVE_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_IRREFLEXIVE_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_IRREFLEXIVE_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_SYMMETRIC_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_SYMMETRIC_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_ASYMMETRIC_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_ASYMMETRIC_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_TRANSITIVE_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_TRANSITIVE_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(),
+            axiom.getSuperProperty());
     }
 
     @Override
@@ -458,17 +652,20 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getDatatype(), OWL_EQUIVALENT_CLASS.getIRI(), axiom.getDataRange());
+        addSingleTripleAxiom(axiom, axiom.getDatatype(), OWL_EQUIVALENT_CLASS.getIRI(),
+            axiom.getDataRange());
     }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getIRI(), axiom.propertyExpressions());
+        addSingleTripleAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getIRI(),
+            axiom.propertyExpressions());
     }
 
     @Override
@@ -488,14 +685,16 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getIndividual().accept(this);
-        addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getIRI(), axiom.getClassExpression());
+        addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getIRI(),
+            axiom.getClassExpression());
         processIfAnonymous(axiom.getIndividual(), axiom);
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         OWLObjectPropertyAssertionAxiom simplified = axiom.getSimplified();
-        addSingleTripleAxiom(simplified, simplified.getSubject(), simplified.getProperty(), simplified.getObject());
+        addSingleTripleAxiom(simplified, simplified.getSubject(), simplified.getProperty(),
+            simplified.getObject());
         processIfAnonymous(simplified.getObject(), axiom);
         processIfAnonymous(simplified.getSubject(), axiom);
     }
@@ -538,7 +737,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(),
+            axiom.getSuperProperty());
     }
 
     @Override
@@ -689,10 +889,12 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), BUILT_IN_ATOM.getIRI());
         addTriple(node, BUILT_IN.getIRI(), node.getPredicate());
-        addTriple(getResourceNode(node.getPredicate()), getPredicateNode(RDF_TYPE.getIRI()), getResourceNode(
-            BUILT_IN_CLASS.getIRI()));
-        addTriple(getNode(node), getPredicateNode(ARGUMENTS.getIRI()), translateList(new ArrayList<>(node
-            .getArguments())));
+        addTriple(getResourceNode(node.getPredicate()), getPredicateNode(RDF_TYPE.getIRI()),
+            getResourceNode(
+                BUILT_IN_CLASS.getIRI()));
+        addTriple(getNode(node), getPredicateNode(ARGUMENTS.getIRI()),
+            translateList(new ArrayList<>(node
+                .getArguments())));
     }
 
     @Override
@@ -749,8 +951,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addSingleTripleAxiomRPN(ax, getNode(subject), getPredicateNode(pred), getResourceNode(obj));
     }
 
-    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, IRI pred, Stream<? extends OWLObject> obj) {
-        addSingleTripleAxiomRPN(ax, getNode(subj), getPredicateNode(pred), translateList(asList(obj)));
+    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, IRI pred,
+        Stream<? extends OWLObject> obj) {
+        addSingleTripleAxiomRPN(ax, getNode(subj), getPredicateNode(pred),
+            translateList(asList(obj)));
     }
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, OWLObject pred, OWLObject obj) {
@@ -767,16 +971,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * the OWL 2 annotation vocabulary: owl:annotatedSource,
      * owl:annotatedProperty, owl:annotatedTarget, and other triples to encode
      * the annotations.
-     * 
-     * @param ax
-     *        The axiom that the triple specified as subject, pred, obj
-     *        represents.
-     * @param subject
-     *        The subject of the triple representing the axiom
-     * @param predicate
-     *        The predicate of the triple representing the axiom
-     * @param object
-     *        The object of the triple representing the axiom
+     *
+     * @param ax The axiom that the triple specified as subject, pred, obj represents.
+     * @param subject The subject of the triple representing the axiom
+     * @param predicate The predicate of the triple representing the axiom
+     * @param object The object of the triple representing the axiom
      */
     private void addSingleTripleAxiomRPN(OWLAxiom ax, R subject, P predicate, N object) {
         // Base triple
@@ -787,7 +986,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         // The axiom has annotations and we therefore need to reify the axiom in
         // order to add the annotations
         translateAnonymousNode(ax);
-        addTriple(getNode(ax), getPredicateNode(RDF_TYPE.getIRI()), getResourceNode(OWL_AXIOM.getIRI()));
+        addTriple(getNode(ax), getPredicateNode(RDF_TYPE.getIRI()),
+            getResourceNode(OWL_AXIOM.getIRI()));
         addTriple(getNode(ax), getPredicateNode(OWL_ANNOTATED_SOURCE.getIRI()), subject);
         addTriple(getNode(ax), getPredicateNode(OWL_ANNOTATED_PROPERTY.getIRI()), predicate);
         addTriple(getNode(ax), getPredicateNode(OWL_ANNOTATED_TARGET.getIRI()), object);
@@ -802,11 +1002,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Translates an annotation on a given subject. This method implements the
      * TANN(ann, y) translation in the spec
-     * 
-     * @param subject
-     *        The subject of the annotation
-     * @param annotation
-     *        The annotation
+     *
+     * @param subject The subject of the annotation
+     * @param annotation The annotation
      */
     private void translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
         // We first add the base triple
@@ -847,10 +1045,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     /**
-     * @param object
-     *        that has already been mapped
-     * @param <T>
-     *        type needed
+     * @param object that has already been mapped
+     * @param <T> type needed
      * @return mapped node, or null if the node is absent
      */
     @SuppressWarnings("unchecked")
@@ -863,24 +1059,18 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     /**
-     * @param subject
-     *        subject
-     * @param pred
-     *        predicate
-     * @param object
-     *        object
+     * @param subject subject
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, IRI object) {
         addTriple(subject, getPredicateNode(pred), getResourceNode(object));
     }
 
     /**
-     * @param subject
-     *        subject
-     * @param pred
-     *        predicate
-     * @param object
-     *        object
+     * @param subject subject
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, OWLObject object) {
         addTriple(subject, getPredicateNode(pred), getNode(object));
@@ -888,9 +1078,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * Gets a resource that has a IRI.
-     * 
-     * @param iri
-     *        The IRI of the resource
+     *
+     * @param iri The IRI of the resource
      * @return The resource with the specified IRI
      */
     protected abstract R getResourceNode(IRI iri);
@@ -899,10 +1088,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     /**
      * Gets an anonymous resource.
-     * 
-     * @param key
-     *        A key for the resource. For a given key identity, the resources
-     *        that are returned should be equal and have the same hashcode.
+     *
+     * @param key A key for the resource. For a given key identity, the resources that are returned
+     * should be equal and have the same hashcode.
      * @return The resource
      */
     protected abstract R getAnonymousNode(Object key);
@@ -957,13 +1145,16 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addTriple(getNode(subject), getPredicateNode(pred), translateList(sortOptionally(objects)));
     }
 
-    private void addTriple(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects, IRI listType) {
-        addTriple(getNode(subject), getPredicateNode(pred), translateList(asList(objects), listType));
+    private void addTriple(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects,
+        IRI listType) {
+        addTriple(getNode(subject), getPredicateNode(pred),
+            translateList(asList(objects), listType));
     }
 
     private OWLLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i), manager.getOWLDataFactory()
-            .getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
+        return manager.getOWLDataFactory()
+            .getOWLLiteral(Integer.toString(i), manager.getOWLDataFactory()
+                .getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
     private void processIfAnonymous(Stream<? extends OWLIndividual> inds, @Nullable OWLAxiom root) {
@@ -974,10 +1165,12 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                sortOptionally(ont.axioms(ind)).stream().filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax
+                sortOptionally(ont.axioms(ind)).stream()
+                    .filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax
                     .accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
-                    this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
+                    .forEach(ax -> ax.accept(
+                        this));
             }
             currentIndividuals.remove(ind);
         }
@@ -988,8 +1181,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
                 sortOptionally(ont.axioms(ind)).forEach(ax -> ax.accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
-                    this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
+                    .forEach(ax -> ax.accept(
+                        this));
             }
             currentIndividuals.remove(ind);
         }
@@ -1010,9 +1204,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * Adds triples to strong type an entity. Triples are only added if the
      * useStrongTyping flag is set to {@code true} and the entity is not a built
      * in entity.
-     * 
-     * @param entity
-     *        The entity for which strong typing triples should be added.
+     *
+     * @param entity The entity for which strong typing triples should be added.
      */
     private void addStrongTyping(OWLEntity entity) {
         if (!useStrongTyping) {
@@ -1031,7 +1224,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         return graph;
     }
 
-    /** Clear the graph. */
+    /**
+     * Clear the graph.
+     */
     public void reset() {
         graph = new RDFGraph();
     }

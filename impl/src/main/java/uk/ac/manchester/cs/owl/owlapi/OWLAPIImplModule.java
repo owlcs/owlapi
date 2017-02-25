@@ -12,20 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.google.inject.multibindings.Multibinder;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
-import com.google.inject.multibindings.Multibinder;
-
 import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyBuilder;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
@@ -41,8 +38,7 @@ public class OWLAPIImplModule extends AbstractModule {
     private final Concurrency concurrency;
 
     /**
-     * @param concurrency
-     *        concurrency type to use
+     * @param concurrency concurrency type to use
      */
     public OWLAPIImplModule(Concurrency concurrency) {
         this.concurrency = concurrency;
@@ -58,17 +54,20 @@ public class OWLAPIImplModule extends AbstractModule {
         bind(boolean.class).annotatedWith(CompressionEnabled.class).toInstance(Boolean.FALSE);
         bind(OWLDataFactory.class).to(OWLDataFactoryImpl.class).asEagerSingleton();
         bind(OWLOntologyManager.class).to(OWLOntologyManagerImpl.class);
-        bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class).to(OWLOntologyManagerImpl.class);
+        bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class)
+            .to(OWLOntologyManagerImpl.class);
         bind(OWLOntologyBuilder.class).to(ConcurrentOWLOntologyBuilder.class);
         bind(OWLOntologyBuilder.class).annotatedWith(NonConcurrentDelegate.class).to(
             NonConcurrentOWLOntologyBuilder.class);
-        install(new FactoryModuleBuilder().implement(OWLOntology.class, OWLOntologyImpl.class).build(
-            OWLOntologyImplementationFactory.class));
+        install(
+            new FactoryModuleBuilder().implement(OWLOntology.class, OWLOntologyImpl.class).build(
+                OWLOntologyImplementationFactory.class));
         multibind(OWLOntologyFactory.class, OWLOntologyFactoryImpl.class);
     }
 
     @SafeVarargs
-    private final <T> Multibinder<T> multibind(Class<T> type, Class<? extends T>... implementations) {
+    private final <T> Multibinder<T> multibind(Class<T> type,
+        Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {
             binder.addBinding().to(i);

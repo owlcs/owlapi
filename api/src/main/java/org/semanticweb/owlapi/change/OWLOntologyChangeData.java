@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.change;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -25,26 +23,25 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * particular kind of {@link OWLOntologyChange}. There is a concrete subclass of
  * this class for each concrete class of {@link OWLOntologyChange}. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @since 3.3
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
+ * @since 3.3
  */
 public abstract class OWLOntologyChangeData implements HasSignature, Serializable {
 
-    /** Default constructor for serialization purposes. */
+    /**
+     * Default constructor for serialization purposes.
+     */
     protected OWLOntologyChangeData() {
         super();
     }
 
     /**
      * Accepts a visit from an {@link OWLOntologyChangeDataVisitor}.
-     * 
-     * @param visitor
-     *        The visitor
-     * @param <R>
-     *        The return type for visitor's visit methods.
+     *
+     * @param visitor The visitor
+     * @param <R> The return type for visitor's visit methods.
      * @return The object returned by the visitor's visit methods.
      */
     public abstract <R> R accept(OWLOntologyChangeDataVisitor<R> visitor);
@@ -53,13 +50,11 @@ public abstract class OWLOntologyChangeData implements HasSignature, Serializabl
      * Creates an {@link OWLOntologyChange} object that pertains to the
      * specified {@code ontology}, which when applied to the specified ontology
      * enacts the change described by this info object.
-     * 
-     * @param ontology
-     *        The {@link OWLOntology} that the change should apply to.
-     * @return An {@link OWLOntologyChange} object that applies to
-     *         {@code ontology} and changes {@code ontology} in a way that is
-     *         consistent with this the information held in this
-     *         {@code OWLOntologyChangeData} object.
+     *
+     * @param ontology The {@link OWLOntology} that the change should apply to.
+     * @return An {@link OWLOntologyChange} object that applies to {@code ontology} and changes
+     * {@code ontology} in a way that is consistent with this the information held in this {@code
+     * OWLOntologyChangeData} object.
      **/
     public abstract OWLOntologyChange createOntologyChange(OWLOntology ontology);
 

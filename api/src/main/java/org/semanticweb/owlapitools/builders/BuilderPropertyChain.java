@@ -17,35 +17,34 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/** Builder class for OWLSubPropertyChainOfAxiom. */
-public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
+/**
+ * Builder class for OWLSubPropertyChainOfAxiom.
+ */
+public class BuilderPropertyChain extends
+    BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
 
     private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderPropertyChain(OWLSubPropertyChainOfAxiom expected, OWLDataFactory df) {
         this(df);
-        withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty()).withAnnotations(
-            expected.annotations());
+        withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty())
+            .withAnnotations(
+                expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderPropertyChain(OWLDataFactory df) {
@@ -53,8 +52,7 @@ public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubProper
     }
 
     /**
-     * @param arg
-     *        property
+     * @param arg property
      * @return builder
      */
     public BuilderPropertyChain withPropertyInChain(OWLObjectPropertyExpression arg) {
@@ -63,8 +61,7 @@ public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubProper
     }
 
     /**
-     * @param arg
-     *        properties
+     * @param arg properties
      * @return builder
      */
     public BuilderPropertyChain withPropertiesInChain(Collection<OWLObjectPropertyExpression> arg) {
@@ -72,7 +69,9 @@ public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubProper
         return this;
     }
 
-    /** @return size of the chain */
+    /**
+     * @return size of the chain
+     */
     public int chainSize() {
         return chain.size();
     }

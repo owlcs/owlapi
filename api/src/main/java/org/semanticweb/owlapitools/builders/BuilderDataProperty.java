@@ -13,16 +13,16 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/** Builder class for OWLDataProperty. */
+/**
+ * Builder class for OWLDataProperty.
+ */
 public class BuilderDataProperty extends BaseEntityBuilder<OWLDataProperty, BuilderDataProperty> {
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDataProperty(OWLDataFactory df) {
@@ -31,11 +31,9 @@ public class BuilderDataProperty extends BaseEntityBuilder<OWLDataProperty, Buil
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDataProperty(OWLDataProperty expected, OWLDataFactory df) {
         this(df);

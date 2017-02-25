@@ -13,8 +13,14 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChangeException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
  * An {@code OWLParser} parses an ontology document and adds the axioms of the
@@ -33,64 +39,50 @@ import org.semanticweb.owlapi.model.*;
  * are not ontologies. In this case, any axioms parsed from the imported
  * document are added to the existing ontology, which already contains axioms
  * parsed from a different document.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLParser extends Serializable {
 
     /**
-     * Parses the ontology with a concrete representation available at
-     * {@code documentIRI} and adds its axioms to {@code ontology}. Implementors
-     * of this method should load imported ontologies through
-     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
-     * makeLoadImportRequest()}.
-     * 
-     * @param documentIRI
-     *        the IRI of the document to parse
-     * @param ontology
-     *        the ontology to which the parsed axioms are added
+     * Parses the ontology with a concrete representation available at {@code documentIRI} and adds
+     * its axioms to {@code ontology}. Implementors of this method should load imported ontologies
+     * through {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration,
+     * OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
+     *
+     * @param documentIRI the IRI of the document to parse
+     * @param ontology the ontology to which the parsed axioms are added
      * @return the format of the parsed ontology
-     * @throws OWLParserException
-     *         if there was a parsing problem parsing the ontology.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem updating {@code ontology}. Typically this
-     *         depends on the document being parsed containing an ontology with
-     *         an ontology IRI clashing with one already loaded.
-     * @throws UnloadableImportException
-     *         if one or more imports could not be loaded.
+     * @throws OWLParserException if there was a parsing problem parsing the ontology.
+     * @throws OWLOntologyChangeException if there was a problem updating {@code ontology}.
+     * Typically this depends on the document being parsed containing an ontology with an ontology
+     * IRI clashing with one already loaded.
+     * @throws UnloadableImportException if one or more imports could not be loaded.
      */
     default OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology) {
         return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
-                ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
+            ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     /**
-     * Parses the ontology with a concrete representation in
-     * {@code documentSource} and adds its axioms to {@code ontology}.
-     * Implementors of this method should load imported ontologies through
-     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
-     * makeLoadImportRequest()}.
-     * 
-     * @param documentSource
-     *        the source of a concrete representation of the document to parse
-     * @param ontology
-     *        the ontology to which the parsed axioms are added
-     * @param configuration
-     *        parsing options for the parser
+     * Parses the ontology with a concrete representation in {@code documentSource} and adds its
+     * axioms to {@code ontology}. Implementors of this method should load imported ontologies
+     * through {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration,
+     * OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
+     *
+     * @param documentSource the source of a concrete representation of the document to parse
+     * @param ontology the ontology to which the parsed axioms are added
+     * @param configuration parsing options for the parser
      * @return the format of the parsed ontology
-     * @throws OWLParserException
-     *         if there was a parsing problem parsing the ontology. @throws
-     *         OWLOntologyChangeException if there was a problem updating
-     *         {@code ontology}. Typically this depends on the document being
-     *         parsed containing an ontology with an ontology IRI clashing with
-     *         one already loaded.
-     * @throws UnloadableImportException
-     *         if one or more imports could not be loaded.
+     * @throws OWLParserException if there was a parsing problem parsing the ontology. @throws
+     * OWLOntologyChangeException if there was a problem updating {@code ontology}. Typically this
+     * depends on the document being parsed containing an ontology with an ontology IRI clashing
+     * with one already loaded.
+     * @throws UnloadableImportException if one or more imports could not be loaded.
      */
     OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration);
+        OWLOntologyLoaderConfiguration configuration);
 
     /**
      * @return a unique name for the parser, typically the simple class name

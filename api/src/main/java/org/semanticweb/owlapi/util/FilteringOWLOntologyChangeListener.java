@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
@@ -22,12 +21,12 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  * listener listens to and processes axiom added and axiom removed changes. To
  * filter out axioms of interest, override the appropriate {@code visit} method
  * - see {@code OWLOntologyChangeFilter} for more details.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements OWLOntologyChangeListener {
+public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements
+    OWLOntologyChangeListener {
 
     @Override
     public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {

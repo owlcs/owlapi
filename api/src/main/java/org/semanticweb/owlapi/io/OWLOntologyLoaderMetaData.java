@@ -12,23 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import com.google.common.collect.Multimap;
 import java.io.Serializable;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.IRI;
 
-import com.google.common.collect.Multimap;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public interface OWLOntologyLoaderMetaData extends Serializable {
 
     /**
      * Gets a count of the triples process during loading.
-     * 
+     *
      * @return The number of triples process during loading.
      */
     int getTripleCount();
@@ -44,8 +41,7 @@ public interface OWLOntologyLoaderMetaData extends Serializable {
     Stream<RDFTriple> getUnparsedTriples();
 
     /**
-     * @return the guessed declarations, i.e., those not parsed from explicit
-     *         declaration axioms
+     * @return the guessed declarations, i.e., those not parsed from explicit declaration axioms
      */
     Multimap<IRI, Class<?>> getGuessedDeclarations();
 }

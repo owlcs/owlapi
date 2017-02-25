@@ -16,23 +16,24 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
-/** Builder class for SWRLIndividualArgument. */
-public class BuilderSWRLIndividualArgument extends BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
+/**
+ * Builder class for SWRLIndividualArgument.
+ */
+public class BuilderSWRLIndividualArgument extends
+    BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
 
-    @Nullable private OWLIndividual individual;
+    @Nullable
+    private OWLIndividual individual;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSWRLIndividualArgument(SWRLIndividualArgument expected, OWLDataFactory df) {
         this(df);
@@ -40,8 +41,7 @@ public class BuilderSWRLIndividualArgument extends BaseBuilder<SWRLIndividualArg
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLIndividualArgument(OWLDataFactory df) {
@@ -49,8 +49,7 @@ public class BuilderSWRLIndividualArgument extends BaseBuilder<SWRLIndividualArg
     }
 
     /**
-     * @param arg
-     *        individual
+     * @param arg individual
      * @return builder
      */
     public BuilderSWRLIndividualArgument with(OWLIndividual arg) {

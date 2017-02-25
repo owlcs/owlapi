@@ -16,15 +16,13 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
  * A ShortFormProvider based comparator for IRIs. IRIs are sorted according to
  * their short forms.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
@@ -33,8 +31,7 @@ public class IRIComparator implements Comparator<IRI>, Serializable {
     private final IRIShortFormProvider iriShortFormProvider;
 
     /**
-     * @param iriShortFormProvider
-     *        IRI short form provider
+     * @param iriShortFormProvider IRI short form provider
      */
     public IRIComparator(IRIShortFormProvider iriShortFormProvider) {
         this.iriShortFormProvider = iriShortFormProvider;
@@ -43,6 +40,6 @@ public class IRIComparator implements Comparator<IRI>, Serializable {
     @Override
     public int compare(@Nullable IRI o1, @Nullable IRI o2) {
         return iriShortFormProvider.getShortForm(verifyNotNull(o1))
-                .compareTo(iriShortFormProvider.getShortForm(verifyNotNull(o2)));
+            .compareTo(iriShortFormProvider.getShortForm(verifyNotNull(o2)));
     }
 }

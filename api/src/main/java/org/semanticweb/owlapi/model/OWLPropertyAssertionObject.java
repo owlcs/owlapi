@@ -15,9 +15,10 @@ package org.semanticweb.owlapi.model;
 /**
  * A marker interface for the types of property assertion objects (individuals
  * and literals) that are the objects of property assertions.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface OWLPropertyAssertionObject extends OWLObject {}
+public interface OWLPropertyAssertionObject extends OWLObject {
+
+}

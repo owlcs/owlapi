@@ -15,11 +15,13 @@ package org.coode.owlapi.turtle;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Jan-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         26-Jan-2008
  * @deprecated use {@link org.semanticweb.owlapi.formats.TurtleDocumentFormat}
  */
 @Deprecated
 public class TurtleOntologyFormat extends
-        org.semanticweb.owlapi.formats.TurtleDocumentFormat implements
-        PrefixOWLOntologyFormat {}
+    org.semanticweb.owlapi.formats.TurtleDocumentFormat implements
+    PrefixOWLOntologyFormat {
+
+}

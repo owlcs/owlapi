@@ -14,9 +14,8 @@ package org.semanticweb.owlapi.model;
 
 /**
  * Represents a named or anonymous individual.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, AsOWLNamedIndividual {
@@ -25,10 +24,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
      * Determines if this individual is an instance of
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this
      * method is the dual of {@link #isAnonymous()}.
-     * 
-     * @return {@code true} if this individual is an instance of
-     *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because
-     *         it is a named individuals, otherwise {@code false}
+     *
+     * @return {@code true} if this individual is an instance of {@link org.semanticweb.owlapi.model.OWLNamedIndividual}
+     * because it is a named individuals, otherwise {@code false}
      */
     default boolean isNamed() {
         return isOWLNamedIndividual();
@@ -42,10 +40,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
     /**
      * Obtains this individual an anonymous individual if it is indeed
      * anonymous.
-     * 
+     *
      * @return The individual as an anonymous individual
-     * @throws OWLRuntimeException
-     *         if this individual is named
+     * @throws OWLRuntimeException if this individual is named
      */
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
@@ -53,22 +50,19 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
      * Returns a string representation that can be used as the ID of this
      * individual. This is the toString representation of the node ID of this
      * individual
-     * 
+     *
      * @return A string representing the toString of the node ID of this entity.
      */
     String toStringID();
 
     /**
-     * @param visitor
-     *        visitor
+     * @param visitor visitor
      */
     void accept(OWLIndividualVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor
+     * @param <O> visitor return type
      * @return visitor ex type
      */
     <O> O accept(OWLIndividualVisitorEx<O> visitor);

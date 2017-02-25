@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -13,8 +12,7 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
 public interface HasIncrementalSignatureGenerationSupport extends OWLObject {
 
     /**
-     * @param entities
-     *        entity set where entities will be added
+     * @param entities entity set where entities will be added
      * @return the modified input entities
      */
     default Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
@@ -23,11 +21,11 @@ public interface HasIncrementalSignatureGenerationSupport extends OWLObject {
     }
 
     /**
-     * @param anons
-     *        anonymous individuals set where individuals will be added
+     * @param anons anonymous individuals set where individuals will be added
      * @return the modified input individuals
      */
-    default Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    default Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+        Set<OWLAnonymousIndividual> anons) {
         accept(new AnonymousIndividualCollector(anons));
         return anons;
     }

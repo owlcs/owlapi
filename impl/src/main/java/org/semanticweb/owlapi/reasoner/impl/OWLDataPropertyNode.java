@@ -15,53 +15,56 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
-
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
 
-    /** Default constructor. */
+    private static final OWLDataProperty TOP_DATA_PROPERTY;
+    private static final OWLDataPropertyNode TOP_DATA_NODE;
+    private static final OWLDataProperty BOTTOM_DATA_PROPERTY;
+    private static final OWLDataPropertyNode BOTTOM_DATA_NODE;
+
+    static {
+
+        OWLDataFactory DF = new OWLDataFactoryImpl(false);
+        TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
+        TOP_DATA_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
+        BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
+        BOTTOM_DATA_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
+    }
+
+    /**
+     * Default constructor.
+     */
     public OWLDataPropertyNode() {
         super();
     }
 
     /**
-     * @param entity
-     *        the entity to be contained
+     * @param entity the entity to be contained
      */
     public OWLDataPropertyNode(OWLDataProperty entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        the entities to be contained
+     * @param entities the entities to be contained
      */
     public OWLDataPropertyNode(Collection<OWLDataProperty> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        the entities to be contained
+     * @param entities the entities to be contained
      */
     public OWLDataPropertyNode(Stream<OWLDataProperty> entities) {
         super(entities);
-    }
-
-    @Override
-    protected Optional<OWLDataProperty> getTopEntity() {
-        return Optional.of(TOP_DATA_PROPERTY);
-    }
-
-    @Override
-    protected Optional<OWLDataProperty> getBottomEntity() {
-        return Optional.of(BOTTOM_DATA_PROPERTY);
     }
 
     /**
@@ -76,5 +79,15 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
      */
     public static OWLDataPropertyNode getBottomNode() {
         return BOTTOM_DATA_NODE;
+    }
+
+    @Override
+    protected Optional<OWLDataProperty> getTopEntity() {
+        return Optional.of(TOP_DATA_PROPERTY);
+    }
+
+    @Override
+    protected Optional<OWLDataProperty> getBottomEntity() {
+        return Optional.of(BOTTOM_DATA_PROPERTY);
     }
 }

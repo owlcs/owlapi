@@ -14,15 +14,13 @@ package org.semanticweb.owlapi.latex.renderer;
 
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class LatexRendererIOException extends LatexRendererException {
 
     /**
-     * @param cause
-     *        cause
+     * @param cause cause
      */
     public LatexRendererIOException(Exception cause) {
         super(cause);

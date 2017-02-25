@@ -14,28 +14,25 @@ package org.semanticweb.owlapitools.builders;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLSubAnnotationPropertyOfAxiom.
- * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
- * @param <I>
- *        contained items type
+ *
+ * @param <T> type built
+ * @param <B> builder type
+ * @param <I> contained items type
  */
 public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
-    @Nullable private I sub = null;
-    @Nullable private I sup = null;
+    @Nullable
+    private I sub = null;
+    @Nullable
+    private I sup = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseSubBuilder(OWLDataFactory df) {
@@ -43,8 +40,7 @@ public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        sub item
+     * @param arg sub item
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -54,8 +50,7 @@ public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends BaseBuil
     }
 
     /**
-     * @param arg
-     *        sup item
+     * @param arg sup item
      * @return builder
      */
     @SuppressWarnings("unchecked")

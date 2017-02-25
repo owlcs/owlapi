@@ -12,12 +12,93 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
-import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ANNOTATION_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ASYMMETRIC_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.BODY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.BUILT_IN_ATOM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.CLASS;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.CLASS_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.CLASS_ATOM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATATYPE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATATYPE_DEFINITION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATATYPE_RESTRICTION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_EXACT_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_HAS_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_INTERSECTION_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_MAX_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_MIN_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_ONE_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_PROPERTY_ATOM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_RANGE_ATOM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATA_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DECLARATION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DIFFERENT_INDIVIDUALS;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DIFFERENT_INDIVIDUALS_ATOM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DISJOINT_CLASSES;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DISJOINT_DATA_PROPERTIES;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DISJOINT_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DISJOINT_UNION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DL_SAFE_RULE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.EQUIVALENT_CLASSES;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.EQUIVALENT_DATA_PROPERTIES;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.EQUIVALENT_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.FUNCTIONAL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.FUNCTIONAL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.HAS_KEY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.HEAD;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.IMPORT;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.INVERSE_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.IRREFLEXIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.NAMED_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.NEGATIVE_DATA_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_EXACT_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_HAS_SELF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_HAS_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_INTERSECTION_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_INVERSE_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_MAX_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_MIN_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_ONE_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_PROPERTY_ATOM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_PROPERTY_CHAIN;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.ONTOLOGY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.REFLEXIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.SAME_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.SAME_INDIVIDUAL_ATOM;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.SUB_ANNOTATION_PROPERTY_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.SUB_CLASS_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.SUB_DATA_PROPERTY_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.SUB_OBJECT_PROPERTY_OF;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.SYMMETRIC_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.TRANSITIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.VARIABLE;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -31,11 +112,112 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyRange;
+import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
+import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -44,59 +226,23 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
  * The Class OWLObjectRenderer.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
-    class AxiomRetriever implements OWLEntityVisitorEx<Stream<? extends OWLAxiom>> {
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLClass cls) {
-            return ont.axioms(cls, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
-            return ont.axioms(individual, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
-            return ont.axioms(datatype, EXCLUDED);
-        }
-
-        @Override
-        public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
-            return ont.axioms(property, EXCLUDED);
-        }
-    }
-
-    private DefaultPrefixManager defaultPrefixManager;
-    private PrefixManager prefixManager;
     protected final OWLOntology ont;
     private final Writer writer;
+    @Nullable
+    protected AnnotationValueShortFormProvider labelMaker = null;
+    private DefaultPrefixManager defaultPrefixManager;
+    private PrefixManager prefixManager;
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
-    @Nullable protected AnnotationValueShortFormProvider labelMaker = null;
-
     /**
-     * @param ontology
-     *        the ontology
-     * @param writer
-     *        the writer
+     * @param ontology the ontology
+     * @param writer the writer
      */
     public FunctionalSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
         ont = ontology;
@@ -108,7 +254,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         addMissingDeclarations = ontologyFormat.isAddMissingTypes();
         if (ontologyFormat instanceof PrefixDocumentFormat) {
             prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
-            prefixManager.setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
+            prefixManager
+                .setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
         }
         if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix() == null) {
             String existingDefault = prefixManager.getDefaultPrefix();
@@ -125,23 +272,22 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory df = manager.getOWLDataFactory();
         OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager,
+        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
+            prefLangMap, manager,
             defaultPrefixManager);
     }
 
     /**
      * Set the add missing declaration flag.
-     * 
-     * @param flag
-     *        new value
+     *
+     * @param flag new value
      */
     public void setAddMissingDeclarations(boolean flag) {
         addMissingDeclarations = flag;
     }
 
     /**
-     * @param prefixManager
-     *        the new prefix manager
+     * @param prefixManager the new prefix manager
      */
     public void setPrefixManager(PrefixManager prefixManager) {
         this.prefixManager = prefixManager;
@@ -231,26 +377,35 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         List<OWLEntity> signature = sortOptionally(ontology.signature());
-        Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(addMissingDeclarations, signature
-            .stream(), ont.getPunnedIRIs(INCLUDED));
+        Collection<IRI> illegals = OWLDocumentFormat
+            .determineIllegalPunnings(addMissingDeclarations, signature
+                .stream(), ont.getPunnedIRIs(INCLUDED));
         signature.forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
-        writeSortedEntities("Annotation Properties", "Annotation Property", ontology.annotationPropertiesInSignature(
-            EXCLUDED), writtenAxioms);
-        writeSortedEntities("Object Properties", "Object Property", ontology.objectPropertiesInSignature(EXCLUDED),
+        writeSortedEntities("Annotation Properties", "Annotation Property",
+            ontology.annotationPropertiesInSignature(
+                EXCLUDED), writtenAxioms);
+        writeSortedEntities("Object Properties", "Object Property",
+            ontology.objectPropertiesInSignature(EXCLUDED),
             writtenAxioms);
-        writeSortedEntities("Data Properties", "Data Property", ontology.dataPropertiesInSignature(EXCLUDED),
+        writeSortedEntities("Data Properties", "Data Property",
+            ontology.dataPropertiesInSignature(EXCLUDED),
             writtenAxioms);
-        writeSortedEntities("Datatypes", "Datatype", ontology.datatypesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities("Classes", "Class", ontology.classesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities("Named Individuals", "Individual", ontology.individualsInSignature(EXCLUDED),
+        writeSortedEntities("Datatypes", "Datatype", ontology.datatypesInSignature(EXCLUDED),
+            writtenAxioms);
+        writeSortedEntities("Classes", "Class", ontology.classesInSignature(EXCLUDED),
+            writtenAxioms);
+        writeSortedEntities("Named Individuals", "Individual",
+            ontology.individualsInSignature(EXCLUDED),
             writtenAxioms);
         signature.forEach(e -> writeAxioms(e, writtenAxioms));
-        sortOptionally(ontology.axioms().filter(ax -> !writtenAxioms.contains(ax))).forEach(this::acceptAndReturn);
+        sortOptionally(ontology.axioms().filter(ax -> !writtenAxioms.contains(ax)))
+            .forEach(this::acceptAndReturn);
         writeCloseBracket();
         flush();
     }
 
-    private void writeSortedEntities(String bannerComment, String entityTypeName, Stream<? extends OWLEntity> entities,
+    private void writeSortedEntities(String bannerComment, String entityTypeName,
+        Stream<? extends OWLEntity> entities,
         Set<OWLAxiom> writtenAxioms) {
         List<? extends OWLEntity> sortOptionally = sortOptionally(entities);
         if (!sortOptionally.isEmpty()) {
@@ -264,14 +419,17 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
     }
 
-    private void writeEntities(String comment, String entityTypeName, List<? extends OWLEntity> entities,
+    private void writeEntities(String comment, String entityTypeName,
+        List<? extends OWLEntity> entities,
         Set<OWLAxiom> writtenAxioms) {
         boolean haveWrittenBanner = false;
         for (OWLEntity owlEntity : entities) {
-            List<? extends OWLAxiom> axiomsForEntity = asList(getUnsortedAxiomsForEntity(owlEntity).filter(
-                ax -> !writtenAxioms.contains(ax)));
-            List<OWLAnnotationAssertionAxiom> list = asList(ont.annotationAssertionAxioms(owlEntity.getIRI()).filter(
-                ax -> !writtenAxioms.contains(ax)));
+            List<? extends OWLAxiom> axiomsForEntity = asList(
+                getUnsortedAxiomsForEntity(owlEntity).filter(
+                    ax -> !writtenAxioms.contains(ax)));
+            List<OWLAnnotationAssertionAxiom> list = asList(
+                ont.annotationAssertionAxioms(owlEntity.getIRI()).filter(
+                    ax -> !writtenAxioms.contains(ax)));
             if (axiomsForEntity.isEmpty() && list.isEmpty()) {
                 continue;
             }
@@ -282,16 +440,16 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                 writeReturn();
                 haveWrittenBanner = true;
             }
-            writeEntity2(owlEntity, entityTypeName, sortOptionally(axiomsForEntity), sortOptionally(list),
+            writeEntity2(owlEntity, entityTypeName, sortOptionally(axiomsForEntity),
+                sortOptionally(list),
                 writtenAxioms);
         }
     }
 
     /**
      * Writes out the axioms that define the specified entity.
-     * 
-     * @param entity
-     *        The entity
+     *
+     * @param entity The entity
      * @return The set of axioms that was written out
      */
     protected Set<OWLAxiom> writeAxioms(OWLEntity entity) {
@@ -302,9 +460,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * Writes out the axioms that define the specified entity.
-     * 
-     * @param entity
-     *        The entity
+     *
+     * @param entity The entity
      * @return The set of axioms that was written out
      */
     protected Set<OWLAxiom> writeEntity(OWLEntity entity) {
@@ -314,17 +471,23 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writeEntity(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeEntity2(entity, "", sortOptionally(getUnsortedAxiomsForEntity(entity)), sortOptionally(ont
-            .annotationAssertionAxioms(entity.getIRI())), alreadyWrittenAxioms);
+        writeEntity2(entity, "", sortOptionally(getUnsortedAxiomsForEntity(entity)),
+            sortOptionally(ont
+                .annotationAssertionAxioms(entity.getIRI())), alreadyWrittenAxioms);
     }
 
-    protected void writeEntity2(OWLEntity entity, String entityTypeName, List<? extends OWLAxiom> axiomsForEntity,
-        List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms, Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity) + ")");
+    protected void writeEntity2(OWLEntity entity, String entityTypeName,
+        List<? extends OWLAxiom> axiomsForEntity,
+        List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms,
+        Set<OWLAxiom> alreadyWrittenAxioms) {
+        writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity)
+            + ")");
         writeReturn();
-        annotationAssertionAxioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
-        axiomsForEntity.stream().filter(this::shouldWrite).filter(alreadyWrittenAxioms::add).forEach(
-            this::acceptAndReturn);
+        annotationAssertionAxioms.stream().filter(alreadyWrittenAxioms::add)
+            .forEach(this::acceptAndReturn);
+        axiomsForEntity.stream().filter(this::shouldWrite).filter(alreadyWrittenAxioms::add)
+            .forEach(
+                this::acceptAndReturn);
         writeReturn();
     }
 
@@ -332,7 +495,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
             return false;
         }
-        if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES) && ((OWLDisjointClassesAxiom) ax).classExpressions()
+        if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
+            && ((OWLDisjointClassesAxiom) ax).classExpressions()
             .count() > 2) {
             return false;
         }
@@ -354,9 +518,12 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private void writeAxioms(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         writeAnnotations(entity, alreadyWrittenAxioms);
         List<OWLAxiom> writtenAxioms = new ArrayList<>();
-        Stream<? extends OWLAxiom> stream = getUnsortedAxiomsForEntity(entity).filter(alreadyWrittenAxioms::contains)
-            .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)).filter(ax -> ax.getAxiomType()
-                .equals(AxiomType.DISJOINT_CLASSES) && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2);
+        Stream<? extends OWLAxiom> stream = getUnsortedAxiomsForEntity(entity)
+            .filter(alreadyWrittenAxioms::contains)
+            .filter(ax -> ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS))
+            .filter(ax -> ax.getAxiomType()
+                .equals(AxiomType.DISJOINT_CLASSES)
+                && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2);
         sortOptionally(stream).forEach(ax -> {
             ax.accept(this);
             writtenAxioms.add(ax);
@@ -367,9 +534,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * Writes out the declaration axioms for the specified entity.
-     * 
-     * @param entity
-     *        The entity
+     *
+     * @param entity The entity
      * @return The axioms that were written out
      */
     protected Set<OWLAxiom> writeDeclarations(OWLEntity entity) {
@@ -382,17 +548,20 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         return axioms;
     }
 
-    private void writeDeclarations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms, Collection<IRI> illegals) {
+    private void writeDeclarations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms,
+        Collection<IRI> illegals) {
         Collection<OWLDeclarationAxiom> axioms = sortOptionally(ont.declarationAxioms(entity));
         axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
         // if multiple illegal declarations already exist, they have already
         // been outputted the renderer cannot take responsibility for removing
         // them. It should not add declarations for illegally punned entities
         // here, though
-        if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn() && !illegals.contains(entity.getIRI())
+        if (addMissingDeclarations && axioms.isEmpty() && !entity.isBuiltIn() && !illegals
+            .contains(entity.getIRI())
             && !ont.isDeclared(entity, Imports.INCLUDED)) {
-            OWLDeclarationAxiom declaration = ont.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(
-                entity);
+            OWLDeclarationAxiom declaration = ont.getOWLOntologyManager().getOWLDataFactory()
+                .getOWLDeclarationAxiom(
+                    entity);
             acceptAndReturn(declaration);
         }
     }
@@ -414,25 +583,23 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     /**
      * Writes of the annotation for the specified entity.
-     * 
-     * @param entity
-     *        The entity
-     * @param alreadyWrittenAxioms
-     *        already written axioms, to be updated with the newly written
-     *        axioms
+     *
+     * @param entity The entity
+     * @param alreadyWrittenAxioms already written axioms, to be updated with the newly written
+     * axioms
      */
     protected void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
-        sortOptionally(ont.annotationAssertionAxioms(entity.getIRI()).filter(alreadyWrittenAxioms::add)).forEach(
-            this::acceptAndReturn);
+        sortOptionally(
+            ont.annotationAssertionAxioms(entity.getIRI()).filter(alreadyWrittenAxioms::add))
+            .forEach(
+                this::acceptAndReturn);
     }
 
     /**
      * Write.
-     * 
-     * @param v
-     *        the v
-     * @param o
-     *        the o
+     *
+     * @param v the v
+     * @param o the o
      */
     protected void write(OWLXMLVocabulary v, OWLObject o) {
         write(v);
@@ -484,7 +651,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    protected void writePropertyCharacteristic(OWLXMLVocabulary v, OWLAxiom ax, OWLPropertyExpression prop) {
+    protected void writePropertyCharacteristic(OWLXMLVocabulary v, OWLAxiom ax,
+        OWLPropertyExpression prop) {
         writeAxiomStart(v, ax);
         prop.accept(this);
         writeAxiomEnd();
@@ -803,7 +971,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(OWLXMLVocabulary v, OWLPropertyExpression prop, OWLObject filler) {
+    private void writeRestriction(OWLXMLVocabulary v, OWLPropertyExpression prop,
+        OWLObject filler) {
         write(v);
         writeOpenBracket();
         acceptAndSpace(prop);
@@ -1208,5 +1377,38 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         acceptAndSpace(node.getFirstArgument());
         node.getSecondArgument().accept(this);
         writeCloseBracket();
+    }
+
+    class AxiomRetriever implements OWLEntityVisitorEx<Stream<? extends OWLAxiom>> {
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLClass cls) {
+            return ont.axioms(cls, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLObjectProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLDataProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLNamedIndividual individual) {
+            return ont.axioms(individual, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLDatatype datatype) {
+            return ont.axioms(datatype, EXCLUDED);
+        }
+
+        @Override
+        public Stream<? extends OWLAxiom> visit(OWLAnnotationProperty property) {
+            return ont.axioms(property, EXCLUDED);
+        }
     }
 }

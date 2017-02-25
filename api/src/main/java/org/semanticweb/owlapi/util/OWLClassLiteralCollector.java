@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
@@ -35,18 +33,15 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
     private boolean processed = false;
 
     /**
-     * @param objects
-     *        the objects to visit
+     * @param objects the objects to visit
      */
     public OWLClassLiteralCollector(Set<OWLObject> objects) {
         super(objects);
     }
 
     /**
-     * @param objects
-     *        the objects to visit
-     * @param visitDuplicates
-     *        true if duplicates must be visited
+     * @param objects the objects to visit
+     * @param visitDuplicates true if duplicates must be visited
      */
     public OWLClassLiteralCollector(Set<OWLObject> objects, boolean visitDuplicates) {
         super(objects, visitDuplicates);
@@ -77,7 +72,8 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
 
     private class OWLClassLiteralCollectorVisitor implements OWLObjectVisitor {
 
-        OWLClassLiteralCollectorVisitor() {}
+        OWLClassLiteralCollectorVisitor() {
+        }
 
         @Override
         public void visit(OWLClass ce) {

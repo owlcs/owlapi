@@ -13,13 +13,20 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Arrays;
 import java.util.Collection;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -34,26 +41,26 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotationAccessorsTestCase extends TestBase {
 
-    private static final IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
-
-    @Parameters
-    public static Collection<OWLPrimitive> getData() {
-        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT), ObjectProperty(SUBJECT),
-            Datatype(SUBJECT), AnnotationProperty(SUBJECT), AnonymousIndividual());
-    }
-
+    private static final IRI SUBJECT = IRI
+        .create("http://owlapi.sourceforge.net/ontologies/test#", "X");
     private final OWLPrimitive e;
 
     public AnnotationAccessorsTestCase(OWLPrimitive e) {
         this.e = e;
+    }
+
+    @Parameters
+    public static Collection<OWLPrimitive> getData() {
+        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT),
+            ObjectProperty(SUBJECT),
+            Datatype(SUBJECT), AnnotationProperty(SUBJECT), AnonymousIndividual());
     }
 
     private static OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
@@ -69,7 +76,8 @@ public class AnnotationAccessorsTestCase extends TestBase {
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
-            assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI()).anyMatch(a -> a.equals(ax)));
+            assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
+                .anyMatch(a -> a.equals(ax)));
             assertTrue(contains(getAnnotationObjects((OWLEntity) e, ont), ax.getAnnotation()));
         }
     }

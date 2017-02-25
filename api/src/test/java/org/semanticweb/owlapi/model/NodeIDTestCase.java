@@ -1,6 +1,8 @@
 package org.semanticweb.owlapi.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -51,14 +53,17 @@ public class NodeIDTestCase {
 
     @Test
     public void shouldbuildNode() {
-        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID("_:sometest_genid_something").getID()));
-        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID("http://sometest_genid_something").getID()));
+        assertTrue(
+            NodeID.isAnonymousNodeIRI(NodeID.getNodeID("_:sometest_genid_something").getID()));
+        assertTrue(
+            NodeID.isAnonymousNodeIRI(NodeID.getNodeID("http://sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null).getID()));
         NodeID id = NodeID.getNodeID(null);
         assertEquals(id.getID(), id.toString());
         assertEquals(NodeID.getNodeID("somestring"), NodeID.getNodeID("somestring"));
-        assertEquals(NodeID.getNodeID("somestring").compareTo(NodeID.getNodeID("someotherstring")), "somestring"
-            .compareTo("someotherstring"));
+        assertEquals(NodeID.getNodeID("somestring").compareTo(NodeID.getNodeID("someotherstring")),
+            "somestring"
+                .compareTo("someotherstring"));
         assertEquals(id.hashCode(), id.toString().hashCode());
     }
 }

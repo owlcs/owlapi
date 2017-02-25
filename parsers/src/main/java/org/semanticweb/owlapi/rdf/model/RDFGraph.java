@@ -12,9 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import com.google.common.collect.Sets;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
@@ -25,7 +27,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -35,27 +36,33 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import com.google.common.collect.Sets;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFGraph implements Serializable {
 
-    private static final Set<IRI> skippedPredicates = Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+    private static final Set<IRI> skippedPredicates = Sets
+        .newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
 
     /**
+     * @param predicate predicate to check for inclusion
+     * @return true if the predicate IRI is not in the set of predicates that should be skipped from
+     * blank node reuse analysis.
+     */
+    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
+        return !skippedPredicates.contains(predicate.getIRI());
+    }
+
+    /**
      * Determines if this graph is empty (i.e. whether or not it contains any
      * triples).
-     * 
-     * @return {@code true} if the graph contains triples, otherwise
-     *         {@code false}
+     *
+     * @return {@code true} if the graph contains triples, otherwise {@code false}
      * @since 3.5
      */
     public boolean isEmpty() {
@@ -63,8 +70,7 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @param triple
-     *        triple to add
+     * @param triple triple to add
      */
     public void addTriple(RDFTriple triple) {
         checkNotNull(triple, "triple cannot be null");
@@ -80,8 +86,7 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @param subject
-     *        subject
+     * @param subject subject
      * @return sorted triples
      */
     public Collection<RDFTriple> getTriplesForSubject(RDFNode subject) {
@@ -99,14 +104,15 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @return for each triple with a blank node object that is shared with
-     *         other triples, compute a remapping of the node.
+     * @return for each triple with a blank node object that is shared with other triples, compute a
+     * remapping of the node.
      */
     public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = createMap();
         Map<RDFNode, List<RDFTriple>> sharers = createMap();
         for (RDFTriple t : triples) {
-            if (t.getObject().isAnonymous() && !t.getObject().isIndividual() && notInSkippedPredicates(t
+            if (t.getObject().isAnonymous() && !t.getObject().isIndividual()
+                && notInSkippedPredicates(t
                 .getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
@@ -120,7 +126,8 @@ public class RDFGraph implements Serializable {
             if (e.getValue().size() > 1) {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
-                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(IRI.create(NodeID.nextAnonymousIRI()), e
+                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(
+                        IRI.create(NodeID.nextAnonymousIRI()), e
                         .getKey().isIndividual(), e.getKey().shouldOutputId());
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
@@ -128,16 +135,6 @@ public class RDFGraph implements Serializable {
             }
         }
         return toReturn;
-    }
-
-    /**
-     * @param predicate
-     *        predicate to check for inclusion
-     * @return true if the predicate IRI is not in the set of predicates that
-     *         should be skipped from blank node reuse analysis.
-     */
-    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
-        return !skippedPredicates.contains(predicate.getIRI());
     }
 
     /**
@@ -165,10 +162,8 @@ public class RDFGraph implements Serializable {
     }
 
     /**
-     * @param w
-     *        writer to write to
-     * @throws IOException
-     *         if exceptions happen
+     * @param w writer to write to
+     * @throws IOException if exceptions happen
      */
     public void dumpTriples(Writer w) throws IOException {
         checkNotNull(w, "w cannot be null");

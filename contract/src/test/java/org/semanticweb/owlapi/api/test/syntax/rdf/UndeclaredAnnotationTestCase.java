@@ -1,13 +1,12 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -39,20 +38,28 @@ public class UndeclaredAnnotationTestCase extends TestBase {
         OWLOntology oo = loadOntologyFromString(input);
         RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo.getNonnullFormat();
         assertTrue(format.getOntologyLoaderMetaData().isPresent());
-        assertEquals("Should have no unparsed triples", 0, format.getOntologyLoaderMetaData().get().getUnparsedTriples()
-            .count());
-        Set<OWLAnnotationAssertionAxiom> annotationAxioms = asUnorderedSet(oo.axioms(AxiomType.ANNOTATION_ASSERTION));
+        assertEquals("Should have no unparsed triples", 0,
+            format.getOntologyLoaderMetaData().get().getUnparsedTriples()
+                .count());
+        Set<OWLAnnotationAssertionAxiom> annotationAxioms = asUnorderedSet(
+            oo.axioms(AxiomType.ANNOTATION_ASSERTION));
         assertEquals("annotation axiom count should be 2", 2, annotationAxioms.size());
-        OWLAnnotationProperty relProperty = df.getOWLAnnotationProperty("http://example.com/ns#", "rel");
-        OWLAnnotationProperty predProperty = df.getOWLAnnotationProperty("http://example.com/ns#", "pred");
-        Set<OWLAnonymousIndividual> anonymousIndividualSet = asUnorderedSet(oo.anonymousIndividuals());
+        OWLAnnotationProperty relProperty = df
+            .getOWLAnnotationProperty("http://example.com/ns#", "rel");
+        OWLAnnotationProperty predProperty = df
+            .getOWLAnnotationProperty("http://example.com/ns#", "pred");
+        Set<OWLAnonymousIndividual> anonymousIndividualSet = asUnorderedSet(
+            oo.anonymousIndividuals());
         assertEquals("should be one anonymous individual", 1, anonymousIndividualSet.size());
-        @Nonnull OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet.iterator().next();
-        OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(relProperty, IRI.create(
-            "http://example.com/ns#", "test"), anonymousIndividual);
+        @Nonnull OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet.iterator()
+            .next();
+        OWLAnnotationAssertionAxiom relAx = df
+            .getOWLAnnotationAssertionAxiom(relProperty, IRI.create(
+                "http://example.com/ns#", "test"), anonymousIndividual);
         OWLLiteral notVisible = df.getOWLLiteral("Not visible", "");
-        OWLAnnotationAssertionAxiom predAx = df.getOWLAnnotationAssertionAxiom(predProperty, anonymousIndividual,
-            notVisible);
+        OWLAnnotationAssertionAxiom predAx = df
+            .getOWLAnnotationAssertionAxiom(predProperty, anonymousIndividual,
+                notVisible);
         assertTrue("should contain relax", annotationAxioms.contains(relAx));
         assertTrue("should contain predax", annotationAxioms.contains(predAx));
     }
@@ -62,9 +69,11 @@ public class UndeclaredAnnotationTestCase extends TestBase {
         String input = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
             + "        @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
             + "        @prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
-            + "        @prefix ex: <http://www.example.org/> .\n" + "        [] rdfs:label \"Visible\" ;\n"
+            + "        @prefix ex: <http://www.example.org/> .\n"
+            + "        [] rdfs:label \"Visible\" ;\n"
             + "           ex:pred ex:Visible ;\n" + "           ex:pred \"Not visible\" .\n"
-            + "        ex:subj rdfs:label \"Visible\" .\n" + "        ex:subj ex:pred \"Visible\" .";
+            + "        ex:subj rdfs:label \"Visible\" .\n"
+            + "        ex:subj ex:pred \"Visible\" .";
         OWLOntology o = loadOntologyFromString(input);
         OWLAnnotationProperty pred = df.getOWLAnnotationProperty("http://www.example.org/", "pred");
         AtomicInteger countLabels = new AtomicInteger();
@@ -87,16 +96,21 @@ public class UndeclaredAnnotationTestCase extends TestBase {
     }
 
     @Test
-    public void shouldThrowAnExceptionOnError1AndStrictParsing() throws OWLOntologyCreationException {
-        String input = " @prefix : <http://www.example.com#> .\n" + " @prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+    public void shouldThrowAnExceptionOnError1AndStrictParsing()
+        throws OWLOntologyCreationException {
+        String input = " @prefix : <http://www.example.com#> .\n"
+            + " @prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
             + " @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
             + " @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
-            + " @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n" + "<urn:test:testonotlogy> a owl:Ontology ."
-            + " :subject rdf:type owl:Class ;\n" + "   rdfs:subClassOf [ rdf:type owl:Restriction ;\n"
+            + " @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            + "<urn:test:testonotlogy> a owl:Ontology ."
+            + " :subject rdf:type owl:Class ;\n"
+            + "   rdfs:subClassOf [ rdf:type owl:Restriction ;\n"
             + "                owl:onProperty :unknownproperty;\n"
             + "                owl:minCardinality \"0\"^^xsd:nonNegativeInteger\n" + "   ] .";
-        OWLOntology o = loadOntologyWithConfig(new StringDocumentSource(input), new OWLOntologyLoaderConfiguration()
-            .setStrict(true));
+        OWLOntology o = loadOntologyWithConfig(new StringDocumentSource(input),
+            new OWLOntologyLoaderConfiguration()
+                .setStrict(true));
         assertEquals(0, o.getLogicalAxiomCount());
     }
 }

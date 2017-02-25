@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,9 +22,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -34,21 +33,21 @@ import org.tukaani.xz.XZInputStream;
 
 /**
  * An ontology document source which can read from a XZ stream.
- * 
+ *
  * @author ses
  * @since 4.0.2
  */
 public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XZStreamDocumentSource.class);
-    @Nullable private byte[] buffer;
+    @Nullable
+    private byte[] buffer;
 
     /**
      * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      *
-     * @param is
-     *        The stream that the ontology representation will be read from.
+     * @param is The stream that the ontology representation will be read from.
      */
     public XZStreamDocumentSource(InputStream is) {
         super("xzinputstream:ontology", null, null);
@@ -59,16 +58,13 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      *
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param stream The stream that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
-    public XZStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+    public XZStreamDocumentSource(InputStream stream, IRI documentIRI,
+        @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);

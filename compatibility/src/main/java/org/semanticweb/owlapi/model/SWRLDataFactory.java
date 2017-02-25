@@ -16,11 +16,12 @@ import org.semanticweb.owlapi.model.providers.SWRLProvider;
 
 /**
  * An interface to a factory that can create SWRL objects.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  * @deprecated use SWRLProvider
  */
 @Deprecated
-public interface SWRLDataFactory extends SWRLProvider {}
+public interface SWRLDataFactory extends SWRLProvider {
+
+}

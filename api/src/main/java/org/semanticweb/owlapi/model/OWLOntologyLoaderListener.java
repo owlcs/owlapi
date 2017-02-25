@@ -13,25 +13,21 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 /**
  * Receives notification of ontology loading starting and finishing from a
  * manager.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface OWLOntologyLoaderListener extends Serializable {
 
     /**
      * Called when the process of attempting to load an ontology starts.
-     * 
-     * @param event
-     *        The loading started event that describes the ontologt that is
-     *        being loaded.
+     *
+     * @param event The loading started event that describes the ontologt that is being loaded.
      */
     void startedLoadingOntology(LoadingStartedEvent event);
 
@@ -40,14 +36,14 @@ public interface OWLOntologyLoaderListener extends Serializable {
      * will be called regardless of whether the ontology could be loaded or not
      * - it merely indicates that the process of attempting to load an ontology
      * has finished.
-     * 
-     * @param event
-     *        The loading finished event that describes the ontology that was
-     *        loaded.
+     *
+     * @param event The loading finished event that describes the ontology that was loaded.
      */
     void finishedLoadingOntology(LoadingFinishedEvent event);
 
-    /** Loading event. */
+    /**
+     * Loading event.
+     */
     class LoadingEvent {
 
         private final OWLOntologyID ontologyID;
@@ -62,7 +58,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
 
         /**
          * Gets the ID of the ontology being loaded.
-         * 
+         *
          * @return The ontology ID.
          */
         public OWLOntologyID getOntologyID() {
@@ -71,9 +67,8 @@ public interface OWLOntologyLoaderListener extends Serializable {
 
         /**
          * Gets the document IRI for the ontology being loaded.
-         * 
-         * @return The document IRI that describes where the ontology was loaded
-         *         from.
+         *
+         * @return The document IRI that describes where the ontology was loaded from.
          */
         public IRI getDocumentIRI() {
             return documentIRI;
@@ -82,18 +77,19 @@ public interface OWLOntologyLoaderListener extends Serializable {
         /**
          * Determines if the ontology was loaded because of an imports
          * statement.
-         * 
-         * @return {@code true} if the ontology was loaded because it was
-         *         imported by another ontology, or {@code false} if the
-         *         ontology was loaded by a direct load request on
-         *         OWLOntologyManager.
+         *
+         * @return {@code true} if the ontology was loaded because it was imported by another
+         * ontology, or {@code false} if the ontology was loaded by a direct load request on
+         * OWLOntologyManager.
          */
         public boolean isImported() {
             return imported;
         }
     }
 
-    /** Loading start event. */
+    /**
+     * Loading start event.
+     */
     class LoadingStartedEvent extends LoadingEvent {
 
         public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
@@ -107,7 +103,8 @@ public interface OWLOntologyLoaderListener extends Serializable {
      */
     class LoadingFinishedEvent extends LoadingEvent {
 
-        @Nullable private final Exception ex;
+        @Nullable
+        private final Exception ex;
 
         public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported,
             @Nullable Exception ex) {
@@ -117,12 +114,10 @@ public interface OWLOntologyLoaderListener extends Serializable {
 
         /**
          * Determines if the ontology was successfully loaded.
-         * 
-         * @return {@code true} if the ontology was successfully loaded,
-         *         {@code false} if the ontology was not successfully loaded.
-         *         Note that an ontology being successfully loaded does not
-         *         imply that any ontologies that the ontology imports were
-         *         successfully loaded.
+         *
+         * @return {@code true} if the ontology was successfully loaded, {@code false} if the
+         * ontology was not successfully loaded. Note that an ontology being successfully loaded
+         * does not imply that any ontologies that the ontology imports were successfully loaded.
          */
         public boolean isSuccessful() {
             return ex == null;
@@ -132,10 +127,9 @@ public interface OWLOntologyLoaderListener extends Serializable {
          * If the ontology was not loaded successfully then this method can be
          * used to access the exception that describes why the ontology was not
          * loaded successfully.
-         * 
-         * @return The exception that describes why the ontology was not loaded
-         *         successfully, or {@code null} if the ontology was loaded
-         *         successfully.
+         *
+         * @return The exception that describes why the ontology was not loaded successfully, or
+         * {@code null} if the ontology was loaded successfully.
          */
         @Nullable
         public Exception getException() {

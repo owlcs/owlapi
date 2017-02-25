@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.oboformat;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -21,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics Group
  * @since 3.4.10
  */
 public class OBOFormatStorer extends AbstractOWLStorer {
@@ -34,7 +32,7 @@ public class OBOFormatStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         OBOFormatRenderer.render(ontology, writer, format);
     }
 }

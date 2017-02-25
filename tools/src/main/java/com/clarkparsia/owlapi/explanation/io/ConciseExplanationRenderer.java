@@ -12,28 +12,36 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-/** Explanation renderer in concise form. */
+/**
+ * Explanation renderer in concise form.
+ */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
 
-    /** The Constant INDENT. */
+    /**
+     * The Constant INDENT.
+     */
     private static final String INDENT = "   ";
-    /** The renderer. */
+    /**
+     * The renderer.
+     */
     private final SimpleRenderer renderer = new SimpleRenderer();
-    /** The writer. */
-    @Nullable private Writer printWriter;
+    /**
+     * The writer.
+     */
+    @Nullable
+    private Writer printWriter;
 
     @Override
     public void startRendering(Writer writer) {

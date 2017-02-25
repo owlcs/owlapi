@@ -7,11 +7,34 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** The Class AxiomConverter. */
+/**
+ * The Class AxiomConverter.
+ */
 class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     private final OWLDataFactory factory;
@@ -19,6 +42,13 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     AxiomConverter(OWLDataFactory df) {
         super();
         factory = df;
+    }
+
+    private static <T> Set<T> set(T desc1, T desc2) {
+        Set<T> set = new HashSet<>();
+        set.add(desc1);
+        set.add(desc2);
+        return set;
     }
 
     private OWLObjectIntersectionOf and(OWLClassExpression desc1, OWLClassExpression desc2) {
@@ -39,13 +69,6 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     private OWLObjectUnionOf or(OWLClassExpression desc1, OWLClassExpression desc2) {
         return factory.getOWLObjectUnionOf(set(desc1, desc2));
-    }
-
-    private static <T> Set<T> set(T desc1, T desc2) {
-        Set<T> set = new HashSet<>();
-        set.add(desc1);
-        set.add(desc2);
-        return set;
     }
 
     @Override
@@ -70,13 +93,15 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     @Override
     public OWLClassExpression visit(OWLDataPropertyDomainAxiom axiom) {
-        OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype());
+        OWLClassExpression sub = factory
+            .getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype());
         return and(sub, not(axiom.getDomain()));
     }
 
     @Override
     public OWLClassExpression visit(OWLDataPropertyRangeAxiom axiom) {
-        return factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getOWLDataComplementOf(axiom.getRange()));
+        return factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
+            factory.getOWLDataComplementOf(axiom.getRange()));
     }
 
     @Override
@@ -121,14 +146,16 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     @Override
     public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         OWLClassExpression sub = oneOf(axiom.getSubject());
-        OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
+        OWLClassExpression sup = factory
+            .getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
         return factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
     }
 
     @Override
     public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom axiom) {
         OWLClassExpression sub = oneOf(axiom.getSubject());
-        OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
+        OWLClassExpression sup = factory
+            .getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
         OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
         return ax.accept(this);
     }
@@ -136,7 +163,7 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     @Override
     public OWLClassExpression visit(OWLObjectPropertyDomainAxiom axiom) {
         return and(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
-                not(axiom.getDomain()));
+            not(axiom.getDomain()));
     }
 
     @Override

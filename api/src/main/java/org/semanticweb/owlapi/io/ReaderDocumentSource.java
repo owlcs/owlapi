@@ -13,17 +13,14 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Reader;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * An ontology document source which reads an ontology from a reader.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ReaderDocumentSource extends StreamDocumentSourceBase {
@@ -31,9 +28,8 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
     /**
      * Constructs and ontology input source which will read an ontology from a
      * reader.
-     * 
-     * @param reader
-     *        The reader that will be used to read an ontology.
+     *
+     * @param reader The reader that will be used to read an ontology.
      */
     public ReaderDocumentSource(Reader reader) {
         super(reader, "reader:ontology", null, null);
@@ -42,12 +38,10 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
     /**
      * Constructs and ontology input source which will read an ontology from a
      * reader.
-     * 
-     * @param reader
-     *        The reader that will be used to read an ontology.
-     * @param iri
-     *        The ontology document IRI which will be used as the base of the
-     *        document if needed.
+     *
+     * @param reader The reader that will be used to read an ontology.
+     * @param iri The ontology document IRI which will be used as the base of the document if
+     * needed.
      */
     public ReaderDocumentSource(Reader reader, IRI iri) {
         super(reader, iri, null, null);
@@ -56,18 +50,15 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
     /**
      * Constructs and ontology input source which will read an ontology from a
      * reader.
-     * 
-     * @param reader
-     *        The reader that will be used to read an ontology.
-     * @param iri
-     *        The ontology document IRI which will be used as the base of the
-     *        document if needed.
-     * @param f
-     *        ontology format
-     * @param mime
-     *        mime type
+     *
+     * @param reader The reader that will be used to read an ontology.
+     * @param iri The ontology document IRI which will be used as the base of the document if
+     * needed.
+     * @param f ontology format
+     * @param mime mime type
      */
-    public ReaderDocumentSource(Reader reader, IRI iri, @Nullable OWLDocumentFormat f, @Nullable String mime) {
+    public ReaderDocumentSource(Reader reader, IRI iri, @Nullable OWLDocumentFormat f,
+        @Nullable String mime) {
         super(reader, iri, f, mime);
     }
 }

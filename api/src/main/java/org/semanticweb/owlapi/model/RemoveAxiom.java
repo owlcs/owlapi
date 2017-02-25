@@ -13,24 +13,20 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
 /**
  * Represents an ontology change were an axiom will be removed from an ontology
  * if the change is applied to an ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RemoveAxiom extends OWLAxiomChange {
 
     /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param axiom
-     *        the axiom to be removed
+     * @param ont the ontology to which the change is to be applied
+     * @param axiom the axiom to be removed
      */
     public RemoveAxiom(OWLOntology ont, OWLAxiom axiom) {
         super(ont, axiom);
@@ -70,7 +66,8 @@ public class RemoveAxiom extends OWLAxiomChange {
 
     @Override
     public String toString() {
-        return String.format("RemoveAxiom(%s OntologyID(%s))", getAxiom(), getOntology().getOntologyID());
+        return String
+            .format("RemoveAxiom(%s OntologyID(%s))", getAxiom(), getOntology().getOntologyID());
     }
 
     @Override

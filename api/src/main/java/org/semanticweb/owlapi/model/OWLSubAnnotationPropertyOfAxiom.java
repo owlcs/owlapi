@@ -18,15 +18,14 @@ import java.util.stream.Stream;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties" >
  * SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
     @Override
-        OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
+    OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> components() {
@@ -50,17 +49,15 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
     /**
      * Gets the subproperty of this axiom.
-     * 
-     * @return The annotation property that represents the subproperty in this
-     *         axiom.
+     *
+     * @return The annotation property that represents the subproperty in this axiom.
      */
     OWLAnnotationProperty getSubProperty();
 
     /**
      * Gets the superproperty of this axiom.
-     * 
-     * @return The annotation property that represents the superproperty in this
-     *         axiom.
+     *
+     * @return The annotation property that represents the superproperty in this axiom.
      */
     OWLAnnotationProperty getSuperProperty();
 

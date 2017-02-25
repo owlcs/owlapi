@@ -12,12 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.search.EntitySearcher.*;
+import static org.semanticweb.owlapi.search.EntitySearcher.getEquivalentClasses;
+import static org.semanticweb.owlapi.search.EntitySearcher.getSubClasses;
 
 import java.util.List;
 import java.util.function.Predicate;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is
@@ -25,9 +30,8 @@ import org.semanticweb.owlapi.model.*;
  * equivalent class axiom and a subclass axioms where the LHS of the subclass
  * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
  * in a "hidden" GCI.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
 public class HiddenGCICount extends IntegerValuedMetric {
@@ -39,9 +43,8 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
     /**
      * Instantiates a new hidden gci count.
-     * 
-     * @param o
-     *        ontology to use
+     *
+     * @param o ontology to use
      */
     public HiddenGCICount(OWLOntology o) {
         super(o);
@@ -49,14 +52,16 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return changes.stream().filter(OWLOntologyChange::isAxiomChange).map(OWLOntologyChange::getAxiom)
+        return changes.stream().filter(OWLOntologyChange::isAxiomChange)
+            .map(OWLOntologyChange::getAxiom)
             .anyMatch(equivalentOrSubclass);
     }
 
     @Override
     protected Integer recomputeMetric() {
-        return Integer.valueOf((int) getOntologies().flatMap(OWLOntology::classesInSignature).distinct()
-            .filter(hasEquivalent).filter(isSubclass).count());
+        return Integer
+            .valueOf((int) getOntologies().flatMap(OWLOntology::classesInSignature).distinct()
+                .filter(hasEquivalent).filter(isSubclass).count());
     }
 
     @Override

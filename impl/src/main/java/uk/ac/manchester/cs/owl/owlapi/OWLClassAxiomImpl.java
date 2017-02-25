@@ -13,20 +13,17 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLClassAxiomImpl extends OWLLogicalAxiomImpl implements OWLClassAxiom {
 
     /**
-     * @param annotations
-     *        annotations on the axiom
+     * @param annotations annotations on the axiom
      */
     protected OWLClassAxiomImpl(Collection<OWLAnnotation> annotations) {
         super(annotations);

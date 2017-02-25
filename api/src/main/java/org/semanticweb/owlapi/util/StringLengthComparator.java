@@ -16,7 +16,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 
-/** String comparator that takes length into account before natural ordering. */
+/**
+ * String comparator that takes length into account before natural ordering.
+ */
 public class StringLengthComparator implements StringComparator {
 
     @Override

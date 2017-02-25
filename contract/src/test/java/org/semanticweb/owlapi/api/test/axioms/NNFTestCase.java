@@ -13,7 +13,18 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectAllValuesFrom;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectComplementOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectHasValue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectIntersectionOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectMaxCardinality;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectMinCardinality;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectOneOf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectUnionOf;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -26,12 +37,23 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 public class NNFTestCase extends TestBase {
+
+    private final OWLClass clsA = Class(iri("A"));
+    private final OWLClass clsB = Class(iri("B"));
+    private final OWLClass clsC = Class(iri("C"));
+    private final OWLClass clsD = Class(iri("D"));
+    private final OWLObjectProperty propP = ObjectProperty(iri("p"));
+    private final OWLNamedIndividual indA = NamedIndividual(iri("a"));
+
+    private static OWLClassExpression getNNF(OWLClassExpression classExpression) {
+        NNF nnf = new NNF(df);
+        return classExpression.accept(nnf.getClassVisitor());
+    }
 
     @Test
     public void testPosOWLClass() {
@@ -79,15 +101,18 @@ public class NNFTestCase extends TestBase {
 
     @Test
     public void testPosObjectIntersectionOf() {
-        OWLClassExpression cls = ObjectIntersectionOf(Class(iri("A")), Class(iri("B")), Class(iri("C")));
+        OWLClassExpression cls = ObjectIntersectionOf(Class(iri("A")), Class(iri("B")),
+            Class(iri("C")));
         assertEquals(cls.getNNF(), cls);
     }
 
     @Test
     public void testNegObjectIntersectionOf() {
-        OWLClassExpression cls = ObjectComplementOf(ObjectIntersectionOf(Class(iri("A")), Class(iri("B")), Class(iri(
-            "C"))));
-        OWLClassExpression nnf = ObjectUnionOf(ObjectComplementOf(Class(iri("A"))), ObjectComplementOf(Class(iri("B"))),
+        OWLClassExpression cls = ObjectComplementOf(
+            ObjectIntersectionOf(Class(iri("A")), Class(iri("B")), Class(iri(
+                "C"))));
+        OWLClassExpression nnf = ObjectUnionOf(ObjectComplementOf(Class(iri("A"))),
+            ObjectComplementOf(Class(iri("B"))),
             ObjectComplementOf(Class(iri("C"))));
         assertEquals(cls.getNNF(), nnf);
     }
@@ -100,9 +125,11 @@ public class NNFTestCase extends TestBase {
 
     @Test
     public void testNegObjectUnionOf() {
-        OWLClassExpression cls = ObjectComplementOf(ObjectUnionOf(Class(iri("A")), Class(iri("B")), Class(iri("C"))));
-        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(Class(iri("A"))), ObjectComplementOf(Class(iri(
-            "B"))), ObjectComplementOf(Class(iri("C"))));
+        OWLClassExpression cls = ObjectComplementOf(
+            ObjectUnionOf(Class(iri("A")), Class(iri("B")), Class(iri("C"))));
+        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(Class(iri("A"))),
+            ObjectComplementOf(Class(iri(
+                "B"))), ObjectComplementOf(Class(iri("C"))));
         assertEquals(cls.getNNF(), nnf);
     }
 
@@ -140,18 +167,6 @@ public class NNFTestCase extends TestBase {
         assertEquals(cls.getNNF(), nnf);
     }
 
-    private final OWLClass clsA = Class(iri("A"));
-    private final OWLClass clsB = Class(iri("B"));
-    private final OWLClass clsC = Class(iri("C"));
-    private final OWLClass clsD = Class(iri("D"));
-    private final OWLObjectProperty propP = ObjectProperty(iri("p"));
-    private final OWLNamedIndividual indA = NamedIndividual(iri("a"));
-
-    private static OWLClassExpression getNNF(OWLClassExpression classExpression) {
-        NNF nnf = new NNF(df);
-        return classExpression.accept(nnf.getClassVisitor());
-    }
-
     @Test
     public void testNamedClass() {
         OWLClassExpression desc = clsA;
@@ -173,7 +188,8 @@ public class NNFTestCase extends TestBase {
     public void testObjectUnionOf() {
         OWLClassExpression desc = ObjectUnionOf(clsA, clsB);
         OWLClassExpression neg = ObjectComplementOf(desc);
-        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(clsA), ObjectComplementOf(clsB));
+        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(clsA),
+            ObjectComplementOf(clsB));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(nnf, comp);
     }
@@ -247,8 +263,9 @@ public class NNFTestCase extends TestBase {
         OWLClassExpression opA = ObjectSomeValuesFrom(propP, fillerA);
         OWLClassExpression opB = clsB;
         OWLClassExpression desc = ObjectUnionOf(opA, opB);
-        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(clsB), ObjectAllValuesFrom(propP,
-            ObjectIntersectionOf(ObjectComplementOf(clsA), ObjectComplementOf(clsB))));
+        OWLClassExpression nnf = ObjectIntersectionOf(ObjectComplementOf(clsB),
+            ObjectAllValuesFrom(propP,
+                ObjectIntersectionOf(ObjectComplementOf(clsA), ObjectComplementOf(clsB))));
         OWLClassExpression neg = ObjectComplementOf(desc);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(comp, nnf);
@@ -256,10 +273,12 @@ public class NNFTestCase extends TestBase {
 
     @Test
     public void testNestedB() {
-        OWLClassExpression desc = ObjectIntersectionOf(ObjectIntersectionOf(clsA, clsB), ObjectComplementOf(
-            ObjectUnionOf(clsC, clsD)));
+        OWLClassExpression desc = ObjectIntersectionOf(ObjectIntersectionOf(clsA, clsB),
+            ObjectComplementOf(
+                ObjectUnionOf(clsC, clsD)));
         OWLClassExpression neg = ObjectComplementOf(desc);
-        OWLClassExpression nnf = ObjectUnionOf(ObjectUnionOf(ObjectComplementOf(clsA), ObjectComplementOf(clsB)),
+        OWLClassExpression nnf = ObjectUnionOf(
+            ObjectUnionOf(ObjectComplementOf(clsA), ObjectComplementOf(clsB)),
             ObjectUnionOf(clsC, clsD));
         OWLClassExpression comp = getNNF(neg);
         assertEquals(comp, nnf);

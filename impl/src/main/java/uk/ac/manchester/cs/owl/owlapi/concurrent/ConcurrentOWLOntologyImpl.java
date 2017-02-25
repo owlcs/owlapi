@@ -22,9 +22,90 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.ChangeDetails;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import org.semanticweb.owlapi.model.OWLMutableOntology;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLPrimitive;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.model.parameters.Navigation;
+import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 
 /**
  * Matthew Horridge
@@ -32,20 +113,10 @@ import javax.inject.Inject;
  * 08/04/15
  */
 
-import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
-import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.model.parameters.Navigation;
-import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
-
-import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
-
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
-@SuppressWarnings({ "deprecation" })
+@SuppressWarnings({"deprecation"})
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToSize {
 
     private final OWLOntology delegate;
@@ -55,14 +126,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     /**
      * Constructs a ConcurrentOWLOntology that provides concurrent access to a
      * delegate {@link OWLOntology}.
-     * 
-     * @param delegate
-     *        The delegate {@link OWLOntology}.
-     * @param readWriteLock
-     *        The {@link java.util.concurrent.locks.ReadWriteLock} that will
-     *        provide the locking.
-     * @throws java.lang.NullPointerException
-     *         if any parameters are {@code null}.
+     *
+     * @param delegate The delegate {@link OWLOntology}.
+     * @param readWriteLock The {@link java.util.concurrent.locks.ReadWriteLock} that will provide
+     * the locking.
+     * @throws java.lang.NullPointerException if any parameters are {@code null}.
      */
     @Inject
     public ConcurrentOWLOntologyImpl(OWLOntology delegate, ReadWriteLock readWriteLock) {
@@ -440,7 +508,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public void saveOntology(OWLDocumentFormat owlDocumentFormat) throws OWLOntologyStorageException {
+    public void saveOntology(OWLDocumentFormat owlDocumentFormat)
+        throws OWLOntologyStorageException {
         readLock.lock();
         try {
             delegate.saveOntology(owlDocumentFormat);
@@ -450,7 +519,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public void saveOntology(OWLDocumentFormat owlDocumentFormat, IRI iri) throws OWLOntologyStorageException {
+    public void saveOntology(OWLDocumentFormat owlDocumentFormat, IRI iri)
+        throws OWLOntologyStorageException {
         readLock.lock();
         try {
             delegate.saveOntology(owlDocumentFormat, iri);
@@ -471,7 +541,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public void saveOntology(OWLOntologyDocumentTarget owlOntologyDocumentTarget) throws OWLOntologyStorageException {
+    public void saveOntology(OWLOntologyDocumentTarget owlOntologyDocumentTarget)
+        throws OWLOntologyStorageException {
         readLock.lock();
         try {
             delegate.saveOntology(owlOntologyDocumentTarget);
@@ -481,7 +552,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public void saveOntology(OWLDocumentFormat owlDocumentFormat, OWLOntologyDocumentTarget owlOntologyDocumentTarget)
+    public void saveOntology(OWLDocumentFormat owlDocumentFormat,
+        OWLOntologyDocumentTarget owlOntologyDocumentTarget)
         throws OWLOntologyStorageException {
         readLock.lock();
         try {
@@ -702,7 +774,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public boolean containsAxiom(OWLAxiom owlAxiom, Imports imports, AxiomAnnotations axiomAnnotations) {
+    public boolean containsAxiom(OWLAxiom owlAxiom, Imports imports,
+        AxiomAnnotations axiomAnnotations) {
         readLock.lock();
         try {
             return delegate.containsAxiom(owlAxiom, imports, axiomAnnotations);
@@ -762,7 +835,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression owlObjectPropertyExpression,
+    public Set<OWLObjectPropertyAxiom> getAxioms(
+        OWLObjectPropertyExpression owlObjectPropertyExpression,
         Imports imports) {
         readLock.lock();
         try {
@@ -793,7 +867,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty owlAnnotationProperty, Imports imports) {
+    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty owlAnnotationProperty,
+        Imports imports) {
         readLock.lock();
         try {
             return delegate.getAxioms(owlAnnotationProperty, imports);
@@ -994,7 +1069,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression owlObjectPropertyExpression, boolean b) {
+    public Set<OWLObjectPropertyAxiom> getAxioms(
+        OWLObjectPropertyExpression owlObjectPropertyExpression, boolean b) {
         readLock.lock();
         try {
             return delegate.getAxioms(owlObjectPropertyExpression, b);
@@ -1024,7 +1100,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty owlAnnotationProperty, boolean b) {
+    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty owlAnnotationProperty,
+        boolean b) {
         readLock.lock();
         try {
             return delegate.getAxioms(owlAnnotationProperty, b);
@@ -1134,7 +1211,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression owlObjectPropertyExpression) {
+    public Set<OWLObjectPropertyAxiom> getAxioms(
+        OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
             return delegate.getAxioms(owlObjectPropertyExpression);
@@ -1194,7 +1272,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLObjectPropertyAxiom> axioms(OWLObjectPropertyExpression owlObjectPropertyExpression) {
+    public Stream<OWLObjectPropertyAxiom> axioms(
+        OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
             return delegate.axioms(owlObjectPropertyExpression);
@@ -1714,7 +1793,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass, OWLObject owlObject, Imports imports,
+    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass, OWLObject owlObject,
+        Imports imports,
         Navigation navigation) {
         readLock.lock();
         try {
@@ -1725,7 +1805,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Stream<T> axioms(Class<T> aClass, OWLObject owlObject, Imports imports,
+    public <T extends OWLAxiom> Stream<T> axioms(Class<T> aClass, OWLObject owlObject,
+        Imports imports,
         Navigation navigation) {
         readLock.lock();
         try {
@@ -1736,7 +1817,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Collection<T> filterAxioms(OWLAxiomSearchFilter owlAxiomSearchFilter, Object o,
+    public <T extends OWLAxiom> Collection<T> filterAxioms(
+        OWLAxiomSearchFilter owlAxiomSearchFilter, Object o,
         Imports imports) {
         readLock.lock();
         try {
@@ -1767,7 +1849,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass, Class<? extends OWLObject> aClass1,
+    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass,
+        Class<? extends OWLObject> aClass1,
         OWLObject owlObject, Imports imports, Navigation navigation) {
         readLock.lock();
         try {
@@ -1778,7 +1861,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Stream<T> axioms(Class<T> aClass, Class<? extends OWLObject> aClass1,
+    public <T extends OWLAxiom> Stream<T> axioms(Class<T> aClass,
+        Class<? extends OWLObject> aClass1,
         OWLObject owlObject, Imports imports, Navigation navigation) {
         readLock.lock();
         try {
@@ -1854,7 +1938,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject owlAnnotationSubject) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+        OWLAnnotationSubject owlAnnotationSubject) {
         readLock.lock();
         try {
             return delegate.getAnnotationAssertionAxioms(owlAnnotationSubject);
@@ -2078,7 +2163,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(OWLDataProperty owlDataProperty) {
+    public Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(
+        OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
             return delegate.getDataSubPropertyAxiomsForSubProperty(owlDataProperty);
@@ -2099,7 +2185,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty owlDataProperty) {
+    public Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
+        OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
             return delegate.getDataPropertyDomainAxioms(owlDataProperty);
@@ -2109,7 +2196,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty owlDataProperty) {
+    public Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
+        OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
             return delegate.getDataPropertyRangeAxioms(owlDataProperty);
@@ -2119,7 +2207,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(OWLDataProperty owlDataProperty) {
+    public Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
+        OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
             return delegate.getEquivalentDataPropertiesAxioms(owlDataProperty);
@@ -2129,7 +2218,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(OWLDataProperty owlDataProperty) {
+    public Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
+        OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
             return delegate.getDisjointDataPropertiesAxioms(owlDataProperty);
@@ -2160,7 +2250,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression owlClassExpression) {
+    public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
+        OWLClassExpression owlClassExpression) {
         readLock.lock();
         try {
             return delegate.getClassAssertionAxioms(owlClassExpression);
@@ -2170,7 +2261,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(OWLIndividual owlIndividual) {
+    public Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
+        OWLIndividual owlIndividual) {
         readLock.lock();
         try {
             return delegate.getDataPropertyAssertionAxioms(owlIndividual);
@@ -2180,7 +2272,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(OWLIndividual owlIndividual) {
+    public Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
+        OWLIndividual owlIndividual) {
         readLock.lock();
         try {
             return delegate.getObjectPropertyAssertionAxioms(owlIndividual);
@@ -2222,7 +2315,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(OWLIndividual owlIndividual) {
+    public Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
+        OWLIndividual owlIndividual) {
         readLock.lock();
         try {
             return delegate.getDifferentIndividualAxioms(owlIndividual);
@@ -2357,7 +2451,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Stream<T> axioms(Class<T> type, Class<? extends OWLObject> explicitClass,
+    public <T extends OWLAxiom> Stream<T> axioms(Class<T> type,
+        Class<? extends OWLObject> explicitClass,
         OWLObject entity, Navigation forSubPosition) {
         readLock.lock();
         try {
@@ -2368,7 +2463,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
+    public Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(
+        OWLAnnotationProperty subProperty) {
         readLock.lock();
         try {
             return delegate.subAnnotationPropertyOfAxioms(subProperty);
@@ -2479,7 +2575,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(OWLAnnotationSubject entity) {
+    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+        OWLAnnotationSubject entity) {
         readLock.lock();
         try {
             return delegate.annotationAssertionAxioms(entity);
@@ -2489,7 +2586,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(OWLAnnotationSubject entity, Imports imports) {
+    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+        OWLAnnotationSubject entity, Imports imports) {
         readLock.lock();
         try {
             return delegate.annotationAssertionAxioms(entity, imports);
@@ -2570,7 +2668,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Stream<T> axioms(Class<T> type, OWLObject entity, Navigation forSubPosition) {
+    public <T extends OWLAxiom> Stream<T> axioms(Class<T> type, OWLObject entity,
+        Navigation forSubPosition) {
         readLock.lock();
         try {
             return delegate.axioms(type, entity, forSubPosition);
@@ -2640,7 +2739,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLObjectPropertyAxiom> axioms(OWLObjectPropertyExpression property, Imports imports) {
+    public Stream<OWLObjectPropertyAxiom> axioms(OWLObjectPropertyExpression property,
+        Imports imports) {
         readLock.lock();
         try {
             return delegate.axioms(property, imports);
@@ -2710,7 +2810,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLDataPropertyAssertionAxiom> dataPropertyAssertionAxioms(OWLIndividual individual) {
+    public Stream<OWLDataPropertyAssertionAxiom> dataPropertyAssertionAxioms(
+        OWLIndividual individual) {
         readLock.lock();
         try {
             return delegate.dataPropertyAssertionAxioms(individual);
@@ -2740,7 +2841,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSubProperty(OWLDataProperty subProperty) {
+    public Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSubProperty(
+        OWLDataProperty subProperty) {
         readLock.lock();
         try {
             return delegate.dataSubPropertyAxiomsForSubProperty(subProperty);
@@ -2791,7 +2893,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLDifferentIndividualsAxiom> differentIndividualAxioms(OWLIndividual individual) {
+    public Stream<OWLDifferentIndividualsAxiom> differentIndividualAxioms(
+        OWLIndividual individual) {
         readLock.lock();
         try {
             return delegate.differentIndividualAxioms(individual);
@@ -2811,7 +2914,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLDisjointDataPropertiesAxiom> disjointDataPropertiesAxioms(OWLDataProperty property) {
+    public Stream<OWLDisjointDataPropertiesAxiom> disjointDataPropertiesAxioms(
+        OWLDataProperty property) {
         readLock.lock();
         try {
             return delegate.disjointDataPropertiesAxioms(property);
@@ -2851,7 +2955,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLEquivalentDataPropertiesAxiom> equivalentDataPropertiesAxioms(OWLDataProperty property) {
+    public Stream<OWLEquivalentDataPropertiesAxiom> equivalentDataPropertiesAxioms(
+        OWLDataProperty property) {
         readLock.lock();
         try {
             return delegate.equivalentDataPropertiesAxioms(property);
@@ -2872,7 +2977,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Collection<T> filterAxioms(OWLAxiomSearchFilter filter, Object key) {
+    public <T extends OWLAxiom> Collection<T> filterAxioms(OWLAxiomSearchFilter filter,
+        Object key) {
         readLock.lock();
         try {
             return delegate.filterAxioms(filter, key);
@@ -2882,7 +2988,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxioms(OWLDataPropertyExpression property) {
+    public Stream<OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxioms(
+        OWLDataPropertyExpression property) {
         readLock.lock();
         try {
             return delegate.functionalDataPropertyAxioms(property);
@@ -2903,7 +3010,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject entity, Imports imports) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+        OWLAnnotationSubject entity, Imports imports) {
         readLock.lock();
         try {
             return delegate.getAnnotationAssertionAxioms(entity, imports);
@@ -2923,7 +3031,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, Class<? extends OWLObject> explicitClass,
+    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
+        Class<? extends OWLObject> explicitClass,
         OWLObject entity, Navigation forSubPosition) {
         readLock.lock();
         try {
@@ -2934,7 +3043,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity, Navigation forSubPosition) {
+    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity,
+        Navigation forSubPosition) {
         readLock.lock();
         try {
             return delegate.getAxioms(type, entity, forSubPosition);
@@ -3006,7 +3116,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLInverseObjectPropertiesAxiom> inverseObjectPropertyAxioms(OWLObjectPropertyExpression property) {
+    public Stream<OWLInverseObjectPropertiesAxiom> inverseObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
         readLock.lock();
         try {
             return delegate.inverseObjectPropertyAxioms(property);
@@ -3037,7 +3148,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxioms(OWLIndividual individual) {
+    public Stream<OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxioms(
+        OWLIndividual individual) {
         readLock.lock();
         try {
             return delegate.negativeDataPropertyAssertionAxioms(individual);
@@ -3078,7 +3190,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLObjectPropertyAssertionAxiom> objectPropertyAssertionAxioms(OWLIndividual individual) {
+    public Stream<OWLObjectPropertyAssertionAxiom> objectPropertyAssertionAxioms(
+        OWLIndividual individual) {
         readLock.lock();
         try {
             return delegate.objectPropertyAssertionAxioms(individual);
@@ -3088,7 +3201,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLObjectPropertyDomainAxiom> objectPropertyDomainAxioms(OWLObjectPropertyExpression property) {
+    public Stream<OWLObjectPropertyDomainAxiom> objectPropertyDomainAxioms(
+        OWLObjectPropertyExpression property) {
         readLock.lock();
         try {
             return delegate.objectPropertyDomainAxioms(property);
@@ -3098,7 +3212,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLObjectPropertyRangeAxiom> objectPropertyRangeAxioms(OWLObjectPropertyExpression property) {
+    public Stream<OWLObjectPropertyRangeAxiom> objectPropertyRangeAxioms(
+        OWLObjectPropertyExpression property) {
         readLock.lock();
         try {
             return delegate.objectPropertyRangeAxioms(property);
@@ -3130,7 +3245,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLReflexiveObjectPropertyAxiom> reflexiveObjectPropertyAxioms(OWLObjectPropertyExpression property) {
+    public Stream<OWLReflexiveObjectPropertyAxiom> reflexiveObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
         readLock.lock();
         try {
             return delegate.reflexiveObjectPropertyAxioms(property);
@@ -3170,7 +3286,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public Stream<OWLSymmetricObjectPropertyAxiom> symmetricObjectPropertyAxioms(OWLObjectPropertyExpression property) {
+    public Stream<OWLSymmetricObjectPropertyAxiom> symmetricObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
         readLock.lock();
         try {
             return delegate.symmetricObjectPropertyAxioms(property);

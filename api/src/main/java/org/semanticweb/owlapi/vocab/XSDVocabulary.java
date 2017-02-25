@@ -21,60 +21,153 @@ import org.semanticweb.owlapi.model.IRI;
 
 /**
  * A vocabulary for XML Schema Data Types (XSD).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // @formatter:off
-    /** ANY_TYPE. */             ANY_TYPE        ("anyType"),
-    /** ANY_SIMPLE_TYPE. */      ANY_SIMPLE_TYPE ("anySimpleType"),
-    /** STRING. */               STRING          ("string"),
-    /** INTEGER. */              INTEGER         ("integer"),
-    /** LONG. */                 LONG            ("long"),
-    /** INT. */                  INT             ("int"),
-    /** SHORT. */                SHORT           ("short"),
-    /** BYTE. */                 BYTE            ("byte"),
-    /** DECIMAL. */              DECIMAL         ("decimal"),
-    /** FLOAT. */                FLOAT           ("float"),
-    /** BOOLEAN. */              BOOLEAN         ("boolean"),
-    /** DOUBLE. */               DOUBLE          ("double"),
-    /** NON_POSITIVE_INTEGER. */ NON_POSITIVE_INTEGER("nonPositiveInteger"),
-    /** NEGATIVE_INTEGER. */     NEGATIVE_INTEGER    ("negativeInteger"),
-    /** NON_NEGATIVE_INTEGER. */ NON_NEGATIVE_INTEGER("nonNegativeInteger"),
-    /** UNSIGNED_LONG. */        UNSIGNED_LONG       ("unsignedLong"),
-    /** UNSIGNED_INT. */         UNSIGNED_INT        ("unsignedInt"),
-    /** POSITIVE_INTEGER. */     POSITIVE_INTEGER    ("positiveInteger"),
-    /** BASE_64_BINARY. */       BASE_64_BINARY      ("base64Binary"),
-    /** NORMALIZED_STRING. */    NORMALIZED_STRING   ("normalizedString"),
-    /** HEX_BINARY. */           HEX_BINARY      ("hexBinary"),
-    /** ANY_URI. */              ANY_URI         ("anyURI"),
-    /** Q_NAME. */               Q_NAME          ("QName"),
-    /** NOTATION. */             NOTATION        ("NOTATION"),
-    /** TOKEN. */                TOKEN           ("token"),
-    /** LANGUAGE. */             LANGUAGE        ("language"),
-    /** NAME. */                 NAME            ("Name"),
-    /** NCNAME. */               NCNAME          ("NCName"),
-    /** NMTOKEN. */              NMTOKEN         ("NMTOKEN"),
-    /** NMTOKENS. */             NMTOKENS        ("NMTOKENS"),
-    /** ID. */                   ID              ("ID"),
-    /** IDREF. */                IDREF           ("IDREF"),
-    /** IDREFS. */               IDREFS          ("IDREFS"),
-    /** ENTITY. */               ENTITY          ("ENTITY"),
-    /** ENTITIES. */             ENTITIES        ("ENTITIES"),
-    /** DURATION. */             DURATION        ("duration"),
-    /** DATE_TIME. */            DATE_TIME       ("dateTime"),
-    /** DATE_TIME_STAMP. */      DATE_TIME_STAMP ("dateTimeStamp"),
-    /** TIME. */                 TIME            ("time"),
-    /** DATE. */                 DATE            ("date"),
-    /** G_YEAR_MONTH. */         G_YEAR_MONTH    ("gYearMonth"),
-    /** G_YEAR. */               G_YEAR          ("gYear"),
-    /** G_MONTH_DAY. */          G_MONTH_DAY     ("gMonthYear"),
-    /** G_DAY. */                G_DAY           ("gDay"),
-    /** G_MONTH. */              G_MONTH         ("gMonth"),
-    /** UNSIGNED_SHORT. */       UNSIGNED_SHORT  ("unsignedShort"),
-    /** UNSIGNED_BYTE. */        UNSIGNED_BYTE   ("unsignedByte");
+    /**
+     * ANY_TYPE.
+     */ANY_TYPE("anyType"),
+    /**
+     * ANY_SIMPLE_TYPE.
+     */ANY_SIMPLE_TYPE("anySimpleType"),
+    /**
+     * STRING.
+     */STRING("string"),
+    /**
+     * INTEGER.
+     */INTEGER("integer"),
+    /**
+     * LONG.
+     */LONG("long"),
+    /**
+     * INT.
+     */INT("int"),
+    /**
+     * SHORT.
+     */SHORT("short"),
+    /**
+     * BYTE.
+     */BYTE("byte"),
+    /**
+     * DECIMAL.
+     */DECIMAL("decimal"),
+    /**
+     * FLOAT.
+     */FLOAT("float"),
+    /**
+     * BOOLEAN.
+     */BOOLEAN("boolean"),
+    /**
+     * DOUBLE.
+     */DOUBLE("double"),
+    /**
+     * NON_POSITIVE_INTEGER.
+     */NON_POSITIVE_INTEGER("nonPositiveInteger"),
+    /**
+     * NEGATIVE_INTEGER.
+     */NEGATIVE_INTEGER("negativeInteger"),
+    /**
+     * NON_NEGATIVE_INTEGER.
+     */NON_NEGATIVE_INTEGER("nonNegativeInteger"),
+    /**
+     * UNSIGNED_LONG.
+     */UNSIGNED_LONG("unsignedLong"),
+    /**
+     * UNSIGNED_INT.
+     */UNSIGNED_INT("unsignedInt"),
+    /**
+     * POSITIVE_INTEGER.
+     */POSITIVE_INTEGER("positiveInteger"),
+    /**
+     * BASE_64_BINARY.
+     */BASE_64_BINARY("base64Binary"),
+    /**
+     * NORMALIZED_STRING.
+     */NORMALIZED_STRING("normalizedString"),
+    /**
+     * HEX_BINARY.
+     */HEX_BINARY("hexBinary"),
+    /**
+     * ANY_URI.
+     */ANY_URI("anyURI"),
+    /**
+     * Q_NAME.
+     */Q_NAME("QName"),
+    /**
+     * NOTATION.
+     */NOTATION("NOTATION"),
+    /**
+     * TOKEN.
+     */TOKEN("token"),
+    /**
+     * LANGUAGE.
+     */LANGUAGE("language"),
+    /**
+     * NAME.
+     */NAME("Name"),
+    /**
+     * NCNAME.
+     */NCNAME("NCName"),
+    /**
+     * NMTOKEN.
+     */NMTOKEN("NMTOKEN"),
+    /**
+     * NMTOKENS.
+     */NMTOKENS("NMTOKENS"),
+    /**
+     * ID.
+     */ID("ID"),
+    /**
+     * IDREF.
+     */IDREF("IDREF"),
+    /**
+     * IDREFS.
+     */IDREFS("IDREFS"),
+    /**
+     * ENTITY.
+     */ENTITY("ENTITY"),
+    /**
+     * ENTITIES.
+     */ENTITIES("ENTITIES"),
+    /**
+     * DURATION.
+     */DURATION("duration"),
+    /**
+     * DATE_TIME.
+     */DATE_TIME("dateTime"),
+    /**
+     * DATE_TIME_STAMP.
+     */DATE_TIME_STAMP("dateTimeStamp"),
+    /**
+     * TIME.
+     */TIME("time"),
+    /**
+     * DATE.
+     */DATE("date"),
+    /**
+     * G_YEAR_MONTH.
+     */G_YEAR_MONTH("gYearMonth"),
+    /**
+     * G_YEAR.
+     */G_YEAR("gYear"),
+    /**
+     * G_MONTH_DAY.
+     */G_MONTH_DAY("gMonthYear"),
+    /**
+     * G_DAY.
+     */G_DAY("gDay"),
+    /**
+     * G_MONTH.
+     */G_MONTH("gMonth"),
+    /**
+     * UNSIGNED_SHORT.
+     */UNSIGNED_SHORT("unsignedShort"),
+    /**
+     * UNSIGNED_BYTE.
+     */UNSIGNED_BYTE("unsignedByte");
     // @formatter:on
     private final String shortName;
     private final IRI iri;
@@ -84,6 +177,29 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         shortName = name;
         prefixedName = Namespaces.XSD.getPrefixName() + ':' + name;
         iri = IRI.create(Namespaces.XSD.toString(), name);
+    }
+
+    /**
+     * Easy parse of short names of the kind "xsd:typename". Note that the match
+     * must be exact - uppercase or lowercase variants are not accepted. An
+     * IllegalArgumentException will be thrown for non matching input.
+     *
+     * @param s string of the form {@code xsd:typename}
+     * @return the XSDVocabulary item matching xsd:typename, e.g., {@code STRING} for {@code
+     * "xsd:string"}
+     */
+    public static XSDVocabulary parseShortName(String s) {
+        checkNotNull(s, "the input string cannot be null");
+        if (s.startsWith("xsd:")) {
+            String name = s.substring(4);
+            for (XSDVocabulary v : values()) {
+                if (v.shortName.equals(name)) {
+                    return v;
+                }
+            }
+        }
+        throw new IllegalArgumentException(
+            "the input value does not match any of the known xsd types: " + s);
     }
 
     @Override
@@ -99,29 +215,6 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     @Override
     public String toString() {
         return iri.toString();
-    }
-
-    /**
-     * Easy parse of short names of the kind "xsd:typename". Note that the match
-     * must be exact - uppercase or lowercase variants are not accepted. An
-     * IllegalArgumentException will be thrown for non matching input.
-     * 
-     * @param s
-     *        string of the form {@code xsd:typename}
-     * @return the XSDVocabulary item matching xsd:typename, e.g.,
-     *         {@code STRING} for {@code "xsd:string"}
-     */
-    public static XSDVocabulary parseShortName(String s) {
-        checkNotNull(s, "the input string cannot be null");
-        if (s.startsWith("xsd:")) {
-            String name = s.substring(4);
-            for (XSDVocabulary v : values()) {
-                if (v.shortName.equals(name)) {
-                    return v;
-                }
-            }
-        }
-        throw new IllegalArgumentException("the input value does not match any of the known xsd types: " + s);
     }
 
     @Override

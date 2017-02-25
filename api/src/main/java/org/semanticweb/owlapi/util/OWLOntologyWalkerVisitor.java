@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
@@ -32,8 +30,7 @@ public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
     private final OWLOntologyWalker walker;
 
     /**
-     * @param walker
-     *        ontology walker
+     * @param walker ontology walker
      */
     public OWLOntologyWalkerVisitor(OWLOntologyWalker walker) {
         this.walker = checkNotNull(walker, "walker cannot be null");

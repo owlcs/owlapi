@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -26,17 +24,18 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 /**
  * An implementation of the OWLObjectRenderer interface. (Renders standalone
  * class class expressions and axioms in the manchester syntax).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
 
-    private ManchesterOWLSyntaxObjectRenderer ren;
     private final WriterDelegate writerDelegate;
+    private ManchesterOWLSyntaxObjectRenderer ren;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
         writerDelegate = new WriterDelegate();
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, new SimpleShortFormProvider());
@@ -58,8 +57,11 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
 
         private StringWriter delegate = new StringWriter();
 
-        /** Default constructor. */
-        WriterDelegate() {}
+        /**
+         * Default constructor.
+         */
+        WriterDelegate() {
+        }
 
         protected void reset() {
             delegate = new StringWriter();

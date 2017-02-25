@@ -20,9 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -40,9 +38,8 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  * multiple annotations for the entity whose short form is being generated. If
  * there are multiple annotations the these annotations are ranked by preferred
  * IRI and then by preferred language.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class AnnotationValueShortFormProvider implements ShortFormProvider {
@@ -57,95 +54,88 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     /**
      * Constructs an annotation value short form provider. Using
      * {@code SimpleShortFormProvider} as the alternate short form provider
-     * 
-     * @param annotationProperties
-     *        A {@code List} of preferred annotation properties. The list is
-     *        searched from start to end, so that annotations that have a
-     *        property at the start of the list have a higher priority and are
-     *        selected over annotations with properties that appear towards or
-     *        at the end of the list.
-     * @param preferredLanguageMap
-     *        A map which maps annotation properties to preferred languages. For
-     *        any given annotation property there may be a list of preferred
-     *        languages. Languages at the start of the list have a higher
-     *        priority over languages at the end of the list. This parameter may
-     *        be empty but it must not be {@code null}.
-     * @param ontologySetProvider
-     *        An {@code OWLOntologySetProvider} which provides a set of ontology
-     *        from which candidate annotation axioms should be taken. For a
-     *        given entity, all ontologies are examined.
+     *
+     * @param annotationProperties A {@code List} of preferred annotation properties. The list is
+     * searched from start to end, so that annotations that have a property at the start of the list
+     * have a higher priority and are selected over annotations with properties that appear towards
+     * or at the end of the list.
+     * @param preferredLanguageMap A map which maps annotation properties to preferred languages.
+     * For any given annotation property there may be a list of preferred languages. Languages at
+     * the start of the list have a higher priority over languages at the end of the list. This
+     * parameter may be empty but it must not be {@code null}.
+     * @param ontologySetProvider An {@code OWLOntologySetProvider} which provides a set of ontology
+     * from which candidate annotation axioms should be taken. For a given entity, all ontologies
+     * are examined.
      */
     public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
-        Map<OWLAnnotationProperty, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider) {
-        this(annotationProperties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
+        Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
+        OWLOntologySetProvider ontologySetProvider) {
+        this(annotationProperties, preferredLanguageMap, ontologySetProvider,
+            new SimpleShortFormProvider());
     }
 
     /**
      * Constructs an annotation short form provider.
-     * 
-     * @param annotationProperties
-     *        A {@code List} of preferred annotation properties. The list is
-     *        searched from start to end, so that annotations that have a
-     *        property at the start of the list have a higher priority and are
-     *        selected over annotations with properties that appear towards or
-     *        at the end of the list.
-     * @param preferredLanguageMap
-     *        A map which maps annotation properties to preferred languages. For
-     *        any given annotation property there may be a list of preferred
-     *        languages. Languages at the start of the list have a higher
-     *        priority over languages at the end of the list. This parameter may
-     *        be empty but it must not be {@code null}.
-     * @param ontologySetProvider
-     *        An {@code OWLOntologySetProvider} which provides a set of ontology
-     *        from which candidate annotation axioms should be taken. For a
-     *        given entity, all ontologies are examined.
-     * @param alternateShortFormProvider
-     *        A short form provider which will be used to generate the short
-     *        form for an entity that does not have any annotations. This
-     *        provider will also be used in the case where the value of an
-     *        annotation is an {@code OWLIndividual} for providing the short
-     *        form of the individual.
+     *
+     * @param annotationProperties A {@code List} of preferred annotation properties. The list is
+     * searched from start to end, so that annotations that have a property at the start of the list
+     * have a higher priority and are selected over annotations with properties that appear towards
+     * or at the end of the list.
+     * @param preferredLanguageMap A map which maps annotation properties to preferred languages.
+     * For any given annotation property there may be a list of preferred languages. Languages at
+     * the start of the list have a higher priority over languages at the end of the list. This
+     * parameter may be empty but it must not be {@code null}.
+     * @param ontologySetProvider An {@code OWLOntologySetProvider} which provides a set of ontology
+     * from which candidate annotation axioms should be taken. For a given entity, all ontologies
+     * are examined.
+     * @param alternateShortFormProvider A short form provider which will be used to generate the
+     * short form for an entity that does not have any annotations. This provider will also be used
+     * in the case where the value of an annotation is an {@code OWLIndividual} for providing the
+     * short form of the individual.
      */
     public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
-        Map<OWLAnnotationProperty, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider,
+        Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
+        OWLOntologySetProvider ontologySetProvider,
         ShortFormProvider alternateShortFormProvider) {
-        this(ontologySetProvider, alternateShortFormProvider, new SimpleIRIShortFormProvider(), annotationProperties,
+        this(ontologySetProvider, alternateShortFormProvider, new SimpleIRIShortFormProvider(),
+            annotationProperties,
             preferredLanguageMap);
     }
 
     /**
-     * @param ontologySetProvider
-     *        ontologies
-     * @param alternateShortFormProvider
-     *        short form provider
-     * @param alternateIRIShortFormProvider
-     *        iri short form provider
-     * @param annotationProperties
-     *        annotation properties
-     * @param preferredLanguageMap
-     *        preferred language map
+     * @param ontologySetProvider ontologies
+     * @param alternateShortFormProvider short form provider
+     * @param alternateIRIShortFormProvider iri short form provider
+     * @param annotationProperties annotation properties
+     * @param preferredLanguageMap preferred language map
      */
     public AnnotationValueShortFormProvider(OWLOntologySetProvider ontologySetProvider,
-        ShortFormProvider alternateShortFormProvider, IRIShortFormProvider alternateIRIShortFormProvider,
+        ShortFormProvider alternateShortFormProvider,
+        IRIShortFormProvider alternateIRIShortFormProvider,
         List<OWLAnnotationProperty> annotationProperties,
         Map<OWLAnnotationProperty, List<String>> preferredLanguageMap) {
-        this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
+        this.ontologySetProvider = checkNotNull(ontologySetProvider,
+            "ontologySetProvider cannot be null");
         this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
             "alternateShortFormProvider cannot be null");
         this.alternateIRIShortFormProvider = checkNotNull(alternateIRIShortFormProvider,
             "alternateIRIShortFormProvider cannot be null");
-        this.annotationProperties = checkNotNull(annotationProperties, "annotationProperties cannot be null");
-        this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
+        this.annotationProperties = checkNotNull(annotationProperties,
+            "annotationProperties cannot be null");
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap,
+            "preferredLanguageMap cannot be null");
     }
 
     @Override
     public String getShortForm(OWLEntity entity) {
         Stream<OWLOntology> onts = ontologySetProvider.ontologies();
-        List<OWLAnnotationAssertionAxiom> flatMap = asList(onts.flatMap(o -> o.annotationAssertionAxioms(entity
-            .getIRI(), INCLUDED)));
+        List<OWLAnnotationAssertionAxiom> flatMap = asList(
+            onts.flatMap(o -> o.annotationAssertionAxioms(entity
+                .getIRI(), INCLUDED)));
         for (OWLAnnotationProperty prop : annotationProperties) {
             // visit the properties in order of preference
-            AnnotationLanguageFilter checker = new AnnotationLanguageFilter(prop, preferredLanguageMap.get(prop));
+            AnnotationLanguageFilter checker = new AnnotationLanguageFilter(prop,
+                preferredLanguageMap.get(prop));
             flatMap.forEach(ax -> ax.accept(checker));
             OWLObject match = checker.getMatch();
             if (match != null) {
@@ -160,9 +150,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * constant then the rendering is equal to the literal value, if the object
      * is an individual then the rendering is equal to the rendering of the
      * individual as provided by the alternate short form provider
-     * 
-     * @param object
-     *        The object to the rendered
+     *
+     * @param object The object to the rendered
      * @return The rendering of the object.
      */
     private String getRendering(OWLObject object) {
@@ -192,16 +181,26 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         return preferredLanguageMap;
     }
 
+    /**
+     * @param literalRenderer the literalRenderer to set
+     */
+    public void setLiteralRenderer(StringAnnotationVisitor literalRenderer) {
+        this.literalRenderer = checkNotNull(literalRenderer);
+    }
+
     private static class AnnotationLanguageFilter implements OWLObjectVisitor {
 
         private final OWLAnnotationProperty prop;
         private final List<String> preferredLanguages;
-        @Nullable protected OWLObject candidateValue = null;
+        @Nullable
+        protected OWLObject candidateValue = null;
         int lastLangMatchIndex = Integer.MAX_VALUE;
 
-        AnnotationLanguageFilter(OWLAnnotationProperty prop, @Nullable List<String> preferredLanguages) {
+        AnnotationLanguageFilter(OWLAnnotationProperty prop,
+            @Nullable List<String> preferredLanguages) {
             this.prop = prop;
-            this.preferredLanguages = preferredLanguages == null ? Collections.emptyList() : preferredLanguages;
+            this.preferredLanguages =
+                preferredLanguages == null ? Collections.emptyList() : preferredLanguages;
         }
 
         @Nullable
@@ -237,13 +236,5 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             // No language
             candidateValue = iri;
         }
-    }
-
-    /**
-     * @param literalRenderer
-     *        the literalRenderer to set
-     */
-    public void setLiteralRenderer(StringAnnotationVisitor literalRenderer) {
-        this.literalRenderer = checkNotNull(literalRenderer);
     }
 }

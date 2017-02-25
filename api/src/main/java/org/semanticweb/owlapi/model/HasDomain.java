@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.model;
 
 /**
  * An interface to objects that have a domain.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @param <D>
- *        domain type
+ *
+ * @param <D> domain type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 @FunctionalInterface
@@ -26,7 +24,7 @@ public interface HasDomain<D extends OWLObject> {
 
     /**
      * Gets the domain.
-     * 
+     *
      * @return The domain.
      */
     D getDomain();

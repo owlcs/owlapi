@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -24,22 +23,19 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
+public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
+    OWLDatatypeDefinitionAxiom {
 
     private final OWLDatatype datatype;
     private final OWLDataRange dataRange;
 
     /**
-     * @param datatype
-     *        datatype
-     * @param dataRange
-     *        datarange
-     * @param annotations
-     *        annotations on the axiom
+     * @param datatype datatype
+     * @param dataRange datarange
+     * @param annotations annotations on the axiom
      */
     public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
         Collection<OWLAnnotation> annotations) {
@@ -58,7 +54,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
 
     @Override
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), mergeAnnos(anns));
+        return (T) new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(),
+            mergeAnnos(anns));
     }
 
     @Override

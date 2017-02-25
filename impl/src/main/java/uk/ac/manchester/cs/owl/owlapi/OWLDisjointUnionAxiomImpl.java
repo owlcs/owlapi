@@ -15,10 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import com.google.common.collect.Sets;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -27,11 +27,8 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 
-import com.google.common.collect.Sets;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
@@ -40,18 +37,16 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     private final List<OWLClassExpression> classExpressions;
 
     /**
-     * @param owlClass
-     *        union
-     * @param classExpressions
-     *        disjoint classes
-     * @param annotations
-     *        annotations
+     * @param owlClass union
+     * @param classExpressions disjoint classes
+     * @param annotations annotations
      */
     public OWLDisjointUnionAxiomImpl(OWLClass owlClass, Stream<OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
-        Stream<OWLClassExpression> classes = checkNotNull(classExpressions, "classExpressions cannot be null");
+        Stream<OWLClassExpression> classes = checkNotNull(classExpressions,
+            "classExpressions cannot be null");
         this.classExpressions = sortOptionally(classes.distinct());
     }
 
@@ -65,12 +60,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(), NO_ANNOTATIONS);
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(),
+            NO_ANNOTATIONS);
     }
 
     @Override
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(), mergeAnnos(anns));
+        return (T) new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions.stream(),
+            mergeAnnos(anns));
     }
 
     @Override
@@ -80,8 +77,9 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
-        return new OWLEquivalentClassesAxiomImpl(Sets.newHashSet(owlClass, new OWLObjectUnionOfImpl(classExpressions
-            .stream())), NO_ANNOTATIONS);
+        return new OWLEquivalentClassesAxiomImpl(
+            Sets.newHashSet(owlClass, new OWLObjectUnionOfImpl(classExpressions
+                .stream())), NO_ANNOTATIONS);
     }
 
     @Override

@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,9 +22,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +32,8 @@ import org.slf4j.LoggerFactory;
  * optionally also have a version IRI. Instances of this OWLOntologyID class
  * bundle identifying information of an ontology together. If an ontology
  * doesn't have an ontology IRI then we say that it is "anonymous".
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
@@ -50,9 +49,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     /**
      * Constructs an ontology identifier specifiying the ontology IRI and
      * version IRI. Equivalent to OWLOntologyID(Optional
-     * 
-     * @param iri
-     *        The ontology IRI (may be {@code null})
+     *
+     * @param iri The ontology IRI (may be {@code null})
      */
     public OWLOntologyID(@Nullable IRI iri) {
         this(opt(iri), emptyOptional(IRI.class));
@@ -61,11 +59,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     /**
      * Constructs an ontology identifier specifiying the ontology IRI and
      * version IRI.
-     * 
-     * @param iri
-     *        The ontology IRI (may be {@code null})
-     * @param versionIRI
-     *        The version IRI (must be {@code null} if the ontologyIRI is null)
+     *
+     * @param iri The ontology IRI (may be {@code null})
+     * @param versionIRI The version IRI (must be {@code null} if the ontologyIRI is null)
      */
     public OWLOntologyID(@Nullable IRI iri, @Nullable IRI versionIRI) {
         this(opt(iri), opt(versionIRI));
@@ -74,11 +70,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     /**
      * Constructs an ontology identifier specifiying the ontology IRI and
      * version IRI.
-     * 
-     * @param iri
-     *        The ontology IRI (may be absent)
-     * @param version
-     *        The version IRI (must be absent if the ontologyIRI is absent)
+     *
+     * @param iri The ontology IRI (may be absent)
+     * @param version The version IRI (must be absent if the ontologyIRI is absent)
      */
     public OWLOntologyID(Optional<IRI> iri, Optional<IRI> version) {
         ontologyIRI = opt(iri);
@@ -107,20 +101,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
         this(emptyOptional(IRI.class), emptyOptional(IRI.class));
     }
 
-    private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
-        stream.defaultReadObject();
-        ontologyIRI = optional((IRI) stream.readObject());
-        versionIRI = optional((IRI) stream.readObject());
-        internalID = optional((String) stream.readObject());
-    }
-
-    private void writeObject(ObjectOutputStream stream) throws IOException {
-        stream.defaultWriteObject();
-        stream.writeObject(ontologyIRI.orElse(null));
-        stream.writeObject(versionIRI.orElse(null));
-        stream.writeObject(internalID.orElse(null));
-    }
-
     private static Optional<IRI> opt(@Nullable IRI i) {
         if (i == null || NodeID.isAnonymousNodeIRI(i)) {
             return emptyOptional();
@@ -136,11 +116,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
 
     /**
      * Replace an optional with a blank node iri with an absent optional.
-     * 
-     * @param i
-     *        Optional to check
-     * @return input optional if its iri is not a blank node iri, absent
-     *         otherwise
+     *
+     * @param i Optional to check
+     * @return input optional if its iri is not a blank node iri, absent otherwise
      */
     private static Optional<IRI> opt(Optional<IRI> i) {
         if (NodeID.isAnonymousNodeIRI(i.orElse(null))) {
@@ -149,46 +127,55 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
         return i;
     }
 
+    private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
+        stream.defaultReadObject();
+        ontologyIRI = optional((IRI) stream.readObject());
+        versionIRI = optional((IRI) stream.readObject());
+        internalID = optional((String) stream.readObject());
+    }
+
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        stream.writeObject(ontologyIRI.orElse(null));
+        stream.writeObject(versionIRI.orElse(null));
+        stream.writeObject(internalID.orElse(null));
+    }
+
     /**
+     * @param iri the iri to check
      * @return true if the input iri matches the ontology iri or the version iri
-     * @param iri
-     *        the iri to check
      */
     public boolean match(IRI iri) {
         return matchOntology(iri) || matchVersion(iri);
     }
 
     /**
+     * @param iri the iri to check
      * @return true if the input iri matches the version iri
-     * @param iri
-     *        the iri to check
      */
     public boolean matchVersion(IRI iri) {
         return iri.equals(versionIRI.orElse(null));
     }
 
     /**
+     * @param iri the iri to check
      * @return true if the input iri matches the default document iri
-     * @param iri
-     *        the iri to check
      */
     public boolean matchDocument(IRI iri) {
         return iri.equals(getDefaultDocumentIRI().orElse(null));
     }
 
     /**
+     * @param iri the iri to check
      * @return true if the input iri matches the ontology iri
-     * @param iri
-     *        the iri to check
      */
     public boolean matchOntology(IRI iri) {
         return iri.equals(ontologyIRI.orElse(null));
     }
 
     /**
+     * @param id the id to check
      * @return true if the input id has the same ontology iri
-     * @param id
-     *        the id to check
      */
     public boolean match(OWLOntologyID id) {
         return ontologyIRI.equals(id.getOntologyIRI());
@@ -197,14 +184,14 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     /**
      * Determines if this is a valid OWL 2 DL ontology ID. To be a valid OWL 2
      * DL ID, the ontology IRI and version IRI must not be reserved vocabulary.
-     * 
-     * @return {@code true} if this is a valid OWL 2 DL ontology ID, otherwise
-     *         {@code false}
+     *
+     * @return {@code true} if this is a valid OWL 2 DL ontology ID, otherwise {@code false}
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary()
      */
     public boolean isOWL2DLOntologyID() {
-        return !ontologyIRI.isPresent() || !ontologyIRI.get().isReservedVocabulary() && (!versionIRI.isPresent()
-            || !versionIRI.get().isReservedVocabulary());
+        return !ontologyIRI.isPresent() || !ontologyIRI.get().isReservedVocabulary() && (
+            !versionIRI.isPresent()
+                || !versionIRI.get().isReservedVocabulary());
     }
 
     @Override
@@ -217,9 +204,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     /**
      * Gets the ontology IRI. If the ontology is anonymous, it will return an
      * absent Optional (i.e., getOntologyIRI().isPresent() will return false.
-     * 
-     * @return Optional of the ontology IRI, or Optional.absent if there is no
-     *         ontology IRI.
+     *
+     * @return Optional of the ontology IRI, or Optional.absent if there is no ontology IRI.
      */
     public Optional<IRI> getOntologyIRI() {
         return ontologyIRI;
@@ -227,9 +213,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
 
     /**
      * Gets the version IRI.
-     * 
-     * @return an optional of the version IRI, or Optional.absent if there is no
-     *         version IRI.
+     *
+     * @return an optional of the version IRI, or Optional.absent if there is no version IRI.
      */
     public Optional<IRI> getVersionIRI() {
         return versionIRI;
@@ -243,10 +228,10 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * {@code null} if there is no ontology IRI. See
      * <a href="http://www.w3.org/TR/owl2-syntax/#Ontology_Documents">Ontology
      * Documents</a> in the OWL 2 Structural Specification.
-     * 
-     * @return An Optional of the IRI that can be used as a default for an
-     *         ontology document containing an ontology as identified by this
-     *         ontology ID. Returns the default IRI or an Optional.absent.
+     *
+     * @return An Optional of the IRI that can be used as a default for an ontology document
+     * containing an ontology as identified by this ontology ID. Returns the default IRI or an
+     * Optional.absent.
      */
     public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI.isPresent()) {
@@ -264,9 +249,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      * Determines if this ID names an ontology or whether it is an ID for an
      * ontology without an IRI. If the result of this method is true,
      * getOntologyIRI() will return an Optional.absent.
-     * 
-     * @return {@code true} if this ID is an ID for an ontology without an IRI,
-     *         or {@code false} if this ID is an ID for an ontology with an IRI.
+     *
+     * @return {@code true} if this ID is an ID for an ontology without an IRI, or {@code false} if
+     * this ID is an ID for an ontology with an IRI.
      */
     @Override
     public boolean isAnonymous() {

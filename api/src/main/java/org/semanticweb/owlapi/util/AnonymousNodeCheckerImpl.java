@@ -20,14 +20,14 @@ import org.slf4j.LoggerFactory;
 /**
  * default implementation for an anonymous node checker. This implementation
  * delegates to NodeID
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public class AnonymousNodeCheckerImpl implements AnonymousNodeChecker {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(AnonymousNodeCheckerImpl.class);
+        .getLogger(AnonymousNodeCheckerImpl.class);
 
     @Override
     public boolean isAnonymousNode(IRI iri) {

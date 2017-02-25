@@ -44,7 +44,9 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  */
 public class TutorialSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public TutorialSyntaxStorerFactory() {
         super(new OWLTutorialSyntaxOntologyFormatFactory());
     }

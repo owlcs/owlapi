@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -24,20 +22,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param rangeAxiom
-     *        rangeAxiom
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param rangeAxiom rangeAxiom
      */
-    public LastPropertyInChainNotInImposedRange(OWLOntology ontology, @Nullable OWLSubPropertyChainOfAxiom axiom,
+    public LastPropertyInChainNotInImposedRange(OWLOntology ontology,
+        @Nullable OWLSubPropertyChainOfAxiom axiom,
         OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom, rangeAxiom);
     }
@@ -59,6 +54,7 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Last property in chain not in imposed data range for data range: %s", getExpression());
+        return toString("Last property in chain not in imposed data range for data range: %s",
+            getExpression());
     }
 }

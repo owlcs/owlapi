@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(2)
 public class OWLFunctionalSyntaxOWLParserFactory extends OWLParserFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLFunctionalSyntaxOWLParserFactory() {
         super(new FunctionalSyntaxDocumentFormatFactory());
     }

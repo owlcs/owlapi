@@ -16,15 +16,13 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
@@ -33,12 +31,9 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     private final OWLClassExpression superClass;
 
     /**
-     * @param subClass
-     *        subclass
-     * @param superClass
-     *        superclass
-     * @param annotations
-     *        annotations
+     * @param subClass subclass
+     * @param superClass superclass
+     * @param annotations annotations
      */
     public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass,
         Collection<OWLAnnotation> annotations) {

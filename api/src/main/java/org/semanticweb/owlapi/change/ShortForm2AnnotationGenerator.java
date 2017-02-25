@@ -15,35 +15,34 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChange {
 
     /**
      * Instantiates a new short form2 annotation generator.
-     * 
-     * @param df
-     *        data factory
-     * @param ontologyManager
-     *        the ontology manager
-     * @param ontology
-     *        the ontology
-     * @param shortFormProvider
-     *        the short form provider
-     * @param annotationIRI
-     *        The annotation IRI to be used
-     * @param languageTag
-     *        language
+     *
+     * @param df data factory
+     * @param ontologyManager the ontology manager
+     * @param ontology the ontology
+     * @param shortFormProvider the short form provider
+     * @param annotationIRI The annotation IRI to be used
+     * @param languageTag language
      */
-    public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager, OWLOntology ontology,
+    public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager,
+        OWLOntology ontology,
         ShortFormProvider shortFormProvider, IRI annotationIRI, @Nullable String languageTag) {
         super(df);
         generateChanges(checkNotNull(ontologyManager, "ontologyManager cannot be null"),
@@ -54,30 +53,28 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
 
     /**
      * Instantiates a new short form2 annotation generator.
-     * 
-     * @param df
-     *        data factory
-     * @param ontologyManager
-     *        the ontology manager
-     * @param ontology
-     *        the ontology
-     * @param shortFormProvider
-     *        the short form provider
-     * @param annotationIRI
-     *        iri for annotation property
+     *
+     * @param df data factory
+     * @param ontologyManager the ontology manager
+     * @param ontology the ontology
+     * @param shortFormProvider the short form provider
+     * @param annotationIRI iri for annotation property
      */
-    public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager, OWLOntology ontology,
+    public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager,
+        OWLOntology ontology,
         ShortFormProvider shortFormProvider, IRI annotationIRI) {
         this(df, ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
-    private static void generateChanges(OWLOntologyManager ontologyManager, OWLOntology o, ShortFormProvider provider,
+    private static void generateChanges(OWLOntologyManager ontologyManager, OWLOntology o,
+        ShortFormProvider provider,
         IRI annotationIRI, @Nullable String lang) {
         OWLDataFactory df = ontologyManager.getOWLDataFactory();
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(annotationIRI);
         new ImportsStructureEntitySorter(o).getObjects().forEach((ont, ent) -> ent.forEach(e -> {
             if (o.containsEntityInSignature(e)) {
-                ont.add(df.getOWLAnnotationAssertionAxiom(ap, e.getIRI(), action(e, lang, provider, df)));
+                ont.add(df.getOWLAnnotationAssertionAxiom(ap, e.getIRI(),
+                    action(e, lang, provider, df)));
             }
         }));
     }

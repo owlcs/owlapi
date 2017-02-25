@@ -16,27 +16,25 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLDataAllValuesFrom.
- * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
+ *
+ * @param <T> type built
+ * @param <B> builder type
  */
-public abstract class BaseDataPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> implements
+public abstract class BaseDataPropertyBuilder<T extends OWLObject, B> extends
+    BaseBuilder<T, B> implements
     SettableProperty<OWLDataPropertyExpression, B> {
 
-    @Nullable private OWLDataPropertyExpression property = null;
+    @Nullable
+    private OWLDataPropertyExpression property = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseDataPropertyBuilder(OWLDataFactory df) {

@@ -1,6 +1,8 @@
 package org.semanticweb.owlapi.model.parameters;
 
-/** Parameters for navigating class or property hierarchies. */
+/**
+ * Parameters for navigating class or property hierarchies.
+ */
 public enum Navigation {
     /**
      * search for entities in sub position (for subclasses, subproperties

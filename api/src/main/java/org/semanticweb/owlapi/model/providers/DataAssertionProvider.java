@@ -14,136 +14,126 @@ package org.semanticweb.owlapi.model.providers;
 
 import java.util.Collection;
 import java.util.Collections;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 
-import org.semanticweb.owlapi.model.*;
-
-/** Data property assertion provider. */
+/**
+ * Data property assertion provider.
+ */
 public interface DataAssertionProvider extends LiteralProvider {
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param object
-     *        object
+     * @param property property
+     * @param subject subject
+     * @param object object
      * @return a data property assertion
      */
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, OWLLiteral object) {
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, OWLLiteral object) {
         return getOWLDataPropertyAssertionAxiom(property, subject, object, Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param object
-     *        object
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param property property
+     * @param subject subject
+     * @param object object
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a data property assertion with annotations
      */
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, OWLLiteral object, Collection<OWLAnnotation> annotations);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, OWLLiteral object, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param value
-     *        value
+     * @param property property
+     * @param subject subject
+     * @param value value
      * @return a data property assertion
      */
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, int value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, int value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value),
+            Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param value
-     *        value
+     * @param property property
+     * @param subject subject
+     * @param value value
      * @return a data property assertion
      */
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, double value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, double value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value),
+            Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param value
-     *        value
+     * @param property property
+     * @param subject subject
+     * @param value value
      * @return a data property assertion
      */
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, float value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, float value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value),
+            Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param value
-     *        value
+     * @param property property
+     * @param subject subject
+     * @param value value
      * @return a data property assertion
      */
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, boolean value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, boolean value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value),
+            Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param value
-     *        value
+     * @param property property
+     * @param subject subject
+     * @param value value
      * @return a data property assertion
      */
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, String value) {
-        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, String value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value),
+            Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param object
-     *        object
+     * @param property property
+     * @param subject subject
+     * @param object object
      * @return a negative property assertion axiom on given arguments
      */
     default OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(
-            OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object) {
-        return getOWLNegativeDataPropertyAssertionAxiom(property, subject, object, Collections.emptySet());
+        OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object) {
+        return getOWLNegativeDataPropertyAssertionAxiom(property, subject, object,
+            Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param object
-     *        object
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return a negative property assertion axiom on given arguments with
-     *         annotations
+     * @param property property
+     * @param subject subject
+     * @param object object
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @return a negative property assertion axiom on given arguments with annotations
      */
-    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
-            OWLIndividual subject, OWLLiteral object, Collection<OWLAnnotation> annotations);
+    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property,
+        OWLIndividual subject, OWLLiteral object, Collection<OWLAnnotation> annotations);
 }

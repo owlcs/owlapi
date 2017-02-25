@@ -15,17 +15,19 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
 /**
  * A very very simple merger, which just creates an ontology which contains the
  * union of axioms from a set of ontologies.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyMerger implements OWLAxiomFilter {
@@ -35,8 +37,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     private final boolean mergeOnlyLogicalAxioms;
 
     /**
-     * @param setProvider
-     *        the ontology provider
+     * @param setProvider the ontology provider
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider) {
         this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
@@ -45,10 +46,8 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     }
 
     /**
-     * @param setProvider
-     *        the ontology provider
-     * @param mergeOnlyLogicalAxioms
-     *        true if only logical axioms should be included
+     * @param setProvider the ontology provider
+     * @param mergeOnlyLogicalAxioms true if only logical axioms should be included
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, boolean mergeOnlyLogicalAxioms) {
         this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
@@ -57,10 +56,8 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     }
 
     /**
-     * @param setProvider
-     *        the ontology provider
-     * @param axiomFilter
-     *        the filter to use
+     * @param setProvider the ontology provider
+     * @param axiomFilter the filter to use
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, OWLAxiomFilter axiomFilter) {
         this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
@@ -69,15 +66,13 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     }
 
     /**
-     * @param ontologyManager
-     *        the manager containing the ontologies
-     * @param ontologyIRI
-     *        the new ontology IRI
+     * @param ontologyManager the manager containing the ontologies
+     * @param ontologyIRI the new ontology IRI
      * @return the new ontology
-     * @throws OWLOntologyCreationException
-     *         if any creation exception arises
+     * @throws OWLOntologyCreationException if any creation exception arises
      */
-    public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager, @Nullable IRI ontologyIRI)
+    public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager,
+        @Nullable IRI ontologyIRI)
         throws OWLOntologyCreationException {
         OWLOntology ontology;
         if (ontologyIRI != null) {

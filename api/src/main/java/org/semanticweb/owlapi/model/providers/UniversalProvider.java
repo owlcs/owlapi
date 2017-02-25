@@ -12,37 +12,40 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Universal provider interface. */
+/**
+ * Universal provider interface.
+ */
 public interface UniversalProvider {
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param dataRange
-     *        The data range that is the filler.
-     * @return An OWLDataAllValuesFrom restriction that acts along the specified
-     *         property and has the specified filler
+     * @param property The property that the restriction acts along.
+     * @param dataRange The data range that is the filler.
+     * @return An OWLDataAllValuesFrom restriction that acts along the specified property and has
+     * the specified filler
      */
-    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
+    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
+        OWLDataRange dataRange);
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param dataRange
-     *        The data range that is the filler.
-     * @return An OWLDataAllValuesFrom restriction that acts along the specified
-     *         property and has the specified filler
+     * @param property The property that the restriction acts along.
+     * @param dataRange The data range that is the filler.
+     * @return An OWLDataAllValuesFrom restriction that acts along the specified property and has
+     * the specified filler
      */
-    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWL2Datatype dataRange);
+    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
+        OWL2Datatype dataRange);
 
     /**
-     * @param property
-     *        The property that the restriction acts along.
-     * @param classExpression
-     *        the class expression for the restriction
+     * @param property The property that the restriction acts along.
+     * @param classExpression the class expression for the restriction
      * @return an AllValuesFrom on specified property and class expression
      */
     OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,

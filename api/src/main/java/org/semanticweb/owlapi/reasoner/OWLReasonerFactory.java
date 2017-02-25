@@ -19,19 +19,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} objects. A reasoner
  * reasons over a set of ontologies that is defined by an ontology and its
  * imports closure.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @see org.semanticweb.owlapi.reasoner.OWLReasoner
+ * @since 3.0.0
  */
 public interface OWLReasonerFactory {
 
     /**
      * Gets the name of the reasoner created by this factory.
-     * 
-     * @return A string that represents the name of the reasoner created by this
-     *         factory.
+     *
+     * @return A string that represents the name of the reasoner created by this factory.
      */
     String getReasonerName();
 
@@ -43,16 +41,13 @@ public interface OWLReasonerFactory {
      * and will always answer queries with respect to the changed ontologies
      * (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further
      * details).
-     * 
-     * @param ontology
-     *        The ontology whose imports closure will be reasoned over by the
-     *        reasoner that is created.
-     * @return The reasoner that reasons over the imports closure of the
-     *         specified ontology. Note that calling this method multiple times
-     *         with the same manager and ontology will return <b>fresh</b>
-     *         instances of OWLReasoner.
-     * @throws NullPointerException
-     *         if the {@code manager} or {@code ontology} are {@code null}.
+     *
+     * @param ontology The ontology whose imports closure will be reasoned over by the reasoner that
+     * is created.
+     * @return The reasoner that reasons over the imports closure of the specified ontology. Note
+     * that calling this method multiple times with the same manager and ontology will return
+     * <b>fresh</b> instances of OWLReasoner.
+     * @throws NullPointerException if the {@code manager} or {@code ontology} are {@code null}.
      */
     OWLReasoner createNonBufferingReasoner(OWLOntology ontology);
 
@@ -64,16 +59,13 @@ public interface OWLReasonerFactory {
      * will only answer queries with respect to the changed ontologies when the
      * {@link OWLReasoner#flush()} method is called (see
      * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further details).
-     * 
-     * @param ontology
-     *        The ontology whose imports closure will be reasoned over by the
-     *        reasoner that is created.
-     * @return The reasoner that reasons over the imports closure of the
-     *         specified ontology. Note that calling this method multiple times
-     *         with the same manager and ontology will return <b>fresh</b>
-     *         instances of OWLReasoner.
-     * @throws NullPointerException
-     *         if the {@code manager} or {@code ontology} are {@code null}.
+     *
+     * @param ontology The ontology whose imports closure will be reasoned over by the reasoner that
+     * is created.
+     * @return The reasoner that reasons over the imports closure of the specified ontology. Note
+     * that calling this method multiple times with the same manager and ontology will return
+     * <b>fresh</b> instances of OWLReasoner.
+     * @throws NullPointerException if the {@code manager} or {@code ontology} are {@code null}.
      */
     OWLReasoner createReasoner(OWLOntology ontology);
 
@@ -85,24 +77,18 @@ public interface OWLReasonerFactory {
      * and will always answer queries with respect to the changed ontologies
      * (see {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further
      * details).
-     * 
-     * @param ontology
-     *        The ontology whose imports closure will be reasoned over by the
-     *        reasoner that is created.
-     * @param config
-     *        A configuration object that can be used to customise the setup of
-     *        the reasoner that will be created by calling this method.
-     * @return The reasoner that reasons over the imports closure of the
-     *         specified ontology. Note that calling this method multiple times
-     *         with the same manager and ontology will return <b>fresh</b>
-     *         instances of OWLReasoner.
-     * @throws IllegalConfigurationException
-     *         if the configuration object is inappropriate for reasoners
-     *         created by this factory, or if there is an illegal setting on the
-     *         configuration.
-     * @throws NullPointerException
-     *         if any of {@code manager}, {@code ontology} or {@code config} are
-     *         {@code null}.
+     *
+     * @param ontology The ontology whose imports closure will be reasoned over by the reasoner that
+     * is created.
+     * @param config A configuration object that can be used to customise the setup of the reasoner
+     * that will be created by calling this method.
+     * @return The reasoner that reasons over the imports closure of the specified ontology. Note
+     * that calling this method multiple times with the same manager and ontology will return
+     * <b>fresh</b> instances of OWLReasoner.
+     * @throws IllegalConfigurationException if the configuration object is inappropriate for
+     * reasoners created by this factory, or if there is an illegal setting on the configuration.
+     * @throws NullPointerException if any of {@code manager}, {@code ontology} or {@code config}
+     * are {@code null}.
      */
     OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config);
 
@@ -114,24 +100,18 @@ public interface OWLReasonerFactory {
      * will only answer queries with respect to the changed ontologies when the
      * {@link OWLReasoner#flush()} method is called (see
      * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} for further details).
-     * 
-     * @param ontology
-     *        The ontology whose imports closure will be reasoned over by the
-     *        reasoner that is created.
-     * @param config
-     *        A configuration object that can be used to customise the setup of
-     *        the reasoner that will be created by calling this method.
-     * @return The reasoner that reasons over the imports closure of the
-     *         specified ontology. Note that calling this method multiple times
-     *         with the same manager and ontology will return <b>fresh</b>
-     *         instances of OWLReasoner.
-     * @throws IllegalConfigurationException
-     *         if the configuration object is inappropriate for reasoners
-     *         created by this factory, or if there is an illegal setting on the
-     *         configuration.
-     * @throws NullPointerException
-     *         if any of {@code manager}, {@code ontology} or {@code config} are
-     *         {@code null}.
+     *
+     * @param ontology The ontology whose imports closure will be reasoned over by the reasoner that
+     * is created.
+     * @param config A configuration object that can be used to customise the setup of the reasoner
+     * that will be created by calling this method.
+     * @return The reasoner that reasons over the imports closure of the specified ontology. Note
+     * that calling this method multiple times with the same manager and ontology will return
+     * <b>fresh</b> instances of OWLReasoner.
+     * @throws IllegalConfigurationException if the configuration object is inappropriate for
+     * reasoners created by this factory, or if there is an illegal setting on the configuration.
+     * @throws NullPointerException if any of {@code manager}, {@code ontology} or {@code config}
+     * are {@code null}.
      */
     OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config);
 }

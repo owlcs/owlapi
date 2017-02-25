@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -21,18 +20,16 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
+     * @param ontology ontology
+     * @param axiom axiom
      */
-    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
+    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology,
+        OWLSubDataPropertyOfAxiom axiom) {
         super(ontology, axiom, axiom);
     }
 

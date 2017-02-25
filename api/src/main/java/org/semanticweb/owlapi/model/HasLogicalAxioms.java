@@ -19,9 +19,8 @@ import java.util.stream.Stream;
 
 /**
  * An interface to an object that contains a set of logical axioms.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 @FunctionalInterface
@@ -29,9 +28,9 @@ public interface HasLogicalAxioms {
 
     /**
      * Gets the set of {@link OWLLogicalAxiom}s contained within this object.
-     * 
-     * @return A set of {@link OWLLogicalAxiom}s that are contained within this
-     *         object. Changes are not reflected back.
+     *
+     * @return A set of {@link OWLLogicalAxiom}s that are contained within this object. Changes are
+     * not reflected back.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -40,8 +39,7 @@ public interface HasLogicalAxioms {
     }
 
     /**
-     * @return Stream of {@link OWLLogicalAxiom}s that are contained within this
-     *         object.
+     * @return Stream of {@link OWLLogicalAxiom}s that are contained within this object.
      */
     Stream<OWLLogicalAxiom> logicalAxioms();
 }

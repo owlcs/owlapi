@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.model.providers;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 5.0.0
  */
 @FunctionalInterface
@@ -35,9 +32,8 @@ public interface DataPropertyProvider extends Serializable {
     /**
      * Gets an instance of {@link OWLDataProperty} that has the specified
      * {@code IRI}.
-     * 
-     * @param iri
-     *        The IRI.
+     *
+     * @param iri The IRI.
      * @return An {@link OWLDataProperty} that has the specified IRI.
      */
     OWLDataProperty getOWLDataProperty(IRI iri);
@@ -45,9 +41,8 @@ public interface DataPropertyProvider extends Serializable {
     /**
      * Gets an instance of {@link OWLDataProperty} with the same IRI as the
      * input.
-     * 
-     * @param iri
-     *        The HasIRI instance.
+     *
+     * @param iri The HasIRI instance.
      * @return An {@link OWLDataProperty} that has iri.getIRI() as IRI.
      */
     default OWLDataProperty getOWLDataProperty(HasIRI iri) {
@@ -58,9 +53,8 @@ public interface DataPropertyProvider extends Serializable {
      * Gets an instance of {@link OWLDataProperty} that has the specified
      * {@code IRI}. This is the same as
      * {@code getOWLDataProperty(IRI.create(iri))}.
-     * 
-     * @param iri
-     *        The IRI string.
+     *
+     * @param iri The IRI string.
      * @return An {@link OWLDataProperty} that has the specified IRI.
      */
     default OWLDataProperty getOWLDataProperty(String iri) {
@@ -71,11 +65,9 @@ public interface DataPropertyProvider extends Serializable {
      * Gets an instance of {@link OWLDataProperty} that has the specified
      * {@code IRI}. This is the same as
      * {@code getOWLDataProperty(IRI.create(namespace, remainder))}.
-     * 
-     * @param namespace
-     *        The IRI namespace.
-     * @param remainder
-     *        optional remainder or local name
+     *
+     * @param namespace The IRI namespace.
+     * @param remainder optional remainder or local name
      * @return An {@link OWLDataProperty} that has the specified IRI.
      */
     default OWLDataProperty getOWLDataProperty(String namespace, @Nullable String remainder) {
@@ -87,26 +79,19 @@ public interface DataPropertyProvider extends Serializable {
      * abbreviated name using an appropriate prefix mapping. See
      * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The
      * OWL 2 Structural Specification</a> for more details.
-     * 
-     * @param abbreviatedIRI
-     *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix). Note
-     *        that abbreviated IRIs always contain a colon as a delimiter, even
-     *        if the prefix name is the empty string.
-     * @param prefixManager
-     *        The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
-     * @return An OWLDataProperty that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager.
-     *         <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated
-     *         IRI, the prefix manager would be used to obtain the IRI prefix
-     *         for the "m:" prefix name, this prefix would then be concatenated
-     *         with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLDataProperty obtained by this method.
-     * @throws OWLRuntimeException
-     *         if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
+     *
+     * @param abbreviatedIRI The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
+     * PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs always
+     * contain a colon as a delimiter, even if the prefix name is the empty string.
+     * @param prefixManager The prefix manager that is responsible for mapping prefix names to
+     * prefix IRIs.
+     * @return An OWLDataProperty that has the IRI obtained by expanding the specified abbreviated
+     * IRI using the specified prefix manager. <br> For example, suppose "m:Cat" was specified as
+     * the abbreviated IRI, the prefix manager would be used to obtain the IRI prefix for the "m:"
+     * prefix name, this prefix would then be concatenated with "Cat" to obtain the full IRI which
+     * would be the IRI of the OWLDataProperty obtained by this method.
+     * @throws OWLRuntimeException if the prefix name in the specified abbreviated IRI does not have
+     * a mapping to a prefix in the specified prefix manager.
      */
     default OWLDataProperty getOWLDataProperty(String abbreviatedIRI, PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "curi canno be null");

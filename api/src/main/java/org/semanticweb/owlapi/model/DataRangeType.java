@@ -13,23 +13,33 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
  * Represents the different types of OWL 2 data ranges.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public enum DataRangeType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
     //@formatter:off
-    /** Represents {@link OWLDatatype}.             */ DATATYPE             ("Datatype"             ),
-    /** Represents {@link OWLDataOneOf}.            */ DATA_ONE_OF          ("DataOneOf"            ),
-    /** Represents {@link OWLDatatypeRestriction}.  */ DATATYPE_RESTRICTION ("DatatypeRestriction"  ),
-    /** Represents {@link OWLDataComplementOf}.     */ DATA_COMPLEMENT_OF   ("DataComplementOf"     ),
-    /** Represents {@link OWLDataUnionOf}.          */ DATA_UNION_OF        ("DataUnionOf"          ),
-    /** Represents {@link OWLDataIntersectionOf}.   */ DATA_INTERSECTION_OF ("DataIntersectionOf"   );
+    /**
+     * Represents {@link OWLDatatype}.
+     */DATATYPE("Datatype"),
+    /**
+     * Represents {@link OWLDataOneOf}.
+     */DATA_ONE_OF("DataOneOf"),
+    /**
+     * Represents {@link OWLDatatypeRestriction}.
+     */DATATYPE_RESTRICTION("DatatypeRestriction"),
+    /**
+     * Represents {@link OWLDataComplementOf}.
+     */DATA_COMPLEMENT_OF("DataComplementOf"),
+    /**
+     * Represents {@link OWLDataUnionOf}.
+     */DATA_UNION_OF("DataUnionOf"),
+    /**
+     * Represents {@link OWLDataIntersectionOf}.
+     */DATA_INTERSECTION_OF("DataIntersectionOf");
     //@formatter:on
     private final String name;
     private final String prefixedName;

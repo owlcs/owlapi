@@ -18,14 +18,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
@@ -33,12 +31,9 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     private final List<OWLAnnotation> anns;
 
     /**
-     * @param property
-     *        annotation property
-     * @param value
-     *        annotation value
-     * @param annotations
-     *        annotations on the axiom
+     * @param property annotation property
+     * @param value annotation value
+     * @param annotations annotations on the axiom
      */
     public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value,
         Stream<OWLAnnotation> annotations) {
@@ -62,6 +57,7 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
 
     @Override
     public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationImpl(getProperty(), getValue(), Stream.concat(anns.stream(), annotations));
+        return new OWLAnnotationImpl(getProperty(), getValue(),
+            Stream.concat(anns.stream(), annotations));
     }
 }

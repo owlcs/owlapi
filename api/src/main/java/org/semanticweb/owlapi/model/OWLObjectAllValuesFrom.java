@@ -16,9 +16,8 @@ package org.semanticweb.owlapi.model;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Universal_Quantification_2" >
  * ObjectAllValuesFrom</a> restriction in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectAllValuesFrom extends OWLQuantifiedObjectRestriction {

@@ -12,26 +12,55 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.datafactory;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.vocab.OWLFacet.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.junit.Test;
-import org.semanticweb.owlapi.model.*;
-
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRestriction;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * The base for test cases that need a data factory.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -179,10 +208,12 @@ public class OWLDataFactoryTestCase {
     public void testEqualsPositiveDataRange() {
         OWLDatatype rng = D(IRI());
         OWLLiteral facetValue = testSubject.getOWLLiteral("3", D(IRI()));
-        OWLDatatypeRestriction restRngA = testSubject.getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
-            MAX_EXCLUSIVE, facetValue));
-        OWLDatatypeRestriction restRngB = testSubject.getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
-            MAX_EXCLUSIVE, facetValue));
+        OWLDatatypeRestriction restRngA = testSubject
+            .getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
+                MAX_EXCLUSIVE, facetValue));
+        OWLDatatypeRestriction restRngB = testSubject
+            .getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
+                MAX_EXCLUSIVE, facetValue));
         assertNotNull(restRngA);
         assertEquals(restRngA, restRngB);
         assertEquals(restRngA.hashCode(), restRngB.hashCode());
@@ -192,10 +223,12 @@ public class OWLDataFactoryTestCase {
     public void testEqualsNegativeDataRange() {
         OWLDatatype rng = D(IRI());
         OWLLiteral facetValue = testSubject.getOWLLiteral("3", D(IRI()));
-        OWLDatatypeRestriction restRngA = testSubject.getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
-            MAX_EXCLUSIVE, facetValue));
-        OWLDatatypeRestriction restRngB = testSubject.getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
-            MIN_INCLUSIVE, facetValue));
+        OWLDatatypeRestriction restRngA = testSubject
+            .getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
+                MAX_EXCLUSIVE, facetValue));
+        OWLDatatypeRestriction restRngB = testSubject
+            .getOWLDatatypeRestriction(rng, testSubject.getOWLFacetRestriction(
+                MIN_INCLUSIVE, facetValue));
         assertNotEquals(restRngA.toString() + "\n" + restRngB.toString(), restRngA, restRngB);
     }
 
@@ -310,7 +343,8 @@ public class OWLDataFactoryTestCase {
         OWLObjectProperty c = OP(IRI());
         OWLObject objA = testSubject.getOWLEquivalentObjectPropertiesAxiom(a, b, c);
         OWLObject objB = testSubject.getOWLEquivalentObjectPropertiesAxiom(a, b, c);
-        OWLEquivalentObjectPropertiesAxiom objC = testSubject.getOWLEquivalentObjectPropertiesAxiom(a, b);
+        OWLEquivalentObjectPropertiesAxiom objC = testSubject
+            .getOWLEquivalentObjectPropertiesAxiom(a, b);
         assertNotNull(objA);
         assertEquals(objA, objB);
         assertEquals(objA.hashCode(), objB.hashCode());
@@ -336,8 +370,9 @@ public class OWLDataFactoryTestCase {
     public void testAsSubAxiomsEquivalentDataProperties() {
         OWLDataProperty a = DP(IRI());
         OWLDataProperty b = DP(IRI());
-        OWLDataPropertyExpression[] properties = { a, b };
-        OWLEquivalentDataPropertiesAxiom objA = testSubject.getOWLEquivalentDataPropertiesAxiom(properties);
+        OWLDataPropertyExpression[] properties = {a, b};
+        OWLEquivalentDataPropertiesAxiom objA = testSubject
+            .getOWLEquivalentDataPropertiesAxiom(properties);
         assertEquals(2, objA.asSubDataPropertyOfAxioms().size());
     }
 
@@ -365,7 +400,7 @@ public class OWLDataFactoryTestCase {
 
     @Test
     public void testAsSubAxiomsEquivalentClasses() {
-        OWLClassExpression[] classExpressions = { C(IRI()), C(IRI()) };
+        OWLClassExpression[] classExpressions = {C(IRI()), C(IRI())};
         OWLEquivalentClassesAxiom objA = testSubject.getOWLEquivalentClassesAxiom(classExpressions);
         assertEquals(2, objA.asOWLSubClassOfAxioms().size());
     }
@@ -454,11 +489,13 @@ public class OWLDataFactoryTestCase {
     public void testCreationDataExact() {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataExactCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
         assertNotNull(restA);
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataExactCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, dataRange);
         assertNotNull(restB);
         assertEquals(restA.getProperty(), prop);
     }
@@ -467,14 +504,18 @@ public class OWLDataFactoryTestCase {
     public void testEqualsPositiveDataExact() {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataExactCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataExactCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
         assertEquals(restA, restB);
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restC = testSubject.getOWLDataExactCardinality(cardinality, prop, dataRange);
-        OWLDataCardinalityRestriction restD = testSubject.getOWLDataExactCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restC = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restD = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, dataRange);
         assertEquals(restC, restD);
         assertEquals(restA.getProperty(), prop);
     }
@@ -483,20 +524,26 @@ public class OWLDataFactoryTestCase {
     public void testEqualsNegativeDataExact() {
         OWLDataProperty prop = DP(IRI());
         // Different cardinality
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataExactCardinality(3, prop, testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataExactCardinality(4, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataExactCardinality(3, prop, testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataExactCardinality(4, prop, testSubject
+                .getTopDatatype());
         assertFalse(restA.equals(restB));
         // Different property
-        OWLDataCardinalityRestriction restC = testSubject.getOWLDataExactCardinality(3, DP(IRI()), testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restD = testSubject.getOWLDataExactCardinality(3, DP(IRI()), testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restC = testSubject
+            .getOWLDataExactCardinality(3, DP(IRI()), testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restD = testSubject
+            .getOWLDataExactCardinality(3, DP(IRI()), testSubject
+                .getTopDatatype());
         assertFalse(restC.equals(restD));
         // Different filler
-        OWLDataCardinalityRestriction restE = testSubject.getOWLDataExactCardinality(3, prop, D(IRI()));
-        OWLDataCardinalityRestriction restF = testSubject.getOWLDataExactCardinality(3, prop, D(IRI()));
+        OWLDataCardinalityRestriction restE = testSubject
+            .getOWLDataExactCardinality(3, prop, D(IRI()));
+        OWLDataCardinalityRestriction restF = testSubject
+            .getOWLDataExactCardinality(3, prop, D(IRI()));
         assertFalse(restE.equals(restF));
         assertEquals(restA.getProperty(), prop);
     }
@@ -506,8 +553,10 @@ public class OWLDataFactoryTestCase {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataExactCardinality(cardinality, prop, dataRange);
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataExactCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataExactCardinality(cardinality, prop, dataRange);
         assertEquals(restA, restB);
         assertEquals(restA.getProperty(), prop);
     }
@@ -516,11 +565,13 @@ public class OWLDataFactoryTestCase {
     public void testCreationDataMin() {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMinCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
         assertNotNull(restA);
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMinCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, dataRange);
         assertNotNull(restB);
         assertEquals(restA.getProperty(), prop);
     }
@@ -529,14 +580,18 @@ public class OWLDataFactoryTestCase {
     public void testEqualsPositiveDataMin() {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMinCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMinCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
         assertEquals(restA, restB);
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restC = testSubject.getOWLDataMinCardinality(cardinality, prop, dataRange);
-        OWLDataCardinalityRestriction restD = testSubject.getOWLDataMinCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restC = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restD = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, dataRange);
         assertEquals(restC, restD);
         assertEquals(restA.getProperty(), prop);
     }
@@ -545,20 +600,26 @@ public class OWLDataFactoryTestCase {
     public void testEqualsNegativeDataMin() {
         OWLDataProperty prop = DP(IRI());
         // Different cardinality
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMinCardinality(3, prop, testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMinCardinality(4, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMinCardinality(3, prop, testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMinCardinality(4, prop, testSubject
+                .getTopDatatype());
         assertFalse(restA.equals(restB));
         // Different property
-        OWLDataCardinalityRestriction restC = testSubject.getOWLDataMinCardinality(3, DP(IRI()), testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restD = testSubject.getOWLDataMinCardinality(3, DP(IRI()), testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restC = testSubject
+            .getOWLDataMinCardinality(3, DP(IRI()), testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restD = testSubject
+            .getOWLDataMinCardinality(3, DP(IRI()), testSubject
+                .getTopDatatype());
         assertFalse(restC.equals(restD));
         // Different filler
-        OWLDataCardinalityRestriction restE = testSubject.getOWLDataMinCardinality(3, prop, D(IRI()));
-        OWLDataCardinalityRestriction restF = testSubject.getOWLDataMinCardinality(3, prop, D(IRI()));
+        OWLDataCardinalityRestriction restE = testSubject
+            .getOWLDataMinCardinality(3, prop, D(IRI()));
+        OWLDataCardinalityRestriction restF = testSubject
+            .getOWLDataMinCardinality(3, prop, D(IRI()));
         assertFalse(restE.equals(restF));
         assertEquals(restA.getProperty(), prop);
     }
@@ -568,8 +629,10 @@ public class OWLDataFactoryTestCase {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMinCardinality(cardinality, prop, dataRange);
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMinCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMinCardinality(cardinality, prop, dataRange);
         assertEquals(restA, restB);
         assertEquals(restA.getProperty(), prop);
     }
@@ -578,11 +641,13 @@ public class OWLDataFactoryTestCase {
     public void testCreationDataMax() {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMaxCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
         assertNotNull(restA);
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMaxCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, dataRange);
         assertNotNull(restB);
         assertEquals(restA.getProperty(), prop);
     }
@@ -591,14 +656,18 @@ public class OWLDataFactoryTestCase {
     public void testEqualsPositiveDataMax() {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMaxCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMaxCardinality(cardinality, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, testSubject
+                .getTopDatatype());
         assertEquals(restA, restB);
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restC = testSubject.getOWLDataMaxCardinality(cardinality, prop, dataRange);
-        OWLDataCardinalityRestriction restD = testSubject.getOWLDataMaxCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restC = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restD = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, dataRange);
         assertEquals(restC, restD);
         assertEquals(restA.getProperty(), prop);
     }
@@ -607,20 +676,26 @@ public class OWLDataFactoryTestCase {
     public void testEqualsNegativeDataMax() {
         OWLDataProperty prop = DP(IRI());
         // Different cardinality
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMaxCardinality(3, prop, testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMaxCardinality(4, prop, testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMaxCardinality(3, prop, testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMaxCardinality(4, prop, testSubject
+                .getTopDatatype());
         assertFalse(restA.equals(restB));
         // Different property
-        OWLDataCardinalityRestriction restC = testSubject.getOWLDataMaxCardinality(3, DP(IRI()), testSubject
-            .getTopDatatype());
-        OWLDataCardinalityRestriction restD = testSubject.getOWLDataMaxCardinality(3, DP(IRI()), testSubject
-            .getTopDatatype());
+        OWLDataCardinalityRestriction restC = testSubject
+            .getOWLDataMaxCardinality(3, DP(IRI()), testSubject
+                .getTopDatatype());
+        OWLDataCardinalityRestriction restD = testSubject
+            .getOWLDataMaxCardinality(3, DP(IRI()), testSubject
+                .getTopDatatype());
         assertFalse(restC.equals(restD));
         // Different filler
-        OWLDataCardinalityRestriction restE = testSubject.getOWLDataMaxCardinality(3, prop, D(IRI()));
-        OWLDataCardinalityRestriction restF = testSubject.getOWLDataMaxCardinality(3, prop, D(IRI()));
+        OWLDataCardinalityRestriction restE = testSubject
+            .getOWLDataMaxCardinality(3, prop, D(IRI()));
+        OWLDataCardinalityRestriction restF = testSubject
+            .getOWLDataMaxCardinality(3, prop, D(IRI()));
         assertFalse(restE.equals(restF));
         assertEquals(restA.getProperty(), prop);
     }
@@ -630,8 +705,10 @@ public class OWLDataFactoryTestCase {
         OWLDataProperty prop = DP(IRI());
         int cardinality = 3;
         OWLDataRange dataRange = D(IRI());
-        OWLDataCardinalityRestriction restA = testSubject.getOWLDataMaxCardinality(cardinality, prop, dataRange);
-        OWLDataCardinalityRestriction restB = testSubject.getOWLDataMaxCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restA = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, dataRange);
+        OWLDataCardinalityRestriction restB = testSubject
+            .getOWLDataMaxCardinality(cardinality, prop, dataRange);
         assertEquals(restA, restB);
         assertEquals(restA.getProperty(), prop);
     }
@@ -1193,11 +1270,13 @@ public class OWLDataFactoryTestCase {
     public void testCreationExactCard() {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectExactCardinality(cardinality, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, testSubject
+                .getOWLThing());
         assertNotNull(restA);
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectExactCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, cls);
         assertNotNull(restB);
     }
 
@@ -1205,14 +1284,18 @@ public class OWLDataFactoryTestCase {
     public void testEqualsPositiveExactCard() {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectExactCardinality(cardinality, prop, testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectExactCardinality(cardinality, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, testSubject
+                .getOWLThing());
         assertEquals(restA, restB);
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restC = testSubject.getOWLObjectExactCardinality(cardinality, prop, cls);
-        OWLObjectCardinalityRestriction restD = testSubject.getOWLObjectExactCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restC = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restD = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, cls);
         assertEquals(restC, restD);
     }
 
@@ -1220,20 +1303,26 @@ public class OWLDataFactoryTestCase {
     public void testEqualsNegativeExactCard() {
         OWLObjectProperty prop = OP(IRI());
         // Different cardinality
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectExactCardinality(3, prop, testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectExactCardinality(4, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectExactCardinality(3, prop, testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectExactCardinality(4, prop, testSubject
+                .getOWLThing());
         assertFalse(restA.equals(restB));
         // Different property
-        OWLObjectCardinalityRestriction restC = testSubject.getOWLObjectExactCardinality(3, OP(IRI()), testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restD = testSubject.getOWLObjectExactCardinality(3, OP(IRI()), testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restC = testSubject
+            .getOWLObjectExactCardinality(3, OP(IRI()), testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restD = testSubject
+            .getOWLObjectExactCardinality(3, OP(IRI()), testSubject
+                .getOWLThing());
         assertFalse(restC.equals(restD));
         // Different filler
-        OWLObjectCardinalityRestriction restE = testSubject.getOWLObjectExactCardinality(3, prop, C(IRI()));
-        OWLObjectCardinalityRestriction restF = testSubject.getOWLObjectExactCardinality(3, prop, C(IRI()));
+        OWLObjectCardinalityRestriction restE = testSubject
+            .getOWLObjectExactCardinality(3, prop, C(IRI()));
+        OWLObjectCardinalityRestriction restF = testSubject
+            .getOWLObjectExactCardinality(3, prop, C(IRI()));
         assertFalse(restE.equals(restF));
     }
 
@@ -1242,8 +1331,10 @@ public class OWLDataFactoryTestCase {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectExactCardinality(cardinality, prop, cls);
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectExactCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectExactCardinality(cardinality, prop, cls);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 
@@ -1251,11 +1342,13 @@ public class OWLDataFactoryTestCase {
     public void testCreationMaxCard() {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMaxCardinality(cardinality, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, testSubject
+                .getOWLThing());
         assertNotNull(restA);
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMaxCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, cls);
         assertNotNull(restB);
     }
 
@@ -1263,14 +1356,18 @@ public class OWLDataFactoryTestCase {
     public void testEqualsPositiveMaxCard() {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMaxCardinality(cardinality, prop, testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMaxCardinality(cardinality, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, testSubject
+                .getOWLThing());
         assertEquals(restA, restB);
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restC = testSubject.getOWLObjectMaxCardinality(cardinality, prop, cls);
-        OWLObjectCardinalityRestriction restD = testSubject.getOWLObjectMaxCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restC = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restD = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, cls);
         assertEquals(restC, restD);
     }
 
@@ -1278,20 +1375,26 @@ public class OWLDataFactoryTestCase {
     public void testEqualsNegativeMaxCard() {
         OWLObjectProperty prop = OP(IRI());
         // Different cardinality
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMaxCardinality(3, prop, testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMaxCardinality(4, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMaxCardinality(3, prop, testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMaxCardinality(4, prop, testSubject
+                .getOWLThing());
         assertFalse(restA.equals(restB));
         // Different property
-        OWLObjectCardinalityRestriction restC = testSubject.getOWLObjectMaxCardinality(3, OP(IRI()), testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restD = testSubject.getOWLObjectMaxCardinality(3, OP(IRI()), testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restC = testSubject
+            .getOWLObjectMaxCardinality(3, OP(IRI()), testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restD = testSubject
+            .getOWLObjectMaxCardinality(3, OP(IRI()), testSubject
+                .getOWLThing());
         assertFalse(restC.equals(restD));
         // Different filler
-        OWLObjectCardinalityRestriction restE = testSubject.getOWLObjectMaxCardinality(3, prop, C(IRI()));
-        OWLObjectCardinalityRestriction restF = testSubject.getOWLObjectMaxCardinality(3, prop, C(IRI()));
+        OWLObjectCardinalityRestriction restE = testSubject
+            .getOWLObjectMaxCardinality(3, prop, C(IRI()));
+        OWLObjectCardinalityRestriction restF = testSubject
+            .getOWLObjectMaxCardinality(3, prop, C(IRI()));
         assertFalse(restE.equals(restF));
     }
 
@@ -1300,8 +1403,10 @@ public class OWLDataFactoryTestCase {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMaxCardinality(cardinality, prop, cls);
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMaxCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMaxCardinality(cardinality, prop, cls);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 
@@ -1309,11 +1414,13 @@ public class OWLDataFactoryTestCase {
     public void testCreationMinCard() {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMinCardinality(cardinality, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, testSubject
+                .getOWLThing());
         assertNotNull(restA);
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMinCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, cls);
         assertNotNull(restB);
     }
 
@@ -1321,14 +1428,18 @@ public class OWLDataFactoryTestCase {
     public void testEqualsPositiveMinCard() {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMinCardinality(cardinality, prop, testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMinCardinality(cardinality, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, testSubject
+                .getOWLThing());
         assertEquals(restA, restB);
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restC = testSubject.getOWLObjectMinCardinality(cardinality, prop, cls);
-        OWLObjectCardinalityRestriction restD = testSubject.getOWLObjectMinCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restC = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restD = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, cls);
         assertEquals(restC, restD);
     }
 
@@ -1336,20 +1447,26 @@ public class OWLDataFactoryTestCase {
     public void testEqualsNegativeMinCard() {
         OWLObjectProperty prop = OP(IRI());
         // Different cardinality
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMinCardinality(3, prop, testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMinCardinality(4, prop, testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMinCardinality(3, prop, testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMinCardinality(4, prop, testSubject
+                .getOWLThing());
         assertFalse(restA.equals(restB));
         // Different property
-        OWLObjectCardinalityRestriction restC = testSubject.getOWLObjectMinCardinality(3, OP(IRI()), testSubject
-            .getOWLThing());
-        OWLObjectCardinalityRestriction restD = testSubject.getOWLObjectMinCardinality(3, OP(IRI()), testSubject
-            .getOWLThing());
+        OWLObjectCardinalityRestriction restC = testSubject
+            .getOWLObjectMinCardinality(3, OP(IRI()), testSubject
+                .getOWLThing());
+        OWLObjectCardinalityRestriction restD = testSubject
+            .getOWLObjectMinCardinality(3, OP(IRI()), testSubject
+                .getOWLThing());
         assertFalse(restC.equals(restD));
         // Different filler
-        OWLObjectCardinalityRestriction restE = testSubject.getOWLObjectMinCardinality(3, prop, C(IRI()));
-        OWLObjectCardinalityRestriction restF = testSubject.getOWLObjectMinCardinality(3, prop, C(IRI()));
+        OWLObjectCardinalityRestriction restE = testSubject
+            .getOWLObjectMinCardinality(3, prop, C(IRI()));
+        OWLObjectCardinalityRestriction restF = testSubject
+            .getOWLObjectMinCardinality(3, prop, C(IRI()));
         assertFalse(restE.equals(restF));
     }
 
@@ -1358,21 +1475,24 @@ public class OWLDataFactoryTestCase {
         OWLObjectProperty prop = OP(IRI());
         int cardinality = 3;
         OWLClassExpression cls = C(IRI());
-        OWLObjectCardinalityRestriction restA = testSubject.getOWLObjectMinCardinality(cardinality, prop, cls);
-        OWLObjectCardinalityRestriction restB = testSubject.getOWLObjectMinCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restA = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, cls);
+        OWLObjectCardinalityRestriction restB = testSubject
+            .getOWLObjectMinCardinality(cardinality, prop, cls);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 
     @Test
     public void testCreationDisjointClasses() {
-        OWLClassExpression[] classExpressions = { C(IRI()), C(IRI()), C(IRI()) };
+        OWLClassExpression[] classExpressions = {C(IRI()), C(IRI()), C(IRI())};
         OWLObject obj = testSubject.getOWLDisjointClassesAxiom(classExpressions);
         assertNotNull(obj);
     }
 
     @Test
     public void testCreationNotDataRel() {
-        assertNotNull(testSubject.getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), I(), Literal()));
+        assertNotNull(
+            testSubject.getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), I(), Literal()));
     }
 
     @Test
@@ -1395,12 +1515,16 @@ public class OWLDataFactoryTestCase {
         assertFalse(axA.equals(axB));
         // Different property
         OWLIndividual s = I();
-        OWLIndividualAxiom axiomC = testSubject.getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), s, o);
-        OWLIndividualAxiom axiomD = testSubject.getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), s, o);
+        OWLIndividualAxiom axiomC = testSubject
+            .getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), s, o);
+        OWLIndividualAxiom axiomD = testSubject
+            .getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), s, o);
         assertFalse(axiomC.equals(axiomD));
         // Different object
-        OWLIndividualAxiom axiomE = testSubject.getOWLNegativeDataPropertyAssertionAxiom(p, s, Literal());
-        OWLIndividualAxiom axiomF = testSubject.getOWLNegativeDataPropertyAssertionAxiom(p, s, Literal());
+        OWLIndividualAxiom axiomE = testSubject
+            .getOWLNegativeDataPropertyAssertionAxiom(p, s, Literal());
+        OWLIndividualAxiom axiomF = testSubject
+            .getOWLNegativeDataPropertyAssertionAxiom(p, s, Literal());
         assertFalse(axiomE.equals(axiomF));
     }
 
@@ -1483,12 +1607,16 @@ public class OWLDataFactoryTestCase {
         assertFalse(axA.equals(axB));
         // Different property
         OWLIndividual s = I();
-        OWLIndividualAxiom axiomC = testSubject.getOWLNegativeObjectPropertyAssertionAxiom(OP(IRI()), s, o);
-        OWLIndividualAxiom axiomD = testSubject.getOWLNegativeObjectPropertyAssertionAxiom(OP(IRI()), s, o);
+        OWLIndividualAxiom axiomC = testSubject
+            .getOWLNegativeObjectPropertyAssertionAxiom(OP(IRI()), s, o);
+        OWLIndividualAxiom axiomD = testSubject
+            .getOWLNegativeObjectPropertyAssertionAxiom(OP(IRI()), s, o);
         assertFalse(axiomC.equals(axiomD));
         // Different object
-        OWLIndividualAxiom axiomE = testSubject.getOWLNegativeObjectPropertyAssertionAxiom(p, s, I());
-        OWLIndividualAxiom axiomF = testSubject.getOWLNegativeObjectPropertyAssertionAxiom(p, s, I());
+        OWLIndividualAxiom axiomE = testSubject
+            .getOWLNegativeObjectPropertyAssertionAxiom(p, s, I());
+        OWLIndividualAxiom axiomF = testSubject
+            .getOWLNegativeObjectPropertyAssertionAxiom(p, s, I());
         assertFalse(axiomE.equals(axiomF));
     }
 
@@ -1812,14 +1940,18 @@ public class OWLDataFactoryTestCase {
         OWLClass clsC = testSubject.getOWLClass("urn:test#", "C");
         OWLClass clsD = testSubject.getOWLClass("urn:test#", "D");
         SWRLVariable var = testSubject.getSWRLVariable("urn:test#", "x");
-        List<SWRLClassAtom> body1 = Arrays.asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(
-            clsC, var));
-        List<SWRLClassAtom> head1 = Arrays.asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(
-            clsD, var));
-        List<SWRLClassAtom> body2 = Arrays.asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(
-            clsA, var));
-        List<SWRLClassAtom> head2 = Arrays.asList(testSubject.getSWRLClassAtom(clsD, var), testSubject.getSWRLClassAtom(
-            clsB, var));
+        List<SWRLClassAtom> body1 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(
+                clsC, var));
+        List<SWRLClassAtom> head1 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(
+                clsD, var));
+        List<SWRLClassAtom> body2 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(
+                clsA, var));
+        List<SWRLClassAtom> head2 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsD, var), testSubject.getSWRLClassAtom(
+                clsB, var));
         SWRLRule rule1 = testSubject.getSWRLRule(body1, head1);
         SWRLRule rule2 = testSubject.getSWRLRule(body2, head2);
         assertEquals(rule1, rule2);
@@ -1831,19 +1963,25 @@ public class OWLDataFactoryTestCase {
         OWLClass clsB = testSubject.getOWLClass("urn:test#", "B");
         OWLClass clsC = testSubject.getOWLClass("urn:test#", "C");
         OWLClass clsD = testSubject.getOWLClass("urn:test#", "D");
-        Collection<OWLAnnotation> ann1 = Arrays.asList(testSubject.getRDFSComment("test1"), testSubject.getRDFSLabel(
-            "test2"));
-        Collection<OWLAnnotation> ann2 = Arrays.asList(testSubject.getRDFSLabel("test2"), testSubject.getRDFSComment(
-            "test1"));
+        Collection<OWLAnnotation> ann1 = Arrays
+            .asList(testSubject.getRDFSComment("test1"), testSubject.getRDFSLabel(
+                "test2"));
+        Collection<OWLAnnotation> ann2 = Arrays
+            .asList(testSubject.getRDFSLabel("test2"), testSubject.getRDFSComment(
+                "test1"));
         SWRLVariable var = testSubject.getSWRLVariable("urn:test#", "x");
-        List<SWRLClassAtom> body1 = Arrays.asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(
-            clsC, var));
-        List<SWRLClassAtom> head1 = Arrays.asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(
-            clsD, var));
-        List<SWRLClassAtom> body2 = Arrays.asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(
-            clsA, var));
-        List<SWRLClassAtom> head2 = Arrays.asList(testSubject.getSWRLClassAtom(clsD, var), testSubject.getSWRLClassAtom(
-            clsB, var));
+        List<SWRLClassAtom> body1 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsA, var), testSubject.getSWRLClassAtom(
+                clsC, var));
+        List<SWRLClassAtom> head1 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsB, var), testSubject.getSWRLClassAtom(
+                clsD, var));
+        List<SWRLClassAtom> body2 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsC, var), testSubject.getSWRLClassAtom(
+                clsA, var));
+        List<SWRLClassAtom> head2 = Arrays
+            .asList(testSubject.getSWRLClassAtom(clsD, var), testSubject.getSWRLClassAtom(
+                clsB, var));
         SWRLRule rule1 = testSubject.getSWRLRule(body1, head1, ann1);
         SWRLRule rule2 = testSubject.getSWRLRule(body2, head2, ann2);
         assertEquals(rule1, rule2);

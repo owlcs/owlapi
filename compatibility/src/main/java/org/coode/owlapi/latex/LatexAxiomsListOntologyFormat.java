@@ -15,12 +15,13 @@ package org.coode.owlapi.latex;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 03-Aug-2008
- * @deprecated use
- *             {@link org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat}
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group, Date:
+ *         03-Aug-2008
+ * @deprecated use {@link org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat}
  */
 @Deprecated
 public class LatexAxiomsListOntologyFormat extends
-        org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat implements
-        OWLOntologyFormat {}
+    org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat implements
+    OWLOntologyFormat {
+
+}

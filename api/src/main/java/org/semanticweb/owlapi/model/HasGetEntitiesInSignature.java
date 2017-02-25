@@ -18,16 +18,14 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 @FunctionalInterface
 public interface HasGetEntitiesInSignature {
 
     /**
-     * @param entityIRI
-     *        IRI for all entities to retrieve
+     * @param entityIRI IRI for all entities to retrieve
      * @return entities with IRI equal to entityIRI
      * @deprecated use the stream method
      */
@@ -37,8 +35,7 @@ public interface HasGetEntitiesInSignature {
     }
 
     /**
-     * @param entityIRI
-     *        IRI for all entities to retrieve
+     * @param entityIRI IRI for all entities to retrieve
      * @return stream of entities with IRI equal to entityIRI
      */
     Stream<OWLEntity> entitiesInSignature(IRI entityIRI);

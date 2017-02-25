@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(0)
 public class RDFXMLStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RDFXMLStorerFactory() {
         super(new RDFXMLDocumentFormatFactory());
     }

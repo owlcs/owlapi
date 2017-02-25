@@ -16,23 +16,24 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 
-/** Builder class for SWRLLiteralArgument. */
-public class BuilderSWRLLiteralArgument extends BaseBuilder<SWRLLiteralArgument, BuilderSWRLLiteralArgument> {
+/**
+ * Builder class for SWRLLiteralArgument.
+ */
+public class BuilderSWRLLiteralArgument extends
+    BaseBuilder<SWRLLiteralArgument, BuilderSWRLLiteralArgument> {
 
-    @Nullable private OWLLiteral literal;
+    @Nullable
+    private OWLLiteral literal;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSWRLLiteralArgument(SWRLLiteralArgument expected, OWLDataFactory df) {
         this(df);
@@ -40,8 +41,7 @@ public class BuilderSWRLLiteralArgument extends BaseBuilder<SWRLLiteralArgument,
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLLiteralArgument(OWLDataFactory df) {
@@ -49,8 +49,7 @@ public class BuilderSWRLLiteralArgument extends BaseBuilder<SWRLLiteralArgument,
     }
 
     /**
-     * @param arg
-     *        literal
+     * @param arg literal
      * @return builder
      */
     public BuilderSWRLLiteralArgument with(OWLLiteral arg) {

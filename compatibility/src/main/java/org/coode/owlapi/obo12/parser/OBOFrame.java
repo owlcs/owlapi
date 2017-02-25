@@ -41,7 +41,6 @@ package org.coode.owlapi.obo12.parser;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.annotation.Nullable;
 
 /**
@@ -52,8 +51,9 @@ import javax.annotation.Nullable;
  */
 class OBOFrame {
 
-    @Nullable private String frameType = null;
     private final List<OBOTagValuePair> tagValuePairs;
+    @Nullable
+    private String frameType = null;
 
     public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
         this.tagValuePairs = tagValuePairs;

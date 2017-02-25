@@ -20,15 +20,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -40,10 +38,8 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     /**
      * Creates an object duplicator that duplicates objects using the specified
      * data factory.
-     * 
-     * @param m
-     *        The manager providing data factory and config to be used for the
-     *        duplication.
+     *
+     * @param m The manager providing data factory and config to be used for the duplication.
      */
     public AnonymousIndividualsNormaliser(OWLOntologyManager m) {
         super(m);

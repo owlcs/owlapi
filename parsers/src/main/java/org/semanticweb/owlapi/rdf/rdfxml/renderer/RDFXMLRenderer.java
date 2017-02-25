@@ -12,8 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +28,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -48,8 +51,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLRenderer extends RDFRendererBase {
@@ -61,36 +63,34 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private final ShortFormProvider labelMaker;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
+     * @param ontology ontology
+     * @param w writer
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w) {
         this(ontology, w, verifyNotNull(ontology.getFormat()));
     }
 
     /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param w writer
+     * @param format format
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
-        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"), ontology
-            .getOWLOntologyManager().getOntologyWriterConfiguration());
+        super(checkNotNull(ontology, "ontology cannot be null"),
+            checkNotNull(format, "format cannot be null"), ontology
+                .getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(new XMLWriterImpl(checkNotNull(w, "w cannot be null"), qnameManager, base, ontology
-            .getOWLOntologyManager().getOntologyWriterConfiguration()));
+        writer = new RDFXMLWriter(
+            new XMLWriterImpl(checkNotNull(w, "w cannot be null"), qnameManager, base, ontology
+                .getOWLOntologyManager().getOntologyWriterConfiguration()));
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager);
+        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
+            prefLangMap, manager);
     }
 
     private static String base(String defaultNamespace) {
@@ -187,8 +187,10 @@ public class RDFXMLRenderer extends RDFRendererBase {
         Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
-            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && BUILT_IN_VOCABULARY_IRIS
-                .contains(triple.getObject().getIRI()) && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
+                && BUILT_IN_VOCABULARY_IRIS
+                .contains(triple.getObject().getIRI()) && prettyPrintedTypes
+                .contains(triple.getObject().getIRI())) {
                 candidatePrettyPrintTypeTriple = triple;
             }
         }
@@ -203,7 +205,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
             writer.writeNodeIDAttribute(node);
         }
         for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
+            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple
+                .equals(triple)) {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());

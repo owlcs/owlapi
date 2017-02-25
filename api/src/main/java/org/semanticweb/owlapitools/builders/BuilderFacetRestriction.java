@@ -16,25 +16,27 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Builder class for OWLFacetRestriction. */
-public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
+/**
+ * Builder class for OWLFacetRestriction.
+ */
+public class BuilderFacetRestriction extends
+    BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
 
-    @Nullable private OWLLiteral literal = null;
-    @Nullable private OWLFacet facet = null;
+    @Nullable
+    private OWLLiteral literal = null;
+    @Nullable
+    private OWLFacet facet = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderFacetRestriction(OWLFacetRestriction expected, OWLDataFactory df) {
         this(df);
@@ -42,8 +44,7 @@ public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, Bu
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderFacetRestriction(OWLDataFactory df) {
@@ -51,8 +52,7 @@ public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, Bu
     }
 
     /**
-     * @param arg
-     *        int value
+     * @param arg int value
      * @return builder
      */
     public BuilderFacetRestriction withLiteral(int arg) {
@@ -61,8 +61,7 @@ public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, Bu
     }
 
     /**
-     * @param arg
-     *        literal value
+     * @param arg literal value
      * @return builder
      */
     public BuilderFacetRestriction withLiteral(OWLLiteral arg) {
@@ -71,8 +70,7 @@ public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, Bu
     }
 
     /**
-     * @param arg
-     *        double value
+     * @param arg double value
      * @return builder
      */
     public BuilderFacetRestriction withLiteral(double arg) {
@@ -81,8 +79,7 @@ public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, Bu
     }
 
     /**
-     * @param arg
-     *        float value
+     * @param arg float value
      * @return builder
      */
     public BuilderFacetRestriction withLiteral(float arg) {
@@ -91,8 +88,7 @@ public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, Bu
     }
 
     /**
-     * @param arg
-     *        facet
+     * @param arg facet
      * @return builder
      */
     public BuilderFacetRestriction withFacet(OWLFacet arg) {

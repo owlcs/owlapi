@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.api.test.multithread;
 
 import static org.semanticweb.owlapi.model.parameters.AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.ByteArrayOutputStream;
@@ -50,17 +51,27 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
-
 import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class OwlOntologyMultipleThreadsTest extends TestBase {
 
-    private static final @Nonnull String KOALA = "<?xml version=\"1.0\"?>\n"
+    private static final @Nonnull
+    String KOALA = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
         + "  <owl:Ontology rdf:about=\"\"/>\n"
         + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -87,6 +98,15 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
         + "  <owl:FunctionalProperty rdf:ID=\"hasGender\"><rdfs:range rdf:resource=\"#Gender\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:FunctionalProperty>\n"
         + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
         + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
+
+    @Test
+    public void testLockingOwlOntologyImpl() throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(KOALA);
+        MultiThreadChecker checker = new MultiThreadChecker(5);
+        checker.check(new TestCallback(o, m.createOntology()));
+        String trace = checker.getTrace();
+        System.out.println(trace);
+    }
 
     private static class TestCallback implements Runnable {
 
@@ -118,7 +138,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                 List<OWLClass> classes = asList(o1.classesInSignature());
                 asList(o1.classesInSignature(INCLUDED));
                 asList(o1.classesInSignature(EXCLUDED));
-                List<OWLObjectProperty> objectProperties = asList(o1.objectPropertiesInSignature(INCLUDED));
+                List<OWLObjectProperty> objectProperties = asList(
+                    o1.objectPropertiesInSignature(INCLUDED));
                 asList(o1.objectPropertiesInSignature(EXCLUDED));
                 asList(o1.objectPropertiesInSignature());
                 List<OWLDataProperty> dataProperties = asList(o1.dataPropertiesInSignature());
@@ -127,7 +148,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                 List<OWLNamedIndividual> individuals = asList(o1.individualsInSignature());
                 asList(o1.individualsInSignature(INCLUDED));
                 asList(o1.individualsInSignature(EXCLUDED));
-                List<OWLAnonymousIndividual> anonIndividuals = asList(o1.referencedAnonymousIndividuals(EXCLUDED));
+                List<OWLAnonymousIndividual> anonIndividuals = asList(
+                    o1.referencedAnonymousIndividuals(EXCLUDED));
                 asList(o1.datatypesInSignature());
                 asList(o1.datatypesInSignature(INCLUDED));
                 asList(o1.datatypesInSignature(EXCLUDED));
@@ -277,21 +299,12 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
         }
     }
 
-    @Test
-    public void testLockingOwlOntologyImpl() throws OWLOntologyCreationException {
-        OWLOntology o = loadOntologyFromString(KOALA);
-        MultiThreadChecker checker = new MultiThreadChecker(5);
-        checker.check(new TestCallback(o, m.createOntology()));
-        String trace = checker.getTrace();
-        System.out.println(trace);
-    }
-
     static class MultiThreadChecker {
 
         public static final int defaultRep = 10;
-        protected int rep = defaultRep;
         protected final PrintStream p;
         private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        protected int rep = defaultRep;
         private boolean successful = false;
 
         public MultiThreadChecker(int i) {
@@ -334,7 +347,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
 
         protected void printout(long end, AtomicLong counter) {
             long expected = rep * rep;
-            p.println("elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get() + "\t expected: "
+            p.println("elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get()
+                + "\t expected: "
                 + expected);
             successful = counter.get() == expected;
         }

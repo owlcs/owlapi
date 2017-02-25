@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -17,12 +16,10 @@ import org.slf4j.LoggerFactory;
  * type of list (i.e. the type of objects in the list) are determined by a
  * {@code ListItemTranslator}. The translator consumes all triples which are
  * used in the translation.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <O> type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <O>
- *        type
  */
 class OptimisedListTranslator<O extends OWLObject> {
 
@@ -31,10 +28,8 @@ class OptimisedListTranslator<O extends OWLObject> {
     private final ListItemTranslator<O> translator;
 
     /**
-     * @param consumer
-     *        consumer
-     * @param translator
-     *        translator
+     * @param consumer consumer
+     * @param translator translator
      */
     protected OptimisedListTranslator(OWLRDFConsumer consumer, ListItemTranslator<O> translator) {
         this.consumer = consumer;
@@ -74,8 +69,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     }
 
     /**
-     * @param mainNode
-     *        mainNode
+     * @param mainNode mainNode
      * @return translated list
      */
     @SuppressWarnings("unchecked")
@@ -99,8 +93,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     }
 
     /**
-     * @param mainNode
-     *        mainNode
+     * @param mainNode mainNode
      * @return translated list
      */
     public Set<O> translateToSet(IRI mainNode) {

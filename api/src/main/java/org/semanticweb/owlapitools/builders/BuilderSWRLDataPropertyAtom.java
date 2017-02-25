@@ -16,35 +16,36 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
-/** Builder class for SWRLDataPropertyAtom. */
+/**
+ * Builder class for SWRLDataPropertyAtom.
+ */
 public class BuilderSWRLDataPropertyAtom extends
     BaseDataPropertyBuilder<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
 
-    @Nullable private SWRLDArgument arg1;
-    @Nullable private SWRLIArgument arg0;
+    @Nullable
+    private SWRLDArgument arg1;
+    @Nullable
+    private SWRLIArgument arg0;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSWRLDataPropertyAtom(SWRLDataPropertyAtom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getPredicate()).with(expected.getSecondArgument()).with(expected.getFirstArgument());
+        withProperty(expected.getPredicate()).with(expected.getSecondArgument())
+            .with(expected.getFirstArgument());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLDataPropertyAtom(OWLDataFactory df) {
@@ -52,8 +53,7 @@ public class BuilderSWRLDataPropertyAtom extends
     }
 
     /**
-     * @param arg
-     *        data argument
+     * @param arg data argument
      * @return builder
      */
     public BuilderSWRLDataPropertyAtom with(SWRLDArgument arg) {
@@ -62,8 +62,7 @@ public class BuilderSWRLDataPropertyAtom extends
     }
 
     /**
-     * @param arg
-     *        individual
+     * @param arg individual
      * @return builder
      */
     public BuilderSWRLDataPropertyAtom with(SWRLIArgument arg) {

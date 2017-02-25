@@ -13,16 +13,15 @@
 package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -35,12 +34,10 @@ import org.semanticweb.owlapi.profiles.Profiles;
 
 /**
  * Base builder class, providing annotations storage.
- * 
+ *
+ * @param <T> built type
+ * @param <B> builder type
  * @author ignazio
- * @param <T>
- *        built type
- * @param <B>
- *        builder type
  */
 public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> {
 
@@ -48,8 +45,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     protected final List<OWLAnnotation> annotations = new ArrayList<>();
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     protected BaseBuilder(OWLDataFactory df) {
@@ -57,8 +53,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     }
 
     /**
-     * @param arg
-     *        annotation
+     * @param arg annotation
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -68,8 +63,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     }
 
     /**
-     * @param arg
-     *        annotations
+     * @param arg annotations
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -79,8 +73,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     }
 
     /**
-     * @param arg
-     *        annotations
+     * @param arg annotations
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -91,7 +84,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
 
     /**
      * Clear annotations.
-     * 
+     *
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -115,7 +108,8 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         // check conformity to the profile
         OWLProfileReport report = Profiles.OWL2_DL.checkOntology(o);
         // collect all changes to fix the ontology
-        List<OWLOntologyChange> changes = asList(report.getViolations().stream().flatMap(v -> v.repair().stream()));
+        List<OWLOntologyChange> changes = asList(
+            report.getViolations().stream().flatMap(v -> v.repair().stream()));
         // fix the ontology
         o.getOWLOntologyManager().applyChanges(changes);
         // return all applied changes for reference

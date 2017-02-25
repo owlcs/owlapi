@@ -16,22 +16,21 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class InferredPropertyAssertionGenerator
     extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?, ?>> {
 
     @Override
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
+    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
+        OWLDataFactory dataFactory,
         Set<OWLPropertyAssertionAxiom<?, ?>> result) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");
@@ -39,10 +38,12 @@ public class InferredPropertyAssertionGenerator
         checkNotNull(entity, "entity cannot be null");
         reasoner.getRootOntology().objectPropertiesInSignature(INCLUDED)
             .forEach(p -> reasoner.getObjectPropertyValues(entity, p).entities()
-                .forEach(i -> result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(p, entity, i))));
+                .forEach(
+                    i -> result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(p, entity, i))));
         reasoner.getRootOntology().dataPropertiesInSignature(INCLUDED)
             .forEach(p -> reasoner.getDataPropertyValues(entity, p)
-                .forEach(v -> result.add(dataFactory.getOWLDataPropertyAssertionAxiom(p, entity, v))));
+                .forEach(
+                    v -> result.add(dataFactory.getOWLDataPropertyAssertionAxiom(p, entity, v))));
     }
 
     @Override

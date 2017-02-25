@@ -19,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
@@ -29,10 +28,8 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     private final OWLLiteral facetValue;
 
     /**
-     * @param facet
-     *        facet
-     * @param facetValue
-     *        value
+     * @param facet facet
+     * @param facetValue value
      */
     public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
         this.facet = checkNotNull(facet, "facet cannot be null");

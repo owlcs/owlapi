@@ -15,10 +15,11 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.providers.NamedIndividualProvider;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  * @deprecated use NamedIndividualProvider
  */
 @Deprecated
-public interface OWLNamedIndividualProvider extends NamedIndividualProvider {}
+public interface OWLNamedIndividualProvider extends NamedIndividualProvider {
+
+}

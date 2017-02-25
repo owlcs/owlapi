@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
@@ -26,11 +27,10 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class AddOntologyAnnotationDataTestCase extends TestBase {
 
     private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
@@ -80,15 +80,18 @@ public class AddOntologyAnnotationDataTestCase extends TestBase {
     public void testTurtleTriplesOrder() {
         String ontFirst = "<http://example.org/ont> a <http://www.w3.org/2002/07/owl#Ontology> ;"
             + " <http://www.w3.org/2000/01/rdf-schema#label> \"An ontology\" . ";
-        String labelFirst = "<http://example.org/ont> <http://www.w3.org/2000/01/rdf-schema#label> \"An ontology\" ;"
-            + " a <http://www.w3.org/2002/07/owl#Ontology> . ";
+        String labelFirst =
+            "<http://example.org/ont> <http://www.w3.org/2000/01/rdf-schema#label> \"An ontology\" ;"
+                + " a <http://www.w3.org/2002/07/owl#Ontology> . ";
         OWLOntology ontology1 = loadOntologyFromString(ontFirst, new TurtleDocumentFormat());
         OWLOntology ontology2 = loadOntologyFromString(labelFirst, new TurtleDocumentFormat());
-        assertEquals("Should both have a label annotation", asSet(ontology1.annotations()), asSet(ontology2
-            .annotations()));
+        assertEquals("Should both have a label annotation", asSet(ontology1.annotations()),
+            asSet(ontology2
+                .annotations()));
         OWLOntology ontology3 = loadOntologyFromString(ontFirst, new RioTurtleDocumentFormat());
         OWLOntology ontology4 = loadOntologyFromString(labelFirst, new RioTurtleDocumentFormat());
-        assertEquals("Should both have a label annotation", asSet(ontology3.annotations()), asSet(ontology4
-            .annotations()));
+        assertEquals("Should both have a label annotation", asSet(ontology3.annotations()),
+            asSet(ontology4
+                .annotations()));
     }
 }

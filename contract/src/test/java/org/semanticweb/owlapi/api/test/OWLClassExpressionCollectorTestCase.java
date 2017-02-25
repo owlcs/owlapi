@@ -15,12 +15,12 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
+import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -28,9 +28,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
-import com.google.common.collect.Sets;
-
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class OWLClassExpressionCollectorTestCase {
 
@@ -66,21 +64,21 @@ public class OWLClassExpressionCollectorTestCase {
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
-        String[] empty = new String[] {};
+        String[] empty = new String[]{};
         map.put(b.dRange(), empty);
         map.put(b.dDef(), empty);
-        map.put(b.decC(), new String[] { CI });
+        map.put(b.decC(), new String[]{CI});
         map.put(b.decOp(), empty);
         map.put(b.decDp(), empty);
         map.put(b.decDt(), empty);
         map.put(b.decAp(), empty);
         map.put(b.decI(), empty);
         map.put(b.assDi(), empty);
-        map.put(b.dc(), new String[] { CI, IRII });
+        map.put(b.dc(), new String[]{CI, IRII});
         map.put(b.dDp(), empty);
         map.put(b.dOp(), empty);
-        map.put(b.du(), new String[] { CI, IRII });
-        map.put(b.ec(), new String[] { CI, IRII });
+        map.put(b.du(), new String[]{CI, IRII});
+        map.put(b.ec(), new String[]{CI, IRII});
         map.put(b.eDp(), empty);
         map.put(b.eOp(), empty);
         map.put(b.fdp(), empty);
@@ -93,53 +91,53 @@ public class OWLClassExpressionCollectorTestCase {
         map.put(b.opa(), empty);
         map.put(b.opaInv(), empty);
         map.put(b.opaInvj(), empty);
-        map.put(b.oDom(), new String[] { CI });
-        map.put(b.oRange(), new String[] { CI });
+        map.put(b.oDom(), new String[]{CI});
+        map.put(b.oRange(), new String[]{CI});
         map.put(b.chain(), empty);
         map.put(b.ref(), empty);
         map.put(b.same(), empty);
         map.put(b.subAnn(), empty);
-        map.put(b.subClass(), new String[] { THING, CI });
+        map.put(b.subClass(), new String[]{THING, CI});
         map.put(b.subData(), empty);
         map.put(b.subObject(), empty);
         map.put(b.rule(), empty);
         map.put(b.symm(), empty);
         map.put(b.trans(), empty);
-        map.put(b.hasKey(), new String[] { CI });
+        map.put(b.hasKey(), new String[]{CI});
         map.put(b.ann(), empty);
         map.put(b.asymm(), empty);
         map.put(b.annDom(), empty);
         map.put(b.annRange(), empty);
-        map.put(b.ass(), new String[] { CI });
-        map.put(b.assAnd(), new String[] { CI, IRII, AND });
-        map.put(b.assOr(), new String[] { CI, IRII, OR });
+        map.put(b.ass(), new String[]{CI});
+        map.put(b.assAnd(), new String[]{CI, IRII, AND});
+        map.put(b.assOr(), new String[]{CI, IRII, OR});
         map.put(b.dRangeAnd(), empty);
         map.put(b.dRangeOr(), empty);
-        map.put(b.assNot(), new String[] { CI, NOT });
-        map.put(b.assNotAnon(), new String[] { CI, NOT });
-        map.put(b.assSome(), new String[] { CI, SOME });
-        map.put(b.assAll(), new String[] { CI, ALL });
-        map.put(b.assHas(), new String[] { HAS });
-        map.put(b.assMin(), new String[] { CI, OMIN });
-        map.put(b.assMax(), new String[] { CI, MAX });
-        map.put(b.assEq(), new String[] { CI, OEQ });
-        map.put(b.assHasSelf(), new String[] { SELF });
-        map.put(b.assOneOf(), new String[] { ONE });
-        map.put(b.assDSome(), new String[] { DSOME });
-        map.put(b.assDAll(), new String[] { DALL });
-        map.put(b.assDHas(), new String[] { DHAS });
-        map.put(b.assDMin(), new String[] { DMIN });
-        map.put(b.assDMax(), new String[] { DMAX });
-        map.put(b.assDEq(), new String[] { DEQ });
+        map.put(b.assNot(), new String[]{CI, NOT});
+        map.put(b.assNotAnon(), new String[]{CI, NOT});
+        map.put(b.assSome(), new String[]{CI, SOME});
+        map.put(b.assAll(), new String[]{CI, ALL});
+        map.put(b.assHas(), new String[]{HAS});
+        map.put(b.assMin(), new String[]{CI, OMIN});
+        map.put(b.assMax(), new String[]{CI, MAX});
+        map.put(b.assEq(), new String[]{CI, OEQ});
+        map.put(b.assHasSelf(), new String[]{SELF});
+        map.put(b.assOneOf(), new String[]{ONE});
+        map.put(b.assDSome(), new String[]{DSOME});
+        map.put(b.assDAll(), new String[]{DALL});
+        map.put(b.assDHas(), new String[]{DHAS});
+        map.put(b.assDMin(), new String[]{DMIN});
+        map.put(b.assDMax(), new String[]{DMAX});
+        map.put(b.assDEq(), new String[]{DEQ});
         map.put(b.dOneOf(), empty);
         map.put(b.dNot(), empty);
         map.put(b.dRangeRestrict(), empty);
         map.put(b.assD(), empty);
         map.put(b.assDPlain(), empty);
-        map.put(b.dDom(), new String[] { CI });
-        map.put(b.bigRule(), new String[] { CI });
+        map.put(b.dDom(), new String[]{CI});
+        map.put(b.bigRule(), new String[]{CI});
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
+        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
         return toReturn;
     }
 

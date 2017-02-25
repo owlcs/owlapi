@@ -16,7 +16,6 @@ import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,15 +36,16 @@ public final class SAXParsers {
     private static final String DECLARATION_HANDLER = "http://xml.org/sax/properties/declaration-handler";
     private static final String EXPANSION_LIMIT = "entityExpansionLimit";
     private static final String ORACLE_EXPANSION_LIMIT = "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit";
-    private static final String GENERAL_ENTITIES="http://xml.org/sax/features/external-general-entities";
-    private static final String PARAMETER_ENTITIES="http://xml.org/sax/features/external-parameter-entities";
+    private static final String GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+    private static final String PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
     private static final Logger LOGGER = LoggerFactory.getLogger(SAXParsers.class);
 
-    private SAXParsers() {}
+    private SAXParsers() {
+    }
 
     /**
-     * @return a new factory, set up to be namespace aware, non validating and
-     *         not loading external dtds.
+     * @return a new factory, set up to be namespace aware, non validating and not loading external
+     * dtds.
      */
     public static SAXParserFactory initFactory() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -67,17 +67,15 @@ public final class SAXParsers {
     }
 
     /**
-     * @param handler
-     *        declaration handler, optional. Used for entity detection for reuse
-     *        in parser output.
-     * @param expansion
-     *        entity expansion limit. See
-     *        {@link org.semanticweb.owlapi.model.parameters.ConfigurationOptions}
-     *        for instructions on how to set the value.
-     * @return new SaxParser, intialized with optional declaration handler and
-     *         larger entity expansion limit
+     * @param handler declaration handler, optional. Used for entity detection for reuse in parser
+     * output.
+     * @param expansion entity expansion limit. See {@link org.semanticweb.owlapi.model.parameters.ConfigurationOptions}
+     * for instructions on how to set the value.
+     * @return new SaxParser, intialized with optional declaration handler and larger entity
+     * expansion limit
      */
-    public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler, String expansion) {
+    public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler,
+        String expansion) {
         try {
             SAXParser parser = initFactory().newSAXParser();
             if (!addOracleExpansionLimit(parser, expansion)) {
@@ -94,7 +92,8 @@ public final class SAXParsers {
         try {
             parser.setProperty(EXPANSION_LIMIT, expansion);
         } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
-            LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), ex.getMessage());
+            LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(),
+                ex.getMessage());
         }
     }
 
@@ -103,7 +102,8 @@ public final class SAXParsers {
             parser.setProperty(ORACLE_EXPANSION_LIMIT, expansion);
             return true;
         } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-            LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), e.getMessage());
+            LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(),
+                e.getMessage());
             return false;
         }
     }
@@ -113,7 +113,8 @@ public final class SAXParsers {
             try {
                 parser.setProperty(DECLARATION_HANDLER, handler);
             } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-                LOGGER.warn(DECLARATION_HANDLER + ERROR_TEMPLATE + " Entity declarations will not be roundtripped.",
+                LOGGER.warn(DECLARATION_HANDLER + ERROR_TEMPLATE
+                        + " Entity declarations will not be roundtripped.",
                     parser.getClass().getName(), e.getMessage());
             }
         }

@@ -13,18 +13,19 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 
-/** Builder class for OWLEquivalentClassesAxiom. */
+/**
+ * Builder class for OWLEquivalentClassesAxiom.
+ */
 public class BuilderEquivalentClasses
-        extends BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
+    extends
+    BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderEquivalentClasses(OWLDataFactory df) {
@@ -33,11 +34,9 @@ public class BuilderEquivalentClasses
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderEquivalentClasses(OWLEquivalentClassesAxiom expected, OWLDataFactory df) {
         this(df);

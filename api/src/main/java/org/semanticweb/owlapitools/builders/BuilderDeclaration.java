@@ -16,23 +16,23 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Builder class for OWLDeclarationAxiom. */
+/**
+ * Builder class for OWLDeclarationAxiom.
+ */
 public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, BuilderDeclaration> {
 
-    @Nullable private OWLEntity entity = null;
+    @Nullable
+    private OWLEntity entity = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDeclaration(OWLDeclarationAxiom expected, OWLDataFactory df) {
         this(df);
@@ -40,8 +40,7 @@ public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, Builder
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDeclaration(OWLDataFactory df) {
@@ -49,8 +48,7 @@ public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, Builder
     }
 
     /**
-     * @param arg
-     *        entity
+     * @param arg entity
      * @return builder
      */
     public BuilderDeclaration withEntity(OWLEntity arg) {

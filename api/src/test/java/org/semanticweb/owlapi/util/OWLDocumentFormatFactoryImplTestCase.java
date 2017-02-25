@@ -12,15 +12,26 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.*;
+import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
+import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.LatexDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * Test the generic factory and all the formats it can build.
- * 
+ *
  * @author ignazio
  */
 @SuppressWarnings("javadoc")

@@ -16,18 +16,15 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 
 /**
  * Comparator for objects with HasPriority annotations. Objects without
  * HasPriority are considered to have lowest priority (Double.MAX_VALUE).
- * 
+ *
+ * @param <T> comparator type
  * @author ignazio
- * @param <T>
- *        comparator type
  */
 public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
 

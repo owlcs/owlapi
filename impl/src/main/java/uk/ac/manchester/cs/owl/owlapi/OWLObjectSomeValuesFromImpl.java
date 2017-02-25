@@ -17,19 +17,18 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
+public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionImpl implements
+    OWLObjectSomeValuesFrom {
 
     /**
-     * @param property
-     *        property
-     * @param filler
-     *        filler
+     * @param property property
+     * @param filler filler
      */
-    public OWLObjectSomeValuesFromImpl(OWLObjectPropertyExpression property, OWLClassExpression filler) {
+    public OWLObjectSomeValuesFromImpl(OWLObjectPropertyExpression property,
+        OWLClassExpression filler) {
         super(property, filler);
     }
 }

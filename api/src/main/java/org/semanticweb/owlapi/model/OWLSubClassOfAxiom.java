@@ -18,15 +18,14 @@ import java.util.stream.Stream;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a>
  * axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLSubClassOfAxiom extends OWLClassAxiom {
 
     @Override
-        OWLSubClassOfAxiom getAxiomWithoutAnnotations();
+    OWLSubClassOfAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -50,16 +49,15 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
 
     /**
      * Gets the subclass in this axiom.
-     * 
+     *
      * @return The class expression that represents the subclass in this axiom.
      */
     OWLClassExpression getSubClass();
 
     /**
      * Gets the superclass in this axiom.
-     * 
-     * @return The class expression that represents the superclass in this
-     *         axiom.
+     *
+     * @return The class expression that represents the superclass in this axiom.
      */
     OWLClassExpression getSuperClass();
 
@@ -67,7 +65,7 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
      * Determines if this subclass axiom has a subclass that is anonymous. (if
      * the subclass is anonymous then the subclass axiom is known as a General
      * Concept Inclusion - GCI).
-     * 
+     *
      * @return {@code true} if this axiom is a GCI, other wise {@code false}.
      */
     boolean isGCI();

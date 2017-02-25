@@ -13,20 +13,17 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <A> the axiom type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <A>
- *        the axiom type
  */
 public abstract class InferredDataPropertyAxiomGenerator<A extends OWLDataPropertyAxiom>
-        extends InferredEntityAxiomGenerator<OWLDataProperty, A> {
+    extends InferredEntityAxiomGenerator<OWLDataProperty, A> {
 
     @Override
     protected Stream<OWLDataProperty> getEntities(OWLOntology ont) {

@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.api.test.multithread;
 
 import static org.junit.Assert.fail;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
 import java.util.List;
@@ -49,10 +50,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 @SuppressWarnings("javadoc")
 public class RaceTestCase {
@@ -87,8 +94,8 @@ public class RaceTestCase {
     static class RaceTestCaseRunner {
 
         public static final String NS = "http://www.race.org#";
-        protected RaceCallback callback;
         final AtomicBoolean done = new AtomicBoolean(false);
+        protected RaceCallback callback;
         ExecutorService exec = Executors.newFixedThreadPool(5);
         private Runnable writer = () -> {
             while (!done.get()) {
@@ -111,12 +118,12 @@ public class RaceTestCase {
 
         public static class SubClassLHSCallback implements RaceCallback {
 
-            private AtomicInteger counter = new AtomicInteger();
             OWLDataFactory factory;
             OWLOntologyManager manager;
             OWLOntology ontology;
             OWLClass x;
             OWLClass y;
+            private AtomicInteger counter = new AtomicInteger();
 
             public SubClassLHSCallback() throws OWLOntologyCreationException {
                 manager = OWLManager.createConcurrentOWLOntologyManager();
@@ -154,12 +161,14 @@ public class RaceTestCase {
 
             @Override
             public void diagnose() {
-                List<OWLSubClassOfAxiom> axiomsFound = asList(ontology.subClassAxiomsForSubClass(x));
+                List<OWLSubClassOfAxiom> axiomsFound = asList(
+                    ontology.subClassAxiomsForSubClass(x));
                 System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
                     + " axioms but it only found " + axiomsFound.size());
                 for (int i = 0; i < counter.get(); i++) {
                     OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x, createMiddleClass(i));
-                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe) && ontology.containsAxiom(checkMe)) {
+                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe) && ontology
+                        .containsAxiom(checkMe)) {
                         System.out.println(checkMe.toString()
                             + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
                         return;
@@ -169,8 +178,9 @@ public class RaceTestCase {
 
             @Override
             public void race() {
-                asList(ontology.subClassAxiomsForSubClass(factory.getOWLClass(IRI.create("http://www.race.org#",
-                    "testclass"))));
+                asList(ontology.subClassAxiomsForSubClass(
+                    factory.getOWLClass(IRI.create("http://www.race.org#",
+                        "testclass"))));
             }
 
             public OWLClass createMiddleClass(int i) {

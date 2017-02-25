@@ -3,11 +3,12 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,16 +23,22 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class ConcurrentOWLOntologyBuilder_TestCase {
 
     private ConcurrentOWLOntologyBuilder builder;
-    @Mock private OWLOntologyBuilder delegateBuilder;
-    @Mock private ReadWriteLock readWriteLock;
-    @Mock private Lock readLock, writeLock;
-    @Mock private OWLOntologyManager manager;
-    @Mock private OWLOntologyID ontologyId;
-    @Mock private OWLOntology ontology;
+    @Mock
+    private OWLOntologyBuilder delegateBuilder;
+    @Mock
+    private ReadWriteLock readWriteLock;
+    @Mock
+    private Lock readLock, writeLock;
+    @Mock
+    private OWLOntologyManager manager;
+    @Mock
+    private OWLOntologyID ontologyId;
+    @Mock
+    private OWLOntology ontology;
 
     @Before
     public void setUp() {

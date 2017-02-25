@@ -39,7 +39,8 @@ public class LoadCellTestCase {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         assertEquals(20, m.getOntologyParsers().size());
         OWLOntologyDocumentSource source = new StreamDocumentSource(getClass()
-            .getResourceAsStream("/behavior.obo"), IRI.generateDocumentIRI(), new OBO12DocumentFormat(), null);
+            .getResourceAsStream("/behavior.obo"), IRI.generateDocumentIRI(),
+            new OBO12DocumentFormat(), null);
         m.loadOntologyFromOntologyDocument(source);
     }
 }

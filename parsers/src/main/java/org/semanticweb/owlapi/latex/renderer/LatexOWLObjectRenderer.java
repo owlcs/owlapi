@@ -12,30 +12,28 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.StringWriter;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class LatexOWLObjectRenderer implements OWLObjectRenderer {
 
     private final OWLDataFactory dataFactory;
-    @Nullable private ShortFormProvider shortFormProvider;
+    @Nullable
+    private ShortFormProvider shortFormProvider;
 
     /**
-     * @param dataFactory
-     *        dataFactory
+     * @param dataFactory dataFactory
      */
     public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory);
@@ -46,7 +44,8 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
         StringWriter writer = new StringWriter();
         LatexWriter latexWriter = new LatexWriter(writer);
         LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
-        visitor.setShortFormProvider(verifyNotNull(shortFormProvider, "shortFormProvider not set yet"));
+        visitor.setShortFormProvider(
+            verifyNotNull(shortFormProvider, "shortFormProvider not set yet"));
         object.accept(visitor);
         return writer.getBuffer().toString();
     }

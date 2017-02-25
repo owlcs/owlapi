@@ -14,8 +14,16 @@ package org.semanticweb.owlapi.model.axiomproviders;
 
 import java.util.Collection;
 import java.util.Collections;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -24,97 +32,82 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public interface RangeAxiomProvider {
 
     /**
-     * @param property
-     *        property
-     * @param range
-     *        range
+     * @param property property
+     * @param range range
      * @return an object property range axiom
      */
-    default OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
+    default OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
+        OWLObjectPropertyExpression property,
         OWLClassExpression range) {
         return getOWLObjectPropertyRangeAxiom(property, range, Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param range
-     *        range
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param property property
+     * @param range range
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an object property range axiom with annotations
      */
     OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
         OWLClassExpression range, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param property
-     *        property
-     * @param owlDataRange
-     *        data range
+     * @param property property
+     * @param owlDataRange data range
      * @return a data property range axiom
      */
-    default OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
+    default OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
+        OWLDataPropertyExpression property,
         OWLDataRange owlDataRange) {
         return getOWLDataPropertyRangeAxiom(property, owlDataRange, Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param owlDataRange
-     *        data range
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param property property
+     * @param owlDataRange data range
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a data property range axiom with annotations
      */
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
         OWLDataRange owlDataRange, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param property
-     *        property
-     * @param owlDataRange
-     *        data range
+     * @param property property
+     * @param owlDataRange data range
      * @return a data property range axiom
      */
-    default OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
+    default OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
+        OWLDataPropertyExpression property,
         OWL2Datatype owlDataRange) {
         return getOWLDataPropertyRangeAxiom(property, owlDataRange, Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param owlDataRange
-     *        data range
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param property property
+     * @param owlDataRange data range
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a data property range axiom with annotations
      */
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
         OWL2Datatype owlDataRange, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param prop
-     *        prop
-     * @param range
-     *        range
+     * @param prop prop
+     * @param range range
      * @return an annotation property range assertion
      */
-    default OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop, IRI range) {
+    default OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
+        OWLAnnotationProperty prop, IRI range) {
         return getOWLAnnotationPropertyRangeAxiom(prop, range, Collections.emptySet());
     }
 
     /**
-     * @param prop
-     *        prop
-     * @param range
-     *        range
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param prop prop
+     * @param range range
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an annotation property range assertion with annotations
      */
-    OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop, IRI range,
+    OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
+        IRI range,
         Collection<OWLAnnotation> annotations);
 }

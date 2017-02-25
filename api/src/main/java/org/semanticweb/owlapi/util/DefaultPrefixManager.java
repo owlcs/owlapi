@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -31,32 +29,28 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
+public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
+    IRIShortFormProvider {
 
+    private final Map<String, String> reverseprefix2NamespaceMap;
     // XXX config
     private Map<String, String> prefix2NamespaceMap;
-    private final Map<String, String> reverseprefix2NamespaceMap;
     private StringComparator comparator;
 
     /**
-     * @param defaultPrefix
-     *        default prefix
+     * @param defaultPrefix default prefix
      */
     public DefaultPrefixManager(@Nullable String defaultPrefix) {
         this(null, null, defaultPrefix);
     }
 
     /**
-     * @param pm
-     *        the prefix manager to copy
-     * @param c
-     *        comparator to sort prefixes
-     * @param defaultPrefix
-     *        default prefix
+     * @param pm the prefix manager to copy
+     * @param c comparator to sort prefixes
+     * @param defaultPrefix default prefix
      */
     public DefaultPrefixManager(@Nullable PrefixManager pm, @Nullable StringComparator c,
         @Nullable String defaultPrefix) {
@@ -77,6 +71,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
      */
     public DefaultPrefixManager() {
         this(null, null, null);
+    }
+
+    private static boolean noSplits(String s, int index) {
+        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     @Override
@@ -113,22 +111,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     }
 
     @Override
-    public void setDefaultPrefix(@Nullable String defaultPrefix) {
-        String prefixToUnregister = prefix2NamespaceMap.get(":");
-        if (prefixToUnregister != null) {
-            prefix2NamespaceMap.remove(":");
-            reverseprefix2NamespaceMap.remove(prefixToUnregister, ":");
-        }
-        if (defaultPrefix == null) {
-            return;
-        }
-        prefix2NamespaceMap.put(":", defaultPrefix);
-        if (!reverseprefix2NamespaceMap.containsKey(defaultPrefix)) {
-            reverseprefix2NamespaceMap.put(defaultPrefix, ":");
-        }
-    }
-
-    @Override
     @Nullable
     public String getPrefixIRI(IRI iri) {
         String prefix = reverseprefix2NamespaceMap.get(iri.getNamespace());
@@ -151,14 +133,26 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
         return iri.prefixedBy(prefix);
     }
 
-    private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
-    }
-
     @Override
     @Nullable
     public String getDefaultPrefix() {
         return prefix2NamespaceMap.get(":");
+    }
+
+    @Override
+    public void setDefaultPrefix(@Nullable String defaultPrefix) {
+        String prefixToUnregister = prefix2NamespaceMap.get(":");
+        if (prefixToUnregister != null) {
+            prefix2NamespaceMap.remove(":");
+            reverseprefix2NamespaceMap.remove(prefixToUnregister, ":");
+        }
+        if (defaultPrefix == null) {
+            return;
+        }
+        prefix2NamespaceMap.put(":", defaultPrefix);
+        if (!reverseprefix2NamespaceMap.containsKey(defaultPrefix)) {
+            reverseprefix2NamespaceMap.put(defaultPrefix, ":");
+        }
     }
 
     @Override
@@ -190,7 +184,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
         } else {
             String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
-                throw new OWLRuntimeException("Prefix not registered for prefix name: " + prefixName);
+                throw new OWLRuntimeException(
+                    "Prefix not registered for prefix name: " + prefixName);
             }
             String prefix = getPrefix(prefixName);
             String localName = prefixIRI.substring(sep + 1);

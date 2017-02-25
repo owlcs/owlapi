@@ -12,9 +12,99 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.parser;
 
-import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ABBREVIATED_IRI_ELEMENT;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ANNOTATION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ANNOTATION_ASSERTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ANNOTATION_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ANNOTATION_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ANONYMOUS_INDIVIDUAL;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ASYMMETRIC_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_BODY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_BUILT_IN_ATOM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_CLASS;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_CLASS_ASSERTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_CLASS_ATOM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATATYPE;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATATYPE_DEFINITION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATATYPE_RESTRICTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_EXACT_CARDINALITY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_HAS_VALUE;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_INTERSECTION_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_MAX_CARDINALITY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_MIN_CARDINALITY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_ONE_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_PROPERTY_ATOM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_RANGE_ATOM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DATA_UNION_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DECLARATION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DIFFERENT_INDIVIDUALS;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DIFFERENT_INDIVIDUALS_ATOM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DISJOINT_CLASSES;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DISJOINT_DATA_PROPERTIES;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DISJOINT_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DISJOINT_UNION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_DL_SAFE_RULE;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ENTITY_ANNOTATION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_EQUIVALENT_CLASSES;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_EQUIVALENT_DATA_PROPERTIES;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_EQUIVALENT_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_FACET_RESTRICTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_FUNCTIONAL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_FUNCTIONAL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_HAS_KEY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_HEAD;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_IMPORT;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_INVERSE_OBJECT_PROPERTIES;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_IRI_ELEMENT;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_IRREFLEXIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_LITERAL;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_NAMED_INDIVIDUAL;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_NEGATIVE_DATA_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_NEGATIVE_OBJECT_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_EXACT_CARDINALITY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_HAS_SELF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_HAS_VALUE;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_INTERSECTION_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_INVERSE_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_MAX_CARDINALITY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_MIN_CARDINALITY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_ONE_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_PROPERTY_ASSERTION;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_PROPERTY_ATOM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_PROPERTY_CHAIN;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_PROPERTY_DOMAIN;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_PROPERTY_RANGE;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_OBJECT_UNION_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_ONTOLOGY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_REFLEXIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_SAME_INDIVIDUAL;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_SAME_INDIVIDUAL_ATOM;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_SUB_ANNOTATION_PROPERTY_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_SUB_CLASS_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_SUB_DATA_PROPERTY_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_SUB_OBJECT_PROPERTY_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_SYMMETRIC_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_TRANSITIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_UNION_OF;
+import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.PARSER_VARIABLE;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.IRI_ATTRIBUTE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.NAME_ATTRIBUTE;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.PREFIX;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -24,9 +114,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -47,9 +135,8 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * A handler which knows about OWLXML.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider {
@@ -60,38 +147,35 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     private final List<OWLEH<?, ?>> handlerStack = new ArrayList<>();
     private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
-    @Nullable private Locator locator;
     private final Deque<URI> bases = new LinkedList<>();
     private final OWLOntologyLoaderConfiguration configuration;
     private final Map<String, IRI> iriMap = new HashMap<>();
     private final RemappingIndividualProvider anonProvider;
+    @Nullable
+    private Locator locator;
 
     /**
-     * @param ontology
-     *        ontology to parse into
+     * @param ontology ontology to parse into
      */
     public OWLXMLPH(OWLOntology ontology) {
         this(ontology, null, ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     /**
-     * @param ontology
-     *        ontology to add to
-     * @param configuration
-     *        load configuration
+     * @param ontology ontology to add to
+     * @param configuration load configuration
      */
     public OWLXMLPH(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
     }
 
     /**
-     * @param ontology
-     *        ontology to parse into
-     * @param topHandler
-     *        top level handler
+     * @param ontology ontology to parse into
+     * @param topHandler top level handler
      */
     public OWLXMLPH(OWLOntology ontology, OWLEH<?, ?> topHandler) {
-        this(ontology, topHandler, ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
+        this(ontology, topHandler,
+            ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     /**
@@ -99,22 +183,19 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * allows OWL/XML representations of axioms to be embedded in abitrary XML
      * documents e.g. DIG 2.0 documents. (The default handler behaviour expects
      * the top level element to be an Ontology element).
-     * 
-     * @param ontology
-     *        The ontology object that the XML representation should be parsed
-     *        into.
-     * @param topHandler
-     *        top level handler
-     * @param configuration
-     *        load configuration
+     *
+     * @param ontology The ontology object that the XML representation should be parsed into.
+     * @param topHandler top level handler
+     * @param configuration load configuration
      */
     public OWLXMLPH(OWLOntology ontology, @Nullable OWLEH<?, ?> topHandler,
         OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
-        anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOntologyConfigurator(), owlOntologyManager
-            .getOWLDataFactory());
+        anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOntologyConfigurator(),
+            owlOntologyManager
+                .getOWLDataFactory());
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -214,6 +295,13 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         addFactory(PARSER_SAME_INDIVIDUAL_ATOM);
     }
 
+    private static String getNormalisedAbbreviatedIRI(String input) {
+        if (input.indexOf(':') != -1) {
+            return input;
+        }
+        return ':' + input;
+    }
+
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
         return anonProvider.getOWLAnonymousIndividual(nodeId);
@@ -242,9 +330,9 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     /**
      * Gets the line number that the parser is at.
-     * 
-     * @return A positive integer that represents the line number or -1 if the
-     *         line number is not known.
+     *
+     * @return A positive integer that represents the line number or -1 if the line number is not
+     * known.
      */
     public int getLineNumber() {
         if (locator != null) {
@@ -264,8 +352,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     }
 
     /**
-     * @param iriStr
-     *        iri
+     * @param iriStr iri
      * @return parsed, absolute iri
      */
     public IRI getIRI(String iriStr) {
@@ -289,16 +376,8 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         }
     }
 
-    private static String getNormalisedAbbreviatedIRI(String input) {
-        if (input.indexOf(':') != -1) {
-            return input;
-        }
-        return ':' + input;
-    }
-
     /**
-     * @param abbreviatedIRI
-     *        short iri
+     * @param abbreviatedIRI short iri
      * @return extended iri
      */
     public IRI getAbbreviatedIRI(String abbreviatedIRI) {
@@ -366,7 +445,8 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     }
 
     @Override
-    public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
+    public void startElement(@Nullable String uri, @Nullable String localName,
+        @Nullable String qName,
         @Nullable Attributes attributes) {
         if (localName == null || attributes == null) {
             // this should never happen, but DefaultHandler does not specify
@@ -411,16 +491,17 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     /**
      * Return the base URI for resolution of relative URIs.
-     * 
-     * @return base URI or null if unavailable (xml:base not present and the
-     *         document locator does not provide a URI)
+     *
+     * @return base URI or null if unavailable (xml:base not present and the document locator does
+     * not provide a URI)
      */
     public URI getBase() {
         return bases.peek();
     }
 
     @Override
-    public void endElement(@Nullable String uri, @Nullable String localName, @Nullable String qName) {
+    public void endElement(@Nullable String uri, @Nullable String localName,
+        @Nullable String qName) {
         if (PREFIX.getShortForm().equals(localName)) {
             return;
         }

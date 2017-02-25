@@ -14,36 +14,33 @@ package org.semanticweb.owlapi.model.providers;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Class assertion provider. */
+/**
+ * Class assertion provider.
+ */
 public interface ClassAssertionProvider extends LiteralProvider {
 
     /**
-     * @param classExpression
-     *        class Expression
-     * @param individual
-     *        individual
+     * @param classExpression class Expression
+     * @param individual individual
      * @return a class assertion axiom
      */
     default OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression,
-            OWLIndividual individual) {
+        OWLIndividual individual) {
         return getOWLClassAssertionAxiom(classExpression, individual, Collections.emptySet());
     }
 
     /**
-     * @param classExpression
-     *        class Expression
-     * @param individual
-     *        individual
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param classExpression class Expression
+     * @param individual individual
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a class assertion axiom with annotations
      */
-    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression, OWLIndividual individual,
-            Collection<OWLAnnotation> annotations);
+    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression,
+        OWLIndividual individual,
+        Collection<OWLAnnotation> annotations);
 }

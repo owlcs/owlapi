@@ -14,35 +14,45 @@ package org.semanticweb.owlapi.util.mansyntax;
 
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
 /**
  * Interface for a parser able to parse Manchester OWL Syntax. This covers
  * Protege use of the parser.
- * 
+ *
  * @author ignazio
  */
 @ParametersAreNonnullByDefault
 public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguration {
 
     /**
-     * @param s
-     *        String to parse
+     * @param s String to parse
      */
     void setStringToParse(String s);
 
     /**
-     * @param defaultOntology
-     *        ontology to use to resolve classes and entities during parsing
+     * @param defaultOntology ontology to use to resolve classes and entities during parsing
      */
     void setDefaultOntology(OWLOntology defaultOntology);
 
@@ -53,108 +63,94 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * Parsing "Inline" Axioms.
-     * 
+     *
      * @return axiom
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     OWLAxiom parseAxiom();
 
     /**
      * Parsing "Inline" class Axioms.
-     * 
+     *
      * @return axiom
-     * @throws OWLParserException
-     *         parsing error
-     * @deprecated use parseAxiom(). parseClassAxiom() only casts the result of
-     *             parseAxiom() to OWLClassAxiom.
+     * @throws OWLParserException parsing error
+     * @deprecated use parseAxiom(). parseClassAxiom() only casts the result of parseAxiom() to
+     * OWLClassAxiom.
      */
     @Deprecated
-        OWLClassAxiom parseClassAxiom();
+    OWLClassAxiom parseClassAxiom();
 
     /**
      * Parses an OWL class expression that is represented in Manchester OWL
      * Syntax.
-     * 
+     *
      * @return The parsed class expression
-     * @throws OWLParserException
-     *         If a class expression could not be parsed.
+     * @throws OWLParserException If a class expression could not be parsed.
      */
     OWLClassExpression parseClassExpression();
 
     /**
      * @return class frames (parsing with EOF true)
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseClassFrameEOF();
 
     /**
      * @return value partition frames
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseValuePartitionFrame();
 
     /**
      * @return datatype frames
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseDatatypeFrame();
 
     /**
      * @return class frames
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseClassFrame();
 
     /**
      * @return object property frames
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseObjectPropertyFrame();
 
     /**
      * @return individual frames
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseIndividualFrame();
 
     /**
      * @return data property frames
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseDataPropertyFrame();
 
     /**
      * @return annotation frames
-     * @throws OWLParserException
-     *         parsing error
+     * @throws OWLParserException parsing error
      */
     Set<OntologyAxiomPair> parseAnnotationPropertyFrame();
 
     /**
-     * @param datatype
-     *        datatype to use, if one exists in the context. If null, the
-     *        datatype will be decided by the literal itself.
+     * @param datatype datatype to use, if one exists in the context. If null, the datatype will be
+     * decided by the literal itself.
      * @return parsed literal
      */
     OWLLiteral parseLiteral(@Nullable OWLDatatype datatype);
 
     /**
-     * @param owlEntityChecker
-     *        owlEntityChecker
+     * @param owlEntityChecker owlEntityChecker
      */
     void setOWLEntityChecker(OWLEntityChecker owlEntityChecker);
 
     /**
-     * @param owlOntologyChecker
-     *        owlOntologyChecker
+     * @param owlOntologyChecker owlOntologyChecker
      */
     void setOWLOntologyChecker(OWLOntologyChecker owlOntologyChecker);
 
@@ -164,13 +160,10 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
     List<OWLObjectPropertyExpression> parseObjectPropertyChain();
 
     /**
-     * @param ont
-     *        ont
+     * @param ont ont
      * @return format
-     * @throws OWLParserException
-     *         parsing error
-     * @throws UnloadableImportException
-     *         import error
+     * @throws OWLParserException parsing error
+     * @throws UnloadableImportException import error
      */
     ManchesterSyntaxDocumentFormat parseOntology(OWLOntology ont);
 
@@ -181,15 +174,13 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * @return list of object properties
-     * @throws OWLParserException
-     *         if a parser exception is raised
+     * @throws OWLParserException if a parser exception is raised
      */
     Set<OWLObjectPropertyExpression> parseObjectPropertyList();
 
     /**
      * @return list of object properties
-     * @throws OWLParserException
-     *         if a parser exception is raised
+     * @throws OWLParserException if a parser exception is raised
      */
     Set<OWLDataProperty> parseDataPropertyList();
 
@@ -225,17 +216,15 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * @return IRI for a SWRL variable
-     * @throws OWLParserException
-     *         if a parser exception is raised
+     * @throws OWLParserException if a parser exception is raised
      */
     IRI parseVariable();
 
     /**
      * Convenience method equivalent to {@code setStringToParse("string"};
      * parseClassexpression();}
-     * 
-     * @param s
-     *        String to parse
+     *
+     * @param s String to parse
      * @return parsed class expression
      */
     default OWLClassExpression parseClassExpression(String s) {

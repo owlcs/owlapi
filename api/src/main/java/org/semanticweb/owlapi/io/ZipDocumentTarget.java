@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -22,13 +24,11 @@ import java.io.OutputStream;
 import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
@@ -37,8 +37,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
     private final File file;
 
     /**
-     * @param file
-     *        the file to use
+     * @param file the file to use
      */
     public ZipDocumentTarget(File file) {
         this.file = checkNotNull(file, "file cannot be null");

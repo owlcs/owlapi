@@ -13,37 +13,118 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.AL;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.C;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.D;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.E;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.F;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.H;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.I;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.N;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.O;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.Q;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.R;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.S;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.TRAN;
+import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.U;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.*;
-
-import org.semanticweb.owlapi.model.*;
-
 import com.google.common.base.Joiner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
-    private static final List<Construct> order = Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
+    private static final List<Construct> order = Arrays
+        .asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
     /**
      * A comparator that orders DL constucts to produce a traditional DL name.
      */
-    private static final Comparator<Construct> constructComparator = Comparator.comparing(order::indexOf);
+    private static final Comparator<Construct> constructComparator = Comparator
+        .comparing(order::indexOf);
     private final Set<Construct> constructs;
     private final List<OWLOntology> ontologies;
 
     /**
-     * @param ontologies
-     *        ontologies
+     * @param ontologies ontologies
      */
     public DLExpressivityChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = new ArrayList<>(ontologies);
         constructs = new HashSet<>();
+    }
+
+    private static boolean isTop(OWLClassExpression classExpression) {
+        return classExpression.isOWLThing();
     }
 
     /**
@@ -152,15 +233,12 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         ce.operands().forEach(o -> o.accept(this));
     }
 
-    private static boolean isTop(OWLClassExpression classExpression) {
-        return classExpression.isOWLThing();
-    }
-
     private boolean isAtomic(OWLClassExpression classExpression) {
         if (classExpression.isAnonymous()) {
             return false;
         }
-        return !ontologies.stream().anyMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
+        return !ontologies.stream()
+            .anyMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
     }
 
     @Override
@@ -471,25 +549,59 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         constructs.add(I);
     }
 
-    /** Construct enum. */
+    /**
+     * Construct enum.
+     */
     public enum Construct {
         //@formatter:off
-        /** AL. */       AL("AL"),
-        /** U. */        U("U"),
-        /** C. */        C("C"),
-        /** E. */        E("E"),
-        /** N. */        N("N"),
-        /** Q. */        Q("Q"),
-        /** H. */        H("H"),
-        /** I. */        I("I"),
-        /** O. */        O("O"),
-        /** F. */        F("F"),
-        /** TRAN. */     TRAN("+"),
-        /** D. */        D("(D)"),
-        /** R. */        R("R"),
-        /** S. */        S("S"),
-        /** EL. */       EL("EL"),
-        /** EL++. */     ELPLUSPLUS("EL++");
+        /**
+         * AL.
+         */AL("AL"),
+        /**
+         * U.
+         */U("U"),
+        /**
+         * C.
+         */C("C"),
+        /**
+         * E.
+         */E("E"),
+        /**
+         * N.
+         */N("N"),
+        /**
+         * Q.
+         */Q("Q"),
+        /**
+         * H.
+         */H("H"),
+        /**
+         * I.
+         */I("I"),
+        /**
+         * O.
+         */O("O"),
+        /**
+         * F.
+         */F("F"),
+        /**
+         * TRAN.
+         */TRAN("+"),
+        /**
+         * D.
+         */D("(D)"),
+        /**
+         * R.
+         */R("R"),
+        /**
+         * S.
+         */S("S"),
+        /**
+         * EL.
+         */EL("EL"),
+        /**
+         * EL++.
+         */ELPLUSPLUS("EL++");
         private final String s;
 
         //@formatter:on

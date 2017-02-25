@@ -14,36 +14,39 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDataPropertyAssertionAxiomImpl extends
-    OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataPropertyAssertionAxiom {
+    OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements
+    OWLDataPropertyAssertionAxiom {
 
     /**
-     * @param subject
-     *        subject
-     * @param property
-     *        property
-     * @param value
-     *        value
-     * @param annotations
-     *        annotations
+     * @param subject subject
+     * @param property property
+     * @param value value
+     * @param annotations annotations
      */
-    public OWLDataPropertyAssertionAxiomImpl(OWLIndividual subject, OWLDataPropertyExpression property,
+    public OWLDataPropertyAssertionAxiomImpl(OWLIndividual subject,
+        OWLDataPropertyExpression property,
         OWLLiteral value, Collection<OWLAnnotation> annotations) {
         super(subject, property, value, annotations);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()), new OWLDataHasValueImpl(getProperty(),
-            getObject()), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
+            new OWLDataHasValueImpl(getProperty(),
+                getObject()), NO_ANNOTATIONS);
     }
 
     @Override
@@ -51,11 +54,13 @@ public class OWLDataPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), NO_ANNOTATIONS);
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+            NO_ANNOTATIONS);
     }
 
     @Override
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(anns));
+        return (T) new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+            mergeAnnos(anns));
     }
 }

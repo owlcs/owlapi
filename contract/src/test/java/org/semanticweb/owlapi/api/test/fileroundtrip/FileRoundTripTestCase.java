@@ -14,14 +14,12 @@ package org.semanticweb.owlapi.api.test.fileroundtrip;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -36,51 +34,51 @@ public class FileRoundTripTestCase extends AbstractFileRoundTrippingTestCase {
     public static List<String> getData() {
         //@formatter:off
         return Arrays.asList(
-            "AnnotatedPropertyAssertions.rdf", 
-            "ComplexSubProperty.rdf", 
+            "AnnotatedPropertyAssertions.rdf",
+            "ComplexSubProperty.rdf",
             "DataAllValuesFrom.rdf",
-            "cardinalitywithwhitespace.owl", 
-            "DataComplementOf.rdf", 
-            "DataHasValue.rdf", 
+            "cardinalitywithwhitespace.owl",
+            "DataComplementOf.rdf",
+            "DataHasValue.rdf",
             "DataIntersectionOf.rdf",
-            "DataMaxCardinality.rdf", 
-            "DataMinCardinality.rdf", 
-            "DataOneOf.rdf", 
+            "DataMaxCardinality.rdf",
+            "DataMinCardinality.rdf",
+            "DataOneOf.rdf",
             "DataSomeValuesFrom.rdf",
-            "DataUnionOf.rdf", 
-            "DatatypeRestriction.rdf", 
-            "TestDeclarations.rdf", 
+            "DataUnionOf.rdf",
+            "DatatypeRestriction.rdf",
+            "TestDeclarations.rdf",
             "Deprecated.rdf",
-            "DisjointClasses.rdf", 
-            "HasKey.rdf", 
-            "InverseOf.rdf", 
-            "ObjectAllValuesFrom.rdf", 
+            "DisjointClasses.rdf",
+            "HasKey.rdf",
+            "InverseOf.rdf",
+            "ObjectAllValuesFrom.rdf",
             "ObjectCardinality.rdf",
-            "ObjectComplementOf.rdf", 
-            "ObjectHasSelf.rdf", 
-            "ObjectHasValue.rdf", 
+            "ObjectComplementOf.rdf",
+            "ObjectHasSelf.rdf",
+            "ObjectHasValue.rdf",
             "ObjectIntersectionOf.rdf",
-            "ObjectMaxCardinality.rdf", 
-            "ObjectMaxQualifiedCardinality.rdf", 
+            "ObjectMaxCardinality.rdf",
+            "ObjectMaxQualifiedCardinality.rdf",
             "ObjectMinCardinality.rdf",
-            "ObjectMinQualifiedCardinality.rdf", 
-            "ObjectOneOf.rdf", 
+            "ObjectMinQualifiedCardinality.rdf",
+            "ObjectOneOf.rdf",
             "ObjectQualifiedCardinality.rdf",
-            "ObjectSomeValuesFrom.rdf", 
-            "ObjectUnionOf.rdf", 
-            "primer.functionalsyntax.txt", 
+            "ObjectSomeValuesFrom.rdf",
+            "ObjectUnionOf.rdf",
+            "primer.functionalsyntax.txt",
             "primer.owlxml.xml",
-            "primer.rdfxml.xml", 
-            "RDFSClass.rdf", 
-            "koala.owl", 
-            "SubClassOf.rdf", 
-            "TestParser06.rdf", 
+            "primer.rdfxml.xml",
+            "RDFSClass.rdf",
+            "koala.owl",
+            "SubClassOf.rdf",
+            "TestParser06.rdf",
             "TestParser07.rdf",
-            "TestParser10.rdf", 
-            "annotatedpropertychain.ttl.rdf", 
+            "TestParser10.rdf",
+            "annotatedpropertychain.ttl.rdf",
             "UntypedSubClassOf.rdf",
-            "SubClassOfUntypedOWLClass.rdf", 
-            "SubClassOfUntypedSomeValuesFrom.rdf", 
+            "SubClassOfUntypedOWLClass.rdf",
+            "SubClassOfUntypedSomeValuesFrom.rdf",
             "XMLLiteral.rdf");
         //@formatter:on
     }

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,16 +21,14 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
-public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extends OWLProfileViolation {
+public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extends
+    OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
+     * @param ontology ontology
+     * @param axiom axiom
      */
     public UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(OWLOntology ontology,
         OWLInverseFunctionalObjectPropertyAxiom axiom) {

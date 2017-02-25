@@ -13,18 +13,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * An OWLLiteral whose datatype is RDF_LANG_STRING or XSD_STRING
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         26-Oct-2006
  */
 public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
@@ -33,10 +31,8 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     private final String lang;
 
     /**
-     * @param literal
-     *        the lexical form
-     * @param lang
-     *        the language; can be null or empty
+     * @param literal the lexical form
+     * @param lang the language; can be null or empty
      */
     public OWLLiteralImplPlain(String literal, @Nullable String lang) {
         this.literal = literal;
@@ -84,7 +80,8 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
+        return hash(object.hashIndex(),
+            Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
     }
 
     private int specificHash() {

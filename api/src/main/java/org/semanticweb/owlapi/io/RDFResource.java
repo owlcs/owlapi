@@ -15,17 +15,17 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public abstract class RDFResource extends RDFNode implements org.apache.commons.rdf.api.BlankNodeOrIRI {
+public abstract class RDFResource extends RDFNode implements
+    org.apache.commons.rdf.api.BlankNodeOrIRI {
 
     // XXX implement equals()
+
     /**
      * @return the resource IRI
      */

@@ -13,9 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -23,28 +21,27 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
+        OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+        OWL2Datatype.RDF_LANG_STRING);
     private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     private final String literal;
     private final OWLDatatype datatype;
     private final String language;
 
     /**
-     * @param literal
-     *        actual literal form
-     * @param lang
-     *        language for literal, can be null
-     * @param datatype
-     *        datatype for literal
+     * @param literal actual literal form
+     * @param lang language for literal, can be null
+     * @param datatype datatype for literal
      */
-    public OWLLiteralImplNoCompression(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
+    public OWLLiteralImplNoCompression(String literal, @Nullable String lang,
+        @Nullable OWLDatatype datatype) {
         this.literal = literal;
         if (lang == null || lang.isEmpty()) {
             language = "";
@@ -54,11 +51,13 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
+            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype
+                .equals(RDF_PLAIN_LITERAL))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
-                    + " and language: " + lang);
+                throw new OWLRuntimeException(
+                    "Error: cannot build a literal with type: " + datatype.getIRI()
+                        + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_LANG_STRING;
@@ -146,7 +145,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
+        return hash(object.hashIndex(),
+            Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
     }
 
     private int specificHash() {

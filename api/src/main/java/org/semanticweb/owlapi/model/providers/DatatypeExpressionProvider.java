@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.model.providers;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -23,50 +22,43 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Datatype expression and facet expression provider. */
+/**
+ * Datatype expression and facet expression provider.
+ */
 public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabularyProvider {
 
     /**
      * OWLDatatypeRestriction
      * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
      * spec</a>
-     * 
-     * @param dataType
-     *        datatype for the restriction
-     * @param facetRestrictions
-     *        facet restrictions. Cannot contain nulls.
-     * @return an OWLDatatypeRestriction for the specified data type and
-     *         restrictions
+     *
+     * @param dataType datatype for the restriction
+     * @param facetRestrictions facet restrictions. Cannot contain nulls.
+     * @return an OWLDatatypeRestriction for the specified data type and restrictions
      */
     OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType,
-            Collection<OWLFacetRestriction> facetRestrictions);
+        Collection<OWLFacetRestriction> facetRestrictions);
 
     /**
      * OWLDatatypeRestriction
      * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
      * spec</a>
-     * 
-     * @param dataType
-     *        datatype for the restriction
-     * @param facet
-     *        facet for restriction
-     * @param typedLiteral
-     *        literal for facet.
-     * @return an OWLDatatypeRestriction with given value for the specified
-     *         facet
+     *
+     * @param dataType datatype for the restriction
+     * @param facet facet for restriction
+     * @param typedLiteral literal for facet.
+     * @return an OWLDatatypeRestriction with given value for the specified facet
      */
-    OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType, OWLFacet facet, OWLLiteral typedLiteral);
+    OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType, OWLFacet facet,
+        OWLLiteral typedLiteral);
 
     /**
-     * @param dataType
-     *        datatype for the restriction
-     * @param facetRestrictions
-     *        facet restrictions. Cannot contain nulls.
-     * @return an OWLDatatypeRestriction for the specified data type and
-     *         restrictions
+     * @param dataType datatype for the restriction
+     * @param facetRestrictions facet restrictions. Cannot contain nulls.
+     * @return an OWLDatatypeRestriction for the specified data type and restrictions
      */
     default OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType,
-            OWLFacetRestriction... facetRestrictions) {
+        OWLFacetRestriction... facetRestrictions) {
         checkIterableNotNull(facetRestrictions, "facetRestrictions cannot be null", true);
         return getOWLDatatypeRestriction(dataType, CollectionFactory.createSet(facetRestrictions));
     }
@@ -74,249 +66,217 @@ public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabula
     /**
      * Creates a datatype restriction on xsd:integer with a minInclusive facet
      * restriction
-     * 
-     * @param minInclusive
-     *        The value of the min inclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:integer}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the {@code minInclusive} parameter.
+     *
+     * @param minInclusive The value of the min inclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:integer} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE}
+     * facet value specified by the {@code minInclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(int minInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE,
+            getOWLLiteral(minInclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:integer with a maxInclusive facet
      * restriction
-     * 
-     * @param maxInclusive
-     *        The value of the max inclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:integer}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the {@code maxInclusive} parameter.
+     *
+     * @param maxInclusive The value of the max inclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:integer} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE}
+     * facet value specified by the {@code maxInclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(double maxInclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MAX_INCLUSIVE,
+            getOWLLiteral(maxInclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:integer with min and max inclusive
      * facet restrictions
-     * 
-     * @param minInclusive
-     *        The value of the max inclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype.
-     * @param maxInclusive
-     *        The value of the max inclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:integer}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the {@code minInclusive} parameter and a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the {@code maxInclusive} parameter.
+     *
+     * @param minInclusive The value of the max inclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype.
+     * @param maxInclusive The value of the max inclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:integer} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE}
+     * facet value specified by the {@code minInclusive} parameter and a {@link
+     * org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet value specified by the {@code
+     * maxInclusive} parameter.
      */
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(int minInclusive, int maxInclusive) {
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(int minInclusive,
+        int maxInclusive) {
         return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)),
-                getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
+            getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)),
+            getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:integer with a minExclusive facet
      * restriction
-     * 
-     * @param minExclusive
-     *        The value of the min exclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:integer}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the {@code minExclusive} parameter.
+     *
+     * @param minExclusive The value of the min exclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:integer} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE}
+     * facet value specified by the {@code minExclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(int minExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_EXCLUSIVE,
+            getOWLLiteral(minExclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:integer with a maxExclusive facet
      * restriction
-     * 
-     * @param maxExclusive
-     *        The value of the max exclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:integer}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the {@code maxExclusive} parameter.
+     *
+     * @param maxExclusive The value of the max exclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:integer} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE}
+     * facet value specified by the {@code maxExclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(int maxExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_EXCLUSIVE,
+            getOWLLiteral(maxExclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:integer with min and max exclusive
      * facet restrictions
-     * 
-     * @param minExclusive
-     *        The value of the max exclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype.
-     * @param maxExclusive
-     *        The value of the max exclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:integer}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the {@code minExclusive} parameter and a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the {@code maxExclusive} parameter.
+     *
+     * @param minExclusive The value of the max exclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype.
+     * @param maxExclusive The value of the max exclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:integer} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE}
+     * facet value specified by the {@code minExclusive} parameter and a {@link
+     * org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet value specified by the {@code
+     * maxExclusive} parameter.
      */
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(int minExclusive, int maxExclusive) {
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(int minExclusive,
+        int maxExclusive) {
         return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)),
-                getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
+            getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)),
+            getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:double with a minInclusive facet
      * restriction
-     * 
-     * @param minInclusive
-     *        The value of the min inclusive facet restriction that will be
-     *        applied to the {@code xsd:double} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:double}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the {@code minInclusive} parameter.
+     *
+     * @param minInclusive The value of the min inclusive facet restriction that will be applied to
+     * the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:double} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE}
+     * facet value specified by the {@code minInclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(double minInclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MIN_INCLUSIVE,
+            getOWLLiteral(minInclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:double with min and max inclusive
      * facet restrictions
-     * 
-     * @param minInclusive
-     *        The value of the max inclusive facet restriction that will be
-     *        applied to the {@code xsd:double} datatype.
-     * @param maxInclusive
-     *        The value of the max inclusive facet restriction that will be
-     *        applied to the {@code xsd:double} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:double}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
-     *         value specified by the {@code minInclusive} parameter and a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the {@code maxInclusive} parameter.
+     *
+     * @param minInclusive The value of the max inclusive facet restriction that will be applied to
+     * the {@code xsd:double} datatype.
+     * @param maxInclusive The value of the max inclusive facet restriction that will be applied to
+     * the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:double} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE}
+     * facet value specified by the {@code minInclusive} parameter and a {@link
+     * org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet value specified by the {@code
+     * maxInclusive} parameter.
      */
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(double minInclusive, double maxInclusive) {
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(double minInclusive,
+        double maxInclusive) {
         return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)),
-                getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
+            getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)),
+            getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:double with a minExclusive facet
      * restriction
-     * 
-     * @param minExclusive
-     *        The value of the min exclusive facet restriction that will be
-     *        applied to the {@code xsd:double} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:double}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the {@code minExclusive} parameter.
+     *
+     * @param minExclusive The value of the min exclusive facet restriction that will be applied to
+     * the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:double} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE}
+     * facet value specified by the {@code minExclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(double minExclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MIN_EXCLUSIVE,
+            getOWLLiteral(minExclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:integer with a maxInclusive facet
      * restriction
-     * 
-     * @param maxInclusive
-     *        The value of the max inclusive facet restriction that will be
-     *        applied to the {@code xsd:integer} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:integer}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
-     *         value specified by the {@code maxInclusive} parameter.
+     *
+     * @param maxInclusive The value of the max inclusive facet restriction that will be applied to
+     * the {@code xsd:integer} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:integer} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE}
+     * facet value specified by the {@code maxInclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(int maxInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_INCLUSIVE,
+            getOWLLiteral(maxInclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:double with a maxExclusive facet
      * restriction
-     * 
-     * @param maxExclusive
-     *        The value of the max exclusive facet restriction that will be
-     *        applied to the {@code xsd:double} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:double}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the {@code maxExclusive} parameter.
+     *
+     * @param maxExclusive The value of the max exclusive facet restriction that will be applied to
+     * the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:double} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE}
+     * facet value specified by the {@code maxExclusive} parameter.
      */
     default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(double maxExclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MAX_EXCLUSIVE,
+            getOWLLiteral(maxExclusive));
     }
 
     /**
      * Creates a datatype restriction on xsd:double with min and max exclusive
      * facet restrictions
-     * 
-     * @param minExclusive
-     *        The value of the max exclusive facet restriction that will be
-     *        applied to the {@code xsd:double} datatype.
-     * @param maxExclusive
-     *        The value of the max exclusive facet restriction that will be
-     *        applied to the {@code xsd:double} datatype
-     * @return An {@code OWLDatatypeRestriction} that restricts the
-     *         {@code xsd:double}
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} with a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
-     *         value specified by the {@code minExclusive} parameter and a
-     *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
-     *         value specified by the {@code maxExclusive} parameter.
+     *
+     * @param minExclusive The value of the max exclusive facet restriction that will be applied to
+     * the {@code xsd:double} datatype.
+     * @param maxExclusive The value of the max exclusive facet restriction that will be applied to
+     * the {@code xsd:double} datatype
+     * @return An {@code OWLDatatypeRestriction} that restricts the {@code xsd:double} {@link
+     * org.semanticweb.owlapi.model.OWLDatatype} with a {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE}
+     * facet value specified by the {@code minExclusive} parameter and a {@link
+     * org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet value specified by the {@code
+     * maxExclusive} parameter.
      */
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(double minExclusive, double maxExclusive) {
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(double minExclusive,
+        double maxExclusive) {
         return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)),
-                getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
+            getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)),
+            getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
     }
 
     /**
-     * @param facet
-     *        facet for restriction.
-     * @param facetValue
-     *        literal for restriction.
+     * @param facet facet for restriction.
+     * @param facetValue literal for restriction.
      * @return an OWLFacetRestriction on specified facet and value
      */
     OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, OWLLiteral facetValue);
 
     /**
-     * @param facet
-     *        facet for restriction.
-     * @param facetValue
-     *        facet value
+     * @param facet facet for restriction.
+     * @param facetValue facet value
      * @return an OWLFacetRestriction on specified facet and value
      */
     default OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, int facetValue) {
@@ -324,10 +284,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabula
     }
 
     /**
-     * @param facet
-     *        facet for restriction
-     * @param facetValue
-     *        facet value.
+     * @param facet facet for restriction
+     * @param facetValue facet value.
      * @return an OWLFacetRestriction on specified facet and value
      */
     default OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, double facetValue) {
@@ -335,10 +293,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabula
     }
 
     /**
-     * @param facet
-     *        facet for restriction
-     * @param facetValue
-     *        facet value.
+     * @param facet facet for restriction
+     * @param facetValue facet value.
      * @return an OWLFacetRestriction on specified facet and value
      */
     default OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, float facetValue) {

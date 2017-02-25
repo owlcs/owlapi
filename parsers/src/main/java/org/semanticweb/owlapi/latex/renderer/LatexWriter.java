@@ -17,55 +17,64 @@ import java.io.Writer;
 
 /**
  * The Class LatexWriter.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class LatexWriter {
 
-    /** The writer. */
+    /**
+     * The writer.
+     */
     private final PrintWriter writer;
 
     /**
      * Instantiates a new latex writer.
-     * 
-     * @param writer
-     *        the writer
+     *
+     * @param writer the writer
      */
     public LatexWriter(Writer writer) {
         this.writer = new PrintWriter(writer);
     }
 
     /**
-     * @param o
-     *        object to write
+     * @param o object to write
      */
     public void write(Object o) {
         writer.write(o.toString());
     }
 
-    /** Write new line. */
+    /**
+     * Write new line.
+     */
     public void writeNewLine() {
         writer.write("\\\\\n");
     }
 
-    /** Write space. */
+    /**
+     * Write space.
+     */
     public void writeSpace() {
         writer.write("~");
     }
 
-    /** Write open brace. */
+    /**
+     * Write open brace.
+     */
     public void writeOpenBrace() {
         writer.write("\\{");
     }
 
-    /** Write close brace. */
+    /**
+     * Write close brace.
+     */
     public void writeCloseBrace() {
         writer.write("\\}");
     }
 
-    /** Flush the writer. */
+    /**
+     * Flush the writer.
+     */
     public void flush() {
         writer.flush();
     }

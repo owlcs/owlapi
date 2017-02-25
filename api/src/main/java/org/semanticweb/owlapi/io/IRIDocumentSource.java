@@ -13,34 +13,29 @@
 package org.semanticweb.owlapi.io;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /**
-     * @param documentIRI
-     *        the source document IRI
+     * @param documentIRI the source document IRI
      */
     public IRIDocumentSource(IRI documentIRI) {
         this(documentIRI, null, null);
     }
 
     /**
-     * @param documentIRI
-     *        the source document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param documentIRI the source document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
-    public IRIDocumentSource(IRI documentIRI, @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public IRIDocumentSource(IRI documentIRI, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         failedOnStreams.set(true);
     }

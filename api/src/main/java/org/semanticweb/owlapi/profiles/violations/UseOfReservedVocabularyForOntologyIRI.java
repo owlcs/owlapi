@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -24,14 +23,12 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
+     * @param ontology ontology
      */
     public UseOfReservedVocabularyForOntologyIRI(OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getOntologyIRI().get());
@@ -60,6 +57,7 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
-        return list(new SetOntologyID(ontology, IRI.create("urn:profilesrepair:ontology#", "renamed")));
+        return list(
+            new SetOntologyID(ontology, IRI.create("urn:profilesrepair:ontology#", "renamed")));
     }
 }

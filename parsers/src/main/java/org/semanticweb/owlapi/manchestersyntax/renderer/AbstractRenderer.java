@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
@@ -26,46 +24,27 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class AbstractRenderer {
 
+    private final Writer writer;
+    private final List<Integer> tabs = new ArrayList<>();
     private ShortFormProvider shortFormProvider;
     private int lastNewLinePos = -1;
     private int currentPos;
-    private final Writer writer;
-    private final List<Integer> tabs = new ArrayList<>();
     private boolean useTabbing = true;
     private boolean useWrapping = true;
 
     /**
-     * @param writer
-     *        writer
-     * @param shortFormProvider
-     *        shortFormProvider
+     * @param writer writer
+     * @param shortFormProvider shortFormProvider
      */
     protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
         this.shortFormProvider = shortFormProvider;
         pushTab(0);
-    }
-
-    /**
-     * @param useTabbing
-     *        useTabbing
-     */
-    protected void setUseTabbing(boolean useTabbing) {
-        this.useTabbing = useTabbing;
-    }
-
-    /**
-     * @param useWrapping
-     *        useWrapping
-     */
-    protected void setUseWrapping(boolean useWrapping) {
-        this.useWrapping = useWrapping;
     }
 
     /**
@@ -76,6 +55,13 @@ public class AbstractRenderer {
     }
 
     /**
+     * @param useWrapping useWrapping
+     */
+    protected void setUseWrapping(boolean useWrapping) {
+        this.useWrapping = useWrapping;
+    }
+
+    /**
      * @return true if use tabbing
      */
     protected boolean isUseTabbing() {
@@ -83,10 +69,16 @@ public class AbstractRenderer {
     }
 
     /**
+     * @param useTabbing useTabbing
+     */
+    protected void setUseTabbing(boolean useTabbing) {
+        this.useTabbing = useTabbing;
+    }
+
+    /**
      * Flush.
-     * 
-     * @throws OWLRendererException
-     *         renderer error
+     *
+     * @throws OWLRendererException renderer error
      */
     protected void flush() throws OWLRendererException {
         try {

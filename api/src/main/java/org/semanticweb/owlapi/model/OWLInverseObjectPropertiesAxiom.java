@@ -22,16 +22,15 @@ import java.util.Collection;
  * This property axiom contains a set of two properties. inverseOf(P, Q) is
  * considered to be equal to inverseOf(Q, P) - i.e. the order in which the
  * properties are specified isn't important.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLInverseObjectPropertiesAxiom
     extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
-        OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
+    OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -39,10 +38,10 @@ public interface OWLInverseObjectPropertiesAxiom
     }
 
     @Override
-        Collection<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
+    Collection<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
+    Collection<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
 
     /**
      * @return the first of the two object properties.

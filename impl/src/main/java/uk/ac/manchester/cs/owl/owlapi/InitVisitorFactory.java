@@ -13,8 +13,46 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /**
  * @author ignazio
@@ -22,25 +60,34 @@ import org.semanticweb.owlapi.model.*;
 public class InitVisitorFactory {
 
     //@formatter:off
-    static final InitVisitor<OWLClass>                              CLASSSUBNAMED      = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLClassExpression>                    CLASSEXPRESSIONS   = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLClass>                              CLASSSUPERNAMED    = new InitVisitor<>          (false, true);
-    static final InitCollectionVisitor<OWLClass>                    CLASSCOLLECTIONS   = new InitCollectionVisitor<>(true);
-    static final InitCollectionVisitor<OWLObjectPropertyExpression> OPCOLLECTIONS      = new InitCollectionVisitor<>(true);
-    static final InitCollectionVisitor<OWLDataPropertyExpression>   DPCOLLECTIONS      = new InitCollectionVisitor<>(true);
-    static final InitCollectionVisitor<OWLIndividual>               ICOLLECTIONS       = new InitCollectionVisitor<>(true);
-    static final InitVisitor<OWLObjectPropertyExpression>           OPSUBNAMED         = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLObjectPropertyExpression>           OPSUPERNAMED       = new InitVisitor<>          (false, true);
-    static final InitVisitor<OWLDataPropertyExpression>             DPSUBNAMED         = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLDataPropertyExpression>             DPSUPERNAMED       = new InitVisitor<>          (false, true);
-    static final InitVisitor<OWLIndividual>                         INDIVIDUALSUBNAMED = new InitIndividualVisitor<>(true,  true);
-    static final InitVisitor<OWLAnnotationSubject>                  ANNOTSUPERNAMED    = new InitVisitor<>          (true,  true);
-    private InitVisitorFactory() {}
+    static final InitVisitor<OWLClass> CLASSSUBNAMED = new InitVisitor<>(true, true);
+    static final InitVisitor<OWLClassExpression> CLASSEXPRESSIONS = new InitVisitor<>(true, true);
+    static final InitVisitor<OWLClass> CLASSSUPERNAMED = new InitVisitor<>(false, true);
+    static final InitCollectionVisitor<OWLClass> CLASSCOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitCollectionVisitor<OWLObjectPropertyExpression> OPCOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitCollectionVisitor<OWLDataPropertyExpression> DPCOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitCollectionVisitor<OWLIndividual> ICOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitVisitor<OWLObjectPropertyExpression> OPSUBNAMED = new InitVisitor<>(true,
+        true);
+    static final InitVisitor<OWLObjectPropertyExpression> OPSUPERNAMED = new InitVisitor<>(false,
+        true);
+    static final InitVisitor<OWLDataPropertyExpression> DPSUBNAMED = new InitVisitor<>(true, true);
+    static final InitVisitor<OWLDataPropertyExpression> DPSUPERNAMED = new InitVisitor<>(false,
+        true);
+    static final InitVisitor<OWLIndividual> INDIVIDUALSUBNAMED = new InitIndividualVisitor<>(true,
+        true);
+    static final InitVisitor<OWLAnnotationSubject> ANNOTSUPERNAMED = new InitVisitor<>(true, true);
+
+    private InitVisitorFactory() {
+    }
 
     /**
+     * @param <K> visitor return type
      * @author ignazio
-     * @param <K>
-     *        visitor return type
      */
     @SuppressWarnings("unchecked")
     public static class InitVisitor<K> implements OWLAxiomVisitorEx<K> {
@@ -49,10 +96,8 @@ public class InitVisitorFactory {
         private final boolean named;
 
         /**
-         * @param sub
-         *        true for subclasses
-         * @param named
-         *        true for named classes
+         * @param sub true for subclasses
+         * @param named true for named classes
          */
         public InitVisitor(boolean sub, boolean named) {
             this.sub = sub;
@@ -190,18 +235,15 @@ public class InitVisitorFactory {
     }
 
     /**
+     * @param <K> visitor return type
      * @author ignazio
-     * @param <K>
-     *        visitor return type
      */
     @SuppressWarnings("unchecked")
     public static class InitIndividualVisitor<K extends OWLObject> extends InitVisitor<K> {
 
         /**
-         * @param sub
-         *        true for subclasses
-         * @param named
-         *        true for named classes
+         * @param sub true for subclasses
+         * @param named true for named classes
          */
         public InitIndividualVisitor(boolean sub, boolean named) {
             super(sub, named);
@@ -214,9 +256,8 @@ public class InitVisitorFactory {
     }
 
     /**
+     * @param <K> collection type
      * @author ignazio
-     * @param <K>
-     *        collection type
      */
     @SuppressWarnings("unchecked")
     public static class InitCollectionVisitor<K> implements OWLAxiomVisitorEx<Stream<K>> {
@@ -224,8 +265,7 @@ public class InitVisitorFactory {
         private final boolean named;
 
         /**
-         * @param named
-         *        true for named classes
+         * @param named true for named classes
          */
         public InitCollectionVisitor(boolean named) {
             this.named = named;

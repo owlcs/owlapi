@@ -23,9 +23,8 @@ public interface InverseProvider {
 
     /**
      * Gets the inverse of an object property.
-     * 
-     * @param property
-     *        The property of which the inverse will be returned
+     *
+     * @param property The property of which the inverse will be returned
      * @return The inverse of the specified object property
      */
     OWLObjectInverseOf getOWLObjectInverseOf(OWLObjectProperty property);

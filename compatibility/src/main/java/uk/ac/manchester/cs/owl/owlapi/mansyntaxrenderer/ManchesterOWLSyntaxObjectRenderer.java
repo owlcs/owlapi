@@ -13,29 +13,24 @@
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.io.Writer;
-
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @deprecated use
- *             org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxObjectRenderer
+ * @deprecated use org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxObjectRenderer
  */
 @Deprecated
 public class ManchesterOWLSyntaxObjectRenderer
-        extends
-        org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxObjectRenderer {
+    extends
+    org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxObjectRenderer {
 
     /**
-     * @param writer
-     *        writer
-     * @param entityShortFormProvider
-     *        entityShortFormProvider
+     * @param writer writer
+     * @param entityShortFormProvider entityShortFormProvider
      */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
-            ShortFormProvider entityShortFormProvider) {
+        ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
     }
 }

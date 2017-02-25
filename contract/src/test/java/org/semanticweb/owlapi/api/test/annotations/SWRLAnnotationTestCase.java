@@ -13,25 +13,31 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Set;
 import java.util.TreeSet;
-
 import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class SWRLAnnotationTestCase extends TestBase {
 
-    private static final @Nonnull String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
+    private static final @Nonnull
+    String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
     private static final String HEAD = "<?xml version=\"1.0\"?>\n"
         + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:protege=\"http://protege.stanford.edu/plugins/owl/protege#\" xmlns=\"urn:test#\" xmlns:xsp=\"http://www.owl-ontologies.com/2005/08/07/xsp.owl#\"\n"
         + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:sqwrl=\"http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
@@ -51,9 +57,12 @@ public class SWRLAnnotationTestCase extends TestBase {
         + "    <swrla:isRuleEnabled rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</swrla:isRuleEnabled>\n"
         + "    <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">:i62, :i61</rdfs:comment></swrl:Imp>\n"
         + "</rdf:RDF>";
-    protected @Nonnull OWLClass a = Class(IRI(NS + "#", "A"));
-    protected @Nonnull OWLClass b = Class(IRI(NS + "#", "B"));
-    protected @Nonnull OWLAxiom axiom;
+    protected @Nonnull
+    OWLClass a = Class(IRI(NS + "#", "A"));
+    protected @Nonnull
+    OWLClass b = Class(IRI(NS + "#", "B"));
+    protected @Nonnull
+    OWLAxiom axiom;
 
     @Before
     public void setUpAtoms() {

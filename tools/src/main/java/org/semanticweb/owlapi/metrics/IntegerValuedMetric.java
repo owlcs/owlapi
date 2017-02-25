@@ -16,18 +16,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * An {@code OWLMetric} that returns an integer value.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public abstract class IntegerValuedMetric extends AbstractOWLMetric<Integer> {
 
     /**
      * Instantiates a new integer valued metric.
-     * 
-     * @param o
-     *        the o
+     *
+     * @param o the o
      */
     protected IntegerValuedMetric(OWLOntology o) {
         super(o);

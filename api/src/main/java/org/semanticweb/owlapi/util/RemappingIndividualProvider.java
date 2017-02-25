@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.util;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -23,10 +22,8 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
     private Map<String, OWLAnonymousIndividual> map;
 
     /**
-     * @param m
-     *        ontology configurator
-     * @param df
-     *        data factory
+     * @param m ontology configurator
+     * @param df data factory
      */
     public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
         this.df = df;

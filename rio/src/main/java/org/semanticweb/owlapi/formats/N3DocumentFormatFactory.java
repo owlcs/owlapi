@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.semanticweb.owlapi.formats;
 
@@ -11,7 +11,9 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class N3DocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public N3DocumentFormatFactory() {
         super(RDFFormat.N3);
     }

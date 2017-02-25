@@ -19,8 +19,103 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -29,45 +124,99 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * NOTE: this class was not designed as a general purpose renderer, i.e., some
  * ontologies might be misrepresented in the output. Please report any
  * formatting error you find to the bug tracker or the mailing list.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class LatexObjectVisitor implements OWLObjectVisitor {
 
     //@formatter:off
-    /** AND. */           public static final String AND       = "\\ensuremath{\\sqcap}";
-    /** OR. */            public static final String OR        = "\\ensuremath{\\sqcup}";
-    /** NOT. */           public static final String NOT       = "\\ensuremath{\\lnot}";
-    /** ALL. */           public static final String ALL       = "\\ensuremath{\\forall}";
-    /** SOME. */          public static final String SOME      = "\\ensuremath{\\exists}";
-    /** HASVALUE. */      public static final String HASVALUE  = "\\ensuremath{hasValue}";
-    /** MIN. */           public static final String MIN       = "\\ensuremath{\\geq}";
-    /** MAX. */           public static final String MAX       = "\\ensuremath{\\leq}";
-    /** MINEX. */         public static final String MINEX     = "\\ensuremath{>}";
-    /** MAXEX. */         public static final String MAXEX     = "\\ensuremath{<}";
-    /** EQUAL. */         public static final String EQUAL     = "\\ensuremath{=}";
-    /** SUBCLASS. */      public static final String SUBCLASS  = "\\ensuremath{\\sqsubseteq}";
-    /** EQUIV. */         public static final String EQUIV     = "\\ensuremath{\\equiv}";
-    /** NOT_EQUIV. */     public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
-    /** TOP. */           public static final String TOP       = "\\ensuremath{\\top}";
-    /** BOTTOM. */        public static final String BOTTOM    = "\\ensuremath{\\bot}";
-    /** SELF. */          public static final String SELF      = "\\ensuremath{\\Self}";
-    /** CIRC. */          public static final String CIRC      = "\\ensuremath{\\circ}";
-    /** INVERSE */		  public static final String INVERSE   = "\\ensuremath{^-}";
+    /**
+     * AND.
+     */
+    public static final String AND = "\\ensuremath{\\sqcap}";
+    /**
+     * OR.
+     */
+    public static final String OR = "\\ensuremath{\\sqcup}";
+    /**
+     * NOT.
+     */
+    public static final String NOT = "\\ensuremath{\\lnot}";
+    /**
+     * ALL.
+     */
+    public static final String ALL = "\\ensuremath{\\forall}";
+    /**
+     * SOME.
+     */
+    public static final String SOME = "\\ensuremath{\\exists}";
+    /**
+     * HASVALUE.
+     */
+    public static final String HASVALUE = "\\ensuremath{hasValue}";
+    /**
+     * MIN.
+     */
+    public static final String MIN = "\\ensuremath{\\geq}";
+    /**
+     * MAX.
+     */
+    public static final String MAX = "\\ensuremath{\\leq}";
+    /**
+     * MINEX.
+     */
+    public static final String MINEX = "\\ensuremath{>}";
+    /**
+     * MAXEX.
+     */
+    public static final String MAXEX = "\\ensuremath{<}";
+    /**
+     * EQUAL.
+     */
+    public static final String EQUAL = "\\ensuremath{=}";
+    /**
+     * SUBCLASS.
+     */
+    public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
+    /**
+     * EQUIV.
+     */
+    public static final String EQUIV = "\\ensuremath{\\equiv}";
+    /**
+     * NOT_EQUIV.
+     */
+    public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
+    /**
+     * TOP.
+     */
+    public static final String TOP = "\\ensuremath{\\top}";
+    /**
+     * BOTTOM.
+     */
+    public static final String BOTTOM = "\\ensuremath{\\bot}";
+    /**
+     * SELF.
+     */
+    public static final String SELF = "\\ensuremath{\\Self}";
+    /**
+     * CIRC.
+     */
+    public static final String CIRC = "\\ensuremath{\\circ}";
+    /**
+     * INVERSE
+     */
+    public static final String INVERSE = "\\ensuremath{^-}";
+    private final LatexWriter writer;
+    private final OWLDataFactory df;
     //@formatter:on
     private OWLObject subject;
-    private final LatexWriter writer;
     private boolean prettyPrint = true;
-    private final OWLDataFactory df;
     private ShortFormProvider shortFormProvider;
 
     /**
-     * @param writer
-     *        writer
-     * @param df
-     *        data factory
+     * @param writer writer
+     * @param df data factory
      */
     public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
         this.writer = writer;
@@ -76,17 +225,19 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         subject = df.getOWLThing();
     }
 
+    private static String escapeName(String name) {
+        return name.replace("_", "\\_").replace("#", "\\#");
+    }
+
     /**
-     * @param subject
-     *        subject
+     * @param subject subject
      */
     public void setSubject(OWLObject subject) {
         this.subject = subject;
     }
 
     /**
-     * @param shortFormProvder
-     *        shortFormProvder
+     * @param shortFormProvder shortFormProvder
      */
     public void setShortFormProvider(ShortFormProvider shortFormProvder) {
         shortFormProvider = shortFormProvder;
@@ -120,8 +271,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param prettyPrint
-     *        prettyPrint
+     * @param prettyPrint prettyPrint
      */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
@@ -129,7 +279,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        for (Iterator<? extends OWLClassExpression> it = ce.operands().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLClassExpression> it = ce.operands().iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -253,7 +403,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        for (Iterator<? extends OWLClassExpression> it = ce.operands().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLClassExpression> it = ce.operands().iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -270,7 +420,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it.hasNext(); ) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -475,7 +625,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext();) {
+        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext(); ) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -489,7 +639,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator();
+            it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -503,7 +654,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         write("Disjoint");
         write("(");
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator();
+            it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(",");
@@ -537,7 +689,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator();
+            it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -549,7 +702,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator();
+            it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -578,8 +732,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param axiom
-     *        the axiom
+     * @param axiom the axiom
      */
     public void visit(OWLImportsDeclaration axiom) {
         write("ImportsDeclaration");
@@ -596,7 +749,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         if (property.isAnonymous()) {
             df.getOWLObjectMaxCardinality(1, property).accept(this);
         } else {
-            OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(property.asOWLObjectProperty());
+            OWLObjectPropertyExpression prop = df
+                .getOWLObjectInverseOf(property.asOWLObjectProperty());
             df.getOWLObjectMaxCardinality(1, prop).accept(this);
         }
     }
@@ -653,7 +807,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator();
+            it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -704,7 +859,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext();) {
+        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext(); ) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -776,10 +931,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         }
     }
 
-    private static String escapeName(String name) {
-        return name.replace("_", "\\_").replace("#", "\\#");
-    }
-
     @Override
     public void visit(OWLOntology ontology) {
         // nothing to do here
@@ -799,7 +950,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it.hasNext(); ) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -956,8 +1107,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param value
-     *        value
+     * @param value value
      */
     public void visit(OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {
@@ -989,7 +1139,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write("=");
         writeSpace();
         writeOpenBrace();
-        for (Iterator<OWLPropertyExpression> it = axiom.propertyExpressions().iterator(); it.hasNext();) {
+        for (Iterator<OWLPropertyExpression> it = axiom.propertyExpressions().iterator();
+            it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(",");
@@ -1001,7 +1152,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        for (Iterator<? extends OWLDataRange> it = node.operands().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLDataRange> it = node.operands().iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -1013,7 +1164,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        for (Iterator<? extends OWLDataRange> it = node.operands().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLDataRange> it = node.operands().iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();

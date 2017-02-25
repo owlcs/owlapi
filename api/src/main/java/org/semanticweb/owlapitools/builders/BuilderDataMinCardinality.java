@@ -13,19 +13,20 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 
-/** Builder class for OWLDataMinCardinality. */
-public class BuilderDataMinCardinality extends BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality>
+/**
+ * Builder class for OWLDataMinCardinality.
+ */
+public class BuilderDataMinCardinality extends
+    BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality>
     implements SettableCardinality<BuilderDataMinCardinality> {
 
     private int cardinality = -1;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDataMinCardinality(OWLDataFactory df) {
@@ -34,15 +35,14 @@ public class BuilderDataMinCardinality extends BaseDataBuilder<OWLDataMinCardina
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDataMinCardinality(OWLDataMinCardinality expected, OWLDataFactory df) {
         this(df);
-        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
+        withCardinality(expected.getCardinality()).withProperty(expected.getProperty())
+            .withRange(expected.getFiller());
     }
 
     @Override

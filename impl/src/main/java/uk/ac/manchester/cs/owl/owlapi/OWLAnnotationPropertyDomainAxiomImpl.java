@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -24,22 +23,19 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
+public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements
+    OWLAnnotationPropertyDomainAxiom {
 
     private final OWLAnnotationProperty property;
     private final IRI domain;
 
     /**
-     * @param property
-     *        property
-     * @param domain
-     *        domain
-     * @param annotations
-     *        annotations on the axiom
+     * @param property property
+     * @param domain domain
+     * @param annotations annotations on the axiom
      */
     public OWLAnnotationPropertyDomainAxiomImpl(OWLAnnotationProperty property, IRI domain,
         Collection<OWLAnnotation> annotations) {
@@ -58,7 +54,8 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
 
     @Override
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
+        return (T) new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(),
+            mergeAnnos(anns));
     }
 
     @Override

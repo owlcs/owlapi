@@ -1,56 +1,34 @@
 package uk.ac.manchester.cs.factplusplusad;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 
-/** base class for checking locality of a DL axiom */
+/**
+ * base class for checking locality of a DL axiom
+ */
 class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
 
-    /** remember the axiom locality value here */
+    /**
+     * remember the axiom locality value here
+     */
     boolean isLocal = true;
 
     /**
      * init c'tor
-     * 
-     * @param s
-     *        signature
+     *
+     * @param s signature
      */
     LocalityChecker(Signature s) {
         super(s);
     }
 
-    public void preprocessOntology(@SuppressWarnings("unused") Collection<AxiomWrapper> axioms) {
-        // nothing to do here
-    }
-
     /**
-     * @param axiom
-     *        axiom to check
-     * @return true iff an AXIOM is local wrt signature
-     */
-    boolean local(OWLAxiom axiom) {
-        axiom.accept(this);
-        return isLocal;
-    }
-
-    /**
-     * @param sig
-     *        new value of signature (without changing locality parameters)
-     */
-    void setSignatureValue(Signature sig) {
-        this.sig.setSignature(sig);
-    }
-
-    /**
-     * @param moduleMethod
-     *        modularisation method
-     * @param pSig
-     *        signature
+     * @param moduleMethod modularisation method
+     * @param pSig signature
      * @return locality checker by a method
      */
     static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
@@ -64,5 +42,25 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
             default:
                 throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
         }
+    }
+
+    public void preprocessOntology(@SuppressWarnings("unused") Collection<AxiomWrapper> axioms) {
+        // nothing to do here
+    }
+
+    /**
+     * @param axiom axiom to check
+     * @return true iff an AXIOM is local wrt signature
+     */
+    boolean local(OWLAxiom axiom) {
+        axiom.accept(this);
+        return isLocal;
+    }
+
+    /**
+     * @param sig new value of signature (without changing locality parameters)
+     */
+    void setSignatureValue(Signature sig) {
+        this.sig.setSignature(sig);
     }
 }

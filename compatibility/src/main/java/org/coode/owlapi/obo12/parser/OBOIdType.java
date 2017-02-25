@@ -42,9 +42,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
@@ -61,51 +59,55 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 @SuppressWarnings("all")
 enum OBOIdType {
     //@formatter:off
-    /** Any string with an http: or https: prefix. */
-    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), (ontologyID, idSpaceManager, id) -> IRI.create(id)), /**
-                                                                                                              * Any
-                                                                                                              * unprefixed
-                                                                                                              * ID.
-                                                                                                              * Does
-                                                                                                              * not
-                                                                                                              * contain
-                                                                                                              * a
-                                                                                                              * colon
-                                                                                                              * character.
-                                                                                                              * The
-                                                                                                              * spec
-                                                                                                              * implies
-                                                                                                              * the
-                                                                                                              * empty
-                                                                                                              * string
-                                                                                                              * matches
-                                                                                                              * this
-                                                                                                              * ID.
-                                                                                                              */
+    /**
+     * Any string with an http: or https: prefix.
+     */
+    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"),
+        (ontologyID, idSpaceManager, id) -> IRI.create(id)), /**
+     * Any
+     * unprefixed
+     * ID.
+     * Does
+     * not
+     * contain
+     * a
+     * colon
+     * character.
+     * The
+     * spec
+     * implies
+     * the
+     * empty
+     * string
+     * matches
+     * this
+     * ID.
+     */
     UNPREFIXED_ID(Pattern.compile("[^\\s:]*"), (ontologyID, idSpaceManager, id) -> {
-        String ns;
-        if (!ontologyID.isAnonymous()) {
-            ns = ontologyID.getOntologyIRI() + "#";
-        } else {
-            ns = "anonymous#";
-        }
-        return IRI.create(ns, id);
-    }),
+            String ns;
+            if (!ontologyID.isAnonymous()) {
+                ns = ontologyID.getOntologyIRI() + "#";
+            } else {
+                ns = "anonymous#";
+            }
+            return IRI.create(ns, id);
+        }),
     /**
      * Must contain a colon character in the ID. The idspace must only
      * consist of Alpha-Chars and possibly an underscore. The local id must
      * only consist of digits (possibly none).
      */
-    CANONICAL_PREFIXED_ID(Pattern.compile("([A-Za-z][A-Za-z_]*):([0-9]*)"),new OBOIIdTranslator() {
+    CANONICAL_PREFIXED_ID(Pattern.compile("([A-Za-z][A-Za-z_]*):([0-9]*)"), new OBOIIdTranslator() {
 
         @Override
-        public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String id) {
-        Matcher matcher = CANONICAL_PREFIXED_ID.getPattern().matcher(id);
-        matcher.matches();
-        String idspace = matcher.group(1);
-        String localid = matcher.group(2);
-        String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
-        return IRI.create(iriPrefix, idspace + "_" + localid);
+        public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
+            String id) {
+            Matcher matcher = CANONICAL_PREFIXED_ID.getPattern().matcher(id);
+            matcher.matches();
+            String idspace = matcher.group(1);
+            String localid = matcher.group(2);
+            String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
+            return IRI.create(iriPrefix, idspace + "_" + localid);
         }
     }),
     /**
@@ -115,13 +117,14 @@ enum OBOIdType {
     NON_CANONICAL_PREFIXED_ID(Pattern.compile("([^\\s:]*):([^\\s]*)"), new OBOIIdTranslator() {
 
         @Override
-        public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String id) {
-        Matcher matcher = NON_CANONICAL_PREFIXED_ID.getPattern().matcher(id);
-        matcher.matches();
-        String idspace = matcher.group(1);
-        String localid = matcher.group(2);
-        String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
-        return IRI.create(iriPrefix + idspace + "#", "_" + localid);
+        public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
+            String id) {
+            Matcher matcher = NON_CANONICAL_PREFIXED_ID.getPattern().matcher(id);
+            matcher.matches();
+            String idspace = matcher.group(1);
+            String localid = matcher.group(2);
+            String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
+            return IRI.create(iriPrefix + idspace + "#", "_" + localid);
         }
     });
     //@formatter:on
@@ -134,31 +137,14 @@ enum OBOIdType {
     }
 
     /**
-     * @return the pattern
-     */
-    public Pattern getPattern() {
-        return pattern;
-    }
-
-    /**
-     * @param ontologyID
-     * @param idSpaceManager
-     * @param oboId
-     * @return the translated iri
-     */
-    public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String oboId) {
-        return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);
-    }
-
-    /**
      * Gets the OBOIdType for a given OBO ID.
-     * 
-     * @param oboId
-     *        The OBO ID. Must not be null.
-     * @return The OBOIdType for the specified oboId, or <code>null</code> if
-     *         the specified oboId does not conform to any OBO Id type.
+     *
+     * @param oboId The OBO ID. Must not be null.
+     * @return The OBOIdType for the specified oboId, or <code>null</code> if the specified oboId
+     * does not conform to any OBO Id type.
      */
-    public static @Nullable OBOIdType getIdType(String oboId) {
+    public static @Nullable
+    OBOIdType getIdType(String oboId) {
         checkNotNull(oboId, "oboId must not be null");
         for (OBOIdType idType : values()) {
             Pattern pattern = idType.getPattern();
@@ -168,6 +154,21 @@ enum OBOIdType {
             }
         }
         return null;
+    }
+
+    /**
+     * @return the pattern
+     */
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+    /**
+     * @return the translated iri
+     */
+    public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
+        String oboId) {
+        return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);
     }
 
     private static interface OBOIIdTranslator {
