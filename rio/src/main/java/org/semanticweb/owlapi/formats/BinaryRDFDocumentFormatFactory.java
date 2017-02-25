@@ -43,7 +43,9 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class BinaryRDFDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public BinaryRDFDocumentFormatFactory() {
         super(RDFFormat.BINARY, false);
     }

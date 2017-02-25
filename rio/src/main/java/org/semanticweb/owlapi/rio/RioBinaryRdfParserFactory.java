@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.formats.BinaryRDFDocumentFormatFactory;
 @HasPriority(16)
 public class RioBinaryRdfParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioBinaryRdfParserFactory() {
         super(new BinaryRDFDocumentFormatFactory());
     }

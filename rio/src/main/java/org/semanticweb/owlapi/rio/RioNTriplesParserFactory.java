@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.formats.NTriplesDocumentFormatFactory;
 @HasPriority(9)
 public class RioNTriplesParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioNTriplesParserFactory() {
         super(new NTriplesDocumentFormatFactory());
     }

@@ -76,16 +76,13 @@ public class RioRenderer extends RDFRendererBase {
     private final Resource[] contexts;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
-     * @param contexts
-     *        contexts
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
+     * @param contexts contexts
      */
-    public RioRenderer(final OWLOntology ontology, final RDFHandler writer, final OWLDocumentFormat format,
+    public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
+        final OWLDocumentFormat format,
         final Resource... contexts) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         OpenRDFUtil.verifyContextNotNull(contexts);
@@ -233,14 +230,16 @@ public class RioRenderer extends RDFRendererBase {
                     renderedStatements.add(tripleToRender);
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
+                    for (Statement statement : RioUtils
+                        .tripleAsStatements(tripleToRender, contexts)) {
                         writer.handleStatement(statement);
                         if (tripleToRender.getObject() instanceof RDFResource) {
                             render((RDFResource) tripleToRender.getObject());
                         }
                     }
                 } else if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}", tripleToRender);
+                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}",
+                        tripleToRender);
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLRuntimeException(e);
