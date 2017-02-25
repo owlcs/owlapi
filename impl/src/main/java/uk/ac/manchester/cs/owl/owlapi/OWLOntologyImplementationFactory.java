@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;

@@ -1,7 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;

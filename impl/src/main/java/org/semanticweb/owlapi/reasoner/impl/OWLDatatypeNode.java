@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 
 /**
