@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
 
 import java.io.IOException;
 import java.io.Serializable;
-
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;

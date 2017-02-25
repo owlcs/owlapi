@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.oboformat;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;

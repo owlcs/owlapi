@@ -1,19 +1,16 @@
 package org.obolibrary.oboformat.model;
 
+import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.Sets;
 
 /** Clause. */
 public class Clause {

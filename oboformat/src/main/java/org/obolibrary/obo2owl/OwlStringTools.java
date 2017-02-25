@@ -7,16 +7,19 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Collections;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
  * Tools to read and write a set of owl axioms to/from a string. Used to
