@@ -12,16 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import uk.ac.manchester.cs.owl.owlapi.*;
+import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics

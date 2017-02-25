@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
@@ -16,7 +15,16 @@ import org.semanticweb.owlapi.oboformat.OBOFormatStorerFactory;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory;
-import org.semanticweb.owlapi.rio.*;
+import org.semanticweb.owlapi.rio.RioBinaryRdfStorerFactory;
+import org.semanticweb.owlapi.rio.RioJsonLDStorerFactory;
+import org.semanticweb.owlapi.rio.RioJsonStorerFactory;
+import org.semanticweb.owlapi.rio.RioN3StorerFactory;
+import org.semanticweb.owlapi.rio.RioNQuadsStorerFactory;
+import org.semanticweb.owlapi.rio.RioNTriplesStorerFactory;
+import org.semanticweb.owlapi.rio.RioRDFXMLStorerFactory;
+import org.semanticweb.owlapi.rio.RioTrigStorerFactory;
+import org.semanticweb.owlapi.rio.RioTrixStorerFactory;
+import org.semanticweb.owlapi.rio.RioTurtleStorerFactory;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 @SuppressWarnings("javadoc")

@@ -13,7 +13,6 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;

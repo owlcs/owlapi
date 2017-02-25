@@ -13,7 +13,8 @@
 package org.semanticweb.owlapi.change;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import org.junit.Test;
@@ -22,8 +23,20 @@ import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.krss1.parser.KRSSOWLParser;
 import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParser;
-import org.semanticweb.owlapi.metrics.*;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.metrics.AverageAssertedNamedSuperclassCount;
+import org.semanticweb.owlapi.metrics.AxiomCount;
+import org.semanticweb.owlapi.metrics.HiddenGCICount;
+import org.semanticweb.owlapi.metrics.ImportClosureSize;
+import org.semanticweb.owlapi.metrics.MaximumNumberOfNamedSuperclasses;
+import org.semanticweb.owlapi.metrics.NumberOfClassesWithMultipleInheritance;
+import org.semanticweb.owlapi.metrics.UnsatisfiableClassCountMetric;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;

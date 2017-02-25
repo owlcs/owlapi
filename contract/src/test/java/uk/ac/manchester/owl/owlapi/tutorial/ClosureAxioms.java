@@ -15,7 +15,6 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;

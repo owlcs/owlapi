@@ -1,15 +1,12 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
+import gnu.trove.set.hash.TCustomHashSet;
+import gnu.trove.strategy.HashingStrategy;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
-
-import gnu.trove.set.hash.TCustomHashSet;
-import gnu.trove.strategy.HashingStrategy;
 
 /**
  * Created by ses on 9/30/14.

@@ -13,7 +13,18 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.*;
+import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.NQuadsDocumentFormat;
+import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TrigDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
