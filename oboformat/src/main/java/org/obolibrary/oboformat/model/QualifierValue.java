@@ -2,17 +2,17 @@ package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nullable;
 
-/** Qualifier value. */
+/**
+ * Qualifier value.
+ */
 public class QualifierValue implements Comparable<QualifierValue> {
 
     protected String qualifier;
     protected String value;
 
     /**
-     * @param q
-     *        qualifier
-     * @param v
-     *        value
+     * @param q qualifier
+     * @param v value
      */
     public QualifierValue(String q, String v) {
         qualifier = q;
@@ -27,8 +27,7 @@ public class QualifierValue implements Comparable<QualifierValue> {
     }
 
     /**
-     * @param qualifier
-     *        qualifier
+     * @param qualifier qualifier
      */
     public void setQualifier(String qualifier) {
         this.qualifier = qualifier;
@@ -42,8 +41,7 @@ public class QualifierValue implements Comparable<QualifierValue> {
     }
 
     /**
-     * @param value
-     *        value
+     * @param value value
      */
     public void setValue(String value) {
         this.value = value;

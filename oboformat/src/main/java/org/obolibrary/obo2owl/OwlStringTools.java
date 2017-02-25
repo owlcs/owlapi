@@ -27,7 +27,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  */
 public class OwlStringTools {
 
-    private OwlStringTools() {}
+    private OwlStringTools() {
+    }
 
     /**
      * Exception indicating an un-recoverable error during the handling of axiom
@@ -36,8 +37,7 @@ public class OwlStringTools {
     public static class OwlStringException extends OWLRuntimeException {
 
         /**
-         * @param cause
-         *        cause
+         * @param cause cause
          */
         protected OwlStringException(Throwable cause) {
             super(cause);
@@ -47,15 +47,14 @@ public class OwlStringTools {
     /**
      * Create a string for the given set of axioms. Return null for empty sets
      * or if the set is null.
-     * 
-     * @param axioms
-     *        axioms
-     * @param translationManager
-     *        translationManager
+     *
+     * @param axioms axioms
+     * @param translationManager translationManager
      * @return string or null
      * @see #translate(String, OWLOntologyManager)
      */
-    public static String translate(Collection<OWLAxiom> axioms, OWLOntologyManager translationManager) {
+    public static String translate(Collection<OWLAxiom> axioms,
+        OWLOntologyManager translationManager) {
         if (axioms.isEmpty()) {
             return "";
         }
@@ -76,15 +75,14 @@ public class OwlStringTools {
     /**
      * Parse the axioms from the given axiom string. Returns null for empty and
      * null strings.
-     * 
-     * @param axioms
-     *        axioms
-     * @param translationManager
-     *        translationManager
+     *
+     * @param axioms axioms
+     * @param translationManager translationManager
      * @return set of axioms or null
-     * @see #translate(Collection,OWLOntologyManager)
+     * @see #translate(Collection, OWLOntologyManager)
      */
-    public static Collection<OWLAxiom> translate(@Nullable String axioms, OWLOntologyManager translationManager) {
+    public static Collection<OWLAxiom> translate(@Nullable String axioms,
+        OWLOntologyManager translationManager) {
         if (axioms == null || axioms.isEmpty()) {
             return Collections.emptySet();
         }
