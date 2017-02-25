@@ -15,12 +15,11 @@ package org.semanticweb.owlapi.reasoner;
 import java.io.Serializable;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ConsoleProgressMonitor implements ReasonerProgressMonitor,
-        Serializable {
+    Serializable {
 
     private int lastPercentage;
 

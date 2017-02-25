@@ -16,12 +16,14 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLDataAllValuesFrom. */
-public class BuilderDataAllValuesFrom extends BaseDataBuilder<OWLDataAllValuesFrom, BuilderDataAllValuesFrom> {
+/**
+ * Builder class for OWLDataAllValuesFrom.
+ */
+public class BuilderDataAllValuesFrom extends
+    BaseDataBuilder<OWLDataAllValuesFrom, BuilderDataAllValuesFrom> {
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDataAllValuesFrom(OWLDataFactory df) {
@@ -30,11 +32,9 @@ public class BuilderDataAllValuesFrom extends BaseDataBuilder<OWLDataAllValuesFr
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDataAllValuesFrom(OWLDataAllValuesFrom expected, OWLDataFactory df) {
         this(df);

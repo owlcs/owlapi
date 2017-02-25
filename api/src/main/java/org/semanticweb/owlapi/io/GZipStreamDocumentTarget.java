@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * An ontology document target which can write to a GZIP stream. Notice that
  * this works best when the output stream is closed explicitly in the client
  * code.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */
@@ -37,8 +37,7 @@ public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
     private final OutputStream outputStream;
 
     /**
-     * @param os
-     *        the actual file
+     * @param os the actual file
      */
     public GZipStreamDocumentTarget(OutputStream os) {
         outputStream = os;

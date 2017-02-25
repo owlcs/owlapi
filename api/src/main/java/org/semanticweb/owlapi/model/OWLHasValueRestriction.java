@@ -15,11 +15,9 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <V> the value type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <V>
- *        the value type
  */
 public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestriction, HasFiller<V> {
 
@@ -29,8 +27,8 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
     }
 
     /**
-     * @deprecated use getFiller instead
      * @return the value
+     * @deprecated use getFiller instead
      */
     @Deprecated
     default V getValue() {
@@ -40,9 +38,9 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
     /**
      * A convenience method that obtains this restriction as an existential
      * restriction with a nominal filler.
-     * 
-     * @return The existential equivalent of this value restriction.
-     *         simp(HasValue(p a)) = some(p {a})
+     *
+     * @return The existential equivalent of this value restriction. simp(HasValue(p a)) = some(p
+     * {a})
      */
     OWLClassExpression asSomeValuesFrom();
 }

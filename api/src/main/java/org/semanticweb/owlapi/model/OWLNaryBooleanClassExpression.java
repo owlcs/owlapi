@@ -20,11 +20,11 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression, HasOperands<OWLClassExpression> {
+public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression,
+    HasOperands<OWLClassExpression> {
 
     @Override
     default Stream<?> components() {
@@ -44,12 +44,12 @@ public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression
      * @return the class expressions
      */
     @Override
-        Stream<OWLClassExpression> operands();
+    Stream<OWLClassExpression> operands();
 
     /**
      * Gets the class expressions returned by {@link #getOperands()} as a list
      * of class expressions.
-     * 
+     *
      * @return The class expressions as a list.
      */
     default List<OWLClassExpression> getOperandsAsList() {

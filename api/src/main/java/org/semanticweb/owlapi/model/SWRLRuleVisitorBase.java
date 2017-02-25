@@ -13,17 +13,15 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface SWRLRuleVisitorBase extends OWLVisitorBase {
 
     /**
      * visit SWRLRule type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      */
     default void visit(SWRLRule node) {
         doDefault(node);

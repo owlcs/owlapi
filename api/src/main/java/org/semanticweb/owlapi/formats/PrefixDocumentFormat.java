@@ -18,16 +18,14 @@ import org.semanticweb.owlapi.model.PrefixManager;
 /**
  * A PrefixOWLDocumentFormat delegates all PrefixManager operations to a
  * PrefixManager implementation.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface PrefixDocumentFormat extends OWLDocumentFormat, PrefixManager {
 
     /**
-     * @param m
-     *        prefix manager to use
+     * @param m prefix manager to use
      */
     void setPrefixManager(PrefixManager m);
 }

@@ -19,14 +19,17 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnonymousIndividual. */
-public class BuilderAnonymousIndividual extends BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
+/**
+ * Builder class for OWLAnonymousIndividual.
+ */
+public class BuilderAnonymousIndividual extends
+    BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
 
-    @Nullable private String id = null;
+    @Nullable
+    private String id = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderAnonymousIndividual(OWLDataFactory df) {
@@ -35,11 +38,9 @@ public class BuilderAnonymousIndividual extends BaseBuilder<OWLAnonymousIndividu
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderAnonymousIndividual(OWLAnonymousIndividual expected, OWLDataFactory df) {
         this(df);
@@ -47,8 +48,7 @@ public class BuilderAnonymousIndividual extends BaseBuilder<OWLAnonymousIndividu
     }
 
     /**
-     * @param arg
-     *        blank node id
+     * @param arg blank node id
      * @return builder
      */
     public BuilderAnonymousIndividual withId(String arg) {

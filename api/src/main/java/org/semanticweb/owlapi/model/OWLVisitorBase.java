@@ -6,8 +6,7 @@ package org.semanticweb.owlapi.model;
 public interface OWLVisitorBase {
 
     /**
-     * @param object
-     *        object to visit
+     * @param object object to visit
      * @deprecated use doDefault() instead
      */
     @Deprecated
@@ -17,18 +16,17 @@ public interface OWLVisitorBase {
 
     /**
      * Default action for the visitor.
-     * 
-     * @param object
-     *        The object that was visited.
+     *
+     * @param object The object that was visited.
      */
-    default void doDefault(@SuppressWarnings("unused") Object object) {}
+    default void doDefault(@SuppressWarnings("unused") Object object) {
+    }
 
     /**
      * default behaviour. Override this method to change the behaviour of all
      * non overridden methods.
-     * 
-     * @param c
-     *        default parameter
+     *
+     * @param c default parameter
      * @deprecated use doDefault instead.
      */
     @Deprecated

@@ -29,14 +29,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Represents the different types of OWL 2 Entities.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @param <E> entity type
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E>
- *        entity type
  */
-public class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
+public class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName,
+    HasIRI {
 
     @FunctionalInterface
     private static interface Builder<T> {
@@ -45,15 +44,43 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     }
 
 //@formatter:off
-    /** Class entity.               */ public static final EntityType<OWLClass>              CLASS               = new EntityType<>("Class",               "Class",               "Classes",               OWL_CLASS,              (i, p) -> p.getOWLClass(i));
-    /** Object property entity.     */ public static final EntityType<OWLObjectProperty>     OBJECT_PROPERTY     = new EntityType<>("ObjectProperty",      "Object property",     "Object properties",     OWL_OBJECT_PROPERTY,    (i, p) -> p.getOWLObjectProperty(i));
-    /** Data property entity.       */ public static final EntityType<OWLDataProperty>       DATA_PROPERTY       = new EntityType<>("DataProperty",        "Data property",       "Data properties",       OWL_DATA_PROPERTY,      (i, p) -> p.getOWLDataProperty(i));
-    /** Annotation property entity. */ public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<>("AnnotationProperty",  "Annotation property", "Annotation properties", OWL_ANNOTATION_PROPERTY,(i, p) -> p.getOWLAnnotationProperty(i));
-    /** Named individual entity.    */ public static final EntityType<OWLNamedIndividual>    NAMED_INDIVIDUAL    = new EntityType<>("NamedIndividual",     "Named individual",    "Named individuals",     OWL_NAMED_INDIVIDUAL,   (i, p) -> p.getOWLNamedIndividual(i));
-    /** Datatype entity.            */ public static final EntityType<OWLDatatype>           DATATYPE            = new EntityType<>("Datatype",            "Datatype",            "Datatypes",             RDFS_DATATYPE,          (i, p) -> p.getOWLDatatype(i));
-//@formatter:on
-    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>>unmodifiableList(Arrays.asList(CLASS,
-        OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
+    /**
+     * Class entity.
+     */
+    public static final EntityType<OWLClass> CLASS = new EntityType<>("Class", "Class", "Classes",
+        OWL_CLASS, (i, p) -> p.getOWLClass(i));
+    /**
+     * Object property entity.
+     */
+    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<>(
+        "ObjectProperty", "Object property", "Object properties", OWL_OBJECT_PROPERTY,
+        (i, p) -> p.getOWLObjectProperty(i));
+    /**
+     * Data property entity.
+     */
+    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<>("DataProperty",
+        "Data property", "Data properties", OWL_DATA_PROPERTY, (i, p) -> p.getOWLDataProperty(i));
+    /**
+     * Annotation property entity.
+     */
+    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<>(
+        "AnnotationProperty", "Annotation property", "Annotation properties",
+        OWL_ANNOTATION_PROPERTY, (i, p) -> p.getOWLAnnotationProperty(i));
+    /**
+     * Named individual entity.
+     */
+    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<>(
+        "NamedIndividual", "Named individual", "Named individuals", OWL_NAMED_INDIVIDUAL,
+        (i, p) -> p.getOWLNamedIndividual(i));
+    /**
+     * Datatype entity.
+     */
+    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<>("Datatype", "Datatype",
+        "Datatypes", RDFS_DATATYPE, (i, p) -> p.getOWLDatatype(i));
+    //@formatter:on
+    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>>unmodifiableList(
+        Arrays.asList(CLASS,
+            OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
     private final String name;
     private final OWLRDFVocabulary vocabulary;
     private final String printName;
@@ -125,10 +152,8 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     }
 
     /**
-     * @param visitor
-     *        visitor to accept
-     * @param <T>
-     *        return type
+     * @param visitor visitor to accept
+     * @param <T> return type
      * @return visitor return value
      */
     public <T> Optional<T> accept(EntityTypeVisitorEx<T> visitor) {
@@ -137,11 +162,9 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
 
     /**
      * Build an entity of this type, using the factory passed in as df.
-     * 
-     * @param i
-     *        iri
-     * @param df
-     *        data factory
+     *
+     * @param i iri
+     * @param df data factory
      * @return entity
      */
     public E buildEntity(IRI i, EntityProvider df) {

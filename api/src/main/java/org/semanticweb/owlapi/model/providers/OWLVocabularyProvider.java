@@ -25,10 +25,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public interface OWLVocabularyProvider {
 
     // Entities and data stuff
+
     /**
      * Gets the built in owl:Thing class, which has a URI of
      * &lt;http://www.w3.org/2002/07/owl#Thing&gt;
-     * 
+     *
      * @return The OWL Class corresponding to owl:Thing
      */
     OWLClass getOWLThing();
@@ -36,7 +37,7 @@ public interface OWLVocabularyProvider {
     /**
      * Gets the built in owl:Nothing class, which has a URI of
      * &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
-     * 
+     *
      * @return The OWL Class corresponding to owl:Nothing
      */
     OWLClass getOWLNothing();
@@ -52,9 +53,8 @@ public interface OWLVocabularyProvider {
     OWLDataProperty getOWLTopDataProperty();
 
     /**
-     * @return The OWL Datatype corresponding to the top data type
-     *         (rdfs:Literal, with a URI of
-     *         $lt;http://www.w3.org/2000/01/rdf-schema#&gt;).
+     * @return The OWL Datatype corresponding to the top data type (rdfs:Literal, with a URI of
+     * $lt;http://www.w3.org/2000/01/rdf-schema#&gt;).
      */
     OWLDatatype getTopDatatype();
 
@@ -71,7 +71,7 @@ public interface OWLVocabularyProvider {
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code rdfs:label}.
-     * 
+     *
      * @return An annotation property with an IRI of {@code rdfs:label}.
      */
     OWLAnnotationProperty getRDFSLabel();
@@ -79,7 +79,7 @@ public interface OWLVocabularyProvider {
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code rdfs:comment}.
-     * 
+     *
      * @return An annotation property with an IRI of {@code rdfs:comment}.
      */
     OWLAnnotationProperty getRDFSComment();
@@ -87,7 +87,7 @@ public interface OWLVocabularyProvider {
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code rdfs:seeAlso}.
-     * 
+     *
      * @return An annotation property with an IRI of {@code rdfs:seeAlso}.
      */
     OWLAnnotationProperty getRDFSSeeAlso();
@@ -95,7 +95,7 @@ public interface OWLVocabularyProvider {
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code rdfs:isDefinedBy}.
-     * 
+     *
      * @return An annotation property with an IRI of {@code rdfs:isDefinedBy}.
      */
     OWLAnnotationProperty getRDFSIsDefinedBy();
@@ -103,7 +103,7 @@ public interface OWLVocabularyProvider {
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code owl:versionInfo}.
-     * 
+     *
      * @return An annotation property with an IRI of {@code owl:versionInfo}.
      */
     OWLAnnotationProperty getOWLVersionInfo();
@@ -111,33 +111,30 @@ public interface OWLVocabularyProvider {
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code owl:backwardCompatibleWith}.
-     * 
-     * @return An annotation property with an IRI of
-     *         {@code owl:backwardCompatibleWith}.
+     *
+     * @return An annotation property with an IRI of {@code owl:backwardCompatibleWith}.
      */
     OWLAnnotationProperty getOWLBackwardCompatibleWith();
 
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code owl:incompatibleWith}.
-     * 
-     * @return An annotation property with an IRI of
-     *         {@code owl:incompatibleWith}.
+     *
+     * @return An annotation property with an IRI of {@code owl:incompatibleWith}.
      */
     OWLAnnotationProperty getOWLIncompatibleWith();
 
     /**
      * Gets an annotation property that has an IRI corresponding to
      * {@code owl:backwardCompatibleWith}.
-     * 
-     * @return An annotation property with an IRI of
-     *         {@code owl:backwardCompatibleWith}.
+     *
+     * @return An annotation property with an IRI of {@code owl:backwardCompatibleWith}.
      */
     OWLAnnotationProperty getOWLDeprecated();
 
     /**
      * Gets the rdf:PlainLiteral datatype.
-     * 
+     *
      * @return The datatype with an IRI of {@code rdf:PlainLiteral}
      */
     OWLDatatype getRDFPlainLiteral();
@@ -146,7 +143,7 @@ public interface OWLVocabularyProvider {
      * A convenience method that obtains the datatype that represents integers.
      * This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#integer&gt;
-     * 
+     *
      * @return An object representing an integer datatype.
      */
     OWLDatatype getIntegerOWLDatatype();
@@ -155,7 +152,7 @@ public interface OWLVocabularyProvider {
      * A convenience method that obtains the datatype that represents floats.
      * This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#float&gt;
-     * 
+     *
      * @return An object representing the float datatype.
      */
     OWLDatatype getFloatOWLDatatype();
@@ -164,7 +161,7 @@ public interface OWLVocabularyProvider {
      * A convenience method that obtains the datatype that represents doubles.
      * This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#double&gt;
-     * 
+     *
      * @return An object representing a double datatype.
      */
     OWLDatatype getDoubleOWLDatatype();
@@ -173,7 +170,7 @@ public interface OWLVocabularyProvider {
      * A convenience method that obtains the datatype that represents the
      * boolean datatype. This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#boolean&gt;
-     * 
+     *
      * @return An object representing the boolean datatype.
      */
     OWLDatatype getBooleanOWLDatatype();
@@ -182,7 +179,7 @@ public interface OWLVocabularyProvider {
      * A convenience method that obtains the datatype that represents the string
      * datatype. This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#string&gt;
-     * 
+     *
      * @return An object representing the string datatype.
      */
     OWLDatatype getStringOWLDatatype();

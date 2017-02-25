@@ -17,8 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public abstract class AnnotationChange extends OWLOntologyChange {
@@ -26,10 +25,8 @@ public abstract class AnnotationChange extends OWLOntologyChange {
     private final OWLAnnotation annotation;
 
     /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param annotation
-     *        the annotation
+     * @param ont the ontology to which the change is to be applied
+     * @param annotation the annotation
      */
     public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
         super(ont);
@@ -43,7 +40,7 @@ public abstract class AnnotationChange extends OWLOntologyChange {
 
     /**
      * Gets the annotation that was added to an ontology.
-     * 
+     *
      * @return The annotation that was added
      */
     public OWLAnnotation getAnnotation() {

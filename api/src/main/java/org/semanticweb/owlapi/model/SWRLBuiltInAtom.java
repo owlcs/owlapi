@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLBuiltInAtom extends SWRLAtom {
@@ -40,7 +39,7 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     }
 
     @Override
-        IRI getPredicate();
+    IRI getPredicate();
 
     /**
      * @return list of arguments
@@ -56,7 +55,7 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
 
     /**
      * Determines if the predicate of this atom is is a core builtin.
-     * 
+     *
      * @return {@code true} if this is a core builtin, otherwise {@code false}
      */
     boolean isCoreBuiltIn();

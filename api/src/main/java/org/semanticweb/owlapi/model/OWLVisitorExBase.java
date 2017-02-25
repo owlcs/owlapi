@@ -2,20 +2,17 @@ package org.semanticweb.owlapi.model;
 
 /**
  * Base interface for visitors that return a value.
- * 
- * @param <O>
- *        return value
+ *
+ * @param <O> return value
  */
 public interface OWLVisitorExBase<O> {
 
     /**
      * Gets the default return value for this visitor. By default, the default
      * is {@code null}
-     * 
-     * @param object
-     *        The object that was visited.
-     * @param <T>
-     *        type visited
+     *
+     * @param object The object that was visited.
+     * @param <T> type visited
      * @return The default return value
      */
     @SuppressWarnings("null")

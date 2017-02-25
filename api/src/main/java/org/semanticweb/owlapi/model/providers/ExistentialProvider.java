@@ -20,42 +20,40 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Existential provider interface. */
+/**
+ * Existential provider interface.
+ */
 public interface ExistentialProvider {
 
     /**
      * Gets an OWLDataSomeValuesFrom restriction
-     * 
-     * @param property
-     *        The property that the restriction acts along.
-     * @param dataRange
-     *        The data range that is the filler.
-     * @return An OWLDataSomeValuesFrom restriction that acts along the
-     *         specified property and has the specified filler
+     *
+     * @param property The property that the restriction acts along.
+     * @param dataRange The data range that is the filler.
+     * @return An OWLDataSomeValuesFrom restriction that acts along the specified property and has
+     * the specified filler
      */
-    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
+    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property,
+        OWLDataRange dataRange);
 
     /**
      * Gets an OWLDataSomeValuesFrom restriction
-     * 
-     * @param property
-     *        The property that the restriction acts along.
-     * @param dataRange
-     *        The data range that is the filler.
-     * @return An OWLDataSomeValuesFrom restriction that acts along the
-     *         specified property and has the specified filler
+     *
+     * @param property The property that the restriction acts along.
+     * @param dataRange The data range that is the filler.
+     * @return An OWLDataSomeValuesFrom restriction that acts along the specified property and has
+     * the specified filler
      */
-    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWL2Datatype dataRange);
+    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property,
+        OWL2Datatype dataRange);
 
     /**
      * Gets an OWLObjectSomeValuesFrom restriction
-     * 
-     * @param property
-     *        The object property that the restriction acts along.
-     * @param classExpression
-     *        The class expression that is the filler.
-     * @return An OWLObjectSomeValuesFrom restriction along the specified
-     *         property with the specified filler
+     *
+     * @param property The object property that the restriction acts along.
+     * @param classExpression The class expression that is the filler.
+     * @return An OWLObjectSomeValuesFrom restriction along the specified property with the
+     * specified filler
      */
     OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
         OWLClassExpression classExpression);

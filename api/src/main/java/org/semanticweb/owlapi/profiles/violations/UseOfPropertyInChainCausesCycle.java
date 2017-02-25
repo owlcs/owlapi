@@ -21,21 +21,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param property
-     *        property
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param property property
      */
     public UseOfPropertyInChainCausesCycle(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom,
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         super(ontology, axiom, property);
     }
 

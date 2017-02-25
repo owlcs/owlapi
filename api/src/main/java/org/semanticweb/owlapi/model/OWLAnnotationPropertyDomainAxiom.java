@@ -18,16 +18,15 @@ import java.util.stream.Stream;
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain" >
  * AnnotationPropertyDomain</a> axiom in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationPropertyDomainAxiom
     extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasDomain<IRI> {
 
     @Override
-        OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
+    OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {

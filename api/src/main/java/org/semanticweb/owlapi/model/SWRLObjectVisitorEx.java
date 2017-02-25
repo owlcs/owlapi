@@ -13,19 +13,16 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <O> visitor type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <O>
- *        visitor type
  */
 public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVisitorExBase<O> {
 
     /**
      * visit SWRLClassAtom type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLClassAtom node) {
@@ -34,9 +31,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLDataRangeAtom type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLDataRangeAtom node) {
@@ -45,9 +41,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLObjectPropertyAtom type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLObjectPropertyAtom node) {
@@ -56,9 +51,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLDataPropertyAtom type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLDataPropertyAtom node) {
@@ -67,9 +61,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLBuiltInAtom type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLBuiltInAtom node) {
@@ -78,9 +71,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLVariable type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLVariable node) {
@@ -89,9 +81,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLIndividualArgument type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLIndividualArgument node) {
@@ -100,9 +91,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLLiteralArgument type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLLiteralArgument node) {
@@ -111,9 +101,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLSameIndividualAtom type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLSameIndividualAtom node) {
@@ -122,9 +111,8 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>, SWRLRuleVis
 
     /**
      * visit SWRLDifferentIndividualsAtom type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(SWRLDifferentIndividualsAtom node) {

@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLObjectPropertyAtom extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
@@ -30,14 +29,14 @@ public interface SWRLObjectPropertyAtom extends SWRLBinaryAtom<SWRLIArgument, SW
     }
 
     @Override
-        OWLObjectPropertyExpression getPredicate();
+    OWLObjectPropertyExpression getPredicate();
 
     /**
      * Gets a simplified form of this atom. This basically creates and returns a
      * new atom where the predicate is not an inverse object property. If the
      * atom is of the form P(x, y) then P(x, y) is returned. If the atom is of
      * the form inverseOf(P)(x, y) then P(y, x) is returned.
-     * 
+     *
      * @return This atom in a simplified form
      */
     SWRLObjectPropertyAtom getSimplified();

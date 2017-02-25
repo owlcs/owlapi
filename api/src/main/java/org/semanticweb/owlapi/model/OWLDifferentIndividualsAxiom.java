@@ -18,15 +18,14 @@ import java.util.Collection;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Inequality" >
  * DifferentIndividuals</a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
     @Override
-        OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
+    OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -36,16 +35,16 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
     /**
      * Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in different individuals axioms.
-     * 
+     *
      * @return {@code true} if this axioms contains anonymous individual axioms
      */
     boolean containsAnonymousIndividuals();
 
     @Override
-        Collection<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
+    Collection<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs();
+    Collection<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

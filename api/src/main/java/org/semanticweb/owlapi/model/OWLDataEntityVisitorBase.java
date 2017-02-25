@@ -13,17 +13,15 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 3.0.0
  */
 public interface OWLDataEntityVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLDatatype type
-     * 
-     * @param node
-     *        node to visit
+     *
+     * @param node node to visit
      */
     default void visit(OWLDatatype node) {
         doDefault(node);

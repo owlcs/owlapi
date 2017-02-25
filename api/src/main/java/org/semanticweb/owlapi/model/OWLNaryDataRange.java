@@ -18,8 +18,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLNaryDataRange extends OWLDataRange, HasOperands<OWLDataRange> {
@@ -42,5 +41,5 @@ public interface OWLNaryDataRange extends OWLDataRange, HasOperands<OWLDataRange
      * @return the data ranges
      */
     @Override
-        Stream<OWLDataRange> operands();
+    Stream<OWLDataRange> operands();
 }

@@ -17,17 +17,18 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
-/** Builder class for OWLObjectIntersectionOf. */
+/**
+ * Builder class for OWLObjectIntersectionOf.
+ */
 public class BuilderObjectIntersectionOf
-        extends BaseSetBuilder<OWLObjectIntersectionOf, BuilderObjectIntersectionOf, OWLClassExpression> {
+    extends
+    BaseSetBuilder<OWLObjectIntersectionOf, BuilderObjectIntersectionOf, OWLClassExpression> {
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderObjectIntersectionOf(OWLObjectIntersectionOf expected, OWLDataFactory df) {
         this(df);
@@ -35,8 +36,7 @@ public class BuilderObjectIntersectionOf
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderObjectIntersectionOf(OWLDataFactory df) {

@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class UnloadableImportException extends OWLRuntimeException {
@@ -23,14 +22,14 @@ public class UnloadableImportException extends OWLRuntimeException {
     private final OWLOntologyCreationException ontologyCreationException;
 
     /**
-     * @param e
-     *        exception
-     * @param importsDeclaration
-     *        imports declaration
+     * @param e exception
+     * @param importsDeclaration imports declaration
      */
-    public UnloadableImportException(OWLOntologyCreationException e, OWLImportsDeclaration importsDeclaration) {
-        super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString() + " Cause: "
-                + e.getMessage(), e);
+    public UnloadableImportException(OWLOntologyCreationException e,
+        OWLImportsDeclaration importsDeclaration) {
+        super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString()
+            + " Cause: "
+            + e.getMessage(), e);
         this.importsDeclaration = importsDeclaration;
         ontologyCreationException = e;
     }

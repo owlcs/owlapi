@@ -21,19 +21,21 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
-/** Builder class for OWLDatatypeRestriction. */
+/**
+ * Builder class for OWLDatatypeRestriction.
+ */
 public class BuilderDatatypeRestriction
-    extends BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
+    extends
+    BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
 
-    @Nullable private OWLDatatype type = null;
+    @Nullable
+    private OWLDatatype type = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDatatypeRestriction(OWLDatatypeRestriction expected, OWLDataFactory df) {
         this(df);
@@ -41,8 +43,7 @@ public class BuilderDatatypeRestriction
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDatatypeRestriction(OWLDataFactory df) {
@@ -50,8 +51,7 @@ public class BuilderDatatypeRestriction
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     public BuilderDatatypeRestriction withDatatype(OWLDatatype arg) {

@@ -21,22 +21,24 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
-    /** The data factory. */
+    /**
+     * The data factory.
+     */
     protected final OWLDataFactory df;
-    /** The changes. */
+    /**
+     * The changes.
+     */
     private final List<OWLOntologyChange> changes = new ArrayList<>();
 
     /**
      * Instantiates a new abstract composite ontology change.
-     * 
-     * @param dataFactory
-     *        the data factory
+     *
+     * @param dataFactory the data factory
      */
     protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
@@ -44,9 +46,8 @@ public abstract class AbstractCompositeOntologyChange implements OWLCompositeOnt
 
     /**
      * Adds the change.
-     * 
-     * @param change
-     *        the change
+     *
+     * @param change the change
      */
     protected void addChange(OWLOntologyChange change) {
         changes.add(change);
@@ -54,9 +55,8 @@ public abstract class AbstractCompositeOntologyChange implements OWLCompositeOnt
 
     /**
      * Adds the changes.
-     * 
-     * @param c
-     *        the changes
+     *
+     * @param c the changes
      */
     protected void addChanges(Collection<OWLOntologyChange> c) {
         changes.addAll(c);

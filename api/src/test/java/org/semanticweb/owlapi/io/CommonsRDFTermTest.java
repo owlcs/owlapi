@@ -25,14 +25,15 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 //import org.apache.commons.rdf.api.IRI;
 //import org.semanticweb.owlapi.model.IRI;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class CommonsRDFTermTest extends AbstractRDFTest {
 
     private final class OWLAPIRDFTermFactory implements RDF {
 
         private AtomicInteger bnodeCounter = new AtomicInteger();
 
-        public OWLAPIRDFTermFactory() {}
+        public OWLAPIRDFTermFactory() {
+        }
 
         @Override
         public RDFResourceBlankNode createBlankNode() {
@@ -41,36 +42,42 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
 
         @Override
         public RDFResourceBlankNode createBlankNode(@Nullable String name) {
-            org.semanticweb.owlapi.model.IRI iri = createIRI(NodeID.getIRIFromNodeID(verifyNotNull(name)));
+            org.semanticweb.owlapi.model.IRI iri = createIRI(
+                NodeID.getIRIFromNodeID(verifyNotNull(name)));
             return new RDFResourceBlankNode(iri, false, false);
         }
 
         @Override
         public RDFLiteral createLiteral(@Nullable String lexicalForm) {
-            return new RDFLiteral(verifyNotNull(lexicalForm), null, OWL2Datatype.XSD_STRING.getIRI());
+            return new RDFLiteral(verifyNotNull(lexicalForm), null,
+                OWL2Datatype.XSD_STRING.getIRI());
         }
 
         @Override
         public RDFLiteral createLiteral(@Nullable String lexicalForm,
             @Nullable org.apache.commons.rdf.api.IRI dataType) {
-            return new RDFLiteral(verifyNotNull(lexicalForm), null, createIRI(verifyNotNull(dataType).getIRIString()));
+            return new RDFLiteral(verifyNotNull(lexicalForm), null,
+                createIRI(verifyNotNull(dataType).getIRIString()));
         }
 
         @Override
-        public RDFLiteral createLiteral(@Nullable String lexicalForm, @Nullable String languageTag) {
+        public RDFLiteral createLiteral(@Nullable String lexicalForm,
+            @Nullable String languageTag) {
             return new RDFLiteral(verifyNotNull(lexicalForm), languageTag, null);
         }
 
         @Override
         public org.semanticweb.owlapi.model.IRI createIRI(@Nullable String iriStr) {
-            org.semanticweb.owlapi.model.IRI innerIri = org.semanticweb.owlapi.model.IRI.create(verifyNotNull(iriStr));
+            org.semanticweb.owlapi.model.IRI innerIri = org.semanticweb.owlapi.model.IRI
+                .create(verifyNotNull(iriStr));
             return innerIri;
             // TODO: What about RDFResourceIRI?
             // return new RDFResourceIRI(innerIri);
         }
 
         @Override
-        public Triple createTriple(@Nullable BlankNodeOrIRI subject, @Nullable org.apache.commons.rdf.api.IRI predicate,
+        public Triple createTriple(@Nullable BlankNodeOrIRI subject,
+            @Nullable org.apache.commons.rdf.api.IRI predicate,
             @Nullable RDFTerm object) {
             RDFResource subject2 = (RDFResource) convert(subject);
             RDFResourceIRI predicate2 = (RDFResourceIRI) convert(predicate);
@@ -103,7 +110,8 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
                     iriLike = createIRI(ntriples);
                 } else {
                     // How can this be valid N-Triples?
-                    throw new IllegalArgumentException("Unsupported ntriplesString on BlankNode: " + ntriples);
+                    throw new IllegalArgumentException(
+                        "Unsupported ntriplesString on BlankNode: " + ntriples);
                 }
                 return new RDFResourceBlankNode(iriLike, false, false);
             }
@@ -113,9 +121,11 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
                 if (!literal.getLanguageTag().isPresent()) {
                     dataType = createIRI(literal.getDatatype().getIRIString());
                 }
-                return new RDFLiteral(literal.getLexicalForm(), literal.getLanguageTag().orElse(null), dataType);
+                return new RDFLiteral(literal.getLexicalForm(),
+                    literal.getLanguageTag().orElse(null), dataType);
             }
-            throw new IllegalArgumentException("Unsupported type: " + verifyNotNull(term).getClass());
+            throw new IllegalArgumentException(
+                "Unsupported type: " + verifyNotNull(term).getClass());
         }
 
         @Override
@@ -131,7 +141,8 @@ public class CommonsRDFTermTest extends AbstractRDFTest {
         }
 
         @Override
-        public Quad createQuad(BlankNodeOrIRI graphName, BlankNodeOrIRI subject, IRI predicate, RDFTerm object) {
+        public Quad createQuad(BlankNodeOrIRI graphName, BlankNodeOrIRI subject, IRI predicate,
+            RDFTerm object) {
             // TODO Auto-generated method stub
             return null;
         }

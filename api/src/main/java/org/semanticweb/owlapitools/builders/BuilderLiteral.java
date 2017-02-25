@@ -20,24 +20,31 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for OWLLiteral. */
+/**
+ * Builder class for OWLLiteral.
+ */
 public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
 
-    @Nullable private String lang = null;
-    @Nullable private String literalForm = null;
-    @Nullable private Integer intValue = null;
-    @Nullable private Double doubleValue = null;
-    @Nullable private Float floatValue = null;
-    @Nullable private Boolean booleanValue = null;
-    @Nullable private OWLDatatype datatype;
+    @Nullable
+    private String lang = null;
+    @Nullable
+    private String literalForm = null;
+    @Nullable
+    private Integer intValue = null;
+    @Nullable
+    private Double doubleValue = null;
+    @Nullable
+    private Float floatValue = null;
+    @Nullable
+    private Boolean booleanValue = null;
+    @Nullable
+    private OWLDatatype datatype;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderLiteral(OWLLiteral expected, OWLDataFactory df) {
         this(df);
@@ -60,8 +67,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderLiteral(OWLDataFactory df) {
@@ -77,8 +83,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        int value
+     * @param arg int value
      * @return builder
      */
     public BuilderLiteral withValue(int arg) {
@@ -88,8 +93,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        datatype
+     * @param arg datatype
      * @return builder
      */
     public BuilderLiteral withDatatype(OWL2Datatype arg) {
@@ -97,8 +101,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        datatype
+     * @param arg datatype
      * @return builder
      */
     public BuilderLiteral withDatatype(OWLDatatype arg) {
@@ -108,8 +111,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        datatype
+     * @param arg datatype
      * @return builder
      */
     public BuilderLiteral withDatatype(IRI arg) {
@@ -119,8 +121,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        boolean value
+     * @param arg boolean value
      * @return builder
      */
     public BuilderLiteral withValue(boolean arg) {
@@ -130,8 +131,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        double value
+     * @param arg double value
      * @return builder
      */
     public BuilderLiteral withValue(double arg) {
@@ -141,8 +141,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        float value
+     * @param arg float value
      * @return builder
      */
     public BuilderLiteral withValue(float arg) {
@@ -152,8 +151,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        literal form
+     * @param arg literal form
      * @return builder
      */
     public BuilderLiteral withLiteralForm(String arg) {
@@ -163,8 +161,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     }
 
     /**
-     * @param arg
-     *        language
+     * @param arg language
      * @return builder
      */
     public BuilderLiteral withLanguage(String arg) {

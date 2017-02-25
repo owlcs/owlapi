@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy;
  * purposes. The priority is represented as a double so that it's always
  * possible to place an object's priority between two existing priorities
  * (within the limits of double representation).
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
@@ -29,6 +29,8 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 public @interface HasPriority {
 
-    /** @return priority value for this object */
+    /**
+     * @return priority value for this object
+     */
     double value();
 }

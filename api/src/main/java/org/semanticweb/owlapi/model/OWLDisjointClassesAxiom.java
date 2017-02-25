@@ -18,15 +18,14 @@ import java.util.Collection;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Classes">DisjointClasses
  * </a> axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
 
     @Override
-        OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
+    OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -34,10 +33,10 @@ public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
     }
 
     @Override
-        Collection<OWLDisjointClassesAxiom> asPairwiseAxioms();
+    Collection<OWLDisjointClassesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLDisjointClassesAxiom> splitToAnnotatedPairs();
+    Collection<OWLDisjointClassesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

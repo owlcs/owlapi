@@ -26,9 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 /**
  * A convenience class which is an ontology change listener which collects the
  * entities which are referenced in a set of ontology changes.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLEntityCollectingOntologyChangeListener implements
@@ -53,7 +52,9 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
      */
     public abstract void ontologiesChanged();
 
-    /** @return the entities which were referenced in the last change set. */
+    /**
+     * @return the entities which were referenced in the last change set.
+     */
     public Set<OWLEntity> getEntities() {
         return CollectionFactory.copyMutable(entities);
     }

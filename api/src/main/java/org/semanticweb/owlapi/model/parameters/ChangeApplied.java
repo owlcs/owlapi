@@ -14,15 +14,21 @@ package org.semanticweb.owlapi.model.parameters;
 
 /**
  * An enum for change application success.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public enum ChangeApplied {
-    /** Change applied successfully. */
+    /**
+     * Change applied successfully.
+     */
     SUCCESSFULLY,
-    /** chnge not applied. */
-    UNSUCCESSFULLY, 
-    /** No operation carried out (change had no effect) */
-NO_OPERATION
+    /**
+     * chnge not applied.
+     */
+    UNSUCCESSFULLY,
+    /**
+     * No operation carried out (change had no effect)
+     */
+    NO_OPERATION
 }

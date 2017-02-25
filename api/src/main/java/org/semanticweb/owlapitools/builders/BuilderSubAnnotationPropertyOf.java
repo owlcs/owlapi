@@ -19,26 +19,27 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
-/** Builder class for OWLSubAnnotationPropertyOfAxiom. */
+/**
+ * Builder class for OWLSubAnnotationPropertyOfAxiom.
+ */
 public class BuilderSubAnnotationPropertyOf extends
     BaseSubBuilder<OWLSubAnnotationPropertyOfAxiom, BuilderSubAnnotationPropertyOf, OWLAnnotationProperty> {
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderSubAnnotationPropertyOf(OWLSubAnnotationPropertyOfAxiom expected, OWLDataFactory df) {
+    public BuilderSubAnnotationPropertyOf(OWLSubAnnotationPropertyOfAxiom expected,
+        OWLDataFactory df) {
         this(df);
-        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty()).withAnnotations(expected.annotations());
+        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty())
+            .withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSubAnnotationPropertyOf(OWLDataFactory df) {
@@ -47,6 +48,8 @@ public class BuilderSubAnnotationPropertyOf extends
 
     @Override
     public OWLSubAnnotationPropertyOfAxiom buildObject() {
-        return df.getOWLSubAnnotationPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()), annotations);
+        return df
+            .getOWLSubAnnotationPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()),
+                annotations);
     }
 }

@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.List;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @FunctionalInterface
@@ -25,10 +24,9 @@ public interface OWLOntologyChangeListener {
     /**
      * Called when some changes have been applied to various ontologies. These
      * may be an axiom added or an axiom removed changes.
-     * 
-     * @param changes
-     *        A list of changes that have occurred. Each change may be examined
-     *        to determine which ontology it was applied to.
+     *
+     * @param changes A list of changes that have occurred. Each change may be examined to determine
+     * which ontology it was applied to.
      */
     void ontologiesChanged(List<? extends OWLOntologyChange> changes);
 }

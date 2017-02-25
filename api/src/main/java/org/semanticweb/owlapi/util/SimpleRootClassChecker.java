@@ -46,9 +46,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * not all "orphan" classes are asserted to be subclasses of owl:Thing. For
  * example, if the only referencing axiom of class A was ObjectDomain(propP A)
  * then A is a syntactic subclass of owl:Thing.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SimpleRootClassChecker implements RootClassChecker {
@@ -73,11 +72,9 @@ public class SimpleRootClassChecker implements RootClassChecker {
      * Creates a root class checker, which examines axioms contained in
      * ontologies from the specified set in order to determine if a class is a
      * syntactic subclass of owl:Thing.
-     * 
-     * @param ontologies
-     *        The ontologies whose axioms are to be taken into consideration
-     *        when determining if a class is a syntactic direct subclass of
-     *        owl:Thing
+     *
+     * @param ontologies The ontologies whose axioms are to be taken into consideration when
+     * determining if a class is a syntactic direct subclass of owl:Thing
      */
     public SimpleRootClassChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
@@ -85,7 +82,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
     @Override
     public boolean isRootClass(OWLClass cls) {
-        return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls)).anyMatch(ax -> isRootClass(cls, ax));
+        return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls))
+            .anyMatch(ax -> isRootClass(cls, ax));
     }
 
     private boolean isRootClass(OWLClass cls, OWLAxiom ax) {
@@ -96,7 +94,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         protected boolean namedSuper;
 
-        NamedSuperChecker() {}
+        NamedSuperChecker() {
+        }
 
         public void reset() {
             namedSuper = false;
@@ -127,9 +126,11 @@ public class SimpleRootClassChecker implements RootClassChecker {
     private class RootClassCheckerHelper implements OWLAxiomVisitorEx<Boolean> {
 
         private Boolean isRoot = Boolean.TRUE;
-        @Nullable private OWLClass cls = null;
+        @Nullable
+        private OWLClass cls = null;
 
-        public RootClassCheckerHelper() {}
+        public RootClassCheckerHelper() {
+        }
 
         public RootClassCheckerHelper setOWLClass(OWLClass cls) {
             // Start off with the assumption that the class is
@@ -142,7 +143,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
         private OWLClass cls() {
-            return verifyNotNull(cls, "cls cannot be null. Has the helper been initialised with a valid value?");
+            return verifyNotNull(cls,
+                "cls cannot be null. Has the helper been initialised with a valid value?");
         }
 
         @Override

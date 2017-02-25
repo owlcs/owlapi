@@ -20,14 +20,16 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Builder class for OWLEntity. */
+/**
+ * Builder class for OWLEntity.
+ */
 public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
 
-    @Nullable private EntityType<?> entityType = null;
+    @Nullable
+    private EntityType<?> entityType = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderEntity(OWLDataFactory df) {
@@ -36,11 +38,9 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderEntity(OWLEntity expected, OWLDataFactory df) {
         this(df);
@@ -48,8 +48,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
     }
 
     /**
-     * @param arg
-     *        entity type
+     * @param arg entity type
      * @return builder
      */
     public BuilderEntity withType(EntityType<?> arg) {

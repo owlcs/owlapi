@@ -13,15 +13,20 @@
 package org.semanticweb.owlapi.vocab;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public enum BuiltInVocabulary {
-    /** Dublin core. */
+    /**
+     * Dublin core.
+     */
     DUBLIN_CORE,
-    /** SKOS. */
+    /**
+     * SKOS.
+     */
     SKOS,
-    /** SWRL. */
+    /**
+     * SWRL.
+     */
     SWRL
 }

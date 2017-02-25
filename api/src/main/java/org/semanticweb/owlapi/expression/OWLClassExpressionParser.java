@@ -17,10 +17,11 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 /**
  * An expression parser that parses expressions that correspond to class
  * expressions.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface OWLClassExpressionParser extends
-        OWLExpressionParser<OWLClassExpression> {}
+    OWLExpressionParser<OWLClassExpression> {
+
+}

@@ -21,15 +21,19 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Builder class for OWLClassAssertionAxiom. */
-public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
+/**
+ * Builder class for OWLClassAssertionAxiom.
+ */
+public class BuilderClassAssertion extends
+    BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
-    @Nullable private OWLIndividual i = null;
-    @Nullable private OWLClassExpression ce = null;
+    @Nullable
+    private OWLIndividual i = null;
+    @Nullable
+    private OWLClassExpression ce = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderClassAssertion(OWLDataFactory df) {
@@ -38,11 +42,9 @@ public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, B
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderClassAssertion(OWLClassAssertionAxiom expected, OWLDataFactory df) {
         this(df);
@@ -51,8 +53,7 @@ public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, B
     }
 
     /**
-     * @param arg
-     *        individual
+     * @param arg individual
      * @return builder
      */
     public BuilderClassAssertion withIndividual(OWLIndividual arg) {
@@ -61,8 +62,7 @@ public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, B
     }
 
     /**
-     * @param arg
-     *        argument
+     * @param arg argument
      * @return builder
      */
     public BuilderClassAssertion withClass(OWLClassExpression arg) {

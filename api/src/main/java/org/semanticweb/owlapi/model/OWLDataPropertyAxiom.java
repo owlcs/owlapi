@@ -15,9 +15,10 @@ package org.semanticweb.owlapi.model;
 /**
  * A high level interface which marks data property axioms (e.g. Functional data
  * property, data property domain etc.)
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataPropertyAxiom extends OWLLogicalAxiom {}
+public interface OWLDataPropertyAxiom extends OWLLogicalAxiom {
+
+}

@@ -13,73 +13,64 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <O> visitor type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <O>
- *        visitor type
  */
 public interface OWLOntologyChangeVisitorEx<O> {
 
     /**
      * Visit AddAxiom type.
-     * 
-     * @param change
-     *        change to visit
+     *
+     * @param change change to visit
      * @return visitor value
      */
     O visit(AddAxiom change);
 
     /**
      * Visit RemoveAxiom type.
-     * 
-     * @param change
-     *        change to visit
+     *
+     * @param change change to visit
      * @return visitor value
      */
     O visit(RemoveAxiom change);
 
     /**
      * Visit SetOntologyID type.
-     * 
-     * @param change
-     *        change to visit
+     *
+     * @param change change to visit
      * @return visitor value
      */
     O visit(SetOntologyID change);
 
     /**
      * Visit AddImport type.
-     * 
-     * @param change
-     *        change to visit
+     *
+     * @param change change to visit
      * @return visitor value
      */
     O visit(AddImport change);
 
     /**
      * Visit RemoveImport type.
-     * 
-     * @param change
-     *        change to visit
+     *
+     * @param change change to visit
      * @return visitor value
      */
     O visit(RemoveImport change);
 
     /**
      * Visit AddOntologyAnnotation type.
-     * 
-     * @param change
-     *        change to visit
+     *
+     * @param change change to visit
      * @return visitor value
      */
     O visit(AddOntologyAnnotation change);
 
     /**
      * Visit RemoveOntologyAnnotation type.
-     * 
-     * @param change
-     *        change to visit
+     *
+     * @param change change to visit
      * @return visitor value
      */
     O visit(RemoveOntologyAnnotation change);

@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
@@ -27,19 +26,16 @@ public interface HasApplyDirectChange {
      * ontology ID changes should not be passed directly to this method but
      * applied through OWLOntologyManager. This is because the manager needs to
      * update its internal structures for id changes.
-     * 
-     * @param change
-     *        The change to be applied
+     *
+     * @param change The change to be applied
      * @return ChangeApplied.SUCCESSFULLY if the change is applied with success,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         If the change could not be applied. See subclasses of ontology
-     *         change exception for more specific details.
-     * @throws OWLOntologyRenameException
-     *         If one or more of the changes is an instance of
-     *         {@link org.semanticweb.owlapi.model.SetOntologyID} where the new
-     *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already
-     *         belongs to an ontology managed by this manager.
+     * ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException If the change could not be applied. See subclasses of
+     * ontology change exception for more specific details.
+     * @throws OWLOntologyRenameException If one or more of the changes is an instance of {@link
+     * org.semanticweb.owlapi.model.SetOntologyID} where the new {@link
+     * org.semanticweb.owlapi.model.OWLOntologyID} already belongs to an ontology managed by this
+     * manager.
      */
     ChangeApplied applyDirectChange(OWLOntologyChange change);
 }

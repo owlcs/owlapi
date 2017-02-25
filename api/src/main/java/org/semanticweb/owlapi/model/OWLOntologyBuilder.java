@@ -19,7 +19,7 @@ import java.io.Serializable;
  * implementation. This interface allows for injecting different OWLOntology
  * implementations without having to rewrite code implemented in
  * OWLOntologyFactory classes.
- * 
+ *
  * @author Ignazio
  * @since 4.0.0
  */
@@ -27,10 +27,8 @@ import java.io.Serializable;
 public interface OWLOntologyBuilder extends Serializable {
 
     /**
-     * @param manager
-     *        manager for the ontology to be created
-     * @param ontologyID
-     *        id for the ontology to be created
+     * @param manager manager for the ontology to be created
+     * @param ontologyID id for the ontology to be created
      * @return new ontology instance
      */
     OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID);

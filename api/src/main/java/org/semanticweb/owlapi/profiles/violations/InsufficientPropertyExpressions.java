@@ -27,10 +27,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class InsufficientPropertyExpressions extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
+     * @param ontology ontology
+     * @param axiom axiom
      */
     public InsufficientPropertyExpressions(OWLOntology ontology, @Nullable OWLAxiom axiom) {
         super(ontology, axiom, null);

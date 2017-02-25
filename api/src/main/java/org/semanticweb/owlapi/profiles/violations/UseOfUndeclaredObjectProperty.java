@@ -27,20 +27,18 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
-public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implements UndeclaredEntityViolation {
+public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implements
+    UndeclaredEntityViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param prop
-     *        prop
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param prop prop
      */
-    public UseOfUndeclaredObjectProperty(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLObjectProperty prop) {
+    public UseOfUndeclaredObjectProperty(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLObjectProperty prop) {
         super(ontology, axiom, checkNotNull(prop));
     }
 

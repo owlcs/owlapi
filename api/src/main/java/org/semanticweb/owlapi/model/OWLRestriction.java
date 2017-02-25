@@ -18,18 +18,16 @@ package org.semanticweb.owlapi.model;
  * Property Restriction</a> or <a
  * href="http://www.w3.org/TR/owl2-syntax/#Data_Property_Restrictions" >Data
  * Property Restriction</a>) in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLRestriction extends OWLAnonymousClassExpression {
 
     /**
      * Determines if this is an object restriction.
-     * 
-     * @return {@code true} if this is an object restriction, otherwise
-     *         {@code false}
+     *
+     * @return {@code true} if this is an object restriction, otherwise {@code false}
      */
     default boolean isObjectRestriction() {
         return false;
@@ -37,14 +35,15 @@ public interface OWLRestriction extends OWLAnonymousClassExpression {
 
     /**
      * Determines if this is a data restriction.
-     * 
-     * @return {@code true} if this is a data restriction, otherwise
-     *         {@code false}
+     *
+     * @return {@code true} if this is a data restriction, otherwise {@code false}
      */
     default boolean isDataRestriction() {
         return false;
     }
 
-    /** @return property being restricted */
+    /**
+     * @return property being restricted
+     */
     OWLPropertyExpression getProperty();
 }

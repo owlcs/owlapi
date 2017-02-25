@@ -64,10 +64,8 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
     }
 
     /**
-     * @param type
-     *        type to load
-     * @param <T>
-     *        return type
+     * @param type type to load
+     * @param <T> return type
      * @return itrable over T implementations
      */
     protected <T> Iterable<T> load(Class<T> type) {
@@ -99,7 +97,8 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
                 binder.addBinding().toInstance(o.get());
             });
         } catch (ServiceConfigurationError e) {
-            throw new OWLRuntimeException("Injection failed for factory: " + factory + " type: " + type, e);
+            throw new OWLRuntimeException(
+                "Injection failed for factory: " + factory + " type: " + type, e);
         }
     }
 

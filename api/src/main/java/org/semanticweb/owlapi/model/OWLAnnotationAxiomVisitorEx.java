@@ -13,19 +13,16 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @param <O> visitor type
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <O>
- *        visitor type
  */
 public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLAnnotationAssertionAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      * @return visitor value
      */
     default O visit(OWLAnnotationAssertionAxiom axiom) {
@@ -34,9 +31,8 @@ public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLSubAnnotationPropertyOfAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      * @return visitor value
      */
     default O visit(OWLSubAnnotationPropertyOfAxiom axiom) {
@@ -45,9 +41,8 @@ public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLAnnotationPropertyDomainAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      * @return visitor value
      */
     default O visit(OWLAnnotationPropertyDomainAxiom axiom) {
@@ -56,9 +51,8 @@ public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLAnnotationPropertyRangeAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      * @return visitor value
      */
     default O visit(OWLAnnotationPropertyRangeAxiom axiom) {

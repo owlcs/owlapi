@@ -13,23 +13,19 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLObject extends OWLObject {
 
     /**
-     * @param visitor
-     *        visitor to accept
+     * @param visitor visitor to accept
      */
     void accept(SWRLObjectVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor to accept
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor to accept
+     * @param <O> visitor return type
      * @return visitor value
      */
     <O> O accept(SWRLObjectVisitorEx<O> visitor);

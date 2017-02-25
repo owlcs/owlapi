@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model.parameters;
 
 /**
  * Parameters for ontology copying across managers.
- * 
+ *
  * @since 4.0.0
  */
 public enum OntologyCopy {

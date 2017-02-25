@@ -14,9 +14,10 @@ package org.semanticweb.owlapi.model;
 
 /**
  * The base interface for property axioms.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyAxiom extends OWLLogicalAxiom {}
+public interface OWLPropertyAxiom extends OWLLogicalAxiom {
+
+}
