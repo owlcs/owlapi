@@ -17,7 +17,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
-
 import javax.annotation.Nullable;
 
 /**

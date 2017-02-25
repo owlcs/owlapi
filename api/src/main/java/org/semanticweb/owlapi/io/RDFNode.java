@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.HasIRI;
 
 /**

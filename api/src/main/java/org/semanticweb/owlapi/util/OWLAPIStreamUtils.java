@@ -14,7 +14,6 @@ import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.HasComponents;
 import org.semanticweb.owlapi.model.OWLObject;
 

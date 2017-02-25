@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 import java.util.Map;
-
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEntity;

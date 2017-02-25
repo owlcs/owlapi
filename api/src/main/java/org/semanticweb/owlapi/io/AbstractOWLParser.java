@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import java.io.Reader;
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.xml.sax.InputSource;
 

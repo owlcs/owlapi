@@ -13,8 +13,10 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import com.google.common.base.Splitter;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,9 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.model.IRI;
@@ -45,8 +45,6 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import com.google.common.base.Splitter;
 
 /**
  * A mapper which given a root folder attempts to automatically discover and map

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;

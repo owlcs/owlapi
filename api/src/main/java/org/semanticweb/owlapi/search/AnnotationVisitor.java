@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.search;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.HasAnnotations;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;

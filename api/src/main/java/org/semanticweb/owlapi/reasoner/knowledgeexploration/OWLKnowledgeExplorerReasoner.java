@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.reasoner.knowledgeexploration;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**

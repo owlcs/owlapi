@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nonnull;
 
 /**

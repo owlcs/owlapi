@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.search;
 
 import java.util.Collection;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;

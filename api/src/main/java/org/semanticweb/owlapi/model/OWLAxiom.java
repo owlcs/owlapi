@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
 
 /**

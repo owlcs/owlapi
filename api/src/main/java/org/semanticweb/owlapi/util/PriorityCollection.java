@@ -2,17 +2,15 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import com.google.common.collect.Iterators;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
-
-import com.google.common.collect.Iterators;
 
 /**
  * A collection that is sorted by HasPriority annotation on its members.

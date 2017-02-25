@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model.providers;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;

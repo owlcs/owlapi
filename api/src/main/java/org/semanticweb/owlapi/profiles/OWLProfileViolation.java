@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;

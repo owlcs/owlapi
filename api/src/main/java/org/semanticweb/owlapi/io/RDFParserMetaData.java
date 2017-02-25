@@ -14,15 +14,13 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
-import java.util.Set;
-import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.IRI;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import java.io.Serializable;
+import java.util.Set;
+import java.util.stream.Stream;
+import org.semanticweb.owlapi.model.IRI;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health

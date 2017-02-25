@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;

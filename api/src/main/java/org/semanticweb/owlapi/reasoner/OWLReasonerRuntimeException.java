@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.reasoner;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**

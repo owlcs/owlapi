@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 
 /**

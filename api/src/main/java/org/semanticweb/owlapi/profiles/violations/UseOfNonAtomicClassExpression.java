@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;

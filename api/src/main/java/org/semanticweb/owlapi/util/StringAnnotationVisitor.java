@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;

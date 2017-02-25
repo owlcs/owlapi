@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;

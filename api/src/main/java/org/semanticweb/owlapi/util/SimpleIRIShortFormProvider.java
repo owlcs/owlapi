@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**

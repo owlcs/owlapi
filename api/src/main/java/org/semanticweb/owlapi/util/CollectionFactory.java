@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,15 +32,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
