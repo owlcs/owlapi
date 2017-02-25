@@ -13,7 +13,6 @@
 package org.coode.owlapi.manchesterowlsyntax;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
