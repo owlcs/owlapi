@@ -3,10 +3,8 @@ package uk.ac.manchester.cs.factplusplusad;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
-
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 import org.semanticweb.owlapitools.decomposition.OntologyAtom;
-
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /** atomical decomposer of the ontology */

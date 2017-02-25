@@ -13,7 +13,6 @@
 package com.clarkparsia.owlapi.modularity.locality;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 

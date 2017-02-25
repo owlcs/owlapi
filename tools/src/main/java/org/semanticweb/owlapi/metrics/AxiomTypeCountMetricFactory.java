@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 

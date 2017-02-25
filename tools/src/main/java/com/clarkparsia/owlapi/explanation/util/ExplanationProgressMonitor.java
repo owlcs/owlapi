@@ -13,7 +13,6 @@
 package com.clarkparsia.owlapi.explanation.util;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**

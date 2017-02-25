@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.debugging;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;

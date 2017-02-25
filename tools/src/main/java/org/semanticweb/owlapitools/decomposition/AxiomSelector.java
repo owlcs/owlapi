@@ -4,7 +4,6 @@ import static org.semanticweb.owlapi.model.AxiomType.LOGICAL_AXIOMS_AND_DECLARAT
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
