@@ -22,17 +22,20 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public class KRSS2OntologyFormat extends org.semanticweb.owlapi.formats.KRSS2DocumentFormat
     implements OWLOntologyFormat {
 
-    /** ignore ontology iri parameter */
+    /**
+     * ignore ontology iri parameter
+     */
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
-    /** @return true if ontology iri is ignored */
+    /**
+     * @return true if ontology iri is ignored
+     */
     public boolean isIgnoreOntologyURI() {
         return getParameter(IGNORE_ONTOLOGYURI, Boolean.FALSE).booleanValue();
     }
 
     /**
-     * @param ignore
-     *        ignore ontology iri
+     * @param ignore ignore ontology iri
      */
     public void setIgnoreOntologyURI(boolean ignore) {
         setParameter(IGNORE_ONTOLOGYURI, Boolean.valueOf(ignore));

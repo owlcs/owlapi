@@ -8,77 +8,127 @@ package org.coode.owlapi.obo12.parser;
  */
 interface OBOParserConstants {
 
-  /** End of File. */
-  int EOF = 0;
-  /** RegularExpression Id. */
-  int LINE_COMMENTED_OUT = 2;
-  /** RegularExpression Id. */
-  int OPEN_SQUARE_BRACKET = 3;
-  /** RegularExpression Id. */
-  int STANZA_TYPE = 4;
-  /** RegularExpression Id. */
-  int CLOSE_SQUARE_BRACKET = 5;
-  /** RegularExpression Id. */
-  int TAG_NAME = 6;
-  /** RegularExpression Id. */
-  int TAG_COLON = 7;
-  /** RegularExpression Id. */
-  int QUOTED_STRING_START = 8;
-  /** RegularExpression Id. */
-  int QUOTED_STRING = 9;
-  /** RegularExpression Id. */
-  int QUOTED_STRING_DBL_QUOTE_TERMINATOR = 10;
-  /** RegularExpression Id. */
-  int QUOTED_STRING_NEW_LINE_TERMINATOR = 11;
-  /** RegularExpression Id. */
-  int STRING = 12;
-  /** RegularExpression Id. */
-  int TAG_VALUE_WS = 13;
-  /** RegularExpression Id. */
-  int TAG_END = 14;
-  /** RegularExpression Id. */
-  int COMMENT_START = 15;
-  /** RegularExpression Id. */
-  int COMMENT = 16;
-  /** RegularExpression Id. */
-  int COMMENT_END = 17;
-  /** RegularExpression Id. */
-  int ERROR = 18;
+    /**
+     * End of File.
+     */
+    int EOF = 0;
+    /**
+     * RegularExpression Id.
+     */
+    int LINE_COMMENTED_OUT = 2;
+    /**
+     * RegularExpression Id.
+     */
+    int OPEN_SQUARE_BRACKET = 3;
+    /**
+     * RegularExpression Id.
+     */
+    int STANZA_TYPE = 4;
+    /**
+     * RegularExpression Id.
+     */
+    int CLOSE_SQUARE_BRACKET = 5;
+    /**
+     * RegularExpression Id.
+     */
+    int TAG_NAME = 6;
+    /**
+     * RegularExpression Id.
+     */
+    int TAG_COLON = 7;
+    /**
+     * RegularExpression Id.
+     */
+    int QUOTED_STRING_START = 8;
+    /**
+     * RegularExpression Id.
+     */
+    int QUOTED_STRING = 9;
+    /**
+     * RegularExpression Id.
+     */
+    int QUOTED_STRING_DBL_QUOTE_TERMINATOR = 10;
+    /**
+     * RegularExpression Id.
+     */
+    int QUOTED_STRING_NEW_LINE_TERMINATOR = 11;
+    /**
+     * RegularExpression Id.
+     */
+    int STRING = 12;
+    /**
+     * RegularExpression Id.
+     */
+    int TAG_VALUE_WS = 13;
+    /**
+     * RegularExpression Id.
+     */
+    int TAG_END = 14;
+    /**
+     * RegularExpression Id.
+     */
+    int COMMENT_START = 15;
+    /**
+     * RegularExpression Id.
+     */
+    int COMMENT = 16;
+    /**
+     * RegularExpression Id.
+     */
+    int COMMENT_END = 17;
+    /**
+     * RegularExpression Id.
+     */
+    int ERROR = 18;
 
-  /** Lexical state. */
-  int DEFAULT = 0;
-  /** Lexical state. */
-  int IN_STANZA_HEADER = 1;
-  /** Lexical state. */
-  int IN_TAG_VALUE_PAIR = 2;
-  /** Lexical state. */
-  int IN_TAG_VALUE = 3;
-  /** Lexical state. */
-  int IN_QUOTED_STRING = 4;
-  /** Lexical state. */
-  int IN_COMMENT = 5;
+    /**
+     * Lexical state.
+     */
+    int DEFAULT = 0;
+    /**
+     * Lexical state.
+     */
+    int IN_STANZA_HEADER = 1;
+    /**
+     * Lexical state.
+     */
+    int IN_TAG_VALUE_PAIR = 2;
+    /**
+     * Lexical state.
+     */
+    int IN_TAG_VALUE = 3;
+    /**
+     * Lexical state.
+     */
+    int IN_QUOTED_STRING = 4;
+    /**
+     * Lexical state.
+     */
+    int IN_COMMENT = 5;
 
-  /** Literal token values. */
-  String[] tokenImage = {
-    "<EOF>",
-    "<token of kind 1>",
-    "<LINE_COMMENTED_OUT>",
-    "\"[\"",
-    "<STANZA_TYPE>",
-    "\"]\"",
-    "<TAG_NAME>",
-    "<TAG_COLON>",
-    "\"\\\"\"",
-    "<QUOTED_STRING>",
-    "<QUOTED_STRING_DBL_QUOTE_TERMINATOR>",
-    "<QUOTED_STRING_NEW_LINE_TERMINATOR>",
-    "<STRING>",
-    "<TAG_VALUE_WS>",
-    "<TAG_END>",
-    "\"!\"",
-    "<COMMENT>",
-    "<COMMENT_END>",
-    "<ERROR>",
-  };
+    /**
+     * Literal token values.
+     */
+    String[] tokenImage = {
+        "<EOF>",
+        "<token of kind 1>",
+        "<LINE_COMMENTED_OUT>",
+        "\"[\"",
+        "<STANZA_TYPE>",
+        "\"]\"",
+        "<TAG_NAME>",
+        "<TAG_COLON>",
+        "\"\\\"\"",
+        "<QUOTED_STRING>",
+        "<QUOTED_STRING_DBL_QUOTE_TERMINATOR>",
+        "<QUOTED_STRING_NEW_LINE_TERMINATOR>",
+        "<STRING>",
+        "<TAG_VALUE_WS>",
+        "<TAG_END>",
+        "\"!\"",
+        "<COMMENT>",
+        "<COMMENT_END>",
+        "<ERROR>",
+    };
 
 }

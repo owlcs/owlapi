@@ -16,14 +16,13 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 02-Jan-2007
- * @deprecated use
- *             {@link org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat}
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         02-Jan-2007
+ * @deprecated use {@link org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat}
  */
 @Deprecated
 public class OWLFunctionalSyntaxOntologyFormat extends
-        FunctionalSyntaxDocumentFormat implements PrefixOWLOntologyFormat {
+    FunctionalSyntaxDocumentFormat implements PrefixOWLOntologyFormat {
 
     @Override
     public String toString() {

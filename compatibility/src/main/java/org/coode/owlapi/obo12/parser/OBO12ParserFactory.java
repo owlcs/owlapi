@@ -60,7 +60,8 @@ public class OBO12ParserFactory implements OWLParserFactory {
     }
 
     @Override
-    public @Nullable String getDefaultMIMEType() {
+    public @Nullable
+    String getDefaultMIMEType() {
         return null;
     }
 
