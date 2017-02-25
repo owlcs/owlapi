@@ -37,46 +37,47 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /**
  * Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
+        OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+        OWL2Datatype.RDF_LANG_STRING);
     private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     private final OWLDatatype datatype;
     private final String language;
 
     /**
-     * @param literal
-     *        the lexical form
-     * @param lang
-     *        the language; can be null or an empty string, in which case
-     *        datatype can be any datatype but not null
-     * @param datatype
-     *        the datatype; if lang is null or the empty string, it can be null
-     *        or it MUST be RDFPlainLiteral
+     * @param literal the lexical form
+     * @param lang the language; can be null or an empty string, in which case datatype can be any
+     * datatype but not null
+     * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST
+     * be RDFPlainLiteral
      */
     public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
         this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
             language = "";
-            if (datatype == null || datatype.equals(RDF_PLAIN_LITERAL) || datatype.equals(XSD_STRING)) {
+            if (datatype == null || datatype.equals(RDF_PLAIN_LITERAL) || datatype
+                .equals(XSD_STRING)) {
                 this.datatype = XSD_STRING;
             } else {
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
+            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype
+                .equals(RDF_PLAIN_LITERAL))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal or lang string
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
-                    + " and language: " + lang);
+                throw new OWLRuntimeException(
+                    "Error: cannot build a literal with type: " + datatype.getIRI()
+                        + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_LANG_STRING;
@@ -162,7 +163,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
+        return hash(object.hashIndex(),
+            Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
     }
 
     private int specificHash() {
@@ -176,8 +178,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static class LiteralWrapper implements Serializable {
 
         private static final String COMPRESSED_ENCODING = "UTF-16";
-        @Nullable String l;
-        @Nullable byte[] bytes;
+        @Nullable
+        String l;
+        @Nullable
+        byte[] bytes;
 
         LiteralWrapper(String s) {
             if (s.length() > COMPRESSION_LIMIT) {

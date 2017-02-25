@@ -20,17 +20,16 @@ import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
+public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
+    OWLAnonymousIndividual {
 
     private final NodeID nodeId;
 
     /**
-     * @param nodeID
-     *        node id
+     * @param nodeID node id
      */
     public OWLAnonymousIndividualImpl(NodeID nodeID) {
         nodeId = checkNotNull(nodeID, "nodeID cannot be null");

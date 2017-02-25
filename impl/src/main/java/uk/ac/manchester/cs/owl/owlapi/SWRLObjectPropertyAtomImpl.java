@@ -17,22 +17,19 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
     implements SWRLObjectPropertyAtom {
 
     /**
-     * @param predicate
-     *        property
-     * @param arg0
-     *        subject
-     * @param arg1
-     *        object
+     * @param predicate property
+     * @param arg0 subject
+     * @param arg1 object
      */
-    public SWRLObjectPropertyAtomImpl(OWLObjectPropertyExpression predicate, SWRLIArgument arg0, SWRLIArgument arg1) {
+    public SWRLObjectPropertyAtomImpl(OWLObjectPropertyExpression predicate, SWRLIArgument arg0,
+        SWRLIArgument arg1) {
         super(predicate, arg0, arg1);
     }
 
@@ -48,7 +45,8 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
             return this;
         } else if (prop.isAnonymous()) {
             // Flip
-            return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty().getSimplified(), getSecondArgument(),
+            return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty().getSimplified(),
+                getSecondArgument(),
                 getFirstArgument());
         } else {
             // No need to flip

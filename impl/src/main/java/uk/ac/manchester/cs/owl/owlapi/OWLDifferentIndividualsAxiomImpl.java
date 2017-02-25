@@ -23,18 +23,15 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements
     OWLDifferentIndividualsAxiom {
 
     /**
-     * @param individuals
-     *        individuals
-     * @param annotations
-     *        annotations on the axiom
+     * @param individuals individuals
+     * @param annotations annotations on the axiom
      */
     public OWLDifferentIndividualsAxiomImpl(Collection<? extends OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {
@@ -59,7 +56,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         if (individuals.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+        return walkPairwise(
+            (a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
@@ -67,7 +65,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         if (individuals.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b), annotations));
+        return walkPairwise(
+            (a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b), annotations));
     }
 
     @Override
@@ -77,7 +76,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(a), new OWLObjectOneOfImpl(b)
-            .getObjectComplementOf(), NO_ANNOTATIONS));
+        return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(a),
+            new OWLObjectOneOfImpl(b)
+                .getObjectComplementOf(), NO_ANNOTATIONS));
     }
 }

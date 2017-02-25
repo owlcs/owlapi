@@ -19,12 +19,11 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl
-        implements OWLAnonymousClassExpression {
+    implements OWLAnonymousClassExpression {
 
     @Override
     public boolean isOWLThing() {

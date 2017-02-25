@@ -21,26 +21,23 @@ import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
  */
-public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiomImpl<P>
+public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends
+    OWLUnaryPropertyAxiomImpl<P>
     implements OWLPropertyDomainAxiom<P> {
 
     private final OWLClassExpression domain;
 
     /**
-     * @param property
-     *        property
-     * @param domain
-     *        domain
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param domain domain
+     * @param annotations annotations
      */
-    public OWLPropertyDomainAxiomImpl(P property, OWLClassExpression domain, Collection<OWLAnnotation> annotations) {
+    public OWLPropertyDomainAxiomImpl(P property, OWLClassExpression domain,
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
     }

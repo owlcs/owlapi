@@ -18,44 +18,41 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLNamedIndividualNodeSet() {
         super();
     }
 
     /**
-     * @param entity
-     *        individual to include
+     * @param entity individual to include
      */
     public OWLNamedIndividualNodeSet(OWLNamedIndividual entity) {
         super(entity);
     }
 
     /**
-     * @param owlNamedIndividualNode
-     *        node to include
+     * @param owlNamedIndividualNode node to include
      */
     public OWLNamedIndividualNodeSet(Node<OWLNamedIndividual> owlNamedIndividualNode) {
         super(owlNamedIndividualNode);
     }
 
     /**
-     * @param nodes
-     *        nodes to include
+     * @param nodes nodes to include
      */
     public OWLNamedIndividualNodeSet(Set<Node<OWLNamedIndividual>> nodes) {
         super(nodes);
     }
 
     /**
-     * @param nodes
-     *        nodes to include
+     * @param nodes nodes to include
      */
     public OWLNamedIndividualNodeSet(Stream<Node<OWLNamedIndividual>> nodes) {
         super(nodes);

@@ -23,20 +23,19 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+public class OWLEquivalentObjectPropertiesAxiomImpl extends
+    OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
     implements OWLEquivalentObjectPropertiesAxiom {
 
     /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
+     * @param properties properties
+     * @param annotations annotations
      */
-    public OWLEquivalentObjectPropertiesAxiomImpl(Collection<? extends OWLObjectPropertyExpression> properties,
+    public OWLEquivalentObjectPropertiesAxiomImpl(
+        Collection<? extends OWLObjectPropertyExpression> properties,
         Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
@@ -59,7 +58,9 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
         if (properties.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+        return walkPairwise(
+            (a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b),
+                NO_ANNOTATIONS));
     }
 
     @Override
@@ -67,7 +68,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
         if (properties.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+        return walkPairwise(
+            (a, b) -> new OWLEquivalentObjectPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
     }
 
     @Override

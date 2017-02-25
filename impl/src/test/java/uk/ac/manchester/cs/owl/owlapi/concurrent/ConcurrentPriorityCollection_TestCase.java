@@ -23,13 +23,16 @@ import org.semanticweb.owlapi.model.PriorityCollectionSorting;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
 
     private ConcurrentPriorityCollection<T> collection;
-    @Mock private ReadWriteLock readWriteLock;
-    @Mock private Lock readLock, writeLock;
-    @Mock private T element;
+    @Mock
+    private ReadWriteLock readWriteLock;
+    @Mock
+    private Lock readLock, writeLock;
+    @Mock
+    private T element;
     private final PriorityCollectionSorting hasOntologyLoaderConfiguration = PriorityCollectionSorting.NEVER;
     private Iterable<T> iterable;
 
@@ -38,7 +41,8 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         iterable = Arrays.asList(element);
-        collection = new ConcurrentPriorityCollection<>(readWriteLock, hasOntologyLoaderConfiguration);
+        collection = new ConcurrentPriorityCollection<>(readWriteLock,
+            hasOntologyLoaderConfiguration);
     }
 
     @Test
