@@ -1,7 +1,8 @@
 package uk.ac.manchester.cs.factplusplusad;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
-import static uk.ac.manchester.cs.owlapi.modularity.ModuleType.*;
+import static uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR;
+import static uk.ac.manchester.cs.owlapi.modularity.ModuleType.TOP;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -9,12 +10,10 @@ import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
-
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /** class to create modules of an ontology wrt module type */

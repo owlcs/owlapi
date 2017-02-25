@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.modularity;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;

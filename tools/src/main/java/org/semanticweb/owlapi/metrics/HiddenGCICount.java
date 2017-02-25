@@ -12,12 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.search.EntitySearcher.*;
+import static org.semanticweb.owlapi.search.EntitySearcher.getEquivalentClasses;
+import static org.semanticweb.owlapi.search.EntitySearcher.getSubClasses;
 
 import java.util.List;
 import java.util.function.Predicate;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is

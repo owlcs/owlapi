@@ -3,13 +3,10 @@ package uk.ac.manchester.cs.atomicdecomposition;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapitools.decomposition.AtomList;
-
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /** The atomic decomposition graph */

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.metrics;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 

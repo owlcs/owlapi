@@ -14,7 +14,6 @@ package com.clarkparsia.owlapi.explanation.io;
 
 import java.io.Writer;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Null implementation. */

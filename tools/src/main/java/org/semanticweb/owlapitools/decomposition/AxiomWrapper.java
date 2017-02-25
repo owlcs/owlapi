@@ -3,9 +3,7 @@ package org.semanticweb.owlapitools.decomposition;
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 

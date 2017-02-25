@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**

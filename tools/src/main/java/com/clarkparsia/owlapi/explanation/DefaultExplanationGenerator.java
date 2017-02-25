@@ -14,10 +14,9 @@ package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -25,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-
-import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 
 /**
  * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
