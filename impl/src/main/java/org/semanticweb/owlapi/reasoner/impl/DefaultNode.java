@@ -40,6 +40,15 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
+    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false);
+    protected static final OWLClass TOP_CLASS = DF.getOWLThing();
+    protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
+    protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
+    protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
+    protected static final OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
+    protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF.getOWLTopObjectProperty();
+    protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF
+        .getOWLBottomObjectProperty();
     protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
     protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
     protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(
@@ -50,15 +59,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         TOP_OBJECT_PROPERTY);
     protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
         BOTTOM_OBJECT_PROPERTY);
-    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false);
-    protected static final OWLClass TOP_CLASS = DF.getOWLThing();
-    protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
-    protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
-    protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
-    protected static final OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
-    protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF.getOWLTopObjectProperty();
-    protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF
-        .getOWLBottomObjectProperty();
+
     private final Set<E> entities = new HashSet<>(4);
 
     /**
