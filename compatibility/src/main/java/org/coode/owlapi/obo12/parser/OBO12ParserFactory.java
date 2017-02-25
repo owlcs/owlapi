@@ -40,9 +40,7 @@ package org.coode.owlapi.obo12.parser;
 
 import java.util.Collections;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;

@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.io.Writer;
-
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
