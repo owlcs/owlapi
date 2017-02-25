@@ -19,8 +19,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 public interface HasDataPropertiesInSignature {
@@ -29,11 +28,10 @@ public interface HasDataPropertiesInSignature {
      * A convenience method that obtains the data properties that are in the
      * signature of this object. The default implementation of this method
      * returns an empty, modifiable set.
-     * 
-     * @return A set containing the data properties that are in the signature of
-     *         this object.The set is a subset of the signature, and is not
-     *         backed by the signature; it is a modifiable collection and
-     *         changes are not reflected by the signature.
+     *
+     * @return A set containing the data properties that are in the signature of this object.The set
+     * is a subset of the signature, and is not backed by the signature; it is a modifiable
+     * collection and changes are not reflected by the signature.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -42,8 +40,7 @@ public interface HasDataPropertiesInSignature {
     }
 
     /**
-     * @return Stream of data properties that are in the signature of this
-     *         object.
+     * @return Stream of data properties that are in the signature of this object.
      */
     default Stream<OWLDataProperty> dataPropertiesInSignature() {
         return empty();

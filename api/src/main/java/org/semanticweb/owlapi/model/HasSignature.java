@@ -20,9 +20,8 @@ import java.util.stream.Stream;
 
 /**
  * An interface to an object which has a signature
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 public interface HasSignature {
@@ -38,9 +37,9 @@ public interface HasSignature {
      * <p>
      * For ontology changes, this is the signature of the axiom being
      * added/removed or the annotation being added/removed, or empty.
-     * 
-     * @return A set of entities that represents the signature of this object.
-     *         Changes are not reflected back.
+     *
+     * @return A set of entities that represents the signature of this object. Changes are not
+     * reflected back.
      * @deprecated use the stream method
      */
     @Deprecated

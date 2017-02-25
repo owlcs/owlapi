@@ -19,8 +19,7 @@ import java.io.Writer;
 import java.util.Optional;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
@@ -28,8 +27,7 @@ public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
     private final Optional<Writer> writer;
 
     /**
-     * @param writer
-     *        the writer to use
+     * @param writer the writer to use
      */
     public WriterDocumentTarget(Writer writer) {
         this.writer = optional(checkNotNull(writer, "writer cannot be null"));

@@ -23,34 +23,29 @@ package org.semanticweb.owlapi.model;
  * exceptions - this is because they represent potentially nasty situations
  * where client code calling methods such as getAxioms() probably doesn't know
  * (or care) how to handle situations where network/database connections fail.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
 
     /**
-     * @param message
-     *        message
+     * @param message message
      */
     public OWLOntologyResourceAccessException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        message
-     * @param cause
-     *        cause
+     * @param message message
+     * @param cause cause
      */
     public OWLOntologyResourceAccessException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * @param cause
-     *        cause
+     * @param cause cause
      */
     public OWLOntologyResourceAccessException(Throwable cause) {
         super(cause);

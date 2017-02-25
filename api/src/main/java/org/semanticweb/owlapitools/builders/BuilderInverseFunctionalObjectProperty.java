@@ -18,26 +18,26 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 
-/** Builder class for OWLInverseFunctionalObjectPropertyAxiom. */
+/**
+ * Builder class for OWLInverseFunctionalObjectPropertyAxiom.
+ */
 public class BuilderInverseFunctionalObjectProperty extends
     BaseObjectPropertyBuilder<OWLInverseFunctionalObjectPropertyAxiom, BuilderInverseFunctionalObjectProperty> {
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderInverseFunctionalObjectProperty(OWLInverseFunctionalObjectPropertyAxiom expected, OWLDataFactory df) {
+    public BuilderInverseFunctionalObjectProperty(OWLInverseFunctionalObjectPropertyAxiom expected,
+        OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderInverseFunctionalObjectProperty(OWLDataFactory df) {
@@ -46,6 +46,7 @@ public class BuilderInverseFunctionalObjectProperty extends
 
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom buildObject() {
-        return df.getOWLInverseFunctionalObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
+        return df
+            .getOWLInverseFunctionalObjectPropertyAxiom(verifyNotNull(getProperty()), annotations);
     }
 }

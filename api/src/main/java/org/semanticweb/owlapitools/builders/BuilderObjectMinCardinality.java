@@ -18,28 +18,29 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 
-/** Builder class for OWLObjectMinCardinality. */
-public class BuilderObjectMinCardinality extends BaseObjectBuilder<OWLObjectMinCardinality, BuilderObjectMinCardinality>
+/**
+ * Builder class for OWLObjectMinCardinality.
+ */
+public class BuilderObjectMinCardinality extends
+    BaseObjectBuilder<OWLObjectMinCardinality, BuilderObjectMinCardinality>
     implements SettableCardinality<BuilderObjectMinCardinality> {
 
     private int cardinality = -1;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderObjectMinCardinality(OWLObjectMinCardinality expected, OWLDataFactory df) {
         this(df);
-        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
+        withCardinality(expected.getCardinality()).withProperty(expected.getProperty())
+            .withRange(expected.getFiller());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderObjectMinCardinality(OWLDataFactory df) {

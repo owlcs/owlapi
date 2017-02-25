@@ -17,9 +17,8 @@ import java.util.Collection;
 /**
  * A marker interface for an axiom that can be represented by a set of
  * SubClassOf axioms that is equivalent to this axiom.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @FunctionalInterface

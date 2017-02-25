@@ -20,12 +20,12 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLNaryIndividualAxiom
-    extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut, HasOperands<OWLIndividual> {
+    extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut,
+    HasOperands<OWLIndividual> {
 
     @Override
     default Stream<?> components() {
@@ -63,7 +63,7 @@ public interface OWLNaryIndividualAxiom
 
     /**
      * Gets the individuals returned by {@link #getIndividuals()} as a list.
-     * 
+     *
      * @return The individuals in this axiom as a list
      */
     default List<OWLIndividual> getIndividualsAsList() {

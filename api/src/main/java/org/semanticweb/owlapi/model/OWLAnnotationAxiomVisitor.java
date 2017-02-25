@@ -14,18 +14,16 @@ package org.semanticweb.owlapi.model;
 
 /**
  * A visitor which visits the different kinds of annotation axioms.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
 
     /**
      * visit OWLAnnotationAssertionAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      */
     default void visit(OWLAnnotationAssertionAxiom axiom) {
         doDefault(axiom);
@@ -33,9 +31,8 @@ public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
 
     /**
      * visit OWLSubAnnotationPropertyOfAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      */
     default void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         doDefault(axiom);
@@ -43,9 +40,8 @@ public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
 
     /**
      * visit OWLAnnotationPropertyDomainAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      */
     default void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         doDefault(axiom);
@@ -53,9 +49,8 @@ public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
 
     /**
      * visit OWLAnnotationPropertyRangeAxiom type
-     * 
-     * @param axiom
-     *        object to visit
+     *
+     * @param axiom object to visit
      */
     default void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         doDefault(axiom);

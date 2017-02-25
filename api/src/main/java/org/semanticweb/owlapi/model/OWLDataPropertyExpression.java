@@ -14,10 +14,11 @@ package org.semanticweb.owlapi.model;
 
 /**
  * A high level interface to describe different types of data properties.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataPropertyExpression extends OWLPropertyExpression,
-    SWRLPredicate {}
+    SWRLPredicate {
+
+}

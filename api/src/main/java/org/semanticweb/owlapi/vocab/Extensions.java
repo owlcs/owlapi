@@ -19,12 +19,24 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public enum Extensions {
     //@formatter:off
-    /** RDF/XML, common extensions: owl, rdf, rdfs */           RDFXML              (RDFXMLDocumentFormat.class,            ".owl", ".rdf", ".rdfs"), 
-    /** OWL/XML, common extensions: xml, owl, rdf */            OWLXML              (OWLXMLDocumentFormat.class,            ".xml", ".owl", ".rdf"), 
-    /** Turtle, common extensions: ttl, owl */                  TURTLE              (TurtleDocumentFormat.class,            ".ttl", ".owl"), 
-    /** OBO, common extensions: obo */                          OBO                 (OBODocumentFormat.class,               ".obo"), 
-    /** Manchester OWL syntax, common extensions: omn, owl */   MANCHESTERSYNTAX    (ManchesterSyntaxDocumentFormat.class,  ".omn", ".owl"), 
-    /** Functional sytax, common extensions: fss, owl */        FUNCTIONALSYNTAX    (FunctionalSyntaxDocumentFormat.class,  ".fss", ".owl");
+    /**
+     * RDF/XML, common extensions: owl, rdf, rdfs
+     */RDFXML(RDFXMLDocumentFormat.class, ".owl", ".rdf", ".rdfs"),
+    /**
+     * OWL/XML, common extensions: xml, owl, rdf
+     */OWLXML(OWLXMLDocumentFormat.class, ".xml", ".owl", ".rdf"),
+    /**
+     * Turtle, common extensions: ttl, owl
+     */TURTLE(TurtleDocumentFormat.class, ".ttl", ".owl"),
+    /**
+     * OBO, common extensions: obo
+     */OBO(OBODocumentFormat.class, ".obo"),
+    /**
+     * Manchester OWL syntax, common extensions: omn, owl
+     */MANCHESTERSYNTAX(ManchesterSyntaxDocumentFormat.class, ".omn", ".owl"),
+    /**
+     * Functional sytax, common extensions: fss, owl
+     */FUNCTIONALSYNTAX(FunctionalSyntaxDocumentFormat.class, ".fss", ".owl");
     //@formatter:off
 
     private List<String> extensions;
@@ -43,8 +55,7 @@ public enum Extensions {
     }
 
     /**
-     * @param format
-     *        the format for which extensions are desired
+     * @param format the format for which extensions are desired
      * @return common extensions list. Empty list if no matching type is found.
      */
     public static Iterable<String> getCommonExtensions(Class<? extends OWLDocumentFormat> format) {

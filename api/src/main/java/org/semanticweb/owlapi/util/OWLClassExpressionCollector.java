@@ -40,14 +40,15 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * For example, given SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F))
  * the collector could be used to obtain ObjectUnionOf(D C), D, C,
  * ObjectSomeValuesFrom(R F), F
- * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public class OWLClassExpressionCollector extends AbstractCollectorEx<OWLClassExpression> {
 
-    /** The default collection is a set */
+    /**
+     * The default collection is a set
+     */
     public OWLClassExpressionCollector() {
         super(new HashSet<>());
     }

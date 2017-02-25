@@ -53,16 +53,51 @@ interface KnownFactories {
  * >patch set 2</a>.<br>
  * Notice that the OWLProfiles referred here are stateless, therefore only one
  * instance needs to be created and can be reused across threads.
- * 
+ *
  * @author ignazio
  */
 public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     //@formatter:off
-    /** http://www.w3.org/ns/owl-profile/DL. **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/EL. **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2ELProfile();} },
-    /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} };
+    /**
+     * http://www.w3.org/ns/owl-profile/DL.
+     **/OWL2_DL("DL", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
+        @Override
+        public OWLProfile getOWLProfile() {
+            return new OWL2DLProfile();
+        }
+    },
+    /**
+     * http://www.w3.org/ns/owl-profile/QL.
+     **/OWL2_QL("QL", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
+        @Override
+        public OWLProfile getOWLProfile() {
+            return new OWL2QLProfile();
+        }
+    },
+    /**
+     * http://www.w3.org/ns/owl-profile/EL.
+     **/OWL2_EL("EL", Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
+        @Override
+        public OWLProfile getOWLProfile() {
+            return new OWL2ELProfile();
+        }
+    },
+    /**
+     * http://www.w3.org/ns/owl-profile/RL.
+     **/OWL2_RL("RL", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
+        @Override
+        public OWLProfile getOWLProfile() {
+            return new OWL2RLProfile();
+        }
+    },
+    /**
+     * http://www.w3.org/ns/owl-profile/Full.
+     **/OWL2_FULL("Full", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
+        @Override
+        public OWLProfile getOWLProfile() {
+            return new OWL2DLProfile();
+        }
+    };
     //@formatter:on
     private final IRI iri;
     private final List<String> supportingFactories;
@@ -89,34 +124,29 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
 
     /**
      * Factory method for OWLProfile checkers.
-     * 
+     *
      * @return profile checker for this profile
      */
     @Provides
     public abstract OWLProfile getOWLProfile();
 
     /**
-     * @return collection of OWLReasonerFactory class names known to support the
-     *         expressivity of this profile. The factories can be instantiated
-     *         through {@code instantiateFactory()} if the reasoner classes are
-     *         on the classpath. Note that this list is provided for information
-     *         only, and might be incorrect or incomplete due to changes in the
-     *         reasoner implementations.<br>
-     *         Should you know of a reasoner not mentioned here, or find an
-     *         error in the reported supported profiles, please raise a bug
-     *         about it.
+     * @return collection of OWLReasonerFactory class names known to support the expressivity of
+     * this profile. The factories can be instantiated through {@code instantiateFactory()} if the
+     * reasoner classes are on the classpath. Note that this list is provided for information only,
+     * and might be incorrect or incomplete due to changes in the reasoner implementations.<br>
+     * Should you know of a reasoner not mentioned here, or find an error in the reported supported
+     * profiles, please raise a bug about it.
      */
     public Collection<String> supportingReasoners() {
         return supportingFactories;
     }
 
     /**
-     * @param factoryClassName
-     *        class name to instantiate
-     * @return an OWLReasonerFactory if the class name represents an
-     *         OWLReasonerFactory implementation available on the classpath. Any
-     *         exception raised by {@code Class.forName(factoryClassName)} is
-     *         wrapped by an OWLRuntimeException.
+     * @param factoryClassName class name to instantiate
+     * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
+     * implementation available on the classpath. Any exception raised by {@code
+     * Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
      */
     public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
         try {
@@ -124,15 +154,16 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
             if (OWLReasonerFactory.class.isAssignableFrom(c)) {
                 return (OWLReasonerFactory) c.newInstance();
             }
-            throw new OWLRuntimeException("Reasoner factory cannot be instantiated: " + factoryClassName);
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new OWLRuntimeException("Reasoner factory cannot be instantiated: " + factoryClassName, e);
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
         }
     }
 
     /**
-     * @param i
-     *        IRI to match
+     * @param i IRI to match
      * @return Profiles with matching IRI, or null if none is found
      */
     public static Profiles valueForIRI(IRI i) {

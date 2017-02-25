@@ -20,16 +20,15 @@ import java.util.stream.Stream;
  * <a href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">Class
  * Expressions</a> in the OWL 2 specification. This interface covers named and
  * anonymous classes.
- * 
- * @author Matthew Horridge The University Of Manchester Bio-Health Informatics
- *         Group
+ *
+ * @author Matthew Horridge The University Of Manchester Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate, AsOWLClass {
 
     /**
      * Gets the class expression type for this class expression.
-     * 
+     *
      * @return The class expression type
      */
     ClassExpressionType getClassExpressionType();
@@ -37,9 +36,8 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Determines if this class is a literal. A literal being either a named
      * class or the negation of a named class (i.e. A or not(A)).
-     * 
-     * @return {@code true} if this is a literal, or false if this is not a
-     *         literal.
+     *
+     * @return {@code true} if this is a literal, or false if this is not a literal.
      */
     default boolean isClassExpressionLiteral() {
         return false;
@@ -48,53 +46,49 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Determines if this expression is the built in class owl:Thing. This
      * method does not determine if the class is equivalent to owl:Thing.
-     * 
-     * @return {@code true} if this expression is owl:Thing, or {@code false} if
-     *         this expression is not owl:Thing
+     *
+     * @return {@code true} if this expression is owl:Thing, or {@code false} if this expression is
+     * not owl:Thing
      */
     boolean isOWLThing();
 
     /**
      * Determines if this expression is the built in class owl:Nothing. This
      * method does not determine if the class is equivalent to owl:Nothing.
-     * 
-     * @return {@code true} if this expression is owl:Nothing, or {@code false}
-     *         if this expression is not owl:Nothing.
+     *
+     * @return {@code true} if this expression is owl:Nothing, or {@code false} if this expression
+     * is not owl:Nothing.
      */
     boolean isOWLNothing();
 
     /**
      * Gets this expression in negation normal form.
-     * 
+     *
      * @return The expression in negation normal form.
      */
     OWLClassExpression getNNF();
 
     /**
      * Gets the negation normal form of the complement of this expression.
-     * 
-     * @return A expression that represents the NNF of the complement of this
-     *         expression.
+     *
+     * @return A expression that represents the NNF of the complement of this expression.
      */
     OWLClassExpression getComplementNNF();
 
     /**
      * Gets the object complement of this class expression.
-     * 
-     * @return A class expression that is the complement of this class
-     *         expression.
+     *
+     * @return A class expression that is the complement of this class expression.
      */
     OWLClassExpression getObjectComplementOf();
 
     /**
      * Interprets this expression as a conjunction and returns the conjuncts.
      * This method does not normalise the expression (full CNF is not computed).
-     * 
-     * @return The conjucts of this expression if it is a conjunction (object
-     *         intersection of), or otherwise a singleton set containing this
-     *         expression. Note that nested conjunctions will be flattened, for
-     *         example, calling this method on (A and B) and C will return the
-     *         set {A, B, C}
+     *
+     * @return The conjucts of this expression if it is a conjunction (object intersection of), or
+     * otherwise a singleton set containing this expression. Note that nested conjunctions will be
+     * flattened, for example, calling this method on (A and B) and C will return the set {A, B, C}
      */
     default Stream<OWLClassExpression> conjunctSet() {
         return asConjunctSet().stream();
@@ -103,37 +97,31 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Interprets this expression as a conjunction and returns the conjuncts.
      * This method does not normalise the expression (full CNF is not computed).
-     * 
-     * @return The conjucts of this expression if it is a conjunction (object
-     *         intersection of), or otherwise a singleton set containing this
-     *         expression. Note that nested conjunctions will be flattened, for
-     *         example, calling this method on (A and B) and C will return the
-     *         set {A, B, C}
+     *
+     * @return The conjucts of this expression if it is a conjunction (object intersection of), or
+     * otherwise a singleton set containing this expression. Note that nested conjunctions will be
+     * flattened, for example, calling this method on (A and B) and C will return the set {A, B, C}
      */
     Set<OWLClassExpression> asConjunctSet();
 
     /**
      * Determines if this class expression contains a particular conjunct. This
      * method does not do any normalisation such as applying DeMorgans rules.
-     * 
-     * @param ce
-     *        The conjunct to test for
-     * @return {@code true} if this class expression is equal to {@code ce} or
-     *         if this class expression is an {@code ObjectIntersectionOf}
-     *         (possibly nested withing another {@code ObjectIntersectionOf})
-     *         that contains {@code ce}, otherwise {@code false}.
+     *
+     * @param ce The conjunct to test for
+     * @return {@code true} if this class expression is equal to {@code ce} or if this class
+     * expression is an {@code ObjectIntersectionOf} (possibly nested withing another {@code
+     * ObjectIntersectionOf}) that contains {@code ce}, otherwise {@code false}.
      */
     boolean containsConjunct(OWLClassExpression ce);
 
     /**
      * Interprets this expression as a disjunction and returns the disjuncts.
      * This method does not normalise the expression (full DNF is not computed).
-     * 
-     * @return The disjuncts of this expression if it is a disjunction (object
-     *         union of), or otherwise a singleton set containing this
-     *         expression. Note that nested disjunctions will be flattened, for
-     *         example, calling this method on (A or B) or C will return the set
-     *         {A, B, C}
+     *
+     * @return The disjuncts of this expression if it is a disjunction (object union of), or
+     * otherwise a singleton set containing this expression. Note that nested disjunctions will be
+     * flattened, for example, calling this method on (A or B) or C will return the set {A, B, C}
      */
     default Stream<OWLClassExpression> disjunctSet() {
         return asDisjunctSet().stream();
@@ -142,28 +130,23 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /**
      * Interprets this expression as a disjunction and returns the disjuncts.
      * This method does not normalise the expression (full DNF is not computed).
-     * 
-     * @return The disjuncts of this expression if it is a disjunction (object
-     *         union of), or otherwise a singleton set containing this
-     *         expression. Note that nested disjunctions will be flattened, for
-     *         example, calling this method on (A or B) or C will return the set
-     *         {A, B, C}
+     *
+     * @return The disjuncts of this expression if it is a disjunction (object union of), or
+     * otherwise a singleton set containing this expression. Note that nested disjunctions will be
+     * flattened, for example, calling this method on (A or B) or C will return the set {A, B, C}
      */
     Set<OWLClassExpression> asDisjunctSet();
 
     /**
      * Accepts a visit from an {@code OWLExpressionVisitor}.
-     * 
-     * @param visitor
-     *        The visitor that wants to visit
+     *
+     * @param visitor The visitor that wants to visit
      */
     void accept(OWLClassExpressionVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor
+     * @param <O> visitor return type
      * @return visitor return value
      */
     <O> O accept(OWLClassExpressionVisitorEx<O> visitor);

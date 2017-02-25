@@ -16,16 +16,14 @@ package org.semanticweb.owlapi.model;
  * An exception which describes the situation where no ontology document IRI
  * mapping could be found. This is a runtime exception since clients should
  * really ensure that a mapping exists before attempting to load an ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {
 
     /**
-     * @param ontologyIRI
-     *        iri that cannot be mapped
+     * @param ontologyIRI iri that cannot be mapped
      */
     public OWLOntologyIRIMappingNotFoundException(IRI ontologyIRI) {
         super("Could not find ontology document mapping for " + ontologyIRI.toQuotedString());

@@ -23,9 +23,8 @@ import java.util.stream.Stream;
  * hasPart (isPartOf) can be referred to using this interface
  * inverseOf(hasPart), which can be used in restrictions e.g. inverseOf(hasPart)
  * some Car refers to the set of things that are part of at least one car.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
@@ -52,9 +51,9 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
 
     /**
      * Gets the property expression that this is the inverse of.
-     * 
-     * @return The object property expression such that this object property
-     *         expression is an inverse of it.
+     *
+     * @return The object property expression such that this object property expression is an
+     * inverse of it.
      */
     OWLObjectPropertyExpression getInverse();
 

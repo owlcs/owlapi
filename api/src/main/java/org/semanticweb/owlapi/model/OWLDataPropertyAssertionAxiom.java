@@ -16,16 +16,16 @@ package org.semanticweb.owlapi.model;
  * Represents a
  * <a href="http://www.w3.org/TR/owl2-syntax/#Positive_Data_Property_Assertions"
  * >DataPropertyAssertion</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataPropertyAssertionAxiom
-    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>, OWLSubClassOfAxiomShortCut {
+    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
+    OWLSubClassOfAxiomShortCut {
 
     @Override
-        OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
+    OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {

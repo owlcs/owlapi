@@ -19,8 +19,7 @@ import java.io.OutputStream;
 import java.util.Optional;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
@@ -28,8 +27,7 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
     private final Optional<OutputStream> os;
 
     /**
-     * @param os
-     *        the actual output stream
+     * @param os the actual output stream
      */
     public StreamDocumentTarget(OutputStream os) {
         this.os = optional(checkNotNull(os, "os cannot be null"));

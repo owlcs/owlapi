@@ -43,13 +43,12 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     private static final Logger LOGGER = LoggerFactory.getLogger(XZFileDocumentTarget.class);
     private final File out;
     private final FilterOptions[] filterOptions;
-    @Nullable private OutputStream outputStream;
+    @Nullable
+    private OutputStream outputStream;
 
     /**
-     * @param os
-     *        the actual file
-     * @param filterOptions
-     *        Settings for XZ compression
+     * @param os the actual file
+     * @param filterOptions Settings for XZ compression
      */
     public XZFileDocumentTarget(File os, FilterOptions... filterOptions) {
         out = os;
@@ -59,12 +58,9 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     /**
      * Construct an XZ document target using the selected compression preset
      *
-     * @param os
-     *        target File
-     * @param presetLevel
-     *        LZMA2 Compression preset level
-     * @throws UnsupportedOptionsException
-     *         if the options selected are not acceptable
+     * @param os target File
+     * @param presetLevel LZMA2 Compression preset level
+     * @throws UnsupportedOptionsException if the options selected are not acceptable
      */
     public XZFileDocumentTarget(File os, int presetLevel) throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
@@ -73,8 +69,7 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     /**
      * Construct an XZ document target
      *
-     * @param file
-     *        target File
+     * @param file target File
      */
     public XZFileDocumentTarget(File file) {
         this(file, new LZMA2Options());
@@ -83,7 +78,8 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     @Override
     public Optional<OutputStream> getOutputStream() {
         try {
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(out));
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
+                new FileOutputStream(out));
             outputStream = new XZOutputStream(bufferedOutputStream, filterOptions);
         } catch (IOException e) {
             LOGGER.error("Cannot create output stream", e);

@@ -22,18 +22,19 @@ import org.xml.sax.InputSource;
  * the setting and getting of the {@code OWLOntologyManager} that should be
  * associated with the parser. Note: all current parser implementations are
  * stateless.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
-    protected AbstractOWLParser() {}
+    protected AbstractOWLParser() {
+    }
 
     @SuppressWarnings("resource")
-    protected InputSource getInputSource(OWLOntologyDocumentSource source, OWLOntologyLoaderConfiguration config)
-            throws OWLOntologyInputSourceException {
+    protected InputSource getInputSource(OWLOntologyDocumentSource source,
+        OWLOntologyLoaderConfiguration config)
+        throws OWLOntologyInputSourceException {
         Reader in = DocumentSources.wrapInputAsReader(source, config);
         InputSource is = new InputSource(in);
         is.setSystemId(source.getDocumentIRI().toString());

@@ -17,9 +17,8 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 /**
  * Interface for an object that accepts axiom additions (tipycally, an
  * OWLOntology).
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 4.0.0
  */
 @FunctionalInterface
@@ -28,26 +27,22 @@ public interface HasDirectAddAxiom {
     /**
      * A convenience method that adds a single axiom to an ontology. The
      * appropriate AddAxiom change object is automatically generated.
-     * 
-     * @param axiom
-     *        The axiom to be added
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem adding the axiom
+     *
+     * @param axiom The axiom to be added
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
+     * @throws OWLOntologyChangeException if there was a problem adding the axiom
      */
     ChangeApplied addAxiom(OWLAxiom axiom);
 
     /**
      * A convenience method that adds a single axiom to an ontology. The
      * appropriate AddAxiom change object is automatically generated.
-     * 
-     * @param axiom
-     *        The axiom to be added
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem adding the axiom
+     *
+     * @param axiom The axiom to be added
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
+     * @throws OWLOntologyChangeException if there was a problem adding the axiom
      */
     default ChangeApplied add(OWLAxiom axiom) {
         return addAxiom(axiom);

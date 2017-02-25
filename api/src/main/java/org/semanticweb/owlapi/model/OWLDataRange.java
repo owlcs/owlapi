@@ -20,18 +20,16 @@ package org.semanticweb.owlapi.model;
  * are datatypes (e.g. int, float, double, string, ...), complements of data
  * ranges (e.g. not(int)), data enumerations (data oneOfs), datatype
  * restrictions (e.g. int &gt; 3).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate, AsOWLDatatype {
 
     /**
      * Determines if this data range is the top data type.
-     * 
-     * @return {@code true} if this data range is the top datatype otherwise
-     *         {@code false}
+     *
+     * @return {@code true} if this data range is the top datatype otherwise {@code false}
      */
     default boolean isTopDatatype() {
         return false;
@@ -39,37 +37,31 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
 
     /**
      * Gets the type of this data range.
-     * 
+     *
      * @return The data range type
      */
     DataRangeType getDataRangeType();
 
     /**
-     * @param visitor
-     *        visitor
+     * @param visitor visitor
      */
     void accept(OWLDataVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor
+     * @param <O> visitor return type
      * @return visitor return value
      */
     <O> O accept(OWLDataVisitorEx<O> visitor);
 
     /**
-     * @param visitor
-     *        visitor
+     * @param visitor visitor
      */
     void accept(OWLDataRangeVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor
+     * @param <O> visitor return type
      * @return visitor return value
      */
     <O> O accept(OWLDataRangeVisitorEx<O> visitor);

@@ -39,35 +39,31 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * This composite change supports the pattern of working where a primitive class
  * is converted to a defined class - functionality which is usually found in
  * editors.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
 
     /**
      * Instantiates a new convert super classes to equivalent class.
-     * 
-     * @param dataFactory
-     *        A data factory which can be used to create the appropriate axioms
-     * @param cls
-     *        The class whose superclasses will be converted to an equivalent
-     *        class.
-     * @param ontologies
-     *        The ontologies which should be examined for subclass axioms.
-     * @param targetOntology
-     *        The targetOntology which the equivalent classes axiom should be
-     *        added to
+     *
+     * @param dataFactory A data factory which can be used to create the appropriate axioms
+     * @param cls The class whose superclasses will be converted to an equivalent class.
+     * @param ontologies The ontologies which should be examined for subclass axioms.
+     * @param targetOntology The targetOntology which the equivalent classes axiom should be added
+     * to
      */
     public ConvertSuperClassesToEquivalentClass(OWLDataFactory dataFactory, OWLClass cls,
         Collection<OWLOntology> ontologies, OWLOntology targetOntology) {
         super(dataFactory);
         generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"),
-            checkNotNull(cls, "cls cannot be null"), checkNotNull(ontologies, "ontologies cannot be null"));
+            checkNotNull(cls, "cls cannot be null"),
+            checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
-    private void generateChanges(OWLOntology targetOntology, OWLClass cls, Collection<OWLOntology> ontologies) {
+    private void generateChanges(OWLOntology targetOntology, OWLClass cls,
+        Collection<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
         List<OWLClassExpression> descs = new ArrayList<>();
@@ -78,6 +74,7 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
             });
         }
         OWLClassExpression equivalentClass = df.getOWLObjectIntersectionOf(descs);
-        addChange(new AddAxiom(targetOntology, df.getOWLEquivalentClassesAxiom(Arrays.asList(cls, equivalentClass))));
+        addChange(new AddAxiom(targetOntology,
+            df.getOWLEquivalentClassesAxiom(Arrays.asList(cls, equivalentClass))));
     }
 }

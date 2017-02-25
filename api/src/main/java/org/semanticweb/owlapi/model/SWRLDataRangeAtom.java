@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
@@ -37,7 +36,7 @@ public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
     }
 
     @Override
-        OWLDataRange getPredicate();
+    OWLDataRange getPredicate();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

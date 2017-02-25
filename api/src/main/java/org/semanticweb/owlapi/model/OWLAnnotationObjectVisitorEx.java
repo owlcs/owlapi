@@ -13,20 +13,17 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @param <O> visitor type
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <O>
- *        visitor type
  */
 public interface OWLAnnotationObjectVisitorEx<O>
-        extends OWLAnnotationAxiomVisitorEx<O>, OWLAnnotationValueVisitorEx<O> {
+    extends OWLAnnotationAxiomVisitorEx<O>, OWLAnnotationValueVisitorEx<O> {
 
     /**
      * visit OWLAnnotation type
-     * 
-     * @param node
-     *        object to visit
+     *
+     * @param node object to visit
      * @return visitor value
      */
     default O visit(OWLAnnotation node) {

@@ -47,11 +47,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
+public class RDFTriple implements Serializable, Comparable<RDFTriple>,
+    org.apache.commons.rdf.api.Triple {
 
     private final RDFResource subject;
     private final RDFResourceIRI predicate;
@@ -59,12 +59,9 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
     static final TObjectIntHashMap<IRI> specialPredicateRanks = initMap();
 
     /**
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
      */
     public RDFTriple(RDFResource subject, RDFResourceIRI predicate, RDFNode object) {
         this.subject = checkNotNull(subject, "subject cannot be null");
@@ -73,35 +70,28 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
     }
 
     /**
-     * @param subject
-     *        the subject
-     * @param subjectAnon
-     *        whether the subject is anonymous
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     * @param objectAnon
-     *        whether the object is anonymous
+     * @param subject the subject
+     * @param subjectAnon whether the subject is anonymous
+     * @param predicate the predicate
+     * @param object the object
+     * @param objectAnon whether the object is anonymous
      */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, IRI object, boolean objectAnon) {
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, IRI object,
+        boolean objectAnon) {
         this(getResource(subject, subjectAnon),
             // Predicate is not allowed to be anonymous
             new RDFResourceIRI(predicate), getResource(object, objectAnon));
     }
 
     /**
-     * @param subject
-     *        the subject
-     * @param subjectAnon
-     *        whether the subject is anonymous
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param subjectAnon whether the subject is anonymous
+     * @param predicate the predicate
+     * @param object the object
      */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, OWLLiteral object) {
-        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate), new RDFLiteral(object));
+        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate),
+            new RDFLiteral(object));
     }
 
     private static RDFResource getResource(IRI iri, boolean anon) {
@@ -111,7 +101,9 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         return new RDFResourceIRI(iri);
     }
 
-    /** @return true if subject and object are the same */
+    /**
+     * @return true if subject and object are the same
+     */
     public boolean isSubjectSameAsObject() {
         return subject.equals(object);
     }
@@ -143,7 +135,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         }
         if (obj instanceof RDFTriple) {
             RDFTriple other = (RDFTriple) obj;
-            return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);
+            return subject.equals(other.subject) && predicate.equals(other.predicate) && object
+                .equals(other.object);
         }
         // Commons RDF Triple.equals() contract
         if (obj instanceof Triple) {
@@ -154,7 +147,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
             // To ensure future compatibility, the Commons RDF getter
             // methods are also called on this rather than using the fields.
             Triple triple = (Triple) obj;
-            return getSubject().equals(triple.getSubject()) && getPredicate().equals(triple.getPredicate())
+            return getSubject().equals(triple.getSubject()) && getPredicate()
+                .equals(triple.getPredicate())
                 && getObject().equals(triple.getObject());
         }
         return false;
@@ -168,13 +162,17 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
     static TObjectIntHashMap<IRI> initMap() {
         TObjectIntHashMap<IRI> predicates = new TObjectIntHashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
-        List<OWLRDFVocabulary> ORDERED_URIS = Arrays.asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED, RDFS_COMMENT,
-            RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS, OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF,
-            RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN, RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY, OWL_DATA_RANGE,
-            OWL_ON_CLASS, OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
+        List<OWLRDFVocabulary> ORDERED_URIS = Arrays
+            .asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED, RDFS_COMMENT,
+                RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
+                OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF,
+                RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN, RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY,
+                OWL_DATA_RANGE,
+                OWL_ON_CLASS, OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
         ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
-        Stream.of(OWLRDFVocabulary.values()).forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId
-            .getAndIncrement()));
+        Stream.of(OWLRDFVocabulary.values())
+            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId
+                .getAndIncrement()));
         return predicates;
     }
 

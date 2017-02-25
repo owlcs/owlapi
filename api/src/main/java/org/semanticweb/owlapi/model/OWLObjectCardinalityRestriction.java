@@ -13,10 +13,11 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLObjectCardinalityRestriction extends
-        OWLCardinalityRestriction<OWLClassExpression>,
-        OWLQuantifiedObjectRestriction, OWLObjectRestriction {}
+    OWLCardinalityRestriction<OWLClassExpression>,
+    OWLQuantifiedObjectRestriction, OWLObjectRestriction {
+
+}

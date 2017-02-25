@@ -19,9 +19,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 /**
  * A composite ontology change encapsulates a list of ontology changes, which
  * should be applied as a logical unit.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 @FunctionalInterface
@@ -30,7 +29,7 @@ public interface OWLCompositeOntologyChange extends Serializable {
     /**
      * Gets the changes which compose this composite change. Once this method
      * has been invoked, it will always return the same list of changes.
-     * 
+     *
      * @return A list of ontology changes.
      */
     List<OWLOntologyChange> getChanges();

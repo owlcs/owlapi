@@ -19,16 +19,15 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * An object that can create an {@code OWLParser}.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLParserFactory extends Serializable, Provider<OWLParser>, MIMETypeAware {
 
     /**
      * Creates a parser.
-     * 
+     *
      * @return The parser created by this parser factory.
      */
     OWLParser createParser();

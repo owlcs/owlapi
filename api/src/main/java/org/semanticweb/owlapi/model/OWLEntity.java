@@ -18,28 +18,26 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
  * >Entities</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty,
+public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass,
+    AsOWLDataProperty,
     AsOWLDatatype, AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
 
     /**
      * Gets the entity type for this entity.
-     * 
+     *
      * @return The entity type
      */
     EntityType<?> getEntityType();
 
     /**
      * Tests to see if this entity is of the specified type.
-     * 
-     * @param entityType
-     *        The entity type
-     * @return {@code true} if this entity is of the specified type, otherwise
-     *         {@code false}.
+     *
+     * @param entityType The entity type
+     * @return {@code true} if this entity is of the specified type, otherwise {@code false}.
      */
     default boolean isType(EntityType<?> entityType) {
         return getEntityType().equals(entityType);
@@ -70,9 +68,9 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOW
      * </ul>
      * </li>
      * </ul>
-     * 
-     * @return {@code true} if this entity is a built in entity, or
-     *         {@code false} if this entity is not a builtin entity.
+     *
+     * @return {@code true} if this entity is a built in entity, or {@code false} if this entity is
+     * not a builtin entity.
      */
     default boolean isBuiltIn() {
         return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(getIRI());
@@ -81,22 +79,19 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOW
     /**
      * Returns a string representation that can be used as the ID of this
      * entity. This is the toString representation of the IRI
-     * 
+     *
      * @return A string representing the toString of the IRI of this entity.
      */
     String toStringID();
 
     /**
-     * @param visitor
-     *        visitor
+     * @param visitor visitor
      */
     void accept(OWLEntityVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor
+     * @param <O> visitor return type
      * @return visitor return value
      */
     <O> O accept(OWLEntityVisitorEx<O> visitor);

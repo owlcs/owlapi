@@ -19,9 +19,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 /**
  * Represent the common non-ontology data required by instances of
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
@@ -31,9 +30,8 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
     /**
      * Constructs an {@code AxiomChangeData} object that describes a change
      * involving the specified {@code axiom}.
-     * 
-     * @param axiom
-     *        The {@link OWLAxiom} involved in a change.
+     *
+     * @param axiom The {@link OWLAxiom} involved in a change.
      **/
     public AxiomChangeData(OWLAxiom axiom) {
         this.axiom = checkNotNull(axiom, "axiom must not be null");
@@ -41,7 +39,7 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
 
     /**
      * Gets the {@link OWLAxiom} that is associated with this change data.
-     * 
+     *
      * @return The {@link OWLAxiom}.
      */
     public OWLAxiom getAxiom() {

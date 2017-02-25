@@ -26,9 +26,8 @@ import java.io.Serializable;
  * {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)}
  * any number of times and finally call {@link #reasonerTaskStopped()} when the
  * task ends or has been interupted. This cycle may then be repeated.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("unused")
@@ -67,11 +66,11 @@ public interface ReasonerProgressMonitor extends Serializable {
      * subtasks is not supported. <br>
      * Note that this method may be called from a thread that is not the event
      * dispatch thread.
-     * 
-     * @param taskName
-     *        The name of the task
+     *
+     * @param taskName The name of the task
      */
-    default void reasonerTaskStarted(String taskName) {}
+    default void reasonerTaskStarted(String taskName) {
+    }
 
     /**
      * Indicates that a previosly started task has now stopped. This method will
@@ -80,7 +79,8 @@ public interface ReasonerProgressMonitor extends Serializable {
      * Note that this method may be called from a thread that is not the event
      * dispatch thread.
      */
-    default void reasonerTaskStopped() {}
+    default void reasonerTaskStopped() {
+    }
 
     /**
      * Indicates that the reasoner is part way through a particular task, for
@@ -90,13 +90,12 @@ public interface ReasonerProgressMonitor extends Serializable {
      * {@link #reasonerTaskStopped()} method has been called. <br>
      * Note that this method may be called from a thread that is not the event
      * dispatch thread.
-     * 
-     * @param value
-     *        The value or portion of the task completed
-     * @param max
-     *        The total size of the task
+     *
+     * @param value The value or portion of the task completed
+     * @param max The total size of the task
      */
-    default void reasonerTaskProgressChanged(int value, int max) {}
+    default void reasonerTaskProgressChanged(int value, int max) {
+    }
 
     /**
      * Indicates that the reasoner is busy performing a task whose size cannot
@@ -107,5 +106,6 @@ public interface ReasonerProgressMonitor extends Serializable {
      * Note that this method may be called from a thread that is not the event
      * dispatch thread.
      */
-    default void reasonerTaskBusy() {}
+    default void reasonerTaskBusy() {
+    }
 }

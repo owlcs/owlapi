@@ -22,18 +22,19 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 /**
  * Generates inferred disjoint axioms - note that this currently uses a very
  * simple inefficient algorithm.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
-public class InferredDisjointClassesAxiomGenerator extends InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
+public class InferredDisjointClassesAxiomGenerator extends
+    InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
 
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
         Set<OWLDisjointClassesAxiom> result) {
         reasoner.precomputeInferences(InferenceType.DISJOINT_CLASSES);
-        reasoner.getDisjointClasses(entity).forEach(cls->cls.entities().forEach(c->result.add(dataFactory.getOWLDisjointClassesAxiom(entity, c))));
+        reasoner.getDisjointClasses(entity).forEach(cls -> cls.entities()
+            .forEach(c -> result.add(dataFactory.getOWLDisjointClassesAxiom(entity, c))));
     }
 
     @Override

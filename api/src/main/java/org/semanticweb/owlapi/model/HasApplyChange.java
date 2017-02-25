@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
@@ -25,19 +24,16 @@ public interface HasApplyChange {
     /**
      * A convenience method that applies just one change to an ontology that is
      * managed by this manager.
-     * 
-     * @param change
-     *        The change to be applied
+     *
+     * @param change The change to be applied
      * @return ChangeApplied.SUCCESSFULLY if the change is applied with success,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         If the change could not be applied. See subclasses of ontology
-     *         change exception for more specific details.
-     * @throws OWLOntologyRenameException
-     *         If one or more of the changes is an instance of
-     *         {@link org.semanticweb.owlapi.model.SetOntologyID} where the new
-     *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already
-     *         belongs to an ontology managed by this manager.
+     * ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException If the change could not be applied. See subclasses of
+     * ontology change exception for more specific details.
+     * @throws OWLOntologyRenameException If one or more of the changes is an instance of {@link
+     * org.semanticweb.owlapi.model.SetOntologyID} where the new {@link
+     * org.semanticweb.owlapi.model.OWLOntologyID} already belongs to an ontology managed by this
+     * manager.
      */
     ChangeApplied applyChange(OWLOntologyChange change);
 }

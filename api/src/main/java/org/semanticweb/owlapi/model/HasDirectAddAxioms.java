@@ -19,9 +19,8 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 /**
  * Interface for an object that accepts axiom additions (tipycally, an
  * OWLOntology).
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 public interface HasDirectAddAxioms {
@@ -29,33 +28,30 @@ public interface HasDirectAddAxioms {
     /**
      * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be added. Not {@code null}.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     *
+     * @param axioms The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
      */
     ChangeApplied addAxioms(Collection<? extends OWLAxiom> axioms);
 
     /**
      * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be added. Not {@code null}.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     *
+     * @param axioms The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
      */
     ChangeApplied addAxioms(OWLAxiom... axioms);
 
     /**
      * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be added. Not {@code null}.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     *
+     * @param axioms The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
      */
     default ChangeApplied add(Collection<? extends OWLAxiom> axioms) {
         return addAxioms(axioms);
@@ -64,22 +60,20 @@ public interface HasDirectAddAxioms {
     /**
      * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be added. Not {@code null}.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     *
+     * @param axioms The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
      */
     ChangeApplied addAxioms(Stream<? extends OWLAxiom> axioms);
 
     /**
      * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be added. Not {@code null}.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     *
+     * @param axioms The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
      */
     default ChangeApplied add(OWLAxiom... axioms) {
         return addAxioms(axioms);

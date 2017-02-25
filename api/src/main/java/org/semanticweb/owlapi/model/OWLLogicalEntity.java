@@ -17,9 +17,8 @@ import java.util.stream.Stream;
 /**
  * An {@code OWLLogicalEntity} is an {@code OWLEntity} that is not an
  * {@code OWLAnnotationProperty}.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLLogicalEntity extends OWLEntity {

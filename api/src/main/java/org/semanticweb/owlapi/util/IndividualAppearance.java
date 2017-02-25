@@ -10,8 +10,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 public interface IndividualAppearance {
 
     /**
-     * @param i
-     *        an anonymous individual
+     * @param i an anonymous individual
      * @return true if i appears more than once as object.
      */
     boolean appearsMultipleTimes(OWLAnonymousIndividual i);

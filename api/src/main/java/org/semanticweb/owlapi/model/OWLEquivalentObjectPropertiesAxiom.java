@@ -18,16 +18,15 @@ import java.util.Collection;
  * Represents
  * <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties" >
  * EquivalentObjectProperties</a> axioms in the OWL 2 specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLEquivalentObjectPropertiesAxiom
     extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
-        OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
+    OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -35,10 +34,10 @@ public interface OWLEquivalentObjectPropertiesAxiom
     }
 
     @Override
-        Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
+    Collection<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-        Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
+    Collection<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
 
     /**
      * @return the axioms equivalent to the equivalent object property axiom

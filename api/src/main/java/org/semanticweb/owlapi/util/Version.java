@@ -17,9 +17,8 @@ package org.semanticweb.owlapi.util;
  * reasoner version. <br>
  * A version number is assumed to be the following format:
  * <b>major.minor.patch.build</b>.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class Version {
@@ -30,14 +29,10 @@ public class Version {
     private final int build;
 
     /**
-     * @param major
-     *        major version number
-     * @param minor
-     *        minor version number
-     * @param patch
-     *        patch number
-     * @param build
-     *        build number
+     * @param major major version number
+     * @param minor minor version number
+     * @param patch patch number
+     * @param build build number
      */
     public Version(int major, int minor, int patch, int build) {
         this.major = major;
@@ -46,22 +41,30 @@ public class Version {
         this.build = build;
     }
 
-    /** @return major version */
+    /**
+     * @return major version
+     */
     public int getMajor() {
         return major;
     }
 
-    /** @return minor version */
+    /**
+     * @return minor version
+     */
     public int getMinor() {
         return minor;
     }
 
-    /** @return patch version */
+    /**
+     * @return patch version
+     */
     public int getPatch() {
         return patch;
     }
 
-    /** @return build version */
+    /**
+     * @return build version
+     */
     public int getBuild() {
         return build;
     }

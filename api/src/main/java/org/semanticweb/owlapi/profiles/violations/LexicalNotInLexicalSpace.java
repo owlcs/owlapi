@@ -22,20 +22,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class LexicalNotInLexicalSpace extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param literal
-     *        literal
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param literal literal
      */
-    public LexicalNotInLexicalSpace(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLLiteral literal) {
+    public LexicalNotInLexicalSpace(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLLiteral literal) {
         super(ontology, axiom, literal);
     }
 

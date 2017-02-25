@@ -22,28 +22,31 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for OWLDatatypeDefinitionAxiom. */
-public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
+/**
+ * Builder class for OWLDatatypeDefinitionAxiom.
+ */
+public class BuilderDatatypeDefinition extends
+    BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
-    @Nullable private OWLDataRange range = null;
-    @Nullable private OWLDatatype type = null;
+    @Nullable
+    private OWLDataRange range = null;
+    @Nullable
+    private OWLDatatype type = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDatatypeDefinition(OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
         this(df);
-        with(expected.getDatatype()).withType(expected.getDataRange()).withAnnotations(expected.annotations());
+        with(expected.getDatatype()).withType(expected.getDataRange())
+            .withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDatatypeDefinition(OWLDataFactory df) {
@@ -51,8 +54,7 @@ public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinition
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     public BuilderDatatypeDefinition withType(OWL2Datatype arg) {
@@ -60,8 +62,7 @@ public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinition
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     public BuilderDatatypeDefinition withType(OWLDataRange arg) {
@@ -70,8 +71,7 @@ public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinition
     }
 
     /**
-     * @param arg
-     *        type
+     * @param arg type
      * @return builder
      */
     public BuilderDatatypeDefinition with(OWLDatatype arg) {
