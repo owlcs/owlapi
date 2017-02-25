@@ -64,8 +64,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class JustificationMap {
@@ -73,17 +72,17 @@ public class JustificationMap {
     private final Set<OWLAxiom> axioms;
     private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
-    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys().linkedHashSetValues().build();
-    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder.hashKeys().linkedHashSetValues().build();
+    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys()
+        .linkedHashSetValues().build();
+    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder.hashKeys()
+        .linkedHashSetValues().build();
     private final OWLClassExpression desc;
 
     /**
      * Instantiates a new justification map.
-     * 
-     * @param desc
-     *        the class expression
-     * @param axioms
-     *        the axioms
+     *
+     * @param desc the class expression
+     * @param axioms the axioms
      */
     public JustificationMap(OWLClassExpression desc, Set<OWLAxiom> axioms) {
         this.axioms = checkNotNull(axioms, "axioms cannot be null");
@@ -136,7 +135,7 @@ public class JustificationMap {
 
     /**
      * Gets the root axioms.
-     * 
+     *
      * @return the root axioms
      */
     public Set<OWLAxiom> getRootAxioms() {
@@ -145,27 +144,31 @@ public class JustificationMap {
 
     /**
      * Gets the child axioms.
-     * 
-     * @param ax
-     *        the axiom whose children are to be retrieved
+     *
+     * @param ax the axiom whose children are to be retrieved
      * @return children of ax
      */
     public Collection<OWLAxiom> getChildAxioms(OWLAxiom ax) {
         return map.get(ax);
     }
 
-    /** The Class OWLAxiomPartExtractor. */
+    /**
+     * The Class OWLAxiomPartExtractor.
+     */
     private static class OWLAxiomPartExtractor implements OWLAxiomVisitor {
 
         private final Set<OWLObject> rhs = new HashSet<>();
         private final Set<OWLObject> lhs = new HashSet<>();
 
-        /** Instantiates a new oWL axiom part extractor. */
-        OWLAxiomPartExtractor() {}
+        /**
+         * Instantiates a new oWL axiom part extractor.
+         */
+        OWLAxiomPartExtractor() {
+        }
 
         /**
          * Gets the rhs.
-         * 
+         *
          * @return the rhs
          */
         public Set<OWLObject> getRHS() {
@@ -174,7 +177,7 @@ public class JustificationMap {
 
         /**
          * Gets the lhs.
-         * 
+         *
          * @return the lhs
          */
         public Set<OWLObject> getLHS() {

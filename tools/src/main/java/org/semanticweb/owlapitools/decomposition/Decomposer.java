@@ -14,26 +14,38 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
-/** atomical decomposer of the ontology */
+/**
+ * atomical decomposer of the ontology
+ */
 public class Decomposer {
 
-    /** atomic structure to build */
-    @Nullable private AtomList atomList = null;
-    /** modularizer to build modules */
+    /**
+     * atomic structure to build
+     */
+    @Nullable
+    private AtomList atomList = null;
+    /**
+     * modularizer to build modules
+     */
     private Modularizer modularizer;
-    /** tautologies of the ontology */
+    /**
+     * tautologies of the ontology
+     */
     private List<AxiomWrapper> tautologies = new ArrayList<>();
-    /** fake atom that represents the whole ontology */
-    @Nullable private OntologyAtom rootAtom = null;
-    /** module type for current AOS creation */
+    /**
+     * fake atom that represents the whole ontology
+     */
+    @Nullable
+    private OntologyAtom rootAtom = null;
+    /**
+     * module type for current AOS creation
+     */
     private ModuleType type;
     private List<AxiomWrapper> axioms;
 
     /**
-     * @param axioms
-     *        axiom wrappers to decompose
-     * @param c
-     *        locality checker to use
+     * @param axioms axiom wrappers to decompose
+     * @param c locality checker to use
      */
     public Decomposer(List<AxiomWrapper> axioms, LocalityChecker c) {
         this.axioms = axioms;
@@ -41,10 +53,8 @@ public class Decomposer {
     }
 
     /**
-     * @param axioms
-     *        axioms
-     * @param c
-     *        locality checker
+     * @param axioms axioms
+     * @param c locality checker
      * @return new modularizer
      */
     public static Modularizer buildModulariser(List<AxiomWrapper> axioms, LocalityChecker c) {
@@ -53,12 +63,16 @@ public class Decomposer {
         return m;
     }
 
-    /** @return the modularizer for this decomposer */
+    /**
+     * @return the modularizer for this decomposer
+     */
     public Modularizer getModularizer() {
         return modularizer;
     }
 
-    /** restore all tautologies back */
+    /**
+     * restore all tautologies back
+     */
     private void restoreTautologies() {
         for (AxiomWrapper p : tautologies) {
             p.setUsed(true);
@@ -84,18 +98,17 @@ public class Decomposer {
         }
     }
 
-    /** @return all tautologies wrapped */
+    /**
+     * @return all tautologies wrapped
+     */
     public List<AxiomWrapper> getTautologies() {
         return tautologies;
     }
 
     /**
-     * @param sig
-     *        signature
-     * @param parent
-     *        parent atom
-     * @return module for given axiom AX; use parent atom's module as a base for
-     *         the module search
+     * @param sig signature
+     * @param parent parent atom
+     * @return module for given axiom AX; use parent atom's module as a base for the module search
      */
     private Optional<OntologyAtom> buildModule(Signature sig, OntologyAtom parent) {
         // build a module for a given signature
@@ -118,12 +131,10 @@ public class Decomposer {
     }
 
     /**
-     * @param ax
-     *        axiom
-     * @param parent
-     *        parent atom
-     * @return create atom for given axiom AX; use parent atom's module as a
-     *         base for the module search
+     * @param ax axiom
+     * @param parent parent atom
+     * @return create atom for given axiom AX; use parent atom's module as a base for the module
+     * search
      */
     private OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
         // check whether axiom already has an atom
@@ -153,14 +164,15 @@ public class Decomposer {
         return atom.get();
     }
 
-    /** @return atom list class */
+    /**
+     * @return atom list class
+     */
     public AtomList getAOS() {
         return verifyNotNull(atomList);
     }
 
     /**
-     * @param t
-     *        module type
+     * @param t module type
      * @return the atomic structure for given module type T
      */
     public AtomList getAOS(ModuleType t) {
@@ -198,10 +210,8 @@ public class Decomposer {
     }
 
     /**
-     * @param signature
-     *        the signature to use
-     * @param moduletype
-     *        the module type
+     * @param signature the signature to use
+     * @param moduletype the module type
      * @return a set of axioms that corresponds to the atom with the id INDEX
      */
     public Set<OWLAxiom> getNonLocal(Stream<OWLEntity> signature, ModuleType moduletype) {
@@ -220,12 +230,9 @@ public class Decomposer {
     }
 
     /**
-     * @param signature
-     *        the signature to use
-     * @param moduletype
-     *        module type
-     * @param useSemantics
-     *        true if semantic locality should be used
+     * @param signature the signature to use
+     * @param moduletype module type
+     * @param useSemantics true if semantic locality should be used
      * @return a set of axioms that corresponds to the atom with the id INDEX
      */
     public Collection<AxiomWrapper> getModule(Stream<OWLEntity> signature, boolean useSemantics,

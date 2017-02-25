@@ -9,23 +9,26 @@ package uk.ac.manchester.cs.chainsaw;
 import java.util.Arrays;
 import javax.annotation.Nullable;
 
-/** @author ignazio */
+/**
+ * @author ignazio
+ */
 public class FastSetSimple extends AbstractFastSet {
 
-    @Nullable protected int[] values;
+    @Nullable
+    protected int[] values;
     protected int size = 0;
     protected static final int DEFAULTSIZE = 16;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public FastSetSimple() {
         super();
     }
 
     /**
-     * @param c1
-     *        c1
-     * @param c2
-     *        c2
+     * @param c1 c1
+     * @param c2 c2
      */
     @SuppressWarnings("null")
     public FastSetSimple(FastSetSimple c1, FastSetSimple c2) {
@@ -344,7 +347,8 @@ public class FastSetSimple extends AbstractFastSet {
             return;
         }
         if (end < -1 || end < i || end > size || i < -1 || i > size) {
-            throw new IllegalArgumentException("illegal arguments: " + i + " " + end + " size: " + size);
+            throw new IllegalArgumentException(
+                "illegal arguments: " + i + " " + end + " size: " + size);
         }
         if (size == 1 || i == 0 && end == size) {
             values = null;

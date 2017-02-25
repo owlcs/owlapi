@@ -20,36 +20,40 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-/** Explanation generator for a single explanation. */
+/**
+ * Explanation generator for a single explanation.
+ */
 public interface SingleExplanationGenerator {
 
     /**
      * Gets the ontology manager.
-     * 
+     *
      * @return the ontology manager for this explanation generator.
      */
     OWLOntologyManager getOntologyManager();
 
     /**
      * Gets the ontology.
-     * 
+     *
      * @return the ontology according to which the explanations are generated
      */
     OWLOntology getOntology();
 
-    /** dispose of the reasoners and ontologies. */
+    /**
+     * dispose of the reasoners and ontologies.
+     */
     void dispose();
 
     /**
      * Gets the reasoner.
-     * 
+     *
      * @return the reasoner associated with this generator.
      */
     OWLReasoner getReasoner();
 
     /**
      * Gets the reasoner factory.
-     * 
+     *
      * @return the reasoner factory used to create fresh reasoners.
      */
     OWLReasonerFactory getReasonerFactory();
@@ -57,12 +61,10 @@ public interface SingleExplanationGenerator {
     /**
      * Get a single explanation for an arbitrary class expression, or empty set
      * if the given expression is satisfiable.
-     * 
-     * @param unsatClass
-     *        arbitrary class expression whose unsatisfiability will be
-     *        explained
-     * @return set of axioms explaining the unsatisfiability of given class
-     *         expression, or empty set if the given expression is satisfiable.
+     *
+     * @param unsatClass arbitrary class expression whose unsatisfiability will be explained
+     * @return set of axioms explaining the unsatisfiability of given class expression, or empty set
+     * if the given expression is satisfiable.
      */
     Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
 }

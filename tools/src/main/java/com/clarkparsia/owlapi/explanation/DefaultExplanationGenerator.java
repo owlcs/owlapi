@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 /**
- * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
@@ -37,42 +36,37 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Instantiates a new default explanation generator.
-     * 
-     * @param man
-     *        manager
-     * @param reasonerFactory
-     *        reasoner factory
-     * @param ontology
-     *        ontology to reason on
-     * @param progressMonitor
-     *        progress monitor
+     *
+     * @param man manager
+     * @param reasonerFactory reasoner factory
+     * @param ontology ontology to reason on
+     * @param progressMonitor progress monitor
      */
-    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
+    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory,
+        OWLOntology ontology,
         ExplanationProgressMonitor progressMonitor) {
-        this(man, reasonerFactory, ontology, checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
-            .createNonBufferingReasoner(ontology), progressMonitor);
+        this(man, reasonerFactory, ontology,
+            checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
+                .createNonBufferingReasoner(ontology), progressMonitor);
     }
 
     /**
      * Instantiates a new default explanation generator.
-     * 
-     * @param man
-     *        manager
-     * @param reasonerFactory
-     *        reasoner factory
-     * @param ontology
-     *        ontology to reason on
-     * @param reasoner
-     *        the reasoner to use
-     * @param progressMonitor
-     *        progress monitor
+     *
+     * @param man manager
+     * @param reasonerFactory reasoner factory
+     * @param ontology ontology to reason on
+     * @param reasoner the reasoner to use
+     * @param progressMonitor progress monitor
      */
-    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
+    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory,
+        OWLOntology ontology,
         OWLReasoner reasoner, @Nullable ExplanationProgressMonitor progressMonitor) {
         dataFactory = checkNotNull(man, "man cannot be null").getOWLDataFactory();
-        BlackBoxExplanation singleGen = new BlackBoxExplanation(checkNotNull(ontology, "ontology cannot be null"),
+        BlackBoxExplanation singleGen = new BlackBoxExplanation(
+            checkNotNull(ontology, "ontology cannot be null"),
             checkNotNull(reasonerFactory, "reasonerFactory cannot be null"), checkNotNull(reasoner,
-                "reasoner cannot be null"));
+            "reasoner cannot be null"));
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
             gen.setProgressMonitor(progressMonitor);
@@ -86,9 +80,8 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Gets the explanation.
-     * 
-     * @param axiom
-     *        the axiom to explain
+     *
+     * @param axiom the axiom to explain
      * @return the explanation
      */
     public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
@@ -103,9 +96,8 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Gets the explanations.
-     * 
-     * @param axiom
-     *        the axiom to explain
+     *
+     * @param axiom the axiom to explain
      * @return the set of explanations
      */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
@@ -120,15 +112,14 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Gets the explanations.
-     * 
-     * @param axiom
-     *        the axiom to explain
-     * @param maxExplanations
-     *        max number of explanations
+     *
+     * @param axiom the axiom to explain
+     * @param maxExplanations max number of explanations
      * @return the set of explanations
      */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
-        return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")), maxExplanations);
+        return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")),
+            maxExplanations);
     }
 }

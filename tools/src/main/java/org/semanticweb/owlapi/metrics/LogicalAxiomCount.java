@@ -17,17 +17,15 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class LogicalAxiomCount extends AxiomCountMetric {
 
     /**
      * Instantiates a new logical axiom count.
-     * 
-     * @param o
-     *        ontology to use
+     *
+     * @param o ontology to use
      */
     public LogicalAxiomCount(OWLOntology o) {
         super(o);

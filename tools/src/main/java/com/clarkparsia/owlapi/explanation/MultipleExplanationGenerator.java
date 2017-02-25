@@ -14,14 +14,16 @@ package com.clarkparsia.owlapi.explanation;
 
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 
-/** multiple explanation generator. */
-public interface MultipleExplanationGenerator extends ExplanationGenerator, SingleExplanationGenerator {
+/**
+ * multiple explanation generator.
+ */
+public interface MultipleExplanationGenerator extends ExplanationGenerator,
+    SingleExplanationGenerator {
 
     /**
      * Sets the progress monitor for this multiple explanation generator.
-     * 
-     * @param progressMonitor
-     *        The progress monitor.
+     *
+     * @param progressMonitor The progress monitor.
      */
     void setProgressMonitor(ExplanationProgressMonitor progressMonitor);
 }

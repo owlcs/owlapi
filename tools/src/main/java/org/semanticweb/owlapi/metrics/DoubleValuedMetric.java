@@ -15,17 +15,15 @@ package org.semanticweb.owlapi.metrics;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public abstract class DoubleValuedMetric extends AbstractOWLMetric<Double> {
 
     /**
      * Instantiates a new double valued metric.
-     * 
-     * @param o
-     *        ontology to use
+     *
+     * @param o ontology to use
      */
     public DoubleValuedMetric(OWLOntology o) {
         super(o);

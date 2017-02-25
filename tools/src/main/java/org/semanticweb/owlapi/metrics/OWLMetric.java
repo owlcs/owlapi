@@ -18,18 +18,16 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 /**
  * Represents a metric about some aspect of an ontology and possibly its imports
  * closure.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <M> the metric type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <M>
- *        the metric type
  */
 public interface OWLMetric<M> {
 
     /**
      * Gets the human readable name of this metric.
-     * 
+     *
      * @return A label which represents the human readable name of this metric.
      */
     String getName();
@@ -37,26 +35,24 @@ public interface OWLMetric<M> {
     /**
      * Gets the value of this metric. This value is computed w.r.t. the current
      * ontology and possibly the imports closure (if specified).
-     * 
-     * @return An object which represents the value of this metric - calling the
-     *         {@code toString} method of the object returned by this method
-     *         will result in a human readable string that displays the value of
-     *         the metric.
+     *
+     * @return An object which represents the value of this metric - calling the {@code toString}
+     * method of the object returned by this method will result in a human readable string that
+     * displays the value of the metric.
      */
     M getValue();
 
     /**
      * Sets the "root" ontology. The metric will be recomputed from this
      * ontology (and potentially its imports closure if selected).
-     * 
-     * @param ontology
-     *        The ontology for which the metric should be computed.
+     *
+     * @param ontology The ontology for which the metric should be computed.
      */
     void setOntology(OWLOntology ontology);
 
     /**
      * Gets the ontology which the value of the metric should be based on.
-     * 
+     *
      * @return The ontology.
      */
     OWLOntology getOntology();
@@ -64,28 +60,26 @@ public interface OWLMetric<M> {
     /**
      * Determines if the computation of the metric should take into account the
      * imports closure of the current ontology.
-     * 
-     * @return {@code true} if the imports closure of the current ontology is
-     *         taken into account when computing the value of this metric, or
-     *         {@code false} if the imports closure isn't taken into account
-     *         when computing this metric.
+     *
+     * @return {@code true} if the imports closure of the current ontology is taken into account
+     * when computing the value of this metric, or {@code false} if the imports closure isn't taken
+     * into account when computing this metric.
      */
     boolean isImportsClosureUsed();
 
     /**
      * Sets whether this metric uses the imports closure of the current
      * ontology.
-     * 
-     * @param b
-     *        the new imports closure used {@code true} if this metric uses the
-     *        imports closure of the current ontology, otherwise false.
+     *
+     * @param b the new imports closure used {@code true} if this metric uses the imports closure of
+     * the current ontology, otherwise false.
      */
     void setImportsClosureUsed(boolean b);
 
     /**
      * Gets the ontology manager which, amongst other things can be used to
      * obtain the imports closure of the current ontology.
-     * 
+     *
      * @return An {@code OWLOntologyManager}.
      */
     OWLOntologyManager getManager();
