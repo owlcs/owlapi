@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.owlxml.renderer;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;

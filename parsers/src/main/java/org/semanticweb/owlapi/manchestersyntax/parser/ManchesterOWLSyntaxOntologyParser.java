@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.DocumentSources;

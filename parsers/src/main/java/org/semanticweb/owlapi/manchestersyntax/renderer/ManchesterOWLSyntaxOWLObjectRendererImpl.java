@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;

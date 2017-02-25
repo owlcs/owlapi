@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.io.PrintWriter;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;

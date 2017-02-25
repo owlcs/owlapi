@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.Locator;
 
