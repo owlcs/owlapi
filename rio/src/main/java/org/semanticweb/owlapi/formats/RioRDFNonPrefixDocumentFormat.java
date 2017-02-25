@@ -38,9 +38,7 @@ package org.semanticweb.owlapi.formats;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
