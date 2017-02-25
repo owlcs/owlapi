@@ -17,6 +17,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -24,6 +26,19 @@ import org.semanticweb.owlapi.model.OWLClass;
  * @since 3.0.0
  */
 public class OWLClassNode extends DefaultNode<OWLClass> {
+
+    private static final OWLClass TOP_CLASS;
+    private static final OWLClassNode TOP_NODE;
+    private static final OWLClass BOTTOM_CLASS;
+    private static final OWLClassNode BOTTOM_NODE;
+
+    static {
+        OWLDataFactory factory = new OWLDataFactoryImpl(false);
+        TOP_CLASS = factory.getOWLThing();
+        TOP_NODE = new OWLClassNode(TOP_CLASS);
+        BOTTOM_CLASS = factory.getOWLNothing();
+        BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
+    }
 
     /**
      * @param entity
@@ -54,16 +69,6 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
         super();
     }
 
-    @Override
-    protected Optional<OWLClass> getTopEntity() {
-        return Optional.of(TOP_CLASS);
-    }
-
-    @Override
-    protected Optional<OWLClass> getBottomEntity() {
-        return Optional.of(BOTTOM_CLASS);
-    }
-
     /**
      * @return singleton top node
      */
@@ -76,5 +81,15 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
      */
     public static OWLClassNode getBottomNode() {
         return BOTTOM_NODE;
+    }
+
+    @Override
+    protected Optional<OWLClass> getTopEntity() {
+        return Optional.of(TOP_CLASS);
+    }
+
+    @Override
+    protected Optional<OWLClass> getBottomEntity() {
+        return Optional.of(BOTTOM_CLASS);
     }
 }
