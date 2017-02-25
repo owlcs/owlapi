@@ -12,15 +12,39 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_ABOUT;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_ABOUT_EACH;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_ABOUT_EACH_PREFIX;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_BAG_ID;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_DATATYPE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_ID;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_NODE_ID;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_PARSE_TYPE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ATTR_RESOURCE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ELT_DESCRIPTION;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ELT_RDF;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.ELT_TYPE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.PARSE_TYPE_COLLECTION;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.PARSE_TYPE_LITERAL;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.PARSE_TYPE_RESOURCE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDFNS;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_BAG;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_FIRST;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_LI;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_LIST;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_NIL;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_REST;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_TYPE;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.RDF_XMLLITERAL;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLLANG;
+import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.XMLNS;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.NodeID;
 import org.slf4j.Logger;

@@ -12,12 +12,46 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
-import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
-import static org.semanticweb.owlapi.search.EntitySearcher.*;
-import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.COMPOSE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.DEFINE_CONCEPT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.DEFINE_INDIVIDUAL;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.DEFINE_PRIMITIVE_CONCEPT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.DEFINE_PRIMITIVE_ROLE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.DEFINE_ROLE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.DISJOINT_ROLES;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.DOMAIN_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.EQUIVALENT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.IMPLIES;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.IMPLIES_ROLE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.INV;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.INVERSE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.INVERSE_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.LEFTIDENTITY_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.ONE_OF;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.PARENTS_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.PARENT_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.RANGE_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.REFLEXIVE_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.RIGHTIDENTITY_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.ROLES_EQUIVALENT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.ROLE_INCLUSTION;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.SYMMETRIC_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.TRANSITIVE_ATTR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.TRUE;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
+import static org.semanticweb.owlapi.search.EntitySearcher.isReflexive;
+import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
+import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
+import static org.semanticweb.owlapi.search.Searcher.domain;
+import static org.semanticweb.owlapi.search.Searcher.equivalent;
+import static org.semanticweb.owlapi.search.Searcher.inverse;
+import static org.semanticweb.owlapi.search.Searcher.range;
+import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 
 import java.io.Writer;
 import java.util.Collection;
@@ -26,8 +60,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.search.Filters;
 
 /**

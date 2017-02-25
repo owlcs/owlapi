@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.io.IOException;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
-
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
