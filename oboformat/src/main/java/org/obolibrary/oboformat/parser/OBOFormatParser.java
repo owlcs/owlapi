@@ -2,6 +2,8 @@ package org.obolibrary.oboformat.parser;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,9 +18,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
@@ -29,9 +29,6 @@ import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {

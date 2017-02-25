@@ -8,9 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;

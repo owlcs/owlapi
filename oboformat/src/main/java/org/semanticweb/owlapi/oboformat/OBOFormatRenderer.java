@@ -20,9 +20,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
-
 import javax.annotation.Nullable;
-
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;

@@ -1,15 +1,13 @@
 package org.obolibrary.oboformat.parser;
 
+import com.google.common.collect.Maps;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
-import com.google.common.collect.Maps;
 
 /** OBOformat constants. */
 public class OBOFormatConstants {
