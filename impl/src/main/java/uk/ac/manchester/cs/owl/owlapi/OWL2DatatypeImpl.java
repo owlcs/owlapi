@@ -32,9 +32,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * An optimised implementation of OWLDatatype for OWL2Datatypes.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
 public class OWL2DatatypeImpl implements OWLDatatype {
@@ -45,11 +44,9 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     /**
      * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
      * specified {@link OWL2Datatype}.
-     * 
-     * @param owl2Datatype
-     *        The datatype. Not {@code null}.
-     * @throws NullPointerException
-     *         if {@code owl2Datatype} is {@code null}.
+     *
+     * @param owl2Datatype The datatype. Not {@code null}.
+     * @throws NullPointerException if {@code owl2Datatype} is {@code null}.
      */
     public OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");

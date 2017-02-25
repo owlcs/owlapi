@@ -18,36 +18,34 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLDataPropertyNode() {
         super();
     }
 
     /**
-     * @param entity
-     *        the entity to be contained
+     * @param entity the entity to be contained
      */
     public OWLDataPropertyNode(OWLDataProperty entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        the entities to be contained
+     * @param entities the entities to be contained
      */
     public OWLDataPropertyNode(Collection<OWLDataProperty> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        the entities to be contained
+     * @param entities the entities to be contained
      */
     public OWLDataPropertyNode(Stream<OWLDataProperty> entities) {
         super(entities);

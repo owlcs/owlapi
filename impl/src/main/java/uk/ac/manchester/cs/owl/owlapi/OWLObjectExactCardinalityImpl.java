@@ -18,20 +18,16 @@ import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
     implements OWLObjectExactCardinality {
 
     /**
-     * @param property
-     *        property
-     * @param cardinality
-     *        cardinality
-     * @param filler
-     *        filler
+     * @param property property
+     * @param cardinality cardinality
+     * @param filler filler
      */
     public OWLObjectExactCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
         OWLClassExpression filler) {

@@ -60,25 +60,34 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 public class InitVisitorFactory {
 
     //@formatter:off
-    static final InitVisitor<OWLClass>                              CLASSSUBNAMED      = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLClassExpression>                    CLASSEXPRESSIONS   = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLClass>                              CLASSSUPERNAMED    = new InitVisitor<>          (false, true);
-    static final InitCollectionVisitor<OWLClass>                    CLASSCOLLECTIONS   = new InitCollectionVisitor<>(true);
-    static final InitCollectionVisitor<OWLObjectPropertyExpression> OPCOLLECTIONS      = new InitCollectionVisitor<>(true);
-    static final InitCollectionVisitor<OWLDataPropertyExpression>   DPCOLLECTIONS      = new InitCollectionVisitor<>(true);
-    static final InitCollectionVisitor<OWLIndividual>               ICOLLECTIONS       = new InitCollectionVisitor<>(true);
-    static final InitVisitor<OWLObjectPropertyExpression>           OPSUBNAMED         = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLObjectPropertyExpression>           OPSUPERNAMED       = new InitVisitor<>          (false, true);
-    static final InitVisitor<OWLDataPropertyExpression>             DPSUBNAMED         = new InitVisitor<>          (true,  true);
-    static final InitVisitor<OWLDataPropertyExpression>             DPSUPERNAMED       = new InitVisitor<>          (false, true);
-    static final InitVisitor<OWLIndividual>                         INDIVIDUALSUBNAMED = new InitIndividualVisitor<>(true,  true);
-    static final InitVisitor<OWLAnnotationSubject>                  ANNOTSUPERNAMED    = new InitVisitor<>          (true,  true);
-    private InitVisitorFactory() {}
+    static final InitVisitor<OWLClass> CLASSSUBNAMED = new InitVisitor<>(true, true);
+    static final InitVisitor<OWLClassExpression> CLASSEXPRESSIONS = new InitVisitor<>(true, true);
+    static final InitVisitor<OWLClass> CLASSSUPERNAMED = new InitVisitor<>(false, true);
+    static final InitCollectionVisitor<OWLClass> CLASSCOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitCollectionVisitor<OWLObjectPropertyExpression> OPCOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitCollectionVisitor<OWLDataPropertyExpression> DPCOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitCollectionVisitor<OWLIndividual> ICOLLECTIONS = new InitCollectionVisitor<>(
+        true);
+    static final InitVisitor<OWLObjectPropertyExpression> OPSUBNAMED = new InitVisitor<>(true,
+        true);
+    static final InitVisitor<OWLObjectPropertyExpression> OPSUPERNAMED = new InitVisitor<>(false,
+        true);
+    static final InitVisitor<OWLDataPropertyExpression> DPSUBNAMED = new InitVisitor<>(true, true);
+    static final InitVisitor<OWLDataPropertyExpression> DPSUPERNAMED = new InitVisitor<>(false,
+        true);
+    static final InitVisitor<OWLIndividual> INDIVIDUALSUBNAMED = new InitIndividualVisitor<>(true,
+        true);
+    static final InitVisitor<OWLAnnotationSubject> ANNOTSUPERNAMED = new InitVisitor<>(true, true);
+
+    private InitVisitorFactory() {
+    }
 
     /**
+     * @param <K> visitor return type
      * @author ignazio
-     * @param <K>
-     *        visitor return type
      */
     @SuppressWarnings("unchecked")
     public static class InitVisitor<K> implements OWLAxiomVisitorEx<K> {
@@ -87,10 +96,8 @@ public class InitVisitorFactory {
         private final boolean named;
 
         /**
-         * @param sub
-         *        true for subclasses
-         * @param named
-         *        true for named classes
+         * @param sub true for subclasses
+         * @param named true for named classes
          */
         public InitVisitor(boolean sub, boolean named) {
             this.sub = sub;
@@ -228,18 +235,15 @@ public class InitVisitorFactory {
     }
 
     /**
+     * @param <K> visitor return type
      * @author ignazio
-     * @param <K>
-     *        visitor return type
      */
     @SuppressWarnings("unchecked")
     public static class InitIndividualVisitor<K extends OWLObject> extends InitVisitor<K> {
 
         /**
-         * @param sub
-         *        true for subclasses
-         * @param named
-         *        true for named classes
+         * @param sub true for subclasses
+         * @param named true for named classes
          */
         public InitIndividualVisitor(boolean sub, boolean named) {
             super(sub, named);
@@ -252,9 +256,8 @@ public class InitVisitorFactory {
     }
 
     /**
+     * @param <K> collection type
      * @author ignazio
-     * @param <K>
-     *        collection type
      */
     @SuppressWarnings("unchecked")
     public static class InitCollectionVisitor<K> implements OWLAxiomVisitorEx<Stream<K>> {
@@ -262,8 +265,7 @@ public class InitVisitorFactory {
         private final boolean named;
 
         /**
-         * @param named
-         *        true for named classes
+         * @param named true for named classes
          */
         public InitCollectionVisitor(boolean named) {
             this.named = named;

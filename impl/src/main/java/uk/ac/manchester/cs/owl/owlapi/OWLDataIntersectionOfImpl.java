@@ -18,23 +18,21 @@ import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements OWLDataIntersectionOf {
+public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements
+    OWLDataIntersectionOf {
 
     /**
-     * @param operands
-     *        operands
+     * @param operands operands
      */
     public OWLDataIntersectionOfImpl(Collection<OWLDataRange> operands) {
         super(operands);
     }
 
     /**
-     * @param operands
-     *        operands
+     * @param operands operands
      */
     public OWLDataIntersectionOfImpl(Stream<OWLDataRange> operands) {
         super(operands);

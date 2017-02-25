@@ -24,17 +24,15 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLEquivalentClassesAxiom {
+public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
+    OWLEquivalentClassesAxiom {
 
     /**
-     * @param classExpressions
-     *        equivalent classes
-     * @param annotations
-     *        annotations
+     * @param classExpressions equivalent classes
+     * @param annotations annotations
      */
     public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
@@ -59,7 +57,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         if (classExpressions.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+        return walkPairwise(
+            (a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
@@ -67,7 +66,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         if (classExpressions.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), annotations));
+        return walkPairwise(
+            (a, b) -> new OWLEquivalentClassesAxiomImpl(Arrays.asList(a, b), annotations));
     }
 
     private static boolean named(OWLClassExpression d) {
@@ -91,7 +91,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     @Override
     public Stream<OWLClass> namedClasses() {
-        return classExpressions().filter(OWLEquivalentClassesAxiomImpl::named).map(OWLClassExpression::asOWLClass);
+        return classExpressions().filter(OWLEquivalentClassesAxiomImpl::named)
+            .map(OWLClassExpression::asOWLClass);
     }
 
     @Override

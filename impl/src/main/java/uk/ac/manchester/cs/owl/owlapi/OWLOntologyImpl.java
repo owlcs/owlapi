@@ -36,20 +36,19 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology, Serializable {
+public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology,
+    Serializable {
 
     /**
-     * @param manager
-     *        ontology manager
-     * @param ontologyID
-     *        ontology id
+     * @param manager ontology manager
+     * @param ontologyID ontology id
      */
     @Inject
-    public OWLOntologyImpl(@Assisted OWLOntologyManager manager, @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Assisted OWLOntologyManager manager,
+        @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 
@@ -79,7 +78,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         return new ChangeDetails(appliedChanges, enactedChanges);
     }
 
-    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
+    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>,
+        Serializable {
 
         @Override
         public ChangeApplied visit(RemoveAxiom change) {

@@ -21,13 +21,10 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property type
+ * @param <R> range type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
- * @param <R>
- *        range type
  */
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange> extends
     OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
@@ -35,12 +32,9 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     private final R range;
 
     /**
-     * @param property
-     *        property
-     * @param range
-     *        range
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param range range
+     * @param annotations annotations
      */
     public OWLPropertyRangeAxiomImpl(P property, R range, Collection<OWLAnnotation> annotations) {
         super(property, annotations);

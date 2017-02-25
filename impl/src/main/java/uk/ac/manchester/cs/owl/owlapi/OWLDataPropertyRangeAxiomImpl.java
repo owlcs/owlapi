@@ -23,20 +23,17 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange>
+public class OWLDataPropertyRangeAxiomImpl extends
+    OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange>
     implements OWLDataPropertyRangeAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param range
-     *        range
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param range range
+     * @param annotations annotations
      */
     public OWLDataPropertyRangeAxiomImpl(OWLDataPropertyExpression property, OWLDataRange range,
         Collection<OWLAnnotation> annotations) {

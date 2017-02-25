@@ -16,8 +16,7 @@ import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectInverseOfImpl extends OWLObjectImpl implements OWLObjectInverseOf {
@@ -25,8 +24,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectImpl implements OWLObjectIn
     private final OWLObjectProperty inverseProperty;
 
     /**
-     * @param inverseProperty
-     *        property to invert
+     * @param inverseProperty property to invert
      */
     public OWLObjectInverseOfImpl(OWLObjectProperty inverseProperty) {
         this.inverseProperty = inverseProperty;

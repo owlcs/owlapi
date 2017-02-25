@@ -17,17 +17,14 @@ import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implements SWRLClassAtom {
 
     /**
-     * @param predicate
-     *        predicate
-     * @param arg
-     *        class argument
+     * @param predicate predicate
+     * @param arg class argument
      */
     public SWRLClassAtomImpl(OWLClassExpression predicate, SWRLIArgument arg) {
         super(predicate, arg);

@@ -18,10 +18,8 @@ public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
     private final ReadWriteLock readWriteLock;
 
     /**
-     * @param builder
-     *        ontology builder
-     * @param readWriteLock
-     *        lock
+     * @param builder ontology builder
+     * @param readWriteLock lock
      */
     @Inject
     public ConcurrentOWLOntologyBuilder(@NonConcurrentDelegate OWLOntologyBuilder builder,
