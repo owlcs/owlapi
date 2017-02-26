@@ -1,7 +1,7 @@
 owlapi
 ======
-
-OWL API main repository
+OWL API main repository.
+See also: [https://owlcs.github.io/owlapi/](https://owlcs.github.io/owlapi/).
 
 The OWL API is a Java API for creating, manipulating and serialising OWL Ontologies. 
 
