@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -131,85 +132,31 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class LatexObjectVisitor implements OWLObjectVisitor {
 
     //@formatter:off
-    /**
-     * AND.
-     */
-    public static final String AND = "\\ensuremath{\\sqcap}";
-    /**
-     * OR.
-     */
-    public static final String OR = "\\ensuremath{\\sqcup}";
-    /**
-     * NOT.
-     */
-    public static final String NOT = "\\ensuremath{\\lnot}";
-    /**
-     * ALL.
-     */
-    public static final String ALL = "\\ensuremath{\\forall}";
-    /**
-     * SOME.
-     */
-    public static final String SOME = "\\ensuremath{\\exists}";
-    /**
-     * HASVALUE.
-     */
-    public static final String HASVALUE = "\\ensuremath{hasValue}";
-    /**
-     * MIN.
-     */
-    public static final String MIN = "\\ensuremath{\\geq}";
-    /**
-     * MAX.
-     */
-    public static final String MAX = "\\ensuremath{\\leq}";
-    /**
-     * MINEX.
-     */
-    public static final String MINEX = "\\ensuremath{>}";
-    /**
-     * MAXEX.
-     */
-    public static final String MAXEX = "\\ensuremath{<}";
-    /**
-     * EQUAL.
-     */
-    public static final String EQUAL = "\\ensuremath{=}";
-    /**
-     * SUBCLASS.
-     */
-    public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
-    /**
-     * EQUIV.
-     */
-    public static final String EQUIV = "\\ensuremath{\\equiv}";
-    /**
-     * NOT_EQUIV.
-     */
-    public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
-    /**
-     * TOP.
-     */
-    public static final String TOP = "\\ensuremath{\\top}";
-    /**
-     * BOTTOM.
-     */
-    public static final String BOTTOM = "\\ensuremath{\\bot}";
-    /**
-     * SELF.
-     */
-    public static final String SELF = "\\ensuremath{\\Self}";
-    /**
-     * CIRC.
-     */
-    public static final String CIRC = "\\ensuremath{\\circ}";
-    /**
-     * INVERSE
-     */
-    public static final String INVERSE = "\\ensuremath{^-}";
+
+		/** AND. */           public static final String AND       = "\\ensuremath{\\sqcap}";
+    /** OR. */            public static final String OR        = "\\ensuremath{\\sqcup}";
+    /** NOT. */           public static final String NOT       = "\\ensuremath{\\lnot}";
+    /** ALL. */           public static final String ALL       = "\\ensuremath{\\forall}";
+    /** SOME. */          public static final String SOME      = "\\ensuremath{\\exists}";
+    /** HASVALUE. */      public static final String HASVALUE  = "\\ensuremath{hasValue}";
+    /** MIN. */           public static final String MIN       = "\\ensuremath{\\geq}";
+    /** MAX. */           public static final String MAX       = "\\ensuremath{\\leq}";
+    /** MINEX. */         public static final String MINEX     = "\\ensuremath{>}";
+    /** MAXEX. */         public static final String MAXEX     = "\\ensuremath{<}";
+    /** EQUAL. */         public static final String EQUAL     = "\\ensuremath{=}";
+    /** SUBCLASS. */      public static final String SUBCLASS  = "\\ensuremath{\\sqsubseteq}";
+    /** EQUIV. */         public static final String EQUIV     = "\\ensuremath{\\equiv}";
+    /** NOT_EQUIV. */     public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
+    /** TOP. */           public static final String TOP       = "\\ensuremath{\\top}";
+    /** BOTTOM. */        public static final String BOTTOM    = "\\ensuremath{\\bot}";
+    /** SELF. */          public static final String SELF      = "\\ensuremath{\\Self}";
+    /** CIRC. */          public static final String CIRC      = "\\ensuremath{\\circ}";
+    /** INVERSE */		  public static final String INVERSE   = "\\ensuremath{^-}";
+    //@formatter:on
+
     private final LatexWriter writer;
     private final OWLDataFactory df;
-    //@formatter:on
+
     private OWLObject subject;
     private boolean prettyPrint = true;
     private ShortFormProvider shortFormProvider;
@@ -549,7 +496,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        setPrettyPrint(false);
+    	setPrettyPrint(false);
         axiom.getSubClass().accept(this);
         writeSpace();
         write(SUBCLASS);
@@ -625,7 +572,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext(); ) {
+        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -667,7 +614,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        // DO OTHER AXIOM HERE!
         write("DisjointClasses");
         write("(");
         axiom.classExpressions().forEach(p -> {
@@ -859,7 +805,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext(); ) {
+        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it.hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -906,7 +852,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLVariable node) {
-        node.getIRI().accept(this);
+			node.getIRI().accept(this);
     }
 
     private void writeNested(OWLClassExpression classExpression) {
@@ -1147,6 +1093,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                 writeSpace();
             }
         }
+
         writeCloseBrace();
     }
 
