@@ -852,7 +852,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLVariable node) {
-        write(node.getIRI());
+			node.getIRI().accept(this);
     }
 
     private void writeNested(OWLClassExpression classExpression) {
@@ -875,10 +875,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         if (LatexBracketChecker.requiresBracket(classExpression)) {
             write(")");
         }
-    }
-
-    private static String escapeName(String name) {
-        return name.replace("_", "\\_").replace("#", "\\#");
     }
 
     @Override
