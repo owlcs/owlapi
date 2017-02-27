@@ -21,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -32,8 +31,9 @@ public class DublinCoreTestCase extends TestBase {
     public void testAnnotationProperties() {
         OWLOntology ontology = ontologyFromClasspathFile("dublincore.rdf");
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
-            assertTrue(vocabulary.getIRI().toString(), ontology.containsAnnotationPropertyInSignature(
-                vocabulary.getIRI(), EXCLUDED));
+            assertTrue(vocabulary.getIRI().toString(),
+                ontology.containsAnnotationPropertyInSignature(
+                    vocabulary.getIRI(), EXCLUDED));
         }
     }
 }

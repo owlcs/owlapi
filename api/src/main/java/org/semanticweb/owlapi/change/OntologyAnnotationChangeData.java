@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -24,9 +23,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Represents the specific non-ontology data required by an
  * {@link AddOntologyAnnotation} change. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
@@ -37,9 +35,8 @@ public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData
      * Constructs an {@code OntologyAnnotationChangeData} object that describes
      * an {@link AddOntologyAnnotation} change for the {@link OWLAnnotation}
      * specified by the {@code annotation} parameter.
-     * 
-     * @param annotation
-     *        The {@link OWLAnnotation} that is the focus of some change.
+     *
+     * @param annotation The {@link OWLAnnotation} that is the focus of some change.
      */
     public OntologyAnnotationChangeData(OWLAnnotation annotation) {
         this.annotation = checkNotNull(annotation, "annotation must not be null");
@@ -48,7 +45,7 @@ public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData
     /**
      * Gets the {@link OWLAnnotation} that is the focus of some
      * {@link AddOntologyAnnotation} change.
-     * 
+     *
      * @return The {@link OWLAnnotation}.
      */
     public OWLAnnotation getAnnotation() {

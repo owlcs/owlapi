@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collection;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -20,6 +19,12 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class BOMSafeInputStreamAndParseTestCase extends TestBase {
+
+    private final String input;
+
+    public BOMSafeInputStreamAndParseTestCase(String in) {
+        input = in;
+    }
 
     @Parameters
     public static Collection<String> data() {
@@ -35,12 +40,6 @@ public class BOMSafeInputStreamAndParseTestCase extends TestBase {
                 + "> rdf:type owl:Ontology .\n<http://www.example.org/ISA14#Researcher> rdf:type owl:Class .",
             "<rdf:RDF xml:base=\"" + IRI.getNextDocumentIRI("http://www.example.org/ISA14#o")
                 + "\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\" xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" ><owl:Ontology rdf:about=\"#\" /><owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/></rdf:RDF>");
-    }
-
-    private final String input;
-
-    public BOMSafeInputStreamAndParseTestCase(String in) {
-        input = in;
     }
 
     private static InputStream in(int[] b, String s) throws IOException {
@@ -61,61 +60,66 @@ public class BOMSafeInputStreamAndParseTestCase extends TestBase {
     // EF BB BF |UTF-8
     @Test
     public void testBOMError32big() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0x00, 0x00, 0xFE, 0xFF };
+        int[] b = new int[]{0x00, 0x00, 0xFE, 0xFF};
         m.loadOntologyFromOntologyDocument(in(b, input));
     }
 
     @Test
     public void testBOMError32small() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xFF, 0xFE, 0x00, 0x00 };
+        int[] b = new int[]{0xFF, 0xFE, 0x00, 0x00};
         m.loadOntologyFromOntologyDocument(in(b, input));
     }
 
     @Test
     public void testBOMError16big() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xFF, 0xFE };
+        int[] b = new int[]{0xFF, 0xFE};
         m.loadOntologyFromOntologyDocument(in(b, input));
     }
 
     @Test
     public void testBOMError16small() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xFF, 0xFE };
+        int[] b = new int[]{0xFF, 0xFE};
         m.loadOntologyFromOntologyDocument(in(b, input));
     }
 
     @Test
     public void testBOMError8() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xEF, 0xBB, 0xBF };
+        int[] b = new int[]{0xEF, 0xBB, 0xBF};
         m.loadOntologyFromOntologyDocument(in(b, input));
     }
 
     @Test
     public void testBOMError32bigReader() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0x00, 0x00, 0xFE, 0xFF };
-        m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(new InputStreamReader(in(b, input))));
+        int[] b = new int[]{0x00, 0x00, 0xFE, 0xFF};
+        m.loadOntologyFromOntologyDocument(
+            new ReaderDocumentSource(new InputStreamReader(in(b, input))));
     }
 
     @Test
     public void testBOMError32Reader() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xFF, 0xFE, 0x00, 0x00 };
-        m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(new InputStreamReader(in(b, input))));
+        int[] b = new int[]{0xFF, 0xFE, 0x00, 0x00};
+        m.loadOntologyFromOntologyDocument(
+            new ReaderDocumentSource(new InputStreamReader(in(b, input))));
     }
 
     @Test
     public void testBOMError16Reader() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xFF, 0xFE };
-        m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(new InputStreamReader(in(b, input))));
+        int[] b = new int[]{0xFF, 0xFE};
+        m.loadOntologyFromOntologyDocument(
+            new ReaderDocumentSource(new InputStreamReader(in(b, input))));
     }
 
     @Test
     public void testBOMError16smallReader() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xFF, 0xFE };
-        m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(new InputStreamReader(in(b, input))));
+        int[] b = new int[]{0xFF, 0xFE};
+        m.loadOntologyFromOntologyDocument(
+            new ReaderDocumentSource(new InputStreamReader(in(b, input))));
     }
 
     @Test
     public void testBOMError8Reader() throws OWLOntologyCreationException, IOException {
-        int[] b = new int[] { 0xEF, 0xBB, 0xBF };
-        m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(new InputStreamReader(in(b, input))));
+        int[] b = new int[]{0xEF, 0xBB, 0xBF};
+        m.loadOntologyFromOntologyDocument(
+            new ReaderDocumentSource(new InputStreamReader(in(b, input))));
     }
 }

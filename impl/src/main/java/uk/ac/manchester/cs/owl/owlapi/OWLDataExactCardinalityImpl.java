@@ -13,28 +13,25 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
+public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements
+    OWLDataExactCardinality {
 
     /**
-     * @param property
-     *        property
-     * @param cardinality
-     *        cardinality
-     * @param filler
-     *        filler
+     * @param property property
+     * @param cardinality cardinality
+     * @param filler filler
      */
-    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality,
+        OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 

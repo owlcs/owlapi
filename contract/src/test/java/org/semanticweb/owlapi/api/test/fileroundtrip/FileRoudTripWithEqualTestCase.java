@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.fileroundtrip;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -26,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")

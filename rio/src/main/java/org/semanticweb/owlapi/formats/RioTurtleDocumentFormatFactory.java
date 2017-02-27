@@ -43,7 +43,9 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class RioTurtleDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioTurtleDocumentFormatFactory() {
         super(RDFFormat.TURTLE);
     }

@@ -17,8 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class OWLProfileReport {
 
@@ -26,10 +25,8 @@ public class OWLProfileReport {
     private final List<OWLProfileViolation> violations;
 
     /**
-     * @param profile
-     *        the profile used
-     * @param violations
-     *        the set of violations
+     * @param profile the profile used
+     * @param violations the set of violations
      */
     public OWLProfileReport(OWLProfile profile, Collection<OWLProfileViolation> violations) {
         this.profile = profile;
@@ -64,7 +61,8 @@ public class OWLProfileReport {
         if (isInProfile()) {
             sb.append("[Ontology and imports closure in profile]\n");
         } else {
-            sb.append("Ontology and imports closure NOT in profile. The following violations are present:\n");
+            sb.append(
+                "Ontology and imports closure NOT in profile. The following violations are present:\n");
         }
         violations.forEach(v -> sb.append(v).append('\n'));
         return sb.toString();

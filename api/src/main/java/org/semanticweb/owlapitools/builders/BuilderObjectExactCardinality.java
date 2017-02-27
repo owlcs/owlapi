@@ -15,11 +15,12 @@ package org.semanticweb.owlapitools.builders;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 
-/** Builder class for OWLObjectExactCardinality. */
+/**
+ * Builder class for OWLObjectExactCardinality.
+ */
 public class BuilderObjectExactCardinality extends
     BaseObjectBuilder<OWLObjectExactCardinality, BuilderObjectExactCardinality> implements
     SettableCardinality<BuilderObjectExactCardinality> {
@@ -28,20 +29,18 @@ public class BuilderObjectExactCardinality extends
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderObjectExactCardinality(OWLObjectExactCardinality expected, OWLDataFactory df) {
         this(df);
-        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
+        withCardinality(expected.getCardinality()).withProperty(expected.getProperty())
+            .withRange(expected.getFiller());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderObjectExactCardinality(OWLDataFactory df) {
@@ -61,6 +60,7 @@ public class BuilderObjectExactCardinality extends
 
     @Override
     public OWLObjectExactCardinality buildObject() {
-        return df.getOWLObjectExactCardinality(cardinality, verifyNotNull(getProperty()), getRange());
+        return df
+            .getOWLObjectExactCardinality(cardinality, verifyNotNull(getProperty()), getRange());
     }
 }

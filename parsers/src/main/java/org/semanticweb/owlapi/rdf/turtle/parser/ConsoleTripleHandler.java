@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /*
@@ -46,7 +45,8 @@ class ConsoleTripleHandler implements TripleHandler {
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {
-        System.out.println(String.format(TEMPLATETYPEDLITERAL, subject, predicate, object, datatype));
+        System.out
+            .println(String.format(TEMPLATETYPEDLITERAL, subject, predicate, object, datatype));
     }
 
     @Override

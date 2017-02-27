@@ -6,16 +6,14 @@ import java.util.Optional;
 
 /**
  * Value visitor for EntityType
- * 
+ *
+ * @param <T> type to return
  * @author ignazio
- * @param <T>
- *        type to return
  */
 public interface EntityTypeVisitorEx<T> {
 
     /**
-     * @param entity
-     *        entity to visit
+     * @param entity entity to visit
      * @return return value
      */
     default Optional<T> visit(EntityType<?> entity) {

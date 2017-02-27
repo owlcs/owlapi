@@ -20,15 +20,14 @@ import java.util.stream.Stream;
 /**
  * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Keys">HasKey</a>
  * axiom in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     @Override
-        OWLHasKeyAxiom getAxiomWithoutAnnotations();
+    OWLHasKeyAxiom getAxiomWithoutAnnotations();
 
     @Override
     default Stream<?> components() {
@@ -53,14 +52,14 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
      * for.
-     * 
+     *
      * @return The class expression
      */
     OWLClassExpression getClassExpression();
 
     /**
      * Gets the set of property expressions that form the key.
-     * 
+     *
      * @return The set of property expression that form the key
      * @deprecated use the stream method
      */
@@ -71,7 +70,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     /**
      * Gets the set of property expressions that form the key.
-     * 
+     *
      * @return The set of property expression that form the key
      */
     Stream<OWLPropertyExpression> propertyExpressions();
@@ -82,9 +81,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * expressions in the key. All of the properties returned by this method are
      * included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
-     * 
-     * @return The set of object property expressions in the key described by
-     *         this axiom
+     *
+     * @return The set of object property expressions in the key described by this axiom
      * @deprecated use the stream method
      */
     @Deprecated
@@ -98,9 +96,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * expressions in the key. All of the properties returned by this method are
      * included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
-     * 
-     * @return The set of object property expressions in the key described by
-     *         this axiom
+     *
+     * @return The set of object property expressions in the key described by this axiom
      */
     default Stream<OWLObjectPropertyExpression> objectPropertyExpressions() {
         return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression).map(
@@ -113,9 +110,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * expressions in the key. All of the properties returned by this method are
      * included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
-     * 
-     * @return The set of object property expressions in the key described by
-     *         this axiom
+     *
+     * @return The set of object property expressions in the key described by this axiom
      * @deprecated use the stream method
      */
     @Deprecated
@@ -129,9 +125,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * expressions in the key. All of the properties returned by this method are
      * included in the return value of the
      * {@link OWLHasKeyAxiom#getPropertyExpressions()} method.
-     * 
-     * @return The set of object property expressions in the key described by
-     *         this axiom
+     *
+     * @return The set of object property expressions in the key described by this axiom
      */
     default Stream<OWLDataPropertyExpression> dataPropertyExpressions() {
         return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression).map(

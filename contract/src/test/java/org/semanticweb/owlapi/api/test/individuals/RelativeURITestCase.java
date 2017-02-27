@@ -12,8 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.individuals;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -22,18 +25,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
-import com.google.common.collect.Sets;
-
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 public class RelativeURITestCase extends AxiomsRoundTrippingBase {
 
     public RelativeURITestCase() {
-        super(() -> Sets.newHashSet(Declaration(Class(IRI(IRI.getNextDocumentIRI(uriBase) + "/", "Office")))));
+        super(() -> Sets
+            .newHashSet(Declaration(Class(IRI(IRI.getNextDocumentIRI(uriBase) + "/", "Office")))));
     }
 
     @Test
@@ -46,14 +47,17 @@ public class RelativeURITestCase extends AxiomsRoundTrippingBase {
         // expectedException
         // .expectMessage(" reason is: Illegal character in fragment at index
         // 21: http://example.com/#1#2");
-        String rdfContent = "" + "<rdf:RDF" + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-            + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"" + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\""
-            + "    xmlns=\"http://example.org/rdfxmlparserbug#\""
-            + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">"
-            + "  <owl:Ontology rdf:about=\"http://example.org/rdfxmlparserbug\"/>"
-            + "  <owl:Thing rdf:about=\"http://example.com/#1#2\">"
-            + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>" + "  </owl:Thing>"
-            + "</rdf:RDF>";
+        String rdfContent =
+            "" + "<rdf:RDF" + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
+                + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
+                + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\""
+                + "    xmlns=\"http://example.org/rdfxmlparserbug#\""
+                + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">"
+                + "  <owl:Ontology rdf:about=\"http://example.org/rdfxmlparserbug\"/>"
+                + "  <owl:Thing rdf:about=\"http://example.com/#1#2\">"
+                + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>"
+                + "  </owl:Thing>"
+                + "</rdf:RDF>";
         OWLOntology ontology = getOWLOntology();
         RDFXMLParser parser = new RDFXMLParser();
         parser.parse(new StringDocumentSource(rdfContent), ontology, config);

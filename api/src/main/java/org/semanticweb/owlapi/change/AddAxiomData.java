@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.change;
 
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,9 +21,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Represents the specific non-ontology data required by an {@link AddAxiom}
  * change. <br>
  * Instances of this class are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public class AddAxiomData extends AxiomChangeData {
@@ -32,9 +30,8 @@ public class AddAxiomData extends AxiomChangeData {
     /**
      * Constructs an {@code AddAxiomData} object which specifies the addition of
      * an axiom to "some ontology".
-     * 
-     * @param axiom
-     *        The {@link OWLAxiom} being added.
+     *
+     * @param axiom The {@link OWLAxiom} being added.
      */
     public AddAxiomData(OWLAxiom axiom) {
         super(axiom);

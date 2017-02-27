@@ -15,46 +15,40 @@ package org.semanticweb.owlapi.model.providers;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Provider for OWLLiteral construction. */
+/**
+ * Provider for OWLLiteral construction.
+ */
 public interface LiteralProvider extends DatatypeProvider {
 
     // Literals
+
     /**
      * Gets an {@code OWLLiteral}, which has the specified lexical value, and is
      * typed with the specified datatype.
-     * 
-     * @param lexicalValue
-     *        The lexical value.
-     * @param datatype
-     *        The datatype.
-     * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
-     *         lexical value contains a language tag then the language tag will
-     *         be parsed out of the lexical value. For example,
-     *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
-     *         of "abc" and a language tag of "en".
+     *
+     * @param lexicalValue The lexical value.
+     * @param datatype The datatype.
+     * @return An OWLLiteral with the specified lexical value and specified datatype. If the
+     * datatype is {@code rdf:PlainLiteral}, and the lexical value contains a language tag then the
+     * language tag will be parsed out of the lexical value. For example, "abc@en"^^rdf:PlainLiteral
+     * would be parsed into a lexical value of "abc" and a language tag of "en".
      */
     OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
     /**
      * Gets an {@code OWLLiteral}, which has the specified lexical value, and is
      * typed with the specified datatype.
-     * 
-     * @param lexicalValue
-     *        The lexical value.
-     * @param datatype
-     *        The datatype.
-     * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
-     *         lexical value contains a language tag then the language tag will
-     *         be parsed out of the lexical value. For example,
-     *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
-     *         of "abc" and a language tag of "en".
+     *
+     * @param lexicalValue The lexical value.
+     * @param datatype The datatype.
+     * @return An OWLLiteral with the specified lexical value and specified datatype. If the
+     * datatype is {@code rdf:PlainLiteral}, and the lexical value contains a language tag then the
+     * language tag will be parsed out of the lexical value. For example, "abc@en"^^rdf:PlainLiteral
+     * would be parsed into a lexical value of "abc" and a language tag of "en".
      */
     default OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
         checkNotNull(datatype, "datatype cannot be null");
@@ -63,52 +57,46 @@ public interface LiteralProvider extends DatatypeProvider {
 
     /**
      * Convenience method that obtains a literal typed as an integer.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the integer, and whose data type is xsd:integer.
+     *
+     * @param value The value of the literal
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the integer, and
+     * whose data type is xsd:integer.
      */
     OWLLiteral getOWLLiteral(int value);
 
     /**
      * Convenience method that obtains a literal typed as a double.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the double, and whose data type is xsd:double.
+     *
+     * @param value The value of the literal
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the double, and
+     * whose data type is xsd:double.
      */
     OWLLiteral getOWLLiteral(double value);
 
     /**
      * Convenience method that obtains a literal typed as a boolean.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the boolean, and whose data type is xsd:boolean.
+     *
+     * @param value The value of the literal
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the boolean, and
+     * whose data type is xsd:boolean.
      */
     OWLLiteral getOWLLiteral(boolean value);
 
     /**
      * Convenience method that obtains a literal typed as a float.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the float, and whose data type is xsd:float.
+     *
+     * @param value The value of the literal
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of the float, and
+     * whose data type is xsd:float.
      */
     OWLLiteral getOWLLiteral(float value);
 
     /**
      * Gets a literal that has the specified lexical value, and has the datatype
      * xsd:string. The literal will not have a language tag.
-     * 
-     * @param value
-     *        The lexical value of the literal.
-     * @return A literal (without a language tag) that has a datatype of
-     *         xsd:string.
+     *
+     * @param value The lexical value of the literal.
+     * @return A literal (without a language tag) that has a datatype of xsd:string.
      */
     OWLLiteral getOWLLiteral(String value);
 
@@ -116,21 +104,16 @@ public interface LiteralProvider extends DatatypeProvider {
      * Gets an OWLLiteral with a language tag. The datatype of this literal will
      * have an IRI of rdf:PlainLiteral (
      * {@link org.semanticweb.owlapi.vocab.OWLRDFVocabulary#RDF_PLAIN_LITERAL}).
-     * 
-     * @param literal
-     *        The string literal.
-     * @param lang
-     *        The language tag. The empty string may be specified to indicate an
-     *        empty language tag. Leading and trailing white space will be
-     *        removed from the tag and the tag will be normalised to LOWER CASE.
-     *        If {@code lang} is {@code null} then {@code lang} will be
-     *        converted to the empty string (for backwards compatibility). If
-     *        not empty, the tag is formed according to
-     *        <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
-     *        but the OWL API will not check that the tag conforms to this
-     *        specification - it is up to the caller to ensure this.
-     * @return The OWLLiteral that represents the string literal with a
-     *         (possibly empty) language tag.
+     *
+     * @param literal The string literal.
+     * @param lang The language tag. The empty string may be specified to indicate an empty language
+     * tag. Leading and trailing white space will be removed from the tag and the tag will be
+     * normalised to LOWER CASE. If {@code lang} is {@code null} then {@code lang} will be converted
+     * to the empty string (for backwards compatibility). If not empty, the tag is formed according
+     * to <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a> but the OWL API will not
+     * check that the tag conforms to this specification - it is up to the caller to ensure this.
+     * @return The OWLLiteral that represents the string literal with a (possibly empty) language
+     * tag.
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable String lang);
 }

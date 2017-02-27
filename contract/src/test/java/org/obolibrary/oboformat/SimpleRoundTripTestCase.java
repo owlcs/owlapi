@@ -2,7 +2,6 @@ package org.obolibrary.oboformat;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -18,11 +17,6 @@ public class SimpleRoundTripTestCase extends RoundTripTestBasics {
         file = f;
     }
 
-    @Test
-    public void roundTrip() throws Exception {
-        roundTripOBOFile(file, true);
-    }
-
     @Parameters(name = "{0}")
     public static List<String> getData() {
         return Arrays.asList("roundtrip_cardinality.obo", "caro.obo",
@@ -35,12 +29,17 @@ public class SimpleRoundTripTestCase extends RoundTripTestBasics {
              * slightly modified test file. Idspace tags do not survive the
              * obo2owl translation. They are only directives for the
              * translation.
-             * 
+             *
              * @see TrailingQualifierTest
              */
             "trailing_qualifier_roundtrip.obo", "relationship_vs_property.obo",
             "simplego.obo", "synonym_test.obo", "version_iri_test.obo",
             "xref_escapecolon.obo", "xref_annotation.obo",
             "relation_shorthand_test.obo");
+    }
+
+    @Test
+    public void roundTrip() throws Exception {
+        roundTripOBOFile(file, true);
     }
 }

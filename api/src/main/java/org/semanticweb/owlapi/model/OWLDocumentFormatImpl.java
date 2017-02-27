@@ -16,24 +16,22 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
  * identity).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
-    @Nullable private OWLOntologyLoaderMetaData loaderMetaData = null;
+    @Nullable
+    private OWLOntologyLoaderMetaData loaderMetaData = null;
     private boolean addMissingTypes = true;
 
     @Override

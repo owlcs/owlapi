@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
 @HasPriority(11)
 public class RioRDFXMLParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioRDFXMLParserFactory() {
         super(new RioRDFXMLDocumentFormatFactory());
     }

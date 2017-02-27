@@ -1,12 +1,22 @@
 package org.obolibrary.oboformat;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -15,10 +25,31 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class OboFormatTestBasics extends TestBase {
+
+    protected static String renderOboToString(OBODoc oboDoc) throws IOException {
+        OBOFormatWriter writer = new OBOFormatWriter();
+        writer.setCheckStructure(true);
+        StringWriter out = new StringWriter();
+        writer.write(oboDoc, new PrintWriter(out));
+        return out.getBuffer().toString();
+    }
+
+    protected static OBODoc parseOboToString(String oboString) throws IOException {
+        return new OBOFormatParser().parse(new StringReader(oboString));
+    }
 
     protected OBODoc parseOBOFile(String fn) {
         return parseOBOFile(fn, false);
@@ -135,22 +166,14 @@ public class OboFormatTestBasics extends TestBase {
         return target;
     }
 
-    protected static String renderOboToString(OBODoc oboDoc) throws IOException {
-        OBOFormatWriter writer = new OBOFormatWriter();
-        writer.setCheckStructure(true);
-        StringWriter out = new StringWriter();
-        writer.write(oboDoc, new PrintWriter(out));
-        return out.getBuffer().toString();
-    }
-
-    protected static OBODoc parseOboToString(String oboString) throws IOException {
-        return new OBOFormatParser().parse(new StringReader(oboString));
-    }
-
-    protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
-        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label.equals(
-                ((OWLLiteral) aa.getValue()).getLiteral())).filter(aa -> aa.getSubject().isIRI()).findAny();
+    protected @Nullable
+    IRI getIriByLabel(OWLOntology ontology, String label) {
+        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology
+            .axioms(AxiomType.ANNOTATION_ASSERTION)
+            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label
+                .equals(
+                    ((OWLLiteral) aa.getValue()).getLiteral()))
+            .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }

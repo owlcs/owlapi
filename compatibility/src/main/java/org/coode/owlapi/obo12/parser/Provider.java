@@ -4,10 +4,12 @@ package org.coode.owlapi.obo12.parser;
 
 
 import java.io.IOException;
+
 @SuppressWarnings("all")
 public interface Provider {
+
     int read(char buffer[], int offset, int length) throws IOException;
-    
-     void close() throws IOException;    
+
+    void close() throws IOException;
 }
 /* JavaCC - OriginalChecksum=3d07ef676f02d38a9d7d0eba56fc7bf5 (do not edit this line) */

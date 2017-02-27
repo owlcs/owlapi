@@ -19,9 +19,8 @@ import java.util.stream.Stream;
 
 /**
  * An interface to objects that have a direct set of imports.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
 public interface HasDirectImports {
@@ -31,11 +30,10 @@ public interface HasDirectImports {
      * ontology. This corresponds to the IRIs defined by the
      * directlyImportsDocument association as discussed in Section 3.4 of the
      * OWL 2 Structural specification.
-     * 
+     *
      * @return The set of directlyImportsDocument IRIs.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
+     * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
+     * because it was removed from the manager.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -48,11 +46,10 @@ public interface HasDirectImports {
      * This corresponds to the IRIs defined by the directlyImportsDocument
      * association as discussed in Section 3.4 of the OWL 2 Structural
      * specification.
-     * 
+     *
      * @return The stream of directlyImportsDocument IRIs.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
+     * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
+     * because it was removed from the manager.
      */
     Stream<IRI> directImportsDocuments();
 
@@ -65,13 +62,11 @@ public interface HasDirectImports {
      * {@link #getDirectImportsDocuments()} method. This will be the case if
      * some of the ontologies that are directly imported by this ontology are
      * not loaded for what ever reason.
-     * 
-     * @return A set of ontologies such that for this ontology O, and each
-     *         ontology O' in the set, (O, O') is in the directlyImports
-     *         relation.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
+     *
+     * @return A set of ontologies such that for this ontology O, and each ontology O' in the set,
+     * (O, O') is in the directlyImports relation.
+     * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
+     * because it was removed from the manager.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -88,13 +83,11 @@ public interface HasDirectImports {
      * {@link #getDirectImportsDocuments()} method. This will be the case if
      * some of the ontologies that are directly imported by this ontology are
      * not loaded for what ever reason.
-     * 
-     * @return Stream of ontologies such that for this ontology O, and each
-     *         ontology O' in the set, (O, O') is in the directlyImports
-     *         relation.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
+     *
+     * @return Stream of ontologies such that for this ontology O, and each ontology O' in the set,
+     * (O, O') is in the directlyImports relation.
+     * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
+     * because it was removed from the manager.
      */
     Stream<OWLOntology> directImports();
 }

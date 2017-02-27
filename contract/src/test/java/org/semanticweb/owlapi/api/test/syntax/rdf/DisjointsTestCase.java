@@ -13,12 +13,12 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createClass;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -34,9 +34,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
  * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case
  * ensure that these axioms are serialsed correctly.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")

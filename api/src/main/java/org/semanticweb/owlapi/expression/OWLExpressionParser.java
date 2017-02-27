@@ -17,27 +17,22 @@ import org.semanticweb.owlapi.io.OWLParserException;
 /**
  * A general purpose interface which provides the ability to parse some
  * expression into some kind of object.
- * 
- * @param <O>
- *        the kind of parsed expression
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @param <O> the kind of parsed expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface OWLExpressionParser<O> {
 
     /**
-     * @param entityChecker
-     *        the entity checker to use
+     * @param entityChecker the entity checker to use
      */
     void setOWLEntityChecker(OWLEntityChecker entityChecker);
 
     /**
-     * @param expression
-     *        the expression to parse
+     * @param expression the expression to parse
      * @return the parsed expression
-     * @throws OWLParserException
-     *         parse exception
+     * @throws OWLParserException parse exception
      */
     O parse(String expression);
 }

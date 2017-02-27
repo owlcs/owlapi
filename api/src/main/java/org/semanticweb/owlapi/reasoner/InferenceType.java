@@ -16,17 +16,22 @@ package org.semanticweb.owlapi.reasoner;
  * An enumeration that denotes various types of inference task. Each inference
  * task has a name that is associated with it - reasoners may use these names
  * when reporting progress.
- * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public enum InferenceType {
-    /** Denotes the computation of the class hierarchy. */
+    /**
+     * Denotes the computation of the class hierarchy.
+     */
     CLASS_HIERARCHY("class hierarchy"),
-    /** Denotes the computation of the object property hierarchy. */
+    /**
+     * Denotes the computation of the object property hierarchy.
+     */
     OBJECT_PROPERTY_HIERARCHY("object property hierarchy"),
-    /** Denotes the computation of the data property hierarchy. */
+    /**
+     * Denotes the computation of the data property hierarchy.
+     */
     DATA_PROPERTY_HIERARCHY("data property hierarchy"),
     /**
      * Denotes the computation of the direct types of individuals for each

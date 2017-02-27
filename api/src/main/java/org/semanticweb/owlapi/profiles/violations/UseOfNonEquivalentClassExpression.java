@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,20 +21,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonEquivalentClassExpression extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param classExpression
-     *        classExpression
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param classExpression classExpression
      */
-    public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom,
+        OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 
@@ -57,7 +53,7 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation {
     @Override
     public String toString() {
         return toString(
-                "Use of non-equivalent class expression in position that requires an equivalent class expression: %s",
-                getExpression());
+            "Use of non-equivalent class expression in position that requires an equivalent class expression: %s",
+            getExpression());
     }
 }

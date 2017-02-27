@@ -13,31 +13,30 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 
-/** Builder class for OWLEquivalentDataPropertiesAxiom. */
+/**
+ * Builder class for OWLEquivalentDataPropertiesAxiom.
+ */
 public class BuilderEquivalentDataProperties extends
-        BaseSetBuilder<OWLEquivalentDataPropertiesAxiom, BuilderEquivalentDataProperties, OWLDataPropertyExpression> {
+    BaseSetBuilder<OWLEquivalentDataPropertiesAxiom, BuilderEquivalentDataProperties, OWLDataPropertyExpression> {
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderEquivalentDataProperties(OWLEquivalentDataPropertiesAxiom expected, OWLDataFactory df) {
+    public BuilderEquivalentDataProperties(OWLEquivalentDataPropertiesAxiom expected,
+        OWLDataFactory df) {
         this(df);
         withItems(expected.properties()).withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderEquivalentDataProperties(OWLDataFactory df) {

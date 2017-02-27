@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class OWLObjectTypeIndexProviderTestCase {
 
     Builder b = new Builder();

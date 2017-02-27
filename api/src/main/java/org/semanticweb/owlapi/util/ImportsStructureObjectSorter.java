@@ -13,7 +13,8 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -35,13 +35,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * closure. An example of the use of this class is to obtain a map of ontologies
  * to sets of entities where each set of entities contains entities that are
  * first mentioned in the ontology that maps to them.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.2.0
+ *
+ * @param <O> the type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
- * @param <O>
- *        the type
+ * @since 2.2.0
  */
 public class ImportsStructureObjectSorter<O> {
 
@@ -52,12 +50,10 @@ public class ImportsStructureObjectSorter<O> {
      * Creates a sorter for the specified ontology, whose imports closure is
      * obtained with the specified manager, and for each ontology whose objects
      * are selected using the specified object selector.
-     * 
-     * @param ontology
-     *        The ontology
-     * @param objectSelector
-     *        The selector that will be used to select objects that are
-     *        associated with each ontology.
+     *
+     * @param ontology The ontology
+     * @param objectSelector The selector that will be used to select objects that are associated
+     * with each ontology.
      */
     public ImportsStructureObjectSorter(OWLOntology ontology, ObjectSelector<O> objectSelector) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
@@ -68,7 +64,7 @@ public class ImportsStructureObjectSorter<O> {
      * Gets a map that maps ontologies to sets of associated objects. The
      * ontologies will be the ontologies that are contained in the imports
      * closure of the original specified ontology.
-     * 
+     *
      * @return The map.
      */
     public Map<OWLOntology, Set<O>> getObjects() {
@@ -76,20 +72,19 @@ public class ImportsStructureObjectSorter<O> {
         Collections.reverse(imports);
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<>();
         Set<O> processed = new HashSet<>();
-        imports.forEach(ont -> ontology2EntityMap.put(ont, asSet(objectSelector.objects(ont).filter(processed::add))));
+        imports.forEach(ont -> ontology2EntityMap
+            .put(ont, asSet(objectSelector.objects(ont).filter(processed::add))));
         return ontology2EntityMap;
     }
 
     /**
-     * @param <O>
-     *        type of selected objects
+     * @param <O> type of selected objects
      */
     @FunctionalInterface
     public interface ObjectSelector<O> {
 
         /**
-         * @param ontology
-         *        the ontology to explore
+         * @param ontology the ontology to explore
          * @return set of objects selected
          */
         Stream<O> objects(OWLOntology ontology);

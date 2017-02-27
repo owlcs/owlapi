@@ -16,23 +16,23 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Builder class for SWRLVariable. */
+/**
+ * Builder class for SWRLVariable.
+ */
 public class BuilderSWRLVariable extends BaseBuilder<SWRLVariable, BuilderSWRLVariable> {
 
-    @Nullable private IRI iri;
+    @Nullable
+    private IRI iri;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSWRLVariable(SWRLVariable expected, OWLDataFactory df) {
         this(df);
@@ -40,8 +40,7 @@ public class BuilderSWRLVariable extends BaseBuilder<SWRLVariable, BuilderSWRLVa
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLVariable(OWLDataFactory df) {
@@ -49,8 +48,7 @@ public class BuilderSWRLVariable extends BaseBuilder<SWRLVariable, BuilderSWRLVa
     }
 
     /**
-     * @param arg
-     *        iri
+     * @param arg iri
      * @return builder
      */
     public BuilderSWRLVariable with(IRI arg) {

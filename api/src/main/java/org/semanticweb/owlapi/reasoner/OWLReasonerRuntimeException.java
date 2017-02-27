@@ -13,42 +13,38 @@
 package org.semanticweb.owlapi.reasoner;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLReasonerRuntimeException extends OWLRuntimeException {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLReasonerRuntimeException() {
         super();
     }
 
     /**
-     * @param cause
-     *        error cause
+     * @param cause error cause
      */
     public OWLReasonerRuntimeException(@Nullable Throwable cause) {
         super(cause);
     }
 
     /**
-     * @param message
-     *        error message
+     * @param message error message
      */
     public OWLReasonerRuntimeException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        error message
-     * @param cause
-     *        error cause
+     * @param message error message
+     * @param cause error cause
      */
     public OWLReasonerRuntimeException(String message, Throwable cause) {
         super(message, cause);

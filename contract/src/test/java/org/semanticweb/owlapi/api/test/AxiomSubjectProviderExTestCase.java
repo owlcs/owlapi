@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -26,7 +25,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class AxiomSubjectProviderExTestCase {
 
@@ -67,11 +66,13 @@ public class AxiomSubjectProviderExTestCase {
         map.put(b.subClass(), "<urn:test#c>");
         map.put(b.subData(), "<urn:test#dp>");
         map.put(b.subObject(), "<urn:test#op>");
-        map.put(b.rule(), "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+        map.put(b.rule(),
+            "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.symm(), "<urn:test#op>");
         map.put(b.trans(), "<urn:test#op>");
         map.put(b.hasKey(), "<urn:test#c>");
-        map.put(b.bigRule(), "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+        map.put(b.bigRule(),
+            "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.ann(), "urn:test#iri");
         map.put(b.asymm(), "<urn:test#op>");
         map.put(b.annDom(), "<urn:test#ann>");
@@ -114,7 +115,7 @@ public class AxiomSubjectProviderExTestCase {
         map.put(b.assDi(), "<urn:test#i>");
         map.put(b.dc(), "<urn:test#c>");
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
+        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
         return toReturn;
     }
 

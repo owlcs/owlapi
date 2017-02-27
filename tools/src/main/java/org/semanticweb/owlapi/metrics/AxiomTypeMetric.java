@@ -13,14 +13,12 @@
 package org.semanticweb.owlapi.metrics;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class AxiomTypeMetric extends AxiomCountMetric {
@@ -29,11 +27,9 @@ public class AxiomTypeMetric extends AxiomCountMetric {
 
     /**
      * Instantiates a new axiom type metric.
-     * 
-     * @param o
-     *        ontology to use
-     * @param axiomType
-     *        type of axioms
+     *
+     * @param o ontology to use
+     * @param axiomType type of axioms
      */
     public AxiomTypeMetric(OWLOntology o, AxiomType<?> axiomType) {
         super(o);
@@ -52,7 +48,7 @@ public class AxiomTypeMetric extends AxiomCountMetric {
 
     /**
      * Gets the axiom type.
-     * 
+     *
      * @return axiom type
      */
     public AxiomType<?> getAxiomType() {

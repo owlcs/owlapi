@@ -12,7 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import org.junit.Before;
@@ -25,29 +30,32 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class MoveOntologyTestCase extends TestBase {
 
-    private final static String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#test\"\n"
-        + "     xml:base=\"urn:test#test\"\n" + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-        + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
-        + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
-        + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-        + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-        + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-        + "    <owl:Ontology rdf:about=\"urn:testcopy\"><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology>\n"
-        + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n" + "        <owl:equivalentClass>\n"
-        + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-        + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
-        + "        <rdfs:label >datatype definition</rdfs:label>\n"
-        + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
-        + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n" + "        <owl:annotatedTarget>\n"
-        + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-        + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
+    private final static String s =
+        "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#test\"\n"
+            + "     xml:base=\"urn:test#test\"\n"
+            + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
+            + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
+            + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+            + "    <owl:Ontology rdf:about=\"urn:testcopy\"><owl:imports rdf:resource=\"urn:test#test\"/></owl:Ontology>\n"
+            + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n"
+            + "        <owl:equivalentClass>\n"
+            + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
+            + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
+            + "        <rdfs:label >datatype definition</rdfs:label>\n"
+            + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
+            + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n"
+            + "        <owl:annotatedTarget>\n"
+            + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
+            + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
 
     @Before
     public void setUp() throws OWLOntologyCreationException {

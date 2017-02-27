@@ -12,9 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,24 +29,65 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLProperty;
+import org.semanticweb.owlapi.model.OWLPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Provides ordering and indenting of explanations based on various ordering
  * heuristics.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     private static final AtomicLong RANDOMSTART = new AtomicLong(System.currentTimeMillis());
-    /** The comparator. */
+    /**
+     * The comparator.
+     */
     private static final Comparator<Tree<OWLAxiom>> COMPARATOR = (o1, o2) -> {
         OWLAxiom ax1 = o1.getUserObject();
         OWLAxiom ax2 = o2.getUserObject();
@@ -59,11 +103,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             return diff;
         }
         if (ax1 instanceof OWLSubClassOfAxiom && ax2 instanceof OWLSubClassOfAxiom) {
-            return ((OWLSubClassOfAxiom) ax1).getSuperClass().compareTo(((OWLSubClassOfAxiom) ax2).getSuperClass());
+            return ((OWLSubClassOfAxiom) ax1).getSuperClass()
+                .compareTo(((OWLSubClassOfAxiom) ax2).getSuperClass());
         }
         return 1;
     };
-    /** The properties first comparator. */
+    /**
+     * The properties first comparator.
+     */
     private static final Comparator<OWLObject> PROPERTIESFIRST = (o1, o2) -> {
         if (o1.equals(o2)) {
             return 0;
@@ -76,21 +123,21 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
         return 1;
     };
-    private Set<OWLAxiom> currentExplanation;
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
     private final SeedExtractor seedExtractor = new SeedExtractor();
     private final OWLOntologyManager man;
-    @Nullable private OWLOntology ont;
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
     private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
     private final Set<AxiomType<?>> passTypes = createLinkedSet();
+    private Set<OWLAxiom> currentExplanation;
+    @Nullable
+    private OWLOntology ont;
 
     /**
      * Instantiates a new explanation orderer impl.
-     * 
-     * @param m
-     *        the manager to use
+     *
+     * @param m the manager to use
      */
     public ExplanationOrdererImpl(OWLOntologyManager m) {
         currentExplanation = Collections.emptySet();
@@ -98,6 +145,41 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         // I'm not sure what to do with disjoint classes yet. At the
         // moment, we just shove them at the end at the top level.
         passTypes.add(AxiomType.DISJOINT_CLASSES);
+    }
+
+    private static void sortChildrenAxioms(ExplanationTree tree) {
+        tree.sortChildren(COMPARATOR);
+    }
+
+    /**
+     * A utility method that obtains a set of axioms that are indexed by some
+     * object.
+     *
+     * @param <K> the key type
+     * @param <E> the element type
+     * @param obj The object that indexed the axioms
+     * @param map The map that provides the index structure
+     * @param addIfEmpty A flag that indicates whether an empty set of axiom should be added to the
+     * index if there is not value present for the indexing object.
+     * @return A set of axioms (may be empty)
+     */
+    private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
+        if (addIfEmpty) {
+            return map.computeIfAbsent(obj, x -> CollectionFactory.<E>createLinkedSet());
+        }
+        Set<E> set = map.get(obj);
+        if (set == null) {
+            return createLinkedSet();
+        }
+        return set;
+    }
+
+    private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+        int childCount1 = o1.getChildCount();
+        childCount1 = childCount1 > 0 ? 0 : 1;
+        int childCount2 = o2.getChildCount();
+        childCount2 = childCount2 > 0 ? 0 : 1;
+        return childCount1 - childCount2;
     }
 
     private void reset() {
@@ -136,9 +218,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /**
      * Gets the target axioms.
-     * 
-     * @param target
-     *        the current target
+     *
+     * @param target the current target
      * @return the target axioms
      */
     private Set<OWLAxiom> getTargetAxioms(OWLEntity target) {
@@ -200,10 +281,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         return empty();
     }
 
-    private static void sortChildrenAxioms(ExplanationTree tree) {
-        tree.sortChildren(COMPARATOR);
-    }
-
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
@@ -212,8 +289,9 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             if (ont != null) {
                 man.removeOntology(verifyNotNull(getOntology()));
             }
-            ont = man.createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART
-                .incrementAndGet()));
+            ont = man
+                .createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART
+                    .incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
                 changes.add(new AddAxiom(getOntology(), ax));
@@ -226,41 +304,10 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /**
-     * A utility method that obtains a set of axioms that are indexed by some
-     * object.
-     * 
-     * @param <K>
-     *        the key type
-     * @param <E>
-     *        the element type
-     * @param obj
-     *        The object that indexed the axioms
-     * @param map
-     *        The map that provides the index structure
-     * @param addIfEmpty
-     *        A flag that indicates whether an empty set of axiom should be
-     *        added to the index if there is not value present for the indexing
-     *        object.
-     * @return A set of axioms (may be empty)
-     */
-    private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
-        if (addIfEmpty) {
-            return map.computeIfAbsent(obj, x -> CollectionFactory.<E>createLinkedSet());
-        }
-        Set<E> set = map.get(obj);
-        if (set == null) {
-            return createLinkedSet();
-        }
-        return set;
-    }
-
-    /**
      * Gets axioms that have a LHS corresponding to the specified entity.
-     * 
-     * @param lhs
-     *        The entity that occurs on the left hand side of the axiom.
-     * @return A set of axioms that have the specified entity as their left hand
-     *         side.
+     *
+     * @param lhs The entity that occurs on the left hand side of the axiom.
+     * @return A set of axioms that have the specified entity as their left hand side.
      */
     protected Set<OWLAxiom> getAxiomsForLHS(OWLEntity lhs) {
         return getIndexedSet(lhs, lhs2AxiomMap, true);
@@ -268,9 +315,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /**
      * Gets the rHS entities.
-     * 
-     * @param axiom
-     *        the axiom
+     *
+     * @param axiom the axiom
      * @return the rHS entities
      */
     private Collection<OWLEntity> getRHSEntities(OWLAxiom axiom) {
@@ -279,35 +325,29 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /**
      * Index axioms by rhs entities.
-     * 
-     * @param rhs
-     *        the rhs
-     * @param axiom
-     *        the axiom
+     *
+     * @param rhs the rhs
+     * @param axiom the axiom
      */
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {
         add(getIndexedSet(axiom, entitiesByAxiomRHS, true), rhs.signature());
     }
 
-    private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
-        int childCount1 = o1.getChildCount();
-        childCount1 = childCount1 > 0 ? 0 : 1;
-        int childCount2 = o2.getChildCount();
-        childCount2 = childCount2 > 0 ? 0 : 1;
-        return childCount1 - childCount2;
-    }
-
-    /** The Class SeedExtractor. */
+    /**
+     * The Class SeedExtractor.
+     */
     private static class SeedExtractor implements OWLAxiomVisitor {
 
-        @Nullable private OWLEntity source;
-        @Nullable private OWLEntity target;
+        @Nullable
+        private OWLEntity source;
+        @Nullable
+        private OWLEntity target;
 
-        SeedExtractor() {}
+        SeedExtractor() {
+        }
 
         /**
-         * @param axiom
-         *        the axiom
+         * @param axiom the axiom
          * @return the source
          */
         @Nullable
@@ -317,8 +357,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
 
         /**
-         * @param axiom
-         *        the axiom
+         * @param axiom the axiom
          * @return the target
          */
         public OWLEntity getTarget(OWLAxiom axiom) {
@@ -387,10 +426,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
     }
 
-    /** A visitor that indexes axioms by their left and right hand sides. */
+    /**
+     * A visitor that indexes axioms by their left and right hand sides.
+     */
     private class AxiomMapBuilder implements OWLAxiomVisitor {
 
-        AxiomMapBuilder() {}
+        AxiomMapBuilder() {
+        }
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {

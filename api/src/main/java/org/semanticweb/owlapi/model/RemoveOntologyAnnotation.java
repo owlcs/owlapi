@@ -13,25 +13,21 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
 /**
  * Represents an ontology change where an annotation is removed from an
  * ontology.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class RemoveOntologyAnnotation extends AnnotationChange {
 
     /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param annotation
-     *        the annotation
+     * @param ont the ontology to which the change is to be applied
+     * @param annotation the annotation
      */
     public RemoveOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont, annotation);
@@ -66,13 +62,14 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
             return false;
         }
         RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
-        return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
+        return getAnnotation().equals(other.getAnnotation()) && getOntology()
+            .equals(other.getOntology());
     }
 
     @Override
     public String toString() {
         return String.format("RemoveOntologyAnnotation(%s OntologyID(%s))", getAnnotation(),
-                getOntology().getOntologyID());
+            getOntology().getOntologyID());
     }
 
     @Override

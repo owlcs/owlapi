@@ -18,9 +18,8 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 /**
  * An interface to an object that can provide instances of
  * {@link OWLAnonymousIndividual}.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 5.0.0
  */
 @FunctionalInterface
@@ -29,11 +28,10 @@ public interface AnonymousIndividualByIdProvider {
     /**
      * Gets an {@link OWLAnonymousIndividual} that has a specific {@link NodeID}
      * .
-     * 
-     * @param nodeId
-     *        A String that represents the {@link NodeID} of the generated
-     *        {@link OWLAnonymousIndividual}. Note: {@code nodeId} will be
-     *        prefixed with "_:" if it is not specified with an "_:" prefix.
+     *
+     * @param nodeId A String that represents the {@link NodeID} of the generated {@link
+     * OWLAnonymousIndividual}. Note: {@code nodeId} will be prefixed with "_:" if it is not
+     * specified with an "_:" prefix.
      * @return An instance of {@link OWLAnonymousIndividual}
      */
     OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId);

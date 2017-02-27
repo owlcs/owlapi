@@ -16,15 +16,140 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
+
+    protected final OWLDataFactory df;
+    protected final OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor = new ClassVisitor();
+    protected final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor = new DataVisitor();
+    protected boolean negated;
+    /**
+     * @param datafactory datafactory to use
+     */
+    public NNF(OWLDataFactory datafactory) {
+        df = checkNotNull(datafactory, "dataFactory cannot be null");
+    }
+
+    /**
+     * @return class visitor
+     */
+    public OWLClassExpressionVisitorEx<OWLClassExpression> getClassVisitor() {
+        return classVisitor;
+    }
+
+    /**
+     * reset the negation.
+     */
+    public void reset() {
+        negated = false;
+    }
+
+    @Override
+    public <T> OWLAxiom doDefault(T object) {
+        return (OWLAxiom) object;
+    }
+
+    // Conversion of non-class expressions to NNF
+    @Override
+    public OWLAxiom visit(OWLSubClassOfAxiom axiom) {
+        return df.getOWLSubClassOfAxiom(axiom.getSubClass().accept(classVisitor),
+            axiom.getSuperClass().accept(classVisitor));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
+        return df
+            .getOWLDisjointClassesAxiom(axiom.classExpressions().map(p -> p.accept(classVisitor)));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDataPropertyDomainAxiom axiom) {
+        return df.getOWLDataPropertyDomainAxiom(axiom.getProperty(),
+            axiom.getDomain().accept(classVisitor));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
+        return df.getOWLObjectPropertyDomainAxiom(axiom.getProperty(),
+            axiom.getDomain().accept(classVisitor));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLObjectPropertyRangeAxiom axiom) {
+        return df.getOWLObjectPropertyRangeAxiom(axiom.getProperty(),
+            axiom.getRange().accept(classVisitor));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
+        return df.getOWLDisjointUnionAxiom(axiom.getOWLClass(),
+            asList(axiom.classExpressions().map(p -> p.accept(classVisitor))));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDataPropertyRangeAxiom axiom) {
+        return df.getOWLDataPropertyRangeAxiom(axiom.getProperty(),
+            axiom.getRange().accept(dataVisitor));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
+        if (axiom.getClassExpression().isAnonymous()) {
+            return df.getOWLClassAssertionAxiom(axiom.getClassExpression().accept(classVisitor),
+                axiom.getIndividual());
+        }
+        return axiom;
+    }
+
+    @Override
+    public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
+        return df.getOWLEquivalentClassesAxiom(
+            axiom.classExpressions().map(p -> p.accept(classVisitor)));
+    }
 
     class DataVisitor implements OWLDataRangeVisitorEx<OWLDataRange> {
 
@@ -287,86 +412,5 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
             }
             return df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
         }
-    }
-
-    protected boolean negated;
-    protected final OWLDataFactory df;
-    protected final OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor = new ClassVisitor();
-    protected final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor = new DataVisitor();
-
-    /**
-     * @param datafactory
-     *        datafactory to use
-     */
-    public NNF(OWLDataFactory datafactory) {
-        df = checkNotNull(datafactory, "dataFactory cannot be null");
-    }
-
-    /**
-     * @return class visitor
-     */
-    public OWLClassExpressionVisitorEx<OWLClassExpression> getClassVisitor() {
-        return classVisitor;
-    }
-
-    /** reset the negation. */
-    public void reset() {
-        negated = false;
-    }
-
-    @Override
-    public <T> OWLAxiom doDefault(T object) {
-        return (OWLAxiom) object;
-    }
-
-    // Conversion of non-class expressions to NNF
-    @Override
-    public OWLAxiom visit(OWLSubClassOfAxiom axiom) {
-        return df.getOWLSubClassOfAxiom(axiom.getSubClass().accept(classVisitor),
-            axiom.getSuperClass().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
-        return df.getOWLDisjointClassesAxiom(axiom.classExpressions().map(p -> p.accept(classVisitor)));
-    }
-
-    @Override
-    public OWLAxiom visit(OWLDataPropertyDomainAxiom axiom) {
-        return df.getOWLDataPropertyDomainAxiom(axiom.getProperty(), axiom.getDomain().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
-        return df.getOWLObjectPropertyDomainAxiom(axiom.getProperty(), axiom.getDomain().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(OWLObjectPropertyRangeAxiom axiom) {
-        return df.getOWLObjectPropertyRangeAxiom(axiom.getProperty(), axiom.getRange().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
-        return df.getOWLDisjointUnionAxiom(axiom.getOWLClass(),
-            asList(axiom.classExpressions().map(p -> p.accept(classVisitor))));
-    }
-
-    @Override
-    public OWLAxiom visit(OWLDataPropertyRangeAxiom axiom) {
-        return df.getOWLDataPropertyRangeAxiom(axiom.getProperty(), axiom.getRange().accept(dataVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
-        if (axiom.getClassExpression().isAnonymous()) {
-            return df.getOWLClassAssertionAxiom(axiom.getClassExpression().accept(classVisitor), axiom.getIndividual());
-        }
-        return axiom;
-    }
-
-    @Override
-    public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
-        return df.getOWLEquivalentClassesAxiom(axiom.classExpressions().map(p -> p.accept(classVisitor)));
     }
 }

@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectPropertyImpl extends OWLObjectImpl implements OWLObjectProperty {
@@ -30,8 +29,7 @@ public class OWLObjectPropertyImpl extends OWLObjectImpl implements OWLObjectPro
     private final boolean builtin;
 
     /**
-     * @param iri
-     *        property iri
+     * @param iri property iri
      */
     public OWLObjectPropertyImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");

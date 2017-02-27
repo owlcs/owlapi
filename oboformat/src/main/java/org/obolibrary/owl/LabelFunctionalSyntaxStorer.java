@@ -5,10 +5,8 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
@@ -24,7 +22,9 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
 
-/** Implement the writer for {@link LabelFunctionalDocumentFormat}. */
+/**
+ * Implement the writer for {@link LabelFunctionalDocumentFormat}.
+ */
 @ParametersAreNonnullByDefault
 public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
@@ -37,7 +37,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
     protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         try {
-            FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology, writer);
+            FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology,
+                writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();
@@ -64,7 +65,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         @Override
         @Nullable
         public String getPrefixIRI(IRI iri) {
-            for (OWLAnnotationAssertionAxiom annotation : asList(ontology.annotationAssertionAxioms(iri))) {
+            for (OWLAnnotationAssertionAxiom annotation : asList(
+                ontology.annotationAssertionAxioms(iri))) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
                     if (value instanceof OWLLiteral) {
@@ -79,6 +81,12 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         @Nullable
         public String getDefaultPrefix() {
             return delegate.getDefaultPrefix();
+        }
+
+        @Override
+        public void setDefaultPrefix(@Nullable String defaultPrefix) {
+            // do not propagate changes to the original manager
+            // there should be no changes during rendering anyway
         }
 
         @Override
@@ -115,12 +123,6 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         @Override
         public void setPrefixComparator(StringComparator comparator) {
             delegate.setPrefixComparator(comparator);
-        }
-
-        @Override
-        public void setDefaultPrefix(@Nullable String defaultPrefix) {
-            // do not propagate changes to the original manager
-            // there should be no changes during rendering anyway
         }
 
         @Override

@@ -18,14 +18,12 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
@@ -33,8 +31,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     protected final List<OWLAnnotation> annotations;
 
     /**
-     * @param annotations
-     *        annotations on the axiom
+     * @param annotations annotations on the axiom
      */
     public OWLAxiomImpl(Collection<OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
@@ -54,9 +51,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     /**
      * A convenience method for implementation that returns a set containing the
      * annotations on this axiom plus the annotations in the specified set.
-     * 
-     * @param annos
-     *        The annotations to add to the annotations on this axiom
+     *
+     * @param annos The annotations to add to the annotations on this axiom
      * @return The annotations
      */
     protected Collection<OWLAnnotation> mergeAnnos(Stream<OWLAnnotation> annos) {

@@ -13,23 +13,19 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 
 /**
  * Represents an ontology change where an annotation is added to an ontology.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class AddOntologyAnnotation extends AnnotationChange {
 
     /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param annotation
-     *        the annotation
+     * @param ont the ontology to which the change is to be applied
+     * @param annotation the annotation
      */
     public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont, annotation);
@@ -64,12 +60,14 @@ public class AddOntologyAnnotation extends AnnotationChange {
             return false;
         }
         AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
-        return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
+        return getAnnotation().equals(other.getAnnotation()) && getOntology()
+            .equals(other.getOntology());
     }
 
     @Override
     public String toString() {
-        return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID(" + getOntology().getOntologyID() + "))";
+        return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID(" + getOntology()
+            .getOntologyID() + "))";
     }
 
     @Override

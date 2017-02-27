@@ -14,13 +14,15 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Filters.subAnnotationWithSuper;
-import static org.semanticweb.owlapi.search.Searcher.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.search.Searcher.sub;
+import static org.semanticweb.owlapi.search.Searcher.sup;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -29,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.search.Filters;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")

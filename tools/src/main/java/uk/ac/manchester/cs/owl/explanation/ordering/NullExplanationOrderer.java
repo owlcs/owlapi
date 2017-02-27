@@ -13,15 +13,13 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * An implementation of an explanation order, which doesn't really do any
  * ordering!.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class NullExplanationOrderer implements ExplanationOrderer {

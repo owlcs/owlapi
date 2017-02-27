@@ -21,9 +21,8 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals" >
  * DataOneOf</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLDataOneOf extends OWLDataRange {
@@ -50,7 +49,7 @@ public interface OWLDataOneOf extends OWLDataRange {
 
     /**
      * Gets the values ({@link OWLLiteral}s) that this data range consists of.
-     * 
+     *
      * @return The values that this data range consists of.
      * @deprecated use the stream method
      */
@@ -61,7 +60,7 @@ public interface OWLDataOneOf extends OWLDataRange {
 
     /**
      * Gets the values ({@link OWLLiteral}s) that this data range consists of.
-     * 
+     *
      * @return The values that this data range consists of.
      */
     Stream<OWLLiteral> values();

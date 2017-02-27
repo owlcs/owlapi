@@ -20,14 +20,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
@@ -35,16 +33,15 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     protected final List<OWLClassExpression> classExpressions;
 
     /**
-     * @param classExpressions
-     *        classes
-     * @param annotations
-     *        annotations
+     * @param classExpressions classes
+     * @param annotations annotations
      */
     public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(classExpressions, "classExpressions cannot be null");
-        this.classExpressions = sortOptionally(classExpressions.stream().distinct(), OWLClassExpression.class);
+        this.classExpressions = sortOptionally(classExpressions.stream().distinct(),
+            OWLClassExpression.class);
     }
 
     @Override

@@ -18,9 +18,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -32,23 +30,24 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 /**
  * A bidirectional short form provider which uses a specified short form
  * provider to generate the bidirectional entity--shortform mappings.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalShortFormProvider {
 
+    @Nullable
+    protected final Collection<OWLOntology> ontologies;
     private final ShortFormProvider shortFormProvider;
-    @Nullable protected final Collection<OWLOntology> ontologies;
-    @Nullable private OWLOntologyManager man;
+    @Nullable
+    private OWLOntologyManager man;
 
     /**
-     * @param shortFormProvider
-     *        the short form provider to use
+     * @param shortFormProvider the short form provider to use
      */
     public BidirectionalShortFormProviderAdapter(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+            "shortFormProvider cannot be null");
         ontologies = null;
     }
 
@@ -56,17 +55,15 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      * Creates a BidirectionalShortFormProvider that maps between the entities
      * that are referenced in the specified ontologies and the short forms of
      * these entities.
-     * 
-     * @param ontologies
-     *        The ontologies that contain references to the entities to be
-     *        mapped.
-     * @param shortFormProvider
-     *        The short form provider that should be used to generate the short
-     *        forms of the referenced entities.
+     *
+     * @param ontologies The ontologies that contain references to the entities to be mapped.
+     * @param shortFormProvider The short form provider that should be used to generate the short
+     * forms of the referenced entities.
      */
     public BidirectionalShortFormProviderAdapter(Collection<OWLOntology> ontologies,
         ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+            "shortFormProvider cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         rebuild(ontologies.stream().flatMap(OWLOntology::signature));
     }
@@ -77,20 +74,16 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      * these entities. Note that the {@code dispose} method must be called when
      * the provider has been finished with so that the provider may remove
      * itself as a listener from the manager.
-     * 
-     * @param ontologies
-     *        The ontologies that contain references to the entities to be
-     *        mapped.
-     * @param shortFormProvider
-     *        The short form provider that should be used to generate the short
-     *        forms of the referenced entities.
-     * @param man
-     *        This short form provider will track changes to ontologies. The
-     *        provider will listen for ontology changes and update the cache of
-     *        entity--shortform mappings based on whether the specified
-     *        ontologies contain references to entities or not.
+     *
+     * @param ontologies The ontologies that contain references to the entities to be mapped.
+     * @param shortFormProvider The short form provider that should be used to generate the short
+     * forms of the referenced entities.
+     * @param man This short form provider will track changes to ontologies. The provider will
+     * listen for ontology changes and update the cache of entity--shortform mappings based on
+     * whether the specified ontologies contain references to entities or not.
      */
-    public BidirectionalShortFormProviderAdapter(OWLOntologyManager man, Collection<OWLOntology> ontologies,
+    public BidirectionalShortFormProviderAdapter(OWLOntologyManager man,
+        Collection<OWLOntology> ontologies,
         ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
         this.man = checkNotNull(man, "man cannot be null");
@@ -129,7 +122,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
                     public void visit(RemoveAxiom change) {
                         change.signature().filter(processed::add).filter(
                             BidirectionalShortFormProviderAdapter.this::noLongerReferenced).forEach(
-                                BidirectionalShortFormProviderAdapter.this::remove);
+                            BidirectionalShortFormProviderAdapter.this::remove);
                     }
                 };
                 chg.accept(v);

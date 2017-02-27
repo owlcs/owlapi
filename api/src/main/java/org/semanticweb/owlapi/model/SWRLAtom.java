@@ -21,23 +21,22 @@ import java.util.stream.Stream;
  * Represents an atom in a rule. Atoms can either be in the head (concequent) or
  * body (antecedent) of the rule. Atoms hold objects which are either data
  * objects or individual objects.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLAtom extends SWRLObject {
 
     /**
      * Gets the predicate of this atom.
-     * 
+     *
      * @return The atom predicate
      */
     SWRLPredicate getPredicate();
 
     /**
      * Gets all of the arguments in this atom.
-     * 
+     *
      * @return The collection of arguments in this atom
      * @deprecated use the stream method
      */
@@ -48,7 +47,7 @@ public interface SWRLAtom extends SWRLObject {
 
     /**
      * Gets all of the arguments in this atom.
-     * 
+     *
      * @return The collection of arguments in this atom
      */
     public Stream<SWRLArgument> allArguments();

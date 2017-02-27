@@ -18,31 +18,31 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxTokenizer {
 
-    /** EOF. */
+    /**
+     * EOF.
+     */
     public static final String EOFTOKEN = "|EOF|";
+    private static final char ESCAPE_CHAR = '\\';
     protected final Set<Character> skip = new HashSet<>();
     protected final Set<Character> commentDelimiters = new HashSet<>();
     protected final Set<Character> delims = new HashSet<>();
     private final String buffer;
-    private int pos;
-    private int col;
-    private int row;
     int startPos = 0;
     int startCol = 1;
     int startRow = 1;
     List<Token> tokens = new ArrayList<>();
+    private int pos;
+    private int col;
+    private int row;
     private StringBuilder sb = new StringBuilder();
-    private static final char ESCAPE_CHAR = '\\';
 
     /**
-     * @param buffer
-     *        buffer
+     * @param buffer buffer
      */
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
@@ -68,8 +68,7 @@ public class ManchesterOWLSyntaxTokenizer {
     }
 
     /**
-     * @param s
-     *        string to check
+     * @param s string to check
      * @return true if EOF
      */
     public static boolean eof(String s) {
@@ -220,7 +219,9 @@ public class ManchesterOWLSyntaxTokenizer {
         return ch;
     }
 
-    /** Token. */
+    /**
+     * Token.
+     */
     public static class Token {
 
         private final String currentToken;
@@ -229,14 +230,10 @@ public class ManchesterOWLSyntaxTokenizer {
         private final int row;
 
         /**
-         * @param token
-         *        token
-         * @param pos
-         *        pos
-         * @param col
-         *        col
-         * @param row
-         *        row
+         * @param token token
+         * @param pos pos
+         * @param col col
+         * @param row row
          */
         public Token(String token, int pos, int col, int row) {
             currentToken = token;

@@ -15,36 +15,58 @@ package org.semanticweb.owlapi.search;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.HasObject;
+import org.semanticweb.owlapi.model.HasProperty;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
  * A collection of static search utilities.
- * 
+ *
  * @author ignazio
  */
 public final class Searcher {
 
-    private Searcher() {}
+    private Searcher() {
+    }
 
     private static boolean filter(@Nullable OWLPropertyExpression p, HasProperty<?> ax) {
         return p == null || ax.getProperty().equals(p);
     }
 
     private static <T extends OWLPropertyAssertionObject> Stream<T> filterValues(
-        Stream<? extends OWLPropertyAssertionAxiom<?, T>> stream, @Nullable OWLPropertyExpression p) {
+        Stream<? extends OWLPropertyAssertionAxiom<?, T>> stream,
+        @Nullable OWLPropertyExpression p) {
         return stream.filter(ax -> filter(p, ax)).map(HasObject::getObject).distinct();
     }
 
     /**
      * Retrieve literals from a collection of assertions.
-     * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     *
+     * @param axioms axioms
+     * @param p optional property to match. Null means all.
      * @return literals
      */
     public static Stream<OWLLiteral> values(Stream<OWLDataPropertyAssertionAxiom> axioms,
@@ -54,11 +76,9 @@ public final class Searcher {
 
     /**
      * Retrieve objects from a collection of assertions.
-     * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     *
+     * @param axioms axioms
+     * @param p optional property to match. Null means all.
      * @return objects
      */
     public static Stream<OWLIndividual> values(Stream<OWLObjectPropertyAssertionAxiom> axioms,
@@ -68,11 +88,9 @@ public final class Searcher {
 
     /**
      * Retrieve literals from a collection of negative assertions.
-     * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     *
+     * @param axioms axioms
+     * @param p optional property to match. Null means all.
      * @return literals
      */
     public static Stream<OWLLiteral> negValues(Stream<OWLNegativeDataPropertyAssertionAxiom> axioms,
@@ -82,23 +100,21 @@ public final class Searcher {
 
     /**
      * Retrieve objects from a collection of negative assertions.
-     * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional property to match. Null means all.
+     *
+     * @param axioms axioms
+     * @param p optional property to match. Null means all.
      * @return objects
      */
-    public static Stream<OWLIndividual> negValues(Stream<OWLNegativeObjectPropertyAssertionAxiom> axioms,
+    public static Stream<OWLIndividual> negValues(
+        Stream<OWLNegativeObjectPropertyAssertionAxiom> axioms,
         @Nullable OWLObjectPropertyExpression p) {
         return filterValues(axioms, p);
     }
 
     /**
      * Retrieve classes from class assertions.
-     * 
-     * @param axioms
-     *        axioms
+     *
+     * @param axioms axioms
      * @return classes
      */
     public static Stream<OWLClassExpression> types(Stream<OWLClassAssertionAxiom> axioms) {
@@ -107,9 +123,8 @@ public final class Searcher {
 
     /**
      * Retrieve individuals from class assertions.
-     * 
-     * @param axioms
-     *        axioms
+     *
+     * @param axioms axioms
      * @return individuals
      */
     public static Stream<OWLIndividual> instances(Stream<OWLClassAssertionAxiom> axioms) {
@@ -118,14 +133,13 @@ public final class Searcher {
 
     /**
      * Retrieve inverses from a collection of inverse axioms.
-     * 
-     * @param axioms
-     *        axioms to check
-     * @param p
-     *        property to match; not returned in the set
+     *
+     * @param axioms axioms to check
+     * @param p property to match; not returned in the set
      * @return inverses of p
      */
-    public static Stream<OWLObjectPropertyExpression> inverse(Stream<OWLInverseObjectPropertiesAxiom> axioms,
+    public static Stream<OWLObjectPropertyExpression> inverse(
+        Stream<OWLInverseObjectPropertiesAxiom> axioms,
         OWLObjectPropertyExpression p) {
         return axioms.map(ax -> getInverse(p, ax));
     }
@@ -141,9 +155,8 @@ public final class Searcher {
 
     /**
      * Retrieve annotation values from annotations.
-     * 
-     * @param annotations
-     *        annotations
+     *
+     * @param annotations annotations
      * @return annotation values
      */
     public static Stream<OWLAnnotationValue> values(Stream<OWLAnnotation> annotations) {
@@ -152,11 +165,9 @@ public final class Searcher {
 
     /**
      * Retrieve annotation values from annotations.
-     * 
-     * @param annotations
-     *        annotations
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     *
+     * @param annotations annotations
+     * @param p optional annotation property to filter. Null means all.
      * @return annotation values
      */
     public static Stream<OWLAnnotationValue> values(Stream<OWLAnnotation> annotations,
@@ -168,9 +179,8 @@ public final class Searcher {
      * Retrieve annotations from a collection of axioms. For regular axioms,
      * their annotations are retrieved; for annotation assertion axioms, their
      * asserted annotation is retrieved as well.
-     * 
-     * @param axioms
-     *        axioms
+     *
+     * @param axioms axioms
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotations(Stream<? extends OWLAxiom> axioms) {
@@ -179,25 +189,22 @@ public final class Searcher {
 
     /**
      * Retrieve annotations from a collection of annotation assertion axioms.
-     * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     *
+     * @param axioms axioms
+     * @param p optional annotation property to filter. Null means all.
      * @return annotations
      */
-    public static Stream<OWLAnnotation> annotationObjects(Stream<OWLAnnotationAssertionAxiom> axioms,
+    public static Stream<OWLAnnotation> annotationObjects(
+        Stream<OWLAnnotationAssertionAxiom> axioms,
         @Nullable OWLAnnotationProperty p) {
         return axioms.flatMap(ax -> annotationObject(ax, p)).distinct();
     }
 
     /**
      * Retrieve the annotation from an annotation assertion axiom.
-     * 
-     * @param axiom
-     *        axiom
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     *
+     * @param axiom axiom
+     * @param p optional annotation property to filter. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotationObject(OWLAnnotationAssertionAxiom axiom,
@@ -212,12 +219,12 @@ public final class Searcher {
      * Retrieve annotations from a collection of annotation assertion axioms.
      * This is limited to the annotation object and excludes annotations on the
      * axiom itself.
-     * 
-     * @param axioms
-     *        axioms
+     *
+     * @param axioms axioms
      * @return annotations
      */
-    public static Stream<OWLAnnotation> annotationObjects(Stream<OWLAnnotationAssertionAxiom> axioms) {
+    public static Stream<OWLAnnotation> annotationObjects(
+        Stream<OWLAnnotationAssertionAxiom> axioms) {
         return axioms.map(OWLAnnotationAssertionAxiom::getAnnotation).distinct();
     }
 
@@ -225,11 +232,9 @@ public final class Searcher {
      * Retrieve annotations from a collection of axioms. For regular axioms,
      * their annotations are retrieved; for annotation assertion axioms, their
      * asserted annotation is retrieved as well.
-     * 
-     * @param axioms
-     *        axioms
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     *
+     * @param axioms axioms
+     * @param p optional annotation property to filter. Null means all.
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotations(Stream<? extends OWLAxiom> axioms,
@@ -241,15 +246,14 @@ public final class Searcher {
      * Retrieve annotations from an axiom. For regular axioms, their annotations
      * are retrieved; for annotation assertion axioms, their asserted annotation
      * is retrieved as well.
-     * 
-     * @param axiom
-     *        axiom
-     * @param p
-     *        optional annotation property to filter. Null means all.
+     *
+     * @param axiom axiom
+     * @param p optional annotation property to filter. Null means all.
      * @return annotations
      */
     @SuppressWarnings("resource")
-    public static Stream<OWLAnnotation> annotations(OWLAxiom axiom, @Nullable OWLAnnotationProperty p) {
+    public static Stream<OWLAnnotation> annotations(OWLAxiom axiom,
+        @Nullable OWLAnnotationProperty p) {
         Stream<OWLAnnotation> stream = empty();
         if (axiom instanceof OWLAnnotationAssertionAxiom) {
             stream = Stream.of(((OWLAnnotationAssertionAxiom) axiom).getAnnotation());
@@ -266,11 +270,9 @@ public final class Searcher {
      * sameAs axioms. A mixture of axiom types can be passed in, as long as the
      * entity type they contain is compatible with the return type for the
      * collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     *
+     * @param <C> returned type
+     * @param axioms axioms
      * @return equivalent entities
      */
     @SuppressWarnings("unchecked")
@@ -283,27 +285,23 @@ public final class Searcher {
      * sameAs axioms. A mixture of axiom types can be passed in, as long as the
      * entity type they contain is compatible with the return type for the
      * collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     *
+     * @param <C> returned type
+     * @param axioms axioms
+     * @param type type contained in the returned collection
      * @return equivalent entities
      */
-    public static <C extends OWLObject> Stream<C> equivalent(Stream<? extends OWLAxiom> axioms, Class<C> type) {
+    public static <C extends OWLObject> Stream<C> equivalent(Stream<? extends OWLAxiom> axioms,
+        Class<C> type) {
         return axioms.flatMap(ax -> equivalent(ax, type));
     }
 
     /**
      * Retrieve equivalent entities from an axiom, including individuals from
      * sameAs axioms.
-     * 
-     * @param axiom
-     *        axiom
-     * @param <C>
-     *        type contained in the returned collection
+     *
+     * @param axiom axiom
+     * @param <C> type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom) {
@@ -313,13 +311,10 @@ public final class Searcher {
     /**
      * Retrieve equivalent entities from an axiom, including individuals from
      * sameAs axioms.
-     * 
-     * @param axiom
-     *        axiom
-     * @param type
-     *        type returned
-     * @param <C>
-     *        type contained in the returned collection
+     *
+     * @param axiom axiom
+     * @param type type returned
+     * @param <C> type contained in the returned collection
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom,
@@ -332,11 +327,9 @@ public final class Searcher {
      * differentFrom axioms. A mixture of axiom types can be passed in, as long
      * as the entity type they contain is compatible with the return type for
      * the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     *
+     * @param <C> returned type
+     * @param axioms axioms
      * @return disjoint entities
      */
     @SuppressWarnings("unchecked")
@@ -349,27 +342,23 @@ public final class Searcher {
      * differentFrom axioms. A mixture of axiom types can be passed in, as long
      * as the entity type they contain is compatible with the return type for
      * the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     *
+     * @param <C> returned type
+     * @param axioms axioms
+     * @param type type contained in the returned collection
      * @return disjoint entities
      */
-    public static <C extends OWLObject> Stream<C> different(Stream<? extends OWLAxiom> axioms, Class<C> type) {
+    public static <C extends OWLObject> Stream<C> different(Stream<? extends OWLAxiom> axioms,
+        Class<C> type) {
         return axioms.flatMap(ax -> different(ax, type));
     }
 
     /**
      * Retrieve disjoint entities from an axiom, including individuals from
      * differentFrom axioms.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     *
+     * @param <C> returned type
+     * @param axiom axiom
      * @return disjoint entities
      */
     public static <C extends OWLObject> Stream<C> different(OWLAxiom axiom) {
@@ -379,16 +368,14 @@ public final class Searcher {
     /**
      * Retrieve disjoint entities from an axiom, including individuals from
      * differentFrom axioms.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
-     * @param type
-     *        witness for returned type
+     *
+     * @param <C> returned type
+     * @param axiom axiom
+     * @param type witness for returned type
      * @return disjoint entities
      */
-    public static <C extends OWLObject> Stream<C> different(OWLAxiom axiom, @SuppressWarnings("unused") Class<C> type) {
+    public static <C extends OWLObject> Stream<C> different(OWLAxiom axiom,
+        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(false));
     }
 
@@ -396,11 +383,9 @@ public final class Searcher {
      * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture
      * of axiom types can be passed in, as long as the entity type they contain
      * is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     *
+     * @param <C> returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @SuppressWarnings("unchecked")
@@ -412,16 +397,14 @@ public final class Searcher {
      * Retrieve the sub part of axioms, i.e., subclass or subproperty. A mixture
      * of axiom types can be passed in, as long as the entity type they contain
      * is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     *
+     * @param <C> returned type
+     * @param axioms axioms
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
-    public static <C extends OWLObject> Stream<C> sub(Stream<? extends OWLAxiom> axioms, Class<C> type) {
+    public static <C extends OWLObject> Stream<C> sub(Stream<? extends OWLAxiom> axioms,
+        Class<C> type) {
         return axioms.map(ax -> sub(ax, type));
     }
 
@@ -429,11 +412,9 @@ public final class Searcher {
      * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     *
+     * @param <C> returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     public static <C extends OWLObject> C sub(OWLAxiom axiom) {
@@ -444,16 +425,14 @@ public final class Searcher {
      * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
-     * @param type
-     *        witness for returned type
+     *
+     * @param <C> returned type
+     * @param axiom axiom
+     * @param type witness for returned type
      * @return sub expressions
      */
-    public static <C extends OWLObject> C sub(OWLAxiom axiom, @SuppressWarnings("unused") Class<C> type) {
+    public static <C extends OWLObject> C sub(OWLAxiom axiom,
+        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new SupSubVisitor<C>(false));
     }
 
@@ -461,16 +440,14 @@ public final class Searcher {
      * Retrieve the super part of axioms, i.e., superclass or superproperty. A
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     *
+     * @param <C> returned type
+     * @param axioms axioms
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
-    public static <C extends OWLObject> Stream<C> sup(Stream<? extends OWLAxiom> axioms, Class<C> type) {
+    public static <C extends OWLObject> Stream<C> sup(Stream<? extends OWLAxiom> axioms,
+        Class<C> type) {
         return axioms.map(ax -> sup(ax, type));
     }
 
@@ -478,11 +455,9 @@ public final class Searcher {
      * Retrieve the super part of axioms, i.e., superclass or superproperty. A
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     *
+     * @param <C> returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @SuppressWarnings("unchecked")
@@ -494,11 +469,9 @@ public final class Searcher {
      * Retrieve the super part of an axiom, i.e., superclass or superproperty. A
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     *
+     * @param <C> returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     public static <C extends OWLObject> C sup(OWLAxiom axiom) {
@@ -509,27 +482,23 @@ public final class Searcher {
      * Retrieve the super part of an axiom, i.e., superclass or superproperty. A
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
-     * @param type
-     *        witness for returned type
+     *
+     * @param <C> returned type
+     * @param axiom axiom
+     * @param type witness for returned type
      * @return sub expressions
      */
-    public static <C extends OWLObject> C sup(OWLAxiom axiom, @SuppressWarnings("unused") Class<C> type) {
+    public static <C extends OWLObject> C sup(OWLAxiom axiom,
+        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new SupSubVisitor<C>(true));
     }
 
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     *
+     * @param <C> returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @SuppressWarnings("unchecked")
@@ -540,27 +509,23 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     *
+     * @param <C> returned type
+     * @param axioms axioms
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
-    public static <C extends OWLObject> Stream<C> domain(Stream<? extends OWLAxiom> axioms, Class<C> type) {
+    public static <C extends OWLObject> Stream<C> domain(Stream<? extends OWLAxiom> axioms,
+        Class<C> type) {
         return axioms.map(ax -> domain(ax, type));
     }
 
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     *
+     * @param <C> returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     public static <C extends OWLObject> C domain(OWLAxiom axiom) {
@@ -570,27 +535,23 @@ public final class Searcher {
     /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
-     * @param type
-     *        witness for returned type
+     *
+     * @param <C> returned type
+     * @param axiom axiom
+     * @param type witness for returned type
      * @return sub expressions
      */
-    public static <C extends OWLObject> C domain(OWLAxiom axiom, @SuppressWarnings("unused") Class<C> type) {
+    public static <C extends OWLObject> C domain(OWLAxiom axiom,
+        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new DomainVisitor<C>());
     }
 
     /**
      * Retrieve the ranges from range axioms. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
+     *
+     * @param <C> returned type
+     * @param axioms axioms
      * @return sub expressions
      */
     @SuppressWarnings("unchecked")
@@ -601,27 +562,23 @@ public final class Searcher {
     /**
      * Retrieve the ranges from range axioms. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type contained in the returned collection
+     *
+     * @param <C> returned type
+     * @param axioms axioms
+     * @param type type contained in the returned collection
      * @return sub expressions
      */
-    public static <C extends OWLObject> Stream<C> range(Stream<? extends OWLAxiom> axioms, Class<C> type) {
+    public static <C extends OWLObject> Stream<C> range(Stream<? extends OWLAxiom> axioms,
+        Class<C> type) {
         return axioms.map(ax -> range(ax, type));
     }
 
     /**
      * Retrieve the ranges from a range axiom. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
+     *
+     * @param <C> returned type
+     * @param axiom axiom
      * @return sub expressions
      */
     public static <C extends OWLObject> C range(OWLAxiom axiom) {
@@ -631,25 +588,22 @@ public final class Searcher {
     /**
      * Retrieve the ranges from a range axiom. A mixture of axiom types can be
      * passed in.
-     * 
-     * @param <C>
-     *        returned type
-     * @param axiom
-     *        axiom
-     * @param type
-     *        witness for returned type
+     *
+     * @param <C> returned type
+     * @param axiom axiom
+     * @param type witness for returned type
      * @return sub expressions
      */
-    public static <C extends OWLObject> C range(OWLAxiom axiom, @SuppressWarnings("unused") Class<C> type) {
+    public static <C extends OWLObject> C range(OWLAxiom axiom,
+        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new RangeVisitor<C>());
     }
 
     /**
      * Transform a collection of ontologies to a collection of IRIs of those
      * ontologies. Anonymous ontologies are skipped.
-     * 
-     * @param ontologies
-     *        ontologies to transform
+     *
+     * @param ontologies ontologies to transform
      * @return collection of IRIs for the ontologies.
      */
     public static Stream<IRI> ontologiesIRIs(Stream<OWLOntology> ontologies) {
@@ -659,9 +613,8 @@ public final class Searcher {
     /**
      * Transform a collection of ontology ids to a collection of IRIs of those
      * ontology ids. Anonymous ontology ids are skipped.
-     * 
-     * @param ids
-     *        ontology ids to transform
+     *
+     * @param ids ontology ids to transform
      * @return collection of IRIs for the ontology ids.
      */
     public static Stream<IRI> ontologyIRIs(Stream<OWLOntologyID> ids) {

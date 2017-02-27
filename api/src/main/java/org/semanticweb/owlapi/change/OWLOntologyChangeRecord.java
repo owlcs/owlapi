@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -48,9 +46,8 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * ontology) is known via some other mechanism.</li>
  * </ol>
  * {@code OWLOntologyChangeRecord} objects are immutable.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public class OWLOntologyChangeRecord implements Serializable {
@@ -63,13 +60,11 @@ public class OWLOntologyChangeRecord implements Serializable {
      * information about a change to a particular ontology identified by an
      * {@link OWLOntologyID} object and also change details specified by the
      * {@link OWLOntologyChangeData} object.
-     * 
-     * @param ontologyID
-     *        The {@link OWLOntologyID} which identifies the ontology that the
-     *        change was applied to.
-     * @param data
-     *        The {@link OWLOntologyChangeData} that describes the particular
-     *        details of the change.
+     *
+     * @param ontologyID The {@link OWLOntologyID} which identifies the ontology that the change was
+     * applied to.
+     * @param data The {@link OWLOntologyChangeData} that describes the particular details of the
+     * change.
      */
     public OWLOntologyChangeRecord(OWLOntologyID ontologyID, OWLOntologyChangeData data) {
         this.ontologyID = checkNotNull(ontologyID, "ontologyID must not be null");
@@ -79,9 +74,8 @@ public class OWLOntologyChangeRecord implements Serializable {
     /**
      * A convenience method that creates an {@code OWLOntologyChangeRecord} by
      * deriving data from an {@link OWLOntologyChange} object.
-     * 
-     * @param change
-     *        The {@link OWLOntologyChange} object.
+     *
+     * @param change The {@link OWLOntologyChange} object.
      * @return instance of OntologychangeRecord
      */
     public static OWLOntologyChangeRecord createFromOWLOntologyChange(OWLOntologyChange change) {
@@ -94,7 +88,7 @@ public class OWLOntologyChangeRecord implements Serializable {
     /**
      * Gets the {@link OWLOntologyID} that identifies the ontology associated
      * with this change record.
-     * 
+     *
      * @return The {@link OWLOntologyID}.
      */
     public OWLOntologyID getOntologyID() {
@@ -104,7 +98,7 @@ public class OWLOntologyChangeRecord implements Serializable {
     /**
      * Gets the {@link OWLOntologyChangeData} which is associated with this
      * {@code OWLOntologyChangeRecord}.
-     * 
+     *
      * @return The {@link OWLOntologyChangeData}.
      */
     public OWLOntologyChangeData getData() {
@@ -120,22 +114,17 @@ public class OWLOntologyChangeRecord implements Serializable {
      * that has an {@link OWLOntologyID} which is equal to the
      * {@link OWLOntologyID} associated with this
      * {@code OWLOntologyChangeRecord} object.
-     * 
-     * @param manager
-     *        The manager which will be used to obtain a reference to an
-     *        {@link OWLOntology} object having the same {@link OWLOntologyID}
-     *        as the {@link OWLOntologyID} associated with this
-     *        {@code OWLOntologyChangeRecord}.
-     * @return The {@link OWLOntologyChange} object that is derived from this
-     *         record's {@link OWLOntologyID} and {@link OWLOntologyChangeData}.
-     *         The specific concrete subclass of the returned
-     *         {@link OWLOntologyChange} will depend upon the specific concrete
-     *         subclass of the {@link OWLOntologyChangeData} associated with
-     *         this {@code OWLOntologyChangeRecord}.
-     * @throws UnknownOWLOntologyException
-     *         if the specified manager does not contain an ontology which has
-     *         an {@link OWLOntologyID} equal to the {@link OWLOntologyID}
-     *         associated with this {@code OWLOntologyChangeRecord}.
+     *
+     * @param manager The manager which will be used to obtain a reference to an {@link OWLOntology}
+     * object having the same {@link OWLOntologyID} as the {@link OWLOntologyID} associated with
+     * this {@code OWLOntologyChangeRecord}.
+     * @return The {@link OWLOntologyChange} object that is derived from this record's {@link
+     * OWLOntologyID} and {@link OWLOntologyChangeData}. The specific concrete subclass of the
+     * returned {@link OWLOntologyChange} will depend upon the specific concrete subclass of the
+     * {@link OWLOntologyChangeData} associated with this {@code OWLOntologyChangeRecord}.
+     * @throws UnknownOWLOntologyException if the specified manager does not contain an ontology
+     * which has an {@link OWLOntologyID} equal to the {@link OWLOntologyID} associated with this
+     * {@code OWLOntologyChangeRecord}.
      */
     public OWLOntologyChange createOntologyChange(OWLOntologyManager manager) {
         OWLOntology ontology = manager.getOntology(ontologyID);

@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Map;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -28,23 +26,24 @@ import org.semanticweb.owlapi.util.StringComparator;
 /**
  * A PrefixOWLDocumentFormat delegates all PrefixManager operations to a
  * PrefixManager implementation.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements PrefixDocumentFormat {
+public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
+    PrefixDocumentFormat {
 
     private PrefixManager nsm;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public PrefixDocumentFormatImpl() {
         this(new DefaultPrefixManager());
     }
 
     /**
-     * @param manager
-     *        prefix manager to use
+     * @param manager prefix manager to use
      */
     public PrefixDocumentFormatImpl(PrefixManager manager) {
         nsm = checkNotNull(manager, "manager cannot be null");
@@ -71,11 +70,6 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements P
     }
 
     @Override
-    public void setDefaultPrefix(@Nullable String defaultPrefix) {
-        nsm.setDefaultPrefix(defaultPrefix);
-    }
-
-    @Override
     public boolean containsPrefixMapping(String prefixName) {
         return nsm.containsPrefixMapping(prefixName);
     }
@@ -84,6 +78,11 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements P
     @Nullable
     public String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
+    }
+
+    @Override
+    public void setDefaultPrefix(@Nullable String defaultPrefix) {
+        nsm.setDefaultPrefix(defaultPrefix);
     }
 
     @Override

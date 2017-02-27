@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
@@ -25,17 +24,14 @@ public interface HasRemoveAxiom {
     /**
      * A convenience method that removes a single axiom from an ontology. The
      * appropriate RemoveAxiom change object is automatically generated.
-     * 
-     * @param ont
-     *        The ontology to remove the axiom from.
-     * @param axiom
-     *        The axiom to be removed
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axiom
+     *
+     * @param ont The ontology to remove the axiom from.
+     * @param axiom The axiom to be removed
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
+     * @throws OWLOntologyChangeException if there was a problem removing the axiom
      * @deprecated use {@link OWLOntology#removeAxiom(OWLAxiom)}
      */
     @Deprecated
-        ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom);
+    ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom);
 }

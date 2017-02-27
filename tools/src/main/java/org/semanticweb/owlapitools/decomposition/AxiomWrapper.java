@@ -3,16 +3,14 @@ package org.semanticweb.owlapitools.decomposition;
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * Wrapper around an OWLAxiom to hold attributes such as used, included in a
  * module, included in search space and atom which contains it.
- * 
+ *
  * @author ignazio
  */
 public class AxiomWrapper implements Serializable {
@@ -21,28 +19,29 @@ public class AxiomWrapper implements Serializable {
     private boolean used = true;
     private boolean searchspace;
     private boolean module;
-    @Nullable private OntologyAtom atom;
+    @Nullable
+    private OntologyAtom atom;
     private int id;
 
     /**
-     * @param axiom
-     *        axiom to wrap
+     * @param axiom axiom to wrap
      */
     public AxiomWrapper(OWLAxiom axiom) {
         this.axiom = axiom;
     }
 
     /**
-     * @param id
-     *        id for the wrapper
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id id for the wrapper
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /** @return id */
-    public int getId() {
-        return id;
     }
 
     /**
@@ -52,60 +51,66 @@ public class AxiomWrapper implements Serializable {
         return axiom.signature();
     }
 
-    /** @return wrapped axiom */
+    /**
+     * @return wrapped axiom
+     */
     public OWLAxiom getAxiom() {
         return axiom;
     }
 
     /**
-     * @param b
-     *        value for used
+     * @return value for used
      */
-    public void setUsed(boolean b) {
-        used = b;
-    }
-
-    /** @return value for used */
     public boolean isUsed() {
         return used;
     }
 
     /**
-     * @param b
-     *        value for in search space
+     * @param b value for used
      */
-    public void setInSearchSpace(boolean b) {
-        searchspace = b;
+    public void setUsed(boolean b) {
+        used = b;
     }
 
-    /** @return true if in search space */
+    /**
+     * @return true if in search space
+     */
     public boolean isInSearchSpace() {
         return searchspace;
     }
 
     /**
-     * @param b
-     *        value for in module
+     * @param b value for in search space
      */
-    public void setInModule(boolean b) {
-        module = b;
+    public void setInSearchSpace(boolean b) {
+        searchspace = b;
     }
 
-    /** @return true if in module */
+    /**
+     * @return true if in module
+     */
     public boolean isInModule() {
         return module;
     }
 
     /**
-     * @param atom
-     *        atom including the axiom
+     * @param b value for in module
+     */
+    public void setInModule(boolean b) {
+        module = b;
+    }
+
+    /**
+     * @return the including atom
+     */
+    public Optional<OntologyAtom> getAtom() {
+        return Optional.ofNullable(atom);
+    }
+
+    /**
+     * @param atom atom including the axiom
      */
     public void setAtom(@Nullable OntologyAtom atom) {
         this.atom = atom;
-    }
-
-    /** @return the including atom */
-    public Optional<OntologyAtom> getAtom() {
-        return Optional.ofNullable(atom);
     }
 }

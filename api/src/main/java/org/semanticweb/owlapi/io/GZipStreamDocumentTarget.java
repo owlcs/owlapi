@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * An ontology document target which can write to a GZIP stream. Notice that
  * this works best when the output stream is closed explicitly in the client
  * code.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */
@@ -37,8 +37,7 @@ public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
     private final OutputStream outputStream;
 
     /**
-     * @param os
-     *        the actual file
+     * @param os the actual file
      */
     public GZipStreamDocumentTarget(OutputStream os) {
         outputStream = os;

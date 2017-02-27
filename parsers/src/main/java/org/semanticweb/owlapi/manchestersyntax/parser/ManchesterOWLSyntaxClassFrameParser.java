@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -26,23 +25,22 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 /**
  * An expression parser that parses a Manchester OWL Syntax Class Frame to
  * produce a set of axioms that represent the class frame.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
+public class ManchesterOWLSyntaxClassFrameParser implements
+    OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     private final OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
     /**
-     * @param dataFactory
-     *        dataFactory
-     * @param checker
-     *        checker
+     * @param dataFactory dataFactory
+     * @param checker checker
      */
-    public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
+    public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory,
+        OWLEntityChecker checker) {
         this.dataFactory = checkNotNull(dataFactory);
         this.checker = checkNotNull(checker);
     }
@@ -54,7 +52,8 @@ public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<
 
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
+            new OntologyConfigurator(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseClassFrameEOF();

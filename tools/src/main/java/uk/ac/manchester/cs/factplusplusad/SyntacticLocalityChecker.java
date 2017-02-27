@@ -3,22 +3,60 @@ package uk.ac.manchester.cs.factplusplusad;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Iterator;
+import org.semanticweb.owlapi.model.HasOperands;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-import org.semanticweb.owlapi.model.*;
-
-/** syntactic locality checker for DL axioms */
+/**
+ * syntactic locality checker for DL axioms
+ */
 class SyntacticLocalityChecker extends LocalityChecker {
 
-    /** top evaluator */
+    /**
+     * top evaluator
+     */
     TopEquivalenceEvaluator topEval;
-    /** bottom evaluator */
+    /**
+     * bottom evaluator
+     */
     BotEquivalenceEvaluator botEval;
 
     /**
      * init c'tor
-     * 
-     * @param s
-     *        signature
+     *
+     * @param s signature
      */
     SyntacticLocalityChecker(Signature s) {
         super(s);
@@ -29,8 +67,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
     }
 
     /**
-     * @param expr
-     *        expression
+     * @param expr expression
      * @return true iff EXPR is top equivalent
      */
     public boolean isTopEquivalent(OWLObject expr) {
@@ -38,8 +75,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
     }
 
     /**
-     * @param expr
-     *        expression
+     * @param expr expression
      * @return true iff EXPR is bottom equivalent
      */
     public boolean isBotEquivalent(OWLObject expr) {
@@ -48,9 +84,8 @@ class SyntacticLocalityChecker extends LocalityChecker {
 
     /**
      * Processing method for all Equivalent axioms.
-     * 
-     * @param axiom
-     *        axiom
+     *
+     * @param axiom axiom
      * @return true if axiom is local
      */
     <T extends OWLObject> boolean processEquivalentAxiom(HasOperands<T> axiom) {
@@ -87,9 +122,8 @@ class SyntacticLocalityChecker extends LocalityChecker {
 
     /**
      * Processing method for all Disjoint axioms.
-     * 
-     * @param axiom
-     *        axiom
+     *
+     * @param axiom axiom
      * @return true if axiom is local
      */
     private <T extends OWLObject> boolean processDisjointAxiom(HasOperands<T> axiom) {
@@ -202,17 +236,21 @@ class SyntacticLocalityChecker extends LocalityChecker {
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
-        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(p2);
+        isLocal =
+            isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(
+                p2);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

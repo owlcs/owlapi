@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -37,14 +38,18 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         "http://test.example.org/ontology/0139/version:2"));
     private final Optional<IRI> v1 = optional(IRI.getNextDocumentIRI(
         "http://test.example.org/ontology/0139/version:1"));
-    private final Optional<IRI> i139 = optional(IRI.getNextDocumentIRI("http://test.example.org/ontology/0139"));
+    private final Optional<IRI> i139 = optional(
+        IRI.getNextDocumentIRI("http://test.example.org/ontology/0139"));
     private final String INPUT = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF\n"
         + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
         + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
         + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-        + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n" + "  <rdf:Description rdf:about=\"" + i139.get()
-            .toString() + "\">\n" + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#Ontology\" />\n"
-        + "    <owl:versionIRI rdf:resource=\"" + v1.get().toString() + "\" />\n" + "  </rdf:Description>  \n"
+        + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n" + "  <rdf:Description rdf:about=\""
+        + i139.get()
+        .toString() + "\">\n"
+        + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#Ontology\" />\n"
+        + "    <owl:versionIRI rdf:resource=\"" + v1.get().toString() + "\" />\n"
+        + "  </rdf:Description>  \n"
         + "</rdf:RDF>";
 
     @Test

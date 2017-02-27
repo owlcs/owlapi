@@ -24,17 +24,35 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class SerializationTestCase extends TestBase {
 
     private final OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
@@ -57,8 +75,8 @@ public class SerializationTestCase extends TestBase {
     private final List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
     private final Set<OWLIndividual> setowlindividual = new HashSet<>();
     private final Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
-    IRI ontologyIRI;
     protected OWLOntology o;
+    IRI ontologyIRI;
 
     @Before
     public void setUp() throws OWLOntologyCreationException {
@@ -119,9 +137,11 @@ public class SerializationTestCase extends TestBase {
         o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataOneOf(owlliteral)));
         o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataUnionOf(dr)));
         o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataIntersectionOf(dr)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDatatypeRestriction(owldatatype, owlfacet, owlliteral)));
-        o.add(df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDatatypeRestriction(owldatatype, df.getOWLFacetRestriction(
-            owlfacet, 1))));
+        o.add(df.getOWLDataPropertyRangeAxiom(dp,
+            df.getOWLDatatypeRestriction(owldatatype, owlfacet, owlliteral)));
+        o.add(df.getOWLDataPropertyRangeAxiom(dp,
+            df.getOWLDatatypeRestriction(owldatatype, df.getOWLFacetRestriction(
+                owlfacet, 1))));
         o.add(sub(c, df.getOWLObjectIntersectionOf(c, df.getOWLClass(string, prefixmanager))));
         o.add(sub(c, df.getOWLDataSomeValuesFrom(dp, dr)));
         o.add(sub(c, df.getOWLDataAllValuesFrom(dp, dr)));
@@ -133,8 +153,9 @@ public class SerializationTestCase extends TestBase {
         o.add(sub(c, df.getOWLObjectHasValue(op, ai)));
         o.add(sub(c, df.getOWLObjectUnionOf(df.getOWLClass(iri))));
         o.add(df.getOWLAnnotationAssertionAxiom(iri, df.getOWLAnnotation(ap, owlannotationvalue)));
-        o.add(df.getOWLAnnotationAssertionAxiom(df.getOWLNamedIndividual(iri).getIRI(), df.getOWLAnnotation(ap,
-            owlannotationvalue)));
+        o.add(df.getOWLAnnotationAssertionAxiom(df.getOWLNamedIndividual(iri).getIRI(),
+            df.getOWLAnnotation(ap,
+                owlannotationvalue)));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(out);
         stream.writeObject(m);

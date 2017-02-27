@@ -16,30 +16,26 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLDataPropertyDomainAxiom.
- * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
- * @param
- *        <P>
- *        contained items type
+ *
+ * @param <T> type built
+ * @param <B> builder type
+ * @param <P> contained items type
  */
 public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends BaseBuilder<T, B> {
 
-    @Nullable private P property = null;
-    @Nullable private OWLClassExpression domain = null;
+    @Nullable
+    private P property = null;
+    @Nullable
+    private OWLClassExpression domain = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseDomainBuilder(OWLDataFactory df) {
@@ -47,8 +43,7 @@ public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends BaseB
     }
 
     /**
-     * @param arg
-     *        domain
+     * @param arg domain
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -58,8 +53,7 @@ public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends BaseB
     }
 
     /**
-     * @param arg
-     *        property
+     * @param arg property
      * @return builder
      */
     @SuppressWarnings("unchecked")

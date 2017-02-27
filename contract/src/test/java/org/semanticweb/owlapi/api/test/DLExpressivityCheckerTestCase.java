@@ -14,8 +14,12 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -24,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class DLExpressivityCheckerTestCase extends TestBase {
 
@@ -112,7 +116,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         map.put(b.assDPlain(), "AL(D)");
         map.put(b.dDom(), "AL(D)");
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
+        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
         return toReturn;
     }
 

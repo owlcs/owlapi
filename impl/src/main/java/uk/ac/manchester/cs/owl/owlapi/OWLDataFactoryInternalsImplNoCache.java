@@ -13,13 +13,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.FALSELITERAL;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.LANGSTRING;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.TRUELITERAL;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDFLOAT;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDINTEGER;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDSTRING;
 
 import java.util.Locale;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -33,17 +36,16 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * No cache used.
- * 
+ *
  * @author ignazio
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals {
 
-    private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
     private final boolean useCompression;
+    private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
 
     /**
-     * @param useCompression
-     *        true if compression of literals should be used
+     * @param useCompression true if compression of literals should be used
      */
     public OWLDataFactoryInternalsImplNoCache(boolean useCompression) {
         this.useCompression = useCompression;
@@ -209,7 +211,8 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang, @Nullable OWLDatatype datatype) {
+    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
+        @Nullable OWLDatatype datatype) {
         if (useCompression) {
             if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
                 return new OWLLiteralImplPlain(lexicalValue, lang);

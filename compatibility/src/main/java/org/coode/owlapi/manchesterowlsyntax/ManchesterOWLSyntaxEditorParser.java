@@ -13,7 +13,6 @@
 package org.coode.owlapi.manchesterowlsyntax;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -29,41 +28,35 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
  * expected that hasPart will have been defined at the top of the file before it
  * is used in any class expressions or property assertions (e.g. ObjectProperty:
  * hasPart)
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Sep-2007
- * @deprecated use org.semanticweb.owlapi.apibinding.OWLManager#
- *             createManchesterParser
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         10-Sep-2007
+ * @deprecated use org.semanticweb.owlapi.apibinding.OWLManager# createManchesterParser
  */
 @Deprecated
 public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserImpl {
 
     /**
-     * @param dataFactory
-     *        dataFactory
-     * @param s
-     *        s
+     * @param dataFactory dataFactory
+     * @param s s
      */
     public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
         this(new OntologyConfigurator(), dataFactory, s);
     }
 
     /**
-     * @param configuration
-     *        configuration
-     * @param dataFactory
-     *        dataFactory
-     * @param s
-     *        s
+     * @param configuration configuration
+     * @param dataFactory dataFactory
+     * @param s s
      */
-    public ManchesterOWLSyntaxEditorParser(OntologyConfigurator configuration, OWLDataFactory dataFactory, String s) {
+    public ManchesterOWLSyntaxEditorParser(OntologyConfigurator configuration,
+        OWLDataFactory dataFactory, String s) {
         super(configuration, dataFactory);
         setStringToParse(s);
     }
 
     /**
-     * @param b
-     *        unused
+     * @param b unused
      * @return set of class expressions
      * @deprecated use {@link #parseClassExpressionList()}
      */

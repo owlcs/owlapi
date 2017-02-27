@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
-
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
@@ -16,9 +15,8 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 09/04/15
  * A priority collection that supports concurrent reading and writing through a
  * {@link ReadWriteLock}
- * 
- * @param <T>
- *        type in the collection
+ *
+ * @param <T> type in the collection
  */
 public class ConcurrentPriorityCollection<T extends Serializable> extends PriorityCollection<T> {
 
@@ -28,14 +26,13 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
     /**
      * Constructs a {@link ConcurrentPriorityCollection} using the specified
      * {@link ReadWriteLock}
-     * 
-     * @param readWriteLock
-     *        The {@link java.util.concurrent.locks.ReadWriteLock} that should
-     *        be used for locking.
-     * @param sorting
-     *        sorting criterion
+     *
+     * @param readWriteLock The {@link java.util.concurrent.locks.ReadWriteLock} that should be used
+     * for locking.
+     * @param sorting sorting criterion
      */
-    public ConcurrentPriorityCollection(ReadWriteLock readWriteLock, PriorityCollectionSorting sorting) {
+    public ConcurrentPriorityCollection(ReadWriteLock readWriteLock,
+        PriorityCollectionSorting sorting) {
         super(sorting);
         verifyNotNull(readWriteLock);
         this.readLock = readWriteLock.readLock();
@@ -171,7 +168,7 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
         readLock.lock();
         try {
             List<T> copy = new ArrayList<>();
-            for (Iterator<T> it = super.iterator(); it.hasNext();) {
+            for (Iterator<T> it = super.iterator(); it.hasNext(); ) {
                 T element = it.next();
                 copy.add(element);
             }

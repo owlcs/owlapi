@@ -12,15 +12,29 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataMaxCardinality;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datatype;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import java.util.Optional;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
@@ -28,15 +42,18 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
 
     @Test
     public void shouldParseCommentAndSkipIt() throws OWLOntologyCreationException {
-        String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\nPrefix(skos:=<http://www.w3.org/2004/02/skos/core#>)\n\n"
-            + "Ontology(<file:test.owl>\n" + "Declaration(Class(<urn:test.owl#ContactInformation>))\n"
-            + "#Test comment\n" + "Declaration(DataProperty(<urn:test.owl#city>))\n"
-            + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
-            + ')';
+        String input =
+            "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\nPrefix(skos:=<http://www.w3.org/2004/02/skos/core#>)\n\n"
+                + "Ontology(<file:test.owl>\n"
+                + "Declaration(Class(<urn:test.owl#ContactInformation>))\n"
+                + "#Test comment\n" + "Declaration(DataProperty(<urn:test.owl#city>))\n"
+                + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
+                + ')';
         OWLOntology o = loadOntologyFromString(input);
         OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#", "city")));
-        OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#", "ContactInformation")), DataMaxCardinality(1, DataProperty(
-            IRI("urn:test.owl#", "city")), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
+        OWLAxiom ax2 = SubClassOf(Class(IRI("urn:test.owl#", "ContactInformation")),
+            DataMaxCardinality(1, DataProperty(
+                IRI("urn:test.owl#", "city")), Datatype(OWL2Datatype.XSD_STRING.getIRI())));
         OWLAxiom ax3 = Declaration(Class(IRI("urn:test.owl#", "ContactInformation")));
         assertTrue(o.containsAxiom(ax1));
         assertTrue(o.containsAxiom(ax2));
@@ -44,12 +61,15 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseCardinalityRestrictionWithMoreThanOneDigitRange() throws OWLOntologyCreationException {
+    public void shouldParseCardinalityRestrictionWithMoreThanOneDigitRange()
+        throws OWLOntologyCreationException {
         String in = "Prefix(:=<urn:test#>)" + "Prefix(a:=<urn:test#>)"
             + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)"
             + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)" + "Prefix(test:=<urn:test#>)"
-            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)" + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)"
-            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n" + "Ontology(<urn:test>\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Ontology(<urn:test>\n"
             + "Declaration(NamedIndividual(test:a)) \n" + "    Declaration(Class(test:A)) \n"
             + "    Declaration(DataProperty(test:dp)) \n"
             + "    SubClassOf( test:A DataMinCardinality( 257 test:dp rdfs:Literal ) ) \n"

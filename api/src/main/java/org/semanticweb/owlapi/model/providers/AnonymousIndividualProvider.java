@@ -13,16 +13,14 @@
 package org.semanticweb.owlapi.model.providers;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 
 /**
  * An interface to an object that can provide instances if
  * {@link OWLAnonymousIndividual}.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 5.0.0
  */
 @FunctionalInterface
@@ -34,7 +32,7 @@ public interface AnonymousIndividualProvider extends Serializable {
      * this method (on this object) will result in instances of
      * {@link OWLAnonymousIndividual} that do not have {@link NodeID}s that have
      * been used previously.
-     * 
+     *
      * @return The instance of {@link OWLAnonymousIndividual}.
      * @see AnonymousIndividualByIdProvider
      */

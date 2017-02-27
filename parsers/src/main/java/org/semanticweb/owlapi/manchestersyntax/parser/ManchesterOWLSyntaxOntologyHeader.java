@@ -17,17 +17,14 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ManchesterOWLSyntaxOntologyHeader {
@@ -37,14 +34,10 @@ public class ManchesterOWLSyntaxOntologyHeader {
     private final Collection<OWLImportsDeclaration> importsDeclarations;
 
     /**
-     * @param ontologyIRI
-     *        the ontology IRI
-     * @param versionIRI
-     *        the version IRI
-     * @param annotations
-     *        the ontology annotations
-     * @param importsDeclarations
-     *        the imports declarations
+     * @param ontologyIRI the ontology IRI
+     * @param versionIRI the version IRI
+     * @param annotations the ontology annotations
+     * @param importsDeclarations the imports declarations
      */
     public ManchesterOWLSyntaxOntologyHeader(@Nullable IRI ontologyIRI, @Nullable IRI versionIRI,
         Set<OWLAnnotation> annotations, Set<OWLImportsDeclaration> importsDeclarations) {

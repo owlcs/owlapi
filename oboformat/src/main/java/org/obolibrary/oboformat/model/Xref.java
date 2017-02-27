@@ -2,15 +2,17 @@ package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nullable;
 
-/** Xref. */
+/**
+ * Xref.
+ */
 public class Xref {
 
     protected String idref;
-    @Nullable protected String annotation;
+    @Nullable
+    protected String annotation;
 
     /**
-     * @param idref
-     *        idref
+     * @param idref idref
      */
     public Xref(String idref) {
         this.idref = idref;
@@ -24,8 +26,7 @@ public class Xref {
     }
 
     /**
-     * @param idref
-     *        idref
+     * @param idref idref
      */
     public void setIdref(String idref) {
         this.idref = idref;
@@ -40,8 +41,7 @@ public class Xref {
     }
 
     /**
-     * @param annotation
-     *        annotation
+     * @param annotation annotation
      */
     public void setAnnotation(String annotation) {
         this.annotation = annotation;

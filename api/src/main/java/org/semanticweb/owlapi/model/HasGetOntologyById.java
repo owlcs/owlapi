@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nullable;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
@@ -24,12 +23,11 @@ public interface HasGetOntologyById {
 
     /**
      * Get the ontology with the specified Id.
-     * 
-     * @param ontologyID
-     *        The Id.
-     * @return The ontology with the specified Id, or {@code null} if there is
-     *         no ontology with the specified Id.
+     *
+     * @param ontologyID The Id.
+     * @return The ontology with the specified Id, or {@code null} if there is no ontology with the
+     * specified Id.
      */
     @Nullable
-        OWLOntology getOntology(OWLOntologyID ontologyID);
+    OWLOntology getOntology(OWLOntologyID ontologyID);
 }

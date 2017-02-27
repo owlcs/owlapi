@@ -16,26 +16,28 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for SWRLDataRangeAtom. */
-public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
+/**
+ * Builder class for SWRLDataRangeAtom.
+ */
+public class BuilderSWRLDataRangeAtom extends
+    BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
 
-    @Nullable private SWRLDArgument argument;
-    @Nullable private OWLDataRange predicate;
+    @Nullable
+    private SWRLDArgument argument;
+    @Nullable
+    private OWLDataRange predicate;
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSWRLDataRangeAtom(SWRLDataRangeAtom expected, OWLDataFactory df) {
         this(df);
@@ -43,8 +45,7 @@ public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, Bui
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLDataRangeAtom(OWLDataFactory df) {
@@ -52,8 +53,7 @@ public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, Bui
     }
 
     /**
-     * @param arg
-     *        argument
+     * @param arg argument
      * @return builder
      */
     public BuilderSWRLDataRangeAtom with(SWRLDArgument arg) {
@@ -62,8 +62,7 @@ public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, Bui
     }
 
     /**
-     * @param arg
-     *        predicate
+     * @param arg predicate
      * @return builder
      */
     public BuilderSWRLDataRangeAtom with(OWL2Datatype arg) {
@@ -71,8 +70,7 @@ public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, Bui
     }
 
     /**
-     * @param arg
-     *        predicate
+     * @param arg predicate
      * @return builder
      */
     public BuilderSWRLDataRangeAtom with(OWLDataRange arg) {

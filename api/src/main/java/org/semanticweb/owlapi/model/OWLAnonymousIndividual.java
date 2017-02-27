@@ -18,12 +18,12 @@ import java.util.stream.Stream;
  * Represents
  * <a href="http://www.w3.org/TR/owl2-syntax/#Anonymous_Individuals">Anonymous
  * Individuals</a> in the OWL 2 Specification.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValue, OWLAnnotationSubject, OWLPrimitive {
+public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValue,
+    OWLAnnotationSubject, OWLPrimitive {
 
     @Override
     default Stream<?> components() {
@@ -42,7 +42,7 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
 
     /**
      * Gets the ID of this individual.
-     * 
+     *
      * @return The node ID of this individual.
      */
     NodeID getID();

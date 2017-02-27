@@ -18,16 +18,17 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Complement provider interface. */
+/**
+ * Complement provider interface.
+ */
 public interface ComplementProvider {
 
     /**
      * Gets an OWLDataComplementOf <a href=
      * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Complement_of_Data_Range"
      * >(see spec)</a>
-     * 
-     * @param dataRange
-     *        The datarange to be complemented.
+     *
+     * @param dataRange The datarange to be complemented.
      * @return An OWLDataComplementOf of the specified data range
      */
     OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange);
@@ -36,16 +37,14 @@ public interface ComplementProvider {
      * Gets an OWLDataComplementOf <a href=
      * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Complement_of_Data_Range"
      * >(see spec)</a>
-     * 
-     * @param dataRange
-     *        The datarange to be complemented.
+     *
+     * @param dataRange The datarange to be complemented.
      * @return An OWLDataComplementOf of the specified data range
      */
     OWLDataComplementOf getOWLDataComplementOf(OWL2Datatype dataRange);
 
     /**
-     * @param operand
-     *        class expression to complement
+     * @param operand class expression to complement
      * @return the complement of the specified argument
      */
     OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand);

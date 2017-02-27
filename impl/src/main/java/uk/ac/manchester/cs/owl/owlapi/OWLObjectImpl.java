@@ -15,8 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static java.util.Collections.emptyList;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareIterators;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,9 +28,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.IntBinaryOperator;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -42,45 +43,32 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
-
-    /** a convenience reference for an empty annotation set, saves on typing. */
-    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
-    protected int hashCode = 0;
-    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder().weakKeys()
-        .softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
-    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = Caffeine.newBuilder()
-        .weakKeys().softValues().build(key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
-    protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
+public abstract class OWLObjectImpl implements OWLObject, Serializable,
+    HasIncrementalSignatureGenerationSupport {
 
     /**
-     * Override point to change hashing strategy if needed - only used in
-     * OWLLiteral implementations at the moment.
-     * 
-     * @param object
-     *        the object to compute the hashcode for
-     * @return the hashcode
+     * a convenience reference for an empty annotation set, saves on typing.
      */
-    protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), object.components());
-    }
+    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
+    protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
+    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder()
+        .weakKeys()
+        .softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
+    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = Caffeine
+        .newBuilder()
+        .weakKeys().softValues().build(key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
+    protected int hashCode = 0;
 
     /**
      * Streams from components need a start point and the order of the
      * components is important.
-     * 
-     * @param start
-     *        start index
-     * @param s
-     *        stream to hash
+     *
+     * @param start start index
+     * @param s stream to hash
      * @return hash for the stream
      */
     static int hash(int start, Stream<?> s) {
@@ -94,16 +82,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         return o.hashCode();
     }
 
-    @Override
-    public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
-        return anonCaches.get(this).stream();
-    }
-
-    @Override
-    public Stream<OWLEntity> signature() {
-        return signatures.get(this).stream();
-    }
-
     protected static List<OWLAnnotation> asAnnotations(Collection<OWLAnnotation> anns) {
         if (anns.isEmpty()) {
             return emptyList();
@@ -112,6 +90,27 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
             return Collections.singletonList(anns.iterator().next());
         }
         return sortOptionally(anns.stream().distinct());
+    }
+
+    /**
+     * Override point to change hashing strategy if needed - only used in
+     * OWLLiteral implementations at the moment.
+     *
+     * @param object the object to compute the hashcode for
+     * @return the hashcode
+     */
+    protected int hashCode(OWLObject object) {
+        return hash(object.hashIndex(), object.components());
+    }
+
+    @Override
+    public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
+        return anonCaches.get(this).stream();
+    }
+
+    @Override
+    public Stream<OWLEntity> signature() {
+        return signatures.get(this).stream();
     }
 
     @Override
@@ -131,12 +130,14 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return signature().filter(OWLEntity::isOWLObjectProperty).map(OWLEntity::asOWLObjectProperty);
+        return signature().filter(OWLEntity::isOWLObjectProperty)
+            .map(OWLEntity::asOWLObjectProperty);
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return signature().filter(OWLEntity::isOWLNamedIndividual).map(OWLEntity::asOWLNamedIndividual);
+        return signature().filter(OWLEntity::isOWLNamedIndividual)
+            .map(OWLEntity::asOWLNamedIndividual);
     }
 
     @Override
@@ -146,7 +147,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return signature().filter(OWLEntity::isOWLAnnotationProperty).map(OWLEntity::asOWLAnnotationProperty);
+        return signature().filter(OWLEntity::isOWLAnnotationProperty)
+            .map(OWLEntity::asOWLAnnotationProperty);
     }
 
     @Override

@@ -13,29 +13,30 @@
 package org.semanticweb.owlapi.model.parameters;
 
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.HasImportsClosure;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * An enumeration for human readable values to include/exclude imports from
  * searches.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public enum Imports {
-    /** Imports are included. */
+    /**
+     * Imports are included.
+     */
     INCLUDED {
-
         @Override
         public Stream<OWLOntology> stream(HasImportsClosure o) {
             return o.importsClosure();
         }
     },
-    /** Imports are excluded. */
+    /**
+     * Imports are excluded.
+     */
     EXCLUDED {
-
         @Override
         public Stream<OWLOntology> stream(HasImportsClosure o) {
             return Stream.of((OWLOntology) o);
@@ -43,19 +44,9 @@ public enum Imports {
     };
 
     /**
-     * @param o
-     *        input ontology
-     * @return if the import closure should be included, return a stream with
-     *         all the ontologies in the imports closure. Otherwise, return a
-     *         stream with a single ontology - the input ontology.
-     */
-    public abstract Stream<OWLOntology> stream(HasImportsClosure o);
-
-    /**
      * Transform a boolean arg in an Imports arg. True means INCLUDED
-     * 
-     * @param b
-     *        boolean argument
+     *
+     * @param b boolean argument
      * @return INCLUDED for true, EXCLUDED for false.
      */
     public static Imports fromBoolean(boolean b) {
@@ -64,4 +55,11 @@ public enum Imports {
         }
         return EXCLUDED;
     }
+
+    /**
+     * @param o input ontology
+     * @return if the import closure should be included, return a stream with all the ontologies in
+     * the imports closure. Otherwise, return a stream with a single ontology - the input ontology.
+     */
+    public abstract Stream<OWLOntology> stream(HasImportsClosure o);
 }

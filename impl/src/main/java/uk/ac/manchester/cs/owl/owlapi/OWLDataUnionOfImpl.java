@@ -14,28 +14,24 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
 
     /**
-     * @param operands
-     *        operands
+     * @param operands operands
      */
     public OWLDataUnionOfImpl(Collection<OWLDataRange> operands) {
         super(operands);
     }
 
     /**
-     * @param operands
-     *        operands
+     * @param operands operands
      */
     public OWLDataUnionOfImpl(Stream<OWLDataRange> operands) {
         super(operands);

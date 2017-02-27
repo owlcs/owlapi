@@ -15,11 +15,13 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 02-Jan-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         02-Jan-2007
  * @deprecated use {@link org.semanticweb.owlapi.formats.RDFXMLDocumentFormat}
  */
 @Deprecated
 public class RDFXMLOntologyFormat extends
-        org.semanticweb.owlapi.formats.RDFXMLDocumentFormat implements
-        PrefixOWLOntologyFormat {}
+    org.semanticweb.owlapi.formats.RDFXMLDocumentFormat implements
+    PrefixOWLOntologyFormat {
+
+}

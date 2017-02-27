@@ -12,18 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -34,7 +41,8 @@ public class OntologyURITestCase extends TestBase {
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
         OWLOntology ont = m.createOntology(ontIRI);
         String s = ont.toString();
-        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount() + " Logical Axioms: "
+        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount()
+            + " Logical Axioms: "
             + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
         assertEquals(expected, s);
     }
@@ -76,7 +84,8 @@ public class OntologyURITestCase extends TestBase {
         IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
         OWLOntology ont = getOWLOntology(iri);
         IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
-        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
+        SetOntologyID sou = new SetOntologyID(ont,
+            new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
         ont.applyChange(sou);
         assertFalse(m.contains(iri));
         assertTrue(m.contains(newIRI));

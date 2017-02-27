@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -17,23 +16,23 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 /**
  * Diffs two OBO Documents. Performs structural diffing only - does not use
  * reasoning (use OWLDiff or similar tools for this)
- * 
+ *
  * @author cjm
  */
 public class OBODocDiffer {
 
-    private OBODocDiffer() {}
+    private OBODocDiffer() {
+    }
 
     /**
-     * @param doc1
-     *        doc1
-     * @param doc2
-     *        doc2
+     * @param doc1 doc1
+     * @param doc2 doc2
      * @return list of diffs
      */
     public static List<Diff> getDiffs(OBODoc doc1, OBODoc doc2) {
         List<Diff> diffs = new ArrayList<>();
-        diffs.addAll(getDiffs("Header", verifyNotNull(doc1.getHeaderFrame()), verifyNotNull(doc2.getHeaderFrame())));
+        diffs.addAll(getDiffs("Header", verifyNotNull(doc1.getHeaderFrame()),
+            verifyNotNull(doc2.getHeaderFrame())));
         diffs.addAll(getDiffs("Term", doc1.getTermFrames(), doc2.getTermFrames()));
         diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(), doc2.getTypedefFrames()));
         diffs.addAll(getDiffs("Instance", doc1.getInstanceFrames(), doc2.getInstanceFrames()));
@@ -41,7 +40,8 @@ public class OBODocDiffer {
     }
 
     // FRAME LISTS
-    private static List<Diff> getDiffsAsym(String ftype, Collection<Frame> fl1, Collection<Frame> fl2, int n,
+    private static List<Diff> getDiffsAsym(String ftype, Collection<Frame> fl1,
+        Collection<Frame> fl2, int n,
         boolean isCheckFrame) {
         List<Diff> diffs = new ArrayList<>();
         Map<String, Frame> fm2 = new HashMap<>();

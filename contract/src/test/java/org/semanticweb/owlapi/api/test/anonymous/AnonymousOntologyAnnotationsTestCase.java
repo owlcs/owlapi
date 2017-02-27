@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -22,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
 public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
@@ -31,8 +33,9 @@ public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingT
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getAnonymousOWLOntology();
-        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#",
-            "prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(
+            IRI("http://www.semanticweb.org/ontologies/test/annotationont#",
+                "prop"));
         OWLLiteral value = Literal(33);
         OWLAnnotation annotation = df.getOWLAnnotation(prop, value);
         ont.applyChange(new AddOntologyAnnotation(ont, annotation));

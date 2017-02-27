@@ -16,19 +16,21 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotation. */
-public class BuilderAnnotation extends BaseAnnotationPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
+/**
+ * Builder class for OWLAnnotation.
+ */
+public class BuilderAnnotation extends
+    BaseAnnotationPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
 
-    @Nullable private OWLAnnotationValue value = null;
+    @Nullable
+    private OWLAnnotationValue value = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderAnnotation(OWLDataFactory df) {
@@ -37,11 +39,9 @@ public class BuilderAnnotation extends BaseAnnotationPropertyBuilder<OWLAnnotati
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderAnnotation(OWLAnnotation expected, OWLDataFactory df) {
         this(df);
@@ -49,8 +49,7 @@ public class BuilderAnnotation extends BaseAnnotationPropertyBuilder<OWLAnnotati
     }
 
     /**
-     * @param arg
-     *        the annotation value
+     * @param arg the annotation value
      * @return builder
      */
     public BuilderAnnotation withValue(OWLAnnotationValue arg) {

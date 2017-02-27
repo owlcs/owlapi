@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
@@ -21,9 +22,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -32,67 +31,67 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @param <E> the type of entities in the node
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E>
- *        the type of entities in the node
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     private static final OWLDataFactory DF = new OWLDataFactoryImpl(false);
     protected static final OWLClass TOP_CLASS = DF.getOWLThing();
-    protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
     protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
-    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
     protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
-    protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
     protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
-    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(BOTTOM_DATA_PROPERTY);
     protected static final OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
     protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF.getOWLTopObjectProperty();
-    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(TOP_OBJECT_PROPERTY);
-    protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF.getOWLBottomObjectProperty();
-    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(BOTTOM_OBJECT_PROPERTY);
+    protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF
+        .getOWLBottomObjectProperty();
+    protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
+    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
+    protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(
+        TOP_DATA_PROPERTY);
+    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(
+        BOTTOM_DATA_PROPERTY);
+    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(
+        TOP_OBJECT_PROPERTY);
+    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
+        BOTTOM_OBJECT_PROPERTY);
+
     private final Set<E> entities = new HashSet<>(4);
 
     /**
-     * @param entity
-     *        the entity to add
+     * @param entity the entity to add
      */
     public DefaultNode(E entity) {
         entities.add(checkNotNull(entity, "entity cannot be null"));
     }
 
     /**
-     * @param entities
-     *        the entities to add
+     * @param entities the entities to add
      */
     public DefaultNode(Collection<E> entities) {
         this.entities.addAll(checkNotNull(entities, "entities cannot be null"));
     }
 
     /**
-     * @param entities
-     *        the entities to add
+     * @param entities the entities to add
      */
     public DefaultNode(Stream<E> entities) {
         OWLAPIStreamUtils.add(this.entities, checkNotNull(entities, "entities cannot be null"));
     }
 
-    protected DefaultNode() {}
+    protected DefaultNode() {
+    }
 
     protected abstract Optional<E> getTopEntity();
 
     protected abstract Optional<E> getBottomEntity();
 
     /**
-     * @param entity
-     *        entity to be added
+     * @param entity entity to be added
      */
     public void add(E entity) {
         entities.add(entity);

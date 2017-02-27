@@ -16,20 +16,22 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationPropertyDomainAxiom. */
+/**
+ * Builder class for OWLAnnotationPropertyDomainAxiom.
+ */
 public class BuilderAnnotationPropertyDomain
-    extends BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
+    extends
+    BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
 
-    @Nullable private IRI domain = null;
+    @Nullable
+    private IRI domain = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderAnnotationPropertyDomain(OWLDataFactory df) {
@@ -38,20 +40,19 @@ public class BuilderAnnotationPropertyDomain
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderAnnotationPropertyDomain(OWLAnnotationPropertyDomainAxiom expected, OWLDataFactory df) {
+    public BuilderAnnotationPropertyDomain(OWLAnnotationPropertyDomainAxiom expected,
+        OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withDomain(expected.getDomain()).withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withDomain(expected.getDomain())
+            .withAnnotations(expected.annotations());
     }
 
     /**
-     * @param arg
-     *        domain
+     * @param arg domain
      * @return builder
      */
     public BuilderAnnotationPropertyDomain withDomain(IRI arg) {

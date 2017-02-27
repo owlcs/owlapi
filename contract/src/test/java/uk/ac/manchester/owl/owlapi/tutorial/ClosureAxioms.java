@@ -15,7 +15,6 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -33,9 +32,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * each of these, if the superclass is a conjunction of existential
  * restrictions, then an additional subclass axiom will be added to the
  * ontology, "closing" the restrictions.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")

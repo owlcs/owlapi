@@ -1,8 +1,26 @@
 package uk.ac.manchester.cs.factplusplusad;
 
 import java.util.Iterator;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.HasOperands;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyRange;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /**
  * Determine how many instances can an expression have. All methods return
@@ -15,27 +33,28 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getNoneValue() {
+    int getNoneValue() {
         return 0;
     }
 
     @Override
-        int getAllValue() {
+    int getAllValue() {
         return -1;
     }
 
     @Override
-        int getOneNoneLower(boolean v) {
+    int getOneNoneLower(boolean v) {
         return v ? 1 : getNoneValue();
     }
 
     // TODO: checks only C top-locality, not R */
     @Override
-        int getEntityValue(OWLEntity entity) {
+    int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
             return noLowerValue();
         }
-        if ((entity.isOWLObjectProperty() || entity.isOWLDataProperty() || entity.isOWLDatatype()) && entity
+        if ((entity.isOWLObjectProperty() || entity.isOWLDataProperty() || entity.isOWLDatatype())
+            && entity
             .isBottomEntity()) {
             return anyLowerValue();
         }
@@ -46,12 +65,12 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
+    int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
         return getOneNoneLower(isTopEquivalent(r) && isLowerGE(getLowerBoundComplement(c), 1));
     }
 
     @Override
-        int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m > 0 and...
         if (m <= 0) {
             return noLowerValue();
@@ -65,7 +84,7 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \top and...
         if (!isTopEquivalent(r)) {
             return noLowerValue();
@@ -79,7 +98,7 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // here the maximal value between Mix and Max is an answer. The -1
         // case will be dealt with automagically
         // because both min and max are between 0 and m+1

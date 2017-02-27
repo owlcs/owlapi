@@ -12,8 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import org.junit.Before;
@@ -25,11 +27,10 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class SetOntologyIDDataTestCase {
 
     private final OWLOntology mockOntology = mock(OWLOntology.class);
@@ -37,8 +38,9 @@ public class SetOntologyIDDataTestCase {
 
     @Before
     public void setUp() {
-        when(mockOntology.getOntologyID()).thenReturn(new OWLOntologyID(optional(IRI.create("urn:test:", "onto1")),
-            optional(IRI.create("urn:test:", "onto1_1"))));
+        when(mockOntology.getOntologyID())
+            .thenReturn(new OWLOntologyID(optional(IRI.create("urn:test:", "onto1")),
+                optional(IRI.create("urn:test:", "onto1_1"))));
     }
 
     private SetOntologyIDData createData() {

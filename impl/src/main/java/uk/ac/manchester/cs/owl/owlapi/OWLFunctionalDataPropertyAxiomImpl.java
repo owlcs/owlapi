@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.RDFSLITERAL;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -24,18 +24,16 @@ import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacteristicAxiomImpl implements
+public class OWLFunctionalDataPropertyAxiomImpl extends
+    OWLDataPropertyCharacteristicAxiomImpl implements
     OWLFunctionalDataPropertyAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLFunctionalDataPropertyAxiomImpl(OWLDataPropertyExpression property,
         Collection<OWLAnnotation> annotations) {
@@ -57,7 +55,8 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLDataMaxCardinalityImpl(getProperty(), 1, RDFSLITERAL),
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+            new OWLDataMaxCardinalityImpl(getProperty(), 1, RDFSLITERAL),
             NO_ANNOTATIONS);
     }
 }

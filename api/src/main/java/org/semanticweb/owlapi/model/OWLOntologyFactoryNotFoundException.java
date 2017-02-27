@@ -13,18 +13,16 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
 
     /**
-     * @param documentIRI
-     *        iri for ontology that cannot be parsed
+     * @param documentIRI iri for ontology that cannot be parsed
      */
     public OWLOntologyFactoryNotFoundException(IRI documentIRI) {
         super("Could not find an appropriate factory to load ontology from ontology document: "
-                + documentIRI.toQuotedString());
+            + documentIRI.toQuotedString());
     }
 }

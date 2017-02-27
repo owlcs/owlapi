@@ -13,15 +13,12 @@
 package org.semanticweb.owlapi.reasoner;
 
 /**
- * The policy of how a reasoner will return {@code NodeSet}s of individuals for
- * queries that return node sets of named individuals such as
- * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getTypes(org.semanticweb.owlapi.model.OWLNamedIndividual, boolean)}
- * or
- * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getInstances(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
- * .
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * The policy of how a reasoner will return {@code NodeSet}s of individuals for queries that return
+ * node sets of named individuals such as {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getTypes(org.semanticweb.owlapi.model.OWLNamedIndividual,
+ * boolean)} or {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getInstances(org.semanticweb.owlapi.model.OWLClassExpression,
+ * boolean)} .
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public enum IndividualNodeSetPolicy {

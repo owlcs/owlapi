@@ -13,15 +13,15 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -35,24 +35,20 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
+    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
-    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     /**
-     * @param body
-     *        rule body
-     * @param head
-     *        rule head
-     * @param annotations
-     *        annotations on the axiom
+     * @param body rule body
+     * @param head rule head
+     * @param annotations annotations on the axiom
      */
     public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
         Collection<OWLAnnotation> annotations) {
@@ -63,10 +59,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     /**
-     * @param body
-     *        rule body
-     * @param head
-     *        rule head
+     * @param body rule body
+     * @param head rule head
      */
     public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
         this(body, head, NO_ANNOTATIONS);
@@ -101,8 +95,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Stream<OWLClassExpression> classAtomPredicates() {
-        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom).map(
-            c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
+        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom)
+            .map(
+                c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
     }
 
     @Override
@@ -132,12 +127,14 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             return false;
         }
         if (obj instanceof SWRLRuleImpl) {
-            return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head) && equalStreams(
+            return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head)
+                && equalStreams(
                 annotations(), ((SWRLRuleImpl) obj).annotations());
         }
         SWRLRule other = (SWRLRule) obj;
-        return body.equals(asSet(other.body())) && head.equals(asSet(other.head())) && equalStreams(annotations(), other
-            .annotations());
+        return body.equals(asSet(other.body())) && head.equals(asSet(other.head())) && equalStreams(
+            annotations(), other
+                .annotations());
     }
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {

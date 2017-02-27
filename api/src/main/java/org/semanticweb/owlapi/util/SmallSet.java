@@ -1,36 +1,38 @@
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
 
 /**
  * This class provides a compact implementation of a very small sets - less than
  * or equal to three elements
- * 
- * @param <T>
- *        set element type
+ *
+ * @param <T> set element type
  */
 public class SmallSet<T> extends AbstractSet<T> {
 
-    @Nullable T element1;
-    @Nullable T element2;
-    @Nullable T element3;
+    @Nullable
+    T element1;
+    @Nullable
+    T element2;
+    @Nullable
+    T element3;
 
     /**
-     * @param collection
-     *        collection to copy
+     * @param collection collection to copy
      */
     public SmallSet(Collection<T> collection) {
         if (collection.size() > 3) {
             throw new IllegalArgumentException(
-                "Trying to create a small set with too many elements - max 3, requested: " + collection.size());
+                "Trying to create a small set with too many elements - max 3, requested: "
+                    + collection.size());
         }
         for (T t : collection) {
             add(t);
@@ -83,7 +85,8 @@ public class SmallSet<T> extends AbstractSet<T> {
             return false;
         }
         int oHash = o.hashCode();
-        return checkMatch(o, oHash, element1) || checkMatch(o, oHash, element2) || checkMatch(o, oHash, element3);
+        return checkMatch(o, oHash, element1) || checkMatch(o, oHash, element2) || checkMatch(o,
+            oHash, element3);
     }
 
     protected boolean checkMatch(Object o, int oHash, @Nullable T element) {
@@ -143,7 +146,8 @@ public class SmallSet<T> extends AbstractSet<T> {
                     case 3:
                         return verifyNotNull(element3);
                     default:
-                        throw new IllegalStateException("Iterator pointing past end of virtual array");
+                        throw new IllegalStateException(
+                            "Iterator pointing past end of virtual array");
                 }
             }
         };

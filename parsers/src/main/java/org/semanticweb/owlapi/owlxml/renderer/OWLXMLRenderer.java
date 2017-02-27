@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
 import java.util.Map;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -27,21 +26,16 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
-     * @throws OWLRendererException
-     *         renderer error
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
+     * @throws OWLRendererException renderer error
      */
     public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
         throws OWLRendererException {

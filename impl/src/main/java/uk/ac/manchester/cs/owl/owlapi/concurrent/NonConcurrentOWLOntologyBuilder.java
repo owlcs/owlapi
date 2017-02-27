@@ -3,12 +3,10 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImplementationFactory;
 
 /**
@@ -19,8 +17,7 @@ public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
     private final transient OWLOntologyImplementationFactory implementationFactory;
 
     /**
-     * @param implementationFactory
-     *        implementation factory
+     * @param implementationFactory implementation factory
      */
     @Inject
     public NonConcurrentOWLOntologyBuilder(OWLOntologyImplementationFactory implementationFactory) {

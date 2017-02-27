@@ -16,9 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -30,21 +28,19 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
  * Specifies that a datatype is not declared.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
-public class UseOfUndeclaredDatatype extends OWLProfileViolation implements UndeclaredEntityViolation {
+public class UseOfUndeclaredDatatype extends OWLProfileViolation implements
+    UndeclaredEntityViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param datatype
-     *        datatype
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param datatype datatype
      */
-    public UseOfUndeclaredDatatype(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLDatatype datatype) {
+    public UseOfUndeclaredDatatype(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        OWLDatatype datatype) {
         super(ontology, axiom, checkNotNull(datatype));
     }
 

@@ -8,13 +8,10 @@ interface LiteralTripleIterator {
 
     /**
      * Handle literal triple.
-     * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     *
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
      */
     void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object);
 }

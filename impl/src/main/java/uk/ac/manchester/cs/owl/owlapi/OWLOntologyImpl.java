@@ -12,14 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
+import static org.semanticweb.owlapi.model.parameters.ChangeApplied.NO_OPERATION;
+import static org.semanticweb.owlapi.model.parameters.ChangeApplied.SUCCESSFULLY;
 
+import com.google.inject.assistedinject.Assisted;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -35,23 +35,20 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
-import com.google.inject.assistedinject.Assisted;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology, Serializable {
+public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology,
+    Serializable {
 
     /**
-     * @param manager
-     *        ontology manager
-     * @param ontologyID
-     *        ontology id
+     * @param manager ontology manager
+     * @param ontologyID ontology id
      */
     @Inject
-    public OWLOntologyImpl(@Assisted OWLOntologyManager manager, @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Assisted OWLOntologyManager manager,
+        @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 
@@ -81,7 +78,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         return new ChangeDetails(appliedChanges, enactedChanges);
     }
 
-    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
+    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>,
+        Serializable {
 
         @Override
         public ChangeApplied visit(RemoveAxiom change) {

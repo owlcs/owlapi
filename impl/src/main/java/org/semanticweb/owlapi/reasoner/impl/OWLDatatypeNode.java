@@ -15,40 +15,37 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLDatatypeNode() {
         super();
     }
 
     /**
-     * @param entity
-     *        datatype to include
+     * @param entity datatype to include
      */
     public OWLDatatypeNode(OWLDatatype entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        set of datatypes to include
+     * @param entities set of datatypes to include
      */
     public OWLDatatypeNode(Collection<OWLDatatype> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        set of datatypes to include
+     * @param entities set of datatypes to include
      */
     public OWLDatatypeNode(Stream<OWLDatatype> entities) {
         super(entities);

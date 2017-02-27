@@ -15,13 +15,12 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <F> value
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <F>
- *        value
  */
-public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends OWLRestriction, HasFiller<F> {
+public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends OWLRestriction,
+    HasFiller<F> {
 
     @Override
     default Stream<?> components() {

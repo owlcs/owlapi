@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -26,9 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
@@ -55,12 +54,12 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleRenderer extends RDFRendererBase {
 
+    protected final Deque<Integer> tabs = new LinkedList<>();
     private final PrintWriter writer;
     private final PrefixManager pm;
     private final Set<RDFResource> pending = new HashSet<>();
@@ -69,16 +68,12 @@ public class TurtleRenderer extends RDFRendererBase {
     private final OWLDocumentFormat format;
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    protected final Deque<Integer> tabs = new LinkedList<>();
     int level = 0;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
      */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
@@ -181,7 +176,8 @@ public class TurtleRenderer extends RDFRendererBase {
     // TODO move to PrefixManager
     @Nullable
     private String forceSplitIfPrefixExists(IRI iri) {
-        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(
+            pm.getPrefixName2PrefixMap().entrySet());
         // sort the entries in reverse lexicographic order by value (longest
         // prefix first)
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
@@ -278,7 +274,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 write("(");
                 writeSpace();
                 pushTab();
-                for (Iterator<RDFNode> it = list.iterator(); it.hasNext();) {
+                for (Iterator<RDFNode> it = list.iterator(); it.hasNext(); ) {
                     write(verifyNotNull(it.next()));
                     if (it.hasNext()) {
                         writeNewLine();

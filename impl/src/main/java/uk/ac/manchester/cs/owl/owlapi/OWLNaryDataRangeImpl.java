@@ -18,13 +18,11 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLNaryDataRange {

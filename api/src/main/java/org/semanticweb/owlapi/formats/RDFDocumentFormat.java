@@ -9,8 +9,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 public interface RDFDocumentFormat extends OWLDocumentFormat {
 
     /**
-     * @param error
-     *        error to add to the error set
+     * @param error error to add to the error set
      */
     public void addError(RDFResourceParseError error);
 }

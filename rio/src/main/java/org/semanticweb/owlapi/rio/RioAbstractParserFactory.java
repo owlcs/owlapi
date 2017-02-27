@@ -35,24 +35,23 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.eclipse.rdf4j.rio.RDFParser;
 import org.eclipse.rdf4j.rio.RDFParserFactory;
 import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 /**
  * {@link RDFParserFactory} that creates RDF statements from OWL Ontologies. It
  * is used to access OWLAPI parsers from Sesame Rio APIs.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public abstract class RioAbstractParserFactory implements RDFParserFactory {
 
     private static final Injector INJECTOR = Guice
-            .createInjector(new OWLAPIServiceLoaderModule());
+        .createInjector(new OWLAPIServiceLoaderModule());
 
     @Override
     public abstract OWLAPIRDFFormat getRDFFormat();

@@ -14,130 +14,116 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
- * @author ignazio Mutable state in an OWLDataFactory is encapsulated by this
- *         interface
+ * @author ignazio Mutable state in an OWLDataFactory is encapsulated by this interface
  */
 public interface OWLDataFactoryInternals extends Serializable {
 
     /**
-     * @param iri
-     *        new class IRI
+     * @param iri new class IRI
      * @return a new OWLClass object, or a cached one depending on policies
      */
     OWLClass getOWLClass(IRI iri);
 
-    /** purge any caches. */
+    /**
+     * purge any caches.
+     */
     void purge();
 
     /**
-     * @param iri
-     *        new object property IRI
-     * @return a new OWLObjectProperty object, or a cached one depending on
-     *         policies
+     * @param iri new object property IRI
+     * @return a new OWLObjectProperty object, or a cached one depending on policies
      */
     OWLObjectProperty getOWLObjectProperty(IRI iri);
 
     /**
-     * @param iri
-     *        new OWLDataProperty IRI
-     * @return a new OWLDataProperty object, or a cached one depending on
-     *         policies
+     * @param iri new OWLDataProperty IRI
+     * @return a new OWLDataProperty object, or a cached one depending on policies
      */
     OWLDataProperty getOWLDataProperty(IRI iri);
 
     /**
-     * @param iri
-     *        new OWLNamedIndividual IRI
-     * @return a new OWLNamedIndividual object, or a cached one depending on
-     *         policies
+     * @param iri new OWLNamedIndividual IRI
+     * @return a new OWLNamedIndividual object, or a cached one depending on policies
      */
     OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
     /**
-     * @param iri
-     *        new OWLDatatype IRI
+     * @param iri new OWLDatatype IRI
      * @return a new OWLDatatype object, or a cached one depending on policies
      */
     OWLDatatype getOWLDatatype(IRI iri);
 
     /**
-     * @param iri
-     *        new OWLAnnotationProperty IRI
-     * @return a new OWLAnnotationProperty object, or a cached one depending on
-     *         policies
+     * @param iri new OWLAnnotationProperty IRI
+     * @return a new OWLAnnotationProperty object, or a cached one depending on policies
      */
     OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
 
     /**
-     * @param lexicalValue
-     *        literal value for literal
-     * @param datatype
-     *        datatype for literal
+     * @param lexicalValue literal value for literal
+     * @param datatype datatype for literal
      * @return new literal
      */
     OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
     /**
-     * @param value
-     *        int value for literal
+     * @param value int value for literal
      * @return new literal
      */
     OWLLiteral getOWLLiteral(int value);
 
     /**
-     * @param value
-     *        boolean value for literal
+     * @param value boolean value for literal
      * @return new literal
      */
     OWLLiteral getOWLLiteral(boolean value);
 
     /**
-     * @param value
-     *        double value for literal
+     * @param value double value for literal
      * @return new literal
      */
     OWLLiteral getOWLLiteral(double value);
 
     /**
-     * @param value
-     *        float value for literal
+     * @param value float value for literal
      * @return new literal
      */
     OWLLiteral getOWLLiteral(float value);
 
     /**
-     * @param value
-     *        literal form
+     * @param value literal form
      * @return new literal
      */
     OWLLiteral getOWLLiteral(String value);
 
     /**
-     * @param literal
-     *        literal form
-     * @param lang
-     *        language tag, can be null
+     * @param literal literal form
+     * @param lang language tag, can be null
      * @return new literal
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable String lang);
 
     /**
      * Construct an OWLAnnotation.
-     * 
-     * @param property
-     *        the annotation property
-     * @param value
-     *        the annotation value
-     * @param annotations
-     *        annotations on the annotation
+     *
+     * @param property the annotation property
+     * @param value the annotation value
+     * @param annotations annotations on the annotation
      * @return new annotation
      */
     OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
-            Stream<OWLAnnotation> annotations);
+        Stream<OWLAnnotation> annotations);
 }

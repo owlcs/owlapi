@@ -14,12 +14,10 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
@@ -28,15 +26,12 @@ public interface HasRemoveAxioms {
     /**
      * A convenience method that removes a set of axioms from an ontology. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param ont
-     *        The ontology from which the axioms should be removed.
-     * @param axioms
-     *        The axioms to be removed.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param ont The ontology from which the axioms should be removed.
+     * @param axioms The axioms to be removed.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      * @deprecated use {@link #removeAxioms(OWLOntology, Collection)}
      */
     @Deprecated
@@ -47,15 +42,12 @@ public interface HasRemoveAxioms {
     /**
      * A convenience method that removes a set of axioms from an ontology. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param ont
-     *        The ontology from which the axioms should be removed.
-     * @param axioms
-     *        The axioms to be removed.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param ont The ontology from which the axioms should be removed.
+     * @param axioms The axioms to be removed.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
     ChangeApplied removeAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms);
 }

@@ -15,37 +15,29 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 
     /**
-     * @param message
-     *        message
-     * @param lineNumber
-     *        lineNumber
-     * @param columnNumber
-     *        columnNumber
+     * @param message message
+     * @param lineNumber lineNumber
+     * @param columnNumber columnNumber
      */
     public ManchesterOWLSyntaxParserException(String message, int lineNumber,
-            int columnNumber) {
+        int columnNumber) {
         super(message, lineNumber, columnNumber);
     }
 
     /**
-     * @param message
-     *        message
-     * @param cause
-     *        cause
-     * @param lineNumber
-     *        lineNumber
-     * @param columnNumber
-     *        columnNumber
+     * @param message message
+     * @param cause cause
+     * @param lineNumber lineNumber
+     * @param columnNumber columnNumber
      */
     public ManchesterOWLSyntaxParserException(String message, Throwable cause,
-            int lineNumber, int columnNumber) {
+        int lineNumber, int columnNumber) {
         super(message, cause, lineNumber, columnNumber);
     }
 }

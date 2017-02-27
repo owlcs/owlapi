@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -24,18 +23,16 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements
+public class OWLSymmetricObjectPropertyAxiomImpl extends
+    OWLObjectPropertyCharacteristicAxiomImpl implements
     OWLSymmetricObjectPropertyAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLSymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
         Collection<OWLAnnotation> annotations) {
@@ -45,10 +42,12 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>(5);
-        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(), getProperty().getInverseProperty()
-            .getSimplified(), NO_ANNOTATIONS));
-        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty().getSimplified(),
-            getProperty(), NO_ANNOTATIONS));
+        result.add(
+            new OWLSubObjectPropertyOfAxiomImpl(getProperty(), getProperty().getInverseProperty()
+                .getSimplified(), NO_ANNOTATIONS));
+        result.add(
+            new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty().getSimplified(),
+                getProperty(), NO_ANNOTATIONS));
         return result;
     }
 

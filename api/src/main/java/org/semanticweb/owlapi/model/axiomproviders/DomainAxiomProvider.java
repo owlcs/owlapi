@@ -14,8 +14,15 @@ package org.semanticweb.owlapi.model.axiomproviders;
 
 import java.util.Collection;
 import java.util.Collections;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
  * Annotation, datatype and object property domain provider.
@@ -23,74 +30,64 @@ import org.semanticweb.owlapi.model.*;
 public interface DomainAxiomProvider {
 
     /**
-     * @param property
-     *        property
-     * @param classExpression
-     *        class Expression
+     * @param property property
+     * @param classExpression class Expression
      * @return an object property domain axiom
      */
-    default OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
-            OWLClassExpression classExpression) {
+    default OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
+        OWLObjectPropertyExpression property,
+        OWLClassExpression classExpression) {
         return getOWLObjectPropertyDomainAxiom(property, classExpression, Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param classExpression
-     *        class Expression
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param property property
+     * @param classExpression class Expression
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an object property domain axiom with annotations
      */
-    OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
-            OWLClassExpression classExpression, Collection<OWLAnnotation> annotations);
+    OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
+        OWLObjectPropertyExpression property,
+        OWLClassExpression classExpression, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param property
-     *        property
-     * @param domain
-     *        domain
+     * @param property property
+     * @param domain domain
      * @return a data property domain axiom
      */
-    default OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
-            OWLClassExpression domain) {
+    default OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
+        OWLDataPropertyExpression property,
+        OWLClassExpression domain) {
         return getOWLDataPropertyDomainAxiom(property, domain, Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param domain
-     *        domain
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param property property
+     * @param domain domain
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a data property domain axiom with annotations
      */
     OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
-            OWLClassExpression domain, Collection<OWLAnnotation> annotations);
+        OWLClassExpression domain, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param prop
-     *        prop
-     * @param domain
-     *        domain
+     * @param prop prop
+     * @param domain domain
      * @return an annotation property domain assertion
      */
-    default OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
-            IRI domain) {
+    default OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
+        OWLAnnotationProperty prop,
+        IRI domain) {
         return getOWLAnnotationPropertyDomainAxiom(prop, domain, Collections.emptySet());
     }
 
     /**
-     * @param prop
-     *        prop
-     * @param domain
-     *        domain
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param prop prop
+     * @param domain domain
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an annotation property domain assertion with annotations
      */
-    OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop, IRI domain,
-            Collection<OWLAnnotation> annotations);
+    OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
+        IRI domain,
+        Collection<OWLAnnotation> annotations);
 }

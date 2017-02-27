@@ -15,10 +15,14 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomChange;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
  * Provides a convenient method to filter add/remove axiom changes based on the
@@ -35,7 +39,7 @@ import org.semanticweb.owlapi.model.*;
  * ontology change listener. We can use the {@code OWLOntologyChangeFilter} to
  * filter out the changes that alter the domain of an object property in the
  * following way:<br>
- * 
+ *
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
  * <br>
@@ -52,19 +56,18 @@ import org.semanticweb.owlapi.model.*;
  * // Process the list of changes
  * filter.processChanges(ontChanges);
  * </pre>
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChangeVisitor {
 
     protected boolean add;
-    @Nullable protected OWLOntology ontology;
+    @Nullable
+    protected OWLOntology ontology;
 
     /**
-     * @param changes
-     *        changes to process
+     * @param changes changes to process
      */
     public void processChanges(List<? extends OWLOntologyChange> changes) {
         checkNotNull(changes, "changes cannot be null");
@@ -79,16 +82,14 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
     }
 
     /**
-     * @return Determines if the current change caused an axiom to be added to
-     *         an ontology.
+     * @return Determines if the current change caused an axiom to be added to an ontology.
      */
     protected boolean isAdd() {
         return add;
     }
 
     /**
-     * @return Determines if the current change caused an axiom to be removed
-     *         from an ontology.
+     * @return Determines if the current change caused an axiom to be removed from an ontology.
      */
     protected boolean isRemove() {
         return !add;
@@ -96,10 +97,10 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
 
     /**
      * Gets the ontology which the current change being visited was applied to.
-     * 
-     * @return The ontology or {@code null} if the filter is not in a change
-     *         visit cycle. When called from within a {@code visit} method, the
-     *         return value is guarenteed not to be {@code null}.
+     *
+     * @return The ontology or {@code null} if the filter is not in a change visit cycle. When
+     * called from within a {@code visit} method, the return value is guarenteed not to be {@code
+     * null}.
      */
     @Nullable
     protected OWLOntology getOntology() {

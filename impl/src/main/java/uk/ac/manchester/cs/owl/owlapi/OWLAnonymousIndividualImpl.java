@@ -12,25 +12,24 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
+public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
+    OWLAnonymousIndividual {
 
     private final NodeID nodeId;
 
     /**
-     * @param nodeID
-     *        node id
+     * @param nodeID node id
      */
     public OWLAnonymousIndividualImpl(NodeID nodeID) {
         nodeId = checkNotNull(nodeID, "nodeID cannot be null");

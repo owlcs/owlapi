@@ -41,4 +41,6 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public interface RioRDFStorerFactory extends OWLStorerFactory {}
+public interface RioRDFStorerFactory extends OWLStorerFactory {
+
+}

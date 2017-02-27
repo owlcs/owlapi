@@ -12,8 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -28,7 +34,8 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldFindOneAxiom() throws Exception {
-        OWLAnnotationProperty p = AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#", "p"));
+        OWLAnnotationProperty p = AnnotationProperty(
+            IRI("http://test.org/MissingDeclaration.owl#", "p"));
         OWLOntology ontology = createOntology(p);
         assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(1, ontology.getAxiomCount());

@@ -18,28 +18,22 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSyntaxStorerFactory;
 
 /**
  * Simple Rendering Example. Reads an ontology and then renders it.
- * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ *
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 public class RenderingExample {
 
     /**
-     * @param inputOntology
-     *        input ontology IRI
-     * @param outputOntology
-     *        output ontology IRI
-     * @throws OWLOntologyCreationException
-     *         OWLOntologyCreationException
-     * @throws OWLOntologyStorageException
-     *         OWLOntologyStorageException
+     * @param inputOntology input ontology IRI
+     * @param outputOntology output ontology IRI
+     * @throws OWLOntologyCreationException OWLOntologyCreationException
+     * @throws OWLOntologyStorageException OWLOntologyStorageException
      */
     public void render(String inputOntology, String outputOntology)
         throws OWLOntologyCreationException, OWLOntologyStorageException {

@@ -17,12 +17,13 @@ import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 /**
  * An interface to an object that can provide instances of
  * {@link OWLAnonymousIndividual}.
- * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ *
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  * @deprecated use AnonymousIndividualByIdProvider
  */
 @Deprecated
 public interface OWLAnonymousIndividualByIdProvider extends
-        AnonymousIndividualByIdProvider {}
+    AnonymousIndividualByIdProvider {
+
+}

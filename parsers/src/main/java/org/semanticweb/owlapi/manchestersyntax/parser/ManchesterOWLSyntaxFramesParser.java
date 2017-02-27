@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -28,22 +26,22 @@ import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
+public class ManchesterOWLSyntaxFramesParser implements
+    OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     private final OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
-    @Nullable private OWLOntologyChecker ontologyChecker;
-    @Nullable private OWLOntology defaultOntology;
+    @Nullable
+    private OWLOntologyChecker ontologyChecker;
+    @Nullable
+    private OWLOntology defaultOntology;
 
     /**
-     * @param dataFactory
-     *        the data factory
-     * @param checker
-     *        the entity checker
+     * @param dataFactory the data factory
+     * @param checker the entity checker
      */
     public ManchesterOWLSyntaxFramesParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
@@ -56,16 +54,14 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
     }
 
     /**
-     * @param ontologyChecker
-     *        the ontology checker
+     * @param ontologyChecker the ontology checker
      */
     public void setOWLOntologyChecker(OWLOntologyChecker ontologyChecker) {
         this.ontologyChecker = ontologyChecker;
     }
 
     /**
-     * @param ontology
-     *        the ontology to use
+     * @param ontology the ontology to use
      */
     public void setDefaultOntology(OWLOntology ontology) {
         defaultOntology = ontology;
@@ -73,7 +69,8 @@ public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<
 
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
+            new OntologyConfigurator(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         parser.setDefaultOntology(verifyNotNull(defaultOntology));

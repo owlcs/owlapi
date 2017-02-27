@@ -15,24 +15,24 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class InferredEquivalentDataPropertiesAxiomGenerator extends
     InferredDataPropertyAxiomGenerator<OWLEquivalentDataPropertiesAxiom> {
 
     @Override
-    protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
+    protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
+        OWLDataFactory dataFactory,
         Set<OWLEquivalentDataPropertiesAxiom> result) {
-        Set<OWLDataProperty> props = asUnorderedSet(reasoner.getEquivalentDataProperties(entity).entities());
+        Set<OWLDataProperty> props = asUnorderedSet(
+            reasoner.getEquivalentDataProperties(entity).entities());
         props.add(entity);
         if (props.size() > 1) {
             result.add(dataFactory.getOWLEquivalentDataPropertiesAxiom(props));

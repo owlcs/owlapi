@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.apache.commons.rdf.api.Literal;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
@@ -38,24 +35,21 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
 
     /**
      * Constructor for plain literal wrappers.
-     * 
-     * @param literal
-     *        lexical form
-     * @param lang
-     *        language tag
-     * @param datatype
-     *        datatype IRI
+     *
+     * @param literal lexical form
+     * @param lang language tag
+     * @param datatype datatype IRI
      */
     public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang;
-        OWL2Datatype defaultType = this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
+        OWL2Datatype defaultType =
+            this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
         this.datatype = datatype == null ? defaultType.getIRI() : datatype;
     }
 
     /**
-     * @param literal
-     *        the wrapped literal
+     * @param literal the wrapped literal
      */
     public RDFLiteral(OWLLiteral literal) {
         this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
@@ -190,10 +184,12 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
 
     @Override
     public String ntriplesString() {
-        String escaped = '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n").replace("\r", "\\r")
+        String escaped = '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n")
+            .replace("\r", "\\r")
             + '"';
-        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || datatype.equals(OWL2Datatype.XSD_STRING
-            .getIRI())) {
+        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || datatype
+            .equals(OWL2Datatype.XSD_STRING
+                .getIRI())) {
             return escaped;
         } else if (hasLang()) {
             return escaped + "@" + getLang();

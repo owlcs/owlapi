@@ -22,15 +22,14 @@ import java.util.stream.Stream;
  * subproperty is a chain of properties. Note that this axiom type is not
  * explicit in the OWL 2 specification, but it is included in the OWL API as a
  * convenience to the programmer.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
 
     @Override
-        OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
+    OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
 
     @Override
     default int hashIndex() {
@@ -55,26 +54,25 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     /**
      * Gets the chain of properties that represents the subproperty in this
      * axiom.
-     * 
-     * @return A list of object property expressions that represents the chain
-     *         of properties that represent the subproperty in this axiom.
+     *
+     * @return A list of object property expressions that represents the chain of properties that
+     * represent the subproperty in this axiom.
      */
     List<OWLObjectPropertyExpression> getPropertyChain();
 
     /**
      * Gets the super property of this axiom.
-     * 
-     * @return The property expression that represents the superproperty in this
-     *         expression.
+     *
+     * @return The property expression that represents the superproperty in this expression.
      */
     OWLObjectPropertyExpression getSuperProperty();
 
     /**
      * Determines if this axiom is of the form: P o P -&gt; P, which is an
      * encoding of Transitive(P).
-     * 
-     * @return {@code true} if this encodes that the super property is
-     *         transitive, otherwise {@code false}.
+     *
+     * @return {@code true} if this encodes that the super property is transitive, otherwise {@code
+     * false}.
      */
     boolean isEncodingOfTransitiveProperty();
 

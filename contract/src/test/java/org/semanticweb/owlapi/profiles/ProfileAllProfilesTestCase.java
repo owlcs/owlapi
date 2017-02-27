@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -16,11 +15,6 @@ public class ProfileAllProfilesTestCase extends ProfileBase {
 
     public ProfileAllProfilesTestCase(String premise) {
         this.premise = premise;
-    }
-
-    @Test
-    public void testAllProfiles() {
-        test(premise, true, true, true, true);
     }
 
     @Parameters
@@ -60,5 +54,10 @@ public class ProfileAllProfilesTestCase extends ProfileBase {
             "Prefix( :=<http://example.org/> )Ontology( Declaration( Class( :Boy ) ) Declaration( Class( :Girl ) ) DisjointClasses( :Boy :Girl ) ClassAssertion( :Boy :Stewie ))",
             "<rdf:RDF xml:base=\"http://example.org/\" xmlns=\"http://example.org/\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><owl:Ontology/><owl:Class rdf:about=\"Boy\" /><owl:Class rdf:about=\"Girl\" /><owl:Class rdf:about=\"Dog\" /><owl:AllDisjointClasses><owl:members rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"Boy\" /><rdf:Description rdf:about=\"Girl\" /><rdf:Description rdf:about=\"Dog\" /></owl:members></owl:AllDisjointClasses><Boy rdf:about=\"Stewie\" /></rdf:RDF>",
             "Prefix( :=<http://example.org/> ) Ontology(\n Declaration( Class( :Boy ) ) Declaration( Class( :Girl ) ) Declaration( Class( :Dog ) ) DisjointClasses( :Boy :Girl :Dog ) ClassAssertion( :Boy :Stewie ))");
+    }
+
+    @Test
+    public void testAllProfiles() {
+        test(premise, true, true, true, true);
     }
 }

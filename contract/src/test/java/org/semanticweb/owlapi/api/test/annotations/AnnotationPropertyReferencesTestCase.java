@@ -13,16 +13,25 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")

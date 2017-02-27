@@ -17,8 +17,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class NegationalNormalFormConverter implements NormalFormRewriter {
@@ -28,9 +27,8 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
 
     /**
      * Instantiates a new negational normal form converter.
-     * 
-     * @param dataFactory
-     *        the factory
+     *
+     * @param dataFactory the factory
      */
     public NegationalNormalFormConverter(OWLDataFactory dataFactory) {
         nnf = new NNF(dataFactory);
@@ -41,7 +39,8 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
         // The classExpression is in negational normal form if negations
         // only appear in front of named concepts
         extractor.getComplementedClassExpressions(c);
-        return !extractor.getComplementedClassExpressions(c).stream().anyMatch(OWLClassExpression::isAnonymous);
+        return !extractor.getComplementedClassExpressions(c).stream()
+            .anyMatch(OWLClassExpression::isAnonymous);
     }
 
     @Override

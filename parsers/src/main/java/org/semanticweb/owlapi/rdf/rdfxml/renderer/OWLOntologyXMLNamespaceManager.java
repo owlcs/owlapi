@@ -12,15 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -37,9 +36,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLDocumentFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
  * NamespaceManager (OWLDocumentFormat) this manager will create them.
- * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
@@ -49,10 +47,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     private final OWLDocumentFormat ontologyFormat;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param format format
      */
     public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
         super(getDefaultNamespace(ontology, format));
@@ -61,6 +57,38 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         addWellKnownNamespace("skos", Namespaces.SKOS.toString());
         addWellKnownNamespace("dc", DublinCoreVocabulary.NAME_SPACE);
         processOntology();
+    }
+
+    /**
+     * Gets a suggested default namespace bases on the ID of an ontology. If the
+     * ontology has an IRI then this IRI will be used to suggest a default
+     * namespace, otherwise, the OWL namespace will be returned as the default
+     * namespace
+     *
+     * @param ontology The ontology
+     * @param format format
+     * @return A suggested default namespace
+     */
+    private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(format, "format cannot be null");
+        if (format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
+            String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
+            if (defaultPrefix != null) {
+                return defaultPrefix;
+            }
+        }
+        if (ontology.getOntologyID().isAnonymous()) {
+            // What do we return here? Just return the OWL namespace for now.
+            return Namespaces.OWL.toString();
+        } else {
+            String base = ontology.getOntologyID().getOntologyIRI().get().toString();
+            if (!base.endsWith("#") && !base.endsWith("/")) {
+                base += "#";
+            }
+            return base;
+        }
     }
 
     protected OWLOntology getOntology() {
@@ -73,7 +101,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
             for (Map.Entry<String, String> e : namespacesByPrefix.entrySet()) {
                 String xmlnsPrefixName = e.getKey().substring(0, e.getKey().length() - 1);
-                namespaceUtil.setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
+                namespaceUtil
+                    .setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
             }
         }
         if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
@@ -108,40 +137,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
         if (!(ns.isEmpty() || !iri.getRemainder().isPresent())) {
             namespaceUtil.getPrefix(ns);
-        }
-    }
-
-    /**
-     * Gets a suggested default namespace bases on the ID of an ontology. If the
-     * ontology has an IRI then this IRI will be used to suggest a default
-     * namespace, otherwise, the OWL namespace will be returned as the default
-     * namespace
-     * 
-     * @param ontology
-     *        The ontology
-     * @param format
-     *        format
-     * @return A suggested default namespace
-     */
-    private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
-        checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(format, "format cannot be null");
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
-            String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
-            if (defaultPrefix != null) {
-                return defaultPrefix;
-            }
-        }
-        if (ontology.getOntologyID().isAnonymous()) {
-            // What do we return here? Just return the OWL namespace for now.
-            return Namespaces.OWL.toString();
-        } else {
-            String base = ontology.getOntologyID().getOntologyIRI().get().toString();
-            if (!base.endsWith("#") && !base.endsWith("/")) {
-                base += "#";
-            }
-            return base;
         }
     }
 

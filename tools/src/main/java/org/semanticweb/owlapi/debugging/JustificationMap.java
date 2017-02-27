@@ -13,24 +13,58 @@
 package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class JustificationMap {
@@ -38,17 +72,17 @@ public class JustificationMap {
     private final Set<OWLAxiom> axioms;
     private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
-    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys().linkedHashSetValues().build();
-    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder.hashKeys().linkedHashSetValues().build();
+    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys()
+        .linkedHashSetValues().build();
+    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder.hashKeys()
+        .linkedHashSetValues().build();
     private final OWLClassExpression desc;
 
     /**
      * Instantiates a new justification map.
-     * 
-     * @param desc
-     *        the class expression
-     * @param axioms
-     *        the axioms
+     *
+     * @param desc the class expression
+     * @param axioms the axioms
      */
     public JustificationMap(OWLClassExpression desc, Set<OWLAxiom> axioms) {
         this.axioms = checkNotNull(axioms, "axioms cannot be null");
@@ -101,7 +135,7 @@ public class JustificationMap {
 
     /**
      * Gets the root axioms.
-     * 
+     *
      * @return the root axioms
      */
     public Set<OWLAxiom> getRootAxioms() {
@@ -110,27 +144,31 @@ public class JustificationMap {
 
     /**
      * Gets the child axioms.
-     * 
-     * @param ax
-     *        the axiom whose children are to be retrieved
+     *
+     * @param ax the axiom whose children are to be retrieved
      * @return children of ax
      */
     public Collection<OWLAxiom> getChildAxioms(OWLAxiom ax) {
         return map.get(ax);
     }
 
-    /** The Class OWLAxiomPartExtractor. */
+    /**
+     * The Class OWLAxiomPartExtractor.
+     */
     private static class OWLAxiomPartExtractor implements OWLAxiomVisitor {
 
         private final Set<OWLObject> rhs = new HashSet<>();
         private final Set<OWLObject> lhs = new HashSet<>();
 
-        /** Instantiates a new oWL axiom part extractor. */
-        OWLAxiomPartExtractor() {}
+        /**
+         * Instantiates a new oWL axiom part extractor.
+         */
+        OWLAxiomPartExtractor() {
+        }
 
         /**
          * Gets the rhs.
-         * 
+         *
          * @return the rhs
          */
         public Set<OWLObject> getRHS() {
@@ -139,7 +177,7 @@ public class JustificationMap {
 
         /**
          * Gets the lhs.
-         * 
+         *
          * @return the lhs
          */
         public Set<OWLObject> getLHS() {

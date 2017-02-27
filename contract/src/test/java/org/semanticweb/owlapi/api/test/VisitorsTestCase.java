@@ -18,14 +18,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 @RunWith(Parameterized.class)
 public class VisitorsTestCase {
 
@@ -49,10 +48,12 @@ public class VisitorsTestCase {
             "Ontology(OntologyID(OntologyIRI(<urn:test#test>) VersionIRI(<null>)) [Axioms: 0] [Logical axioms: 0])");
         map.put(b.ann(),
             "AnnotationAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#ann> <urn:test#iri> \"false\"^^xsd:boolean)");
-        map.put(b.asymm(), "AsymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
+        map.put(b.asymm(),
+            "AsymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.annDom(), "AnnotationPropertyDomain(<urn:test#ann> <urn:test#iri>)");
         map.put(b.annRange(), "AnnotationPropertyRange(<urn:test#ann> <urn:test#iri>)");
-        map.put(b.ass(), "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> <urn:test#i>)");
+        map.put(b.ass(),
+            "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> <urn:test#i>)");
         map.put(b.assAnd(),
             "ClassAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectIntersectionOf(<urn:test#c> <urn:test#iri>) <urn:test#i>)");
         map.put(b.assOr(),
@@ -109,15 +110,18 @@ public class VisitorsTestCase {
             "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#datatype>)");
         map.put(b.dDef(),
             "DatatypeDefinition(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#datatype> xsd:double)");
-        map.put(b.decC(), "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) Class(<urn:test#c>))");
+        map.put(b.decC(),
+            "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) Class(<urn:test#c>))");
         map.put(b.decOp(),
             "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectProperty(<urn:test#op>))");
-        map.put(b.decDp(), "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataProperty(<urn:test#dp>))");
+        map.put(b.decDp(),
+            "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) DataProperty(<urn:test#dp>))");
         map.put(b.decDt(),
             "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) Datatype(<urn:test#datatype>))");
         map.put(b.decAp(),
             "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) AnnotationProperty(<urn:test#ann>))");
-        map.put(b.decI(), "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test#i>))");
+        map.put(b.decI(),
+            "Declaration(Annotation(<urn:test#ann> \"test\"^^xsd:string) NamedIndividual(<urn:test#i>))");
         map.put(b.assDi(), "DifferentIndividuals(<urn:test#i> <urn:test#iri> )");
         map.put(b.dc(), "DisjointClasses(<urn:test#c> <urn:test#iri>)");
         map.put(b.dDp(),
@@ -132,13 +136,16 @@ public class VisitorsTestCase {
             "EquivalentDataProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#iri> )");
         map.put(b.eOp(),
             "EquivalentObjectProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#iri> <urn:test#op> )");
-        map.put(b.fdp(), "FunctionalDataProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp>)");
-        map.put(b.fop(), "FunctionalObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
+        map.put(b.fdp(),
+            "FunctionalDataProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp>)");
+        map.put(b.fop(),
+            "FunctionalObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.ifp(),
             "InverseFunctionalObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.iop(),
             "InverseObjectProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#op>)");
-        map.put(b.irr(), "IrreflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
+        map.put(b.irr(),
+            "IrreflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.ndp(),
             "NegativeDataPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#i> \"false\"^^xsd:boolean)");
         map.put(b.nop(),
@@ -155,21 +162,25 @@ public class VisitorsTestCase {
             "ObjectPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#c>)");
         map.put(b.chain(),
             "SubObjectPropertyOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectPropertyChain( <urn:test#iri> <urn:test#op> ) <urn:test#op>)");
-        map.put(b.ref(), "ReflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
+        map.put(b.ref(),
+            "ReflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.same(),
             "SameIndividual(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#i> <urn:test#iri> )");
         map.put(b.subAnn(),
             "SubAnnotationPropertyOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#ann> rdfs:label)");
-        map.put(b.subClass(), "SubClassOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> owl:Thing)");
+        map.put(b.subClass(),
+            "SubClassOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> owl:Thing)");
         map.put(b.subData(), "SubDataPropertyOf(<urn:test#dp> owl:topDataProperty)");
         map.put(b.subObject(),
             "SubObjectPropertyOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> owl:topObjectProperty)");
-        map.put(b.symm(), "SymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
-        map.put(b.trans(), "TransitiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
+        map.put(b.symm(),
+            "SymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
+        map.put(b.trans(),
+            "TransitiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.hasKey(),
             "HasKey(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))");
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
+        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
         return toReturn;
     }
 

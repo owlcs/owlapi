@@ -12,19 +12,124 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
-import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.*;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.AND;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.BOTTOM;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.COMMA;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.COMP;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.DISJOINT_WITH;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.EQUAL;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.EQUIVALENT_TO;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.EXISTS;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.FORALL;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.IMPLIES;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.IN;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.INVERSE;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.MAX;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.MIN;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.NOT;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.NOT_EQUAL;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.OR;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.SELF;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.SUBCLASS;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.TOP;
+import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.WEDGE;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasValueRestriction;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
+import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
@@ -32,36 +137,41 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /**
  * Renders objects in unicode DL syntax.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
 
-    private ShortFormProvider shortFormProvider;
     private final IRIShortFormProvider iriShortFormProvider;
+    private ShortFormProvider shortFormProvider;
     private StringBuilder buffer;
-    @Nullable private OWLObject focusedObject;
+    @Nullable
+    private OWLObject focusedObject;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public DLSyntaxObjectRenderer() {
         shortFormProvider = new SimpleShortFormProvider();
         iriShortFormProvider = new SimpleIRIShortFormProvider();
         buffer = new StringBuilder();
     }
 
+    protected static boolean isBracketedIfNested(OWLObject object) {
+        checkNotNull(object, "object cannot be null");
+        return !(object instanceof OWLEntity);
+    }
+
     /**
-     * @param focusedObject
-     *        focusedObject
+     * @param focusedObject focusedObject
      */
     public void setFocusedObject(@Nullable OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
     /**
-     * @param obj
-     *        obj
+     * @param obj obj
      * @return true if obj is equal to focusedObject
      */
     public boolean isFocusedObject(OWLObject obj) {
@@ -73,7 +183,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+            "shortFormProvider cannot be null");
     }
 
     @Override
@@ -123,11 +234,6 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         }
     }
 
-    protected static boolean isBracketedIfNested(OWLObject object) {
-        checkNotNull(object, "object cannot be null");
-        return !(object instanceof OWLEntity);
-    }
-
     private void writeObject(OWLObject object, boolean nest) {
         checkNotNull(object, "object cannot be null");
         if (nest) {
@@ -158,7 +264,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
                 writeObject(o1, nest);
             }
         } else {
-            for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+            for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext(); ) {
                 OWLObject o = it.next();
                 writeObject(o, nest);
                 if (it.hasNext()) {
@@ -520,7 +626,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(ce.getOperand());
     }
 
-    private void writeCardinalityRestriction(OWLDataCardinalityRestriction restriction, DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLDataCardinalityRestriction restriction,
+        DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -530,7 +637,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
-    private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction, DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction,
+        DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -540,7 +648,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
-    private void writeQuantifiedRestriction(OWLQuantifiedDataRestriction restriction, DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedDataRestriction restriction,
+        DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -548,7 +657,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
-    private void writeQuantifiedRestriction(OWLQuantifiedObjectRestriction restriction, DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedObjectRestriction restriction,
+        DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -608,7 +718,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it.hasNext(); ) {
             write("{");
             it.next().accept(this);
             write("}");
@@ -663,7 +773,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it.hasNext(); ) {
             write("{");
             it.next().accept(this);
             write("}");

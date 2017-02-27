@@ -19,27 +19,26 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * Orders an explanation in a flat list, sorting axioms alphabetically.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class AlphaExplanationOrderer implements ExplanationOrderer {
 
-    /** The renderer. */
+    /**
+     * The renderer.
+     */
     protected final OWLObjectRenderer renderer;
 
     /**
      * Instantiates a new alpha explanation orderer.
-     * 
-     * @param renderer
-     *        the renderer to use
+     *
+     * @param renderer the renderer to use
      */
     public AlphaExplanationOrderer(OWLObjectRenderer renderer) {
         this.renderer = checkNotNull(renderer, "renderer cannot be null");

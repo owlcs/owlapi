@@ -3,13 +3,46 @@ package org.semanticweb.owlapi.api.test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.OWL_RATIONAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.OWL_REAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_PLAIN_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_XML_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_ANY_URI;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BASE_64_BINARY;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BOOLEAN;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BYTE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DATE_TIME;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DATE_TIME_STAMP;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DECIMAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DOUBLE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_FLOAT;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_HEX_BINARY;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INT;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_LANGUAGE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_LONG;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_NAME;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_NCNAME;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_NEGATIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_NMTOKEN;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_NON_NEGATIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_NON_POSITIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_NORMALIZED_STRING;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_POSITIVE_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_SHORT;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_TOKEN;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_UNSIGNED_BYTE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_UNSIGNED_INT;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_UNSIGNED_LONG;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_UNSIGNED_SHORT;
 
 import org.junit.Test;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 04/04/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
+ *         04/04/2014
  */
 @SuppressWarnings("javadoc")
 public class OWL2DatatypePrefixedNameTestCase {

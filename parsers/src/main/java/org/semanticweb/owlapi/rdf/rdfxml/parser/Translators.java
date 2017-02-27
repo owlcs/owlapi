@@ -13,14 +13,82 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_COMPLEMENT_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_SELF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_HAS_VALUE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_INTERSECTION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MAX_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MAX_QUALIFIED_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MIN_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_MIN_QUALIFIED_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONE_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_QUALIFIED_CARDINALITY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_RESTRICTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_SOME_VALUES_FROM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_NIL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.ARGUMENTS;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.ARGUMENT_1;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.ARGUMENT_2;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.BUILT_IN;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.CLASS_PREDICATE;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.DATA_RANGE;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.PROPERTY_PREDICATE;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -29,18 +97,83 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class Translators {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(Translators.class);
 
-    private Translators() {}
+    private Translators() {
+    }
 
-    static OptimisedListTranslator<OWLPropertyExpression> getListTranslator(OWLRDFConsumer consumer) {
+    static OptimisedListTranslator<OWLPropertyExpression> getListTranslator(
+        OWLRDFConsumer consumer) {
         return new OptimisedListTranslator<>(consumer, new HasKeyListItemTranslator(consumer));
+    }
+
+    /**
+     * Give a node in an RDF graph, which represents the main node of an OWL
+     * class expression, the {@code ClassExpressionTranslator} consumes the
+     * triples that represent the class expression, and translates the triples
+     * to the appropriate OWL API {@code OWLClassExpression} object.
+     */
+    public interface ClassExpressionTranslator {
+
+        /**
+         * @param mainNode mainNode
+         * @param mode mode
+         * @return true if parameter matches
+         */
+        boolean matches(IRI mainNode, Mode mode);
+
+        /**
+         * @param mainNode mainNode
+         * @return true if parameter matches strictly
+         */
+        boolean matchesStrict(IRI mainNode);
+
+        /**
+         * @param mainNode mainNode
+         * @return true if parameter matches in lax mode
+         */
+        boolean matchesLax(IRI mainNode);
+
+        /**
+         * Translates the specified main node into an {@code OWLClassExpression}
+         * . All triples used in the translation are consumed.
+         *
+         * @param mainNode The main node of the set of triples that represent the class expression.
+         * @return The class expression that represents the translation.
+         */
+        OWLClassExpression translate(IRI mainNode);
+    }
+
+    /**
+     * Translates and consumes an item in an RDF list.
+     *
+     * @param <O> type
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+     * @since 2.0.0
+     */
+    public interface ListItemTranslator<O extends OWLObject> {
+
+        /**
+         * The rdf:first triple that represents the item to be translated. This
+         * triple will point to something like a class expression, individual.
+         *
+         * @param firstObject The rdf:first triple that points to the item to be translated.
+         * @return The translated item.
+         */
+        @Nullable
+        O translate(IRI firstObject);
+
+        /**
+         * @param firstObject firstObject
+         * @return translated item
+         */
+        @Nullable
+        O translate(OWLLiteral firstObject);
     }
 
     static class TranslatorAccessor {
@@ -50,22 +183,34 @@ public class Translators {
          * intersections, unions etc.).
          */
         private final OptimisedListTranslator<OWLClassExpression> classExpressionListTranslator;
-        /** The class expression translators. */
+        /**
+         * The class expression translators.
+         */
         private final List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<>();
         /**
          * A translator for individual lists (such lists are used in object
          * oneOf constructs).
          */
         private final OptimisedListTranslator<OWLIndividual> individualListTranslator;
-        /** The object property list translator. */
+        /**
+         * The object property list translator.
+         */
         private final OptimisedListTranslator<OWLObjectPropertyExpression> objectPropertyListTranslator;
-        /** The constant list translator. */
+        /**
+         * The constant list translator.
+         */
         private final OptimisedListTranslator<OWLLiteral> constantListTranslator;
-        /** The data property list translator. */
+        /**
+         * The data property list translator.
+         */
         private final OptimisedListTranslator<OWLDataPropertyExpression> dataPropertyListTranslator;
-        /** The data range list translator. */
+        /**
+         * The data range list translator.
+         */
         private final OptimisedListTranslator<OWLDataRange> dataRangeListTranslator;
-        /** The face restriction list translator. */
+        /**
+         * The face restriction list translator.
+         */
         private final OptimisedListTranslator<OWLFacetRestriction> faceRestrictionListTranslator;
         private final OWLRDFConsumer consumer;
         private final Map<IRI, OWLClassExpression> translatedClassExpression = new HashMap<>();
@@ -74,11 +219,16 @@ public class Translators {
             consumer = r;
             classExpressionListTranslator = new OptimisedListTranslator<>(r,
                 new ClassExpressionListItemTranslator(r, this));
-            individualListTranslator = new OptimisedListTranslator<>(r, new IndividualListItemTranslator(r));
-            constantListTranslator = new OptimisedListTranslator<>(r, new TypedConstantListItemTranslator());
-            objectPropertyListTranslator = new OptimisedListTranslator<>(r, new ObjectPropertyListItemTranslator(r));
-            dataPropertyListTranslator = new OptimisedListTranslator<>(r, new DataPropertyListItemTranslator(r));
-            dataRangeListTranslator = new OptimisedListTranslator<>(r, new DataRangeListItemTranslator(r));
+            individualListTranslator = new OptimisedListTranslator<>(r,
+                new IndividualListItemTranslator(r));
+            constantListTranslator = new OptimisedListTranslator<>(r,
+                new TypedConstantListItemTranslator());
+            objectPropertyListTranslator = new OptimisedListTranslator<>(r,
+                new ObjectPropertyListItemTranslator(r));
+            dataPropertyListTranslator = new OptimisedListTranslator<>(r,
+                new DataPropertyListItemTranslator(r));
+            dataRangeListTranslator = new OptimisedListTranslator<>(r,
+                new DataRangeListItemTranslator(r));
             faceRestrictionListTranslator = new OptimisedListTranslator<>(r,
                 new OWLFacetRestrictionListItemTranslator(r));
             classExpressionTranslators.add(new NamedClassTranslator(r, this));
@@ -177,13 +327,14 @@ public class Translators {
 
     abstract static class AbstractClassExpressionTranslator implements ClassExpressionTranslator {
 
+        protected final TranslatorAccessor accessor;
         private final OWLRDFConsumer consumer;
         private final ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
         private final DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
         private final IndividualMatcher individualMatcher = new IndividualMatcher();
-        protected final TranslatorAccessor accessor;
 
-        protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
+        protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer,
+            TranslatorAccessor accessor) {
             this.consumer = consumer;
             this.accessor = accessor;
         }
@@ -232,7 +383,8 @@ public class Translators {
             }
             OWLDatatype datatype = literal.getDatatype();
             OWL2Datatype nni = OWL2Datatype.XSD_NON_NEGATIVE_INTEGER;
-            return datatype.getIRI().equals(nni.getIRI()) && nni.isInLexicalSpace(literal.getLiteral());
+            return datatype.getIRI().equals(nni.getIRI()) && nni
+                .isInLexicalSpace(literal.getLiteral());
         }
 
         protected boolean isNonNegativeIntegerLax(IRI mainNode, OWLRDFVocabulary predicate) {
@@ -240,7 +392,8 @@ public class Translators {
             if (literal == null) {
                 return false;
             }
-            return OWL2Datatype.XSD_INTEGER.isInLexicalSpace(verifyNotNull(literal.getLiteral().trim()));
+            return OWL2Datatype.XSD_INTEGER
+                .isInLexicalSpace(verifyNotNull(literal.getLiteral().trim()));
         }
 
         protected int translateInteger(IRI mainNode, OWLRDFVocabulary predicate) {
@@ -340,7 +493,8 @@ public class Translators {
             return mainNode != null && isResourceListStrict(mainNode, individualMatcher, minSize);
         }
 
-        protected boolean isResourceListStrict(@Nullable IRI mainNode, TypeMatcher typeMatcher, int minSize) {
+        protected boolean isResourceListStrict(@Nullable IRI mainNode, TypeMatcher typeMatcher,
+            int minSize) {
             if (mainNode == null) {
                 return false;
             }
@@ -385,7 +539,8 @@ public class Translators {
 
         private class ClassExpressionMatcher implements TypeMatcher {
 
-            ClassExpressionMatcher() {}
+            ClassExpressionMatcher() {
+            }
 
             @Override
             public boolean isTypeStrict(IRI node) {
@@ -395,7 +550,8 @@ public class Translators {
 
         private class DataRangeMatcher implements TypeMatcher {
 
-            DataRangeMatcher() {}
+            DataRangeMatcher() {
+            }
 
             @Override
             public boolean isTypeStrict(IRI node) {
@@ -405,7 +561,8 @@ public class Translators {
 
         private class IndividualMatcher implements TypeMatcher {
 
-            IndividualMatcher() {}
+            IndividualMatcher() {
+            }
 
             @Override
             public boolean isTypeStrict(IRI node) {
@@ -414,10 +571,11 @@ public class Translators {
         }
     }
 
-    static class ClassExpressionListItemTranslator implements ListItemTranslator<OWLClassExpression> {
+    static class ClassExpressionListItemTranslator implements
+        ListItemTranslator<OWLClassExpression> {
 
-        private final OWLRDFConsumer consumer;
         protected final TranslatorAccessor accessor;
+        private final OWLRDFConsumer consumer;
 
         ClassExpressionListItemTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
             this.consumer = consumer;
@@ -438,49 +596,6 @@ public class Translators {
         }
     }
 
-    /**
-     * Give a node in an RDF graph, which represents the main node of an OWL
-     * class expression, the {@code ClassExpressionTranslator} consumes the
-     * triples that represent the class expression, and translates the triples
-     * to the appropriate OWL API {@code OWLClassExpression} object.
-     */
-    public interface ClassExpressionTranslator {
-
-        /**
-         * @param mainNode
-         *        mainNode
-         * @param mode
-         *        mode
-         * @return true if parameter matches
-         */
-        boolean matches(IRI mainNode, Mode mode);
-
-        /**
-         * @param mainNode
-         *        mainNode
-         * @return true if parameter matches strictly
-         */
-        boolean matchesStrict(IRI mainNode);
-
-        /**
-         * @param mainNode
-         *        mainNode
-         * @return true if parameter matches in lax mode
-         */
-        boolean matchesLax(IRI mainNode);
-
-        /**
-         * Translates the specified main node into an {@code OWLClassExpression}
-         * . All triples used in the translation are consumed.
-         * 
-         * @param mainNode
-         *        The main node of the set of triples that represent the class
-         *        expression.
-         * @return The class expression that represents the translation.
-         */
-        OWLClassExpression translate(IRI mainNode);
-    }
-
     static class DataAllValuesFromTranslator extends AbstractClassExpressionTranslator {
 
         DataAllValuesFromTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
@@ -495,8 +610,10 @@ public class Translators {
 
         @Override
         public boolean matchesLax(IRI mainNode) {
-            return isDataRangeLax(mainNode, OWL_ALL_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)
-                || isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_ALL_VALUES_FROM);
+            return isDataRangeLax(mainNode, OWL_ALL_VALUES_FROM) && isResourcePresent(mainNode,
+                OWL_ON_PROPERTY)
+                || isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode,
+                OWL_ALL_VALUES_FROM);
         }
 
         @Override
@@ -519,13 +636,15 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_CARDINALITY)
                 && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY);
         }
 
         @Override
         public boolean matchesLax(IRI mainNode) {
-            return isNonNegativeIntegerLax(mainNode, OWL_CARDINALITY) && isDataPropertyLax(mainNode, OWL_ON_PROPERTY);
+            return isNonNegativeIntegerLax(mainNode, OWL_CARDINALITY) && isDataPropertyLax(mainNode,
+                OWL_ON_PROPERTY);
         }
 
         @Override
@@ -582,7 +701,8 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MAX_CARDINALITY)
                 && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY);
         }
 
@@ -612,13 +732,15 @@ public class Translators {
 
     static class DataMaxQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
 
-        DataMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
+        DataMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
+            TranslatorAccessor accessor) {
             super(consumer, accessor);
         }
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MAX_QUALIFIED_CARDINALITY)
                 && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY)
                 && isDataRangeStrict(mainNode, OWL_ON_DATA_RANGE);
         }
@@ -626,7 +748,8 @@ public class Translators {
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
-                && isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
+                && isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isDataRangeLax(mainNode,
+                OWL_ON_DATA_RANGE);
         }
 
         @Override
@@ -650,7 +773,8 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MIN_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MIN_CARDINALITY)
                 && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY);
         }
 
@@ -680,20 +804,24 @@ public class Translators {
 
     static class DataMinQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
 
-        DataMinQualifiedCardinalityTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
+        DataMinQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
+            TranslatorAccessor accessor) {
             super(consumer, accessor);
         }
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MIN_QUALIFIED_CARDINALITY)
-                && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode, OWL_ON_CLASS);
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MIN_QUALIFIED_CARDINALITY)
+                && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode,
+                OWL_ON_CLASS);
         }
 
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_MIN_QUALIFIED_CARDINALITY)
-                && isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
+                && isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isDataRangeLax(mainNode,
+                OWL_ON_DATA_RANGE);
         }
 
         @Override
@@ -709,7 +837,8 @@ public class Translators {
         }
     }
 
-    static class DataPropertyListItemTranslator implements ListItemTranslator<OWLDataPropertyExpression> {
+    static class DataPropertyListItemTranslator implements
+        ListItemTranslator<OWLDataPropertyExpression> {
 
         private final OWLRDFConsumer consumer;
 
@@ -739,14 +868,17 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_QUALIFIED_CARDINALITY)
-                && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode, OWL_ON_CLASS);
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_QUALIFIED_CARDINALITY)
+                && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode,
+                OWL_ON_CLASS);
         }
 
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_QUALIFIED_CARDINALITY)
-                && isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
+                && isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isDataRangeLax(mainNode,
+                OWL_ON_DATA_RANGE);
         }
 
         @Override
@@ -797,9 +929,10 @@ public class Translators {
 
         @Override
         public boolean matchesLax(IRI mainNode) {
-            return isDataRangeLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)
+            return isDataRangeLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(mainNode,
+                OWL_ON_PROPERTY)
                 || isDataPropertyLax(mainNode, OWL_ON_PROPERTY)
-                    && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM);
+                && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM);
         }
 
         @Override
@@ -843,18 +976,22 @@ public class Translators {
             // know which is correct
             OWLPropertyExpression property = null;
             if (consumer.isObjectProperty(firstObject)) {
-                LOGGER.warn("Property {} has been punned illegally: found declaration as OWLObjectProperty",
+                LOGGER.warn(
+                    "Property {} has been punned illegally: found declaration as OWLObjectProperty",
                     firstObject);
                 property = consumer.getDataFactory().getOWLObjectProperty(firstObject);
             }
             if (consumer.isDataProperty(firstObject)) {
-                LOGGER.warn("Property {} has been punned illegally: found declaration as OWLDataProperty", firstObject);
+                LOGGER.warn(
+                    "Property {} has been punned illegally: found declaration as OWLDataProperty",
+                    firstObject);
                 if (property == null) {
                     property = consumer.getDataFactory().getOWLDataProperty(firstObject);
                 }
             }
             if (consumer.isAnnotationProperty(firstObject)) {
-                LOGGER.warn("Property {} has been punned illegally: found declaration as OWLAnnotationProperty",
+                LOGGER.warn(
+                    "Property {} has been punned illegally: found declaration as OWLAnnotationProperty",
                     firstObject);
                 if (property == null) {
                     property = consumer.getDataFactory().getOWLAnnotationProperty(firstObject);
@@ -864,7 +1001,8 @@ public class Translators {
             // and consider it a datatype property.
             // This matches existing behaviour.
             if (property == null) {
-                LOGGER.warn("Property {} is undeclared at this point in parsing: typing as OWLDataProperty",
+                LOGGER.warn(
+                    "Property {} is undeclared at this point in parsing: typing as OWLDataProperty",
                     firstObject);
                 property = consumer.getDataFactory().getOWLDataProperty(firstObject);
             }
@@ -889,40 +1027,10 @@ public class Translators {
         @Override
         @Nullable
         public OWLIndividual translate(OWLLiteral firstObject) {
-            LOGGER.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
+            LOGGER.info(
+                "Cannot translate list item to individual, because rdf:first triple is a literal triple");
             return null;
         }
-    }
-
-    /**
-     * Translates and consumes an item in an RDF list.
-     * 
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
-     * @since 2.0.0
-     * @param <O>
-     *        type
-     */
-    public interface ListItemTranslator<O extends OWLObject> {
-
-        /**
-         * The rdf:first triple that represents the item to be translated. This
-         * triple will point to something like a class expression, individual.
-         * 
-         * @param firstObject
-         *        The rdf:first triple that points to the item to be translated.
-         * @return The translated item.
-         */
-        @Nullable
-            O translate(IRI firstObject);
-
-        /**
-         * @param firstObject
-         *        firstObject
-         * @return translated item
-         */
-        @Nullable
-            O translate(OWLLiteral firstObject);
     }
 
     static class NamedClassTranslator extends AbstractClassExpressionTranslator {
@@ -944,10 +1052,8 @@ public class Translators {
         /**
          * Translates the specified main node into an {@code OWLClassExpression}
          * . All triples used in the translation are consumed.
-         * 
-         * @param mainNode
-         *        The main node of the set of triples that represent the class
-         *        expression.
+         *
+         * @param mainNode The main node of the set of triples that represent the class expression.
          * @return The class expression that represents the translation.
          */
         @Override
@@ -956,7 +1062,8 @@ public class Translators {
         }
     }
 
-    static class OWLFacetRestrictionListItemTranslator implements ListItemTranslator<OWLFacetRestriction> {
+    static class OWLFacetRestrictionListItemTranslator implements
+        ListItemTranslator<OWLFacetRestriction> {
 
         private final OWLRDFConsumer consumer;
 
@@ -1015,14 +1122,18 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
+            return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode,
+                OWL_ON_PROPERTY)
                 && isClassExpressionStrict(mainNode, OWL_ALL_VALUES_FROM);
         }
 
         @Override
         public boolean matchesLax(IRI mainNode) {
-            return isClassExpressionLax(mainNode, OWL_ALL_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)
-                || isObjectPropertyLax(mainNode) && isResourcePresent(mainNode, OWL_ALL_VALUES_FROM);
+            return
+                isClassExpressionLax(mainNode, OWL_ALL_VALUES_FROM) && isResourcePresent(mainNode,
+                    OWL_ON_PROPERTY)
+                    || isObjectPropertyLax(mainNode) && isResourcePresent(mainNode,
+                    OWL_ALL_VALUES_FROM);
         }
 
         @Override
@@ -1045,13 +1156,15 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
         }
 
         @Override
         public boolean matchesLax(IRI mainNode) {
-            return isNonNegativeIntegerLax(mainNode, OWL_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY);
+            return isNonNegativeIntegerLax(mainNode, OWL_CARDINALITY) && isObjectPropertyLax(
+                mainNode, OWL_ON_PROPERTY);
         }
 
         @Override
@@ -1075,9 +1188,8 @@ public class Translators {
     /**
      * Translates a set of triples that represent an {@code OWLComplementOf}
      * class expression.
-     * 
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
+     *
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
      */
     static class ObjectComplementOfTranslator extends AbstractClassExpressionTranslator {
@@ -1088,7 +1200,8 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            IRI complementOfIRI = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, false);
+            IRI complementOfIRI = getConsumer()
+                .getResourceObject(mainNode, OWL_COMPLEMENT_OF, false);
             return isClassExpressionStrict(mainNode) && isClassExpressionStrict(complementOfIRI);
         }
 
@@ -1099,8 +1212,10 @@ public class Translators {
 
         @Override
         public OWLObjectComplementOf translate(IRI mainNode) {
-            IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, true);
-            OWLClassExpression operand = accessor.translateClassExpression(verifyNotNull(complementOfObject));
+            IRI complementOfObject = getConsumer()
+                .getResourceObject(mainNode, OWL_COMPLEMENT_OF, true);
+            OWLClassExpression operand = accessor
+                .translateClassExpression(verifyNotNull(complementOfObject));
             return getDataFactory().getOWLObjectComplementOf(operand);
         }
     }
@@ -1111,21 +1226,23 @@ public class Translators {
             super(consumer, accessor);
         }
 
-        @Override
-        public boolean matchesStrict(IRI mainNode) {
-            OWLLiteral literal = getConsumer().getLiteralObject(mainNode, OWL_HAS_SELF.getIRI(), false);
-            return literal != null && isStrictBooleanTrueLiteral(literal)
-                && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
-        }
-
         private static boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
             return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI())
                 && Boolean.parseBoolean(literal.getLiteral());
         }
 
         @Override
+        public boolean matchesStrict(IRI mainNode) {
+            OWLLiteral literal = getConsumer()
+                .getLiteralObject(mainNode, OWL_HAS_SELF.getIRI(), false);
+            return literal != null && isStrictBooleanTrueLiteral(literal)
+                && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
+        }
+
+        @Override
         public boolean matchesLax(IRI mainNode) {
-            return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isLiteralPresent(mainNode, OWL_HAS_SELF);
+            return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isLiteralPresent(mainNode,
+                OWL_HAS_SELF);
         }
 
         @Override
@@ -1147,13 +1264,15 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
+            return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode,
+                OWL_ON_PROPERTY)
                 && isResourcePresent(mainNode, OWL_HAS_VALUE);
         }
 
         @Override
         public boolean matchesLax(IRI mainNode) {
-            return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_HAS_VALUE);
+            return isResourcePresent(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode,
+                OWL_HAS_VALUE);
         }
 
         @Override
@@ -1170,9 +1289,8 @@ public class Translators {
     /**
      * A class expression translator which produces an {@code OWLIntersectionOf}
      * . This relies on the main node having an intersectionOf triple.
-     * 
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
+     *
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
      */
     static class ObjectIntersectionOfTranslator extends AbstractClassExpressionTranslator {
@@ -1195,14 +1313,14 @@ public class Translators {
         @Override
         public OWLObjectIntersectionOf translate(IRI mainNode) {
             IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF, true);
-            Set<OWLClassExpression> classExpressions = accessor.translateToClassExpressionSet(verifyNotNull(listNode));
+            Set<OWLClassExpression> classExpressions = accessor
+                .translateToClassExpressionSet(verifyNotNull(listNode));
             return getDataFactory().getOWLObjectIntersectionOf(classExpressions);
         }
     }
 
     /**
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
      */
     static class ObjectMaxCardinalityTranslator extends AbstractClassExpressionTranslator {
@@ -1213,7 +1331,8 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MAX_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
         }
 
@@ -1242,19 +1361,20 @@ public class Translators {
     }
 
     /**
-     * @author Matthew Horridge, The University of Manchester, Bio-Health
-     *         Informatics Group
+     * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
      * @since 3.1.0
      */
     static class ObjectMaxQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
 
-        ObjectMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
+        ObjectMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
+            TranslatorAccessor accessor) {
             super(consumer, accessor);
         }
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MAX_QUALIFIED_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
                 && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
         }
@@ -1262,7 +1382,8 @@ public class Translators {
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
-                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode, OWL_ON_CLASS);
+                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode,
+                OWL_ON_CLASS);
         }
 
         @Override
@@ -1278,8 +1399,7 @@ public class Translators {
     }
 
     /**
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
      */
     static class ObjectMinCardinalityTranslator extends AbstractClassExpressionTranslator {
@@ -1290,7 +1410,8 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MIN_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MIN_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
         }
 
@@ -1320,13 +1441,15 @@ public class Translators {
 
     static class ObjectMinQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
 
-        ObjectMinQualifiedCardinalityTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
+        ObjectMinQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
+            TranslatorAccessor accessor) {
             super(consumer, accessor);
         }
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MIN_QUALIFIED_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_MIN_QUALIFIED_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
                 && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
         }
@@ -1334,7 +1457,8 @@ public class Translators {
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_MIN_QUALIFIED_CARDINALITY)
-                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode, OWL_ON_CLASS);
+                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode,
+                OWL_ON_CLASS);
         }
 
         @Override
@@ -1369,17 +1493,18 @@ public class Translators {
         @Override
         public OWLObjectOneOf translate(IRI mainNode) {
             IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, true);
-            Set<OWLIndividual> individuals = accessor.translateToIndividualSet(verifyNotNull(oneOfObject));
+            Set<OWLIndividual> individuals = accessor
+                .translateToIndividualSet(verifyNotNull(oneOfObject));
             return getDataFactory().getOWLObjectOneOf(individuals);
         }
     }
 
     /**
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
      */
-    static class ObjectPropertyListItemTranslator implements ListItemTranslator<OWLObjectPropertyExpression> {
+    static class ObjectPropertyListItemTranslator implements
+        ListItemTranslator<OWLObjectPropertyExpression> {
 
         private final OWLRDFConsumer consumer;
 
@@ -1390,9 +1515,8 @@ public class Translators {
         /**
          * The rdf:first triple that represents the item to be translated. This
          * triple will point to something like a class expression, individual.
-         * 
-         * @param firstObject
-         *        The rdf:first triple that points to the item to be translated.
+         *
+         * @param firstObject The rdf:first triple that points to the item to be translated.
          * @return The translated item.
          */
         @Override
@@ -1412,8 +1536,7 @@ public class Translators {
     }
 
     /**
-     * @author Matthew Horridge, The University of Manchester, Bio-Health
-     *         Informatics Group
+     * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
      * @since 3.1.0
      */
     static class ObjectQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
@@ -1424,7 +1547,8 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_QUALIFIED_CARDINALITY)
+            return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode,
+                OWL_QUALIFIED_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
                 && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
         }
@@ -1432,7 +1556,8 @@ public class Translators {
         @Override
         public boolean matchesLax(IRI mainNode) {
             return isNonNegativeIntegerLax(mainNode, OWL_QUALIFIED_CARDINALITY)
-                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode, OWL_ON_CLASS);
+                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode,
+                OWL_ON_CLASS);
         }
 
         @Override
@@ -1448,8 +1573,7 @@ public class Translators {
     }
 
     /**
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
      */
     static class ObjectSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
@@ -1460,14 +1584,18 @@ public class Translators {
 
         @Override
         public boolean matchesStrict(IRI mainNode) {
-            return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
+            return isRestrictionStrict(mainNode) && isObjectPropertyStrict(mainNode,
+                OWL_ON_PROPERTY)
                 && isClassExpressionStrict(mainNode, OWL_SOME_VALUES_FROM);
         }
 
         @Override
         public boolean matchesLax(IRI mainNode) {
-            return isClassExpressionLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)
-                || isObjectPropertyLax(mainNode) && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM);
+            return
+                isClassExpressionLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(mainNode,
+                    OWL_ON_PROPERTY)
+                    || isObjectPropertyLax(mainNode) && isResourcePresent(mainNode,
+                    OWL_SOME_VALUES_FROM);
         }
 
         @Override
@@ -1484,9 +1612,8 @@ public class Translators {
 
     /**
      * Translates a set of triples to an {@code OWLUnionOf}.
-     * 
-     * @author Matthew Horridge, The University Of Manchester, Bio-Health
-     *         Informatics Group
+     *
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
      */
     static class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
@@ -1509,16 +1636,17 @@ public class Translators {
         @Override
         public OWLObjectUnionOf translate(IRI mainNode) {
             IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, true);
-            Set<OWLClassExpression> classExpressions = accessor.translateToClassExpressionSet(verifyNotNull(listNode));
+            Set<OWLClassExpression> classExpressions = accessor
+                .translateToClassExpressionSet(verifyNotNull(listNode));
             return getDataFactory().getOWLObjectUnionOf(classExpressions);
         }
     }
 
     static class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> {
 
-        private final OWLRDFConsumer consumer;
         protected final OWLDataFactory dataFactory;
         protected final TranslatorAccessor accessor;
+        private final OWLRDFConsumer consumer;
 
         SWRLAtomListItemTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
             this.consumer = consumer;
@@ -1560,24 +1688,30 @@ public class Translators {
         }
 
         protected SWRLAtom individualAtom(IRI firstObject) {
-            IRI objectPropertyIRI = consumer.getResourceObject(firstObject, PROPERTY_PREDICATE.getIRI(), true);
+            IRI objectPropertyIRI = consumer
+                .getResourceObject(firstObject, PROPERTY_PREDICATE.getIRI(), true);
             if (objectPropertyIRI == null) {
                 throw new OWLRuntimeException(
-                    "Don't know how to translate SWRL Atom: object property IRI is null " + firstObject);
+                    "Don't know how to translate SWRL Atom: object property IRI is null "
+                        + firstObject);
             }
-            OWLObjectPropertyExpression prop = consumer.translateObjectPropertyExpression(objectPropertyIRI);
+            OWLObjectPropertyExpression prop = consumer
+                .translateObjectPropertyExpression(objectPropertyIRI);
             SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getIRI());
             SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject, ARGUMENT_2.getIRI());
             return dataFactory.getSWRLObjectPropertyAtom(prop, arg1, arg2);
         }
 
         protected SWRLAtom dataValueAtom(IRI firstObject) {
-            IRI dataPropertyIRI = consumer.getResourceObject(firstObject, PROPERTY_PREDICATE.getIRI(), true);
+            IRI dataPropertyIRI = consumer
+                .getResourceObject(firstObject, PROPERTY_PREDICATE.getIRI(), true);
             if (dataPropertyIRI == null) {
                 throw new OWLRuntimeException(
-                    "Don't know how to translate SWRL Atom: data property IRI is null " + firstObject);
+                    "Don't know how to translate SWRL Atom: data property IRI is null "
+                        + firstObject);
             }
-            OWLDataPropertyExpression prop = consumer.translateDataPropertyExpression(dataPropertyIRI);
+            OWLDataPropertyExpression prop = consumer
+                .translateDataPropertyExpression(dataPropertyIRI);
             SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject, ARGUMENT_1.getIRI());
             SWRLDArgument arg2 = translateSWRLAtomDObject(firstObject, ARGUMENT_2.getIRI());
             return dataFactory.getSWRLDataPropertyAtom(prop, arg1, arg2);
@@ -1610,7 +1744,8 @@ public class Translators {
         protected SWRLAtom builtin(IRI firstObject) {
             IRI builtInIRI = consumer.getResourceObject(firstObject, BUILT_IN.getIRI(), true);
             IRI mainIRI = consumer.getResourceObject(firstObject, ARGUMENTS.getIRI(), true);
-            OptimisedListTranslator<SWRLDArgument> listTranslator = new OptimisedListTranslator<>(consumer,
+            OptimisedListTranslator<SWRLDArgument> listTranslator = new OptimisedListTranslator<>(
+                consumer,
                 new SWRLAtomDObjectListItemTranslator());
             List<SWRLDArgument> args = listTranslator.translateList(verifyNotNull(mainIRI));
             return dataFactory.getSWRLBuiltInAtom(verifyNotNull(builtInIRI), args);
@@ -1632,7 +1767,8 @@ public class Translators {
                 }
             } else {
                 throw new OWLRuntimeException(
-                    "Cannot translate SWRL Atom I-Object for " + argPredicateIRI + " Triple not found.");
+                    "Cannot translate SWRL Atom I-Object for " + argPredicateIRI
+                        + " Triple not found.");
             }
         }
 
@@ -1641,7 +1777,9 @@ public class Translators {
             if (argIRI != null) {
                 // Must be a variable -- double check
                 if (!consumer.isSWRLVariable(argIRI)) {
-                    LOGGER.info("Expected SWRL variable for SWRL Data Object: {} (possibly untyped)", argIRI);
+                    LOGGER
+                        .info("Expected SWRL variable for SWRL Data Object: {} (possibly untyped)",
+                            argIRI);
                 }
                 return dataFactory.getSWRLVariable(argIRI);
             } else {
@@ -1654,9 +1792,11 @@ public class Translators {
             throw new IllegalStateException("Could not translate SWRL Atom D-Object");
         }
 
-        private class SWRLAtomDObjectListItemTranslator implements ListItemTranslator<SWRLDArgument> {
+        private class SWRLAtomDObjectListItemTranslator implements
+            ListItemTranslator<SWRLDArgument> {
 
-            SWRLAtomDObjectListItemTranslator() {}
+            SWRLAtomDObjectListItemTranslator() {
+            }
 
             @Override
             @Nullable
@@ -1684,8 +1824,7 @@ public class Translators {
         }
 
         /**
-         * @param mainNode
-         *        rule to translate
+         * @param mainNode rule to translate
          */
         public void translateRule(IRI mainNode) {
             IRI remappedNode = consumer.remapIRI(mainNode);
@@ -1702,19 +1841,22 @@ public class Translators {
                 }
             }
             Set<SWRLAtom> consequent = Collections.emptySet();
-            IRI ruleHeadIRI = consumer.getResourceObject(remappedNode, SWRLVocabulary.HEAD.getIRI(), true);
+            IRI ruleHeadIRI = consumer
+                .getResourceObject(remappedNode, SWRLVocabulary.HEAD.getIRI(), true);
             if (ruleHeadIRI != null) {
                 consequent = listTranslator.translateToSet(ruleHeadIRI);
             }
             Set<SWRLAtom> antecedent = Collections.emptySet();
-            IRI ruleBodyIRI = consumer.getResourceObject(remappedNode, SWRLVocabulary.BODY.getIRI(), true);
+            IRI ruleBodyIRI = consumer
+                .getResourceObject(remappedNode, SWRLVocabulary.BODY.getIRI(), true);
             if (ruleBodyIRI != null) {
                 antecedent = listTranslator.translateToSet(ruleBodyIRI);
             }
             consumer.addAxiom(getRule(remappedNode, annotations, consequent, antecedent));
         }
 
-        protected SWRLRule getRule(IRI remappedNode, Set<OWLAnnotation> annotations, Set<SWRLAtom> consequent,
+        protected SWRLRule getRule(IRI remappedNode, Set<OWLAnnotation> annotations,
+            Set<SWRLAtom> consequent,
             Set<SWRLAtom> antecedent) {
             if (!consumer.isAnonymousNode(remappedNode)) {
                 return consumer.getDataFactory().getSWRLRule(antecedent, consequent, annotations);
@@ -1728,7 +1870,8 @@ public class Translators {
         @Override
         @Nullable
         public OWLLiteral translate(IRI firstObject) {
-            LOGGER.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
+            LOGGER.info(
+                "Cannot translate list item to a constant because rdf:first triple is a resource triple");
             return null;
         }
 

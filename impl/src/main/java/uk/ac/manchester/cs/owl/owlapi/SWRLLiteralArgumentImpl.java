@@ -18,8 +18,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
@@ -27,8 +26,7 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     private final OWLLiteral literal;
 
     /**
-     * @param literal
-     *        literal for argument
+     * @param literal literal for argument
      */
     public SWRLLiteralArgumentImpl(OWLLiteral literal) {
         this.literal = checkNotNull(literal, "literal cannot be null");

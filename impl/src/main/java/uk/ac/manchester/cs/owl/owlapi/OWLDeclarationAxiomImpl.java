@@ -16,15 +16,13 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
@@ -32,10 +30,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     private final OWLEntity entity;
 
     /**
-     * @param entity
-     *        entity to declare
-     * @param annotations
-     *        annotations on the axiom
+     * @param entity entity to declare
+     * @param annotations annotations on the axiom
      */
     public OWLDeclarationAxiomImpl(OWLEntity entity, Collection<OWLAnnotation> annotations) {
         super(annotations);

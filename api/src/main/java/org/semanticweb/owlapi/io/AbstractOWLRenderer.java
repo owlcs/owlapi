@@ -17,24 +17,23 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
 
-    protected AbstractOWLRenderer() {}
+    protected AbstractOWLRenderer() {
+    }
 
     @Override
     public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
         try {
             PrintWriter writer = new PrintWriter(
-                    new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8)));
+                new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8)));
             render(ontology, writer);
             writer.flush();
         } catch (OWLRuntimeException e) {
@@ -44,15 +43,13 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
 
     /**
      * Renders the specified ontology using the specified writer.
-     * 
-     * @param ontology
-     *        the ontology to render
-     * @param writer
-     *        The writer that should be used to write the ontology. Note that
-     *        this writer need not be wrapped with a {@code BufferedWriter}
-     *        because this is taken care of by this abstract implementation.
-     * @throws OWLRendererException
-     *         if exceptions arise
+     *
+     * @param ontology the ontology to render
+     * @param writer The writer that should be used to write the ontology. Note that this writer
+     * need not be wrapped with a {@code BufferedWriter} because this is taken care of by this
+     * abstract implementation.
+     * @throws OWLRendererException if exceptions arise
      */
-    public abstract void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException;
+    public abstract void render(OWLOntology ontology, PrintWriter writer)
+        throws OWLRendererException;
 }

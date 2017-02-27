@@ -1,16 +1,70 @@
 package org.semanticweb.owlapi.api.test;
 
+import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
-
-import com.google.common.collect.Sets;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.model.SWRLRule;
 
 @SuppressWarnings("javadoc")
 public class Builder {
@@ -22,7 +76,8 @@ public class Builder {
     private final OWLLiteral lit = df.getOWLLiteral(false);
     private final OWLLiteral plainlit = df.getOWLLiteral("string", "en");
     private final IRI iri = IRI.create("urn:test#", "iri");
-    private final Set<OWLAnnotation> as = Sets.newHashSet(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
+    private final Set<OWLAnnotation> as = Sets
+        .newHashSet(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
     private final OWLClass ce = df.getOWLClass("urn:test#", "c");
     private final OWLNamedIndividual i = df.getOWLNamedIndividual("urn:test#", "i");
     private final OWLNamedIndividual j = df.getOWLNamedIndividual("urn:test#", "j");
@@ -31,21 +86,27 @@ public class Builder {
     private final Set<OWLObjectProperty> ops = Sets.newHashSet(df.getOWLObjectProperty(iri), op);
     private final Set<OWLClass> classes = Sets.newHashSet(df.getOWLClass(iri), ce);
     private final Set<OWLNamedIndividual> inds = Sets.newHashSet(i, df.getOWLNamedIndividual(iri));
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl#", "v1"), Arrays.asList((SWRLDArgument) df
-        .getSWRLVariable("urn:swrl#", "var3"), df.getSWRLVariable("urn:swrl#", "var4")));
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl#", "v2"), Arrays.asList((SWRLDArgument) df
-        .getSWRLVariable("urn:swrl#", "var5"), df.getSWRLVariable("urn:swrl#", "var6")));
+    private final SWRLAtom v1 = df
+        .getSWRLBuiltInAtom(IRI.create("urn:swrl#", "v1"), Arrays.asList((SWRLDArgument) df
+            .getSWRLVariable("urn:swrl#", "var3"), df.getSWRLVariable("urn:swrl#", "var4")));
+    private final SWRLAtom v2 = df
+        .getSWRLBuiltInAtom(IRI.create("urn:swrl#", "v2"), Arrays.asList((SWRLDArgument) df
+            .getSWRLVariable("urn:swrl#", "var5"), df.getSWRLVariable("urn:swrl#", "var6")));
     private final Set<SWRLAtom> body = Sets.newHashSet(v1);
     private final Set<SWRLAtom> head = Sets.newHashSet(v2);
     private final SWRLDArgument var1 = df.getSWRLVariable("urn:swrl#", "var1");
     private final List<SWRLDArgument> var1list = Arrays.asList(var1);
     private final SWRLIArgument var2 = df.getSWRLVariable("urn:swrl#", "var2");
-    private final LinkedHashSet<SWRLAtom> body2 = Sets.newLinkedHashSet(Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
-        df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list), df.getSWRLDifferentIndividualsAtom(var2,
-            df.getSWRLIndividualArgument(i)), df.getSWRLSameIndividualAtom(var2, df.getSWRLIndividualArgument(df
+    private final LinkedHashSet<SWRLAtom> body2 = Sets
+        .newLinkedHashSet(Arrays.asList(v1, df.getSWRLClassAtom(ce, var2),
+            df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
+            df.getSWRLDifferentIndividualsAtom(var2,
+                df.getSWRLIndividualArgument(i)),
+            df.getSWRLSameIndividualAtom(var2, df.getSWRLIndividualArgument(df
                 .getOWLNamedIndividual(iri))), df.getSWRLBuiltInAtom(iri, var1list)));
-    private final LinkedHashSet<SWRLAtom> head2 = Sets.newLinkedHashSet(Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp,
-        var2, df.getSWRLLiteralArgument(lit)), df.getSWRLObjectPropertyAtom(op, var2, var2)));
+    private final LinkedHashSet<SWRLAtom> head2 = Sets
+        .newLinkedHashSet(Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp,
+            var2, df.getSWRLLiteralArgument(lit)), df.getSWRLObjectPropertyAtom(op, var2, var2)));
     private final OWLOntologyManager m = getManager();
 
     // no parsers and storers injected
@@ -233,11 +294,14 @@ public class Builder {
     }
 
     public OWLDataPropertyRangeAxiom dRangeRestrict() {
-        return df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDatatypeMinMaxExclusiveRestriction(5.0D, 6.0D), as);
+        return df.getOWLDataPropertyRangeAxiom(dp,
+            df.getOWLDatatypeMinMaxExclusiveRestriction(5.0D, 6.0D), as);
     }
 
     public OWLDataPropertyRangeAxiom dNot() {
-        return df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataComplementOf(df.getOWLDataOneOf(lit)), as);
+        return df
+            .getOWLDataPropertyRangeAxiom(dp, df.getOWLDataComplementOf(df.getOWLDataOneOf(lit)),
+                as);
     }
 
     public OWLDataPropertyRangeAxiom dOneOf() {
@@ -301,7 +365,8 @@ public class Builder {
     }
 
     public OWLClassAssertionAxiom assNotAnon() {
-        return df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(ce), df.getOWLAnonymousIndividual("id"), as);
+        return df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(ce),
+            df.getOWLAnonymousIndividual("id"), as);
     }
 
     public OWLClassAssertionAxiom assNot() {
@@ -309,11 +374,13 @@ public class Builder {
     }
 
     public OWLDataPropertyRangeAxiom dRangeOr() {
-        return df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataUnionOf(d, df.getOWLDataOneOf(lit)), as);
+        return df
+            .getOWLDataPropertyRangeAxiom(dp, df.getOWLDataUnionOf(d, df.getOWLDataOneOf(lit)), as);
     }
 
     public OWLDataPropertyRangeAxiom dRangeAnd() {
-        return df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataIntersectionOf(d, df.getOWLDataOneOf(lit)), as);
+        return df.getOWLDataPropertyRangeAxiom(dp,
+            df.getOWLDataIntersectionOf(d, df.getOWLDataOneOf(lit)), as);
     }
 
     public OWLClassAssertionAxiom assOr() {
@@ -353,12 +420,19 @@ public class Builder {
     }
 
     public List<OWLAxiom> all() {
-        return Arrays.asList(ann(), asymm(), annDom(), annRange(), ass(), assAnd(), assOr(), dRangeAnd(), dRangeOr(),
-            assNot(), assNotAnon(), assSome(), assAll(), assHas(), assMin(), assMax(), assEq(), assHasSelf(),
-            assOneOf(), assDSome(), assDAll(), assDHas(), assDMin(), assDMax(), assDEq(), dOneOf(), dNot(),
-            dRangeRestrict(), assD(), assDPlain(), dDom(), dRange(), dDef(), decC(), decOp(), decDp(), decDt(), decAp(),
-            decI(), assDi(), dc(), dDp(), dOp(), du(), ec(), eDp(), eOp(), fdp(), fop(), ifp(), iop(), irr(), ndp(),
-            nop(), opa(), opaInv(), opaInvj(), oDom(), oRange(), chain(), ref(), same(), subAnn(), subClass(),
-            subData(), subObject(), rule(), symm(), trans(), hasKey(), bigRule());
+        return Arrays
+            .asList(ann(), asymm(), annDom(), annRange(), ass(), assAnd(), assOr(), dRangeAnd(),
+                dRangeOr(),
+                assNot(), assNotAnon(), assSome(), assAll(), assHas(), assMin(), assMax(), assEq(),
+                assHasSelf(),
+                assOneOf(), assDSome(), assDAll(), assDHas(), assDMin(), assDMax(), assDEq(),
+                dOneOf(), dNot(),
+                dRangeRestrict(), assD(), assDPlain(), dDom(), dRange(), dDef(), decC(), decOp(),
+                decDp(), decDt(), decAp(),
+                decI(), assDi(), dc(), dDp(), dOp(), du(), ec(), eDp(), eOp(), fdp(), fop(), ifp(),
+                iop(), irr(), ndp(),
+                nop(), opa(), opaInv(), opaInvj(), oDom(), oRange(), chain(), ref(), same(),
+                subAnn(), subClass(),
+                subData(), subObject(), rule(), symm(), trans(), hasKey(), bigRule());
     }
 }

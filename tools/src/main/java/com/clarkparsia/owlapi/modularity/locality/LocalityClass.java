@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
-/** Types of locality classes that can be used. */
+/**
+ * Types of locality classes that can be used.
+ */
 public enum LocalityClass {
     /**
      * Locality class obtained when concepts and roles not present in the

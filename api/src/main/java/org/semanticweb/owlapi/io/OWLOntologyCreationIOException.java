@@ -17,16 +17,14 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 /**
  * Indicates an {@link java.io.IOException} happened during ontology creation.
  * The cause of this exception will be an {@link java.io.IOException}.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
 
     /**
-     * @param ioException
-     *        the cause
+     * @param ioException the cause
      */
     public OWLOntologyCreationIOException(Throwable ioException) {
         super("OWLOntologyCreationIOException: " + ioException.getMessage(), ioException);

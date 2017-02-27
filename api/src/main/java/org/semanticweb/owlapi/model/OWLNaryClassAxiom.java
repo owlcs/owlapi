@@ -12,15 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>,
@@ -43,7 +43,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
 
     /**
      * Gets all of the top level class expressions that appear in this axiom.
-     * 
+     *
      * @return A {@code Set} of class expressions that appear in the axiom.
      * @deprecated use the stream method
      */
@@ -54,7 +54,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
 
     /**
      * Gets all of the top level class expressions that appear in this axiom.
-     * 
+     *
      * @return A {@code Set} of class expressions that appear in the axiom.
      */
     Stream<OWLClassExpression> classExpressions();
@@ -67,7 +67,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     /**
      * A convenience method that obtains the class expression returned by the
      * {@link #getClassExpressions()} method as a list of class expressions.
-     * 
+     *
      * @return A list of the class expressions in this axiom.
      * @deprecated use the stream method
      */
@@ -79,24 +79,20 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     /**
      * Determines if this class axiom contains the specified class expression as
      * an operand.
-     * 
-     * @param ce
-     *        The class expression to test for
-     * @return {@code true} if this axiom contains the specified class
-     *         expression as an operand, otherwise {@code false}.
+     *
+     * @param ce The class expression to test for
+     * @return {@code true} if this axiom contains the specified class expression as an operand,
+     * otherwise {@code false}.
      */
     boolean contains(OWLClassExpression ce);
 
     /**
      * Gets the set of class expressions that appear in this axiom minus the
      * specfied class expressions.
-     * 
-     * @param desc
-     *        The class expressions to subtract from the class expressions in
-     *        this axiom
-     * @return A set containing all of the class expressions in this axiom (the
-     *         class expressions returned by getClassExpressions()) minus the
-     *         specified list of class expressions
+     *
+     * @param desc The class expressions to subtract from the class expressions in this axiom
+     * @return A set containing all of the class expressions in this axiom (the class expressions
+     * returned by getClassExpressions()) minus the specified list of class expressions
      */
     Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc);
 }

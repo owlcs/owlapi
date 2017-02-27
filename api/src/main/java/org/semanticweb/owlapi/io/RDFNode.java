@@ -13,20 +13,18 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.HasIRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
 public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
-        HasIRI, org.apache.commons.rdf.api.RDFTerm {
+    HasIRI, org.apache.commons.rdf.api.RDFTerm {
 
     /**
      * Determines if this node is a literal node.
-     * 
+     *
      * @return {@code true} if this node is a literal, otherwise {@code false}.
      */
     public boolean isLiteral() {
@@ -35,10 +33,10 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
 
     /**
      * Determines if this node is a resource and is anonymous.
-     * 
-     * @return {@code true} if this is a resource node (i.e. {@code isLiteral}
-     *         returns {@code false}) and the node is anonymous, or
-     *         {@code false} if this is a resource node and is not anonymous.
+     *
+     * @return {@code true} if this is a resource node (i.e. {@code isLiteral} returns {@code
+     * false}) and the node is anonymous, or {@code false} if this is a resource node and is not
+     * anonymous.
      */
     public boolean isAnonymous() {
         return false;
@@ -50,6 +48,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
     public boolean isIndividual() {
         return false;
     }
+
     /**
      * @return true if blank node id is mandatory for this resource
      */

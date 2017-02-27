@@ -12,38 +12,65 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DataProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DifferentIndividuals;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointClasses;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointDataProperties;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.DisjointObjectProperties;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNothing;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SameIndividual;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
-
 import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    private @Nonnull OWLOntology o;
+    private @Nonnull
+    OWLOntology o;
 
-    @Before
-    public void setUpO() {
-        o = getOWLOntology();
-    }
-
-    private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom, OWLOntology reloaded) {
+    private static void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
+        OWLOntology reloaded) {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
         assertEquals(1, reloaded.getLogicalAxiomCount());
     }
 
-    private OWLOntology saveAndReload() throws OWLOntologyStorageException, OWLOntologyCreationException {
+    @Before
+    public void setUpO() {
+        o = getOWLOntology();
+    }
+
+    private OWLOntology saveAndReload()
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
         return roundTrip(o, new FunctionalSyntaxDocumentFormat());
     }
 
@@ -64,7 +91,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDisjointObjectProperties() throws OWLOntologyCreationException,
+    public void shouldRoundTripInvalidDisjointObjectProperties()
+        throws OWLOntologyCreationException,
         OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
@@ -178,7 +206,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentObjectProperties() throws OWLOntologyCreationException,
+    public void shouldRoundTripInvalidEquivalentObjectProperties()
+        throws OWLOntologyCreationException,
         OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:tes#", "t1"));
@@ -198,7 +227,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentDataProperties() throws OWLOntologyCreationException,
+    public void shouldRoundTripInvalidEquivalentDataProperties()
+        throws OWLOntologyCreationException,
         OWLOntologyStorageException {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:tes#", "t1"));

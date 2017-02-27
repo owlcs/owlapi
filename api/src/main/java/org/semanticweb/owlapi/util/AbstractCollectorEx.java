@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.HasComponents;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -25,9 +24,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  * A utility class that visits all components of classes and axioms; this base
  * class allows subclasses to choose elements of interest and override handling
  * of such elements.
- * 
- * @param <E>
- *        type returned
+ *
+ * @param <E> type returned
  * @since 5.0.0
  */
 public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Collection<E>> {
@@ -35,8 +33,7 @@ public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Colle
     protected Collection<E> objects;
 
     /**
-     * @param c
-     *        collection to accumulate objects
+     * @param c collection to accumulate objects
      */
     public AbstractCollectorEx(Collection<E> c) {
         objects = checkNotNull(c, "c cannot be null");
@@ -62,7 +59,9 @@ public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Colle
         });
     }
 
-    /** @return collected objects */
+    /**
+     * @return collected objects
+     */
     public Collection<E> getObjects() {
         return objects;
     }

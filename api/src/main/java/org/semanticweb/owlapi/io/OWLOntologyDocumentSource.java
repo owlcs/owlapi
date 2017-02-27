@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Optional;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
@@ -35,9 +34,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  * source, an important difference is that the getReader and getInputStream
  * methods return new instances each time the method is called. This allows
  * multiple attempts at loading an ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLOntologyDocumentSource {
@@ -47,9 +45,8 @@ public interface OWLOntologyDocumentSource {
      * may be called multiple times. Each invocation will return a new
      * {@code Reader}. If there is no reader stream available, returns
      * Optional.absent.
-     * 
-     * @return A new {@code Reader} which the ontology can be read from, wrapped
-     *         in an Optional.
+     *
+     * @return A new {@code Reader} which the ontology can be read from, wrapped in an Optional.
      */
     default Optional<Reader> getReader() {
         return emptyOptional();
@@ -60,9 +57,8 @@ public interface OWLOntologyDocumentSource {
      * method creates it. This method may be called multiple times. Each
      * invocation will return a new input stream. If there is no input stream
      * available, returns Optional.absent. .
-     * 
-     * @return A new input stream which the ontology can be read from, wrapped
-     *         in an Optional.
+     *
+     * @return A new input stream which the ontology can be read from, wrapped in an Optional.
      */
     default Optional<InputStream> getInputStream() {
         return emptyOptional();
@@ -70,40 +66,37 @@ public interface OWLOntologyDocumentSource {
 
     /**
      * Gets the IRI of the ontology document.
-     * 
+     *
      * @return An IRI which represents the ontology document IRI
      */
     IRI getDocumentIRI();
 
     /**
-     * @return format for the ontology. If none is known, return
-     *         Optional.absent.
+     * @return format for the ontology. If none is known, return Optional.absent.
      */
     default Optional<OWLDocumentFormat> getFormat() {
         return emptyOptional();
     }
 
     /**
-     * @return MIME type for this source, if one is specified. If none is known,
-     *         return Optional.absent.
+     * @return MIME type for this source, if one is specified. If none is known, return
+     * Optional.absent.
      */
     default Optional<String> getMIMEType() {
         return emptyOptional();
     }
 
     /**
-     * @return true if there is no reader or input stream available for this
-     *         source, or reading from them has already been attempted in a
-     *         previous call and has failed. This leaves attempting to resolve
-     *         the document IRI as input. No attempt is made to verify that the
-     *         document IRI is resolvable.
+     * @return true if there is no reader or input stream available for this source, or reading from
+     * them has already been attempted in a previous call and has failed. This leaves attempting to
+     * resolve the document IRI as input. No attempt is made to verify that the document IRI is
+     * resolvable.
      */
     boolean hasAlredyFailedOnStreams();
 
     /**
-     * @return true if resolving the document IRI has been attempted by a
-     *         previous call and has failed, false if resolution has not been
-     *         attempted yet or it has happened successfully.
+     * @return true if resolving the document IRI has been attempted by a previous call and has
+     * failed, false if resolution has not been attempted yet or it has happened successfully.
      */
     boolean hasAlredyFailedOnIRIResolution();
 
@@ -111,9 +104,8 @@ public interface OWLOntologyDocumentSource {
      * IRI resolution does not happen inside this class. This method allows the
      * resolver to mark the document IRI as unresolvable, so that the
      * information is tracked with the source.
-     * 
-     * @param value
-     *        new value for the flag
+     *
+     * @param value new value for the flag
      */
     void setIRIResolutionFailed(boolean value);
 }

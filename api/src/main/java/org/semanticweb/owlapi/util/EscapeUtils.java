@@ -15,21 +15,20 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public final class EscapeUtils {
 
-    private EscapeUtils() {}
+    private EscapeUtils() {
+    }
 
     /**
      * Escapes quotes and backslashes in a string. Double quotes are replaced
      * with a backslash followed by a double quote, and backslashes are replaced
      * with a double backslash.
-     * 
-     * @param s
-     *        The string to be escaped
+     *
+     * @param s The string to be escaped
      * @return The escaped string.
      */
     public static String escapeString(String s) {
@@ -54,8 +53,7 @@ public final class EscapeUtils {
     }
 
     /**
-     * @param s
-     *        string to unescape
+     * @param s string to unescape
      * @return the unescaped string
      */
     public static String unescapeString(String s) {

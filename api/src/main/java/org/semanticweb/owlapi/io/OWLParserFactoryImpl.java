@@ -1,14 +1,12 @@
 package org.semanticweb.owlapi.io;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * Generic parser factory.
- * 
+ *
  * @author ignazio
  */
 public abstract class OWLParserFactoryImpl implements OWLParserFactory {

@@ -14,12 +14,10 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 public interface HasDirectRemoveAxioms {
@@ -27,52 +25,44 @@ public interface HasDirectRemoveAxioms {
     /**
      * A convenience method that removes a set of axioms from this object. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param axioms The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took place in order to
+     * remove the axioms.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
     ChangeApplied removeAxioms(Collection<? extends OWLAxiom> axioms);
 
     /**
      * A convenience method that removes a set of axioms from this object. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param axioms The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took place in order to
+     * remove the axioms.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
     ChangeApplied removeAxioms(Stream<? extends OWLAxiom> axioms);
 
     /**
      * A convenience method that removes a set of axioms from this object. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param axioms The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took place in order to
+     * remove the axioms.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
     ChangeApplied removeAxioms(OWLAxiom... axioms);
 
     /**
      * A convenience method that removes a set of axioms from this object. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param axioms The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took place in order to
+     * remove the axioms.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
     default ChangeApplied remove(Collection<? extends OWLAxiom> axioms) {
         return removeAxioms(axioms);
@@ -81,13 +71,11 @@ public interface HasDirectRemoveAxioms {
     /**
      * A convenience method that removes a set of axioms from this object. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param axioms The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took place in order to
+     * remove the axioms.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
     default ChangeApplied remove(Stream<? extends OWLAxiom> axioms) {
         return removeAxioms(axioms);
@@ -96,13 +84,11 @@ public interface HasDirectRemoveAxioms {
     /**
      * A convenience method that removes a set of axioms from this object. The
      * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param axioms
-     *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
+     *
+     * @param axioms The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took place in order to
+     * remove the axioms.
+     * @throws OWLOntologyChangeException if there was a problem removing the axioms
      */
     default ChangeApplied remove(OWLAxiom... axioms) {
         return removeAxioms(axioms);

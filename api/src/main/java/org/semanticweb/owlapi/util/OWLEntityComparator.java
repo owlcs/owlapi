@@ -12,12 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Comparator;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -32,9 +31,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * their type (in the following order: Class, Object property, Data property,
  * Individual, Datatype) then by their short form (using the specified short
  * form provider).
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor {
@@ -45,12 +43,12 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     /**
      * Constructs an entity comparator which uses the specified short form
      * provider.
-     * 
-     * @param shortFormProvider
-     *        the short form provider to use
+     *
+     * @param shortFormProvider the short form provider to use
      */
     public OWLEntityComparator(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+            "shortFormProvider cannot be null");
     }
 
     @Override

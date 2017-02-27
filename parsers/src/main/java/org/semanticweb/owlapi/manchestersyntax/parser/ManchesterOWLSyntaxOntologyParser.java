@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.DocumentSources;
@@ -30,13 +29,18 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     private static final String COMMENT_START_CHAR = "#";
+
+    private static boolean startsWithMagicNumber(String line) {
+        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
+            || line.indexOf(ManchesterOWLSyntax.ONTOLOGY
+            .toString()) != -1;
+    }
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
@@ -81,20 +85,17 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 lineCount++;
             }
             String s = sb.toString();
-            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), ontology
+            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
+                new OntologyConfigurator(), ontology
                 .getOWLOntologyManager().getOWLDataFactory());
             parser.setOntologyLoaderConfiguration(config);
             parser.setStringToParse(s);
             return parser.parseOntology(ontology);
         } catch (ParserException e) {
-            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, e.getLineNumber(), e.getColumnNumber());
+            throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, e.getLineNumber(),
+                e.getColumnNumber());
         } catch (OWLOntologyInputSourceException | IOException e) {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, 1, 1);
         }
-    }
-
-    private static boolean startsWithMagicNumber(String line) {
-        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY
-            .toString()) != -1;
     }
 }

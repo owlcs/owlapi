@@ -16,9 +16,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Indicates that a parse error happened when trying to parse an ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLParserException extends OWLRuntimeException {
@@ -26,15 +25,16 @@ public class OWLParserException extends OWLRuntimeException {
     private final int lineNumber;
     private final int columnNumber;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLParserException() {
         lineNumber = -1;
         columnNumber = -1;
     }
 
     /**
-     * @param message
-     *        the message
+     * @param message the message
      */
     public OWLParserException(String message) {
         super(message);
@@ -43,10 +43,8 @@ public class OWLParserException extends OWLRuntimeException {
     }
 
     /**
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
+     * @param message the message
+     * @param cause the cause
      */
     public OWLParserException(String message, Throwable cause) {
         super(message, cause);
@@ -55,8 +53,7 @@ public class OWLParserException extends OWLRuntimeException {
     }
 
     /**
-     * @param cause
-     *        the cause
+     * @param cause the cause
      */
     public OWLParserException(Throwable cause) {
         super(cause);
@@ -65,12 +62,9 @@ public class OWLParserException extends OWLRuntimeException {
     }
 
     /**
-     * @param message
-     *        the message
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
+     * @param message the message
+     * @param lineNumber the line number
+     * @param columnNumber the column number
      */
     public OWLParserException(String message, int lineNumber, int columnNumber) {
         super(message);
@@ -79,12 +73,9 @@ public class OWLParserException extends OWLRuntimeException {
     }
 
     /**
-     * @param cause
-     *        the cause
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
+     * @param cause the cause
+     * @param lineNumber the line number
+     * @param columnNumber the column number
      */
     public OWLParserException(Throwable cause, int lineNumber, int columnNumber) {
         super(cause);
@@ -93,17 +84,13 @@ public class OWLParserException extends OWLRuntimeException {
     }
 
     /**
-     * @param cause
-     *        the cause
-     * @param message
-     *        the message
-     * @param lineNumber
-     *        the line number
-     * @param columnNumber
-     *        the column number
+     * @param cause the cause
+     * @param message the message
+     * @param lineNumber the line number
+     * @param columnNumber the column number
      */
     public OWLParserException(String message, Throwable cause, int lineNumber,
-            int columnNumber) {
+        int columnNumber) {
         super(message, cause);
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
@@ -112,15 +99,17 @@ public class OWLParserException extends OWLRuntimeException {
     /**
      * Gets the line number of the line that the parser was parsing when the
      * error occurred.
-     * 
-     * @return A positive integer which represents the line number, or -1 if the
-     *         line number could not be determined.
+     *
+     * @return A positive integer which represents the line number, or -1 if the line number could
+     * not be determined.
      */
     public int getLineNumber() {
         return lineNumber;
     }
 
-    /** @return the column number */
+    /**
+     * @return the column number
+     */
     public int getColumnNumber() {
         return columnNumber;
     }

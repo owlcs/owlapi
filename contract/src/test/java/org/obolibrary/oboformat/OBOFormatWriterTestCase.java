@@ -1,6 +1,7 @@
 package org.obolibrary.oboformat;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,7 +10,6 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -17,9 +17,30 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 
-/** Tests for {@link OBOFormatWriter}. */
-@SuppressWarnings({ "javadoc" })
+/**
+ * Tests for {@link OBOFormatWriter}.
+ */
+@SuppressWarnings({"javadoc"})
 public class OBOFormatWriterTestCase extends OboFormatTestBasics {
+
+    private static List<Clause> createSynonymClauses(String... labels) {
+        List<Clause> clauses = new ArrayList<>(labels.length);
+        for (String label : labels) {
+            Clause clause = new Clause(OboFormatTag.TAG_SYNONYM, label);
+            clauses.add(clause);
+        }
+        return clauses;
+    }
+
+    private static String writeObsolete(Object value) throws Exception {
+        Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
+        cl.addValue(value);
+        StringWriter out = new StringWriter();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {
+            OBOFormatWriter.write(cl, bufferedWriter, null);
+        }
+        return out.toString().trim();
+    }
 
     /**
      * Test a special case of the specification. For intersections put the genus
@@ -54,31 +75,12 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
         assertEquals("ccc", clauses.get(4).getValue());
     }
 
-    private static List<Clause> createSynonymClauses(String... labels) {
-        List<Clause> clauses = new ArrayList<>(labels.length);
-        for (String label : labels) {
-            Clause clause = new Clause(OboFormatTag.TAG_SYNONYM, label);
-            clauses.add(clause);
-        }
-        return clauses;
-    }
-
     @Test
     public void testWriteObsolete() throws Exception {
         assertEquals("", writeObsolete(Boolean.FALSE));
         assertEquals("", writeObsolete(Boolean.FALSE.toString()));
         assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE));
         assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE.toString()));
-    }
-
-    private static String writeObsolete(Object value) throws Exception {
-        Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
-        cl.addValue(value);
-        StringWriter out = new StringWriter();
-        try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {
-            OBOFormatWriter.write(cl, bufferedWriter, null);
-        }
-        return out.toString().trim();
     }
 
     /**

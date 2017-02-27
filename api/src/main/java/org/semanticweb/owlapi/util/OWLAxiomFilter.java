@@ -15,16 +15,14 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @FunctionalInterface
 public interface OWLAxiomFilter {
 
     /**
-     * @param axiom
-     *        axiom to filter
+     * @param axiom axiom to filter
      * @return true if check passed
      */
     boolean passes(OWLAxiom axiom);

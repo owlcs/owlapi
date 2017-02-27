@@ -16,20 +16,19 @@ import java.io.Serializable;
 
 /**
  * Represents an import statement in an ontology.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration>, HasIRI, Serializable {
+public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration>, HasIRI,
+    Serializable {
 
     /**
      * Gets the import IRI.
-     * 
-     * @return The import IRI that points to the ontology to be imported. The
-     *         imported ontology might have this IRI as its ontology IRI but
-     *         this is not mandated. For example, an ontology with a non
-     *         resolvable ontology IRI can be deployed at a resolvable URL.
+     *
+     * @return The import IRI that points to the ontology to be imported. The imported ontology
+     * might have this IRI as its ontology IRI but this is not mandated. For example, an ontology
+     * with a non resolvable ontology IRI can be deployed at a resolvable URL.
      */
     @Override
     IRI getIRI();

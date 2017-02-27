@@ -14,10 +14,10 @@ package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -33,34 +33,25 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
-
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator extends
+    AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+        new IdentityHashingStrategy<>());
 
     /**
-     * @param manager
-     *        the manager
-     * @param ontology
-     *        the ontology
-     * @param useStrongTyping
-     *        true if strong typing is required
-     * @param occurrences
-     *        will tell whether anonymous individuals need an id or not
-     * @param axiomOccurrences
-     *        axiom occurrences
-     * @param counter
-     *        counter for blank nodes
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param useStrongTyping true if strong typing is required
+     * @param occurrences will tell whether anonymous individuals need an id or not
+     * @param axiomOccurrences axiom occurrences
+     * @param counter counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
         IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
@@ -90,7 +81,8 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
         return getBlankNodeFor(key, isIndividual, needId);
     }
 
-    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
+        boolean needId) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
             id = nextBlankNodeId.getAndIncrement();

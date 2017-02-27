@@ -12,8 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLNothing;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.OWLThing;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectHasSelf;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createObjectProperty;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -22,9 +27,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Tests that the isOWLThing and isOWLNothing methods return correct values.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")

@@ -13,23 +13,20 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.util.AbstractCollectorEx;
 
 /**
  * A utility class that visits axioms, class expressions etc. and accumulates
  * the anonymous individuals referred.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 5.0.0
  */
 public class AnonymousIndividualCollector extends AbstractCollectorEx<OWLAnonymousIndividual> {
 
     /**
-     * @param anonsToReturn
-     *        the set that will contain the anon individuals
+     * @param anonsToReturn the set that will contain the anon individuals
      */
     public AnonymousIndividualCollector(Collection<OWLAnonymousIndividual> anonsToReturn) {
         super(anonsToReturn);

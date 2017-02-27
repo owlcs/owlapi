@@ -18,8 +18,13 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -28,113 +33,98 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public interface EquivalentAxiomProvider {
 
     /**
-     * @param classExpressions
-     *        equivalent classes. Cannot be null or contain nulls.
-     * @return an equivalent classes axiom with specified operands and no
-     *         annotations
+     * @param classExpressions equivalent classes. Cannot be null or contain nulls.
+     * @return an equivalent classes axiom with specified operands and no annotations
      */
     default OWLEquivalentClassesAxiom
-        getOWLEquivalentClassesAxiom(Collection<? extends OWLClassExpression> classExpressions) {
+    getOWLEquivalentClassesAxiom(Collection<? extends OWLClassExpression> classExpressions) {
         return getOWLEquivalentClassesAxiom(classExpressions, Collections.emptySet());
     }
 
     /**
-     * @param classExpressions
-     *        equivalent classes. Cannot be null or contain nulls.
-     * @return an equivalent classes axiom with specified operands and no
-     *         annotations
+     * @param classExpressions equivalent classes. Cannot be null or contain nulls.
+     * @return an equivalent classes axiom with specified operands and no annotations
      */
     default OWLEquivalentClassesAxiom
-        getOWLEquivalentClassesAxiom(Stream<? extends OWLClassExpression> classExpressions) {
+    getOWLEquivalentClassesAxiom(Stream<? extends OWLClassExpression> classExpressions) {
         return getOWLEquivalentClassesAxiom(asList(classExpressions), Collections.emptySet());
     }
 
     /**
-     * @param classExpressions
-     *        equivalent classes. Cannot be null or contain nulls.
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return an equivalent classes axiom with specified operands and
-     *         annotations
+     * @param classExpressions equivalent classes. Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @return an equivalent classes axiom with specified operands and annotations
      */
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(Collection<? extends OWLClassExpression> classExpressions,
+    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+        Collection<? extends OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations);
 
     /**
-     * @param classExpressions
-     *        equivalent classes. Cannot be null or contain nulls.
-     * @return an equivalent classes axiom with specified operands and no
-     *         annotations
+     * @param classExpressions equivalent classes. Cannot be null or contain nulls.
+     * @return an equivalent classes axiom with specified operands and no annotations
      */
-    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression... classExpressions) {
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+        OWLClassExpression... classExpressions) {
         checkIterableNotNull(classExpressions, "classExpressions cannot be null", true);
         return getOWLEquivalentClassesAxiom(CollectionFactory.createSet(classExpressions));
     }
 
     /**
-     * @param clsA
-     *        one class for equivalence
-     * @param clsB
-     *        one class for equivalence
-     * @return an equivalent classes axiom with specified operands and no
-     *         annotations (special case with only two operands)
+     * @param clsA one class for equivalence
+     * @param clsB one class for equivalence
+     * @return an equivalent classes axiom with specified operands and no annotations (special case
+     * with only two operands)
      */
-    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB) {
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA,
+        OWLClassExpression clsB) {
         return getOWLEquivalentClassesAxiom(clsA, clsB, Collections.emptySet());
     }
 
     /**
-     * @param clsA
-     *        one class for equivalence
-     * @param clsB
-     *        one class for equivalence
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return an equivalent classes axiom with specified operands and
-     *         annotations (special case with only two operands)
+     * @param clsA one class for equivalence
+     * @param clsB one class for equivalence
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @return an equivalent classes axiom with specified operands and annotations (special case
+     * with only two operands)
      */
-    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA, OWLClassExpression clsB,
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(OWLClassExpression clsA,
+        OWLClassExpression clsB,
         Collection<OWLAnnotation> annotations) {
         return getOWLEquivalentClassesAxiom(CollectionFactory.createSet(clsA, clsB), annotations);
     }
 
     /**
-     * @param properties
-     *        Cannot be null or contain nulls.
+     * @param properties Cannot be null or contain nulls.
      * @return an equivalent properties axiom with specified properties
      */
     default OWLEquivalentObjectPropertiesAxiom
-        getOWLEquivalentObjectPropertiesAxiom(Collection<? extends OWLObjectPropertyExpression> properties) {
+    getOWLEquivalentObjectPropertiesAxiom(
+        Collection<? extends OWLObjectPropertyExpression> properties) {
         return getOWLEquivalentObjectPropertiesAxiom(properties, Collections.emptySet());
     }
 
     /**
-     * @param properties
-     *        Cannot be null or contain nulls.
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return an equivalent properties axiom with specified properties and
-     *         annotations
+     * @param properties Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @return an equivalent properties axiom with specified properties and annotations
      */
     OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
-        Collection<? extends OWLObjectPropertyExpression> properties, Collection<OWLAnnotation> annotations);
+        Collection<? extends OWLObjectPropertyExpression> properties,
+        Collection<OWLAnnotation> annotations);
 
     /**
-     * @param properties
-     *        Cannot be null or contain nulls.
+     * @param properties Cannot be null or contain nulls.
      * @return an equivalent properties axiom with specified properties
      */
     default OWLEquivalentObjectPropertiesAxiom
-        getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression... properties) {
+    getOWLEquivalentObjectPropertiesAxiom(OWLObjectPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         return getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(properties));
     }
 
     /**
-     * @param propertyA
-     *        property A
-     * @param propertyB
-     *        property B
+     * @param propertyA property A
+     * @param propertyB property B
      * @return an equivalent properties axiom with specified properties
      */
     default OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
@@ -143,75 +133,68 @@ public interface EquivalentAxiomProvider {
     }
 
     /**
-     * @param propertyA
-     *        property A
-     * @param propertyB
-     *        property B
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return an equivalent properties axiom with specified properties and
-     *         annotations
+     * @param propertyA property A
+     * @param propertyB property B
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @return an equivalent properties axiom with specified properties and annotations
      */
     default OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
         OWLObjectPropertyExpression propertyA, OWLObjectPropertyExpression propertyB,
         Collection<OWLAnnotation> annotations) {
-        return getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(propertyA, propertyB), annotations);
+        return getOWLEquivalentObjectPropertiesAxiom(
+            CollectionFactory.createSet(propertyA, propertyB), annotations);
     }
 
     /**
-     * @param properties
-     *        Cannot be null or contain nulls.
+     * @param properties Cannot be null or contain nulls.
      * @return an equivalent data properties axiom
      */
     default OWLEquivalentDataPropertiesAxiom
-        getOWLEquivalentDataPropertiesAxiom(Collection<? extends OWLDataPropertyExpression> properties) {
+    getOWLEquivalentDataPropertiesAxiom(
+        Collection<? extends OWLDataPropertyExpression> properties) {
         return getOWLEquivalentDataPropertiesAxiom(properties, Collections.emptySet());
     }
 
     /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param properties properties
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent data properties axiom with annotations
      */
     OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
-        Collection<? extends OWLDataPropertyExpression> properties, Collection<OWLAnnotation> annotations);
+        Collection<? extends OWLDataPropertyExpression> properties,
+        Collection<OWLAnnotation> annotations);
 
     /**
-     * @param properties
-     *        Cannot be null or contain nulls.
+     * @param properties Cannot be null or contain nulls.
      * @return an equivalent data properties axiom
      */
     default OWLEquivalentDataPropertiesAxiom
-        getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression... properties) {
+    getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         return getOWLEquivalentDataPropertiesAxiom(CollectionFactory.createSet(properties));
     }
 
     /**
-     * @param propertyA
-     *        property A
-     * @param propertyB
-     *        property B
+     * @param propertyA property A
+     * @param propertyB property B
      * @return an equivalent data properties axiom
      */
-    default OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression propertyA,
+    default OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
+        OWLDataPropertyExpression propertyA,
         OWLDataPropertyExpression propertyB) {
         return getOWLEquivalentDataPropertiesAxiom(propertyA, propertyB, Collections.emptySet());
     }
 
     /**
-     * @param propertyA
-     *        property A
-     * @param propertyB
-     *        property B
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param propertyA property A
+     * @param propertyB property B
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent data properties axiom with annotations
      */
-    default OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(OWLDataPropertyExpression propertyA,
+    default OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
+        OWLDataPropertyExpression propertyA,
         OWLDataPropertyExpression propertyB, Collection<OWLAnnotation> annotations) {
-        return getOWLEquivalentDataPropertiesAxiom(CollectionFactory.createSet(propertyA, propertyB), annotations);
+        return getOWLEquivalentDataPropertiesAxiom(
+            CollectionFactory.createSet(propertyA, propertyB), annotations);
     }
 }

@@ -13,19 +13,16 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
 
     /**
-     * @param objects
-     *        objects to walk
+     * @param objects objects to walk
      */
     public OWLOntologyWalker(Collection<OWLOntology> objects) {
         super(objects);

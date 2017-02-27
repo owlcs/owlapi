@@ -13,21 +13,17 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.change.RemoveImportData;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class RemoveImport extends ImportChange {
 
     /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param importDeclaration
-     *        the import declaration
+     * @param ont the ontology to which the change is to be applied
+     * @param importDeclaration the import declaration
      */
     public RemoveImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);

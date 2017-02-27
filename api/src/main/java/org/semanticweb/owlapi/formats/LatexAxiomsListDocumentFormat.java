@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.formats;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public class LatexAxiomsListDocumentFormat extends OWLDocumentFormatImpl {

@@ -13,19 +13,16 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <O> visitor type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <O>
- *        visitor type
  */
 public interface OWLNamedObjectVisitorEx<O> extends OWLEntityVisitorEx<O> {
 
     /**
      * visit OWLOntology type
-     * 
-     * @param ontology
-     *        ontology to visit
+     *
+     * @param ontology ontology to visit
      * @return visitor value
      */
     default O visit(OWLOntology ontology) {

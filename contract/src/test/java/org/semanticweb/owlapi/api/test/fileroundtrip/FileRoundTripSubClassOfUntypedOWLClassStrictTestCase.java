@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.fileroundtrip;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.stream.Stream;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
@@ -24,12 +24,12 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
 @SuppressWarnings("javadoc")
-public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends AbstractFileRoundTrippingTestCase {
+public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
+    AbstractFileRoundTrippingTestCase {
 
     public FileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
         super("SubClassOfUntypedOWLClass.rdf");
@@ -44,7 +44,8 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends Abstra
         assertTrue(format instanceof RDFXMLDocumentFormat);
         RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
         assertTrue(rdfxmlFormat.getOntologyLoaderMetaData().isPresent());
-        Stream<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData().get().getUnparsedTriples();
+        Stream<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData().get()
+            .getUnparsedTriples();
         assertEquals(1, triples.count());
     }
 }

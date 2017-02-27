@@ -16,7 +16,6 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -24,18 +23,16 @@ import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements
+public class OWLReflexiveObjectPropertyAxiomImpl extends
+    OWLObjectPropertyCharacteristicAxiomImpl implements
     OWLReflexiveObjectPropertyAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLReflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
         Collection<OWLAnnotation> annotations) {
@@ -52,7 +49,8 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectHasSelfImpl(getProperty()), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectHasSelfImpl(getProperty()),
+            NO_ANNOTATIONS);
     }
 
     @Override

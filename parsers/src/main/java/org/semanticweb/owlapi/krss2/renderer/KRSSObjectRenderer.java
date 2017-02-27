@@ -12,13 +12,35 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
-import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.*;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.ALL;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.AND;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.AT_LEAST;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.AT_MOST;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.DEFINE_CONCEPT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.DEFINE_PRIMITIVE_CONCEPT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.DEFINE_PRIMITIVE_ROLE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.DEFINE_ROLE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.DISJOINT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.DISTINCT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.DOMAIN;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.EQUAL;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.EXACTLY;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.INSTANCE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.INVERSE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.NOT;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.OR;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.RANGE;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.RELATED;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.SOME;
+import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.TRANSITIVE;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
-import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.search.Searcher.equivalent;
+import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -26,10 +48,42 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
 
 /**
@@ -191,7 +245,7 @@ import org.semanticweb.owlapi.search.Filters;
  * </td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public class KRSSObjectRenderer implements OWLObjectVisitor {
@@ -205,10 +259,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     private int lastNewLinePos = 0;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
+     * @param ontology ontology
+     * @param writer writer
      */
     public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
         ont = checkNotNull(ontology);
@@ -286,7 +338,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    protected void flattenProperties(List<OWLObjectPropertyExpression> props, @Nullable KRSSVocabulary junctor) {
+    protected void flattenProperties(List<OWLObjectPropertyExpression> props,
+        @Nullable KRSSVocabulary junctor) {
         int size = props.size();
         if (size == 0) {
             return;
@@ -344,7 +397,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
+                flatten(asList(
+                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
             } else {
@@ -358,8 +412,9 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         }
         for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
             writeOpenBracket();
-            Stream<OWLObjectPropertyExpression> pStream = equivalent(ontology.equivalentObjectPropertiesAxioms(
-                property));
+            Stream<OWLObjectPropertyExpression> pStream = equivalent(
+                ontology.equivalentObjectPropertiesAxioms(
+                    property));
             Collection<OWLObjectPropertyExpression> properties = asList(pStream);
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
@@ -374,8 +429,9 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                Iterator<OWLObjectPropertyExpression> i = sup(ontology.axioms(Filters.subObjectPropertyWithSub,
-                    property, INCLUDED), OWLObjectPropertyExpression.class).iterator();
+                Iterator<OWLObjectPropertyExpression> i = sup(
+                    ontology.axioms(Filters.subObjectPropertyWithSub,
+                        property, INCLUDED), OWLObjectPropertyExpression.class).iterator();
                 if (i.hasNext()) {
                     write(i.next());
                 }

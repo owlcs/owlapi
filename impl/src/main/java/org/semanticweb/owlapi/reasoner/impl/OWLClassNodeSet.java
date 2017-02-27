@@ -14,51 +14,47 @@ package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
  * A node set of OWL classes.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLClassNodeSet() {
         super();
     }
 
     /**
-     * @param entity
-     *        the entity to be contained
+     * @param entity the entity to be contained
      */
     public OWLClassNodeSet(OWLClass entity) {
         super(entity);
     }
 
     /**
-     * @param owlClassNode
-     *        the node to be contained
+     * @param owlClassNode the node to be contained
      */
     public OWLClassNodeSet(Node<OWLClass> owlClassNode) {
         super(owlClassNode);
     }
 
     /**
-     * @param nodes
-     *        the set of nodes to be contained
+     * @param nodes the set of nodes to be contained
      */
     public OWLClassNodeSet(Set<Node<OWLClass>> nodes) {
         this(nodes.stream());
     }
 
     /**
-     * @param nodes
-     *        the set of nodes to be contained
+     * @param nodes the set of nodes to be contained
      */
     public OWLClassNodeSet(Stream<Node<OWLClass>> nodes) {
         super(nodes);

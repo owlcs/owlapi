@@ -18,9 +18,8 @@ package org.semanticweb.owlapi.util;
  * progress of such tasks, for example to provide feedback in user interfaces.
  * Interfaces which represent long tasks can implement this progress monitor
  * interface to provide a hook for a progress monitor.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface Monitorable {
@@ -28,20 +27,20 @@ public interface Monitorable {
     /**
      * Sets the progress monitor which receives information about the progress
      * of the this object which represents a long running task.
-     * 
-     * @param progressMonitor
-     *        progress monitor
+     *
+     * @param progressMonitor progress monitor
      */
     void setProgressMonitor(ProgressMonitor progressMonitor);
 
     /**
      * Interrupts the long running task (if possible).
-     * 
-     * @throws InterruptedException
-     *         interrupted exception
+     *
+     * @throws InterruptedException interrupted exception
      */
     void interrupt() throws InterruptedException;
 
-    /** @return true if this long running task can be cancelled. */
+    /**
+     * @return true if this long running task can be cancelled.
+     */
     boolean canInterrupt();
 }

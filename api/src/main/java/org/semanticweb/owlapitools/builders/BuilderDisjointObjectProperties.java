@@ -13,31 +13,30 @@
 package org.semanticweb.owlapitools.builders;
 
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLDisjointObjectPropertiesAxiom. */
+/**
+ * Builder class for OWLDisjointObjectPropertiesAxiom.
+ */
 public class BuilderDisjointObjectProperties extends
-        BaseSetBuilder<OWLDisjointObjectPropertiesAxiom, BuilderDisjointObjectProperties, OWLObjectPropertyExpression> {
+    BaseSetBuilder<OWLDisjointObjectPropertiesAxiom, BuilderDisjointObjectProperties, OWLObjectPropertyExpression> {
 
     /**
      * Builder initialized from an existing object.
-     * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     *
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderDisjointObjectProperties(OWLDisjointObjectPropertiesAxiom expected, OWLDataFactory df) {
+    public BuilderDisjointObjectProperties(OWLDisjointObjectPropertiesAxiom expected,
+        OWLDataFactory df) {
         this(df);
         withItems(expected.properties()).withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDisjointObjectProperties(OWLDataFactory df) {

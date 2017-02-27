@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -23,20 +22,19 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
+public class OWLDisjointDataPropertiesAxiomImpl extends
+    OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
     OWLDisjointDataPropertiesAxiom {
 
     /**
-     * @param properties
-     *        disjoint properties
-     * @param annotations
-     *        annotations
+     * @param properties disjoint properties
+     * @param annotations annotations
      */
-    public OWLDisjointDataPropertiesAxiomImpl(Collection<? extends OWLDataPropertyExpression> properties,
+    public OWLDisjointDataPropertiesAxiomImpl(
+        Collection<? extends OWLDataPropertyExpression> properties,
         Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
@@ -59,7 +57,8 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
         if (properties.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLDisjointDataPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+        return walkPairwise(
+            (a, b) -> new OWLDisjointDataPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
     }
 
     @Override
@@ -67,6 +66,7 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
         if (properties.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLDisjointDataPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+        return walkPairwise(
+            (a, b) -> new OWLDisjointDataPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
     }
 }

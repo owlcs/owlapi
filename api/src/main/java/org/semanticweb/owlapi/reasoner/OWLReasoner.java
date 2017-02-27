@@ -14,14 +14,22 @@ package org.semanticweb.owlapi.reasoner;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
+import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.Version;
-
-import com.google.common.collect.Sets;
 
 /**
  * An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that
@@ -213,30 +221,29 @@ import com.google.common.collect.Sets;
  * </ul>
  * Note that {@link org.semanticweb.owlapi.reasoner.ReasonerInternalException}
  * may be throw by any of the reasoner methods below.
- * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ *
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLReasoner {
 
     /**
      * Gets the name of this reasoner.
-     * 
+     *
      * @return A string that represents the name of this reasoner.
      */
     String getReasonerName();
 
     /**
      * Gets the version of this reasoner.
-     * 
+     *
      * @return The version of this reasoner. Not {@code null}.
      */
     Version getReasonerVersion();
 
     /**
      * Gets the buffering mode of this reasoner.
-     * 
+     *
      * @return The buffering mode of this reasoner.
      */
     BufferingMode getBufferingMode();
@@ -255,9 +262,9 @@ public interface OWLReasoner {
      * reasoner so that it is up to date with the root ontology imports closure.
      * After the {@link #flush()} method is called the set of pending changes
      * will be empty.
-     * 
-     * @return A set of changes. Note that the changes represent the raw changes
-     *         as applied to the imports closure of the root ontology.
+     *
+     * @return A set of changes. Note that the changes represent the raw changes as applied to the
+     * imports closure of the root ontology.
      */
     List<OWLOntologyChange> getPendingChanges();
 
@@ -267,10 +274,9 @@ public interface OWLReasoner {
      * the buffering mode is
      * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING} then
      * there will be no pending axiom additions.
-     * 
-     * @return The set of axioms that need to added to the reasoner to the
-     *         reasoner to synchronise it with the root ontology imports
-     *         closure.
+     *
+     * @return The set of axioms that need to added to the reasoner to the reasoner to synchronise
+     * it with the root ontology imports closure.
      */
     Set<OWLAxiom> getPendingAxiomAdditions();
 
@@ -280,10 +286,9 @@ public interface OWLReasoner {
      * the buffering mode is
      * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING} then
      * there will be no pending axiom additions.
-     * 
-     * @return The set of axioms that need to added to the reasoner to the
-     *         reasoner to synchronise it with the root ontology imports
-     *         closure.
+     *
+     * @return The set of axioms that need to added to the reasoner to the reasoner to synchronise
+     * it with the root ontology imports closure.
      */
     Set<OWLAxiom> getPendingAxiomRemovals();
 
@@ -298,7 +303,7 @@ public interface OWLReasoner {
      * ontologies from the reasoner after creation time should create a "dummy"
      * ontology that imports the "real" ontologies and then specify the dummy
      * ontology as the root ontology at reasoner creation time.
-     * 
+     *
      * @return The root ontology that is loaded into the reasoner.
      */
     OWLOntology getRootOntology();
@@ -329,41 +334,35 @@ public interface OWLReasoner {
      * called. <br>
      * If the reasoner does not support the precomputation of a particular type
      * of inference then it will silently ignore the request.
-     * 
-     * @param inferenceTypes
-     *        Suggests a list of the types of inferences that should be
-     *        precomputed. If the list is empty then the reasoner will determine
-     *        which types of inferences are precomputed. Note that the order of
-     *        the list is unimportant - the reasoner will determine the order in
-     *        which inferences are computed.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param inferenceTypes Suggests a list of the types of inferences that should be precomputed.
+     * If the list is empty then the reasoner will determine which types of inferences are
+     * precomputed. Note that the order of the list is unimportant - the reasoner will determine the
+     * order in which inferences are computed.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     void precomputeInferences(InferenceType... inferenceTypes);
 
     /**
      * Determines if a specific set of inferences have been precomputed.
-     * 
-     * @param inferenceType
-     *        The type of inference to check for.
-     * @return {@code true} if the specified type of inferences have been
-     *         precomputed, otherwise {@code false}.
+     *
+     * @param inferenceType The type of inference to check for.
+     * @return {@code true} if the specified type of inferences have been precomputed, otherwise
+     * {@code false}.
      */
     boolean isPrecomputed(InferenceType inferenceType);
 
     /**
      * Returns the set of {@link org.semanticweb.owlapi.reasoner.InferenceType}s
      * that are precomputable by reasoner.
-     * 
-     * @return A set of {@link org.semanticweb.owlapi.reasoner.InferenceType}s
-     *         that can be precomputed by this reasoner.
+     *
+     * @return A set of {@link org.semanticweb.owlapi.reasoner.InferenceType}s that can be
+     * precomputed by this reasoner.
      */
     Set<InferenceType> getPrecomputableInferenceTypes();
 
@@ -372,95 +371,69 @@ public interface OWLReasoner {
      * method will NOT throw an
      * {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException}
      * even if the root ontology imports closure is inconsistent.
-     * 
-     * @return {@code true} if the imports closure of the root ontology is
-     *         consistent, or {@code false} if the imports closure of the root
-     *         ontology is inconsistent.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process).
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @return {@code true} if the imports closure of the root ontology is consistent, or {@code
+     * false} if the imports closure of the root ontology is inconsistent.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process).
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     boolean isConsistent();
 
     /**
      * A convenience method that determines if the specified class expression is
      * satisfiable with respect to the reasoner axioms.
-     * 
-     * @param classExpression
-     *        The class expression
-     * @return {@code true} if classExpression is satisfiable with respect to
-     *         the set of axioms, or {@code false} if classExpression is
-     *         unsatisfiable with respect to the axioms.
-     * @throws InconsistentOntologyException
-     *         if the set of reasoner axioms is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if {@code classExpression} is not within the profile that is
-     *         supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of the classExpression is not contained within
-     *         the signature of the set of reasoner axioms.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param classExpression The class expression
+     * @return {@code true} if classExpression is satisfiable with respect to the set of axioms, or
+     * {@code false} if classExpression is unsatisfiable with respect to the axioms.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
+     * @throws ClassExpressionNotInProfileException if {@code classExpression} is not within the
+     * profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of the classExpression is not contained
+     * within the signature of the set of reasoner axioms.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     boolean isSatisfiable(OWLClassExpression classExpression);
 
     /**
      * A convenience method that obtains the classes in the signature of the
      * root ontology that are unsatisfiable.
-     * 
-     * @return A {@code Node} that is the bottom node in the class hierarchy.
-     *         This node represents {@code owl:Nothing} and contains
-     *         {@code owl:Nothing} itself plus classes that are equivalent to
-     *         {@code owl:Nothing}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
-     * @throws InconsistentOntologyException
-     *         if the set of reasoner axioms is inconsistent
+     *
+     * @return A {@code Node} that is the bottom node in the class hierarchy. This node represents
+     * {@code owl:Nothing} and contains {@code owl:Nothing} itself plus classes that are equivalent
+     * to {@code owl:Nothing}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      */
     Node<OWLClass> getUnsatisfiableClasses();
 
     /**
      * A convenience method that determines if the specified axiom is entailed
      * by the set of reasoner axioms.
-     * 
-     * @param axiom
-     *        The axiom
-     * @return {@code true} if {@code axiom} is entailed by the reasoner axioms
-     *         or {@code false} if {@code axiom} is not entailed by the reasoner
-     *         axioms. {@code true} if the set of reasoner axioms is
-     *         inconsistent.
-     * @throws FreshEntitiesException
-     *         if the signature of the axiom is not contained within the
-     *         signature of the imports closure of the root ontology.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
-     * @throws UnsupportedEntailmentTypeException
-     *         if the reasoner cannot perform a check to see if the specified
-     *         axiom is entailed
-     * @throws AxiomNotInProfileException
-     *         if {@code axiom} is not in the profile that is supported by this
-     *         reasoner.
-     * @throws InconsistentOntologyException
-     *         if the set of reasoner axioms is inconsistent
+     *
+     * @param axiom The axiom
+     * @return {@code true} if {@code axiom} is entailed by the reasoner axioms or {@code false} if
+     * {@code axiom} is not entailed by the reasoner axioms. {@code true} if the set of reasoner
+     * axioms is inconsistent.
+     * @throws FreshEntitiesException if the signature of the axiom is not contained within the
+     * signature of the imports closure of the root ontology.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
+     * @throws UnsupportedEntailmentTypeException if the reasoner cannot perform a check to see if
+     * the specified axiom is entailed
+     * @throws AxiomNotInProfileException if {@code axiom} is not in the profile that is supported
+     * by this reasoner.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
     boolean isEntailed(OWLAxiom axiom);
@@ -468,52 +441,40 @@ public interface OWLReasoner {
     /**
      * Determines if the specified set of axioms is entailed by the reasoner
      * axioms.
-     * 
-     * @param axioms
-     *        The set of axioms to be tested
-     * @return {@code true} if the set of axioms is entailed by the axioms in
-     *         the imports closure of the root ontology, otherwise {@code false}
-     *         . If the set of reasoner axioms is inconsistent then {@code true}
-     *         .
-     * @throws FreshEntitiesException
-     *         if the signature of the set of axioms is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
-     * @throws UnsupportedEntailmentTypeException
-     *         if the reasoner cannot perform a check to see if the specified
-     *         axiom is entailed
-     * @throws AxiomNotInProfileException
-     *         if {@code axiom} is not in the profile that is supported by this
-     *         reasoner.
-     * @throws InconsistentOntologyException
-     *         if the set of reasoner axioms is inconsistent
+     *
+     * @param axioms The set of axioms to be tested
+     * @return {@code true} if the set of axioms is entailed by the axioms in the imports closure of
+     * the root ontology, otherwise {@code false} . If the set of reasoner axioms is inconsistent
+     * then {@code true} .
+     * @throws FreshEntitiesException if the signature of the set of axioms is not contained within
+     * the signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
+     * @throws UnsupportedEntailmentTypeException if the reasoner cannot perform a check to see if
+     * the specified axiom is entailed
+     * @throws AxiomNotInProfileException if {@code axiom} is not in the profile that is supported
+     * by this reasoner.
+     * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
     boolean isEntailed(Set<? extends OWLAxiom> axioms);
 
     /**
-     * @see OWLReasoner#isEntailed(Set)
-     * @param axioms
-     *        The set of axioms to be tested
+     * @param axioms The set of axioms to be tested
      * @return true if axioms are entailed
+     * @see OWLReasoner#isEntailed(Set)
      */
     default boolean isEntailed(Stream<? extends OWLAxiom> axioms) {
         return isEntailed(asUnorderedSet(axioms));
     }
 
     /**
-     * @see OWLReasoner#isEntailed(Set)
-     * @param axioms
-     *        The set of axioms to be tested
+     * @param axioms The set of axioms to be tested
      * @return true if axioms are entailed
+     * @see OWLReasoner#isEntailed(Set)
      */
     default boolean isEntailed(OWLAxiom... axioms) {
         return isEntailed(Sets.newHashSet(axioms));
@@ -522,44 +483,38 @@ public interface OWLReasoner {
     /**
      * Determines if entailment checking for the specified axiom type is
      * supported.
-     * 
-     * @param axiomType
-     *        The axiom type
-     * @return {@code true} if entailment checking for the specified axiom type
-     *         is supported, otherwise {@code false}. If {@code true} then
-     *         asking {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)}
-     *         will <em>not</em> throw an exception of
-     *         {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}
-     *         . If {@code false} then asking
-     *         {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)}
-     *         <em>will</em> throw an
-     *         {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}
-     *         .
+     *
+     * @param axiomType The axiom type
+     * @return {@code true} if entailment checking for the specified axiom type is supported,
+     * otherwise {@code false}. If {@code true} then asking {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)}
+     * will <em>not</em> throw an exception of {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}
+     * . If {@code false} then asking {@link #isEntailed(org.semanticweb.owlapi.model.OWLAxiom)}
+     * <em>will</em> throw an {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}
+     * .
      */
     boolean isEntailmentCheckingSupported(AxiomType<?> axiomType);
 
     // Methods for dealing with the class hierarchy
+
     /**
      * Gets the {@code Node} corresponding to the top node (containing
      * {@code owl:Thing}) in the class hierarchy.
-     * 
-     * @return A {@code Node} containing {@code owl:Thing} that is the top node
-     *         in the class hierarchy. This {@code Node} is essentially equal to
-     *         the {@code Node} returned by calling
-     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)}
-     *         with a parameter of {@code owl:Thing}.
+     *
+     * @return A {@code Node} containing {@code owl:Thing} that is the top node in the class
+     * hierarchy. This {@code Node} is essentially equal to the {@code Node} returned by calling
+     * {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)} with a
+     * parameter of {@code owl:Thing}.
      */
     Node<OWLClass> getTopClassNode();
 
     /**
      * Gets the {@code Node} corresponding to the bottom node (containing
      * {@code owl:Nothing}) in the class hierarchy.
-     * 
-     * @return A {@code Node} containing {@code owl:Nothing} that is the bottom
-     *         node in the class hierarchy. This {@code Node} is essentially
-     *         equal to the {@code Node} that will be returned by calling
-     *         {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)}
-     *         with a parameter of {@code owl:Nothing}.
+     *
+     * @return A {@code Node} containing {@code owl:Nothing} that is the bottom node in the class
+     * hierarchy. This {@code Node} is essentially equal to the {@code Node} that will be returned
+     * by calling {@link #getEquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression)}
+     * with a parameter of {@code owl:Nothing}.
      */
     Node<OWLClass> getBottomClassNode();
 
@@ -568,58 +523,39 @@ public interface OWLReasoner {
      * subclasses of the specified class expression with respect to the reasoner
      * axioms. Note that the classes are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param ce
-     *        The class expression whose strict (direct) subclasses are to be
-     *        retrieved.
-     * @param direct
-     *        Specifies if the direct subclasses should be retrived (
-     *        {@code true}) or if the all subclasses (descendant) classes should
-     *        be retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code DirectSubClassOf(C, ce)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code StrictSubClassOf(C, ce)}. <br>
-     *         If {@code ce} is equivalent to {@code owl:Nothing} then the empty
-     *         {@code NodeSet} will be returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if {@code classExpression} is not within the profile that is
-     *         supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of the classExpression is not contained within
-     *         the signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ce The class expression whose strict (direct) subclasses are to be retrieved.
+     * @param direct Specifies if the direct subclasses should be retrived ( {@code true}) or if the
+     * all subclasses (descendant) classes should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a {@code NodeSet} such that for each class {@code C} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubClassOf(C, ce)}. <br>
+     * If direct is {@code false}, a {@code NodeSet} such that for each class {@code C} in the
+     * {@code NodeSet} the set of reasoner axioms entails {@code StrictSubClassOf(C, ce)}. <br> If
+     * {@code ce} is equivalent to {@code owl:Nothing} then the empty {@code NodeSet} will be
+     * returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ClassExpressionNotInProfileException if {@code classExpression} is not within the
+     * profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of the classExpression is not contained
+     * within the signature of the imports closure of the root ontology and the undeclared entity
+     * policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
 
     /**
+     * @param ce The class expression whose strict (direct) subclasses are to be retrieved.
+     * @param depth use {@code DIRECT} for direct subclasses only, {@code ALL} for all subclasses
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each class {@code C} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubClassOf(C, ce)}. <br>
+     * If direct is {@code ALL}, a {@code NodeSet} such that for each class {@code C} in the {@code
+     * NodeSet} the set of reasoner axioms entails {@code StrictSubClassOf(C, ce)}. <br> If {@code
+     * ce} is equivalent to {@code owl:Nothing} then the empty {@code NodeSet} will be returned.
      * @see OWLReasoner#getSubClasses(OWLClassExpression, boolean)
-     * @param ce
-     *        The class expression whose strict (direct) subclasses are to be
-     *        retrieved.
-     * @param depth
-     *        use {@code DIRECT} for direct subclasses only, {@code ALL} for all
-     *        subclasses
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code DirectSubClassOf(C, ce)}. <br>
-     *         If direct is {@code ALL}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code StrictSubClassOf(C, ce)}. <br>
-     *         If {@code ce} is equivalent to {@code owl:Nothing} then the empty
-     *         {@code NodeSet} will be returned.
      */
     default NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, InferenceDepth depth) {
         return getSubClasses(ce, depth.isDirectOnly());
@@ -627,16 +563,12 @@ public interface OWLReasoner {
 
     /**
      * Returns all subclasses.
-     * 
+     *
+     * @param ce The class expression whose strict (direct) subclasses are to be retrieved.
+     * @return a {@code NodeSet} such that for each class {@code C} in the {@code NodeSet} the set
+     * of reasoner axioms entails {@code StrictSubClassOf(C, ce)}. <br> If {@code ce} is equivalent
+     * to {@code owl:Nothing} then the empty {@code NodeSet} will be returned.
      * @see OWLReasoner#getSubClasses(OWLClassExpression, boolean)
-     * @param ce
-     *        The class expression whose strict (direct) subclasses are to be
-     *        retrieved.
-     * @return a {@code NodeSet} such that for each class {@code C} in the
-     *         {@code NodeSet} the set of reasoner axioms entails
-     *         {@code StrictSubClassOf(C, ce)}. <br>
-     *         If {@code ce} is equivalent to {@code owl:Nothing} then the empty
-     *         {@code NodeSet} will be returned.
      */
     default NodeSet<OWLClass> getSubClasses(OWLClassExpression ce) {
         return getSubClasses(ce, false);
@@ -647,75 +579,52 @@ public interface OWLReasoner {
      * super classes of the specified class expression with respect to the
      * imports closure of the root ontology. Note that the classes are returned
      * as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param ce
-     *        The class expression whose strict (direct) super classes are to be
-     *        retrieved.
-     * @param direct
-     *        Specifies if the direct super classes should be retrived (
-     *        {@code true}) or if the all super classes (ancestors) classes
-     *        should be retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code DirectSubClassOf(ce, C)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code StrictSubClassOf(ce, C)}. <br>
-     *         If {@code ce} is equivalent to {@code owl:Thing} then the empty
-     *         {@code NodeSet} will be returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if {@code classExpression} is not within the profile that is
-     *         supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of the classExpression is not contained within
-     *         the signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ce The class expression whose strict (direct) super classes are to be retrieved.
+     * @param direct Specifies if the direct super classes should be retrived ( {@code true}) or if
+     * the all super classes (ancestors) classes should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a {@code NodeSet} such that for each class {@code C} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubClassOf(ce, C)}. <br>
+     * If direct is {@code false}, a {@code NodeSet} such that for each class {@code C} in the
+     * {@code NodeSet} the set of reasoner axioms entails {@code StrictSubClassOf(ce, C)}. <br> If
+     * {@code ce} is equivalent to {@code owl:Thing} then the empty {@code NodeSet} will be
+     * returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ClassExpressionNotInProfileException if {@code classExpression} is not within the
+     * profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of the classExpression is not contained
+     * within the signature of the imports closure of the root ontology and the undeclared entity
+     * policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct);
 
     /**
+     * @param ce The class expression whose strict (direct) super classes are to be retrieved.
+     * @param depth Specifies if the direct super classes should be retrived ( {@code DIRECT}) or if
+     * the all super classes (ancestors) classes should be retrieved ({@code ALL}).
+     * @return If direct is {@code DIRECT}, a {@code NodeSet} such that for each class {@code C} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubClassOf(ce, C)}. <br>
+     * If direct is {@code false}, a {@code NodeSet} such that for each class {@code C} in the
+     * {@code NodeSet} the set of reasoner axioms entails {@code StrictSubClassOf(ce, C)}. <br> If
+     * {@code ce} is equivalent to {@code owl:Thing} then the empty {@code NodeSet} will be
+     * returned.
      * @see OWLReasoner#getSuperClasses(OWLClassExpression, boolean)
-     * @param ce
-     *        The class expression whose strict (direct) super classes are to be
-     *        retrieved.
-     * @param depth
-     *        Specifies if the direct super classes should be retrived (
-     *        {@code DIRECT}) or if the all super classes (ancestors) classes
-     *        should be retrieved ({@code ALL}).
-     * @return If direct is {@code DIRECT}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code DirectSubClassOf(ce, C)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} such that for each
-     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code StrictSubClassOf(ce, C)}. <br>
-     *         If {@code ce} is equivalent to {@code owl:Thing} then the empty
-     *         {@code NodeSet} will be returned.
      */
     default NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, InferenceDepth depth) {
         return getSuperClasses(ce, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getSuperClasses(OWLClassExpression, boolean) Return all
-     *      superclasses.
-     * @param ce
-     *        The class expression whose strict (direct) super classes are to be
-     *        retrieved.
-     * @return a {@code NodeSet} such that for each class {@code C} in the
-     *         {@code NodeSet} the set of reasoner axioms entails
-     *         {@code StrictSubClassOf(ce, C)}. <br>
-     *         If {@code ce} is equivalent to {@code owl:Thing} then the empty
-     *         {@code NodeSet} will be returned.
+     * @param ce The class expression whose strict (direct) super classes are to be retrieved.
+     * @return a {@code NodeSet} such that for each class {@code C} in the {@code NodeSet} the set
+     * of reasoner axioms entails {@code StrictSubClassOf(ce, C)}. <br> If {@code ce} is equivalent
+     * to {@code owl:Thing} then the empty {@code NodeSet} will be returned.
+     * @see OWLReasoner#getSuperClasses(OWLClassExpression, boolean) Return all superclasses.
      */
     default NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce) {
         return getSuperClasses(ce, false);
@@ -725,40 +634,28 @@ public interface OWLReasoner {
      * Gets the set of named classes that are equivalent to the specified class
      * expression with respect to the set of reasoner axioms. The classes are
      * returned as a {@link org.semanticweb.owlapi.reasoner.Node}.
-     * 
-     * @param ce
-     *        The class expression whose equivalent classes are to be retrieved.
-     * @return A node containing the named classes such that for each named
-     *         class {@code C} in the node the root ontology imports closure
-     *         entails {@code EquivalentClasses(ce C)}. If {@code ce} is not a
-     *         class name (i.e. it is an anonymous class expression) and there
-     *         are no such classes {@code C} then the node will be empty. <br>
-     *         If {@code ce} is a named class then {@code ce} will be contained
-     *         in the node. <br>
-     *         If {@code ce} is unsatisfiable with respect to the set of
-     *         reasoner axioms then the node representing and containing
-     *         {@code owl:Nothing}, i.e. the bottom node, will be returned. <br>
-     *         If {@code ce} is equivalent to {@code owl:Thing} with respect to
-     *         the set of reasoner axioms then the node representing and
-     *         containing {@code owl:Thing}, i.e. the top node, will be
-     *         returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if {@code classExpression} is not within the profile that is
-     *         supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of the classExpression is not contained within
-     *         the signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ce The class expression whose equivalent classes are to be retrieved.
+     * @return A node containing the named classes such that for each named class {@code C} in the
+     * node the root ontology imports closure entails {@code EquivalentClasses(ce C)}. If {@code ce}
+     * is not a class name (i.e. it is an anonymous class expression) and there are no such classes
+     * {@code C} then the node will be empty. <br> If {@code ce} is a named class then {@code ce}
+     * will be contained in the node. <br> If {@code ce} is unsatisfiable with respect to the set of
+     * reasoner axioms then the node representing and containing {@code owl:Nothing}, i.e. the
+     * bottom node, will be returned. <br> If {@code ce} is equivalent to {@code owl:Thing} with
+     * respect to the set of reasoner axioms then the node representing and containing {@code
+     * owl:Thing}, i.e. the top node, will be returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ClassExpressionNotInProfileException if {@code classExpression} is not within the
+     * profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of the classExpression is not contained
+     * within the signature of the imports closure of the root ontology and the undeclared entity
+     * policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     Node<OWLClass> getEquivalentClasses(OWLClassExpression ce);
 
@@ -766,56 +663,46 @@ public interface OWLReasoner {
      * Gets the classes that are disjoint with the specified class expression
      * {@code ce}. The classes are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param ce
-     *        The class expression whose disjoint classes are to be retrieved.
-     * @return The return value is a {@code NodeSet} such that for each class
-     *         {@code D} in the {@code NodeSet} the set of reasoner axioms
-     *         entails {@code EquivalentClasses(D, ObjectComplementOf(ce))} or
-     *         {@code StrictSubClassOf(D, ObjectComplementOf(ce))}.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if {@code classExpression} is not within the profile that is
-     *         supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of the classExpression is not contained within
-     *         the signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ce The class expression whose disjoint classes are to be retrieved.
+     * @return The return value is a {@code NodeSet} such that for each class {@code D} in the
+     * {@code NodeSet} the set of reasoner axioms entails {@code EquivalentClasses(D,
+     * ObjectComplementOf(ce))} or {@code StrictSubClassOf(D, ObjectComplementOf(ce))}.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ClassExpressionNotInProfileException if {@code classExpression} is not within the
+     * profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of the classExpression is not contained
+     * within the signature of the imports closure of the root ontology and the undeclared entity
+     * policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce);
 
     // Methods for dealing with the object property hierarchy
+
     /**
      * Gets the {@code Node} corresponding to the top node (containing
      * {@code owl:topObjectProperty}) in the object property hierarchy.
-     * 
-     * @return A {@code Node} containing {@code owl:topObjectProperty} that is
-     *         the top node in the object property hierarchy. This {@code Node}
-     *         is essentially equivalent to the {@code Node} returned by calling
-     *         {@link #getEquivalentObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression)}
-     *         with a parameter of {@code owl:topObjectProperty}.
+     *
+     * @return A {@code Node} containing {@code owl:topObjectProperty} that is the top node in the
+     * object property hierarchy. This {@code Node} is essentially equivalent to the {@code Node}
+     * returned by calling {@link #getEquivalentObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression)}
+     * with a parameter of {@code owl:topObjectProperty}.
      */
     Node<OWLObjectPropertyExpression> getTopObjectPropertyNode();
 
     /**
      * Gets the {@code Node} corresponding to the bottom node (containing
      * {@code owl:bottomObjectProperty}) in the object property hierarchy.
-     * 
-     * @return A {@code Node}, containing {@code owl:bottomObjectProperty}, that
-     *         is the bottom node in the object property hierarchy. This
-     *         {@code Node} is essentially equal to the {@code Node} that will
-     *         be returned by calling
-     *         {@link #getEquivalentObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression)}
-     *         with a parameter of {@code owl:bottomObjectProperty}.
+     *
+     * @return A {@code Node}, containing {@code owl:bottomObjectProperty}, that is the bottom node
+     * in the object property hierarchy. This {@code Node} is essentially equal to the {@code Node}
+     * that will be returned by calling {@link #getEquivalentObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression)}
+     * with a parameter of {@code owl:bottomObjectProperty}.
      */
     Node<OWLObjectPropertyExpression> getBottomObjectPropertyNode();
 
@@ -825,100 +712,75 @@ public interface OWLReasoner {
      * object property expression with respect to the imports closure of the
      * root ontology. Note that the properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param pe
-     *        The object property expression whose strict (direct) subproperties
-     *        are to be retrieved.
-     * @param direct
-     *        Specifies if the direct subproperties should be retrived (
-     *        {@code true}) or if the all subproperties (descendants) should be
-     *        retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet} the set of
-     *         reasoner axioms entails {@code DirectSubObjectPropertyOf(P, pe)}.
-     *         <br>
-     *         If direct is {@code false}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet} the set of
-     *         reasoner axioms entails {@code StrictSubObjectPropertyOf(P, pe)}.
-     *         <br>
-     *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty}
-     *         then the empty {@code NodeSet} will be returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The object property expression whose strict (direct) subproperties are to be
+     * retrieved.
+     * @param direct Specifies if the direct subproperties should be retrived ( {@code true}) or if
+     * the all subproperties (descendants) should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#spe">simplified object
+     * property expressions</a>, such that for each <a href="#spe">simplified object property
+     * expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms entails {@code
+     * DirectSubObjectPropertyOf(P, pe)}. <br> If direct is {@code false}, a {@code NodeSet} of <a
+     * href="#spe">simplified object property expressions</a>, such that for each <a
+     * href="#spe">simplified object property expression</a>, {@code P}, in the {@code NodeSet} the
+     * set of reasoner axioms entails {@code StrictSubObjectPropertyOf(P, pe)}. <br> If {@code pe}
+     * is equivalent to {@code owl:bottomObjectProperty} then the empty {@code NodeSet} will be
+     * returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct);
+    NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe,
+        boolean direct);
 
     /**
-     * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression,
-     *      boolean) Gets the set of <a href="#spe">simplified object property
-     *      expressions</a> that are the strict (potentially direct)
-     *      subproperties of the specified object property expression with
-     *      respect to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The object property expression whose strict (direct) super
-     *        properties are to be retrieved.
-     * @param depth
-     *        Specifies if the direct subproperties should be retrived (
-     *        {@code DIRECT}) or if the all subproperties (descendants) should
-     *        be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet} the set of
-     *         reasoner axioms entails {@code DirectSubObjectPropertyOf(P, pe)}.
-     *         <br>
-     *         If direct is {@code ALL}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet} the set of
-     *         reasoner axioms entails {@code StrictSubObjectPropertyOf(P, pe)}.
-     *         <br>
-     *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty}
-     *         then the empty {@code NodeSet} will be returned.
+     * @param pe The object property expression whose strict (direct) super properties are to be
+     * retrieved.
+     * @param depth Specifies if the direct subproperties should be retrived ( {@code DIRECT}) or if
+     * the all subproperties (descendants) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#spe">simplified object
+     * property expressions</a>, such that for each <a href="#spe">simplified object property
+     * expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms entails {@code
+     * DirectSubObjectPropertyOf(P, pe)}. <br> If direct is {@code ALL}, a {@code NodeSet} of <a
+     * href="#spe">simplified object property expressions</a>, such that for each <a
+     * href="#spe">simplified object property expression</a>, {@code P}, in the {@code NodeSet} the
+     * set of reasoner axioms entails {@code StrictSubObjectPropertyOf(P, pe)}. <br> If {@code pe}
+     * is equivalent to {@code owl:bottomObjectProperty} then the empty {@code NodeSet} will be
+     * returned.
+     * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set of
+     * <a href="#spe">simplified object property expressions</a> that are the strict (potentially
+     * direct) subproperties of the specified object property expression with respect to the imports
+     * closure of the root ontology. Note that the properties are returned as a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet}.
      */
-    default NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe,
+    default NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
+        OWLObjectPropertyExpression pe,
         InferenceDepth depth) {
         return getSubObjectProperties(pe, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression,
-     *      boolean) Gets the set of all <a href="#spe">simplified object
-     *      property expressions</a> that are the strict (potentially direct)
-     *      subproperties of the specified object property expression with
-     *      respect to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The object property expression whose strict (direct) super
-     *        properties are to be retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property
-     *         expressions</a>, such that for each <a href="#spe">simplified
-     *         object property expression</a>, {@code P}, in the {@code NodeSet}
-     *         the set of reasoner axioms entails
-     *         {@code StrictSubObjectPropertyOf(P, pe)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty}
-     *         then the empty {@code NodeSet} will be returned.
+     * @param pe The object property expression whose strict (direct) super properties are to be
+     * retrieved.
+     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
+     * that for each <a href="#spe">simplified object property expression</a>, {@code P}, in the
+     * {@code NodeSet} the set of reasoner axioms entails {@code StrictSubObjectPropertyOf(P, pe)}.
+     * <br> If {@code pe} is equivalent to {@code owl:bottomObjectProperty} then the empty {@code
+     * NodeSet} will be returned.
+     * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set of
+     * all <a href="#spe">simplified object property expressions</a> that are the strict
+     * (potentially direct) subproperties of the specified object property expression with respect
+     * to the imports closure of the root ontology. Note that the properties are returned as a
+     * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
-    default NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe) {
+    default NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
+        OWLObjectPropertyExpression pe) {
         return getSubObjectProperties(pe, false);
     }
 
@@ -928,100 +790,75 @@ public interface OWLReasoner {
      * specified object property expression with respect to the imports closure
      * of the root ontology. Note that the properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param pe
-     *        The object property expression whose strict (direct) super
-     *        properties are to be retrieved.
-     * @param direct
-     *        Specifies if the direct super properties should be retrived (
-     *        {@code true}) or if the all super properties (ancestors) should be
-     *        retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet}, the set of
-     *         reasoner axioms entails {@code DirectSubObjectPropertyOf(pe, P)}.
-     *         <br>
-     *         If direct is {@code false}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet}, the set of
-     *         reasoner axioms entails {@code StrictSubObjectPropertyOf(pe, P)}.
-     *         <br>
-     *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then
-     *         the empty {@code NodeSet} will be returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The object property expression whose strict (direct) super properties are to be
+     * retrieved.
+     * @param direct Specifies if the direct super properties should be retrived ( {@code true}) or
+     * if the all super properties (ancestors) should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#spe">simplified object
+     * property expressions</a>, such that for each <a href="#spe">simplified object property
+     * expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner axioms entails {@code
+     * DirectSubObjectPropertyOf(pe, P)}. <br> If direct is {@code false}, a {@code NodeSet} of <a
+     * href="#spe">simplified object property expressions</a>, such that for each <a
+     * href="#spe">simplified object property expression</a>, {@code P}, in the {@code NodeSet}, the
+     * set of reasoner axioms entails {@code StrictSubObjectPropertyOf(pe, P)}. <br> If {@code pe}
+     * is equivalent to {@code owl:topObjectProperty} then the empty {@code NodeSet} will be
+     * returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct);
+    NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe,
+        boolean direct);
 
     /**
-     * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression,
-     *      boolean) Gets the set of <a href="#spe">simplified object property
-     *      expressions</a> that are the strict (potentially direct) super
-     *      properties of the specified object property expression with respect
-     *      to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The object property expression whose strict (direct) super
-     *        properties are to be retrieved.
-     * @param depth
-     *        Specifies if the direct super properties should be retrived (
-     *        {@code DIRECT}) or if the all super properties (ancestors) should
-     *        be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet}, the set of
-     *         reasoner axioms entails {@code DirectSubObjectPropertyOf(pe, P)}.
-     *         <br>
-     *         If depth is {@code ALL}, a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet}, the set of
-     *         reasoner axioms entails {@code StrictSubObjectPropertyOf(pe, P)}.
-     *         <br>
-     *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then
-     *         the empty {@code NodeSet} will be returned.
+     * @param pe The object property expression whose strict (direct) super properties are to be
+     * retrieved.
+     * @param depth Specifies if the direct super properties should be retrived ( {@code DIRECT}) or
+     * if the all super properties (ancestors) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#spe">simplified object
+     * property expressions</a>, such that for each <a href="#spe">simplified object property
+     * expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner axioms entails {@code
+     * DirectSubObjectPropertyOf(pe, P)}. <br> If depth is {@code ALL}, a {@code NodeSet} of <a
+     * href="#spe">simplified object property expressions</a>, such that for each <a
+     * href="#spe">simplified object property expression</a>, {@code P}, in the {@code NodeSet}, the
+     * set of reasoner axioms entails {@code StrictSubObjectPropertyOf(pe, P)}. <br> If {@code pe}
+     * is equivalent to {@code owl:topObjectProperty} then the empty {@code NodeSet} will be
+     * returned.
+     * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set
+     * of <a href="#spe">simplified object property expressions</a> that are the strict (potentially
+     * direct) super properties of the specified object property expression with respect to the
+     * imports closure of the root ontology. Note that the properties are returned as a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet}.
      */
-    default NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe,
+    default NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
+        OWLObjectPropertyExpression pe,
         InferenceDepth depth) {
         return getSuperObjectProperties(pe, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression,
-     *      boolean) Gets the set of all <a href="#spe">simplified object
-     *      property expressions</a> that are the strict (potentially direct)
-     *      super properties of the specified object property expression with
-     *      respect to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The object property expression whose strict (direct) super
-     *        properties are to be retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property
-     *         expressions</a>, such that for each <a href="#spe">simplified
-     *         object property expression</a>, {@code P}, in the {@code NodeSet}
-     *         , the set of reasoner axioms entails
-     *         {@code StrictSubObjectPropertyOf(pe, P)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then
-     *         the empty {@code NodeSet} will be returned.
+     * @param pe The object property expression whose strict (direct) super properties are to be
+     * retrieved.
+     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
+     * that for each <a href="#spe">simplified object property expression</a>, {@code P}, in the
+     * {@code NodeSet} , the set of reasoner axioms entails {@code StrictSubObjectPropertyOf(pe,
+     * P)}. <br> If {@code pe} is equivalent to {@code owl:topObjectProperty} then the empty {@code
+     * NodeSet} will be returned.
+     * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set
+     * of all <a href="#spe">simplified object property expressions</a> that are the strict
+     * (potentially direct) super properties of the specified object property expression with
+     * respect to the imports closure of the root ontology. Note that the properties are returned as
+     * a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
-    default NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe) {
+    default NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
+        OWLObjectPropertyExpression pe) {
         return getSuperObjectProperties(pe, false);
     }
 
@@ -1030,38 +867,26 @@ public interface OWLReasoner {
      * that are equivalent to the specified object property expression with
      * respect to the set of reasoner axioms. The properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.Node}.
-     * 
-     * @param pe
-     *        The object property expression whose equivalent properties are to
-     *        be retrieved.
-     * @return A node containing the <a href="#spe">simplified object property
-     *         expressions</a> such that for each <a href="#spe">simplified
-     *         object property expression</a>, {@code P}, in the node, the set
-     *         of reasoner axioms entails
-     *         {@code EquivalentObjectProperties(pe P)}. <br>
-     *         If {@code pe} is a <a href="#spe">simplified object property
-     *         expression</a> If {@code pe} is unsatisfiable with respect to the
-     *         set of reasoner axioms then the node representing and containing
-     *         {@code owl:bottomObjectProperty}, i.e. the bottom node, will be
-     *         returned. <br>
-     *         If {@code pe} is equivalent to {@code owl:topObjectProperty} with
-     *         respect to the set of reasoner axioms then the node representing
-     *         and containing {@code owl:topObjectProperty}, i.e. the top node,
-     *         will be returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The object property expression whose equivalent properties are to be retrieved.
+     * @return A node containing the <a href="#spe">simplified object property expressions</a> such
+     * that for each <a href="#spe">simplified object property expression</a>, {@code P}, in the
+     * node, the set of reasoner axioms entails {@code EquivalentObjectProperties(pe P)}. <br> If
+     * {@code pe} is a <a href="#spe">simplified object property expression</a> If {@code pe} is
+     * unsatisfiable with respect to the set of reasoner axioms then the node representing and
+     * containing {@code owl:bottomObjectProperty}, i.e. the bottom node, will be returned. <br> If
+     * {@code pe} is equivalent to {@code owl:topObjectProperty} with respect to the set of reasoner
+     * axioms then the node representing and containing {@code owl:topObjectProperty}, i.e. the top
+     * node, will be returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe);
 
@@ -1070,68 +895,49 @@ public interface OWLReasoner {
      * are disjoint with the specified object property expression {@code pe}.
      * The object properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param pe
-     *        The object property expression whose disjoint object properties
-     *        are to be retrieved.
-     * @return The return value is a {@code NodeSet} of
-     *         <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property
-     *         expression</a>, {@code P}, in the {@code NodeSet} the set of
-     *         reasoner axioms entails
-     *         {@code EquivalentObjectProperties(P, ObjectPropertyComplementOf(pe))}
-     *         or
-     *         {@code StrictSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))}
-     *         .
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if {@code object propertyExpression} is not within the profile
-     *         that is supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of {@code pe} is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.and the undeclared entity
-     *         policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The object property expression whose disjoint object properties are to be
+     * retrieved.
+     * @return The return value is a {@code NodeSet} of <a href="#spe">simplified object property
+     * expressions</a>, such that for each <a href="#spe">simplified object property expression</a>,
+     * {@code P}, in the {@code NodeSet} the set of reasoner axioms entails {@code
+     * EquivalentObjectProperties(P, ObjectPropertyComplementOf(pe))} or {@code
+     * StrictSubObjectPropertyOf(P, ObjectPropertyComplementOf(pe))} .
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ClassExpressionNotInProfileException if {@code object propertyExpression} is not
+     * within the profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of {@code pe} is not contained within the
+     * signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.and the undeclared entity policy
+     * of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
-    NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(OWLObjectPropertyExpression pe);
+    NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
+        OWLObjectPropertyExpression pe);
 
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
      * that are the inverses of the specified object property expression with
      * respect to the imports closure of the root ontology. The properties are
      * returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
-     * 
-     * @param pe
-     *        The property expression whose inverse properties are to be
-     *        retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property
-     *         expressions</a>, such that for each simplified object property
-     *         expression {@code P} in the nodes set, the set of reasoner axioms
-     *         entails {@code InverseObjectProperties(pe, P)}.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The property expression whose inverse properties are to be retrieved.
+     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
+     * that for each simplified object property expression {@code P} in the nodes set, the set of
+     * reasoner axioms entails {@code InverseObjectProperties(pe, P)}.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe);
 
@@ -1140,82 +946,57 @@ public interface OWLReasoner {
      * property with respect to the imports closure of the root ontology. The
      * classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
      * .
-     * 
-     * @param pe
-     *        The property expression whose domains are to be retrieved.
-     * @param direct
-     *        Specifies if the direct domains should be retrieved ( {@code true}
-     *        ), or if all domains should be retrieved ( {@code false}).
-     * @return Let
-     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))}
-     *         . <br>
-     *         If {@code direct} is {@code true}: then if {@code N} is not empty
-     *         then the return value is {@code N}, else the return value is the
-     *         result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), true)}
-     *         . <br>
-     *         If {@code direct} is {@code false}: then the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)}
-     *         together with {@code N} if {@code N} is non-empty.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The property expression whose domains are to be retrieved.
+     * @param direct Specifies if the direct domains should be retrieved ( {@code true} ), or if all
+     * domains should be retrieved ( {@code false}).
+     * @return Let {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))} . <br> If
+     * {@code direct} is {@code true}: then if {@code N} is not empty then the return value is
+     * {@code N}, else the return value is the result of {@code getSuperClasses(ObjectSomeValuesFrom(pe
+     * owl:Thing), true)} . <br> If {@code direct} is {@code false}: then the result of {@code
+     * getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)} together with {@code N} if {@code
+     * N} is non-empty.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct);
 
     /**
-     * @see OWLReasoner#getObjectPropertyDomains(OWLObjectPropertyExpression,
-     *      boolean) Gets the named classes that are the direct or indirect
-     *      domains of this property with respect to the imports closure of the
-     *      root ontology. The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
-     * @param pe
-     *        The property expression whose domains are to be retrieved.
-     * @param depth
-     *        Specifies if the direct domains should be retrieved (
-     *        {@code DIRECT} ), or if all domains should be retrieved (
-     *        {@code ALL}).
-     * @return Let
-     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))}
-     *         . <br>
-     *         If {@code direct} is {@code DIRECT}: then if {@code N} is not
-     *         empty then the return value is {@code N}, else the return value
-     *         is the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), true)}
-     *         . <br>
-     *         If {@code direct} is {@code ALL}: then the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)}
-     *         together with {@code N} if {@code N} is non-empty.
+     * @param pe The property expression whose domains are to be retrieved.
+     * @param depth Specifies if the direct domains should be retrieved ( {@code DIRECT} ), or if
+     * all domains should be retrieved ( {@code ALL}).
+     * @return Let {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))} . <br> If
+     * {@code direct} is {@code DIRECT}: then if {@code N} is not empty then the return value is
+     * {@code N}, else the return value is the result of {@code getSuperClasses(ObjectSomeValuesFrom(pe
+     * owl:Thing), true)} . <br> If {@code direct} is {@code ALL}: then the result of {@code
+     * getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)} together with {@code N} if {@code
+     * N} is non-empty.
+     * @see OWLReasoner#getObjectPropertyDomains(OWLObjectPropertyExpression, boolean) Gets the
+     * named classes that are the direct or indirect domains of this property with respect to the
+     * imports closure of the root ontology. The classes are returned as a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet} .
      */
-    default NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, InferenceDepth depth) {
+    default NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe,
+        InferenceDepth depth) {
         return getObjectPropertyDomains(pe, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getObjectPropertyDomains(OWLObjectPropertyExpression,
-     *      boolean) Gets the named classes that are the direct or indirect
-     *      domains of this property with respect to the imports closure of the
-     *      root ontology. The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
-     * @param pe
-     *        The property expression whose domains are to be retrieved.
-     * @return Let
-     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))}
-     *         . <br>
-     *         Return the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)}
-     *         together with {@code N} if {@code N} is non-empty.
+     * @param pe The property expression whose domains are to be retrieved.
+     * @return Let {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))} . <br>
+     * Return the result of {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)}
+     * together with {@code N} if {@code N} is non-empty.
+     * @see OWLReasoner#getObjectPropertyDomains(OWLObjectPropertyExpression, boolean) Gets the
+     * named classes that are the direct or indirect domains of this property with respect to the
+     * imports closure of the root ontology. The classes are returned as a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet} .
      */
     default NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe) {
         return getObjectPropertyDomains(pe, false);
@@ -1226,124 +1007,92 @@ public interface OWLReasoner {
      * property with respect to the imports closure of the root ontology. The
      * classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
      * .
-     * 
-     * @param pe
-     *        The property expression whose ranges are to be retrieved.
-     * @param direct
-     *        Specifies if the direct ranges should be retrieved ( {@code true}
-     *        ), or if all ranges should be retrieved ( {@code false}).
-     * @return Let
-     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing))}
-     *         . <br>
-     *         If {@code direct} is {@code true}: then if {@code N} is not empty
-     *         then the return value is {@code N}, else the return value is the
-     *         result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), true)}
-     *         . <br>
-     *         If {@code direct} is {@code false}: then the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), false)}
-     *         together with {@code N} if {@code N} is non-empty.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The property expression whose ranges are to be retrieved.
+     * @param direct Specifies if the direct ranges should be retrieved ( {@code true} ), or if all
+     * ranges should be retrieved ( {@code false}).
+     * @return Let {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe)
+     * owl:Thing))} . <br> If {@code direct} is {@code true}: then if {@code N} is not empty then
+     * the return value is {@code N}, else the return value is the result of {@code
+     * getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), true)} . <br> If {@code
+     * direct} is {@code false}: then the result of {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe)
+     * owl:Thing), false)} together with {@code N} if {@code N} is non-empty.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct);
 
     /**
-     * @see OWLReasoner#getObjectPropertyRanges(OWLObjectPropertyExpression,
-     *      boolean) Gets the named classes that are the direct or indirect
-     *      ranges of this property with respect to the imports closure of the
-     *      root ontology. The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
-     * @param pe
-     *        The property expression whose ranges are to be retrieved.
-     * @param depth
-     *        Specifies if the direct ranges should be retrieved (
-     *        {@code DIRECT} ), or if all ranges should be retrieved (
-     *        {@code ALL}).
-     * @return Let
-     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing))}
-     *         . <br>
-     *         If {@code depth} is {@code DIRECT}: then if {@code N} is not
-     *         empty then the return value is {@code N}, else the return value
-     *         is the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), true)}
-     *         . <br>
-     *         If {@code depth} is {@code ALL}: then the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), false)}
-     *         together with {@code N} if {@code N} is non-empty.
+     * @param pe The property expression whose ranges are to be retrieved.
+     * @param depth Specifies if the direct ranges should be retrieved ( {@code DIRECT} ), or if all
+     * ranges should be retrieved ( {@code ALL}).
+     * @return Let {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe)
+     * owl:Thing))} . <br> If {@code depth} is {@code DIRECT}: then if {@code N} is not empty then
+     * the return value is {@code N}, else the return value is the result of {@code
+     * getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), true)} . <br> If {@code
+     * depth} is {@code ALL}: then the result of {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe)
+     * owl:Thing), false)} together with {@code N} if {@code N} is non-empty.
+     * @see OWLReasoner#getObjectPropertyRanges(OWLObjectPropertyExpression, boolean) Gets the named
+     * classes that are the direct or indirect ranges of this property with respect to the imports
+     * closure of the root ontology. The classes are returned as a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet} .
      */
-    default NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, InferenceDepth depth) {
+    default NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe,
+        InferenceDepth depth) {
         return getObjectPropertyRanges(pe, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getObjectPropertyRanges(OWLObjectPropertyExpression,
-     *      boolean) Gets the named classes that are the direct or indirect
-     *      ranges of this property with respect to the imports closure of the
-     *      root ontology. The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
-     * @param pe
-     *        The property expression whose ranges are to be retrieved.
-     * @return Let
-     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing))}
-     *         . <br>
-     *         Return the result of
-     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), false)}
-     *         together with {@code N} if {@code N} is non-empty.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     * @param pe The property expression whose ranges are to be retrieved.
+     * @return Let {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe)
+     * owl:Thing))} . <br> Return the result of {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe)
+     * owl:Thing), false)} together with {@code N} if {@code N} is non-empty.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
+     * @see OWLReasoner#getObjectPropertyRanges(OWLObjectPropertyExpression, boolean) Gets the named
+     * classes that are the direct or indirect ranges of this property with respect to the imports
+     * closure of the root ontology. The classes are returned as a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet} .
      */
     default NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe) {
         return getObjectPropertyRanges(pe, false);
     }
 
     // Methods for dealing with the data property hierarchy
+
     /**
      * Gets the {@code Node} corresponding to the top node (containing
      * {@code owl:topDataProperty}) in the data property hierarchy.
-     * 
-     * @return A {@code Node}, containing {@code owl:topDataProperty}, that is
-     *         the top node in the data property hierarchy. This {@code Node} is
-     *         essentially equal to the {@code Node} returned by calling
-     *         {@link #getEquivalentDataProperties(org.semanticweb.owlapi.model.OWLDataProperty)}
-     *         with a parameter of {@code owl:topDataProperty}.
+     *
+     * @return A {@code Node}, containing {@code owl:topDataProperty}, that is the top node in the
+     * data property hierarchy. This {@code Node} is essentially equal to the {@code Node} returned
+     * by calling {@link #getEquivalentDataProperties(org.semanticweb.owlapi.model.OWLDataProperty)}
+     * with a parameter of {@code owl:topDataProperty}.
      */
     Node<OWLDataProperty> getTopDataPropertyNode();
 
     /**
      * Gets the {@code Node} corresponding to the bottom node (containing
      * {@code owl:bottomDataProperty}) in the data property hierarchy.
-     * 
-     * @return A {@code Node}, containing {@code owl:bottomDataProperty}, that
-     *         is the bottom node in the data property hierarchy. This
-     *         {@code Node} is essentially equal to the {@code Node} that will
-     *         be returned by calling
-     *         {@link #getEquivalentDataProperties(org.semanticweb.owlapi.model.OWLDataProperty)}
-     *         with a parameter of {@code owl:bottomDataProperty}.
+     *
+     * @return A {@code Node}, containing {@code owl:bottomDataProperty}, that is the bottom node in
+     * the data property hierarchy. This {@code Node} is essentially equal to the {@code Node} that
+     * will be returned by calling {@link #getEquivalentDataProperties(org.semanticweb.owlapi.model.OWLDataProperty)}
+     * with a parameter of {@code owl:bottomDataProperty}.
      */
     Node<OWLDataProperty> getBottomDataPropertyNode();
 
@@ -1353,81 +1102,58 @@ public interface OWLReasoner {
      * respect to the imports closure of the root ontology. Note that the
      * properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param pe
-     *        The data property whose strict (direct) subproperties are to be
-     *        retrieved.
-     * @param direct
-     *        Specifies if the direct subproperties should be retrived (
-     *        {@code true}) or if the all subproperties (descendants) should be
-     *        retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code DirectSubDataPropertyOf(P, pe)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code StrictSubDataPropertyOf(P, pe)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:bottomDataProperty}
-     *         then the empty {@code NodeSet} will be returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the data property is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The data property whose strict (direct) subproperties are to be retrieved.
+     * @param direct Specifies if the direct subproperties should be retrived ( {@code true}) or if
+     * the all subproperties (descendants) should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a {@code NodeSet} such that for each property {@code P} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubDataPropertyOf(P,
+     * pe)}. <br> If direct is {@code false}, a {@code NodeSet} such that for each property {@code
+     * P} in the {@code NodeSet} the set of reasoner axioms entails {@code
+     * StrictSubDataPropertyOf(P, pe)}. <br> If {@code pe} is equivalent to {@code
+     * owl:bottomDataProperty} then the empty {@code NodeSet} will be returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the data property is not contained within
+     * the signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct);
 
     /**
-     * @see OWLReasoner#getSubDataProperties(OWLDataProperty, boolean) Gets the
-     *      set of named data properties that are the strict (potentially
-     *      direct) subproperties of the specified data property expression with
-     *      respect to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The data property whose strict (direct) subproperties are to be
-     *        retrieved.
-     * @param depth
-     *        Specifies if the direct subproperties should be retrived (
-     *        {@code DIRECT}) or if the all subproperties (descendants) should
-     *        be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code DirectSubDataPropertyOf(P, pe)}. <br>
-     *         If depth is {@code ALL}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code StrictSubDataPropertyOf(P, pe)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:bottomDataProperty}
-     *         then the empty {@code NodeSet} will be returned.
+     * @param pe The data property whose strict (direct) subproperties are to be retrieved.
+     * @param depth Specifies if the direct subproperties should be retrived ( {@code DIRECT}) or if
+     * the all subproperties (descendants) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each property {@code P}
+     * in the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubDataPropertyOf(P,
+     * pe)}. <br> If depth is {@code ALL}, a {@code NodeSet} such that for each property {@code P}
+     * in the {@code NodeSet} the set of reasoner axioms entails {@code StrictSubDataPropertyOf(P,
+     * pe)}. <br> If {@code pe} is equivalent to {@code owl:bottomDataProperty} then the empty
+     * {@code NodeSet} will be returned.
+     * @see OWLReasoner#getSubDataProperties(OWLDataProperty, boolean) Gets the set of named data
+     * properties that are the strict (potentially direct) subproperties of the specified data
+     * property expression with respect to the imports closure of the root ontology. Note that the
+     * properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
-    default NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, InferenceDepth depth) {
+    default NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe,
+        InferenceDepth depth) {
         return getSubDataProperties(pe, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getSubDataProperties(OWLDataProperty, boolean) Gets the
-     *      set of named data properties that are the strict (potentially
-     *      direct) subproperties of the specified data property expression with
-     *      respect to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The data property whose strict (direct) subproperties are to be
-     *        retrieved.
-     * @return a {@code NodeSet} such that for each property {@code P} in the
-     *         {@code NodeSet} the set of reasoner axioms entails
-     *         {@code StrictSubDataPropertyOf(P, pe)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:bottomDataProperty}
-     *         then the empty {@code NodeSet} will be returned.
+     * @param pe The data property whose strict (direct) subproperties are to be retrieved.
+     * @return a {@code NodeSet} such that for each property {@code P} in the {@code NodeSet} the
+     * set of reasoner axioms entails {@code StrictSubDataPropertyOf(P, pe)}. <br> If {@code pe} is
+     * equivalent to {@code owl:bottomDataProperty} then the empty {@code NodeSet} will be
+     * returned.
+     * @see OWLReasoner#getSubDataProperties(OWLDataProperty, boolean) Gets the set of named data
+     * properties that are the strict (potentially direct) subproperties of the specified data
+     * property expression with respect to the imports closure of the root ontology. Note that the
+     * properties are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
     default NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe) {
         return getSubDataProperties(pe, false);
@@ -1438,81 +1164,57 @@ public interface OWLReasoner {
      * direct) super properties of the specified data property with respect to
      * the imports closure of the root ontology. Note that the properties are
      * returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param pe
-     *        The data property whose strict (direct) super properties are to be
-     *        retrieved.
-     * @param direct
-     *        Specifies if the direct super properties should be retrived (
-     *        {@code true}) or if the all super properties (ancestors) should be
-     *        retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code DirectSubDataPropertyOf(pe, P)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code StrictSubDataPropertyOf(pe, P)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:topDataProperty} then
-     *         the empty {@code NodeSet} will be returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the data property is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The data property whose strict (direct) super properties are to be retrieved.
+     * @param direct Specifies if the direct super properties should be retrived ( {@code true}) or
+     * if the all super properties (ancestors) should be retrieved ({@code false}).
+     * @return If direct is {@code true}, a {@code NodeSet} such that for each property {@code P} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubDataPropertyOf(pe,
+     * P)}. <br> If direct is {@code false}, a {@code NodeSet} such that for each property {@code P}
+     * in the {@code NodeSet} the set of reasoner axioms entails {@code StrictSubDataPropertyOf(pe,
+     * P)}. <br> If {@code pe} is equivalent to {@code owl:topDataProperty} then the empty {@code
+     * NodeSet} will be returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the data property is not contained within
+     * the signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, boolean direct);
 
     /**
-     * @see OWLReasoner#getSuperDataProperties(OWLDataProperty, boolean) Gets
-     *      the set of named data properties that are the strict (potentially
-     *      direct) super properties of the specified data property with respect
-     *      to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The data property whose strict (direct) super properties are to be
-     *        retrieved.
-     * @param depth
-     *        Specifies if the direct super properties should be retrived (
-     *        {@code DIRECT}) or if the all super properties (ancestors) should
-     *        be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code DirectSubDataPropertyOf(pe, P)}. <br>
-     *         If depth is {@code ALL}, a {@code NodeSet} such that for each
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails {@code StrictSubDataPropertyOf(pe, P)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:topDataProperty} then
-     *         the empty {@code NodeSet} will be returned.
+     * @param pe The data property whose strict (direct) super properties are to be retrieved.
+     * @param depth Specifies if the direct super properties should be retrived ( {@code DIRECT}) or
+     * if the all super properties (ancestors) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each property {@code P}
+     * in the {@code NodeSet} the set of reasoner axioms entails {@code DirectSubDataPropertyOf(pe,
+     * P)}. <br> If depth is {@code ALL}, a {@code NodeSet} such that for each property {@code P} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code StrictSubDataPropertyOf(pe,
+     * P)}. <br> If {@code pe} is equivalent to {@code owl:topDataProperty} then the empty {@code
+     * NodeSet} will be returned.
+     * @see OWLReasoner#getSuperDataProperties(OWLDataProperty, boolean) Gets the set of named data
+     * properties that are the strict (potentially direct) super properties of the specified data
+     * property with respect to the imports closure of the root ontology. Note that the properties
+     * are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
-    default NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, InferenceDepth depth) {
+    default NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe,
+        InferenceDepth depth) {
         return getSuperDataProperties(pe, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getSuperDataProperties(OWLDataProperty, boolean) Gets
-     *      the set of named data properties that are the strict (potentially
-     *      direct) super properties of the specified data property with respect
-     *      to the imports closure of the root ontology. Note that the
-     *      properties are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param pe
-     *        The data property whose strict (direct) super properties are to be
-     *        retrieved.
-     * @return a {@code NodeSet} such that for each property {@code P} in the
-     *         {@code NodeSet} the set of reasoner axioms entails
-     *         {@code StrictSubDataPropertyOf(pe, P)}. <br>
-     *         If {@code pe} is equivalent to {@code owl:topDataProperty} then
-     *         the empty {@code NodeSet} will be returned.
+     * @param pe The data property whose strict (direct) super properties are to be retrieved.
+     * @return a {@code NodeSet} such that for each property {@code P} in the {@code NodeSet} the
+     * set of reasoner axioms entails {@code StrictSubDataPropertyOf(pe, P)}. <br> If {@code pe} is
+     * equivalent to {@code owl:topDataProperty} then the empty {@code NodeSet} will be returned.
+     * @see OWLReasoner#getSuperDataProperties(OWLDataProperty, boolean) Gets the set of named data
+     * properties that are the strict (potentially direct) super properties of the specified data
+     * property with respect to the imports closure of the root ontology. Note that the properties
+     * are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
     default NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe) {
         return getSuperDataProperties(pe, false);
@@ -1523,38 +1225,25 @@ public interface OWLReasoner {
      * specified data property expression with respect to the imports closure of
      * the root ontology. The properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.Node}.
-     * 
-     * @param pe
-     *        The data property expression whose equivalent properties are to be
-     *        retrieved.
-     * @return A node containing the named data properties such that for each
-     *         named data property {@code P} in the node, the set of reasoner
-     *         axioms entails {@code EquivalentDataProperties(pe P)}. <br>
-     *         If {@code pe} is a named data property then {@code pe} will be
-     *         contained in the node. <br>
-     *         If {@code pe} is unsatisfiable with respect to the set of
-     *         reasoner axioms then the node representing and containing
-     *         {@code owl:bottomDataProperty}, i.e. the bottom node, will be
-     *         returned. <br>
-     *         If {@code ce} is equivalent to {@code owl:topDataProperty} with
-     *         respect to the set of reasoner axioms then the node representing
-     *         and containing {@code owl:topDataProperty}, i.e. the top node,
-     *         will be returned <br>
-     *         .
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the data property expression is not contained
-     *         within the signature of the imports closure of the root ontology
-     *         and the undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The data property expression whose equivalent properties are to be retrieved.
+     * @return A node containing the named data properties such that for each named data property
+     * {@code P} in the node, the set of reasoner axioms entails {@code EquivalentDataProperties(pe
+     * P)}. <br> If {@code pe} is a named data property then {@code pe} will be contained in the
+     * node. <br> If {@code pe} is unsatisfiable with respect to the set of reasoner axioms then the
+     * node representing and containing {@code owl:bottomDataProperty}, i.e. the bottom node, will
+     * be returned. <br> If {@code ce} is equivalent to {@code owl:topDataProperty} with respect to
+     * the set of reasoner axioms then the node representing and containing {@code
+     * owl:topDataProperty}, i.e. the top node, will be returned <br> .
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the data property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe);
 
@@ -1562,34 +1251,23 @@ public interface OWLReasoner {
      * Gets the data properties that are disjoint with the specified data
      * property expression {@code pe}. The data properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param pe
-     *        The data property expression whose disjoint data properties are to
-     *        be retrieved.
-     * @return The return value is a {@code NodeSet} such that for each data
-     *         property {@code P} in the {@code NodeSet} the set of reasoner
-     *         axioms entails
-     *         {@code EquivalentDataProperties(P, DataPropertyComplementOf(pe))}
-     *         or
-     *         {@code StrictSubDataPropertyOf(P, DataPropertyComplementOf(pe))}
-     *         .
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if {@code data propertyExpression} is not within the profile that
-     *         is supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of {@code pe} is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The data property expression whose disjoint data properties are to be retrieved.
+     * @return The return value is a {@code NodeSet} such that for each data property {@code P} in
+     * the {@code NodeSet} the set of reasoner axioms entails {@code EquivalentDataProperties(P,
+     * DataPropertyComplementOf(pe))} or {@code StrictSubDataPropertyOf(P,
+     * DataPropertyComplementOf(pe))} .
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ClassExpressionNotInProfileException if {@code data propertyExpression} is not within
+     * the profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of {@code pe} is not contained within the
+     * signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe);
 
@@ -1598,159 +1276,113 @@ public interface OWLReasoner {
      * property with respect to the imports closure of the root ontology. The
      * classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
      * .
-     * 
-     * @param pe
-     *        The property expression whose domains are to be retrieved.
-     * @param direct
-     *        Specifies if the direct domains should be retrieved ( {@code true}
-     *        ), or if all domains should be retrieved ( {@code false}).
-     * @return Let
-     *         {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))}
-     *         . <br>
-     *         If {@code direct} is {@code true}: then if {@code N} is not empty
-     *         then the return value is {@code N}, else the return value is the
-     *         result of
-     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), true)}
-     *         . <br>
-     *         If {@code direct} is {@code false}: then the result of
-     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)}
-     *         together with {@code N} if {@code N} is non-empty. <br>
-     *         (Note, {@code rdfs:Literal} is the top datatype).
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the object property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param pe The property expression whose domains are to be retrieved.
+     * @param direct Specifies if the direct domains should be retrieved ( {@code true} ), or if all
+     * domains should be retrieved ( {@code false}).
+     * @return Let {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))} . <br> If
+     * {@code direct} is {@code true}: then if {@code N} is not empty then the return value is
+     * {@code N}, else the return value is the result of {@code getSuperClasses(DataSomeValuesFrom(pe
+     * rdfs:Literal), true)} . <br> If {@code direct} is {@code false}: then the result of {@code
+     * getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)} together with {@code N} if
+     * {@code N} is non-empty. <br> (Note, {@code rdfs:Literal} is the top datatype).
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the object property expression is not
+     * contained within the signature of the imports closure of the root ontology and the undeclared
+     * entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct);
 
     /**
-     * @see OWLReasoner#getDataPropertyDomains(OWLDataProperty, boolean) Gets
-     *      the named classes that are the direct or indirect domains of this
-     *      property with respect to the imports closure of the root ontology.
-     *      The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
-     * @param pe
-     *        The property expression whose domains are to be retrieved.
-     * @param depth
-     *        Specifies if the direct domains should be retrieved (
-     *        {@code DIRECT} ), or if all domains should be retrieved (
-     *        {@code ALL}).
-     * @return Let
-     *         {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))}
-     *         . <br>
-     *         If {@code depth} is {@code DIRECT}: then if {@code N} is not
-     *         empty then the return value is {@code N}, else the return value
-     *         is the result of
-     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), true)}
-     *         . <br>
-     *         If {@code direct} is {@code ALL}: then the result of
-     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)}
-     *         together with {@code N} if {@code N} is non-empty. <br>
-     *         (Note, {@code rdfs:Literal} is the top datatype).
+     * @param pe The property expression whose domains are to be retrieved.
+     * @param depth Specifies if the direct domains should be retrieved ( {@code DIRECT} ), or if
+     * all domains should be retrieved ( {@code ALL}).
+     * @return Let {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))} . <br> If
+     * {@code depth} is {@code DIRECT}: then if {@code N} is not empty then the return value is
+     * {@code N}, else the return value is the result of {@code getSuperClasses(DataSomeValuesFrom(pe
+     * rdfs:Literal), true)} . <br> If {@code direct} is {@code ALL}: then the result of {@code
+     * getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)} together with {@code N} if
+     * {@code N} is non-empty. <br> (Note, {@code rdfs:Literal} is the top datatype).
+     * @see OWLReasoner#getDataPropertyDomains(OWLDataProperty, boolean) Gets the named classes that
+     * are the direct or indirect domains of this property with respect to the imports closure of
+     * the root ontology. The classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
+     * .
      */
     default NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, InferenceDepth depth) {
         return getDataPropertyDomains(pe, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getDataPropertyDomains(OWLDataProperty, boolean) Gets
-     *      the named classes that are the direct or indirect domains of this
-     *      property with respect to the imports closure of the root ontology.
-     *      The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
-     * @param pe
-     *        The property expression whose domains are to be retrieved.
-     * @return Let
-     *         {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))}
-     *         . <br>
-     *         Return the result of
-     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)}
-     *         together with {@code N} if {@code N} is non-empty. <br>
-     *         (Note, {@code rdfs:Literal} is the top datatype).
+     * @param pe The property expression whose domains are to be retrieved.
+     * @return Let {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))} . <br>
+     * Return the result of {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)}
+     * together with {@code N} if {@code N} is non-empty. <br> (Note, {@code rdfs:Literal} is the
+     * top datatype).
+     * @see OWLReasoner#getDataPropertyDomains(OWLDataProperty, boolean) Gets the named classes that
+     * are the direct or indirect domains of this property with respect to the imports closure of
+     * the root ontology. The classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
+     * .
      */
     default NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe) {
         return getDataPropertyDomains(pe, false);
     }
 
     // Methods for dealing with individuals and their types
+
     /**
      * Gets the named classes which are (potentially direct) types of the
      * specified named individual. The classes are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param ind
-     *        The individual whose types are to be retrieved.
-     * @param direct
-     *        Specifies if the direct types should be retrieved ( {@code true}),
-     *        or if all types should be retrieved ( {@code false}).
-     * @return If {@code direct} is {@code true}, a {@code NodeSet} containing
-     *         named classes such that for each named class {@code C} in the
-     *         node set, the set of reasoner axioms entails
-     *         {@code DirectClassAssertion(C, ind)}. <br>
-     *         If {@code direct} is {@code false}, a {@code NodeSet} containing
-     *         named classes such that for each named class {@code C} in the
-     *         node set, the set of reasoner axioms entails
-     *         {@code ClassAssertion(C, ind)}. <br>
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the individual is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ind The individual whose types are to be retrieved.
+     * @param direct Specifies if the direct types should be retrieved ( {@code true}), or if all
+     * types should be retrieved ( {@code false}).
+     * @return If {@code direct} is {@code true}, a {@code NodeSet} containing named classes such
+     * that for each named class {@code C} in the node set, the set of reasoner axioms entails
+     * {@code DirectClassAssertion(C, ind)}. <br> If {@code direct} is {@code false}, a {@code
+     * NodeSet} containing named classes such that for each named class {@code C} in the node set,
+     * the set of reasoner axioms entails {@code ClassAssertion(C, ind)}. <br>
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the individual is not contained within the
+     * signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct);
 
     /**
-     * @see OWLReasoner#getTypes(OWLNamedIndividual, boolean) Gets the named
-     *      classes which are (potentially direct) types of the specified named
-     *      individual. The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param ind
-     *        The individual whose types are to be retrieved.
-     * @param depth
-     *        Specifies if the direct types should be retrieved ( {@code DIRECT}
-     *        ), or if all types should be retrieved ( {@code ALL}).
-     * @return If {@code depth} is {@code DIRECT}, a {@code NodeSet} containing
-     *         named classes such that for each named class {@code C} in the
-     *         node set, the set of reasoner axioms entails
-     *         {@code DirectClassAssertion(C, ind)}. <br>
-     *         If {@code depth} is {@code ALL}, a {@code NodeSet} containing
-     *         named classes such that for each named class {@code C} in the
-     *         node set, the set of reasoner axioms entails
-     *         {@code ClassAssertion(C, ind)}. <br>
+     * @param ind The individual whose types are to be retrieved.
+     * @param depth Specifies if the direct types should be retrieved ( {@code DIRECT} ), or if all
+     * types should be retrieved ( {@code ALL}).
+     * @return If {@code depth} is {@code DIRECT}, a {@code NodeSet} containing named classes such
+     * that for each named class {@code C} in the node set, the set of reasoner axioms entails
+     * {@code DirectClassAssertion(C, ind)}. <br> If {@code depth} is {@code ALL}, a {@code NodeSet}
+     * containing named classes such that for each named class {@code C} in the node set, the set of
+     * reasoner axioms entails {@code ClassAssertion(C, ind)}. <br>
+     * @see OWLReasoner#getTypes(OWLNamedIndividual, boolean) Gets the named classes which are
+     * (potentially direct) types of the specified named individual. The classes are returned as a
+     * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
     default NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, InferenceDepth depth) {
         return getTypes(ind, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getTypes(OWLNamedIndividual, boolean) Gets the named
-     *      classes which are (potentially direct) types of the specified named
-     *      individual. The classes are returned as a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param ind
-     *        The individual whose types are to be retrieved.
-     * @return a {@code NodeSet} containing named classes such that for each
-     *         named class {@code C} in the node set, the set of reasoner axioms
-     *         entails {@code ClassAssertion(C, ind)}. <br>
+     * @param ind The individual whose types are to be retrieved.
+     * @return a {@code NodeSet} containing named classes such that for each named class {@code C}
+     * in the node set, the set of reasoner axioms entails {@code ClassAssertion(C, ind)}. <br>
+     * @see OWLReasoner#getTypes(OWLNamedIndividual, boolean) Gets the named classes which are
+     * (potentially direct) types of the specified named individual. The classes are returned as a
+     * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      */
     default NodeSet<OWLClass> getTypes(OWLNamedIndividual ind) {
         return getTypes(ind, false);
@@ -1760,82 +1392,60 @@ public interface OWLReasoner {
      * Gets the individuals which are instances of the specified class
      * expression. The individuals are returned a a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param ce
-     *        The class expression whose instances are to be retrieved.
-     * @param direct
-     *        Specifies if the direct instances should be retrieved (
-     *        {@code true}), or if all instances should be retrieved (
-     *        {@code false}).
-     * @return If {@code direct} is {@code true}, a {@code NodeSet} containing
-     *         named individuals such that for each named individual {@code j}
-     *         in the node set, the set of reasoner axioms entails
-     *         {@code DirectClassAssertion(ce, j)}. <br>
-     *         If {@code direct} is {@code false}, a {@code NodeSet} containing
-     *         named individuals such that for each named individual {@code j}
-     *         in the node set, the set of reasoner axioms entails
-     *         {@code ClassAssertion(ce, j)}. <br>
-     *         If ce is unsatisfiable with respect to the set of reasoner axioms
-     *         then the empty {@code NodeSet} is returned.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws ClassExpressionNotInProfileException
-     *         if the class expression {@code ce} is not in the profile that is
-     *         supported by this reasoner.
-     * @throws FreshEntitiesException
-     *         if the signature of the class expression is not contained within
-     *         the signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ce The class expression whose instances are to be retrieved.
+     * @param direct Specifies if the direct instances should be retrieved ( {@code true}), or if
+     * all instances should be retrieved ( {@code false}).
+     * @return If {@code direct} is {@code true}, a {@code NodeSet} containing named individuals
+     * such that for each named individual {@code j} in the node set, the set of reasoner axioms
+     * entails {@code DirectClassAssertion(ce, j)}. <br> If {@code direct} is {@code false}, a
+     * {@code NodeSet} containing named individuals such that for each named individual {@code j} in
+     * the node set, the set of reasoner axioms entails {@code ClassAssertion(ce, j)}. <br> If ce is
+     * unsatisfiable with respect to the set of reasoner axioms then the empty {@code NodeSet} is
+     * returned.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws ClassExpressionNotInProfileException if the class expression {@code ce} is not in the
+     * profile that is supported by this reasoner.
+     * @throws FreshEntitiesException if the signature of the class expression is not contained
+     * within the signature of the imports closure of the root ontology and the undeclared entity
+     * policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
     NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct);
 
     /**
-     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the
-     *      individuals which are instances of the specified class expression.
-     *      The individuals are returned a a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param ce
-     *        The class expression whose instances are to be retrieved.
-     * @param depth
-     *        Specifies if the direct instances should be retrieved (
-     *        {@code DIRECT}), or if all instances should be retrieved (
-     *        {@code ALL}).
-     * @return If {@code depth} is {@code DIRECT}, a {@code NodeSet} containing
-     *         named individuals such that for each named individual {@code j}
-     *         in the node set, the set of reasoner axioms entails
-     *         {@code DirectClassAssertion(ce, j)}. <br>
-     *         If {@code depth} is {@code ALL}, a {@code NodeSet} containing
-     *         named individuals such that for each named individual {@code j}
-     *         in the node set, the set of reasoner axioms entails
-     *         {@code ClassAssertion(ce, j)}. <br>
-     *         If ce is unsatisfiable with respect to the set of reasoner axioms
-     *         then the empty {@code NodeSet} is returned.
+     * @param ce The class expression whose instances are to be retrieved.
+     * @param depth Specifies if the direct instances should be retrieved ( {@code DIRECT}), or if
+     * all instances should be retrieved ( {@code ALL}).
+     * @return If {@code depth} is {@code DIRECT}, a {@code NodeSet} containing named individuals
+     * such that for each named individual {@code j} in the node set, the set of reasoner axioms
+     * entails {@code DirectClassAssertion(ce, j)}. <br> If {@code depth} is {@code ALL}, a {@code
+     * NodeSet} containing named individuals such that for each named individual {@code j} in the
+     * node set, the set of reasoner axioms entails {@code ClassAssertion(ce, j)}. <br> If ce is
+     * unsatisfiable with respect to the set of reasoner axioms then the empty {@code NodeSet} is
+     * returned.
+     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the individuals which are
+     * instances of the specified class expression. The individuals are returned a a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet}.
      */
     default NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, InferenceDepth depth) {
         return getInstances(ce, depth.isDirectOnly());
     }
 
     /**
-     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the
-     *      individuals which are instances of the specified class expression.
-     *      The individuals are returned a a
-     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * @param ce
-     *        The class expression whose instances are to be retrieved.
-     * @return a {@code NodeSet} containing named individuals such that for each
-     *         named individual {@code j} in the node set, the set of reasoner
-     *         axioms entails {@code ClassAssertion(ce, j)}. <br>
-     *         If ce is unsatisfiable with respect to the set of reasoner axioms
-     *         then the empty {@code NodeSet} is returned.
+     * @param ce The class expression whose instances are to be retrieved.
+     * @return a {@code NodeSet} containing named individuals such that for each named individual
+     * {@code j} in the node set, the set of reasoner axioms entails {@code ClassAssertion(ce, j)}.
+     * <br> If ce is unsatisfiable with respect to the set of reasoner axioms then the empty {@code
+     * NodeSet} is returned.
+     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the individuals which are
+     * instances of the specified class expression. The individuals are returned a a {@link
+     * org.semanticweb.owlapi.reasoner.NodeSet}.
      */
     default NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce) {
         return getInstances(ce, false);
@@ -1845,32 +1455,26 @@ public interface OWLReasoner {
      * Gets the object property values for the specified individual and object
      * property expression. The individuals are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param ind
-     *        The individual that is the subject of the object property values
-     * @param pe
-     *        The object property expression whose values are to be retrieved
-     *        for the specified individual
-     * @return A {@code NodeSet} containing named individuals such that for each
-     *         individual {@code j} in the node set, the set of reasoner axioms
-     *         entails {@code ObjectPropertyAssertion(pe ind j)}.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the individual and property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ind The individual that is the subject of the object property values
+     * @param pe The object property expression whose values are to be retrieved for the specified
+     * individual
+     * @return A {@code NodeSet} containing named individuals such that for each individual {@code
+     * j} in the node set, the set of reasoner axioms entails {@code ObjectPropertyAssertion(pe ind
+     * j)}.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the individual and property expression is
+     * not contained within the signature of the imports closure of the root ontology and the
+     * undeclared entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
-    NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind, OWLObjectPropertyExpression pe);
+    NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind,
+        OWLObjectPropertyExpression pe);
 
     /**
      * Gets the data property values for the specified individual and data
@@ -1879,56 +1483,41 @@ public interface OWLReasoner {
      * may also return canonical literals or they may be in a form that bears a
      * resemblance to the syntax of the literals in the root ontology imports
      * closure.
-     * 
-     * @param ind
-     *        The individual that is the subject of the data property values
-     * @param pe
-     *        The data property expression whose values are to be retrieved for
-     *        the specified individual
-     * @return A set of {@code OWLLiteral}s containing literals such that for
-     *         each literal {@code l} in the set, the set of reasoner axioms
-     *         entails {@code DataPropertyAssertion(pe ind l)}.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the individual and property expression is not
-     *         contained within the signature of the imports closure of the root
-     *         ontology and the undeclared entity policy of this reasoner is set
-     *         to {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ind The individual that is the subject of the data property values
+     * @param pe The data property expression whose values are to be retrieved for the specified
+     * individual
+     * @return A set of {@code OWLLiteral}s containing literals such that for each literal {@code l}
+     * in the set, the set of reasoner axioms entails {@code DataPropertyAssertion(pe ind l)}.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the individual and property expression is
+     * not contained within the signature of the imports closure of the root ontology and the
+     * undeclared entity policy of this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
     Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe);
 
     /**
      * Gets the individuals that are the same as the specified individual.
-     * 
-     * @param ind
-     *        The individual whose same individuals are to be retrieved.
-     * @return A node containing individuals such that for each individual
-     *         {@code j} in the node, the root ontology imports closure entails
-     *         {@code SameIndividual(j, ind)}. Note that the node will contain
-     *         {@code j}.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the individual is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ind The individual whose same individuals are to be retrieved.
+     * @return A node containing individuals such that for each individual {@code j} in the node,
+     * the root ontology imports closure entails {@code SameIndividual(j, ind)}. Note that the node
+     * will contain {@code j}.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the individual is not contained within the
+     * signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind);
 
@@ -1936,26 +1525,20 @@ public interface OWLReasoner {
      * Gets the individuals which are entailed to be different from the
      * specified individual. The individuals are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
-     * 
-     * @param ind
-     *        The individual whose different individuals are to be returned.
-     * @return A {@code NodeSet} containing {@code OWLNamedIndividual} s such
-     *         that for each individual {@code i} in the {@code NodeSet} the set
-     *         of reasoner axioms entails {@code DifferentIndividuals(ind, i)}.
-     * @throws InconsistentOntologyException
-     *         if the imports closure of the root ontology is inconsistent
-     * @throws FreshEntitiesException
-     *         if the signature of the individual is not contained within the
-     *         signature of the imports closure of the root ontology and the
-     *         undeclared entity policy of this reasoner is set to
-     *         {@link FreshEntityPolicy#DISALLOW}.
-     * @throws ReasonerInterruptedException
-     *         if the reasoning process was interrupted for any particular
-     *         reason (for example if reasoning was cancelled by a client
-     *         process)
-     * @throws TimeOutException
-     *         if the reasoner timed out during a basic reasoning operation. See
-     *         {@link #getTimeOut()}.
+     *
+     * @param ind The individual whose different individuals are to be returned.
+     * @return A {@code NodeSet} containing {@code OWLNamedIndividual} s such that for each
+     * individual {@code i} in the {@code NodeSet} the set of reasoner axioms entails {@code
+     * DifferentIndividuals(ind, i)}.
+     * @throws InconsistentOntologyException if the imports closure of the root ontology is
+     * inconsistent
+     * @throws FreshEntitiesException if the signature of the individual is not contained within the
+     * signature of the imports closure of the root ontology and the undeclared entity policy of
+     * this reasoner is set to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException if the reasoning process was interrupted for any
+     * particular reason (for example if reasoning was cancelled by a client process)
+     * @throws TimeOutException if the reasoner timed out during a basic reasoning operation. See
+     * {@link #getTimeOut()}.
      */
     NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind);
 
@@ -1972,16 +1555,16 @@ public interface OWLReasoner {
      * classification for example, should start their own timers and request
      * that the reasoner interrupts the current process using the
      * {@link #interrupt()} method.
-     * 
-     * @return The time out in milliseconds for basic reasoner operation. By
-     *         default this is the value of {@link Long#MAX_VALUE}.
+     *
+     * @return The time out in milliseconds for basic reasoner operation. By default this is the
+     * value of {@link Long#MAX_VALUE}.
      */
     long getTimeOut();
 
     /**
      * Gets the Fresh Entity Policy in use by this reasoner. The policy is set
      * at reasoner creation time.
-     * 
+     *
      * @return The policy.
      */
     FreshEntityPolicy getFreshEntityPolicy();
@@ -1989,7 +1572,7 @@ public interface OWLReasoner {
     /**
      * Gets the IndividualNodeSetPolicy in use by this reasoner. The policy is
      * set at reasoner creation time.
-     * 
+     *
      * @return The policy.
      */
     IndividualNodeSetPolicy getIndividualNodeSetPolicy();

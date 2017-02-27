@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -24,22 +23,19 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
+public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
+    OWLAnnotationPropertyRangeAxiom {
 
-    private final OWLAnnotationProperty property;
     protected final IRI range;
+    private final OWLAnnotationProperty property;
 
     /**
-     * @param property
-     *        property
-     * @param range
-     *        range
-     * @param annotations
-     *        annotations on the axiom
+     * @param property property
+     * @param range range
+     * @param annotations annotations on the axiom
      */
     public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property, IRI range,
         Collection<OWLAnnotation> annotations) {
@@ -58,7 +54,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
+        return (T) new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(),
+            mergeAnnos(anns));
     }
 
     @Override

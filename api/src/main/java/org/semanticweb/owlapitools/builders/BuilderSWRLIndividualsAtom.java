@@ -14,28 +14,26 @@ package org.semanticweb.owlapitools.builders;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /**
  * Builder class for SWRL Individuals Atom.
- * 
- * @param <X>
- *        type to build
- * @param <B>
- *        builder
+ *
+ * @param <X> type to build
+ * @param <B> builder
  */
 abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends Builder<X>>
     extends BaseBuilder<X, B> {
 
-    @Nullable private SWRLIArgument arg0;
-    @Nullable private SWRLIArgument arg1;
+    @Nullable
+    private SWRLIArgument arg0;
+    @Nullable
+    private SWRLIArgument arg1;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSWRLIndividualsAtom(OWLDataFactory df) {
@@ -43,8 +41,7 @@ abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIA
     }
 
     /**
-     * @param arg
-     *        arg0
+     * @param arg arg0
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -54,8 +51,7 @@ abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIA
     }
 
     /**
-     * @param arg
-     *        arg0
+     * @param arg arg0
      * @return builder
      */
     @SuppressWarnings("unchecked")

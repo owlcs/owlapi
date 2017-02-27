@@ -15,9 +15,7 @@ package org.semanticweb.owlapi.profiles.violations;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,18 +25,15 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
  * Punning between properties is not allowed.
- * 
+ *
  * @author ignazio
  */
 public class IllegalPunning extends OWLProfileViolation {
 
     /**
-     * @param currentOntology
-     *        ontology
-     * @param node
-     *        axiom
-     * @param iri
-     *        iri
+     * @param currentOntology ontology
+     * @param node axiom
+     * @param iri iri
      */
     public IllegalPunning(OWLOntology currentOntology, @Nullable OWLAxiom node, IRI iri) {
         super(currentOntology, node, checkNotNull(iri));

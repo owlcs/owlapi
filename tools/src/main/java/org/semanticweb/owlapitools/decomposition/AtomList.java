@@ -5,13 +5,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/** atomical ontology structure */
+/**
+ * atomical ontology structure
+ */
 public class AtomList {
 
-    /** all the atoms */
+    /**
+     * all the atoms
+     */
     private List<OntologyAtom> atoms = new ArrayList<>();
 
-    /** @return a new atom */
+    /**
+     * @return a new atom
+     */
     public OntologyAtom newAtom() {
         OntologyAtom ret = new OntologyAtom();
         ret.setId(atoms.size());
@@ -19,7 +25,9 @@ public class AtomList {
         return ret;
     }
 
-    /** reduce graph of the atoms in the structure */
+    /**
+     * reduce graph of the atoms in the structure
+     */
     public void reduceGraph() {
         Set<OntologyAtom> checked = new HashSet<>();
         for (OntologyAtom p : atoms) {
@@ -28,15 +36,16 @@ public class AtomList {
     }
 
     /**
-     * @param index
-     *        index of the atom to retrieve
+     * @param index index of the atom to retrieve
      * @return atom with index
      */
     public OntologyAtom get(int index) {
         return atoms.get(index);
     }
 
-    /** @return size of the structure */
+    /**
+     * @return size of the structure
+     */
     public int size() {
         return atoms.size();
     }

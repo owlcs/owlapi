@@ -9,14 +9,13 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-
 import uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10 Jul
  * 16
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class ImportsCacheTestCase extends TestBase {
 
     private OWLOntology ontA;

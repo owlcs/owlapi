@@ -40,9 +40,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
-
 import javax.annotation.Nullable;
-
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.Resource;
@@ -60,7 +58,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Utilities for translating between OWLAPI and Sesame Rio.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
@@ -68,13 +66,13 @@ public final class RioUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RioUtils.class);
 
-    private RioUtils() {}
+    private RioUtils() {
+    }
 
     /**
      * Create a Statement based on the given RDFTriple, with an empty context.
-     * 
-     * @param triple
-     *        The OWLAPI {@link RDFTriple} to convert.
+     *
+     * @param triple The OWLAPI {@link RDFTriple} to convert.
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
     @Nullable
@@ -84,15 +82,14 @@ public final class RioUtils {
 
     /**
      * Create a collection of Statements with the given contexts.
-     * 
-     * @param triple
-     *        The OWLAPI {@link RDFTriple} to convert.
-     * @param contexts
-     *        If context is not null, it is used to create a context statement
-     * @return A collection of OpenRDF {@link Statement}s representing the given
-     *         RDFTriple in each of the given contexts.
+     *
+     * @param triple The OWLAPI {@link RDFTriple} to convert.
+     * @param contexts If context is not null, it is used to create a context statement
+     * @return A collection of OpenRDF {@link Statement}s representing the given RDFTriple in each
+     * of the given contexts.
      */
-    public static Collection<Statement> tripleAsStatements(final RDFTriple triple, final Resource... contexts) {
+    public static Collection<Statement> tripleAsStatements(final RDFTriple triple,
+        final Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
@@ -134,15 +131,14 @@ public final class RioUtils {
         if (contexts == null || contexts.length == 0) {
             return Collections.singletonList(vf.createStatement(subject, predicate, object));
         } else {
-            return asList(Stream.of(contexts).map(x -> vf.createStatement(subject, predicate, object, x)));
+            return asList(
+                Stream.of(contexts).map(x -> vf.createStatement(subject, predicate, object, x)));
         }
     }
 
     /**
-     * @param vf
-     *        value factory
-     * @param literalObject
-     *        literal
+     * @param vf value factory
+     * @param literalObject literal
      * @return value
      */
     protected static Value literal(final ValueFactory vf, final RDFLiteral literalObject) {
@@ -161,10 +157,8 @@ public final class RioUtils {
     }
 
     /**
-     * @param node
-     *        subject or object node
-     * @param vf
-     *        value factory
+     * @param node subject or object node
+     * @param vf value factory
      * @return blank node
      */
     protected static BNode node(final RDFNode node, final ValueFactory vf) {

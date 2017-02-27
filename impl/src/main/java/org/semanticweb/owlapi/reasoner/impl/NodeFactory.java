@@ -15,20 +15,19 @@ package org.semanticweb.owlapi.reasoner.impl;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public final class NodeFactory {
 
-    private NodeFactory() {}
+    private NodeFactory() {
+    }
 
     /**
      * @return a class node
@@ -38,8 +37,7 @@ public final class NodeFactory {
     }
 
     /**
-     * @param cls
-     *        a class to be included in the node
+     * @param cls a class to be included in the node
      * @return a class node with one element
      */
     public static DefaultNode<OWLClass> getOWLClassNode(OWLClass cls) {
@@ -47,8 +45,7 @@ public final class NodeFactory {
     }
 
     /**
-     * @param clses
-     *        set of classes to be included
+     * @param clses set of classes to be included
      * @return a class node with some elements
      */
     public static DefaultNode<OWLClass> getOWLClassNode(Set<OWLClass> clses) {
@@ -77,21 +74,20 @@ public final class NodeFactory {
     }
 
     /**
-     * @param prop
-     *        a property to be added
+     * @param prop a property to be added
      * @return an object property node with one element
      */
-    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(OWLObjectPropertyExpression prop) {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(
+        OWLObjectPropertyExpression prop) {
         return new OWLObjectPropertyNode(prop);
     }
 
     /**
-     * @param properties
-     *        some properties to be added
+     * @param properties some properties to be added
      * @return an object property node with some elements
      */
     public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(
-            Set<OWLObjectPropertyExpression> properties) {
+        Set<OWLObjectPropertyExpression> properties) {
         return new OWLObjectPropertyNode(properties);
     }
 
@@ -117,8 +113,7 @@ public final class NodeFactory {
     }
 
     /**
-     * @param prop
-     *        a property to be added
+     * @param prop a property to be added
      * @return a data property node with one element
      */
     public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(OWLDataProperty prop) {
@@ -126,11 +121,11 @@ public final class NodeFactory {
     }
 
     /**
-     * @param properties
-     *        some properties to be added
+     * @param properties some properties to be added
      * @return a data property node with some elements
      */
-    public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(Set<OWLDataProperty> properties) {
+    public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(
+        Set<OWLDataProperty> properties) {
         return new OWLDataPropertyNode(properties);
     }
 
@@ -156,20 +151,20 @@ public final class NodeFactory {
     }
 
     /**
-     * @param ind
-     *        an individual to be added
+     * @param ind an individual to be added
      * @return an individual node with one element
      */
-    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(OWLNamedIndividual ind) {
+    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(
+        OWLNamedIndividual ind) {
         return new OWLNamedIndividualNode(ind);
     }
 
     /**
-     * @param inds
-     *        some individuals to be added
+     * @param inds some individuals to be added
      * @return an individual node containing some individuals
      */
-    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(Set<OWLNamedIndividual> inds) {
+    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(
+        Set<OWLNamedIndividual> inds) {
         return new OWLNamedIndividualNode(inds);
     }
 }

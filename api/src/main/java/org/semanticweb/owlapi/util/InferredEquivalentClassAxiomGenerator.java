@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -24,17 +23,18 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
  * Generates inferred equivalent classes axioms.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
-public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
+public class InferredEquivalentClassAxiomGenerator extends
+    InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
 
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
         Set<OWLEquivalentClassesAxiom> result) {
-        Set<OWLClassExpression> equivalentClasses = asUnorderedSet(reasoner.getEquivalentClasses(entity).entities(),
+        Set<OWLClassExpression> equivalentClasses = asUnorderedSet(
+            reasoner.getEquivalentClasses(entity).entities(),
             OWLClassExpression.class);
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {

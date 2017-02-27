@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -31,11 +30,37 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 import org.semanticweb.owlapitools.decomposition.SemanticLocalityChecker;
 
 @Ignore
-@SuppressWarnings({ "javadoc", "boxing" })
+@SuppressWarnings({"javadoc", "boxing"})
 public class SemanticLocalityTestCase {
 
+    private static final String NS = "urn:test#";
     private OWLAxiom axiom;
     private SemanticLocalityChecker testSubject;
+    private OWLDataFactory df = OWLManager.getOWLDataFactory();
+    private OWLClass a = df.getOWLClass(IRI.create(NS, "a"));
+    private OWLClass b = df.getOWLClass(IRI.create(NS, "b"));
+    private OWLClass c = df.getOWLClass(IRI.create(NS, "c"));
+    private OWLClass d = df.getOWLClass(IRI.create(NS, "d"));
+    private OWLAnnotationProperty g = df.getOWLAnnotationProperty(IRI.create(NS, "g"));
+    private OWLAnnotationProperty h = df.getOWLAnnotationProperty(IRI.create(NS, "h"));
+    private OWLDatatype i = df.getOWLDatatype(IRI.create(NS, "i"));
+    private OWLLiteral j = df.getOWLLiteral(true);
+    private OWLLiteral l = df.getOWLLiteral(3.5D);
+    private OWLObjectProperty p = df.getOWLObjectProperty(IRI.create(NS, "p"));
+    private OWLObjectProperty q = df.getOWLObjectProperty(IRI.create(NS, "q"));
+    private OWLObjectProperty r = df.getOWLObjectProperty(IRI.create(NS, "r"));
+    private OWLDataProperty s = df.getOWLDataProperty(IRI.create(NS, "s"));
+    private OWLDataProperty t = df.getOWLDataProperty(IRI.create(NS, "t"));
+    private OWLDataProperty v = df.getOWLDataProperty(IRI.create(NS, "v"));
+    private OWLNamedIndividual x = df.getOWLNamedIndividual(IRI.create(NS, "x"));
+    private OWLNamedIndividual y = df.getOWLNamedIndividual(IRI.create(NS, "y"));
+    private OWLNamedIndividual z = df.getOWLNamedIndividual(IRI.create(NS, "z"));
+    private OWLClass owlNothing = df.getOWLNothing();
+    private OWLClass owlThing = df.getOWLThing();
+    private OWLDataProperty bottomData = df.getOWLBottomDataProperty();
+    private OWLDataProperty topData = df.getOWLTopDataProperty();
+    private OWLObjectProperty bottomObject = df.getOWLBottomObjectProperty();
+    private OWLObjectProperty topObject = df.getOWLTopObjectProperty();
 
     @Test
     public void shouldBeLocalowlDeclarationAxiom() {
@@ -97,9 +122,12 @@ public class SemanticLocalityTestCase {
         test(axiom, false, b);
     }
 
-    /** @return disjoint union of superclass and classes */
+    /**
+     * @return disjoint union of superclass and classes
+     */
     private OWLDisjointUnionAxiom disjointUnion(OWLClass superclass, OWLClass... classes) {
-        return df.getOWLDisjointUnionAxiom(superclass, new HashSet<OWLClassExpression>(Arrays.asList(classes)));
+        return df.getOWLDisjointUnionAxiom(superclass,
+            new HashSet<OWLClassExpression>(Arrays.asList(classes)));
     }
 
     @Test
@@ -451,7 +479,8 @@ public class SemanticLocalityTestCase {
 
     @Test
     public void shouldBeLocalowlDatatypeDefinitionAxiom() {
-        axiom = df.getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
+        axiom = df
+            .getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
         // signature intersects
         // test(axiom, true, i);
         // signature does not intersect
@@ -460,8 +489,10 @@ public class SemanticLocalityTestCase {
 
     @Test
     public void shouldBeLocalswrlRule() {
-        Set<SWRLAtom> head = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
-        Set<SWRLAtom> body = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
+        Set<SWRLAtom> head = new HashSet<>(
+            Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
+        Set<SWRLAtom> body = new HashSet<>(
+            Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
         axiom = df.getSWRLRule(head, body);
         // signature intersects
         test(axiom, true, a);
@@ -474,33 +505,6 @@ public class SemanticLocalityTestCase {
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(a, b);
         testSubject.preprocessOntology(Arrays.asList(new AxiomWrapper(ax)));
     }
-
-    private static final String NS = "urn:test#";
-    private OWLDataFactory df = OWLManager.getOWLDataFactory();
-    private OWLClass a = df.getOWLClass(IRI.create(NS, "a"));
-    private OWLClass b = df.getOWLClass(IRI.create(NS, "b"));
-    private OWLClass c = df.getOWLClass(IRI.create(NS, "c"));
-    private OWLClass d = df.getOWLClass(IRI.create(NS, "d"));
-    private OWLAnnotationProperty g = df.getOWLAnnotationProperty(IRI.create(NS, "g"));
-    private OWLAnnotationProperty h = df.getOWLAnnotationProperty(IRI.create(NS, "h"));
-    private OWLDatatype i = df.getOWLDatatype(IRI.create(NS, "i"));
-    private OWLLiteral j = df.getOWLLiteral(true);
-    private OWLLiteral l = df.getOWLLiteral(3.5D);
-    private OWLObjectProperty p = df.getOWLObjectProperty(IRI.create(NS, "p"));
-    private OWLObjectProperty q = df.getOWLObjectProperty(IRI.create(NS, "q"));
-    private OWLObjectProperty r = df.getOWLObjectProperty(IRI.create(NS, "r"));
-    private OWLDataProperty s = df.getOWLDataProperty(IRI.create(NS, "s"));
-    private OWLDataProperty t = df.getOWLDataProperty(IRI.create(NS, "t"));
-    private OWLDataProperty v = df.getOWLDataProperty(IRI.create(NS, "v"));
-    private OWLNamedIndividual x = df.getOWLNamedIndividual(IRI.create(NS, "x"));
-    private OWLNamedIndividual y = df.getOWLNamedIndividual(IRI.create(NS, "y"));
-    private OWLNamedIndividual z = df.getOWLNamedIndividual(IRI.create(NS, "z"));
-    private OWLClass owlNothing = df.getOWLNothing();
-    private OWLClass owlThing = df.getOWLThing();
-    private OWLDataProperty bottomData = df.getOWLBottomDataProperty();
-    private OWLDataProperty topData = df.getOWLTopDataProperty();
-    private OWLObjectProperty bottomObject = df.getOWLBottomObjectProperty();
-    private OWLObjectProperty topObject = df.getOWLTopObjectProperty();
 
     @Before
     public void setUp() {

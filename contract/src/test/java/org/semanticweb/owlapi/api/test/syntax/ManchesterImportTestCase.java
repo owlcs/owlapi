@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -56,7 +57,8 @@ public class ManchesterImportTestCase extends TestBase {
     @Test
     public void testEquivalentLoading() throws OWLOntologyCreationException {
         OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+        OWLOntology manualImport = managerStart
+            .loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
         OWLOntology iriImport = managerTest.loadOntology(str);
         assertTrue(manualImport.equalAxioms(iriImport));

@@ -13,7 +13,11 @@
 package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.EquivalentClasses;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -22,7 +26,9 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** test for 3178902 adapted from the report Thimoty provided. */
+/**
+ * test for 3178902 adapted from the report Thimoty provided.
+ */
 @SuppressWarnings("javadoc")
 public class ThreeEquivalentsRoundTripTestCase extends TestBase {
 
@@ -34,7 +40,8 @@ public class ThreeEquivalentsRoundTripTestCase extends TestBase {
         OWLClass c = Class(IRI(ns + "#", "C"));
         OWLObjectProperty p = ObjectProperty(IRI(ns + "#", "p"));
         OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
-        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#", "A")), ObjectSomeValuesFrom(p, b),
+        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#", "A")),
+            ObjectSomeValuesFrom(p, b),
             ObjectSomeValuesFrom(q, c));
         OWLOntology ontology = getOWLOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);

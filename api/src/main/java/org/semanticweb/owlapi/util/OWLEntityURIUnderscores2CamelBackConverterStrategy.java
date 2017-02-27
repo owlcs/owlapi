@@ -17,9 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -28,24 +26,14 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * present to Camel Case. For example, if the URI is
  * http://another.com/pathA/pathB#has_part then this will be converted to
  * http://another.com/pathA/pathB#hasPart
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
+public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
+    OWLEntityURIConverterStrategy {
 
     private final Map<IRI, IRI> iriMap = new HashMap<>();
-
-    @Override
-    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
-        IRI convIRI = iriMap.get(entity.getIRI());
-        if (convIRI == null) {
-            convIRI = convert(entity.getIRI());
-            iriMap.put(entity.getIRI(), convIRI);
-        }
-        return convIRI;
-    }
 
     private static IRI convert(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
@@ -86,5 +74,15 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEn
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
+        IRI convIRI = iriMap.get(entity.getIRI());
+        if (convIRI == null) {
+            convIRI = convert(entity.getIRI());
+            iriMap.put(entity.getIRI(), convIRI);
+        }
+        return convIRI;
     }
 }

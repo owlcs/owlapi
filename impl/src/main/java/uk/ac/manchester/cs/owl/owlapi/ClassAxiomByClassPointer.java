@@ -13,8 +13,14 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author ignazio
@@ -22,16 +28,13 @@ import org.semanticweb.owlapi.model.*;
 public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom> {
 
     /**
-     * @param t
-     *        axiom type
-     * @param v
-     *        visitor
-     * @param initialized
-     *        initialized
-     * @param i
-     *        internals
+     * @param t axiom type
+     * @param v visitor
+     * @param initialized initialized
+     * @param i internals
      */
-    public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
+    public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
+        boolean initialized,
         Internals i) {
         super(t, v, initialized, i);
     }

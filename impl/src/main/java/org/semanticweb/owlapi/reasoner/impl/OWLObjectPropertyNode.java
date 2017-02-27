@@ -15,53 +15,40 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLObjectPropertyNode() {
         super();
     }
 
     /**
-     * @param entity
-     *        property to include
+     * @param entity property to include
      */
     public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        properties to include
+     * @param entities properties to include
      */
     public OWLObjectPropertyNode(Collection<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        properties to include
+     * @param entities properties to include
      */
     public OWLObjectPropertyNode(Stream<OWLObjectPropertyExpression> entities) {
         super(entities);
-    }
-
-    @Override
-    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
-        return Optional.of(TOP_OBJECT_PROPERTY);
-    }
-
-    @Override
-    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
-        return Optional.of(BOTTOM_OBJECT_PROPERTY);
     }
 
     /**
@@ -76,5 +63,15 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
      */
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
+    }
+
+    @Override
+    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
+        return Optional.of(TOP_OBJECT_PROPERTY);
+    }
+
+    @Override
+    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
+        return Optional.of(BOTTOM_OBJECT_PROPERTY);
     }
 }

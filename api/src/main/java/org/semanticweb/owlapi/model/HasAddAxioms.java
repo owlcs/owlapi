@@ -14,12 +14,10 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
  */
 @FunctionalInterface
@@ -28,13 +26,11 @@ public interface HasAddAxioms {
     /**
      * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param ont
-     *        The ontology to which the axioms should be added.
-     * @param axioms
-     *        The axioms to be added.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     *
+     * @param ont The ontology to which the axioms should be added.
+     * @param axioms The axioms to be added.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
      * @deprecated use {@link #addAxioms(OWLOntology, Stream)} instead.
      */
     @Deprecated
@@ -45,13 +41,11 @@ public interface HasAddAxioms {
     /**
      * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param ont
-     *        The ontology to which the axioms should be added.
-     * @param axioms
-     *        The axioms to be added.
-     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     *
+     * @param ont The ontology to which the axioms should be added.
+     * @param axioms The axioms to be added.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added, ChangeApplied.UNSUCCESSFULLY
+     * otherwise.
      */
     ChangeApplied addAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms);
 }

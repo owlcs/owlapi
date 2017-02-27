@@ -12,20 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import uk.ac.manchester.cs.owl.owlapi.*;
+import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
@@ -34,11 +37,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsInt() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_INTEGER.getIRI());
+            OWL2Datatype.XSD_INTEGER.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplInteger(3);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -50,11 +53,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsDouble() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_DOUBLE.getIRI());
+            OWL2Datatype.XSD_DOUBLE.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplDouble(3.0D);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -66,11 +69,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsFloat() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_FLOAT.getIRI());
+            OWL2Datatype.XSD_FLOAT.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplFloat(3.0F);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
@@ -82,11 +85,11 @@ public class HashCodeTestCase {
     @Test
     public void testSetContainsBoolean() {
         OWLDatatypeImpl datatype = new OWLDatatypeImpl(
-                OWL2Datatype.XSD_BOOLEAN.getIRI());
+            OWL2Datatype.XSD_BOOLEAN.getIRI());
         OWLLiteral litNoComp = new OWLLiteralImplNoCompression("true", null,
-                datatype);
+            datatype);
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null,
-                datatype);
+            datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true);
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();

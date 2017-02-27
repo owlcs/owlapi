@@ -43,7 +43,9 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class NTriplesDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public NTriplesDocumentFormatFactory() {
         super(RDFFormat.NTRIPLES);
     }

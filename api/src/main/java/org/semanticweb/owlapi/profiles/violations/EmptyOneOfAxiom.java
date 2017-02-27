@@ -13,9 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
-
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -28,10 +26,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class EmptyOneOfAxiom extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        the ontology with the violation
-     * @param axiom
-     *        the axiom with the violation
+     * @param ontology the ontology with the violation
+     * @param axiom the axiom with the violation
      */
     public EmptyOneOfAxiom(OWLOntology ontology, @Nullable OWLAxiom axiom) {
         super(ontology, axiom, null);

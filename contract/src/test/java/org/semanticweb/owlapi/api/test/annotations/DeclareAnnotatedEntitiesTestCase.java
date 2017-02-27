@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -36,7 +35,8 @@ public class DeclareAnnotatedEntitiesTestCase extends TestBase {
             + "    <Prefix name=\"owl\" IRI=\"http://www.w3.org/2002/07/owl#\"/>\n"
             + "    <Declaration>\n        <Datatype IRI=\"#myDatatype\"/>\n    </Declaration>\n"
             + "    <Declaration>\n        <Datatype IRI=\"#myDatatype2\"/>\n    </Declaration>\n"
-            + "    <AnnotationAssertion>\n" + "        <AnnotationProperty abbreviatedIRI=\"rdfs:comment\"/>\n"
+            + "    <AnnotationAssertion>\n"
+            + "        <AnnotationProperty abbreviatedIRI=\"rdfs:comment\"/>\n"
             + "        <IRI>#myDatatype2</IRI>\n"
             + "        <Literal datatypeIRI=\"&rdf;PlainLiteral\">myDatatype2 has a comment. It causes the all serializers except the OWLXML serializer to omit the declaration of myDatatype2 when saving a new ontology created from the annotation axioms. Interesting is that they do not omit the declaration of myDatatype that has no comment.</Literal>\n"
             + "    </AnnotationAssertion>\n" + "    <AnnotationAssertion>\n"

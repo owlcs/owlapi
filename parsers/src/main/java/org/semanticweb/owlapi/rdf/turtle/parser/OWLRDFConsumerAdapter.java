@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -21,25 +20,24 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
 /**
  * The Class OWLRDFConsumerAdapter.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ *
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param configuration
-     *        configuration
+     * @param ontology ontology
+     * @param configuration configuration
      */
-    public OWLRDFConsumerAdapter(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumerAdapter(OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);
     }
 
     @Override
-    public void handlePrefixDirective(String prefixName, String prefix) {}
+    public void handlePrefixDirective(String prefixName, String prefix) {
+    }
 
     @Override
     public void handleBaseDirective(IRI base) {
@@ -47,7 +45,8 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
     @Override
-    public void handleComment(String comment) {}
+    public void handleComment(String comment) {
+    }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
