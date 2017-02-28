@@ -24,296 +24,91 @@ import javax.annotation.Nullable;
 @Deprecated
 public enum ManchesterOWLSyntax {
     //@formatter:off
-    /**
-     * VALUE_PARTITION
-     */VALUE_PARTITION(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.VALUE_PARTITION),
-    /**
-     * DASH
-     */DASH(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DASH),
-    /**
-     * OPEN
-     */OPEN(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPEN),
-    /**
-     * CLOSE
-     */CLOSE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLOSE),
-    /**
-     * OPENBRACE
-     */OPENBRACE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPENBRACE),
-    /**
-     * CLOSEBRACE
-     */CLOSEBRACE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLOSEBRACE),
-    /**
-     * OPENBRACKET
-     */OPENBRACKET(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPENBRACKET),
-    /**
-     * CLOSEBRACKET
-     */CLOSEBRACKET(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLOSEBRACKET),
-    /**
-     * ONTOLOGY
-     */ONTOLOGY(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONTOLOGY),
-    /**
-     * IMPORT
-     */IMPORT(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.IMPORT),
-    /**
-     * PREFIX
-     */PREFIX(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.PREFIX),
-    /**
-     * CLASS
-     */CLASS(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLASS),
-    /**
-     * OBJECT_PROPERTY
-     */OBJECT_PROPERTY(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OBJECT_PROPERTY),
-    /**
-     * CHAIN_IMPLY
-     */CHAIN_IMPLY(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CHAIN_IMPLY),
-    /**
-     * CHAIN_CONNECT
-     */CHAIN_CONNECT(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CHAIN_CONNECT),
-    /**
-     * DATA_PROPERTY
-     */DATA_PROPERTY(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DATA_PROPERTY),
-    /**
-     * INDIVIDUAL
-     */INDIVIDUAL(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INDIVIDUAL),
-    /**
-     * DATATYPE
-     */DATATYPE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DATATYPE),
-    /**
-     * ANNOTATION_PROPERTY
-     */ANNOTATION_PROPERTY(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATION_PROPERTY),
-    /**
-     * SOME
-     */SOME(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SOME),
-    /**
-     * ONLY
-     */ONLY(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONLY),
-    /**
-     * ONLYSOME
-     */ONLYSOME(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONLYSOME),
-    /**
-     * MIN
-     */MIN(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MIN),
-    /**
-     * MAX
-     */MAX(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MAX),
-    /**
-     * EXACTLY
-     */EXACTLY(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EXACTLY),
-    /**
-     * VALUE
-     */VALUE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.VALUE),
-    /**
-     * AND
-     */AND(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.AND),
-    /**
-     * OR
-     */OR(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OR),
-    /**
-     * NOT
-     */NOT(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.NOT),
-    /**
-     * INVERSE
-     */INVERSE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE),
-    /**
-     * INV
-     */INV(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INV),
-    /**
-     * SELF
-     */SELF(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SELF),
-    /**
-     * THAT
-     */THAT(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.THAT),
-    /**
-     * FACET_RESTRICTION_SEPARATOR
-     */FACET_RESTRICTION_SEPARATOR(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FACET_RESTRICTION_SEPARATOR),
-    /**
-     * SUBCLASS_OF
-     */SUBCLASS_OF(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUBCLASS_OF),
-    /**
-     * SUPERCLASS_OF
-     */SUPERCLASS_OF(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUPERCLASS_OF),
-    /**
-     * EQUIVALENT_TO
-     */EQUIVALENT_TO(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_TO),
-    /**
-     * EQUIVALENT_CLASSES
-     */EQUIVALENT_CLASSES(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_CLASSES),
-    /**
-     * EQUIVALENT_PROPERTIES
-     */EQUIVALENT_PROPERTIES(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_PROPERTIES),
-    /**
-     * DISJOINT_WITH
-     */DISJOINT_WITH(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_WITH),
-    /**
-     * INDIVIDUALS
-     */INDIVIDUALS(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INDIVIDUALS),
-    /**
-     * DISJOINT_CLASSES
-     */DISJOINT_CLASSES(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_CLASSES),
-    /**
-     * DISJOINT_PROPERTIES
-     */DISJOINT_PROPERTIES(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_PROPERTIES),
-    /**
-     * DISJOINT_UNION_OF
-     */DISJOINT_UNION_OF(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_UNION_OF),
-    /**
-     * FACTS
-     */FACTS(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FACTS),
-    /**
-     * SAME_AS
-     */SAME_AS(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_AS),
-    /**
-     * SAME_INDIVIDUAL
-     */SAME_INDIVIDUAL(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_INDIVIDUAL),
-    /**
-     * DIFFERENT_FROM
-     */DIFFERENT_FROM(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DIFFERENT_FROM),
-    /**
-     * DIFFERENT_INDIVIDUALS
-     */DIFFERENT_INDIVIDUALS(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DIFFERENT_INDIVIDUALS),
-    /**
-     * MIN_INCLUSIVE_FACET
-     */MIN_INCLUSIVE_FACET(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MIN_INCLUSIVE_FACET),
-    /**
-     * MAX_INCLUSIVE_FACET
-     */MAX_INCLUSIVE_FACET(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MAX_INCLUSIVE_FACET),
-    /**
-     * MIN_EXCLUSIVE_FACET
-     */MIN_EXCLUSIVE_FACET(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MIN_EXCLUSIVE_FACET),
-    /**
-     * MAX_EXCLUSIVE_FACET
-     */MAX_EXCLUSIVE_FACET(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MAX_EXCLUSIVE_FACET),
-    /**
-     * ONE_OF_DELIMETER
-     */ONE_OF_DELIMETER(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONE_OF_DELIMETER),
-    /**
-     * TYPES
-     */TYPES(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TYPES),
-    /**
-     * TYPE
-     */TYPE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TYPE),
-    /**
-     * ANNOTATIONS
-     */ANNOTATIONS(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATIONS),
-    /**
-     * COMMA
-     */COMMA(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.COMMA),
-    /**
-     * DOMAIN
-     */DOMAIN(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DOMAIN),
-    /**
-     * RANGE
-     */RANGE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RANGE),
-    /**
-     * CHARACTERISTICS
-     */CHARACTERISTICS(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CHARACTERISTICS),
-    /**
-     * FUNCTIONAL
-     */FUNCTIONAL(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FUNCTIONAL),
-    /**
-     * INVERSE_FUNCTIONAL
-     */INVERSE_FUNCTIONAL(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE_FUNCTIONAL),
-    /**
-     * SYMMETRIC
-     */SYMMETRIC(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SYMMETRIC),
-    /**
-     * TRANSITIVE
-     */TRANSITIVE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TRANSITIVE),
-    /**
-     * REFLEXIVE
-     */REFLEXIVE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.REFLEXIVE),
-    /**
-     * IRREFLEXIVE
-     */IRREFLEXIVE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.IRREFLEXIVE),
-    /**
-     * LITERAL_TRUE
-     */LITERAL_TRUE(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_TRUE),
-    /**
-     * LITERAL_FALSE
-     */LITERAL_FALSE(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_FALSE),
-    /**
-     * LITERAL_INTEGER
-     */LITERAL_INTEGER(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_INTEGER),
-    /**
-     * LITERAL_FLOAT
-     */LITERAL_FLOAT(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_FLOAT),
-    /**
-     * LITERAL_DOUBLE
-     */LITERAL_DOUBLE(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_DOUBLE),
-    /**
-     * LITERAL_LITERAL
-     */LITERAL_LITERAL(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_LITERAL),
-    /**
-     * LITERAL_LIT_DATATYPE
-     */LITERAL_LIT_DATATYPE(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_LIT_DATATYPE),
-    /**
-     * LITERAL_LIT_LANG
-     */LITERAL_LIT_LANG(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_LIT_LANG),
+    /** VALUE_PARTITION             */   VALUE_PARTITION             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.VALUE_PARTITION             ),
+    /** DASH                        */   DASH                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DASH                        ),
+    /** OPEN                        */   OPEN                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPEN                        ),
+    /** CLOSE                       */   CLOSE                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLOSE                       ),
+    /** OPENBRACE                   */   OPENBRACE                   (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPENBRACE                   ),
+    /** CLOSEBRACE                  */   CLOSEBRACE                  (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLOSEBRACE                  ),
+    /** OPENBRACKET                 */   OPENBRACKET                 (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPENBRACKET                 ),
+    /** CLOSEBRACKET                */   CLOSEBRACKET                (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLOSEBRACKET                ),
+    /** ONTOLOGY                    */   ONTOLOGY                    (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONTOLOGY                    ),
+    /** IMPORT                      */   IMPORT                      (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.IMPORT                      ),
+    /** PREFIX                      */   PREFIX                      (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.PREFIX                      ),
+    /** CLASS                       */   CLASS                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CLASS                       ),
+    /** OBJECT_PROPERTY             */   OBJECT_PROPERTY             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OBJECT_PROPERTY             ),
+    /** CHAIN_IMPLY                 */   CHAIN_IMPLY                 (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CHAIN_IMPLY                 ),
+    /** CHAIN_CONNECT               */   CHAIN_CONNECT               (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CHAIN_CONNECT               ),
+    /** DATA_PROPERTY               */   DATA_PROPERTY               (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DATA_PROPERTY               ),
+    /** INDIVIDUAL                  */   INDIVIDUAL                  (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INDIVIDUAL                  ),
+    /** DATATYPE                    */   DATATYPE                    (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DATATYPE                    ),
+    /** ANNOTATION_PROPERTY         */   ANNOTATION_PROPERTY         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATION_PROPERTY         ),
+    /** SOME                        */   SOME                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SOME                        ),
+    /** ONLY                        */   ONLY                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONLY                        ),
+    /** ONLYSOME                    */   ONLYSOME                    (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONLYSOME                    ),
+    /** MIN                         */   MIN                         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MIN                         ),
+    /** MAX                         */   MAX                         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MAX                         ),
+    /** EXACTLY                     */   EXACTLY                     (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EXACTLY                     ),
+    /** VALUE                       */   VALUE                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.VALUE                       ),
+    /** AND                         */   AND                         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.AND                         ),
+    /** OR                          */   OR                          (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OR                          ),
+    /** NOT                         */   NOT                         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.NOT                         ),
+    /** INVERSE                     */   INVERSE                     (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE                     ),
+    /** INV                         */   INV                         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INV                         ),
+    /** SELF                        */   SELF                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SELF                        ),
+    /** THAT                        */   THAT                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.THAT                        ),
+    /** FACET_RESTRICTION_SEPARATOR */   FACET_RESTRICTION_SEPARATOR (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FACET_RESTRICTION_SEPARATOR ),
+    /** SUBCLASS_OF                 */   SUBCLASS_OF                 (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUBCLASS_OF          ),
+    /** SUPERCLASS_OF               */   SUPERCLASS_OF               (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUPERCLASS_OF        ),
+    /** EQUIVALENT_TO               */   EQUIVALENT_TO               (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_TO        ),
+    /** EQUIVALENT_CLASSES          */   EQUIVALENT_CLASSES          (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_CLASSES   ),
+    /** EQUIVALENT_PROPERTIES       */   EQUIVALENT_PROPERTIES       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.EQUIVALENT_PROPERTIES),
+    /** DISJOINT_WITH               */   DISJOINT_WITH               (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_WITH        ),
+    /** INDIVIDUALS                 */   INDIVIDUALS                 (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INDIVIDUALS          ),
+    /** DISJOINT_CLASSES            */   DISJOINT_CLASSES            (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_CLASSES     ),
+    /** DISJOINT_PROPERTIES         */   DISJOINT_PROPERTIES         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_PROPERTIES  ),
+    /** DISJOINT_UNION_OF           */   DISJOINT_UNION_OF           (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DISJOINT_UNION_OF    ),
+    /** FACTS                       */   FACTS                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FACTS                ),
+    /** SAME_AS                     */   SAME_AS                     (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_AS              ),
+    /** SAME_INDIVIDUAL             */   SAME_INDIVIDUAL             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SAME_INDIVIDUAL      ),
+    /** DIFFERENT_FROM              */   DIFFERENT_FROM              (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DIFFERENT_FROM       ),
+    /** DIFFERENT_INDIVIDUALS       */   DIFFERENT_INDIVIDUALS       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DIFFERENT_INDIVIDUALS),
+    /** MIN_INCLUSIVE_FACET         */   MIN_INCLUSIVE_FACET         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MIN_INCLUSIVE_FACET  ),
+    /** MAX_INCLUSIVE_FACET         */   MAX_INCLUSIVE_FACET         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MAX_INCLUSIVE_FACET  ),
+    /** MIN_EXCLUSIVE_FACET         */   MIN_EXCLUSIVE_FACET         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MIN_EXCLUSIVE_FACET  ),
+    /** MAX_EXCLUSIVE_FACET         */   MAX_EXCLUSIVE_FACET         (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.MAX_EXCLUSIVE_FACET  ),
+    /** ONE_OF_DELIMETER            */   ONE_OF_DELIMETER            (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ONE_OF_DELIMETER     ),
+    /** TYPES                       */   TYPES                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TYPES                ),
+    /** TYPE                        */   TYPE                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TYPE                 ),
+    /** ANNOTATIONS                 */   ANNOTATIONS                 (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATIONS          ),
+    /** COMMA                       */   COMMA                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.COMMA                ),
+    /** DOMAIN                      */   DOMAIN                      (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DOMAIN               ),
+    /** RANGE                       */   RANGE                       (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RANGE                ),
+    /** CHARACTERISTICS             */   CHARACTERISTICS             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.CHARACTERISTICS      ),
+    /** FUNCTIONAL                  */   FUNCTIONAL                  (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.FUNCTIONAL           ),
+    /** INVERSE_FUNCTIONAL          */   INVERSE_FUNCTIONAL          (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE_FUNCTIONAL   ),
+    /** SYMMETRIC                   */   SYMMETRIC                   (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SYMMETRIC            ),
+    /** TRANSITIVE                  */   TRANSITIVE                  (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.TRANSITIVE           ),
+    /** REFLEXIVE                   */   REFLEXIVE                   (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.REFLEXIVE            ),
+    /** IRREFLEXIVE                 */   IRREFLEXIVE                 (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.IRREFLEXIVE          ),
+    /** LITERAL_TRUE                */   LITERAL_TRUE                (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_TRUE         ),
+    /** LITERAL_FALSE               */   LITERAL_FALSE               (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_FALSE        ),
+    /** LITERAL_INTEGER             */   LITERAL_INTEGER             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_INTEGER      ),
+    /** LITERAL_FLOAT               */   LITERAL_FLOAT               (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_FLOAT        ),
+    /** LITERAL_DOUBLE              */   LITERAL_DOUBLE              (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_DOUBLE       ),
+    /** LITERAL_LITERAL             */   LITERAL_LITERAL             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_LITERAL      ),
+    /** LITERAL_LIT_DATATYPE        */   LITERAL_LIT_DATATYPE        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_LIT_DATATYPE ),
+    /** LITERAL_LIT_LANG            */   LITERAL_LIT_LANG            (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.LITERAL_LIT_LANG     ),
     /** For legacy reasons. */
-    /**
-     * ANTI_SYMMETRIC
-     */ANTI_SYMMETRIC(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANTI_SYMMETRIC),
-    /**
-     * ASYMMETRIC
-     */ASYMMETRIC(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ASYMMETRIC),
-    /**
-     * INVERSE_OF
-     */INVERSE_OF(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE_OF),
-    /**
-     * INVERSES
-     */INVERSES(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSES),
-    /**
-     * SUB_PROPERTY_OF
-     */SUB_PROPERTY_OF(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_OF),
-    /**
-     * SUPER_PROPERTY_OF
-     */SUPER_PROPERTY_OF(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUPER_PROPERTY_OF),
-    /**
-     * SUB_PROPERTY_CHAIN
-     */SUB_PROPERTY_CHAIN(
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_CHAIN),
-    /**
-     * HAS_KEY
-     */HAS_KEY(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.HAS_KEY),
-    /**
-     * RULE
-     */RULE(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RULE);
+    /**ANTI_SYMMETRIC              */    ANTI_SYMMETRIC              (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANTI_SYMMETRIC      ),
+    /**ASYMMETRIC                  */    ASYMMETRIC                  (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ASYMMETRIC          ),
+    /**INVERSE_OF                  */    INVERSE_OF                  (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSE_OF          ),
+    /**INVERSES                    */    INVERSES                    (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.INVERSES            ),
+    /**SUB_PROPERTY_OF             */    SUB_PROPERTY_OF             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_OF     ),
+    /**SUPER_PROPERTY_OF           */    SUPER_PROPERTY_OF           (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUPER_PROPERTY_OF   ),
+    /**SUB_PROPERTY_CHAIN          */    SUB_PROPERTY_CHAIN          (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_CHAIN  ),
+    /**HAS_KEY                     */    HAS_KEY                     (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.HAS_KEY             ),
+    /**RULE                        */    RULE                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RULE                );
 
     //@formatter:on
     org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy;

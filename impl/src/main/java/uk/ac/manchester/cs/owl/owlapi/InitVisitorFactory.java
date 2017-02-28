@@ -59,32 +59,22 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  */
 public class InitVisitorFactory {
 
-    //@formatter:off
+// @formatter:off
     static final InitVisitor<OWLClass> CLASSSUBNAMED = new InitVisitor<>(true, true);
     static final InitVisitor<OWLClassExpression> CLASSEXPRESSIONS = new InitVisitor<>(true, true);
     static final InitVisitor<OWLClass> CLASSSUPERNAMED = new InitVisitor<>(false, true);
-    static final InitCollectionVisitor<OWLClass> CLASSCOLLECTIONS = new InitCollectionVisitor<>(
-        true);
-    static final InitCollectionVisitor<OWLObjectPropertyExpression> OPCOLLECTIONS = new InitCollectionVisitor<>(
-        true);
-    static final InitCollectionVisitor<OWLDataPropertyExpression> DPCOLLECTIONS = new InitCollectionVisitor<>(
-        true);
-    static final InitCollectionVisitor<OWLIndividual> ICOLLECTIONS = new InitCollectionVisitor<>(
-        true);
-    static final InitVisitor<OWLObjectPropertyExpression> OPSUBNAMED = new InitVisitor<>(true,
-        true);
-    static final InitVisitor<OWLObjectPropertyExpression> OPSUPERNAMED = new InitVisitor<>(false,
-        true);
+    static final InitCollectionVisitor<OWLClass>                    CLASSCOLLECTIONS   = new InitCollectionVisitor<>(true);
+    static final InitCollectionVisitor<OWLObjectPropertyExpression> OPCOLLECTIONS      = new InitCollectionVisitor<>(true);
+    static final InitCollectionVisitor<OWLDataPropertyExpression>   DPCOLLECTIONS      = new InitCollectionVisitor<>(true);
+    static final InitCollectionVisitor<OWLIndividual>               ICOLLECTIONS       = new InitCollectionVisitor<>(true);
+    static final InitVisitor<OWLObjectPropertyExpression>           OPSUBNAMED         = new InitVisitor<>          (true,  true);
+    static final InitVisitor<OWLObjectPropertyExpression>           OPSUPERNAMED       = new InitVisitor<>          (false, true);
     static final InitVisitor<OWLDataPropertyExpression> DPSUBNAMED = new InitVisitor<>(true, true);
-    static final InitVisitor<OWLDataPropertyExpression> DPSUPERNAMED = new InitVisitor<>(false,
-        true);
-    static final InitVisitor<OWLIndividual> INDIVIDUALSUBNAMED = new InitIndividualVisitor<>(true,
-        true);
+    static final InitVisitor<OWLDataPropertyExpression>             DPSUPERNAMED       = new InitVisitor<>          (false, true);
+    static final InitVisitor<OWLIndividual>                         INDIVIDUALSUBNAMED = new InitIndividualVisitor<>(true,  true);
     static final InitVisitor<OWLAnnotationSubject> ANNOTSUPERNAMED = new InitVisitor<>(true, true);
-
-    private InitVisitorFactory() {
-    }
-
+    private InitVisitorFactory() {}
+// @formatter:on
     /**
      * @param <K> visitor return type
      * @author ignazio

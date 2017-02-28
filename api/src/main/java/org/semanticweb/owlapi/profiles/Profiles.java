@@ -41,46 +41,11 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     //@formatter:off
-    /**
-     * http://www.w3.org/ns/owl-profile/DL.
-     **/OWL2_DL("DL", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
-        @Override
-        public OWLProfile getOWLProfile() {
-            return new OWL2DLProfile();
-        }
-    },
-    /**
-     * http://www.w3.org/ns/owl-profile/QL.
-     **/OWL2_QL("QL", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
-        @Override
-        public OWLProfile getOWLProfile() {
-            return new OWL2QLProfile();
-        }
-    },
-    /**
-     * http://www.w3.org/ns/owl-profile/EL.
-     **/OWL2_EL("EL", Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
-        @Override
-        public OWLProfile getOWLProfile() {
-            return new OWL2ELProfile();
-        }
-    },
-    /**
-     * http://www.w3.org/ns/owl-profile/RL.
-     **/OWL2_RL("RL", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
-        @Override
-        public OWLProfile getOWLProfile() {
-            return new OWL2RLProfile();
-        }
-    },
-    /**
-     * http://www.w3.org/ns/owl-profile/Full.
-     **/OWL2_FULL("Full", FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe) {
-        @Override
-        public OWLProfile getOWLProfile() {
-            return new OWL2DLProfile();
-        }
-    };
+    /** http://www.w3.org/ns/owl-profile/DL. **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/EL. **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2ELProfile();} },
+    /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} };
     //@formatter:on
     private final IRI iri;
     private final List<String> supportingFactories;

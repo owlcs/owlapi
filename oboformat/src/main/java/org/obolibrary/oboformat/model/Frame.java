@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
@@ -31,6 +33,7 @@ public class Frame {
      */
     @Nullable
     protected FrameType type;
+
     /**
      * Instantiates a new frame.
      */
@@ -48,10 +51,9 @@ public class Frame {
     }
 
     /**
-     * freezing a frame signals that a frame has become quiescent, and that data
-     * structures can be adjusted to increase performance or reduce memory
-     * consumption. If a frozen frame is subsequently modified it will be thawed
-     * as necessary.
+     * freezing a frame signals that a frame has become quiescent, and that data structures can be
+     * adjusted to increase performance or reduce memory consumption. If a frozen frame is
+     * subsequently modified it will be thawed as necessary.
      */
     public void freeze() {
         if (clauses.isEmpty()) {
@@ -348,14 +350,12 @@ public class Frame {
     public void check() {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION,
-                OboFormatTag.TAG_DATE,
-                OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY,
-                OboFormatTag.TAG_AUTO_GENERATED_BY);
+                            OboFormatTag.TAG_DATE, OboFormatTag.TAG_DEFAULT_NAMESPACE,
+                            OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE,
-                OboFormatTag.TAG_IS_METADATA_TAG,
-                OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+                            OboFormatTag.TAG_IS_METADATA_TAG, OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             List<Clause> tagIdClauses = getClauses(OboFormatTag.TAG_ID);
@@ -373,14 +373,13 @@ public class Frame {
             throw new FrameStructureException(this, "single intersection_of tags are not allowed");
         }
         checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
-            // OboFormatTag.TAG_NAMESPACE,
-            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
-            OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE,
-            OboFormatTag.TAG_IS_SYMMETRIC,
-            OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-            OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
-            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
-            OboFormatTag.TAG_CREATION_DATE);
+                        // OboFormatTag.TAG_NAMESPACE,
+                        OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT,
+                        OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
+                        OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
+                        OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
+                        OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL, OboFormatTag.TAG_IS_OBSELETE,
+                        OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**
@@ -393,31 +392,19 @@ public class Frame {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
                 throw new FrameStructureException(this,
-                    "multiple " + tag.getTag() + " tags not allowed.");
+                                "multiple " + tag.getTag() + " tags not allowed.");
             }
         }
     }
 
-    /**
-     * The Enum FrameType.
-     */
+    /** The Enum FrameType. */
     public enum FrameType {
         //@formatter:off
-        /**
-         * HEADER.
-         */HEADER,
-        /**
-         * TERM.
-         */TERM,
-        /**
-         * TYPEDEF.
-         */TYPEDEF,
-        /**
-         * INSTANCE.
-         */INSTANCE,
-        /**
-         * ANNOTATION.
-         */ANNOTATION
+        /** HEADER. */          HEADER, 
+        /** TERM. */            TERM, 
+        /** TYPEDEF. */         TYPEDEF, 
+        /** INSTANCE. */        INSTANCE, 
+        /** ANNOTATION. */      ANNOTATION
         //@formatter:on
     }
 }

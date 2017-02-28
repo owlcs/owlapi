@@ -5,13 +5,8 @@ package org.semanticweb.owlapi.model;
  */
 public enum MissingOntologyHeaderStrategy implements ByName<MissingOntologyHeaderStrategy> {
     //@formatter:off
-    /**
-     * Include triples.
-     */INCLUDE_GRAPH,
-    /**
-     * Keep import structure.
-     */IMPORT_GRAPH;
-
+    /** Include triples.       */       INCLUDE_GRAPH,
+    /** Keep import structure. */       IMPORT_GRAPH;
     //@formatter:on
     @Override
     public MissingOntologyHeaderStrategy byName(CharSequence name) {

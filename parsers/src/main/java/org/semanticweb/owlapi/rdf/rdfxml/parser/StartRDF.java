@@ -54,9 +54,8 @@ import org.xml.sax.SAXException;
 
 abstract class AbstractState {
 
-    //@formatter:on
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractState.class);
-    //@formatter:off
+    //@formatter:on
     static final String DATATYPE_RESOURCE = "rdf:datatype specified on a node with resource value.";
     static final String TEXT_SEEN = "Text was seen and new node is started.";
     static final String RDF_RDF = "Expecting rdf:RDF element.";
@@ -70,6 +69,7 @@ abstract class AbstractState {
     static final String NO_RDF_ID_AND_ABOUT = "Element cannot specify both rdf:ID and rdf:about attributes.";
     static final String ABOUT_EACH_PREFIX_UNSUPPORTED = "rdf:aboutEachPrefix attribute is not supported.";
     static final String ABOUT_EACH_UNSUPPORTED = "rdf:aboutEach attribute is not supported.";
+    //@formatter:off
     protected final RDFParser parser;
 
     AbstractState(RDFParser parser) {

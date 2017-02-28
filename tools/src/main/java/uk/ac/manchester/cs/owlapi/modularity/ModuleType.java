@@ -19,15 +19,9 @@ package uk.ac.manchester.cs.owlapi.modularity;
  */
 public enum ModuleType {
     //@formatter:off
-    /**
-     * Module type representing top modules (aka lower modules).
-     */TOP("top"),
-    /**
-     * Module type representing bottom modules (aka upper modules).
-     */BOT("bottom"),
-    /**
-     * Module type representing fixpoint-nested modules (top-of-bottom-of-top-of-...).
-     */STAR("nested");
+    /** Module type representing top modules (aka lower modules). */                        TOP("top"), 
+    /** Module type representing bottom modules (aka upper modules). */                     BOT("bottom"), 
+    /** Module type representing fixpoint-nested modules (top-of-bottom-of-top-of-...). */  STAR("nested");
     //@formatter:on
     /**
      * The name of the module type in bottom/top notation.

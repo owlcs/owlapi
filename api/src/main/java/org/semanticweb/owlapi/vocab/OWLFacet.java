@@ -35,39 +35,17 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
-    /**
-     * LENGTH.
-     */LENGTH(Namespaces.XSD, "length", "length"),
-    /**
-     * MIN_LENGTH.
-     */MIN_LENGTH(Namespaces.XSD, "minLength", "minLength"),
-    /**
-     * MAX_LENGTH.
-     */MAX_LENGTH(Namespaces.XSD, "maxLength", "maxLength"),
-    /**
-     * PATTERN.
-     */PATTERN(Namespaces.XSD, "pattern", "pattern"),
-    /**
-     * MIN_INCLUSIVE.
-     */MIN_INCLUSIVE(Namespaces.XSD, "minInclusive", ">="),
-    /**
-     * MIN_EXCLUSIVE.
-     */MIN_EXCLUSIVE(Namespaces.XSD, "minExclusive", ">"),
-    /**
-     * MAX_INCLUSIVE.
-     */MAX_INCLUSIVE(Namespaces.XSD, "maxInclusive", "<="),
-    /**
-     * MAX_EXCLUSIVE.
-     */MAX_EXCLUSIVE(Namespaces.XSD, "maxExclusive", "<"),
-    /**
-     * TOTAL_DIGITS.
-     */TOTAL_DIGITS(Namespaces.XSD, "totalDigits", "totalDigits"),
-    /**
-     * FRACTION_DIGITS.
-     */FRACTION_DIGITS(Namespaces.XSD, "fractionDigits", "fractionDigits"),
-    /**
-     * LANG_RANGE.
-     */LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
+    /** LENGTH. */           LENGTH          (Namespaces.XSD, "length",          "length"), 
+    /** MIN_LENGTH. */       MIN_LENGTH      (Namespaces.XSD, "minLength",       "minLength"), 
+    /** MAX_LENGTH. */       MAX_LENGTH      (Namespaces.XSD, "maxLength",       "maxLength"), 
+    /** PATTERN. */          PATTERN         (Namespaces.XSD, "pattern",         "pattern"), 
+    /** MIN_INCLUSIVE. */    MIN_INCLUSIVE   (Namespaces.XSD, "minInclusive",    ">="), 
+    /** MIN_EXCLUSIVE. */    MIN_EXCLUSIVE   (Namespaces.XSD, "minExclusive",    ">"), 
+    /** MAX_INCLUSIVE. */    MAX_INCLUSIVE   (Namespaces.XSD, "maxInclusive",    "<="), 
+    /** MAX_EXCLUSIVE. */    MAX_EXCLUSIVE   (Namespaces.XSD, "maxExclusive",    "<"), 
+    /** TOTAL_DIGITS. */     TOTAL_DIGITS    (Namespaces.XSD, "totalDigits",     "totalDigits"), 
+    /** FRACTION_DIGITS. */  FRACTION_DIGITS (Namespaces.XSD, "fractionDigits",  "fractionDigits"), 
+    /** LANG_RANGE. */       LANG_RANGE      (Namespaces.RDF, "langRange",       "langRange");
 //@formatter:on
     /**
      * All facet iris.

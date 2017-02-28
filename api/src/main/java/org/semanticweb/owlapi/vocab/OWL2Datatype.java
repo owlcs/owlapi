@@ -14,49 +14,10 @@ package org.semanticweb.owlapi.vocab;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asMap;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
-import static org.semanticweb.owlapi.vocab.Namespaces.RDF;
-import static org.semanticweb.owlapi.vocab.Namespaces.RDFS;
-import static org.semanticweb.owlapi.vocab.OWLFacet.LANG_RANGE;
-import static org.semanticweb.owlapi.vocab.OWLFacet.LENGTH;
-import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
-import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_INCLUSIVE;
-import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_LENGTH;
-import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_EXCLUSIVE;
-import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
-import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_LENGTH;
-import static org.semanticweb.owlapi.vocab.OWLFacet.PATTERN;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.ANY_URI;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.BASE_64_BINARY;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.BOOLEAN;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.BYTE;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.DATE_TIME;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.DATE_TIME_STAMP;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.DECIMAL;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.DOUBLE;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.FLOAT;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.HEX_BINARY;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.INT;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.INTEGER;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.LANGUAGE;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.LONG;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.NAME;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.NCNAME;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.NEGATIVE_INTEGER;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.NMTOKEN;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.NON_NEGATIVE_INTEGER;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.NON_POSITIVE_INTEGER;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.NORMALIZED_STRING;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.POSITIVE_INTEGER;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.SHORT;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.STRING;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.TOKEN;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_BYTE;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_INT;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_LONG;
-import static org.semanticweb.owlapi.vocab.XSDVocabulary.UNSIGNED_SHORT;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.vocab.Namespaces.*;
+import static org.semanticweb.owlapi.vocab.OWLFacet.*;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -65,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -75,157 +37,71 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.providers.DatatypeProvider;
 
 /**
- * An enumeration of the datatypes in the OWL 2 specification. These are the
- * datatypes in the OWL 2 datatype map.
+ * An enumeration of the datatypes in the OWL 2 specification. These are the datatypes in the OWL 2
+ * datatype map.
  *
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 //@formatter:off
-    /**
-     * RDF_XML_LITERAL.
-     */RDF_XML_LITERAL(RDF, "XMLLiteral", Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
-    /**
-     * RDFS_LITERAL.
-     */RDFS_LITERAL(RDFS, "Literal", Category.CAT_UNIVERSAL, false, ".*"),
-    /**
-     * RDF_PLAIN_LITERAL.
-     */RDF_PLAIN_LITERAL(RDF, "PlainLiteral", Category.CAT_STRING_WITH_LANGUAGE_TAG, false, ".*"),
-    /**
-     * RDF_LANG_STRING.
-     */RDF_LANG_STRING(RDF, "langString", Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
-    /**
-     * OWL_REAL.
-     */OWL_REAL(OWL, "real", Category.CAT_NUMBER, false, ".*"),
-    /**
-     * OWL_RATIONAL.
-     */OWL_RATIONAL(OWL, "rational", Category.CAT_NUMBER, false,
-        "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"),
-    /**
-     * XSD_STRING.
-     */XSD_STRING(STRING, Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
-    /**
-     * XSD_NORMALIZED_STRING.
-     */XSD_NORMALIZED_STRING(NORMALIZED_STRING, Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false,
-        "([^\\r\\n\\t])*"),
-    /**
-     * XSD_TOKEN.
-     */XSD_TOKEN(TOKEN, Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false,
-        "([^\\s])(\\s([^\\s])|([^\\s]))*"),
-    /**
-     * XSD_LANGUAGE.
-     */XSD_LANGUAGE(LANGUAGE, Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, true,
-        "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*"),
-    /**
-     * XSD_NAME.
-     */XSD_NAME(NAME, Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false,
-        ":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
-    /**
-     * XSD_NCNAME.
-     */XSD_NCNAME(NCNAME, Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false,
-        "[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
-    /**
-     * XSD_NMTOKEN.
-     */XSD_NMTOKEN(NMTOKEN, Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
-    /**
-     * XSD_DECIMAL.
-     */XSD_DECIMAL(DECIMAL, Category.CAT_NUMBER, false, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)"),
-    /**
-     * XSD_INTEGER.
-     */XSD_INTEGER(INTEGER, Category.CAT_NUMBER, false, "(\\+|-)?([0-9]+)"),
-    /**
-     * XSD_NON_NEGATIVE_INTEGER.
-     */XSD_NON_NEGATIVE_INTEGER(NON_NEGATIVE_INTEGER, Category.CAT_NUMBER, false,
-        "((\\+)?([0-9]+))|-(0+)"),
-    /**
-     * XSD_NON_POSITIVE_INTEGER.
-     */XSD_NON_POSITIVE_INTEGER(NON_POSITIVE_INTEGER, Category.CAT_NUMBER, false,
-        "-([0-9]+)|(\\+(0+))"),
-    /**
-     * XSD_POSITIVE_INTEGER.
-     */XSD_POSITIVE_INTEGER(POSITIVE_INTEGER, Category.CAT_NUMBER, false, "(\\+)?([0-9]+)"),
-    /**
-     * XSD_NEGATIVE_INTEGER.
-     */XSD_NEGATIVE_INTEGER(NEGATIVE_INTEGER, Category.CAT_NUMBER, false, "-([0-9]+)"),
-    /**
-     * XSD_LONG.
-     */XSD_LONG(LONG, Category.CAT_NUMBER, true, "(\\+|-)?([0-9]+)"),
-    /**
-     * XSD_INT.
-     */XSD_INT(INT, Category.CAT_NUMBER, true, "(\\+|-)?([0-9]+)"),
-    /**
-     * XSD_SHORT.
-     */XSD_SHORT(SHORT, Category.CAT_NUMBER, true, "(\\+|-)?([0-9]+)"),
-    /**
-     * XSD_BYTE.
-     */XSD_BYTE(BYTE, Category.CAT_NUMBER, true, "(\\+|-)?([0-9]+)"),
-    /**
-     * XSD_UNSIGNED_LONG.
-     */XSD_UNSIGNED_LONG(UNSIGNED_LONG, Category.CAT_NUMBER, true, "(\\+)?([0-9]+)"),
-    /**
-     * XSD_UNSIGNED_INT.
-     */XSD_UNSIGNED_INT(UNSIGNED_INT, Category.CAT_NUMBER, true, "(\\+)?([0-9]+)"),
-    /**
-     * XSD_UNSIGNED_SHORT.
-     */XSD_UNSIGNED_SHORT(UNSIGNED_SHORT, Category.CAT_NUMBER, true, "(\\+)?([0-9]+)"),
-    /**
-     * XSD_UNSIGNED_BYTE.
-     */XSD_UNSIGNED_BYTE(UNSIGNED_BYTE, Category.CAT_NUMBER, true, "(\\+)?([0-9]+)"),
-    /**
-     * XSD_DOUBLE.
-     */XSD_DOUBLE(DOUBLE, Category.CAT_NUMBER, true,
-        "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
-    /**
-     * XSD_FLOAT.
-     */XSD_FLOAT(FLOAT, Category.CAT_NUMBER, true,
-        "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
-    /**
-     * XSD_BOOLEAN.
-     */XSD_BOOLEAN(BOOLEAN, Category.CAT_BOOLEAN, true, "true|false|1|0"),
-    /**
-     * XSD_HEX_BINARY.
-     */XSD_HEX_BINARY(HEX_BINARY, Category.CAT_BINARY, false, "([0-9a-fA-F]{2})*"),
-    /**
-     * XSD_BASE_.
-     */XSD_BASE_64_BINARY(BASE_64_BINARY, Category.CAT_BINARY, false,
-        "((([A-Za-z0-9+/] ?){4})*(([A-Za-z0-9+/] ?){3}[A-Za-z0-9+/]|([A-Za-z0-9+/] ?){2}[AEIMQUYcgkosw048] ?=|[A-Za-z0-9+/] ?[AQgw] ?= ?=))?"),
-    /**
-     * XSD_ANY_URI.
-     */XSD_ANY_URI(ANY_URI, Category.CAT_URI, false, ".*"),
-    /**
-     * XSD_DATE_TIME.
-     */XSD_DATE_TIME(DATE_TIME, Category.CAT_TIME, false,
-        "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
-    /**
-     * XSD_DATE_TIME_STAMP.
-     */XSD_DATE_TIME_STAMP(DATE_TIME_STAMP, Category.CAT_TIME, false,
-        "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
+    /** RDF_XML_LITERAL. */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
+    /** RDFS_LITERAL. */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
+    /** RDF_PLAIN_LITERAL. */        RDF_PLAIN_LITERAL        (RDF,  "PlainLiteral", Category.CAT_STRING_WITH_LANGUAGE_TAG,    false, ".*"),
+    /** RDF_LANG_STRING. */          RDF_LANG_STRING          (RDF,  "langString",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** OWL_REAL. */                 OWL_REAL                 (OWL,  "real",         Category.CAT_NUMBER,                      false, ".*"),
+    /** OWL_RATIONAL. */             OWL_RATIONAL             (OWL,  "rational",     Category.CAT_NUMBER,                      false, "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"),
+    /** XSD_STRING. */               XSD_STRING               (STRING,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** XSD_NORMALIZED_STRING. */    XSD_NORMALIZED_STRING    (NORMALIZED_STRING,    Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\r\\n\\t])*"),
+    /** XSD_TOKEN. */                XSD_TOKEN                (TOKEN,                Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\s])(\\s([^\\s])|([^\\s]))*"),
+    /** XSD_LANGUAGE. */             XSD_LANGUAGE             (LANGUAGE,             Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, true,  "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*"),
+    /** XSD_NAME. */                 XSD_NAME                 (NAME,                 Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    /** XSD_NCNAME. */               XSD_NCNAME               (NCNAME,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    /** XSD_NMTOKEN. */              XSD_NMTOKEN              (NMTOKEN,              Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** XSD_DECIMAL. */              XSD_DECIMAL              (DECIMAL,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)"),
+    /** XSD_INTEGER. */              XSD_INTEGER              (INTEGER,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+)"),
+    /** XSD_NON_NEGATIVE_INTEGER. */ XSD_NON_NEGATIVE_INTEGER (NON_NEGATIVE_INTEGER, Category.CAT_NUMBER,  false, "((\\+)?([0-9]+))|-(0+)"),
+    /** XSD_NON_POSITIVE_INTEGER. */ XSD_NON_POSITIVE_INTEGER (NON_POSITIVE_INTEGER, Category.CAT_NUMBER,  false, "-([0-9]+)|(\\+(0+))"),
+    /** XSD_POSITIVE_INTEGER. */     XSD_POSITIVE_INTEGER     (POSITIVE_INTEGER,     Category.CAT_NUMBER,  false, "(\\+)?([0-9]+)"),
+    /** XSD_NEGATIVE_INTEGER. */     XSD_NEGATIVE_INTEGER     (NEGATIVE_INTEGER,     Category.CAT_NUMBER,  false, "-([0-9]+)"),
+    /** XSD_LONG. */                 XSD_LONG                 (LONG,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_INT. */                  XSD_INT                  (INT,                  Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_SHORT. */                XSD_SHORT                (SHORT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_BYTE. */                 XSD_BYTE                 (BYTE,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_UNSIGNED_LONG. */        XSD_UNSIGNED_LONG        (UNSIGNED_LONG,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_INT. */         XSD_UNSIGNED_INT         (UNSIGNED_INT,         Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_SHORT. */       XSD_UNSIGNED_SHORT       (UNSIGNED_SHORT,       Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_BYTE. */        XSD_UNSIGNED_BYTE        (UNSIGNED_BYTE,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_DOUBLE. */               XSD_DOUBLE               (DOUBLE,               Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
+    /** XSD_FLOAT. */                XSD_FLOAT                (FLOAT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
+    /** XSD_BOOLEAN. */              XSD_BOOLEAN              (BOOLEAN,              Category.CAT_BOOLEAN, true,  "true|false|1|0"),
+    /** XSD_HEX_BINARY. */           XSD_HEX_BINARY           (HEX_BINARY,           Category.CAT_BINARY,  false, "([0-9a-fA-F]{2})*"),
+    /** XSD_BASE_. */                XSD_BASE_64_BINARY       (BASE_64_BINARY,       Category.CAT_BINARY,  false, "((([A-Za-z0-9+/] ?){4})*(([A-Za-z0-9+/] ?){3}[A-Za-z0-9+/]|([A-Za-z0-9+/] ?){2}[AEIMQUYcgkosw048] ?=|[A-Za-z0-9+/] ?[AQgw] ?= ?=))?"),
+    /** XSD_ANY_URI. */              XSD_ANY_URI              (ANY_URI,              Category.CAT_URI,     false, ".*"),
+    /** XSD_DATE_TIME. */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
+    /** XSD_DATE_TIME_STAMP. */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
+//@formatter:on
+
     /**
      * Datatypes allowed in the EL and QL profiles.
      */
-    public static final List<OWL2Datatype> EL_DATATYPES = Arrays
-        .asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
-            RDFS_LITERAL, OWL_RATIONAL, OWL_REAL, XSD_DECIMAL, XSD_INTEGER,
-            XSD_NON_NEGATIVE_INTEGER, XSD_STRING,
-            XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY,
-            XSD_BASE_64_BINARY,
-            XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+    public static final List<OWL2Datatype> EL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL,
+                    RDF_XML_LITERAL, RDFS_LITERAL, OWL_RATIONAL, OWL_REAL, XSD_DECIMAL, XSD_INTEGER,
+                    XSD_NON_NEGATIVE_INTEGER, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN,
+                    XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY, XSD_BASE_64_BINARY,
+                    XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
     /**
      * Datatypes supported in the RL profile.
      */
-    public static final List<OWL2Datatype> RL_DATATYPES = Arrays
-        .asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
-            RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER,
-            XSD_NON_POSITIVE_INTEGER,
-            XSD_POSITIVE_INTEGER, XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE,
-            XSD_UNSIGNED_LONG,
-            XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN,
-            XSD_LANGUAGE, XSD_NAME,
-            XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI,
-            XSD_DATE_TIME,
-            XSD_DATE_TIME_STAMP);
-    //@formatter:on
+    public static final List<OWL2Datatype> RL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL,
+                    RDF_XML_LITERAL, RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER,
+                    XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER, XSD_POSITIVE_INTEGER,
+                    XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
+                    XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING,
+                    XSD_TOKEN, XSD_LANGUAGE, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN,
+                    XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI, XSD_DATE_TIME,
+                    XSD_DATE_TIME_STAMP);
+
     private static final Map<IRI, OWL2Datatype> ALL_IRIS = asMap(stream(), HasIRI::getIRI);
     private final String shortForm;
     private final IRI iri;
@@ -236,7 +112,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     private final String prefixedName;
 
     OWL2Datatype(Namespaces namespace, String shortForm, Category category, boolean finite,
-        String regEx) {
+                    String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ':' + shortForm;
@@ -274,15 +150,15 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      *
      * @param datatypeIRI The datatype IRI
      * @return {@code true} if the IRI identifies a built in datatype, or {@code false} if the IRI
-     * does not identify a built in datatype.
+     *         does not identify a built in datatype.
      */
     public static boolean isBuiltIn(IRI datatypeIRI) {
         return ALL_IRIS.containsKey(datatypeIRI);
     }
 
     /**
-     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains
-     * the corresponding {@code OWL2Datatype}.
+     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains the corresponding
+     * {@code OWL2Datatype}.
      *
      * @param datatype The datatype IRI. Not {@code null}.
      * @return The {@code OWL2Datatype} that has the specified {@link IRI}.
@@ -297,8 +173,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     /**
-     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains
-     * the corresponding {@code OWL2Datatype}.
+     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains the corresponding
+     * {@code OWL2Datatype}.
      *
      * @param datatype The datatype IRI. Not {@code null}.
      * @return The {@code OWL2Datatype} that has the specified {@link IRI}.
@@ -309,8 +185,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     /**
-     * Gets the Pattern that specifies the regular expression for the allowed
-     * lexical values of a datatype.
+     * Gets the Pattern that specifies the regular expression for the allowed lexical values of a
+     * datatype.
      *
      * @return The Pattern, or {@code null}
      */
@@ -319,8 +195,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     /**
-     * Gets the Pattern string that specifies the regular expression for the
-     * allowed lexical values of a datatype.
+     * Gets the Pattern string that specifies the regular expression for the allowed lexical values
+     * of a datatype.
      *
      * @return The Pattern string. Not null.
      */
@@ -360,7 +236,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * Determines whether or not this datatype is finite.
      *
      * @return {@code true} if this datatype is finite, or {@code false} if this datatype is
-     * infinite.
+     *         infinite.
      */
     public boolean isFinite() {
         return finite;
@@ -414,32 +290,14 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      */
     public enum Category {
         //@formatter:off
-        /**
-         * NUMBER.
-         */CAT_NUMBER("Number", MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE),
-        /**
-         * STRING_WITH_LANGUAGE_TAG.
-         */CAT_STRING_WITH_LANGUAGE_TAG("String with a language tag", MIN_LENGTH, MAX_LENGTH,
-            LENGTH, PATTERN, LANG_RANGE),
-        /**
-         * STRING_WITHOUT_LANGUAGE_TAG.
-         */CAT_STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", MIN_LENGTH, MAX_LENGTH,
-            LENGTH, PATTERN),
-        /**
-         * BINARY.
-         */CAT_BINARY("Binary data", MIN_LENGTH, MAX_LENGTH, LENGTH),
-        /**
-         * URI.
-         */CAT_URI("URI", MIN_LENGTH, MAX_LENGTH, PATTERN),
-        /**
-         * TIME.
-         */CAT_TIME("Time instant", MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE),
-        /**
-         * BOOLEAN.
-         */CAT_BOOLEAN("Boolean value"),
-        /**
-         * UNIVERSAL.
-         */CAT_UNIVERSAL("Universal literal");
+        /** NUMBER.                      */ CAT_NUMBER                     ("Number",                        MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE), 
+        /** STRING_WITH_LANGUAGE_TAG.    */ CAT_STRING_WITH_LANGUAGE_TAG   ("String with a language tag",    MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN,      LANG_RANGE), 
+        /** STRING_WITHOUT_LANGUAGE_TAG. */ CAT_STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN), 
+        /** BINARY.                      */ CAT_BINARY                     ("Binary data",                   MIN_LENGTH,    MAX_LENGTH,    LENGTH), 
+        /** URI.                         */ CAT_URI                        ("URI",                           MIN_LENGTH,    MAX_LENGTH,    PATTERN), 
+        /** TIME.                        */ CAT_TIME                       ("Time instant",                  MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE),
+        /** BOOLEAN.                     */ CAT_BOOLEAN                    ("Boolean value"), 
+        /** UNIVERSAL.                   */ CAT_UNIVERSAL                  ("Universal literal");
         //@formatter:on
         private final String name;
         private final Set<OWLFacet> facets;
@@ -478,8 +336,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      */
     public enum WhiteSpaceNormalisation {
         /**
-         * No normalization is done, the value is not changed (this is the
-         * behavior required by [XML] for element content).
+         * No normalization is done, the value is not changed (this is the behavior required by
+         * [XML] for element content).
          */
         PRESERVE {
             @Override
@@ -488,8 +346,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             }
         },
         /**
-         * All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage
-         * return) are replaced with #x20 (space).
+         * All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage return) are replaced with
+         * #x20 (space).
          */
         REPLACE {
             @Override
@@ -498,9 +356,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             }
         },
         /**
-         * After the processing implied by replace, contiguous sequences of
-         * #x20's are collapsed to a single #x20, and any #x20 at the start or
-         * end of the string is then removed.
+         * After the processing implied by replace, contiguous sequences of #x20's are collapsed to
+         * a single #x20, and any #x20 at the start or end of the string is then removed.
          */
         COLLAPSE {
             @Override

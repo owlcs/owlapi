@@ -360,154 +360,65 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     private void initialiseClassFrameSections() {
         //@formatter:off
-        initialiseSection(new AnnAxiom<OWLClass, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS,
-                (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)),
-            classFrameSections);
-        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), SUBCLASS_OF,
-            (s, o, anns) -> df.getOWLSubClassOfAxiom(s, o, anns)), classFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), EQUIVALENT_TO,
-                (s, o, anns) -> df.getOWLEquivalentClassesAxiom(s, o, anns)), classFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), DISJOINT_WITH,
-                (s, o, anns) -> df.getOWLDisjointClassesAxiom(s, o, anns)), classFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLClass, Set<OWLPropertyExpression>>(x -> parsePropertyList(), HAS_KEY,
-                (s, o, anns) -> df.getOWLHasKeyAxiom(s, o, anns)), classFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLClass, Set<OWLClassExpression>>(x -> parseClassExpressionList(),
-                DISJOINT_UNION_OF, (s, o, anns) -> df.getOWLDisjointUnionAxiom(s, o, anns)),
-            classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), SUBCLASS_OF, (s, o, anns) -> df.getOWLSubClassOfAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentClassesAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointClassesAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, Set<OWLPropertyExpression>>(x -> parsePropertyList(), HAS_KEY, (s, o, anns) -> df.getOWLHasKeyAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, Set<OWLClassExpression>>(x -> parseClassExpressionList(), DISJOINT_UNION_OF, (s, o, anns) -> df.getOWLDisjointUnionAxiom(s, o, anns)), classFrameSections);
         // Extensions
-        initialiseSection(
-            new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), SUPERCLASS_OF,
-                (s, o, anns) -> df.getOWLSubClassOfAxiom(o, s, anns)), classFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLClass, Set<OWLClassExpression>>(x -> parseClassExpressionList(),
-                DISJOINT_CLASSES, (s, o, anns) -> df.getOWLDisjointClassesAxiom(o, anns)),
-            classFrameSections);
-        initialiseSection(new AnnAxiom<OWLClass, OWLIndividual>(x -> parseIndividual(), INDIVIDUALS,
-            (s, o, anns) -> df.getOWLClassAssertionAxiom(s, o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLClassExpression>(x -> parseUnion(), SUPERCLASS_OF, (s, o, anns) -> df.getOWLSubClassOfAxiom(o, s, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, Set<OWLClassExpression>>(x -> parseClassExpressionList(), DISJOINT_CLASSES, (s, o, anns) -> df.getOWLDisjointClassesAxiom(o, anns)), classFrameSections);
+        initialiseSection(new AnnAxiom<OWLClass, OWLIndividual>(x -> parseIndividual(), INDIVIDUALS, (s, o, anns) -> df.getOWLClassAssertionAxiom(s, o, anns)), classFrameSections);
         //@formatter:on
     }
 
     private void initialiseObjectPropertyFrameSections() {
         //@formatter:off
-        initialiseSection(
-            new AnnAxiom<OWLObjectProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS,
-                (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)),
-            objectPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(
-                x -> parseObjectPropertyExpression(false), SUB_PROPERTY_OF,
-                (s, o, anns) -> df.getOWLSubObjectPropertyOfAxiom(s, o, anns)),
-            objectPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(
-                x -> parseObjectPropertyExpression(false), EQUIVALENT_TO,
-                (s, o, anns) -> df.getOWLEquivalentObjectPropertiesAxiom(s, o, anns)),
-            objectPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(
-                x -> parseObjectPropertyExpression(false), DISJOINT_WITH,
-                (s, o, anns) -> df.getOWLDisjointObjectPropertiesAxiom(s, o, anns)),
-            objectPropertyFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLObjectProperty, OWLClassExpression>(x -> parseUnion(), DOMAIN,
-                (s, o, anns) -> df.getOWLObjectPropertyDomainAxiom(s, o, anns)),
-            objectPropertyFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLObjectProperty, OWLClassExpression>(x -> parseUnion(), RANGE,
-                (s, o, anns) -> df.getOWLObjectPropertyRangeAxiom(s, o, anns)),
-            objectPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(
-                x -> parseObjectPropertyExpression(false), INVERSE_OF,
-                (s, o, anns) -> df.getOWLInverseObjectPropertiesAxiom(s, o, anns)),
-            objectPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyCharacteristicAxiom>(
-            this::parseObjectPropertyCharacteristic, CHARACTERISTICS,
-            (s, o, anns) -> o.getAnnotatedAxiom(anns)), objectPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLObjectProperty, List<OWLObjectPropertyExpression>>(
-                x -> parseObjectPropertyChain(), SUB_PROPERTY_CHAIN,
-                (s, o, anns) -> df.getOWLSubPropertyChainOfAxiom(o, s, anns)),
-            objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubObjectPropertyOfAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentObjectPropertiesAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointObjectPropertiesAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLClassExpression>(x -> parseUnion(), DOMAIN, (s, o, anns) -> df.getOWLObjectPropertyDomainAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLClassExpression>(x -> parseUnion(), RANGE, (s, o, anns) -> df.getOWLObjectPropertyRangeAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), INVERSE_OF, (s, o, anns) -> df.getOWLInverseObjectPropertiesAxiom(s, o, anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyCharacteristicAxiom>(this::parseObjectPropertyCharacteristic, CHARACTERISTICS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, List<OWLObjectPropertyExpression>>(x -> parseObjectPropertyChain(), SUB_PROPERTY_CHAIN, (s, o, anns) -> df.getOWLSubPropertyChainOfAxiom(o, s, anns)), objectPropertyFrameSections);
         // Extensions
-        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(
-                x -> parseObjectPropertyExpression(false), SUPER_PROPERTY_OF,
-                (s, o, anns) -> df.getOWLSubObjectPropertyOfAxiom(o, s, anns)),
-            objectPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), SUPER_PROPERTY_OF, (s, o, anns) -> df.getOWLSubObjectPropertyOfAxiom(o, s, anns)), objectPropertyFrameSections);
         //@formatter:on
     }
 
     private void initialiseDataPropertyFrameSections() {
         //@formatter:off
-        initialiseSection(
-            new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(),
-                SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubDataPropertyOfAxiom(s, o, anns)),
-            dataPropertyFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(),
-                EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentDataPropertiesAxiom(s, o, anns)),
-            dataPropertyFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(),
-                DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointDataPropertiesAxiom(s, o, anns)),
-            dataPropertyFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLDataProperty, OWLClassExpression>(x -> parseUnion(), DOMAIN,
-                (s, o, anns) -> df.getOWLDataPropertyDomainAxiom(s, o, anns)),
-            dataPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataRange>(x -> parseDataRange(), RANGE,
-                (s, o, anns) -> df.getOWLDataPropertyRangeAxiom(s, o, anns)),
-            dataPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyCharacteristicAxiom>(
-            this::parseDataPropertyCharacteristic, CHARACTERISTICS,
-            (s, o, anns) -> o.getAnnotatedAxiom(anns)), dataPropertyFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLDataProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS,
-                (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)),
-            dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubDataPropertyOfAxiom(s, o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentDataPropertiesAxiom(s,o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointDataPropertiesAxiom(s,o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLClassExpression>(x -> parseUnion(), DOMAIN, (s, o, anns) -> df.getOWLDataPropertyDomainAxiom(s, o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataRange>(x -> parseDataRange(), RANGE, (s, o, anns) -> df.getOWLDataPropertyRangeAxiom(s, o, anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyCharacteristicAxiom>(this::parseDataPropertyCharacteristic, CHARACTERISTICS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), dataPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLDataProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), dataPropertyFrameSections);
         //@formatter:on
     }
 
     private void initialiseAnnotationPropertyFrameSections() {
         //@formatter:off
-        initialiseSection(new AnnAxiom<OWLAnnotationProperty, OWLAnnotationProperty>(
-                x -> parseAnnotationProperty(), SUB_PROPERTY_OF,
-                (s, o, anns) -> df.getOWLSubAnnotationPropertyOfAxiom(s, o, anns)),
-            annotationPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), DOMAIN,
-                (s, o, anns) -> df.getOWLAnnotationPropertyDomainAxiom(s, o, anns)),
-            annotationPropertyFrameSections);
-        initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), RANGE,
-                (s, o, anns) -> df.getOWLAnnotationPropertyRangeAxiom(s, o, anns)),
-            annotationPropertyFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLAnnotationProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS,
-                (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)),
-            annotationPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, OWLAnnotationProperty>(x -> parseAnnotationProperty(), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubAnnotationPropertyOfAxiom(s, o, anns)), annotationPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), DOMAIN, (s, o, anns) -> df.getOWLAnnotationPropertyDomainAxiom(s, o, anns)), annotationPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), RANGE, (s, o, anns) -> df.getOWLAnnotationPropertyRangeAxiom(s, o, anns)), annotationPropertyFrameSections);
+        initialiseSection(new AnnAxiom<OWLAnnotationProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), annotationPropertyFrameSections);
         //@formatter:on
     }
 
     private void initialiseIndividualFrameSections() {
         //@formatter:off
-        initialiseSection(
-            new AnnAxiom<OWLIndividual, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS,
-                (s, o, anns) -> create(df, s, o, anns)), individualFrameSections);
-        initialiseSection(new AnnAxiom<OWLIndividual, OWLClassExpression>(x -> parseUnion(), TYPES,
-            (s, o, anns) -> df.getOWLClassAssertionAxiom(o, s, anns)), individualFrameSections);
-        initialiseSection(
-            new AnnAxiom<>(this::parseFact, FACTS, (s, o, anns) -> o.getAnnotatedAxiom(anns)),
-            individualFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), SAME_AS,
-                (s, o, anns) -> df.getOWLSameIndividualAxiom(s, o, anns)), individualFrameSections);
-        initialiseSection(
-            new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), DIFFERENT_FROM,
-                (s, o, anns) -> df.getOWLDifferentIndividualsAxiom(s, o, anns)),
-            individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> create(df, s, o, anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLClassExpression>(x -> parseUnion(), TYPES, (s, o, anns) -> df.getOWLClassAssertionAxiom(o, s, anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<>(this::parseFact, FACTS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), SAME_AS, (s, o, anns) -> df.getOWLSameIndividualAxiom(s, o, anns)), individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, OWLIndividual>(x -> parseIndividual(), DIFFERENT_FROM, (s, o, anns) -> df.getOWLDifferentIndividualsAxiom(s, o, anns)), individualFrameSections);
         // Extensions
-        initialiseSection(
-            new AnnAxiom<OWLIndividual, Set<OWLIndividual>>(x -> parseIndividualList(),
-                DIFFERENT_INDIVIDUALS, (s, o, anns) -> create(df, s, o, anns)),
-            individualFrameSections);
+        initialiseSection(new AnnAxiom<OWLIndividual, Set<OWLIndividual>>(x -> parseIndividualList(), DIFFERENT_INDIVIDUALS, (s, o, anns) -> create(df, s, o, anns)), individualFrameSections);
         //@formatter:on
     }
 
@@ -795,8 +706,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         else {
             consumeToken();
             throw new ExceptionBuilder().withClass().withObject().withData()
-                .withKeyword(OPEN, OPENBRACE, NOT, INVERSE)
-                .build();
+                .withKeyword(OPEN, OPENBRACE, NOT, INVERSE).build();
         }
     }
 
@@ -2252,8 +2162,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 throw new ExceptionBuilder()
                     .withKeyword(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, INDIVIDUAL, DATATYPE,
                         ANNOTATION_PROPERTY, IMPORT, VALUE_PARTITION, PREFIX, EQUIVALENT_CLASSES,
-                        DISJOINT_CLASSES,
-                        DISJOINT_PROPERTIES, DIFFERENT_INDIVIDUALS, SAME_INDIVIDUAL).build();
+                        DISJOINT_CLASSES, DISJOINT_PROPERTIES, DIFFERENT_INDIVIDUALS, SAME_INDIVIDUAL).build();
             }
         }
         List<OWLOntologyChange> changes = new ArrayList<>(axioms.size());

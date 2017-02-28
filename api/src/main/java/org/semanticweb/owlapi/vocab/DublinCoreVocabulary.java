@@ -27,51 +27,22 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
-    /**
-     * http://purl.org/dc/elements/1.1/contributor.
-     */CONTRIBUTOR("contributor"),
-    /**
-     * http://purl.org/dc/elements/1.1/coverage.
-     */COVERAGE("coverage"),
-    /**
-     * http://purl.org/dc/elements/1.1/creator.
-     */CREATOR("creator"),
-    /**
-     * http://purl.org/dc/elements/1.1/date.
-     */DATE("date"),
-    /**
-     * http://purl.org/dc/elements/1.1/description.
-     */DESCRIPTION("description"),
-    /**
-     * http://purl.org/dc/elements/1.1/format.
-     */FORMAT("format"),
-    /**
-     * http://purl.org/dc/elements/1.1/identifier.
-     */IDENTIFIER("identifier"),
-    /**
-     * http://purl.org/dc/elements/1.1/language.
-     */LANGUAGE("language"),
-    /**
-     * http://purl.org/dc/elements/1.1/publisher.
-     */PUBLISHER("publisher"),
-    /**
-     * http://purl.org/dc/elements/1.1/relation.
-     */RELATION("relation"),
-    /**
-     * http://purl.org/dc/elements/1.1/rights.
-     */RIGHTS("rights"),
-    /**
-     * http://purl.org/dc/elements/1.1/source.
-     */SOURCE("source"),
-    /**
-     * http://purl.org/dc/elements/1.1/subject.
-     */SUBJECT("subject"),
-    /**
-     * http://purl.org/dc/elements/1.1/title.
-     */TITLE("title"),
-    /**
-     * http://purl.org/dc/elements/1.1/type.
-     */TYPE("type");
+    /** http://purl.org/dc/elements/1.1/contributor. */ CONTRIBUTOR("contributor"),
+    /** http://purl.org/dc/elements/1.1/coverage. */    COVERAGE   ("coverage"   ),
+    /** http://purl.org/dc/elements/1.1/creator. */     CREATOR    ("creator"    ),
+    /** http://purl.org/dc/elements/1.1/date. */        DATE       ("date"       ),
+    /** http://purl.org/dc/elements/1.1/description. */ DESCRIPTION("description"),
+    /** http://purl.org/dc/elements/1.1/format. */      FORMAT     ("format"     ),
+    /** http://purl.org/dc/elements/1.1/identifier. */  IDENTIFIER ("identifier" ),
+    /** http://purl.org/dc/elements/1.1/language. */    LANGUAGE   ("language"   ),
+    /** http://purl.org/dc/elements/1.1/publisher. */   PUBLISHER  ("publisher"  ),
+    /** http://purl.org/dc/elements/1.1/relation. */    RELATION   ("relation"   ),
+    /** http://purl.org/dc/elements/1.1/rights. */      RIGHTS     ("rights"     ),
+    /** http://purl.org/dc/elements/1.1/source. */      SOURCE     ("source"     ),
+    /** http://purl.org/dc/elements/1.1/subject. */     SUBJECT    ("subject"    ),
+    /** http://purl.org/dc/elements/1.1/title. */       TITLE      ("title"      ),
+    /** http://purl.org/dc/elements/1.1/type. */        TYPE       ("type"       );
+    //@formatter:on
     /**
      * Dublin Core name space.
      */
@@ -80,7 +51,6 @@ public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedNam
      * All IRIs.
      */
     public static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(x -> x.getIRI()));
-    //@formatter:on
     private final String shortName;
     private final String qname;
     private final IRI iri;

@@ -26,163 +26,64 @@ import org.semanticweb.owlapi.model.IRI;
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
-    /**
-     * The OWL 2 namespace.
-     */OWL2("owl2", "http://www.w3.org/2006/12/owl2#", Status.LEGACY),
-    /**
-     * Status.LEGACY.
-     */OWL11XML("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", Status.LEGACY),
-    /**
-     * The OWL 1.1 namespace.
-     */OWL11("owl11", "http://www.w3.org/2006/12/owl11#", Status.LEGACY),
-    /**
-     * The OWL namespace.
-     */OWL("owl", "http://www.w3.org/2002/07/owl#", IN_USE),
-    /**
-     * The RDFS namespace.
-     */RDFS("rdfs", "http://www.w3.org/2000/01/rdf-schema#", IN_USE),
-    /**
-     * The RDF namespace.
-     */RDF("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE),
-    /**
-     * The XSD namespace.
-     */XSD("xsd", "http://www.w3.org/2001/XMLSchema#", IN_USE),
-    /**
-     * The XML namespace.
-     */XML("xml", "http://www.w3.org/XML/1998/namespace"),
-    /**
-     * The SWRL namespace.
-     */SWRL("swrl", "http://www.w3.org/2003/11/swrl#"),
-    /**
-     * The SWRLB namespace.
-     */SWRLB("swrlb", "http://www.w3.org/2003/11/swrlb#"),
-    /**
-     * The SKOS namespace.
-     */SKOS("skos", "http://www.w3.org/2004/02/skos/core#"),
+    /** The OWL 2 namespace. */    OWL2        ("owl2",     "http://www.w3.org/2006/12/owl2#",      Status.LEGACY),
+    /** Status.LEGACY. */          OWL11XML    ("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", Status.LEGACY),
+    /** The OWL 1.1 namespace. */  OWL11       ("owl11",    "http://www.w3.org/2006/12/owl11#",     Status.LEGACY),
+    /**The OWL namespace. */       OWL         ("owl",      "http://www.w3.org/2002/07/owl#", IN_USE),
+    /**The RDFS namespace. */      RDFS        ("rdfs",     "http://www.w3.org/2000/01/rdf-schema#", IN_USE),
+    /** The RDF namespace. */      RDF         ("rdf",      "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE),
+    /** The XSD namespace. */      XSD         ("xsd",      "http://www.w3.org/2001/XMLSchema#",           IN_USE),
+    /** The XML namespace. */      XML         ("xml",      "http://www.w3.org/XML/1998/namespace"),
+    /** The SWRL namespace. */     SWRL        ("swrl",     "http://www.w3.org/2003/11/swrl#"),
+    /** The SWRLB namespace. */    SWRLB       ("swrlb",    "http://www.w3.org/2003/11/swrlb#"),
+    /** The SKOS namespace. */     SKOS        ("skos",     "http://www.w3.org/2004/02/skos/core#"),
 
     // Further namespaces from the RDFa Core Initial Context
     // http://www.w3.org/2011/rdfa-context/rdfa-1.1
-    /**
-     * The GRDDL namespace.
-     */GRDDL("grddl", "http://www.w3.org/2003/g/data-view#"),
-    /**
-     * The MA namespace.
-     */MA("ma", "http://www.w3.org/ns/ma-ont#"),
-    /**
-     * The PROV namespace.
-     */PROV("prov", "http://www.w3.org/ns/prov#"),
-    /**
-     * The RDFA namespace.
-     */RDFA("rdfa", "http://www.w3.org/ns/rdfa#"),
-    /**
-     * The RIF namespace.
-     */RIF("rif", "http://www.w3.org/2007/rif#"),
-    /**
-     * The R2RML namespace.
-     */R2RML("rr", "http://www.w3.org/ns/r2rml#"),
-    /**
-     * The SD namespace.
-     */SD("sd", "http://www.w3.org/ns/sparql-service-description#"),
-    /**
-     * The SKOSXL namespace.
-     */SKOSXL("skosxl", "http://www.w3.org/2008/05/skos-xl#"),
-    /**
-     * The POWDER namespace.
-     */POWDER("wdr", "http://www.w3.org/2007/05/powder#"),
-    /**
-     * The VOID namespace.
-     */VOID("void", "http://rdfs.org/ns/void#"),
-    /**
-     * The POWDERS namespace.
-     */POWDERS("wdrs", "http://www.w3.org/2007/05/powder-s#"),
-    /**
-     * The XHV namespace.
-     */XHV("xhv", "http://www.w3.org/1999/xhtml/vocab#"),
-    /**
-     * The ORG namespace.
-     */ORG("org", "http://www.w3.org/ns/org#"),
-    /**
-     * The GLDP namespace.
-     */GLDP("gldp", "http://www.w3.org/ns/people#"),
-    /**
-     * The CNT namespace.
-     */CNT("cnt", "http://www.w3.org/2008/content#"),
-    /**
-     * The DCAT namespace.
-     */DCAT("dcat", "http://www.w3.org/ns/dcat#"),
-    /**
-     * The EARL namespace.
-     */EARL("earl", "http://www.w3.org/ns/earl#"),
-    /**
-     * The HT namespace.
-     */HT("ht", "http://www.w3.org/2006/http#"),
-    /**
-     * The PTR namespace.
-     */PTR("ptr", "http://www.w3.org/2009/pointers#"),
+    /** The GRDDL namespace. */    GRDDL       ("grddl",    "http://www.w3.org/2003/g/data-view#"),
+    /** The MA namespace. */       MA          ("ma",       "http://www.w3.org/ns/ma-ont#"),
+    /** The PROV namespace. */     PROV        ("prov",     "http://www.w3.org/ns/prov#"),
+    /** The RDFA namespace. */     RDFA        ("rdfa",     "http://www.w3.org/ns/rdfa#"),
+    /** The RIF namespace. */      RIF         ("rif",      "http://www.w3.org/2007/rif#"),
+    /** The R2RML namespace. */    R2RML       ("rr",       "http://www.w3.org/ns/r2rml#"),
+    /** The SD namespace. */       SD          ("sd",       "http://www.w3.org/ns/sparql-service-description#"),
+    /** The SKOSXL namespace. */   SKOSXL      ("skosxl",   "http://www.w3.org/2008/05/skos-xl#"),
+    /** The POWDER namespace. */   POWDER      ("wdr",      "http://www.w3.org/2007/05/powder#"),
+    /** The VOID namespace. */     VOID        ("void",     "http://rdfs.org/ns/void#"),
+    /** The POWDERS namespace. */  POWDERS     ("wdrs",     "http://www.w3.org/2007/05/powder-s#"),
+    /** The XHV namespace. */      XHV         ("xhv",      "http://www.w3.org/1999/xhtml/vocab#"),
+    /** The ORG namespace. */      ORG         ("org",      "http://www.w3.org/ns/org#"),
+    /** The GLDP namespace. */     GLDP        ("gldp",     "http://www.w3.org/ns/people#"),
+    /** The CNT namespace. */      CNT         ("cnt",      "http://www.w3.org/2008/content#"),
+    /** The DCAT namespace. */     DCAT        ("dcat",     "http://www.w3.org/ns/dcat#"),
+    /** The EARL namespace. */     EARL        ("earl",     "http://www.w3.org/ns/earl#"),
+    /** The HT namespace. */       HT          ("ht",       "http://www.w3.org/2006/http#"),
+    /** The PTR namespace. */      PTR         ("ptr",      "http://www.w3.org/2009/pointers#"),
 
     // Other widely used Semantic Web prefixes
-    /**
-     * The CC namespace.
-     */CC("cc", "http://creativecommons.org/ns#"),
-    /**
-     * The CTAG namespace.
-     */CTAG("ctag", "http://commontag.org/ns#"),
-    /**
-     * The DCTERMS namespace.
-     */DCTERMS("dcterms", "http://purl.org/dc/terms/"),
-    /**
-     * The DC namespace.
-     */DC("dc", "http://purl.org/dc/elements/1.1/"),
-    /**
-     * The FOAF namespace.
-     */FOAF("foaf", "http://xmlns.com/foaf/0.1/"),
-    /**
-     * The GR namespace.
-     */GR("gr", "http://purl.org/goodrelations/v1#"),
-    /**
-     * The ICAL namespace.
-     */ICAL("ical", "http://www.w3.org/2002/12/cal/icaltzd#"),
-    /**
-     * The OG namespace.
-     */OG("og", "http://ogp.me/ns#"),
-    /**
-     * The REV namespace.
-     */REV("rev", "http://purl.org/stuff/rev#"),
-    /**
-     * The SIOC namespace.
-     */SIOC("sioc", "http://rdfs.org/sioc/ns#"),
-    /**
-     * The VCARD namespace.
-     */VCARD("vcard", "http://www.w3.org/2006/vcard/ns#"),
-    /**
-     * The SCHEMA namespace.
-     */SCHEMA("schema", "http://schema.org/"),
-    /**
-     * The GEO namespace.
-     */GEO("geo", "http://www.w3.org/2003/01/geo/wgs84_pos#"),
-    /**
-     * The SC namespace.
-     */SC("sc", "http://purl.org/science/owl/sciencecommons/"),
-    /**
-     * The FB namespace.
-     */FB("fb", "http://rdf.freebase.com/ns/", Status.LEGACY),
-    /**
-     * The GEONAMES namespace.
-     */GEONAMES("geonames", "http://www.geonames.org/ontology#", Status.LEGACY),
+    /** The CC namespace. */       CC          ("cc",       "http://creativecommons.org/ns#"),
+    /** The CTAG namespace. */     CTAG        ("ctag",     "http://commontag.org/ns#"),
+    /** The DCTERMS namespace. */  DCTERMS     ("dcterms",  "http://purl.org/dc/terms/"),
+    /** The DC namespace. */       DC          ("dc",       "http://purl.org/dc/elements/1.1/"),
+    /** The FOAF namespace. */     FOAF        ("foaf",     "http://xmlns.com/foaf/0.1/"),
+    /** The GR namespace. */       GR          ("gr",       "http://purl.org/goodrelations/v1#"),
+    /** The ICAL namespace. */     ICAL        ("ical",     "http://www.w3.org/2002/12/cal/icaltzd#"),
+    /** The OG namespace. */       OG          ("og",       "http://ogp.me/ns#"),
+    /** The REV namespace. */      REV         ("rev",      "http://purl.org/stuff/rev#"),
+    /** The SIOC namespace. */     SIOC        ("sioc",     "http://rdfs.org/sioc/ns#"),
+    /** The VCARD namespace. */    VCARD       ("vcard",    "http://www.w3.org/2006/vcard/ns#"),
+    /** The SCHEMA namespace. */   SCHEMA      ("schema",   "http://schema.org/"),
+    /** The GEO namespace. */      GEO         ("geo",      "http://www.w3.org/2003/01/geo/wgs84_pos#"),
+    /** The SC namespace. */       SC          ("sc",       "http://purl.org/science/owl/sciencecommons/"),
+    /** The FB namespace. */       FB          ("fb",       "http://rdf.freebase.com/ns/",                 Status.LEGACY),
+    /** The GEONAMES namespace. */ GEONAMES    ("geonames", "http://www.geonames.org/ontology#",           Status.LEGACY),
 
     // DBpedia
-    /**
-     * The DBPEDIA namespace.
-     */DBPEDIA("dbpedia", "http://dbpedia.org/resource/"),
-    /**
-     * The DBP namespace.
-     */DBP("dbp", "http://dbpedia.org/property/"),
-    /**
-     * The DBO namespace.
-     */DBO("dbo", "http://dbpedia.org/ontology/"),
-    /**
-     * The YAGO namespace.
-     */YAGO("yago", "http://dbpedia.org/class/yago/");
+    /** The DBPEDIA namespace. */  DBPEDIA     ("dbpedia", "http://dbpedia.org/resource/"),
+    /** The DBP namespace. */      DBP         ("dbp",     "http://dbpedia.org/property/"),
+    /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
+    /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
+    //@formatter:on
     /**
      * Ignored imports.
      */
@@ -191,7 +92,6 @@ public enum Namespaces {
     final Status status;
     final BuiltIn builtIn;
     final String hashless;
-    //@formatter:on
     private final String prefix;
     private final String ns;
 

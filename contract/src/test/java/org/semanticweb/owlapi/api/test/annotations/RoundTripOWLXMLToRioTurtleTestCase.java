@@ -50,22 +50,18 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
         "        <Annotation>\n" +
         "            <Annotation>\n" +
         "                <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" +
-        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for one</Literal>\n"
-        +
+        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for one</Literal>\n" + 
         "            </Annotation>\n" +
         "            <AnnotationProperty abbreviatedIRI=\"rdfs:label\"/>\n" +
-        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">one</Literal>\n"
-        +
+        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">one</Literal>\n" + 
         "        </Annotation>\n" +
         "        <Annotation>\n" +
         "            <Annotation>\n" +
         "                <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" +
-        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for two</Literal>\n"
-        +
+        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for two</Literal>\n" + 
         "            </Annotation>\n" +
         "            <AnnotationProperty abbreviatedIRI=\"rdfs:label\"/>\n" +
-        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">two</Literal>\n"
-        +
+        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">two</Literal>\n" + 
         "        </Annotation>\n" +
         "        <ObjectProperty IRI=\"#r\"/>\n" +
         "        <NamedIndividual IRI=\"#a\"/>\n" +
@@ -75,12 +71,10 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
         "        <Annotation>\n" +
         "            <Annotation>\n" +
         "                <AnnotationProperty abbreviatedIRI=\"rdfs:commment\"/>\n" +
-        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for three</Literal>\n"
-        +
+        "                <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">comment for three</Literal>\n" + 
         "            </Annotation>\n" +
         "            <AnnotationProperty abbreviatedIRI=\"rdfs:label\"/>\n" +
-        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">three</Literal>\n"
-        +
+        "            <Literal datatypeIRI=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">three</Literal>\n" + 
         "        </Annotation>\n" +
         "        <ObjectProperty IRI=\"#r\"/>\n" +
         "        <NamedIndividual IRI=\"#b\"/>\n" +
@@ -138,7 +132,6 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
         StringDocumentTarget target2 = new StringDocumentTarget();
         ontology.saveOntology(new RioTurtleDocumentFormat(), target2);
         assertEquals(target1.toString().replaceAll("_:genid[0-9]+", "_:genid"),
-            target2.toString().replaceAll(
-                "_:genid[0-9]+", "_:genid"));
+            target2.toString().replaceAll("_:genid[0-9]+", "_:genid"));
     }
 }

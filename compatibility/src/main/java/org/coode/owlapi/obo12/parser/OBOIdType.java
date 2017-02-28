@@ -42,7 +42,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
@@ -52,38 +54,27 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012
  * <p>
- * Describes the types of OBO IDs that can be found in OBO Files. Taken from
- * Section 2.5 of the OBO Syntax and Semantics Specification.
+ * Describes the types of OBO IDs that can be found in OBO Files. Taken from Section 2.5 of the OBO
+ * Syntax and Semantics Specification.
  * </p>
  */
+interface OBOIDConstants {
+    public static final Pattern CANONICAL_PREFIXED_ID_PATTERN =
+                    Pattern.compile("([A-Za-z][A-Za-z_]*):([0-9]*)");
+    public static final Pattern NON_CANONICAL_PREFIXED_ID_ID_PATTERN =
+                    Pattern.compile("([^\\s:]*):([^\\s]*)");
+    public static final Pattern URL_AS_ID_PATTERN = Pattern.compile("(http:|https:)[^\\s]*");
+    public static final Pattern UNPREFIXED_ID_PATTERN = Pattern.compile("[^\\s:]*");
+}
+
+
 @SuppressWarnings("all")
-enum OBOIdType {
+enum OBOIdType implements OBOIDConstants {
     //@formatter:off
-    /**
-     * Any string with an http: or https: prefix.
-     */
-    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"),
-        (ontologyID, idSpaceManager, id) -> IRI.create(id)), /**
-     * Any
-     * unprefixed
-     * ID.
-     * Does
-     * not
-     * contain
-     * a
-     * colon
-     * character.
-     * The
-     * spec
-     * implies
-     * the
-     * empty
-     * string
-     * matches
-     * this
-     * ID.
-     */
-    UNPREFIXED_ID(Pattern.compile("[^\\s:]*"), (ontologyID, idSpaceManager, id) -> {
+    /** Any string with an http: or https: prefix. */
+    URL_AS_ID(URL_AS_ID_PATTERN, (ontologyID, idSpaceManager, id) -> IRI.create(id)),
+    /** Any unprefixed ID. Does not contain a colon character. The spec implies the empty string matches this ID. */
+    UNPREFIXED_ID(UNPREFIXED_ID_PATTERN, (ontologyID, idSpaceManager, id) -> {
             String ns;
             if (!ontologyID.isAnonymous()) {
                 ns = ontologyID.getOntologyIRI() + "#";
@@ -97,37 +88,28 @@ enum OBOIdType {
      * consist of Alpha-Chars and possibly an underscore. The local id must
      * only consist of digits (possibly none).
      */
-    CANONICAL_PREFIXED_ID(Pattern.compile("([A-Za-z][A-Za-z_]*):([0-9]*)"), new OBOIIdTranslator() {
-
-        @Override
-        public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
-            String id) {
-            Matcher matcher = CANONICAL_PREFIXED_ID.getPattern().matcher(id);
-            matcher.matches();
-            String idspace = matcher.group(1);
-            String localid = matcher.group(2);
-            String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
-            return IRI.create(iriPrefix, idspace + "_" + localid);
-        }
+    CANONICAL_PREFIXED_ID(CANONICAL_PREFIXED_ID_PATTERN, (ontologyID, idSpaceManager, id) -> {
+        Matcher matcher = CANONICAL_PREFIXED_ID_PATTERN.matcher(id);
+        matcher.matches();
+        String idspace = matcher.group(1);
+        String localid = matcher.group(2);
+        String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
+        return IRI.create(iriPrefix, idspace + "_" + localid);
     }),
     /**
      * Must contain a colon character somewhere in the ID. Any kind of
      * prefix plus a local Id. The prefix doesn't contain a colon character.
      */
-    NON_CANONICAL_PREFIXED_ID(Pattern.compile("([^\\s:]*):([^\\s]*)"), new OBOIIdTranslator() {
-
-        @Override
-        public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
-            String id) {
-            Matcher matcher = NON_CANONICAL_PREFIXED_ID.getPattern().matcher(id);
-            matcher.matches();
-            String idspace = matcher.group(1);
-            String localid = matcher.group(2);
-            String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
-            return IRI.create(iriPrefix + idspace + "#", "_" + localid);
-        }
+    NON_CANONICAL_PREFIXED_ID(NON_CANONICAL_PREFIXED_ID_ID_PATTERN, (ontologyID, idSpaceManager, id) -> {
+        Matcher matcher = NON_CANONICAL_PREFIXED_ID_ID_PATTERN.matcher(id);
+        matcher.matches();
+        String idspace = matcher.group(1);
+        String localid = matcher.group(2);
+        String iriPrefix = idSpaceManager.getIRIPrefix(idspace);
+        return IRI.create(iriPrefix + idspace + "#", "_" + localid);
     });
     //@formatter:on
+
     private Pattern pattern;
     private OBOIIdTranslator translator;
 
@@ -141,10 +123,9 @@ enum OBOIdType {
      *
      * @param oboId The OBO ID. Must not be null.
      * @return The OBOIdType for the specified oboId, or <code>null</code> if the specified oboId
-     * does not conform to any OBO Id type.
+     *         does not conform to any OBO Id type.
      */
-    public static @Nullable
-    OBOIdType getIdType(String oboId) {
+    public static @Nullable OBOIdType getIdType(String oboId) {
         checkNotNull(oboId, "oboId must not be null");
         for (OBOIdType idType : values()) {
             Pattern pattern = idType.getPattern();
@@ -167,7 +148,7 @@ enum OBOIdType {
      * @return the translated iri
      */
     public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
-        String oboId) {
+                    String oboId) {
         return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);
     }
 

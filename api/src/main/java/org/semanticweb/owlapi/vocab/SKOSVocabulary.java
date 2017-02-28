@@ -38,125 +38,51 @@ import org.semanticweb.owlapi.model.providers.AnnotationPropertyProvider;
  */
 public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
-    /**
-     * BROADMATCH.
-     */BROADMATCH("broadMatch", OBJECT_PROPERTY),
-    /**
-     * BROADER.
-     */BROADER("broader", OBJECT_PROPERTY),
-    /**
-     * BROADERTRANSITIVE.
-     */BROADERTRANSITIVE("broaderTransitive", OBJECT_PROPERTY),
-    /**
-     * CLOSEMATCH.
-     */CLOSEMATCH("closeMatch", OBJECT_PROPERTY),
-    /**
-     * EXACTMATCH.
-     */EXACTMATCH("exactMatch", OBJECT_PROPERTY),
-    /**
-     * HASTOPCONCEPT.
-     */HASTOPCONCEPT("hasTopConcept", OBJECT_PROPERTY),
-    /**
-     * INSCHEME.
-     */INSCHEME("inScheme", OBJECT_PROPERTY),
-    /**
-     * MAPPINGRELATION.
-     */MAPPINGRELATION("mappingRelation", OBJECT_PROPERTY),
-    /**
-     * MEMBER.
-     */MEMBER("member", OBJECT_PROPERTY),
-    /**
-     * MEMBERLIST.
-     */MEMBERLIST("memberList", OBJECT_PROPERTY),
-    /**
-     * NARROWMATCH.
-     */NARROWMATCH("narrowMatch", OBJECT_PROPERTY),
-    /**
-     * NARROWER.
-     */NARROWER("narrower", OBJECT_PROPERTY),
-    /**
-     * NARROWTRANSITIVE.
-     */NARROWTRANSITIVE("narrowTransitive", OBJECT_PROPERTY),
-    /**
-     * RELATED.
-     */RELATED("related", OBJECT_PROPERTY),
-    /**
-     * RELATEDMATCH.
-     */RELATEDMATCH("relatedMatch", OBJECT_PROPERTY),
-    /**
-     * SEMANTICRELATION.
-     */SEMANTICRELATION("semanticRelation", OBJECT_PROPERTY),
-    /**
-     * TOPCONCEPTOF.
-     */TOPCONCEPTOF("topConceptOf", OBJECT_PROPERTY),
-    /**
-     * COLLECTION.
-     */COLLECTION("Collection", CLASS),
-    /**
-     * CONCEPT.
-     */CONCEPT("Concept", CLASS),
-    /**
-     * CONCEPTSCHEME.
-     */CONCEPTSCHEME("ConceptScheme", CLASS),
-    /**
-     * ORDEREDCOLLECTION.
-     */ORDEREDCOLLECTION("OrderedCollection", CLASS),
-    /**
-     * TOPCONCEPT.
-     */TOPCONCEPT("TopConcept", CLASS),
-    /**
-     * ALTLABEL.
-     */ALTLABEL("altLabel", ANNOTATION_PROPERTY),
-    /**
-     * CHANGENOTE.
-     */CHANGENOTE("changeNote", ANNOTATION_PROPERTY),
-    /**
-     * DEFINITION.
-     */DEFINITION("definition", ANNOTATION_PROPERTY),
-    /**
-     * EDITORIALNOTE.
-     */EDITORIALNOTE("editorialNote", ANNOTATION_PROPERTY),
-    /**
-     * EXAMPLE.
-     */EXAMPLE("example", ANNOTATION_PROPERTY),
-    /**
-     * HIDDENLABEL.
-     */HIDDENLABEL("hiddenLabel", ANNOTATION_PROPERTY),
-    /**
-     * HISTORYNOTE.
-     */HISTORYNOTE("historyNote", ANNOTATION_PROPERTY),
-    /**
-     * NOTE.
-     */NOTE("note", ANNOTATION_PROPERTY),
-    /**
-     * PREFLABEL.
-     */PREFLABEL("prefLabel", ANNOTATION_PROPERTY),
-    /**
-     * SCOPENOTE.
-     */SCOPENOTE("scopeNote", ANNOTATION_PROPERTY),
-    /**
-     * @deprecated No longer used
-     */
+    /** BROADMATCH.       */  BROADMATCH          ("broadMatch",          OBJECT_PROPERTY), 
+    /** BROADER.          */  BROADER             ("broader",             OBJECT_PROPERTY), 
+    /** BROADERTRANSITIVE.*/  BROADERTRANSITIVE   ("broaderTransitive",   OBJECT_PROPERTY), 
+    /** CLOSEMATCH.       */  CLOSEMATCH          ("closeMatch",          OBJECT_PROPERTY), 
+    /** EXACTMATCH.       */  EXACTMATCH          ("exactMatch",          OBJECT_PROPERTY), 
+    /** HASTOPCONCEPT.    */  HASTOPCONCEPT       ("hasTopConcept",       OBJECT_PROPERTY), 
+    /** INSCHEME.         */  INSCHEME            ("inScheme",            OBJECT_PROPERTY), 
+    /** MAPPINGRELATION.  */  MAPPINGRELATION     ("mappingRelation",     OBJECT_PROPERTY), 
+    /** MEMBER.           */  MEMBER              ("member",              OBJECT_PROPERTY), 
+    /** MEMBERLIST.       */  MEMBERLIST          ("memberList",          OBJECT_PROPERTY), 
+    /** NARROWMATCH.      */  NARROWMATCH         ("narrowMatch",         OBJECT_PROPERTY), 
+    /** NARROWER.         */  NARROWER            ("narrower",            OBJECT_PROPERTY), 
+    /** NARROWTRANSITIVE. */  NARROWTRANSITIVE    ("narrowTransitive",    OBJECT_PROPERTY), 
+    /** RELATED.          */  RELATED             ("related",             OBJECT_PROPERTY), 
+    /** RELATEDMATCH.     */  RELATEDMATCH        ("relatedMatch",        OBJECT_PROPERTY), 
+    /** SEMANTICRELATION. */  SEMANTICRELATION    ("semanticRelation",    OBJECT_PROPERTY), 
+    /** TOPCONCEPTOF.     */  TOPCONCEPTOF        ("topConceptOf",        OBJECT_PROPERTY), 
+    /** COLLECTION.       */  COLLECTION          ("Collection",          CLASS), 
+    /** CONCEPT.          */  CONCEPT             ("Concept",             CLASS), 
+    /** CONCEPTSCHEME.    */  CONCEPTSCHEME       ("ConceptScheme",       CLASS), 
+    /** ORDEREDCOLLECTION.*/  ORDEREDCOLLECTION   ("OrderedCollection",   CLASS), 
+    /** TOPCONCEPT.       */  TOPCONCEPT          ("TopConcept",          CLASS), 
+    /** ALTLABEL.         */  ALTLABEL            ("altLabel",            ANNOTATION_PROPERTY), 
+    /** CHANGENOTE.       */  CHANGENOTE          ("changeNote",          ANNOTATION_PROPERTY), 
+    /** DEFINITION.       */  DEFINITION          ("definition",          ANNOTATION_PROPERTY), 
+    /** EDITORIALNOTE.    */  EDITORIALNOTE       ("editorialNote",       ANNOTATION_PROPERTY), 
+    /** EXAMPLE.          */  EXAMPLE             ("example",             ANNOTATION_PROPERTY), 
+    /** HIDDENLABEL.      */  HIDDENLABEL         ("hiddenLabel",         ANNOTATION_PROPERTY), 
+    /** HISTORYNOTE.      */  HISTORYNOTE         ("historyNote",         ANNOTATION_PROPERTY), 
+    /** NOTE.             */  NOTE                ("note",                ANNOTATION_PROPERTY), 
+    /** PREFLABEL.        */  PREFLABEL           ("prefLabel",           ANNOTATION_PROPERTY), 
+    /** SCOPENOTE.        */  SCOPENOTE           ("scopeNote",           ANNOTATION_PROPERTY),
+    /** @deprecated No longer used */
     @Deprecated
     DOCUMENT("Document", CLASS),
-    /**
-     * @deprecated No longer used
-     */
+    /** @deprecated No longer used */
     @Deprecated
     IMAGE("Image", CLASS),
-    /**
-     * @deprecated No longer used
-     */
+    /** @deprecated No longer used */
     @Deprecated
     COLLECTABLEPROPERTY("CollectableProperty", ANNOTATION_PROPERTY),
-    /**
-     * @deprecated No longer used
-     */
+    /** @deprecated No longer used */
     @Deprecated
     RESOURCE("Resource", CLASS),
-    /**
-     * @deprecated No longer used
-     */
+    /** @deprecated No longer used */
     @Deprecated
     COMMENT("comment", ANNOTATION_PROPERTY);
 //@formatter:on

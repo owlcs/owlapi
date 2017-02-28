@@ -23,66 +23,26 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
-    /**
-     * IMP.
-     */IMP("Imp"),
-    /**
-     * INDIVIDUAL_PROPERTY_ATOM.
-     */INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"),
-    /**
-     * DATAVALUED_PROPERTY_ATOM.
-     */DATAVALUED_PROPERTY_ATOM("DatavaluedPropertyAtom"),
-    /**
-     * CLASS_ATOM.
-     */CLASS_ATOM("ClassAtom"),
-    /**
-     * DATA_RANGE_ATOM.
-     */DATA_RANGE_ATOM("DataRangeAtom"),
-    /**
-     * VARIABLE.
-     */VARIABLE("Variable"),
-    /**
-     * ATOM_LIST.
-     */ATOM_LIST("AtomList"),
-    /**
-     * SAME_INDIVIDUAL_ATOM.
-     */SAME_INDIVIDUAL_ATOM("SameIndividualAtom"),
-    /**
-     * DIFFERENT_INDIVIDUALS_ATOM.
-     */DIFFERENT_INDIVIDUALS_ATOM("DifferentIndividualsAtom"),
-    /**
-     * BUILT_IN_ATOM.
-     */BUILT_IN_ATOM("BuiltinAtom"),
-    /**
-     * HEAD.
-     */HEAD("head"),
-    /**
-     * BODY.
-     */BODY("body"),
-    /**
-     * CLASS_PREDICATE.
-     */CLASS_PREDICATE("classPredicate"),
-    /**
-     * DATA_RANGE.
-     */DATA_RANGE("dataRange"),
-    /**
-     * PROPERTY_PREDICATE.
-     */PROPERTY_PREDICATE("propertyPredicate"),
-    /**
-     * BUILT_IN.
-     */BUILT_IN("builtin"),
-    /**
-     * BUILT_IN_CLASS.
-     */BUILT_IN_CLASS("Builtin"),
-    /**
-     * ARGUMENTS.
-     */ARGUMENTS("arguments"),
-    /**
-     * ARGUMENT_1.
-     */ARGUMENT_1("argument1"),
-    /**
-     * ARGUMENT_2.
-     */ARGUMENT_2("argument2");
+    /** IMP. */                          IMP                     ("Imp"), 
+    /** INDIVIDUAL_PROPERTY_ATOM. */     INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"), 
+    /** DATAVALUED_PROPERTY_ATOM. */     DATAVALUED_PROPERTY_ATOM("DatavaluedPropertyAtom"), 
+    /** CLASS_ATOM. */                   CLASS_ATOM              ("ClassAtom"), 
+    /** DATA_RANGE_ATOM. */              DATA_RANGE_ATOM         ("DataRangeAtom"), 
+    /** VARIABLE. */                     VARIABLE                ("Variable"), 
+    /** ATOM_LIST. */                    ATOM_LIST               ("AtomList"), 
+    /** SAME_INDIVIDUAL_ATOM. */         SAME_INDIVIDUAL_ATOM    ("SameIndividualAtom"), 
+    /** DIFFERENT_INDIVIDUALS_ATOM. */   DIFFERENT_INDIVIDUALS_ATOM("DifferentIndividualsAtom"), 
+    /** BUILT_IN_ATOM. */                BUILT_IN_ATOM           ("BuiltinAtom"), 
+    /** HEAD. */                         HEAD                    ("head"), 
+    /** BODY. */                         BODY                    ("body"), 
+    /** CLASS_PREDICATE. */              CLASS_PREDICATE         ("classPredicate"), 
+    /** DATA_RANGE. */                   DATA_RANGE              ("dataRange"), 
+    /** PROPERTY_PREDICATE. */           PROPERTY_PREDICATE      ("propertyPredicate"), 
+    /** BUILT_IN. */                     BUILT_IN                ("builtin"), 
+    /** BUILT_IN_CLASS. */               BUILT_IN_CLASS          ("Builtin"), 
+    /** ARGUMENTS. */                    ARGUMENTS               ("arguments"), 
+    /** ARGUMENT_1. */                   ARGUMENT_1              ("argument1"), 
+    /** ARGUMENT_2. */                   ARGUMENT_2              ("argument2");
     //@formatter:on
     private final String shortName;
     private final IRI iri;

@@ -22,116 +22,46 @@ import org.slf4j.LoggerFactory;
  */
 public enum ConfigurationOptions {
     //@formatter:off
-    /**
-     * True if http compression
-     * should be used.
-     */
+    /** True if http compression should be used. */
     ACCEPT_HTTP_COMPRESSION(Boolean.TRUE),
-    /**
-     * Timeout for connections.
-     */
+    /** Timeout for connections. */
     CONNECTION_TIMEOUT(Integer.valueOf(20000)),
-    /**
-     * True if redirects should be
-     * followed across protocols.
-     */
+    /** True if redirects should be followed across protocols. */
     FOLLOW_REDIRECTS(Boolean.TRUE),
-    /**
-     * True if annotations should
-     * be loaded, false if skipped.
-     */
+    /** True if annotations should be loaded, false if skipped. */
     LOAD_ANNOTATIONS(Boolean.TRUE),
-    /**
-     * Missing imports handling
-     * strategy.
-     */
+    /** Missing imports handling strategy. */
     MISSING_IMPORT_HANDLING_STRATEGY(MissingImportHandlingStrategy.THROW_EXCEPTION),
-    /**
-     * Default missing ontology
-     * strategy.
-     */
+    /** Default missing ontology strategy. */
     MISSING_ONTOLOGY_HEADER_STRATEGY(MissingOntologyHeaderStrategy.INCLUDE_GRAPH),
-    /**
-     * Flag to enable stack
-     * traces on parsing exceptions.
-     */
+    /** Flag to enable stack traces on parsing exceptions. */
     REPORT_STACK_TRACES(Boolean.TRUE),
-    /**
-     * Number of retries to
-     * attempt when retrieving an
-     * ontology form a remote URL.
-     * Defaults to 5.
-     */
+    /** Number of retries to attempt when retrieving an ontology form a remote URL. Defaults to 5. */
     RETRIES_TO_ATTEMPT(Integer.valueOf(5)),
-    /**
-     * True if strict parsing
-     * should be used.
-     */
+    /** True if strict parsing should be used. */
     PARSE_WITH_STRICT_CONFIGURATION(Boolean.FALSE),
-    /**
-     * True if Dublin Core.
-     */
+    /** True if Dublin Core. */
     TREAT_DUBLINCORE_AS_BUILTIN(Boolean.TRUE),
-    /**
-     * sort configuration for
-     * priority collections
-     */
+    /** sort configuration for priority collections */
     PRIORITY_COLLECTION_SORTING(PriorityCollectionSorting.ON_SET_INJECTION_ONLY),
     // Save options
-    /**
-     * True if ids for blank
-     * nodes should always be
-     * written (axioms and
-     * anonymous individuals
-     * only).
-     */
+    /** True if ids for blank nodes should always be written (axioms and anonymous individuals only). */
     SAVE_IDS(Boolean.FALSE),
-    /**
-     * True if all anonymous
-     * individuals should have
-     * their ids remapped after
-     * parsing.
-     */
+    /** True if all anonymous individuals should have their ids remapped after parsing. */
     REMAP_IDS(Boolean.TRUE),
-    /**
-     * True if entities should
-     * be used for namespace
-     * abbreviations.
-     */
+    /** True if entities should be used for namespace abbreviations. */
     USE_NAMESPACE_ENTITIES(Boolean.FALSE),
-    /**
-     * True if indenting should
-     * be used when writing out
-     * a file.
-     */
+    /** True if indenting should be used when writing out a file. */
     INDENTING(Boolean.TRUE),
-    /**
-     * Size of indentation
-     * between levels. Only used
-     * if indenting is to true.
-     */
+    /** Size of indentation between levels. Only used if indenting is to true. */
     INDENT_SIZE(Integer.valueOf(4)),
-    /**
-     * True if rdfs:label values
-     * are to be used as banners
-     * in text output.
-     */
+    /** True if rdfs:label values are to be used as banners in text output. */
     LABELS_AS_BANNER(Boolean.FALSE),
-    /**
-     * True if banners for ontology
-     * sections and entity comments
-     * should be outputted.
-     */
+    /** True if banners for ontology sections and entity comments should be outputted. */
     BANNERS_ENABLED(Boolean.FALSE),
-    /**
-     * List of banned
-     * parsers keys.
-     */
+    /** List of banned parsers keys. */
     BANNED_PARSERS(""),
-    /**
-     * Entity expansion limit for
-     * XML parsing.
-     */
+    /** Entity expansion limit for XML parsing. */
     ENTITY_EXPANSION_LIMIT("100000000");
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";

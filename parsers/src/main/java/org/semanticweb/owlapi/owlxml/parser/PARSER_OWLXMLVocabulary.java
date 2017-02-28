@@ -304,337 +304,110 @@ import org.semanticweb.owlapitools.builders.SettableRange;
  */
 enum PARSER_OWLXMLVocabulary implements HasIRI {
 //@formatter:off
-    /**
-     * CLASS.
-     */PARSER_CLASS(CLASS, OWLClassEH::new),
-    /**
-     * DATA_PROPERTY.
-     */PARSER_DATA_PROPERTY(DATA_PROPERTY, DataPropertyEH::new),
-    /**
-     * OBJECT_PROPERTY.
-     */PARSER_OBJECT_PROPERTY(OBJECT_PROPERTY, OWLObjectPropertyEH::new),
-    /**
-     * NAMED_INDIVIDUAL.
-     */PARSER_NAMED_INDIVIDUAL(NAMED_INDIVIDUAL, IndividualEH::new),
-    /**
-     * ENTITY_ANNOTATION.
-     */PARSER_ENTITY_ANNOTATION(ENTITY_ANNOTATION, LegacyEntityAnnEH::new),
-    /**
-     * ANNOTATION_PROPERTY.
-     */PARSER_ANNOTATION_PROPERTY(ANNOTATION_PROPERTY, AnnotationPropEH::new),
-    /**
-     * DATATYPE.
-     */PARSER_DATATYPE(DATATYPE, DatatypeEH::new),
-    /**
-     * ANNOTATION.
-     */PARSER_ANNOTATION(ANNOTATION, AnnEH::new),
-    /**
-     * ANONYMOUS_INDIVIDUAL.
-     */PARSER_ANONYMOUS_INDIVIDUAL(ANONYMOUS_INDIVIDUAL, AnonEH::new),
-    /**
-     * IMPORT.
-     */PARSER_IMPORT(IMPORT, ImportsEH::new),
-    /**
-     * ONTOLOGY.
-     */PARSER_ONTOLOGY(ONTOLOGY, OntologyEH::new),
-    /**
-     * LITERAL.
-     */PARSER_LITERAL(LITERAL, LiteralEH::new),
-    /**
-     * OBJECT_INVERSE_OF.
-     */PARSER_OBJECT_INVERSE_OF(OBJECT_INVERSE_OF, InverseObjectEH::new),
-    /**
-     * DATA_COMPLEMENT_OF.
-     */PARSER_DATA_COMPLEMENT_OF(DATA_COMPLEMENT_OF, DataComplEH::new),
-    /**
-     * DATA_ONE_OF.
-     */PARSER_DATA_ONE_OF(DATA_ONE_OF, DataOneOfEH::new),
-    /**
-     * DATATYPE_RESTRICTION.
-     */PARSER_DATATYPE_RESTRICTION(DATATYPE_RESTRICTION, DatatypeRestrictionEH::new),
-    /**
-     * FACET_RESTRICTION.
-     */PARSER_FACET_RESTRICTION(FACET_RESTRICTION, DatatypeFacetEH::new),
-    /**
-     * DATA_UNION_OF.
-     */PARSER_DATA_UNION_OF(DATA_UNION_OF, DataUnionOfEH::new),
-    /**
-     * DATA_INTERSECTION_OF.
-     */PARSER_DATA_INTERSECTION_OF(DATA_INTERSECTION_OF, DataIntersectionOfEH::new),
-    /**
-     * OBJECT_INTERSECTION_OF.
-     */PARSER_OBJECT_INTERSECTION_OF(OBJECT_INTERSECTION_OF, IntersectionOfEH::new),
-    /**
-     * OBJECT_UNION_OF.
-     */PARSER_OBJECT_UNION_OF(OBJECT_UNION_OF, ObjectUnionOfEH::new),
-    /**
-     * OBJECT_COMPLEMENT_OF.
-     */PARSER_OBJECT_COMPLEMENT_OF(OBJECT_COMPLEMENT_OF, ComplementOfEH::new),
-    /**
-     * OBJECT_ONE_OF.
-     */PARSER_OBJECT_ONE_OF(OBJECT_ONE_OF, OneOfEH::new),
-    /**
-     * OBJECT_SOME_VALUES_FROM.
-     */PARSER_OBJECT_SOME_VALUES_FROM(OBJECT_SOME_VALUES_FROM,
-        () -> new ObjectREH<>(BuilderObjectSomeValuesFrom::new)),
-    /**
-     * OBJECT_ALL_VALUES_FROM.
-     */PARSER_OBJECT_ALL_VALUES_FROM(OBJECT_ALL_VALUES_FROM,
-        () -> new ObjectREH<>(BuilderObjectAllValuesFrom::new)),
-    /**
-     * OBJECT_HAS_SELF.
-     */PARSER_OBJECT_HAS_SELF(OBJECT_HAS_SELF, () -> new ClassEH<>(BuilderObjectHasSelf::new)),
-    /**
-     * OBJECT_HAS_VALUE.
-     */PARSER_OBJECT_HAS_VALUE(OBJECT_HAS_VALUE, HasValueEH::new),
-    /**
-     * OBJECT_MIN_CARDINALITY.
-     */PARSER_OBJECT_MIN_CARDINALITY(OBJECT_MIN_CARDINALITY,
-        () -> new ObjectCardEH<>(BuilderObjectMinCardinality::new)),
-    /**
-     * OBJECT_EXACT_CARDINALITY.
-     */PARSER_OBJECT_EXACT_CARDINALITY(OBJECT_EXACT_CARDINALITY,
-        () -> new ObjectCardEH<>(BuilderObjectExactCardinality::new)),
-    /**
-     * OBJECT_MAX_CARDINALITY.
-     */PARSER_OBJECT_MAX_CARDINALITY(OBJECT_MAX_CARDINALITY,
-        () -> new ObjectCardEH<>(BuilderObjectMaxCardinality::new)),
-    /**
-     * DATA_SOME_VALUES_FROM.
-     */PARSER_DATA_SOME_VALUES_FROM(DATA_SOME_VALUES_FROM,
-        () -> new DataREH<>(BuilderDataSomeValuesFrom::new)),
-    /**
-     * DATA_ALL_VALUES_FROM.
-     */PARSER_DATA_ALL_VALUES_FROM(DATA_ALL_VALUES_FROM,
-        () -> new DataREH<>(BuilderDataAllValuesFrom::new)),
-    /**
-     * DATA_HAS_VALUE.
-     */PARSER_DATA_HAS_VALUE(DATA_HAS_VALUE, DataHasValueEH::new),
-    /**
-     * DATA_MIN_CARDINALITY.
-     */PARSER_DATA_MIN_CARDINALITY(DATA_MIN_CARDINALITY,
-        () -> new DataCardEH<>(BuilderDataMinCardinality::new)),
-    /**
-     * DATA_EXACT_CARDINALITY.
-     */PARSER_DATA_EXACT_CARDINALITY(DATA_EXACT_CARDINALITY,
-        () -> new DataCardEH<>(BuilderDataExactCardinality::new)),
-    /**
-     * DATA_MAX_CARDINALITY.
-     */PARSER_DATA_MAX_CARDINALITY(DATA_MAX_CARDINALITY,
-        () -> new DataCardEH<>(BuilderDataMaxCardinality::new)),
-    /**
-     * SUB_CLASS_OF.
-     */PARSER_SUB_CLASS_OF(SUB_CLASS_OF, SubClassEH::new),
-    /**
-     * EQUIVALENT_CLASSES.
-     */PARSER_EQUIVALENT_CLASSES(EQUIVALENT_CLASSES, EquivalentClassesEH::new),
-    /**
-     * DISJOINT_CLASSES.
-     */PARSER_DISJOINT_CLASSES(DISJOINT_CLASSES, DisjointClassesEH::new),
-    /**
-     * DISJOINT_UNION.
-     */PARSER_DISJOINT_UNION(DISJOINT_UNION, DisjointUnionEH::new),
-    /**
-     * UNION_OF.
-     */PARSER_UNION_OF(UNION_OF, UnionOfEH::new),
-    /**
-     * SUB_OBJECT_PROPERTY_OF.
-     */PARSER_SUB_OBJECT_PROPERTY_OF(SUB_OBJECT_PROPERTY_OF, SubObjectPropertyOfEH::new),
-    /**
-     * OBJECT_PROPERTY_CHAIN.
-     */PARSER_OBJECT_PROPERTY_CHAIN(OBJECT_PROPERTY_CHAIN, ChainEH::new),
-    /**
-     * EQUIVALENT_OBJECT_PROPERTIES.
-     */PARSER_EQUIVALENT_OBJECT_PROPERTIES(EQUIVALENT_OBJECT_PROPERTIES, EqObjectPropertiesEH::new),
-    /**
-     * DISJOINT_OBJECT_PROPERTIES.
-     */PARSER_DISJOINT_OBJECT_PROPERTIES(DISJOINT_OBJECT_PROPERTIES,
-        DisjointObjectPropertiesEH::new),
-    /**
-     * OBJECT_PROPERTY_DOMAIN.
-     */PARSER_OBJECT_PROPERTY_DOMAIN(OBJECT_PROPERTY_DOMAIN, ObjectPropertyDomainEH::new),
-    /**
-     * OBJECT_PROPERTY_RANGE.
-     */PARSER_OBJECT_PROPERTY_RANGE(OBJECT_PROPERTY_RANGE, ObjectPropertyRangeEH::new),
-    /**
-     * INVERSE_OBJECT_PROPERTIES.
-     */PARSER_INVERSE_OBJECT_PROPERTIES(INVERSE_OBJECT_PROPERTIES, InverseObjectAxiomEH::new),
-    /**
-     * FUNCTIONAL_OBJECT_PROPERTY.
-     */PARSER_FUNCTIONAL_OBJECT_PROPERTY(FUNCTIONAL_OBJECT_PROPERTY,
-        () -> new AxiomEH<>(BuilderFunctionalObjectProperty::new)),
-    /**
-     * INVERSE_FUNCTIONAL_OBJECT_PROPERTY.
-     */PARSER_INVERSE_FUNCTIONAL_OBJECT_PROPERTY(INVERSE_FUNCTIONAL_OBJECT_PROPERTY,
-        () -> new AxiomEH<>(BuilderInverseFunctionalObjectProperty::new)),
-    /**
-     * SYMMETRIC_OBJECT_PROPERTY.
-     */PARSER_SYMMETRIC_OBJECT_PROPERTY(SYMMETRIC_OBJECT_PROPERTY,
-        () -> new AxiomEH<>(BuilderSymmetricObjectProperty::new)),
-    /**
-     * ASYMMETRIC_OBJECT_PROPERTY.
-     */PARSER_ASYMMETRIC_OBJECT_PROPERTY(ASYMMETRIC_OBJECT_PROPERTY,
-        () -> new AxiomEH<>(BuilderAsymmetricObjectProperty::new)),
-    /**
-     * REFLEXIVE_OBJECT_PROPERTY.
-     */PARSER_REFLEXIVE_OBJECT_PROPERTY(REFLEXIVE_OBJECT_PROPERTY,
-        () -> new AxiomEH<>(BuilderReflexiveObjectProperty::new)),
-    /**
-     * IRREFLEXIVE_OBJECT_PROPERTY.
-     */PARSER_IRREFLEXIVE_OBJECT_PROPERTY(IRREFLEXIVE_OBJECT_PROPERTY,
-        () -> new AxiomEH<>(BuilderIrreflexiveObjectProperty::new)),
-    /**
-     * TRANSITIVE_OBJECT_PROPERTY.
-     */PARSER_TRANSITIVE_OBJECT_PROPERTY(TRANSITIVE_OBJECT_PROPERTY,
-        () -> new AxiomEH<>(BuilderTransitiveObjectProperty::new)),
-    /**
-     * SUB_DATA_PROPERTY_OF.
-     */PARSER_SUB_DATA_PROPERTY_OF(SUB_DATA_PROPERTY_OF, SubDataPropertyOfEH::new),
-    /**
-     * EQUIVALENT_DATA_PROPERTIES.
-     */PARSER_EQUIVALENT_DATA_PROPERTIES(EQUIVALENT_DATA_PROPERTIES, EqDataPropertiesEH::new),
-    /**
-     * DISJOINT_DATA_PROPERTIES.
-     */PARSER_DISJOINT_DATA_PROPERTIES(DISJOINT_DATA_PROPERTIES, DisjointDataPropertiesEH::new),
-    /**
-     * DATA_PROPERTY_DOMAIN.
-     */PARSER_DATA_PROPERTY_DOMAIN(DATA_PROPERTY_DOMAIN, DataPropertyDomainEH::new),
-    /**
-     * DATA_PROPERTY_RANGE.
-     */PARSER_DATA_PROPERTY_RANGE(DATA_PROPERTY_RANGE, DataPropertyRangeEH::new),
-    /**
-     * FUNCTIONAL_DATA_PROPERTY.
-     */PARSER_FUNCTIONAL_DATA_PROPERTY(FUNCTIONAL_DATA_PROPERTY,
-        () -> new AxiomEH<>(BuilderFunctionalDataProperty::new)),
-    /**
-     * SAME_INDIVIDUAL.
-     */PARSER_SAME_INDIVIDUAL(SAME_INDIVIDUAL, SameIndividualsEH::new),
-    /**
-     * DIFFERENT_INDIVIDUALS.
-     */PARSER_DIFFERENT_INDIVIDUALS(DIFFERENT_INDIVIDUALS, DifferentIndividualsEH::new),
-    /**
-     * CLASS_ASSERTION.
-     */PARSER_CLASS_ASSERTION(CLASS_ASSERTION, ClassAssertAxiomEH::new),
-    /**
-     * OBJECT_PROPERTY_ASSERTION.
-     */PARSER_OBJECT_PROPERTY_ASSERTION(OBJECT_PROPERTY_ASSERTION, ObjectPropertyAxiomEH::new),
-    /**
-     * DATA_PROPERTY_ASSERTION.
-     */PARSER_DATA_PROPERTY_ASSERTION(DATA_PROPERTY_ASSERTION, DataPropertyAxiomEH::new),
-    /**
-     * NEGATIVE_OBJECT_PROPERTY_ASSERTION.
-     */PARSER_NEGATIVE_OBJECT_PROPERTY_ASSERTION(NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-        NegObjectPropertyAxiomEH::new),
-    /**
-     * NEGATIVE_DATA_PROPERTY_ASSERTION.
-     */PARSER_NEGATIVE_DATA_PROPERTY_ASSERTION(NEGATIVE_DATA_PROPERTY_ASSERTION,
-        NegDataPropertyAxiomEH::new),
-    /**
-     * HAS_KEY.
-     */PARSER_HAS_KEY(HAS_KEY, HasKeyEH::new),
-    /**
-     * DECLARATION.
-     */PARSER_DECLARATION(DECLARATION, DeclarationEH::new),
-    /**
-     * ANNOTATION_ASSERTION.
-     */PARSER_ANNOTATION_ASSERTION(ANNOTATION_ASSERTION, AnnotationAxiomEH::new),
-    /**
-     * ANNOTATION_PROPERTY_DOMAIN.
-     */PARSER_ANNOTATION_PROPERTY_DOMAIN(ANNOTATION_PROPERTY_DOMAIN, AnnDomainEH::new),
-    /**
-     * ANNOTATION_PROPERTY_RANGE.
-     */PARSER_ANNOTATION_PROPERTY_RANGE(ANNOTATION_PROPERTY_RANGE, AnnotationRangeEH::new),
-    /**
-     * SUB_ANNOTATION_PROPERTY_OF.
-     */PARSER_SUB_ANNOTATION_PROPERTY_OF(SUB_ANNOTATION_PROPERTY_OF, SubAnnPropertyOfEH::new),
-    /**
-     * DATATYPE_DEFINITION.
-     */PARSER_DATATYPE_DEFINITION(DATATYPE_DEFINITION, DatatypeDefinitionEH::new),
-    /**
-     * IRI_ELEMENT.
-     */PARSER_IRI_ELEMENT(IRI_ELEMENT, () -> new IRIEH(false)),
-    /**
-     * ABBREVIATED_IRI_ELEMENT.
-     */PARSER_ABBREVIATED_IRI_ELEMENT(ABBREVIATED_IRI_ELEMENT, () -> new IRIEH(true)),
-    /**
-     * NODE_ID.
-     */PARSER_NODE_ID(NODE_ID),
-    /**
-     * ANNOTATION_URI.
-     */PARSER_ANNOTATION_URI(ANNOTATION_URI),
-    /**
-     * LABEL.
-     */PARSER_LABEL(LABEL),
-    /**
-     * COMMENT.
-     */PARSER_COMMENT(COMMENT),
-    /**
-     * DOCUMENTATION.
-     */PARSER_DOCUMENTATION(DOCUMENTATION),
-    /**
-     * DATATYPE_FACET.
-     */PARSER_DATATYPE_FACET(DATATYPE_FACET),
-    /**
-     * DATATYPE_IRI.
-     */PARSER_DATATYPE_IRI(DATATYPE_IRI),
-    /**
-     * DATA_RANGE.
-     */PARSER_DATA_RANGE(DATA_RANGE),
-    /**
-     * PREFIX.
-     */PARSER_PREFIX(PREFIX),
-    /**
-     * NAME_ATTRIBUTE.
-     */PARSER_NAME_ATTRIBUTE(NAME_ATTRIBUTE),
-    /**
-     * IRI_ATTRIBUTE.
-     */PARSER_IRI_ATTRIBUTE(IRI_ATTRIBUTE),
-    /**
-     * ABBREVIATED_IRI_ATTRIBUTE.
-     */PARSER_ABBREVIATED_IRI_ATTRIBUTE(ABBREVIATED_IRI_ATTRIBUTE),
-    /**
-     * CARDINALITY_ATTRIBUTE.
-     */PARSER_CARDINALITY_ATTRIBUTE(CARDINALITY_ATTRIBUTE),
+    /** CLASS.                              */  PARSER_CLASS                               (CLASS                               , OWLClassEH::new),
+    /** DATA_PROPERTY.                      */  PARSER_DATA_PROPERTY                       (DATA_PROPERTY                       , DataPropertyEH::new),
+    /** OBJECT_PROPERTY.                    */  PARSER_OBJECT_PROPERTY                     (OBJECT_PROPERTY                     , OWLObjectPropertyEH::new),
+    /** NAMED_INDIVIDUAL.                   */  PARSER_NAMED_INDIVIDUAL                    (NAMED_INDIVIDUAL                    , IndividualEH::new),
+    /** ENTITY_ANNOTATION.                  */  PARSER_ENTITY_ANNOTATION                   (ENTITY_ANNOTATION                   , LegacyEntityAnnEH::new),
+    /** ANNOTATION_PROPERTY.                */  PARSER_ANNOTATION_PROPERTY                 (ANNOTATION_PROPERTY                 , AnnotationPropEH::new),
+    /** DATATYPE.                           */  PARSER_DATATYPE                            (DATATYPE                            , DatatypeEH::new),
+    /** ANNOTATION.                         */  PARSER_ANNOTATION                          (ANNOTATION                          , AnnEH::new),
+    /** ANONYMOUS_INDIVIDUAL.               */  PARSER_ANONYMOUS_INDIVIDUAL                (ANONYMOUS_INDIVIDUAL                , AnonEH::new),
+    /** IMPORT.                             */  PARSER_IMPORT                              (IMPORT                              , ImportsEH::new),
+    /** ONTOLOGY.                           */  PARSER_ONTOLOGY                            (ONTOLOGY                            , OntologyEH::new),
+    /** LITERAL.                            */  PARSER_LITERAL                             (LITERAL                             , LiteralEH::new),
+    /** OBJECT_INVERSE_OF.                  */  PARSER_OBJECT_INVERSE_OF                   (OBJECT_INVERSE_OF                   , InverseObjectEH::new),
+    /** DATA_COMPLEMENT_OF.                 */  PARSER_DATA_COMPLEMENT_OF                  (DATA_COMPLEMENT_OF                  , DataComplEH::new),
+    /** DATA_ONE_OF.                        */  PARSER_DATA_ONE_OF                         (DATA_ONE_OF                         , DataOneOfEH::new),
+    /** DATATYPE_RESTRICTION.               */  PARSER_DATATYPE_RESTRICTION                (DATATYPE_RESTRICTION                , DatatypeRestrictionEH::new),
+    /** FACET_RESTRICTION.                  */  PARSER_FACET_RESTRICTION                   (FACET_RESTRICTION                   , DatatypeFacetEH::new),
+    /** DATA_UNION_OF.                      */  PARSER_DATA_UNION_OF                       (DATA_UNION_OF                       , DataUnionOfEH::new),
+    /** DATA_INTERSECTION_OF.               */  PARSER_DATA_INTERSECTION_OF                (DATA_INTERSECTION_OF                , DataIntersectionOfEH::new),
+    /** OBJECT_INTERSECTION_OF.             */  PARSER_OBJECT_INTERSECTION_OF              (OBJECT_INTERSECTION_OF              , IntersectionOfEH::new),
+    /** OBJECT_UNION_OF.                    */  PARSER_OBJECT_UNION_OF                     (OBJECT_UNION_OF                     , ObjectUnionOfEH::new),
+    /** OBJECT_COMPLEMENT_OF.               */  PARSER_OBJECT_COMPLEMENT_OF                (OBJECT_COMPLEMENT_OF                , ComplementOfEH::new),
+    /** OBJECT_ONE_OF.                      */  PARSER_OBJECT_ONE_OF                       (OBJECT_ONE_OF                       , OneOfEH::new),
+    /** OBJECT_SOME_VALUES_FROM.            */  PARSER_OBJECT_SOME_VALUES_FROM             (OBJECT_SOME_VALUES_FROM             , ()->new ObjectREH<>(BuilderObjectSomeValuesFrom::new)),
+    /** OBJECT_ALL_VALUES_FROM.             */  PARSER_OBJECT_ALL_VALUES_FROM              (OBJECT_ALL_VALUES_FROM              , ()->new ObjectREH<>(BuilderObjectAllValuesFrom::new)),
+    /** OBJECT_HAS_SELF.                    */  PARSER_OBJECT_HAS_SELF                     (OBJECT_HAS_SELF                     , ()->new ClassEH<>(BuilderObjectHasSelf::new)),
+    /** OBJECT_HAS_VALUE.                   */  PARSER_OBJECT_HAS_VALUE                    (OBJECT_HAS_VALUE                    , HasValueEH::new),
+    /** OBJECT_MIN_CARDINALITY.             */  PARSER_OBJECT_MIN_CARDINALITY              (OBJECT_MIN_CARDINALITY              , ()->new ObjectCardEH<>(BuilderObjectMinCardinality::new)),
+    /** OBJECT_EXACT_CARDINALITY.           */  PARSER_OBJECT_EXACT_CARDINALITY            (OBJECT_EXACT_CARDINALITY            , ()->new ObjectCardEH<>(BuilderObjectExactCardinality::new)),
+    /** OBJECT_MAX_CARDINALITY.             */  PARSER_OBJECT_MAX_CARDINALITY              (OBJECT_MAX_CARDINALITY              , ()->new ObjectCardEH<>(BuilderObjectMaxCardinality::new)),
+    /** DATA_SOME_VALUES_FROM.              */  PARSER_DATA_SOME_VALUES_FROM               (DATA_SOME_VALUES_FROM               , ()->new DataREH<>(BuilderDataSomeValuesFrom::new)),
+    /** DATA_ALL_VALUES_FROM.               */  PARSER_DATA_ALL_VALUES_FROM                (DATA_ALL_VALUES_FROM                , ()->new DataREH<>(BuilderDataAllValuesFrom::new)),
+    /** DATA_HAS_VALUE.                     */  PARSER_DATA_HAS_VALUE                      (DATA_HAS_VALUE                      , DataHasValueEH::new),
+    /** DATA_MIN_CARDINALITY.               */  PARSER_DATA_MIN_CARDINALITY                (DATA_MIN_CARDINALITY                , ()->new DataCardEH<>(BuilderDataMinCardinality::new)),
+    /** DATA_EXACT_CARDINALITY.             */  PARSER_DATA_EXACT_CARDINALITY              (DATA_EXACT_CARDINALITY              , ()->new DataCardEH<>(BuilderDataExactCardinality::new)),
+    /** DATA_MAX_CARDINALITY.               */  PARSER_DATA_MAX_CARDINALITY                (DATA_MAX_CARDINALITY                , ()->new DataCardEH<>(BuilderDataMaxCardinality::new)),
+    /** SUB_CLASS_OF.                       */  PARSER_SUB_CLASS_OF                        (SUB_CLASS_OF                        , SubClassEH::new),
+    /** EQUIVALENT_CLASSES.                 */  PARSER_EQUIVALENT_CLASSES                  (EQUIVALENT_CLASSES                  , EquivalentClassesEH::new),
+    /** DISJOINT_CLASSES.                   */  PARSER_DISJOINT_CLASSES                    (DISJOINT_CLASSES                    , DisjointClassesEH::new),
+    /** DISJOINT_UNION.                     */  PARSER_DISJOINT_UNION                      (DISJOINT_UNION                      , DisjointUnionEH::new),
+    /** UNION_OF.                           */  PARSER_UNION_OF                            (UNION_OF                            , UnionOfEH::new),
+    /** SUB_OBJECT_PROPERTY_OF.             */  PARSER_SUB_OBJECT_PROPERTY_OF              (SUB_OBJECT_PROPERTY_OF              , SubObjectPropertyOfEH::new),
+    /** OBJECT_PROPERTY_CHAIN.              */  PARSER_OBJECT_PROPERTY_CHAIN               (OBJECT_PROPERTY_CHAIN               , ChainEH::new),
+    /** EQUIVALENT_OBJECT_PROPERTIES.       */  PARSER_EQUIVALENT_OBJECT_PROPERTIES        (EQUIVALENT_OBJECT_PROPERTIES        , EqObjectPropertiesEH::new),
+    /** DISJOINT_OBJECT_PROPERTIES.         */  PARSER_DISJOINT_OBJECT_PROPERTIES          (DISJOINT_OBJECT_PROPERTIES          , DisjointObjectPropertiesEH::new),
+    /** OBJECT_PROPERTY_DOMAIN.             */  PARSER_OBJECT_PROPERTY_DOMAIN              (OBJECT_PROPERTY_DOMAIN              , ObjectPropertyDomainEH::new),
+    /** OBJECT_PROPERTY_RANGE.              */  PARSER_OBJECT_PROPERTY_RANGE               (OBJECT_PROPERTY_RANGE               , ObjectPropertyRangeEH::new),
+    /** INVERSE_OBJECT_PROPERTIES.          */  PARSER_INVERSE_OBJECT_PROPERTIES           (INVERSE_OBJECT_PROPERTIES           , InverseObjectAxiomEH::new),
+    /** FUNCTIONAL_OBJECT_PROPERTY.         */  PARSER_FUNCTIONAL_OBJECT_PROPERTY          (FUNCTIONAL_OBJECT_PROPERTY          , ()->new AxiomEH<>(BuilderFunctionalObjectProperty::new)),
+    /** INVERSE_FUNCTIONAL_OBJECT_PROPERTY. */  PARSER_INVERSE_FUNCTIONAL_OBJECT_PROPERTY  (INVERSE_FUNCTIONAL_OBJECT_PROPERTY  , ()->new AxiomEH<>(BuilderInverseFunctionalObjectProperty::new)),
+    /** SYMMETRIC_OBJECT_PROPERTY.          */  PARSER_SYMMETRIC_OBJECT_PROPERTY           (SYMMETRIC_OBJECT_PROPERTY           , ()->new AxiomEH<>(BuilderSymmetricObjectProperty::new)),
+    /** ASYMMETRIC_OBJECT_PROPERTY.         */  PARSER_ASYMMETRIC_OBJECT_PROPERTY          (ASYMMETRIC_OBJECT_PROPERTY          , ()->new AxiomEH<>(BuilderAsymmetricObjectProperty::new)),
+    /** REFLEXIVE_OBJECT_PROPERTY.          */  PARSER_REFLEXIVE_OBJECT_PROPERTY           (REFLEXIVE_OBJECT_PROPERTY           , ()->new AxiomEH<>(BuilderReflexiveObjectProperty::new)),
+    /** IRREFLEXIVE_OBJECT_PROPERTY.        */  PARSER_IRREFLEXIVE_OBJECT_PROPERTY         (IRREFLEXIVE_OBJECT_PROPERTY         , ()->new AxiomEH<>(BuilderIrreflexiveObjectProperty::new)),
+    /** TRANSITIVE_OBJECT_PROPERTY.         */  PARSER_TRANSITIVE_OBJECT_PROPERTY          (TRANSITIVE_OBJECT_PROPERTY          , ()->new AxiomEH<>(BuilderTransitiveObjectProperty::new)),
+    /** SUB_DATA_PROPERTY_OF.               */  PARSER_SUB_DATA_PROPERTY_OF                (SUB_DATA_PROPERTY_OF                , SubDataPropertyOfEH::new),
+    /** EQUIVALENT_DATA_PROPERTIES.         */  PARSER_EQUIVALENT_DATA_PROPERTIES          (EQUIVALENT_DATA_PROPERTIES          , EqDataPropertiesEH::new),
+    /** DISJOINT_DATA_PROPERTIES.           */  PARSER_DISJOINT_DATA_PROPERTIES            (DISJOINT_DATA_PROPERTIES            , DisjointDataPropertiesEH::new),
+    /** DATA_PROPERTY_DOMAIN.               */  PARSER_DATA_PROPERTY_DOMAIN                (DATA_PROPERTY_DOMAIN                , DataPropertyDomainEH::new),
+    /** DATA_PROPERTY_RANGE.                */  PARSER_DATA_PROPERTY_RANGE                 (DATA_PROPERTY_RANGE                 , DataPropertyRangeEH::new),
+    /** FUNCTIONAL_DATA_PROPERTY.           */  PARSER_FUNCTIONAL_DATA_PROPERTY            (FUNCTIONAL_DATA_PROPERTY            , ()->new AxiomEH<>(BuilderFunctionalDataProperty::new)),
+    /** SAME_INDIVIDUAL.                    */  PARSER_SAME_INDIVIDUAL                     (SAME_INDIVIDUAL                     , SameIndividualsEH::new),
+    /** DIFFERENT_INDIVIDUALS.              */  PARSER_DIFFERENT_INDIVIDUALS               (DIFFERENT_INDIVIDUALS               , DifferentIndividualsEH::new),
+    /** CLASS_ASSERTION.                    */  PARSER_CLASS_ASSERTION                     (CLASS_ASSERTION                     , ClassAssertAxiomEH::new),
+    /** OBJECT_PROPERTY_ASSERTION.          */  PARSER_OBJECT_PROPERTY_ASSERTION           (OBJECT_PROPERTY_ASSERTION           , ObjectPropertyAxiomEH::new),
+    /** DATA_PROPERTY_ASSERTION.            */  PARSER_DATA_PROPERTY_ASSERTION             (DATA_PROPERTY_ASSERTION             , DataPropertyAxiomEH::new),
+    /** NEGATIVE_OBJECT_PROPERTY_ASSERTION. */  PARSER_NEGATIVE_OBJECT_PROPERTY_ASSERTION  (NEGATIVE_OBJECT_PROPERTY_ASSERTION  , NegObjectPropertyAxiomEH::new),
+    /** NEGATIVE_DATA_PROPERTY_ASSERTION.   */  PARSER_NEGATIVE_DATA_PROPERTY_ASSERTION    (NEGATIVE_DATA_PROPERTY_ASSERTION    , NegDataPropertyAxiomEH::new),
+    /** HAS_KEY.                            */  PARSER_HAS_KEY                             (HAS_KEY                             , HasKeyEH::new),
+    /** DECLARATION.                        */  PARSER_DECLARATION                         (DECLARATION                         , DeclarationEH::new),
+    /** ANNOTATION_ASSERTION.               */  PARSER_ANNOTATION_ASSERTION                (ANNOTATION_ASSERTION                , AnnotationAxiomEH::new),
+    /** ANNOTATION_PROPERTY_DOMAIN.         */  PARSER_ANNOTATION_PROPERTY_DOMAIN          (ANNOTATION_PROPERTY_DOMAIN          , AnnDomainEH::new),
+    /** ANNOTATION_PROPERTY_RANGE.          */  PARSER_ANNOTATION_PROPERTY_RANGE           (ANNOTATION_PROPERTY_RANGE           , AnnotationRangeEH::new),
+    /** SUB_ANNOTATION_PROPERTY_OF.         */  PARSER_SUB_ANNOTATION_PROPERTY_OF          (SUB_ANNOTATION_PROPERTY_OF          , SubAnnPropertyOfEH::new),
+    /** DATATYPE_DEFINITION.                */  PARSER_DATATYPE_DEFINITION                 (DATATYPE_DEFINITION                 , DatatypeDefinitionEH::new),
+    /** IRI_ELEMENT.                        */  PARSER_IRI_ELEMENT                         (IRI_ELEMENT                         , ()->new IRIEH(false)),
+    /** ABBREVIATED_IRI_ELEMENT.            */  PARSER_ABBREVIATED_IRI_ELEMENT             (ABBREVIATED_IRI_ELEMENT             , ()->new IRIEH(true)),
+    /** NODE_ID.                            */  PARSER_NODE_ID                             (NODE_ID                             ),
+    /** ANNOTATION_URI.                     */  PARSER_ANNOTATION_URI                      (ANNOTATION_URI                      ),
+    /** LABEL.                              */  PARSER_LABEL                               (LABEL                               ),
+    /** COMMENT.                            */  PARSER_COMMENT                             (COMMENT                             ),
+    /** DOCUMENTATION.                      */  PARSER_DOCUMENTATION                       (DOCUMENTATION                       ),
+    /** DATATYPE_FACET.                     */  PARSER_DATATYPE_FACET                      (DATATYPE_FACET                      ),
+    /** DATATYPE_IRI.                       */  PARSER_DATATYPE_IRI                        (DATATYPE_IRI                        ),
+    /** DATA_RANGE.                         */  PARSER_DATA_RANGE                          (DATA_RANGE                          ),
+    /** PREFIX.                             */  PARSER_PREFIX                              (PREFIX                              ),
+    /** NAME_ATTRIBUTE.                     */  PARSER_NAME_ATTRIBUTE                      (NAME_ATTRIBUTE                      ),
+    /** IRI_ATTRIBUTE.                      */  PARSER_IRI_ATTRIBUTE                       (IRI_ATTRIBUTE                       ),
+    /** ABBREVIATED_IRI_ATTRIBUTE.          */  PARSER_ABBREVIATED_IRI_ATTRIBUTE           (ABBREVIATED_IRI_ATTRIBUTE           ),
+    /** CARDINALITY_ATTRIBUTE.              */  PARSER_CARDINALITY_ATTRIBUTE               (CARDINALITY_ATTRIBUTE               ),
 
     // Rules Extensions
-    /**
-     * DL_SAFE_RULE.
-     */PARSER_DL_SAFE_RULE(DL_SAFE_RULE, SWRLRuleEH::new),
-    /**
-     * BODY.
-     */PARSER_BODY(BODY, AtomListEH::new),
-    /**
-     * HEAD.
-     */PARSER_HEAD(HEAD, AtomListEH::new),
-    /**
-     * CLASS_ATOM.
-     */PARSER_CLASS_ATOM(CLASS_ATOM, ClassAtomEH::new),
-    /**
-     * DATA_RANGE_ATOM.
-     */PARSER_DATA_RANGE_ATOM(DATA_RANGE_ATOM, DataRangeAtomEH::new),
-    /**
-     * OBJECT_PROPERTY_ATOM.
-     */PARSER_OBJECT_PROPERTY_ATOM(OBJECT_PROPERTY_ATOM, ObjectPropertyAtomEH::new),
-    /**
-     * DATA_PROPERTY_ATOM.
-     */PARSER_DATA_PROPERTY_ATOM(DATA_PROPERTY_ATOM, DataPropertyAtomEH::new),
-    /**
-     * BUILT_IN_ATOM.
-     */PARSER_BUILT_IN_ATOM(BUILT_IN_ATOM, BuiltInAtomEH::new),
-    /**
-     * SAME_INDIVIDUAL_ATOM.
-     */PARSER_SAME_INDIVIDUAL_ATOM(SAME_INDIVIDUAL_ATOM,
-        () -> new IndividualsAtomEH<>(x -> new BuilderSWRLSameIndividualAtom(x))),
-    /**
-     * DIFFERENT_INDIVIDUALS_ATOM.
-     */PARSER_DIFFERENT_INDIVIDUALS_ATOM(DIFFERENT_INDIVIDUALS_ATOM,
-        () -> new IndividualsAtomEH<>(x -> new BuilderSWRLDifferentIndividualsAtom(x))),
-    /**
-     * VARIABLE.
-     */PARSER_VARIABLE(VARIABLE, VariableEH::new),
-    /**
-     * DESCRIPTION_GRAPH_RULE.
-     */PARSER_DESCRIPTION_GRAPH_RULE(DESCRIPTION_GRAPH_RULE);
+    /** DL_SAFE_RULE.                       */  PARSER_DL_SAFE_RULE                        (DL_SAFE_RULE                        , SWRLRuleEH::new),
+    /** BODY.                               */  PARSER_BODY                                (BODY                                , AtomListEH::new),
+    /** HEAD.                               */  PARSER_HEAD                                (HEAD                                , AtomListEH::new),
+    /** CLASS_ATOM.                         */  PARSER_CLASS_ATOM                          (CLASS_ATOM                          , ClassAtomEH::new),
+    /** DATA_RANGE_ATOM.                    */  PARSER_DATA_RANGE_ATOM                     (DATA_RANGE_ATOM                     , DataRangeAtomEH::new),
+    /** OBJECT_PROPERTY_ATOM.               */  PARSER_OBJECT_PROPERTY_ATOM                (OBJECT_PROPERTY_ATOM                , ObjectPropertyAtomEH::new),
+    /** DATA_PROPERTY_ATOM.                 */  PARSER_DATA_PROPERTY_ATOM                  (DATA_PROPERTY_ATOM                  , DataPropertyAtomEH::new),
+    /** BUILT_IN_ATOM.                      */  PARSER_BUILT_IN_ATOM                       (BUILT_IN_ATOM                       , BuiltInAtomEH::new),
+    /** SAME_INDIVIDUAL_ATOM.               */  PARSER_SAME_INDIVIDUAL_ATOM                (SAME_INDIVIDUAL_ATOM                , ()->new IndividualsAtomEH<>(x -> new BuilderSWRLSameIndividualAtom(x))),
+    /** DIFFERENT_INDIVIDUALS_ATOM.         */  PARSER_DIFFERENT_INDIVIDUALS_ATOM          (DIFFERENT_INDIVIDUALS_ATOM          , ()->new IndividualsAtomEH<>(x -> new BuilderSWRLDifferentIndividualsAtom(x))),
+    /** VARIABLE.                           */  PARSER_VARIABLE                            (VARIABLE                            , VariableEH::new),
+    /** DESCRIPTION_GRAPH_RULE.             */  PARSER_DESCRIPTION_GRAPH_RULE              (DESCRIPTION_GRAPH_RULE              );
 //@formatter:on
 
     private final IRI iri;
@@ -783,21 +556,17 @@ abstract class OWLEH<O, B extends Builder<O>> {
         }
     }
 
-    void handleChild(IndividualEH h) {
-    }
+    void handleChild(IndividualEH h) {}
 
-    void handleChild(LiteralEH h) {
-    }
+    void handleChild(LiteralEH h) {}
 
     void handleChild(AnnEH h) {
         ((BaseBuilder<?, ?>) builder).withAnnotation(h.getOWLObject());
     }
 
-    void handleChild(ChainEH h) {
-    }
+    void handleChild(ChainEH h) {}
 
-    void handleChild(DatatypeFacetEH h) {
-    }
+    void handleChild(DatatypeFacetEH h) {}
 
     void handleChild(AnnotationPropEH h) {
         if (builder instanceof SettableProperty) {
@@ -806,20 +575,15 @@ abstract class OWLEH<O, B extends Builder<O>> {
         }
     }
 
-    void handleChild(AnonEH h) {
-    }
+    void handleChild(AnonEH h) {}
 
-    void handleChild(IRIEH h) {
-    }
+    void handleChild(IRIEH h) {}
 
-    void handleChild(VariableEH h) {
-    }
+    void handleChild(VariableEH h) {}
 
-    void handleChild(AtomEH<?, ?> h) {
-    }
+    void handleChild(AtomEH<?, ?> h) {}
 
-    void handleChild(AtomListEH h) {
-    }
+    void handleChild(AtomListEH h) {}
 
     void ensureNotNull(@Nullable Object element, String message) {
         if (element == null) {

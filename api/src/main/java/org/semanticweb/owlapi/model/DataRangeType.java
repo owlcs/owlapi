@@ -22,24 +22,12 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public enum DataRangeType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
     //@formatter:off
-    /**
-     * Represents {@link OWLDatatype}.
-     */DATATYPE("Datatype"),
-    /**
-     * Represents {@link OWLDataOneOf}.
-     */DATA_ONE_OF("DataOneOf"),
-    /**
-     * Represents {@link OWLDatatypeRestriction}.
-     */DATATYPE_RESTRICTION("DatatypeRestriction"),
-    /**
-     * Represents {@link OWLDataComplementOf}.
-     */DATA_COMPLEMENT_OF("DataComplementOf"),
-    /**
-     * Represents {@link OWLDataUnionOf}.
-     */DATA_UNION_OF("DataUnionOf"),
-    /**
-     * Represents {@link OWLDataIntersectionOf}.
-     */DATA_INTERSECTION_OF("DataIntersectionOf");
+    /** Represents {@link OWLDatatype}.             */ DATATYPE             ("Datatype"             ),
+    /** Represents {@link OWLDataOneOf}.            */ DATA_ONE_OF          ("DataOneOf"            ),
+    /** Represents {@link OWLDatatypeRestriction}.  */ DATATYPE_RESTRICTION ("DatatypeRestriction"  ),
+    /** Represents {@link OWLDataComplementOf}.     */ DATA_COMPLEMENT_OF   ("DataComplementOf"     ),
+    /** Represents {@link OWLDataUnionOf}.          */ DATA_UNION_OF        ("DataUnionOf"          ),
+    /** Represents {@link OWLDataIntersectionOf}.   */ DATA_INTERSECTION_OF ("DataIntersectionOf"   );
     //@formatter:on
     private final String name;
     private final String prefixedName;

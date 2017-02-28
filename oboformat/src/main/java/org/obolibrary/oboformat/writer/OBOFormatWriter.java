@@ -895,31 +895,17 @@ public class OBOFormatWriter {
         writeEmptyLine(writer);
     }
 
-    /**
-     * The Enum EscapeMode.
-     */
+    //@formatter:off
+    /** The Enum EscapeMode. */
     private enum EscapeMode {
-        //@formatter:off
-        /**
-         * all except xref and xrefList.
-         */MOST,
-        /**
-         * simple + parenthesis.
-         */PARENTHESIS,
-        /**
-         * simple + quotes.
-         */QUOTES,
-        /**
-         * simple + comma + colon.
-         */XREF,
-        /**
-         * xref + closing brackets.
-         */XREFLIST,
-        /**
-         * newline and backslash.
-         */SIMPLE
-        //@formatter:on
+        /** all except xref and xrefList. */    MOST, 
+        /** simple + parenthesis. */            PARENTHESIS, 
+        /** simple + quotes. */                 QUOTES, 
+        /** simple + comma + colon. */          XREF, 
+        /** xref + closing brackets. */         XREFLIST, 
+        /** newline and backslash. */           SIMPLE
     }
+    //@formatter:on
 
     /**
      * Provide names for given OBO identifiers. This abstraction layer allows to
