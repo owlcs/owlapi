@@ -12,9 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLClass;
 
 /**
@@ -22,6 +25,9 @@ import org.semanticweb.owlapi.model.OWLClass;
  * @since 3.0.0
  */
 public class OWLClassNode extends DefaultNode<OWLClass> {
+
+    private static final OWLClassNode TOP_NODE = new OWLClassNode(OWL_THING);
+    private static final OWLClassNode BOTTOM_NODE = new OWLClassNode(OWL_NOTHING);
 
     /**
      * @param entity the class to be contained
@@ -67,11 +73,11 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
 
     @Override
     protected Optional<OWLClass> getTopEntity() {
-        return Optional.of(TOP_CLASS);
+        return Optional.of(OWL_THING);
     }
 
     @Override
     protected Optional<OWLClass> getBottomEntity() {
-        return Optional.of(BOTTOM_CLASS);
+        return Optional.of(OWL_NOTHING);
     }
 }

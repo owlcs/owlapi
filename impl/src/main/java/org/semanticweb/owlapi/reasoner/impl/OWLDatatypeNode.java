@@ -15,13 +15,18 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLDatatype;
+
+import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
+
+    private static final OWLDatatype TOP_DATATYPE = InternalizedEntities.RDFSLITERAL;
 
     /**
      * Default constructor.
