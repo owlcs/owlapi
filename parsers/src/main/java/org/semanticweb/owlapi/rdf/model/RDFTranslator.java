@@ -37,33 +37,28 @@ import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
 import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator
+                extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
+    private TObjectIntCustomHashMap<Object> blankNodeMap =
+                    new TObjectIntCustomHashMap<>(new IdentityHashingStrategy<>());
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
 
     /**
-     * @param manager
-     *        the manager
-     * @param ontology
-     *        the ontology
-     * @param useStrongTyping
-     *        true if strong typing is required
-     * @param occurrences
-     *        will tell whether anonymous individuals need an id or not
-     * @param axiomOccurrences
-     *        axiom occurrences
-     * @param counter
-     *        counter for blank nodes
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param useStrongTyping true if strong typing is required
+     * @param occurrences will tell whether anonymous individuals need an id or not
+     * @param axiomOccurrences axiom occurrences
+     * @param counter counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger counter) {
+                    IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
+                    AtomicInteger counter) {
         super(manager, ontology, useStrongTyping, occurrences);
         this.axiomOccurrences = axiomOccurrences;
         nextBlankNodeId = counter;
@@ -78,25 +73,29 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
         boolean isIndividual = key instanceof OWLAnonymousIndividual;
+        boolean isAxiom = false;
         boolean needId = false;
         if (isIndividual) {
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
+            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom,
+                            needId);
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
+            isAxiom = true;
             needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
         }
-        return getBlankNodeFor(key, isIndividual, needId);
+        return getBlankNodeFor(key, isIndividual, isAxiom, needId);
     }
 
-    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
+                    boolean isAxiom, boolean needId) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
             id = nextBlankNodeId.getAndIncrement();
             blankNodeMap.put(key, id);
         }
-        return new RDFResourceBlankNode(id, isIndividual, needId);
+        return new RDFResourceBlankNode(id, isIndividual, needId, isAxiom);
     }
 
     @Override

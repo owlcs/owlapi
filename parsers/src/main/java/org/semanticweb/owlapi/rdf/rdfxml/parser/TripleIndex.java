@@ -170,10 +170,16 @@ class TripleIndex {
 
     protected Set<RDFTriple> getRemainingTriples(Predicate<IRI> anon) {
         Set<RDFTriple> remaining = new HashSet<>();
-        resTriples.iterate((s, p, o) -> remaining
-                        .add(new RDFTriple(s, anon.test(s), p, o, anon.test(o))));
-        litTriples.iterate((s, p, o) -> remaining.add(new RDFTriple(s, anon.test(s), p, o)));
+        resTriples.iterate((s, p, o) -> remaining.add(new RDFTriple(s, anon.test(s), isAxiom(s), p,
+                        o, anon.test(o), isAxiom(o))));
+        litTriples.iterate((s, p, o) -> remaining
+                        .add(new RDFTriple(s, anon.test(s), isAxiom(s), p, o)));
         return remaining;
+    }
+
+    protected boolean isAxiom(IRI s) {
+        return resTriples.contains(s, OWLRDFVocabulary.RDF_TYPE.getIRI(),
+                        OWLRDFVocabulary.OWL_AXIOM.getIRI());
     }
 
     public void iterate(TripleIterator<IRI> t1) {

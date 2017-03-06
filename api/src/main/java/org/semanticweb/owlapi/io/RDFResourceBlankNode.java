@@ -23,10 +23,12 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
 /** Anonymous node implementation. */
-public class RDFResourceBlankNode extends RDFResource implements org.apache.commons.rdf.api.BlankNode {
+public class RDFResourceBlankNode extends RDFResource
+                implements org.apache.commons.rdf.api.BlankNode {
 
     private final IRI resource;
     private final boolean isIndividual;
+    private final boolean isAxiom;
     private final boolean forceIdOutput;
     /**
      * Random UUID, used by {@link #uniqueReference()}
@@ -36,48 +38,48 @@ public class RDFResourceBlankNode extends RDFResource implements org.apache.comm
     /**
      * Create an RDFResource that is anonymous.
      * 
-     * @param resource
-     *        The IRI of the resource
-     * @param isIndividual
-     *        true if the node represents an individual
-     * @param forceId
-     *        true if id should be outputted
+     * @param resource The IRI of the resource
+     * @param isIndividual true if the node represents an individual
+     * @param forceId true if id should be outputted
      */
-    public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId) {
+    public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId,
+                    boolean isAxiom) {
         this.resource = checkNotNull(resource, "resource cannot be null");
         this.isIndividual = isIndividual;
+        this.isAxiom = isAxiom;
         forceIdOutput = forceId;
     }
 
     /**
      * Create an RDFResource that is anonymous.
      * 
-     * @param anonId
-     *        the number at the end of the anon IRI
-     * @param isIndividual
-     *        true if the node represents an individual
-     * @param forceId
-     *        true if id should be outputted
+     * @param anonId the number at the end of the anon IRI
+     * @param isIndividual true if the node represents an individual
+     * @param forceId true if id should be outputted
      */
-    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId) {
-        this(NodeID.nodeId(anonId), isIndividual, forceId);
+    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId,
+                    boolean isAxiom) {
+        this(NodeID.nodeId(anonId), isIndividual, forceId, isAxiom);
     }
 
     /**
      * Create an RDFResource that is anonymous
      * 
-     * @param isIndividual
-     *        true if this is an individual
-     * @param forceId
-     *        true if the id should be outputted
+     * @param isIndividual true if this is an individual
+     * @param forceId true if the id should be outputted
      */
-    public RDFResourceBlankNode(boolean isIndividual, boolean forceId) {
-        this(NodeID.nextFreshNodeId(), isIndividual, forceId);
+    public RDFResourceBlankNode(boolean isIndividual, boolean forceId, boolean isAxiom) {
+        this(NodeID.nextFreshNodeId(), isIndividual, forceId, isAxiom);
     }
 
     @Override
     public boolean isIndividual() {
         return isIndividual;
+    }
+
+    @Override
+    public boolean isAxiom() {
+        return isAxiom;
     }
 
     @Override

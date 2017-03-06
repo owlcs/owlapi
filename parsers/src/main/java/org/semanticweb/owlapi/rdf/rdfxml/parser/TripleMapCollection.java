@@ -33,7 +33,8 @@ class TripleMapCollection<T> {
         // if info logging is disabled or all collections are empty, do not
         // output anything
         if (LOGGER.isInfoEnabled() && size() > 0) {
-            map.forEach((p, m) -> m.forEach((s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
+            map.forEach((p, m) -> m.forEach(
+                            (s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
         }
     }
 
@@ -101,14 +102,25 @@ class TripleMapCollection<T> {
         return resPredObjMap != null && resPredObjMap.containsKey(predicate);
     }
 
+    public boolean contains(IRI subject, IRI predicate, T value) {
+        Map<IRI, Collection<T>> resPredObjMap = map.get(subject);
+        if (resPredObjMap != null) {
+            Collection<T> collection = resPredObjMap.get(predicate);
+            if (collection != null) {
+                return collection.contains(value);
+            }
+        }
+        return false;
+    }
+
     public boolean add(IRI subject, IRI predicate, T object) {
-        return map.computeIfAbsent(subject, x -> createMap()).computeIfAbsent(predicate, x -> createLinkedSet()).add(
-            object);
+        return map.computeIfAbsent(subject, x -> createMap())
+                        .computeIfAbsent(predicate, x -> createLinkedSet()).add(object);
     }
 
     public void iterate(TripleIterator<T> iterator) {
-        new ArrayList<>(map.entrySet()).forEach(e -> new ArrayList<>(e.getValue().entrySet()).forEach(
-            p -> new ArrayList<>(p.getValue()).forEach(object -> iterator.handleResourceTriple(e.getKey(), p.getKey(),
-                object))));
+        new ArrayList<>(map.entrySet()).forEach(e -> new ArrayList<>(e.getValue().entrySet())
+                        .forEach(p -> new ArrayList<>(p.getValue()).forEach(object -> iterator
+                                        .handleResourceTriple(e.getKey(), p.getKey(), object))));
     }
 }
