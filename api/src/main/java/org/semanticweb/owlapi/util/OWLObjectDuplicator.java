@@ -29,13 +29,14 @@ import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectDuplicator extends TransformerVisitorBase<OWLObject> {
+public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
 
     private final Map<OWLEntity, IRI> replacementMap;
     protected final RemappingIndividualProvider anonProvider;
@@ -73,12 +74,11 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<OWLObject> {
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, Map<OWLLiteral, OWLLiteral> literals,
         OWLOntologyManager m) {
-        super(x -> true, x -> x, checkNotNull(m, "ontology manager cannot be null").getOWLDataFactory(),
-            OWLObject.class);
+        super(x -> true, x -> x instanceof OWLFacet ? x : null, checkNotNull(m, "ontology manager cannot be null")
+            .getOWLDataFactory(), Object.class);
         anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
         replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
-        checkNotNull(literals, "literals cannot be null");
-        replacementLiterals = literals;
+        replacementLiterals = checkNotNull(literals, "literals cannot be null");
     }
 
     /**

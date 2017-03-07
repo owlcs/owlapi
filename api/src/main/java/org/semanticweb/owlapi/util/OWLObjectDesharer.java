@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
  * Class to remove structure sharing from OWL objects (Axioms or expressions)
@@ -43,7 +44,7 @@ public class OWLObjectDesharer extends TransformerVisitorBase<Object> implements
      *        duplication.
      */
     public OWLObjectDesharer(OWLOntologyManager m) {
-        super(x -> true, x -> x, m.getOWLDataFactory(), Object.class);
+        super(x -> true, x -> x instanceof OWLFacet ? x : null, m.getOWLDataFactory(), Object.class);
         anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
     }
 
