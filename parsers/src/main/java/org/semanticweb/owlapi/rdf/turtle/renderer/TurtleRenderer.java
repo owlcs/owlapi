@@ -62,8 +62,8 @@ public class TurtleRenderer extends RDFRendererBase {
     protected final Deque<Integer> tabs = new LinkedList<>();
     private final PrintWriter writer;
     private final PrefixManager pm;
-    private final Set<RDFResource> pending = new HashSet<>();
     private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
+    private final Set<RDFResourceBlankNode> renderedNodes = new HashSet<>();
     private final String base;
     private final OWLDocumentFormat format;
     int bufferLength = 0;
@@ -190,7 +190,7 @@ public class TurtleRenderer extends RDFRendererBase {
         return null;
     }
 
-    private boolean noSplits(String s, int index) {
+    private static boolean noSplits(String s, int index) {
         return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
@@ -265,7 +265,7 @@ public class TurtleRenderer extends RDFRendererBase {
         } else {
             pushTab();
             if (!isObjectList(node)) {
-                render(node);
+                render(node, false);
             } else {
                 // List - special syntax
                 List<RDFNode> list = new ArrayList<>();
@@ -364,7 +364,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     @Override
-    public void render(RDFResource node) {
+    protected void render(RDFResource node, boolean root) {
         level++;
         Collection<RDFTriple> triples;
         if (pending.contains(node)) {
@@ -388,15 +388,8 @@ public class TurtleRenderer extends RDFRendererBase {
                     // Just write the object
                     write(" ,");
                     writeNewLine();
-                    if (object.isAnonymous() && object.isIndividual() && object.shouldOutputId()) {
-                        if (!pending.contains(object)) {
-                            nodesToRenderSeparately.add((RDFResourceBlankNode) object);
-                        }
-                        write(object.getIRI());
+                    renderObject(object);
                     } else {
-                        write(object);
-                    }
-                } else {
                     // The predicate, object differ from previous triple
                     // Just write the predicate and object
                     write(" ;");
@@ -405,14 +398,7 @@ public class TurtleRenderer extends RDFRendererBase {
                     write(triple.getPredicate());
                     writeSpace();
                     pushTab();
-                    if (object.isAnonymous() && object.isIndividual() && object.shouldOutputId()) {
-                        if (!pending.contains(object)) {
-                            nodesToRenderSeparately.add((RDFResourceBlankNode) object);
-                        }
-                        write(object.getIRI());
-                    } else {
-                        write(object);
-                    }
+                    renderObject(object);
                 }
             } else {
                 if (!first) {
@@ -424,7 +410,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (!node.isAnonymous()) {
                     write(subj);
                     writeSpace();
-                } else if (node.isIndividual() && node.shouldOutputId()) {
+                } else if (node.idRequiredForIndividualOrAxiom()) {
                     write(subj.getIRI());
                     writeSpace();
                 } else {
@@ -436,15 +422,8 @@ public class TurtleRenderer extends RDFRendererBase {
                 write(triple.getPredicate());
                 writeSpace();
                 pushTab();
-                if (object.isAnonymous() && object.isIndividual() && object.shouldOutputId()) {
-                    if (!pending.contains(object)) {
-                        nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+                renderObject(object);
                     }
-                    write(object.getIRI());
-                } else {
-                    write(object);
-                }
-            }
             lastSubject = subj;
             lastPredicate = pred;
             first = false;
@@ -452,7 +431,7 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.isAnonymous()) {
             popTab();
             popTab();
-            if (!node.isIndividual() || !node.shouldOutputId()) {
+            if (!node.idRequiredForIndividualOrAxiom()) {
                 if (triples.isEmpty()) {
                     write("[ ");
                 } else {
@@ -470,9 +449,25 @@ public class TurtleRenderer extends RDFRendererBase {
         }
         writer.flush();
         level--;
+        if (root) {
         while (!nodesToRenderSeparately.isEmpty()) {
-            render(nodesToRenderSeparately.poll());
+                RDFResourceBlankNode polled = nodesToRenderSeparately.poll();
+                if (renderedNodes.add(polled)) {
+                    render(polled, false);
+                }
+            }
         }
         pending.remove(node);
+    }
+
+    protected void renderObject(RDFNode object) {
+        if (object.idRequiredForIndividualOrAxiom()) {
+            if (!pending.contains(object)) {
+                nodesToRenderSeparately.add((RDFResourceBlankNode) object);
+            }
+            write(object.getIRI());
+        } else {
+            write(object);
+        }
     }
 }

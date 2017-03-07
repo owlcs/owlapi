@@ -50,7 +50,7 @@ public class TripleComparatorTestCase {
     }
 
     private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(s, false, false);
+        return new RDFResourceBlankNode(s, false, false, false);
     }
 
     @Test

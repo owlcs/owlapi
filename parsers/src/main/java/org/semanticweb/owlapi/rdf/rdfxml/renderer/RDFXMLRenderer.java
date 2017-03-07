@@ -57,7 +57,6 @@ import org.semanticweb.owlapi.util.VersionInfo;
 public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
-    private final Set<RDFResource> pending = new HashSet<>();
     private final RDFXMLNamespaceManager qnameManager;
     private final OWLDocumentFormat format;
     private final ShortFormProvider labelMaker;
@@ -177,7 +176,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    public void render(RDFResource node) {
+    protected void render(RDFResource node, boolean root) {
         checkNotNull(node, "node cannot be null");
         if (pending.contains(node)) {
             return;
@@ -201,7 +200,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
-        } else if (node.isIndividual() && node.shouldOutputId()) {
+        } else if (node.idRequiredForIndividualOrAxiom()) {
             writer.writeNodeIDAttribute(node);
         }
         for (RDFTriple triple : triples) {
@@ -222,7 +221,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         toJavaList(objectRes, list);
                         for (RDFNode n : list) {
                             if (n.isAnonymous()) {
-                                render((RDFResourceBlankNode) n);
+                                render((RDFResourceBlankNode) n, false);
                             } else {
                                 if (n.isLiteral()) {
                                     RDFLiteral litNode = (RDFLiteral) n;
@@ -245,7 +244,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         // special case for triples with same object and subject
                         writer.writeNodeIDAttribute(objectRes);
                     } else {
-                        render(objectRes);
+                        render(objectRes, false);
                     }
                 } else {
                     writer.writeResourceAttribute(objectRes.getIRI());

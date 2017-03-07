@@ -69,26 +69,28 @@ public class RDFTranslator extends
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
         boolean isIndividual = key instanceof OWLAnonymousIndividual;
+        boolean isAxiom = false;
         boolean needId = false;
         if (isIndividual) {
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
-            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, needId);
+            return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom, needId);
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
+            isAxiom = true;
             needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
         }
-        return getBlankNodeFor(key, isIndividual, needId);
+        return getBlankNodeFor(key, isIndividual, isAxiom, needId);
     }
 
     protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
-        boolean needId) {
+                    boolean isAxiom, boolean needId) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
             id = nextBlankNodeId.getAndIncrement();
             blankNodeMap.put(key, id);
         }
-        return new RDFResourceBlankNode(id, isIndividual, needId);
+        return new RDFResourceBlankNode(id, isIndividual, needId, isAxiom);
     }
 
     @Override

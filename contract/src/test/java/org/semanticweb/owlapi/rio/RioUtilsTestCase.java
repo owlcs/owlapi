@@ -54,11 +54,9 @@ public class RioUtilsTestCase {
         RDFLiteral testOwlApiObjectTypedLiteral1 = new RDFLiteral("Test literal", null, IRI.create(
             "urn:test:datatype:1", ""));
         RDFResourceBlankNode testOwlApiSubjectBNode1 = new RDFResourceBlankNode(
-            IRI.create("subjectBnode1", ""), true,
-            false);
+            IRI.create("subjectBnode1", ""), true,            false, false);
         RDFResourceBlankNode testOwlApiObjectBNode1 = new RDFResourceBlankNode(
-            IRI.create("objectBnode1", ""), true,
-            false);
+            IRI.create("objectBnode1", ""), true,false,            false);
         testOwlApiTripleAllIRI = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,
             testOwlApiObjectUri1);
         testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1,

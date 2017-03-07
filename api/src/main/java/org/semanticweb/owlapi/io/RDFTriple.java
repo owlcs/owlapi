@@ -76,11 +76,12 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
      * @param object the object
      * @param objectAnon whether the object is anonymous
      */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, IRI object,
-        boolean objectAnon) {
-        this(getResource(subject, subjectAnon),
+    public RDFTriple(IRI subject, boolean subjectAnon, boolean subjectAxiom, IRI predicate,
+                    IRI object, boolean objectAnon, boolean objectAxiom) {
+        this(getResource(subject, subjectAnon, subjectAxiom),
             // Predicate is not allowed to be anonymous
-            new RDFResourceIRI(predicate), getResource(object, objectAnon));
+                        new RDFResourceIRI(predicate),
+                        getResource(object, objectAnon, objectAxiom));
     }
 
     /**
@@ -89,14 +90,15 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>,
      * @param predicate the predicate
      * @param object the object
      */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, OWLLiteral object) {
-        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate),
+    public RDFTriple(IRI subject, boolean subjectAnon, boolean axiom, IRI predicate,
+                    OWLLiteral object) {
+        this(getResource(subject, subjectAnon, axiom), new RDFResourceIRI(predicate),
             new RDFLiteral(object));
     }
 
-    private static RDFResource getResource(IRI iri, boolean anon) {
+    private static RDFResource getResource(IRI iri, boolean anon, boolean axiom) {
         if (anon) {
-            return new RDFResourceBlankNode(iri, true, true);
+            return new RDFResourceBlankNode(iri, true, true, axiom);
         }
         return new RDFResourceIRI(iri);
     }

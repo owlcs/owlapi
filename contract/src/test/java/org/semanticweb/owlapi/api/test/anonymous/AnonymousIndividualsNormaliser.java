@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -36,8 +37,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     private int counter = 0;
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory.
+     * Creates an object duplicator that duplicates objects using the specified data factory.
      *
      * @param m The manager providing data factory and config to be used for the duplication.
      */
@@ -50,7 +50,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     }
 
     public Set<OWLAxiom> getNormalisedAxioms(Stream<OWLAxiom> axioms) {
-        return asSet(axioms.map(this::get));
+        return asSet(axioms.map(this::t));
     }
 
     @Override

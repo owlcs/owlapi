@@ -129,6 +129,7 @@ public abstract class RDFRendererBase {
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
     protected final OWLOntologyWriterConfiguration config;
+    protected final Set<RDFResource> pending = new HashSet<>();
     @Nullable
     private final OWLDocumentFormat format;
     private final Set<IRI> punned;
@@ -297,7 +298,7 @@ public abstract class RDFRendererBase {
     private void renderEntity(OWLEntity entity) {
         beginObject();
         writeEntityComment(entity);
-        render(new RDFResourceIRI(entity.getIRI()));
+        render(new RDFResourceIRI(entity.getIRI()), true);
         renderAnonRoots();
         endObject();
     }
@@ -344,7 +345,7 @@ public abstract class RDFRendererBase {
     protected void renderIRI(IRI iri) {
         beginObject();
         createGraph(ontology.annotationAssertionAxioms(iri));
-        render(new RDFResourceIRI(iri));
+        render(new RDFResourceIRI(iri), true);
         renderAnonRoots();
         endObject();
     }
@@ -380,7 +381,7 @@ public abstract class RDFRendererBase {
             SWRLVariableExtractor variableExtractor = new SWRLVariableExtractor();
             ruleAxioms.forEach(rule -> rule.accept(variableExtractor));
             variableExtractor.getVariables()
-                .forEach(var -> render(new RDFResourceIRI(var.getIRI())));
+                .forEach(var -> render(new RDFResourceIRI(var.getIRI()), true));
             renderAnonRoots();
         }
     }
@@ -441,7 +442,7 @@ public abstract class RDFRendererBase {
         addImportsDeclarationsToOntologyHeader(ontologyHeaderNode, translator);
         addAnnotationsToOntologyHeader(ontologyHeaderNode, translator);
         if (!getRDFGraph().isEmpty()) {
-            render(ontologyHeaderNode);
+            render(ontologyHeaderNode, true);
         }
         triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }
@@ -527,7 +528,7 @@ public abstract class RDFRendererBase {
      * Render anonymous roots.
      */
     public void renderAnonRoots() {
-        getRDFGraph().getRootAnonymousNodes().stream().sorted().forEach(this::render);
+        getRDFGraph().getRootAnonymousNodes().stream().sorted().forEach(x -> render(x, true));
     }
 
     /**
@@ -535,8 +536,9 @@ public abstract class RDFRendererBase {
      * Subclasses of this class decide upon how the triples get rendered.
      *
      * @param node The main node to be rendered
+     * @param root true if this is the root call to render, false otherwise
      */
-    public abstract void render(RDFResource node);
+    protected abstract void render(RDFResource node, boolean root);
 
     protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : getRDFGraph().getTriplesForSubject(node)) {
