@@ -1,6 +1,13 @@
 package uk.ac.manchester.cs.atomicdecomposition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -8,7 +15,13 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapitools.decomposition.*;
+import org.semanticweb.owlapitools.decomposition.AtomList;
+import org.semanticweb.owlapitools.decomposition.AxiomSelector;
+import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
+import org.semanticweb.owlapitools.decomposition.Decomposer;
+import org.semanticweb.owlapitools.decomposition.IdentityMultiMap;
+import org.semanticweb.owlapitools.decomposition.OntologyAtom;
+import org.semanticweb.owlapitools.decomposition.SyntacticLocalityChecker;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;

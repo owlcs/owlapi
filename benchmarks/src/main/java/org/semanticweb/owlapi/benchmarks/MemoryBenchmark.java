@@ -1,6 +1,8 @@
 package org.semanticweb.owlapi.benchmarks;
 
-import static java.lang.management.ManagementFactory.*;
+import static java.lang.management.ManagementFactory.RUNTIME_MXBEAN_NAME;
+import static java.lang.management.ManagementFactory.getPlatformMBeanServer;
+import static java.lang.management.ManagementFactory.newPlatformMXBeanProxy;
 
 import java.io.File;
 import java.io.IOException;

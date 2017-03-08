@@ -1,6 +1,11 @@
 package org.semanticweb.owlapitools.decomposition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 

@@ -12,7 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.*;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENTING;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENT_SIZE;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.LABELS_AS_BANNER;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.LOAD_ANNOTATIONS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSING_IMPORT_HANDLING_STRATEGY;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSING_ONTOLOGY_HEADER_STRATEGY;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PARSE_WITH_STRICT_CONFIGURATION;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIORITY_COLLECTION_SORTING;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REMAP_IDS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SAVE_IDS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.USE_NAMESPACE_ENTITIES;
 
 import java.io.Serializable;
 import java.util.EnumMap;

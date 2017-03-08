@@ -12,9 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_PLAIN_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BOOLEAN;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BYTE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DOUBLE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_FLOAT;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.HashSet;
 import java.util.Set;

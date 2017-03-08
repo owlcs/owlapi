@@ -13,7 +13,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.FALSELITERAL;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.LANGSTRING;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.TRUELITERAL;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDFLOAT;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDINTEGER;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.XSDSTRING;
 
 import java.util.Locale;
 import java.util.stream.Stream;

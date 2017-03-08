@@ -15,7 +15,12 @@ package org.semanticweb.owlapi.model.providers;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 
 /** Data property assertion provider. */
 public interface DataAssertionProvider extends LiteralProvider {

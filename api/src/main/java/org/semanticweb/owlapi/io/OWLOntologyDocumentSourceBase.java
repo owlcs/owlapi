@@ -1,8 +1,13 @@
 package org.semanticweb.owlapi.io;
 
-import static org.apache.commons.io.ByteOrderMark.*;
+import static org.apache.commons.io.ByteOrderMark.UTF_16BE;
+import static org.apache.commons.io.ByteOrderMark.UTF_16LE;
+import static org.apache.commons.io.ByteOrderMark.UTF_32BE;
+import static org.apache.commons.io.ByteOrderMark.UTF_32LE;
+import static org.apache.commons.io.ByteOrderMark.UTF_8;
 import static org.semanticweb.owlapi.io.ZipSources.handleZips;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.BufferedInputStream;
 import java.io.File;

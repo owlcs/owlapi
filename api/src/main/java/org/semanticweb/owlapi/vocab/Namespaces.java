@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.*;
+import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.BUILT_IN;
+import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.NOT_BUILT_IN;
 import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
 import java.util.EnumSet;

@@ -17,7 +17,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static org.semanticweb.owlapi.vocab.Namespaces.*;
+import static org.semanticweb.owlapi.vocab.Namespaces.DC;
+import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
+import static org.semanticweb.owlapi.vocab.Namespaces.SKOS;
+import static org.semanticweb.owlapi.vocab.Namespaces.SWRL;
+import static org.semanticweb.owlapi.vocab.Namespaces.SWRLB;
+import static org.semanticweb.owlapi.vocab.Namespaces.XSD;
 
 import java.util.Collection;
 import java.util.stream.Stream;

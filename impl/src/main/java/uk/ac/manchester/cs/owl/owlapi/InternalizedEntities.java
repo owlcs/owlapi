@@ -1,6 +1,13 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_LANG_STRING;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_PLAIN_LITERAL;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BOOLEAN;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DOUBLE;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_FLOAT;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
