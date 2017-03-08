@@ -60,17 +60,19 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 class OWLOBO12Parser extends AbstractOWLParser {
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, config, documentIRI, new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, config, documentIRI, new StringProvider(s));
     }
 
-    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI,
-        Provider provider) {
+    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI, Provider provider) {
         RawFrameHandler rawFrameHandler = new RawFrameHandler();
         OBOConsumer oboConsumer = new OBOConsumer(o, config, documentIRI);
         OBOParser parser = new OBOParser(provider);
@@ -108,8 +110,8 @@ class OWLOBO12Parser extends AbstractOWLParser {
 
     private static void parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
         for (OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
-            oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(), tagValuePair.getQualifier(),
-                tagValuePair.getComment());
+            oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(),
+                            tagValuePair.getQualifier(), tagValuePair.getComment());
         }
     }
 

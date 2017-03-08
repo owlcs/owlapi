@@ -22,19 +22,16 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
+     * @param ontology ontology
+     * @param axiom axiom
      */
     public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology,
-            OWLIrreflexiveObjectPropertyAxiom axiom) {
+                    OWLIrreflexiveObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 
@@ -55,6 +52,7 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfile
 
     @Override
     public String toString() {
-        return toString("Use of non-simple property in irreflexive property axiom %s", getExpression());
+        return toString("Use of non-simple property in irreflexive property axiom %s",
+                        getExpression());
     }
 }

@@ -15,10 +15,8 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface to objects that have a range.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @param <R>
- *        range type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
+ * @param <R> range type
  * @since 3.5.0
  */
 @FunctionalInterface

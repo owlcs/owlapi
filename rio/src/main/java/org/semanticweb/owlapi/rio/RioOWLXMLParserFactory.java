@@ -39,8 +39,7 @@ import org.eclipse.rdf4j.rio.RDFParserFactory;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 
 /**
- * {@link RDFParserFactory} that creates RDF statements from
- * {@link OWLXMLDocumentFormat} documents.
+ * {@link RDFParserFactory} that creates RDF statements from {@link OWLXMLDocumentFormat} documents.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0

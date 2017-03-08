@@ -18,15 +18,13 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class WriterDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
-     * @param w
-     *        the writer to use
+     * @param w the writer to use
      */
     public WriterDocumentTarget(Writer w) {
         super(() -> null, null);

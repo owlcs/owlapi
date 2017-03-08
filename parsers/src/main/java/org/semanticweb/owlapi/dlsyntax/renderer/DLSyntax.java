@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public enum DLSyntax {
@@ -47,7 +46,7 @@ public enum DLSyntax {
 
     DLSyntax(String unicode, String htmlEscape) {
         unicodeSymbol = unicode;
-        this.htmlEscape=htmlEscape;
+        this.htmlEscape = htmlEscape;
     }
 
     @Override
@@ -55,7 +54,7 @@ public enum DLSyntax {
         return unicodeSymbol;
     }
 
-    /**@return HTML escaped version of the DLSyntax keyword*/
+    /** @return HTML escaped version of the DLSyntax keyword */
     public String toHTMLString() {
         return htmlEscape;
     }

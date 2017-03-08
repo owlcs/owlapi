@@ -19,17 +19,16 @@ public class AxiomSelector {
     private AxiomSelector() {}
 
     /**
-     * @param o
-     *        the ontology to filter
+     * @param o the ontology to filter
      * @return list of declarations and logical axioms
      */
     public static List<OWLAxiom> selectAxioms(OWLOntology o) {
-        return asList(LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES.stream().flatMap(type -> o.axioms(type, Imports.INCLUDED)));
+        return asList(LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES.stream()
+                        .flatMap(type -> o.axioms(type, Imports.INCLUDED)));
     }
 
     /**
-     * @param o
-     *        axioms to wrap
+     * @param o axioms to wrap
      * @return axioms wrapped as AxiomWrapper
      */
     public static List<AxiomWrapper> wrap(List<OWLAxiom> o) {

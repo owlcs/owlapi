@@ -31,7 +31,7 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 import org.semanticweb.owlapitools.decomposition.SemanticLocalityChecker;
 
 @Ignore
-@SuppressWarnings({ "javadoc", "boxing" })
+@SuppressWarnings({"javadoc", "boxing"})
 public class SemanticLocalityTestCase {
 
     private OWLAxiom axiom;
@@ -99,7 +99,8 @@ public class SemanticLocalityTestCase {
 
     /** @return disjoint union of superclass and classes */
     private OWLDisjointUnionAxiom disjointUnion(OWLClass superclass, OWLClass... classes) {
-        return df.getOWLDisjointUnionAxiom(superclass, new HashSet<OWLClassExpression>(Arrays.asList(classes)));
+        return df.getOWLDisjointUnionAxiom(superclass,
+                        new HashSet<OWLClassExpression>(Arrays.asList(classes)));
     }
 
     @Test
@@ -451,7 +452,8 @@ public class SemanticLocalityTestCase {
 
     @Test
     public void shouldBeLocalowlDatatypeDefinitionAxiom() {
-        axiom = df.getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
+        axiom = df.getOWLDatatypeDefinitionAxiom(i,
+                        df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
         // signature intersects
         // test(axiom, true, i);
         // signature does not intersect
@@ -460,8 +462,10 @@ public class SemanticLocalityTestCase {
 
     @Test
     public void shouldBeLocalswrlRule() {
-        Set<SWRLAtom> head = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
-        Set<SWRLAtom> body = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
+        Set<SWRLAtom> head = new HashSet<>(
+                        Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
+        Set<SWRLAtom> body = new HashSet<>(
+                        Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
         axiom = df.getSWRLRule(head, body);
         // signature intersects
         test(axiom, true, a);
@@ -505,8 +509,8 @@ public class SemanticLocalityTestCase {
     @Before
     public void setUp() {
         // XXX add a reasoner factory
-        testSubject = new SemanticLocalityChecker(new StructuralReasonerFactory(), OWLManager
-            .createOWLOntologyManager());
+        testSubject = new SemanticLocalityChecker(new StructuralReasonerFactory(),
+                        OWLManager.createOWLOntologyManager());
     }
 
     private void set(OWLEntity... entities) {

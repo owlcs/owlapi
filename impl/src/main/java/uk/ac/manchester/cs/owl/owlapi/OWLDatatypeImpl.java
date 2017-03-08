@@ -21,8 +21,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
@@ -32,13 +31,13 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     private final boolean builtin;
 
     /**
-     * @param iri
-     *        datatype iri
+     * @param iri datatype iri
      */
     public OWLDatatypeImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-        builtin = top || OWL2Datatype.isBuiltIn(iri) || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+        builtin = top || OWL2Datatype.isBuiltIn(iri)
+                        || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -70,7 +69,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
             throw new OWLRuntimeException(iri
-                + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
+                            + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         }
         return OWL2Datatype.getDatatype(iri);
     }

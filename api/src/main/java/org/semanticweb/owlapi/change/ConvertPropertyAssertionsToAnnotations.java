@@ -30,19 +30,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
- * Given a set of ontologies, this composite change will convert all property
- * assertion axioms whose subject is a 'punned' individual (i.e. an individual
- * that shares a name with a class), removes these axioms and replaces them with
- * annotations on the class that shares the same name as the individual. For
- * example for a class A and an individual A, the data property assertion
- * hasX(A, "Val") would be converted to an entity annotation on the class A with
- * an annotation URI of "hasX" and a value of "Val".<br>
- * This composite change supports refactoring an ontology where punning was used
- * to simulate annotations on a class rather than using actual annotations on a
- * class.
+ * Given a set of ontologies, this composite change will convert all property assertion axioms whose
+ * subject is a 'punned' individual (i.e. an individual that shares a name with a class), removes
+ * these axioms and replaces them with annotations on the class that shares the same name as the
+ * individual. For example for a class A and an individual A, the data property assertion hasX(A,
+ * "Val") would be converted to an entity annotation on the class A with an annotation URI of "hasX"
+ * and a value of "Val".<br>
+ * This composite change supports refactoring an ontology where punning was used to simulate
+ * annotations on a class rather than using actual annotations on a class.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
@@ -52,12 +49,11 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     /**
      * Instantiates a new convert property assertions to annotations.
      * 
-     * @param dataFactory
-     *        factory to use
-     * @param ontologies
-     *        ontologies to change
+     * @param dataFactory factory to use
+     * @param ontologies ontologies to change
      */
-    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory, Collection<OWLOntology> ontologies) {
+    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory,
+                    Collection<OWLOntology> ontologies) {
         super(dataFactory);
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         generateChanges();
@@ -70,12 +66,13 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     /**
      * Gets the punned individuals.
      * 
-     * @param individuals
-     *        the individuals
+     * @param individuals the individuals
      * @return the punned individuals
      */
-    private Collection<OWLNamedIndividual> getPunnedIndividuals(Stream<OWLNamedIndividual> individuals) {
-        return asList(individuals.filter(i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI()))));
+    private Collection<OWLNamedIndividual> getPunnedIndividuals(
+                    Stream<OWLNamedIndividual> individuals) {
+        return asList(individuals.filter(
+                        i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI()))));
     }
 
     private void generateChanges() {
@@ -107,19 +104,22 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     }
 
     protected void addAnnotations(OWLNamedIndividual ind, OWLOntology ont) {
-        ont.dataPropertyAssertionAxioms(ind).filter(ax -> !ax.getProperty().isAnonymous()).forEach(ax -> addAnnotation(
-            ind, ont, ax));
+        ont.dataPropertyAssertionAxioms(ind).filter(ax -> !ax.getProperty().isAnonymous())
+                        .forEach(ax -> addAnnotation(ind, ont, ax));
     }
 
-    protected void addAnnotation(OWLNamedIndividual ind, OWLOntology ont, OWLDataPropertyAssertionAxiom ax) {
+    protected void addAnnotation(OWLNamedIndividual ind, OWLOntology ont,
+                    OWLDataPropertyAssertionAxiom ax) {
         addChange(new RemoveAxiom(ont, ax));
         addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
         remove(ax.getProperty().asOWLDataProperty());
     }
 
-    private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind, OWLDataPropertyAssertionAxiom ax) {
+    private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind,
+                    OWLDataPropertyAssertionAxiom ax) {
         OWLDataProperty hasIRI = ax.getProperty().asOWLDataProperty();
-        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(hasIRI), ax.getObject());
+        OWLAnnotation anno =
+                        df.getOWLAnnotation(df.getOWLAnnotationProperty(hasIRI), ax.getObject());
         return df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
     }
 }

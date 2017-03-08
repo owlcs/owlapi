@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
@@ -41,7 +40,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         try (BufferedReader reader = new BufferedReader(r)) {
             StringBuilder sb = new StringBuilder();
             String line;
@@ -66,8 +66,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                             // possibly parse this.
                             int startCol = line.indexOf(trimmedLine) + 1;
                             String msg = String.format(
-                                "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
-                                trimmedLine, Integer.valueOf(lineCount), Integer.valueOf(startCol));
+                                            "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
+                                            trimmedLine, Integer.valueOf(lineCount),
+                                            Integer.valueOf(startCol));
                             throw new ManchesterOWLSyntaxParserException(msg, lineCount, startCol);
                         }
                     }
@@ -75,8 +76,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 lineCount++;
             }
             String s = sb.toString();
-            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), o
-                .getOWLOntologyManager().getOWLDataFactory());
+            ManchesterOWLSyntaxParser parser =
+                            new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(),
+                                            o.getOWLOntologyManager().getOWLDataFactory());
             parser.setOntologyLoaderConfiguration(config);
             parser.setStringToParse(s);
             return parser.parseOntology(o);
@@ -86,7 +88,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     private static boolean startsWithMagicNumber(String line) {
-        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY
-            .toString()) != -1;
+        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
+                        || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }
 }

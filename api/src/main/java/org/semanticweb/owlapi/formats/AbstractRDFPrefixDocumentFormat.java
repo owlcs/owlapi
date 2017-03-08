@@ -18,16 +18,15 @@ import java.util.Set;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 
 /**
- * An Abstract Document Format for Prefix aware RDF formats. Renamed from
- * AbstractDFDocumentFormat
+ * An Abstract Document Format for Prefix aware RDF formats. Renamed from AbstractDFDocumentFormat
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  * @author Simon Spero
  * @since 4.0.1
  */
-public abstract class AbstractRDFPrefixDocumentFormat extends PrefixDocumentFormatImpl implements RDFDocumentFormat {
+public abstract class AbstractRDFPrefixDocumentFormat extends PrefixDocumentFormatImpl
+                implements RDFDocumentFormat {
 
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();

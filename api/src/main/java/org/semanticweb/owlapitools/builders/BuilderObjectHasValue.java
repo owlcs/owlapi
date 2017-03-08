@@ -22,17 +22,17 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 
 /** Builder class for OWLObjectHasValue. */
-public class BuilderObjectHasValue extends BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
+public class BuilderObjectHasValue
+                extends BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
 
-    @Nullable private OWLIndividual value = null;
+    @Nullable
+    private OWLIndividual value = null;
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderObjectHasValue(OWLObjectHasValue expected, OWLDataFactory df) {
         this(df);
@@ -40,8 +40,7 @@ public class BuilderObjectHasValue extends BaseObjectPropertyBuilder<OWLObjectHa
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderObjectHasValue(OWLDataFactory df) {
@@ -49,8 +48,7 @@ public class BuilderObjectHasValue extends BaseObjectPropertyBuilder<OWLObjectHa
     }
 
     /**
-     * @param arg
-     *        argument
+     * @param arg argument
      * @return builder
      */
     public BuilderObjectHasValue withValue(OWLIndividual arg) {

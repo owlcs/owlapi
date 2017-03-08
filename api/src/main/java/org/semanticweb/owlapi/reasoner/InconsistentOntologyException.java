@@ -15,14 +15,11 @@ package org.semanticweb.owlapi.reasoner;
 import javax.annotation.Nullable;
 
 /**
- * This type of exception is thrown by an
- * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that the
- * imports closure of the root ontology (returned by
- * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is
- * inconsistent.
+ * This type of exception is thrown by an {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to
+ * indicate that the imports closure of the root ontology (returned by
+ * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is inconsistent.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
@@ -33,26 +30,22 @@ public class InconsistentOntologyException extends OWLReasonerRuntimeException {
     }
 
     /**
-     * @param cause
-     *        error cause
+     * @param cause error cause
      */
     public InconsistentOntologyException(@Nullable Throwable cause) {
         super(cause);
     }
 
     /**
-     * @param message
-     *        error message
+     * @param message error message
      */
     public InconsistentOntologyException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        error message
-     * @param cause
-     *        error cause
+     * @param message error message
+     * @param cause error cause
      */
     public InconsistentOntologyException(String message, Throwable cause) {
         super(message, cause);

@@ -21,14 +21,12 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
 /**
- * An ontology URI mapper that simply returns the ontology URI without
- * performing any mapping operation.
+ * An ontology URI mapper that simply returns the ontology URI without performing any mapping
+ * operation.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @deprecated not useful. If no mapping is found, the code already returns the
- *             input IRI.
+ * @deprecated not useful. If no mapping is found, the code already returns the input IRI.
  */
 @HasPriority(10)
 @Deprecated

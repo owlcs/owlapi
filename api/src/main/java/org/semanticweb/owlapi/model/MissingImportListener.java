@@ -17,8 +17,7 @@ import java.io.Serializable;
 /**
  * An interface for objects that listen to missing imports events.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  * @see MissingImportEvent
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
@@ -28,8 +27,7 @@ import java.io.Serializable;
 public interface MissingImportListener extends Serializable {
 
     /**
-     * @param event
-     *        the missing import event
+     * @param event the missing import event
      */
     void importMissing(MissingImportEvent event);
 }

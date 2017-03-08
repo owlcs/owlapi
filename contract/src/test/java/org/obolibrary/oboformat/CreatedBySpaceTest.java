@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class CreatedBySpaceTest extends OboFormatTestBasics {
 
     @Test

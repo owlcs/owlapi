@@ -28,26 +28,23 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
-    implements OWLInverseObjectPropertiesAxiom {
+public class OWLInverseObjectPropertiesAxiomImpl
+                extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+                implements OWLInverseObjectPropertiesAxiom {
 
     private final OWLObjectPropertyExpression first;
     private final OWLObjectPropertyExpression second;
 
     /**
-     * @param first
-     *        first property
-     * @param second
-     *        second peoperty
-     * @param annotations
-     *        annotations
+     * @param first first property
+     * @param second second peoperty
+     * @param annotations annotations
      */
-    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first, OWLObjectPropertyExpression second,
-        Collection<OWLAnnotation> annotations) {
+    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,
+                    OWLObjectPropertyExpression second, Collection<OWLAnnotation> annotations) {
         super(sortOptionally(Arrays.asList(first, second)), annotations);
         this.first = first;
         this.second = second;
@@ -67,13 +64,15 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     @SuppressWarnings("unchecked")
     public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-            : new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(), NO_ANNOTATIONS);
+                        : new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
+                                        getSecondProperty(), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(), mergeAnnos(anns));
+        return (T) new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(),
+                        mergeAnnos(anns));
     }
 
     @Override
@@ -89,10 +88,10 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     @Override
     public Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second.getInverseProperty().getSimplified(),
-            NO_ANNOTATIONS));
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first.getInverseProperty().getSimplified(),
-            NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first,
+                        second.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second,
+                        first.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
     }
 }

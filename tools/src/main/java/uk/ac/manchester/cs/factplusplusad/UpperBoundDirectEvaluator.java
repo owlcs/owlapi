@@ -25,23 +25,22 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /**
- * Determine how many instances can an expression have. All methods return
- * minimal n such that expr\in C^{<= n}, n >= 0
+ * Determine how many instances can an expression have. All methods return minimal n such that
+ * expr\in C^{<= n}, n >= 0
  */
 class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     /**
      * init c'tor
      * 
-     * @param s
-     *        signature
+     * @param s signature
      */
     UpperBoundDirectEvaluator(Signature s) {
         super(s);
     }
 
     @Override
-        int getEntityValue(OWLEntity entity) {
+    int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
             return noUpperValue();
         }
@@ -52,12 +51,12 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
+    int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
         return getAllNoneUpper(isTopEquivalent(r) && isLowerGE(getLowerBoundComplement(c), 1));
     }
 
     @Override
-        int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m > 0 and...
         if (m <= 0) {
             return getNoneValue();
@@ -71,7 +70,7 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \top and...
         if (!isTopEquivalent(r)) {
             return noUpperValue();
@@ -81,7 +80,7 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // conjunction of Min and Max values
         return minUpperValue(getMinValue(m, r, c), getMaxValue(m, r, c));
     }

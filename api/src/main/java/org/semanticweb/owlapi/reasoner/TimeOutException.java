@@ -13,11 +13,10 @@
 package org.semanticweb.owlapi.reasoner;
 
 /**
- * Thrown when the current reasoner operation has been interrupted due to a
- * satisfiability check timeout.
+ * Thrown when the current reasoner operation has been interrupted due to a satisfiability check
+ * timeout.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class TimeOutException extends OWLReasonerRuntimeException {
@@ -28,18 +27,15 @@ public class TimeOutException extends OWLReasonerRuntimeException {
     }
 
     /**
-     * @param message
-     *        error message
+     * @param message error message
      */
     public TimeOutException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        error message
-     * @param cause
-     *        error cause
+     * @param message error message
+     * @param cause error cause
      */
     public TimeOutException(String message, Throwable cause) {
         super(message, cause);

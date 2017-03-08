@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * {@link org.semanticweb.owlapi.model.SetOntologyID} change. <br>
  * Instances of this class are immutable.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
 public class SetOntologyIDData extends OWLOntologyChangeData {
@@ -32,20 +31,17 @@ public class SetOntologyIDData extends OWLOntologyChangeData {
     private final OWLOntologyID newId;
 
     /**
-     * Constructs a {@code SetOntologyIDData} object that describes an
-     * {@link SetOntologyID} change for the {@link OWLOntologyID} object
-     * specified by the {@code newId} parameter.
+     * Constructs a {@code SetOntologyIDData} object that describes an {@link SetOntologyID} change
+     * for the {@link OWLOntologyID} object specified by the {@code newId} parameter.
      * 
-     * @param newId
-     *        The {@link OWLOntologyID} that is the focus of some change.
+     * @param newId The {@link OWLOntologyID} that is the focus of some change.
      */
     public SetOntologyIDData(OWLOntologyID newId) {
         this.newId = checkNotNull(newId, "newId must not be null");
     }
 
     /**
-     * Gets the {@link OWLOntologyID} that is associated with some
-     * {@link SetOntologyID} change.
+     * Gets the {@link OWLOntologyID} that is associated with some {@link SetOntologyID} change.
      * 
      * @return The {@link OWLOntologyID}.
      */

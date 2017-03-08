@@ -28,11 +28,9 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E>
- *        the type of owl objects in the node
+ * @param <E> the type of owl objects in the node
  */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
 
@@ -42,32 +40,28 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     public DefaultNodeSet() {}
 
     /**
-     * @param entity
-     *        the entity to be contained
+     * @param entity the entity to be contained
      */
     public DefaultNodeSet(E entity) {
         addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
     /**
-     * @param node
-     *        the node to be contained
+     * @param node the node to be contained
      */
     public DefaultNodeSet(Node<E> node) {
         addNode(checkNotNull(node, "node cannot be null"));
     }
 
     /**
-     * @param nodes
-     *        a set of nodes to be contained
+     * @param nodes a set of nodes to be contained
      */
     public DefaultNodeSet(Set<Node<E>> nodes) {
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 
     /**
-     * @param nodes
-     *        a set of nodes to be contained
+     * @param nodes a set of nodes to be contained
      */
     public DefaultNodeSet(Stream<Node<E>> nodes) {
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
@@ -81,12 +75,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /**
      * Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.
      * 
-     * @param entity
-     *        The entity to be added. The entity will be wrapped in the
-     *        {@code Node} and the {@code Node} added to this set. Must not be
-     *        {@code null}.
-     * @throws NullPointerException
-     *         if {@code entity} is {@code null}.
+     * @param entity The entity to be added. The entity will be wrapped in the {@code Node} and the
+     *        {@code Node} added to this set. Must not be {@code null}.
+     * @throws NullPointerException if {@code entity} is {@code null}.
      */
     public void addEntity(E entity) {
         addNode(getNode(checkNotNull(entity, "entity cannot be null")));
@@ -95,10 +86,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /**
      * Adds a {@code Node} to this set.
      * 
-     * @param node
-     *        The {@code Node} to be added.
-     * @throws NullPointerException
-     *         if {@code entity} is {@code null}.
+     * @param node The {@code Node} to be added.
+     * @throws NullPointerException if {@code entity} is {@code null}.
      */
     public void addNode(Node<E> node) {
         nodes.add(checkNotNull(node, "Cannot add null to a NodeSet"));
@@ -107,9 +96,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /**
      * Adds a collection of {@code Node}s to this set.
      * 
-     * @param nodeset
-     *        The {@code Node}s to be added. Note that if the collection is not
-     *        a set then duplicate {@code Node}s will be filtered out.
+     * @param nodeset The {@code Node}s to be added. Note that if the collection is not a set then
+     *        duplicate {@code Node}s will be filtered out.
      */
     public void addAllNodes(Collection<Node<E>> nodeset) {
         nodeset.forEach(this::addNode);
@@ -118,9 +106,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /**
      * Adds a collection of {@code Node}s to this set.
      * 
-     * @param nodeset
-     *        The {@code Node}s to be added. Note that if the collection is not
-     *        a set then duplicate {@code Node}s will be filtered out.
+     * @param nodeset The {@code Node}s to be added. Note that if the collection is not a set then
+     *        duplicate {@code Node}s will be filtered out.
      */
     public void addAllNodes(Stream<Node<E>> nodeset) {
         nodeset.forEach(this::addNode);
@@ -129,8 +116,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /**
      * Adds the set of entities as a {@code Node} to this set.
      * 
-     * @param entities
-     *        The set of entities to be added. The entities will be wrapped in a
+     * @param entities The set of entities to be added. The entities will be wrapped in a
      *        {@code Node} which will be added to this {@code NodeSet}.
      */
     public void addSameEntities(Set<E> entities) {
@@ -140,9 +126,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /**
      * Adds the specified entities as {@code Node}s to this set.
      * 
-     * @param entities
-     *        The entities to be added. Each entity will be wrapped in a
-     *        {@code Node} which will then be added to this {@code NodeSet}.
+     * @param entities The entities to be added. Each entity will be wrapped in a {@code Node} which
+     *        will then be added to this {@code NodeSet}.
      */
     public void addDifferentEntities(Set<E> entities) {
         entities.forEach(e -> addNode(getNode(e)));

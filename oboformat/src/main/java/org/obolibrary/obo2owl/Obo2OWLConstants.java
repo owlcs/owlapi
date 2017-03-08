@@ -22,7 +22,8 @@ public class Obo2OWLConstants {
     /** Default iri. */
     public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
     /** OIO vocabulary prefix. */
-    public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
+    public static final String OIOVOCAB_IRI_PREFIX =
+                    "http://www.geneontology.org/formats/oboInOwl#";
     /** IRI for the 'has obsolescence reason' annotation property */
     public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000231");
     /** IRI for the 'terms merged' individual */
@@ -76,8 +77,7 @@ public class Obo2OWLConstants {
         }
 
         /**
-         * @param d
-         *        date to format
+         * @param d date to format
          * @return formatted string
          */
         public static String format(Date d) {
@@ -118,10 +118,9 @@ public class Obo2OWLConstants {
         }
 
         /**
-         * @param e
-         *        entity to check
-         * @return true if e has the same iri as the enum value, false if e is
-         *         null or has a different iri
+         * @param e entity to check
+         * @return true if e has the same iri as the enum value, false if e is null or has a
+         *         different iri
          */
         public boolean sameIRI(@Nullable OWLEntity e) {
             // if a null value is passed in, then no match
@@ -132,12 +131,11 @@ public class Obo2OWLConstants {
         }
     }
 
-    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps.uniqueIndex(Arrays.asList(Obo2OWLVocabulary
-        .values()), v -> v.mappedTag);
+    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB =
+                    Maps.uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), v -> v.mappedTag);
 
     /**
-     * @param tag
-     *        tag
+     * @param tag tag
      * @return obj for tag
      */
     @Nullable

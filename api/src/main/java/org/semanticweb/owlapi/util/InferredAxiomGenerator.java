@@ -19,25 +19,20 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
- * Given a reasoner, implementations of this interface generate axioms that
- * represent inferred information. For example, an implementation might generate
- * the necessary subclass axioms that represent the inferred class subsumption
- * hierarchy within the reasoner. It is assumed that axioms generated reflect
- * the inferences drawn from the ontologies which were loaded into the reasoner.
+ * Given a reasoner, implementations of this interface generate axioms that represent inferred
+ * information. For example, an implementation might generate the necessary subclass axioms that
+ * represent the inferred class subsumption hierarchy within the reasoner. It is assumed that axioms
+ * generated reflect the inferences drawn from the ontologies which were loaded into the reasoner.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <A>
- *        the axiom type
+ * @param <A> the axiom type
  */
 public interface InferredAxiomGenerator<A extends OWLAxiom> {
 
     /**
-     * @param df
-     *        data factory
-     * @param reasoner
-     *        the reasoner to use
+     * @param df data factory
+     * @param reasoner the reasoner to use
      * @return the set of axioms generated
      */
     Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner);

@@ -21,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
@@ -33,24 +32,21 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
     }
 
     /**
-     * @param entity
-     *        datatype to include
+     * @param entity datatype to include
      */
     public OWLDatatypeNode(OWLDatatype entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        set of datatypes to include
+     * @param entities set of datatypes to include
      */
     public OWLDatatypeNode(Collection<OWLDatatype> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        set of datatypes to include
+     * @param entities set of datatypes to include
      */
     public OWLDatatypeNode(Stream<OWLDatatype> entities) {
         super(entities);

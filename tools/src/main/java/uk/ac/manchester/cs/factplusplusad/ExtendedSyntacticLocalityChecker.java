@@ -13,8 +13,7 @@ class ExtendedSyntacticLocalityChecker extends SyntacticLocalityChecker {
     /**
      * init c'tor
      * 
-     * @param s
-     *        signature
+     * @param s signature
      */
     ExtendedSyntacticLocalityChecker(Signature s) {
         super(s);

@@ -15,15 +15,13 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class IRIDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
-     * @param iri
-     *        destination iri; can be a file: or http:/https: iri.
+     * @param iri destination iri; can be a file: or http:/https: iri.
      */
     public IRIDocumentTarget(IRI iri) {
         super(() -> null, iri);

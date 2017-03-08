@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
 @SuppressWarnings("javadoc")
@@ -49,22 +48,23 @@ public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
-            // LiteralWithBackslash
-            "\\",
-            // LiteralWithDoubleQuote
-            "\"",
-            // LiteralWithLeftAngle
-            "<",
-            // LiteralWithNewLine
-            "\n",
-            // LiteralWithSingleQuote
-            "\'");
+                        // LiteralWithBackslash
+                        "\\",
+                        // LiteralWithDoubleQuote
+                        "\"",
+                        // LiteralWithLeftAngle
+                        "<",
+                        // LiteralWithNewLine
+                        "\n",
+                        // LiteralWithSingleQuote
+                        "\'");
     }
 
     @Override
     protected OWLOntology createOntology() {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#", "A"));
-        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#", "prop"));
+        OWLAnnotationProperty prop =
+                        AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#", "prop"));
         OWLLiteral lit1 = Literal(escape);
         OWLLiteral lit2 = Literal("Start" + escape);
         OWLLiteral lit3 = Literal(escape + "End");

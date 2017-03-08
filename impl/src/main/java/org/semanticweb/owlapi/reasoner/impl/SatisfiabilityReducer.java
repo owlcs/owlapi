@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiomShortCut;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClassExpression>> {
@@ -33,8 +32,7 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClas
     private final OWLDataFactory df;
 
     /**
-     * @param dataFactory
-     *        data factory to use
+     * @param dataFactory data factory to use
      */
     public SatisfiabilityReducer(OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
@@ -50,7 +48,7 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClas
 
     @Override
     public Optional<OWLClassExpression> visit(OWLSubClassOfAxiom axiom) {
-        return Optional.of(df.getOWLObjectIntersectionOf(axiom.getSubClass(), df.getOWLObjectComplementOf(axiom
-            .getSuperClass())));
+        return Optional.of(df.getOWLObjectIntersectionOf(axiom.getSubClass(),
+                        df.getOWLObjectComplementOf(axiom.getSuperClass())));
     }
 }

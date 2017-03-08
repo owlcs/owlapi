@@ -41,8 +41,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * 
  * @author Ignazio
  * @since 4.1.4
- * @param <T>
- *        type to transform
+ * @param <T> type to transform
  */
 public class OWLObjectTransformer<T> {
 
@@ -52,17 +51,13 @@ public class OWLObjectTransformer<T> {
     private OWLDataFactory df;
 
     /**
-     * @param predicate
-     *        the predicate to match the axioms to rebuild
-     * @param transformer
-     *        the transformer to apply
-     * @param df
-     *        data factory to use for changes
-     * @param witness
-     *        witness class for the transformer
+     * @param predicate the predicate to match the axioms to rebuild
+     * @param transformer the transformer to apply
+     * @param df data factory to use for changes
+     * @param witness witness class for the transformer
      */
-    public OWLObjectTransformer(Predicate<Object> predicate, UnaryOperator<T> transformer, OWLDataFactory df,
-        Class<T> witness) {
+    public OWLObjectTransformer(Predicate<Object> predicate, UnaryOperator<T> transformer,
+                    OWLDataFactory df, Class<T> witness) {
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.transformer = checkNotNull(transformer, "transformer cannot be null");
         this.df = checkNotNull(df, "df cannot be null");
@@ -70,31 +65,29 @@ public class OWLObjectTransformer<T> {
     }
 
     /**
-     * Create the required changes for this transformation to be applied to the
-     * input. Note: these are AxiomChangeData changes, not ontology specific
-     * changes. There is no requirement for the input to be an ontology or
-     * included in an ontology.
+     * Create the required changes for this transformation to be applied to the input. Note: these
+     * are AxiomChangeData changes, not ontology specific changes. There is no requirement for the
+     * input to be an ontology or included in an ontology.
      * 
-     * @param o
-     *        object to transform. Must be an axiom or an ontology for the
-     *        change to be meaningful.
+     * @param o object to transform. Must be an axiom or an ontology for the change to be
+     *        meaningful.
      * @return A list of axiom changes that should be applied.
      */
     public List<AxiomChangeData> change(OWLObject o) {
         checkNotNull(o, "o cannot be null");
         List<AxiomChangeData> changes = new ArrayList<>();
         // no ontology changes will be collected
-        Visitor<T> v = new Visitor<>(new ArrayList<OWLOntologyChange>(), changes, predicate, transformer, df, witness);
+        Visitor<T> v = new Visitor<>(new ArrayList<OWLOntologyChange>(), changes, predicate,
+                        transformer, df, witness);
         o.accept(v);
         return changes;
     }
 
     /**
-     * Create the required changes for this transformation to be applied to the
-     * input. These changes are specific to the input ontology.
+     * Create the required changes for this transformation to be applied to the input. These changes
+     * are specific to the input ontology.
      * 
-     * @param ontology
-     *        ontology to transform.
+     * @param ontology ontology to transform.
      * @return A list of changes that should be applied.
      */
     public List<OWLOntologyChange> change(OWLOntology ontology) {
@@ -114,8 +107,9 @@ public class OWLObjectTransformer<T> {
         private List<AxiomChangeData> changes;
         private List<OWLOntologyChange> ontologyChanges;
 
-        Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes, Predicate<Object> predicate,
-            UnaryOperator<T> transformer, OWLDataFactory df, Class<T> witness) {
+        Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes,
+                        Predicate<Object> predicate, UnaryOperator<T> transformer,
+                        OWLDataFactory df, Class<T> witness) {
             super(predicate, transformer, df, witness);
             this.changes = changes;
             this.ontologyChanges = ontologyChanges;

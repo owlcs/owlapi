@@ -23,21 +23,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassExpression {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param oneOf
-     *        oneOf
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param oneOf oneOf
      */
     public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, @Nullable OWLAxiom axiom,
-        OWLObjectOneOf oneOf) {
+                    OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
     }
 

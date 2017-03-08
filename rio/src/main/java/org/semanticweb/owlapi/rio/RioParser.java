@@ -51,16 +51,12 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 public interface RioParser extends OWLParser {
 
     /**
-     * @param r
-     *        Rio triple source
-     * @param o
-     *        Ontology to load axioms in
-     * @param config
-     *        loading config
-     * @param documentIRI
-     *        document IRI
+     * @param r Rio triple source
+     * @param o Ontology to load axioms in
+     * @param config loading config
+     * @param documentIRI document IRI
      * @return Parsed document format
      */
-    OWLDocumentFormat parse(RioMemoryTripleSource r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI);
+    OWLDocumentFormat parse(RioMemoryTripleSource r, OWLOntology o,
+                    OWLOntologyLoaderConfiguration config, IRI documentIRI);
 }

@@ -13,14 +13,12 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * The super interface for all class expressions which are not named class
- * expressions (i.e. all class expressions which are not {@code OWLClass}). This
- * interface represents <a
- * href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">class
- * expressions</a> in the OWL 2 Specification.
+ * The super interface for all class expressions which are not named class expressions (i.e. all
+ * class expressions which are not {@code OWLClass}). This interface represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">class expressions</a> in the OWL 2
+ * Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLAnonymousClassExpression extends OWLClassExpression {

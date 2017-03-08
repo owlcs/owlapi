@@ -22,20 +22,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSuperClassExpression extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param classExpression
-     *        classExpression
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param classExpression classExpression
      */
-    public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom,
+                    OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 
@@ -57,6 +54,6 @@ public class UseOfNonSuperClassExpression extends OWLProfileViolation {
     @Override
     public String toString() {
         return toString("Use of non-superclass expression in position that requires a superclass expression: %s",
-                getExpression());
+                        getExpression());
     }
 }

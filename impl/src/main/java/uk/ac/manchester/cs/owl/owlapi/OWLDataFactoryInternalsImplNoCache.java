@@ -47,8 +47,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     private final boolean useCompression;
 
     /**
-     * @param useCompression
-     *        true if compression of literals should be used
+     * @param useCompression true if compression of literals should be used
      */
     public OWLDataFactoryInternalsImplNoCache(boolean useCompression) {
         this.useCompression = useCompression;
@@ -214,7 +213,8 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang, @Nullable OWLDatatype datatype) {
+    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
+                    @Nullable OWLDatatype datatype) {
         if (useCompression) {
             if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
                 return new OWLLiteralImplPlain(lexicalValue, lang);
@@ -226,7 +226,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
 
     @Override
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
-        Stream<OWLAnnotation> annotations) {
+                    Stream<OWLAnnotation> annotations) {
         return new OWLAnnotationImpl(property, value, annotations);
     }
 }

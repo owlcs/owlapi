@@ -19,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDataPropertyImpl extends OWLObjectImpl implements OWLDataProperty {
@@ -29,13 +28,12 @@ public class OWLDataPropertyImpl extends OWLObjectImpl implements OWLDataPropert
     private final boolean builtin;
 
     /**
-     * @param iri
-     *        property iri
+     * @param iri property iri
      */
     public OWLDataPropertyImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
-        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(
-            OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
+                        || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     @Override

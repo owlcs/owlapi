@@ -13,8 +13,7 @@ public class OBOFormatException extends OWLParserException {
     /**
      * Instantiates a new oBO format exception.
      * 
-     * @param message
-     *        the message
+     * @param message the message
      */
     public OBOFormatException(String message) {
         super(message);
@@ -23,8 +22,7 @@ public class OBOFormatException extends OWLParserException {
     /**
      * Instantiates a new oBO format exception.
      * 
-     * @param e
-     *        the e
+     * @param e the e
      */
     public OBOFormatException(Throwable e) {
         super(e);
@@ -33,10 +31,8 @@ public class OBOFormatException extends OWLParserException {
     /**
      * Instantiates a new oBO format exception.
      * 
-     * @param message
-     *        the message
-     * @param e
-     *        the e
+     * @param message the message
+     * @param e the e
      */
     public OBOFormatException(String message, Throwable e) {
         super(message, e);

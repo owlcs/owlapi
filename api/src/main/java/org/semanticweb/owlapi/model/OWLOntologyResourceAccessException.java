@@ -13,44 +13,37 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * An exception to describe a problem in accessing an ontology. Since there
- * could be any kind of implementation of {@code OWLOntology} (and other model
- * interfaces), some of which may use secondary storage, such as a database
- * backend, there could be problems with accessing ontology objects such as
- * axioms. In such situations the implementation should wrap the implementation
- * specific exceptions in this exception and rethrow an instance of this
- * exception. Note that exceptions of this type are unchecked (runtime)
- * exceptions - this is because they represent potentially nasty situations
- * where client code calling methods such as getAxioms() probably doesn't know
- * (or care) how to handle situations where network/database connections fail.
+ * An exception to describe a problem in accessing an ontology. Since there could be any kind of
+ * implementation of {@code OWLOntology} (and other model interfaces), some of which may use
+ * secondary storage, such as a database backend, there could be problems with accessing ontology
+ * objects such as axioms. In such situations the implementation should wrap the implementation
+ * specific exceptions in this exception and rethrow an instance of this exception. Note that
+ * exceptions of this type are unchecked (runtime) exceptions - this is because they represent
+ * potentially nasty situations where client code calling methods such as getAxioms() probably
+ * doesn't know (or care) how to handle situations where network/database connections fail.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
 
     /**
-     * @param message
-     *        message
+     * @param message message
      */
     public OWLOntologyResourceAccessException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        message
-     * @param cause
-     *        cause
+     * @param message message
+     * @param cause cause
      */
     public OWLOntologyResourceAccessException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * @param cause
-     *        cause
+     * @param cause cause
      */
     public OWLOntologyResourceAccessException(Throwable cause) {
         super(cause);

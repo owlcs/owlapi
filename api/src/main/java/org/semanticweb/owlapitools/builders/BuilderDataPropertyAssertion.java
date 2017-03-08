@@ -23,15 +23,16 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** Builder class for OWLDataPropertyAssertionAxiom. */
-public class BuilderDataPropertyAssertion
-    extends BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
+public class BuilderDataPropertyAssertion extends
+                BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
 
-    @Nullable private OWLIndividual subject = null;
-    @Nullable private OWLLiteral object = null;
+    @Nullable
+    private OWLIndividual subject = null;
+    @Nullable
+    private OWLLiteral object = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDataPropertyAssertion(OWLDataFactory df) {
@@ -41,20 +42,17 @@ public class BuilderDataPropertyAssertion
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDataPropertyAssertion(OWLDataPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withSubject(expected.getSubject()).withValue(expected.getObject())
-            .withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withSubject(expected.getSubject())
+                        .withValue(expected.getObject()).withAnnotations(expected.annotations());
     }
 
     /**
-     * @param arg
-     *        value
+     * @param arg value
      * @return builder
      */
     public BuilderDataPropertyAssertion withValue(OWLLiteral arg) {
@@ -63,8 +61,7 @@ public class BuilderDataPropertyAssertion
     }
 
     /**
-     * @param arg
-     *        individual
+     * @param arg individual
      * @return builder
      */
     public BuilderDataPropertyAssertion withSubject(OWLIndividual arg) {
@@ -74,7 +71,8 @@ public class BuilderDataPropertyAssertion
 
     @Override
     public OWLDataPropertyAssertionAxiom buildObject() {
-        return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getLiteral(), annotations);
+        return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getLiteral(),
+                        annotations);
     }
 
     /**

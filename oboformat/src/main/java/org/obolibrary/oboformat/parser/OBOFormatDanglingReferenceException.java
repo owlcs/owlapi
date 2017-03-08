@@ -11,8 +11,7 @@ public class OBOFormatDanglingReferenceException extends OBOFormatException {
     /**
      * Instantiates a new oBO format dangling reference exception.
      * 
-     * @param message
-     *        the message
+     * @param message the message
      */
     public OBOFormatDanglingReferenceException(String message) {
         super(message);
@@ -21,8 +20,7 @@ public class OBOFormatDanglingReferenceException extends OBOFormatException {
     /**
      * Instantiates a new oBO format dangling reference exception.
      * 
-     * @param e
-     *        the e
+     * @param e the e
      */
     public OBOFormatDanglingReferenceException(Throwable e) {
         super(e);
@@ -31,10 +29,8 @@ public class OBOFormatDanglingReferenceException extends OBOFormatException {
     /**
      * Instantiates a new oBO format dangling reference exception.
      * 
-     * @param message
-     *        the message
-     * @param e
-     *        the e
+     * @param message the message
+     * @param e the e
      */
     public OBOFormatDanglingReferenceException(String message, Throwable e) {
         super(message, e);

@@ -13,10 +13,10 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class InternalizedEntitiesTest {
     @Test
     public void shouldBeTop() {
-        OWLDataFactoryImpl impl=new OWLDataFactoryImpl();
- assertTrue(impl.getTopDatatype().isTopDatatype());
- OWLDataProperty p=impl.getOWLDataProperty("urn:test:p");
- OWLDataExactCardinality exp = impl.getOWLDataExactCardinality(1, p);
- assertFalse(exp.isQualified());
+        OWLDataFactoryImpl impl = new OWLDataFactoryImpl();
+        assertTrue(impl.getTopDatatype().isTopDatatype());
+        OWLDataProperty p = impl.getOWLDataProperty("urn:test:p");
+        OWLDataExactCardinality exp = impl.getOWLDataExactCardinality(1, p);
+        assertFalse(exp.isQualified());
     }
 }

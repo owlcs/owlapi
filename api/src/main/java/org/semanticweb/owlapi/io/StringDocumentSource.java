@@ -22,45 +22,37 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 /**
  * An ontology input source that wraps a string.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /**
-     * @param target
-     *        a document target
-     * @param f
-     *        format
+     * @param target a document target
+     * @param f format
      */
     public StringDocumentSource(StringDocumentTarget target, OWLDocumentFormat f) {
         this(target.toString(), "string:ontology", f, null);
     }
 
     /**
-     * @param string
-     *        the source string
-     * @param f
-     *        format
+     * @param string the source string
+     * @param f format
      */
     public StringDocumentSource(String string, OWLDocumentFormat f) {
         this(string, "string:ontology", f, null);
     }
 
     /**
-     * @param string
-     *        the source string
+     * @param string the source string
      */
     public StringDocumentSource(String string) {
         this(string, "string:ontology", null, null);
     }
 
     /**
-     * @param string
-     *        the source string
-     * @param iri
-     *        The document IRI
+     * @param string the source string
+     * @param iri The document IRI
      */
     public StringDocumentSource(String string, IRI iri) {
         this(string, iri, null, null);
@@ -69,32 +61,26 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * Specifies a string as an ontology document.
      * 
-     * @param string
-     *        The string
-     * @param prefix
-     *        The document IRI prefix
-     * @param f
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param string The string
+     * @param prefix The document IRI prefix
+     * @param f ontology format
+     * @param mime mime type
      */
-    public StringDocumentSource(String string, String prefix, @Nullable OWLDocumentFormat f, @Nullable String mime) {
+    public StringDocumentSource(String string, String prefix, @Nullable OWLDocumentFormat f,
+                    @Nullable String mime) {
         this(string, IRI.getNextDocumentIRI(prefix), f, mime);
     }
 
     /**
      * Specifies a string as an ontology document.
      * 
-     * @param string
-     *        The string
-     * @param documentIRI
-     *        The document IRI
-     * @param f
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param string The string
+     * @param documentIRI The document IRI
+     * @param f ontology format
+     * @param mime mime type
      */
-    public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f, @Nullable String mime) {
+    public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f,
+                    @Nullable String mime) {
         super(documentIRI, f, mime);
         checkNotNull(string, "string cannot be null");
         stringContent = string;

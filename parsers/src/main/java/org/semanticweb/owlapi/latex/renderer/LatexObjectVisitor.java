@@ -120,12 +120,11 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /**
- * NOTE: this class was not designed as a general purpose renderer, i.e., some
- * ontologies might be misrepresented in the output. Please report any
- * formatting error you find to the bug tracker or the mailing list.
+ * NOTE: this class was not designed as a general purpose renderer, i.e., some ontologies might be
+ * misrepresented in the output. Please report any formatting error you find to the bug tracker or
+ * the mailing list.
  * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class LatexObjectVisitor implements OWLObjectVisitor {
@@ -155,10 +154,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     private ShortFormProvider shortFormProvider;
 
     /**
-     * @param writer
-     *        writer
-     * @param df
-     *        data factory
+     * @param writer writer
+     * @param df data factory
      */
     public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
         this.writer = writer;
@@ -168,16 +165,14 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param subject
-     *        subject
+     * @param subject subject
      */
     public void setSubject(OWLObject subject) {
         this.subject = subject;
     }
 
     /**
-     * @param shortFormProvder
-     *        shortFormProvder
+     * @param shortFormProvder shortFormProvder
      */
     public void setShortFormProvider(ShortFormProvider shortFormProvder) {
         shortFormProvider = shortFormProvder;
@@ -211,8 +206,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param prettyPrint
-     *        prettyPrint
+     * @param prettyPrint prettyPrint
      */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
@@ -582,7 +576,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it
+                        .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -624,7 +619,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+        for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it
+                        .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -636,7 +632,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator(); it
+                        .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -665,8 +662,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param axiom
-     *        the axiom
+     * @param axiom the axiom
      */
     public void visit(OWLImportsDeclaration axiom) {
         write("ImportsDeclaration");
@@ -683,7 +679,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         if (property.isAnonymous()) {
             df.getOWLObjectMaxCardinality(1, property).accept(this);
         } else {
-            OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(property.asOWLObjectProperty());
+            OWLObjectPropertyExpression prop =
+                            df.getOWLObjectInverseOf(property.asOWLObjectProperty());
             df.getOWLObjectMaxCardinality(1, prop).accept(this);
         }
     }
@@ -738,7 +735,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it
+                        .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -1018,8 +1016,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     /**
-     * @param value
-     *        value
+     * @param value value
      */
     public void visit(OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {

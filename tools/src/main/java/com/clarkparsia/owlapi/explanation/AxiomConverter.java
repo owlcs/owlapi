@@ -92,13 +92,15 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     @Override
     public OWLClassExpression visit(OWLDataPropertyDomainAxiom axiom) {
-        OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype());
+        OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
+                        factory.getTopDatatype());
         return and(sub, not(axiom.getDomain()));
     }
 
     @Override
     public OWLClassExpression visit(OWLDataPropertyRangeAxiom axiom) {
-        return factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getOWLDataComplementOf(axiom.getRange()));
+        return factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
+                        factory.getOWLDataComplementOf(axiom.getRange()));
     }
 
     @Override
@@ -143,14 +145,16 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     @Override
     public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         OWLClassExpression sub = oneOf(axiom.getSubject());
-        OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
+        OWLClassExpression sup =
+                        factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
         return factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
     }
 
     @Override
     public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom axiom) {
         OWLClassExpression sub = oneOf(axiom.getSubject());
-        OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
+        OWLClassExpression sup =
+                        factory.getOWLObjectHasValue(axiom.getProperty(), axiom.getObject());
         OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
         return ax.accept(this);
     }
@@ -158,7 +162,7 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     @Override
     public OWLClassExpression visit(OWLObjectPropertyDomainAxiom axiom) {
         return and(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
-                not(axiom.getDomain()));
+                        not(axiom.getDomain()));
     }
 
     @Override

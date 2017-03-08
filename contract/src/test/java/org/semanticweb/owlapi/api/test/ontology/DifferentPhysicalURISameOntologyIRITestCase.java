@@ -20,11 +20,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
 
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
@@ -32,12 +31,10 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
-        IRI ontologyADocumentIRI = IRI
-            .create(DifferentPhysicalURISameOntologyIRITestCase.class
-                .getResource('/' + ONTOLOGY_A).toURI());
-        IRI ontologyADocumentIRIB = IRI
-            .create(DifferentPhysicalURISameOntologyIRITestCase.class
-                .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
+        IRI ontologyADocumentIRI = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class
+                        .getResource('/' + ONTOLOGY_A).toURI());
+        IRI ontologyADocumentIRIB = IRI.create(DifferentPhysicalURISameOntologyIRITestCase.class
+                        .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
         m.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
         m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
         fail("Expected an exception to say that the ontology already exists");

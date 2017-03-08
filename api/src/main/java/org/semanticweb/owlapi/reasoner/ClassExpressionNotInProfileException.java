@@ -16,24 +16,19 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class ClassExpressionNotInProfileException extends
-        OWLReasonerRuntimeException {
+public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeException {
 
     private final OWLClassExpression classExpression;
     private final IRI profile;
 
     /**
-     * @param classExpression
-     *        wrong class expression
-     * @param profile
-     *        profile
+     * @param classExpression wrong class expression
+     * @param profile profile
      */
-    public ClassExpressionNotInProfileException(
-            OWLClassExpression classExpression, IRI profile) {
+    public ClassExpressionNotInProfileException(OWLClassExpression classExpression, IRI profile) {
         this.classExpression = classExpression;
         this.profile = profile;
     }

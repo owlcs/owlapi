@@ -27,23 +27,21 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 public interface NominalProvider {
 
     /**
-     * Gets an OWLDataOneOf <a href=
-     * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
-     * >(see spec)</a>
+     * Gets an OWLDataOneOf
+     * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
+     * spec)</a>
      * 
-     * @param values
-     *        The set of values that the data one of should contain.
+     * @param values The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
      */
     OWLDataOneOf getOWLDataOneOf(Stream<? extends OWLLiteral> values);
 
     /**
-     * Gets an OWLDataOneOf <a href=
-     * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
-     * >(see spec)</a>
+     * Gets an OWLDataOneOf
+     * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
+     * spec)</a>
      * 
-     * @param values
-     *        The set of values that the data one of should contain.
+     * @param values The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
      */
     default OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values) {
@@ -52,13 +50,12 @@ public interface NominalProvider {
     }
 
     /**
-     * Gets an OWLDataOneOf <a href=
-     * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
-     * >(see spec)</a>
+     * Gets an OWLDataOneOf
+     * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
+     * spec)</a>
      * 
-     * @param values
-     *        The set of values that the data one of should contain. Cannot be
-     *        null or contain null values.
+     * @param values The set of values that the data one of should contain. Cannot be null or
+     *        contain null values.
      * @return A data one of that enumerates the specified set of values
      */
     default OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
@@ -67,15 +64,13 @@ public interface NominalProvider {
     }
 
     /**
-     * @param values
-     *        indivudals for restriction. Cannot be null or contain nulls.
+     * @param values indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
     OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values);
 
     /**
-     * @param values
-     *        indivudals for restriction. Cannot be null or contain nulls.
+     * @param values indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
     default OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values) {
@@ -83,8 +78,7 @@ public interface NominalProvider {
     }
 
     /**
-     * @param individuals
-     *        indivudals for restriction. Cannot be null or contain nulls.
+     * @param individuals indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
     default OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {

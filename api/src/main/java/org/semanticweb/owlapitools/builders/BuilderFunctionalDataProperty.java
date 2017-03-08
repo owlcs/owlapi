@@ -18,25 +18,23 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 
 /** Builder class for OWLFunctionalDataPropertyAxiom. */
-public class BuilderFunctionalDataProperty
-        extends BaseDataPropertyBuilder<OWLFunctionalDataPropertyAxiom, BuilderFunctionalDataProperty> {
+public class BuilderFunctionalDataProperty extends
+                BaseDataPropertyBuilder<OWLFunctionalDataPropertyAxiom, BuilderFunctionalDataProperty> {
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderFunctionalDataProperty(OWLFunctionalDataPropertyAxiom expected, OWLDataFactory df) {
+    public BuilderFunctionalDataProperty(OWLFunctionalDataPropertyAxiom expected,
+                    OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderFunctionalDataProperty(OWLDataFactory df) {

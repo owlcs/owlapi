@@ -21,7 +21,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class OBODoc {
 
     /** The header frame. */
-    @Nullable protected Frame headerFrame;
+    @Nullable
+    protected Frame headerFrame;
     /** The term frame map. */
     protected final Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
@@ -42,8 +43,7 @@ public class OBODoc {
     }
 
     /**
-     * @param headerFrame
-     *        the new header frame
+     * @param headerFrame the new header frame
      */
     public void setHeaderFrame(Frame headerFrame) {
         this.headerFrame = headerFrame;
@@ -71,12 +71,13 @@ public class OBODoc {
     }
 
     /**
-     * Freezing an OBODoc signals that the document has become quiescent, and
-     * that the system may optimize data structures for performance or space.
+     * Freezing an OBODoc signals that the document has become quiescent, and that the system may
+     * optimize data structures for performance or space.
      */
     public void freezeFrames() {
-        verifyNotNull(headerFrame, "headerFrame cannot be null at this stage. Setting the headr frame has been skipped")
-            .freeze();
+        verifyNotNull(headerFrame,
+                        "headerFrame cannot be null at this stage. Setting the headr frame has been skipped")
+                                        .freeze();
         freezeFrameMap(termFrameMap);
         freezeFrameMap(typedefFrameMap);
         freezeFrameMap(instanceFrameMap);
@@ -92,8 +93,7 @@ public class OBODoc {
     }
 
     /**
-     * @param id
-     *        the id
+     * @param id the id
      * @return the term frame
      */
     @Nullable
@@ -102,10 +102,8 @@ public class OBODoc {
     }
 
     /**
-     * @param id
-     *        the id
-     * @param followImport
-     *        the follow import
+     * @param id the id
+     * @param followImport the follow import
      * @return the term frame
      */
     @Nullable
@@ -120,10 +118,8 @@ public class OBODoc {
     }
 
     /**
-     * @param id
-     *        the id
-     * @param visitedDocs
-     *        the visited docs
+     * @param id the id
+     * @param visitedDocs the visited docs
      * @return the frame
      */
     @Nullable
@@ -146,8 +142,7 @@ public class OBODoc {
     }
 
     /**
-     * @param id
-     *        the id
+     * @param id the id
      * @return the typedef frame
      */
     @Nullable
@@ -156,10 +151,8 @@ public class OBODoc {
     }
 
     /**
-     * @param id
-     *        the id
-     * @param followImports
-     *        the follow imports
+     * @param id the id
+     * @param followImports the follow imports
      * @return the typedef frame
      */
     @Nullable
@@ -174,10 +167,8 @@ public class OBODoc {
     }
 
     /**
-     * @param id
-     *        the id
-     * @param visitedDocs
-     *        the visited docs
+     * @param id the id
+     * @param visitedDocs the visited docs
      * @return the frame
      */
     @Nullable
@@ -200,8 +191,7 @@ public class OBODoc {
     }
 
     /**
-     * @param id
-     *        the id
+     * @param id the id
      * @return the instance frame
      */
     public Frame getInstanceFrame(String id) {
@@ -216,8 +206,7 @@ public class OBODoc {
     }
 
     /**
-     * @param importedOBODocs
-     *        the new imported obo docs
+     * @param importedOBODocs the new imported obo docs
      */
     public void setImportedOBODocs(Collection<OBODoc> importedOBODocs) {
         this.importedOBODocs.clear();
@@ -227,8 +216,7 @@ public class OBODoc {
     /**
      * Adds the imported obo doc.
      * 
-     * @param doc
-     *        the doc
+     * @param doc the doc
      */
     public void addImportedOBODoc(OBODoc doc) {
         importedOBODocs.add(doc);
@@ -237,10 +225,8 @@ public class OBODoc {
     /**
      * Adds the frame.
      * 
-     * @param f
-     *        the frame
-     * @throws FrameMergeException
-     *         the frame merge exception
+     * @param f the frame
+     * @throws FrameMergeException the frame merge exception
      */
     public void addFrame(Frame f) throws FrameMergeException {
         if (f.getType() == FrameType.TERM) {
@@ -255,10 +241,8 @@ public class OBODoc {
     /**
      * Adds the term frame.
      * 
-     * @param f
-     *        the frame
-     * @throws FrameMergeException
-     *         the frame merge exception
+     * @param f the frame
+     * @throws FrameMergeException the frame merge exception
      */
     public void addTermFrame(Frame f) throws FrameMergeException {
         String id = f.getId();
@@ -272,10 +256,8 @@ public class OBODoc {
     /**
      * Adds the typedef frame.
      * 
-     * @param f
-     *        the frame
-     * @throws FrameMergeException
-     *         the frame merge exception
+     * @param f the frame
+     * @throws FrameMergeException the frame merge exception
      */
     public void addTypedefFrame(Frame f) throws FrameMergeException {
         String id = f.getId();
@@ -289,10 +271,8 @@ public class OBODoc {
     /**
      * Adds the instance frame.
      * 
-     * @param f
-     *        the frame
-     * @throws FrameMergeException
-     *         the frame merge exception
+     * @param f the frame
+     * @throws FrameMergeException the frame merge exception
      */
     public void addInstanceFrame(Frame f) throws FrameMergeException {
         String id = f.getId();
@@ -306,8 +286,7 @@ public class OBODoc {
     /**
      * Looks up the ID prefix to IRI prefix mapping. Header-Tag: idspace
      * 
-     * @param prefix
-     *        prefix
+     * @param prefix prefix
      * @return IRI prefix as string
      */
     @Nullable
@@ -321,8 +300,7 @@ public class OBODoc {
     }
 
     /**
-     * @param prefix
-     *        the prefix
+     * @param prefix the prefix
      * @return true, if is treat xrefs as equivalent
      */
     public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
@@ -335,10 +313,8 @@ public class OBODoc {
     /**
      * Merge contents.
      * 
-     * @param extDoc
-     *        the external doc
-     * @throws FrameMergeException
-     *         the frame merge exception
+     * @param extDoc the external doc
+     * @throws FrameMergeException the frame merge exception
      */
     public void mergeContents(OBODoc extDoc) throws FrameMergeException {
         for (Frame f : extDoc.getTermFrames()) {
@@ -355,8 +331,7 @@ public class OBODoc {
     /**
      * Adds the default ontology header.
      * 
-     * @param defaultOnt
-     *        the default ont
+     * @param defaultOnt the default ont
      */
     public void addDefaultOntologyHeader(String defaultOnt) {
         Frame hf = verifyNotNull(getHeaderFrame());
@@ -368,8 +343,7 @@ public class OBODoc {
     }
 
     /**
-     * Check this document for violations, i.e. cardinality constraint
-     * violations.
+     * Check this document for violations, i.e. cardinality constraint violations.
      * 
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */

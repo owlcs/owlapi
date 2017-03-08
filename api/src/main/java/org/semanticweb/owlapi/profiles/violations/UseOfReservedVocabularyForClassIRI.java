@@ -24,20 +24,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param cls
-     *        cls
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param cls cls
      */
-    public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLClass cls) {
+    public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom,
+                    OWLClass cls) {
         super(ontology, axiom, cls);
     }
 

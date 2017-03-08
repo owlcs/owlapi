@@ -70,13 +70,16 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "javadoc", "deprecation", "null" })
+@SuppressWarnings({"javadoc", "deprecation", "null"})
 public class OWLOntologyManager_Concurrent_TestCase {
 
     private OWLOntologyManager manager;
-    @Mock private Lock readLock, writeLock;
-    @Mock private OWLDataFactory dataFactory;
-    @Mock private ReadWriteLock readWriteLock;
+    @Mock
+    private Lock readLock, writeLock;
+    @Mock
+    private OWLDataFactory dataFactory;
+    @Mock
+    private ReadWriteLock readWriteLock;
     private OWLOntology ontology;
 
     @Before
@@ -96,13 +99,18 @@ public class OWLOntologyManager_Concurrent_TestCase {
     private void mockAndAddOntologyFactory() throws OWLOntologyCreationException {
         OWLOntologyFactory ontologyFactory = mock(OWLOntologyFactory.class);
         when(ontologyFactory.canCreateFromDocumentIRI(any(IRI.class))).thenReturn(Boolean.TRUE);
-        when(ontologyFactory.canAttemptLoading(any(OWLOntologyDocumentSource.class))).thenReturn(Boolean.TRUE);
+        when(ontologyFactory.canAttemptLoading(any(OWLOntologyDocumentSource.class)))
+                        .thenReturn(Boolean.TRUE);
         final OWLOntology owlOntology = new OWLOntologyImpl(manager, new OWLOntologyID());
-        when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyID.class), any(IRI.class),
-            any(OWLOntologyFactory.OWLOntologyCreationHandler.class))).thenAnswer(i -> notify(3, i, owlOntology));
-        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class), any(
-            OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
-                .thenAnswer(i -> notify(2, i, owlOntology));
+        when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class),
+                        any(OWLOntologyID.class), any(IRI.class),
+                        any(OWLOntologyFactory.OWLOntologyCreationHandler.class)))
+                                        .thenAnswer(i -> notify(3, i, owlOntology));
+        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class),
+                        any(OWLOntologyDocumentSource.class),
+                        any(OWLOntologyFactory.OWLOntologyCreationHandler.class),
+                        any(OWLOntologyLoaderConfiguration.class)))
+                                        .thenAnswer(i -> notify(2, i, owlOntology));
         manager.setOntologyFactories(Collections.singleton(ontologyFactory));
     }
 
@@ -200,7 +208,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_getImportedOntology_with_readLock() {
-        OWLImportsDeclaration arg0 = new OWLImportsDeclarationImpl(IRI.create("http://owlapi/", "ont"));
+        OWLImportsDeclaration arg0 =
+                        new OWLImportsDeclarationImpl(IRI.create("http://owlapi/", "ont"));
         manager.getImportedOntology(arg0);
         verifyReadLock_LockUnlock();
     }
@@ -289,7 +298,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
     }
 
     @Test
-    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock() throws OWLOntologyCreationException {
+    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock()
+                    throws OWLOntologyCreationException {
         OWLOntologyDocumentSource arg0 = mock(OWLOntologyDocumentSource.class);
         when(arg0.getDocumentIRI()).thenReturn(IRI.create("http://owlapi/", "ontdoc"));
         OWLOntologyLoaderConfiguration arg1 = mock(OWLOntologyLoaderConfiguration.class);
@@ -298,7 +308,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
     }
 
     @Test
-    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_2() throws OWLOntologyCreationException {
+    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_2()
+                    throws OWLOntologyCreationException {
         OWLOntologyDocumentSource arg0 = mock(OWLOntologyDocumentSource.class);
         when(arg0.getDocumentIRI()).thenReturn(IRI.create("http://owlapi/", "ontdoc"));
         manager.loadOntologyFromOntologyDocument(arg0);
@@ -306,14 +317,16 @@ public class OWLOntologyManager_Concurrent_TestCase {
     }
 
     @Test
-    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_3() throws OWLOntologyCreationException {
+    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_3()
+                    throws OWLOntologyCreationException {
         InputStream arg0 = new StringBufferInputStream("some string");
         manager.loadOntologyFromOntologyDocument(arg0);
         verifyWriteLock_LockUnlock();
     }
 
     @Test
-    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_4() throws OWLOntologyCreationException {
+    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_4()
+                    throws OWLOntologyCreationException {
         OWLOntologyDocumentSource source = mock(OWLOntologyDocumentSource.class);
         when(source.getDocumentIRI()).thenReturn(IRI.create("http://owlapi/", "ontdoc"));
         manager.loadOntologyFromOntologyDocument(source);
@@ -327,7 +340,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
     }
 
     @Test
-    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_5() throws OWLOntologyCreationException {
+    public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_5()
+                    throws OWLOntologyCreationException {
         IRI arg0 = mockIRI();
         manager.loadOntologyFromOntologyDocument(arg0);
         verifyWriteLock_LockUnlock();
@@ -628,7 +642,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_makeLoadImportRequest_with_writeLock_2() {
-        OWLImportsDeclaration arg0 = new OWLImportsDeclarationImpl(IRI.create("http://owlapi/", "otheront"));
+        OWLImportsDeclaration arg0 =
+                        new OWLImportsDeclarationImpl(IRI.create("http://owlapi/", "otheront"));
         manager.makeLoadImportRequest(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -706,8 +721,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     protected OWLMutableOntology mockOntology() {
         OWLMutableOntology mock = mock(OWLMutableOntology.class);
-        when(mock.getOntologyID()).thenReturn(new OWLOntologyID(optional(IRI.create("urn:mock:", "ontology")),
-            emptyOptional()));
+        when(mock.getOntologyID()).thenReturn(new OWLOntologyID(
+                        optional(IRI.create("urn:mock:", "ontology")), emptyOptional()));
         return mock;
     }
 

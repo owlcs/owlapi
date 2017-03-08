@@ -17,8 +17,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /**
  * The Class OWLXMLOntologyStorageException.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLOntologyStorageException extends OWLOntologyStorageException {
@@ -26,8 +25,7 @@ public class OWLXMLOntologyStorageException extends OWLOntologyStorageException 
     /**
      * Instantiates a new oWLXML ontology storage exception.
      * 
-     * @param message
-     *        the message
+     * @param message the message
      */
     public OWLXMLOntologyStorageException(String message) {
         super(message);
@@ -36,10 +34,8 @@ public class OWLXMLOntologyStorageException extends OWLOntologyStorageException 
     /**
      * Instantiates a new oWLXML ontology storage exception.
      * 
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
+     * @param message the message
+     * @param cause the cause
      */
     public OWLXMLOntologyStorageException(String message, Throwable cause) {
         super(message, cause);
@@ -48,8 +44,7 @@ public class OWLXMLOntologyStorageException extends OWLOntologyStorageException 
     /**
      * Instantiates a new oWLXML ontology storage exception.
      * 
-     * @param cause
-     *        the cause
+     * @param cause the cause
      */
     public OWLXMLOntologyStorageException(Throwable cause) {
         super(cause);

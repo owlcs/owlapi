@@ -24,8 +24,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
 /**
- * OWLAPI module. Bindings can be overridden by subclassing this class, to allow
- * to replace part of the configuration without having to rewrite all of it.
+ * OWLAPI module. Bindings can be overridden by subclassing this class, to allow to replace part of
+ * the configuration without having to rewrite all of it.
  */
 @ParametersAreNonnullByDefault
 @OwlapiModule
@@ -37,14 +37,13 @@ public class OWLAPIParsersModule extends AbstractModule {
     }
 
     /**
-     * @param df
-     *        data factory for parser
-     * @param provider
-     *        config provider for parser
+     * @param df data factory for parser
+     * @param provider config provider for parser
      * @return implementation of manchester parser for parsing strings
      */
     @Provides
-    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df, OWLOntologyManager provider) {
+    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df,
+                    OWLOntologyManager provider) {
         return new ManchesterOWLSyntaxParserImpl(provider.getOntologyConfigurator(), df);
     }
 }

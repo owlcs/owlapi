@@ -21,8 +21,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * See {@link org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer
- * KRSS2ObjectRenderer} for definition/explanation of the syntax.
+ * See {@link org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer KRSS2ObjectRenderer} for
+ * definition/explanation of the syntax.
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
@@ -35,7 +35,7 @@ public class KRSS2SyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
+                    throws OWLOntologyStorageException {
         new KRSS2SyntaxRenderer().render(ontology, writer);
     }
 }

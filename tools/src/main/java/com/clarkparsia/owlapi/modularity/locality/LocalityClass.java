@@ -15,23 +15,20 @@ package com.clarkparsia.owlapi.modularity.locality;
 /** Types of locality classes that can be used. */
 public enum LocalityClass {
     /**
-     * Locality class obtained when concepts and roles not present in the
-     * signature are given empty interpretations. In the literature, ^{r
-     * \leftarrow \emptyset}_{A \leftarrow \emptyset}
+     * Locality class obtained when concepts and roles not present in the signature are given empty
+     * interpretations. In the literature, ^{r \leftarrow \emptyset}_{A \leftarrow \emptyset}
      */
     BOTTOM_BOTTOM,
     /**
-     * Locality class obtained when concepts not present in the signature are
-     * given top concept interpretation, roles not present are given empty
-     * interpretation. In the literature, ^{r \leftarrow \emptyset}_{A
-     * \leftarrow \Delta}
+     * Locality class obtained when concepts not present in the signature are given top concept
+     * interpretation, roles not present are given empty interpretation. In the literature, ^{r
+     * \leftarrow \emptyset}_{A \leftarrow \Delta}
      */
     TOP_BOTTOM,
     /**
-     * Locality class obtained when concepts not present in the signature are
-     * given top concept interpretation, roles not present are universal role
-     * interpretation. In the literature, ^{r \leftarrow \Delta \times
-     * \Delta}_{A \leftarrow \Delta}
+     * Locality class obtained when concepts not present in the signature are given top concept
+     * interpretation, roles not present are universal role interpretation. In the literature, ^{r
+     * \leftarrow \Delta \times \Delta}_{A \leftarrow \Delta}
      */
     TOP_TOP
 }

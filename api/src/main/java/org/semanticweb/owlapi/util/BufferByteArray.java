@@ -15,12 +15,10 @@ package org.semanticweb.owlapi.util;
 import java.io.ByteArrayOutputStream;
 
 /**
- * A ByteArrayOutputStream that allows access to the underlying byte array
- * without a copy. To be used for buffering data that needs to be held
- * temporarily (e.g., stream document sources) before being read again. Make
- * sure that no more writes to the stream happen after the array has been
- * accessed - if the array is updated or extended after it has been accessed,
- * data will be lost.
+ * A ByteArrayOutputStream that allows access to the underlying byte array without a copy. To be
+ * used for buffering data that needs to be held temporarily (e.g., stream document sources) before
+ * being read again. Make sure that no more writes to the stream happen after the array has been
+ * accessed - if the array is updated or extended after it has been accessed, data will be lost.
  */
 public class BufferByteArray extends ByteArrayOutputStream {
 
@@ -30,18 +28,16 @@ public class BufferByteArray extends ByteArrayOutputStream {
     }
 
     /**
-     * @param size
-     *        initial size
+     * @param size initial size
      */
     public BufferByteArray(int size) {
         super(size);
     }
 
     /**
-     * @return the baking byte array. Make sure that no more writes to the
-     *         stream happen after the array has been accessed - if the array is
-     *         updated or extended after it has been accessed, data will be
-     *         lost.
+     * @return the baking byte array. Make sure that no more writes to the stream happen after the
+     *         array has been accessed - if the array is updated or extended after it has been
+     *         accessed, data will be lost.
      */
     public byte[] byteArray() {
         return buf;

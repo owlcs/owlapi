@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -41,9 +40,9 @@ public class NoQNameTestCase extends AxiomsRoundTrippingBase {
         super(() -> {
             Set<OWLAxiom> axioms = new HashSet<>();
             OWLNamedIndividual indA = NamedIndividual(IRI(
-                "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", ""));
+                            "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A", ""));
             OWLNamedIndividual indB = NamedIndividual(IRI(
-                "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""));
+                            "http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B", ""));
             OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123", ""));
             axioms.add(ObjectPropertyAssertion(property, indA, indB));
             return axioms;

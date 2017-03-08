@@ -58,10 +58,8 @@ class Modifiers {
     /**
      * Parses a list of modifiers.
      * 
-     * @param modifiersList
-     *        The string representation of a list of modifiers. The
-     *        representation may or may not include the surrounding braces
-     *        (braces will be ignored).
+     * @param modifiersList The string representation of a list of modifiers. The representation may
+     *        or may not include the surrounding braces (braces will be ignored).
      * @return A list of modifiers
      */
     public static Modifiers parseModifiers(String modifiersList) {
@@ -79,10 +77,8 @@ class Modifiers {
     /**
      * Adds a modifier
      * 
-     * @param name
-     *        The modifier name
-     * @param value
-     *        The modifier value
+     * @param name The modifier name
+     * @param value The modifier value
      */
     public void addModifier(String name, String value) {
         Set<String> values = modifierNameValuesMap.get(name);

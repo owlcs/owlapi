@@ -41,8 +41,7 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RDFJsonLDDocumentFormatFactory extends
-        AbstractRioRDFDocumentFormatFactory {
+public class RDFJsonLDDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
     /** Default constructor. */
     public RDFJsonLDDocumentFormatFactory() {

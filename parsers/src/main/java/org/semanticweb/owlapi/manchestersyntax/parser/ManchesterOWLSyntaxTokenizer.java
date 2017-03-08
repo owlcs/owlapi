@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxTokenizer {
@@ -41,8 +40,7 @@ public class ManchesterOWLSyntaxTokenizer {
     private static final char ESCAPE_CHAR = '\\';
 
     /**
-     * @param buffer
-     *        buffer
+     * @param buffer buffer
      */
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
@@ -68,8 +66,7 @@ public class ManchesterOWLSyntaxTokenizer {
     }
 
     /**
-     * @param s
-     *        string to check
+     * @param s string to check
      * @return true if EOF
      */
     public static boolean eof(String s) {
@@ -229,14 +226,10 @@ public class ManchesterOWLSyntaxTokenizer {
         private final int row;
 
         /**
-         * @param token
-         *        token
-         * @param pos
-         *        pos
-         * @param col
-         *        col
-         * @param row
-         *        row
+         * @param token token
+         * @param pos pos
+         * @param col col
+         * @param row row
          */
         public Token(String token, int pos, int col, int row) {
             currentToken = token;

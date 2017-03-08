@@ -28,38 +28,33 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public interface HasKeyAxiomProvider {
 
     /**
-     * @param ce
-     *        class expression
-     * @param properties
-     *        Cannot be null or contain nulls.
+     * @param ce class expression
+     * @param properties Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments
      */
     default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-        Collection<? extends OWLPropertyExpression> properties) {
+                    Collection<? extends OWLPropertyExpression> properties) {
         return getOWLHasKeyAxiom(ce, properties, Collections.emptySet());
     }
 
     /**
-     * @param ce
-     *        class expression
-     * @param properties
-     *        Cannot be null or contain nulls.
+     * @param ce class expression
+     * @param properties Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments
      */
-    default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, OWLPropertyExpression... properties) {
+    default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
+                    OWLPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
     }
 
     /**
-     * @param ce
-     *        class expression
-     * @param objectProperties
-     *        Cannot be null or contain nulls.
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param ce class expression
+     * @param objectProperties Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments and annotations
      */
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-        Collection<? extends OWLPropertyExpression> objectProperties, Collection<OWLAnnotation> annotations);
+                    Collection<? extends OWLPropertyExpression> objectProperties,
+                    Collection<OWLAnnotation> annotations);
 }

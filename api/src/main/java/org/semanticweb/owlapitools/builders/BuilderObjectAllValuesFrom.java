@@ -20,15 +20,14 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 
 /** Builder class for OWLObjectAllValuesFrom. */
-public class BuilderObjectAllValuesFrom extends BaseObjectBuilder<OWLObjectAllValuesFrom, BuilderObjectAllValuesFrom> {
+public class BuilderObjectAllValuesFrom
+                extends BaseObjectBuilder<OWLObjectAllValuesFrom, BuilderObjectAllValuesFrom> {
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderObjectAllValuesFrom(OWLObjectAllValuesFrom expected, OWLDataFactory df) {
         this(df);
@@ -36,8 +35,7 @@ public class BuilderObjectAllValuesFrom extends BaseObjectBuilder<OWLObjectAllVa
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderObjectAllValuesFrom(OWLDataFactory df) {

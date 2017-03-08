@@ -15,12 +15,10 @@ package org.semanticweb.owlapi.model;
 import java.util.Set;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality">
- * SameIndividual</a> axiom in the OWL 2 Specification.
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality"> SameIndividual</a>
+ * axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
@@ -35,8 +33,8 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     }
 
     /**
-     * Determines whether this axiom contains anonymous individuals. Anonymous
-     * individuals are not allowed in same individuals axioms.
+     * Determines whether this axiom contains anonymous individuals. Anonymous individuals are not
+     * allowed in same individuals axioms.
      * 
      * @return {@code true} if this axioms contains anonymous individual axioms
      */

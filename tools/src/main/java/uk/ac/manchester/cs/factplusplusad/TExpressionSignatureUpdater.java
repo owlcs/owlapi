@@ -40,8 +40,7 @@ class TExpressionSignatureUpdater implements OWLObjectVisitor {
     /**
      * init c'tor
      * 
-     * @param s
-     *        signature
+     * @param s signature
      */
     TExpressionSignatureUpdater(Signature s) {
         sig = s;
@@ -64,8 +63,7 @@ class TExpressionSignatureUpdater implements OWLObjectVisitor {
     }
 
     /**
-     * @param e
-     *        entity to add
+     * @param e entity to add
      */
     void vE(OWLEntity e) {
         sig.add(e);

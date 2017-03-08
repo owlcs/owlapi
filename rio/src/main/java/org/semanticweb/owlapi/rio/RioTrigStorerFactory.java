@@ -42,8 +42,7 @@ import org.semanticweb.owlapi.formats.TrigDocumentFormatFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioTrigStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+public class RioTrigStorerFactory extends AbstractRioStorerFactory implements RioRDFStorerFactory {
 
     /** Default constructor. */
     public RioTrigStorerFactory() {

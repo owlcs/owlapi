@@ -15,12 +15,9 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface to objects which have a property.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
- * @param
- *        <P>
- *        property type
+ * @param <P> property type
  */
 @FunctionalInterface
 public interface HasProperty<P extends OWLObject> {

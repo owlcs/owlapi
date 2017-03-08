@@ -15,24 +15,20 @@ package org.semanticweb.owlapi.model;
 /**
  * Represents a property or possibly the inverse of a property.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyExpression extends OWLObject, AsOWLObjectProperty, AsOWLDataProperty,
-    AsOWLAnnotationProperty {
+public interface OWLPropertyExpression
+                extends OWLObject, AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
 
     /**
-     * @param visitor
-     *        visitor to accept
+     * @param visitor visitor to accept
      */
     void accept(OWLPropertyExpressionVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor to accept
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor to accept
+     * @param <O> visitor return type
      * @return visitor value
      */
     <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
@@ -68,14 +64,14 @@ public interface OWLPropertyExpression extends OWLObject, AsOWLObjectProperty, A
         if (isObjectPropertyExpression()) {
             return (OWLObjectPropertyExpression) this;
         }
-        throw new ClassCastException(getClass().getName() + "is not an OWLObjectPropertyExpression");
+        throw new ClassCastException(
+                        getClass().getName() + "is not an OWLObjectPropertyExpression");
     }
 
     /**
      * Determines if this is the owl:topObjectProperty.
      * 
-     * @return {@code true} if this property is the owl:topObjectProperty
-     *         otherwise {@code false}
+     * @return {@code true} if this property is the owl:topObjectProperty otherwise {@code false}
      */
     default boolean isOWLTopObjectProperty() {
         return false;
@@ -84,8 +80,7 @@ public interface OWLPropertyExpression extends OWLObject, AsOWLObjectProperty, A
     /**
      * Determines if this is the owl:bottomObjectProperty.
      * 
-     * @return {@code true} if this property is the owl:bottomObjectProperty
-     *         otherwise {@code false}
+     * @return {@code true} if this property is the owl:bottomObjectProperty otherwise {@code false}
      */
     default boolean isOWLBottomObjectProperty() {
         return false;
@@ -94,8 +89,7 @@ public interface OWLPropertyExpression extends OWLObject, AsOWLObjectProperty, A
     /**
      * Determines if this is the owl:topDataProperty.
      * 
-     * @return {@code true} if this property is the owl:topDataProperty
-     *         otherwise {@code false}
+     * @return {@code true} if this property is the owl:topDataProperty otherwise {@code false}
      */
     default boolean isOWLTopDataProperty() {
         return false;
@@ -104,8 +98,7 @@ public interface OWLPropertyExpression extends OWLObject, AsOWLObjectProperty, A
     /**
      * Determines if this is the owl:bottomDataProperty.
      * 
-     * @return {@code true} if this property is the owl:bottomDataProperty
-     *         otherwise {@code false}
+     * @return {@code true} if this property is the owl:bottomDataProperty otherwise {@code false}
      */
     default boolean isOWLBottomDataProperty() {
         return false;

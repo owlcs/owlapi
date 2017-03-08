@@ -17,13 +17,14 @@ public class Atom {
 
     private final Collection<OWLAxiom> axioms;
     // XXX cache properly
-    @Nullable private List<OWLEntity> signature;
-    @Nullable private Collection<OWLEntity> label;
+    @Nullable
+    private List<OWLEntity> signature;
+    @Nullable
+    private Collection<OWLEntity> label;
     private int hashcode;
 
     /**
-     * @param axioms
-     *        build an atom out of a set of axioms
+     * @param axioms build an atom out of a set of axioms
      */
     public Atom(Collection<OWLAxiom> axioms) {
         this.axioms = axioms;
@@ -31,8 +32,7 @@ public class Atom {
     }
 
     /**
-     * @param ax
-     *        axiom
+     * @param ax axiom
      * @return true if ax is in this atom
      */
     public boolean contains(OWLAxiom ax) {
@@ -64,8 +64,7 @@ public class Atom {
     }
 
     /**
-     * @param labelSignature
-     *        the label for the atom
+     * @param labelSignature the label for the atom
      */
     public void setLabel(Collection<OWLEntity> labelSignature) {
         label = labelSignature;

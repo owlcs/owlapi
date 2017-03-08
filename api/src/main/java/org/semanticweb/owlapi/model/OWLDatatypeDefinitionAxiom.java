@@ -15,12 +15,10 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents a
- * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
  * DatatypeDefinition</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {

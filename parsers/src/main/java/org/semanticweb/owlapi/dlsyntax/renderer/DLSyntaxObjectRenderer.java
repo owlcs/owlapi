@@ -140,8 +140,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 /**
  * Renders objects in unicode DL syntax.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
@@ -149,7 +148,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private ShortFormProvider shortFormProvider;
     private final IRIShortFormProvider iriShortFormProvider;
     private StringBuilder buffer;
-    @Nullable private OWLObject focusedObject;
+    @Nullable
+    private OWLObject focusedObject;
 
     /** Default constructor. */
     public DLSyntaxObjectRenderer() {
@@ -159,16 +159,14 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     /**
-     * @param focusedObject
-     *        focusedObject
+     * @param focusedObject focusedObject
      */
     public void setFocusedObject(@Nullable OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
     /**
-     * @param obj
-     *        obj
+     * @param obj obj
      * @return true if obj is equal to focusedObject
      */
     public boolean isFocusedObject(OWLObject obj) {
@@ -180,7 +178,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider =
+                        checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
@@ -289,7 +288,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private void writePropertyAssertion(OWLPropertyAssertionAxiom<?, ?> ax) {
         checkNotNull(ax, "ax cannot be null");
         if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom
-            || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
+                        || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
             write(NOT);
         }
         ax.getProperty().accept(this);
@@ -627,7 +626,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(ce.getOperand());
     }
 
-    private void writeCardinalityRestriction(OWLDataCardinalityRestriction restriction, DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLDataCardinalityRestriction restriction,
+                    DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -637,7 +637,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
-    private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction, DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction,
+                    DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -647,7 +648,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
-    private void writeQuantifiedRestriction(OWLQuantifiedDataRestriction restriction, DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedDataRestriction restriction,
+                    DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -655,7 +657,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         writeNested(restriction.getFiller());
     }
 
-    private void writeQuantifiedRestriction(OWLQuantifiedObjectRestriction restriction, DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedObjectRestriction restriction,
+                    DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -674,7 +677,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     private <V extends OWLObject> void writeValueRestriction(OWLHasValueRestriction<V> restriction,
-        OWLPropertyExpression p) {
+                    OWLPropertyExpression p) {
         write(EXISTS);
         writeSpace();
         p.accept(this);

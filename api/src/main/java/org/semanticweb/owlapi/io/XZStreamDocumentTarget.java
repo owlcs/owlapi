@@ -22,8 +22,8 @@ import org.tukaani.xz.UnsupportedOptionsException;
 import org.tukaani.xz.XZOutputStream;
 
 /**
- * An ontology document target which can write to a XZ stream. Notice that this
- * works best when the output stream is closed explicitly in the client code.
+ * An ontology document target which can write to a XZ stream. Notice that this works best when the
+ * output stream is closed explicitly in the client code.
  * 
  * @author ses
  * @since 4.0.2
@@ -31,25 +31,21 @@ import org.tukaani.xz.XZOutputStream;
 public class XZStreamDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
-     * @param os
-     *        the actual output stream
-     * @param filterOptions
-     *        XZ filter options to use. If no options are supplied use default
-     *        LZMA2 Options.
+     * @param os the actual output stream
+     * @param filterOptions XZ filter options to use. If no options are supplied use default LZMA2
+     *        Options.
      */
     public XZStreamDocumentTarget(OutputStream os, FilterOptions... filterOptions) {
         super(() -> new XZOutputStream(checkNotNull(os, "os cannot be null"), filterOptions), null);
     }
 
     /**
-     * @param os
-     *        output stream to wrap
-     * @param presetLevel
-     *        LZMA2 Preset Level to use
-     * @throws UnsupportedOptionsException
-     *         if an unsupported preset level is supplied
+     * @param os output stream to wrap
+     * @param presetLevel LZMA2 Preset Level to use
+     * @throws UnsupportedOptionsException if an unsupported preset level is supplied
      */
-    public XZStreamDocumentTarget(OutputStream os, int presetLevel) throws UnsupportedOptionsException {
+    public XZStreamDocumentTarget(OutputStream os, int presetLevel)
+                    throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
 }

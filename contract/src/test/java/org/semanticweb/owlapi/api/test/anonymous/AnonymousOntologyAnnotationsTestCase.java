@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
 public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
@@ -34,8 +33,8 @@ public class AnonymousOntologyAnnotationsTestCase extends AbstractRoundTrippingT
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getAnonymousOWLOntology();
-        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#",
-            "prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(
+                        IRI("http://www.semanticweb.org/ontologies/test/annotationont#", "prop"));
         OWLLiteral value = Literal(33);
         OWLAnnotation annotation = df.getOWLAnnotation(prop, value);
         ont.applyChange(new AddOntologyAnnotation(ont, annotation));

@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import com.google.common.collect.Lists;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -98,11 +97,13 @@ public class ObjectPropertyTestCase extends TestBase {
         OWLObjectPropertyExpression p = df.getOWLObjectProperty("_:", "p");
         OWLObjectPropertyExpression q = df.getOWLObjectProperty("_:", "q");
         OWLObjectPropertyExpression r = df.getOWLObjectProperty("_:", "r");
-        OWLSubPropertyChainOfAxiom ax1 = df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, q), r);
-        OWLSubPropertyChainOfAxiom ax2 = df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, p), r);
+        OWLSubPropertyChainOfAxiom ax1 =
+                        df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, q), r);
+        OWLSubPropertyChainOfAxiom ax2 =
+                        df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, p), r);
         assertNotEquals("role chains should not be equal", ax1, ax2);
         int comparisonResult = ax1.compareTo(ax2);
-        assertNotEquals("role chain comparision:\n " + ax1 + " should not compare to\n " + ax2 + " as 0\n", 0,
-            comparisonResult);
+        assertNotEquals("role chain comparision:\n " + ax1 + " should not compare to\n " + ax2
+                        + " as 0\n", 0, comparisonResult);
     }
 }

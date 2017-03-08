@@ -16,8 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @FunctionalInterface
@@ -26,10 +25,9 @@ public interface ImpendingOWLOntologyChangeBroadcastStrategy extends Serializabl
     /**
      * Broadcasts the list of changes to the specified listeners.
      * 
-     * @param changes
-     *        The changes to be broadcast.
-     * @param listener
-     *        The listeners that the changes should be broadcast to
+     * @param changes The changes to be broadcast.
+     * @param listener The listeners that the changes should be broadcast to
      */
-    void broadcastChanges(ImpendingOWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes);
+    void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
+                    List<? extends OWLOntologyChange> changes);
 }

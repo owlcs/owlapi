@@ -20,19 +20,18 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class ZipDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
-     * @param file
-     *        the file to use
+     * @param file the file to use
      */
     public ZipDocumentTarget(File file) {
         super(() -> {
-            ZipOutputStream os = new ZipOutputStream(new FileOutputStream(checkNotNull(file, "file cannot be null")));
+            ZipOutputStream os = new ZipOutputStream(
+                            new FileOutputStream(checkNotNull(file, "file cannot be null")));
             os.putNextEntry(new ZipEntry("ontology.txt"));
             return os;
         }, null);

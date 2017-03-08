@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -40,12 +39,12 @@ public class FileRoudTripWithEqualTestCase extends AbstractFileRoundTrippingTest
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
-            // AnonymousTroublesomeConversion
-            "extraBlankNodes.owl",
-            // AnonymousTurtle2
-            "testBlankNodes2.ttl",
-            // AnonymousTurtleAssertion
-            "testBlankNodesAssertions.ttl", "owlxml_anonloop.owx");
+                        // AnonymousTroublesomeConversion
+                        "extraBlankNodes.owl",
+                        // AnonymousTurtle2
+                        "testBlankNodes2.ttl",
+                        // AnonymousTurtleAssertion
+                        "testBlankNodesAssertions.ttl", "owlxml_anonloop.owx");
     }
 
     @Override

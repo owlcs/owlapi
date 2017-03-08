@@ -43,14 +43,14 @@ import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
- * An abstract implementation of the RioRDFOntologyFormatFactory interface that
- * uses the Rio RDFFormat class to provide information for common methods.
+ * An abstract implementation of the RioRDFOntologyFormatFactory interface that uses the Rio
+ * RDFFormat class to provide information for common methods.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public abstract class AbstractRioRDFDocumentFormatFactory extends
-    OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
+public abstract class AbstractRioRDFDocumentFormatFactory extends OWLDocumentFormatFactoryImpl
+                implements RioRDFDocumentFormatFactory {
 
     private transient RDFFormat rioFormat;
     private final String formatName;
@@ -59,15 +59,13 @@ public abstract class AbstractRioRDFDocumentFormatFactory extends
         this(rioFormat, true);
     }
 
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat,
-        boolean isTextual) {
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat, boolean isTextual) {
         super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
         this.rioFormat = rioFormat;
         formatName = this.rioFormat.getName();
     }
 
-    private void readObject(ObjectInputStream in) throws IOException,
-        ClassNotFoundException {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
             if (f.getName().equals(formatName)) {

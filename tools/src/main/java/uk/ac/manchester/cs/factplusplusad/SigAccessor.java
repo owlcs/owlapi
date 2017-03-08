@@ -13,8 +13,7 @@ class SigAccessor {
     /**
      * init c'tor
      * 
-     * @param s
-     *        signature
+     * @param s signature
      */
     SigAccessor(Signature s) {
         sig = verifyNotNull(s);
@@ -48,8 +47,7 @@ class SigAccessor {
     }
 
     /**
-     * @param entity
-     *        entity to check
+     * @param entity entity to check
      * @return true iff SIGnature does NOT contain given entity
      */
     boolean nc(OWLEntity entity) {

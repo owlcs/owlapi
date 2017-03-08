@@ -21,26 +21,24 @@ import java.util.stream.Stream;
 /**
  * An interface to an object which has a signature
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 public interface HasSignature {
 
     /**
-     * Gets the signature of this object. The default implementation is an
-     * empty, modifiable set.
+     * Gets the signature of this object. The default implementation is an empty, modifiable set.
      * <p>
-     * For ontologies, the signature of an ontology is the set of entities that
-     * are used to build axioms and annotations in the ontology. (See <a href=
-     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
-     * >The OWL 2 Structural Specification</a>)
+     * For ontologies, the signature of an ontology is the set of entities that are used to build
+     * axioms and annotations in the ontology. (See <a href=
+     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals" >The
+     * OWL 2 Structural Specification</a>)
      * <p>
-     * For ontology changes, this is the signature of the axiom being
-     * added/removed or the annotation being added/removed, or empty.
+     * For ontology changes, this is the signature of the axiom being added/removed or the
+     * annotation being added/removed, or empty.
      * 
-     * @return A set of entities that represents the signature of this object.
-     *         Changes are not reflected back.
+     * @return A set of entities that represents the signature of this object. Changes are not
+     *         reflected back.
      * @deprecated use the stream method
      */
     @Deprecated

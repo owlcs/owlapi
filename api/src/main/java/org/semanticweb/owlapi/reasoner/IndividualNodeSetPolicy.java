@@ -13,39 +13,34 @@
 package org.semanticweb.owlapi.reasoner;
 
 /**
- * The policy of how a reasoner will return {@code NodeSet}s of individuals for
- * queries that return node sets of named individuals such as
+ * The policy of how a reasoner will return {@code NodeSet}s of individuals for queries that return
+ * node sets of named individuals such as
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getTypes(org.semanticweb.owlapi.model.OWLNamedIndividual, boolean)}
  * or
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getInstances(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
  * .
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public enum IndividualNodeSetPolicy {
     /**
-     * Indicates that {@code NodeSet}s of named individuals returned by the
-     * reasoner will contain {@code Node}s that group individuals which are
-     * entailed to be the same as each other. For example, if {@code i},
-     * {@code j} and {@code k} are individuals, and they are instances of
-     * {@code C}, and {@code i} is entailed to be the same as {@code j} then
-     * asking for the instances of {@code A} will return a {@code NodeSet}
-     * containing two {@code Node}s, one containing {@code i} and {@code j} and
-     * the other containing {@code k}.
+     * Indicates that {@code NodeSet}s of named individuals returned by the reasoner will contain
+     * {@code Node}s that group individuals which are entailed to be the same as each other. For
+     * example, if {@code i}, {@code j} and {@code k} are individuals, and they are instances of
+     * {@code C}, and {@code i} is entailed to be the same as {@code j} then asking for the
+     * instances of {@code A} will return a {@code NodeSet} containing two {@code Node}s, one
+     * containing {@code i} and {@code j} and the other containing {@code k}.
      */
     BY_SAME_AS,
     /**
-     * Indicates that {@code NodeSet}s of named individuals will always contain
-     * singleton {@code Node}s and individuals that are the same as each other
-     * will not be grouped together in one {@code Node} within the
-     * {@code NodeSet}.For example, if {@code i}, {@code j} and {@code k} are
-     * individuals, and they are instances of {@code C}, and {@code i} is
-     * entailed to be the same as {@code j} then asking for the instances of
-     * {@code A} will return a {@code NodeSet} containing <i>three</i>
-     * {@code Node}s, one containing {@code i}, one containing {@code j} and the
-     * third containing {@code k}.
+     * Indicates that {@code NodeSet}s of named individuals will always contain singleton
+     * {@code Node}s and individuals that are the same as each other will not be grouped together in
+     * one {@code Node} within the {@code NodeSet}.For example, if {@code i}, {@code j} and
+     * {@code k} are individuals, and they are instances of {@code C}, and {@code i} is entailed to
+     * be the same as {@code j} then asking for the instances of {@code A} will return a
+     * {@code NodeSet} containing <i>three</i> {@code Node}s, one containing {@code i}, one
+     * containing {@code j} and the third containing {@code k}.
      */
     BY_NAME,
 }

@@ -15,20 +15,17 @@ package org.semanticweb.owlapi.model;
 import java.util.Collection;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties_2" >
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties_2" >
  * InverseObjectProperties</a> axiom in the OWL 2 Specification. <br>
- * Represents a statement that two properties are the inverse of each other.
- * This property axiom contains a set of two properties. inverseOf(P, Q) is
- * considered to be equal to inverseOf(Q, P) - i.e. the order in which the
- * properties are specified isn't important.
+ * Represents a statement that two properties are the inverse of each other. This property axiom
+ * contains a set of two properties. inverseOf(P, Q) is considered to be equal to inverseOf(Q, P) -
+ * i.e. the order in which the properties are specified isn't important.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLInverseObjectPropertiesAxiom extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
-    OWLObjectPropertyAxiom {
+public interface OWLInverseObjectPropertiesAxiom
+                extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
     @SuppressWarnings("unchecked")

@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.test.IntegrationTest;
 public class BundleIsLoadableIntegrationTestCase {
 
     @Test
-    public void startBundle() throws BundleException, ClassNotFoundException, IllegalAccessException,
-        InstantiationException {
+    public void startBundle() throws BundleException, ClassNotFoundException,
+                    IllegalAccessException, InstantiationException {
         Map<String, String> configuration = new HashMap<>();
         configuration.put("org.osgi.framework.storage.clean", "onFirstInit");
         configuration.put("felix.log.level", "4");
@@ -51,7 +51,8 @@ public class BundleIsLoadableIntegrationTestCase {
         File[] files = dir.listFiles();
         for (File f : files) {
             String fileName = f.getAbsolutePath();
-            if (fileName.endsWith("jar") && !fileName.contains("sources") && !fileName.contains("javadoc")) {
+            if (fileName.endsWith("jar") && !fileName.contains("sources")
+                            && !fileName.contains("javadoc")) {
                 file = f;
                 break;
             }
@@ -62,8 +63,9 @@ public class BundleIsLoadableIntegrationTestCase {
         BundleContext context = framework.getBundleContext();
         assertNotNull("context is null", context);
         List<String> bundles = Arrays.asList("org.apache.servicemix.bundles.javax-inject",
-            "org.apache.servicemix.bundles.aopalliance", "slf4j-simple", "slf4j-api", "caffeine", "guava", "jsr305",
-            "guice-multibindings", "guice-4", "commons-io", "commons-codec", "jcl-over-slf4j");
+                        "org.apache.servicemix.bundles.aopalliance", "slf4j-simple", "slf4j-api",
+                        "caffeine", "guava", "jsr305", "guice-multibindings", "guice-4",
+                        "commons-io", "commons-codec", "jcl-over-slf4j");
         for (String bundleName : bundles) {
             try {
                 String simple = getJarURL(bundleName);
@@ -89,11 +91,12 @@ public class BundleIsLoadableIntegrationTestCase {
         try {
             bundle.start();
             assertEquals("bundle state", bundle.getState(), Bundle.ACTIVE);
-            Class<?> owlManagerClass = bundle.loadClass("org.semanticweb.owlapi.apibinding.OWLManager");
+            Class<?> owlManagerClass =
+                            bundle.loadClass("org.semanticweb.owlapi.apibinding.OWLManager");
             assertNotNull("no class owlmanager", owlManagerClass);
             owlManagerClass.newInstance();
             assertNotEquals("OWLManager class from bundle class loader  equals OWLManager class from system class path",
-                OWLManager.class, owlManagerClass);
+                            OWLManager.class, owlManagerClass);
         } catch (Exception e) {
             e.printStackTrace(System.out);
             throw e;

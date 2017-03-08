@@ -30,12 +30,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * A test case which ensures that an ontology contains entity references when
- * that ontology only contains entity declaration axioms. In other words, entity
- * declaration axioms produce the correct entity references.
+ * A test case which ensures that an ontology contains entity references when that ontology only
+ * contains entity declaration axioms. In other words, entity declaration axioms produce the correct
+ * entity references.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")

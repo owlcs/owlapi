@@ -56,14 +56,12 @@ public interface SingleExplanationGenerator {
     OWLReasonerFactory getReasonerFactory();
 
     /**
-     * Get a single explanation for an arbitrary class expression, or empty set
-     * if the given expression is satisfiable.
+     * Get a single explanation for an arbitrary class expression, or empty set if the given
+     * expression is satisfiable.
      * 
-     * @param unsatClass
-     *        arbitrary class expression whose unsatisfiability will be
-     *        explained
-     * @return set of axioms explaining the unsatisfiability of given class
-     *         expression, or empty set if the given expression is satisfiable.
+     * @param unsatClass arbitrary class expression whose unsatisfiability will be explained
+     * @return set of axioms explaining the unsatisfiability of given class expression, or empty set
+     *         if the given expression is satisfiable.
      */
     Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
 }

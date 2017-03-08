@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 // XXX all special cases in this class look a lot like bugs.
@@ -48,12 +47,10 @@ public class OWLObjectComponentCollector extends AbstractCollectorEx<OWLObject> 
     }
 
     /**
-     * A convenience method that obtains the components of an OWL object. Note
-     * that by definition, the components of the object include the object
-     * itself.
+     * A convenience method that obtains the components of an OWL object. Note that by definition,
+     * the components of the object include the object itself.
      * 
-     * @param object
-     *        The object whose components are to be obtained.
+     * @param object The object whose components are to be obtained.
      * @return The component of the specified object.
      */
     public Collection<OWLObject> getComponents(OWLObject object) {

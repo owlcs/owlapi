@@ -17,22 +17,20 @@ import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
-    SWRLDifferentIndividualsAtom {
+public class SWRLDifferentIndividualsAtomImpl
+                extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
+                implements SWRLDifferentIndividualsAtom {
 
     /**
-     * @param property
-     *        property
-     * @param arg0
-     *        first individual
-     * @param arg1
-     *        second individual
+     * @param property property
+     * @param arg0 first individual
+     * @param arg1 second individual
      */
-    public SWRLDifferentIndividualsAtomImpl(OWLObjectProperty property, SWRLIArgument arg0, SWRLIArgument arg1) {
+    public SWRLDifferentIndividualsAtomImpl(OWLObjectProperty property, SWRLIArgument arg0,
+                    SWRLIArgument arg1) {
         super(property, arg0, arg1);
     }
 }

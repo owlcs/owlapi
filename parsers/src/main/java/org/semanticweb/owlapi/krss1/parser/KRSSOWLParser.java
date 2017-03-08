@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class KRSSOWLParser extends AbstractOWLParser {
@@ -35,12 +34,14 @@ public class KRSSOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI iri) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI iri) {
         return parse(o, new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, new StringProvider(s));
     }
 

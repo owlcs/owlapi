@@ -170,26 +170,26 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements OWLObjectVisitor {
+public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
+                implements OWLObjectVisitor {
 
     private boolean wrapSave;
     private boolean tabSave;
 
     /**
-     * @param writer
-     *        writer
-     * @param entityShortFormProvider
-     *        entityShortFormProvider
+     * @param writer writer
+     * @param entityShortFormProvider entityShortFormProvider
      */
-    public ManchesterOWLSyntaxObjectRenderer(Writer writer, ShortFormProvider entityShortFormProvider) {
+    public ManchesterOWLSyntaxObjectRenderer(Writer writer,
+                    ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
     }
 
-    protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimeter, boolean newline) {
+    protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimeter,
+                    boolean newline) {
         int tab = getIndent();
         pushTab(tab);
         Iterator<? extends OWLObject> it = objects.iterator();
@@ -223,19 +223,21 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         }
     }
 
-    private void writeRestriction(OWLQuantifiedDataRestriction restriction, ManchesterOWLSyntax keyword) {
+    private void writeRestriction(OWLQuantifiedDataRestriction restriction,
+                    ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         restriction.getFiller().accept(this);
     }
 
-    private void writeRestriction(OWLQuantifiedObjectRestriction restriction, ManchesterOWLSyntax keyword) {
+    private void writeRestriction(OWLQuantifiedObjectRestriction restriction,
+                    ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         boolean conjunctionOrDisjunction = false;
         if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             if (restriction.getFiller() instanceof OWLObjectIntersectionOf
-                || restriction.getFiller() instanceof OWLObjectUnionOf) {
+                            || restriction.getFiller() instanceof OWLObjectUnionOf) {
                 conjunctionOrDisjunction = true;
                 incrementTab(4);
                 writeNewLine();
@@ -252,14 +254,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     private <V extends OWLObject> void writeRestriction(OWLHasValueRestriction<V> restriction,
-        OWLPropertyExpression p) {
+                    OWLPropertyExpression p) {
         p.accept(this);
         write(VALUE);
         restriction.getFiller().accept(this);
     }
 
-    private <F extends OWLPropertyRange> void writeRestriction(OWLCardinalityRestriction<F> restriction,
-        ManchesterOWLSyntax keyword, OWLPropertyExpression p) {
+    private <F extends OWLPropertyRange> void writeRestriction(
+                    OWLCardinalityRestriction<F> restriction, ManchesterOWLSyntax keyword,
+                    OWLPropertyExpression p) {
         p.accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));
@@ -605,8 +608,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         restore();
     }
 
-    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, Stream<? extends OWLObject> stream,
-        ManchesterOWLSyntax naryKeyword) {
+    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword,
+                    Stream<? extends OWLObject> stream, ManchesterOWLSyntax naryKeyword) {
         List<? extends OWLObject> objects = asList(stream);
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
@@ -901,7 +904,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         setAxiomWriting();
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it
+                        .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(" o ");

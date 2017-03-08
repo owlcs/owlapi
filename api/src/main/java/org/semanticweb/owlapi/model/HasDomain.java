@@ -15,10 +15,8 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface to objects that have a domain.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
- * @param <D>
- *        domain type
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
+ * @param <D> domain type
  * @since 3.5.0
  */
 @FunctionalInterface

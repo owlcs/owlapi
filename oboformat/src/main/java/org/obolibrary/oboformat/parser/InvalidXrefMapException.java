@@ -11,10 +11,8 @@ public class InvalidXrefMapException extends OBOFormatException {
     /**
      * Instantiates a new invalid xref map exception.
      * 
-     * @param message
-     *        the message
-     * @param e
-     *        the e
+     * @param message the message
+     * @param e the e
      */
     public InvalidXrefMapException(String message, Throwable e) {
         super(message, e);
@@ -23,8 +21,7 @@ public class InvalidXrefMapException extends OBOFormatException {
     /**
      * Instantiates a new invalid xref map exception.
      * 
-     * @param message
-     *        the message
+     * @param message the message
      */
     public InvalidXrefMapException(String message) {
         super(message);
@@ -33,8 +30,7 @@ public class InvalidXrefMapException extends OBOFormatException {
     /**
      * Instantiates a new invalid xref map exception.
      * 
-     * @param e
-     *        the e
+     * @param e the e
      */
     public InvalidXrefMapException(Throwable e) {
         super(e);

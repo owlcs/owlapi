@@ -25,46 +25,38 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 /**
  * Generates axioms which relate to inferred information for a specific entity.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <E>
- *        the entity type
- * @param <A>
- *        the axiom type
+ * @param <E> the entity type
+ * @param <A> the axiom type
  */
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom>
-    implements InferredAxiomGenerator<A> {
+                implements InferredAxiomGenerator<A> {
 
     @Override
     public Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner) {
         Set<A> result = new HashSet<>();
         reasoner.getRootOntology().importsClosure().flatMap(this::getEntities).distinct()
-            .forEach(e -> addAxioms(e, reasoner, df, result));
+                        .forEach(e -> addAxioms(e, reasoner, df, result));
         return result;
     }
 
     /**
-     * Adds inferred axioms to a results set. The inferred axioms are generated
-     * for the specific entity.
+     * Adds inferred axioms to a results set. The inferred axioms are generated for the specific
+     * entity.
      * 
-     * @param entity
-     *        The entity
-     * @param reasoner
-     *        The reasoner that has inferred the new axioms
-     * @param dataFactory
-     *        A data factory which should be used to create the new axioms
-     * @param result
-     *        The results set, which the new axioms should be added to.
+     * @param entity The entity
+     * @param reasoner The reasoner that has inferred the new axioms
+     * @param dataFactory A data factory which should be used to create the new axioms
+     * @param result The results set, which the new axioms should be added to.
      */
-    protected abstract void addAxioms(E entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<A> result);
+    protected abstract void addAxioms(E entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
+                    Set<A> result);
 
     /**
-     * Gets the entities from the specified ontology that this generator
-     * processes.
+     * Gets the entities from the specified ontology that this generator processes.
      * 
-     * @param ont
-     *        The ontology from which entities are to be retrieved.
+     * @param ont The ontology from which entities are to be retrieved.
      * @return A set of entities.
      */
     protected abstract Stream<E> getEntities(OWLOntology ont);

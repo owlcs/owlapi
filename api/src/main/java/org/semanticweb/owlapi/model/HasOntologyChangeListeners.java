@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 4.0.0
  */
 public interface HasOntologyChangeListeners {
@@ -22,19 +21,16 @@ public interface HasOntologyChangeListeners {
     /**
      * Removes a previously added listener.
      * 
-     * @param listener
-     *        The listener to be removed.
+     * @param listener The listener to be removed.
      */
     void removeOntologyChangeListener(OWLOntologyChangeListener listener);
 
     /**
-     * Adds an ontology change listener, which listens to all changes for all
-     * ontologies. To customise the changes/ontologies that are listened to, the
-     * {@code addOntologyChangeListener} method which takes a broadcast strategy
-     * as an argument should be used.
+     * Adds an ontology change listener, which listens to all changes for all ontologies. To
+     * customise the changes/ontologies that are listened to, the {@code addOntologyChangeListener}
+     * method which takes a broadcast strategy as an argument should be used.
      * 
-     * @param listener
-     *        The listener to be added.
+     * @param listener The listener to be added.
      */
     void addOntologyChangeListener(OWLOntologyChangeListener listener);
 }

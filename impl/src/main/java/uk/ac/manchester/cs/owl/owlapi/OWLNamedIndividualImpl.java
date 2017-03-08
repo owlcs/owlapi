@@ -18,8 +18,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLNamedIndividual {
@@ -27,8 +26,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     private final IRI iri;
 
     /**
-     * @param iri
-     *        the iri
+     * @param iri the iri
      */
     public OWLNamedIndividualImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");

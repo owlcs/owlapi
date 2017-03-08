@@ -49,15 +49,15 @@ import java.util.Map;
  * Bio-Medical Informatics Research Group<br>
  * Date: 18/04/2012
  * <p>
- * Maps between id prefixes and IRI prefixes. By default an IRI prefix is the
- * value defined by {@link OBOPrefix#getPrefix()}, but this can be overridden
- * using an idspace tag in the ontology header.
+ * Maps between id prefixes and IRI prefixes. By default an IRI prefix is the value defined by
+ * {@link OBOPrefix#getPrefix()}, but this can be overridden using an idspace tag in the ontology
+ * header.
  * </p>
  * <p>
- * Note that the terminology used here, i.e. "id prefix" and "IRI prefix" is OBO
- * terminology and is not related to the OWL notion of prefix name and prefix.
- * "id prefix" is the substring before the colon in an OBO id. IRI prefix is the
- * prefix of an IRI that is the result of translating an OBO id to an IRI.
+ * Note that the terminology used here, i.e. "id prefix" and "IRI prefix" is OBO terminology and is
+ * not related to the OWL notion of prefix name and prefix. "id prefix" is the substring before the
+ * colon in an OBO id. IRI prefix is the prefix of an IRI that is the result of translating an OBO
+ * id to an IRI.
  * </p>
  */
 class IDSpaceManager {
@@ -70,14 +70,12 @@ class IDSpaceManager {
     public IDSpaceManager() {}
 
     /**
-     * Creates an IDSpaceManager and copying the id prefix to IRI prefix
-     * mappings contained in some other IDSpaceManager.
+     * Creates an IDSpaceManager and copying the id prefix to IRI prefix mappings contained in some
+     * other IDSpaceManager.
      * 
-     * @param idSpaceManager
-     *        The other IDSpaceManager from where id prefix to IRI prefix
-     *        mappings will be copied. Not null.
-     * @throws NullPointerException
-     *         if idSpaceManager is null.
+     * @param idSpaceManager The other IDSpaceManager from where id prefix to IRI prefix mappings
+     *        will be copied. Not null.
+     * @throws NullPointerException if idSpaceManager is null.
      */
     public IDSpaceManager(IDSpaceManager idSpaceManager) {
         checkNotNull(idSpaceManager, "idSpaceManager must not be null");
@@ -85,11 +83,10 @@ class IDSpaceManager {
     }
 
     /**
-     * Gets the default IRI prefix (which is returned by the
-     * {@link #getIRIPrefix(String)} for unregistered id prefixes.
+     * Gets the default IRI prefix (which is returned by the {@link #getIRIPrefix(String)} for
+     * unregistered id prefixes.
      * 
-     * @return The default prefix. This is actually defined by
-     *         {@link OBOPrefix#OBO}.
+     * @return The default prefix. This is actually defined by {@link OBOPrefix#OBO}.
      */
     public String getDefaultIRIPrefix() {
         return OBOPrefix.OBO.getPrefix();
@@ -98,12 +95,10 @@ class IDSpaceManager {
     /**
      * Gets an IRI prefix from an id prefix.
      * 
-     * @param idPrefix
-     *        The id prefix. May be null.
-     * @return The IRI prefix for the given id prefix. Not null. If the
-     *         specified id prefix is not registered/set with this manager, or
-     *         it is null, then the default prefix will be returned, which is
-     *         defined by {@link OBOPrefix#OBO}.
+     * @param idPrefix The id prefix. May be null.
+     * @return The IRI prefix for the given id prefix. Not null. If the specified id prefix is not
+     *         registered/set with this manager, or it is null, then the default prefix will be
+     *         returned, which is defined by {@link OBOPrefix#OBO}.
      */
     public String getIRIPrefix(String idPrefix) {
         String iriPrefix = idPrefix2IRIPrefixMap.get(idPrefix);
@@ -115,13 +110,11 @@ class IDSpaceManager {
     }
 
     /**
-     * Sets the IRI prefix for a given id prefix. This clears any previously set
-     * IRI prefix for the given id prefix.
+     * Sets the IRI prefix for a given id prefix. This clears any previously set IRI prefix for the
+     * given id prefix.
      * 
-     * @param idPrefix
-     *        The id prefix to set.
-     * @param iriPrefix
-     *        The IRI prefix that the id prefix maps to.
+     * @param idPrefix The id prefix to set.
+     * @param iriPrefix The IRI prefix that the id prefix maps to.
      */
     public void setIRIPrefix(String idPrefix, String iriPrefix) {
         checkNotNull(idPrefix, "idPrefix must not be null");

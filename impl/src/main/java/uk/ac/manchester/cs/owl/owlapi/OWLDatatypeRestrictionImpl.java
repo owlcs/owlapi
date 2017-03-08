@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
@@ -34,14 +33,14 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     private final List<OWLFacetRestriction> facetRestrictions;
 
     /**
-     * @param datatype
-     *        datatype
-     * @param facetRestrictions
-     *        facet restriction
+     * @param datatype datatype
+     * @param facetRestrictions facet restriction
      */
-    public OWLDatatypeRestrictionImpl(OWLDatatype datatype, Collection<OWLFacetRestriction> facetRestrictions) {
+    public OWLDatatypeRestrictionImpl(OWLDatatype datatype,
+                    Collection<OWLFacetRestriction> facetRestrictions) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        Collection<OWLFacetRestriction> facets = checkNotNull(facetRestrictions, "facetRestrictions cannot be null");
+        Collection<OWLFacetRestriction> facets =
+                        checkNotNull(facetRestrictions, "facetRestrictions cannot be null");
         this.facetRestrictions = sortOptionally(facets.stream().distinct());
     }
 

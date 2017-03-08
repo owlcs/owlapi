@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 /**
  * The Class TurtleOntologyParser.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
@@ -39,17 +38,19 @@ public class TurtleOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, config, documentIRI, new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, config, documentIRI, new StringProvider(s));
     }
 
-    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI,
-        Provider provider) {
+    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI, Provider provider) {
         OWLRDFConsumer consumer = new OWLRDFConsumer(o, config, null);
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         consumer.setOntologyFormat(format);

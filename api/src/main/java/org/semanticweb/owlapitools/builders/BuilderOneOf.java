@@ -24,10 +24,8 @@ public class BuilderOneOf extends BaseSetBuilder<OWLObjectOneOf, BuilderOneOf, O
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderOneOf(OWLObjectOneOf expected, OWLDataFactory df) {
         this(df);
@@ -35,8 +33,7 @@ public class BuilderOneOf extends BaseSetBuilder<OWLObjectOneOf, BuilderOneOf, O
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderOneOf(OWLDataFactory df) {

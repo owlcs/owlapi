@@ -24,35 +24,29 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
 /**
- * This class demonstrates some aspects of the OWL API. It expects three
- * arguments:
+ * This class demonstrates some aspects of the OWL API. It expects three arguments:
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of destination</li>
  * <li>The URI of a class</li>
  * </ol>
- * When executed, the class will find all subclass axioms that form part of the
- * definition of the given class. For each of these, if the superclass is a
- * conjunction of existential restrictions, then an additional subclass axiom
- * will be added to the ontology, "closing" the restrictions.
+ * When executed, the class will find all subclass axioms that form part of the definition of the
+ * given class. For each of these, if the superclass is a conjunction of existential restrictions,
+ * then an additional subclass axiom will be added to the ontology, "closing" the restrictions.
  * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 public class ClosureAxiomsExample {
 
     /**
-     * @param inputOntology
-     *        input ontology IRI
-     * @param outputOntology
-     *        output ontology IRI
-     * @param classToClose
-     *        the class to compute the closure of
-     * @throws OWLException
-     *         if an exception is raised
+     * @param inputOntology input ontology IRI
+     * @param outputOntology output ontology IRI
+     * @param classToClose the class to compute the closure of
+     * @throws OWLException if an exception is raised
      */
-    public void closure(String inputOntology, String outputOntology, String classToClose) throws OWLException {
+    public void closure(String inputOntology, String outputOntology, String classToClose)
+                    throws OWLException {
         /* Create and Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI documentIRI = IRI.create(inputOntology);

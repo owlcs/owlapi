@@ -18,17 +18,13 @@ import java.util.stream.Stream;
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">
  * ObjectPropertyRange</a> axioms in the OWL 2 specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <R>
- *        range
- * @param
- *        <P>
- *        property expression
+ * @param <R> range
+ * @param <P> property expression
  */
 public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange>
-    extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut, HasRange<R> {
+                extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut, HasRange<R> {
 
     @Override
     default Stream<?> components() {

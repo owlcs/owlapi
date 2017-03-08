@@ -34,8 +34,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.providers.AnnotationPropertyProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
@@ -126,42 +125,40 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     }
 
     /**
-     * @param dataFactory
-     *        data factory to use
+     * @param dataFactory data factory to use
      * @return set of SKOS annotation properties
      */
-    public static Set<OWLAnnotationProperty> getAnnotationProperties(AnnotationPropertyProvider dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY)).map(v -> dataFactory
-            .getOWLAnnotationProperty(v.iri)));
+    public static Set<OWLAnnotationProperty> getAnnotationProperties(
+                    AnnotationPropertyProvider dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY))
+                        .map(v -> dataFactory.getOWLAnnotationProperty(v.iri)));
     }
 
     /**
-     * @param dataFactory
-     *        data factory to use
+     * @param dataFactory data factory to use
      * @return set of SKOS object properties
      */
     public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY)).map(v -> dataFactory
-            .getOWLObjectProperty(v.iri)));
+        return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY))
+                        .map(v -> dataFactory.getOWLObjectProperty(v.iri)));
     }
 
     /**
-     * @param dataFactory
-     *        data factory to use
+     * @param dataFactory data factory to use
      * @return set of SKOS data properties
      */
     public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY)).map(v -> dataFactory.getOWLDataProperty(
-            v.iri)));
+        return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY))
+                        .map(v -> dataFactory.getOWLDataProperty(v.iri)));
     }
 
     /**
-     * @param dataFactory
-     *        data factory to use
+     * @param dataFactory data factory to use
      * @return set of SKOS classes
      */
     public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(CLASS)).map(v -> dataFactory.getOWLClass(v.iri)));
+        return asSet(stream().filter(v -> v.entityType.equals(CLASS))
+                        .map(v -> dataFactory.getOWLClass(v.iri)));
     }
 
     @Override

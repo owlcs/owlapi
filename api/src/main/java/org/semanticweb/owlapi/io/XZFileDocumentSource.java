@@ -30,30 +30,26 @@ import org.tukaani.xz.XZInputStream;
 public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified file.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified file.
      *
-     * @param in
-     *        The file that the ontology representation will be read from.
+     * @param in The file that the ontology representation will be read from.
      */
     public XZFileDocumentSource(File in) {
         this(in, IRI.getNextDocumentIRI("file:ontology"), null, null);
     }
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified file.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified file.
      *
-     * @param in
-     *        The file that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param format
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param in The file that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param format ontology format
+     * @param mime mime type
      */
-    public XZFileDocumentSource(File in, IRI documentIRI, @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public XZFileDocumentSource(File in, IRI documentIRI, @Nullable OWLDocumentFormat format,
+                    @Nullable String mime) {
         super(documentIRI, format, mime);
         inputStream = () -> new XZInputStream(new FileInputStream(in));
     }

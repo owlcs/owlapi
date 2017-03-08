@@ -21,7 +21,8 @@ import org.slf4j.LoggerFactory;
 class TripleLogger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TripleLogger.class);
-    @Nullable private PrefixManager prefixManager;
+    @Nullable
+    private PrefixManager prefixManager;
     // Debug stuff
     private final AtomicInteger count = new AtomicInteger();
 
@@ -38,14 +39,17 @@ class TripleLogger {
         incrementTripleCount();
     }
 
-    public void logTripleAtDebug(Object s, Object p, Object o, @Nullable Object lang, @Nullable Object datatype) {
+    public void logTripleAtDebug(Object s, Object p, Object o, @Nullable Object lang,
+                    @Nullable Object datatype) {
         justLog(s, p, o, lang, datatype);
         incrementTripleCount();
     }
 
-    public void justLog(Object s, Object p, Object o, @Nullable Object lang, @Nullable Object datatype) {
+    public void justLog(Object s, Object p, Object o, @Nullable Object lang,
+                    @Nullable Object datatype) {
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p), shorten(o), lang, shorten(datatype));
+            LOGGER.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p), shorten(o), lang,
+                            shorten(datatype));
         }
     }
 
@@ -59,7 +63,8 @@ class TripleLogger {
         if (o == null) {
             return "null";
         }
-        if (o instanceof String && (((String) o).startsWith("http:") || ((String) o).startsWith("urn:"))) {
+        if (o instanceof String
+                        && (((String) o).startsWith("http:") || ((String) o).startsWith("urn:"))) {
             return shorten(IRI.create((String) o));
         }
         if (prefixManager == null || !(o instanceof IRI)) {
@@ -87,8 +92,7 @@ class TripleLogger {
     }
 
     /**
-     * @param id
-     *        log ontology id
+     * @param id log ontology id
      */
     public static void logOntologyID(OWLOntologyID id) {
         LOGGER.debug("Loaded {}", id);

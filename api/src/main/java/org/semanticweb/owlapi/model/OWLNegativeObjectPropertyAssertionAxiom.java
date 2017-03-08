@@ -13,16 +13,15 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents a <a href=
- * "http://www.w3.org/TR/owl2-syntax/#Negative_Object_Property_Assertions" >
+ * Represents a <a href= "http://www.w3.org/TR/owl2-syntax/#Negative_Object_Property_Assertions" >
  * NegativeObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLNegativeObjectPropertyAssertionAxiom extends
-    OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
+public interface OWLNegativeObjectPropertyAssertionAxiom
+                extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
+                OWLSubClassOfAxiomShortCut {
 
     @Override
     @SuppressWarnings("unchecked")
@@ -34,8 +33,8 @@ public interface OWLNegativeObjectPropertyAssertionAxiom extends
     }
 
     /**
-     * Determines whether this axiom contains anonymous individuals. Anonymous
-     * individuals are not allowed in negative object property assertions.
+     * Determines whether this axiom contains anonymous individuals. Anonymous individuals are not
+     * allowed in negative object property assertions.
      * 
      * @return {@code true} if this axioms contains anonymous individual axioms
      */

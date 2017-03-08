@@ -22,19 +22,17 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 /**
  * Builder class for OWLDataAllValuesFrom.
  * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
+ * @param <T> type built
+ * @param <B> builder type
  */
 public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B>
-    implements SettableProperty<OWLObjectPropertyExpression, B> {
+                implements SettableProperty<OWLObjectPropertyExpression, B> {
 
-    @Nullable private OWLObjectPropertyExpression property = null;
+    @Nullable
+    private OWLObjectPropertyExpression property = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseObjectPropertyBuilder(OWLDataFactory df) {

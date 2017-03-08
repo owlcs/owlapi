@@ -30,7 +30,7 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 import org.semanticweb.owlapitools.decomposition.Signature;
 import org.semanticweb.owlapitools.decomposition.SyntacticLocalityChecker;
 
-@SuppressWarnings({ "javadoc", "boxing" })
+@SuppressWarnings({"javadoc", "boxing"})
 public class SyntacticLocalityTestCase {
 
     @Test
@@ -95,7 +95,8 @@ public class SyntacticLocalityTestCase {
 
     /** @return disjoint union of superclass and classes */
     private OWLDisjointUnionAxiom disjointUnion(OWLClass superclass, OWLClass... classes) {
-        return df.getOWLDisjointUnionAxiom(superclass, new HashSet<OWLClassExpression>(Arrays.asList(classes)));
+        return df.getOWLDisjointUnionAxiom(superclass,
+                        new HashSet<OWLClassExpression>(Arrays.asList(classes)));
     }
 
     @Test
@@ -446,7 +447,8 @@ public class SyntacticLocalityTestCase {
 
     @Test
     public void shouldBeLocalowlDatatypeDefinitionAxiom() {
-        axiom = df.getOWLDatatypeDefinitionAxiom(i, df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
+        axiom = df.getOWLDatatypeDefinitionAxiom(i,
+                        df.getOWLDatatypeMinMaxExclusiveRestriction(1, 3));
         // signature intersects
         test(axiom, true, i);
         // signature does not intersect
@@ -455,8 +457,10 @@ public class SyntacticLocalityTestCase {
 
     @Test
     public void shouldBeLocalswrlRule() {
-        Set<SWRLAtom> head = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
-        Set<SWRLAtom> body = new HashSet<>(Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
+        Set<SWRLAtom> head = new HashSet<>(
+                        Arrays.asList(df.getSWRLClassAtom(a, df.getSWRLIndividualArgument(x))));
+        Set<SWRLAtom> body = new HashSet<>(
+                        Arrays.asList(df.getSWRLClassAtom(b, df.getSWRLIndividualArgument(y))));
         axiom = df.getSWRLRule(head, body);
         // signature intersects
         test(axiom, true, a);

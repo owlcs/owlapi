@@ -22,24 +22,22 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
 /** Builder class for OWLSubDataPropertyOfAxiom. */
 public class BuilderSubDataProperty extends
-    BaseSubBuilder<OWLSubDataPropertyOfAxiom, BuilderSubDataProperty, OWLDataPropertyExpression> {
+                BaseSubBuilder<OWLSubDataPropertyOfAxiom, BuilderSubDataProperty, OWLDataPropertyExpression> {
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderSubDataProperty(OWLSubDataPropertyOfAxiom expected, OWLDataFactory df) {
         this(df);
-        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty()).withAnnotations(expected.annotations());
+        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty())
+                        .withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderSubDataProperty(OWLDataFactory df) {
@@ -48,6 +46,7 @@ public class BuilderSubDataProperty extends
 
     @Override
     public OWLSubDataPropertyOfAxiom buildObject() {
-        return df.getOWLSubDataPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()), annotations);
+        return df.getOWLSubDataPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()),
+                        annotations);
     }
 }

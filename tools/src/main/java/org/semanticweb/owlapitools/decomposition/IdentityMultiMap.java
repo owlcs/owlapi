@@ -11,10 +11,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @param <K>
- *        key
- * @param <V>
- *        value
+ * @param <K> key
+ * @param <V> value
  * @author ignazio palmisano
  */
 public class IdentityMultiMap<K, V> implements Serializable {
@@ -24,10 +22,8 @@ public class IdentityMultiMap<K, V> implements Serializable {
     private int size = 0;
 
     /**
-     * @param key
-     *        key
-     * @param value
-     *        value
+     * @param key key
+     * @param value value
      * @return true if changes happen
      */
     public boolean put(K key, V value) {
@@ -48,10 +44,8 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param key
-     *        key
-     * @param values
-     *        values
+     * @param key key
+     * @param values values
      */
     public void setEntry(K key, Collection<V> values) {
         this.map.put(key, values);
@@ -59,11 +53,10 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * returns a mutable set of values connected to the key; if no value is
-     * connected, returns an immutable empty set
+     * returns a mutable set of values connected to the key; if no value is connected, returns an
+     * immutable empty set
      * 
-     * @param key
-     *        key
+     * @param key key
      * @return the set of values connected with the key
      */
     public Collection<V> get(K key) {
@@ -91,8 +84,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     /**
      * removes the set of values connected to the key
      * 
-     * @param key
-     *        key
+     * @param key key
      * @return true if changes made
      */
     public boolean remove(K key) {
@@ -104,13 +96,11 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * removes the value connected to the key; if there is more than one value
-     * connected to the key, only one is removed
+     * removes the value connected to the key; if there is more than one value connected to the key,
+     * only one is removed
      * 
-     * @param key
-     *        key
-     * @param value
-     *        value
+     * @param key key
+     * @param value value
      * @return true if changes made
      */
     public boolean remove(K key, V value) {
@@ -139,10 +129,8 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param k
-     *        key
-     * @param v
-     *        value
+     * @param k key
+     * @param v value
      * @return true if the pairing (k, v) is in the map (set equality for v)
      */
     public boolean contains(K k, V v) {
@@ -154,8 +142,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param k
-     *        key
+     * @param k key
      * @return true if k is a key for the map
      */
     public boolean containsKey(K k) {
@@ -163,8 +150,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param v
-     *        value
+     * @param v value
      * @return true if v is a value for a key in the map
      */
     public boolean containsValue(V v) {
@@ -190,8 +176,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param otherMap
-     *        otherMap
+     * @param otherMap otherMap
      */
     public void putAll(IdentityMultiMap<K, V> otherMap) {
         for (K k : otherMap.keySet()) {
@@ -200,10 +185,8 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * @param k
-     *        k
-     * @param v
-     *        v
+     * @param k k
+     * @param v v
      */
     public void putAll(K k, Collection<V> v) {
         Collection<V> set = map.get(k);

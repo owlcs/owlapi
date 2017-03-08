@@ -19,43 +19,37 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * An interface to an object that contains axioms and can provide subsets of
- * these axioms by the type of axiom.
+ * An interface to an object that contains axioms and can provide subsets of these axioms by the
+ * type of axiom.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 @FunctionalInterface
 public interface HasAxiomsByType {
 
     /**
-     * Compare the axioms inside this object with the axioms inside the other
-     * object, shortcutting by type - won't merge all axioms in a large lump for
-     * comparisons only
+     * Compare the axioms inside this object with the axioms inside the other object, shortcutting
+     * by type - won't merge all axioms in a large lump for comparisons only
      * 
-     * @param o
-     *        other object to compare
+     * @param o other object to compare
      * @return true if the two objects contain the same axioms
      */
     default boolean equalAxioms(HasAxiomsByType o) {
         // using collect(toSet()) to avoid ordering issues and avoid
         // LinkedHashSet cost
         return AxiomType.AXIOM_TYPES.stream().allMatch(
-            t -> axioms(t).collect(toSet()).equals(o.axioms(t).collect(toSet())));
+                        t -> axioms(t).collect(toSet()).equals(o.axioms(t).collect(toSet())));
     }
 
     /**
      * Gets the axioms which are of the specified type.
      * 
-     * @param axiomType
-     *        The type of axioms to be retrieved.
-     * @param <T>
-     *        axiom type
-     * @return A set containing the axioms which are of the specified type. The
-     *         set that is returned is a copy of the axioms in this object.
-     *         Modifications to the returned set will not be reflected in this
-     *         object.
+     * @param axiomType The type of axioms to be retrieved.
+     * @param <T> axiom type
+     * @return A set containing the axioms which are of the specified type. The set that is returned
+     *         is a copy of the axioms in this object. Modifications to the returned set will not be
+     *         reflected in this object.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -66,10 +60,8 @@ public interface HasAxiomsByType {
     /**
      * Filter axioms according to the specified type.
      * 
-     * @param axiomType
-     *        The type of axioms to be retrieved.
-     * @param <T>
-     *        axiom type
+     * @param axiomType The type of axioms to be retrieved.
+     * @param <T> axiom type
      * @return Stream of axioms of the specified type.
      */
     <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType);

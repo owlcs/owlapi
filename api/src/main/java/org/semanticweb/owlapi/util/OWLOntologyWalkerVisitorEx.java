@@ -23,19 +23,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
- * @param <E>
- *        visitor type
+ * @param <E> visitor type
  */
 public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
 
     private final OWLOntologyWalker walker;
 
     /**
-     * @param walker
-     *        walker
+     * @param walker walker
      */
     public OWLOntologyWalkerVisitorEx(OWLOntologyWalker walker) {
         this.walker = checkNotNull(walker, "walker cannot be null");
@@ -56,7 +53,7 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
         OWLOntology ontology = walker.getOntology();
         if (ontology == null) {
             throw new OWLRuntimeException(
-                "No current ontology; is the walker being used outside of an ontology visit?");
+                            "No current ontology; is the walker being used outside of an ontology visit?");
         }
         return ontology;
     }

@@ -24,8 +24,7 @@ class AtomicDecomposer {
     ModuleType type;
 
     /**
-     * @param m
-     *        modulariser
+     * @param m modulariser
      */
     AtomicDecomposer(Modularizer m) {
         modularizer = m;
@@ -47,11 +46,9 @@ class AtomicDecomposer {
     }
 
     /**
-     * Remove tautologies (axioms that are always local) from the ontology
-     * temporarily.
+     * Remove tautologies (axioms that are always local) from the ontology temporarily.
      * 
-     * @param o
-     *        ontology
+     * @param o ontology
      */
     void removeTautologies(Collection<AxiomWrapper> o) {
         // we might use it for another decomposition
@@ -65,13 +62,10 @@ class AtomicDecomposer {
     }
 
     /**
-     * Build a module for given axiom AX; use parent atom's module as a base for
-     * the module search.
+     * Build a module for given axiom AX; use parent atom's module as a base for the module search.
      * 
-     * @param sig
-     *        signature
-     * @param parent
-     *        parent atom
+     * @param sig signature
+     * @param parent parent atom
      * @return module atom
      */
     Optional<OntologyAtom> buildModule(Signature sig, OntologyAtom parent) {
@@ -94,13 +88,10 @@ class AtomicDecomposer {
     }
 
     /**
-     * Create atom for given axiom AX; use parent atom's module as a base for
-     * the module search.
+     * Create atom for given axiom AX; use parent atom's module as a base for the module search.
      * 
-     * @param ax
-     *        axiom
-     * @param parent
-     *        parent atom
+     * @param ax axiom
+     * @param parent parent atom
      * @return atom
      */
     OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
@@ -129,10 +120,8 @@ class AtomicDecomposer {
     }
 
     /**
-     * @param o
-     *        ontology
-     * @param t
-     *        module type
+     * @param o ontology
+     * @param t module type
      * @return atomic structure for given module type T
      */
     AOStructure getAOS(Collection<AxiomWrapper> o, ModuleType t) {

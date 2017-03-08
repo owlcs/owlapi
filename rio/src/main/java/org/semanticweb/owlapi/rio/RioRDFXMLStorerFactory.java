@@ -42,8 +42,8 @@ import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioRDFXMLStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+public class RioRDFXMLStorerFactory extends AbstractRioStorerFactory
+                implements RioRDFStorerFactory {
 
     /** Default constructor. */
     public RioRDFXMLStorerFactory() {

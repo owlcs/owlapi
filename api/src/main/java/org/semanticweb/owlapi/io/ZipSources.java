@@ -29,26 +29,20 @@ public class ZipSources {
     private static final Pattern ZIP_ENTRY_ONTOLOGY = Pattern.compile(".*owl|rdf|xml|mos");
 
     /**
-     * @param is
-     *        input stream to wrap if a zip file
-     * @param name
-     *        name of the file or the IRI
+     * @param is input stream to wrap if a zip file
+     * @param name name of the file or the IRI
      * @return wrapped inputstream if necessary
-     * @throws IOException
-     *         if an exception happens accessing the zip stream
+     * @throws IOException if an exception happens accessing the zip stream
      */
     public static InputStream handleZips(InputStream is, IRI name) throws IOException {
         return handleZips(is, name.toString());
     }
 
     /**
-     * @param is
-     *        input stream to wrap if a zip file
-     * @param name
-     *        name of the file or the IRI
+     * @param is input stream to wrap if a zip file
+     * @param name name of the file or the IRI
      * @return wrapped inputstream if necessary
-     * @throws IOException
-     *         if an exception happens accessing the zip stream
+     * @throws IOException if an exception happens accessing the zip stream
      */
     public static InputStream handleZips(InputStream is, String name) throws IOException {
         if (!name.toLowerCase(Locale.getDefault()).endsWith(".zip")) {

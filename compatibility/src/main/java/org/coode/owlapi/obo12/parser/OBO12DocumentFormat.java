@@ -48,8 +48,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  * Date: 10-Jan-2007<br>
  * <br>
  */
-public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
-        OWLDocumentFormat {
+public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements OWLDocumentFormat {
 
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
@@ -59,9 +58,8 @@ public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
     }
 
     /**
-     * @param m
-     *        An {@link IDSpaceManager} which specifies mappings between id
-     *        prefixes and IRI prefixes.
+     * @param m An {@link IDSpaceManager} which specifies mappings between id prefixes and IRI
+     *        prefixes.
      */
     public void setIDSpaceManager(IDSpaceManager m) {
         idSpaceManager = m;
@@ -70,10 +68,9 @@ public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
     /**
      * Gets the OBO id-space manager. This is NOT the same as a prefix manager.
      * 
-     * @return The {@link IDSpaceManager} for this format. For ontologies parsed
-     *         from an OBO file this will contain any id prefix to IRI prefix
-     *         mappings that were parsed out of the file (from id-space tags).
-     *         Not null.
+     * @return The {@link IDSpaceManager} for this format. For ontologies parsed from an OBO file
+     *         this will contain any id prefix to IRI prefix mappings that were parsed out of the
+     *         file (from id-space tags). Not null.
      */
     public IDSpaceManager getIdSpaceManager() {
         return idSpaceManager;

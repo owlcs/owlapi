@@ -111,8 +111,8 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
     protected OWLDataFactory df;
     private EnumMap<OWLObjectType, UnaryOperator<?>> rebuilders = buildRebuilders();
 
-    protected TransformerVisitorBase(Predicate<Object> predicate, UnaryOperator<T> transformer, OWLDataFactory df,
-        Class<T> witness) {
+    protected TransformerVisitorBase(Predicate<Object> predicate, UnaryOperator<T> transformer,
+                    OWLDataFactory df, Class<T> witness) {
         this.predicate = predicate;
         this.transformer = transformer;
         this.df = df;
@@ -140,8 +140,10 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
     @Nullable
     protected <Q> Q check(Q o) {
         if (witness.isInstance(o)) {
-            @SuppressWarnings("unchecked") Q transform = (Q) transformer.apply(witness.cast(o));
-            if (o instanceof OWLAxiom ? update((OWLAxiom) transform, (OWLAxiom) o) == transform : transform != o) {
+            @SuppressWarnings("unchecked")
+            Q transform = (Q) transformer.apply(witness.cast(o));
+            if (o instanceof OWLAxiom ? update((OWLAxiom) transform, (OWLAxiom) o) == transform
+                            : transform != o) {
                 return transform;
             }
         }
@@ -163,7 +165,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
         return update(apply((OWLAxiom) node), (OWLAxiom) node);
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     protected <Z extends OWLObject> Z apply(Z node) {
         return ((UnaryOperator<Z>) rebuilders.get(node.type())).apply(node);
     }

@@ -21,22 +21,22 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 public class Decomposer {
 
     /** atomic structure to build */
-    @Nullable private AtomList atomList = null;
+    @Nullable
+    private AtomList atomList = null;
     /** modularizer to build modules */
     private Modularizer modularizer;
     /** tautologies of the ontology */
     private List<AxiomWrapper> tautologies = new ArrayList<>();
     /** fake atom that represents the whole ontology */
-    @Nullable private OntologyAtom rootAtom = null;
+    @Nullable
+    private OntologyAtom rootAtom = null;
     /** module type for current AOS creation */
     private ModuleType type;
     private List<AxiomWrapper> axioms;
 
     /**
-     * @param axioms
-     *        axiom wrappers to decompose
-     * @param c
-     *        locality checker to use
+     * @param axioms axiom wrappers to decompose
+     * @param c locality checker to use
      */
     public Decomposer(List<AxiomWrapper> axioms, LocalityChecker c) {
         this.axioms = axioms;
@@ -44,10 +44,8 @@ public class Decomposer {
     }
 
     /**
-     * @param axioms
-     *        axioms
-     * @param c
-     *        locality checker
+     * @param axioms axioms
+     * @param c locality checker
      * @return new modularizer
      */
     public static Modularizer buildModulariser(List<AxiomWrapper> axioms, LocalityChecker c) {
@@ -69,8 +67,7 @@ public class Decomposer {
     }
 
     /**
-     * remove tautologies (axioms that are always local) from the ontology
-     * temporarily
+     * remove tautologies (axioms that are always local) from the ontology temporarily
      */
     private void removeTautologies() {
         // we might use it for another decomposition
@@ -93,12 +90,9 @@ public class Decomposer {
     }
 
     /**
-     * @param sig
-     *        signature
-     * @param parent
-     *        parent atom
-     * @return module for given axiom AX; use parent atom's module as a base for
-     *         the module search
+     * @param sig signature
+     * @param parent parent atom
+     * @return module for given axiom AX; use parent atom's module as a base for the module search
      */
     private Optional<OntologyAtom> buildModule(Signature sig, OntologyAtom parent) {
         // build a module for a given signature
@@ -121,12 +115,10 @@ public class Decomposer {
     }
 
     /**
-     * @param ax
-     *        axiom
-     * @param parent
-     *        parent atom
-     * @return create atom for given axiom AX; use parent atom's module as a
-     *         base for the module search
+     * @param ax axiom
+     * @param parent parent atom
+     * @return create atom for given axiom AX; use parent atom's module as a base for the module
+     *         search
      */
     private OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
         // check whether axiom already has an atom
@@ -162,8 +154,7 @@ public class Decomposer {
     }
 
     /**
-     * @param t
-     *        module type
+     * @param t module type
      * @return the atomic structure for given module type T
      */
     public AtomList getAOS(ModuleType t) {
@@ -201,10 +192,8 @@ public class Decomposer {
     }
 
     /**
-     * @param signature
-     *        the signature to use
-     * @param moduletype
-     *        the module type
+     * @param signature the signature to use
+     * @param moduletype the module type
      * @return a set of axioms that corresponds to the atom with the id INDEX
      */
     public Set<OWLAxiom> getNonLocal(Stream<OWLEntity> signature, ModuleType moduletype) {
@@ -223,16 +212,13 @@ public class Decomposer {
     }
 
     /**
-     * @param signature
-     *        the signature to use
-     * @param moduletype
-     *        module type
-     * @param useSemantics
-     *        true if semantic locality should be used
+     * @param signature the signature to use
+     * @param moduletype module type
+     * @param useSemantics true if semantic locality should be used
      * @return a set of axioms that corresponds to the atom with the id INDEX
      */
     public Collection<AxiomWrapper> getModule(Stream<OWLEntity> signature, boolean useSemantics,
-        ModuleType moduletype) {
+                    ModuleType moduletype) {
         // init signature
         Signature sig = new Signature(signature);
         sig.setLocality(false);

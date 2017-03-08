@@ -23,8 +23,7 @@ class Signature {
     /**
      * copy c'tor
      * 
-     * @param copy
-     *        signature to copy
+     * @param copy signature to copy
      */
     Signature(Signature copy) {
         set.addAll(copy.set);
@@ -37,16 +36,14 @@ class Signature {
     }
 
     /**
-     * @param sig
-     *        signature elements
+     * @param sig signature elements
      */
     public Signature(Stream<OWLEntity> sig) {
         addAll(sig);
     }
 
     /**
-     * @param p
-     *        entity to add to signature
+     * @param p entity to add to signature
      * @return true if p was not in the signature already
      */
     public boolean add(OWLEntity p) {
@@ -54,8 +51,7 @@ class Signature {
     }
 
     /**
-     * @param p
-     *        all entities to add
+     * @param p all entities to add
      */
     public void addAll(Stream<OWLEntity> p) {
         OWLAPIStreamUtils.add(set, p);
@@ -64,8 +60,7 @@ class Signature {
     /**
      * Add set of named entities to signature.
      * 
-     * @param aSet
-     *        set to add
+     * @param aSet set to add
      */
     void add(Set<OWLEntity> aSet) {
         set.addAll(aSet);
@@ -74,8 +69,7 @@ class Signature {
     /**
      * Add another signature to a given one.
      * 
-     * @param sig
-     *        signature to add
+     * @param sig signature to add
      */
     void add(Signature sig) {
         add(sig.set);
@@ -84,8 +78,7 @@ class Signature {
     /**
      * Remove given element from a signature.
      * 
-     * @param p
-     *        element to remove
+     * @param p element to remove
      */
     void remove(OWLEntity p) {
         set.remove(p);
@@ -94,18 +87,15 @@ class Signature {
     /**
      * Set new locality polarity.
      * 
-     * @param top
-     *        locality polarity
+     * @param top locality polarity
      */
     void setLocality(boolean top) {
         setLocality(top, top);
     }
 
     /**
-     * @param topC
-     *        new concept locality polarity
-     * @param topR
-     *        new role locality polarity
+     * @param topC new concept locality polarity
+     * @param topR new role locality polarity
      */
     public void setLocality(boolean topC, boolean topR) {
         topCLocality = topC;
@@ -139,8 +129,7 @@ class Signature {
     }
 
     /**
-     * @param p
-     *        element to check
+     * @param p element to check
      * @return true iff signature contains given element
      */
     boolean contains(OWLEntity p) {
@@ -148,8 +137,7 @@ class Signature {
     }
 
     /**
-     * @param p
-     *        element to check
+     * @param p element to check
      * @return true iff signature contains given element
      */
     boolean contains(OWLObjectInverseOf p) {

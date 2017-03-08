@@ -114,8 +114,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     /**
      * hash all literals with the same lexical form to the same value
      *
-     * @param node
-     *        node to add to hashcode
+     * @param node node to add to hashcode
      */
     @Override
     public void visit(OWLLiteral node) {
@@ -280,7 +279,8 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         addValueToHash(83);
-        hashCode = hashCode * MULT + axiom.getFirstProperty().hashCode() + axiom.getSecondProperty().hashCode();
+        hashCode = hashCode * MULT + axiom.getFirstProperty().hashCode()
+                        + axiom.getSecondProperty().hashCode();
         visitStream(axiom.annotations());
     }
 

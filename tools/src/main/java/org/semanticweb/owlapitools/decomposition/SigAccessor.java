@@ -9,21 +9,18 @@ public class SigAccessor implements OWLObjectVisitor {
     LocalityChecker localityChecker;
 
     /**
-     * @param c
-     *        locality checker
+     * @param c locality checker
      */
     public SigAccessor(LocalityChecker c) {
         localityChecker = c;
     }
 
     /**
-     * @param expr
-     *        data range to check
+     * @param expr data range to check
      * @return true iff EXPR is a top datatype or a built-in datatype;
      */
     public boolean isTopOrBuiltInDataType(OWLDataRange expr) {
-        return expr.isTopDatatype() || expr.isOWLDatatype()
-            && expr.asOWLDatatype().isBuiltIn();
+        return expr.isTopDatatype() || expr.isOWLDatatype() && expr.asOWLDatatype().isBuiltIn();
     }
 
     /** @return true iff roles are treated as TOPs */

@@ -16,11 +16,10 @@ import java.io.Serializable;
 import java.util.stream.Stream;
 
 /**
- * Represents a variable that can appear in an atom. Variable can either be
- * place holders for individuals or literals. Variables are named with IRIs.
+ * Represents a variable that can appear in an atom. Variable can either be place holders for
+ * individuals or literals. Variables are named with IRIs.
  * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI, Serializable {

@@ -15,12 +15,10 @@ package org.semanticweb.owlapi.model;
 import java.util.stream.Stream;
 
 /**
- * Represents
- * <a href="http://www.w3.org/TR/owl2-syntax/#Asymmetric_Object_Properties" >
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Asymmetric_Object_Properties" >
  * AsymmetricObjectProperty</a> axioms in the OWL 2 specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {

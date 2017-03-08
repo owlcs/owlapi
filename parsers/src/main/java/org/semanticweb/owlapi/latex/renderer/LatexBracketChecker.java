@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public final class LatexBracketChecker implements OWLClassExpressionVisitor {
@@ -58,8 +57,7 @@ public final class LatexBracketChecker implements OWLClassExpressionVisitor {
     }
 
     /**
-     * @param node
-     *        node
+     * @param node node
      */
     @SuppressWarnings("unused")
     public void visit(OWLDataCardinalityRestriction node) {
@@ -82,8 +80,7 @@ public final class LatexBracketChecker implements OWLClassExpressionVisitor {
     }
 
     /**
-     * @param node
-     *        node
+     * @param node node
      */
     @SuppressWarnings("unused")
     public void visit(OWLObjectCardinalityRestriction node) {
@@ -156,8 +153,7 @@ public final class LatexBracketChecker implements OWLClassExpressionVisitor {
     }
 
     /**
-     * @param classExpression
-     *        class expression
+     * @param classExpression class expression
      * @return true if bracket required
      */
     public static boolean requiresBracket(OWLClassExpression classExpression) {

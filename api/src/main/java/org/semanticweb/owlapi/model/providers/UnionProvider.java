@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public interface UnionProvider {
 
     /**
-     * @param dataRanges
-     *        data ranges for union. Cannot be null or contain nulls.
+     * @param dataRanges data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges
      */
     default OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges) {
@@ -39,15 +38,13 @@ public interface UnionProvider {
     }
 
     /**
-     * @param dataRanges
-     *        data ranges for union. Cannot be null or contain nulls.
+     * @param dataRanges data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges
      */
     OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges);
 
     /**
-     * @param dataRanges
-     *        data ranges for union. Cannot be null or contain nulls.
+     * @param dataRanges data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges
      */
     default OWLDataUnionOf getOWLDataUnionOf(OWLDataRange... dataRanges) {
@@ -56,24 +53,22 @@ public interface UnionProvider {
     }
 
     /**
-     * @param operands
-     *        class expressions for union
+     * @param operands class expressions for union
      * @return a class union over the specified arguments
      */
     OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands);
 
     /**
-     * @param operands
-     *        class expressions for union
+     * @param operands class expressions for union
      * @return a class union over the specified arguments
      */
-    default OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
+    default OWLObjectUnionOf getOWLObjectUnionOf(
+                    Collection<? extends OWLClassExpression> operands) {
         return getOWLObjectUnionOf(operands.stream());
     }
 
     /**
-     * @param operands
-     *        class expressions for union
+     * @param operands class expressions for union
      * @return a class union over the specified arguments
      */
     default OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands) {

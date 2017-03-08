@@ -13,12 +13,11 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 3.0.0
- * @param <O>
- *        return type
+ * @param <O> return type
  */
-public interface OWLEntityVisitorEx<O> extends OWLClassVisitorExBase<O>,
-        OWLPropertyEntityVisitorExBase<O>, OWLIndividualEntityVisitorExBase<O>,
-        OWLDataEntityVisitorExBase<O> {}
+public interface OWLEntityVisitorEx<O>
+                extends OWLClassVisitorExBase<O>, OWLPropertyEntityVisitorExBase<O>,
+                OWLIndividualEntityVisitorExBase<O>, OWLDataEntityVisitorExBase<O> {
+}

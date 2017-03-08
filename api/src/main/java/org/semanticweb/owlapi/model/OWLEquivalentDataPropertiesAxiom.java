@@ -15,16 +15,14 @@ package org.semanticweb.owlapi.model;
 import java.util.Collection;
 
 /**
- * Represents an
- * <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Data_Properties" >
+ * Represents an <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Data_Properties" >
  * EquivalentDataProperties</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLEquivalentDataPropertiesAxiom extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>,
-    OWLDataPropertyAxiom {
+public interface OWLEquivalentDataPropertiesAxiom
+                extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
     @SuppressWarnings("unchecked")

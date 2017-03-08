@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -47,8 +46,7 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLOntology ont = getOWLOntology();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI()));
-        assertTrue(
-            ont.annotationPropertiesInSignature().anyMatch(a -> a.equals(ap)));
+        assertTrue(ont.annotationPropertiesInSignature().anyMatch(a -> a.equals(ap)));
     }
 
     @Test
@@ -56,14 +54,13 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLAnnotationProperty ap = AnnotationProperty(iri("prop"));
         OWLLiteral val = Literal("Test", "");
         OWLAnnotation anno = df.getOWLAnnotation(ap, val);
-        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(Class(iri("A")),
-            Class(iri("B")), singleton(anno));
+        OWLSubClassOfAxiom ax =
+                        df.getOWLSubClassOfAxiom(Class(iri("A")), Class(iri("B")), singleton(anno));
         OWLOntology ont = getOWLOntology();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.containsAnnotationPropertyInSignature(
-            anno.getProperty().getIRI()));
+        assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
         assertTrue(ont.annotationPropertiesInSignature()
-            .anyMatch(a -> a.equals(anno.getProperty())));
+                        .anyMatch(a -> a.equals(anno.getProperty())));
     }
 
     @Test
@@ -72,11 +69,10 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLLiteral val = Literal("Test");
         OWLAnnotation anno = df.getOWLAnnotation(ap, val);
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager()
-            .applyChange(new AddOntologyAnnotation(ont, anno));
-        assertTrue(ont.containsAnnotationPropertyInSignature(
-            anno.getProperty().getIRI(), EXCLUDED));
+        ont.getOWLOntologyManager().applyChange(new AddOntologyAnnotation(ont, anno));
+        assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI(),
+                        EXCLUDED));
         assertTrue(ont.annotationPropertiesInSignature(EXCLUDED)
-            .anyMatch(a -> a.equals(anno.getProperty())));
+                        .anyMatch(a -> a.equals(anno.getProperty())));
     }
 }

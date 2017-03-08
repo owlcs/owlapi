@@ -25,28 +25,26 @@ import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacteristicAxiomImpl implements
-    OWLFunctionalDataPropertyAxiom {
+public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacteristicAxiomImpl
+                implements OWLFunctionalDataPropertyAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLFunctionalDataPropertyAxiomImpl(OWLDataPropertyExpression property,
-        Collection<OWLAnnotation> annotations) {
+                    Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this : new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+                        : new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -57,7 +55,8 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLDataMaxCardinalityImpl(getProperty(), 1, RDFSLITERAL),
-            NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+                        new OWLDataMaxCardinalityImpl(getProperty(), 1, RDFSLITERAL),
+                        NO_ANNOTATIONS);
     }
 }

@@ -29,8 +29,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLParser extends AbstractOWLParser {
@@ -41,13 +40,16 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         try {
-            final RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) getSupportedFormat().createFormat();
+            final RDFXMLDocumentFormat format =
+                            (RDFXMLDocumentFormat) getSupportedFormat().createFormat();
             RDFParser parser = new RDFParser() {
 
                 @Override
-                public void startPrefixMapping(@Nullable String prefix, @Nullable String uri) throws SAXException {
+                public void startPrefixMapping(@Nullable String prefix, @Nullable String uri)
+                                throws SAXException {
                     super.startPrefixMapping(prefix, uri);
                     if (prefix != null && uri != null) {
                         format.setPrefix(prefix, uri);

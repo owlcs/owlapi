@@ -18,8 +18,7 @@ import java.io.Writer;
 /**
  * The Class LatexWriter.
  * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class LatexWriter {
@@ -30,16 +29,14 @@ public class LatexWriter {
     /**
      * Instantiates a new latex writer.
      * 
-     * @param writer
-     *        the writer
+     * @param writer the writer
      */
     public LatexWriter(Writer writer) {
         this.writer = new PrintWriter(writer);
     }
 
     /**
-     * @param o
-     *        object to write
+     * @param o object to write
      */
     public void write(Object o) {
         writer.write(o.toString());

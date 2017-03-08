@@ -24,28 +24,28 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
-    OWLEquivalentDataPropertiesAxiom {
+public class OWLEquivalentDataPropertiesAxiomImpl
+                extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression>
+                implements OWLEquivalentDataPropertiesAxiom {
 
     /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
+     * @param properties properties
+     * @param annotations annotations
      */
-    public OWLEquivalentDataPropertiesAxiomImpl(Collection<? extends OWLDataPropertyExpression> properties,
-        Collection<OWLAnnotation> annotations) {
+    public OWLEquivalentDataPropertiesAxiomImpl(
+                    Collection<? extends OWLDataPropertyExpression> properties,
+                    Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this : new OWLEquivalentDataPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+                        : new OWLEquivalentDataPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
     }
 
     @Override
@@ -59,7 +59,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         if (properties.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), NO_ANNOTATIONS));
+        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b),
+                        NO_ANNOTATIONS));
     }
 
     @Override
@@ -67,7 +68,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         if (properties.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b), annotations));
+        return walkPairwise((a, b) -> new OWLEquivalentDataPropertiesAxiomImpl(Arrays.asList(a, b),
+                        annotations));
     }
 
     @Override

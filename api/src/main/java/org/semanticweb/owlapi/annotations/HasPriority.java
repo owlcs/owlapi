@@ -17,10 +17,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Annotation for objects that have a priority that can be used for sorting
- * purposes. The priority is represented as a double so that it's always
- * possible to place an object's priority between two existing priorities
- * (within the limits of double representation).
+ * Annotation for objects that have a priority that can be used for sorting purposes. The priority
+ * is represented as a double so that it's always possible to place an object's priority between two
+ * existing priorities (within the limits of double representation).
  * 
  * @author ignazio
  * @since 4.0.0

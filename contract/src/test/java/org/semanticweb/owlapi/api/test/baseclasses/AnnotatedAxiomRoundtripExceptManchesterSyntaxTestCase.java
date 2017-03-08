@@ -33,28 +33,27 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase
-    extends AnnotatedAxiomRoundTrippingTestCase {
+                extends AnnotatedAxiomRoundTrippingTestCase {
 
     public AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase(
-        Function<Set<OWLAnnotation>, OWLAxiom> f) {
+                    Function<Set<OWLAnnotation>, OWLAxiom> f) {
         super(f);
     }
 
     @Parameters
     public static List<Function<Set<OWLAnnotation>, OWLAxiom>> getData() {
         return Arrays.asList(a -> Declaration(ObjectProperty(iri("propP")), a),
-            a -> Declaration(Datatype(iri("DT")), a),
-            a -> Declaration(NamedIndividual(iri("I")), a),
-            a -> Declaration(DataProperty(iri("propD")), a),
-            a -> Declaration(AnnotationProperty(iri("propA")), a),
-            a -> Declaration(Class(iri("A")), a));
+                        a -> Declaration(Datatype(iri("DT")), a),
+                        a -> Declaration(NamedIndividual(iri("I")), a),
+                        a -> Declaration(DataProperty(iri("propD")), a),
+                        a -> Declaration(AnnotationProperty(iri("propA")), a),
+                        a -> Declaration(Class(iri("A")), a));
     }
 
     @Override

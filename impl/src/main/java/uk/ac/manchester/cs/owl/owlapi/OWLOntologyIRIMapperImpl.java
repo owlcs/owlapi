@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 /**
  * Manual IRI mapper.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
@@ -45,13 +44,11 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
     }
 
     /**
-     * @param ontologyIRI
-     *        new ontology iri
-     * @param documentIRI
-     *        new document iri
+     * @param ontologyIRI new ontology iri
+     * @param documentIRI new document iri
      */
     public void addMapping(IRI ontologyIRI, IRI documentIRI) {
         iriMap.put(checkNotNull(ontologyIRI, "ontologyIRI cannot be null"),
-            checkNotNull(documentIRI, "documentIRI cannot be null"));
+                        checkNotNull(documentIRI, "documentIRI cannot be null"));
     }
 }

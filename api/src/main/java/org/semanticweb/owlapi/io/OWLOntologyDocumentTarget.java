@@ -18,24 +18,19 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLStorer;
 
 /**
- * Specifies an interface that provides output management when an ontology is
- * saved.
+ * Specifies an interface that provides output management when an ontology is saved.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public interface OWLOntologyDocumentTarget {
 
     /**
-     * @param storer
-     *        storer which will carry out the serialization
-     * @param ontology
-     *        ontology to save
-     * @param format
-     *        format of the ontology
-     * @throws OWLOntologyStorageException
-     *         ifan exception is raised, e.g., IO errors
+     * @param storer storer which will carry out the serialization
+     * @param ontology ontology to save
+     * @param format format of the ontology
+     * @throws OWLOntologyStorageException ifan exception is raised, e.g., IO errors
      */
-    void store(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format) throws OWLOntologyStorageException;
+    void store(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
+                    throws OWLOntologyStorageException;
 }

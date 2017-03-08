@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
@@ -43,67 +42,56 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
     private final Map<OWLLiteral, OWLLiteral> replacementLiterals;
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
      * 
-     * @param m
-     *        The manager providing data factory and config to be used for the
-     *        duplication.
-     * @param entityIRIReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
+     * @param m The manager providing data factory and config to be used for the duplication.
+     * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
+     *        appear in the map will be replaced as objects are duplicated. This can be used to
+     *        "rename" entities.
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, OWLOntologyManager m) {
         this(entityIRIReplacementMap, Collections.<OWLLiteral, OWLLiteral>emptyMap(), m);
     }
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
      * 
-     * @param m
-     *        The manager providing data factory and config to be used for the
-     *        duplication.
-     * @param entityIRIReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
-     * @param literals
-     *        replacement literals
+     * @param m The manager providing data factory and config to be used for the duplication.
+     * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
+     *        appear in the map will be replaced as objects are duplicated. This can be used to
+     *        "rename" entities.
+     * @param literals replacement literals
      */
-    public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, Map<OWLLiteral, OWLLiteral> literals,
-        OWLOntologyManager m) {
-        super(x -> true, x -> x instanceof OWLFacet ? x : null, checkNotNull(m, "ontology manager cannot be null")
-            .getOWLDataFactory(), Object.class);
+    public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap,
+                    Map<OWLLiteral, OWLLiteral> literals, OWLOntologyManager m) {
+        super(x -> true, x -> x instanceof OWLFacet ? x : null,
+                        checkNotNull(m, "ontology manager cannot be null").getOWLDataFactory(),
+                        Object.class);
         anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
-        replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
+        replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap,
+                        "entityIRIReplacementMap cannot be null"));
         replacementLiterals = checkNotNull(literals, "literals cannot be null");
     }
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory.
+     * Creates an object duplicator that duplicates objects using the specified data factory.
      * 
-     * @param m
-     *        The manager providing data factory and config to be used for the
-     *        duplication.
+     * @param m The manager providing data factory and config to be used for the duplication.
      */
     public OWLObjectDuplicator(OWLOntologyManager m) {
         this(Collections.<OWLEntity, IRI>emptyMap(), m);
     }
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
      * 
-     * @param m
-     *        The manager providing data factory and config to be used for the
-     *        duplication.
-     * @param iriReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
+     * @param m The manager providing data factory and config to be used for the duplication.
+     * @param iriReplacementMap The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be used to "rename"
+     *        entities.
      */
     public OWLObjectDuplicator(OWLOntologyManager m, Map<IRI, IRI> iriReplacementMap) {
         this(remap(iriReplacementMap, m.getOWLDataFactory()), m);
@@ -123,11 +111,9 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
     }
 
     /**
-     * @param object
-     *        the object to duplicate
+     * @param object the object to duplicate
      * @return the duplicate
-     * @param <O>
-     *        return type
+     * @param <O> return type
      */
     public <O extends OWLObject> O duplicateObject(O object) {
         checkNotNull(object, "object cannot be null");
@@ -135,12 +121,10 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
     }
 
     /**
-     * Given an IRI belonging to an entity, returns a IRI. This may be the same
-     * IRI that the entity has, or an alternative IRI if a replacement has been
-     * specified.
+     * Given an IRI belonging to an entity, returns a IRI. This may be the same IRI that the entity
+     * has, or an alternative IRI if a replacement has been specified.
      * 
-     * @param entity
-     *        The entity
+     * @param entity The entity
      * @return The IRI
      */
     private IRI t(OWLEntity entity) {
@@ -167,7 +151,8 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
     public OWLObjectInverseOf visit(OWLObjectInverseOf property) {
         OWLObjectPropertyExpression inverse = property.getInverse();
         if (inverse.isAnonymous()) {
-            return df.getOWLObjectInverseOf(df.getOWLObjectProperty(t(property.getNamedProperty())));
+            return df.getOWLObjectInverseOf(
+                            df.getOWLObjectProperty(t(property.getNamedProperty())));
         }
         return df.getOWLObjectInverseOf(df.getOWLObjectProperty(t(inverse.asOWLObjectProperty())));
     }

@@ -15,11 +15,10 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 
 /**
- * An exception to describe a situation where there was an attempt to apply a
- * change to an immutable ontology.
+ * An exception to describe a situation where there was an attempt to apply a change to an immutable
+ * ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeException {
@@ -27,10 +26,8 @@ public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeExcept
     /**
      * Constructs an exception which describes the attempted change.
      * 
-     * @param change
-     *        The change.
-     * @param o
-     *        the ontology.
+     * @param change The change.
+     * @param o the ontology.
      */
     public ImmutableOWLOntologyChangeException(OWLOntologyChangeData change, String o) {
         super(change, "Cannot apply changes to immutable ontology: " + o);

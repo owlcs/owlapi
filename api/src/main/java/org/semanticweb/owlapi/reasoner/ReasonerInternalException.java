@@ -13,43 +13,36 @@
 package org.semanticweb.owlapi.reasoner;
 
 /**
- * Specifies that a some internal error occurred during reasoning. Each reasoner
- * implementation will specify the cause of the error in the message. <br>
- * This exception is only thrown when an internal error (due to errors in the
- * reasoner code) has occurred and the reasoner cannot recover silently from the
- * error. If the reasoner can recover silently this exception will not be
- * thrown. <br>
- * Clients should dispose of the reasoner when an internal reasoner exception is
- * thrown because the error is unrecoverable and the internal state of the
- * reasoner may be corrupt.
+ * Specifies that a some internal error occurred during reasoning. Each reasoner implementation will
+ * specify the cause of the error in the message. <br>
+ * This exception is only thrown when an internal error (due to errors in the reasoner code) has
+ * occurred and the reasoner cannot recover silently from the error. If the reasoner can recover
+ * silently this exception will not be thrown. <br>
+ * Clients should dispose of the reasoner when an internal reasoner exception is thrown because the
+ * error is unrecoverable and the internal state of the reasoner may be corrupt.
  * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
 
     /**
-     * @param cause
-     *        error cause
+     * @param cause error cause
      */
     public ReasonerInternalException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * @param message
-     *        error message
+     * @param message error message
      */
     public ReasonerInternalException(String message) {
         super(message);
     }
 
     /**
-     * @param message
-     *        error message
-     * @param cause
-     *        error cause
+     * @param message error message
+     * @param cause error cause
      */
     public ReasonerInternalException(String message, Throwable cause) {
         super(message, cause);

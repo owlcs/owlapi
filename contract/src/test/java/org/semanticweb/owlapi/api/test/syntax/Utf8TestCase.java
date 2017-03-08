@@ -40,19 +40,23 @@ import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 public class Utf8TestCase extends TestBase {
 
     private static final String INVALID_UTF8 = "<!DOCTYPE rdf:RDF [\n"
-        + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n" + "<rdf:RDF \n" + "xml:base=\n"
-        + "\"http://www.example.org/ISA14#\" \n" + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-        + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-        + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-        + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
-        + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
-        + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+                    + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
+                    + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
+                    + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+                    + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+                    + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+                    + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
+                    + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+                    + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
+                    + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
+                    + "</rdf:RDF>";
 
     @Test
     public void testUTF8roundTrip() throws Exception {
-        String onto = "Ontology(<http://protege.org/UTF8.owl>" + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
-            + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
-            + "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
+        String onto = "Ontology(<http://protege.org/UTF8.owl>"
+                        + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
+                        + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
+                        + "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
         saveOntology(loadOntologyFromString(onto, new FunctionalSyntaxDocumentFormat()));
         // ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
         // ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -66,7 +70,8 @@ public class Utf8TestCase extends TestBase {
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
         String onto = INVALID_UTF8;
-        ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
+        ByteArrayInputStream in =
+                        new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         try {
             new StreamDocumentSource(in).acceptParser(parser, getOWLOntology(), config);
@@ -83,7 +88,8 @@ public class Utf8TestCase extends TestBase {
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
         String onto = INVALID_UTF8;
-        ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
+        ByteArrayInputStream in =
+                        new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
         m.loadOntologyFromOntologyDocument(in);
     }
 
@@ -113,12 +119,11 @@ public class Utf8TestCase extends TestBase {
         String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
         OWLClass c = Class(IRI(ns + "#", "C"));
         /*
-         * The two unicode characters entered here are valid and can be found in
-         * the code chart http://www.unicode.org/charts/PDF/U4E00.pdf. It has
-         * been said that they are chinese and they do look the part. In UTF-8
-         * these characters are encoded as \u8655 --> \350\231\225 \u65b9 -->
-         * \346\226\271 where the right hand side is in octal. (I chose octal
-         * because this is how emacs represents it with find-file-literally).
+         * The two unicode characters entered here are valid and can be found in the code chart
+         * http://www.unicode.org/charts/PDF/U4E00.pdf. It has been said that they are chinese and
+         * they do look the part. In UTF-8 these characters are encoded as \u8655 --> \350\231\225
+         * \u65b9 --> \346\226\271 where the right hand side is in octal. (I chose octal because
+         * this is how emacs represents it with find-file-literally).
          */
         String chinese = "Rx\u8655\u65b9";
         System.setProperty("file.encoding", "UTF-8");
@@ -129,7 +134,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     private OWLOntology createOriginalOntology(String ns, OWLClass c, String chinese)
-        throws OWLOntologyCreationException {
+                    throws OWLOntologyCreationException {
         OWLOntology ontology = getOWLOntology(IRI(ns, ""));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);
@@ -137,7 +142,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     private static boolean checkOntology(OWLOntology ontology, OWLClass c, String chinese) {
-        return getAnnotationObjects(c, ontology).anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(
-            chinese));
+        return getAnnotationObjects(c, ontology)
+                        .anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(chinese));
     }
 }

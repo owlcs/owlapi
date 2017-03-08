@@ -24,30 +24,29 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange>
-    implements OWLDataPropertyRangeAxiom {
+public class OWLDataPropertyRangeAxiomImpl
+                extends OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange>
+                implements OWLDataPropertyRangeAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param range
-     *        range
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param range range
+     * @param annotations annotations
      */
     public OWLDataPropertyRangeAxiomImpl(OWLDataPropertyExpression property, OWLDataRange range,
-        Collection<OWLAnnotation> annotations) {
+                    Collection<OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this : new OWLDataPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+                        : new OWLDataPropertyRangeAxiomImpl(getProperty(), getRange(),
+                                        NO_ANNOTATIONS);
     }
 
     @Override

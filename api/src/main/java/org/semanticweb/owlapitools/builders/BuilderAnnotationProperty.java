@@ -18,11 +18,11 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotationProperty. */
-public class BuilderAnnotationProperty extends BaseEntityBuilder<OWLAnnotationProperty, BuilderAnnotationProperty> {
+public class BuilderAnnotationProperty
+                extends BaseEntityBuilder<OWLAnnotationProperty, BuilderAnnotationProperty> {
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderAnnotationProperty(OWLDataFactory df) {
@@ -32,10 +32,8 @@ public class BuilderAnnotationProperty extends BaseEntityBuilder<OWLAnnotationPr
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderAnnotationProperty(OWLAnnotationProperty expected, OWLDataFactory df) {
         this(df);

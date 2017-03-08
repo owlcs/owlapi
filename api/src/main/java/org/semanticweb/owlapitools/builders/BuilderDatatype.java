@@ -23,10 +23,8 @@ public class BuilderDatatype extends BaseEntityBuilder<OWLDatatype, BuilderDatat
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDatatype(OWLDatatype expected, OWLDataFactory df) {
         this(df);
@@ -34,8 +32,7 @@ public class BuilderDatatype extends BaseEntityBuilder<OWLDatatype, BuilderDatat
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDatatype(OWLDataFactory df) {

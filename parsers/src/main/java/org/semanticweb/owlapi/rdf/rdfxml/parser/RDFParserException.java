@@ -26,22 +26,17 @@ public class RDFParserException extends OWLRuntimeException {
     protected final int columnNumber;
 
     /**
-     * @param message
-     *        message
-     * @param locator
-     *        locator
+     * @param message message
+     * @param locator locator
      */
     public RDFParserException(String message, Locator locator) {
         this(null, message, locator);
     }
 
     /**
-     * @param e
-     *        cause
-     * @param message
-     *        message
-     * @param locator
-     *        locator
+     * @param e cause
+     * @param message message
+     * @param locator locator
      */
     public RDFParserException(@Nullable Exception e, String message, Locator locator) {
         super(message(locator, message), e);

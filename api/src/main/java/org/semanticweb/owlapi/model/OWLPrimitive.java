@@ -19,12 +19,11 @@ package org.semanticweb.owlapi.model;
  * {@link org.semanticweb.owlapi.model.OWLAnnotationProperty},
  * {@link org.semanticweb.owlapi.model.OWLDatatype},
  * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual},
- * {@link org.semanticweb.owlapi.model.OWLLiteral},
- * {@link org.semanticweb.owlapi.model.IRI}. i.e. the basic "leaf" objects that
- * are used in axioms, class expressions an annotations.
+ * {@link org.semanticweb.owlapi.model.OWLLiteral}, {@link org.semanticweb.owlapi.model.IRI}. i.e.
+ * the basic "leaf" objects that are used in axioms, class expressions an annotations.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
-public interface OWLPrimitive extends OWLObject {}
+public interface OWLPrimitive extends OWLObject {
+}

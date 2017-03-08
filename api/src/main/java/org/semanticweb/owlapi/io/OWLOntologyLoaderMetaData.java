@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.IRI;
 import com.google.common.collect.Multimap;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public interface OWLOntologyLoaderMetaData extends Serializable {
@@ -44,8 +43,7 @@ public interface OWLOntologyLoaderMetaData extends Serializable {
     Stream<RDFTriple> getUnparsedTriples();
 
     /**
-     * @return the guessed declarations, i.e., those not parsed from explicit
-     *         declaration axioms
+     * @return the guessed declarations, i.e., those not parsed from explicit declaration axioms
      */
     Multimap<IRI, Class<?>> getGuessedDeclarations();
 }

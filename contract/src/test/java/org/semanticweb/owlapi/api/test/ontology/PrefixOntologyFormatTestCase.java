@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
 public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
@@ -40,8 +39,8 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
     }
 
     @Override
-    public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format) throws OWLOntologyStorageException,
-        OWLOntologyCreationException {
+    public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format)
+                    throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology ont2 = super.roundTripOntology(ont, format);
         OWLDocumentFormat ont2Format = ont2.getFormat();
         if (format instanceof PrefixDocumentFormat && ont2Format instanceof PrefixDocumentFormat) {
@@ -49,7 +48,8 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
             PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
             prefixFormat.prefixNames().forEach(prefixName -> {
                 assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
-                assertEquals(prefixFormat.getPrefix(prefixName), prefixFormat2.getPrefix(prefixName));
+                assertEquals(prefixFormat.getPrefix(prefixName),
+                                prefixFormat2.getPrefix(prefixName));
             });
         }
         return ont2;

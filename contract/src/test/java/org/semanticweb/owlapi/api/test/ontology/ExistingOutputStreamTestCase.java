@@ -31,11 +31,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * API writers/storers/renderers should not close streams if they didn't open
- * them.
+ * API writers/storers/renderers should not close streams if they didn't open them.
  * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
 @SuppressWarnings("javadoc")
@@ -55,7 +53,7 @@ public class ExistingOutputStreamTestCase extends TestBase {
     @Override
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o, OWLDocumentFormat format) {
         try (BufferedOutputStream os = new BufferedOutputStream(new ByteArrayOutputStream());
-                OutputStreamWriter w = new OutputStreamWriter(os)) {
+                        OutputStreamWriter w = new OutputStreamWriter(os)) {
             o.getOWLOntologyManager().saveOntology(o, format, os);
             os.flush();
             w.write("<!-- Comment -->");

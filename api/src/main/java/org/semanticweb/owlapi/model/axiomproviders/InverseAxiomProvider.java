@@ -24,26 +24,25 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public interface InverseAxiomProvider {
 
     /**
-     * @param forwardProperty
-     *        forward Property
-     * @param inverseProperty
-     *        inverse Property
+     * @param forwardProperty forward Property
+     * @param inverseProperty inverse Property
      * @return an inverse object property axiom
      */
     default OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
-        OWLObjectPropertyExpression forwardProperty, OWLObjectPropertyExpression inverseProperty) {
-        return getOWLInverseObjectPropertiesAxiom(forwardProperty, inverseProperty, Collections.emptySet());
+                    OWLObjectPropertyExpression forwardProperty,
+                    OWLObjectPropertyExpression inverseProperty) {
+        return getOWLInverseObjectPropertiesAxiom(forwardProperty, inverseProperty,
+                        Collections.emptySet());
     }
 
     /**
-     * @param forwardProperty
-     *        forward Property
-     * @param inverseProperty
-     *        inverse Property
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param forwardProperty forward Property
+     * @param inverseProperty inverse Property
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an inverse object property axiom with annotations
      */
-    OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(OWLObjectPropertyExpression forwardProperty,
-        OWLObjectPropertyExpression inverseProperty, Collection<OWLAnnotation> annotations);
+    OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
+                    OWLObjectPropertyExpression forwardProperty,
+                    OWLObjectPropertyExpression inverseProperty,
+                    Collection<OWLAnnotation> annotations);
 }

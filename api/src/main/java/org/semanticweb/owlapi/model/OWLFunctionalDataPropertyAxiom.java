@@ -13,15 +13,14 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents a
- * <a href="http://www.w3.org/TR/owl2-syntax/#Functional_Data_Properties" >
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Functional_Data_Properties" >
  * FunctionalDataProperty</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
+public interface OWLFunctionalDataPropertyAxiom
+                extends OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
     @SuppressWarnings("unchecked")

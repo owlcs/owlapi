@@ -42,8 +42,8 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioTurtleStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+public class RioTurtleStorerFactory extends AbstractRioStorerFactory
+                implements RioRDFStorerFactory {
 
     /** Default constructor. */
     public RioTurtleStorerFactory() {

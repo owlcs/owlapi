@@ -38,14 +38,12 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import com.google.common.collect.Sets;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
-    AxiomsRoundTrippingBase {
+public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends AxiomsRoundTrippingBase {
 
     public AxiomsRoundTrippingNoManchesterSyntaxTestCase(AxiomBuilder f) {
         super(f);
@@ -58,33 +56,31 @@ public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
 
     @Parameters
     public static List<AxiomBuilder> getData() {
-        OWLObjectPropertyExpression p = ObjectProperty(iri("p"))
-            .getInverseProperty();
-        OWLObjectPropertyExpression q = ObjectProperty(iri("q"))
-            .getInverseProperty();
+        OWLObjectPropertyExpression p = ObjectProperty(iri("p")).getInverseProperty();
+        OWLObjectPropertyExpression q = ObjectProperty(iri("q")).getInverseProperty();
         OWLClass clsA = Class(iri("A"));
         return Arrays.asList(
-            // AsymmetricObjectPropertyInverse
-            () -> Sets.newHashSet(AsymmetricObjectProperty(p)),
-            // EquivalentObjectPropertiesWithInverses
-            () -> Sets.newHashSet(EquivalentObjectProperties(p, q)),
-            // FunctionalObjectPropertyInverse
-            () -> Sets.newHashSet(FunctionalObjectProperty(p)),
-            // InverseFunctionalObjectPropertyInverse
-            () -> Sets.newHashSet(InverseFunctionalObjectProperty(p)),
-            // IrreflexiveObjectPropertyInverse
-            () -> Sets.newHashSet(IrreflexiveObjectProperty(p)),
-            // ObjectPropertyDomainInverse
-            () -> Sets.newHashSet(ObjectPropertyDomain(p, clsA)),
-            // ObjectPropertyRangeInverse
-            () -> Sets.newHashSet(ObjectPropertyRange(p, clsA)),
-            // ReflexiveObjectPropertyInverse
-            () -> Sets.newHashSet(ReflexiveObjectProperty(p)),
-            // SubObjectPropertyOfInverse
-            () -> Sets.newHashSet(SubObjectPropertyOf(p, q)),
-            // SymmetricObjectPropertyInverse
-            () -> Sets.newHashSet(SymmetricObjectProperty(p)),
-            // TransitiveObjectPropertyInverse
-            () -> Sets.newHashSet(TransitiveObjectProperty(p)));
+                        // AsymmetricObjectPropertyInverse
+                        () -> Sets.newHashSet(AsymmetricObjectProperty(p)),
+                        // EquivalentObjectPropertiesWithInverses
+                        () -> Sets.newHashSet(EquivalentObjectProperties(p, q)),
+                        // FunctionalObjectPropertyInverse
+                        () -> Sets.newHashSet(FunctionalObjectProperty(p)),
+                        // InverseFunctionalObjectPropertyInverse
+                        () -> Sets.newHashSet(InverseFunctionalObjectProperty(p)),
+                        // IrreflexiveObjectPropertyInverse
+                        () -> Sets.newHashSet(IrreflexiveObjectProperty(p)),
+                        // ObjectPropertyDomainInverse
+                        () -> Sets.newHashSet(ObjectPropertyDomain(p, clsA)),
+                        // ObjectPropertyRangeInverse
+                        () -> Sets.newHashSet(ObjectPropertyRange(p, clsA)),
+                        // ReflexiveObjectPropertyInverse
+                        () -> Sets.newHashSet(ReflexiveObjectProperty(p)),
+                        // SubObjectPropertyOfInverse
+                        () -> Sets.newHashSet(SubObjectPropertyOf(p, q)),
+                        // SymmetricObjectPropertyInverse
+                        () -> Sets.newHashSet(SymmetricObjectProperty(p)),
+                        // TransitiveObjectPropertyInverse
+                        () -> Sets.newHashSet(TransitiveObjectProperty(p)));
     }
 }

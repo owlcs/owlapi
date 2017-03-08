@@ -5,11 +5,10 @@ import java.io.PrintStream;
 import javax.annotation.Nullable;
 
 /**
- * A small wrapper class that allows SLF4J error messages about not having a
- * binding (or more than one) silenced. Just add {@code SLF4J.silence();} before
- * any logger is initialised - ideally as first instruction in your main. If the
- * default behaviour becomes useful, {@code SLF4J.deSilence();} will restore
- * things.
+ * A small wrapper class that allows SLF4J error messages about not having a binding (or more than
+ * one) silenced. Just add {@code SLF4J.silence();} before any logger is initialised - ideally as
+ * first instruction in your main. If the default behaviour becomes useful,
+ * {@code SLF4J.deSilence();} will restore things.
  */
 public class SLF4JSilencer {
 

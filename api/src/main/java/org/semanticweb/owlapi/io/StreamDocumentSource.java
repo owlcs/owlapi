@@ -22,69 +22,57 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 /**
  * An ontology document source which can read from a stream.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class StreamDocumentSource extends StreamDocumentSourceBase {
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified stream.
      * 
-     * @param is
-     *        The stream that the ontology representation will be read from.
+     * @param is The stream that the ontology representation will be read from.
      */
     public StreamDocumentSource(InputStream is) {
         this(is, IRI.getNextDocumentIRI("inputstream:ontology"), null, null);
     }
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified stream.
      * 
-     * @param is
-     *        The stream that the ontology representation will be read from.
-     * @param iri
-     *        The document IRI
+     * @param is The stream that the ontology representation will be read from.
+     * @param iri The document IRI
      */
     public StreamDocumentSource(InputStream is, IRI iri) {
         this(is, iri, null, null);
     }
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified stream.
      * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     * @param f
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param stream The stream that the ontology representation will be read from.
+     * @param documentIRI The document IRI
+     * @param f ontology format
+     * @param mime mime type
      */
     public StreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat f,
-        @Nullable String mime) {
+                    @Nullable String mime) {
         super(stream, documentIRI, f, mime);
     }
 
     /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
+     * Constructs an input source which will read an ontology from a representation from the
+     * specified stream.
      * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param prefix
-     *        The document IRI prefix
-     * @param f
-     *        ontology format
-     * @param mime
-     *        mime type
+     * @param stream The stream that the ontology representation will be read from.
+     * @param prefix The document IRI prefix
+     * @param f ontology format
+     * @param mime mime type
      */
     public StreamDocumentSource(InputStream stream, String prefix, @Nullable OWLDocumentFormat f,
-        @Nullable String mime) {
+                    @Nullable String mime) {
         this(stream, IRI.getNextDocumentIRI(prefix), f, mime);
     }
 }

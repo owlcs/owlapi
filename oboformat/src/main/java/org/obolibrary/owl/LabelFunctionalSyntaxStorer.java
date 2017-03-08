@@ -35,9 +35,10 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
+                    throws OWLOntologyStorageException {
         try {
-            FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology, writer);
+            FunctionalSyntaxObjectRenderer renderer =
+                            new FunctionalSyntaxObjectRenderer(ontology, writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();
@@ -64,7 +65,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         @Override
         @Nullable
         public String getPrefixIRI(IRI iri) {
-            for (OWLAnnotationAssertionAxiom annotation : asList(ontology.annotationAssertionAxioms(iri))) {
+            for (OWLAnnotationAssertionAxiom annotation : asList(
+                            ontology.annotationAssertionAxioms(iri))) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
                     if (value instanceof OWLLiteral) {

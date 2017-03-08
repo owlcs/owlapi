@@ -35,7 +35,8 @@ public class MemoryBenchmark {
     @SuppressWarnings("javadoc")
     public static void main(String[] args) throws Exception {
         if (args.length > 2) {
-            System.err.println("usage: " + MemoryBenchmark.class.getCanonicalName() + "<src-ontology> <dest-hprof>");
+            System.err.println("usage: " + MemoryBenchmark.class.getCanonicalName()
+                            + "<src-ontology> <dest-hprof>");
         }
         String filename = "/Users/ses/ontologies/GO/go.ofn";
         if (args.length > 0) {
@@ -48,20 +49,16 @@ public class MemoryBenchmark {
     }
 
     /**
-     * Run memory profiling for an input ontology and output the dump file to
-     * the hprof path provided
+     * Run memory profiling for an input ontology and output the dump file to the hprof path
+     * provided
      * 
-     * @param ontologyPath
-     *        input ontology
-     * @param hprofPath
-     *        dump file path for output
-     * @throws OWLOntologyCreationException
-     *         if the ontology cannot be created or loaded
-     * @throws IOException
-     *         if the dump file cannot be created
+     * @param ontologyPath input ontology
+     * @param hprofPath dump file path for output
+     * @throws OWLOntologyCreationException if the ontology cannot be created or loaded
+     * @throws IOException if the dump file cannot be created
      */
-    public static void memoryProfile(Path ontologyPath, Path hprofPath) throws OWLOntologyCreationException,
-        IOException {
+    public static void memoryProfile(Path ontologyPath, Path hprofPath)
+                    throws OWLOntologyCreationException, IOException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         File file = ontologyPath.toFile();
         manager.getIRIMappers().add(new AutoIRIMapper(file.getParentFile(), false));
@@ -71,17 +68,20 @@ public class MemoryBenchmark {
         } else {
             ds = new FileDocumentSource(file);
         }
-        OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration().setStrict(false);
+        OWLOntologyLoaderConfiguration config =
+                        new OWLOntologyLoaderConfiguration().setStrict(false);
         long start = System.currentTimeMillis();
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ds, config);
-        System.out.println("MemoryBenchmark.memoryProfile() elapsed: " + (System.currentTimeMillis() - start));
+        System.out.println("MemoryBenchmark.memoryProfile() elapsed: "
+                        + (System.currentTimeMillis() - start));
         getDiagnostics().dumpHeap(hprofPath.toString(), true);
         manager.removeOntology(ontology);
     }
 
     protected static HotSpotDiagnosticMXBean getDiagnostics() throws IOException {
-        HotSpotDiagnosticMXBean hotSpotDiagnosticMXBean = newPlatformMXBeanProxy(getPlatformMBeanServer(),
-            "com.sun.management:type=HotSpotDiagnostic", HotSpotDiagnosticMXBean.class);
+        HotSpotDiagnosticMXBean hotSpotDiagnosticMXBean = newPlatformMXBeanProxy(
+                        getPlatformMBeanServer(), "com.sun.management:type=HotSpotDiagnostic",
+                        HotSpotDiagnosticMXBean.class);
         for (VMOption vmOption : hotSpotDiagnosticMXBean.getDiagnosticOptions()) {
             logger.info("vmOption = {}", vmOption);
         }
@@ -94,8 +94,8 @@ public class MemoryBenchmark {
             hprofPath = FileSystems.getDefault().getPath(args[1]);
         } else {
             try {
-                String name = newPlatformMXBeanProxy(getPlatformMBeanServer(), RUNTIME_MXBEAN_NAME, RuntimeMXBean.class)
-                    .getName();
+                String name = newPlatformMXBeanProxy(getPlatformMBeanServer(), RUNTIME_MXBEAN_NAME,
+                                RuntimeMXBean.class).getName();
                 String profileFileName = "ontology-hprof-" + name + ".hprof";
                 hprofPath = ontologyPath.resolveSibling(profileFileName);
             } catch (IOException e) {

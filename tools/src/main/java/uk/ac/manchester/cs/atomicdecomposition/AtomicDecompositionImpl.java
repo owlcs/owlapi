@@ -43,28 +43,23 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     private final ModuleType type;
 
     /**
-     * @param o
-     *        o
+     * @param o o
      */
     public AtomicDecompositionImpl(OWLOntology o) {
         this(AxiomSelector.selectAxioms(o), ModuleType.BOT);
     }
 
     /**
-     * @param o
-     *        o
-     * @param type
-     *        type
+     * @param o o
+     * @param type type
      */
     public AtomicDecompositionImpl(OWLOntology o, ModuleType type) {
         this(AxiomSelector.selectAxioms(o), type);
     }
 
     /**
-     * @param axioms
-     *        axioms
-     * @param type
-     *        type
+     * @param axioms axioms
+     * @param type type
      */
     public AtomicDecompositionImpl(List<OWLAxiom> axioms, ModuleType type) {
         this.type = type;
@@ -226,11 +221,9 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     /**
-     * get a set of axioms that corresponds to the module of the atom with the
-     * id INDEX
+     * get a set of axioms that corresponds to the module of the atom with the id INDEX
      * 
-     * @param index
-     *        index
+     * @param index index
      * @return module at index
      */
     Collection<AxiomWrapper> getAtomModule(int index) {
@@ -243,8 +236,9 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     @Override
-    public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics, ModuleType moduletype) {
-        return decomposer.getModule(signature, useSemantics, moduletype).stream().map(AxiomWrapper::getAxiom).filter(
-            ax -> ax != null);
+    public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics,
+                    ModuleType moduletype) {
+        return decomposer.getModule(signature, useSemantics, moduletype).stream()
+                        .map(AxiomWrapper::getAxiom).filter(ax -> ax != null);
     }
 }

@@ -13,15 +13,13 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class UnknownOWLOntologyException extends OWLRuntimeException {
 
     /**
-     * @param ontologyID
-     *        the unknown ontology id
+     * @param ontologyID the unknown ontology id
      */
     public UnknownOWLOntologyException(OWLOntologyID ontologyID) {
         super("Unknown ontology: " + ontologyID);

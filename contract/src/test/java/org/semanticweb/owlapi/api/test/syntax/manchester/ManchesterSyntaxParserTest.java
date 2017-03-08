@@ -32,7 +32,8 @@ public class ManchesterSyntaxParserTest extends TestBase {
     @Parameters
     public static Collection<Object[]> data() {
         OWLDataFactory datafactory = OWLManager.getOWLDataFactory();
-        OWLDataProperty hasAge = datafactory.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
+        OWLDataProperty hasAge =
+                        datafactory.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         return Arrays.asList(
             //@formatter:off
             new Object[] { "hasAge exactly 1 xsd:int",  datafactory.getOWLDataExactCardinality(1, hasAge, OWL2Datatype.XSD_INT) },
@@ -57,13 +58,14 @@ public class ManchesterSyntaxParserTest extends TestBase {
         OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create("http://example.org/hasAge"));
         OWLOntology ont = m.createOntology();
         m.addAxiom(ont, df.getOWLDeclarationAxiom(hasAge));
-        ManchesterOWLSyntaxClassExpressionParser parser = new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));
+        ManchesterOWLSyntaxClassExpressionParser parser =
+                        new ManchesterOWLSyntaxClassExpressionParser(df, checker(m));
         assertEquals(expected, parser.parse(input));
     }
 
     protected OWLEntityChecker checker(OWLOntologyManager manager) {
-        BidirectionalShortFormProviderAdapter adapter = new BidirectionalShortFormProviderAdapter(asList(manager
-            .ontologies()), new SimpleShortFormProvider());
+        BidirectionalShortFormProviderAdapter adapter = new BidirectionalShortFormProviderAdapter(
+                        asList(manager.ontologies()), new SimpleShortFormProvider());
         OWLEntityChecker checker = new ShortFormEntityChecker(adapter);
         return checker;
     }

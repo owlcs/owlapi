@@ -21,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 /**
  * Simple visitor that grabs any labels on an entity.
  * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -33,8 +32,8 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     @Override
     public void visit(OWLAnnotation node) {
         /*
-         * If it's a label, grab it as the result. Note that if there are
-         * multiple labels, the last one will be used.
+         * If it's a label, grab it as the result. Note that if there are multiple labels, the last
+         * one will be used.
          */
         if (node.getProperty().isLabel()) {
             OWLLiteral c = (OWLLiteral) node.getValue();

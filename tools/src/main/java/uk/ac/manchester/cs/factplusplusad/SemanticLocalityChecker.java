@@ -92,17 +92,20 @@ class SemanticLocalityChecker extends LocalityChecker {
 
         @Override
         public OWLClassExpression visit(OWLDataPropertyRangeAxiom ax) {
-            return df.getOWLDataSomeValuesFrom(ax.getProperty(), df.getOWLDataComplementOf(ax.getRange()));
+            return df.getOWLDataSomeValuesFrom(ax.getProperty(),
+                            df.getOWLDataComplementOf(ax.getRange()));
         }
 
         @Override
         public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom ax) {
-            return df.getOWLObjectComplementOf(df.getOWLObjectHasValue(ax.getProperty(), ax.getObject()));
+            return df.getOWLObjectComplementOf(
+                            df.getOWLObjectHasValue(ax.getProperty(), ax.getObject()));
         }
 
         @Override
         public OWLClassExpression visit(OWLNegativeDataPropertyAssertionAxiom ax) {
-            return df.getOWLObjectComplementOf(df.getOWLDataHasValue(ax.getProperty(), ax.getObject()));
+            return df.getOWLObjectComplementOf(
+                            df.getOWLDataHasValue(ax.getProperty(), ax.getObject()));
         }
     }
 
@@ -118,12 +121,9 @@ class SemanticLocalityChecker extends LocalityChecker {
     /**
      * init c'tor
      * 
-     * @param sig
-     *        signature
-     * @param m
-     *        ontology manager
-     * @param factory
-     *        factory
+     * @param sig signature
+     * @param m ontology manager
+     * @param factory factory
      */
     SemanticLocalityChecker(Signature sig, OWLOntologyManager m, OWLReasonerFactory factory) {
         super(sig);
@@ -134,10 +134,9 @@ class SemanticLocalityChecker extends LocalityChecker {
     }
 
     /**
-     * @param axiom
-     *        axiom to convert
-     * @return expression necessary to build query for a given type of an axiom;
-     *         null if none necessary
+     * @param axiom axiom to convert
+     * @return expression necessary to build query for a given type of an axiom; null if none
+     *         necessary
      */
     Stream<OWLClassExpression> getExpr(OWLAxiom axiom) {
         OWLClassExpression e = axiom.accept(expressionManager);
@@ -174,8 +173,8 @@ class SemanticLocalityChecker extends LocalityChecker {
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         isLocal = false;
-        if (pairs(axiom.classExpressions()).map(v -> df.getOWLEquivalentClassesAxiom(v.i, v.j)).anyMatch(ax -> !kernel
-            .isEntailed(ax))) {
+        if (pairs(axiom.classExpressions()).map(v -> df.getOWLEquivalentClassesAxiom(v.i, v.j))
+                        .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -184,8 +183,8 @@ class SemanticLocalityChecker extends LocalityChecker {
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         isLocal = false;
-        if (pairs(axiom.classExpressions()).map(v -> df.getOWLDisjointClassesAxiom(v.i, v.j)).anyMatch(ax -> !kernel
-            .isEntailed(ax))) {
+        if (pairs(axiom.classExpressions()).map(v -> df.getOWLDisjointClassesAxiom(v.i, v.j))
+                        .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -195,13 +194,13 @@ class SemanticLocalityChecker extends LocalityChecker {
     public void visit(OWLDisjointUnionAxiom axiom) {
         isLocal = false;
         // check A = (or C1... Cn)
-        if (!kernel.isEntailed(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(), df.getOWLObjectIntersectionOf(axiom
-            .classExpressions())))) {
+        if (!kernel.isEntailed(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
+                        df.getOWLObjectIntersectionOf(axiom.classExpressions())))) {
             return;
         }
         // check disjoint(C1... Cn)
-        if (pairs(axiom.classExpressions()).anyMatch(v -> !kernel.isEntailed(df.getOWLDisjointClassesAxiom(v.i,
-            v.j)))) {
+        if (pairs(axiom.classExpressions()).anyMatch(
+                        v -> !kernel.isEntailed(df.getOWLDisjointClassesAxiom(v.i, v.j)))) {
             return;
         }
         isLocal = true;
@@ -210,8 +209,8 @@ class SemanticLocalityChecker extends LocalityChecker {
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         isLocal = false;
-        if (pairs(axiom.properties()).map(v -> df.getOWLEquivalentObjectPropertiesAxiom(v.i, v.j)).anyMatch(
-            ax -> !kernel.isEntailed(ax))) {
+        if (pairs(axiom.properties()).map(v -> df.getOWLEquivalentObjectPropertiesAxiom(v.i, v.j))
+                        .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -221,8 +220,8 @@ class SemanticLocalityChecker extends LocalityChecker {
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         isLocal = false;
-        if (pairs(axiom.properties()).map(v -> df.getOWLEquivalentDataPropertiesAxiom(v.i, v.j)).anyMatch(ax -> !kernel
-            .isEntailed(ax))) {
+        if (pairs(axiom.properties()).map(v -> df.getOWLEquivalentDataPropertiesAxiom(v.i, v.j))
+                        .anyMatch(ax -> !kernel.isEntailed(ax))) {
             return;
         }
         isLocal = true;
@@ -253,9 +252,11 @@ class SemanticLocalityChecker extends LocalityChecker {
     // R = inverse(S) is tautology iff R [= S- and S [= R-
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        isLocal = kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(), axiom
-            .getSecondProperty().getInverseProperty())) && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom
-                .getFirstProperty().getInverseProperty(), axiom.getSecondProperty()));
+        isLocal = kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(axiom.getFirstProperty(),
+                        axiom.getSecondProperty().getInverseProperty()))
+                        && kernel.isEntailed(df.getOWLSubObjectPropertyOfAxiom(
+                                        axiom.getFirstProperty().getInverseProperty(),
+                                        axiom.getSecondProperty()));
     }
 
     @Override

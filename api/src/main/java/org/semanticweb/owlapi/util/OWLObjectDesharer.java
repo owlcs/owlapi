@@ -31,29 +31,27 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @author Ignazio Palmisano
  * @since 4.2.8
  */
-public class OWLObjectDesharer extends TransformerVisitorBase<Object> implements OWLObjectVisitorEx<OWLObject> {
+public class OWLObjectDesharer extends TransformerVisitorBase<Object>
+                implements OWLObjectVisitorEx<OWLObject> {
 
     protected RemappingIndividualProvider anonProvider;
 
     /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
+     * Creates an object duplicator that duplicates objects using the specified data factory and uri
+     * replacement map.
      * 
-     * @param m
-     *        The manager providing data factory and config to be used for the
-     *        duplication.
+     * @param m The manager providing data factory and config to be used for the duplication.
      */
     public OWLObjectDesharer(OWLOntologyManager m) {
-        super(x -> true, x -> x instanceof OWLFacet ? x : null, m.getOWLDataFactory(), Object.class);
+        super(x -> true, x -> x instanceof OWLFacet ? x : null, m.getOWLDataFactory(),
+                        Object.class);
         anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
     }
 
     /**
-     * @param object
-     *        the object to duplicate
+     * @param object the object to duplicate
      * @return the duplicate
-     * @param <O>
-     *        return type
+     * @param <O> return type
      */
     public <O extends OWLObject> O deshareObject(O object) {
         return t(checkNotNull(object, "object cannot be null"));

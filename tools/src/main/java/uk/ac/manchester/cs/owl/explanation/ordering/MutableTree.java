@@ -28,23 +28,22 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <N>
- *        type of elements
+ * @param <N> type of elements
  */
 public class MutableTree<N> implements Tree<N> {
 
-    @Nullable private final N userObject;
-    @Nullable private MutableTree<N> parent;
+    @Nullable
+    private final N userObject;
+    @Nullable
+    private MutableTree<N> parent;
     private final List<MutableTree<N>> children;
     private final Map<Tree<N>, Object> child2EdgeMap;
     private NodeRenderer<N> toStringRenderer;
 
     /**
-     * @param userObject
-     *        the user object
+     * @param userObject the user object
      */
     public MutableTree(N userObject) {
         this.userObject = userObject;
@@ -60,8 +59,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param parent
-     *        the new parent
+     * @param parent the new parent
      */
     public void setParent(MutableTree<N> parent) {
         if (this.parent != null) {
@@ -72,8 +70,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param child
-     *        child to add
+     * @param child child to add
      */
     public void addChild(MutableTree<N> child) {
         children.add(child);
@@ -81,10 +78,8 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param child
-     *        child to add
-     * @param edge
-     *        the edge
+     * @param child child to add
+     * @param edge the edge
      */
     public void addChild(MutableTree<N> child, Object edge) {
         addChild(child);
@@ -92,8 +87,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param child
-     *        child to remove
+     * @param child child to remove
      */
     public void removeChild(MutableTree<N> child) {
         children.remove(child);
@@ -233,8 +227,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     /**
-     * @param tree
-     *        the node to put in place of this one
+     * @param tree the node to put in place of this one
      */
     public void replace(MutableTree<N> tree) {
         verifyNotNull(parent, "parent cannot be null here").children.remove(this);

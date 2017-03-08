@@ -54,8 +54,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012
  * <p>
- * Describes the types of OBO IDs that can be found in OBO Files. Taken from
- * Section 2.5 of the OBO Syntax and Semantics Specification.
+ * Describes the types of OBO IDs that can be found in OBO Files. Taken from Section 2.5 of the OBO
+ * Syntax and Semantics Specification.
  * </p>
  */
 @SuppressWarnings("all")
@@ -146,17 +146,17 @@ enum OBOIdType {
      * @param oboId
      * @return the translated iri
      */
-    public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager, String oboId) {
+    public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
+                    String oboId) {
         return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);
     }
 
     /**
      * Gets the OBOIdType for a given OBO ID.
      * 
-     * @param oboId
-     *        The OBO ID. Must not be null.
-     * @return The OBOIdType for the specified oboId, or <code>null</code> if
-     *         the specified oboId does not conform to any OBO Id type.
+     * @param oboId The OBO ID. Must not be null.
+     * @return The OBOIdType for the specified oboId, or <code>null</code> if the specified oboId
+     *         does not conform to any OBO Id type.
      */
     public static @Nullable OBOIdType getIdType(String oboId) {
         checkNotNull(oboId, "oboId must not be null");

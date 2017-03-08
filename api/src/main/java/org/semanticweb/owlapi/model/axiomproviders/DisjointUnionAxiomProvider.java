@@ -28,52 +28,44 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 public interface DisjointUnionAxiomProvider {
 
     /**
-     * @param owlClass
-     *        left hand side of the axiom.
-     * @param classExpressions
-     *        right hand side of the axiom. Cannot be null or contain nulls.
+     * @param owlClass left hand side of the axiom.
+     * @param classExpressions right hand side of the axiom. Cannot be null or contain nulls.
      * @return a disjoint union axiom
      */
     default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-        Collection<? extends OWLClassExpression> classExpressions) {
+                    Collection<? extends OWLClassExpression> classExpressions) {
         return getOWLDisjointUnionAxiom(owlClass, classExpressions, Collections.emptySet());
     }
 
     /**
-     * @param owlClass
-     *        left hand side of the axiom. Cannot be null.
-     * @param classExpressions
-     *        right hand side of the axiom. Cannot be null or contain nulls.
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param owlClass left hand side of the axiom. Cannot be null.
+     * @param classExpressions right hand side of the axiom. Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint union axiom with annotations
      */
     default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-        Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations) {
+                    Collection<? extends OWLClassExpression> classExpressions,
+                    Collection<OWLAnnotation> annotations) {
         return getOWLDisjointUnionAxiom(owlClass, classExpressions.stream(), annotations);
     }
 
     /**
-     * @param owlClass
-     *        left hand side of the axiom.
-     * @param classExpressions
-     *        right hand side of the axiom. Cannot be null or contain nulls.
+     * @param owlClass left hand side of the axiom.
+     * @param classExpressions right hand side of the axiom. Cannot be null or contain nulls.
      * @return a disjoint union axiom
      */
     default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-        Stream<? extends OWLClassExpression> classExpressions) {
+                    Stream<? extends OWLClassExpression> classExpressions) {
         return getOWLDisjointUnionAxiom(owlClass, classExpressions, Collections.emptySet());
     }
 
     /**
-     * @param owlClass
-     *        left hand side of the axiom. Cannot be null.
-     * @param classExpressions
-     *        right hand side of the axiom. Cannot be null or contain nulls.
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param owlClass left hand side of the axiom. Cannot be null.
+     * @param classExpressions right hand side of the axiom. Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint union axiom with annotations
      */
     OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-        Stream<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations);
+                    Stream<? extends OWLClassExpression> classExpressions,
+                    Collection<OWLAnnotation> annotations);
 }

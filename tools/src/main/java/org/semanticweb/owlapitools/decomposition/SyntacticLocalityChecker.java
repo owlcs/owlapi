@@ -134,8 +134,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     /**
      * Processing method for all Disjoint axioms.
      * 
-     * @param axiom
-     *        axiom
+     * @param axiom axiom
      * @return true if axiom is local
      */
     private <T extends OWLObject> boolean processDisjointAxiom(HasOperands<T> axiom) {
@@ -248,17 +247,20 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
-        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(p2);
+        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
+                        || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal = isTopEquivalent(axiom.getSuperProperty())
+                        || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal = isTopEquivalent(axiom.getSuperProperty())
+                        || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

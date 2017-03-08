@@ -25,19 +25,17 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /**
  * Builder class for OWLDataAllValuesFrom.
  * 
- * @param <T>
- *        type built
- * @param <B>
- *        builder type
+ * @param <T> type built
+ * @param <B> builder type
  */
-public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B> implements
-    SettableRange<OWLDataRange, B> {
+public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B>
+                implements SettableRange<OWLDataRange, B> {
 
-    @Nullable private OWLDataRange dataRange = null;
+    @Nullable
+    private OWLDataRange dataRange = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BaseDataBuilder(OWLDataFactory df) {
@@ -45,8 +43,7 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPr
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     public B withRange(OWL2Datatype arg) {

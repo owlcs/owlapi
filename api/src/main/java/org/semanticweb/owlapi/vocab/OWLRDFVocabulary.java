@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
@@ -168,25 +167,31 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     private final String prefixedName;
     private final String damlName;
     /** Set of all IRIs for this enum values. */
-    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asSet(Stream.of(values()).map(HasIRI::getIRI));
+    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS =
+                    asSet(Stream.of(values()).map(HasIRI::getIRI));
     private static String DAML_NAMESPACE = "http://www.daml.org/2001/03/daml+oil#";
     /** Set of members with DAML+OIL compatibility. */
-    public static final Set<OWLRDFVocabulary> DAML_COMPATIBILITY = EnumSet.of(OWL_ALL_VALUES_FROM, OWL_SOME_VALUES_FROM,
-        OWL_EQUIVALENT_PROPERTY, OWL_ON_CLASS, OWL_CARDINALITY, OWL_MAX_CARDINALITY, OWL_MIN_CARDINALITY,
-        RDFS_SUBCLASS_OF, OWL_IMPORTS, RDFS_RANGE, OWL_HAS_VALUE, RDF_TYPE, RDFS_DOMAIN, OWL_VERSION_INFO, RDFS_COMMENT,
-        OWL_ON_PROPERTY, OWL_RESTRICTION, OWL_CLASS, OWL_THING, OWL_NOTHING, OWL_MIN_CARDINALITY, OWL_CARDINALITY,
-        OWL_MAX_CARDINALITY, OWL_INVERSE_OF, OWL_COMPLEMENT_OF, OWL_UNION_OF, OWL_INTERSECTION_OF, RDFS_LABEL,
-        OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY);
+    public static final Set<OWLRDFVocabulary> DAML_COMPATIBILITY = EnumSet.of(OWL_ALL_VALUES_FROM,
+                    OWL_SOME_VALUES_FROM, OWL_EQUIVALENT_PROPERTY, OWL_ON_CLASS, OWL_CARDINALITY,
+                    OWL_MAX_CARDINALITY, OWL_MIN_CARDINALITY, RDFS_SUBCLASS_OF, OWL_IMPORTS,
+                    RDFS_RANGE, OWL_HAS_VALUE, RDF_TYPE, RDFS_DOMAIN, OWL_VERSION_INFO,
+                    RDFS_COMMENT, OWL_ON_PROPERTY, OWL_RESTRICTION, OWL_CLASS, OWL_THING,
+                    OWL_NOTHING, OWL_MIN_CARDINALITY, OWL_CARDINALITY, OWL_MAX_CARDINALITY,
+                    OWL_INVERSE_OF, OWL_COMPLEMENT_OF, OWL_UNION_OF, OWL_INTERSECTION_OF,
+                    RDFS_LABEL, OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY);
     /** Entity types. */
-    public static final Set<IRI> entityTypes = asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY,
-        OWL_ANNOTATION_PROPERTY, RDFS_DATATYPE, OWL_NAMED_INDIVIDUAL).map(HasIRI::getIRI));
+    public static final Set<IRI> entityTypes = asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
+                    OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY, RDFS_DATATYPE, OWL_NAMED_INDIVIDUAL)
+                    .map(HasIRI::getIRI));
     /**
-     * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
-     * seeAlso , isDefinedBy , incompatibleWith , deprecated.
+     * label , comment , versionInfo , backwardCompatibleWith , priorVersion , seeAlso , isDefinedBy
+     * , incompatibleWith , deprecated.
      */
-    public static final Set<IRI> BUILT_IN_AP_IRIS = asSet(Stream.of(RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO,
-        OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION, RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH,
-        OWL_DEPRECATED).map(OWLRDFVocabulary::getIRI));
+    public static final Set<IRI> BUILT_IN_AP_IRIS = asSet(Stream
+                    .of(RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO, OWL_BACKWARD_COMPATIBLE_WITH,
+                                    OWL_PRIOR_VERSION, RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY,
+                                    OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED)
+                    .map(OWLRDFVocabulary::getIRI));
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this(namespace, shortName, null);
@@ -201,14 +206,12 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     }
 
     /**
-     * Determines if the specified IRI is an IRI corresponding to owl:Class,
-     * owl:DatatypeProperty, rdfs:Datatype, owl:ObjectProperty,
-     * owl:AnnotationProperty, or owl:NamedIndividual.
+     * Determines if the specified IRI is an IRI corresponding to owl:Class, owl:DatatypeProperty,
+     * rdfs:Datatype, owl:ObjectProperty, owl:AnnotationProperty, or owl:NamedIndividual.
      * 
-     * @param iri
-     *        The IRI to check
-     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI
-     *         otherwise {@code false}.
+     * @param iri The IRI to check
+     * @return {@code true} if the IRI corresponds to a built in OWL entity IRI otherwise
+     *         {@code false}.
      */
     public static boolean isEntityTypeIRI(IRI iri) {
         return entityTypes.contains(iri);

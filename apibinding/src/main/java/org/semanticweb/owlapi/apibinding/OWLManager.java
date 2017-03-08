@@ -28,11 +28,10 @@ import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
 
 /**
- * Provides a point of convenience for creating an {@code OWLOntologyManager}
- * with commonly required features (such as an RDF parser for example).
+ * Provides a point of convenience for creating an {@code OWLOntologyManager} with commonly required
+ * features (such as an RDF parser for example).
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLManager implements OWLOntologyManagerFactory {
@@ -43,8 +42,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     /**
-     * Creates an OWL ontology manager that is configured with standard parsers,
-     * storeres etc.
+     * Creates an OWL ontology manager that is configured with standard parsers, storeres etc.
      * 
      * @return The new manager.
      */
@@ -53,8 +51,8 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     /**
-     * Creates an OWL ontology manager that is configured with the standard
-     * parsers and storers and provides locking for concurrent access.
+     * Creates an OWL ontology manager that is configured with the standard parsers and storers and
+     * provides locking for concurrent access.
      * 
      * @return The new manager.
      */
@@ -72,11 +70,10 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     /**
-     * Creates an OWL ontology manager that is configured with the standard
-     * parsers and storers and provides locking for concurrent access.
+     * Creates an OWL ontology manager that is configured with the standard parsers and storers and
+     * provides locking for concurrent access.
      * 
-     * @param injector
-     *        injector object
+     * @param injector injector object
      * @return The new manager.
      */
     public static OWLOntologyManager createOWLOntologyManager(Object injector) {
@@ -86,8 +83,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
     /**
      * Gets a global data factory that can be used to create OWL API objects.
      * 
-     * @param injector
-     *        injector object
+     * @param injector injector object
      * @return An OWLDataFactory that can be used for creating OWL API objects.
      */
     public static OWLDataFactory getOWLDataFactory(Object injector) {
@@ -98,20 +94,20 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * @return an initialized manchester syntax parser for parsing strings
      */
     public static ManchesterOWLSyntaxParser createManchesterParser() {
-        return ((Injector) createInjector(Concurrency.NON_CONCURRENT)).getInstance(ManchesterOWLSyntaxParser.class);
+        return ((Injector) createInjector(Concurrency.NON_CONCURRENT))
+                        .getInstance(ManchesterOWLSyntaxParser.class);
     }
 
     /**
-     * @param concurrency
-     *        concurrency value (concurrent or non concurrent?)
-     * @return an injector for OWLOntologyManager and OWLDataFactory; Object is
-     *         returned so the interface is not tied to Guice.
+     * @param concurrency concurrency value (concurrent or non concurrent?)
+     * @return an injector for OWLOntologyManager and OWLDataFactory; Object is returned so the
+     *         interface is not tied to Guice.
      */
     public static Object createInjector(Concurrency concurrency) {
         String previousStrategy = System.getProperty("guice_include_stack_traces");
         System.setProperty("guice_include_stack_traces", "OFF");
-        Injector injector = Guice.createInjector(new OWLAPIImplModule(concurrency), new OWLAPIParsersModule(),
-            new OWLAPIServiceLoaderModule());
+        Injector injector = Guice.createInjector(new OWLAPIImplModule(concurrency),
+                        new OWLAPIParsersModule(), new OWLAPIServiceLoaderModule());
         if (previousStrategy != null) {
             System.setProperty("guice_include_stack_traces", previousStrategy);
         } else {

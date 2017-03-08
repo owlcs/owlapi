@@ -8,12 +8,9 @@ interface TripleIterator<T> {
     /**
      * Handle resource triple.
      * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
+     * @param subject the subject
+     * @param predicate the predicate
+     * @param object the object
      */
     void handleResourceTriple(IRI subject, IRI predicate, T object);
 }

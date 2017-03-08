@@ -21,8 +21,7 @@ import java.util.EnumSet;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public enum Namespaces {
@@ -92,7 +91,8 @@ public enum Namespaces {
     final BuiltIn builtIn;
     final String hashless;
     /** Ignored imports. */
-    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
+    public static final EnumSet<Namespaces> defaultIgnoredImports =
+                    EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
 
     Namespaces(String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
@@ -111,8 +111,7 @@ public enum Namespaces {
     }
 
     /**
-     * @return A short, human-readable, prefix name that matches, and expands to
-     *         the full IRI.
+     * @return A short, human-readable, prefix name that matches, and expands to the full IRI.
      */
     public String getPrefixName() {
         return prefix;
@@ -126,24 +125,23 @@ public enum Namespaces {
     }
 
     /**
-     * @return {@code true} if this namespace is not obsolete and is currently
-     *         in active use, otherwise {@code false}.
+     * @return {@code true} if this namespace is not obsolete and is currently in active use,
+     *         otherwise {@code false}.
      */
     public boolean isInUse() {
         return status == IN_USE;
     }
 
     /**
-     * @return {@code true} if this namespace is defined as a core part of the
-     *         OWL-2 specification, otherwise {@code false}.
+     * @return {@code true} if this namespace is defined as a core part of the OWL-2 specification,
+     *         otherwise {@code false}.
      */
     public boolean isBuiltIn() {
         return builtIn == BUILT_IN;
     }
 
     /**
-     * @param ns
-     *        namespace
+     * @param ns namespace
      * @return this namespace without hash or slash at the end
      */
     private static String hashless(String ns) {
@@ -155,8 +153,7 @@ public enum Namespaces {
     }
 
     /**
-     * @param i
-     *        the iri to check
+     * @param i the iri to check
      * @return true if the iri is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(IRI i) {
@@ -164,8 +161,7 @@ public enum Namespaces {
     }
 
     /**
-     * @param i
-     *        the string to check
+     * @param i the string to check
      * @return true if the string is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(String i) {
@@ -178,8 +174,7 @@ public enum Namespaces {
     }
 
     /**
-     * @param s
-     *        string to check
+     * @param s string to check
      * @return true if s equals this namespace
      */
     public boolean inNamespace(String s) {
@@ -187,8 +182,7 @@ public enum Namespaces {
     }
 
     /**
-     * @param i
-     *        iri to check
+     * @param i iri to check
      * @return true if the namespace for i equals this namespace
      */
     public boolean inNamespace(IRI i) {
@@ -196,8 +190,7 @@ public enum Namespaces {
     }
 
     /**
-     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
-     * rdfs, or xsd
+     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf, rdfs, or xsd
      */
     public enum BuiltIn {
         /** built in flag. */

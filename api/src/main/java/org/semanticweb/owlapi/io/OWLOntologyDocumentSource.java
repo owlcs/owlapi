@@ -21,50 +21,45 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
- * A document source provides a point for loading an ontology. A document source
- * may provide three ways of obtaining an ontology document:
+ * A document source provides a point for loading an ontology. A document source may provide three
+ * ways of obtaining an ontology document:
  * <ol>
  * <li>From a {@link java.io.Reader}
  * <li>From an {@link java.io.InputStream}
  * <li>From an ontology document {@link org.semanticweb.owlapi.model.IRI}
  * </ol>
- * Consumers that use a document source will attempt to obtain a concrete
- * representation of an ontology in the above order. <br>
- * Note that while an ontology document source may appear similar to a SAX input
- * source, an important difference is that the getReader and getInputStream
- * methods return new instances each time the method is called. This allows
- * multiple attempts at loading an ontology.
+ * Consumers that use a document source will attempt to obtain a concrete representation of an
+ * ontology in the above order. <br>
+ * Note that while an ontology document source may appear similar to a SAX input source, an
+ * important difference is that the getReader and getInputStream methods return new instances each
+ * time the method is called. This allows multiple attempts at loading an ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLOntologyDocumentSource {
 
     /**
-     * @param parsers
-     *        parsers to filter
-     * @return filtered parsers - parsers that are incompatible with the known
-     *         format or MIME type are skipped
+     * @param parsers parsers to filter
+     * @return filtered parsers - parsers that are incompatible with the known format or MIME type
+     *         are skipped
      */
-    default PriorityCollection<OWLParserFactory> filter(PriorityCollection<OWLParserFactory> parsers) {
+    default PriorityCollection<OWLParserFactory> filter(
+                    PriorityCollection<OWLParserFactory> parsers) {
         return parsers;
     }
 
     /**
-     * @param parser
-     *        parser to accept
-     * @param o
-     *        ontology to fill
-     * @param config
-     *        configuration for loading
+     * @param parser parser to accept
+     * @param o ontology to fill
+     * @param config configuration for loading
      * @return document format for loaded ontology
      */
-    OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o, OWLOntologyLoaderConfiguration config);
+    OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
+                    OWLOntologyLoaderConfiguration config);
 
     /**
-     * @param parsableSchemes
-     *        schemes that can be parsed
+     * @param parsableSchemes schemes that can be parsed
      * @return true if loading with schemes can be attempted
      */
     boolean loadingCanBeAttempted(Collection<String> parsableSchemes);

@@ -50,8 +50,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     private final OWLOntologyBuilder ontologyBuilder;
 
     /**
-     * @param ontologyBuilder
-     *        ontology builder
+     * @param ontologyBuilder ontology builder
      */
     @Inject
     public OWLOntologyFactoryImpl(OWLOntologyBuilder ontologyBuilder) {
@@ -69,8 +68,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     }
 
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID, IRI documentIRI,
-        OWLOntologyCreationHandler handler) {
+    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
+                    IRI documentIRI, OWLOntologyCreationHandler handler) {
         OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);
         handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
@@ -78,9 +77,10 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     }
 
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyManager manager, OWLOntologyDocumentSource documentSource,
-        OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
-        throws OWLOntologyCreationException {
+    public OWLOntology loadOWLOntology(OWLOntologyManager manager,
+                    OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler,
+                    OWLOntologyLoaderConfiguration configuration)
+                    throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
         // ontology is parsed successfully then we break out and return the
         // ontology.
@@ -99,7 +99,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
             existingOntology = manager.getOntology(iri);
         }
         OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
+        OWLOntology ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(),
+                        handler);
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
@@ -111,9 +112,11 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                     if (existingOntology == null && !ont.isEmpty()) {
                         // Junk from a previous parse. We should clear the ont
                         manager.removeOntology(ont);
-                        ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
+                        ont = createOWLOntology(manager, ontologyID,
+                                        documentSource.getDocumentIRI(), handler);
                     }
-                    handler.setOntologyFormat(ont, documentSource.acceptParser(parser, ont, configuration));
+                    handler.setOntologyFormat(ont,
+                                    documentSource.acceptParser(parser, ont, configuration));
                     return ont;
                 } catch (UnloadableImportException e) {
                     // If an import cannot be located, all parsers will fail.
@@ -123,8 +126,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                     manager.removeOntology(ont);
                     throw e;
                 } catch (OWLParserException e) {
-                    if (e.getCause() instanceof IOException || e
-                        .getCause() instanceof OWLOntologyInputSourceException) {
+                    if (e.getCause() instanceof IOException
+                                    || e.getCause() instanceof OWLOntologyInputSourceException) {
                         // For input/output exceptions, we assume that it means
                         // the
                         // source cannot be read regardless of the parsers, so
@@ -153,6 +156,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // exception whose message contains the stack traces from all of the
         // parsers
         // that we have tried.
-        throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions, configuration);
+        throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions,
+                        configuration);
     }
 }

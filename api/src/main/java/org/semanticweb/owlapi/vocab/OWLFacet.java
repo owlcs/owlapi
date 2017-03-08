@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.IRI;
 /**
  * Represents the facets that can be used for restricting a datatype.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
@@ -98,8 +97,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     }
 
     /**
-     * @param iri
-     *        facet IRI
+     * @param iri facet IRI
      * @return facet for iri
      */
     public static OWLFacet getFacet(IRI iri) {
@@ -114,10 +112,8 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     /**
      * Gets a facet by its short name.
      * 
-     * @param shortName
-     *        The short name of the facet.
-     * @return The facet or {@code null} if not facet by the specified name
-     *         exists.
+     * @param shortName The short name of the facet.
+     * @return The facet or {@code null} if not facet by the specified name exists.
      */
     @Nullable
     public static OWLFacet getFacetByShortName(String shortName) {
@@ -126,13 +122,13 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     }
 
     /**
-     * @param symbolicName
-     *        symbolic name for facet
+     * @param symbolicName symbolic name for facet
      * @return facet for name
      */
     @Nullable
     public static OWLFacet getFacetBySymbolicName(String symbolicName) {
-        return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny().orElse(null);
+        return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny()
+                        .orElse(null);
     }
 
     /**

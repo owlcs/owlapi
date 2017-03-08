@@ -18,14 +18,12 @@ import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <F>
- *        filler type
+ * @param <F> filler type
  */
-public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends OWLAnonymousClassExpressionImpl
-    implements OWLCardinalityRestriction<F> {
+public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
+                extends OWLAnonymousClassExpressionImpl implements OWLCardinalityRestriction<F> {
 
     private final int cardinality;
     private final F filler;

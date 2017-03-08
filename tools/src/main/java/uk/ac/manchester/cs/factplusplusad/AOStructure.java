@@ -31,8 +31,7 @@ class AOStructure {
     }
 
     /**
-     * @param i
-     *        index
+     * @param i index
      * @return RW atom by its index
      */
     OntologyAtom get(int i) {

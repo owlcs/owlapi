@@ -30,30 +30,30 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 /**
- * This class demonstrates some aspects of the OWL API. It expects three
- * arguments:
+ * This class demonstrates some aspects of the OWL API. It expects three arguments:
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of a reasoner</li>
  * <li>A location to place the results.</li>
  * </ol>
- * When executed, the class will find all inconsistent classes in the ontology.
- * For each inconsistent class, the debugger will be used to determine the set
- * of support for the inconsistency. A report will then be written to the outpur
- * file.
+ * When executed, the class will find all inconsistent classes in the ontology. For each
+ * inconsistent class, the debugger will be used to determine the set of support for the
+ * inconsistency. A report will then be written to the outpur file.
  * 
- * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group
+ * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
 public class Debugger {
 
-    @Nonnull private final OWLOntology ontology;
-    @Nonnull private final OWLDebugger debugger;
+    @Nonnull
+    private final OWLOntology ontology;
+    @Nonnull
+    private final OWLDebugger debugger;
     private final OWLReasoner checker;
 
-    public Debugger(OWLOntologyManager manager, OWLOntology ontology, OWLReasonerFactory reasonerFactory) {
+    public Debugger(OWLOntologyManager manager, OWLOntology ontology,
+                    OWLReasonerFactory reasonerFactory) {
         this.ontology = ontology;
         checker = reasonerFactory.createNonBufferingReasoner(ontology);
         /* Create a new debugger */
@@ -65,8 +65,8 @@ public class Debugger {
         /* Write a header */
         renderer.header();
         /* Collect the unsatisfiable classes that aren't bottom. */
-        Set<OWLClass> unsatisfiables = asSet(
-            ontology.classesInSignature().filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing()));
+        Set<OWLClass> unsatisfiables = asSet(ontology.classesInSignature()
+                        .filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing()));
         writer.println("<h1>Ontology Debugging Report</h1>");
         writer.println("<br>Ontology: " + ontology.getOntologyID() + "<br>");
         if (unsatisfiables.isEmpty()) {
@@ -80,8 +80,8 @@ public class Debugger {
                 writer.println("<br>Axioms causing inconsistency:<br>");
                 writer.println("<ul>");
                 /*
-                 * Find the set of support for the inconsistency. This will
-                 * return us a collection of axioms
+                 * Find the set of support for the inconsistency. This will return us a collection
+                 * of axioms
                  */
                 Set<OWLAxiom> sos = debugger.getSOSForInconsistentClass(unsatisfiable);
                 /* Print the axioms. */

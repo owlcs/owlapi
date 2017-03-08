@@ -20,20 +20,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OntologyAxiomPair {
 
-    @Nullable private final OWLOntology ontology;
+    @Nullable
+    private final OWLOntology ontology;
     private final OWLAxiom axiom;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
+     * @param ontology ontology
+     * @param axiom axiom
      */
     public OntologyAxiomPair(@Nullable OWLOntology ontology, OWLAxiom axiom) {
         this.ontology = ontology;

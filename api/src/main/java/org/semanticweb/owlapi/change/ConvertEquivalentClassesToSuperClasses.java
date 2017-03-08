@@ -33,38 +33,37 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 import com.google.common.collect.Iterators;
 
 /**
- * This composite change will convert a defined class to a primitive class by
- * replacing equivalent classes axioms where the class in question is a class in
- * the equivalent classes axioms to a set of subclass axioms whose superclasses
- * are the set of classes which were originally equivalent to the class in
- * question.<br>
- * More formally, for a given class A, a set of ontologies S, and a target
- * ontology T, this composite change will remove all equivalent axioms from each
- * ontology O in S where the equivalent class axiom contains A as a 'top level'
- * class (e.g. EquivalentClasses(A, C, D)). For each class, D, that was made
- * equivalent to A via an equivalent classes axiom, a subclass axiom
- * SubClassOf(A, D) will be added to the target ontology T.<br>
- * This change supports a common pattern of working, where a class is converted
- * from a defined class to a primitive class.
+ * This composite change will convert a defined class to a primitive class by replacing equivalent
+ * classes axioms where the class in question is a class in the equivalent classes axioms to a set
+ * of subclass axioms whose superclasses are the set of classes which were originally equivalent to
+ * the class in question.<br>
+ * More formally, for a given class A, a set of ontologies S, and a target ontology T, this
+ * composite change will remove all equivalent axioms from each ontology O in S where the equivalent
+ * class axiom contains A as a 'top level' class (e.g. EquivalentClasses(A, C, D)). For each class,
+ * D, that was made equivalent to A via an equivalent classes axiom, a subclass axiom SubClassOf(A,
+ * D) will be added to the target ontology T.<br>
+ * This change supports a common pattern of working, where a class is converted from a defined class
+ * to a primitive class.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOntologyChange {
 
-    private static final OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>>() {
+    private static final OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>> INTERSECTION_SPLITTER =
+                    new OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>>() {
 
-        @Override
-        public Stream<? extends OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
-            return ce.operands();
-        }
+                        @Override
+                        public Stream<? extends OWLClassExpression> visit(
+                                        OWLObjectIntersectionOf ce) {
+                            return ce.operands();
+                        }
 
-        @Override
-        public Stream<? extends OWLClassExpression> doDefault(Object o) {
-            return empty();
-        }
-    };
+                        @Override
+                        public Stream<? extends OWLClassExpression> doDefault(Object o) {
+                            return empty();
+                        }
+                    };
     /** The target ontology. */
     private final OWLOntology targetOntology;
     /** The OWL class. */
@@ -77,19 +76,15 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
     /**
      * Instantiates a new convert equivalent classes to super classes.
      * 
-     * @param dataFactory
-     *        the data factory
-     * @param cls
-     *        the class to convert
-     * @param ontologies
-     *        the ontologies to use
-     * @param targetOntology
-     *        the target ontology
-     * @param splitIntersections
-     *        whether or not intersections should be split
+     * @param dataFactory the data factory
+     * @param cls the class to convert
+     * @param ontologies the ontologies to use
+     * @param targetOntology the target ontology
+     * @param splitIntersections whether or not intersections should be split
      */
     public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory, OWLClass cls,
-        Collection<OWLOntology> ontologies, OWLOntology targetOntology, boolean splitIntersections) {
+                    Collection<OWLOntology> ontologies, OWLOntology targetOntology,
+                    boolean splitIntersections) {
         super(dataFactory);
         this.targetOntology = checkNotNull(targetOntology, "targetOntology cannot be null");
         this.cls = checkNotNull(cls, "cls cannot be null");
@@ -107,15 +102,18 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
             });
         }
         supers.remove(cls);
-        supers.forEach(sup -> addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls, sup))));
+        supers.forEach(sup -> addChange(
+                        new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls, sup))));
     }
 
-    private void collectClassExpressions(OWLClassExpression desc, Collection<OWLClassExpression> supers) {
+    private void collectClassExpressions(OWLClassExpression desc,
+                    Collection<OWLClassExpression> supers) {
         if (!splitIntersections) {
             supers.add(desc);
             return;
         }
-        Iterator<? extends OWLClassExpression> iterator = desc.accept(INTERSECTION_SPLITTER).iterator();
+        Iterator<? extends OWLClassExpression> iterator =
+                        desc.accept(INTERSECTION_SPLITTER).iterator();
         if (iterator.hasNext()) {
             Iterators.addAll(supers, iterator);
         } else {

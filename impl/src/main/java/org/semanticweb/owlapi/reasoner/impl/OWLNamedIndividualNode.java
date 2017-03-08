@@ -19,8 +19,7 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
@@ -31,24 +30,21 @@ public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
     }
 
     /**
-     * @param entity
-     *        individual to include
+     * @param entity individual to include
      */
     public OWLNamedIndividualNode(OWLNamedIndividual entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        individuals to include
+     * @param entities individuals to include
      */
     public OWLNamedIndividualNode(Collection<OWLNamedIndividual> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        individuals to include
+     * @param entities individuals to include
      */
     public OWLNamedIndividualNode(Stream<OWLNamedIndividual> entities) {
         super(entities);

@@ -19,18 +19,17 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectRestriction;
 
 /** Quantified object restriction. */
-public abstract class OWLQuantifiedObjectRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLClassExpression>
-    implements OWLObjectRestriction {
+public abstract class OWLQuantifiedObjectRestrictionImpl extends
+                OWLQuantifiedRestrictionImpl<OWLClassExpression> implements OWLObjectRestriction {
 
     private final OWLObjectPropertyExpression property;
 
     /**
-     * @param property
-     *        property
-     * @param filler
-     *        filler
+     * @param property property
+     * @param filler filler
      */
-    public OWLQuantifiedObjectRestrictionImpl(OWLObjectPropertyExpression property, OWLClassExpression filler) {
+    public OWLQuantifiedObjectRestrictionImpl(OWLObjectPropertyExpression property,
+                    OWLClassExpression filler) {
         super(filler);
         this.property = checkNotNull(property, "property cannot be null");
     }

@@ -24,28 +24,26 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements
-    OWLIrreflexiveObjectPropertyAxiom {
+public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+                implements OWLIrreflexiveObjectPropertyAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLIrreflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
-        Collection<OWLAnnotation> annotations) {
+                    Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this : new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+                        : new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -56,7 +54,8 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectComplementOfImpl(new OWLObjectHasSelfImpl(
-            getProperty())), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+                        new OWLObjectComplementOfImpl(new OWLObjectHasSelfImpl(getProperty())),
+                        NO_ANNOTATIONS);
     }
 }

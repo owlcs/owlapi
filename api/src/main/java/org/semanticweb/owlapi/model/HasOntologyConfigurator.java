@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * An interface for objects that allow a loader configuration provider to be
- * set.
+ * An interface for objects that allow a loader configuration provider to be set.
  * 
  * @since 4.0.0
  */
@@ -26,8 +25,7 @@ public interface HasOntologyConfigurator {
     OntologyConfigurator getOntologyConfigurator();
 
     /**
-     * @param configurator
-     *        the configurator.
+     * @param configurator the configurator.
      */
     void setOntologyConfigurator(OntologyConfigurator configurator);
 }

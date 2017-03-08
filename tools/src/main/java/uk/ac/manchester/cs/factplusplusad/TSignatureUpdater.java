@@ -45,8 +45,7 @@ class TSignatureUpdater implements OWLAxiomVisitor {
     /**
      * init c'tor
      * 
-     * @param sig
-     *        signature
+     * @param sig signature
      */
     TSignatureUpdater(Signature sig) {
         updater = new TExpressionSignatureUpdater(sig);

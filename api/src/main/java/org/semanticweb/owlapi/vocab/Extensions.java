@@ -13,10 +13,9 @@ import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
- * A mapping between some known ontology formats and the common file extensions
- * used for them. This mapping is not necessarily complete and file extensions
- * are not mandatory, so do not rely on this as a filter to determine what is
- * the format of an input file.
+ * A mapping between some known ontology formats and the common file extensions used for them. This
+ * mapping is not necessarily complete and file extensions are not mandatory, so do not rely on this
+ * as a filter to determine what is the format of an input file.
  */
 public enum Extensions {
     //@formatter:off

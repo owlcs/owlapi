@@ -42,8 +42,7 @@ import org.semanticweb.owlapi.formats.TrixDocumentFormatFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioTrixStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+public class RioTrixStorerFactory extends AbstractRioStorerFactory implements RioRDFStorerFactory {
 
     /** Default constructor. */
     public RioTrixStorerFactory() {

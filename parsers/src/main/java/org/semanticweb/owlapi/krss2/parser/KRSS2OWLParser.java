@@ -23,12 +23,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * The KRSS2OWLParser differs from the
- * {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser KRSSOWLParser} that
- * it supports an extended KRSS vocabulary available in many reasoning systems.
- * For instance, CGIs can be added with help of (implies subclass superclass),
- * range, domain, inverse, functinal attribute can be provided for roles. Note
- * that DatatypeProperties are not supported within KRSS2. <br>
+ * The KRSS2OWLParser differs from the {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser
+ * KRSSOWLParser} that it supports an extended KRSS vocabulary available in many reasoning systems.
+ * For instance, CGIs can be added with help of (implies subclass superclass), range, domain,
+ * inverse, functinal attribute can be provided for roles. Note that DatatypeProperties are not
+ * supported within KRSS2. <br>
  * <b>Abbreviations</b>
  * <table summary="Abbreviations">
  * <tr>
@@ -160,11 +159,11 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * <td></td>
  * </tr>
  * <tr>
- * <td>(define-primitive-role RN :domain (C D ...E) :range (C D ...E)
- * :transitive t :symmetric t :reflexive t :inverse RN1)</td>
+ * <td>(define-primitive-role RN :domain (C D ...E) :range (C D ...E) :transitive t :symmetric t
+ * :reflexive t :inverse RN1)</td>
  * <td></td>
- * <td>Corresponding axioms for domain and range as well as transitive,
- * symmetric, reflexive and inverse will be added.</td>
+ * <td>Corresponding axioms for domain and range as well as transitive, symmetric, reflexive and
+ * inverse will be added.</td>
  * </tr>
  * <tr>
  * <td>(disjoint-roles R R1)</td>
@@ -233,12 +232,14 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader reader, OWLOntology o, OWLOntologyLoaderConfiguration c, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader reader, OWLOntology o, OWLOntologyLoaderConfiguration c,
+                    IRI documentIRI) {
         return parse(o, new StreamProvider(reader));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, new StringProvider(s));
     }
 

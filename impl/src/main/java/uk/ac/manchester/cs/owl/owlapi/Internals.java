@@ -306,30 +306,36 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
         disjointClassesAxiomsByClass = buildLazy(DISJOINT_CLASSES, CLASSCOLLECTIONS);
         disjointUnionAxiomsByClass = buildLazy(DISJOINT_UNION, CLASSCOLLECTIONS);
         hasKeyAxiomsByClass = buildLazy(HAS_KEY, CLASSSUPERNAMED);
-        equivalentObjectPropertyAxiomsByProperty = buildLazy(EQUIVALENT_OBJECT_PROPERTIES, OPCOLLECTIONS);
-        disjointObjectPropertyAxiomsByProperty = buildLazy(DISJOINT_OBJECT_PROPERTIES, OPCOLLECTIONS);
+        equivalentObjectPropertyAxiomsByProperty =
+                        buildLazy(EQUIVALENT_OBJECT_PROPERTIES, OPCOLLECTIONS);
+        disjointObjectPropertyAxiomsByProperty =
+                        buildLazy(DISJOINT_OBJECT_PROPERTIES, OPCOLLECTIONS);
         objectPropertyDomainAxiomsByProperty = buildLazy(OBJECT_PROPERTY_DOMAIN, OPSUBNAMED);
         objectPropertyRangeAxiomsByProperty = buildLazy(OBJECT_PROPERTY_RANGE, OPSUBNAMED);
-        functionalObjectPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
-        inverseFunctionalPropertyAxiomsByProperty = buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
+        functionalObjectPropertyAxiomsByProperty =
+                        buildLazy(FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
+        inverseFunctionalPropertyAxiomsByProperty =
+                        buildLazy(INVERSE_FUNCTIONAL_OBJECT_PROPERTY, OPSUBNAMED);
         symmetricPropertyAxiomsByProperty = buildLazy(SYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED);
         asymmetricPropertyAxiomsByProperty = buildLazy(ASYMMETRIC_OBJECT_PROPERTY, OPSUBNAMED);
         reflexivePropertyAxiomsByProperty = buildLazy(REFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED);
         irreflexivePropertyAxiomsByProperty = buildLazy(IRREFLEXIVE_OBJECT_PROPERTY, OPSUBNAMED);
         transitivePropertyAxiomsByProperty = buildLazy(TRANSITIVE_OBJECT_PROPERTY, OPSUBNAMED);
         inversePropertyAxiomsByProperty = buildLazy(INVERSE_OBJECT_PROPERTIES, OPCOLLECTIONS);
-        equivalentDataPropertyAxiomsByProperty = buildLazy(EQUIVALENT_DATA_PROPERTIES, DPCOLLECTIONS);
+        equivalentDataPropertyAxiomsByProperty =
+                        buildLazy(EQUIVALENT_DATA_PROPERTIES, DPCOLLECTIONS);
         disjointDataPropertyAxiomsByProperty = buildLazy(DISJOINT_DATA_PROPERTIES, DPCOLLECTIONS);
         dataPropertyDomainAxiomsByProperty = buildLazy(DATA_PROPERTY_DOMAIN, DPSUBNAMED);
         dataPropertyRangeAxiomsByProperty = buildLazy(DATA_PROPERTY_RANGE, DPSUBNAMED);
         functionalDataPropertyAxiomsByProperty = buildLazy(FUNCTIONAL_DATA_PROPERTY, DPSUBNAMED);
         classAssertionAxiomsByIndividual = buildLazy(CLASS_ASSERTION, INDIVIDUALSUBNAMED);
-        objectPropertyAssertionsByIndividual = buildLazy(OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
+        objectPropertyAssertionsByIndividual =
+                        buildLazy(OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         dataPropertyAssertionsByIndividual = buildLazy(DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
-        negativeObjectPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED);
-        negativeDataPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION,
-            INDIVIDUALSUBNAMED);
+        negativeObjectPropertyAssertionAxiomsByIndividual =
+                        buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
+        negativeDataPropertyAssertionAxiomsByIndividual =
+                        buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         differentIndividualsAxiomsByIndividual = buildLazy(DIFFERENT_INDIVIDUALS, ICOLLECTIONS);
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS);
         axiomsForSerialization.forEach(this::addAxiom);
@@ -337,8 +343,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * Trims the capacity of the axiom indexes . An application can use this
-     * operation to minimize the storage of the internals instance.
+     * Trims the capacity of the axiom indexes . An application can use this operation to minimize
+     * the storage of the internals instance.
      */
     public void trimToSize() {
         axiomsByType.trimToSize();
@@ -395,8 +401,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a class with this iri exists
      */
     public boolean containsClassInSignature(IRI i) {
@@ -404,8 +409,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an object property with this iri exists
      */
     public boolean containsObjectPropertyInSignature(IRI i) {
@@ -413,8 +417,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a data property with this iri exists
      */
     public boolean containsDataPropertyInSignature(IRI i) {
@@ -422,8 +425,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an annotation property with this iri exists
      */
     public boolean containsAnnotationPropertyInSignature(IRI i) {
@@ -431,8 +433,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a individual with this iri exists
      */
     public boolean containsIndividualInSignature(IRI i) {
@@ -440,8 +441,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a datatype with this iri exists
      */
     public boolean containsDatatypeInSignature(IRI i) {
@@ -449,8 +449,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a class with this iri exists
      */
     public boolean containsClassInSignature(OWLClass i) {
@@ -458,8 +457,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an object property with this iri exists
      */
     public boolean containsObjectPropertyInSignature(OWLObjectProperty i) {
@@ -467,8 +465,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a data property with this iri exists
      */
     public boolean containsDataPropertyInSignature(OWLDataProperty i) {
@@ -476,8 +473,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if an annotation property with this iri exists
      */
     public boolean containsAnnotationPropertyInSignature(OWLAnnotationProperty i) {
@@ -485,8 +481,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a individual with this iri exists
      */
     public boolean containsIndividualInSignature(OWLNamedIndividual i) {
@@ -494,8 +489,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param i
-     *        iri
+     * @param i iri
      * @return true if a datatype with this iri exists
      */
     public boolean containsDatatypeInSignature(OWLDatatype i) {
@@ -503,39 +497,30 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param type
-     *        type of map key
-     * @param axiom
-     *        class of axiom indexed
-     * @param <T>
-     *        key type
-     * @param <A>
-     *        value type
+     * @param type type of map key
+     * @param axiom class of axiom indexed
+     * @param <T> key type
+     * @param <A> value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to
-    <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type, Class<A> axiom) {
+    <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type,
+                    Class<A> axiom) {
         return get(type, axiom, Navigation.IN_SUB_POSITION);
     }
 
     /**
-     * @param type
-     *        type of map key
-     * @param axiom
-     *        class of axiom indexed
-     * @param position
-     *        for axioms with a left/right distinction, IN_SUPER_POSITION means
-     *        right index
-     * @param <T>
-     *        key type
-     * @param <A>
-     *        value type
+     * @param type type of map key
+     * @param axiom class of axiom indexed
+     * @param position for axioms with a left/right distinction, IN_SUPER_POSITION means right index
+     * @param <T> key type
+     * @param <A> value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to be
-    @SuppressWarnings({ "unchecked" })
-    <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type, Class<A> axiom,
-        Navigation position) {
+    @SuppressWarnings({"unchecked"})
+    <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type,
+                    Class<A> axiom, Navigation position) {
         if (OWLEntity.class.isAssignableFrom(type) && axiom.equals(OWLDeclarationAxiom.class)) {
             return optional((MapPointer<T, A>) declarationsByEntity);
         }
@@ -689,7 +674,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
         return build(null, null);
     }
 
-    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
+    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
+                    OWLAxiomVisitorEx<?> v) {
         return new MapPointer<>(t, v, false, this);
     }
 
@@ -698,13 +684,12 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     protected <K, V extends OWLAxiom> MapPointer<K, V> build(@Nullable AxiomType<?> t,
-        @Nullable OWLAxiomVisitorEx<?> v) {
+                    @Nullable OWLAxiomVisitorEx<?> v) {
         return new MapPointer<>(t, v, true, this);
     }
 
     /**
-     * @param axiom
-     *        axiom to add
+     * @param axiom axiom to add
      * @return true if the axiom was not already included
      */
     public boolean addAxiom(final OWLAxiom axiom) {
@@ -755,8 +740,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param axiom
-     *        axiom to remove
+     * @param axiom axiom to remove
      * @return true if removed
      */
     public boolean removeAxiom(final OWLAxiom axiom) {
@@ -807,8 +791,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param e
-     *        entity to check
+     * @param e entity to check
      * @return true if the entity is declared in the ontology
      */
     public boolean isDeclared(OWLEntity e) {
@@ -823,18 +806,15 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param filter
-     *        filter to satisfy
-     * @param <K>
-     *        key type
-     * @param key
-     *        key
+     * @param filter filter to satisfy
+     * @param <K> key type
+     * @param key key
      * @return set of values
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
         if (filter == Filters.annotations) {
-            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional = get(
-                OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
+            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional =
+                            get(OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
             if (mapPointerOptional.isPresent()) {
                 return mapPointerOptional.get().getValuesAsCollection((OWLAnnotationSubject) key);
             }
@@ -843,12 +823,9 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param <K>
-     *        key type
-     * @param filter
-     *        filter to satisfy
-     * @param key
-     *        key to match
+     * @param <K> key type
+     * @param filter filter to satisfy
+     * @param key key to match
      * @return true if the filter is matched at least once
      */
     public <K> boolean contains(OWLAxiomSearchFilter filter, K key) {
@@ -869,8 +846,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param importDeclaration
-     *        import declaration to remove
+     * @param importDeclaration import declaration to remove
      * @return true if added
      */
     public boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
@@ -878,8 +854,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param importDeclaration
-     *        import declaration to remove
+     * @param importDeclaration import declaration to remove
      * @return true if removed
      */
     public boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration) {
@@ -894,8 +869,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param ann
-     *        annotation to add
+     * @param ann annotation to add
      * @return true if annotation added
      */
     public boolean addOntologyAnnotation(OWLAnnotation ann) {
@@ -903,8 +877,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param ann
-     *        annotation to remove
+     * @param ann annotation to remove
      * @return true if annotation removed
      */
     public boolean removeOntologyAnnotation(OWLAnnotation ann) {
@@ -912,16 +885,11 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param p
-     *        pointer
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
-     * @param k
-     *        key
-     * @param v
-     *        value
+     * @param p pointer
+     * @param <K> key type
+     * @param <V> value type
+     * @param k key
+     * @param v value
      * @return true if the pair (key, value) is contained
      */
     public static <K, V extends OWLAxiom> boolean contains(MapPointer<K, V> p, K k, V v) {
@@ -945,10 +913,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param <T>
-     *        axiom type
-     * @param axiomType
-     *        axiom type to count
+     * @param <T> axiom type
+     * @param axiomType axiom type to count
      * @return axiom count
      */
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType) {
@@ -962,8 +928,9 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
      * @return logical axioms
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
-        return LOGICAL_AXIOM_TYPES.stream().map(type -> axiomsByType.values(type, OWLLogicalAxiom.class)).flatMap(
-            x -> x);
+        return LOGICAL_AXIOM_TYPES.stream()
+                        .map(type -> axiomsByType.values(type, OWLLogicalAxiom.class))
+                        .flatMap(x -> x);
     }
 
     /**
@@ -985,8 +952,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param ax
-     *        GCI axiom to add
+     * @param ax GCI axiom to add
      * @return true if axiom added
      */
     public boolean addGeneralClassAxioms(OWLClassAxiom ax) {
@@ -994,8 +960,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param ax
-     *        axiom to remove
+     * @param ax axiom to remove
      * @return true if removed
      */
     public boolean removeGeneralClassAxioms(OWLClassAxiom ax) {
@@ -1003,8 +968,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param ax
-     *        axiom to add
+     * @param ax axiom to add
      * @return true if added
      */
     public boolean addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
@@ -1012,8 +976,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param ax
-     *        axiom to remove
+     * @param ax axiom to remove
      * @return true if removed
      */
     public boolean removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
@@ -1103,7 +1066,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            axiom.individuals().forEach(ind -> differentIndividualsAxiomsByIndividual.put(ind, axiom));
+            axiom.individuals()
+                            .forEach(ind -> differentIndividualsAxiomsByIndividual.put(ind, axiom));
         }
 
         @Override
@@ -1272,11 +1236,12 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(c -> !c.isAnonymous()).map(c -> c.asOWLClass()).forEach(c -> {
-                disjointClassesAxiomsByClass.remove(c, axiom);
-                classAxiomsByClass.remove(c, axiom);
-                allAnon.set(false);
-            });
+            axiom.classExpressions().filter(c -> !c.isAnonymous()).map(c -> c.asOWLClass())
+                            .forEach(c -> {
+                                disjointClassesAxiomsByClass.remove(c, axiom);
+                                classAxiomsByClass.remove(c, axiom);
+                                allAnon.set(false);
+                            });
             if (allAnon.get()) {
                 removeGeneralClassAxioms(axiom);
             }
@@ -1296,7 +1261,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            axiom.properties().forEach(p -> equivalentObjectPropertyAxiomsByProperty.remove(p, axiom));
+            axiom.properties().forEach(
+                            p -> equivalentObjectPropertyAxiomsByProperty.remove(p, axiom));
         }
 
         @Override
@@ -1312,7 +1278,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            axiom.individuals().forEach(i -> differentIndividualsAxiomsByIndividual.remove(i, axiom));
+            axiom.individuals()
+                            .forEach(i -> differentIndividualsAxiomsByIndividual.remove(i, axiom));
         }
 
         @Override
@@ -1322,7 +1289,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            axiom.properties().forEach(p -> disjointObjectPropertyAxiomsByProperty.remove(p, axiom));
+            axiom.properties()
+                            .forEach(p -> disjointObjectPropertyAxiomsByProperty.remove(p, axiom));
         }
 
         @Override
@@ -1386,7 +1354,8 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            axiom.properties().forEach(p -> equivalentDataPropertyAxiomsByProperty.remove(p, axiom));
+            axiom.properties()
+                            .forEach(p -> equivalentDataPropertyAxiomsByProperty.remove(p, axiom));
         }
 
         @Override
@@ -1400,11 +1369,12 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             AtomicBoolean allAnon = new AtomicBoolean(true);
-            axiom.classExpressions().filter(c -> !c.isAnonymous()).map(c -> c.asOWLClass()).forEach(c -> {
-                equivalentClassesAxiomsByClass.remove(c, axiom);
-                classAxiomsByClass.remove(c, axiom);
-                allAnon.set(false);
-            });
+            axiom.classExpressions().filter(c -> !c.isAnonymous()).map(c -> c.asOWLClass())
+                            .forEach(c -> {
+                                equivalentClassesAxiomsByClass.remove(c, axiom);
+                                classAxiomsByClass.remove(c, axiom);
+                                allAnon.set(false);
+                            });
             if (allAnon.get()) {
                 removeGeneralClassAxioms(axiom);
             }
@@ -1456,8 +1426,7 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param entity
-     *        entity to check
+     * @param entity entity to check
      * @return true if reference is contained
      */
     public boolean containsReference(OWLEntity entity) {
@@ -1465,15 +1434,15 @@ private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiom
     }
 
     /**
-     * @param owlEntity
-     *        entity to describe
+     * @param owlEntity entity to describe
      * @return referencing axioms
      */
     public Stream<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
     }
 
-    private class ReferencedAxiomsCollector implements OWLEntityVisitorEx<Stream<OWLAxiom>>, Serializable {
+    private class ReferencedAxiomsCollector
+                    implements OWLEntityVisitorEx<Stream<OWLAxiom>>, Serializable {
 
         ReferencedAxiomsCollector() {}
 

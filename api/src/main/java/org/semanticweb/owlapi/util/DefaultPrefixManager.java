@@ -31,11 +31,11 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
+public class DefaultPrefixManager
+                implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
     // XXX config
     private Map<String, String> prefix2NamespaceMap;
@@ -43,23 +43,19 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     private StringComparator comparator;
 
     /**
-     * @param defaultPrefix
-     *        default prefix
+     * @param defaultPrefix default prefix
      */
     public DefaultPrefixManager(@Nullable String defaultPrefix) {
         this(null, null, defaultPrefix);
     }
 
     /**
-     * @param pm
-     *        the prefix manager to copy
-     * @param c
-     *        comparator to sort prefixes
-     * @param defaultPrefix
-     *        default prefix
+     * @param pm the prefix manager to copy
+     * @param c comparator to sort prefixes
+     * @param defaultPrefix default prefix
      */
     public DefaultPrefixManager(@Nullable PrefixManager pm, @Nullable StringComparator c,
-        @Nullable String defaultPrefix) {
+                    @Nullable String defaultPrefix) {
         comparator = c == null ? new StringLengthComparator() : c;
         prefix2NamespaceMap = new TreeMap<>(comparator);
         reverseprefix2NamespaceMap = new TreeMap<>(comparator);
@@ -190,7 +186,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
         } else {
             String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
-                throw new OWLRuntimeException("Prefix not registered for prefix name: " + prefixName);
+                throw new OWLRuntimeException(
+                                "Prefix not registered for prefix name: " + prefixName);
             }
             String prefix = getPrefix(prefixName);
             String localName = prefixIRI.substring(sep + 1);

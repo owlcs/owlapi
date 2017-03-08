@@ -39,11 +39,10 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
         }
     },
     /**
-     * Only sort according to HasPriority annotation when a Set is passed in
-     * (this happens on Guice injection of entries), do not sort otherwise. This
-     * allows for fine tuning of the order in which entries appear, but does not
-     * lose the default prioritisation. This is important for parsers. When this
-     * sorting is used, addition of new elements causes the elements to be added
+     * Only sort according to HasPriority annotation when a Set is passed in (this happens on Guice
+     * injection of entries), do not sort otherwise. This allows for fine tuning of the order in
+     * which entries appear, but does not lose the default prioritisation. This is important for
+     * parsers. When this sorting is used, addition of new elements causes the elements to be added
      * at the front of the collection (First In, First Out)
      */
     ON_SET_INJECTION_ONLY {
@@ -60,9 +59,8 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
         }
     },
     /**
-     * Sorting of entries is disabled. When this sorting is used, addition of
-     * new elements causes the elements to be added at the front of the
-     * collection (First In, First Out)
+     * Sorting of entries is disabled. When this sorting is used, addition of new elements causes
+     * the elements to be added at the front of the collection (First In, First Out)
      */
     NEVER {
 
@@ -78,19 +76,15 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
     };
 
     /**
-     * @param list
-     *        list to sort
-     * @param <O>
-     *        type of elements
+     * @param list list to sort
+     * @param <O> type of elements
      * @return sorted list
      */
     public abstract <O> List<O> sort(List<O> list);
 
     /**
-     * @param list
-     *        list to sort
-     * @param <O>
-     *        type of elements
+     * @param list list to sort
+     * @param <O> type of elements
      * @return sorted list
      */
     public abstract <O> List<O> sortInputSet(List<O> list);

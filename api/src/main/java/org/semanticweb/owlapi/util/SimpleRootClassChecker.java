@@ -32,25 +32,22 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * A utility class that can be used to determine is a class is a syntactic
- * direct subclass of owl:Thing. A class is considered NOT to be a syntactic
- * direct subclass of owl:Thing if ANY of the following conditions apply:
+ * A utility class that can be used to determine is a class is a syntactic direct subclass of
+ * owl:Thing. A class is considered NOT to be a syntactic direct subclass of owl:Thing if ANY of the
+ * following conditions apply:
  * <ol>
- * <li>It is equal to the left hand side of a subclass axiom, where the right
- * hand side is a named class other than owl:Thing</li>
- * <li>It is an operand in an equivalent class axiom where at least one of the
- * other other operands is an intersection class that has a named operand other
- * than the class in question. For example
+ * <li>It is equal to the left hand side of a subclass axiom, where the right hand side is a named
+ * class other than owl:Thing</li>
+ * <li>It is an operand in an equivalent class axiom where at least one of the other other operands
+ * is an intersection class that has a named operand other than the class in question. For example
  * {@code EquivalentClasses(A,  (B and prop some C))}</li>
  * </ol>
- * This functionality is provided because it is useful for displaying class
- * hierarchies in editors and browsers. In these situations it is needed because
- * not all "orphan" classes are asserted to be subclasses of owl:Thing. For
- * example, if the only referencing axiom of class A was ObjectDomain(propP A)
- * then A is a syntactic subclass of owl:Thing.
+ * This functionality is provided because it is useful for displaying class hierarchies in editors
+ * and browsers. In these situations it is needed because not all "orphan" classes are asserted to
+ * be subclasses of owl:Thing. For example, if the only referencing axiom of class A was
+ * ObjectDomain(propP A) then A is a syntactic subclass of owl:Thing.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SimpleRootClassChecker implements RootClassChecker {
@@ -72,14 +69,11 @@ public class SimpleRootClassChecker implements RootClassChecker {
     private final NamedSuperChecker superChecker = new NamedSuperChecker();
 
     /**
-     * Creates a root class checker, which examines axioms contained in
-     * ontologies from the specified set in order to determine if a class is a
-     * syntactic subclass of owl:Thing.
+     * Creates a root class checker, which examines axioms contained in ontologies from the
+     * specified set in order to determine if a class is a syntactic subclass of owl:Thing.
      * 
-     * @param ontologies
-     *        The ontologies whose axioms are to be taken into consideration
-     *        when determining if a class is a syntactic direct subclass of
-     *        owl:Thing
+     * @param ontologies The ontologies whose axioms are to be taken into consideration when
+     *        determining if a class is a syntactic direct subclass of owl:Thing
      */
     public SimpleRootClassChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
@@ -87,7 +81,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
     @Override
     public boolean isRootClass(OWLClass cls) {
-        return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls)).anyMatch(ax -> isRootClass(cls, ax));
+        return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls))
+                        .anyMatch(ax -> isRootClass(cls, ax));
     }
 
     private boolean isRootClass(OWLClass cls, OWLAxiom ax) {
@@ -123,13 +118,13 @@ public class SimpleRootClassChecker implements RootClassChecker {
     }
 
     /**
-     * A utility class that checks if an axiom gives rise to a class being a
-     * subclass of Thing.
+     * A utility class that checks if an axiom gives rise to a class being a subclass of Thing.
      */
     private class RootClassCheckerHelper implements OWLAxiomVisitorEx<Boolean> {
 
         private Boolean isRoot = Boolean.TRUE;
-        @Nullable private OWLClass cls = null;
+        @Nullable
+        private OWLClass cls = null;
 
         public RootClassCheckerHelper() {}
 
@@ -144,7 +139,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
         private OWLClass cls() {
-            return verifyNotNull(cls, "cls cannot be null. Has the helper been initialised with a valid value?");
+            return verifyNotNull(cls,
+                            "cls cannot be null. Has the helper been initialised with a valid value?");
         }
 
         @Override

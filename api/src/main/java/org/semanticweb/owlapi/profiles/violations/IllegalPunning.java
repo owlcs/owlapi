@@ -33,12 +33,9 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class IllegalPunning extends OWLProfileViolation {
 
     /**
-     * @param currentOntology
-     *        ontology
-     * @param node
-     *        axiom
-     * @param iri
-     *        iri
+     * @param currentOntology ontology
+     * @param node axiom
+     * @param iri iri
      */
     public IllegalPunning(OWLOntology currentOntology, @Nullable OWLAxiom node, IRI iri) {
         super(currentOntology, node, checkNotNull(iri));

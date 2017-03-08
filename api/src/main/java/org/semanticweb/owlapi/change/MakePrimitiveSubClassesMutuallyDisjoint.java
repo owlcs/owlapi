@@ -25,19 +25,17 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * For a given class, this composite change makes its told primitive subclasses
- * mutually disjoint. For example, if B, C, and D are primitive subclasses of A
- * then this composite change will make B, C, and D mutually disjoint. <br>
- * More formally, for a given class, A, and a set of ontologies, S, this method
- * will obtain a set of classes, G, where all classes in G are named and
- * primitive. Moreover, for any class, B in G, some ontology O in S will contain
- * an axiom, SubClassOf(B, A). All classes in G will be made mutually disjoint
- * by creating axiom(s) in a target ontology T. <br>
- * This composite change supports a common design pattern where primitive
- * subclasses of a class are made mutually disjoint.
+ * For a given class, this composite change makes its told primitive subclasses mutually disjoint.
+ * For example, if B, C, and D are primitive subclasses of A then this composite change will make B,
+ * C, and D mutually disjoint. <br>
+ * More formally, for a given class, A, and a set of ontologies, S, this method will obtain a set of
+ * classes, G, where all classes in G are named and primitive. Moreover, for any class, B in G, some
+ * ontology O in S will contain an axiom, SubClassOf(B, A). All classes in G will be made mutually
+ * disjoint by creating axiom(s) in a target ontology T. <br>
+ * This composite change supports a common design pattern where primitive subclasses of a class are
+ * made mutually disjoint.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
@@ -45,41 +43,37 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
     /**
      * Instantiates a new make primitive sub classes mutually disjoint.
      * 
-     * @param dataFactory
-     *        the datafactory to use
-     * @param cls
-     *        the class to convert
-     * @param targetOntology
-     *        the target ontology
+     * @param dataFactory the datafactory to use
+     * @param cls the class to convert
+     * @param targetOntology the target ontology
      */
     public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
-        OWLOntology targetOntology) {
+                    OWLOntology targetOntology) {
         this(dataFactory, cls, targetOntology, false);
     }
 
     /**
      * Instantiates a new make primitive sub classes mutually disjoint.
      * 
-     * @param dataFactory
-     *        the datafactory to use
-     * @param cls
-     *        the class to convert
-     * @param targetOntology
-     *        the target ontology
-     * @param usePairwiseDisjointAxioms
-     *        true if pairwise disjoint axioms should be used
+     * @param dataFactory the datafactory to use
+     * @param cls the class to convert
+     * @param targetOntology the target ontology
+     * @param usePairwiseDisjointAxioms true if pairwise disjoint axioms should be used
      */
-    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, OWLOntology targetOntology,
-        boolean usePairwiseDisjointAxioms) {
+    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
+                    OWLOntology targetOntology, boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
         generateChanges(checkNotNull(cls, "cls cannot be null"),
-            checkNotNull(targetOntology, "targetOntology cannot be null"), usePairwiseDisjointAxioms);
+                        checkNotNull(targetOntology, "targetOntology cannot be null"),
+                        usePairwiseDisjointAxioms);
     }
 
     private void generateChanges(OWLClass cls, OWLOntology o, boolean usePairwiseDisjointAxioms) {
-        Collection<OWLClassExpression> sub = asList(sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
-            .filter(c -> undefinedPrimitive(o, c)));
-        addChanges(new MakeClassesMutuallyDisjoint(df, sub, usePairwiseDisjointAxioms, o).getChanges());
+        Collection<OWLClassExpression> sub =
+                        asList(sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
+                                        .filter(c -> undefinedPrimitive(o, c)));
+        addChanges(new MakeClassesMutuallyDisjoint(df, sub, usePairwiseDisjointAxioms, o)
+                        .getChanges());
     }
 
     protected boolean undefinedPrimitive(OWLOntology o, OWLClassExpression subCls) {

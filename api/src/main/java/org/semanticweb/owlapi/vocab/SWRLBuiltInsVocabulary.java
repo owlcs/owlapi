@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIRI, HasPrefixedName {
@@ -149,10 +148,9 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIR
     /**
      * Gets a builtin vocabulary value for a given IRI.
      * 
-     * @param iri
-     *        The IRI
-     * @return The builtin vocabulary having the specified IRI, or {@code null}
-     *         if there is no builtin vocabulary with the specified IRI
+     * @param iri The IRI
+     * @return The builtin vocabulary having the specified IRI, or {@code null} if there is no
+     *         builtin vocabulary with the specified IRI
      */
     @Nullable
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {

@@ -20,11 +20,9 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
- * @param <N>
- *        the kind of elements in the tree
+ * @param <N> the kind of elements in the tree
  */
 public interface Tree<N> {
 
@@ -39,8 +37,7 @@ public interface Tree<N> {
     /**
      * Gets the parent of this tree node.
      * 
-     * @return The parent tree node, or {@code null} if this node doesn't have a
-     *         parent.
+     * @return The parent tree node, or {@code null} if this node doesn't have a parent.
      */
     @Nullable
     Tree<N> getParent();
@@ -48,14 +45,13 @@ public interface Tree<N> {
     /**
      * Gets the children of this tree node.
      * 
-     * @return A list of children. If this tree node doesn't have any children
-     *         then the list will be empty.
+     * @return A list of children. If this tree node doesn't have any children then the list will be
+     *         empty.
      */
     List<Tree<N>> getChildren();
 
     /**
-     * @param child
-     *        the child to use
+     * @param child the child to use
      * @return the object stored as edge
      */
     @Nullable
@@ -64,30 +60,27 @@ public interface Tree<N> {
     /**
      * Sorts the children using the specified comparator.
      * 
-     * @param comparator
-     *        The comparator to be used for the sorting.
+     * @param comparator The comparator to be used for the sorting.
      */
     void sortChildren(Comparator<Tree<N>> comparator);
 
     /**
-     * A convenience method that gets the number of child nodes that this node
-     * has.
+     * A convenience method that gets the number of child nodes that this node has.
      * 
      * @return The count of the number of children of this node.
      */
     int getChildCount();
 
     /**
-     * A convenience method that determines if this is a root node (because it
-     * has no parent node).
+     * A convenience method that determines if this is a root node (because it has no parent node).
      * 
      * @return {@code true} if this is a root node, otherwise {@code false}.
      */
     boolean isRoot();
 
     /**
-     * A convenience method that determines if this node is a leaf node (because
-     * it has no children).
+     * A convenience method that determines if this node is a leaf node (because it has no
+     * children).
      * 
      * @return {@code true} if this node is a leaf node otherwise {@code false}.
      */
@@ -117,26 +110,22 @@ public interface Tree<N> {
     /**
      * Dump.
      * 
-     * @param writer
-     *        the writer to print to
+     * @param writer the writer to print to
      */
     void dump(PrintWriter writer);
 
     /**
      * Dump.
      * 
-     * @param writer
-     *        the writer to print to
-     * @param indent
-     *        how much to indent
+     * @param writer the writer to print to
+     * @param indent how much to indent
      */
     void dump(PrintWriter writer, int indent);
 
     /**
      * Sets the node renderer.
      * 
-     * @param renderer
-     *        the renderer to use
+     * @param renderer the renderer to use
      */
     void setNodeRenderer(NodeRenderer<N> renderer);
 

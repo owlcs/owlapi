@@ -55,10 +55,9 @@ public class ManchesterParseErrorTestCase extends TestBase {
     }
 
     /**
-     * A very simple entity checker that only understands that "p" is a property
-     * and rdfs:Literal is a datatype. He is an extreme simplification of the
-     * entity checker that runs when Protege is set to render entities as
-     * qnames.
+     * A very simple entity checker that only understands that "p" is a property and rdfs:Literal is
+     * a datatype. He is an extreme simplification of the entity checker that runs when Protege is
+     * set to render entities as qnames.
      * 
      * @author tredmond
      */

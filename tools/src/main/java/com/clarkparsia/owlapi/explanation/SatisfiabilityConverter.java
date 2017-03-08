@@ -30,8 +30,7 @@ public class SatisfiabilityConverter {
     /**
      * Instantiates a new satisfiability converter.
      * 
-     * @param factory
-     *        the factory to use
+     * @param factory the factory to use
      */
     public SatisfiabilityConverter(OWLDataFactory factory) {
         this.factory = checkNotNull(factory, "factory cannot be null");
@@ -41,8 +40,7 @@ public class SatisfiabilityConverter {
     /**
      * Convert.
      * 
-     * @param axiom
-     *        axiom to convert
+     * @param axiom axiom to convert
      * @return converted class expression
      */
     public OWLClassExpression convert(OWLAxiom axiom) {

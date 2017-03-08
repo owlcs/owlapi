@@ -58,7 +58,8 @@ public class ManchesterImportTestCase extends TestBase {
     @Test
     public void testEquivalentLoading() throws OWLOntologyCreationException {
         OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+        OWLOntology manualImport = managerStart
+                        .loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
         OWLOntology iriImport = managerTest.loadOntology(str);
         assertTrue(manualImport.equalAxioms(iriImport));

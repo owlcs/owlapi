@@ -38,13 +38,10 @@ public enum AnnotationWalkingControl {
     };
 
     /**
-     * Visit annotations on the object, if the setting allows for the
-     * annotations to be visited.
+     * Visit annotations on the object, if the setting allows for the annotations to be visited.
      * 
-     * @param walker
-     *        walker to use to visit annotations
-     * @param o
-     *        object containing annotations
+     * @param walker walker to use to visit annotations
+     * @param o object containing annotations
      */
     @SuppressWarnings("unused")
     public <T extends OWLObject> void walk(StructureWalker<T> walker, OWLObject o) {

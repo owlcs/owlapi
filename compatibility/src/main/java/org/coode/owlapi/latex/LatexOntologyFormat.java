@@ -15,11 +15,11 @@ package org.coode.owlapi.latex;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Jan-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         26-Jan-2008
  * @deprecated use {@link org.semanticweb.owlapi.formats.LatexDocumentFormat}
  */
 @Deprecated
-public class LatexOntologyFormat extends
-        org.semanticweb.owlapi.formats.LatexDocumentFormat implements
-        OWLOntologyFormat {}
+public class LatexOntologyFormat extends org.semanticweb.owlapi.formats.LatexDocumentFormat
+                implements OWLOntologyFormat {
+}

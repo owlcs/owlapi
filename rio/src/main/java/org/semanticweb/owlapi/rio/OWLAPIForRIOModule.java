@@ -37,8 +37,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
 /**
- * OWLAPI module for dynamic loading - uses ServiceLoader to add extra bindings
- * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper.
+ * OWLAPI module for dynamic loading - uses ServiceLoader to add extra bindings for OWLParser,
+ * OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper.
  */
 @OwlapiModule
 public class OWLAPIForRIOModule extends AbstractModule {
@@ -67,10 +67,8 @@ public class OWLAPIForRIOModule extends AbstractModule {
     }
 
     /**
-     * @param type
-     *        type to load
-     * @param <T>
-     *        return type
+     * @param type type to load
+     * @param <T> return type
      * @return itrable over T implementations
      */
     protected <T> Iterable<T> load(Class<T> type) {
@@ -102,14 +100,15 @@ public class OWLAPIForRIOModule extends AbstractModule {
                 binder.addBinding().toInstance(o.get());
             });
         } catch (ServiceConfigurationError e) {
-            throw new OWLRuntimeException("Injection failed for factory: " + factory + " type: " + type, e);
+            throw new OWLRuntimeException(
+                            "Injection failed for factory: " + factory + " type: " + type, e);
         }
     }
 
     protected void loadOntologyManagerFactory() {
         try {
-            Multibinder<OWLOntologyManagerFactory> binder = Multibinder.newSetBinder(binder(),
-                OWLOntologyManagerFactory.class);
+            Multibinder<OWLOntologyManagerFactory> binder =
+                            Multibinder.newSetBinder(binder(), OWLOntologyManagerFactory.class);
             load(OWLOntologyManagerFactory.class).forEach(o -> binder.addBinding().toInstance(o));
         } catch (ServiceConfigurationError e) {
             throw new OWLRuntimeException("Injection failed for OWLOntologyManager factory", e);

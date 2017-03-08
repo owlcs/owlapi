@@ -23,28 +23,28 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
 /** Builder class for OWLObjectPropertyAssertionAxiom. */
 public class BuilderObjectPropertyAssertion extends
-    BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
+                BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
 
-    @Nullable private OWLIndividual subject = null;
-    @Nullable private OWLIndividual value = null;
+    @Nullable
+    private OWLIndividual subject = null;
+    @Nullable
+    private OWLIndividual value = null;
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderObjectPropertyAssertion(OWLObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
+    public BuilderObjectPropertyAssertion(OWLObjectPropertyAssertionAxiom expected,
+                    OWLDataFactory df) {
         this(df);
-        withSubject(expected.getSubject()).withProperty(expected.getProperty()).withValue(expected.getObject())
-            .withAnnotations(expected.annotations());
+        withSubject(expected.getSubject()).withProperty(expected.getProperty())
+                        .withValue(expected.getObject()).withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderObjectPropertyAssertion(OWLDataFactory df) {
@@ -52,8 +52,7 @@ public class BuilderObjectPropertyAssertion extends
     }
 
     /**
-     * @param arg
-     *        subject
+     * @param arg subject
      * @return builder
      */
     public BuilderObjectPropertyAssertion withSubject(OWLIndividual arg) {
@@ -62,8 +61,7 @@ public class BuilderObjectPropertyAssertion extends
     }
 
     /**
-     * @param arg
-     *        value
+     * @param arg value
      * @return builder
      */
     public BuilderObjectPropertyAssertion withValue(OWLIndividual arg) {
@@ -73,8 +71,8 @@ public class BuilderObjectPropertyAssertion extends
 
     @Override
     public OWLObjectPropertyAssertionAxiom buildObject() {
-        return df.getOWLObjectPropertyAssertionAxiom(verifyNotNull(getProperty()), verifyNotNull(subject),
-            verifyNotNull(value), annotations);
+        return df.getOWLObjectPropertyAssertionAxiom(verifyNotNull(getProperty()),
+                        verifyNotNull(subject), verifyNotNull(value), annotations);
     }
 
     /**

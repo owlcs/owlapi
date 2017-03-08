@@ -32,29 +32,28 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase
-    extends AnnotatedAxiomRoundTrippingTestCase {
+                extends AnnotatedAxiomRoundTrippingTestCase {
 
     public AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase(
-        Function<Set<OWLAnnotation>, OWLAxiom> f) {
+                    Function<Set<OWLAnnotation>, OWLAxiom> f) {
         super(f);
     }
 
     @Parameters
     public static List<Function<Set<OWLAnnotation>, OWLAxiom>> getData() {
         return Arrays.asList(
-            a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B")),
-                Class(iri("C")), Class(iri("D"))),
-            a -> EquivalentDataProperties(a, DataProperty(iri("p")),
-                DataProperty(iri("q")), DataProperty(iri("r"))),
-            a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")),
-                ObjectProperty(iri("q")), ObjectProperty(iri("r"))));
+                        a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B")), Class(iri("C")),
+                                        Class(iri("D"))),
+                        a -> EquivalentDataProperties(a, DataProperty(iri("p")),
+                                        DataProperty(iri("q")), DataProperty(iri("r"))),
+                        a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")),
+                                        ObjectProperty(iri("q")), ObjectProperty(iri("r"))));
     }
 
     @Override

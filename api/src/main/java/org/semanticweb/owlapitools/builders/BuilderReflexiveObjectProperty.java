@@ -21,24 +21,22 @@ import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 
 /** Builder class for OWLReflexiveObjectPropertyAxiom. */
 public class BuilderReflexiveObjectProperty extends
-    BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
+                BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderReflexiveObjectProperty(OWLReflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
+    public BuilderReflexiveObjectProperty(OWLReflexiveObjectPropertyAxiom expected,
+                    OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderReflexiveObjectProperty(OWLDataFactory df) {

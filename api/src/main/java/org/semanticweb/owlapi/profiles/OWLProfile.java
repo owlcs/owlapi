@@ -16,8 +16,7 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public interface OWLProfile extends HasIRI {
 
@@ -29,13 +28,11 @@ public interface OWLProfile extends HasIRI {
     String getName();
 
     /**
-     * Checks an ontology and its import closure to see if it is within this
-     * profile.
+     * Checks an ontology and its import closure to see if it is within this profile.
      * 
-     * @param ontology
-     *        The ontology to be checked.
-     * @return An {@code OWLProfileReport} that describes whether or not the
-     *         ontology is within this profile.
+     * @param ontology The ontology to be checked.
+     * @return An {@code OWLProfileReport} that describes whether or not the ontology is within this
+     *         profile.
      */
     OWLProfileReport checkOntology(OWLOntology ontology);
 }

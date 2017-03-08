@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
@@ -33,15 +32,12 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     private final OWLClassExpression superClass;
 
     /**
-     * @param subClass
-     *        subclass
-     * @param superClass
-     *        superclass
-     * @param annotations
-     *        annotations
+     * @param subClass subclass
+     * @param superClass superclass
+     * @param annotations annotations
      */
     public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass,
-        Collection<OWLAnnotation> annotations) {
+                    Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subClass = checkNotNull(subClass, "subClass cannot be null");
         this.superClass = checkNotNull(superClass, "superClass cannot be null");
@@ -56,7 +52,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     @Override
     @SuppressWarnings("unchecked")
     public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this : new OWLSubClassOfAxiomImpl(subClass, superClass, NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+                        : new OWLSubClassOfAxiomImpl(subClass, superClass, NO_ANNOTATIONS);
     }
 
     @Override

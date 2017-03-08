@@ -13,4 +13,5 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface NonConcurrentDelegate {}
+public @interface NonConcurrentDelegate {
+}

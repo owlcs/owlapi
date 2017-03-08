@@ -15,20 +15,17 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface to objects that have a filler.
  * 
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
- * @param <T>
- *        filler type
+ * @param <T> filler type
  */
 @FunctionalInterface
 public interface HasFiller<T extends OWLObject> {
 
     /**
-     * Gets the filler for this restriction. In the case of an object
-     * restriction this will be an individual, in the case of a data restriction
-     * this will be a constant (data value). For quantified restriction this
-     * will be a class expression or a data range.
+     * Gets the filler for this restriction. In the case of an object restriction this will be an
+     * individual, in the case of a data restriction this will be a constant (data value). For
+     * quantified restriction this will be a class expression or a data range.
      * 
      * @return the value
      */

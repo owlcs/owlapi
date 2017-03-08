@@ -26,21 +26,19 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
 /**
- * A convenience class which is an ontology change listener which collects the
- * entities which are referenced in a set of ontology changes.
+ * A convenience class which is an ontology change listener which collects the entities which are
+ * referenced in a set of ontology changes.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLEntityCollectingOntologyChangeListener implements
-    OWLOntologyChangeListener {
+public abstract class OWLEntityCollectingOntologyChangeListener
+                implements OWLOntologyChangeListener {
 
     private final Set<OWLEntity> entities = new HashSet<>();
 
     @Override
-    public void ontologiesChanged(
-        @Nonnull List<? extends OWLOntologyChange> changes) {
+    public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
         entities.clear();
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {

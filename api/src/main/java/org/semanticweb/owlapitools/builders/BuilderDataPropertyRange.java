@@ -18,11 +18,11 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 
 /** Builder class for OWLDataPropertyRangeAxiom. */
-public class BuilderDataPropertyRange extends BaseDataBuilder<OWLDataPropertyRangeAxiom, BuilderDataPropertyRange> {
+public class BuilderDataPropertyRange
+                extends BaseDataBuilder<OWLDataPropertyRangeAxiom, BuilderDataPropertyRange> {
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDataPropertyRange(OWLDataFactory df) {
@@ -32,14 +32,13 @@ public class BuilderDataPropertyRange extends BaseDataBuilder<OWLDataPropertyRan
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDataPropertyRange(OWLDataPropertyRangeAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withRange(expected.getRange()).withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withRange(expected.getRange())
+                        .withAnnotations(expected.annotations());
     }
 
     @Override

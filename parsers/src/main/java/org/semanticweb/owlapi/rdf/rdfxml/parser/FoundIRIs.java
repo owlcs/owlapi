@@ -43,8 +43,8 @@ class FoundIRIs {
     private final Set<IRI> objectPropertyIRIs = createSet();
     private final Set<IRI> dataPropertyIRIs = createSet();
     /**
-     * Same as classExpressionIRIs but for rdf properties things neither typed
-     * as a data or object property - bad!
+     * Same as classExpressionIRIs but for rdf properties things neither typed as a data or object
+     * property - bad!
      */
     private final Set<IRI> propertyIRIs = createSet();
     /** Set of IRIs that are typed by non-system types and also owl:Thing */
@@ -55,12 +55,14 @@ class FoundIRIs {
     /** IRIs that had a type triple to rdfs:Datatange */
     private final Set<IRI> dataRangeIRIs = createSet();
     /** The IRI of the first reource that is typed as an ontology */
-    @Nullable protected IRI firstOntologyIRI;
+    @Nullable
+    protected IRI firstOntologyIRI;
     /** IRIs that had a type triple to owl:Ontology */
     protected final Set<IRI> ontologyIRIs = createSet();
     /** IRIs that had a type triple to owl:Restriction */
     private final Set<IRI> restrictionIRIs = createSet();
-    protected final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
+    protected final ArrayListMultimap<IRI, Class<?>> guessedDeclarations =
+                    ArrayListMultimap.create();
     private final boolean strict;
 
     public FoundIRIs(boolean strict) {
@@ -80,12 +82,10 @@ class FoundIRIs {
     }
 
     /**
-     * Imports closure changed. NOTE: This method only gets called when the
-     * ontology being parsed adds a direct import. This is enough for resolving
-     * the imports closure.
+     * Imports closure changed. NOTE: This method only gets called when the ontology being parsed
+     * adds a direct import. This is enough for resolving the imports closure.
      * 
-     * @param o
-     *        ontology
+     * @param o ontology
      */
     public void importsClosureChanged(OWLOntology o) {
         o.annotationPropertiesInSignature(INCLUDED).forEach(e -> annPropertyIRIs.add(e.getIRI()));
@@ -111,10 +111,8 @@ class FoundIRIs {
     /**
      * Adds the class expression.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addClassExpression(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLClass.class, explicitlyTyped);
@@ -140,10 +138,8 @@ class FoundIRIs {
     /**
      * Adds the object property.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addObjectProperty(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLObjectProperty.class, explicitlyTyped);
@@ -153,10 +149,8 @@ class FoundIRIs {
     /**
      * Adds the data property.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addDataProperty(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLDataProperty.class, explicitlyTyped);
@@ -166,10 +160,8 @@ class FoundIRIs {
     /**
      * Adds the annotation property.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     protected void addAnnotationProperty(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLAnnotationProperty.class, explicitlyTyped);
@@ -179,10 +171,8 @@ class FoundIRIs {
     /**
      * Adds the data range.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     public void addDataRange(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLDataRange.class, explicitlyTyped);
@@ -192,10 +182,8 @@ class FoundIRIs {
     /**
      * Adds the owl named individual.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly type
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly type
      */
     protected void addOWLNamedIndividual(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLNamedIndividual.class, explicitlyTyped);
@@ -205,10 +193,8 @@ class FoundIRIs {
     /**
      * Adds the owl restriction.
      * 
-     * @param iri
-     *        the iri
-     * @param explicitlyTyped
-     *        the explicitly typed
+     * @param iri the iri
+     * @param explicitlyTyped the explicitly typed
      */
     protected void addOWLRestriction(IRI iri, boolean explicitlyTyped) {
         updateGuesses(iri, OWLClassExpression.class, explicitlyTyped);
@@ -236,16 +222,13 @@ class FoundIRIs {
     }
 
     /**
-     * Determines if a given IRI is currently an object property IRI and not a
-     * data property IRI and not an annotation property IRI. Note that this
-     * method is only guaranteed to return the same value once all triples in
-     * the imports closure of the RDF graph being parsed have been parsed.
+     * Determines if a given IRI is currently an object property IRI and not a data property IRI and
+     * not an annotation property IRI. Note that this method is only guaranteed to return the same
+     * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
      * 
-     * @param iri
-     *        The IRI to check.
-     * @return {@code true} if the IRI is an object property IRI and not a data
-     *         property IRI and not an annotation property IRI. Otherwise,
-     *         {@code false}.
+     * @param iri The IRI to check.
+     * @return {@code true} if the IRI is an object property IRI and not a data property IRI and not
+     *         an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isObjectPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isDP(iri) && !isAP(iri) && isOP(iri);
@@ -256,16 +239,13 @@ class FoundIRIs {
     }
 
     /**
-     * Determines if a given IRI is currently a data property IRI and not an
-     * object property IRI and not an annotation property IRI. Note that this
-     * method is only guaranteed to return the same value once all triples in
-     * the imports closure of the RDF graph being parsed have been parsed.
+     * Determines if a given IRI is currently a data property IRI and not an object property IRI and
+     * not an annotation property IRI. Note that this method is only guaranteed to return the same
+     * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
      * 
-     * @param iri
-     *        The IRI to check.
-     * @return {@code true} if the IRI is a data property IRI and not an object
-     *         property IRI and not an annotation property IRI. Otherwise,
-     *         {@code false}.
+     * @param iri The IRI to check.
+     * @return {@code true} if the IRI is a data property IRI and not an object property IRI and not
+     *         an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isDataPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isOP(iri) && !isAP(iri) && isDP(iri);
@@ -276,16 +256,13 @@ class FoundIRIs {
     }
 
     /**
-     * Determines if a given IRI is currently an annotation property IRI and not
-     * a data property IRI and not an object property IRI. Note that this method
-     * is only guaranteed to return the same value once all triples in the
-     * imports closure of the RDF graph being parsed have been parsed.
+     * Determines if a given IRI is currently an annotation property IRI and not a data property IRI
+     * and not an object property IRI. Note that this method is only guaranteed to return the same
+     * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
      * 
-     * @param iri
-     *        The IRI to check.
-     * @return {@code true} if the IRI is an annotation property IRI and not a
-     *         data property IRI and not an object property IRI. Otherwise,
-     *         {@code false}.
+     * @param iri The IRI to check.
+     * @return {@code true} if the IRI is an annotation property IRI and not a data property IRI and
+     *         not an object property IRI. Otherwise, {@code false}.
      */
     protected boolean isAnnotationPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isOP(iri) && !isDP(iri) && isAP(iri);

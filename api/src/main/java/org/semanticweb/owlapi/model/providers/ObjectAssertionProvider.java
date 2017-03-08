@@ -25,60 +25,50 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public interface ObjectAssertionProvider extends LiteralProvider {
 
     /**
-     * @param property
-     *        property
-     * @param individual
-     *        individual
-     * @param object
-     *        object
+     * @param property property
+     * @param individual individual
+     * @param object object
      * @return an object property assertion
      */
-    default OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property,
-            OWLIndividual individual, OWLIndividual object) {
-        return getOWLObjectPropertyAssertionAxiom(property, individual, object, Collections.emptySet());
+    default OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
+                    OWLObjectPropertyExpression property, OWLIndividual individual,
+                    OWLIndividual object) {
+        return getOWLObjectPropertyAssertionAxiom(property, individual, object,
+                        Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param individual
-     *        individual
-     * @param object
-     *        object
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     * @param property property
+     * @param individual individual
+     * @param object object
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an object property assertion with annotations
      */
-    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property,
-            OWLIndividual individual, OWLIndividual object, Collection<OWLAnnotation> annotations);
+    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
+                    OWLObjectPropertyExpression property, OWLIndividual individual,
+                    OWLIndividual object, Collection<OWLAnnotation> annotations);
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param object
-     *        object
+     * @param property property
+     * @param subject subject
+     * @param object object
      * @return a negative property assertion axiom on given arguments
      */
     default OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
-            OWLObjectPropertyExpression property, OWLIndividual subject, OWLIndividual object) {
-        return getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object, Collections.emptySet());
+                    OWLObjectPropertyExpression property, OWLIndividual subject,
+                    OWLIndividual object) {
+        return getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object,
+                        Collections.emptySet());
     }
 
     /**
-     * @param property
-     *        property
-     * @param subject
-     *        subject
-     * @param object
-     *        object
-     * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
-     * @return a negative property assertion axiom on given arguments with
-     *         annotations
+     * @param property property
+     * @param subject subject
+     * @param object object
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
+     * @return a negative property assertion axiom on given arguments with annotations
      */
     OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
-            OWLObjectPropertyExpression property, OWLIndividual subject, OWLIndividual object,
-            Collection<OWLAnnotation> annotations);
+                    OWLObjectPropertyExpression property, OWLIndividual subject,
+                    OWLIndividual object, Collection<OWLAnnotation> annotations);
 }

@@ -15,8 +15,7 @@ package uk.ac.manchester.cs.owlapi.modularity;
 /**
  * Enumeration for module types.
  * 
- * @author Thomas Schneider, School of Computer Science, University of
- *         Manchester
+ * @author Thomas Schneider, School of Computer Science, University of Manchester
  */
 public enum ModuleType {
     //@formatter:off
@@ -30,8 +29,7 @@ public enum ModuleType {
     /**
      * Constructs a module type with the given name and alternative name.
      * 
-     * @param name
-     *        the name in bottom/top notation
+     * @param name the name in bottom/top notation
      */
     ModuleType(String name) {
         this.name = name;

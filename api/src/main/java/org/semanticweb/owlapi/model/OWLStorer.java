@@ -17,53 +17,41 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
- * An ontology storer stores an ontology in a particular format at a location
- * specified by a particular URI.
+ * An ontology storer stores an ontology in a particular format at a location specified by a
+ * particular URI.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLStorer extends Serializable {
 
     /**
-     * Determines if this storer can store an ontology in the specified ontology
-     * format.
+     * Determines if this storer can store an ontology in the specified ontology format.
      * 
-     * @param ontologyFormat
-     *        The desired ontology format.
-     * @return {@code true} if this storer can store an ontology in the desired
-     *         format.
+     * @param ontologyFormat The desired ontology format.
+     * @return {@code true} if this storer can store an ontology in the desired format.
      */
     boolean canStoreOntology(OWLDocumentFormat ontologyFormat);
 
     /**
      * Stores an ontology to the specified writer in the specified format.
      * 
-     * @param ontology
-     *        The ontology to be stored
-     * @param writer
-     *        The writer where the ontology will be saved to
-     * @param format
-     *        The format that the ontology should be stored in
-     * @throws OWLOntologyStorageException
-     *         if there was a problem storing the ontology
+     * @param ontology The ontology to be stored
+     * @param writer The writer where the ontology will be saved to
+     * @param format The format that the ontology should be stored in
+     * @throws OWLOntologyStorageException if there was a problem storing the ontology
      */
     void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException;
+                    throws OWLOntologyStorageException;
 
     /**
      * Stores an ontology to the specified stream.
      * 
-     * @param ontology
-     *        The ontology to be stored
-     * @param outputStream
-     *        Output stream where the ontology should be stored
-     * @param format
-     *        The format in which to store the ontology
-     * @throws OWLOntologyStorageException
-     *         if there was a problem storing the ontology.
+     * @param ontology The ontology to be stored
+     * @param outputStream Output stream where the ontology should be stored
+     * @param format The format in which to store the ontology
+     * @throws OWLOntologyStorageException if there was a problem storing the ontology.
      */
     void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format)
-        throws OWLOntologyStorageException;
+                    throws OWLOntologyStorageException;
 }

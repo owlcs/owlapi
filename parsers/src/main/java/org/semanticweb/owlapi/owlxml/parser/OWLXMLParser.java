@@ -29,8 +29,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLParser extends AbstractOWLParser {
@@ -41,13 +40,15 @@ public class OWLXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             InputSource isrc = new InputSource(r);
             isrc.setSystemId(documentIRI.toString());
             OWLXMLPH handler = new OWLXMLPH(o, config);
-            SAXParsers.initParserWithOWLAPIStandards(null, config.getEntityExpansionLimit()).parse(isrc, handler);
+            SAXParsers.initParserWithOWLAPIStandards(null, config.getEntityExpansionLimit())
+                            .parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;

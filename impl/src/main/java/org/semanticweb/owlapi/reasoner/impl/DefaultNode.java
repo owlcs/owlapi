@@ -36,42 +36,40 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E>
- *        the type of entities in the node
+ * @param <E> the type of entities in the node
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     protected static final OWLClassNode TOP_NODE = new OWLClassNode(OWL_THING);
     protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(OWL_NOTHING);
-    protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(OWL_TOP_DATA_PROPERTY);
-    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(OWL_BOTTOM_DATA_PROPERTY);
-    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(OWL_TOP_OBJECT_PROPERTY);
-    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
-        OWL_BOTTOM_OBJECT_PROPERTY);
+    protected static final OWLDataPropertyNode TOP_DATA_NODE =
+                    new OWLDataPropertyNode(OWL_TOP_DATA_PROPERTY);
+    protected static final OWLDataPropertyNode BOTTOM_DATA_NODE =
+                    new OWLDataPropertyNode(OWL_BOTTOM_DATA_PROPERTY);
+    protected static final OWLObjectPropertyNode TOP_OBJECT_NODE =
+                    new OWLObjectPropertyNode(OWL_TOP_OBJECT_PROPERTY);
+    protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE =
+                    new OWLObjectPropertyNode(OWL_BOTTOM_OBJECT_PROPERTY);
     private final Set<E> entities = new HashSet<>(4);
 
     /**
-     * @param entity
-     *        the entity to add
+     * @param entity the entity to add
      */
     public DefaultNode(E entity) {
         entities.add(checkNotNull(entity, "entity cannot be null"));
     }
 
     /**
-     * @param entities
-     *        the entities to add
+     * @param entities the entities to add
      */
     public DefaultNode(Collection<E> entities) {
         this.entities.addAll(checkNotNull(entities, "entities cannot be null"));
     }
 
     /**
-     * @param entities
-     *        the entities to add
+     * @param entities the entities to add
      */
     public DefaultNode(Stream<E> entities) {
         OWLAPIStreamUtils.add(this.entities, checkNotNull(entities, "entities cannot be null"));
@@ -84,8 +82,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     protected abstract Optional<E> getBottomEntity();
 
     /**
-     * @param entity
-     *        entity to be added
+     * @param entity entity to be added
      */
     public void add(E entity) {
         entities.add(entity);
@@ -183,7 +180,8 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         if (!(obj instanceof Node)) {
             return false;
         }
-        @SuppressWarnings("unchecked") Node<E> other = (Node<E>) obj;
+        @SuppressWarnings("unchecked")
+        Node<E> other = (Node<E>) obj;
         return entities.equals(asUnorderedSet(other.entities()));
     }
 

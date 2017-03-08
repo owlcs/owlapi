@@ -15,17 +15,14 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nullable;
 
 /**
- * Functional interface for a visitor that applies a function to two arguments,
- * and returns a value. This is used by OWLNaryAxiom to pass the elements in its
- * collection in pairs, e.g., all pairwise disjoint class expressions in a
- * disjoint class axiom.
+ * Functional interface for a visitor that applies a function to two arguments, and returns a value.
+ * This is used by OWLNaryAxiom to pass the elements in its collection in pairs, e.g., all pairwise
+ * disjoint class expressions in a disjoint class axiom.
  * 
  * @author ignazio
  * @since 4.0.0
- * @param <T>
- *        returned type
- * @param <C>
- *        type of elements to accept
+ * @param <T> returned type
+ * @param <C> type of elements to accept
  */
 @FunctionalInterface
 public interface OWLPairwiseVisitor<T, C> {
@@ -33,10 +30,8 @@ public interface OWLPairwiseVisitor<T, C> {
     /**
      * The order of the arguments depend on the visited element.
      * 
-     * @param a
-     *        first argument
-     * @param b
-     *        second argument
+     * @param a first argument
+     * @param b second argument
      * @return return value for the visitor
      */
     @Nullable

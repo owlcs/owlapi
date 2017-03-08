@@ -11,5 +11,5 @@ import org.semanticweb.owlapi.model.PrefixManager;
  * @deprecated use PrefixDocumentFormat instead
  */
 @Deprecated
-public interface PrefixOWLOntologyFormat extends OWLOntologyFormat,
-        PrefixManager, Serializable {}
+public interface PrefixOWLOntologyFormat extends OWLOntologyFormat, PrefixManager, Serializable {
+}

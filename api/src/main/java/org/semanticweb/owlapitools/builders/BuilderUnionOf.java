@@ -19,11 +19,11 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /** Builder class for OWLObjectUnionOf. */
-public class BuilderUnionOf extends BaseSetBuilder<OWLObjectUnionOf, BuilderUnionOf, OWLClassExpression> {
+public class BuilderUnionOf
+                extends BaseSetBuilder<OWLObjectUnionOf, BuilderUnionOf, OWLClassExpression> {
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderUnionOf(OWLDataFactory df) {
@@ -33,10 +33,8 @@ public class BuilderUnionOf extends BaseSetBuilder<OWLObjectUnionOf, BuilderUnio
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderUnionOf(OWLObjectUnionOf expected, OWLDataFactory df) {
         this(df);

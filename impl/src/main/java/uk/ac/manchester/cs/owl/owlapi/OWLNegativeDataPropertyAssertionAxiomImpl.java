@@ -24,47 +24,46 @@ import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLNegativeDataPropertyAssertionAxiomImpl extends
-    OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements
-    OWLNegativeDataPropertyAssertionAxiom {
+public class OWLNegativeDataPropertyAssertionAxiomImpl
+                extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
+                implements OWLNegativeDataPropertyAssertionAxiom {
 
     /**
-     * @param subject
-     *        subject
-     * @param property
-     *        property
-     * @param object
-     *        object
-     * @param annotations
-     *        annotations
+     * @param subject subject
+     * @param property property
+     * @param object object
+     * @param annotations annotations
      */
-    public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject, OWLDataPropertyExpression property,
-        OWLLiteral object, Collection<OWLAnnotation> annotations) {
+    public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject,
+                    OWLDataPropertyExpression property, OWLLiteral object,
+                    Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()), new OWLObjectComplementOfImpl(
-            new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
+                        new OWLObjectComplementOfImpl(
+                                        new OWLDataHasValueImpl(getProperty(), getObject())),
+                        NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-            : new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), NO_ANNOTATIONS);
+                        : new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                                        getObject(), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(
-            anns));
+        return (T) new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
+                        getObject(), mergeAnnos(anns));
     }
 
     @Override

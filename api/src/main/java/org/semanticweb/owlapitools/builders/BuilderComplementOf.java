@@ -24,11 +24,11 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 /** Builder class for OWLObjectComplementOf. */
 public class BuilderComplementOf extends BaseBuilder<OWLObjectComplementOf, BuilderComplementOf> {
 
-    @Nullable private OWLClassExpression c = null;
+    @Nullable
+    private OWLClassExpression c = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderComplementOf(OWLDataFactory df) {
@@ -38,10 +38,8 @@ public class BuilderComplementOf extends BaseBuilder<OWLObjectComplementOf, Buil
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderComplementOf(OWLObjectComplementOf expected, OWLDataFactory df) {
         this(df);
@@ -49,8 +47,7 @@ public class BuilderComplementOf extends BaseBuilder<OWLObjectComplementOf, Buil
     }
 
     /**
-     * @param arg
-     *        class expression
+     * @param arg class expression
      * @return builder
      */
     public BuilderComplementOf withClass(OWLClassExpression arg) {

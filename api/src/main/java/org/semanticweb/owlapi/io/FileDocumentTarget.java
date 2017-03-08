@@ -18,11 +18,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * An {@code OWLOntologyDocumentTarget} that supports writing out to a
- * {@code File}.
+ * An {@code OWLOntologyDocumentTarget} that supports writing out to a {@code File}.
  * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.0
  */
 public class FileDocumentTarget extends OWLOntologyDocumentTargetBase {
@@ -30,8 +28,7 @@ public class FileDocumentTarget extends OWLOntologyDocumentTargetBase {
     /**
      * Constructs the document target, with the target being the specified file.
      * 
-     * @param file
-     *        The file that is the target.
+     * @param file The file that is the target.
      */
     public FileDocumentTarget(File file) {
         super(() -> new FileOutputStream(checkNotNull(file, "file cannot be null")), null);

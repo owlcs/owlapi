@@ -18,22 +18,18 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * Search filter for axioms of various types, matching a pass condition on a
- * key.
+ * Search filter for axioms of various types, matching a pass condition on a key.
  */
 public interface OWLAxiomSearchFilter extends Serializable {
 
     /**
-     * @return axiom types; expected to be one, but the filter could include
-     *         multiple axiom types
+     * @return axiom types; expected to be one, but the filter could include multiple axiom types
      */
     Iterable<AxiomType<?>> getAxiomTypes();
 
     /**
-     * @param axiom
-     *        axiom to check
-     * @param key
-     *        key
+     * @param axiom axiom to check
+     * @param key key
      * @return true if passed
      */
     boolean pass(OWLAxiom axiom, Object key);

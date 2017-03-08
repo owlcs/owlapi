@@ -37,13 +37,11 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * Collects all of the nested class expression that are used in some OWLObject.
- * For example, given SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F))
- * the collector could be used to obtain ObjectUnionOf(D C), D, C,
- * ObjectSomeValuesFrom(R F), F
+ * Collects all of the nested class expression that are used in some OWLObject. For example, given
+ * SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F)) the collector could be used to obtain
+ * ObjectUnionOf(D C), D, C, ObjectSomeValuesFrom(R F), F
  * 
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
 public class OWLClassExpressionCollector extends AbstractCollectorEx<OWLClassExpression> {

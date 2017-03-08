@@ -33,16 +33,14 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final BiConsumer<OWLOntology, OBODoc> defaultBridge = (o, doc) -> bridge(o, doc);
-    private static final Consumer<OBODoc> defaultTreatDocument = (doc) -> {};
+    private static final Consumer<OBODoc> defaultTreatDocument = (doc) -> {
+    };
     private final BiConsumer<OWLOntology, OBODoc> bridge;
     private final Consumer<OBODoc> treatDocument;
 
     /**
-     * @param c
-     *        behaviour for translating from OBO to OWL
-     * @param t
-     *        any extra operations to carry out on the OBO model before
-     *        translation
+     * @param c behaviour for translating from OBO to OWL
+     * @param t any extra operations to carry out on the OBO model before translation
      */
     public OBOFormatOWLAPIParser(BiConsumer<OWLOntology, OBODoc> c, Consumer<OBODoc> t) {
         bridge = c;
@@ -50,32 +48,29 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     /**
-     * @param c
-     *        behaviour for translating from OBO to OWL
+     * @param c behaviour for translating from OBO to OWL
      */
     public OBOFormatOWLAPIParser(BiConsumer<OWLOntology, OBODoc> c) {
         this(c, defaultTreatDocument);
     }
 
     /**
-     * Default constructor: OBO document is translated and no extra operations
-     * carried out.
+     * Default constructor: OBO document is translated and no extra operations carried out.
      */
     public OBOFormatOWLAPIParser() {
         this(defaultBridge, defaultTreatDocument);
     }
 
     /**
-     * @param t
-     *        any extra operations to carry out on the OBO model before
-     *        translation
+     * @param t any extra operations to carry out on the OBO model before translation
      */
     public OBOFormatOWLAPIParser(Consumer<OBODoc> t) {
         this(defaultBridge, t);
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         OBODoc obodoc = parse(r);
         treatDocument.accept(obodoc);
         bridge.accept(o, obodoc);

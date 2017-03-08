@@ -42,8 +42,8 @@ import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioJsonLDStorerFactory extends AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+public class RioJsonLDStorerFactory extends AbstractRioStorerFactory
+                implements RioRDFStorerFactory {
 
     /** Default constructor. */
     public RioJsonLDStorerFactory() {

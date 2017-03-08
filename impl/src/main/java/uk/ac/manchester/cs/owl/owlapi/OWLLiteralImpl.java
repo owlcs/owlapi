@@ -38,11 +38,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.BufferByteArray;
 
 /**
- * Implementation of {@link OWLLiteral} that uses compression of strings. See
- * also {@link OWLLiteralImplNoCompression}
+ * Implementation of {@link OWLLiteral} that uses compression of strings. See also
+ * {@link OWLLiteralImplNoCompression}
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
@@ -53,32 +52,29 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final String language;
 
     /**
-     * @param literal
-     *        the lexical form
-     * @param lang
-     *        the language; can be null or an empty string, in which case
-     *        datatype can be any datatype but not null
-     * @param datatype
-     *        the datatype; if lang is null or the empty string, it can be null
-     *        or it MUST be RDFPlainLiteral
+     * @param literal the lexical form
+     * @param lang the language; can be null or an empty string, in which case datatype can be any
+     *        datatype but not null
+     * @param datatype the datatype; if lang is null or the empty string, it can be null or it MUST
+     *        be RDFPlainLiteral
      */
     public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
         this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
             language = "";
-            if (datatype == null || datatype.equals(InternalizedEntities.PLAIN) || datatype.equals(
-                InternalizedEntities.XSDSTRING)) {
+            if (datatype == null || datatype.equals(InternalizedEntities.PLAIN)
+                            || datatype.equals(InternalizedEntities.XSDSTRING)) {
                 this.datatype = InternalizedEntities.XSDSTRING;
             } else {
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING) || datatype.equals(
-                InternalizedEntities.PLAIN))) {
+            if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING)
+                            || datatype.equals(InternalizedEntities.PLAIN))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal or lang string
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
-                    + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: "
+                                + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = InternalizedEntities.LANGSTRING;
@@ -164,7 +160,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
+        return hash(object.hashIndex(),
+                        Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
     }
 
     private int specificHash() {
@@ -178,8 +175,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static class LiteralWrapper implements Serializable {
 
         private static final Charset COMPRESSED_ENCODING = StandardCharsets.UTF_16;
-        @Nullable String l;
-        @Nullable byte[] bytes;
+        @Nullable
+        String l;
+        @Nullable
+        byte[] bytes;
 
         LiteralWrapper(String s) {
             if (s.length() > COMPRESSION_LIMIT) {
@@ -206,8 +205,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
         static byte[] compress(String s) {
             try (BufferByteArray out = new BufferByteArray(32);
-                GZIPOutputStream zipout = new GZIPOutputStream(out);
-                Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING)) {
+                            GZIPOutputStream zipout = new GZIPOutputStream(out);
+                            Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING)) {
                 writer.write(s);
                 writer.flush();
                 zipout.finish();
@@ -220,8 +219,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
         static String decompress(byte[] result) {
             try (ByteArrayInputStream in = new ByteArrayInputStream(result);
-                GZIPInputStream zipin = new GZIPInputStream(in);
-                Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING)) {
+                            GZIPInputStream zipin = new GZIPInputStream(in);
+                            Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING)) {
                 StringBuilder b = new StringBuilder();
                 int c = reader.read();
                 while (c > -1) {

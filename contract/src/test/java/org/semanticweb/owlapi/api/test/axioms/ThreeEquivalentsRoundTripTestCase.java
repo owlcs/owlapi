@@ -38,8 +38,8 @@ public class ThreeEquivalentsRoundTripTestCase extends TestBase {
         OWLClass c = Class(IRI(ns + "#", "C"));
         OWLObjectProperty p = ObjectProperty(IRI(ns + "#", "p"));
         OWLObjectProperty q = ObjectProperty(IRI(ns + "#", "q"));
-        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#", "A")), ObjectSomeValuesFrom(p, b),
-            ObjectSomeValuesFrom(q, c));
+        OWLAxiom axiomToAdd = EquivalentClasses(Class(IRI(ns + "#", "A")),
+                        ObjectSomeValuesFrom(p, b), ObjectSomeValuesFrom(q, c));
         OWLOntology ontology = getOWLOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         // when

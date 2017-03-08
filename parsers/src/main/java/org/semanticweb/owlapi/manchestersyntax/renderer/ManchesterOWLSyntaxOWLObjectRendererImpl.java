@@ -24,11 +24,10 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /**
- * An implementation of the OWLObjectRenderer interface. (Renders standalone
- * class class expressions and axioms in the manchester syntax).
+ * An implementation of the OWLObjectRenderer interface. (Renders standalone class class expressions
+ * and axioms in the manchester syntax).
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {

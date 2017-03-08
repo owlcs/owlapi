@@ -16,8 +16,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
@@ -26,10 +25,8 @@ public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
     private final IRI profile;
 
     /**
-     * @param axiom
-     *        wrong axiom
-     * @param profile
-     *        profile
+     * @param axiom wrong axiom
+     * @param profile profile
      */
     public AxiomNotInProfileException(OWLAxiom axiom, IRI profile) {
         this.axiom = axiom;

@@ -19,8 +19,7 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public final class AxiomTypeCountMetricFactory {
@@ -30,8 +29,7 @@ public final class AxiomTypeCountMetricFactory {
     /**
      * Creates a new AxiomTypeCountMetric object.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      * @return set of metrics
      */
     public static Set<OWLMetric<?>> createMetrics(OWLOntology o) {

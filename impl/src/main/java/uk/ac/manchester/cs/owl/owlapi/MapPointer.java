@@ -47,15 +47,12 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
 /**
- * * Objects that identify contained maps - so that getting the keys of a
- * specific map does not require a specific method for each map nor does it
- * require the map to be copied and returned.
+ * * Objects that identify contained maps - so that getting the keys of a specific map does not
+ * require a specific method for each map nor does it require the map to be copied and returned.
  * 
  * @author ignazio
- * @param <K>
- *        key
- * @param <V>
- *        value
+ * @param <K> key
+ * @param <V> value
  */
 public class MapPointer<K, V extends OWLAxiom> {
 
@@ -63,26 +60,26 @@ public class MapPointer<K, V extends OWLAxiom> {
     private static final AtomicLong totalAllocated = new AtomicLong(0);
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 5;
-    @Nullable private final AxiomType<?> type;
-    @Nullable private final OWLAxiomVisitorEx<?> visitor;
+    @Nullable
+    private final AxiomType<?> type;
+    @Nullable
+    private final OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
     protected final Internals i;
-    @Nullable private SoftReference<Set<IRI>> iris;
+    @Nullable
+    private SoftReference<Set<IRI>> iris;
     private int size = 0;
     private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
     private boolean neverTrimmed = true;
 
     /**
-     * @param t
-     *        type of axioms contained
-     * @param v
-     *        visitor
-     * @param initialized
-     *        true if initialized
-     * @param i
-     *        internals containing this pointer
+     * @param t type of axioms contained
+     * @param v visitor
+     * @param initialized true if initialized
+     * @param i internals containing this pointer
      */
-    public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v, boolean initialized, Internals i) {
+    public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
+                    boolean initialized, Internals i) {
         type = t;
         visitor = v;
         this.initialized = initialized;
@@ -92,28 +89,23 @@ public class MapPointer<K, V extends OWLAxiom> {
     /**
      * This method replicates the Map.forEach on all the key/value pairs
      * 
-     * @param consumer
-     *        a consumer with two arguments
+     * @param consumer a consumer with two arguments
      */
     public void forEach(BiConsumer<K, V> consumer) {
         keySet().forEach(k -> forEach(k, v -> consumer.accept(k, v)));
     }
 
     /**
-     * @param e
-     *        entity
-     * @return true if an entity with the same iri as the input exists in the
-     *         collection
+     * @param e entity
+     * @return true if an entity with the same iri as the input exists in the collection
      */
     public synchronized boolean containsReference(OWLEntity e) {
         return map.containsKey(e);
     }
 
     /**
-     * @param e
-     *        IRI
-     * @return true if an entity with the same iri as the input exists in the
-     *         collection
+     * @param e IRI
+     * @return true if an entity with the same iri as the input exists in the collection
      */
     public synchronized boolean containsReference(IRI e) {
         Set<IRI> set = null;
@@ -151,7 +143,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * 
      * @return the map pointer
      */
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public synchronized MapPointer<K, V> init() {
         if (initialized) {
             return this;
@@ -161,11 +153,13 @@ public class MapPointer<K, V extends OWLAxiom> {
             return this;
         }
         if (visitor instanceof InitVisitor) {
-            i.getAxiomsByType().forEach(verifyNotNull(type), ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(
-                visitor)), (V) ax));
+            i.getAxiomsByType().forEach(verifyNotNull(type),
+                            ax -> putInternal(ax.accept((InitVisitor<K>) verifyNotNull(visitor)),
+                                            (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
-            i.getAxiomsByType().forEach(verifyNotNull(type), ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(
-                visitor)).forEach(key -> putInternal(key, (V) ax)));
+            i.getAxiomsByType().forEach(verifyNotNull(type),
+                            ax -> ax.accept((InitCollectionVisitor<K>) verifyNotNull(visitor))
+                                            .forEach(key -> putInternal(key, (V) ax)));
         }
         return this;
     }
@@ -186,8 +180,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return value
      */
     public synchronized Stream<V> getValues(K key) {
@@ -203,10 +196,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
-     * @param function
-     *        consumer to apply
+     * @param key key to look up
+     * @param function consumer to apply
      */
     public synchronized void forEach(K key, Consumer<V> function) {
         init();
@@ -214,10 +205,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
-     * @param function
-     *        predicate to evaluate
+     * @param key key to look up
+     * @param function predicate to evaluate
      * @return value
      */
     public synchronized boolean matchOnValues(K key, Predicate<V> function) {
@@ -226,8 +215,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return value
      */
     public synchronized Collection<V> getValuesAsCollection(K key) {
@@ -244,8 +232,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return value
      */
     public synchronized int countValues(K key) {
@@ -262,14 +249,13 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
-     * @param classType
-     *        type of the returned values
+     * @param key key to look up
+     * @param classType type of the returned values
      * @return value
      */
     @SuppressWarnings("unchecked")
-    public synchronized <O extends V> Stream<O> values(K key, @SuppressWarnings("unused") Class<O> classType) {
+    public synchronized <O extends V> Stream<O> values(K key,
+                    @SuppressWarnings("unused") Class<O> classType) {
         init();
         Collection<V> t = map.get(key);
         if (t == null) {
@@ -279,12 +265,9 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param <T>
-     *        type of key
-     * @param filter
-     *        filter to satisfy
-     * @param key
-     *        key
+     * @param <T> type of key
+     * @param filter filter to satisfy
+     * @param key key
      * @return set of values
      */
     public synchronized <T> Collection<OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, T key) {
@@ -300,8 +283,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return true if there are values for key
      */
     public synchronized boolean hasValues(K key) {
@@ -310,10 +292,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to add
-     * @param value
-     *        value to add
+     * @param key key to add
+     * @param value value to add
      * @return true if addition happens
      */
     public synchronized boolean put(K key, V value) {
@@ -326,10 +306,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
-     * @param value
-     *        value to remove
+     * @param key key to look up
+     * @param value value to remove
      * @return true if removal happens
      */
     public synchronized boolean remove(K key, V value) {
@@ -341,8 +319,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
+     * @param key key to look up
      * @return true if there are values for key
      */
     public synchronized boolean containsKey(K key) {
@@ -351,10 +328,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @param key
-     *        key to look up
-     * @param value
-     *        value to look up
+     * @param key key to look up
+     * @param value value to look up
      * @return true if key and value are contained
      */
     public synchronized boolean contains(K key, V value) {
@@ -500,7 +475,8 @@ public class MapPointer<K, V extends OWLAxiom> {
             list.add(extra);
             return list;
         }
-        return new THashSetForSet<>(collection, extra, DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
+        return new THashSetForSet<>(collection, extra, DEFAULT_INITIAL_CAPACITY,
+                        DEFAULT_LOAD_FACTOR);
     }
 
     private Stream<V> values() {
@@ -516,8 +492,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * Trims the capacity of the map entries . An application can use this
-     * operation to minimize the storage of the map pointer instance.
+     * Trims the capacity of the map entries . An application can use this operation to minimize the
+     * storage of the map pointer instance.
      */
     public synchronized void trimToSize() {
         if (initialized) {
@@ -526,7 +502,8 @@ public class MapPointer<K, V extends OWLAxiom> {
             for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
                 Collection<V> set = entry.getValue();
                 if (set instanceof ArrayList) {
-                    THashSet<V> value = new THashSetForSet<>(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
+                    THashSet<V> value = new THashSetForSet<>(DEFAULT_INITIAL_CAPACITY,
+                                    DEFAULT_LOAD_FACTOR);
                     value.addAll(set);
                     entry.setValue(value);
                     size = size - set.size() + value.size();

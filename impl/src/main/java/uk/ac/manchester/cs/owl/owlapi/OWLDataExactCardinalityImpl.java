@@ -20,28 +20,27 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
+public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl
+                implements OWLDataExactCardinality {
 
     /**
-     * @param property
-     *        property
-     * @param cardinality
-     *        cardinality
-     * @param filler
-     *        filler
+     * @param property property
+     * @param cardinality cardinality
+     * @param filler filler
      */
-    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality,
+                    OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
         return new OWLObjectIntersectionOfImpl(Stream.of(
-            new OWLDataMinCardinalityImpl(getProperty(), getCardinality(), getFiller()),
-            new OWLDataMaxCardinalityImpl(getProperty(), getCardinality(), getFiller())));
+                        new OWLDataMinCardinalityImpl(getProperty(), getCardinality(), getFiller()),
+                        new OWLDataMaxCardinalityImpl(getProperty(), getCardinality(),
+                                        getFiller())));
     }
 }

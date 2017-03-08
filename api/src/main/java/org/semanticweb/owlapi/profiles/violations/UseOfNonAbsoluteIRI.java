@@ -24,18 +24,14 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonAbsoluteIRI extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param iri
-     *        iri
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param iri iri
      */
     public UseOfNonAbsoluteIRI(OWLOntology ontology, @Nullable OWLAxiom axiom, IRI iri) {
         super(ontology, axiom, iri);

@@ -102,23 +102,23 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import com.google.common.base.Joiner;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
-    private static final List<Construct> order = Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
+    private static final List<Construct> order =
+                    Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
     /**
      * A comparator that orders DL constucts to produce a traditional DL name.
      */
-    private static final Comparator<Construct> constructComparator = Comparator.comparing(order::indexOf);
+    private static final Comparator<Construct> constructComparator =
+                    Comparator.comparing(order::indexOf);
     private final Set<Construct> constructs;
     private final List<OWLOntology> ontologies;
 
     /**
-     * @param ontologies
-     *        ontologies
+     * @param ontologies ontologies
      */
     public DLExpressivityChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = new ArrayList<>(ontologies);
@@ -239,7 +239,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         if (classExpression.isAnonymous()) {
             return false;
         }
-        return !ontologies.stream().anyMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
+        return !ontologies.stream().anyMatch(
+                        ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
     }
 
     @Override

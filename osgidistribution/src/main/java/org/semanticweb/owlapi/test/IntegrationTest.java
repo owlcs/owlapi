@@ -5,4 +5,5 @@ package org.semanticweb.owlapi.test;
  * 
  * @author ses
  */
-public interface IntegrationTest {}
+public interface IntegrationTest {
+}

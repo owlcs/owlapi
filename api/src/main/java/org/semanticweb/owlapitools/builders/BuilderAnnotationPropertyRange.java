@@ -22,14 +22,14 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotationPropertyRangeAxiom. */
-public class BuilderAnnotationPropertyRange
-    extends BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
+public class BuilderAnnotationPropertyRange extends
+                BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
 
-    @Nullable private IRI iri = null;
+    @Nullable
+    private IRI iri = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderAnnotationPropertyRange(OWLDataFactory df) {
@@ -39,19 +39,18 @@ public class BuilderAnnotationPropertyRange
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderAnnotationPropertyRange(OWLAnnotationPropertyRangeAxiom expected, OWLDataFactory df) {
+    public BuilderAnnotationPropertyRange(OWLAnnotationPropertyRangeAxiom expected,
+                    OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withRange(expected.getRange()).withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withRange(expected.getRange())
+                        .withAnnotations(expected.annotations());
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     public BuilderAnnotationPropertyRange withRange(IRI arg) {

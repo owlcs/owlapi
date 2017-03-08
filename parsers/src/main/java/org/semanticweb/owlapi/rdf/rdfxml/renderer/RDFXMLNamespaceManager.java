@@ -24,17 +24,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param format format
      */
     public RDFXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
         super(ontology, format);
@@ -42,19 +39,20 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
 
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        return asUnorderedSet(
-            Stream.of(
-                getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).flatMap(
-                    ax -> ax.getProperty().objectPropertiesInSignature()),
-                getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).map(ax -> ax.getProperty().asOWLDataProperty()),
-                getOntology().annotationPropertiesInSignature(Imports.INCLUDED)).flatMap(x -> x));
+        return asUnorderedSet(Stream.of(
+                        getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).flatMap(
+                                        ax -> ax.getProperty().objectPropertiesInSignature()),
+                        getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION)
+                                        .map(ax -> ax.getProperty().asOWLDataProperty()),
+                        getOntology().annotationPropertiesInSignature(Imports.INCLUDED))
+                        .flatMap(x -> x));
     }
 
     /**
      * @return entities with invalid qnames
      */
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
-        return asUnorderedSet(getEntitiesThatRequireNamespaces().stream().filter(e -> !e.getIRI().getRemainder()
-            .isPresent()));
+        return asUnorderedSet(getEntitiesThatRequireNamespaces().stream()
+                        .filter(e -> !e.getIRI().getRemainder().isPresent()));
     }
 }

@@ -21,22 +21,18 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
+ * @param <P> property type
  */
-public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl implements
-    OWLUnaryPropertyAxiom<P> {
+public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
+                extends OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
 
     private final P property;
 
     /**
-     * @param property
-     *        property
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param annotations annotations
      */
     public OWLUnaryPropertyAxiomImpl(P property, Collection<OWLAnnotation> annotations) {
         super(annotations);

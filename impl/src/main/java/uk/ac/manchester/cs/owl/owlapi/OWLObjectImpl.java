@@ -48,27 +48,28 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
+public abstract class OWLObjectImpl
+                implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
     /** a convenience reference for an empty annotation set, saves on typing. */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     protected int hashCode = 0;
-    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder().weakKeys()
-        .softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
-    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = Caffeine.newBuilder()
-        .weakKeys().softValues().build(key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
+    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures =
+                    Caffeine.newBuilder().weakKeys().softValues()
+                                    .build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
+    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches =
+                    Caffeine.newBuilder().weakKeys().softValues().build(
+                                    key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
     protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
 
     /**
-     * Override point to change hashing strategy if needed - only used in
-     * OWLLiteral implementations at the moment.
+     * Override point to change hashing strategy if needed - only used in OWLLiteral implementations
+     * at the moment.
      * 
-     * @param object
-     *        the object to compute the hashcode for
+     * @param object the object to compute the hashcode for
      * @return the hashcode
      */
     protected int hashCode(OWLObject object) {
@@ -76,13 +77,10 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     }
 
     /**
-     * Streams from components need a start point and the order of the
-     * components is important.
+     * Streams from components need a start point and the order of the components is important.
      * 
-     * @param start
-     *        start index
-     * @param s
-     *        stream to hash
+     * @param start start index
+     * @param s stream to hash
      * @return hash for the stream
      */
     static int hash(int start, Stream<?> s) {
@@ -133,12 +131,14 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return signature().filter(OWLEntity::isOWLObjectProperty).map(OWLEntity::asOWLObjectProperty);
+        return signature().filter(OWLEntity::isOWLObjectProperty)
+                        .map(OWLEntity::asOWLObjectProperty);
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return signature().filter(OWLEntity::isOWLNamedIndividual).map(OWLEntity::asOWLNamedIndividual);
+        return signature().filter(OWLEntity::isOWLNamedIndividual)
+                        .map(OWLEntity::asOWLNamedIndividual);
     }
 
     @Override
@@ -148,7 +148,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return signature().filter(OWLEntity::isOWLAnnotationProperty).map(OWLEntity::asOWLAnnotationProperty);
+        return signature().filter(OWLEntity::isOWLAnnotationProperty)
+                        .map(OWLEntity::asOWLAnnotationProperty);
     }
 
     @Override

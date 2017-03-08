@@ -26,17 +26,20 @@ public class StreamDocumentSourceBaseTestCase {
     @Test
     public void shouldCreateRewindableReaderWithKnownContent() {
         String input = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
-            + "<owl:Ontology/>\n"
-            + "    <owl:Class rdf:about=\"http://example.com/Person\">\n        <owl:hasKey rdf:parseType=\"Collection\">\n            <owl:ObjectProperty rdf:about=\"http://example.com/objectPoperty\"/>\n            <owl:DatatypeProperty rdf:about=\"http://example.com/dataProperty\"/>\n        </owl:hasKey>\n    </owl:Class>\n"
-            + "    <owl:ObjectProperty rdf:about=\"http://example.com/objectProperty\"/>\n" + "</rdf:RDF>";
-        StreamDocumentSourceBase source = new StreamDocumentSourceBase(new InputStreamReader(new ByteArrayInputStream(
-            input.getBytes()), StandardCharsets.UTF_8), IRI.create("urn:test#", "test"), null, null) {};
+                        + "<owl:Ontology/>\n"
+                        + "    <owl:Class rdf:about=\"http://example.com/Person\">\n        <owl:hasKey rdf:parseType=\"Collection\">\n            <owl:ObjectProperty rdf:about=\"http://example.com/objectPoperty\"/>\n            <owl:DatatypeProperty rdf:about=\"http://example.com/dataProperty\"/>\n        </owl:hasKey>\n    </owl:Class>\n"
+                        + "    <owl:ObjectProperty rdf:about=\"http://example.com/objectProperty\"/>\n"
+                        + "</rdf:RDF>";
+        StreamDocumentSourceBase source = new StreamDocumentSourceBase(
+                        new InputStreamReader(new ByteArrayInputStream(input.getBytes()),
+                                        StandardCharsets.UTF_8),
+                        IRI.create("urn:test#", "test"), null, null) {};
         StringWriter w = new StringWriter();
         OWLParser mockParser = new OWLParser() {
 
             @Override
-            public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                IRI documentIRI) {
+            public OWLDocumentFormat parse(Reader r, OWLOntology o,
+                            OWLOntologyLoaderConfiguration config, IRI documentIRI) {
                 try {
                     IOUtils.copy(r, w);
                 } catch (IOException e) {

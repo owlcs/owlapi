@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * Created by ses on 8/15/15.
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({"javadoc", "null"})
 public class OWLObjectWalkerTest extends TestBase {
 
     private OWLAnnotation world;
@@ -52,7 +52,7 @@ public class OWLObjectWalkerTest extends TestBase {
     }
 
     private static void checkWalkWithFlags(OWLOntology o, AnnotationWalkingControl walkFlag,
-        List<OWLAnnotation> expected) {
+                    List<OWLAnnotation> expected) {
         final List<OWLAnnotation> visitedAnnotations = new ArrayList<>();
         OWLObjectVisitor visitor = new OWLObjectVisitor() {
 

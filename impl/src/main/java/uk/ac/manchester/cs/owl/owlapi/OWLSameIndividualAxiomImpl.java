@@ -29,20 +29,18 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualAxiom {
+public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
+                implements OWLSameIndividualAxiom {
 
     /**
-     * @param individuals
-     *        individuals
-     * @param annotations
-     *        annotations on the axiom
+     * @param individuals individuals
+     * @param annotations annotations on the axiom
      */
     public OWLSameIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
-        Collection<OWLAnnotation> annotations) {
+                    Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 

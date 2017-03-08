@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * Annotation visitor that returns literal's lexical form, or empty string for
- * IRI and blank nodes.
+ * Annotation visitor that returns literal's lexical form, or empty string for IRI and blank nodes.
  * 
  * @since 4.0.0
  */

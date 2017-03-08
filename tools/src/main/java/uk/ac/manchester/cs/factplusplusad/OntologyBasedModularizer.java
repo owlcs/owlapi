@@ -24,10 +24,8 @@ public class OntologyBasedModularizer {
     /**
      * init c'tor
      * 
-     * @param ontology
-     *        ontology to modularise
-     * @param moduleMethod
-     *        modularisation method
+     * @param ontology ontology to modularise
+     * @param moduleMethod modularisation method
      */
     public OntologyBasedModularizer(OWLOntology ontology, ModuleMethod moduleMethod) {
         this.ontology = ontology;
@@ -38,15 +36,13 @@ public class OntologyBasedModularizer {
     /**
      * Get module.
      * 
-     * @param from
-     *        axioms to modularise
-     * @param sig
-     *        signature
-     * @param type
-     *        type of module
+     * @param from axioms to modularise
+     * @param sig signature
+     * @param type type of module
      * @return module
      */
-    Collection<AxiomWrapper> getModule(Collection<AxiomWrapper> from, Signature sig, ModuleType type) {
+    Collection<AxiomWrapper> getModule(Collection<AxiomWrapper> from, Signature sig,
+                    ModuleType type) {
         modularizer.extract(from, sig, type);
         return modularizer.getModule();
     }
@@ -54,10 +50,8 @@ public class OntologyBasedModularizer {
     /**
      * Get module.
      * 
-     * @param sig
-     *        signature
-     * @param type
-     *        type of module
+     * @param sig signature
+     * @param type type of module
      * @return module
      */
     Collection<AxiomWrapper> getModule(Signature sig, ModuleType type) {
@@ -70,14 +64,12 @@ public class OntologyBasedModularizer {
     }
 
     /**
-     * @param entities
-     *        signature
-     * @param type
-     *        modulet type
+     * @param entities signature
+     * @param type modulet type
      * @return module
      */
     public Collection<OWLAxiom> getModule(Stream<OWLEntity> entities, ModuleType type) {
-        return asList(getModule(new Signature(entities), type).stream().map(AxiomWrapper::getAxiom).filter(
-            a -> a != null));
+        return asList(getModule(new Signature(entities), type).stream().map(AxiomWrapper::getAxiom)
+                        .filter(a -> a != null));
     }
 }

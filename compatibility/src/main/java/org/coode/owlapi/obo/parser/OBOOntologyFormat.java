@@ -15,11 +15,11 @@ package org.coode.owlapi.obo.parser;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Jan-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         10-Jan-2007
  * @deprecated use {@link org.semanticweb.owlapi.formats.OBODocumentFormat}
  */
 @Deprecated
-public class OBOOntologyFormat extends
-        org.semanticweb.owlapi.formats.OBODocumentFormat implements
-        OWLOntologyFormat {}
+public class OBOOntologyFormat extends org.semanticweb.owlapi.formats.OBODocumentFormat
+                implements OWLOntologyFormat {
+}

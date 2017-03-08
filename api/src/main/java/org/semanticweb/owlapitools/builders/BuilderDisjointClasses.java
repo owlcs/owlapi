@@ -19,16 +19,14 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 
 /** Builder class for OWLDisjointClassesAxiom. */
-public class BuilderDisjointClasses
-        extends BaseSetBuilder<OWLDisjointClassesAxiom, BuilderDisjointClasses, OWLClassExpression> {
+public class BuilderDisjointClasses extends
+                BaseSetBuilder<OWLDisjointClassesAxiom, BuilderDisjointClasses, OWLClassExpression> {
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDisjointClasses(OWLDisjointClassesAxiom expected, OWLDataFactory df) {
         this(df);
@@ -36,8 +34,7 @@ public class BuilderDisjointClasses
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDisjointClasses(OWLDataFactory df) {

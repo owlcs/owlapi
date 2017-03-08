@@ -21,21 +21,18 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <A>
- *        atom type
+ * @param <A> atom type
  */
-public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
+public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl
+                implements SWRLUnaryAtom<A> {
 
     private final A arg;
 
     /**
-     * @param predicate
-     *        predicate
-     * @param arg
-     *        atom
+     * @param predicate predicate
+     * @param arg atom
      */
     public SWRLUnaryAtomImpl(SWRLPredicate predicate, A arg) {
         super(predicate);

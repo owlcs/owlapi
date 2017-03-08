@@ -25,30 +25,29 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements
-    OWLDataPropertyDomainAxiom {
+public class OWLDataPropertyDomainAxiomImpl
+                extends OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression>
+                implements OWLDataPropertyDomainAxiom {
 
     /**
-     * @param property
-     *        property
-     * @param domain
-     *        domain
-     * @param annotations
-     *        annotations
+     * @param property property
+     * @param domain domain
+     * @param annotations annotations
      */
-    public OWLDataPropertyDomainAxiomImpl(OWLDataPropertyExpression property, OWLClassExpression domain,
-        Collection<OWLAnnotation> annotations) {
+    public OWLDataPropertyDomainAxiomImpl(OWLDataPropertyExpression property,
+                    OWLClassExpression domain, Collection<OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public OWLDataPropertyDomainAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this : new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(), NO_ANNOTATIONS);
+        return !isAnnotated() ? this
+                        : new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(),
+                                        NO_ANNOTATIONS);
     }
 
     @Override
@@ -59,7 +58,8 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sub = new OWLDataSomeValuesFromImpl(getProperty(), new OWL2DatatypeImpl(RDFS_LITERAL));
+        OWLClassExpression sub = new OWLDataSomeValuesFromImpl(getProperty(),
+                        new OWL2DatatypeImpl(RDFS_LITERAL));
         return new OWLSubClassOfAxiomImpl(sub, getDomain(), NO_ANNOTATIONS);
     }
 }

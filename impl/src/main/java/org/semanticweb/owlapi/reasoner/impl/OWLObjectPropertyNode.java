@@ -21,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
@@ -33,24 +32,21 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
     }
 
     /**
-     * @param entity
-     *        property to include
+     * @param entity property to include
      */
     public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        properties to include
+     * @param entities properties to include
      */
     public OWLObjectPropertyNode(Collection<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        properties to include
+     * @param entities properties to include
      */
     public OWLObjectPropertyNode(Stream<OWLObjectPropertyExpression> entities) {
         super(entities);

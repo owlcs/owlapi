@@ -24,20 +24,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfAnonymousIndividual extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param individual
-     *        individual
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param individual individual
      */
-    public UseOfAnonymousIndividual(OWLOntology ontology, @Nullable OWLAxiom axiom, OWLAnonymousIndividual individual) {
+    public UseOfAnonymousIndividual(OWLOntology ontology, @Nullable OWLAxiom axiom,
+                    OWLAnonymousIndividual individual) {
         super(ontology, axiom, individual);
     }
 

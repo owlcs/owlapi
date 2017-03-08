@@ -28,13 +28,12 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /**
- * Tests the loading of a single ontology multiple times, using the same
- * ontologyIRI in the {@link OWLOntologyID} as that used in the actual ontology
- * that is being imported.
+ * Tests the loading of a single ontology multiple times, using the same ontologyIRI in the
+ * {@link OWLOntologyID} as that used in the actual ontology that is being imported.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class MultipleOntologyLoadsTestCase extends TestBase {
 
     private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1", "");
@@ -46,10 +45,12 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         // given
         OWLOntologyDocumentSource initialDocumentSource = getDocumentSource();
         OWLOntologyID expected = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
-        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
+        OWLOntologyID initialUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(initialDocumentSource, initialOntology);
-        OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
         try {
             getOWLOntology(secondUniqueOWLOntologyID);
@@ -65,10 +66,12 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID expected = new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
-        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
+        OWLOntologyID initialUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
-        OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
+        OWLOntologyID secondUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
         // when
         try {
             getOWLOntology(secondUniqueOWLOntologyID);
@@ -83,9 +86,11 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
+        OWLOntologyID initialUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
@@ -103,7 +108,8 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
         OWLOntology initialOntology = getAnonymousOWLOntology();
         parseOnto(documentSource, initialOntology);
@@ -120,9 +126,11 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), emptyOptional(IRI.class));
+        OWLOntologyID initialUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), emptyOptional(IRI.class));
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
@@ -139,7 +147,8 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testSingleVersionLoadChangeIRI() throws Exception {
         // given
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
-        OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
+        OWLOntologyID secondUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV2));
         // when
         OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
@@ -152,7 +161,8 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testSingleVersionLoadNoChange() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
+        OWLOntologyID initialUniqueOWLOntologyID =
+                        new OWLOntologyID(optional(CREATE0139), optional(CREATEV1));
         // when
         OWLOntology initialOntology = getOWLOntology(initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
@@ -161,11 +171,13 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI().get());
     }
 
-    private void parseOnto(OWLOntologyDocumentSource initialDocumentSource, OWLOntology initialOntology) {
+    private void parseOnto(OWLOntologyDocumentSource initialDocumentSource,
+                    OWLOntology initialOntology) {
         initialDocumentSource.acceptParser(new RDFXMLParser(), initialOntology, config);
     }
 
     private OWLOntologyDocumentSource getDocumentSource() {
-        return new StreamDocumentSource(getClass().getResourceAsStream("/owlapi/multipleOntologyLoadsTest.rdf"));
+        return new StreamDocumentSource(
+                        getClass().getResourceAsStream("/owlapi/multipleOntologyLoadsTest.rdf"));
     }
 }

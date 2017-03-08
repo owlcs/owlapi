@@ -34,7 +34,8 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     /** The renderer. */
     private final SimpleRenderer renderer = new SimpleRenderer();
     /** The writer. */
-    @Nullable private Writer printWriter;
+    @Nullable
+    private Writer printWriter;
 
     @Override
     public void startRendering(Writer writer) {

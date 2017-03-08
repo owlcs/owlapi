@@ -13,19 +13,17 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 3.0.0
- * @param <O>
- *        return type
+ * @param <O> return type
  */
-public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>, OWLLiteralVisitorExBase<O> {
+public interface OWLDataVisitorEx<O>
+                extends OWLDataEntityVisitorExBase<O>, OWLLiteralVisitorExBase<O> {
 
     /**
      * visit OWLDataComplementOf type
      * 
-     * @param node
-     *        node to visit
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(OWLDataComplementOf node) {
@@ -35,8 +33,7 @@ public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>, OWLL
     /**
      * visit OWLDataOneOf type
      * 
-     * @param node
-     *        node to visit
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(OWLDataOneOf node) {
@@ -46,8 +43,7 @@ public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>, OWLL
     /**
      * visit OWLDataIntersectionOf type
      * 
-     * @param node
-     *        node to visit
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(OWLDataIntersectionOf node) {
@@ -57,8 +53,7 @@ public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>, OWLL
     /**
      * visit OWLDataUnionOf type
      * 
-     * @param node
-     *        node to visit
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(OWLDataUnionOf node) {
@@ -68,8 +63,7 @@ public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>, OWLL
     /**
      * visit OWLDatatypeRestriction type
      * 
-     * @param node
-     *        node to visit
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(OWLDatatypeRestriction node) {
@@ -79,8 +73,7 @@ public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>, OWLL
     /**
      * visit OWLFacetRestriction type
      * 
-     * @param node
-     *        node to visit
+     * @param node node to visit
      * @return visitor value
      */
     default O visit(OWLFacetRestriction node) {

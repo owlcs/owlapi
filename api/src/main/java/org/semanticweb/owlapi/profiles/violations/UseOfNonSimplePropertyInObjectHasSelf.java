@@ -25,21 +25,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param hasSelf
-     *        hasSelf
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param hasSelf hasSelf
      */
     public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, @Nullable OWLAxiom axiom,
-        OWLObjectHasSelf hasSelf) {
+                    OWLObjectHasSelf hasSelf) {
         super(ontology, axiom, hasSelf);
     }
 
@@ -60,7 +56,7 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Use of non-simple property in %s restriction: %s", ClassExpressionType.OBJECT_HAS_SELF
-            .getName(), getExpression());
+        return toString("Use of non-simple property in %s restriction: %s",
+                        ClassExpressionType.OBJECT_HAS_SELF.getName(), getExpression());
     }
 }

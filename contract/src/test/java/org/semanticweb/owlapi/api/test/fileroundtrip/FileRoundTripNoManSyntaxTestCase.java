@@ -21,14 +21,12 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class FileRoundTripNoManSyntaxTestCase extends
-AbstractFileRoundTrippingTestCase {
+public class FileRoundTripNoManSyntaxTestCase extends AbstractFileRoundTrippingTestCase {
 
     public FileRoundTripNoManSyntaxTestCase(String f) {
         super(f);
@@ -37,10 +35,10 @@ AbstractFileRoundTrippingTestCase {
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
-        // AnonymousInverses
-        "AnonymousInverses.rdf",
-        // TestParser08
-        "TestParser08.rdf");
+                        // AnonymousInverses
+                        "AnonymousInverses.rdf",
+                        // TestParser08
+                        "TestParser08.rdf");
     }
 
     @Override

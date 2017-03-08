@@ -17,20 +17,19 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Annotation for Guice modules providing bindings for the OWLAPI. The bindings
- * can be for any interface. Modules annotated with {@link OwlapiModule} can be
- * loaded from the classpath and used to create the main injector. Every module
- * can create its bindings using a different strategy; e.g., hardcoding the
- * contributed mappings or using classpath scanning,
- * {@link java.util.ServiceLoader}, and similar strategies, to determine the
- * mappings to be used.<br>
- * Note: currently, no classpath scan algorithm is used, so modules need to be
- * loaded manually in an injector. Client code can add this functionality if
- * needed.
+ * Annotation for Guice modules providing bindings for the OWLAPI. The bindings can be for any
+ * interface. Modules annotated with {@link OwlapiModule} can be loaded from the classpath and used
+ * to create the main injector. Every module can create its bindings using a different strategy;
+ * e.g., hardcoding the contributed mappings or using classpath scanning,
+ * {@link java.util.ServiceLoader}, and similar strategies, to determine the mappings to be
+ * used.<br>
+ * Note: currently, no classpath scan algorithm is used, so modules need to be loaded manually in an
+ * injector. Client code can add this functionality if needed.
  * 
  * @author ignazio
  * @since 4.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface OwlapiModule {}
+public @interface OwlapiModule {
+}

@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -42,8 +41,9 @@ public class OntologyURITestCase extends TestBase {
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
         OWLOntology ont = m.createOntology(ontIRI);
         String s = ont.toString();
-        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount() + " Logical Axioms: "
-            + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
+        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: " + ont.getAxiomCount()
+                        + " Logical Axioms: " + ont.getLogicalAxiomCount()
+                        + "] First 20 axioms: {}";
         assertEquals(expected, s);
     }
 
@@ -84,7 +84,8 @@ public class OntologyURITestCase extends TestBase {
         IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
         OWLOntology ont = getOWLOntology(iri);
         IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
-        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
+        SetOntologyID sou = new SetOntologyID(ont,
+                        new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
         ont.applyChange(sou);
         assertFalse(m.contains(iri));
         assertTrue(m.contains(newIRI));

@@ -21,31 +21,27 @@ import org.semanticweb.owlapi.model.OWLClass;
 import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLClassNode extends DefaultNode<OWLClass> {
 
     /**
-     * @param entity
-     *        the class to be contained
+     * @param entity the class to be contained
      */
     public OWLClassNode(OWLClass entity) {
         super(entity);
     }
 
     /**
-     * @param entities
-     *        the classes to be contained
+     * @param entities the classes to be contained
      */
     public OWLClassNode(Collection<OWLClass> entities) {
         super(entities);
     }
 
     /**
-     * @param entities
-     *        the classes to be contained
+     * @param entities the classes to be contained
      */
     public OWLClassNode(Stream<OWLClass> entities) {
         super(entities);

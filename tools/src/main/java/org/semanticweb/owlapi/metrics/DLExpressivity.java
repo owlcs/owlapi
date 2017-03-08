@@ -21,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class DLExpressivity extends AbstractOWLMetric<String> {
@@ -30,8 +29,7 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     /**
      * Instantiates a new dL expressivity.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public DLExpressivity(OWLOntology o) {
         super(o);

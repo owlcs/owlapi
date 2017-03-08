@@ -29,19 +29,17 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 /**
- * Represents the type of axioms which can belong to ontologies. Axioms can be
- * retrieved from ontologies by their {@code AxiomType}. For example, see
+ * Represents the type of axioms which can belong to ontologies. Axioms can be retrieved from
+ * ontologies by their {@code AxiomType}. For example, see
  * {@link org.semanticweb.owlapi.model.OWLOntology#axioms(AxiomType)} and
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, org.semanticweb.owlapi.model.parameters.Imports)}
  * .
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <C>
- *        axiom type
+ * @param <C> axiom type
  */
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings({"unchecked"})
 public final class AxiomType<C extends OWLAxiom> implements Serializable, Comparable<AxiomType<?>> {
 
     private final String name;

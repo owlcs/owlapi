@@ -28,21 +28,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 /**
  * Indicates that a class expression in an axiom is not in the profile.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfIllegalClassExpression extends OWLProfileViolation {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param axiom
-     *        axiom
-     * @param classExpression
-     *        classExpression
+     * @param ontology ontology
+     * @param axiom axiom
+     * @param classExpression classExpression
      */
     public UseOfIllegalClassExpression(OWLOntology ontology, @Nullable OWLAxiom axiom,
-        OWLClassExpression classExpression) {
+                    OWLClassExpression classExpression) {
         super(ontology, axiom, checkNotNull(classExpression));
     }
 
@@ -63,7 +59,7 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Class expressions not allowed in profile: %s", getExpression().getClassExpressionType()
-            .getName());
+        return toString("Class expressions not allowed in profile: %s",
+                        getExpression().getClassExpressionType().getName());
     }
 }

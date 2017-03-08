@@ -31,13 +31,12 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /**
  * Represents the different types of OWL 2 Entities.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E>
- *        entity type
+ * @param <E> entity type
  */
-public class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
+public class EntityType<E extends OWLEntity>
+                implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
 
     @FunctionalInterface
     private static interface Builder<T> {
@@ -53,8 +52,9 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     /** Named individual entity.    */ public static final EntityType<OWLNamedIndividual>    NAMED_INDIVIDUAL    = new EntityType<>("NamedIndividual",     "Named individual",    "Named individuals",     OWL_NAMED_INDIVIDUAL,   (i, p) -> p.getOWLNamedIndividual(i));
     /** Datatype entity.            */ public static final EntityType<OWLDatatype>           DATATYPE            = new EntityType<>("Datatype",            "Datatype",            "Datatypes",             RDFS_DATATYPE,          (i, p) -> p.getOWLDatatype(i));
 //@formatter:on
-    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>>unmodifiableList(Arrays.asList(CLASS,
-        OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
+    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>>unmodifiableList(
+                    Arrays.asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY,
+                                    NAMED_INDIVIDUAL, DATATYPE));
     private final String name;
     private final OWLRDFVocabulary vocabulary;
     private final String printName;
@@ -62,7 +62,7 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     private final Builder<E> builder;
 
     protected EntityType(String name, String print, String pluralPrint, OWLRDFVocabulary vocabulary,
-        Builder<E> builder) {
+                    Builder<E> builder) {
         this.name = name;
         this.vocabulary = vocabulary;
         printName = print;
@@ -126,10 +126,8 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     }
 
     /**
-     * @param visitor
-     *        visitor to accept
-     * @param <T>
-     *        return type
+     * @param visitor visitor to accept
+     * @param <T> return type
      * @return visitor return value
      */
     public <T> Optional<T> accept(EntityTypeVisitorEx<T> visitor) {
@@ -139,10 +137,8 @@ public class EntityType<E extends OWLEntity> implements Serializable, HasShortFo
     /**
      * Build an entity of this type, using the factory passed in as df.
      * 
-     * @param i
-     *        iri
-     * @param df
-     *        data factory
+     * @param i iri
+     * @param df data factory
      * @return entity
      */
     public E buildEntity(IRI i, EntityProvider df) {

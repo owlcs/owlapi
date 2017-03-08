@@ -75,7 +75,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     @Override
     protected OWLOntology createOntology() {
         try {
-            return m.loadOntologyFromOntologyDocument(new StringDocumentSource(original, new OWLXMLDocumentFormat()));
+            return m.loadOntologyFromOntologyDocument(
+                            new StringDocumentSource(original, new OWLXMLDocumentFormat()));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -116,7 +117,7 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
         ontology.saveOntology(new RioTurtleDocumentFormat(), target1);
         StringDocumentTarget target2 = new StringDocumentTarget();
         ontology.saveOntology(new RioTurtleDocumentFormat(), target2);
-        assertEquals(target1.toString().replaceAll("_:genid[0-9]+", "_:genid"), target2.toString().replaceAll(
-            "_:genid[0-9]+", "_:genid"));
+        assertEquals(target1.toString().replaceAll("_:genid[0-9]+", "_:genid"),
+                        target2.toString().replaceAll("_:genid[0-9]+", "_:genid"));
     }
 }

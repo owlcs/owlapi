@@ -81,8 +81,7 @@ abstract class AbstractState {
     /**
      * Returns the reification manager for given attributes.
      * 
-     * @param atts
-     *        the attributes
+     * @param atts the attributes
      * @return the reification manager
      */
     ReificationManager getReificationManager(Attributes atts) {
@@ -98,40 +97,44 @@ abstract class AbstractState {
     /**
      * Parses the propertyAttributes production.
      * 
-     * @param subjectIRI
-     *        IRI of the resource whose properties are being parsed
-     * @param atts
-     *        attributes
-     * @param reificationManager
-     *        the reification manager
+     * @param subjectIRI IRI of the resource whose properties are being parsed
+     * @param atts attributes
+     * @param reificationManager the reification manager
      */
-    void propertyAttributes(String subjectIRI, Attributes atts, ReificationManager reificationManager) {
+    void propertyAttributes(String subjectIRI, Attributes atts,
+                    ReificationManager reificationManager) {
         int length = atts.getLength();
         for (int i = 0; i < length; i++) {
             String nsIRI = atts.getURI(i);
             String localName = atts.getLocalName(i);
             String value = atts.getValue(i);
-            if (!XMLNS.equals(nsIRI) && !XMLLANG.equals(localName) && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(
-                localName) || ATTR_NODE_ID.equals(localName) || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(
-                    localName) || ATTR_RESOURCE.equals(localName) || ATTR_PARSE_TYPE.equals(localName)
-                || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(localName) || ATTR_BAG_ID.equals(
-                    localName)))) {
+            if (!XMLNS.equals(nsIRI) && !XMLLANG.equals(localName)
+                            && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName)
+                                            || ATTR_NODE_ID.equals(localName)
+                                            || ATTR_ABOUT.equals(localName)
+                                            || ELT_TYPE.equals(localName)
+                                            || ATTR_RESOURCE.equals(localName)
+                                            || ATTR_PARSE_TYPE.equals(localName)
+                                            || ATTR_ABOUT_EACH.equals(localName)
+                                            || ATTR_ABOUT_EACH_PREFIX.equals(localName)
+                                            || ATTR_BAG_ID.equals(localName)))) {
                 String reificationID = reificationManager.getReificationID(null, parser);
-                parser.statementWithLiteralValue(subjectIRI, nsIRI + localName, value, null, reificationID);
+                parser.statementWithLiteralValue(subjectIRI, nsIRI + localName, value, null,
+                                reificationID);
             } else if (RDFNS.equals(nsIRI) && ELT_TYPE.equals(localName)) {
                 String resolvedValue = parser.resolveIRI(value);
                 String reificationID = reificationManager.getReificationID(null, parser);
-                parser.statementWithResourceValue(subjectIRI, nsIRI + localName, resolvedValue, reificationID);
+                parser.statementWithResourceValue(subjectIRI, nsIRI + localName, resolvedValue,
+                                reificationID);
             }
         }
     }
 
     /**
-     * Extracts the IRI of the resource from rdf:resource or rdf:nodeID
-     * attribute. If no attribute is found, {@code null} is returned.
+     * Extracts the IRI of the resource from rdf:resource or rdf:nodeID attribute. If no attribute
+     * is found, {@code null} is returned.
      * 
-     * @param atts
-     *        the attributes
+     * @param atts the attributes
      * @return the IRI of the resource or {@code null}
      */
     @Nullable
@@ -150,12 +153,9 @@ abstract class AbstractState {
     /**
      * Checks whether given characters contain only whitespace.
      * 
-     * @param data
-     *        the data being checked
-     * @param start
-     *        the start index (inclusive)
-     * @param length
-     *        the end index (non-inclusive)
+     * @param data the data being checked
+     * @param start the start index (inclusive)
+     * @param length the end index (non-inclusive)
      * @return {@code true} if characters contain whitespace
      */
     boolean notBlank(char[] data, int start, int length) {
@@ -169,10 +169,8 @@ abstract class AbstractState {
     }
 
     /**
-     * @param c
-     *        character to test
-     * @return true if the character is other than a space, carriage return, or
-     *         tabulator
+     * @param c character to test
+     * @return true if the character is other than a space, carriage return, or tabulator
      */
     boolean notSpace(char c) {
         return c != ' ' && c != '\n' && c != '\r' && c != '\t';
@@ -181,8 +179,7 @@ abstract class AbstractState {
     /**
      * Checks whether given characters contain only whitespace.
      * 
-     * @param buffer
-     *        the data being checked
+     * @param buffer the data being checked
      * @return {@code true} if characters contain whitespace
      */
     boolean notBlank(StringBuilder buffer) {
@@ -194,6 +191,7 @@ abstract class AbstractState {
         return false;
     }
 }
+
 
 /** State expecting start of RDF text. */
 class StartRDF extends AbstractState implements State {
@@ -208,7 +206,7 @@ class StartRDF extends AbstractState implements State {
         String value = atts.getValue(XMLNS, "base");
         if (value == null) {
             LOGGER.info("Notice: root element does not have an xml:base. Relative IRIs will be resolved against {}",
-                parser.getBaseIRI());
+                            parser.getBaseIRI());
         }
         // the logical IRI is the current IRI that we have as the base IRI
         // at this point
@@ -227,11 +225,13 @@ class StartRDF extends AbstractState implements State {
     }
 }
 
+
 /** Parses emptyPropertyElt production. */
 class EmptyPropertyElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    @Nullable protected String pIRI;
+    @Nullable
+    protected String pIRI;
 
     EmptyPropertyElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -252,7 +252,8 @@ class EmptyPropertyElement extends AbstractState implements State {
         if (objectIRI == null) {
             objectIRI = NodeID.nextAnonymousIRI();
         }
-        parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), objectIRI, reificationID);
+        parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), objectIRI,
+                        reificationID);
         propertyAttributes(objectIRI, atts, getReificationManager(atts));
     }
 
@@ -267,11 +268,14 @@ class EmptyPropertyElement extends AbstractState implements State {
     }
 }
 
+
 /** Parses the nodeElement production. */
 class NodeElement extends AbstractState implements State {
 
-    @Nullable protected String subjectIRI;
-    @Nullable protected ReificationManager reificationManager;
+    @Nullable
+    protected String subjectIRI;
+    @Nullable
+    protected ReificationManager reificationManager;
     protected final AtomicLong nextLi = new AtomicLong(1);
 
     NodeElement(RDFParser parser) {
@@ -288,8 +292,7 @@ class NodeElement extends AbstractState implements State {
     }
 
     /**
-     * @param atts
-     *        the atts
+     * @param atts the atts
      * @return reification id
      */
     @Nullable
@@ -309,8 +312,7 @@ class NodeElement extends AbstractState implements State {
     }
 
     /**
-     * @param uri
-     *        the uri
+     * @param uri the uri
      * @return property iri
      */
     String getPropertyIRI(String uri) {
@@ -326,22 +328,22 @@ class NodeElement extends AbstractState implements State {
         boolean isRDFNS = RDFNS.equals(namespaceIRI);
         reificationManager = getReificationManager(atts);
         if (!isRDFNS || !ELT_DESCRIPTION.equals(localName)) {
-            parser.statementWithResourceValue(subjectIRI(), RDF_TYPE, namespaceIRI + localName, verifyNotNull(
-                reificationManager).getReificationID(null, parser));
+            parser.statementWithResourceValue(subjectIRI(), RDF_TYPE, namespaceIRI + localName,
+                            verifyNotNull(reificationManager).getReificationID(null, parser));
         }
         // Checks if attribute list contains some of the unsupported attributes.
         parser.verify(atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1, ABOUT_EACH_UNSUPPORTED);
-        parser.verify(atts.getIndex(RDFNS, ATTR_ABOUT_EACH_PREFIX) != -1, ABOUT_EACH_PREFIX_UNSUPPORTED);
+        parser.verify(atts.getIndex(RDFNS, ATTR_ABOUT_EACH_PREFIX) != -1,
+                        ABOUT_EACH_PREFIX_UNSUPPORTED);
         propertyAttributes(subjectIRI(), atts, verifyNotNull(reificationManager));
         parser.pushState(new PropertyElementList(this, parser));
     }
 
     /**
-     * Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
-     * attribute. If no attribute is found, an IRI is generated.
+     * Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about attribute. If no
+     * attribute is found, an IRI is generated.
      * 
-     * @param atts
-     *        atts
+     * @param atts atts
      * @return string for IRI
      */
     String getIDNodeIDAboutResourceIRI(Attributes atts) {
@@ -393,6 +395,7 @@ class NodeElement extends AbstractState implements State {
     }
 }
 
+
 /** Parses the nodeElementList production. */
 class NodeElementList extends AbstractState implements State {
 
@@ -401,13 +404,15 @@ class NodeElementList extends AbstractState implements State {
     }
 
     @Override
-    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts)
+                    throws SAXException {
         parser.pushState(new NodeElement(parser));
         verifyNotNull(parser.state).startElement(namespaceIRI, localName, qName, atts);
     }
 
     @Override
-    public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+    public void endElement(String namespaceIRI, String localName, String qName)
+                    throws SAXException {
         parser.popState();
         verifyNotNull(parser.state).endElement(namespaceIRI, localName, qName);
     }
@@ -418,13 +423,17 @@ class NodeElementList extends AbstractState implements State {
     }
 }
 
+
 /** Parses parseTypeCollectionPropertyElt production. */
 class ParseTypeCollectionElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    @Nullable protected String pIRI;
-    @Nullable protected String reificationID;
-    @Nullable protected String lastCellIRI;
+    @Nullable
+    protected String pIRI;
+    @Nullable
+    protected String reificationID;
+    @Nullable
+    protected String lastCellIRI;
 
     ParseTypeCollectionElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -440,7 +449,8 @@ class ParseTypeCollectionElement extends AbstractState implements State {
     }
 
     @Override
-    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts)
+                    throws SAXException {
         if (pIRI == null) {
             pIRI = nodeElement.getPropertyIRI(namespaceIRI + localName);
             reificationID = nodeElement.getReificationID(atts);
@@ -450,8 +460,8 @@ class ParseTypeCollectionElement extends AbstractState implements State {
             verifyNotNull(parser.state).startElement(namespaceIRI, localName, qName, atts);
             String newListCellIRI = listCell(collectionNode.subjectIRI());
             if (lastCellIRI == null) {
-                parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), newListCellIRI,
-                    reificationID);
+                parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(),
+                                newListCellIRI, reificationID);
             } else {
                 parser.statementWithResourceValue(lastCell(), RDF_REST, newListCellIRI, null);
             }
@@ -469,7 +479,8 @@ class ParseTypeCollectionElement extends AbstractState implements State {
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (lastCellIRI == null) {
-            parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), RDF_NIL, reificationID);
+            parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), RDF_NIL,
+                            reificationID);
         } else {
             parser.statementWithResourceValue(lastCell(), RDF_REST, RDF_NIL, null);
         }
@@ -482,18 +493,24 @@ class ParseTypeCollectionElement extends AbstractState implements State {
     }
 }
 
+
 /**
- * Parses resourcePropertyElt or literalPropertyElt productions. m_text is
- * {@code null} when startElement is expected on the actual property element.
+ * Parses resourcePropertyElt or literalPropertyElt productions. m_text is {@code null} when
+ * startElement is expected on the actual property element.
  */
 class ResourceOrLiteralElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    @Nullable protected String propertyIRI;
-    @Nullable protected String reificationID;
-    @Nullable protected String datatype;
-    @Nullable protected StringBuilder text;
-    @Nullable protected NodeElement innerNode;
+    @Nullable
+    protected String propertyIRI;
+    @Nullable
+    protected String reificationID;
+    @Nullable
+    protected String datatype;
+    @Nullable
+    protected StringBuilder text;
+    @Nullable
+    protected NodeElement innerNode;
 
     ResourceOrLiteralElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -505,7 +522,8 @@ class ResourceOrLiteralElement extends AbstractState implements State {
     }
 
     @Override
-    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts)
+                    throws SAXException {
         if (text == null) {
             // this is the invocation on the outer element
             propertyIRI = nodeElement.getPropertyIRI(namespaceIRI + localName);
@@ -524,11 +542,11 @@ class ResourceOrLiteralElement extends AbstractState implements State {
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (innerNode != null) {
-            parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), verifyNotNull(innerNode)
-                .subjectIRI(), reificationID);
+            parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(),
+                            verifyNotNull(innerNode).subjectIRI(), reificationID);
         } else {
-            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), verifyNotNull(text).toString(),
-                datatype, reificationID);
+            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(),
+                            verifyNotNull(text).toString(), datatype, reificationID);
         }
         parser.popState();
     }
@@ -543,12 +561,15 @@ class ResourceOrLiteralElement extends AbstractState implements State {
     }
 }
 
+
 /** Parses parseTypeLiteralPropertyElt production. */
 class ParseTypeLiteralElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    @Nullable protected String pIRI;
-    @Nullable protected String reificationID;
+    @Nullable
+    protected String pIRI;
+    @Nullable
+    protected String reificationID;
     protected int depth;
     protected final StringBuilder m_content = new StringBuilder();
     // avoid multiple redeclarations of namespace abbreviations in XML Literals
@@ -575,8 +596,8 @@ class ParseTypeLiteralElement extends AbstractState implements State {
             // ensure namespace declarations are added at the root, and only if
             // not already added in a parent node
             if (!localName.equals(qName) && declaredNamespaces.add(namespaceIRI)) {
-                m_content.append(" xmlns:").append(qName.substring(0, qName.indexOf(':'))).append("=\"").append(
-                    namespaceIRI).append('"');
+                m_content.append(" xmlns:").append(qName.substring(0, qName.indexOf(':')))
+                                .append("=\"").append(namespaceIRI).append('"');
             }
             int length = atts.getLength();
             for (int i = 0; i < length; i++) {
@@ -595,8 +616,8 @@ class ParseTypeLiteralElement extends AbstractState implements State {
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (depth == 1) {
             String content = verifyNotNull(m_content.toString());
-            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), content, RDF_XMLLITERAL,
-                reificationID);
+            parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), content,
+                            RDF_XMLLITERAL, reificationID);
             parser.popState();
         } else {
             m_content.append("</");
@@ -612,12 +633,15 @@ class ParseTypeLiteralElement extends AbstractState implements State {
     }
 }
 
+
 /** Parses parseTypeResourcePropertyElt production. */
 class ParseTypeResourceElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
-    @Nullable protected String mpIRI;
-    @Nullable protected String reificationID;
+    @Nullable
+    protected String mpIRI;
+    @Nullable
+    protected String reificationID;
 
     ParseTypeResourceElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -630,8 +654,8 @@ class ParseTypeResourceElement extends AbstractState implements State {
         reificationID = nodeElement.getReificationID(atts);
         NodeElement anonymousNodeElement = new NodeElement(parser);
         anonymousNodeElement.startDummyElement(atts);
-        parser.statementWithResourceValue(nodeElement.subjectIRI(), verifyNotNull(mpIRI), anonymousNodeElement
-            .subjectIRI(), reificationID);
+        parser.statementWithResourceValue(nodeElement.subjectIRI(), verifyNotNull(mpIRI),
+                        anonymousNodeElement.subjectIRI(), reificationID);
         parser.pushState(new PropertyElementList(anonymousNodeElement, parser));
     }
 
@@ -646,9 +670,10 @@ class ParseTypeResourceElement extends AbstractState implements State {
     }
 }
 
+
 /**
- * Parses the propertyEltList production. The contents of the startElement
- * method implements also the propertyElt production.
+ * Parses the propertyEltList production. The contents of the startElement method implements also
+ * the propertyElt production.
  */
 class PropertyElementList extends AbstractState implements State {
 
@@ -660,11 +685,13 @@ class PropertyElementList extends AbstractState implements State {
     }
 
     @Override
-    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String namespaceIRI, String localName, String qName, Attributes atts)
+                    throws SAXException {
         String parseType = atts.getValue(RDFNS, ATTR_PARSE_TYPE);
         // allow for xml literals with specified dataype instead of just
         // parseType=Literal
-        if (PARSE_TYPE_LITERAL.equals(parseType) || RDF_XMLLITERAL.equals(atts.getValue(RDFNS, ATTR_DATATYPE))) {
+        if (PARSE_TYPE_LITERAL.equals(parseType)
+                        || RDF_XMLLITERAL.equals(atts.getValue(RDFNS, ATTR_DATATYPE))) {
             parser.pushState(new ParseTypeLiteralElement(node, parser));
         } else if (PARSE_TYPE_RESOURCE.equals(parseType)) {
             parser.pushState(new ParseTypeResourceElement(node, parser));
@@ -684,7 +711,8 @@ class PropertyElementList extends AbstractState implements State {
     }
 
     @Override
-    public void endElement(String namespaceIRI, String localName, String qName) throws SAXException {
+    public void endElement(String namespaceIRI, String localName, String qName)
+                    throws SAXException {
         parser.popState();
         verifyNotNull(parser.state).endElement(namespaceIRI, localName, qName);
     }
@@ -694,6 +722,7 @@ class PropertyElementList extends AbstractState implements State {
         parser.verify(notBlank(data, start, length), OP_EXPECTED);
     }
 }
+
 
 class ReificationManager {
 
@@ -705,6 +734,7 @@ class ReificationManager {
         return reificationID;
     }
 }
+
 
 class ReifiedStatementBag extends ReificationManager {
 
@@ -725,7 +755,8 @@ class ReifiedStatementBag extends ReificationManager {
         } else {
             resultIRI = reificationID;
         }
-        parser.statementWithResourceValue(iri, RDFNS + '_' + elements.getAndIncrement(), resultIRI, null);
+        parser.statementWithResourceValue(iri, RDFNS + '_' + elements.getAndIncrement(), resultIRI,
+                        null);
         return resultIRI;
     }
 }

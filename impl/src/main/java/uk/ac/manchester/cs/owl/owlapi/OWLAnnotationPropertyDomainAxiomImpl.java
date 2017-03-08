@@ -24,25 +24,22 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
+public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
+                implements OWLAnnotationPropertyDomainAxiom {
 
     private final OWLAnnotationProperty property;
     private final IRI domain;
 
     /**
-     * @param property
-     *        property
-     * @param domain
-     *        domain
-     * @param annotations
-     *        annotations on the axiom
+     * @param property property
+     * @param domain domain
+     * @param annotations annotations on the axiom
      */
     public OWLAnnotationPropertyDomainAxiomImpl(OWLAnnotationProperty property, IRI domain,
-        Collection<OWLAnnotation> annotations) {
+                    Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
@@ -52,13 +49,15 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
     @SuppressWarnings("unchecked")
     public OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-            : new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), NO_ANNOTATIONS);
+                        : new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(),
+                                        NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
+        return (T) new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(),
+                        mergeAnnos(anns));
     }
 
     @Override

@@ -6,20 +6,18 @@ public interface AsOWLDatatype {
     /**
      * A convenience method that determines if this entity is an OWLDatatype.
      * 
-     * @return {@code true} if this entity is an OWLDatatype, otherwise
-     *         {@code false}
+     * @return {@code true} if this entity is an OWLDatatype, otherwise {@code false}
      */
     default boolean isOWLDatatype() {
         return false;
     }
 
     /**
-     * A convenience method that obtains this entity as an OWLDatatype (in order
-     * to avoid explicit casting).
+     * A convenience method that obtains this entity as an OWLDatatype (in order to avoid explicit
+     * casting).
      * 
      * @return The entity as an OWLDatatype.
-     * @throws OWLRuntimeException
-     *         if this entity is not an OWLDatatype (check with the
+     * @throws OWLRuntimeException if this entity is not an OWLDatatype (check with the
      *         isOWLDatatype method first).
      */
     default OWLDatatype asOWLDatatype() {

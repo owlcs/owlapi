@@ -27,8 +27,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * Determine how many instances can an expression have. All methods return
- * maximal n such that expr\in C^{>= n}, n >= 1
+ * Determine how many instances can an expression have. All methods return maximal n such that
+ * expr\in C^{>= n}, n >= 1
  */
 class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
@@ -37,23 +37,23 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getNoneValue() {
+    int getNoneValue() {
         return 0;
     }
 
     @Override
-        int getAllValue() {
+    int getAllValue() {
         return -1;
     }
 
     @Override
-        int getOneNoneLower(boolean v) {
+    int getOneNoneLower(boolean v) {
         return v ? 1 : getNoneValue();
     }
 
     // TODO: checks only C top-locality, not R
     @Override
-        int getEntityValue(OWLEntity entity) {
+    int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
             if (OWLRDFVocabulary.OWL_THING.getIRI().equals(entity.getIRI())) {
                 return 1;
@@ -68,12 +68,12 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     /** helper for All */
     @Override
-        int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
+    int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
         return getOneNoneLower(isBotEquivalent(r) || isUpperLE(getUpperBoundComplement(c), 0));
     }
 
     @Override
-        int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m == 0 or...
         if (m == 0) {
             return anyLowerValue();
@@ -87,7 +87,7 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \bot or...
         if (isBotEquivalent(r)) {
             return 1;
@@ -97,7 +97,7 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
     }
 
     @Override
-        int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
+    int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         int min = getMinValue(m, r, c), max = getMaxValue(m, r, c);
         // we need to take the lowest value
         if (min == noLowerValue() || max == noLowerValue()) {

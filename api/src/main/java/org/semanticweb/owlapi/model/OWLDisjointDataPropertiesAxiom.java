@@ -15,16 +15,14 @@ package org.semanticweb.owlapi.model;
 import java.util.Collection;
 
 /**
- * Represents a
- * <a href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Data_Properties" >
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Data_Properties" >
  * DisjointDataProperties</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDisjointDataPropertiesAxiom extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>,
-    OWLDataPropertyAxiom {
+public interface OWLDisjointDataPropertiesAxiom
+                extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
     @SuppressWarnings("unchecked")

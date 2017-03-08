@@ -23,18 +23,16 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl implements
-    OWLNaryBooleanClassExpression {
+public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
+                implements OWLNaryBooleanClassExpression {
 
     private final List<OWLClassExpression> operands;
 
     /**
-     * @param operands
-     *        operands
+     * @param operands operands
      */
     public OWLNaryBooleanClassExpressionImpl(Stream<OWLClassExpression> operands) {
         checkNotNull(operands, "operands cannot be null");

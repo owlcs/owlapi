@@ -26,28 +26,25 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is
- * regarded to be a "hidden" GCI if it is essentially introduce via an
- * equivalent class axiom and a subclass axioms where the LHS of the subclass
- * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
- * in a "hidden" GCI.
+ * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is regarded to be a
+ * "hidden" GCI if it is essentially introduce via an equivalent class axiom and a subclass axioms
+ * where the LHS of the subclass axiom is nameed. For example, A equivalentTo p some C, A subClassOf
+ * B results in a "hidden" GCI.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
 public class HiddenGCICount extends IntegerValuedMetric {
 
     Predicate<OWLAxiom> equivalentOrSubclass = ax -> ax instanceof OWLEquivalentClassesAxiom
-        || ax instanceof OWLSubClassOfAxiom;
+                    || ax instanceof OWLSubClassOfAxiom;
     Predicate<OWLClass> hasEquivalent = c -> getEquivalentClasses(c, getOntologies()).count() > 0;
     Predicate<OWLClass> isSubclass = c -> getSubClasses(c, getOntologies()).count() > 0;
 
     /**
      * Instantiates a new hidden gci count.
      * 
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public HiddenGCICount(OWLOntology o) {
         super(o);
@@ -55,14 +52,14 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return changes.stream().filter(OWLOntologyChange::isAxiomChange).map(OWLOntologyChange::getAxiom)
-            .anyMatch(equivalentOrSubclass);
+        return changes.stream().filter(OWLOntologyChange::isAxiomChange)
+                        .map(OWLOntologyChange::getAxiom).anyMatch(equivalentOrSubclass);
     }
 
     @Override
     protected Integer recomputeMetric() {
-        return Integer.valueOf((int) getOntologies().flatMap(OWLOntology::classesInSignature).distinct()
-            .filter(hasEquivalent).filter(isSubclass).count());
+        return Integer.valueOf((int) getOntologies().flatMap(OWLOntology::classesInSignature)
+                        .distinct().filter(hasEquivalent).filter(isSubclass).count());
     }
 
     @Override

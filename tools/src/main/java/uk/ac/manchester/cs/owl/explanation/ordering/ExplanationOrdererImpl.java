@@ -78,11 +78,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * Provides ordering and indenting of explanations based on various ordering
- * heuristics.
+ * Provides ordering and indenting of explanations based on various ordering heuristics.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
@@ -104,7 +102,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             return diff;
         }
         if (ax1 instanceof OWLSubClassOfAxiom && ax2 instanceof OWLSubClassOfAxiom) {
-            return ((OWLSubClassOfAxiom) ax1).getSuperClass().compareTo(((OWLSubClassOfAxiom) ax2).getSuperClass());
+            return ((OWLSubClassOfAxiom) ax1).getSuperClass()
+                            .compareTo(((OWLSubClassOfAxiom) ax2).getSuperClass());
         }
         return 1;
     };
@@ -126,7 +125,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
     private final SeedExtractor seedExtractor = new SeedExtractor();
     private final OWLOntologyManager man;
-    @Nullable private OWLOntology ont;
+    @Nullable
+    private OWLOntology ont;
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
     private final Set<OWLAxiom> consumedAxioms = createLinkedSet();
     private final Set<AxiomType<?>> passTypes = createLinkedSet();
@@ -134,8 +134,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /**
      * Instantiates a new explanation orderer impl.
      * 
-     * @param m
-     *        the manager to use
+     * @param m the manager to use
      */
     public ExplanationOrdererImpl(OWLOntologyManager m) {
         currentExplanation = Collections.emptySet();
@@ -182,8 +181,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /**
      * Gets the target axioms.
      * 
-     * @param target
-     *        the current target
+     * @param target the current target
      * @return the target axioms
      */
     private Set<OWLAxiom> getTargetAxioms(OWLEntity target) {
@@ -257,8 +255,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             if (ont != null) {
                 man.removeOntology(verifyNotNull(getOntology()));
             }
-            ont = man.createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART
-                .incrementAndGet()));
+            ont = man.createOntology(IRI.create("http://www.semanticweb.org/",
+                            "ontology" + RANDOMSTART.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
                 changes.add(new AddAxiom(getOntology(), ax));
@@ -271,21 +269,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /**
-     * A utility method that obtains a set of axioms that are indexed by some
-     * object.
+     * A utility method that obtains a set of axioms that are indexed by some object.
      * 
-     * @param <K>
-     *        the key type
-     * @param <E>
-     *        the element type
-     * @param obj
-     *        The object that indexed the axioms
-     * @param map
-     *        The map that provides the index structure
-     * @param addIfEmpty
-     *        A flag that indicates whether an empty set of axiom should be
-     *        added to the index if there is not value present for the indexing
-     *        object.
+     * @param <K> the key type
+     * @param <E> the element type
+     * @param obj The object that indexed the axioms
+     * @param map The map that provides the index structure
+     * @param addIfEmpty A flag that indicates whether an empty set of axiom should be added to the
+     *        index if there is not value present for the indexing object.
      * @return A set of axioms (may be empty)
      */
     private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
@@ -302,10 +293,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /**
      * Gets axioms that have a LHS corresponding to the specified entity.
      * 
-     * @param lhs
-     *        The entity that occurs on the left hand side of the axiom.
-     * @return A set of axioms that have the specified entity as their left hand
-     *         side.
+     * @param lhs The entity that occurs on the left hand side of the axiom.
+     * @return A set of axioms that have the specified entity as their left hand side.
      */
     protected Set<OWLAxiom> getAxiomsForLHS(OWLEntity lhs) {
         return getIndexedSet(lhs, lhs2AxiomMap, true);
@@ -314,8 +303,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /**
      * Gets the rHS entities.
      * 
-     * @param axiom
-     *        the axiom
+     * @param axiom the axiom
      * @return the rHS entities
      */
     private Collection<OWLEntity> getRHSEntities(OWLAxiom axiom) {
@@ -325,10 +313,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /**
      * Index axioms by rhs entities.
      * 
-     * @param rhs
-     *        the rhs
-     * @param axiom
-     *        the axiom
+     * @param rhs the rhs
+     * @param axiom the axiom
      */
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {
         add(getIndexedSet(axiom, entitiesByAxiomRHS, true), rhs.signature());
@@ -345,14 +331,15 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The Class SeedExtractor. */
     private static class SeedExtractor implements OWLAxiomVisitor {
 
-        @Nullable private OWLEntity source;
-        @Nullable private OWLEntity target;
+        @Nullable
+        private OWLEntity source;
+        @Nullable
+        private OWLEntity target;
 
         SeedExtractor() {}
 
         /**
-         * @param axiom
-         *        the axiom
+         * @param axiom the axiom
          * @return the source
          */
         @Nullable
@@ -362,8 +349,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
 
         /**
-         * @param axiom
-         *        the axiom
+         * @param axiom the axiom
          * @return the target
          */
         public OWLEntity getTarget(OWLAxiom axiom) {

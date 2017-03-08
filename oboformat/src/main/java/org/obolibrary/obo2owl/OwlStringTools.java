@@ -25,22 +25,20 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
- * Tools to read and write a set of owl axioms to/from a string. Used to
- * preserve untranslatable axioms in an owl2obo conversion.
+ * Tools to read and write a set of owl axioms to/from a string. Used to preserve untranslatable
+ * axioms in an owl2obo conversion.
  */
 public class OwlStringTools {
 
     private OwlStringTools() {}
 
     /**
-     * Exception indicating an un-recoverable error during the handling of axiom
-     * strings.
+     * Exception indicating an un-recoverable error during the handling of axiom strings.
      */
     public static class OwlStringException extends OWLRuntimeException {
 
         /**
-         * @param cause
-         *        cause
+         * @param cause cause
          */
         protected OwlStringException(Throwable cause) {
             super(cause);
@@ -48,17 +46,16 @@ public class OwlStringTools {
     }
 
     /**
-     * Create a string for the given set of axioms. Return null for empty sets
-     * or if the set is null.
+     * Create a string for the given set of axioms. Return null for empty sets or if the set is
+     * null.
      * 
-     * @param axioms
-     *        axioms
-     * @param translationManager
-     *        translationManager
+     * @param axioms axioms
+     * @param translationManager translationManager
      * @return string or null
      * @see #translate(String, OWLOntologyManager)
      */
-    public static String translate(Collection<OWLAxiom> axioms, OWLOntologyManager translationManager) {
+    public static String translate(Collection<OWLAxiom> axioms,
+                    OWLOntologyManager translationManager) {
         if (axioms.isEmpty()) {
             return "";
         }
@@ -77,26 +74,25 @@ public class OwlStringTools {
     }
 
     /**
-     * Parse the axioms from the given axiom string. Returns null for empty and
-     * null strings.
+     * Parse the axioms from the given axiom string. Returns null for empty and null strings.
      * 
-     * @param axioms
-     *        axioms
-     * @param translationManager
-     *        translationManager
+     * @param axioms axioms
+     * @param translationManager translationManager
      * @return set of axioms or null
      * @see #translate(Collection,OWLOntologyManager)
      */
-    public static Collection<OWLAxiom> translate(@Nullable String axioms, OWLOntologyManager translationManager) {
+    public static Collection<OWLAxiom> translate(@Nullable String axioms,
+                    OWLOntologyManager translationManager) {
         if (axioms == null || axioms.isEmpty()) {
             return Collections.emptySet();
         }
         try {
             OWLFunctionalSyntaxOWLParser p = new OWLFunctionalSyntaxOWLParser();
-            OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms,
-                new FunctionalSyntaxDocumentFormat());
+            OWLOntologyDocumentSource documentSource =
+                            new StringDocumentSource(axioms, new FunctionalSyntaxDocumentFormat());
             OWLOntology ontology = translationManager.createOntology();
-            documentSource.acceptParser(p, ontology, translationManager.getOntologyLoaderConfiguration());
+            documentSource.acceptParser(p, ontology,
+                            translationManager.getOntologyLoaderConfiguration());
             return asList(ontology.axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException | OWLParserException e) {
             throw new OWLRuntimeException(e);

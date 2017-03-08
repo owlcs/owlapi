@@ -19,17 +19,17 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLDataRange> implements
-    OWLDataCardinalityRestriction {
+public abstract class OWLDataCardinalityRestrictionImpl
+                extends OWLCardinalityRestrictionImpl<OWLDataRange>
+                implements OWLDataCardinalityRestriction {
 
     private final OWLDataPropertyExpression property;
 
     protected OWLDataCardinalityRestrictionImpl(OWLDataPropertyExpression property, int cardinality,
-        OWLDataRange filler) {
+                    OWLDataRange filler) {
         super(cardinality, filler);
         this.property = checkNotNull(property, "property cannot be null");
     }

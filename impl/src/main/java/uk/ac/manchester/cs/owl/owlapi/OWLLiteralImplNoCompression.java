@@ -22,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
@@ -33,14 +32,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     private final String language;
 
     /**
-     * @param literal
-     *        actual literal form
-     * @param lang
-     *        language for literal, can be null
-     * @param datatype
-     *        datatype for literal
+     * @param literal actual literal form
+     * @param lang language for literal, can be null
+     * @param datatype datatype for literal
      */
-    public OWLLiteralImplNoCompression(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
+    public OWLLiteralImplNoCompression(String literal, @Nullable String lang,
+                    @Nullable OWLDatatype datatype) {
         this.literal = literal;
         if (lang == null || lang.isEmpty()) {
             language = "";
@@ -50,12 +47,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING) || datatype.equals(
-                InternalizedEntities.PLAIN))) {
+            if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING)
+                            || datatype.equals(InternalizedEntities.PLAIN))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
-                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
-                    + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: "
+                                + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = InternalizedEntities.LANGSTRING;
@@ -143,7 +140,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     protected int hashCode(OWLObject object) {
-        return hash(object.hashIndex(), Stream.of(getDatatype(), Integer.valueOf(specificHash() * 65536), getLang()));
+        return hash(object.hashIndex(), Stream.of(getDatatype(),
+                        Integer.valueOf(specificHash() * 65536), getLang()));
     }
 
     private int specificHash() {

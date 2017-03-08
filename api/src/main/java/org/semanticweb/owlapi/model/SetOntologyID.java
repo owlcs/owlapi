@@ -21,8 +21,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class SetOntologyID extends OWLOntologyChange {
@@ -31,13 +30,10 @@ public class SetOntologyID extends OWLOntologyChange {
     private final OWLOntologyID newOntologyID;
 
     /**
-     * Creates a set ontology id change, which will set the ontology id to the
-     * new one.
+     * Creates a set ontology id change, which will set the ontology id to the new one.
      * 
-     * @param ont
-     *        The ontology whose id is to be changed
-     * @param ontologyID
-     *        The ontology ID
+     * @param ont The ontology whose id is to be changed
+     * @param ontologyID The ontology ID
      */
     public SetOntologyID(OWLOntology ont, OWLOntologyID ontologyID) {
         super(ont);
@@ -52,13 +48,11 @@ public class SetOntologyID extends OWLOntologyChange {
     }
 
     /**
-     * Creates a set ontology id change using the ontologyIRI, which will set
-     * the ontology id to the new one.
+     * Creates a set ontology id change using the ontologyIRI, which will set the ontology id to the
+     * new one.
      * 
-     * @param ont
-     *        The ontology whose id is to be changed
-     * @param ontologyIRI
-     *        The ontology iri
+     * @param ont The ontology whose id is to be changed
+     * @param ontologyIRI The ontology iri
      */
     public SetOntologyID(OWLOntology ont, IRI ontologyIRI) {
         this(ont, new OWLOntologyID(optional(ontologyIRI), emptyOptional(IRI.class)));
@@ -79,8 +73,7 @@ public class SetOntologyID extends OWLOntologyChange {
     }
 
     /**
-     * @return the new URI - i.e. the URI of the ontology after the change was
-     *         applied.
+     * @return the new URI - i.e. the URI of the ontology after the change was applied.
      */
     public OWLOntologyID getNewOntologyID() {
         return newOntologyID;

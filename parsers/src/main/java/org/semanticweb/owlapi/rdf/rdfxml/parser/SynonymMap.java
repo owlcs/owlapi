@@ -61,7 +61,8 @@ class SynonymMap {
         // Legacy protege-owlapi representation of QCRs
         synonymMap.put(IRI.create(OWL.getPrefixIRI(), "valuesFrom"), OWL_ON_CLASS.getIRI());
         if (!strict) {
-            OWLRDFVocabulary.DAML_COMPATIBILITY.forEach(x -> synonymMap.put(x.getDAMLIRI(), x.getIRI()));
+            OWLRDFVocabulary.DAML_COMPATIBILITY
+                            .forEach(x -> synonymMap.put(x.getDAMLIRI(), x.getIRI()));
             addIntermediateOWLSpecVocabulary();
         }
     }
@@ -77,23 +78,26 @@ class SynonymMap {
     }
 
     /**
-     * There may be some ontologies floating about that use early versions of
-     * the OWL 1.1 vocabulary. We can map early versions of the vocabulary to
-     * the current OWL 1.1 vocabulary.
+     * There may be some ontologies floating about that use early versions of the OWL 1.1
+     * vocabulary. We can map early versions of the vocabulary to the current OWL 1.1 vocabulary.
      */
     private void addIntermediateOWLSpecVocabulary() {
         Stream.of(OWLRDFVocabulary.values()).forEach(this::addLegacyMapping);
-        Stream.of(OWLFacet.values()).forEach(v -> Stream.of(OWL, OWL11, OWL2).forEach(p -> synonymMap.put(IRI.create(p
-            .getPrefixIRI(), v.getShortForm()), v.getIRI())));
-        synonymMap.put(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(), OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
-        synonymMap.put(OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(), OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
+        Stream.of(OWLFacet.values()).forEach(v -> Stream.of(OWL, OWL11, OWL2)
+                        .forEach(p -> synonymMap.put(IRI.create(p.getPrefixIRI(), v.getShortForm()),
+                                        v.getIRI())));
+        synonymMap.put(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(),
+                        OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
+        synonymMap.put(OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(),
+                        OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         // Intermediate OWL 2 spec
         synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
         synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
         synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
         // Preliminary OWL 1.1 Vocab
         synonymMap.put(IRI.create(OWL.getPrefixIRI(), "cardinalityType"), OWL_ON_CLASS.getIRI());
-        synonymMap.put(IRI.create(OWL.getPrefixIRI(), "dataComplementOf"), OWL_COMPLEMENT_OF.getIRI());
+        synonymMap.put(IRI.create(OWL.getPrefixIRI(), "dataComplementOf"),
+                        OWL_COMPLEMENT_OF.getIRI());
         synonymMap.put(OWL_ANTI_SYMMETRIC_PROPERTY.getIRI(), OWL_ASYMMETRIC_PROPERTY.getIRI());
         synonymMap.put(OWL_FUNCTIONAL_DATA_PROPERTY.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
         synonymMap.put(OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
@@ -104,7 +108,8 @@ class SynonymMap {
         synonymMap.put(OWL_OBJECT_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
         synonymMap.put(OWL_DATA_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
         synonymMap.put(OWL_DISJOINT_DATA_PROPERTIES.getIRI(), OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(OWL_DISJOINT_OBJECT_PROPERTIES.getIRI(), OWL_PROPERTY_DISJOINT_WITH.getIRI());
+        synonymMap.put(OWL_DISJOINT_OBJECT_PROPERTIES.getIRI(),
+                        OWL_PROPERTY_DISJOINT_WITH.getIRI());
         synonymMap.put(OWL_EQUIVALENT_DATA_PROPERTIES.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI());
         synonymMap.put(OWL_EQUIVALENT_OBJECT_PROPERTIES.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI());
         synonymMap.put(OWL_OBJECT_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());

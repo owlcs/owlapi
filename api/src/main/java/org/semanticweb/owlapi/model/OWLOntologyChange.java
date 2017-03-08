@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLOntologyChange implements HasSignature, Serializable {
@@ -29,16 +28,14 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     private final OWLOntology ont;
 
     /**
-     * @param ont
-     *        the ontology to which the change is to be applied
+     * @param ont the ontology to which the change is to be applied
      */
     public OWLOntologyChange(OWLOntology ont) {
         this.ont = checkNotNull(ont, "ontology must not be null");
     }
 
     /**
-     * Determines if the change will cause the addition or removal of an axiom
-     * from an ontology.
+     * Determines if the change will cause the addition or removal of an axiom from an ontology.
      * 
      * @return {@code true} if the change is an {@code OWLAddAxiomChange} or
      *         {@code OWLRemoveAxiomChange} otherwise {@code false}.
@@ -50,8 +47,8 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     /**
      * Determines if the change will add an axiom to an ontology.
      * 
-     * @return {@code true} if the change is an AddAxiom change and it will add
-     *         an axiom to an ontology, {@code false} otherwise.
+     * @return {@code true} if the change is an AddAxiom change and it will add an axiom to an
+     *         ontology, {@code false} otherwise.
      */
     public boolean isAddAxiom() {
         return false;
@@ -60,34 +57,32 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     /**
      * Determines if the change will remove an axiom from an ontology.
      * 
-     * @return {@code true} if the change is a RemoveAxiom change and it will
-     *         remove an axiom from an ontology, {@code false} otherwise.
+     * @return {@code true} if the change is a RemoveAxiom change and it will remove an axiom from
+     *         an ontology, {@code false} otherwise.
      */
     public boolean isRemoveAxiom() {
         return isAxiomChange() && !isAddAxiom();
     }
 
     /**
-     * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom) this
-     * method obtains the axiom.
+     * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom) this method obtains the
+     * axiom.
      * 
      * @return The Axiom if this change is an axiom change
-     * @throws IllegalStateException
-     *         if the change has no axiom; UnsupportedOperationException If the
-     *         change is not an axiom change (check with the
-     *         {@code isAxiomChange} method first).
+     * @throws IllegalStateException if the change has no axiom; UnsupportedOperationException If
+     *         the change is not an axiom change (check with the {@code isAxiomChange} method
+     *         first).
      */
     public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException("This is an " + getClass().getSimpleName() + ", not an axiom change: "
-            + this);
+        throw new UnsupportedOperationException("This is an " + getClass().getSimpleName()
+                        + ", not an axiom change: " + this);
     }
 
     /**
-     * Determines if this change is an import change and hence causes a change
-     * to the imports closure of an ontology.
+     * Determines if this change is an import change and hence causes a change to the imports
+     * closure of an ontology.
      * 
-     * @return {@code true} if this change is an import change, otherwise
-     *         {@code false}.
+     * @return {@code true} if this change is an import change, otherwise {@code false}.
      */
     public boolean isImportChange() {
         return false;
@@ -103,23 +98,19 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     }
 
     /**
-     * Gets the data (independent of the ontology) associated with this specific
-     * change.
+     * Gets the data (independent of the ontology) associated with this specific change.
      * 
-     * @return The {@link OWLOntologyChangeData} associated with this
-     *         {@code OWLOntologyChange}.
+     * @return The {@link OWLOntologyChangeData} associated with this {@code OWLOntologyChange}.
      */
     public abstract OWLOntologyChangeData getChangeData();
 
     /**
-     * Gets a {@link OWLOntologyChangeRecord} that is derived from this
-     * {@code OWLOntologyChange}'s {@link OWLOntologyID} and it's
-     * {@link OWLOntologyChangeData}.
+     * Gets a {@link OWLOntologyChangeRecord} that is derived from this {@code OWLOntologyChange}'s
+     * {@link OWLOntologyID} and it's {@link OWLOntologyChangeData}.
      * 
-     * @return An {@link OWLOntologyChangeRecord} containing an
-     *         {@link OWLOntologyID} equal to the {@link OWLOntologyID} of this
-     *         {@code OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
-     *         .
+     * @return An {@link OWLOntologyChangeRecord} containing an {@link OWLOntologyID} equal to the
+     *         {@link OWLOntologyID} of this {@code OWLOntologyChange}'s {@link OWLOntology}. Not
+     *         {@code null} .
      */
     public OWLOntologyChangeRecord getChangeRecord() {
         return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
@@ -128,18 +119,15 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     /**
      * Accepts a visitor.
      * 
-     * @param visitor
-     *        The visitor
+     * @param visitor The visitor
      */
     public abstract void accept(OWLOntologyChangeVisitor visitor);
 
     /**
      * Accepts a visitor.
      * 
-     * @param visitor
-     *        The visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor The visitor
+     * @param <O> visitor return type
      * @return visitor value
      */
     public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);

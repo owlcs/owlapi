@@ -29,6 +29,7 @@ public class VerifyVersionInfoIntegrationTestCase {
         // has not been updated.
         VersionInfo info = VersionInfo.getVersionInfo();
         // assertEquals("5.0.6-SNAPSHOT", info.getVersion());
-        assertTrue(info.getVersion() + " does not match", info.getVersion().startsWith("6.0.0-SNAPSHOT"));
+        assertTrue(info.getVersion() + " does not match",
+                        info.getVersion().startsWith("6.0.0-SNAPSHOT"));
     }
 }

@@ -17,15 +17,13 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.OutputStream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class StreamDocumentTarget extends OWLOntologyDocumentTargetBase {
 
     /**
-     * @param os
-     *        the actual output stream
+     * @param os the actual output stream
      */
     public StreamDocumentTarget(OutputStream os) {
         super(() -> checkNotNull(os, "file cannot be null"), null);

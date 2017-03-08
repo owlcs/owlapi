@@ -19,16 +19,14 @@ import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
 /** Builder class for OWLDifferentIndividualsAxiom. */
-public class BuilderDifferentIndividuals
-        extends BaseSetBuilder<OWLDifferentIndividualsAxiom, BuilderDifferentIndividuals, OWLIndividual> {
+public class BuilderDifferentIndividuals extends
+                BaseSetBuilder<OWLDifferentIndividualsAxiom, BuilderDifferentIndividuals, OWLIndividual> {
 
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDifferentIndividuals(OWLDifferentIndividualsAxiom expected, OWLDataFactory df) {
         this(df);
@@ -36,8 +34,7 @@ public class BuilderDifferentIndividuals
     }
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDifferentIndividuals(OWLDataFactory df) {

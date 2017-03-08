@@ -57,68 +57,63 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class AnnotatedAxiomRountripTestCase
-    extends AnnotatedAxiomRoundTrippingTestCase {
+public class AnnotatedAxiomRountripTestCase extends AnnotatedAxiomRoundTrippingTestCase {
 
-    public AnnotatedAxiomRountripTestCase(
-        Function<Set<OWLAnnotation>, OWLAxiom> f) {
+    public AnnotatedAxiomRountripTestCase(Function<Set<OWLAnnotation>, OWLAxiom> f) {
         super(f);
     }
 
     @Parameters
     public static List<Function<Set<OWLAnnotation>, OWLAxiom>> getData() {
-        return Arrays.asList(
-            a -> AsymmetricObjectProperty(ObjectProperty(iri("p")), a),
-            a -> ClassAssertion(Class(iri("A")), NamedIndividual(iri("i")), a),
-            a -> DataPropertyAssertion(DataProperty(iri("p")),
-                NamedIndividual(iri("i")), Literal("xyz"), a),
-            a -> DataPropertyDomain(DataProperty(iri("p")), Class(iri("A")), a),
-            a -> DataPropertyRange(DataProperty(iri("p")), TopDatatype(), a),
-            a -> DisjointClasses(a, Class(iri("A")), Class(iri("B"))),
-            a -> DisjointClasses(a, Class(iri("A")), Class(iri("B")),
-                Class(iri("C")), Class(iri("D"))),
-            a -> DisjointDataProperties(a, DataProperty(iri("p")),
-                DataProperty(iri("q"))),
-            a -> DisjointDataProperties(a, DataProperty(iri("p")),
-                DataProperty(iri("q")), DataProperty(iri("r"))),
-            a -> DisjointObjectProperties(a, ObjectProperty(iri("p")),
-                ObjectProperty(iri("q"))),
-            a -> DisjointObjectProperties(a, ObjectProperty(iri("p")),
-                ObjectProperty(iri("q")), ObjectProperty(iri("r"))),
-            a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B"))),
-            a -> EquivalentDataProperties(a, DataProperty(iri("p")),
-                DataProperty(iri("q"))),
-            a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")),
-                ObjectProperty(iri("q"))),
-            a -> FunctionalDataProperty(DataProperty(iri("p")), a),
-            a -> FunctionalObjectProperty(ObjectProperty(iri("p")), a),
-            a -> InverseFunctionalObjectProperty(ObjectProperty(iri("p")), a),
-            a -> IrreflexiveObjectProperty(ObjectProperty(iri("p")), a),
-            a -> NegativeDataPropertyAssertion(DataProperty(iri("p")),
-                NamedIndividual(iri("i")), Literal("xyz"), a),
-            a -> NegativeObjectPropertyAssertion(ObjectProperty(iri("p")),
-                NamedIndividual(iri("i")), NamedIndividual(iri("j")), a),
-            a -> ObjectPropertyAssertion(ObjectProperty(iri("p")),
-                NamedIndividual(iri("i")), NamedIndividual(iri("j")), a),
-            a -> ObjectPropertyDomain(ObjectProperty(iri("p")), Class(iri("A")),
-                a),
-            a -> ObjectPropertyRange(ObjectProperty(iri("p")), Class(iri("A")),
-                a),
-            a -> ReflexiveObjectProperty(ObjectProperty(iri("p")), a),
-            a -> df.getOWLSubClassOfAxiom(Class(iri("A")), Class(iri("B")), a),
-            a -> SubDataPropertyOf(DataProperty(iri("p")),
-                DataProperty(iri("q")), a),
-            a -> SubObjectPropertyOf(ObjectProperty(iri("p")),
-                ObjectProperty(iri("q")), a),
-            a -> SymmetricObjectProperty(ObjectProperty(iri("p")), a),
-            a -> TransitiveObjectProperty(ObjectProperty(iri("p")), a),
-            a -> SubPropertyChainOf(Arrays.asList(ObjectProperty(iri("p")),
-                ObjectProperty(iri("q"))), ObjectProperty(iri("r")), a));
+        return Arrays.asList(a -> AsymmetricObjectProperty(ObjectProperty(iri("p")), a),
+                        a -> ClassAssertion(Class(iri("A")), NamedIndividual(iri("i")), a),
+                        a -> DataPropertyAssertion(DataProperty(iri("p")),
+                                        NamedIndividual(iri("i")), Literal("xyz"), a),
+                        a -> DataPropertyDomain(DataProperty(iri("p")), Class(iri("A")), a),
+                        a -> DataPropertyRange(DataProperty(iri("p")), TopDatatype(), a),
+                        a -> DisjointClasses(a, Class(iri("A")), Class(iri("B"))),
+                        a -> DisjointClasses(a, Class(iri("A")), Class(iri("B")), Class(iri("C")),
+                                        Class(iri("D"))),
+                        a -> DisjointDataProperties(a, DataProperty(iri("p")),
+                                        DataProperty(iri("q"))),
+                        a -> DisjointDataProperties(a, DataProperty(iri("p")),
+                                        DataProperty(iri("q")), DataProperty(iri("r"))),
+                        a -> DisjointObjectProperties(a, ObjectProperty(iri("p")),
+                                        ObjectProperty(iri("q"))),
+                        a -> DisjointObjectProperties(a, ObjectProperty(iri("p")),
+                                        ObjectProperty(iri("q")), ObjectProperty(iri("r"))),
+                        a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B"))),
+                        a -> EquivalentDataProperties(a, DataProperty(iri("p")),
+                                        DataProperty(iri("q"))),
+                        a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")),
+                                        ObjectProperty(iri("q"))),
+                        a -> FunctionalDataProperty(DataProperty(iri("p")), a),
+                        a -> FunctionalObjectProperty(ObjectProperty(iri("p")), a),
+                        a -> InverseFunctionalObjectProperty(ObjectProperty(iri("p")), a),
+                        a -> IrreflexiveObjectProperty(ObjectProperty(iri("p")), a),
+                        a -> NegativeDataPropertyAssertion(DataProperty(iri("p")),
+                                        NamedIndividual(iri("i")), Literal("xyz"), a),
+                        a -> NegativeObjectPropertyAssertion(ObjectProperty(iri("p")),
+                                        NamedIndividual(iri("i")), NamedIndividual(iri("j")), a),
+                        a -> ObjectPropertyAssertion(ObjectProperty(iri("p")),
+                                        NamedIndividual(iri("i")), NamedIndividual(iri("j")), a),
+                        a -> ObjectPropertyDomain(ObjectProperty(iri("p")), Class(iri("A")), a),
+                        a -> ObjectPropertyRange(ObjectProperty(iri("p")), Class(iri("A")), a),
+                        a -> ReflexiveObjectProperty(ObjectProperty(iri("p")), a),
+                        a -> df.getOWLSubClassOfAxiom(Class(iri("A")), Class(iri("B")), a),
+                        a -> SubDataPropertyOf(DataProperty(iri("p")), DataProperty(iri("q")), a),
+                        a -> SubObjectPropertyOf(ObjectProperty(iri("p")), ObjectProperty(iri("q")),
+                                        a),
+                        a -> SymmetricObjectProperty(ObjectProperty(iri("p")), a),
+                        a -> TransitiveObjectProperty(ObjectProperty(iri("p")), a),
+                        a -> SubPropertyChainOf(
+                                        Arrays.asList(ObjectProperty(iri("p")),
+                                                        ObjectProperty(iri("q"))),
+                                        ObjectProperty(iri("r")), a));
     }
 }

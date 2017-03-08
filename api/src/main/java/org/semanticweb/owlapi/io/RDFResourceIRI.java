@@ -24,8 +24,7 @@ public class RDFResourceIRI extends RDFResource implements org.apache.commons.rd
     private final IRI resource;
 
     /**
-     * @param resource
-     *        the resource
+     * @param resource the resource
      */
     public RDFResourceIRI(IRI resource) {
         this.resource = checkNotNull(resource, "resource cannot be null");

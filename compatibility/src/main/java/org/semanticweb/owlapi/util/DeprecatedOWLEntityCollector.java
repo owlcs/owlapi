@@ -31,21 +31,21 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * A utility class that visits axioms, class expressions etc. and accumulates
- * the named objects that are referred to in those axioms, class expressions
- * etc. For example, if the collector visited the axiom (propP some C)
- * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
+ * A utility class that visits axioms, class expressions etc. and accumulates the named objects that
+ * are referred to in those axioms, class expressions etc. For example, if the collector visited the
+ * axiom (propP some C) subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006
- * @deprecated the old OWLEntityCollector is still used in non trivial ways in
- *             third party software. For new code, use OWLEntityCollector.
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         13-Nov-2006
+ * @deprecated the old OWLEntityCollector is still used in non trivial ways in third party software.
+ *             For new code, use OWLEntityCollector.
  */
 @Deprecated
 public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
 
-    @Nullable private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
+    @Nullable
+    private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
     private boolean collectObjectProperties = true;
     private boolean collectDataProperties = true;
@@ -53,28 +53,25 @@ public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity>
     private boolean collectDatatypes = true;
 
     /**
-     * @param toReturn
-     *        the set that will contain the results
-     * @param anonsToReturn
-     *        the set that will contain the anon individuals
+     * @param toReturn the set that will contain the results
+     * @param anonsToReturn the set that will contain the anon individuals
      */
     public DeprecatedOWLEntityCollector(Set<OWLEntity> toReturn,
-        @Nullable Collection<OWLAnonymousIndividual> anonsToReturn) {
+                    @Nullable Collection<OWLAnonymousIndividual> anonsToReturn) {
         super(toReturn);
         anonymousIndividuals = anonsToReturn;
     }
 
     /**
-     * @param toReturn
-     *        the set that will contain the results
+     * @param toReturn the set that will contain the results
      */
     public DeprecatedOWLEntityCollector(Set<OWLEntity> toReturn) {
         this(toReturn, null);
     }
 
     /**
-     * Deprecated default constructor: use one of the other constructors to get
-     * more efficient set creation.
+     * Deprecated default constructor: use one of the other constructors to get more efficient set
+     * creation.
      */
     @Deprecated
     public DeprecatedOWLEntityCollector() {
@@ -82,11 +79,10 @@ public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity>
     }
 
     /**
-     * Clears all objects that have accumulated during the course of visiting
-     * axioms, class expressions etc.
+     * Clears all objects that have accumulated during the course of visiting axioms, class
+     * expressions etc.
      * 
-     * @param toReturn
-     *        the set that will contain the results
+     * @param toReturn the set that will contain the results
      */
     public void reset(Set<OWLEntity> toReturn) {
         objects = toReturn;
@@ -96,53 +92,47 @@ public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity>
     }
 
     /**
-     * @param collectClasses
-     *        true to collect classes
+     * @param collectClasses true to collect classes
      */
     public void setCollectClasses(boolean collectClasses) {
         this.collectClasses = collectClasses;
     }
 
     /**
-     * @param collectObjectProperties
-     *        true to collect object properties
+     * @param collectObjectProperties true to collect object properties
      */
     public void setCollectObjectProperties(boolean collectObjectProperties) {
         this.collectObjectProperties = collectObjectProperties;
     }
 
     /**
-     * @param collectDataProperties
-     *        true to collect data properties
+     * @param collectDataProperties true to collect data properties
      */
     public void setCollectDataProperties(boolean collectDataProperties) {
         this.collectDataProperties = collectDataProperties;
     }
 
     /**
-     * @param collectIndividuals
-     *        true to collect individuals
+     * @param collectIndividuals true to collect individuals
      */
     public void setCollectIndividuals(boolean collectIndividuals) {
         this.collectIndividuals = collectIndividuals;
     }
 
     /**
-     * @param collectDatatypes
-     *        true to collect datatypes
+     * @param collectDatatypes true to collect datatypes
      */
     public void setCollectDatatypes(boolean collectDatatypes) {
         this.collectDatatypes = collectDatatypes;
     }
 
     /**
-     * A convenience method. Although anonymous individuals are not entities
-     * they are collected by this collector and stored in a separate set. This
-     * method returns collected individuals. Deprecated: if the non deprecated
-     * constructors are used, this method is useless and inefficient
+     * A convenience method. Although anonymous individuals are not entities they are collected by
+     * this collector and stored in a separate set. This method returns collected individuals.
+     * Deprecated: if the non deprecated constructors are used, this method is useless and
+     * inefficient
      * 
-     * @return The set of anonymous individuals that were collected by the
-     *         collector
+     * @return The set of anonymous individuals that were collected by the collector
      */
     @Deprecated
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {

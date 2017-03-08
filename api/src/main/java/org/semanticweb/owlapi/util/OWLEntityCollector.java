@@ -26,21 +26,18 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * A utility class that visits axioms, class expressions etc. and accumulates
- * the named objects that are referred to in those axioms, class expressions
- * etc. For example, if the collector visited the axiom (propP some C)
- * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
+ * A utility class that visits axioms, class expressions etc. and accumulates the named objects that
+ * are referred to in those axioms, class expressions etc. For example, if the collector visited the
+ * axiom (propP some C) subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
 
     /**
-     * @param toReturn
-     *        the set that will contain the results
+     * @param toReturn the set that will contain the results
      */
     public OWLEntityCollector(Collection<OWLEntity> toReturn) {
         super(toReturn);

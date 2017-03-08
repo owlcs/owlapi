@@ -38,7 +38,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class OboFormatTestBasics extends TestBase {
 
     protected OBODoc parseOBOFile(String fn) {
@@ -157,9 +157,12 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
-        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(aa -> aa
-            .getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label.equals(((OWLLiteral) aa.getValue())
-                .getLiteral())).filter(aa -> aa.getSubject().isIRI()).findAny();
+        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology
+                        .axioms(AxiomType.ANNOTATION_ASSERTION)
+                        .filter(aa -> aa.getProperty().isLabel()
+                                        && aa.getValue() instanceof OWLLiteral
+                                        && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
+                        .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }
@@ -169,8 +172,8 @@ public class OboFormatTestBasics extends TestBase {
     protected String readResource(String resource) throws IOException {
         StringBuilder sb = new StringBuilder();
         try (InputStream inputStream = getInputStream(resource);
-            Reader r = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(r);) {
+                        Reader r = new InputStreamReader(inputStream);
+                        BufferedReader reader = new BufferedReader(r);) {
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append('\n');

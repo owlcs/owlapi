@@ -23,13 +23,14 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Builder class for OWLDataComplementOf. */
-public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
+public class BuilderDataComplementOf
+                extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
 
-    @Nullable private OWLDataRange dataRange = null;
+    @Nullable
+    private OWLDataRange dataRange = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDataComplementOf(OWLDataFactory df) {
@@ -39,10 +40,8 @@ public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, Bu
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDataComplementOf(OWLDataComplementOf expected, OWLDataFactory df) {
         this(df);
@@ -50,8 +49,7 @@ public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, Bu
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     public BuilderDataComplementOf withRange(OWL2Datatype arg) {
@@ -59,8 +57,7 @@ public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, Bu
     }
 
     /**
-     * @param arg
-     *        range
+     * @param arg range
      * @return builder
      */
     public BuilderDataComplementOf withRange(OWLDataRange arg) {

@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
@@ -35,16 +34,19 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, config, new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    IRI documentIRI) {
         return parse(o, config, new StringProvider(s));
     }
 
-    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config, Provider provider) {
+    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config,
+                    Provider provider) {
         OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(provider);
         parser.setUp(o, config);
         return parser.parse();

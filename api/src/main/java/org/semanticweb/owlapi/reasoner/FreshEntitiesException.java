@@ -20,13 +20,11 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * Indicates that a query whose signature contained fresh entities was posed to
- * the reasoner. This exception is only thrown if the fresh entity policy is set
- * appropriately. (See {@link FreshEntityPolicy} and
- * {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.
+ * Indicates that a query whose signature contained fresh entities was posed to the reasoner. This
+ * exception is only thrown if the fresh entity policy is set appropriately. (See
+ * {@link FreshEntityPolicy} and {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class FreshEntitiesException extends OWLReasonerRuntimeException {
@@ -34,18 +32,15 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
     private final Collection<OWLEntity> entities;
 
     /**
-     * @param entities
-     *        fresh entities
+     * @param entities fresh entities
      */
     public FreshEntitiesException(Collection<OWLEntity> entities) {
         this(entities, null);
     }
 
     /**
-     * @param entities
-     *        entities
-     * @param t
-     *        cause
+     * @param entities entities
+     * @param t cause
      */
     public FreshEntitiesException(Collection<OWLEntity> entities, @Nullable Throwable t) {
         super(t);
@@ -53,18 +48,15 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
     }
 
     /**
-     * @param entity
-     *        fresh entity
+     * @param entity fresh entity
      */
     public FreshEntitiesException(OWLEntity entity) {
         this(Collections.singletonList(entity));
     }
 
     /**
-     * @param entity
-     *        fresh entity
-     * @param t
-     *        cause
+     * @param entity fresh entity
+     * @param t cause
      */
     public FreshEntitiesException(OWLEntity entity, @Nullable Throwable t) {
         this(Collections.singletonList(entity), t);
@@ -73,8 +65,8 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
     /**
      * Gets the entities.
      * 
-     * @return The entities, none of which are contained in the signature of the
-     *         union of a set of ontologies.
+     * @return The entities, none of which are contained in the signature of the union of a set of
+     *         ontologies.
      */
     public Collection<OWLEntity> getEntities() {
         return entities;

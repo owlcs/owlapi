@@ -21,11 +21,10 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAsymmetricObjectPropertyAxiom. */
 public class BuilderAsymmetricObjectProperty extends
-    BaseObjectPropertyBuilder<OWLAsymmetricObjectPropertyAxiom, BuilderAsymmetricObjectProperty> {
+                BaseObjectPropertyBuilder<OWLAsymmetricObjectPropertyAxiom, BuilderAsymmetricObjectProperty> {
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderAsymmetricObjectProperty(OWLDataFactory df) {
@@ -35,12 +34,11 @@ public class BuilderAsymmetricObjectProperty extends
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
-    public BuilderAsymmetricObjectProperty(OWLAsymmetricObjectPropertyAxiom expected, OWLDataFactory df) {
+    public BuilderAsymmetricObjectProperty(OWLAsymmetricObjectPropertyAxiom expected,
+                    OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }

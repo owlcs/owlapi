@@ -18,15 +18,12 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param
- *        <P>
- *        property expression
+ * @param <P> property expression
  */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
-    extends OWLPropertyAxiom, OWLNaryAxiom<P>, HasOperands<P> {
+                extends OWLPropertyAxiom, OWLNaryAxiom<P>, HasOperands<P> {
 
     @Override
     default Stream<?> components() {
@@ -63,8 +60,7 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
     }
 
     /**
-     * @param property
-     *        the property to skip
+     * @param property the property to skip
      * @return the set of properties minus property
      */
     Set<P> getPropertiesMinus(P property);

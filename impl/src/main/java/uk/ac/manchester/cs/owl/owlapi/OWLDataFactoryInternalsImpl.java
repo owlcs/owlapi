@@ -43,34 +43,36 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
     private static Logger logger = LoggerFactory.getLogger(OWLDataFactoryInternalsImpl.class);
     private final AtomicInteger annotationsCount = new AtomicInteger(0);
     /**
-     * Annotations Cache uses a loading cache as a size limited Interner; the
-     * value of the loader is simply the key. As with an interner, each access
-     * constructs a new object that is discarded if the key is used. Most
-     * annotations will only be used once; however some annotations may be
-     * reused extremely frequently. for ontologies in the OBO family, a few
-     * annotations will be reused extremely frequently.
+     * Annotations Cache uses a loading cache as a size limited Interner; the value of the loader is
+     * simply the key. As with an interner, each access constructs a new object that is discarded if
+     * the key is used. Most annotations will only be used once; however some annotations may be
+     * reused extremely frequently. for ontologies in the OBO family, a few annotations will be
+     * reused extremely frequently.
      */
-    private final transient LoadingCache<OWLAnnotation, OWLAnnotation> annotations = builder(key -> key);
+    private final transient LoadingCache<OWLAnnotation, OWLAnnotation> annotations =
+                    builder(key -> key);
     private final LoadingCache<IRI, OWLClass> classes = builder(key -> new OWLClassImpl(key));
-    private final LoadingCache<IRI, OWLObjectProperty> objectProperties = builder(key -> new OWLObjectPropertyImpl(
-        key));
-    private final LoadingCache<IRI, OWLDataProperty> dataProperties = builder(key -> new OWLDataPropertyImpl(key));
-    private final LoadingCache<IRI, OWLDatatype> datatypes = builder(key -> new OWLDatatypeImpl(key));
-    private final LoadingCache<IRI, OWLNamedIndividual> individuals = builder(key -> new OWLNamedIndividualImpl(key));
-    private final LoadingCache<IRI, OWLAnnotationProperty> annotationProperties = builder(
-        key -> new OWLAnnotationPropertyImpl(key));
+    private final LoadingCache<IRI, OWLObjectProperty> objectProperties =
+                    builder(key -> new OWLObjectPropertyImpl(key));
+    private final LoadingCache<IRI, OWLDataProperty> dataProperties =
+                    builder(key -> new OWLDataPropertyImpl(key));
+    private final LoadingCache<IRI, OWLDatatype> datatypes =
+                    builder(key -> new OWLDatatypeImpl(key));
+    private final LoadingCache<IRI, OWLNamedIndividual> individuals =
+                    builder(key -> new OWLNamedIndividualImpl(key));
+    private final LoadingCache<IRI, OWLAnnotationProperty> annotationProperties =
+                    builder(key -> new OWLAnnotationPropertyImpl(key));
 
     /**
-     * @param useCompression
-     *        true if literals should be compressed
+     * @param useCompression true if literals should be compressed
      */
     public OWLDataFactoryInternalsImpl(boolean useCompression) {
         super(useCompression);
     }
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
-        Caffeine<Object, Object> builder = Caffeine.newBuilder().maximumSize(1024).expireAfterAccess(5,
-            TimeUnit.MINUTES);
+        Caffeine<Object, Object> builder = Caffeine.newBuilder().maximumSize(1024)
+                        .expireAfterAccess(5, TimeUnit.MINUTES);
         if (logger.isDebugEnabled()) {
             builder.recordStats();
         }
@@ -125,12 +127,13 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
 
     @Override
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
-        Stream<OWLAnnotation> anns) {
+                    Stream<OWLAnnotation> anns) {
         OWLAnnotation annotation = annotations.get(new OWLAnnotationImpl(property, value, anns));
         if (logger.isDebugEnabled()) {
             int n = annotationsCount.incrementAndGet();
             if (n % 1000 == 0) {
-                logger.debug("{}: Annotations Cache stats: {}", Integer.valueOf(n), annotations.stats());
+                logger.debug("{}: Annotations Cache stats: {}", Integer.valueOf(n),
+                                annotations.stats());
             }
         }
         return annotation;

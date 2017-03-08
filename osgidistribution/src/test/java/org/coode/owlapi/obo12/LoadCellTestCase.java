@@ -18,9 +18,9 @@ public class LoadCellTestCase {
     public void shouldParse() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         assertEquals(20, m.getOntologyParsers().size());
-        OWLOntologyDocumentSource source = new StreamDocumentSource(getClass()
-            .getResourceAsStream("/celltype.obo"), "obo",
-            new OBO12DocumentFormat(), null);
+        OWLOntologyDocumentSource source =
+                        new StreamDocumentSource(getClass().getResourceAsStream("/celltype.obo"),
+                                        "obo", new OBO12DocumentFormat(), null);
         m.loadOntologyFromOntologyDocument(source);
     }
 
@@ -28,9 +28,9 @@ public class LoadCellTestCase {
     public void shouldParseOBO12() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         assertEquals(20, m.getOntologyParsers().size());
-        OWLOntologyDocumentSource source = new StreamDocumentSource(getClass()
-            .getResourceAsStream("/behavior.obo"), "obo",
-            new OBO12DocumentFormat(), null);
+        OWLOntologyDocumentSource source =
+                        new StreamDocumentSource(getClass().getResourceAsStream("/behavior.obo"),
+                                        "obo", new OBO12DocumentFormat(), null);
         m.loadOntologyFromOntologyDocument(source);
     }
 
@@ -38,8 +38,9 @@ public class LoadCellTestCase {
     public void shouldParseGenericOBO() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         assertEquals(20, m.getOntologyParsers().size());
-        OWLOntologyDocumentSource source = new StreamDocumentSource(getClass()
-            .getResourceAsStream("/behavior.obo"), IRI.generateDocumentIRI(), new OBO12DocumentFormat(), null);
+        OWLOntologyDocumentSource source =
+                        new StreamDocumentSource(getClass().getResourceAsStream("/behavior.obo"),
+                                        IRI.generateDocumentIRI(), new OBO12DocumentFormat(), null);
         m.loadOntologyFromOntologyDocument(source);
     }
 }

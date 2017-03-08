@@ -15,11 +15,11 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Feb-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         10-Feb-2008
  * @deprecated use {@link org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat}
  */
 @Deprecated
-public class DLSyntaxOntologyFormat extends
-        org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat implements
-        OWLOntologyFormat {}
+public class DLSyntaxOntologyFormat extends org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat
+                implements OWLOntologyFormat {
+}

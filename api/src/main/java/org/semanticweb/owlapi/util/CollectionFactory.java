@@ -41,8 +41,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class CollectionFactory {
@@ -53,15 +52,12 @@ public class CollectionFactory {
     private CollectionFactory() {}
 
     /**
-     * Sort the input collection; if the ordering is unstable and an error is
-     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
-     * leave the collection unsorted. NOTE: use this method if ordering is
-     * desirable but not necessary.
+     * Sort the input collection; if the ordering is unstable and an error is thrown (due to the use
+     * of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted. NOTE: use this
+     * method if ordering is desirable but not necessary.
      * 
-     * @param <T>
-     *        list type
-     * @param toReturn
-     *        list to sort
+     * @param <T> list type
+     * @param toReturn list to sort
      * @return sorted input, if no errors are raised. Original otherwise.
      */
     public static <T extends OWLObject> List<T> sortOptionallyComparables(List<T> toReturn) {
@@ -75,13 +71,11 @@ public class CollectionFactory {
     }
 
     /**
-     * Sort the input collection; if the ordering is unstable and an error is
-     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
-     * leave the collection unsorted. NOTE: use this method if ordering is
-     * desirable but not necessary.
+     * Sort the input collection; if the ordering is unstable and an error is thrown (due to the use
+     * of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted. NOTE: use this
+     * method if ordering is desirable but not necessary.
      * 
-     * @param toReturn
-     *        list to sort
+     * @param toReturn list to sort
      * @return sorted input list
      */
     public static <T extends OWLObject> List<T> sortOptionally(List<T> toReturn) {
@@ -89,98 +83,77 @@ public class CollectionFactory {
     }
 
     /**
-     * Sort the input collection; if the ordering is unstable and an error is
-     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
-     * leave the collection unsorted. NOTE: use this method if ordering is
-     * desirable but not necessary.
+     * Sort the input collection; if the ordering is unstable and an error is thrown (due to the use
+     * of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted. NOTE: use this
+     * method if ordering is desirable but not necessary.
      * 
-     * @param toReturn
-     *        list to sort
-     * @param desiredType
-     *        witness for return type
+     * @param toReturn list to sort
+     * @param desiredType witness for return type
      * @return sorted input list
      */
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public static <T extends OWLObject> List<T> sortOptionally(List<? extends T> toReturn,
-        @SuppressWarnings("unused") Class<T> desiredType) {
+                    @SuppressWarnings("unused") Class<T> desiredType) {
         return (List<T>) sortOptionallyComparables(toReturn);
     }
 
     /**
-     * Sort a copy of the input collection; if the ordering is unstable and an
-     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
-     * it and leave the collection unsorted. NOTE: use this method if ordering
-     * is desirable but not necessary.
+     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
+     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
+     * NOTE: use this method if ordering is desirable but not necessary.
      * 
-     * @param toReturn
-     *        collection to sort
-     * @param <T>
-     *        list type
-     * @return sorted copy of the input, if no errors are raised. Copy of the
-     *         original otherwise.
+     * @param toReturn collection to sort
+     * @param <T> list type
+     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
      */
     public static <T extends OWLObject> List<T> sortOptionallyComparables(Collection<T> toReturn) {
         return sortOptionallyComparables(new ArrayList<>(toReturn));
     }
 
     /**
-     * Sort a copy of the input collection; if the ordering is unstable and an
-     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
-     * it and leave the collection unsorted. NOTE: use this method if ordering
-     * is desirable but not necessary.
+     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
+     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
+     * NOTE: use this method if ordering is desirable but not necessary.
      * 
-     * @param toReturn
-     *        collection to sort
-     * @param <T>
-     *        list type
-     * @return sorted copy of the input, if no errors are raised. Copy of the
-     *         original otherwise.
+     * @param toReturn collection to sort
+     * @param <T> list type
+     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
      */
     public static <T extends OWLObject> List<T> sortOptionally(Collection<T> toReturn) {
         return sortOptionally(new ArrayList<>(toReturn));
     }
 
     /**
-     * Sort a copy of the input collection; if the ordering is unstable and an
-     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
-     * it and leave the collection unsorted. NOTE: use this method if ordering
-     * is desirable but not necessary.
+     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
+     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
+     * NOTE: use this method if ordering is desirable but not necessary.
      * 
-     * @param toReturn
-     *        collection to sort
-     * @param <T>
-     *        list type
-     * @return sorted copy of the input, if no errors are raised. Copy of the
-     *         original otherwise.
+     * @param toReturn collection to sort
+     * @param <T> list type
+     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
      */
     public static <T extends OWLObject> List<T> sortOptionally(Stream<T> toReturn) {
         return sortOptionally(asList(toReturn));
     }
 
     /**
-     * Sort a copy of the input collection; if the ordering is unstable and an
-     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
-     * it and leave the collection unsorted. NOTE: use this method if ordering
-     * is desirable but not necessary.
+     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
+     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
+     * NOTE: use this method if ordering is desirable but not necessary.
      * 
-     * @param toReturn
-     *        collection to sort
-     * @param <T>
-     *        list type
-     * @param desiredType
-     *        witness for return type
-     * @return sorted copy of the input, if no errors are raised. Copy of the
-     *         original otherwise.
+     * @param toReturn collection to sort
+     * @param <T> list type
+     * @param desiredType witness for return type
+     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
      */
-    public static <T extends OWLObject> List<T> sortOptionally(Stream<? extends T> toReturn, Class<T> desiredType) {
+    public static <T extends OWLObject> List<T> sortOptionally(Stream<? extends T> toReturn,
+                    Class<T> desiredType) {
         return sortOptionally(asList(toReturn), desiredType);
     }
 
     /**
-     * @param value
-     *        the number of expected threads that will access threadsafe
-     *        collections; useful for increasing the concurrency in
-     *        ConcurrentHashMaps
+     * @param value the number of expected threads that will access threadsafe collections; useful
+     *        for increasing the concurrency in ConcurrentHashMaps
      */
     public static void setExpectedThreads(int value) {
         EXPECTEDTHREADS.set(value);
@@ -195,8 +168,7 @@ public class CollectionFactory {
 
     /**
      * @return fresh non threadsafe set
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> Set<T> createSet() {
         return new HashSet<>(0);
@@ -204,8 +176,7 @@ public class CollectionFactory {
 
     /**
      * @return fresh non threadsafe set
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> Set<T> createLinkedSet() {
         return new LinkedHashSet<>(0);
@@ -213,19 +184,16 @@ public class CollectionFactory {
 
     /**
      * @return fresh non threadsafe list
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> List<T> createList() {
         return new ArrayList<>();
     }
 
     /**
-     * @param elements
-     *        values to add to the list
+     * @param elements values to add to the list
      * @return fresh non threadsafe list
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     @SafeVarargs
     public static <T> List<T> createList(T... elements) {
@@ -234,30 +202,25 @@ public class CollectionFactory {
 
     /**
      * @return fresh threadsafe list
-     * @param <T>
-     *        content type
+     * @param <T> content type
      */
     public static <T> List<T> createSyncList() {
         return new CopyOnWriteArrayList<>();
     }
 
     /**
-     * @param i
-     *        iterable
+     * @param i iterable
      * @return list from iterable
-     * @param <T>
-     *        type
+     * @param <T> type
      */
     public static <T> List<T> list(Iterable<T> i) {
         return Lists.newArrayList(i);
     }
 
     /**
-     * @param i
-     *        iterable
+     * @param i iterable
      * @return list from iterable
-     * @param <T>
-     *        type
+     * @param <T> type
      */
     @SafeVarargs
     public static <T> List<T> list(T... i) {
@@ -265,33 +228,27 @@ public class CollectionFactory {
     }
 
     /**
-     * @param i
-     *        iterable
+     * @param i iterable
      * @return list from iterable
-     * @param <T>
-     *        type
+     * @param <T> type
      */
     public static <T> List<T> list(T i) {
         return Collections.singletonList(i);
     }
 
     /**
-     * @param c
-     *        values to add to the set
+     * @param c values to add to the set
      * @return fresh non threadsafe set
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> Set<T> createSet(Collection<T> c) {
         return new HashSet<>(c);
     }
 
     /**
-     * @param initialCapacity
-     *        initial capacity for the new set
+     * @param initialCapacity initial capacity for the new set
      * @return fresh non threadsafe set
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> Set<T> createSet(int initialCapacity) {
         return new HashSet<>(initialCapacity);
@@ -299,10 +256,8 @@ public class CollectionFactory {
 
     /**
      * @return fresh map
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
+     * @param <K> key type
+     * @param <V> value type
      */
     public static <K, V> Map<K, V> createMap() {
         return new HashMap<>();
@@ -310,21 +265,17 @@ public class CollectionFactory {
 
     /**
      * @return a new weak hashmap wrapped as a synchronized map
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
+     * @param <K> key type
+     * @param <V> value type
      */
     public static <K, V> Map<K, WeakReference<V>> createSyncWeakMap() {
         return Collections.synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
     }
 
     /**
-     * @param elements
-     *        values to add to the set
+     * @param elements values to add to the set
      * @return fresh non threadsafe set
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     @SafeVarargs
     public static <T> Set<T> createSet(T... elements) {
@@ -332,11 +283,9 @@ public class CollectionFactory {
     }
 
     /**
-     * @param element
-     *        value to add to the set
+     * @param element value to add to the set
      * @return fresh non threadsafe set
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> Set<T> createSet(T element) {
         Set<T> result = createSet();
@@ -346,8 +295,7 @@ public class CollectionFactory {
 
     /**
      * @return fresh threadsafe set
-     * @param <T>
-     *        set type
+     * @param <T> set type
      */
     public static <T> Set<T> createSyncSet() {
         ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
@@ -356,36 +304,30 @@ public class CollectionFactory {
 
     /**
      * @return fresh threadsafe hashmap
-     * @param <K>
-     *        key type
-     * @param <V>
-     *        value type
+     * @param <K> key type
+     * @param <V> value type
      */
     public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<>(16, 0.75F, EXPECTEDTHREADS.get());
     }
 
     /**
-     * @param source
-     *        the collection to lazily copy
-     * @return a lazy defensive copy for source; the source collection will not
-     *         be copied until a method that modifies the collection gets
-     *         called, e.g., add(), addAll()
-     * @param <T>
-     *        axiom type
+     * @param source the collection to lazily copy
+     * @return a lazy defensive copy for source; the source collection will not be copied until a
+     *         method that modifies the collection gets called, e.g., add(), addAll()
+     * @param <T> axiom type
      */
     public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
 
     /**
-     * @param source
-     *        source collection
+     * @param source source collection
      * @return copy on request that builds a list from the input set
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
-    public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(@Nullable Collection<T> source) {
+    public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
+                    @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
         }
@@ -393,36 +335,31 @@ public class CollectionFactory {
     }
 
     /**
-     * @param source
-     *        the source collection, expected to be immutable
+     * @param source the source collection, expected to be immutable
      * @return copy on request that does not build a list immediately
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> Set<T> copy(@Nullable Collection<T> source) {
         return getCopyOnRequestSetFromImmutableCollection(source);
     }
 
     /**
-     * @param source
-     *        the source collection, expected to be mutable; the backing list is
-     *        created immediately
+     * @param source the source collection, expected to be mutable; the backing list is created
+     *        immediately
      * @return copy on request that builds a list immediately
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
     public static <T> Set<T> copyMutable(@Nullable Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
 
     /**
-     * @param source
-     *        the source collection, expected to be immutable
+     * @param source the source collection, expected to be immutable
      * @return copy on request that does not build a list immediately
-     * @param <T>
-     *        axiom type
+     * @param <T> axiom type
      */
-    public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(@Nullable Collection<T> source) {
+    public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
+                    @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
         }
@@ -430,27 +367,23 @@ public class CollectionFactory {
     }
 
     /**
-     * a set implementation that uses a delegate collection for all read-only
-     * operations and makes a copy if changes are attempted. Useful for cheap
-     * defensive copies: no costly rehashing on the original collection is made
-     * unless changes are attempted. Changes are not mirrored back to the
-     * original collection, although changes to the original set BEFORE changes
-     * to the copy are reflected in the copy. If the source collection is not
-     * supposed to change, then this collection behaves just like a regular
-     * defensive copy; if the source collection can change, then this collection
-     * should be built from a cheap copy of the original collection. For
-     * example, if the source collection is a set, it can be copied into a list;
-     * the cost of the copy operation from set to list is approximately 1/3 of
-     * the cost of copying into a new HashSet. This is not efficient if the most
-     * common operations performed on the copy are contains() or containsAll(),
-     * since they are more expensive for lists wrt sets; a counter for these
-     * calls is maintained by the collection, so if a large number of
-     * contains/containsAll calls takes place, the delegate is turned into a
-     * regular set. This implementation is not threadsafe even if the source set
-     * is: there is no lock during the copy, and the new set is not threadsafe.
+     * a set implementation that uses a delegate collection for all read-only operations and makes a
+     * copy if changes are attempted. Useful for cheap defensive copies: no costly rehashing on the
+     * original collection is made unless changes are attempted. Changes are not mirrored back to
+     * the original collection, although changes to the original set BEFORE changes to the copy are
+     * reflected in the copy. If the source collection is not supposed to change, then this
+     * collection behaves just like a regular defensive copy; if the source collection can change,
+     * then this collection should be built from a cheap copy of the original collection. For
+     * example, if the source collection is a set, it can be copied into a list; the cost of the
+     * copy operation from set to list is approximately 1/3 of the cost of copying into a new
+     * HashSet. This is not efficient if the most common operations performed on the copy are
+     * contains() or containsAll(), since they are more expensive for lists wrt sets; a counter for
+     * these calls is maintained by the collection, so if a large number of contains/containsAll
+     * calls takes place, the delegate is turned into a regular set. This implementation is not
+     * threadsafe even if the source set is: there is no lock during the copy, and the new set is
+     * not threadsafe.
      * 
-     * @param <T>
-     *        the type contained
+     * @param <T> the type contained
      */
     public static class ConditionalCopySet<T> implements Set<T> {
 
@@ -460,10 +393,8 @@ public class CollectionFactory {
         private int containsCounter = 0;
 
         /**
-         * @param source
-         *        initial elements
-         * @param listCopy
-         *        true if a copy must be made
+         * @param source initial elements
+         * @param listCopy true if a copy must be made
          */
         public ConditionalCopySet(Collection<T> source, boolean listCopy) {
             if (listCopy) {
@@ -483,10 +414,11 @@ public class CollectionFactory {
             }
             if (obj instanceof ConditionalCopySet) {
                 return delegate.containsAll(((ConditionalCopySet<?>) obj).delegate)
-                    && ((ConditionalCopySet<?>) obj).delegate.containsAll(delegate);
+                                && ((ConditionalCopySet<?>) obj).delegate.containsAll(delegate);
             }
             if (obj instanceof Collection) {
-                return delegate.containsAll((Collection<?>) obj) && ((Collection<?>) obj).containsAll(delegate);
+                return delegate.containsAll((Collection<?>) obj)
+                                && ((Collection<?>) obj).containsAll(delegate);
             }
             return false;
         }

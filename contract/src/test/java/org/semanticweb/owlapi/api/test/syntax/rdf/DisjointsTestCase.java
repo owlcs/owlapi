@@ -29,15 +29,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
- * it possible to specify that a set of classes are mutually disjoint.
- * Unfortunately, this must be represented in RDF as a set of pairwise disjoint
- * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
- * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case
- * ensure that these axioms are serialsed correctly.
+ * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes it possible to
+ * specify that a set of classes are mutually disjoint. Unfortunately, this must be represented in
+ * RDF as a set of pairwise disjoint statements. In otherwords, DisjointClasses(A, B, C) must be
+ * represented as DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case ensure
+ * that these axioms are serialsed correctly.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")

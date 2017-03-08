@@ -22,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /**
  * A short form provider which creates QNames for entities.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class QNameShortFormProvider implements ShortFormProvider {
@@ -31,20 +30,19 @@ public class QNameShortFormProvider implements ShortFormProvider {
     private final NamespaceUtil namespaceUtil = new NamespaceUtil();
 
     /**
-     * Creates a QNameShortFormProvider where namespace prefix mappings will
-     * automatically be generated.
+     * Creates a QNameShortFormProvider where namespace prefix mappings will automatically be
+     * generated.
      */
     public QNameShortFormProvider() {
         this(new HashMap<String, String>());
     }
 
     /**
-     * Creates a QNameShortFormProvider where the specified map overrides any
-     * auto-generated prefix namespace mappings.
+     * Creates a QNameShortFormProvider where the specified map overrides any auto-generated prefix
+     * namespace mappings.
      * 
-     * @param prefix2Ns
-     *        The map which contains a prefix to namespace mapping. The prefix
-     *        must not have a trailing ":"; if one is there, it will be removed
+     * @param prefix2Ns The map which contains a prefix to namespace mapping. The prefix must not
+     *        have a trailing ":"; if one is there, it will be removed
      */
     public QNameShortFormProvider(Map<String, String> prefix2Ns) {
         checkNotNull(prefix2Ns, "prefix2NamespaceMap cannot be null");

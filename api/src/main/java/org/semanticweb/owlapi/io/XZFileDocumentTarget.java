@@ -23,8 +23,8 @@ import org.tukaani.xz.UnsupportedOptionsException;
 import org.tukaani.xz.XZOutputStream;
 
 /**
- * An ontology document target which can write to a XZ File. Notice that this
- * works best when the output stream is closed explicitly in the client code.
+ * An ontology document target which can write to a XZ File. Notice that this works best when the
+ * output stream is closed explicitly in the client code.
  *
  * @author ses
  * @since 4.0.2
@@ -34,12 +34,9 @@ public class XZFileDocumentTarget extends OWLOntologyDocumentTargetBase {
     /**
      * Construct an XZ document target using the selected compression preset
      *
-     * @param os
-     *        target File
-     * @param presetLevel
-     *        LZMA2 Compression preset level
-     * @throws UnsupportedOptionsException
-     *         if the options selected are not acceptable
+     * @param os target File
+     * @param presetLevel LZMA2 Compression preset level
+     * @throws UnsupportedOptionsException if the options selected are not acceptable
      */
     public XZFileDocumentTarget(File os, int presetLevel) throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
@@ -48,21 +45,18 @@ public class XZFileDocumentTarget extends OWLOntologyDocumentTargetBase {
     /**
      * Construct an XZ document target
      *
-     * @param file
-     *        target File
+     * @param file target File
      */
     public XZFileDocumentTarget(File file) {
         this(file, new LZMA2Options());
     }
 
     /**
-     * @param os
-     *        the actual file
-     * @param filterOptions
-     *        Settings for XZ compression
+     * @param os the actual file
+     * @param filterOptions Settings for XZ compression
      */
     public XZFileDocumentTarget(File os, FilterOptions... filterOptions) {
-        super(() -> new XZOutputStream(new FileOutputStream(checkNotNull(os, "os cannot be null")), filterOptions),
-            null);
+        super(() -> new XZOutputStream(new FileOutputStream(checkNotNull(os, "os cannot be null")),
+                        filterOptions), null);
     }
 }

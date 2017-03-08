@@ -12,10 +12,8 @@ public class ArrayIntMap {
     private final List<FastSet> map = new ArrayList<>();
 
     /**
-     * @param key
-     *        key
-     * @param value
-     *        value
+     * @param key key
+     * @param value value
      */
     public void put(int key, int value) {
         if (key >= map.size()) {
@@ -32,11 +30,10 @@ public class ArrayIntMap {
     }
 
     /**
-     * returns a mutable set of values connected to the key; if no value is
-     * connected, returns an immutable empty set
+     * returns a mutable set of values connected to the key; if no value is connected, returns an
+     * immutable empty set
      * 
-     * @param key
-     *        key
+     * @param key key
      * @return the set of values connected with the key
      */
     public FastSet get(int key) {
@@ -74,8 +71,7 @@ public class ArrayIntMap {
     }
 
     /**
-     * @param k
-     *        key
+     * @param k key
      * @return true if k is a key for the map
      */
     public boolean containsKey(int k) {

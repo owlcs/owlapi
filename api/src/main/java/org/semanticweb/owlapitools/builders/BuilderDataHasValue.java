@@ -23,14 +23,16 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** Builder class for OWLDataHasValue. */
-public class BuilderDataHasValue extends BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue> implements
-    SettableRange<OWLLiteral, BuilderDataHasValue>, SettableProperty<OWLDataPropertyExpression, BuilderDataHasValue> {
+public class BuilderDataHasValue
+                extends BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue>
+                implements SettableRange<OWLLiteral, BuilderDataHasValue>,
+                SettableProperty<OWLDataPropertyExpression, BuilderDataHasValue> {
 
-    @Nullable private OWLLiteral literal = null;
+    @Nullable
+    private OWLLiteral literal = null;
 
     /**
-     * @param df
-     *        data factory
+     * @param df data factory
      */
     @Inject
     public BuilderDataHasValue(OWLDataFactory df) {
@@ -40,10 +42,8 @@ public class BuilderDataHasValue extends BaseDataPropertyBuilder<OWLDataHasValue
     /**
      * Builder initialized from an existing object.
      * 
-     * @param expected
-     *        the existing object
-     * @param df
-     *        data factory
+     * @param expected the existing object
+     * @param df data factory
      */
     public BuilderDataHasValue(OWLDataHasValue expected, OWLDataFactory df) {
         this(df);
@@ -51,8 +51,7 @@ public class BuilderDataHasValue extends BaseDataPropertyBuilder<OWLDataHasValue
     }
 
     /**
-     * @param arg
-     *        literal
+     * @param arg literal
      * @return builder
      */
     public BuilderDataHasValue withLiteral(OWLLiteral arg) {

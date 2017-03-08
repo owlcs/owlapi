@@ -19,21 +19,18 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
 public interface HasIndividualsInSignature {
 
     /**
-     * A convenience method that obtains the individuals that are in the
-     * signature of this object. The default implementation of this method
-     * returns an empty, modifiable set.
+     * A convenience method that obtains the individuals that are in the signature of this object.
+     * The default implementation of this method returns an empty, modifiable set.
      * 
-     * @return A set containing the individuals that are in the signature of
-     *         this object.The set is a subset of the signature, and is not
-     *         backed by the signature; it is a modifiable collection and
-     *         changes are not reflected by the signature.
+     * @return A set containing the individuals that are in the signature of this object.The set is
+     *         a subset of the signature, and is not backed by the signature; it is a modifiable
+     *         collection and changes are not reflected by the signature.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -42,8 +39,7 @@ public interface HasIndividualsInSignature {
     }
 
     /**
-     * @return Stream containing the individuals that are in the signature of
-     *         this object.
+     * @return Stream containing the individuals that are in the signature of this object.
      */
     default Stream<OWLNamedIndividual> individualsInSignature() {
         return empty();

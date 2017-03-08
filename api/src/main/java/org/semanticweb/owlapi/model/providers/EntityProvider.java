@@ -13,11 +13,9 @@
 package org.semanticweb.owlapi.model.providers;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
-public interface EntityProvider extends ClassProvider,
-        ObjectPropertyProvider, DataPropertyProvider,
-        NamedIndividualProvider, DatatypeProvider,
-        AnnotationPropertyProvider {}
+public interface EntityProvider extends ClassProvider, ObjectPropertyProvider, DataPropertyProvider,
+                NamedIndividualProvider, DatatypeProvider, AnnotationPropertyProvider {
+}

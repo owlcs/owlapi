@@ -40,8 +40,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     /**
      * Instantiates a new definition tracker.
      * 
-     * @param ontology
-     *        ontology to track
+     * @param ontology ontology to track
      */
     public DefinitionTracker(OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
@@ -51,8 +50,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 
     private void addAxiom(OWLAxiom axiom) {
         if (axioms.add(axiom)) {
-            axiom.signature()
-                .forEach(e -> referenceCounts.computeIfAbsent(e, x -> new AtomicInteger(0)).incrementAndGet());
+            axiom.signature().forEach(e -> referenceCounts
+                            .computeIfAbsent(e, x -> new AtomicInteger(0)).incrementAndGet());
         }
     }
 
@@ -68,29 +67,25 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     /**
-     * Checks if this entity is referred by a logical axiom in the imports
-     * closure of the designated ontology.
+     * Checks if this entity is referred by a logical axiom in the imports closure of the designated
+     * ontology.
      * 
-     * @param entity
-     *        entity we are searching for
-     * @return {@code true} if there is at least one logical axiom in the
-     *         imports closure of the given ontology that refers the given
-     *         entity
+     * @param entity entity we are searching for
+     * @return {@code true} if there is at least one logical axiom in the imports closure of the
+     *         given ontology that refers the given entity
      */
     public boolean isDefined(OWLEntity entity) {
-        return checkNotNull(entity, "entity cannot be null").isBuiltIn() || referenceCounts.containsKey(entity);
+        return checkNotNull(entity, "entity cannot be null").isBuiltIn()
+                        || referenceCounts.containsKey(entity);
     }
 
     /**
-     * Checks if all the entities referred in the given concept are also
-     * referred by a logical axiom in the imports closure of the designated
-     * ontology.
+     * Checks if all the entities referred in the given concept are also referred by a logical axiom
+     * in the imports closure of the designated ontology.
      * 
-     * @param classExpression
-     *        description that contains the entities we are searching for
-     * @return {@code true} if all the entities in the given description are
-     *         referred by at least one logical axiom in the imports closure of
-     *         the given ontology
+     * @param classExpression description that contains the entities we are searching for
+     * @return {@code true} if all the entities in the given description are referred by at least
+     *         one logical axiom in the imports closure of the given ontology
      */
     public boolean isDefined(OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
@@ -100,7 +95,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     @Override
     public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
-            if (!change.isAxiomChange() || !contains(ontology.importsClosure(), change.getOntology())) {
+            if (!change.isAxiomChange()
+                            || !contains(ontology.importsClosure(), change.getOntology())) {
                 continue;
             }
             OWLAxiom axiom = change.getAxiom();

@@ -37,8 +37,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
@@ -54,26 +53,34 @@ public class RendererAndParserTestCase extends TestBase {
     @Parameters
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
-            // AnonymousIndividual
-            () -> singleton(df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(createClass()),
-                createIndividual())),
-            // ClassAssertionAxioms
-            () -> singleton(df.getOWLClassAssertionAxiom(createClass(), createIndividual())),
-            // DifferentIndividualsAxiom
-            () -> singleton(df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
-                createIndividual(), createIndividual(), createIndividual())),
-            // EquivalentClasses
-            () -> singleton(df.getOWLEquivalentClassesAxiom(createClass(), df.getOWLObjectSomeValuesFrom(
-                createObjectProperty(), df.getOWLThing()))),
-            // NegativeDataPropertyAssertionAxiom
-            () -> singleton(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(), df
-                .getOWLLiteral("TestConstant"))),
-            // NegativeObjectPropertyAssertionAxiom
-            () -> singleton(df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(), createIndividual(),
-                createIndividual())),
-            // QCR
-            () -> singleton(df.getOWLSubClassOfAxiom(createClass(), df.getOWLObjectMinCardinality(3,
-                createObjectProperty(), df.getOWLObjectIntersectionOf(createClass(), createClass())))));
+                        // AnonymousIndividual
+                        () -> singleton(df.getOWLClassAssertionAxiom(
+                                        df.getOWLObjectComplementOf(createClass()),
+                                        createIndividual())),
+                        // ClassAssertionAxioms
+                        () -> singleton(df.getOWLClassAssertionAxiom(createClass(),
+                                        createIndividual())),
+                        // DifferentIndividualsAxiom
+                        () -> singleton(df.getOWLDifferentIndividualsAxiom(createIndividual(),
+                                        createIndividual(), createIndividual(), createIndividual(),
+                                        createIndividual())),
+                        // EquivalentClasses
+                        () -> singleton(df.getOWLEquivalentClassesAxiom(createClass(),
+                                        df.getOWLObjectSomeValuesFrom(createObjectProperty(),
+                                                        df.getOWLThing()))),
+                        // NegativeDataPropertyAssertionAxiom
+                        () -> singleton(df.getOWLNegativeDataPropertyAssertionAxiom(
+                                        createDataProperty(), createIndividual(),
+                                        df.getOWLLiteral("TestConstant"))),
+                        // NegativeObjectPropertyAssertionAxiom
+                        () -> singleton(df.getOWLNegativeObjectPropertyAssertionAxiom(
+                                        createObjectProperty(), createIndividual(),
+                                        createIndividual())),
+                        // QCR
+                        () -> singleton(df.getOWLSubClassOfAxiom(createClass(),
+                                        df.getOWLObjectMinCardinality(3, createObjectProperty(),
+                                                        df.getOWLObjectIntersectionOf(createClass(),
+                                                                        createClass())))));
     }
 
     @Before

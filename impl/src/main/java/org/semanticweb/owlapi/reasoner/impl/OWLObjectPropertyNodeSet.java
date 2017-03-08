@@ -19,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
@@ -31,32 +30,28 @@ public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyEx
     }
 
     /**
-     * @param entity
-     *        property to include
+     * @param entity property to include
      */
     public OWLObjectPropertyNodeSet(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
     /**
-     * @param owlObjectPropertyNode
-     *        property node to include
+     * @param owlObjectPropertyNode property node to include
      */
     public OWLObjectPropertyNodeSet(Node<OWLObjectPropertyExpression> owlObjectPropertyNode) {
         super(owlObjectPropertyNode);
     }
 
     /**
-     * @param nodes
-     *        nodes to include
+     * @param nodes nodes to include
      */
     public OWLObjectPropertyNodeSet(Set<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
     }
 
     /**
-     * @param nodes
-     *        nodes to include
+     * @param nodes nodes to include
      */
     public OWLObjectPropertyNodeSet(Stream<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
@@ -68,7 +63,8 @@ public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyEx
     }
 
     @Override
-    protected DefaultNode<OWLObjectPropertyExpression> getNode(Set<OWLObjectPropertyExpression> entities) {
+    protected DefaultNode<OWLObjectPropertyExpression> getNode(
+                    Set<OWLObjectPropertyExpression> entities) {
         return NodeFactory.getOWLObjectPropertyNode(entities);
     }
 }

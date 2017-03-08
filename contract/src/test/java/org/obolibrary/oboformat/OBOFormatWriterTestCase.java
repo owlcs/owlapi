@@ -19,13 +19,12 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 
 /** Tests for {@link OBOFormatWriter}. */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({"javadoc"})
 public class OBOFormatWriterTestCase extends OboFormatTestBasics {
 
     /**
-     * Test a special case of the specification. For intersections put the genus
-     * before the differentia, instead of the default case-insensitive
-     * alphabetical ordering.
+     * Test a special case of the specification. For intersections put the genus before the
+     * differentia, instead of the default case-insensitive alphabetical ordering.
      */
     @Test
     public void testSortTermClausesIntersectionOf() {
@@ -40,9 +39,8 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     /**
-     * Test for sorting clauses according to alphabetical case-insensitive
-     * order. Prefer upper-case over lower case for equal strings. Prefer
-     * shorter strings over longer strings.
+     * Test for sorting clauses according to alphabetical case-insensitive order. Prefer upper-case
+     * over lower case for equal strings. Prefer shorter strings over longer strings.
      */
     @Test
     public void testSortTermClausesSynonyms() {
@@ -83,8 +81,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     /**
-     * Test that the OBO format writer only writes one new-line at the end of
-     * the file.
+     * Test that the OBO format writer only writes one new-line at the end of the file.
      */
     @Test
     public void testWriteEndOfFile() throws Exception {
@@ -127,8 +124,8 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     public void testPropertyValueOrder() throws Exception {
         StringBuilder sb = new StringBuilder();
         try (InputStream inputStream = getInputStream("tag_order_test.obo");
-            InputStreamReader in = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(in);) {
+                        InputStreamReader in = new InputStreamReader(inputStream);
+                        BufferedReader reader = new BufferedReader(in);) {
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line);

@@ -21,23 +21,21 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements
-    OWLSubDataPropertyOfAxiom {
+public class OWLSubDataPropertyOfAxiomImpl
+                extends OWLSubPropertyAxiomImpl<OWLDataPropertyExpression>
+                implements OWLSubDataPropertyOfAxiom {
 
     /**
-     * @param subProperty
-     *        subproperty
-     * @param superProperty
-     *        superproperty
-     * @param annotations
-     *        annotations
+     * @param subProperty subproperty
+     * @param superProperty superproperty
+     * @param annotations annotations
      */
-    public OWLSubDataPropertyOfAxiomImpl(OWLDataPropertyExpression subProperty, OWLDataPropertyExpression superProperty,
-        Collection<OWLAnnotation> annotations) {
+    public OWLSubDataPropertyOfAxiomImpl(OWLDataPropertyExpression subProperty,
+                    OWLDataPropertyExpression superProperty,
+                    Collection<OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 
@@ -45,12 +43,14 @@ public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDa
     @SuppressWarnings("unchecked")
     public OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-            : new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), NO_ANNOTATIONS);
+                        : new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
+                                        NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
+        return (T) new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
+                        mergeAnnos(anns));
     }
 }
