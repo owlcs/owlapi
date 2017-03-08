@@ -221,7 +221,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * <td></td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public class KRSS2OWLParser extends AbstractOWLParser {
@@ -233,13 +233,13 @@ public class KRSS2OWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader reader, OWLOntology o, OWLOntologyLoaderConfiguration c,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         return parse(o, new StreamProvider(reader));
     }
 
     @Override
     public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         return parse(o, new StringProvider(s));
     }
 

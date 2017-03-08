@@ -27,12 +27,12 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /**
  * A bidirectional short form provider that caches entity short forms. The provider has various
  * methods to add, remove, update entities in the cache and also to rebuild the cache from scratch.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class CachingBidirectionalShortFormProvider
-                implements BidirectionalShortFormProvider {
+    implements BidirectionalShortFormProvider {
 
     private final Map<String, Set<OWLEntity>> shortForm2EntityMap = createSyncMap();
     private final Map<OWLEntity, String> entity2ShortFormMap = createSyncMap();
@@ -44,7 +44,7 @@ public abstract class CachingBidirectionalShortFormProvider
      * can be retrieved efficiently and so that the entity can be obtained from the short form. If
      * the short form for the entity changes then the cach must explicilty be updated using the
      * {@code update} method.
-     * 
+     *
      * @param entity The entity whose short form should be generated.
      * @return short form
      */
@@ -57,7 +57,7 @@ public abstract class CachingBidirectionalShortFormProvider
 
     /**
      * Rebuilds the cache using entities obtained from the specified entity set provider.
-     * 
+     *
      * @param entities The entities whose short forms will be cached.
      */
     protected void rebuild(Stream<OWLEntity> entities) {
@@ -68,9 +68,9 @@ public abstract class CachingBidirectionalShortFormProvider
 
     /**
      * Adds an entity to the cache.
-     * 
+     *
      * @param entity The entity to be added to the cache - the short form will automatically be
-     *        generated and added to the cache.
+     * generated and added to the cache.
      */
     public void add(OWLEntity entity) {
         String shortForm = generateShortForm(entity);
@@ -80,7 +80,7 @@ public abstract class CachingBidirectionalShortFormProvider
 
     /**
      * Removes an entity and its short form from the cache.
-     * 
+     *
      * @param entity The entity to be removed.
      */
     protected void remove(OWLEntity entity) {

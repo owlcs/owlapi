@@ -19,13 +19,15 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 
-/** Builder class for OWLObjectAllValuesFrom. */
+/**
+ * Builder class for OWLObjectAllValuesFrom.
+ */
 public class BuilderObjectAllValuesFrom
-                extends BaseObjectBuilder<OWLObjectAllValuesFrom, BuilderObjectAllValuesFrom> {
+    extends BaseObjectBuilder<OWLObjectAllValuesFrom, BuilderObjectAllValuesFrom> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

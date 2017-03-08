@@ -49,7 +49,7 @@ public class OWLObjectComponentCollector extends AbstractCollectorEx<OWLObject> 
     /**
      * A convenience method that obtains the components of an OWL object. Note that by definition,
      * the components of the object include the object itself.
-     * 
+     *
      * @param object The object whose components are to be obtained.
      * @return The component of the specified object.
      */

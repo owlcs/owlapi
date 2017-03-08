@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  * of the transaction (changes can have been applied successfully, they can have failed and been
  * rolled back, or all changes might have been no-operation). {@code enactedChanges} has all the
  * changes that have
- * 
+ *
  * @author ignazio
  */
 public class ChangeDetails {
@@ -22,7 +22,7 @@ public class ChangeDetails {
      * @param enactedChanges the list of changes applied successfully
      */
     public ChangeDetails(ChangeApplied changeEffect,
-                    List<? extends OWLOntologyChange> enactedChanges) {
+        List<? extends OWLOntologyChange> enactedChanges) {
         this.changeEffect = changeEffect;
         this.enactedChanges = enactedChanges;
     }

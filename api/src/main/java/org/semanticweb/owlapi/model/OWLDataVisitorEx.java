@@ -13,16 +13,16 @@
 package org.semanticweb.owlapi.model;
 
 /**
+ * @param <O> return type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 3.0.0
- * @param <O> return type
  */
 public interface OWLDataVisitorEx<O>
-                extends OWLDataEntityVisitorExBase<O>, OWLLiteralVisitorExBase<O> {
+    extends OWLDataEntityVisitorExBase<O>, OWLLiteralVisitorExBase<O> {
 
     /**
      * visit OWLDataComplementOf type
-     * 
+     *
      * @param node node to visit
      * @return visitor value
      */
@@ -32,7 +32,7 @@ public interface OWLDataVisitorEx<O>
 
     /**
      * visit OWLDataOneOf type
-     * 
+     *
      * @param node node to visit
      * @return visitor value
      */
@@ -42,7 +42,7 @@ public interface OWLDataVisitorEx<O>
 
     /**
      * visit OWLDataIntersectionOf type
-     * 
+     *
      * @param node node to visit
      * @return visitor value
      */
@@ -52,7 +52,7 @@ public interface OWLDataVisitorEx<O>
 
     /**
      * visit OWLDataUnionOf type
-     * 
+     *
      * @param node node to visit
      * @return visitor value
      */
@@ -62,7 +62,7 @@ public interface OWLDataVisitorEx<O>
 
     /**
      * visit OWLDatatypeRestriction type
-     * 
+     *
      * @param node node to visit
      * @return visitor value
      */
@@ -72,7 +72,7 @@ public interface OWLDataVisitorEx<O>
 
     /**
      * visit OWLFacetRestriction type
-     * 
+     *
      * @param node node to visit
      * @return visitor value
      */

@@ -44,13 +44,17 @@ public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedNam
     /** http://purl.org/dc/elements/1.1/title. */       TITLE      ("title"      ),
     /** http://purl.org/dc/elements/1.1/type. */        TYPE       ("type"       );
 //@formatter:on
+    /**
+     * Dublin Core name space.
+     */
+    public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
+    /**
+     * All IRIs.
+     */
+    public static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(x -> x.getIRI()));
     private final String shortName;
     private final String qname;
     private final IRI iri;
-    /** Dublin Core name space. */
-    public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
-    /** All IRIs. */
-    public static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(x -> x.getIRI()));
 
     DublinCoreVocabulary(String name) {
         shortName = name;

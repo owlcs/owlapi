@@ -6,9 +6,9 @@ import java.util.Optional;
 
 /**
  * Value visitor for EntityType
- * 
- * @author ignazio
+ *
  * @param <T> type to return
+ * @author ignazio
  */
 public interface EntityTypeVisitorEx<T> {
 

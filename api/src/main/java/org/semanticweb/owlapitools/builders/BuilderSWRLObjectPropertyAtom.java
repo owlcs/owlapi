@@ -21,23 +21,25 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 
-/** Builder class for SWRLObjectPropertyAtom. */
+/**
+ * Builder class for SWRLObjectPropertyAtom.
+ */
 public class BuilderSWRLObjectPropertyAtom extends
-                BuilderSWRLIndividualsAtom<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
+    BuilderSWRLIndividualsAtom<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
 
     @Nullable
     private OWLObjectPropertyExpression property = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderSWRLObjectPropertyAtom(SWRLObjectPropertyAtom expected, OWLDataFactory df) {
         this(df);
         withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument())
-                        .withProperty(expected.getPredicate());
+            .withProperty(expected.getPredicate());
     }
 
     /**
@@ -68,6 +70,6 @@ public class BuilderSWRLObjectPropertyAtom extends
     @Override
     public SWRLObjectPropertyAtom buildObject() {
         return df.getSWRLObjectPropertyAtom(verifyNotNull(getProperty()), verifyNotNull(getArg0()),
-                        verifyNotNull(getArg1()));
+            verifyNotNull(getArg1()));
     }
 }

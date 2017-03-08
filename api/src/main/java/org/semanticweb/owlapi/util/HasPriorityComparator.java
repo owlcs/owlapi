@@ -24,9 +24,9 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 /**
  * Comparator for objects with HasPriority annotations. Objects without HasPriority are considered
  * to have lowest priority (Double.MAX_VALUE).
- * 
- * @author ignazio
+ *
  * @param <T> comparator type
+ * @author ignazio
  */
 public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
 

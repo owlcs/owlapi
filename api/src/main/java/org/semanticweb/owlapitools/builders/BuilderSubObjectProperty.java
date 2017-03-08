@@ -20,20 +20,22 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-/** Builder class for OWLSubObjectPropertyOfAxiom. */
+/**
+ * Builder class for OWLSubObjectPropertyOfAxiom.
+ */
 public class BuilderSubObjectProperty extends
-                BaseSubBuilder<OWLSubObjectPropertyOfAxiom, BuilderSubObjectProperty, OWLObjectPropertyExpression> {
+    BaseSubBuilder<OWLSubObjectPropertyOfAxiom, BuilderSubObjectProperty, OWLObjectPropertyExpression> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderSubObjectProperty(OWLSubObjectPropertyOfAxiom expected, OWLDataFactory df) {
         this(df);
         withSub(expected.getSubProperty()).withSup(expected.getSuperProperty())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**
@@ -47,6 +49,6 @@ public class BuilderSubObjectProperty extends
     @Override
     public OWLSubObjectPropertyOfAxiom buildObject() {
         return df.getOWLSubObjectPropertyOfAxiom(verifyNotNull(getSub()), verifyNotNull(getSup()),
-                        annotations);
+            annotations);
     }
 }

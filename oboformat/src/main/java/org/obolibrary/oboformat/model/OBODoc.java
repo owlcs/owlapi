@@ -20,19 +20,64 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
  */
 public class OBODoc {
 
-    /** The header frame. */
+    /**
+     * The term frame map.
+     */
+    protected final Map<String, Frame> termFrameMap = new HashMap<>();
+    /**
+     * The typedef frame map.
+     */
+    protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
+    /**
+     * The instance frame map.
+     */
+    protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
+    /**
+     * The annotation frames.
+     */
+    protected final Collection<Frame> annotationFrames = new LinkedList<>();
+    /**
+     * The imported obo docs.
+     */
+    protected final Collection<OBODoc> importedOBODocs = new LinkedList<>();
+    /**
+     * The header frame.
+     */
     @Nullable
     protected Frame headerFrame;
-    /** The term frame map. */
-    protected final Map<String, Frame> termFrameMap = new HashMap<>();
-    /** The typedef frame map. */
-    protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
-    /** The instance frame map. */
-    protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
-    /** The annotation frames. */
-    protected final Collection<Frame> annotationFrames = new LinkedList<>();
-    /** The imported obo docs. */
-    protected final Collection<OBODoc> importedOBODocs = new LinkedList<>();
+
+    private static void freezeFrameMap(Map<String, Frame> frameMap) {
+        for (Frame frame : frameMap.values()) {
+            frame.freeze();
+        }
+    }
+
+    /**
+     * Looks up the ID prefix to IRI prefix mapping. Header-Tag: idspace
+     *
+     * @param prefix prefix
+     * @return IRI prefix as string
+     */
+    @Nullable
+    public static String getIDSpace(String prefix) {
+        // built-in
+        if (prefix.equals("RO")) {
+            return "http://purl.obolibrary.org/obo/RO_";
+        }
+        // TODO
+        return null;
+    }
+
+    /**
+     * @param prefix the prefix
+     * @return true, if is treat xrefs as equivalent
+     */
+    public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
+        if ("RO".equals(prefix)) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @return the header frame
@@ -76,18 +121,12 @@ public class OBODoc {
      */
     public void freezeFrames() {
         verifyNotNull(headerFrame,
-                        "headerFrame cannot be null at this stage. Setting the headr frame has been skipped")
-                                        .freeze();
+            "headerFrame cannot be null at this stage. Setting the headr frame has been skipped")
+            .freeze();
         freezeFrameMap(termFrameMap);
         freezeFrameMap(typedefFrameMap);
         freezeFrameMap(instanceFrameMap);
         for (Frame frame : annotationFrames) {
-            frame.freeze();
-        }
-    }
-
-    private static void freezeFrameMap(Map<String, Frame> frameMap) {
-        for (Frame frame : frameMap.values()) {
             frame.freeze();
         }
     }
@@ -215,7 +254,7 @@ public class OBODoc {
 
     /**
      * Adds the imported obo doc.
-     * 
+     *
      * @param doc the doc
      */
     public void addImportedOBODoc(OBODoc doc) {
@@ -224,7 +263,7 @@ public class OBODoc {
 
     /**
      * Adds the frame.
-     * 
+     *
      * @param f the frame
      * @throws FrameMergeException the frame merge exception
      */
@@ -240,7 +279,7 @@ public class OBODoc {
 
     /**
      * Adds the term frame.
-     * 
+     *
      * @param f the frame
      * @throws FrameMergeException the frame merge exception
      */
@@ -255,7 +294,7 @@ public class OBODoc {
 
     /**
      * Adds the typedef frame.
-     * 
+     *
      * @param f the frame
      * @throws FrameMergeException the frame merge exception
      */
@@ -270,7 +309,7 @@ public class OBODoc {
 
     /**
      * Adds the instance frame.
-     * 
+     *
      * @param f the frame
      * @throws FrameMergeException the frame merge exception
      */
@@ -284,35 +323,8 @@ public class OBODoc {
     }
 
     /**
-     * Looks up the ID prefix to IRI prefix mapping. Header-Tag: idspace
-     * 
-     * @param prefix prefix
-     * @return IRI prefix as string
-     */
-    @Nullable
-    public static String getIDSpace(String prefix) {
-        // built-in
-        if (prefix.equals("RO")) {
-            return "http://purl.obolibrary.org/obo/RO_";
-        }
-        // TODO
-        return null;
-    }
-
-    /**
-     * @param prefix the prefix
-     * @return true, if is treat xrefs as equivalent
-     */
-    public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
-        if ("RO".equals(prefix)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Merge contents.
-     * 
+     *
      * @param extDoc the external doc
      * @throws FrameMergeException the frame merge exception
      */
@@ -330,7 +342,7 @@ public class OBODoc {
 
     /**
      * Adds the default ontology header.
-     * 
+     *
      * @param defaultOnt the default ont
      */
     public void addDefaultOntologyHeader(String defaultOnt) {
@@ -344,7 +356,7 @@ public class OBODoc {
 
     /**
      * Check this document for violations, i.e. cardinality constraint violations.
-     * 
+     *
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */
     public void check() {

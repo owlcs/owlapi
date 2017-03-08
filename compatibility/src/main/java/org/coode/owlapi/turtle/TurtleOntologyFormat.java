@@ -21,5 +21,5 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  */
 @Deprecated
 public class TurtleOntologyFormat extends org.semanticweb.owlapi.formats.TurtleDocumentFormat
-                implements PrefixOWLOntologyFormat {
+    implements PrefixOWLOntologyFormat {
 }

@@ -11,7 +11,7 @@ public interface HasHashIndex {
 
     /**
      * @return index for this type. This is not a hashcode for instances, rather a hashcode for the
-     *         types.
+     * types.
      */
     int hashIndex();
 }

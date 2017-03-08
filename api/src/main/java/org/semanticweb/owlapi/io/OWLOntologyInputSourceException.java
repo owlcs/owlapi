@@ -20,7 +20,9 @@ import org.semanticweb.owlapi.model.OWLException;
  */
 public class OWLOntologyInputSourceException extends OWLException {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLOntologyInputSourceException() {
         super();
     }

@@ -78,7 +78,7 @@ public final class NodeFactory {
      * @return an object property node with one element
      */
     public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(
-                    OWLObjectPropertyExpression prop) {
+        OWLObjectPropertyExpression prop) {
         return new OWLObjectPropertyNode(prop);
     }
 
@@ -87,7 +87,7 @@ public final class NodeFactory {
      * @return an object property node with some elements
      */
     public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(
-                    Set<OWLObjectPropertyExpression> properties) {
+        Set<OWLObjectPropertyExpression> properties) {
         return new OWLObjectPropertyNode(properties);
     }
 
@@ -125,7 +125,7 @@ public final class NodeFactory {
      * @return a data property node with some elements
      */
     public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(
-                    Set<OWLDataProperty> properties) {
+        Set<OWLDataProperty> properties) {
         return new OWLDataPropertyNode(properties);
     }
 
@@ -155,7 +155,7 @@ public final class NodeFactory {
      * @return an individual node with one element
      */
     public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(
-                    OWLNamedIndividual ind) {
+        OWLNamedIndividual ind) {
         return new OWLNamedIndividualNode(ind);
     }
 
@@ -164,7 +164,7 @@ public final class NodeFactory {
      * @return an individual node containing some individuals
      */
     public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(
-                    Set<OWLNamedIndividual> inds) {
+        Set<OWLNamedIndividual> inds) {
         return new OWLNamedIndividualNode(inds);
     }
 }

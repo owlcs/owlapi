@@ -33,7 +33,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
     /**
      * Instantiates a new maximum number of named superclasses.
-     * 
+     *
      * @param o ontology to use
      */
     public MaximumNumberOfNamedSuperclasses(OWLOntology o) {
@@ -49,11 +49,11 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     public Integer recomputeMetric() {
         Set<OWLClass> processedClasses = new HashSet<>();
         OptionalLong max = getOntologies().flatMapToLong(o -> o.classesInSignature()
-                        .filter(processedClasses::add)
-                        .mapToLong(cls -> equivalent(o.equivalentClassesAxioms(cls),
-                                        OWLClassExpression.class).filter(d -> !d.isAnonymous())
-                                                        .count()))
-                        .max();
+            .filter(processedClasses::add)
+            .mapToLong(cls -> equivalent(o.equivalentClassesAxioms(cls),
+                OWLClassExpression.class).filter(d -> !d.isAnonymous())
+                .count()))
+            .max();
         return Integer.valueOf((int) max.orElse(0L));
     }
 

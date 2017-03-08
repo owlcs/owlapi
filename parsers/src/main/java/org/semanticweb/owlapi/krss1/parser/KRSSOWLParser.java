@@ -35,13 +35,13 @@ public class KRSSOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI iri) {
+        IRI iri) {
         return parse(o, new StreamProvider(r));
     }
 
     @Override
     public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         return parse(o, new StringProvider(s));
     }
 

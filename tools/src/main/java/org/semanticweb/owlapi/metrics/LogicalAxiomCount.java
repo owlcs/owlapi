@@ -25,7 +25,7 @@ public class LogicalAxiomCount extends AxiomCountMetric {
 
     /**
      * Instantiates a new logical axiom count.
-     * 
+     *
      * @param o ontology to use
      */
     public LogicalAxiomCount(OWLOntology o) {

@@ -63,7 +63,7 @@ public interface UnionProvider {
      * @return a class union over the specified arguments
      */
     default OWLObjectUnionOf getOWLObjectUnionOf(
-                    Collection<? extends OWLClassExpression> operands) {
+        Collection<? extends OWLClassExpression> operands) {
         return getOWLObjectUnionOf(operands.stream());
     }
 

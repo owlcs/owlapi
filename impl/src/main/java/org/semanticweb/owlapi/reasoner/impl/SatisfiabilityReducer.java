@@ -49,6 +49,6 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClas
     @Override
     public Optional<OWLClassExpression> visit(OWLSubClassOfAxiom axiom) {
         return Optional.of(df.getOWLObjectIntersectionOf(axiom.getSubClass(),
-                        df.getOWLObjectComplementOf(axiom.getSuperClass())));
+            df.getOWLObjectComplementOf(axiom.getSuperClass())));
     }
 }

@@ -25,7 +25,7 @@ public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
 
     /**
      * Instantiates a new axiom count metric.
-     * 
+     *
      * @param o ontology to use
      */
     public AxiomCountMetric(OWLOntology o) {
@@ -34,7 +34,7 @@ public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
 
     /**
      * Gets the axioms.
-     * 
+     *
      * @return the set of axioms
      */
     public Set<OWLAxiom> getAxioms() {

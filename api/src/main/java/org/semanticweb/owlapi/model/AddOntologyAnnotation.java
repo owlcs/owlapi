@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 
 /**
  * Represents an ontology change where an annotation is added to an ontology.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -62,13 +62,13 @@ public class AddOntologyAnnotation extends AnnotationChange {
         }
         AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
         return getAnnotation().equals(other.getAnnotation())
-                        && getOntology().equals(other.getOntology());
+            && getOntology().equals(other.getOntology());
     }
 
     @Override
     public String toString() {
         return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID("
-                        + getOntology().getOntologyID() + "))";
+            + getOntology().getOntologyID() + "))";
     }
 
     @Override

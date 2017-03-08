@@ -18,9 +18,11 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 
-/** Builder class for OWLEquivalentClassesAxiom. */
+/**
+ * Builder class for OWLEquivalentClassesAxiom.
+ */
 public class BuilderEquivalentClasses extends
-                BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
+    BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
 
     /**
      * @param df data factory
@@ -32,7 +34,7 @@ public class BuilderEquivalentClasses extends
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

@@ -19,17 +19,19 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Xref expander. */
+/**
+ * Xref expander.
+ */
 public class XrefExpander {
 
     protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
+    protected Map<String, Rule> treatMap = new HashMap<>();
+    protected Map<String, OBODoc> targetDocMap = new HashMap<>();
     OBODoc sourceOBODoc;
     @Nullable
     OBODoc targetOBODoc;
     @Nullable
     String targetBase;
-    protected Map<String, Rule> treatMap = new HashMap<>();
-    protected Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
      * @param src src
@@ -71,6 +73,11 @@ public class XrefExpander {
         setUp();
     }
 
+    private static String getIDSpace(String x) {
+        String[] parts = x.split(":", 2);
+        return parts[0];
+    }
+
     /**
      * @throws InvalidXrefMapException InvalidXrefMapException
      */
@@ -96,7 +103,7 @@ public class XrefExpander {
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];
                 } else if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA
-                                .getTag())) {
+                    .getTag())) {
                     addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
                     relationsUseByIdSpace.put(idSpace, parts[1]);
                     relation = parts[1];
@@ -116,7 +123,7 @@ public class XrefExpander {
                     OBODoc tgt = new OBODoc();
                     Frame thf = new Frame(FrameType.HEADER);
                     thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY,
-                                    targetBase + "-" + idSpace.toLowerCase()));
+                        targetBase + "-" + idSpace.toLowerCase()));
                     tgt.setHeaderFrame(thf);
                     targetDocMap.put(idSpace, tgt);
                     sourceOBODoc.addImportedOBODoc(tgt);
@@ -158,7 +165,9 @@ public class XrefExpander {
         treatMap.put(db, rule);
     }
 
-    /** Expand xrefs. */
+    /**
+     * Expand xrefs.
+     */
     public void expandXrefs() {
         for (Frame f : sourceOBODoc.getTermFrames()) {
             String id = checkNotNull(f.getTagValue(OboFormatTag.TAG_ID, String.class));
@@ -174,17 +183,16 @@ public class XrefExpander {
         }
     }
 
-    private static String getIDSpace(String x) {
-        String[] parts = x.split(":", 2);
-        return parts[0];
-    }
-
-    /** Rule. */
+    /**
+     * Rule.
+     */
     public abstract class Rule {
 
         @Nullable
         protected String xref;
-        /** Id space. */
+        /**
+         * Id space.
+         */
         @Nullable
         protected String idSpace;
 
@@ -212,7 +220,9 @@ public class XrefExpander {
         }
     }
 
-    /** Equivalence expansion. */
+    /**
+     * Equivalence expansion.
+     */
     public class EquivalenceExpansion extends Rule {
 
         @Override
@@ -222,7 +232,9 @@ public class XrefExpander {
         }
     }
 
-    /** Subclass expansion. */
+    /**
+     * Subclass expansion.
+     */
     public class HasSubClassExpansion extends Rule {
 
         @Override
@@ -232,7 +244,9 @@ public class XrefExpander {
         }
     }
 
-    /** Genus diff expansion. */
+    /**
+     * Genus diff expansion.
+     */
     public class GenusDifferentiaExpansion extends Rule {
 
         protected final String rel;
@@ -258,7 +272,9 @@ public class XrefExpander {
         }
     }
 
-    /** Reverse genus differentia expansion. */
+    /**
+     * Reverse genus differentia expansion.
+     */
     public class ReverseGenusDifferentiaExpansion extends Rule {
 
         protected final String rel;
@@ -284,7 +300,9 @@ public class XrefExpander {
         }
     }
 
-    /** Is a expansion. */
+    /**
+     * Is a expansion.
+     */
     public class IsaExpansion extends Rule {
 
         @Override
@@ -294,7 +312,9 @@ public class XrefExpander {
         }
     }
 
-    /** Relationship expansion. */
+    /**
+     * Relationship expansion.
+     */
     public class RelationshipExpansion extends Rule {
 
         protected final String rel;

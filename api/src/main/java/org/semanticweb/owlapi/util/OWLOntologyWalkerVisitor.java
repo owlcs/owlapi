@@ -52,7 +52,7 @@ public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
         OWLOntology ontology = walker.getOntology();
         if (ontology == null) {
             throw new OWLRuntimeException(
-                            "No current ontology; is the walker being used outside of an ontology visit?");
+                "No current ontology; is the walker being used outside of an ontology visit?");
         }
         return ontology;
     }

@@ -32,7 +32,7 @@ public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation {
      * @param property property
      */
     public UseOfPropertyInChainCausesCycle(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom,
-                    OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         super(ontology, axiom, property);
     }
 

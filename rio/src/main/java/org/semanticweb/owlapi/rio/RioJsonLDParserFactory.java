@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormatFactory;
 @HasPriority(10)
 public class RioJsonLDParserFactory extends AbstractRioParserFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioJsonLDParserFactory() {
         super(new RDFJsonLDDocumentFormatFactory());
     }

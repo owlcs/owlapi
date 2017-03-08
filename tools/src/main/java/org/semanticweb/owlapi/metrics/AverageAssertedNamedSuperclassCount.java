@@ -33,7 +33,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
     /**
      * Instantiates a new average asserted named superclass count.
-     * 
+     *
      * @param o ontology to use
      */
     public AverageAssertedNamedSuperclassCount(OWLOntology o) {
@@ -51,15 +51,15 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         AtomicInteger count = new AtomicInteger();
         Set<OWLClass> processedClasses = new HashSet<>();
         getOntologies().forEach(ont -> ont.classesInSignature().filter(processedClasses::add)
-                        .forEach(cls -> processClass(total, count, ont, cls)));
+            .forEach(cls -> processClass(total, count, ont, cls)));
         return Double.valueOf((double) total.get() / count.get());
     }
 
     protected void processClass(AtomicInteger total, AtomicInteger count, OWLOntology ont,
-                    OWLClass cls) {
+        OWLClass cls) {
         count.incrementAndGet();
         int sup = (int) sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
-                        .filter(c -> !c.isAnonymous()).count();
+            .filter(c -> !c.isAnonymous()).count();
         if (sup == 0) {
             total.incrementAndGet();
         } else {

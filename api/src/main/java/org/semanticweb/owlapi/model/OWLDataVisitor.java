@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model;
 
 /**
  * A visitor which can visit various data ranges and constants.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -22,7 +22,7 @@ public interface OWLDataVisitor extends OWLDataRangeVisitor, OWLLiteralVisitorBa
 
     /**
      * visit OWLFacetRestriction type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLFacetRestriction node) {

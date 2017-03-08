@@ -16,12 +16,12 @@ import java.io.Serializable;
 
 /**
  * An interface for objects that listen to missing imports events.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
- * @since 2.2.0
  * @see MissingImportEvent
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
+ * @since 2.2.0
  */
 @FunctionalInterface
 public interface MissingImportListener extends Serializable {

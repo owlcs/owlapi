@@ -22,7 +22,7 @@ public abstract class DoubleValuedMetric extends AbstractOWLMetric<Double> {
 
     /**
      * Instantiates a new double valued metric.
-     * 
+     *
      * @param o ontology to use
      */
     public DoubleValuedMetric(OWLOntology o) {

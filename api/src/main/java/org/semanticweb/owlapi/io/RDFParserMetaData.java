@@ -42,13 +42,13 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
      * @param guessedDeclarations guessed declarations map
      */
     public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount,
-                    Set<RDFTriple> unparsedTriples,
-                    ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+        Set<RDFTriple> unparsedTriples,
+        ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
         this.tripleCount = tripleCount;
         this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
         this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
         this.guessedDeclarations =
-                        checkNotNull(guessedDeclarations, "guessedDeclarations cannot be null");
+            checkNotNull(guessedDeclarations, "guessedDeclarations cannot be null");
     }
 
     @Override

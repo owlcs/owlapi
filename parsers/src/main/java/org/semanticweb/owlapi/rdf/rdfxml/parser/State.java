@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-/** Base class for all parser states. */
+/**
+ * Base class for all parser states.
+ */
 public interface State {
 
     /**
@@ -26,7 +28,7 @@ public interface State {
      * @throws SAXException sax exception
      */
     void startElement(String namespaceIRI, String localName, String qName, Attributes atts)
-                    throws SAXException;
+        throws SAXException;
 
     /**
      * @param namespaceIRI namespaceIRI

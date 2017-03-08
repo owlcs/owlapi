@@ -28,16 +28,18 @@ import org.semanticweb.owlapi.util.StringComparator;
 /**
  * A PrefixOWLDocumentFormat delegates all PrefixManager operations to a PrefixManager
  * implementation.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl
-                implements PrefixDocumentFormat {
+    implements PrefixDocumentFormat {
 
     private PrefixManager nsm;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public PrefixDocumentFormatImpl() {
         this(new DefaultPrefixManager());
     }
@@ -70,11 +72,6 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl
     }
 
     @Override
-    public void setDefaultPrefix(@Nullable String defaultPrefix) {
-        nsm.setDefaultPrefix(defaultPrefix);
-    }
-
-    @Override
     public boolean containsPrefixMapping(String prefixName) {
         return nsm.containsPrefixMapping(prefixName);
     }
@@ -83,6 +80,11 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl
     @Nullable
     public String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
+    }
+
+    @Override
+    public void setDefaultPrefix(@Nullable String defaultPrefix) {
+        nsm.setDefaultPrefix(defaultPrefix);
     }
 
     @Override

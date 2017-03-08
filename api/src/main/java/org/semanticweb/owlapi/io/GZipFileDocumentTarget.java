@@ -21,7 +21,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * An ontology document target which can write to a GZIP File. Notice that this works best when the
  * output stream is closed explicitly in the client code.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */
@@ -32,6 +32,6 @@ public class GZipFileDocumentTarget extends OWLOntologyDocumentTargetBase {
      */
     public GZipFileDocumentTarget(File file) {
         super(() -> new GZIPOutputStream(
-                        new FileOutputStream(checkNotNull(file, "file cannot be null"))), null);
+            new FileOutputStream(checkNotNull(file, "file cannot be null"))), null);
     }
 }

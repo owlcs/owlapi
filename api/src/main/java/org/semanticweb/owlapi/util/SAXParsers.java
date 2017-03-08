@@ -33,25 +33,25 @@ public final class SAXParsers {
 
     private static final String VALIDATION = "http://xml.org/sax/features/validation";
     private static final String LOAD_EXTERNAL_DTD =
-                    "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+        "http://apache.org/xml/features/nonvalidating/load-external-dtd";
     private static final String ERROR_TEMPLATE =
-                    " not supported by parser type {}, error message: {}";
+        " not supported by parser type {}, error message: {}";
     private static final String DECLARATION_HANDLER =
-                    "http://xml.org/sax/properties/declaration-handler";
+        "http://xml.org/sax/properties/declaration-handler";
     private static final String EXPANSION_LIMIT = "entityExpansionLimit";
     private static final String ORACLE_EXPANSION_LIMIT =
-                    "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit";
+        "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit";
     private static final String GENERAL_ENTITIES =
-                    "http://xml.org/sax/features/external-general-entities";
+        "http://xml.org/sax/features/external-general-entities";
     private static final String PARAMETER_ENTITIES =
-                    "http://xml.org/sax/features/external-parameter-entities";
+        "http://xml.org/sax/features/external-parameter-entities";
     private static final Logger LOGGER = LoggerFactory.getLogger(SAXParsers.class);
 
     private SAXParsers() {}
 
     /**
      * @return a new factory, set up to be namespace aware, non validating and not loading external
-     *         dtds.
+     * dtds.
      */
     public static SAXParserFactory initFactory() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -74,15 +74,14 @@ public final class SAXParsers {
 
     /**
      * @param handler declaration handler, optional. Used for entity detection for reuse in parser
-     *        output.
-     * @param expansion entity expansion limit. See
-     *        {@link org.semanticweb.owlapi.model.parameters.ConfigurationOptions} for instructions
-     *        on how to set the value.
+     * output.
+     * @param expansion entity expansion limit. See {@link org.semanticweb.owlapi.model.parameters.ConfigurationOptions}
+     * for instructions on how to set the value.
      * @return new SaxParser, intialized with optional declaration handler and larger entity
-     *         expansion limit
+     * expansion limit
      */
     public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler,
-                    String expansion) {
+        String expansion) {
         try {
             SAXParser parser = initFactory().newSAXParser();
             if (!addOracleExpansionLimit(parser, expansion)) {
@@ -100,7 +99,7 @@ public final class SAXParsers {
             parser.setProperty(EXPANSION_LIMIT, expansion);
         } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
             LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(),
-                            ex.getMessage());
+                ex.getMessage());
         }
     }
 
@@ -110,7 +109,7 @@ public final class SAXParsers {
             return true;
         } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
             LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(),
-                            e.getMessage());
+                e.getMessage());
             return false;
         }
     }
@@ -121,8 +120,8 @@ public final class SAXParsers {
                 parser.setProperty(DECLARATION_HANDLER, handler);
             } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
                 LOGGER.warn(DECLARATION_HANDLER + ERROR_TEMPLATE
-                                + " Entity declarations will not be roundtripped.",
-                                parser.getClass().getName(), e.getMessage());
+                        + " Entity declarations will not be roundtripped.",
+                    parser.getClass().getName(), e.getMessage());
             }
         }
     }

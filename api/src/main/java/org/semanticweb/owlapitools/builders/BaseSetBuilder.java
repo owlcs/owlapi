@@ -26,11 +26,11 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Abstract builder for entities.
- * 
- * @author ignazio
+ *
  * @param <T> type built
  * @param <B> builder type
  * @param <I> contained items type
+ * @author ignazio
  */
 public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 

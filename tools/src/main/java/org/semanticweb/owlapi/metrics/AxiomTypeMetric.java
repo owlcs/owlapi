@@ -28,7 +28,7 @@ public class AxiomTypeMetric extends AxiomCountMetric {
 
     /**
      * Instantiates a new axiom type metric.
-     * 
+     *
      * @param o ontology to use
      * @param axiomType type of axioms
      */
@@ -49,7 +49,7 @@ public class AxiomTypeMetric extends AxiomCountMetric {
 
     /**
      * Gets the axiom type.
-     * 
+     *
      * @return axiom type
      */
     public AxiomType<?> getAxiomType() {

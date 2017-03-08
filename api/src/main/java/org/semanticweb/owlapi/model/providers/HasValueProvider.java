@@ -37,5 +37,5 @@ public interface HasValueProvider {
      * @return a HasValue restriction with specified property and value
      */
     OWLObjectHasValue getOWLObjectHasValue(OWLObjectPropertyExpression property,
-                    OWLIndividual individual);
+        OWLIndividual individual);
 }

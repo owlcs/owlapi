@@ -23,9 +23,11 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for OWLDatatypeDefinitionAxiom. */
+/**
+ * Builder class for OWLDatatypeDefinitionAxiom.
+ */
 public class BuilderDatatypeDefinition
-                extends BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
+    extends BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
     @Nullable
     private OWLDataRange range = null;
@@ -34,14 +36,14 @@ public class BuilderDatatypeDefinition
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderDatatypeDefinition(OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
         this(df);
         with(expected.getDatatype()).withType(expected.getDataRange())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

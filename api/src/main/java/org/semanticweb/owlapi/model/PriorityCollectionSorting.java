@@ -19,14 +19,15 @@ import org.semanticweb.owlapi.util.HasPriorityComparator;
 
 /**
  * Specifies how PriorityCollection should sort its entries.
- * 
+ *
  * @author Ignazio
  * @since 4.0.2
  */
 public enum PriorityCollectionSorting implements ByName<PriorityCollectionSorting> {
-    /** Always keep the collection sorted by HasPriority annotation values. */
+    /**
+     * Always keep the collection sorted by HasPriority annotation values.
+     */
     ALWAYS {
-
         @Override
         public <O> List<O> sort(List<O> list) {
             Collections.sort(list, new HasPriorityComparator<>());
@@ -46,7 +47,6 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
      * at the front of the collection (First In, First Out)
      */
     ON_SET_INJECTION_ONLY {
-
         @Override
         public <O> List<O> sort(List<O> list) {
             return list;
@@ -63,7 +63,6 @@ public enum PriorityCollectionSorting implements ByName<PriorityCollectionSortin
      * the elements to be added at the front of the collection (First In, First Out)
      */
     NEVER {
-
         @Override
         public <O> List<O> sort(List<O> list) {
             return list;

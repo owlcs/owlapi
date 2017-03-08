@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * hasValue restrictions - i.e. nominals) restriction fillers that are the superclasses of class A.
  * <br>
  * This code is based on the tutorial examples by Sean Bechhofer (see the tutorial module).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
@@ -46,7 +46,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     /**
      * Creates a composite change that will add a closure axiom for a given class along a specified
      * property.
-     * 
+     *
      * @param dataFactory The data factory that should be used to create the necessary objects
      * @param cls The class for which the closure axiom will be generated
      * @param property The property that the closure axiom will act along
@@ -54,8 +54,8 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
      * @param targetOntology The target ontology that changes will be applied to.
      */
     public AddClassExpressionClosureAxiom(OWLDataFactory dataFactory, OWLClass cls,
-                    OWLObjectPropertyExpression property, Collection<OWLOntology> ontologies,
-                    OWLOntology targetOntology) {
+        OWLObjectPropertyExpression property, Collection<OWLOntology> ontologies,
+        OWLOntology targetOntology) {
         super(dataFactory);
         checkNotNull(cls, "cls cannot be null");
         checkNotNull(property, "property cannot be null");
@@ -65,13 +65,13 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     }
 
     private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property,
-                    Collection<OWLOntology> ontologies, OWLOntology targetOntology) {
+        Collection<OWLOntology> ontologies, OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
         FillerCollector collector = new FillerCollector(property);
         ontologies.forEach(o -> o.subClassAxiomsForSubClass(cls)
-                        .forEach(ax -> ax.getSuperClass().accept(collector)));
+            .forEach(ax -> ax.getSuperClass().accept(collector)));
         if (collector.fillers.isEmpty()) {
             return;
         }

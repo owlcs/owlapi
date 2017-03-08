@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 /**
  * A general purpose interface which provides the ability to parse some expression into some kind of
  * object.
- * 
+ *
  * @param <O> the kind of parsed expression
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0

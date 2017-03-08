@@ -25,14 +25,14 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom
-                extends OWLProfileViolation {
+    extends OWLProfileViolation {
 
     /**
      * @param ontology ontology
      * @param axiom axiom
      */
     public UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(OWLOntology ontology,
-                    OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        OWLInverseFunctionalObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 

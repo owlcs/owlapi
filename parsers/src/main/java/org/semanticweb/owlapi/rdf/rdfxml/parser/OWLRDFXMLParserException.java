@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 
 /**
  * The Class OWLRDFXMLParserException.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -24,7 +24,7 @@ public class OWLRDFXMLParserException extends OWLParserException {
 
     /**
      * Instantiates a new oWLRDFXML parser exception.
-     * 
+     *
      * @param message the message
      */
     public OWLRDFXMLParserException(String message) {
@@ -33,7 +33,7 @@ public class OWLRDFXMLParserException extends OWLParserException {
 
     /**
      * Instantiates a new oWLRDFXML parser exception.
-     * 
+     *
      * @param message the message
      * @param cause the cause
      */
@@ -43,7 +43,7 @@ public class OWLRDFXMLParserException extends OWLParserException {
 
     /**
      * Instantiates a new oWLRDFXML parser exception.
-     * 
+     *
      * @param cause the cause
      */
     public OWLRDFXMLParserException(Throwable cause) {

@@ -21,7 +21,9 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Builder class for OWLEntity. */
+/**
+ * Builder class for OWLEntity.
+ */
 public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
 
     @Nullable
@@ -37,7 +39,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

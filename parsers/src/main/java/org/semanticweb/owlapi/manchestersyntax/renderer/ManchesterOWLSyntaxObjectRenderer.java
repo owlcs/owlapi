@@ -174,7 +174,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * @since 2.0.0
  */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
-                implements OWLObjectVisitor {
+    implements OWLObjectVisitor {
 
     private boolean wrapSave;
     private boolean tabSave;
@@ -184,12 +184,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
      * @param entityShortFormProvider entityShortFormProvider
      */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
-                    ShortFormProvider entityShortFormProvider) {
+        ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
     }
 
     protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimeter,
-                    boolean newline) {
+        boolean newline) {
         int tab = getIndent();
         pushTab(tab);
         Iterator<? extends OWLObject> it = objects.iterator();
@@ -206,7 +206,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     protected void writeCommaSeparatedList(List<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -215,7 +215,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     protected void writeCommaSeparatedList(Stream<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -224,20 +224,20 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     private void writeRestriction(OWLQuantifiedDataRestriction restriction,
-                    ManchesterOWLSyntax keyword) {
+        ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         restriction.getFiller().accept(this);
     }
 
     private void writeRestriction(OWLQuantifiedObjectRestriction restriction,
-                    ManchesterOWLSyntax keyword) {
+        ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         boolean conjunctionOrDisjunction = false;
         if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             if (restriction.getFiller() instanceof OWLObjectIntersectionOf
-                            || restriction.getFiller() instanceof OWLObjectUnionOf) {
+                || restriction.getFiller() instanceof OWLObjectUnionOf) {
                 conjunctionOrDisjunction = true;
                 incrementTab(4);
                 writeNewLine();
@@ -254,15 +254,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     private <V extends OWLObject> void writeRestriction(OWLHasValueRestriction<V> restriction,
-                    OWLPropertyExpression p) {
+        OWLPropertyExpression p) {
         p.accept(this);
         write(VALUE);
         restriction.getFiller().accept(this);
     }
 
     private <F extends OWLPropertyRange> void writeRestriction(
-                    OWLCardinalityRestriction<F> restriction, ManchesterOWLSyntax keyword,
-                    OWLPropertyExpression p) {
+        OWLCardinalityRestriction<F> restriction, ManchesterOWLSyntax keyword,
+        OWLPropertyExpression p) {
         p.accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));
@@ -609,7 +609,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword,
-                    Stream<? extends OWLObject> stream, ManchesterOWLSyntax naryKeyword) {
+        Stream<? extends OWLObject> stream, ManchesterOWLSyntax naryKeyword) {
         List<? extends OWLObject> objects = asList(stream);
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
@@ -905,7 +905,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         setAxiomWriting();
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it
-                        .hasNext();) {
+            .hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(" o ");
@@ -928,14 +928,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(SWRLRule rule) {
         setAxiomWriting();
-        for (Iterator<SWRLAtom> it = rule.body().iterator(); it.hasNext();) {
+        for (Iterator<SWRLAtom> it = rule.body().iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
             }
         }
         write(" -> ");
-        for (Iterator<SWRLAtom> it = rule.head().iterator(); it.hasNext();) {
+        for (Iterator<SWRLAtom> it = rule.head().iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -1005,7 +1005,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
             write(node.getPredicate().toQuotedString());
         }
         write("(");
-        for (Iterator<SWRLDArgument> it = node.arguments().iterator(); it.hasNext();) {
+        for (Iterator<SWRLDArgument> it = node.arguments().iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");

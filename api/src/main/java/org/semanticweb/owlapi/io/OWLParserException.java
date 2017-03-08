@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Indicates that a parse error happened when trying to parse an ontology.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -25,7 +25,9 @@ public class OWLParserException extends OWLRuntimeException {
     private final int lineNumber;
     private final int columnNumber;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLParserException() {
         lineNumber = -1;
         columnNumber = -1;
@@ -95,15 +97,17 @@ public class OWLParserException extends OWLRuntimeException {
 
     /**
      * Gets the line number of the line that the parser was parsing when the error occurred.
-     * 
+     *
      * @return A positive integer which represents the line number, or -1 if the line number could
-     *         not be determined.
+     * not be determined.
      */
     public int getLineNumber() {
         return lineNumber;
     }
 
-    /** @return the column number */
+    /**
+     * @return the column number
+     */
     public int getColumnNumber() {
         return columnNumber;
     }

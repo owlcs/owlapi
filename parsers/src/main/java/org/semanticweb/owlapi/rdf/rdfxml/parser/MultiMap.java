@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 
 class MultiMap<K, V> {
+
     private Map<K, Collection<V>> map;
     private Function<K, Collection<V>> creator;
 
@@ -48,6 +49,7 @@ class MultiMap<K, V> {
 
 
 class AnonMap extends MultiMap<IRI, IRI> {
+
     public AnonMap() {
         super(x -> createList());
     }
@@ -55,7 +57,7 @@ class AnonMap extends MultiMap<IRI, IRI> {
     /**
      * Records an annotation on an anonymous node (either an annotation on an annotation, or an
      * annotation on an axiom).
-     * 
+     *
      * @param subject The subject that the annotation annotates
      * @param annotation The annotation
      * @return true if added
@@ -66,7 +68,7 @@ class AnonMap extends MultiMap<IRI, IRI> {
 
     /**
      * Gets the main nodes of annotations that annotated the specified source.
-     * 
+     *
      * @param source The source (axiom or annotation main node)
      * @return The set of main nodes that annotate the specified source
      */

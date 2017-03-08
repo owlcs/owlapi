@@ -45,22 +45,22 @@ import com.google.common.collect.Lists;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    private final Deque<XMLElement> elementStack = new LinkedList<>();
+    private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
+    private static final String PERCENT_ENTITY = "&#37;";
     protected final PrintWriter writer;
-    private String encoding = "";
+    protected final OWLOntologyWriterConfiguration xmlPreferences;
+    private final Deque<XMLElement> elementStack = new LinkedList<>();
     private final String xmlBase;
     private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    private String encoding = "";
     private Map<String, String> entities;
-    private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
-    private static final String PERCENT_ENTITY = "&#37;";
-    protected final OWLOntologyWriterConfiguration xmlPreferences;
 
     /**
      * @param writer writer
@@ -70,10 +70,10 @@ public class XMLWriterImpl implements XMLWriter {
      */
     @SuppressWarnings("null")
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
-                    String xmlBase, OWLOntologyWriterConfiguration preferences) {
+        String xmlBase, OWLOntologyWriterConfiguration preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
-                        "xmlWriterNamespaceManager cannot be null");
+            "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
         setupEntities();
@@ -211,7 +211,7 @@ public class XMLWriterImpl implements XMLWriter {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
         if (!XMLUtils.isQName(qName)) {
             throw new OWLRuntimeException(
-                            "Cannot create valid XML: qname for " + rootName + " is null");
+                "Cannot create valid XML: qname for " + rootName + " is null");
         }
         writer.write("\n\n<!DOCTYPE " + qName + " [\n");
         for (Map.Entry<String, String> e : entities.entrySet()) {
@@ -247,7 +247,7 @@ public class XMLWriterImpl implements XMLWriter {
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
             if (!curPrefix.isEmpty()) {
                 writeAttribute("xmlns:" + curPrefix, verifyNotNull(
-                                xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
+                    xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
             }
         }
     }
@@ -261,7 +261,9 @@ public class XMLWriterImpl implements XMLWriter {
         writer.flush();
     }
 
-    /** XML element. */
+    /**
+     * XML element.
+     */
     public class XMLElement {
 
         @Nullable
@@ -390,7 +392,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         private void writeAttributes() {
-            for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext();) {
+            for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext(); ) {
                 String attr = it.next();
                 String val = attributes.get(attr);
                 writer.write(' ');
@@ -418,19 +420,19 @@ public class XMLWriterImpl implements XMLWriter {
 
         private boolean isRDFXMLLiteral() {
             return "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"
-                            .equals(attributes.get("rdf:datatype"))
-                            || "Literal".equals(attributes.get("rdf:parseType"));
+                .equals(attributes.get("rdf:datatype"))
+                || "Literal".equals(attributes.get("rdf:parseType"));
         }
 
         private void checkProperXMLLiteral(String text) {
             try {
                 String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT
-                                .getValue(String.class, Collections.emptyMap());
+                    .getValue(String.class, Collections.emptyMap());
                 SAXParser parser = SAXParsers.initParserWithOWLAPIStandards(null, expansions);
                 parser.parse(new InputSource(new StringReader(text)), new DefaultHandler());
             } catch (SAXException | IOException e) {
                 throw new OWLRuntimeException("XML literal is not self contained: \"" + text + "\"",
-                                e);
+                    e);
             }
         }
 

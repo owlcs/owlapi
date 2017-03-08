@@ -76,7 +76,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWL2ELProfile implements OWLProfile {
 
     protected static final Set<IRI> ALLOWED_DATATYPES =
-                    asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
+        asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
 
     @Override
     public String getName() {
@@ -95,7 +95,7 @@ public class OWL2ELProfile implements OWLProfile {
         Set<OWLProfileViolation> violations = new HashSet<>();
         violations.addAll(report.getViolations());
         OWLOntologyProfileWalker ontologyWalker =
-                        new OWLOntologyProfileWalker(ontology.importsClosure());
+            new OWLOntologyProfileWalker(ontology.importsClosure());
         OWL2ELProfileObjectVisitor visitor = new OWL2ELProfileObjectVisitor(ontologyWalker);
         ontologyWalker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());
@@ -104,9 +104,9 @@ public class OWL2ELProfile implements OWLProfile {
 
     protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor {
 
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
         @Nullable
         private OWLObjectPropertyManager propertyManager;
-        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         public OWL2ELProfileObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -127,114 +127,114 @@ public class OWL2ELProfile implements OWLProfile {
         public void visit(OWLDatatype node) {
             if (!ALLOWED_DATATYPES.contains(node.getIRI())) {
                 profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(),
-                                getCurrentAxiom(), node));
+                    getCurrentAxiom(), node));
             }
         }
 
         @Override
         public void visit(OWLAnonymousIndividual individual) {
             profileViolations.add(new UseOfAnonymousIndividual(getCurrentOntology(),
-                            getCurrentAxiom(), individual));
+                getCurrentAxiom(), individual));
         }
 
         @Override
         public void visit(OWLObjectInverseOf property) {
             profileViolations.add(new UseOfObjectPropertyInverse(getCurrentOntology(),
-                            getCurrentAxiom(), property));
+                getCurrentAxiom(), property));
         }
 
         @Override
         public void visit(OWLDataAllValuesFrom ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataExactCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataMaxCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataMinCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectAllValuesFrom ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectComplementOf ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectExactCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectMaxCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectMinCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLObjectOneOf ce) {
             if (ce.individuals().count() != 1) {
                 profileViolations.add(new UseOfObjectOneOfWithMultipleIndividuals(
-                                getCurrentOntology(), getCurrentAxiom(), ce));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
             }
         }
 
         @Override
         public void visit(OWLObjectUnionOf ce) {
             profileViolations.add(new UseOfIllegalClassExpression(getCurrentOntology(),
-                            getCurrentAxiom(), ce));
+                getCurrentAxiom(), ce));
         }
 
         @Override
         public void visit(OWLDataComplementOf node) {
             profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                            node));
+                node));
         }
 
         @Override
         public void visit(OWLDataOneOf node) {
             if (node.values().count() != 1) {
                 profileViolations.add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(),
-                                getCurrentAxiom(), node));
+                    getCurrentAxiom(), node));
             }
         }
 
         @Override
         public void visit(OWLDatatypeRestriction node) {
             profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                            node));
+                node));
         }
 
         @Override
         public void visit(OWLDataUnionOf node) {
             profileViolations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                            node));
+                node));
         }
 
         @Override
@@ -296,37 +296,37 @@ public class OWL2ELProfile implements OWLProfile {
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
             // Do we have a range restriction imposed on our super property?
             getCurrentOntology().axioms(AxiomType.OBJECT_PROPERTY_RANGE, INCLUDED)
-                            .forEach(rngAx -> {
-                                if (getPropertyManager().isSubPropertyOf(axiom.getSuperProperty(),
-                                                rngAx.getProperty())) {
-                                    // Imposed range restriction!
-                                    OWLClassExpression imposedRange = rngAx.getRange();
-                                    // There must be an axiom that imposes a
-                                    // range on the last
-                                    // prop in the chain
-                                    List<OWLObjectPropertyExpression> chain =
-                                                    axiom.getPropertyChain();
-                                    if (!chain.isEmpty()) {
-                                        OWLObjectPropertyExpression lastProperty =
-                                                        chain.get(chain.size() - 1);
-                                        boolean rngPresent =
-                                                        rangePresent(imposedRange, lastProperty);
-                                        if (!rngPresent) {
-                                            profileViolations.add(
-                                                            new LastPropertyInChainNotInImposedRange(
-                                                                            getCurrentOntology(),
-                                                                            axiom, rngAx));
-                                        }
-                                    }
-                                }
-                            });
+                .forEach(rngAx -> {
+                    if (getPropertyManager().isSubPropertyOf(axiom.getSuperProperty(),
+                        rngAx.getProperty())) {
+                        // Imposed range restriction!
+                        OWLClassExpression imposedRange = rngAx.getRange();
+                        // There must be an axiom that imposes a
+                        // range on the last
+                        // prop in the chain
+                        List<OWLObjectPropertyExpression> chain =
+                            axiom.getPropertyChain();
+                        if (!chain.isEmpty()) {
+                            OWLObjectPropertyExpression lastProperty =
+                                chain.get(chain.size() - 1);
+                            boolean rngPresent =
+                                rangePresent(imposedRange, lastProperty);
+                            if (!rngPresent) {
+                                profileViolations.add(
+                                    new LastPropertyInChainNotInImposedRange(
+                                        getCurrentOntology(),
+                                        axiom, rngAx));
+                            }
+                        }
+                    }
+                });
         }
 
         protected boolean rangePresent(OWLClassExpression imposedRange,
-                        OWLObjectPropertyExpression lastProperty) {
+            OWLObjectPropertyExpression lastProperty) {
             return getCurrentOntology().importsClosure()
-                            .flatMap(o -> o.objectPropertyRangeAxioms(lastProperty))
-                            .anyMatch(l -> l.getRange().equals(imposedRange));
+                .flatMap(o -> o.objectPropertyRangeAxioms(lastProperty))
+                .anyMatch(l -> l.getRange().equals(imposedRange));
         }
 
         @Override

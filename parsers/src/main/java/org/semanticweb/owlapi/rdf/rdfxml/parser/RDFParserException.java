@@ -17,7 +17,9 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.Locator;
 
-/** Thrown if an RDF error is encountered while parsing RDF. */
+/**
+ * Thrown if an RDF error is encountered while parsing RDF.
+ */
 public class RDFParserException extends OWLRuntimeException {
 
     protected final String publicId;

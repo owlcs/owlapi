@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 /**
  * An interface to an object that has annotation.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
@@ -29,31 +29,31 @@ public interface HasAnnotations {
 
     /**
      * @return a stream of OWLAnnotations on this object. This will only include the annotations
-     *         contained in this object, not the value of annotation assertion axioms in an ontology
-     *         or in other ontologies. Use the EntitySearcher methods for that purpose.
+     * contained in this object, not the value of annotation assertion axioms in an ontology or in
+     * other ontologies. Use the EntitySearcher methods for that purpose.
      */
     default Stream<OWLAnnotation> annotations() {
         return empty();
     }
 
     /**
-     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
-     *         include the annotations contained in this object, not the value of annotation
-     *         assertion axioms in an ontology or in other ontologies. Use the EntitySearcher
-     *         methods for that purpose.
      * @param p filter predicate for annotations. Can be used to match the annotation property or
-     *        the annotation value
+     * the annotation value
+     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
+     * include the annotations contained in this object, not the value of annotation assertion
+     * axioms in an ontology or in other ontologies. Use the EntitySearcher methods for that
+     * purpose.
      */
     default Stream<OWLAnnotation> annotations(Predicate<OWLAnnotation> p) {
         return annotations().filter(p);
     }
 
     /**
-     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
-     *         include the annotations contained in this object, not the value of annotation
-     *         assertion axioms in an ontology or in other ontologies. Use the EntitySearcher
-     *         methods for that purpose.
      * @param p annotation property to filter on
+     * @return a stream of OWLAnnotations on this object, with filter applied. This will only
+     * include the annotations contained in this object, not the value of annotation assertion
+     * axioms in an ontology or in other ontologies. Use the EntitySearcher methods for that
+     * purpose.
      */
     default Stream<OWLAnnotation> annotations(OWLAnnotationProperty p) {
         return annotations().filter(a -> a.getProperty().equals(p));
@@ -61,15 +61,14 @@ public interface HasAnnotations {
 
     /**
      * Gets the annotations on this object.
-     * 
+     *
      * @return A set of annotations on this object. For an OWLOntology, these are the ontology
-     *         annotations, not the annotations attached to axioms or annotation axioms contained in
-     *         the ontology. For an OWLAnnotation, these are the annotations on the annotation; the
-     *         annotation itself is not included. The set returned will be a copy - modifying the
-     *         set will have no effect on the annotations in this object, similarly, any changes
-     *         that affect the annotations on this object will not change the returned set. Note:
-     *         for iterating over this set of annotations, using the annotations() stream is more
-     *         efficient.
+     * annotations, not the annotations attached to axioms or annotation axioms contained in the
+     * ontology. For an OWLAnnotation, these are the annotations on the annotation; the annotation
+     * itself is not included. The set returned will be a copy - modifying the set will have no
+     * effect on the annotations in this object, similarly, any changes that affect the annotations
+     * on this object will not change the returned set. Note: for iterating over this set of
+     * annotations, using the annotations() stream is more efficient.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -79,11 +78,11 @@ public interface HasAnnotations {
 
     /**
      * Gets the annotations whose annotation property is equal to {@code annotationProperty}.
-     * 
+     *
      * @param annotationProperty The annotation property that will be equal to the annotation
-     *        property of each returned annotation.
-     * @return A set of annotations whose annotation properties is equals to
-     *         {@code annotationProperty}.
+     * property of each returned annotation.
+     * @return A set of annotations whose annotation properties is equals to {@code
+     * annotationProperty}.
      * @deprecated use the stream method
      */
     @Deprecated

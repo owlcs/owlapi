@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Base class for ontology storers. Note that all current implementations are stateless.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
@@ -38,15 +38,15 @@ public abstract class AbstractOWLStorer implements OWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, OutputStream outputStream,
-                    OWLDocumentFormat format) throws OWLOntologyStorageException {
+        OWLDocumentFormat format) throws OWLOntologyStorageException {
         if (!format.isTextual()) {
             throw new OWLOntologyStorageException(
-                            "This method must be overridden to support this binary format: "
-                                            + format.getKey());
+                "This method must be overridden to support this binary format: "
+                    + format.getKey());
         }
         try {
             PrintWriter writer = new PrintWriter(new BufferedWriter(
-                            new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)));
+                new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)));
             storeOntology(ontology, writer, format);
             writer.flush();
         } catch (OWLRuntimeException e) {

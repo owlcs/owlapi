@@ -24,10 +24,10 @@ public interface OWLOntologyChangesVetoedListener extends Serializable {
 
     /**
      * Called when a list of ontology changes has been vetoed for some reason.
-     * 
+     *
      * @param changes The changes that were vetoed.
      * @param veto The cause of the veto.
      */
     void ontologyChangesVetoed(List<? extends OWLOntologyChange> changes,
-                    OWLOntologyChangeVetoException veto);
+        OWLOntologyChangeVetoException veto);
 }

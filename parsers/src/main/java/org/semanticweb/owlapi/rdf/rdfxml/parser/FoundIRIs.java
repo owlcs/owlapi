@@ -35,6 +35,12 @@ import com.google.common.collect.ArrayListMultimap;
 class FoundIRIs {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FoundIRIs.class);
+    /**
+     * IRIs that had a type triple to owl:Ontology
+     */
+    protected final Set<IRI> ontologyIRIs = createSet();
+    protected final ArrayListMultimap<IRI, Class<?>> guessedDeclarations =
+        ArrayListMultimap.create();
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -47,23 +53,29 @@ class FoundIRIs {
      * property - bad!
      */
     private final Set<IRI> propertyIRIs = createSet();
-    /** Set of IRIs that are typed by non-system types and also owl:Thing */
+    /**
+     * Set of IRIs that are typed by non-system types and also owl:Thing
+     */
     private final Set<IRI> individualIRIs = createSet();
     private final Set<IRI> annPropertyIRIs = createSet();
-    /** The annotation iris. */
+    /**
+     * The annotation iris.
+     */
     private final Set<IRI> annotationIRIs = createSet();
-    /** IRIs that had a type triple to rdfs:Datatange */
+    /**
+     * IRIs that had a type triple to rdfs:Datatange
+     */
     private final Set<IRI> dataRangeIRIs = createSet();
-    /** The IRI of the first reource that is typed as an ontology */
+    /**
+     * IRIs that had a type triple to owl:Restriction
+     */
+    private final Set<IRI> restrictionIRIs = createSet();
+    private final boolean strict;
+    /**
+     * The IRI of the first reource that is typed as an ontology
+     */
     @Nullable
     protected IRI firstOntologyIRI;
-    /** IRIs that had a type triple to owl:Ontology */
-    protected final Set<IRI> ontologyIRIs = createSet();
-    /** IRIs that had a type triple to owl:Restriction */
-    private final Set<IRI> restrictionIRIs = createSet();
-    protected final ArrayListMultimap<IRI, Class<?>> guessedDeclarations =
-                    ArrayListMultimap.create();
-    private final boolean strict;
 
     public FoundIRIs(boolean strict) {
         this.strict = strict;
@@ -84,7 +96,7 @@ class FoundIRIs {
     /**
      * Imports closure changed. NOTE: This method only gets called when the ontology being parsed
      * adds a direct import. This is enough for resolving the imports closure.
-     * 
+     *
      * @param o ontology
      */
     public void importsClosureChanged(OWLOntology o) {
@@ -110,7 +122,7 @@ class FoundIRIs {
 
     /**
      * Adds the class expression.
-     * 
+     *
      * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
@@ -137,7 +149,7 @@ class FoundIRIs {
 
     /**
      * Adds the object property.
-     * 
+     *
      * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
@@ -148,7 +160,7 @@ class FoundIRIs {
 
     /**
      * Adds the data property.
-     * 
+     *
      * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
@@ -159,7 +171,7 @@ class FoundIRIs {
 
     /**
      * Adds the annotation property.
-     * 
+     *
      * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
@@ -170,7 +182,7 @@ class FoundIRIs {
 
     /**
      * Adds the data range.
-     * 
+     *
      * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
@@ -181,7 +193,7 @@ class FoundIRIs {
 
     /**
      * Adds the owl named individual.
-     * 
+     *
      * @param iri the iri
      * @param explicitlyTyped the explicitly type
      */
@@ -192,7 +204,7 @@ class FoundIRIs {
 
     /**
      * Adds the owl restriction.
-     * 
+     *
      * @param iri the iri
      * @param explicitlyTyped the explicitly typed
      */
@@ -225,10 +237,10 @@ class FoundIRIs {
      * Determines if a given IRI is currently an object property IRI and not a data property IRI and
      * not an annotation property IRI. Note that this method is only guaranteed to return the same
      * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
-     * 
+     *
      * @param iri The IRI to check.
      * @return {@code true} if the IRI is an object property IRI and not a data property IRI and not
-     *         an annotation property IRI. Otherwise, {@code false}.
+     * an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isObjectPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isDP(iri) && !isAP(iri) && isOP(iri);
@@ -242,10 +254,10 @@ class FoundIRIs {
      * Determines if a given IRI is currently a data property IRI and not an object property IRI and
      * not an annotation property IRI. Note that this method is only guaranteed to return the same
      * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
-     * 
+     *
      * @param iri The IRI to check.
      * @return {@code true} if the IRI is a data property IRI and not an object property IRI and not
-     *         an annotation property IRI. Otherwise, {@code false}.
+     * an annotation property IRI. Otherwise, {@code false}.
      */
     protected boolean isDataPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isOP(iri) && !isAP(iri) && isDP(iri);
@@ -259,10 +271,10 @@ class FoundIRIs {
      * Determines if a given IRI is currently an annotation property IRI and not a data property IRI
      * and not an object property IRI. Note that this method is only guaranteed to return the same
      * value once all triples in the imports closure of the RDF graph being parsed have been parsed.
-     * 
+     *
      * @param iri The IRI to check.
      * @return {@code true} if the IRI is an annotation property IRI and not a data property IRI and
-     *         not an object property IRI. Otherwise, {@code false}.
+     * not an object property IRI. Otherwise, {@code false}.
      */
     protected boolean isAnnotationPropertyOnly(@Nullable IRI iri) {
         return iri != null && !isOP(iri) && !isDP(iri) && isAP(iri);

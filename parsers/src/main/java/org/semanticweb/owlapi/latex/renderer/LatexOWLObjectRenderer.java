@@ -47,7 +47,7 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
         LatexWriter latexWriter = new LatexWriter(writer);
         LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
         visitor.setShortFormProvider(
-                        verifyNotNull(shortFormProvider, "shortFormProvider not set yet"));
+            verifyNotNull(shortFormProvider, "shortFormProvider not set yet"));
         object.accept(visitor);
         return writer.getBuffer().toString();
     }

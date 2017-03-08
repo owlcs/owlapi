@@ -100,12 +100,16 @@ public enum OWLObjectType {
         this.typeIndex = typeIndex;
     }
 
-    /** @return type index */
+    /**
+     * @return type index
+     */
     public int typeIndex() {
         return typeIndex;
     }
 
-    /** @return hash index */
+    /**
+     * @return hash index
+     */
     public int hashIndex() {
         return hashIndex;
     }

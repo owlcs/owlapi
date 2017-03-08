@@ -42,7 +42,7 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
 
     @Override
     public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-                    OWLReasonerConfiguration config) {
+        OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
     }
 

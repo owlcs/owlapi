@@ -7,11 +7,14 @@ import javax.annotation.Nullable;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 
-/** Diff. */
+/**
+ * Diff.
+ */
 public class Diff {
 
-    String type;
     final String frameType;
+    final int frameNum;
+    String type;
     @Nullable
     Frame frame1;
     @Nullable
@@ -20,7 +23,6 @@ public class Diff {
     Clause clause1;
     @Nullable
     Clause clause2;
-    final int frameNum;
 
     /**
      * @param ftype ftype
@@ -41,7 +43,7 @@ public class Diff {
      * @param n n
      */
     public Diff(String ftype, String type, Frame f1, @Nullable Frame f2, @Nullable Clause c,
-                    int n) {
+        int n) {
         this.type = type;
         frame1 = f1;
         frame2 = f2;
@@ -127,8 +129,8 @@ public class Diff {
     @Override
     public String toString() {
         return type + ' ' + frameType + " Frame1=" + id(frame1) + " Frame2=" + id(frame2)
-                        + " Clause1=" + (clause1 == null ? "-" : clause1) + " Clause2="
-                        + (clause2 == null ? "-" : clause2) + " In=Frame" + frameNum;
+            + " Clause1=" + (clause1 == null ? "-" : clause1) + " Clause2="
+            + (clause2 == null ? "-" : clause2) + " In=Frame" + frameNum;
     }
 
     @Nullable

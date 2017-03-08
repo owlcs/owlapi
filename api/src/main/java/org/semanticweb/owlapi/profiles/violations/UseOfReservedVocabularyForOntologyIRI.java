@@ -59,6 +59,6 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
         return list(new SetOntologyID(ontology,
-                        IRI.create("urn:profilesrepair:ontology#", "renamed")));
+            IRI.create("urn:profilesrepair:ontology#", "renamed")));
     }
 }

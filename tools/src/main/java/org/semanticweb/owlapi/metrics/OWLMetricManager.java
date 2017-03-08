@@ -29,7 +29,7 @@ public class OWLMetricManager {
 
     /**
      * Instantiates a new OWL metric manager.
-     * 
+     *
      * @param metrics the metrics to use
      */
     public OWLMetricManager(List<OWLMetric<?>> metrics) {

@@ -36,13 +36,13 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         return parse(o, new StreamProvider(r));
     }
 
     @Override
     public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         return parse(o, new StringProvider(s));
     }
 

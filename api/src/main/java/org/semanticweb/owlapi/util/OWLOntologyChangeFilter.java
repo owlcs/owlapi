@@ -38,7 +38,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * receive a list of changes, {@code ontChanges}, from an ontology change listener. We can use the
  * {@code OWLOntologyChangeFilter} to filter out the changes that alter the domain of an object
  * property in the following way:<br>
- * 
+ *
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
  * <br>
@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * // Process the list of changes
  * filter.processChanges(ontChanges);
  * </pre>
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -96,10 +96,10 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
 
     /**
      * Gets the ontology which the current change being visited was applied to.
-     * 
+     *
      * @return The ontology or {@code null} if the filter is not in a change visit cycle. When
-     *         called from within a {@code visit} method, the return value is guarenteed not to be
-     *         {@code null}.
+     * called from within a {@code visit} method, the return value is guarenteed not to be {@code
+     * null}.
      */
     @Nullable
     protected OWLOntology getOntology() {

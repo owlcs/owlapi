@@ -32,7 +32,7 @@ public interface SWRLLiteralArgument extends SWRLDArgument {
 
     /**
      * Gets the literal for this argument.
-     * 
+     *
      * @return The literal
      */
     OWLLiteral getLiteral();

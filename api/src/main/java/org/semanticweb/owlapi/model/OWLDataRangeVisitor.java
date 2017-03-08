@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLDataRange}s.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -23,7 +23,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
 
     /**
      * visit OWLDataOneOf type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLDataOneOf node) {
@@ -32,7 +32,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
 
     /**
      * visit OWLDataComplementOf type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLDataComplementOf node) {
@@ -41,7 +41,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
 
     /**
      * visit OWLDataIntersectionOf type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLDataIntersectionOf node) {
@@ -50,7 +50,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
 
     /**
      * visit OWLDataUnionOf type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLDataUnionOf node) {
@@ -59,7 +59,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
 
     /**
      * visit OWLDatatypeRestriction type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLDatatypeRestriction node) {

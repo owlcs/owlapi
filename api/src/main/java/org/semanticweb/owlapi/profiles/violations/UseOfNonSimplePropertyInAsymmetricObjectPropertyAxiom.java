@@ -31,7 +31,7 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends OWLPr
      * @param axiom axiom
      */
     public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(OWLOntology ontology,
-                    OWLAsymmetricObjectPropertyAxiom axiom) {
+        OWLAsymmetricObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 

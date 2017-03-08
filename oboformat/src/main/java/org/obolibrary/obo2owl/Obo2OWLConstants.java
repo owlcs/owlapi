@@ -19,23 +19,44 @@ import com.google.common.collect.Maps;
  */
 public class Obo2OWLConstants {
 
-    /** Default iri. */
+    /**
+     * Default iri.
+     */
     public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
-    /** OIO vocabulary prefix. */
+    /**
+     * OIO vocabulary prefix.
+     */
     public static final String OIOVOCAB_IRI_PREFIX =
-                    "http://www.geneontology.org/formats/oboInOwl#";
-    /** IRI for the 'has obsolescence reason' annotation property */
+        "http://www.geneontology.org/formats/oboInOwl#";
+    /**
+     * IRI for the 'has obsolescence reason' annotation property
+     */
     public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000231");
-    /** IRI for the 'terms merged' individual */
+    /**
+     * IRI for the 'terms merged' individual
+     */
     public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX, "IAO_0000227");
+    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB =
+        Maps.uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), v -> v.mappedTag);
 
-    /** OBO to OWL vocabulary. */
+    /**
+     * @param tag tag
+     * @return obj for tag
+     */
+    @Nullable
+    public static Obo2OWLVocabulary getVocabularyObj(String tag) {
+        return TAGSTOVOCAB.get(tag);
+    }
+
+    /**
+     * OBO to OWL vocabulary.
+     */
     public enum Obo2OWLVocabulary implements HasIRI {
         //@formatter:off
         /**IRI_IAO_0000424. */    IRI_IAO_0000424(DEFAULT_IRI_PREFIX, "IAO_0000424", "expand expression to", OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag()),
         /**IRI_IAO_0000425. */    IRI_IAO_0000425(DEFAULT_IRI_PREFIX, "IAO_0000425", "expand assertion to", OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag()),
         /**IRI_IAO_0000115. */    IRI_IAO_0000115(DEFAULT_IRI_PREFIX, "IAO_0000115", "definition", OboFormatTag.TAG_DEF.getTag()),
-        //                      IRI_IAO_0000118(DEFAULT_IRI_PREFIX, "IAO_0000118", "alternative term", OboFormatTag.TAG_SYNONYM.getTag()),
+        // IRI_IAO_0000118(DEFAULT_IRI_PREFIX, "IAO_0000118", "alternative term", OboFormatTag.TAG_SYNONYM.getTag()),
         /**IRI_IAO_0000427. */    IRI_IAO_0000427(DEFAULT_IRI_PREFIX, "IAO_0000427", "antisymmetric property", OboFormatTag.TAG_IS_ANTI_SYMMETRIC.getTag()),
         /**IRI_IAO_0100001. */    IRI_IAO_0100001(DEFAULT_IRI_PREFIX, "IAO_0100001", "term replaced by", OboFormatTag.TAG_REPLACED_BY.getTag()),
         /**IRI_OIO_shorthand. */  IRI_OIO_shorthand(OIOVOCAB_IRI_PREFIX, "shorthand", "shorthand", "shorthand"),
@@ -129,17 +150,5 @@ public class Obo2OWLConstants {
             }
             return iri.equals(e.getIRI());
         }
-    }
-
-    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB =
-                    Maps.uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), v -> v.mappedTag);
-
-    /**
-     * @param tag tag
-     * @return obj for tag
-     */
-    @Nullable
-    public static Obo2OWLVocabulary getVocabularyObj(String tag) {
-        return TAGSTOVOCAB.get(tag);
     }
 }

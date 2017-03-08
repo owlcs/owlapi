@@ -10,11 +10,18 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 class ListTriples {
-    /** Maps rdf:next triple subjects to objects */
+
+    /**
+     * Maps rdf:next triple subjects to objects
+     */
     private final Map<IRI, IRI> listRestTripleMap = createMap();
-    /** The list first resource triple map. */
+    /**
+     * The list first resource triple map.
+     */
     private final Map<IRI, IRI> listFirstResourceTripleMap = createMap();
-    /** The list first literal triple map. */
+    /**
+     * The list first literal triple map.
+     */
     private final Map<IRI, OWLLiteral> listFirstLiteralTripleMap = createMap();
 
     protected void clear() {
@@ -32,7 +39,7 @@ class ListTriples {
     @Nullable
     protected IRI getFirstResource(IRI subject, boolean consume) {
         return consume ? listFirstResourceTripleMap.remove(subject)
-                        : listFirstResourceTripleMap.get(subject);
+            : listFirstResourceTripleMap.get(subject);
     }
 
     @Nullable

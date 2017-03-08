@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.model;
 /**
  * A marker interface for properties that aren't expression i.e. named properties. By definition,
  * properties are either data properties or object properties.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */

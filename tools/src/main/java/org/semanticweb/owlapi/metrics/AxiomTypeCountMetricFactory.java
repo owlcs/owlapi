@@ -28,7 +28,7 @@ public final class AxiomTypeCountMetricFactory {
 
     /**
      * Creates a new AxiomTypeCountMetric object.
-     * 
+     *
      * @param o ontology to use
      * @return set of metrics
      */

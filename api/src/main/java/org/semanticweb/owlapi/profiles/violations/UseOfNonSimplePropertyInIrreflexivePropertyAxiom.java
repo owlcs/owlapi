@@ -31,7 +31,7 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfile
      * @param axiom axiom
      */
     public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology,
-                    OWLIrreflexiveObjectPropertyAxiom axiom) {
+        OWLIrreflexiveObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 
@@ -53,6 +53,6 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfile
     @Override
     public String toString() {
         return toString("Use of non-simple property in irreflexive property axiom %s",
-                        getExpression());
+            getExpression());
     }
 }

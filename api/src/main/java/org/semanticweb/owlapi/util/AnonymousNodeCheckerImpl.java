@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * default implementation for an anonymous node checker. This implementation delegates to NodeID
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */

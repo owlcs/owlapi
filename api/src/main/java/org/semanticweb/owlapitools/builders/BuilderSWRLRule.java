@@ -25,7 +25,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Builder class for SWRLRule. */
+/**
+ * Builder class for SWRLRule.
+ */
 public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
     private final List<SWRLAtom> body = new ArrayList<>();
@@ -33,7 +35,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
@@ -109,12 +111,16 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
         return df.getSWRLRule(body, head, annotations);
     }
 
-    /** @return size of body */
+    /**
+     * @return size of body
+     */
     public int bodySize() {
         return body.size();
     }
 
-    /** @return size of head */
+    /**
+     * @return size of head
+     */
     public int headSize() {
         return head.size();
     }

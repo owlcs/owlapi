@@ -26,16 +26,18 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 
-/** Builder class for SWRLBuiltInAtom. */
+/**
+ * Builder class for SWRLBuiltInAtom.
+ */
 public class BuilderSWRLBuiltInAtom extends BaseBuilder<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 
+    private final List<SWRLDArgument> args = new ArrayList<>();
     @Nullable
     private IRI iri = null;
-    private final List<SWRLDArgument> args = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

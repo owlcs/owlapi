@@ -24,10 +24,10 @@ public interface ImpendingOWLOntologyChangeBroadcastStrategy extends Serializabl
 
     /**
      * Broadcasts the list of changes to the specified listeners.
-     * 
+     *
      * @param changes The changes to be broadcast.
      * @param listener The listeners that the changes should be broadcast to
      */
     void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-                    List<? extends OWLOntologyChange> changes);
+        List<? extends OWLOntologyChange> changes);
 }

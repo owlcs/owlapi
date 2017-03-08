@@ -25,7 +25,7 @@ public final class EscapeUtils {
     /**
      * Escapes quotes and backslashes in a string. Double quotes are replaced with a backslash
      * followed by a double quote, and backslashes are replaced with a double backslash.
-     * 
+     *
      * @param s The string to be escaped
      * @return The escaped string.
      */

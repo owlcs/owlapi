@@ -22,24 +22,26 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Builder class for OWLHasKeyAxiom. */
+/**
+ * Builder class for OWLHasKeyAxiom.
+ */
 public class BuilderHasKey
-                extends BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey, OWLPropertyExpression> {
+    extends BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey, OWLPropertyExpression> {
 
     @Nullable
     private OWLClassExpression ce;
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderHasKey(OWLHasKeyAxiom expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getClassExpression()).withAnnotations(expected.annotations())
-                        .withItems(expected.dataPropertyExpressions())
-                        .withItems(expected.objectPropertyExpressions());
+            .withItems(expected.dataPropertyExpressions())
+            .withItems(expected.objectPropertyExpressions());
     }
 
     /**

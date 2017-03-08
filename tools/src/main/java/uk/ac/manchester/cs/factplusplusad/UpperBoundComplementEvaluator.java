@@ -34,14 +34,16 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     /**
      * init c'tor
-     * 
+     *
      * @param s signature
      */
     UpperBoundComplementEvaluator(Signature s) {
         super(s);
     }
 
-    /** helper for entities TODO: checks only C top-locality, not R */
+    /**
+     * helper for entities TODO: checks only C top-locality, not R
+     */
     @Override
     int getEntityValue(OWLEntity entity) {
         if (entity.isTopEntity()) {
@@ -53,13 +55,17 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(topCLocal() && nc(entity));
     }
 
-    /** helper for All */
+    /**
+     * helper for All
+     */
     @Override
     int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
         return getAllNoneUpper(isBotEquivalent(r) || isUpperLE(getUpperBoundComplement(c), 0));
     }
 
-    /** helper for things like >= m R.C */
+    /**
+     * helper for things like >= m R.C
+     */
     @Override
     int getMinValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // m == 0 or...
@@ -74,7 +80,9 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(isLowerGE(getLowerBoundDirect(c), m));
     }
 
-    /** helper for things like <= m R.C */
+    /**
+     * helper for things like <= m R.C
+     */
     @Override
     int getMaxValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // R = \bot or...
@@ -85,7 +93,9 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         return getAllNoneUpper(isUpperLE(getUpperBoundDirect(c), m));
     }
 
-    /** helper for things like = m R.C */
+    /**
+     * helper for things like = m R.C
+     */
     @Override
     int getExactValue(int m, OWLPropertyExpression r, OWLPropertyRange c) {
         // here the minimal value between Mix and Max is an answer. The -1 case

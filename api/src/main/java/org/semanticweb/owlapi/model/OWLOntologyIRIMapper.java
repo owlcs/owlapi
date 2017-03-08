@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 
 /**
  * The interface to an object that is capable of mapping ontology IRIs to document IRIs.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -27,10 +27,10 @@ public interface OWLOntologyIRIMapper extends Serializable {
 
     /**
      * Given an ontology IRI, this method maps the ontology IRI to a document IRI.
-     * 
+     *
      * @param ontologyIRI The ontology IRI to be mapped.
      * @return The document IRI of the ontology, or {@code null} if the mapper doesn't have mapping
-     *         for the specified ontology IRI.
+     * for the specified ontology IRI.
      */
     @Nullable
     IRI getDocumentIRI(IRI ontologyIRI);

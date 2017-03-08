@@ -22,19 +22,10 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Extension of OWLReasoner to allow access to reasoner completion graph. */
+/**
+ * Extension of OWLReasoner to allow access to reasoner completion graph.
+ */
 public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
-
-    /** Interface for a tableaux node. */
-    @FunctionalInterface
-    interface RootNode {
-
-        /**
-         * @param <T> actual node type
-         * @return inner node representation
-         */
-        <T> T getNode();
-    }
 
     /**
      * @param expression the expression of which the completion tree is to be computed
@@ -48,7 +39,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      * @return neighbors by object property
      */
     Node<? extends OWLObjectPropertyExpression> getObjectNeighbours(RootNode node,
-                    boolean deterministicOnly);
+        boolean deterministicOnly);
 
     /**
      * @param node a node, as returned by either getRoot() or getObjectNeighbours()
@@ -90,4 +81,17 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      * @return a node that blocks given node, or null if there is no such blocker
      */
     RootNode getBlocker(RootNode node);
+
+    /**
+     * Interface for a tableaux node.
+     */
+    @FunctionalInterface
+    interface RootNode {
+
+        /**
+         * @param <T> actual node type
+         * @return inner node representation
+         */
+        <T> T getNode();
+    }
 }

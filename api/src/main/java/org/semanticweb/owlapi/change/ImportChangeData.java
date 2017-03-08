@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 /**
  * Instances of this class represent {@link OWLOntologyChangeData} for changes that that are
  * specific to the addition or removal of import statements to/from an ontology.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
@@ -31,7 +31,7 @@ public abstract class ImportChangeData extends OWLOntologyChangeData {
      * Constructs an {@code ImportChangeData} object that describes an
      * {@link org.semanticweb.owlapi.model.ImportChange} based on the {@link OWLImportsDeclaration}
      * specified by the {@code declaration} parameter.
-     * 
+     *
      * @param declaration The {@link OWLImportsDeclaration} that is the focus of some change.
      */
     protected ImportChangeData(OWLImportsDeclaration declaration) {
@@ -40,7 +40,7 @@ public abstract class ImportChangeData extends OWLOntologyChangeData {
 
     /**
      * Gets the {@link OWLImportsDeclaration} that this change data describes.
-     * 
+     *
      * @return The {@link OWLImportsDeclaration}.
      */
     public OWLImportsDeclaration getDeclaration() {

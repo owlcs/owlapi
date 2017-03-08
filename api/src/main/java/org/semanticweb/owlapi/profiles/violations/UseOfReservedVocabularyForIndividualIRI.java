@@ -34,7 +34,7 @@ public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
      * @param ind ind
      */
     public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLNamedIndividual ind) {
+        OWLNamedIndividual ind) {
         super(ontology, axiom, ind);
     }
 

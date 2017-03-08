@@ -30,7 +30,7 @@ public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
     public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
         try {
             FunctionalSyntaxObjectRenderer ren =
-                            new FunctionalSyntaxObjectRenderer(ontology, writer);
+                new FunctionalSyntaxObjectRenderer(ontology, writer);
             ontology.accept(ren);
             writer.flush();
         } catch (OWLRuntimeException e) {

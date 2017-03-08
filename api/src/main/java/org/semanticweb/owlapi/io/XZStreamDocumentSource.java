@@ -24,7 +24,7 @@ import org.tukaani.xz.XZInputStream;
 
 /**
  * An ontology document source which can read from a XZ stream.
- * 
+ *
  * @author ses
  * @since 4.0.2
  */
@@ -50,9 +50,9 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime mime type
      */
     public XZStreamDocumentSource(InputStream stream, IRI documentIRI,
-                    @Nullable OWLDocumentFormat format, @Nullable String mime) {
+        @Nullable OWLDocumentFormat format, @Nullable String mime) {
         super(documentIRI, format, mime);
         inputStream = () -> new XZInputStream(
-                        new ByteArrayInputStream(IOUtils.toByteArray(stream)));
+            new ByteArrayInputStream(IOUtils.toByteArray(stream)));
     }
 }

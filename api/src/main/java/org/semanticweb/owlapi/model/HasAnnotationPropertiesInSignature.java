@@ -27,10 +27,10 @@ public interface HasAnnotationPropertiesInSignature {
     /**
      * A convenience method that obtains the annotation properties that are in the signature of this
      * object.
-     * 
+     *
      * @return A set containing the annotation properties that are in the signature of this
-     *         object.The set is a subset of the signature, and is not backed by the signature; it
-     *         is a modifiable collection and changes are not reflected by the signature.
+     * object.The set is a subset of the signature, and is not backed by the signature; it is a
+     * modifiable collection and changes are not reflected by the signature.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -41,7 +41,7 @@ public interface HasAnnotationPropertiesInSignature {
     /**
      * A convenience method that obtains the annotation properties that are in the signature of this
      * object.
-     * 
+     *
      * @return A stream of the annotation properties that are in the signature of this object.
      */
     default Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {

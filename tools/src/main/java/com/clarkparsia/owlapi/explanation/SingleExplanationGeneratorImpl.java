@@ -22,25 +22,27 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 
-/** The Class SingleExplanationGeneratorImpl. */
+/**
+ * The Class SingleExplanationGeneratorImpl.
+ */
 public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {
 
-    private boolean inTransaction;
     private final OWLOntologyManager owlOntologyManager;
     private final OWLOntology ontology;
     private final OWLReasoner reasoner;
     private final OWLReasonerFactory reasonerFactory;
     private final DefinitionTracker definitionTracker;
+    private boolean inTransaction;
 
     /**
      * Instantiates a new single explanation generator impl.
-     * 
+     *
      * @param ontology the ontology
      * @param reasonerFactory the reasoner factory
      * @param reasoner the reasoner
      */
     public SingleExplanationGeneratorImpl(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
-                    OWLReasoner reasoner) {
+        OWLReasoner reasoner) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
         this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");

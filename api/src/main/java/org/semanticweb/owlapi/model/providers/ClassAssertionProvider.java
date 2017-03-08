@@ -20,7 +20,9 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Class assertion provider. */
+/**
+ * Class assertion provider.
+ */
 public interface ClassAssertionProvider extends LiteralProvider {
 
     /**
@@ -29,7 +31,7 @@ public interface ClassAssertionProvider extends LiteralProvider {
      * @return a class assertion axiom
      */
     default OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression,
-                    OWLIndividual individual) {
+        OWLIndividual individual) {
         return getOWLClassAssertionAxiom(classExpression, individual, Collections.emptySet());
     }
 
@@ -40,5 +42,5 @@ public interface ClassAssertionProvider extends LiteralProvider {
      * @return a class assertion axiom with annotations
      */
     OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression,
-                    OWLIndividual individual, Collection<OWLAnnotation> annotations);
+        OWLIndividual individual, Collection<OWLAnnotation> annotations);
 }

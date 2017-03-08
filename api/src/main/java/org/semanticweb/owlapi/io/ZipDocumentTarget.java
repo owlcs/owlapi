@@ -31,7 +31,7 @@ public class ZipDocumentTarget extends OWLOntologyDocumentTargetBase {
     public ZipDocumentTarget(File file) {
         super(() -> {
             ZipOutputStream os = new ZipOutputStream(
-                            new FileOutputStream(checkNotNull(file, "file cannot be null")));
+                new FileOutputStream(checkNotNull(file, "file cannot be null")));
             os.putNextEntry(new ZipEntry("ontology.txt"));
             return os;
         }, null);

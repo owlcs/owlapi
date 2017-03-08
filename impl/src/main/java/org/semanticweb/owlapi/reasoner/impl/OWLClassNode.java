@@ -47,19 +47,11 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
         super(entities);
     }
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLClassNode() {
         super();
-    }
-
-    @Override
-    protected Optional<OWLClass> getTopEntity() {
-        return Optional.of(InternalizedEntities.OWL_THING);
-    }
-
-    @Override
-    protected Optional<OWLClass> getBottomEntity() {
-        return Optional.of(InternalizedEntities.OWL_NOTHING);
     }
 
     /**
@@ -74,5 +66,15 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
      */
     public static OWLClassNode getBottomNode() {
         return BOTTOM_NODE;
+    }
+
+    @Override
+    protected Optional<OWLClass> getTopEntity() {
+        return Optional.of(InternalizedEntities.OWL_THING);
+    }
+
+    @Override
+    protected Optional<OWLClass> getBottomEntity() {
+        return Optional.of(InternalizedEntities.OWL_NOTHING);
     }
 }

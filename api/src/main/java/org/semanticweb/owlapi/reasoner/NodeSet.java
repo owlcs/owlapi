@@ -21,17 +21,17 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * A set of {@link Node}s.
- * 
+ *
+ * @param <E> the type of elements in the node set
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E> the type of elements in the node set
  */
 public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
 
     /**
      * A convenience method that gets all of the entities contained in the {@code Nodes} in this
      * {@code NodeSet}.
-     * 
+     *
      * @return The union of the entities contained in the {@code Nodes} in this {@code NodeSet}.
      * @deprecated use {@link #entities()}
      */
@@ -43,7 +43,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
     /**
      * A convenience method that gets all of the entities contained in the {@code Nodes} in this
      * {@code NodeSet}.
-     * 
+     *
      * @return The union of the entities contained in the {@code Nodes} in this {@code NodeSet}.
      */
     Stream<E> entities();
@@ -55,18 +55,18 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
 
     /**
      * A convenience method that determines if this {@code NodeSet} contains a specific entity.
-     * 
+     *
      * @param e The entity to test for
      * @return {@code true} if this {@code NodeSet} contains a {@code Node} that contains the
-     *         entity, {@code e}, and {@code false} if this {@code NodeSet} does not contain a
-     *         {@code Node} that contains the entity, {@code e}.
+     * entity, {@code e}, and {@code false} if this {@code NodeSet} does not contain a {@code Node}
+     * that contains the entity, {@code e}.
      */
     boolean containsEntity(E e);
 
     /**
      * Determines if this {@code NodeSet} is a singleton. A {@code NodeSet} is a singleton if it
      * contains only one {@code Node}.
-     * 
+     *
      * @return {@code true} if this {@code NodeSet} is a singleton, otherwise {@code false}.
      */
     boolean isSingleton();
@@ -74,28 +74,28 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
     /**
      * Determines if this {@code NodeSet} is a singleton node that only contains the top node (in a
      * hierarchy).
-     * 
-     * @see org.semanticweb.owlapi.reasoner.Node#isTopNode()
+     *
      * @return {@code true} if this {@code NodeSet} is a singleton that contains only the top node,
-     *         and {@code false} otherwise.
+     * and {@code false} otherwise.
+     * @see org.semanticweb.owlapi.reasoner.Node#isTopNode()
      */
     boolean isTopSingleton();
 
     /**
      * Determies if this {@code NodeSet} is a singleton that only contains the bottom node (in a
      * hierarchy).
-     * 
-     * @see org.semanticweb.owlapi.reasoner.Node#isBottomNode()
+     *
      * @return {@code true} if this {@code NodeSet} is a singleton that only contains a node that is
-     *         the bottom node, otherwise {@code false}
+     * the bottom node, otherwise {@code false}
+     * @see org.semanticweb.owlapi.reasoner.Node#isBottomNode()
      */
     boolean isBottomSingleton();
 
     /**
      * Gets the {@code Node}s contained in this {@code NodeSet}.
-     * 
+     *
      * @return The set of {@code Node}s contained in this {@code NodeSet}. Note that this set will
-     *         be an unmodifiable set.
+     * be an unmodifiable set.
      * @deprecated use {@link #nodes()}
      */
     @Deprecated
@@ -105,9 +105,9 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
 
     /**
      * Gets the {@code Node}s contained in this {@code NodeSet}.
-     * 
+     *
      * @return The set of {@code Node}s contained in this {@code NodeSet}. Note that this set will
-     *         be an unmodifiable set.
+     * be an unmodifiable set.
      */
     Stream<Node<E>> nodes();
 }

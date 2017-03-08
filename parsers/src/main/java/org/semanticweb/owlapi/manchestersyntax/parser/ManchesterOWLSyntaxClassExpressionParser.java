@@ -23,12 +23,12 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * An expression parser that parses class expressions written in the Manchester OWL Syntax.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxClassExpressionParser
-                implements OWLExpressionParser<OWLClassExpression> {
+    implements OWLExpressionParser<OWLClassExpression> {
 
     private final OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
@@ -38,7 +38,7 @@ public class ManchesterOWLSyntaxClassExpressionParser
      * @param checker checker
      */
     public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory,
-                    OWLEntityChecker checker) {
+        OWLEntityChecker checker) {
         this.dataFactory = checkNotNull(dataFactory);
         this.checker = checkNotNull(checker);
     }
@@ -46,7 +46,7 @@ public class ManchesterOWLSyntaxClassExpressionParser
     @Override
     public OWLClassExpression parse(String expression) {
         ManchesterOWLSyntaxParser parser =
-                        new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
+            new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseClassExpression();

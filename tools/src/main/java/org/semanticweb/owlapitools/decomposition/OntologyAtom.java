@@ -15,25 +15,37 @@ import javax.annotation.Nullable;
 public class OntologyAtom {
 
     static Comparator<OntologyAtom> comparator = (arg0, arg1) -> arg0.getId() - arg1.getId();
-    /** set of axioms in the atom */
+    /**
+     * set of axioms in the atom
+     */
     private List<AxiomWrapper> axioms = new ArrayList<>();
-    /** set of axioms in the module (Atom's ideal) */
+    /**
+     * set of axioms in the module (Atom's ideal)
+     */
     private List<AxiomWrapper> module = new ArrayList<>();
-    /** set of atoms current one depends on */
+    /**
+     * set of atoms current one depends on
+     */
     private Set<OntologyAtom> dependencies = new HashSet<>();
-    /** set of all atoms current one depends on */
+    /**
+     * set of all atoms current one depends on
+     */
     private Set<OntologyAtom> allDependencies = new HashSet<>();
-    /** unique atom's identifier */
+    /**
+     * unique atom's identifier
+     */
     private int id = 0;
 
-    /** remove all atoms in AllDepAtoms from DepAtoms */
+    /**
+     * remove all atoms in AllDepAtoms from DepAtoms
+     */
     public void filterDep() {
         dependencies.removeAll(allDependencies);
     }
 
     /**
      * build all dep atoms; filter them from DepAtoms
-     * 
+     *
      * @param checked sets of atoms to check
      */
     public void buildAllDepAtoms(Set<OntologyAtom> checked) {
@@ -51,14 +63,6 @@ public class OntologyAtom {
     }
 
     // fill in the sets
-    /**
-     * set the module axioms
-     * 
-     * @param module the module axioms
-     */
-    public void setModule(Collection<AxiomWrapper> module) {
-        this.module = new ArrayList<>(module);
-    }
 
     /**
      * @param ax axiom to add to the atom
@@ -86,7 +90,7 @@ public class OntologyAtom {
 
     /**
      * get all the atoms the current one depends on; build this set if necessary
-     * 
+     *
      * @param checked atoms to check
      * @return all dependencies
      */
@@ -97,23 +101,41 @@ public class OntologyAtom {
         return allDependencies;
     }
 
-    // access to axioms
-    /** @return all the atom's axioms */
+    /**
+     * @return all the atom's axioms
+     */
     public List<AxiomWrapper> getAtomAxioms() {
         return axioms;
     }
 
-    /** @return all the module axioms */
+    // access to axioms
+
+    /**
+     * @return all the module axioms
+     */
     public List<AxiomWrapper> getModule() {
         return module;
     }
 
-    /** @return atoms a given one depends on */
+    /**
+     * set the module axioms
+     *
+     * @param module the module axioms
+     */
+    public void setModule(Collection<AxiomWrapper> module) {
+        this.module = new ArrayList<>(module);
+    }
+
+    /**
+     * @return atoms a given one depends on
+     */
     public Set<OntologyAtom> getDependencies() {
         return dependencies;
     }
 
-    /** @return the value of the id */
+    /**
+     * @return the value of the id
+     */
     public int getId() {
         return id;
     }

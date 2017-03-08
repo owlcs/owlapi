@@ -33,7 +33,7 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassEx
      * @param oneOf oneOf
      */
     public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLObjectOneOf oneOf) {
+        OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
     }
 

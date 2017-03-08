@@ -19,12 +19,12 @@ import javax.annotation.Nonnull;
 /**
  * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Range" >
  * AnnotationPropertyRange</a> axiom in the OWL 2 specification.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationPropertyRangeAxiom
-                extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
+    extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
 
     @Override
     @SuppressWarnings("unchecked")

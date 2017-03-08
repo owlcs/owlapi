@@ -32,8 +32,8 @@ public interface PropertyChainAxiomProvider {
      * @return a subproperty chain axiom
      */
     default OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
-                    List<? extends OWLObjectPropertyExpression> chain,
-                    OWLObjectPropertyExpression superProperty) {
+        List<? extends OWLObjectPropertyExpression> chain,
+        OWLObjectPropertyExpression superProperty) {
         return getOWLSubPropertyChainOfAxiom(chain, superProperty, Collections.emptySet());
     }
 
@@ -44,7 +44,7 @@ public interface PropertyChainAxiomProvider {
      * @return a subproperty chain axiom
      */
     OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
-                    List<? extends OWLObjectPropertyExpression> chain,
-                    OWLObjectPropertyExpression superProperty,
-                    Collection<OWLAnnotation> annotations);
+        List<? extends OWLObjectPropertyExpression> chain,
+        OWLObjectPropertyExpression superProperty,
+        Collection<OWLAnnotation> annotations);
 }

@@ -25,7 +25,7 @@ public interface EntityByTypeProvider {
 
     /**
      * Gets an entity that has the specified IRI and is of the specified type.
-     * 
+     *
      * @param entityType The type of the entity that will be returned.
      * @param iri The IRI of the entity that will be returned.
      * @param <E> type class

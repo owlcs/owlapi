@@ -236,19 +236,19 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             boolean addMissing = format.isAddMissingTypes();
             if (addMissing) {
                 Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(
-                                addMissing, ontology.signature(),
-                                ontology.getPunnedIRIs(Imports.INCLUDED));
+                    addMissing, ontology.signature(),
+                    ontology.getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
-                                    && !ontology.isDeclared(e, Imports.INCLUDED)) {
+                        && !ontology.isDeclared(e, Imports.INCLUDED)) {
                         ontology.getOWLOntologyManager().getOWLDataFactory()
-                                        .getOWLDeclarationAxiom(e).accept(this);
+                            .getOWLDeclarationAxiom(e).accept(this);
                     }
                 }
             }
         }
         Stream<AxiomType<? extends OWLAxiom>> skipDeclarations = AxiomType.AXIOM_TYPES.stream()
-                        .filter(t -> !t.equals(AxiomType.DECLARATION));
+            .filter(t -> !t.equals(AxiomType.DECLARATION));
         Stream<? extends OWLAxiom> axioms = skipDeclarations.flatMap(t -> ontology.axioms(t));
         render(CollectionFactory.sortOptionally(axioms).stream());
     }

@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
  * used.<br>
  * Note: currently, no classpath scan algorithm is used, so modules need to be loaded manually in an
  * injector. Client code can add this functionality if needed.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */

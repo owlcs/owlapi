@@ -32,7 +32,7 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     /**
      * init c'tor
-     * 
+     *
      * @param s signature
      */
     UpperBoundDirectEvaluator(Signature s) {

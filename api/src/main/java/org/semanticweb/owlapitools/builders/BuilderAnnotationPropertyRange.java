@@ -21,9 +21,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationPropertyRangeAxiom. */
+/**
+ * Builder class for OWLAnnotationPropertyRangeAxiom.
+ */
 public class BuilderAnnotationPropertyRange extends
-                BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
+    BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
 
     @Nullable
     private IRI iri = null;
@@ -38,15 +40,15 @@ public class BuilderAnnotationPropertyRange extends
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderAnnotationPropertyRange(OWLAnnotationPropertyRangeAxiom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withRange(expected.getRange())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

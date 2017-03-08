@@ -27,7 +27,7 @@ public interface OWLRenderer {
     /**
      * Renders the specified ontology to a concrete representation which should be written to the
      * specified output stream.
-     * 
+     *
      * @param ontology The ontology
      * @param os The OutputStream
      * @throws OWLException for any exception raised

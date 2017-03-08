@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler} s.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
@@ -113,7 +113,7 @@ public class RioOWLRDFParser extends AbstractRDFParser {
     void render(OWLOntologyDocumentSource source) {
         if (ontologyManagerFactories.isEmpty()) {
             throw new OWLRuntimeException(
-                            "No ontology manager factories available, parsing is impossible");
+                "No ontology manager factories available, parsing is impossible");
         }
         // it is expected that only one implementation of
         // OWLOntologyManagerFactory will be available, but if there is more

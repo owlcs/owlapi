@@ -31,7 +31,7 @@ public class UseOfNonSimplePropertyInFunctionalPropertyAxiom extends OWLProfileV
      * @param axiom axiom
      */
     public UseOfNonSimplePropertyInFunctionalPropertyAxiom(OWLOntology ontology,
-                    OWLFunctionalObjectPropertyAxiom axiom) {
+        OWLFunctionalObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 

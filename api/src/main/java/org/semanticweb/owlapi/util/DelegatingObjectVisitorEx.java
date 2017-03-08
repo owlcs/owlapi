@@ -101,10 +101,10 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /**
  * A delegating visitor. This utility class can be used to override visiting a particular type of
  * object.
- * 
+ *
+ * @param <O> the returned type
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
- * @param <O> the returned type
  */
 public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
 
@@ -113,7 +113,7 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     /**
      * Constructs a visitor where the specified delegate will be used to visit all objects unless
      * one of the visit methods in this visitor is overriden.
-     * 
+     *
      * @param delegate The delegate.
      */
     public DelegatingObjectVisitorEx(OWLObjectVisitorEx<O> delegate) {

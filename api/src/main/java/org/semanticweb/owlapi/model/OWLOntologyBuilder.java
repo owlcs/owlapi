@@ -18,7 +18,7 @@ import java.io.Serializable;
  * An ontology builder is responsible for choosing an OWLOntology implementation. This interface
  * allows for injecting different OWLOntology implementations without having to rewrite code
  * implemented in OWLOntologyFactory classes.
- * 
+ *
  * @author Ignazio
  * @since 4.0.0
  */

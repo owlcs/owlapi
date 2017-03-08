@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLStorer;
 
 /**
  * Specifies an interface that provides output management when an ontology is saved.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
@@ -32,5 +32,5 @@ public interface OWLOntologyDocumentTarget {
      * @throws OWLOntologyStorageException ifan exception is raised, e.g., IO errors
      */
     void store(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException;
+        throws OWLOntologyStorageException;
 }

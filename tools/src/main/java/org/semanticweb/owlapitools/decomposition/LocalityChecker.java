@@ -5,8 +5,11 @@ import java.util.Collection;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** @author ignazio Locality checker */
+/**
+ * @author ignazio Locality checker
+ */
 public interface LocalityChecker {
+
     /**
      * @param axiom axiom to check
      * @return true if axiom is local
@@ -25,7 +28,9 @@ public interface LocalityChecker {
      */
     void setSignatureValue(Signature sig);
 
-    /** @return signature being used */
+    /**
+     * @return signature being used
+     */
     Signature getSignature();
 
     /**

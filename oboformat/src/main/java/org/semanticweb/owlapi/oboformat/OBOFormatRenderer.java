@@ -35,13 +35,10 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** Renderer for obo. */
+/**
+ * Renderer for obo.
+ */
 public class OBOFormatRenderer implements OWLRenderer {
-
-    @Override
-    public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
-    }
 
     /**
      * @param ontology ontology
@@ -50,7 +47,7 @@ public class OBOFormatRenderer implements OWLRenderer {
      * @throws OWLOntologyStorageException OWLOntologyStorageException
      */
     public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology);
@@ -61,7 +58,7 @@ public class OBOFormatRenderer implements OWLRenderer {
                 // use it as secondary lookup for labels
                 final NameProvider primary = new OBODocNameProvider(result);
                 final NameProvider secondary = new OWLOntologyNameProvider(ontology,
-                                primary.getDefaultOboNamespace());
+                    primary.getDefaultOboNamespace());
                 // combine primary and secondary name provider
                 nameProvider = new NameProvider() {
 
@@ -86,12 +83,17 @@ public class OBOFormatRenderer implements OWLRenderer {
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
             oboFormatWriter.setCheckStructure(
-                            format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
-                                            .booleanValue());
+                format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
+                    .booleanValue());
             oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)),
-                            nameProvider);
+                nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }
+    }
+
+    @Override
+    public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
+        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
     }
 }

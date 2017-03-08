@@ -36,10 +36,10 @@ import org.semanticweb.owlapi.profiles.Profiles;
 
 /**
  * Base builder class, providing annotations storage.
- * 
- * @author ignazio
+ *
  * @param <T> built type
  * @param <B> builder type
+ * @author ignazio
  */
 public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> {
 
@@ -86,7 +86,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
 
     /**
      * Clear annotations.
-     * 
+     *
      * @return builder
      */
     @SuppressWarnings("unchecked")
@@ -111,7 +111,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         OWLProfileReport report = Profiles.OWL2_DL.checkOntology(o);
         // collect all changes to fix the ontology
         List<OWLOntologyChange> changes =
-                        asList(report.getViolations().stream().flatMap(v -> v.repair().stream()));
+            asList(report.getViolations().stream().flatMap(v -> v.repair().stream()));
         // fix the ontology
         o.getOWLOntologyManager().applyChanges(changes);
         // return all applied changes for reference

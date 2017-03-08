@@ -83,7 +83,7 @@ public class RioRenderer extends RDFRendererBase {
      * @param contexts contexts
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
-                    final OWLDocumentFormat format, final Resource... contexts) {
+        final OWLDocumentFormat format, final Resource... contexts) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
@@ -231,7 +231,7 @@ public class RioRenderer extends RDFRendererBase {
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
                     for (Statement statement : RioUtils.tripleAsStatements(tripleToRender,
-                                    contexts)) {
+                        contexts)) {
                         writer.handleStatement(statement);
                         if (tripleToRender.getObject() instanceof RDFResource) {
                             render((RDFResource) tripleToRender.getObject(), false);
@@ -239,7 +239,7 @@ public class RioRenderer extends RDFRendererBase {
                     }
                 } else if (LOGGER.isTraceEnabled()) {
                     LOGGER.trace("not printing duplicate statement, or recursing on its object: {}",
-                                    tripleToRender);
+                        tripleToRender);
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLRuntimeException(e);

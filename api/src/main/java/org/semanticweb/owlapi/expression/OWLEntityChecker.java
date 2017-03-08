@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * Maps strings to OWL objects.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */

@@ -17,11 +17,11 @@ package org.semanticweb.owlapi.model;
  * @since 3.0.0
  */
 public interface OWLAnnotationObjectVisitor
-                extends OWLAnnotationAxiomVisitor, OWLAnnotationValueVisitor {
+    extends OWLAnnotationAxiomVisitor, OWLAnnotationValueVisitor {
 
     /**
      * visit OWLAnnotation type
-     * 
+     *
      * @param node object to visit
      */
     default void visit(OWLAnnotation node) {

@@ -24,7 +24,9 @@ import org.semanticweb.owlapi.reasoner.Node;
  */
 public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLDatatypeNodeSet() {
         super();
     }

@@ -90,10 +90,10 @@ public enum ConfigurationOptions {
     ENTITY_EXPANSION_LIMIT              ("100000000");
     //@formatter:on
     private static final String PREFIX =
-                    "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
-    private Object defaultValue;
+        "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationOptions.class);
     private static final EnumMap<ConfigurationOptions, Object> owlapiProperties = loadProperties();
+    private Object defaultValue;
 
     ConfigurationOptions(Object o) {
         defaultValue = o;
@@ -103,7 +103,7 @@ public enum ConfigurationOptions {
         EnumMap<ConfigurationOptions, Object> map = new EnumMap<>(ConfigurationOptions.class);
         Properties props = new Properties();
         try (InputStream stream =
-                        ConfigurationOptions.class.getResourceAsStream("/owlapi.properties")) {
+            ConfigurationOptions.class.getResourceAsStream("/owlapi.properties")) {
             if (stream != null) {
                 props.load(stream);
             }
@@ -121,8 +121,8 @@ public enum ConfigurationOptions {
 
     /**
      * @param parameterName parameter name - by default the full name of this enumeration plus the
-     *        enum member name
-     * @return ,atching ConfigurationOptions member, or null if none found
+     * enum member name
+     * @return , atching ConfigurationOptions member, or null if none found
      */
     @Nullable
     public static ConfigurationOptions find(String parameterName) {
@@ -157,9 +157,9 @@ public enum ConfigurationOptions {
      * @param type type for this value
      * @param overrides local overrides
      * @return value for this configuration option. Values are evaluated as follows: first, check
-     *         overrides; if no overrides are present, check if a system property with the expected
-     *         name is set; if not, check the config file; if no value is set in the config file,
-     *         use the default defined in this enumeration.
+     * overrides; if no overrides are present, check if a system property with the expected name is
+     * set; if not, check the config file; if no value is set in the config file, use the default
+     * defined in this enumeration.
      */
     public <T> T getValue(Class<T> type, Map<ConfigurationOptions, Object> overrides) {
         Object override = overrides.get(this);

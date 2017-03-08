@@ -38,27 +38,20 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Base class for ontology storers.
- * 
+ *
  * @author Ignazio
  * @since 6.0.0
  */
 public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget {
 
     protected static final Logger LOGGER =
-                    LoggerFactory.getLogger(OWLOntologyDocumentTargetBase.class);
-
-    protected interface Streamer<W> {
-
-        W get() throws IOException;
-    }
-
+        LoggerFactory.getLogger(OWLOntologyDocumentTargetBase.class);
+    @Nullable
+    protected final IRI iri;
     protected Charset encoding = StandardCharsets.UTF_8;
     protected Streamer<OutputStream> baseStream;
     protected Streamer<OutputStream> stream;
     protected Streamer<PrintWriter> writer;
-    @Nullable
-    protected final IRI iri;
-
     protected OWLOntologyDocumentTargetBase(Streamer<OutputStream> baseStream, @Nullable IRI iri) {
         this.baseStream = baseStream;
         stream = () -> stream(baseStream);
@@ -75,7 +68,7 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     }
 
     protected void storeOnWriter(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try (PrintWriter w = writer.get()) {
             storer.storeOntology(ontology, w, format);
             w.flush();
@@ -85,7 +78,7 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     }
 
     protected void storeOnStream(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try (OutputStream w = stream.get()) {
             storer.storeOntology(ontology, w, format);
             w.flush();
@@ -96,12 +89,12 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
 
     @Override
     public void store(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         if (iri != null) {
             IRI documentIRI = verifyNotNull(iri);
             if (!documentIRI.isAbsolute()) {
                 throw new OWLOntologyStorageException(
-                                "Document IRI must be absolute: " + documentIRI);
+                    "Document IRI must be absolute: " + documentIRI);
             }
             if (documentIRI.isFileIRI()) {
                 File file = new File(documentIRI.toURI());
@@ -123,5 +116,10 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
         } else {
             storeOnStream(storer, ontology, format);
         }
+    }
+
+    protected interface Streamer<W> {
+
+        W get() throws IOException;
     }
 }

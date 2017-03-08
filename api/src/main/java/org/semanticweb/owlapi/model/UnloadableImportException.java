@@ -26,9 +26,9 @@ public class UnloadableImportException extends OWLRuntimeException {
      * @param importsDeclaration imports declaration
      */
     public UnloadableImportException(OWLOntologyCreationException e,
-                    OWLImportsDeclaration importsDeclaration) {
+        OWLImportsDeclaration importsDeclaration) {
         super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString()
-                        + " Cause: " + e.getMessage(), e);
+            + " Cause: " + e.getMessage(), e);
         this.importsDeclaration = importsDeclaration;
         ontologyCreationException = e;
     }

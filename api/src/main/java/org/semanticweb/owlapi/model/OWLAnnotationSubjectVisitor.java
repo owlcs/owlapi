@@ -20,14 +20,14 @@ public interface OWLAnnotationSubjectVisitor {
 
     /**
      * Visit IRI type.
-     * 
+     *
      * @param iri object to visit
      */
     void visit(IRI iri);
 
     /**
      * Visit OWLAnonymousIndividual type.
-     * 
+     *
      * @param individual object to visit
      */
     void visit(OWLAnonymousIndividual individual);

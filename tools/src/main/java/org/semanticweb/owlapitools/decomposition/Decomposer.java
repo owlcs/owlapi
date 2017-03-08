@@ -17,20 +17,32 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
-/** atomical decomposer of the ontology */
+/**
+ * atomical decomposer of the ontology
+ */
 public class Decomposer {
 
-    /** atomic structure to build */
+    /**
+     * atomic structure to build
+     */
     @Nullable
     private AtomList atomList = null;
-    /** modularizer to build modules */
+    /**
+     * modularizer to build modules
+     */
     private Modularizer modularizer;
-    /** tautologies of the ontology */
+    /**
+     * tautologies of the ontology
+     */
     private List<AxiomWrapper> tautologies = new ArrayList<>();
-    /** fake atom that represents the whole ontology */
+    /**
+     * fake atom that represents the whole ontology
+     */
     @Nullable
     private OntologyAtom rootAtom = null;
-    /** module type for current AOS creation */
+    /**
+     * module type for current AOS creation
+     */
     private ModuleType type;
     private List<AxiomWrapper> axioms;
 
@@ -54,12 +66,16 @@ public class Decomposer {
         return m;
     }
 
-    /** @return the modularizer for this decomposer */
+    /**
+     * @return the modularizer for this decomposer
+     */
     public Modularizer getModularizer() {
         return modularizer;
     }
 
-    /** restore all tautologies back */
+    /**
+     * restore all tautologies back
+     */
     private void restoreTautologies() {
         for (AxiomWrapper p : tautologies) {
             p.setUsed(true);
@@ -84,7 +100,9 @@ public class Decomposer {
         }
     }
 
-    /** @return all tautologies wrapped */
+    /**
+     * @return all tautologies wrapped
+     */
     public List<AxiomWrapper> getTautologies() {
         return tautologies;
     }
@@ -118,7 +136,7 @@ public class Decomposer {
      * @param ax axiom
      * @param parent parent atom
      * @return create atom for given axiom AX; use parent atom's module as a base for the module
-     *         search
+     * search
      */
     private OntologyAtom createAtom(AxiomWrapper ax, OntologyAtom parent) {
         // check whether axiom already has an atom
@@ -148,7 +166,9 @@ public class Decomposer {
         return atom.get();
     }
 
-    /** @return atom list class */
+    /**
+     * @return atom list class
+     */
     public AtomList getAOS() {
         return verifyNotNull(atomList);
     }
@@ -218,7 +238,7 @@ public class Decomposer {
      * @return a set of axioms that corresponds to the atom with the id INDEX
      */
     public Collection<AxiomWrapper> getModule(Stream<OWLEntity> signature, boolean useSemantics,
-                    ModuleType moduletype) {
+        ModuleType moduletype) {
         // init signature
         Signature sig = new Signature(signature);
         sig.setLocality(false);

@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * ontology, whose super class is an object intersection (conjuction) with multiple subclass axioms
  * - one for each conjunct. For example, A subClassOf (B and C), would be replaced with two subclass
  * axioms, A subClassOf B, and A subClassOf C.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
@@ -40,7 +40,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     /**
      * Creates a composite change to split subclass axioms into multiple more fine grained subclass
      * axioms.
-     * 
+     *
      * @param ontologies The ontologies whose subclass axioms should be processed.
      * @param dataFactory The data factory which should be used to create new axioms.
      */
@@ -55,17 +55,14 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         if (splitter.result.size() > 1) {
             addChange(new RemoveAxiom(o, ax));
             splitter.result.forEach(desc -> addChange(
-                            new AddAxiom(o, df.getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
+                new AddAxiom(o, df.getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
         }
     }
 
-    /** The Class ConjunctSplitter. */
     private static class ConjunctSplitter implements OWLClassExpressionVisitor {
 
-        /** The result. */
         final Set<OWLClassExpression> result = new HashSet<>();
 
-        /** Instantiates a new conjunct splitter. */
         ConjunctSplitter() {}
 
         @Override

@@ -105,7 +105,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
  * Structure walker for object walkers.
- * 
+ *
  * @param <O> type to visit
  */
 public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
@@ -126,7 +126,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
      * @param annotationWalkFlag control flag for annotation walking
      */
     public StructureWalker(OWLObjectWalker<O> owlObjectWalker,
-                    AnnotationWalkingControl annotationWalkFlag) {
+        AnnotationWalkingControl annotationWalkFlag) {
         this.walkerCallback = owlObjectWalker;
         this.annotationWalkFlag = annotationWalkFlag;
     }

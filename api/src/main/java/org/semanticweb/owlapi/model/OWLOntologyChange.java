@@ -36,9 +36,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
     /**
      * Determines if the change will cause the addition or removal of an axiom from an ontology.
-     * 
-     * @return {@code true} if the change is an {@code OWLAddAxiomChange} or
-     *         {@code OWLRemoveAxiomChange} otherwise {@code false}.
+     *
+     * @return {@code true} if the change is an {@code OWLAddAxiomChange} or {@code
+     * OWLRemoveAxiomChange} otherwise {@code false}.
      */
     public boolean isAxiomChange() {
         return false;
@@ -46,9 +46,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
     /**
      * Determines if the change will add an axiom to an ontology.
-     * 
+     *
      * @return {@code true} if the change is an AddAxiom change and it will add an axiom to an
-     *         ontology, {@code false} otherwise.
+     * ontology, {@code false} otherwise.
      */
     public boolean isAddAxiom() {
         return false;
@@ -56,9 +56,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
     /**
      * Determines if the change will remove an axiom from an ontology.
-     * 
+     *
      * @return {@code true} if the change is a RemoveAxiom change and it will remove an axiom from
-     *         an ontology, {@code false} otherwise.
+     * an ontology, {@code false} otherwise.
      */
     public boolean isRemoveAxiom() {
         return isAxiomChange() && !isAddAxiom();
@@ -67,21 +67,20 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     /**
      * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom) this method obtains the
      * axiom.
-     * 
+     *
      * @return The Axiom if this change is an axiom change
      * @throws IllegalStateException if the change has no axiom; UnsupportedOperationException If
-     *         the change is not an axiom change (check with the {@code isAxiomChange} method
-     *         first).
+     * the change is not an axiom change (check with the {@code isAxiomChange} method first).
      */
     public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException("This is an " + getClass().getSimpleName()
-                        + ", not an axiom change: " + this);
+            + ", not an axiom change: " + this);
     }
 
     /**
      * Determines if this change is an import change and hence causes a change to the imports
      * closure of an ontology.
-     * 
+     *
      * @return {@code true} if this change is an import change, otherwise {@code false}.
      */
     public boolean isImportChange() {
@@ -90,7 +89,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
     /**
      * Gets the ontology that the change is/was applied to.
-     * 
+     *
      * @return The ontology that the change is applicable to
      */
     public OWLOntology getOntology() {
@@ -99,7 +98,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
     /**
      * Gets the data (independent of the ontology) associated with this specific change.
-     * 
+     *
      * @return The {@link OWLOntologyChangeData} associated with this {@code OWLOntologyChange}.
      */
     public abstract OWLOntologyChangeData getChangeData();
@@ -107,10 +106,10 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     /**
      * Gets a {@link OWLOntologyChangeRecord} that is derived from this {@code OWLOntologyChange}'s
      * {@link OWLOntologyID} and it's {@link OWLOntologyChangeData}.
-     * 
+     *
      * @return An {@link OWLOntologyChangeRecord} containing an {@link OWLOntologyID} equal to the
-     *         {@link OWLOntologyID} of this {@code OWLOntologyChange}'s {@link OWLOntology}. Not
-     *         {@code null} .
+     * {@link OWLOntologyID} of this {@code OWLOntologyChange}'s {@link OWLOntology}. Not {@code
+     * null} .
      */
     public OWLOntologyChangeRecord getChangeRecord() {
         return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
@@ -118,14 +117,14 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
     /**
      * Accepts a visitor.
-     * 
+     *
      * @param visitor The visitor
      */
     public abstract void accept(OWLOntologyChangeVisitor visitor);
 
     /**
      * Accepts a visitor.
-     * 
+     *
      * @param visitor The visitor
      * @param <O> visitor return type
      * @return visitor value

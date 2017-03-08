@@ -23,10 +23,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * information. For example, an implementation might generate the necessary subclass axioms that
  * represent the inferred class subsumption hierarchy within the reasoner. It is assumed that axioms
  * generated reflect the inferences drawn from the ontologies which were loaded into the reasoner.
- * 
+ *
+ * @param <A> the axiom type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
- * @param <A> the axiom type
  */
 public interface InferredAxiomGenerator<A extends OWLAxiom> {
 

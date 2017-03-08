@@ -20,7 +20,7 @@ public interface OWLPropertyEntityVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLObjectProperty type
-     * 
+     *
      * @param property property to visit
      */
     default void visit(OWLObjectProperty property) {
@@ -29,7 +29,7 @@ public interface OWLPropertyEntityVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLDataProperty type
-     * 
+     *
      * @param property property to visit
      */
     default void visit(OWLDataProperty property) {
@@ -38,7 +38,7 @@ public interface OWLPropertyEntityVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLAnnotationProperty type
-     * 
+     *
      * @param property property to visit
      */
     default void visit(OWLAnnotationProperty property) {

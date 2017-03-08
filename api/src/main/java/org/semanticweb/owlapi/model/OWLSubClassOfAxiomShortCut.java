@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model;
 
 /**
  * A marker interface for axioms that are essentially syntactic shortcuts for SubClassOf axioms.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -23,10 +23,10 @@ public interface OWLSubClassOfAxiomShortCut {
 
     /**
      * Gets this axiom as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
-     * 
+     *
      * @return An {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} that is equivalent to this
-     *         axiom. Note that annotations are not copied to the returned
-     *         {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom.
+     * axiom. Note that annotations are not copied to the returned {@link
+     * org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom.
      */
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
 }

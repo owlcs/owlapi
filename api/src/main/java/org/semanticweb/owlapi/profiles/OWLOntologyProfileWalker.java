@@ -28,10 +28,25 @@ import org.semanticweb.owlapi.util.StructureWalker;
 /**
  * A specialized walker that skips visiting annotation assertion literals. This is used by profile
  * checkers to skip literals in annotations.
- * 
+ *
  * @author ignazio
  */
 public class OWLOntologyProfileWalker extends OWLOntologyWalker {
+
+    /**
+     * @param objects ontologies to walk
+     */
+    public OWLOntologyProfileWalker(Stream<OWLOntology> objects) {
+        this(asList(objects));
+    }
+
+    /**
+     * @param objects ontologies to walk
+     */
+    public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
+        super(objects);
+        setStructureWalker(new ProfileWalker(this));
+    }
 
     class ProfileWalker extends StructureWalker<OWLOntology> {
 
@@ -66,20 +81,5 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
             // do not visit entities from declarations, only their IRIs
             axiom.getEntity().getIRI().accept(this);
         }
-    }
-
-    /**
-     * @param objects ontologies to walk
-     */
-    public OWLOntologyProfileWalker(Stream<OWLOntology> objects) {
-        this(asList(objects));
-    }
-
-    /**
-     * @param objects ontologies to walk
-     */
-    public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
-        super(objects);
-        setStructureWalker(new ProfileWalker(this));
     }
 }

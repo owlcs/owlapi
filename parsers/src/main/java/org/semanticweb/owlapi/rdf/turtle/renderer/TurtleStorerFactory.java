@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(4)
 public class TurtleStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public TurtleStorerFactory() {
         super(new TurtleDocumentFormatFactory());
     }

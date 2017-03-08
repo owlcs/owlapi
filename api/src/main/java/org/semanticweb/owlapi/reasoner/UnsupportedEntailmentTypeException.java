@@ -31,7 +31,9 @@ public class UnsupportedEntailmentTypeException extends OWLRuntimeException {
         this.axiom = axiom;
     }
 
-    /** @return unsupported axiom */
+    /**
+     * @return unsupported axiom
+     */
     public OWLAxiom getAxiom() {
         return axiom;
     }

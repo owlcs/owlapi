@@ -21,16 +21,18 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 
-/** Builder class for OWLObjectHasValue. */
+/**
+ * Builder class for OWLObjectHasValue.
+ */
 public class BuilderObjectHasValue
-                extends BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
+    extends BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
 
     @Nullable
     private OWLIndividual value = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

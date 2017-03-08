@@ -46,13 +46,13 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         Set<OWLAxiom> printed = new HashSet<>();
         beginWritingOntology(o, printWriter);
         sortOptionally(o.objectPropertiesInSignature())
-                        .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
+            .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
         sortOptionally(o.dataPropertiesInSignature())
-                        .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
+            .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
         sortOptionally(o.classesInSignature())
-                        .forEach(c -> write(o, c, o.axioms(c), printWriter, printed));
+            .forEach(c -> write(o, c, o.axioms(c), printWriter, printed));
         sortOptionally(o.individualsInSignature())
-                        .forEach(i -> write(o, i, o.axioms(i), printWriter, printed));
+            .forEach(i -> write(o, i, o.axioms(i), printWriter, printed));
         beginWritingGeneralAxioms(printWriter);
         sortOptionally(o.generalClassAxioms()).forEach(ax -> {
             if (printed.add(ax)) {
@@ -67,7 +67,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     private void write(OWLOntology ont, OWLEntity entity, Collection<? extends OWLAxiom> axioms,
-                    PrintWriter writer, Set<OWLAxiom> printed) {
+        PrintWriter writer, Set<OWLAxiom> printed) {
         beginWritingAxioms(entity, writer);
         for (OWLAxiom ax : axioms) {
             if (printed.add(ax)) {
@@ -91,7 +91,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     private void write(OWLOntology ont, OWLEntity entity, Stream<? extends OWLAxiom> axioms,
-                    PrintWriter writer, Set<OWLAxiom> printed) {
+        PrintWriter writer, Set<OWLAxiom> printed) {
         write(ont, entity, asList(axioms), writer, printed);
     }
 

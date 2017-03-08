@@ -19,7 +19,9 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
-/** A set of personalized preconditions. */
+/**
+ * A set of personalized preconditions.
+ */
 public final class OWLAPIPreconditions {
 
     private OWLAPIPreconditions() {}
@@ -28,7 +30,7 @@ public final class OWLAPIPreconditions {
      * Check that the argument is not null; if the argument is null, throw an IllegalStateException.
      * This method is meant to be used to verify conditions on member variables rather than input
      * parameters.
-     * 
+     *
      * @param object reference to check
      * @param <T> reference type
      * @return the input reference if not null
@@ -42,7 +44,7 @@ public final class OWLAPIPreconditions {
      * Check that the argument is not null; if the argument is null, throw an IllegalStateException.
      * This method is meant to be used to verify conditions on member variables rather than input
      * parameters.
-     * 
+     *
      * @param object reference to check
      * @param message message to use for the error
      * @param <T> reference type
@@ -60,7 +62,7 @@ public final class OWLAPIPreconditions {
      * Check that the argument is not null; if the argument is null, throw an IllegalStateException.
      * This method is meant to be used to verify conditions on member variables rather than input
      * parameters.
-     * 
+     *
      * @param object reference to check
      * @param message message to use for the error
      * @param <T> reference type
@@ -76,7 +78,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for null and throw NullPointerException if null.
-     * 
+     *
      * @param object reference to check
      * @param <T> reference type
      * @return the input reference if not null
@@ -88,7 +90,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for null and throw NullPointerException if null.
-     * 
+     *
      * @param object reference to check
      * @param message message for the illegal argument exception
      * @param <T> reference type
@@ -104,7 +106,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for null and throw NullPointerException if null.
-     * 
+     *
      * @param object reference to check
      * @param message message for the illegal argument exception
      * @param <T> reference type
@@ -120,7 +122,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for negative value and throw IllegalArgumentException if negative.
-     * 
+     *
      * @param object value to check
      * @throws IllegalArgumentException if object is negative
      */
@@ -130,7 +132,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for negative value and throw IllegalArgumentException if negative.
-     * 
+     *
      * @param object value to check
      * @param message message for the illegal argument exception
      * @throws IllegalArgumentException if object is negative
@@ -141,7 +143,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for negative value and throw IllegalArgumentException if negative.
-     * 
+     *
      * @param object value to check
      * @param message message for the illegal argument exception
      * @throws IllegalArgumentException if object is negative
@@ -154,7 +156,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for absent and throw IllegalArgumentException if null or absent.
-     * 
+     *
      * @param object reference to check
      * @param message message for the illegal argument exception
      * @param <T> reference type
@@ -169,7 +171,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Check for absent and throw IllegalArgumentException if null or absent.
-     * 
+     *
      * @param object reference to check
      * @param message message for the illegal argument exception
      * @param <T> reference type
@@ -189,7 +191,7 @@ public final class OWLAPIPreconditions {
      * @param emptyAllowed true if the input can be empty
      */
     public static void checkIterableNotNull(@Nullable Collection<?> o, String name,
-                    boolean emptyAllowed) {
+        boolean emptyAllowed) {
         checkNotNull(o, name);
         assert o != null;
         if (!emptyAllowed && o.isEmpty()) {
@@ -211,7 +213,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Wrapper to allow non null annotations.
-     * 
+     *
      * @return empty optional instance
      */
     public static <T> Optional<T> emptyOptional() {
@@ -220,7 +222,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Wrapper to allow non null annotations.
-     * 
+     *
      * @param t type for the returned optional
      * @return empty optional instance
      */
@@ -230,7 +232,7 @@ public final class OWLAPIPreconditions {
 
     /**
      * Wrapper to allow non null annotations.
-     * 
+     *
      * @param t instance to wrap. Can be null (the result will be Optional.empty())
      * @return optional instance (content can be absent)
      */

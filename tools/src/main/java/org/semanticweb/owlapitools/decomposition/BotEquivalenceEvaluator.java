@@ -36,7 +36,9 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 // XXX verify unused parameters
 public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
-    /** keep the value here */
+    /**
+     * keep the value here
+     */
     boolean isBotEq = false;
 
     /**
@@ -48,7 +50,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
 
     /**
      * non-empty Concept/Data expression
-     * 
+     *
      * @param c class
      * @return true iff C^I is non-empty
      */
@@ -64,10 +66,10 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
 
     /**
      * cardinality of a concept/data expression interpretation
-     * 
-     * @return true if #C^I > n
+     *
      * @param c class
      * @param n cardinality
+     * @return true if #C^I > n
      */
     private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
@@ -75,7 +77,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
         }
         if (c instanceof OWLDatatype) {
             return ((OWLDatatype) c).isBuiltIn()
-                            && !((OWLDatatype) c).getBuiltInDatatype().isFinite();
+                && !((OWLDatatype) c).getBuiltInDatatype().isFinite();
         }
         // FIXME!! try to be more precise
         return false;
@@ -93,7 +95,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
 
     /**
      * QCRs
-     * 
+     *
      * @param n cardinality
      * @param r property
      * @param c class
@@ -161,7 +163,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     @Override
     public void visit(OWLObjectAllValuesFrom expr) {
         isBotEq = localityChecker.isTopEquivalent(expr.getProperty())
-                        && isBotEquivalent(expr.getFiller());
+            && isBotEquivalent(expr.getFiller());
     }
 
     @Override
@@ -178,7 +180,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
         isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller())
-                        || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
+            || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override
@@ -194,7 +196,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     @Override
     public void visit(OWLDataAllValuesFrom expr) {
         isBotEq = localityChecker.isTopEquivalent(expr.getProperty())
-                        && !localityChecker.isTopEquivalent(expr.getFiller());
+            && !localityChecker.isTopEquivalent(expr.getFiller());
     }
 
     @Override
@@ -211,7 +213,7 @@ public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
         isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller())
-                        || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
+            || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override

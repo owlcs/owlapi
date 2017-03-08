@@ -66,15 +66,15 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWL2QLProfile implements OWLProfile {
 
     protected static final Set<IRI> ALLOWED_DATATYPES =
-                    asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
+        asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
     private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker =
-                    new OWL2QLSuperClassExpressionChecker();
+        new OWL2QLSuperClassExpressionChecker();
     private final OWL2QLSubClassExpressionChecker subClassExpressionChecker =
-                    new OWL2QLSubClassExpressionChecker();
+        new OWL2QLSubClassExpressionChecker();
 
     /**
      * Gets the name of the profile.
-     * 
+     *
      * @return A string that represents the name of the profile
      */
     @Override
@@ -89,10 +89,10 @@ public class OWL2QLProfile implements OWLProfile {
 
     /**
      * Checks an ontology and its import closure to see if it is within this profile.
-     * 
+     *
      * @param ontology The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the ontology is within this
-     *         profile.
+     * profile.
      */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
@@ -105,6 +105,44 @@ public class OWL2QLProfile implements OWLProfile {
         walker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());
         return new OWLProfileReport(this, violations);
+    }
+
+    protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
+        return ce.accept(subClassExpressionChecker).booleanValue();
+    }
+
+    /**
+     * @param ce class
+     * @return true if ce is superclass expression
+     */
+    public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
+        return ce.accept(superClassExpressionChecker).booleanValue();
+    }
+
+    private static class OWL2QLSubClassExpressionChecker
+        implements OWLClassExpressionVisitorEx<Boolean> {
+
+        OWL2QLSubClassExpressionChecker() {}
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
+        }
+
+        @Override
+        public Boolean visit(OWLClass ce) {
+            return Boolean.TRUE;
+        }
+
+        @Override
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+            return Boolean.valueOf(ce.getFiller().isOWLThing());
+        }
+
+        @Override
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
+            return Boolean.TRUE;
+        }
     }
 
     private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor {
@@ -123,14 +161,14 @@ public class OWL2QLProfile implements OWLProfile {
         public void visit(OWLDatatype node) {
             if (!ALLOWED_DATATYPES.contains(node.getIRI())) {
                 violations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                                node));
+                    node));
             }
         }
 
         @Override
         public void visit(OWLAnonymousIndividual individual) {
             violations.add(new UseOfAnonymousIndividual(getCurrentOntology(), getCurrentAxiom(),
-                            individual));
+                individual));
         }
 
         @Override
@@ -142,33 +180,33 @@ public class OWL2QLProfile implements OWLProfile {
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!isOWL2QLSubClassExpression(axiom.getSubClass())) {
                 violations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom,
-                                axiom.getSubClass()));
+                    axiom.getSubClass()));
             }
             if (!isOWL2QLSuperClassExpression(axiom.getSuperClass())) {
                 violations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom,
-                                axiom.getSuperClass()));
+                    axiom.getSuperClass()));
             }
         }
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce))
-                            .forEach(ce -> violations.add(new UseOfNonSubClassExpression(
-                                            getCurrentOntology(), axiom, ce)));
+                .forEach(ce -> violations.add(new UseOfNonSubClassExpression(
+                    getCurrentOntology(), axiom, ce)));
         }
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             axiom.classExpressions().filter(ce -> !isOWL2QLSubClassExpression(ce))
-                            .forEach(ce -> violations.add(new UseOfNonSubClassExpression(
-                                            getCurrentOntology(), axiom, ce)));
+                .forEach(ce -> violations.add(new UseOfNonSubClassExpression(
+                    getCurrentOntology(), axiom, ce)));
         }
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             if (!isOWL2QLSuperClassExpression(axiom.getDomain())) {
                 violations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom,
-                                axiom.getDomain()));
+                    axiom.getDomain()));
             }
         }
 
@@ -176,7 +214,7 @@ public class OWL2QLProfile implements OWLProfile {
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
             if (!isOWL2QLSuperClassExpression(axiom.getRange())) {
                 violations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom,
-                                axiom.getRange()));
+                    axiom.getRange()));
             }
         }
 
@@ -209,7 +247,7 @@ public class OWL2QLProfile implements OWLProfile {
         public void visit(OWLDataPropertyDomainAxiom axiom) {
             if (!isOWL2QLSuperClassExpression(axiom.getDomain())) {
                 violations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom,
-                                axiom.getDomain()));
+                    axiom.getDomain()));
             }
         }
 
@@ -217,7 +255,7 @@ public class OWL2QLProfile implements OWLProfile {
         public void visit(OWLClassAssertionAxiom axiom) {
             if (axiom.getClassExpression().isAnonymous()) {
                 violations.add(new UseOfNonAtomicClassExpression(getCurrentOntology(), axiom,
-                                axiom.getClassExpression()));
+                    axiom.getClassExpression()));
             }
         }
 
@@ -249,60 +287,30 @@ public class OWL2QLProfile implements OWLProfile {
         @Override
         public void visit(OWLDataComplementOf node) {
             violations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                            node));
+                node));
         }
 
         @Override
         public void visit(OWLDataOneOf node) {
             violations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                            node));
+                node));
         }
 
         @Override
         public void visit(OWLDatatypeRestriction node) {
             violations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                            node));
+                node));
         }
 
         @Override
         public void visit(OWLDataUnionOf node) {
             violations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(),
-                            node));
+                node));
         }
-    }
-
-    private static class OWL2QLSubClassExpressionChecker
-                    implements OWLClassExpressionVisitorEx<Boolean> {
-
-        OWL2QLSubClassExpressionChecker() {}
-
-        @Override
-        public Boolean doDefault(Object o) {
-            return Boolean.FALSE;
-        }
-
-        @Override
-        public Boolean visit(OWLClass ce) {
-            return Boolean.TRUE;
-        }
-
-        @Override
-        public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return Boolean.valueOf(ce.getFiller().isOWLThing());
-        }
-
-        @Override
-        public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return Boolean.TRUE;
-        }
-    }
-
-    protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
-        return ce.accept(subClassExpressionChecker).booleanValue();
     }
 
     private class OWL2QLSuperClassExpressionChecker
-                    implements OWLClassExpressionVisitorEx<Boolean> {
+        implements OWLClassExpressionVisitorEx<Boolean> {
 
         OWL2QLSuperClassExpressionChecker() {}
 
@@ -335,13 +343,5 @@ public class OWL2QLProfile implements OWLProfile {
         public Boolean visit(OWLDataSomeValuesFrom ce) {
             return Boolean.TRUE;
         }
-    }
-
-    /**
-     * @param ce class
-     * @return true if ce is superclass expression
-     */
-    public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
-        return ce.accept(superClassExpressionChecker).booleanValue();
     }
 }

@@ -20,7 +20,7 @@ public interface OWLNamedObjectVisitor extends OWLPropertyEntityVisitorBase, OWL
 
     /**
      * visit OWLOntology type
-     * 
+     *
      * @param ontology ontology to visit
      */
     default void visit(OWLOntology ontology) {

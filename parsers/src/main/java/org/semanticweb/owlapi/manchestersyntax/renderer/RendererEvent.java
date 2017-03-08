@@ -32,7 +32,9 @@ public class RendererEvent {
         this.frameRenderer = frameRenderer;
     }
 
-    /** @return the frame renderer */
+    /**
+     * @return the frame renderer
+     */
     public ManchesterOWLSyntaxFrameRenderer getFrameRenderer() {
         return frameRenderer;
     }
@@ -51,7 +53,9 @@ public class RendererEvent {
         frameRenderer.writeComment(comment, true);
     }
 
-    /** @return the frame subject */
+    /**
+     * @return the frame subject
+     */
     public OWLObject getFrameSubject() {
         return frameSubject;
     }

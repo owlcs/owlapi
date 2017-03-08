@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 /**
  * A very very simple merger, which just creates an ontology which contains the union of axioms from
  * a set of ontologies.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -74,7 +74,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      * @throws OWLOntologyCreationException if any creation exception arises
      */
     public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager,
-                    @Nullable IRI ontologyIRI) throws OWLOntologyCreationException {
+        @Nullable IRI ontologyIRI) throws OWLOntologyCreationException {
         OWLOntology ontology;
         if (ontologyIRI != null) {
             ontology = ontologyManager.createOntology(ontologyIRI);
@@ -82,7 +82,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
             ontology = ontologyManager.createOntology();
         }
         setProvider.ontologies().flatMap(this::getAxioms).filter(axiomFilter::passes)
-                        .forEach(ontology::add);
+            .forEach(ontology::add);
         return ontology;
     }
 

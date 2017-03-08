@@ -17,7 +17,9 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/** Builder class for OWLDataProperty. */
+/**
+ * Builder class for OWLDataProperty.
+ */
 public class BuilderDataProperty extends BaseEntityBuilder<OWLDataProperty, BuilderDataProperty> {
 
     /**
@@ -30,7 +32,7 @@ public class BuilderDataProperty extends BaseEntityBuilder<OWLDataProperty, Buil
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

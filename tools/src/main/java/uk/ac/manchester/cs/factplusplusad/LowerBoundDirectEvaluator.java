@@ -66,7 +66,9 @@ class LowerBoundDirectEvaluator extends CardinalityEvaluatorBase {
         return getOneNoneLower(topCLocal() && nc(entity));
     }
 
-    /** helper for All */
+    /**
+     * helper for All
+     */
     @Override
     int getForallValue(OWLPropertyExpression r, OWLPropertyRange c) {
         return getOneNoneLower(isBotEquivalent(r) || isUpperLE(getUpperBoundComplement(c), 0));

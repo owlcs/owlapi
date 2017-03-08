@@ -26,16 +26,18 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 /**
  * An implementation of the OWLObjectRenderer interface. (Renders standalone class class expressions
  * and axioms in the manchester syntax).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
 
-    private ManchesterOWLSyntaxObjectRenderer ren;
     private final WriterDelegate writerDelegate;
+    private ManchesterOWLSyntaxObjectRenderer ren;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
         writerDelegate = new WriterDelegate();
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, new SimpleShortFormProvider());
@@ -57,7 +59,9 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
 
         private StringWriter delegate = new StringWriter();
 
-        /** Default constructor. */
+        /**
+         * Default constructor.
+         */
         WriterDelegate() {}
 
         protected void reset() {

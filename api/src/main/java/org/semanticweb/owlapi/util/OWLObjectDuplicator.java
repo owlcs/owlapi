@@ -37,18 +37,18 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
 
-    private final Map<OWLEntity, IRI> replacementMap;
     protected final RemappingIndividualProvider anonProvider;
+    private final Map<OWLEntity, IRI> replacementMap;
     private final Map<OWLLiteral, OWLLiteral> replacementLiterals;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified data factory and uri
      * replacement map.
-     * 
+     *
      * @param m The manager providing data factory and config to be used for the duplication.
      * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
-     *        appear in the map will be replaced as objects are duplicated. This can be used to
-     *        "rename" entities.
+     * appear in the map will be replaced as objects are duplicated. This can be used to "rename"
+     * entities.
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, OWLOntologyManager m) {
         this(entityIRIReplacementMap, Collections.<OWLLiteral, OWLLiteral>emptyMap(), m);
@@ -57,27 +57,27 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
     /**
      * Creates an object duplicator that duplicates objects using the specified data factory and uri
      * replacement map.
-     * 
+     *
      * @param m The manager providing data factory and config to be used for the duplication.
      * @param entityIRIReplacementMap The map to use for the replacement of URIs. Any uris the
-     *        appear in the map will be replaced as objects are duplicated. This can be used to
-     *        "rename" entities.
+     * appear in the map will be replaced as objects are duplicated. This can be used to "rename"
+     * entities.
      * @param literals replacement literals
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap,
-                    Map<OWLLiteral, OWLLiteral> literals, OWLOntologyManager m) {
+        Map<OWLLiteral, OWLLiteral> literals, OWLOntologyManager m) {
         super(x -> true, x -> x instanceof OWLFacet ? x : null,
-                        checkNotNull(m, "ontology manager cannot be null").getOWLDataFactory(),
-                        Object.class);
+            checkNotNull(m, "ontology manager cannot be null").getOWLDataFactory(),
+            Object.class);
         anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
         replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap,
-                        "entityIRIReplacementMap cannot be null"));
+            "entityIRIReplacementMap cannot be null"));
         replacementLiterals = checkNotNull(literals, "literals cannot be null");
     }
 
     /**
      * Creates an object duplicator that duplicates objects using the specified data factory.
-     * 
+     *
      * @param m The manager providing data factory and config to be used for the duplication.
      */
     public OWLObjectDuplicator(OWLOntologyManager m) {
@@ -87,11 +87,10 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
     /**
      * Creates an object duplicator that duplicates objects using the specified data factory and uri
      * replacement map.
-     * 
+     *
      * @param m The manager providing data factory and config to be used for the duplication.
      * @param iriReplacementMap The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be used to "rename"
-     *        entities.
+     * the map will be replaced as objects are duplicated. This can be used to "rename" entities.
      */
     public OWLObjectDuplicator(OWLOntologyManager m, Map<IRI, IRI> iriReplacementMap) {
         this(remap(iriReplacementMap, m.getOWLDataFactory()), m);
@@ -112,8 +111,8 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
 
     /**
      * @param object the object to duplicate
-     * @return the duplicate
      * @param <O> return type
+     * @return the duplicate
      */
     public <O extends OWLObject> O duplicateObject(O object) {
         checkNotNull(object, "object cannot be null");
@@ -123,7 +122,7 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
     /**
      * Given an IRI belonging to an entity, returns a IRI. This may be the same IRI that the entity
      * has, or an alternative IRI if a replacement has been specified.
-     * 
+     *
      * @param entity The entity
      * @return The IRI
      */
@@ -152,7 +151,7 @@ public class OWLObjectDuplicator extends TransformerVisitorBase<Object> {
         OWLObjectPropertyExpression inverse = property.getInverse();
         if (inverse.isAnonymous()) {
             return df.getOWLObjectInverseOf(
-                            df.getOWLObjectProperty(t(property.getNamedProperty())));
+                df.getOWLObjectProperty(t(property.getNamedProperty())));
         }
         return df.getOWLObjectInverseOf(df.getOWLObjectProperty(t(inverse.asOWLObjectProperty())));
     }

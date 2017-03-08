@@ -17,5 +17,5 @@ package org.semanticweb.owlapi.model.providers;
  * @since 3.4.6
  */
 public interface EntityProvider extends ClassProvider, ObjectPropertyProvider, DataPropertyProvider,
-                NamedIndividualProvider, DatatypeProvider, AnnotationPropertyProvider {
+    NamedIndividualProvider, DatatypeProvider, AnnotationPropertyProvider {
 }

@@ -19,12 +19,14 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
-/** Renderer for explanations. */
+/**
+ * Renderer for explanations.
+ */
 public interface ExplanationRenderer {
 
     /**
      * Start rendering.
-     * 
+     *
      * @param writer the writer to use
      * @throws OWLException OWL troubles
      * @throws IOException IO troubles
@@ -33,7 +35,7 @@ public interface ExplanationRenderer {
 
     /**
      * Render.
-     * 
+     *
      * @param axiom the axiom to render
      * @param explanations the explanations to render
      * @throws OWLException OWL troubles
@@ -43,7 +45,7 @@ public interface ExplanationRenderer {
 
     /**
      * end of rendering.
-     * 
+     *
      * @throws OWLException OWL troubles
      * @throws IOException IO troubles
      */

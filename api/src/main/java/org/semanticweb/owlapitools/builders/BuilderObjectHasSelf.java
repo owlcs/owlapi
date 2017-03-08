@@ -19,13 +19,15 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 
-/** Builder class for OWLObjectHasSelf. */
+/**
+ * Builder class for OWLObjectHasSelf.
+ */
 public class BuilderObjectHasSelf
-                extends BaseObjectPropertyBuilder<OWLObjectHasSelf, BuilderObjectHasSelf> {
+    extends BaseObjectPropertyBuilder<OWLObjectHasSelf, BuilderObjectHasSelf> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

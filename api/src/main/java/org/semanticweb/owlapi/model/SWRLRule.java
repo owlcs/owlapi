@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 /**
  * Represent a rule. A rule consists of a head and a body. Both the head and the body consist of a
  * conjunction of atoms.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
@@ -48,7 +48,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the body of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body of the rule.
      * @deprecated use {@link #body()}
      */
@@ -59,14 +59,14 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the body of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body of the rule.
      */
     Stream<SWRLAtom> body();
 
     /**
      * Gets the atoms in the head of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head of the rule
      * @deprecated use {@link #head()}
      */
@@ -77,7 +77,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the head of the rule.
-     * 
+     *
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head of the rule
      */
     Stream<SWRLAtom> head();
@@ -86,15 +86,15 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * If this rule contains atoms that have predicates that are inverse object properties, then
      * this method creates and returns a rule where the arguments of these atoms are fliped over and
      * the predicate is the inverse (simplified) property.
-     * 
+     *
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are transformed to p(x,
-     *         y).
+     * y).
      */
     SWRLRule getSimplified();
 
     /**
      * Gets the variables that appear in this rule.
-     * 
+     *
      * @return A set of variables.
      * @deprecated use {@link #variables()}
      */
@@ -105,24 +105,24 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the variables that appear in this rule.
-     * 
+     *
      * @return A set of variables.
      */
     Stream<SWRLVariable> variables();
 
     /**
      * Determines if this rule uses anonymous class expressions in class atoms.
-     * 
+     *
      * @return {@code true} if this rule contains anonymous class expression in class atoms,
-     *         otherwise {@code false}.
+     * otherwise {@code false}.
      */
     boolean containsAnonymousClassExpressions();
 
     /**
      * Gets the predicates of class atoms.
-     * 
+     *
      * @return A set of class expressions that represent the class class expressions that are
-     *         predicates of class atoms.
+     * predicates of class atoms.
      * @deprecated use {@link #classAtomPredicates()}
      */
     @Deprecated
@@ -132,9 +132,9 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the predicates of class atoms.
-     * 
+     *
      * @return A set of class expressions that represent the class class expressions that are
-     *         predicates of class atoms.
+     * predicates of class atoms.
      */
     Stream<OWLClassExpression> classAtomPredicates();
 

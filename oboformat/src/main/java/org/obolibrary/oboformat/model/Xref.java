@@ -2,7 +2,9 @@ package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nullable;
 
-/** Xref. */
+/**
+ * Xref.
+ */
 public class Xref {
 
     protected String idref;

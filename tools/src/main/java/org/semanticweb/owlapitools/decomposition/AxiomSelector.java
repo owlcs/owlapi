@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
  * A filter for axioms
- * 
+ *
  * @author ignazio
  */
 public class AxiomSelector {
@@ -24,7 +24,7 @@ public class AxiomSelector {
      */
     public static List<OWLAxiom> selectAxioms(OWLOntology o) {
         return asList(LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES.stream()
-                        .flatMap(type -> o.axioms(type, Imports.INCLUDED)));
+            .flatMap(type -> o.axioms(type, Imports.INCLUDED)));
     }
 
     /**

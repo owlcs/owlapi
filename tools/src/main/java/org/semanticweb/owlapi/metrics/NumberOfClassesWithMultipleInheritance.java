@@ -34,7 +34,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
 
     /**
      * Instantiates a new number of classes with multiple inheritance.
-     * 
+     *
      * @param o ontology to use
      */
     public NumberOfClassesWithMultipleInheritance(OWLOntology o) {
@@ -59,7 +59,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 processed.add(cls);
                 int count = 0;
                 for (OWLClassExpression sup : asList(equivalent(ont.equivalentClassesAxioms(cls),
-                                OWLClassExpression.class))) {
+                    OWLClassExpression.class))) {
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }

@@ -41,12 +41,12 @@ import gnu.trove.strategy.IdentityHashingStrategy;
  * @since 2.0.0
  */
 public class RDFTranslator
-                extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+    extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    private TObjectIntCustomHashMap<Object> blankNodeMap =
-                    new TObjectIntCustomHashMap<>(new IdentityHashingStrategy<>());
     protected final AxiomAppearance axiomOccurrences;
     private final AtomicInteger nextBlankNodeId;
+    private TObjectIntCustomHashMap<Object> blankNodeMap =
+        new TObjectIntCustomHashMap<>(new IdentityHashingStrategy<>());
 
     /**
      * @param manager the manager
@@ -57,8 +57,8 @@ public class RDFTranslator
      * @param counter counter for blank nodes
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
-                    IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
-                    AtomicInteger counter) {
+        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
+        AtomicInteger counter) {
         super(manager, ontology, useStrongTyping, occurrences);
         this.axiomOccurrences = axiomOccurrences;
         nextBlankNodeId = counter;
@@ -79,7 +79,7 @@ public class RDFTranslator
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
             return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom,
-                            needId);
+                needId);
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
             isAxiom = true;
@@ -89,7 +89,7 @@ public class RDFTranslator
     }
 
     protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual,
-                    boolean isAxiom, boolean needId) {
+        boolean isAxiom, boolean needId) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
             id = nextBlankNodeId.getAndIncrement();

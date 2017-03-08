@@ -36,7 +36,9 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  */
 public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
-    /** keep the value here */
+    /**
+     * keep the value here
+     */
     boolean isTopEq = false;
 
     /**
@@ -47,6 +49,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // non-empty Concept/Data expression
+
     /**
      * @param c C
      * @return true iff C^I is non-empty
@@ -62,6 +65,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     }
 
     // cardinality of a concept/data expression interpretation
+
     /**
      * @param c C
      * @param n cardinality
@@ -73,13 +77,14 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
         }
         if (c instanceof OWLDatatype) {
             return ((OWLDatatype) c).isBuiltIn()
-                            && !((OWLDatatype) c).getBuiltInDatatype().isFinite();
+                && !((OWLDatatype) c).getBuiltInDatatype().isFinite();
         }
         // FIXME!! try to be more precise
         return false;
     }
 
     // QCRs
+
     /**
      * @param n cardinality
      * @param r role
@@ -97,7 +102,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
      * @return true iff (<= n R.C) is topEq
      */
     private boolean isMaxTopEquivalent(@SuppressWarnings("unused") int n, OWLPropertyExpression r,
-                    OWLPropertyRange c) {
+        OWLPropertyRange c) {
         return localityChecker.isBotEquivalent(r) || localityChecker.isBotEquivalent(c);
     }
 
@@ -160,7 +165,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     @Override
     public void visit(OWLObjectAllValuesFrom expr) {
         isTopEq = isTopEquivalent(expr.getFiller())
-                        || localityChecker.isBotEquivalent(expr.getProperty());
+            || localityChecker.isBotEquivalent(expr.getProperty());
     }
 
     @Override
@@ -177,7 +182,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
         isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
-                        && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
+            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override
@@ -193,7 +198,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     @Override
     public void visit(OWLDataAllValuesFrom expr) {
         isTopEq = isTopEquivalent(expr.getFiller())
-                        || localityChecker.isBotEquivalent(expr.getProperty());
+            || localityChecker.isBotEquivalent(expr.getProperty());
     }
 
     @Override
@@ -210,7 +215,7 @@ public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVis
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
         isTopEq = isMinTopEquivalent(n, expr.getProperty(), expr.getFiller())
-                        && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
+            && isMaxTopEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override

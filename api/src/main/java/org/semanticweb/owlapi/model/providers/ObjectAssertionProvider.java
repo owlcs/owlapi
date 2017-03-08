@@ -21,7 +21,9 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Object property assertion provider. */
+/**
+ * Object property assertion provider.
+ */
 public interface ObjectAssertionProvider extends LiteralProvider {
 
     /**
@@ -31,10 +33,10 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      * @return an object property assertion
      */
     default OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
-                    OWLObjectPropertyExpression property, OWLIndividual individual,
-                    OWLIndividual object) {
+        OWLObjectPropertyExpression property, OWLIndividual individual,
+        OWLIndividual object) {
         return getOWLObjectPropertyAssertionAxiom(property, individual, object,
-                        Collections.emptySet());
+            Collections.emptySet());
     }
 
     /**
@@ -45,8 +47,8 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      * @return an object property assertion with annotations
      */
     OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
-                    OWLObjectPropertyExpression property, OWLIndividual individual,
-                    OWLIndividual object, Collection<OWLAnnotation> annotations);
+        OWLObjectPropertyExpression property, OWLIndividual individual,
+        OWLIndividual object, Collection<OWLAnnotation> annotations);
 
     /**
      * @param property property
@@ -55,10 +57,10 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      * @return a negative property assertion axiom on given arguments
      */
     default OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
-                    OWLObjectPropertyExpression property, OWLIndividual subject,
-                    OWLIndividual object) {
+        OWLObjectPropertyExpression property, OWLIndividual subject,
+        OWLIndividual object) {
         return getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object,
-                        Collections.emptySet());
+            Collections.emptySet());
     }
 
     /**
@@ -69,6 +71,6 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      * @return a negative property assertion axiom on given arguments with annotations
      */
     OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
-                    OWLObjectPropertyExpression property, OWLIndividual subject,
-                    OWLIndividual object, Collection<OWLAnnotation> annotations);
+        OWLObjectPropertyExpression property, OWLIndividual subject,
+        OWLIndividual object, Collection<OWLAnnotation> annotations);
 }

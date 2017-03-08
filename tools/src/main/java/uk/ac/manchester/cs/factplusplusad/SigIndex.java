@@ -12,18 +12,30 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 
 class SigIndex {
 
-    /** map between entities and axioms that contains them in their signature */
+    /**
+     * map between entities and axioms that contains them in their signature
+     */
     private Map<OWLEntity, Collection<AxiomWrapper>> base = new HashMap<>();
-    /** locality checker */
+    /**
+     * locality checker
+     */
     private LocalityChecker checker;
-    /** empty signature to test the non-locality */
+    /**
+     * empty signature to test the non-locality
+     */
     private Signature emptySig = new Signature();
-    /** sets of axioms non-local wrt the empty signature */
+    /**
+     * sets of axioms non-local wrt the empty signature
+     */
     private Collection<AxiomWrapper> topNonLocal = new ArrayList<>();
     private Collection<AxiomWrapper> bottomNonLocal = new ArrayList<>();
-    /** number of registered axioms */
+    /**
+     * number of registered axioms
+     */
     private int nRegistered = 0;
-    /** number of registered axioms */
+    /**
+     * number of registered axioms
+     */
     private int nUnregistered = 0;
 
     /**
@@ -35,7 +47,7 @@ class SigIndex {
 
     /**
      * add axiom AX to the non-local set with top-locality value TOP
-     * 
+     *
      * @param ax axiom
      * @param top top or bottom
      */
@@ -51,7 +63,9 @@ class SigIndex {
         }
     }
 
-    /** clear internal structures */
+    /**
+     * clear internal structures
+     */
     public void clear() {
         base.clear();
         topNonLocal.clear();
@@ -60,7 +74,7 @@ class SigIndex {
 
     /**
      * given an entity, return a set of all axioms that contain this entity in a signature
-     * 
+     *
      * @param entity the entity
      * @return collection of axioms referring the entity
      */
@@ -70,7 +84,7 @@ class SigIndex {
 
     /**
      * get the non-local axioms with top-locality value TOP
-     * 
+     *
      * @param top true if top locality should be used
      * @return collection of non local axioms
      */
@@ -78,19 +92,23 @@ class SigIndex {
         return top ? topNonLocal : bottomNonLocal;
     }
 
-    /** @return number of ever processed axioms */
+    /**
+     * @return number of ever processed axioms
+     */
     public int nProcessedAx() {
         return nRegistered;
     }
 
-    /** @return number of currently registered axioms */
+    /**
+     * @return number of currently registered axioms
+     */
     int nRegisteredAx() {
         return nRegistered - nUnregistered;
     }
 
     /**
      * preprocess given set of axioms
-     * 
+     *
      * @param axioms the axioms to process
      */
     public void preprocessOntology(Collection<AxiomWrapper> axioms) {
@@ -99,7 +117,7 @@ class SigIndex {
 
     /**
      * process an axiom wrt its Used status
-     * 
+     *
      * @param ax the axiom to process
      */
     public void processAx(AxiomWrapper ax) {
@@ -112,7 +130,7 @@ class SigIndex {
 
     /**
      * register an axiom
-     * 
+     *
      * @param ax axiom
      */
     private void registerAx(AxiomWrapper ax) {
@@ -125,7 +143,7 @@ class SigIndex {
 
     /**
      * unregister an axiom AX
-     * 
+     *
      * @param ax axiom
      */
     private void unregisterAx(AxiomWrapper ax) {

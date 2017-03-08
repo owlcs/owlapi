@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * An {@link OWLParser} that knows which Sesame {@link RDFFormat} it maps to.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
@@ -58,5 +58,5 @@ public interface RioParser extends OWLParser {
      * @return Parsed document format
      */
     OWLDocumentFormat parse(RioMemoryTripleSource r, OWLOntology o,
-                    OWLOntologyLoaderConfiguration config, IRI documentIRI);
+        OWLOntologyLoaderConfiguration config, IRI documentIRI);
 }

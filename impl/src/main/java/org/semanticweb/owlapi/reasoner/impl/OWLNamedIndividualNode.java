@@ -24,7 +24,9 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
  */
 public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLNamedIndividualNode() {
         super();
     }

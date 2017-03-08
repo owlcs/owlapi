@@ -51,35 +51,35 @@ import com.google.common.base.Splitter;
  * A mapper which given a root folder attempts to automatically discover and map files to
  * ontologies. The mapper is only capable of mapping ontologies in RDF/XML and OWL/XML (other
  * serialisations are not supported).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
+    static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
     private static final Logger LOGGER = LoggerFactory.getLogger(AutoIRIMapper.class);
     private final Set<String> fileExtensions = new HashSet<>();
-    private boolean mapped;
     private final boolean recursive;
     private final Map<String, OntologyRootElementHandler> handlerMap = createMap();
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = createMap();
     private final Map<String, IRI> oboFileMap = createMap();
     private final String directoryPath;
+    private boolean mapped;
     @Nullable
     private transient File currentFile;
-    static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
 
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified root folder
      * (and possibly sub-folders).
-     * 
+     *
      * @param rootDirectory The root directory which should be searched for ontologies.
      * @param recursive Sub directories will be searched recursively if {@code true}.
      */
     public AutoIRIMapper(File rootDirectory, boolean recursive) {
         directoryPath = checkNotNull(rootDirectory, "rootDirectory cannot be null")
-                        .getAbsolutePath();
+            .getAbsolutePath();
         this.recursive = recursive;
         fileExtensions.add(".owl");
         fileExtensions.add(".xml");
@@ -111,6 +111,16 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         });
     }
 
+    /**
+     * @param tok token
+     * @return IRI without quotes (&lt; and &gt;)
+     */
+    static IRI unquote(String tok) {
+        String substring = tok.substring(1, tok.length() - 1);
+        assert substring != null;
+        return IRI.create(substring);
+    }
+
     protected File getDirectory() {
         return new File(directoryPath);
     }
@@ -118,7 +128,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     /**
      * The mapper only examines files that have specified file extensions. This method returns the
      * file extensions that cause a file to be examined.
-     * 
+     *
      * @return A {@code Set} of file extensions.
      */
     public Set<String> getFileExtensions() {
@@ -129,7 +139,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * Sets the extensions of files that are to be examined for ontological content. (By default the
      * extensions are, owl, xml and rdf). Only files that have the specified extensions will be
      * examined to see if they contain ontologies.
-     * 
+     *
      * @param extensions the set of extensions
      */
     public void setFileExtensions(Collection<String> extensions) {
@@ -139,7 +149,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     /**
      * Gets the set of ontology IRIs that this mapper has found.
-     * 
+     *
      * @return A {@code Set} of ontology (logical) URIs
      */
     public Set<IRI> getOntologyIRIs() {
@@ -149,7 +159,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         return new HashSet<>(ontologyIRI2PhysicalURIMap.keySet());
     }
 
-    /** update the map. */
+    /**
+     * update the map.
+     */
     public void update() {
         mapFiles();
     }
@@ -218,13 +230,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     /**
      * Search first 100 lines for FSS style Ontology(&lt;IRI&gt; ...
-     * 
+     *
      * @param file the file to parse
      */
     private void parseFSSFile(File file) {
         try (InputStream input = new FileInputStream(file);
-                        Reader reader = new InputStreamReader(input, "UTF-8");
-                        BufferedReader br = new BufferedReader(reader)) {
+            Reader reader = new InputStreamReader(input, "UTF-8");
+            BufferedReader br = new BufferedReader(reader)) {
             String line = "";
             Matcher m = pattern.matcher(line);
             int n = 0;
@@ -258,9 +270,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private void parseManchesterSyntaxFile(File file) {
         try (FileInputStream input = new FileInputStream(file);
-                        InputStreamReader reader =
-                                        new InputStreamReader(input, StandardCharsets.UTF_8);
-                        BufferedReader br = new BufferedReader(reader)) {
+            InputStreamReader reader =
+                new InputStreamReader(input, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(reader)) {
             // Ontology: <URI>
             String line = br.readLine();
             while (line != null) {
@@ -287,19 +299,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         return null;
     }
 
-    /**
-     * @param tok token
-     * @return IRI without quotes (&lt; and &gt;)
-     */
-    static IRI unquote(String tok) {
-        String substring = tok.substring(1, tok.length() - 1);
-        assert substring != null;
-        return IRI.create(substring);
-    }
-
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName,
-                    @Nullable String qName, @Nullable Attributes attributes) throws SAXException {
+        @Nullable String qName, @Nullable Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(checkNotNull(attributes));
@@ -323,7 +325,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         StringBuilder sb = new StringBuilder("AutoIRIMapper: (");
         sb.append(ontologyIRI2PhysicalURIMap.size()).append(" ontologies)\n");
         ontologyIRI2PhysicalURIMap.forEach((k, v) -> sb.append("    ").append(k.toQuotedString())
-                        .append(" -> ").append(v).append('\n'));
+            .append(" -> ").append(v).append('\n'));
         return sb.toString();
     }
 
@@ -335,7 +337,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
         /**
          * Gets the ontology IRI.
-         * 
+         *
          * @param attributes The attributes which will be examined for the ontology IRI.
          * @return The ontology IRI or {@code null} if no ontology IRI could be found.
          */

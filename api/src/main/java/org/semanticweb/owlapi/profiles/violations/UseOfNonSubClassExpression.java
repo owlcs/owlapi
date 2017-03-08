@@ -32,7 +32,7 @@ public class UseOfNonSubClassExpression extends OWLProfileViolation {
      * @param classExpression classExpression
      */
     public UseOfNonSubClassExpression(OWLOntology ontology, OWLAxiom axiom,
-                    OWLClassExpression classExpression) {
+        OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 
@@ -53,7 +53,8 @@ public class UseOfNonSubClassExpression extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Use of non-subclass expression in position that requires a subclass expression: %s",
-                        getExpression());
+        return toString(
+            "Use of non-subclass expression in position that requires a subclass expression: %s",
+            getExpression());
     }
 }

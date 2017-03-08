@@ -24,24 +24,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/*
- * Not a pretty pattern but I didn't want to have long strings repeated across
- * constructors, and no static constants are allowed before members declaration
- * in an enum.
- */
-interface KnownFactories {
-
-    String FaCTPlusPlus = "uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory";
-    String HermiT = "org.semanticweb.HermiT.Reasoner.ReasonerFactory";
-    String JFact = "uk.ac.manchester.cs.jfact.JFactFactory";
-    String TrOWL = "eu.trowl.owlapi3.rel.reasoner.dl.RELReasonerFactory";
-    String Pellet = "com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory";
-    String MORe = "org.semanticweb.more.MOReRLrewReasonerFactory";
-    String Elk = "org.semanticweb.elk.owlapi.ElkReasonerFactory";
-    String Snorocket = "au.csiro.snorocket.owlapi.SnorocketReasonerFactory";
-}
-
-
 /**
  * This enumeration includes all currently implemented profile checkers and known information about
  * available reasoners for those profiles. Note that reasoner capabilities might be out of date,
@@ -54,7 +36,7 @@ interface KnownFactories {
  * >patch set 2</a>.<br>
  * Notice that the OWLProfiles referred here are stateless, therefore only one instance needs to be
  * created and can be reused across threads.
- * 
+ *
  * @author ignazio
  */
 public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWLProfile> {
@@ -71,6 +53,34 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
     Profiles(String name, String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
         this.supportingFactories = CollectionFactory.list(supportingFactories);
+    }
+
+    /**
+     * @param factoryClassName class name to instantiate
+     * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
+     * implementation available on the classpath. Any exception raised by {@code
+     * Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
+     */
+    public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
+        try {
+            Class<?> c = Class.forName(factoryClassName);
+            if (OWLReasonerFactory.class.isAssignableFrom(c)) {
+                return (OWLReasonerFactory) c.newInstance();
+            }
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
+        }
+    }
+
+    /**
+     * @param i IRI to match
+     * @return Profiles with matching IRI, or null if none is found
+     */
+    public static Profiles valueForIRI(IRI i) {
+        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny().orElse(null);
     }
 
     @Override
@@ -90,42 +100,31 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
 
     /**
      * @return collection of OWLReasonerFactory class names known to support the expressivity of
-     *         this profile. The factories can be instantiated through {@code instantiateFactory()}
-     *         if the reasoner classes are on the classpath. Note that this list is provided for
-     *         information only, and might be incorrect or incomplete due to changes in the reasoner
-     *         implementations.<br>
-     *         Should you know of a reasoner not mentioned here, or find an error in the reported
-     *         supported profiles, please raise a bug about it.
+     * this profile. The factories can be instantiated through {@code instantiateFactory()} if the
+     * reasoner classes are on the classpath. Note that this list is provided for information only,
+     * and might be incorrect or incomplete due to changes in the reasoner implementations.<br>
+     * Should you know of a reasoner not mentioned here, or find an error in the reported supported
+     * profiles, please raise a bug about it.
      */
     public Collection<String> supportingReasoners() {
         return supportingFactories;
     }
+}
 
-    /**
-     * @param factoryClassName class name to instantiate
-     * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
-     *         implementation available on the classpath. Any exception raised by
-     *         {@code Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
-     */
-    public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
-        try {
-            Class<?> c = Class.forName(factoryClassName);
-            if (OWLReasonerFactory.class.isAssignableFrom(c)) {
-                return (OWLReasonerFactory) c.newInstance();
-            }
-            throw new OWLRuntimeException(
-                            "Reasoner factory cannot be instantiated: " + factoryClassName);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new OWLRuntimeException(
-                            "Reasoner factory cannot be instantiated: " + factoryClassName, e);
-        }
-    }
 
-    /**
-     * @param i IRI to match
-     * @return Profiles with matching IRI, or null if none is found
-     */
-    public static Profiles valueForIRI(IRI i) {
-        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny().orElse(null);
-    }
+/*
+ * Not a pretty pattern but I didn't want to have long strings repeated across
+ * constructors, and no static constants are allowed before members declaration
+ * in an enum.
+ */
+interface KnownFactories {
+
+    String FaCTPlusPlus = "uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory";
+    String HermiT = "org.semanticweb.HermiT.Reasoner.ReasonerFactory";
+    String JFact = "uk.ac.manchester.cs.jfact.JFactFactory";
+    String TrOWL = "eu.trowl.owlapi3.rel.reasoner.dl.RELReasonerFactory";
+    String Pellet = "com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory";
+    String MORe = "org.semanticweb.more.MOReRLrewReasonerFactory";
+    String Elk = "org.semanticweb.elk.owlapi.ElkReasonerFactory";
+    String Snorocket = "au.csiro.snorocket.owlapi.SnorocketReasonerFactory";
 }

@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 /**
  * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be part of the axiom
  * that violates the profile rather than the complete axiom.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 4.0.0
  */
@@ -88,7 +88,7 @@ public abstract class OWLProfileViolation {
 
     /**
      * @return a set of changes to fix the violation - it might be just an axiom removal, or a
-     *         rewrite, or addition of other needed axioms.
+     * rewrite, or addition of other needed axioms.
      */
     public List<OWLOntologyChange> repair() {
         // default fix is to drop the axiom
@@ -104,7 +104,7 @@ public abstract class OWLProfileViolation {
 
     /**
      * Visitor accept method.
-     * 
+     *
      * @param visitor visitor
      */
     public abstract void accept(OWLProfileViolationVisitor visitor);
@@ -126,7 +126,7 @@ public abstract class OWLProfileViolation {
 
     protected String toString(String template, Object object1, Object object2) {
         return String.format(template + " [%s in %s]", object1, object2, axiom,
-                        ontology.getOntologyID());
+            ontology.getOntologyID());
     }
 
     protected List<OWLOntologyChange> list(OWLOntologyChange... changes) {

@@ -27,7 +27,7 @@ public interface OWLOntologyLoaderMetaData extends Serializable {
 
     /**
      * Gets a count of the triples process during loading.
-     * 
+     *
      * @return The number of triples process during loading.
      */
     int getTripleCount();

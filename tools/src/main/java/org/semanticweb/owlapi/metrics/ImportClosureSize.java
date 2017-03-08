@@ -25,7 +25,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     /**
      * Instantiates a new import closure size.
-     * 
+     *
      * @param o ontology to use
      */
     public ImportClosureSize(OWLOntology o) {

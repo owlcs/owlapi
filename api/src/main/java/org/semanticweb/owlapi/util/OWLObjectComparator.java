@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 /**
  * A ShortFormProvider based comparator for OWLObjects. OWLEntity instances are sorted according to
  * their short forms.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */

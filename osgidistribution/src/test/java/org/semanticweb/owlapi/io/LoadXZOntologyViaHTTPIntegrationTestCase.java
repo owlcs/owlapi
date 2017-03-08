@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.io;/**
-                                  * Created by ses on 3/12/15.
-                                  */
+ * Created by ses on 3/12/15.
+ */
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,8 +22,8 @@ public class LoadXZOntologyViaHTTPIntegrationTestCase {
     public void testLoadOverHTTP() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(
-                        "http://owlcs.github.io/owlapibenchmarks/horridge-iswc-2014-corpus/BioPortal-Corpus-xz/",
-                        "BPOntology-100.owl.xml.xz"));
+            "http://owlcs.github.io/owlapibenchmarks/horridge-iswc-2014-corpus/BioPortal-Corpus-xz/",
+            "BPOntology-100.owl.xml.xz"));
         assertNotNull(ontology);
         assertEquals("axiomCount", 122, ontology.getAxiomCount());
     }

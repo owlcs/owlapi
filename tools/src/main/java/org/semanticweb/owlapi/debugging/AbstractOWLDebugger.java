@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * An abstract debugger which provides common infrastructure for finding multiple justification.
  * This functionality relies on a concrete implementation of a debugger that can compute a minimal
  * set of axioms that cause the unsatisfiability.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -46,7 +46,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
 
     /**
      * Instantiates a new abstract owl debugger.
-     * 
+     *
      * @param owlOntologyManager the owl ontology manager
      * @param ontology the ontology
      */
@@ -61,8 +61,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         OWLOntology o = ontology;
         try {
             ontology = man.createOntology(
-                            IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
-                            o.importsClosure(), true);
+                IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
+                o.importsClosure(), true);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -70,7 +70,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
 
     /**
      * Gets the current class.
-     * 
+     *
      * @return the current class
      * @throws OWLException the OWL exception
      */
@@ -83,7 +83,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
 
     @Override
     public Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(OWLClassExpression cls)
-                    throws OWLException {
+        throws OWLException {
         Set<OWLAxiom> firstMups = getSOSForInconsistentClass(cls);
         if (firstMups.isEmpty()) {
             return Collections.emptySet();
@@ -97,23 +97,23 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     }
 
     // Hitting Set Stuff
+
     /**
      * This is a recursive method that builds a hitting set tree to obtain all justifications for an
      * unsatisfiable class.
-     * 
+     *
      * @param mups The current justification for the current class. This corresponds to a node in
-     *        the hitting set tree.
+     * the hitting set tree.
      * @param allMups All of the MUPS that have been found - this set gets populated over the course
-     *        of the tree building process. Initially this should just contain the first
-     *        justification
+     * of the tree building process. Initially this should just contain the first justification
      * @param satPaths Paths that have been completed.
      * @param currentPathContents The contents of the current path. Initially this should be an
-     *        empty set.
+     * empty set.
      * @throws OWLException if there is any problem
      */
     public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
-                    Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents)
-                    throws OWLException {
+        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents)
+        throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
@@ -138,8 +138,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     }
 
     protected void handleLateTermination(Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
-                    Set<OWLAxiom> currentPathContents, boolean earlyTermination)
-                    throws OWLException {
+        Set<OWLAxiom> currentPathContents, boolean earlyTermination)
+        throws OWLException {
         if (!earlyTermination) {
             // Generate a new node - i.e. a new justification set
             Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());

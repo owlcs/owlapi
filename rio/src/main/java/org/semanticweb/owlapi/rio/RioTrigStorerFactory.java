@@ -44,7 +44,9 @@ import org.semanticweb.owlapi.formats.TrigDocumentFormatFactory;
  */
 public class RioTrigStorerFactory extends AbstractRioStorerFactory implements RioRDFStorerFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioTrigStorerFactory() {
         super(new TrigDocumentFormatFactory());
     }

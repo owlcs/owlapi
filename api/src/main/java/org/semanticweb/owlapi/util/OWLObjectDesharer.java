@@ -27,31 +27,31 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
  * Class to remove structure sharing from OWL objects (Axioms or expressions)
- * 
+ *
  * @author Ignazio Palmisano
  * @since 4.2.8
  */
 public class OWLObjectDesharer extends TransformerVisitorBase<Object>
-                implements OWLObjectVisitorEx<OWLObject> {
+    implements OWLObjectVisitorEx<OWLObject> {
 
     protected RemappingIndividualProvider anonProvider;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified data factory and uri
      * replacement map.
-     * 
+     *
      * @param m The manager providing data factory and config to be used for the duplication.
      */
     public OWLObjectDesharer(OWLOntologyManager m) {
         super(x -> true, x -> x instanceof OWLFacet ? x : null, m.getOWLDataFactory(),
-                        Object.class);
+            Object.class);
         anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
     }
 
     /**
      * @param object the object to duplicate
-     * @return the duplicate
      * @param <O> return type
+     * @return the duplicate
      */
     public <O extends OWLObject> O deshareObject(O object) {
         return t(checkNotNull(object, "object cannot be null"));

@@ -123,14 +123,13 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * NOTE: this class was not designed as a general purpose renderer, i.e., some ontologies might be
  * misrepresented in the output. Please report any formatting error you find to the bug tracker or
  * the mailing list.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class LatexObjectVisitor implements OWLObjectVisitor {
 
     //@formatter:off
-    /** AND. */           private static final String AND     = "\\ensuremath{\\sqcap}";
     /** OR. */            public static final String OR       = "\\ensuremath{\\sqcup}";
     /** NOT. */           public static final String NOT      = "\\ensuremath{\\lnot}";
     /** ALL. */           public static final String ALL      = "\\ensuremath{\\forall}";
@@ -146,11 +145,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     /** BOTTOM. */        public static final String BOTTOM   = "\\ensuremath{\\bot}";
     /** SELF. */          public static final String SELF     = "\\ensuremath{\\Self}";
     /** CIRC. */          public static final String CIRC     = "\\ensuremath{\\circ}";
+    /** AND. */           private static final String AND     = "\\ensuremath{\\sqcap}";
     //@formatter:on
-    private OWLObject subject;
     private final LatexWriter writer;
-    private boolean prettyPrint = true;
     private final OWLDataFactory df;
+    private OWLObject subject;
+    private boolean prettyPrint = true;
     private ShortFormProvider shortFormProvider;
 
     /**
@@ -162,6 +162,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         this.df = df;
         shortFormProvider = new SimpleShortFormProvider();
         subject = df.getOWLThing();
+    }
+
+    private static String escapeName(String name) {
+        return name.replace("_", "\\_");
     }
 
     /**
@@ -577,7 +581,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it
-                        .hasNext();) {
+            .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -620,7 +624,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         for (Iterator<OWLDataPropertyExpression> it = axiom.properties().iterator(); it
-                        .hasNext();) {
+            .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -633,7 +637,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         for (Iterator<OWLObjectPropertyExpression> it = axiom.properties().iterator(); it
-                        .hasNext();) {
+            .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -680,7 +684,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
             df.getOWLObjectMaxCardinality(1, property).accept(this);
         } else {
             OWLObjectPropertyExpression prop =
-                            df.getOWLObjectInverseOf(property.asOWLObjectProperty());
+                df.getOWLObjectInverseOf(property.asOWLObjectProperty());
             df.getOWLObjectMaxCardinality(1, prop).accept(this);
         }
     }
@@ -736,7 +740,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it
-                        .hasNext();) {
+            .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -854,10 +858,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         if (LatexBracketChecker.requiresBracket(classExpression)) {
             write(")");
         }
-    }
-
-    private static String escapeName(String name) {
-        return name.replace("_", "\\_");
     }
 
     @Override

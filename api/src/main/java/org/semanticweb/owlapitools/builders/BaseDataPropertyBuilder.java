@@ -23,12 +23,12 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLDataAllValuesFrom.
- * 
+ *
  * @param <T> type built
  * @param <B> builder type
  */
 public abstract class BaseDataPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B>
-                implements SettableProperty<OWLDataPropertyExpression, B> {
+    implements SettableProperty<OWLDataPropertyExpression, B> {
 
     @Nullable
     private OWLDataPropertyExpression property = null;

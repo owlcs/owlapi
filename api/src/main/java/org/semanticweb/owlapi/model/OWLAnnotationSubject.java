@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.model;
 /**
  * A marker interface for annotation subjects, which can either be IRIs or anonymous individuals,
  * with visitor methods.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */

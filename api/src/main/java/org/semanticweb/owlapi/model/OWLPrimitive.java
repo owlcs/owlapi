@@ -21,7 +21,7 @@ package org.semanticweb.owlapi.model;
  * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual},
  * {@link org.semanticweb.owlapi.model.OWLLiteral}, {@link org.semanticweb.owlapi.model.IRI}. i.e.
  * the basic "leaf" objects that are used in axioms, class expressions an annotations.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */

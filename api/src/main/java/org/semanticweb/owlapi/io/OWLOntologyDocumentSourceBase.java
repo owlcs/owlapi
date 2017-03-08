@@ -52,117 +52,64 @@ import okhttp3.Response;
 
 /**
  * Base class for OWLOntologyDocumentSource.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocumentSource {
 
     protected static final Logger LOGGER =
-                    LoggerFactory.getLogger(OWLOntologyDocumentSourceBase.class);
+        LoggerFactory.getLogger(OWLOntologyDocumentSourceBase.class);
     private static final Pattern CONTENT_DISPOSITION_FILE =
-                    Pattern.compile(".*filename=\"([^\\s;]*)\".*");
-
-    interface Streamer<T> {
-
-        T get() throws IOException;
-    }
-
-    interface StreamerWrapper<T, Q> {
-
-        T get(Q q) throws IOException;
-    }
-
-    protected Charset encoding = StandardCharsets.UTF_8;
+        Pattern.compile(".*filename=\"([^\\s;]*)\".*");
+    private static final LoadingCache<Integer, OkHttpClient> CACHE = Caffeine.newBuilder()
+        .maximumSize(16)
+        .build((timeout) -> new OkHttpClient.Builder()
+            .connectTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
+            .readTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
+            .followRedirects(true).followSslRedirects(true).build());
+    protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
+    protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
     private final IRI documentIRI;
     @Nullable
     private final OWLDocumentFormat format;
     @Nullable
     private final String mimeType;
-    protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
-    protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
+    protected Charset encoding = StandardCharsets.UTF_8;
     protected final StreamerWrapper<Reader, InputStream> defaultReader =
-                    (i) -> new InputStreamReader(new BOMInputStream(new BufferedInputStream(i),
-                                    UTF_8, UTF_16BE, UTF_16LE, UTF_32BE, UTF_32LE), encoding);
+        (i) -> new InputStreamReader(new BOMInputStream(new BufferedInputStream(i),
+            UTF_8, UTF_16BE, UTF_16LE, UTF_32BE, UTF_32LE), encoding);
     protected Streamer<InputStream> inputStream;
     protected Streamer<Reader> reader = () -> defaultReader.get(inputStream.get());
     protected String stringContent = "";
-
     /**
      * Constructs an ontology input source using the specified file.
-     * 
+     *
      * @param iri document IRI
      * @param format ontology format. If null, it is considered unspecified
      * @param mime mime type. If null or empty, it is considered unspecified.
      */
     public OWLOntologyDocumentSourceBase(IRI iri, @Nullable OWLDocumentFormat format,
-                    @Nullable String mime) {
+        @Nullable String mime) {
         this.format = format;
         mimeType = mime;
         documentIRI = checkNotNull(iri, "document iri cannot be null");
     }
 
-    @Override
-    public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
-                    OWLOntologyLoaderConfiguration config) {
-        boolean textual = parser.getSupportedFormat().isTextual();
-        // For document sources that are string based, this is a performance
-        // shortcut: no streams, no buffers, no IOExceptions
-        if (!stringContent.isEmpty() && textual) {
-            return parser.parse(stringContent, o, config, documentIRI);
-        }
-        if (!failedOnStreams.get()) {
-            if (textual) {
-                try (Reader r = reader.get()) {
-                    return parser.parse(r, o, config, documentIRI);
-                } catch (IOException e) {
-                    LOGGER.error("Buffer cannot be opened", e);
-                    failedOnStreams.set(true);
-                    throw new OWLParserException(e);
-                }
-            }
-            try (InputStream is = inputStream.get(); InputStream in = new BufferedInputStream(is)) {
-                return parser.parse(in, "UTF-8", o, config, documentIRI);
-            } catch (IOException e) {
-                failedOnStreams.set(true);
-                throw new OWLParserException(e);
-            }
-        }
-        if (!failedOnIRI.get()) {
-            if (documentIRI.isFileIRI()) {
-                try (InputStream is = new FileInputStream(new File(documentIRI.toURI()));
-                                InputStream accountForZips = handleZips(is, documentIRI);
-                                InputStream in = new BufferedInputStream(accountForZips)) {
-                    if (textual) {
-                        return parser.parse(defaultReader.get(in), o, config, documentIRI);
-                    } else {
-                        return parser.parse(in, "UTF-8", o, config, documentIRI);
-                    }
-                } catch (IOException e) {
-                    failedOnIRI.set(true);
-                    throw new OWLParserException(e);
-                }
-            }
-            try (Response response = getResponse(documentIRI, config);
-                            InputStream is = getInputStreamFromContentEncoding(documentIRI,
-                                            response);
-                            InputStream in = new BufferedInputStream(is)) {
-                if (textual) {
-                    return parser.parse(defaultReader.get(in), o, config, documentIRI);
-                } else {
-                    return parser.parse(in, "UTF-8", o, config, documentIRI);
-                }
-            } catch (OWLOntologyInputSourceException | IOException e) {
-                failedOnIRI.set(true);
-                throw new OWLParserException(e);
-            }
-        }
-        throw new OWLParserException(
-                        "No input could be resolved - exceptions raised against Reader, InputStream and IRI resolution");
+    /**
+     * Constructs an ontology input source using the specified file.
+     *
+     * @param iriPrefix document IRI prefix - used to generate a new IRI
+     * @param format ontology format. If null, it is considered unspecified
+     * @param mime mime type. If null or empty, it is considered unspecified.
+     */
+    public OWLOntologyDocumentSourceBase(String iriPrefix, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
+        this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
     }
 
     private static InputStream getInputStreamFromContentEncoding(IRI iri, Response response)
-                    throws IOException {
+        throws IOException {
         String encoding = response.header("Content-Encoding");
         InputStream in = response.body().byteStream();
         if (encoding != null) {
@@ -191,7 +138,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     }
 
     private static Response getResponse(IRI documentIRI, OWLOntologyLoaderConfiguration config)
-                    throws IOException, OWLOntologyInputSourceException {
+        throws IOException, OWLOntologyInputSourceException {
         int count = 0;
         while (count < config.getRetriesToAttempt()) {
             try {
@@ -200,19 +147,12 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                 return getResponse(documentIRI, timeout);
             } catch (SocketTimeoutException e) {
                 LOGGER.warn("Connection to " + documentIRI + " failed, attempt " + count + " of "
-                                + config.getRetriesToAttempt(), e);
+                    + config.getRetriesToAttempt(), e);
             }
         }
         throw new OWLOntologyInputSourceException(
-                        "cannot connect to " + documentIRI + "; retry limit exhausted");
+            "cannot connect to " + documentIRI + "; retry limit exhausted");
     }
-
-    private static final LoadingCache<Integer, OkHttpClient> CACHE = Caffeine.newBuilder()
-                    .maximumSize(16)
-                    .build((timeout) -> new OkHttpClient.Builder()
-                                    .connectTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
-                                    .readTimeout(timeout.longValue(), TimeUnit.MILLISECONDS)
-                                    .followRedirects(true).followSslRedirects(true).build());
 
     /**
      * @param documentIRI iri to connect to
@@ -222,8 +162,8 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
      */
     private static Response getResponse(IRI documentIRI, int timeout) throws IOException {
         Builder builder = new Request.Builder().url(documentIRI.toString()).addHeader("Accept",
-                        "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2")
-                        .addHeader("Accept-Encoding", "xz,gzip,deflate");
+            "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2")
+            .addHeader("Accept-Encoding", "xz,gzip,deflate");
         Request request = builder.build();
         Call newCall = verifyNotNull(CACHE.get(Integer.valueOf(timeout))).newCall(request);
         return newCall.execute();
@@ -241,21 +181,68 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     }
 
     @Override
-    public boolean loadingCanBeAttempted(Collection<String> parsableSchemes) {
-        return !stringContent.isEmpty() || !failedOnStreams.get()
-                        || !failedOnIRI.get() && parsableSchemes.contains(documentIRI.getScheme());
+    public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
+        OWLOntologyLoaderConfiguration config) {
+        boolean textual = parser.getSupportedFormat().isTextual();
+        // For document sources that are string based, this is a performance
+        // shortcut: no streams, no buffers, no IOExceptions
+        if (!stringContent.isEmpty() && textual) {
+            return parser.parse(stringContent, o, config, documentIRI);
+        }
+        if (!failedOnStreams.get()) {
+            if (textual) {
+                try (Reader r = reader.get()) {
+                    return parser.parse(r, o, config, documentIRI);
+                } catch (IOException e) {
+                    LOGGER.error("Buffer cannot be opened", e);
+                    failedOnStreams.set(true);
+                    throw new OWLParserException(e);
+                }
+            }
+            try (InputStream is = inputStream.get(); InputStream in = new BufferedInputStream(is)) {
+                return parser.parse(in, "UTF-8", o, config, documentIRI);
+            } catch (IOException e) {
+                failedOnStreams.set(true);
+                throw new OWLParserException(e);
+            }
+        }
+        if (!failedOnIRI.get()) {
+            if (documentIRI.isFileIRI()) {
+                try (InputStream is = new FileInputStream(new File(documentIRI.toURI()));
+                    InputStream accountForZips = handleZips(is, documentIRI);
+                    InputStream in = new BufferedInputStream(accountForZips)) {
+                    if (textual) {
+                        return parser.parse(defaultReader.get(in), o, config, documentIRI);
+                    } else {
+                        return parser.parse(in, "UTF-8", o, config, documentIRI);
+                    }
+                } catch (IOException e) {
+                    failedOnIRI.set(true);
+                    throw new OWLParserException(e);
+                }
+            }
+            try (Response response = getResponse(documentIRI, config);
+                InputStream is = getInputStreamFromContentEncoding(documentIRI,
+                    response);
+                InputStream in = new BufferedInputStream(is)) {
+                if (textual) {
+                    return parser.parse(defaultReader.get(in), o, config, documentIRI);
+                } else {
+                    return parser.parse(in, "UTF-8", o, config, documentIRI);
+                }
+            } catch (OWLOntologyInputSourceException | IOException e) {
+                failedOnIRI.set(true);
+                throw new OWLParserException(e);
+            }
+        }
+        throw new OWLParserException(
+            "No input could be resolved - exceptions raised against Reader, InputStream and IRI resolution");
     }
 
-    /**
-     * Constructs an ontology input source using the specified file.
-     * 
-     * @param iriPrefix document IRI prefix - used to generate a new IRI
-     * @param format ontology format. If null, it is considered unspecified
-     * @param mime mime type. If null or empty, it is considered unspecified.
-     */
-    public OWLOntologyDocumentSourceBase(String iriPrefix, @Nullable OWLDocumentFormat format,
-                    @Nullable String mime) {
-        this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
+    @Override
+    public boolean loadingCanBeAttempted(Collection<String> parsableSchemes) {
+        return !stringContent.isEmpty() || !failedOnStreams.get()
+            || !failedOnIRI.get() && parsableSchemes.contains(documentIRI.getScheme());
     }
 
     @Override
@@ -265,7 +252,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
 
     @Override
     public PriorityCollection<OWLParserFactory> filter(
-                    PriorityCollection<OWLParserFactory> parsers) {
+        PriorityCollection<OWLParserFactory> parsers) {
         if (parsers.isEmpty()) {
             return parsers;
         }
@@ -283,5 +270,15 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
             return parsers;
         }
         return candidateParsers;
+    }
+
+    interface Streamer<T> {
+
+        T get() throws IOException;
+    }
+
+    interface StreamerWrapper<T, Q> {
+
+        T get(Q q) throws IOException;
     }
 }

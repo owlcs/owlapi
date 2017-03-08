@@ -29,7 +29,7 @@ public class LatexStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try {
             new LatexRenderer().render(ontology, writer);
             writer.flush();

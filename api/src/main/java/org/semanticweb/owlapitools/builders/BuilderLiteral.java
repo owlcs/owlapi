@@ -21,7 +21,9 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for OWLLiteral. */
+/**
+ * Builder class for OWLLiteral.
+ */
 public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
 
     @Nullable
@@ -41,7 +43,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

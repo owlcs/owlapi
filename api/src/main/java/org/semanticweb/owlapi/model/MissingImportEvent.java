@@ -17,12 +17,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 /**
  * An event that gets posted to objects that listen for missing imports when silent missing import
  * handling is set to {@code true} in an ontology manager.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
- * @since 2.2.0
  * @see org.semanticweb.owlapi.model.MissingImportListener
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
+ * @since 2.2.0
  */
 public class MissingImportEvent {
 
@@ -36,7 +36,7 @@ public class MissingImportEvent {
     public MissingImportEvent(IRI ontologyIRI, OWLOntologyCreationException creationException) {
         this.ontologyIRI = checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
         this.creationException =
-                        checkNotNull(creationException, "creationException cannot be null");
+            checkNotNull(creationException, "creationException cannot be null");
     }
 
     /**

@@ -36,7 +36,7 @@ public interface DomainAxiomProvider {
      * @return an object property domain axiom
      */
     default OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
-                    OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
+        OWLObjectPropertyExpression property, OWLClassExpression classExpression) {
         return getOWLObjectPropertyDomainAxiom(property, classExpression, Collections.emptySet());
     }
 
@@ -47,8 +47,8 @@ public interface DomainAxiomProvider {
      * @return an object property domain axiom with annotations
      */
     OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
-                    OWLObjectPropertyExpression property, OWLClassExpression classExpression,
-                    Collection<OWLAnnotation> annotations);
+        OWLObjectPropertyExpression property, OWLClassExpression classExpression,
+        Collection<OWLAnnotation> annotations);
 
     /**
      * @param property property
@@ -56,7 +56,7 @@ public interface DomainAxiomProvider {
      * @return a data property domain axiom
      */
     default OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
-                    OWLDataPropertyExpression property, OWLClassExpression domain) {
+        OWLDataPropertyExpression property, OWLClassExpression domain) {
         return getOWLDataPropertyDomainAxiom(property, domain, Collections.emptySet());
     }
 
@@ -67,7 +67,7 @@ public interface DomainAxiomProvider {
      * @return a data property domain axiom with annotations
      */
     OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
-                    OWLClassExpression domain, Collection<OWLAnnotation> annotations);
+        OWLClassExpression domain, Collection<OWLAnnotation> annotations);
 
     /**
      * @param prop prop
@@ -75,7 +75,7 @@ public interface DomainAxiomProvider {
      * @return an annotation property domain assertion
      */
     default OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
-                    OWLAnnotationProperty prop, IRI domain) {
+        OWLAnnotationProperty prop, IRI domain) {
         return getOWLAnnotationPropertyDomainAxiom(prop, domain, Collections.emptySet());
     }
 
@@ -86,5 +86,5 @@ public interface DomainAxiomProvider {
      * @return an annotation property domain assertion with annotations
      */
     OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
-                    IRI domain, Collection<OWLAnnotation> annotations);
+        IRI domain, Collection<OWLAnnotation> annotations);
 }

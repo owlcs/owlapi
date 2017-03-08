@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 /**
  * Vocabulary of KRSS2 syntax.
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public enum KRSS2Vocabulary {

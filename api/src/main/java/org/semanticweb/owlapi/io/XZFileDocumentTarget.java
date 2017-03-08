@@ -57,6 +57,6 @@ public class XZFileDocumentTarget extends OWLOntologyDocumentTargetBase {
      */
     public XZFileDocumentTarget(File os, FilterOptions... filterOptions) {
         super(() -> new XZOutputStream(new FileOutputStream(checkNotNull(os, "os cannot be null")),
-                        filterOptions), null);
+            filterOptions), null);
     }
 }

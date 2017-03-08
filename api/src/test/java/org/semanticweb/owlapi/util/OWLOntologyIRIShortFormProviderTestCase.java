@@ -31,14 +31,14 @@ public class OWLOntologyIRIShortFormProviderTestCase {
     @Test
     public void shouldReturnLastNonNumericPathElement() {
         String shortForm =
-                        sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/1.1.11", ""));
+            sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/1.1.11", ""));
         assertThat(shortForm, is(equalTo("ont")));
     }
 
     @Test
     public void shouldReturnLastNonVersionPathElement() {
         String shortForm =
-                        sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/", "v1.1.11"));
+            sfp.getShortForm(IRI.create(SCHEME_DOMAIN + "/ontologies/ont/", "v1.1.11"));
         assertThat(shortForm, is(equalTo("ont")));
     }
 

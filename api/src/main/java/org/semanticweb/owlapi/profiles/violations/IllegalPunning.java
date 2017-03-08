@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
  * Punning between properties is not allowed.
- * 
+ *
  * @author ignazio
  */
 public class IllegalPunning extends OWLProfileViolation {

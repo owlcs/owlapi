@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class TurtleRenderer extends RDFRendererBase {
 
+    protected final Deque<Integer> tabs = new LinkedList<>();
     private final PrintWriter writer;
     private final PrefixManager pm;
     private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
@@ -69,7 +70,6 @@ public class TurtleRenderer extends RDFRendererBase {
     private final OWLDocumentFormat format;
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    protected final Deque<Integer> tabs = new LinkedList<>();
     int level = 0;
 
     /**
@@ -96,6 +96,10 @@ public class TurtleRenderer extends RDFRendererBase {
             pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }
         base = "";
+    }
+
+    private static boolean noSplits(String s, int index) {
+        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     private void writeNamespaces() {
@@ -179,7 +183,7 @@ public class TurtleRenderer extends RDFRendererBase {
     @Nullable
     private String forceSplitIfPrefixExists(IRI iri) {
         List<Map.Entry<String, String>> prefixName2PrefixMap =
-                        new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+            new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
         // sort the entries in reverse lexicographic order by value (longest
         // prefix first)
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
@@ -190,10 +194,6 @@ public class TurtleRenderer extends RDFRendererBase {
             }
         }
         return null;
-    }
-
-    private static boolean noSplits(String s, int index) {
-        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     private void writeNewLine() {
@@ -276,7 +276,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 write("(");
                 writeSpace();
                 pushTab();
-                for (Iterator<RDFNode> it = list.iterator(); it.hasNext();) {
+                for (Iterator<RDFNode> it = list.iterator(); it.hasNext(); ) {
                     write(verifyNotNull(it.next()));
                     if (it.hasNext()) {
                         writeNewLine();

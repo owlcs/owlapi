@@ -20,7 +20,7 @@ public interface SWRLRuleVisitorBase extends OWLVisitorBase {
 
     /**
      * visit SWRLRule type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLRule node) {

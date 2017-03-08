@@ -42,9 +42,13 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
-    /** keep the value here */
+    /**
+     * keep the value here
+     */
     boolean isBotEq = false;
-    /** corresponding top evaluator */
+    /**
+     * corresponding top evaluator
+     */
     TopEquivalenceEvaluator topEval;
 
     public BotEquivalenceEvaluator(Signature s) {
@@ -53,7 +57,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * check whether the expression is top-equivalent
-     * 
+     *
      * @param expr expression
      * @return true if top equivalent
      */
@@ -63,7 +67,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * non-empty Concept/Data expression
-     * 
+     *
      * @param c class
      * @return true iff C^I is non-empty
      */
@@ -79,10 +83,10 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * cardinality of a concept/data expression interpretation
-     * 
-     * @return true if #C^I > n
+     *
      * @param c class
      * @param n cardinality
+     * @return true if #C^I > n
      */
     private boolean isCardLargerThan(OWLObject c, int n) {
         if (n == 0) {
@@ -96,7 +100,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
             // string/time are infinite DT
             OWLDatatype dt = ((OWLDatatype) c).asOWLDatatype();
             if (OWL2Datatype.XSD_STRING.matches(dt) || OWL2Datatype.XSD_DATE_TIME.matches(dt)
-                            || OWL2Datatype.XSD_DATE_TIME_STAMP.matches(dt)) {
+                || OWL2Datatype.XSD_DATE_TIME_STAMP.matches(dt)) {
                 return true;
             }
         }
@@ -117,7 +121,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**
      * QCRs
-     * 
+     *
      * @param n cardinality
      * @param r property
      * @param c class
@@ -128,9 +132,10 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     // set fields
+
     /**
      * set the corresponding top evaluator
-     * 
+     *
      * @param eval top evaluator
      */
     void setTopEval(TopEquivalenceEvaluator eval) {
@@ -213,7 +218,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     public void visit(OWLObjectExactCardinality expr) {
         int n = expr.getCardinality();
         isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller())
-                        || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
+            || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override
@@ -245,7 +250,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     public void visit(OWLDataExactCardinality expr) {
         int n = expr.getCardinality();
         isBotEq = isMinBotEquivalent(n, expr.getProperty(), expr.getFiller())
-                        || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
+            || isMaxBotEquivalent(n, expr.getProperty(), expr.getFiller());
     }
 
     @Override

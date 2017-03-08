@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * An interface for customisation of entity URI conversions.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */

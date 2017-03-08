@@ -105,14 +105,14 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> {
 
+    protected OWLDataFactory df;
     private Predicate<Object> predicate;
     private UnaryOperator<T> transformer;
     private Class<T> witness;
-    protected OWLDataFactory df;
     private EnumMap<OWLObjectType, UnaryOperator<?>> rebuilders = buildRebuilders();
 
     protected TransformerVisitorBase(Predicate<Object> predicate, UnaryOperator<T> transformer,
-                    OWLDataFactory df, Class<T> witness) {
+        OWLDataFactory df, Class<T> witness) {
         this.predicate = predicate;
         this.transformer = transformer;
         this.df = df;
@@ -143,7 +143,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
             @SuppressWarnings("unchecked")
             Q transform = (Q) transformer.apply(witness.cast(o));
             if (o instanceof OWLAxiom ? update((OWLAxiom) transform, (OWLAxiom) o) == transform
-                            : transform != o) {
+                : transform != o) {
                 return transform;
             }
         }
@@ -237,7 +237,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
     }
 
     private EnumMap<OWLObjectType, UnaryOperator<?>> buildRebuilders() {
-        EnumMap<OWLObjectType, UnaryOperator<?>> map = new EnumMap(OWLObjectType.class);
+        EnumMap<OWLObjectType, UnaryOperator<?>> map = new EnumMap<>(OWLObjectType.class);
         //@formatter:off
             map.put(OWLObjectType.DECLARATION,              (OWLDeclarationAxiom ax)                -> df.getOWLDeclarationAxiom(t(ax.getEntity()), t(ax.annotations())));
             map.put(OWLObjectType.DATATYPE_DEFINITION,      (OWLDatatypeDefinitionAxiom ax)         -> df.getOWLDatatypeDefinitionAxiom(t(ax.getDatatype()), t(ax.getDataRange()), t(ax.annotations())));

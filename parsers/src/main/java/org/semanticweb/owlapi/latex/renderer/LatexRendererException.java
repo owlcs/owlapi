@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 
 /**
  * The Class LatexRendererException.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -24,7 +24,7 @@ public class LatexRendererException extends OWLRendererException {
 
     /**
      * Instantiates a new latex renderer exception.
-     * 
+     *
      * @param cause the cause
      */
     public LatexRendererException(Throwable cause) {
@@ -33,7 +33,7 @@ public class LatexRendererException extends OWLRendererException {
 
     /**
      * Instantiates a new latex renderer exception.
-     * 
+     *
      * @param message the message
      */
     public LatexRendererException(String message) {
@@ -42,7 +42,7 @@ public class LatexRendererException extends OWLRendererException {
 
     /**
      * Instantiates a new latex renderer exception.
-     * 
+     *
      * @param message the message
      * @param cause the cause
      */

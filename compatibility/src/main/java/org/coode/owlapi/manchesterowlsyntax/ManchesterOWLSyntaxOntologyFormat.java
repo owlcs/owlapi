@@ -21,6 +21,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  */
 @Deprecated
 public class ManchesterOWLSyntaxOntologyFormat
-                extends org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat
-                implements PrefixOWLOntologyFormat {
+    extends org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat
+    implements PrefixOWLOntologyFormat {
 }

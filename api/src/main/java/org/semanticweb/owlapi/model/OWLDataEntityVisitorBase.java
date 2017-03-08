@@ -20,7 +20,7 @@ public interface OWLDataEntityVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLDatatype type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLDatatype node) {

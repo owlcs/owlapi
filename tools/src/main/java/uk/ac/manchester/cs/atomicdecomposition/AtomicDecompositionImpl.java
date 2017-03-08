@@ -29,18 +29,20 @@ import com.google.common.collect.Multimap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
-/** atomc decomposition implementation */
+/**
+ * atomc decomposition implementation
+ */
 public class AtomicDecompositionImpl implements AtomicDecomposition {
 
+    final Multimap<OWLEntity, Atom> termBasedIndex = LinkedHashMultimap.create();
+    private final ModuleType type;
     Set<OWLAxiom> globalAxioms;
     Set<OWLAxiom> tautologies;
-    final Multimap<OWLEntity, Atom> termBasedIndex = LinkedHashMultimap.create();
     List<Atom> atoms;
     TObjectIntHashMap<Atom> atomIndex = new TObjectIntHashMap<>();
     IdentityMultiMap<Atom, Atom> dependents = new IdentityMultiMap<>();
     IdentityMultiMap<Atom, Atom> dependencies = new IdentityMultiMap<>();
     Decomposer decomposer;
-    private final ModuleType type;
 
     /**
      * @param o o
@@ -222,7 +224,7 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
 
     /**
      * get a set of axioms that corresponds to the module of the atom with the id INDEX
-     * 
+     *
      * @param index index
      * @return module at index
      */
@@ -237,8 +239,8 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
 
     @Override
     public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics,
-                    ModuleType moduletype) {
+        ModuleType moduletype) {
         return decomposer.getModule(signature, useSemantics, moduletype).stream()
-                        .map(AxiomWrapper::getAxiom).filter(ax -> ax != null);
+            .map(AxiomWrapper::getAxiom).filter(ax -> ax != null);
     }
 }

@@ -16,7 +16,6 @@ public enum AnnotationWalkingControl {
      * Only walk ontology annotations (previous behaviour)
      */
     WALK_ONTOLOGY_ANNOTATIONS_ONLY {
-
         @Override
         public <T extends OWLObject> void walk(StructureWalker<T> walker, OWLObject o) {
             if (o instanceof OWLOntology) {
@@ -28,7 +27,6 @@ public enum AnnotationWalkingControl {
      * Walk all annotations
      */
     WALK_ANNOTATIONS {
-
         @Override
         public <T extends OWLObject> void walk(StructureWalker<T> walker, OWLObject o) {
             if (o instanceof HasAnnotations) {
@@ -39,7 +37,7 @@ public enum AnnotationWalkingControl {
 
     /**
      * Visit annotations on the object, if the setting allows for the annotations to be visited.
-     * 
+     *
      * @param walker walker to use to visit annotations
      * @param o object containing annotations
      */

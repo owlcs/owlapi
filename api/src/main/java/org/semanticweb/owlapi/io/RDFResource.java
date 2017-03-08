@@ -23,9 +23,10 @@ import org.semanticweb.owlapi.model.IRI;
  * @since 3.2
  */
 public abstract class RDFResource extends RDFNode
-                implements org.apache.commons.rdf.api.BlankNodeOrIRI {
+    implements org.apache.commons.rdf.api.BlankNodeOrIRI {
 
     // XXX implement equals()
+
     /**
      * @return the resource IRI
      */

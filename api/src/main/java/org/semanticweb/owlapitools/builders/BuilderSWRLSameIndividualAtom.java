@@ -19,13 +19,15 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 
-/** Builder class for SWRLSameIndividualAtom. */
+/**
+ * Builder class for SWRLSameIndividualAtom.
+ */
 public class BuilderSWRLSameIndividualAtom extends
-                BuilderSWRLIndividualsAtom<SWRLSameIndividualAtom, BuilderSWRLSameIndividualAtom> {
+    BuilderSWRLIndividualsAtom<SWRLSameIndividualAtom, BuilderSWRLSameIndividualAtom> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

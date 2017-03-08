@@ -40,7 +40,7 @@ public abstract class AnnotationChange extends OWLOntologyChange {
 
     /**
      * Gets the annotation that was added to an ontology.
-     * 
+     *
      * @return The annotation that was added
      */
     public OWLAnnotation getAnnotation() {

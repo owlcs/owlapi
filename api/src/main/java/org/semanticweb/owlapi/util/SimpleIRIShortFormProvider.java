@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.IRI;
 /**
  * A IRI short form provider that generates short forms from the IRI fragment if there is one, or
  * the IRI last path component if there is one.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */

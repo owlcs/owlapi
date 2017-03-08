@@ -22,7 +22,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
-/** Builder class for SWRLClassAtom. */
+/**
+ * Builder class for SWRLClassAtom.
+ */
 public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRLClassAtom> {
 
     @Nullable
@@ -32,7 +34,7 @@ public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRL
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

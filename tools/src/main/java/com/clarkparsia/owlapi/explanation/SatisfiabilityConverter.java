@@ -20,16 +20,18 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Satisfiability converter. */
+/**
+ * Satisfiability converter.
+ */
 public class SatisfiabilityConverter {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SatisfiabilityConverter.class);
-    private final AxiomConverter converter;
     protected final OWLDataFactory factory;
+    private final AxiomConverter converter;
 
     /**
      * Instantiates a new satisfiability converter.
-     * 
+     *
      * @param factory the factory to use
      */
     public SatisfiabilityConverter(OWLDataFactory factory) {
@@ -39,7 +41,7 @@ public class SatisfiabilityConverter {
 
     /**
      * Convert.
-     * 
+     *
      * @param axiom axiom to convert
      * @return converted class expression
      */

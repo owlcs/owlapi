@@ -37,7 +37,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
 
     /**
      * Constructor for plain literal wrappers.
-     * 
+     *
      * @param literal lexical form
      * @param lang language tag
      * @param datatype datatype IRI
@@ -46,7 +46,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang;
         OWL2Datatype defaultType = this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL
-                        : OWL2Datatype.RDF_LANG_STRING;
+            : OWL2Datatype.RDF_LANG_STRING;
         this.datatype = datatype == null ? defaultType.getIRI() : datatype;
     }
 
@@ -187,9 +187,9 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
     @Override
     public String ntriplesString() {
         String escaped = '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n")
-                        .replace("\r", "\\r") + '"';
+            .replace("\r", "\\r") + '"';
         if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI())
-                        || datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
+            || datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
             return escaped;
         } else if (hasLang()) {
             return escaped + "@" + getLang();

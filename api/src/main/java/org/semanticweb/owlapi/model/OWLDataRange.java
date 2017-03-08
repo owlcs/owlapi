@@ -18,7 +18,7 @@ package org.semanticweb.owlapi.model;
  * A high level interface which represents a data range. Example of data ranges are datatypes (e.g.
  * int, float, double, string, ...), complements of data ranges (e.g. not(int)), data enumerations
  * (data oneOfs), datatype restrictions (e.g. int &gt; 3).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -26,7 +26,7 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
 
     /**
      * Determines if this data range is the top data type.
-     * 
+     *
      * @return {@code true} if this data range is the top datatype otherwise {@code false}
      */
     default boolean isTopDatatype() {
@@ -35,7 +35,7 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
 
     /**
      * Gets the type of this data range.
-     * 
+     *
      * @return The data range type
      */
     DataRangeType getDataRangeType();

@@ -26,13 +26,13 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @since 2.1.0
  */
 public class InferredEquivalentDataPropertiesAxiomGenerator
-                extends InferredDataPropertyAxiomGenerator<OWLEquivalentDataPropertiesAxiom> {
+    extends InferredDataPropertyAxiomGenerator<OWLEquivalentDataPropertiesAxiom> {
 
     @Override
     protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
-                    OWLDataFactory dataFactory, Set<OWLEquivalentDataPropertiesAxiom> result) {
+        OWLDataFactory dataFactory, Set<OWLEquivalentDataPropertiesAxiom> result) {
         Set<OWLDataProperty> props =
-                        asUnorderedSet(reasoner.getEquivalentDataProperties(entity).entities());
+            asUnorderedSet(reasoner.getEquivalentDataProperties(entity).entities());
         props.add(entity);
         if (props.size() > 1) {
             result.add(dataFactory.getOWLEquivalentDataPropertiesAxiom(props));

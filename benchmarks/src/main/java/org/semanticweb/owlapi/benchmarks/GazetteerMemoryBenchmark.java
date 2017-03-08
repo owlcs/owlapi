@@ -12,7 +12,7 @@ public class GazetteerMemoryBenchmark {
 
     public static void main(String[] args) throws Exception {
         memoryProfile(FileSystems.getDefault().getPath("/Users/ignazio/gaz-fixed.obo"),
-                        FileSystems.getDefault().getPath("gazetteer" + new Date() + ".hprof"));
+            FileSystems.getDefault().getPath("gazetteer" + new Date() + ".hprof"));
     }
 
     public static void memoryProfile(Path ontologyPath, Path hprofPath) throws IOException {

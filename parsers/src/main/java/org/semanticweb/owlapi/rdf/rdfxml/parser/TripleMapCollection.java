@@ -29,13 +29,15 @@ class TripleMapCollection<T> {
         map.clear();
     }
 
-    /** Dump remaining triples. */
+    /**
+     * Dump remaining triples.
+     */
     public void dumpRemainingTriples() {
         // if info logging is disabled or all collections are empty, do not
         // output anything
         if (LOGGER.isInfoEnabled() && size() > 0) {
             map.forEach((p, m) -> m.forEach(
-                            (s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
+                (s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
         }
     }
 
@@ -116,12 +118,12 @@ class TripleMapCollection<T> {
 
     public boolean add(IRI subject, IRI predicate, T object) {
         return map.computeIfAbsent(subject, x -> createMap())
-                        .computeIfAbsent(predicate, x -> createLinkedSet()).add(object);
+            .computeIfAbsent(predicate, x -> createLinkedSet()).add(object);
     }
 
     public void iterate(TripleIterator<T> iterator) {
         new ArrayList<>(map.entrySet()).forEach(e -> new ArrayList<>(e.getValue().entrySet())
-                        .forEach(p -> new ArrayList<>(p.getValue()).forEach(object -> iterator
-                                        .handleResourceTriple(e.getKey(), p.getKey(), object))));
+            .forEach(p -> new ArrayList<>(p.getValue()).forEach(object -> iterator
+                .handleResourceTriple(e.getKey(), p.getKey(), object))));
     }
 }

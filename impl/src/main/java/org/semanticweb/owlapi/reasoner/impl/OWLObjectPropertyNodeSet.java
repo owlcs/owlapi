@@ -24,7 +24,9 @@ import org.semanticweb.owlapi.reasoner.Node;
  */
 public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLObjectPropertyNodeSet() {
         super();
     }
@@ -64,7 +66,7 @@ public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyEx
 
     @Override
     protected DefaultNode<OWLObjectPropertyExpression> getNode(
-                    Set<OWLObjectPropertyExpression> entities) {
+        Set<OWLObjectPropertyExpression> entities) {
         return NodeFactory.getOWLObjectPropertyNode(entities);
     }
 }

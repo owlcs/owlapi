@@ -19,20 +19,22 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 
-/** Builder class for OWLObjectPropertyRangeAxiom. */
+/**
+ * Builder class for OWLObjectPropertyRangeAxiom.
+ */
 public class BuilderObjectPropertyRange
-                extends BaseObjectBuilder<OWLObjectPropertyRangeAxiom, BuilderObjectPropertyRange> {
+    extends BaseObjectBuilder<OWLObjectPropertyRangeAxiom, BuilderObjectPropertyRange> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderObjectPropertyRange(OWLObjectPropertyRangeAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withRange(expected.getRange())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**
@@ -46,6 +48,6 @@ public class BuilderObjectPropertyRange
     @Override
     public OWLObjectPropertyRangeAxiom buildObject() {
         return df.getOWLObjectPropertyRangeAxiom(verifyNotNull(getProperty()), getRange(),
-                        annotations);
+            annotations);
     }
 }

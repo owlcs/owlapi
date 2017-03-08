@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Utilities for translating between OWLAPI and Sesame Rio.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
@@ -72,7 +72,7 @@ public final class RioUtils {
 
     /**
      * Create a Statement based on the given RDFTriple, with an empty context.
-     * 
+     *
      * @param triple The OWLAPI {@link RDFTriple} to convert.
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
@@ -83,14 +83,14 @@ public final class RioUtils {
 
     /**
      * Create a collection of Statements with the given contexts.
-     * 
+     *
      * @param triple The OWLAPI {@link RDFTriple} to convert.
      * @param contexts If context is not null, it is used to create a context statement
      * @return A collection of OpenRDF {@link Statement}s representing the given RDFTriple in each
-     *         of the given contexts.
+     * of the given contexts.
      */
     public static Collection<Statement> tripleAsStatements(final RDFTriple triple,
-                    final Resource... contexts) {
+        final Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
@@ -133,7 +133,7 @@ public final class RioUtils {
             return Collections.singletonList(vf.createStatement(subject, predicate, object));
         } else {
             return asList(Stream.of(contexts)
-                            .map(x -> vf.createStatement(subject, predicate, object, x)));
+                .map(x -> vf.createStatement(subject, predicate, object, x)));
         }
     }
 
@@ -150,7 +150,7 @@ public final class RioUtils {
             object = vf.createLiteral(literalObject.getLexicalValue(), XMLSchema.STRING);
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
-                            vf.createIRI(literalObject.getDatatype().toString()));
+                vf.createIRI(literalObject.getDatatype().toString()));
         }
         return object;
     }

@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 /**
  * An exception to describe a situation where there was an attempt to apply a change to an immutable
  * ontology.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -25,7 +25,7 @@ public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeExcept
 
     /**
      * Constructs an exception which describes the attempted change.
-     * 
+     *
      * @param change The change.
      * @param o the ontology.
      */

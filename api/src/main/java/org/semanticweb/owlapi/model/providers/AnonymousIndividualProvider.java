@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 
 /**
  * An interface to an object that can provide instances if {@link OWLAnonymousIndividual}.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 5.0.0
  */
@@ -31,7 +31,7 @@ public interface AnonymousIndividualProvider extends Serializable {
      * generated automatically. Successive invocations of this method (on this object) will result
      * in instances of {@link OWLAnonymousIndividual} that do not have {@link NodeID}s that have
      * been used previously.
-     * 
+     *
      * @return The instance of {@link OWLAnonymousIndividual}.
      * @see AnonymousIndividualByIdProvider
      */

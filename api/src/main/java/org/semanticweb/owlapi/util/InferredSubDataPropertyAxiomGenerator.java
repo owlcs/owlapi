@@ -26,17 +26,17 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @since 2.1.0
  */
 public class InferredSubDataPropertyAxiomGenerator
-                extends InferredDataPropertyAxiomGenerator<OWLSubDataPropertyOfAxiom> {
+    extends InferredDataPropertyAxiomGenerator<OWLSubDataPropertyOfAxiom> {
 
     @Override
     protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
-                    OWLDataFactory dataFactory, Set<OWLSubDataPropertyOfAxiom> result) {
+        OWLDataFactory dataFactory, Set<OWLSubDataPropertyOfAxiom> result) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
         reasoner.getSuperDataProperties(entity, true).entities().forEach(
-                        sup -> result.add(dataFactory.getOWLSubDataPropertyOfAxiom(entity, sup)));
+            sup -> result.add(dataFactory.getOWLSubDataPropertyOfAxiom(entity, sup)));
     }
 
     @Override

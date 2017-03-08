@@ -44,12 +44,14 @@ public class IllegalConfigurationException extends OWLReasonerRuntimeException {
      * @param configuration reasoner configuration
      */
     public IllegalConfigurationException(String message, Throwable cause,
-                    OWLReasonerConfiguration configuration) {
+        OWLReasonerConfiguration configuration) {
         super(message, cause);
         this.configuration = configuration;
     }
 
-    /** @return reasoner configuration */
+    /**
+     * @return reasoner configuration
+     */
     public OWLReasonerConfiguration getConfiguration() {
         return configuration;
     }

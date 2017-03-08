@@ -18,18 +18,20 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 
-/** Builder class for OWLDisjointDataPropertiesAxiom. */
+/**
+ * Builder class for OWLDisjointDataPropertiesAxiom.
+ */
 public class BuilderDisjointDataProperties extends
-                BaseSetBuilder<OWLDisjointDataPropertiesAxiom, BuilderDisjointDataProperties, OWLDataPropertyExpression> {
+    BaseSetBuilder<OWLDisjointDataPropertiesAxiom, BuilderDisjointDataProperties, OWLDataPropertyExpression> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderDisjointDataProperties(OWLDisjointDataPropertiesAxiom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withItems(expected.properties()).withAnnotations(expected.annotations());
     }

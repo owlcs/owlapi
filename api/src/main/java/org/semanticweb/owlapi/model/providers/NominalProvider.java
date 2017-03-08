@@ -23,14 +23,16 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
-/** Nominal provider interface. */
+/**
+ * Nominal provider interface.
+ */
 public interface NominalProvider {
 
     /**
      * Gets an OWLDataOneOf
      * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
      * spec)</a>
-     * 
+     *
      * @param values The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
      */
@@ -40,7 +42,7 @@ public interface NominalProvider {
      * Gets an OWLDataOneOf
      * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
      * spec)</a>
-     * 
+     *
      * @param values The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
      */
@@ -53,9 +55,9 @@ public interface NominalProvider {
      * Gets an OWLDataOneOf
      * <a href= "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals" >(see
      * spec)</a>
-     * 
+     *
      * @param values The set of values that the data one of should contain. Cannot be null or
-     *        contain null values.
+     * contain null values.
      * @return A data one of that enumerates the specified set of values
      */
     default OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {

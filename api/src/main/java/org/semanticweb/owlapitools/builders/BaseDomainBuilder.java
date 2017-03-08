@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLDataPropertyDomainAxiom.
- * 
+ *
  * @param <T> type built
  * @param <B> builder type
  * @param <P> contained items type

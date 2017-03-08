@@ -45,15 +45,24 @@ import com.google.common.collect.Sets;
 public class RDFGraph implements Serializable {
 
     private static final Set<IRI> skippedPredicates =
-                    Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+        Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
     private final Set<RDFTriple> triples = createLinkedSet();
     private final Map<RDFNode, RDFNode> remappedNodes = createMap();
 
     /**
+     * @param predicate predicate to check for inclusion
+     * @return true if the predicate IRI is not in the set of predicates that should be skipped from
+     * blank node reuse analysis.
+     */
+    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
+        return !skippedPredicates.contains(predicate.getIRI());
+    }
+
+    /**
      * Determines if this graph is empty (i.e. whether or not it contains any triples).
-     * 
+     *
      * @return {@code true} if the graph contains triples, otherwise {@code false}
      * @since 3.5
      */
@@ -97,15 +106,15 @@ public class RDFGraph implements Serializable {
 
     /**
      * @return for each triple with a blank node object that is shared with other triples, compute a
-     *         remapping of the node.
+     * remapping of the node.
      */
     public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = createMap();
         Map<RDFNode, List<RDFTriple>> sharers = createMap();
         for (RDFTriple t : triples) {
             if (t.getObject().isAnonymous() && !t.getObject().isIndividual()
-                            && !t.getObject().isAxiom()
-                            && notInSkippedPredicates(t.getPredicate())) {
+                && !t.getObject().isAxiom()
+                && notInSkippedPredicates(t.getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
                     list = new ArrayList<>(2);
@@ -119,23 +128,14 @@ public class RDFGraph implements Serializable {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
                     RDFResourceBlankNode bnode = new RDFResourceBlankNode(
-                                    IRI.create(NodeID.nextAnonymousIRI()),
-                                    e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
+                        IRI.create(NodeID.nextAnonymousIRI()),
+                        e.getKey().isIndividual(), e.getKey().shouldOutputId(), false);
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }
             }
         }
         return toReturn;
-    }
-
-    /**
-     * @param predicate predicate to check for inclusion
-     * @return true if the predicate IRI is not in the set of predicates that should be skipped from
-     *         blank node reuse analysis.
-     */
-    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
-        return !skippedPredicates.contains(predicate.getIRI());
     }
 
     /**

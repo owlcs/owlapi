@@ -34,6 +34,11 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     private static final String COMMENT_START_CHAR = "#";
 
+    private static boolean startsWithMagicNumber(String line) {
+        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
+            || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
+    }
+
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
         return new ManchesterSyntaxDocumentFormatFactory();
@@ -41,7 +46,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         try (BufferedReader reader = new BufferedReader(r)) {
             StringBuilder sb = new StringBuilder();
             String line;
@@ -66,9 +71,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                             // possibly parse this.
                             int startCol = line.indexOf(trimmedLine) + 1;
                             String msg = String.format(
-                                            "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
-                                            trimmedLine, Integer.valueOf(lineCount),
-                                            Integer.valueOf(startCol));
+                                "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
+                                trimmedLine, Integer.valueOf(lineCount),
+                                Integer.valueOf(startCol));
                             throw new ManchesterOWLSyntaxParserException(msg, lineCount, startCol);
                         }
                     }
@@ -77,18 +82,13 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             }
             String s = sb.toString();
             ManchesterOWLSyntaxParser parser =
-                            new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(),
-                                            o.getOWLOntologyManager().getOWLDataFactory());
+                new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(),
+                    o.getOWLOntologyManager().getOWLDataFactory());
             parser.setOntologyLoaderConfiguration(config);
             parser.setStringToParse(s);
             return parser.parseOntology(o);
         } catch (IOException e) {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, 1, 1);
         }
-    }
-
-    private static boolean startsWithMagicNumber(String line) {
-        return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
-                        || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }
 }

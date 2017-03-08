@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 /**
  * Describes a situation where a change was vetoed for some reason. Subclasses of this class may
  * provide more information about why the change was vetoed.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -37,7 +37,7 @@ public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
      * @param cause cause
      */
     public OWLOntologyChangeVetoException(OWLOntologyChangeData change, String message,
-                    Throwable cause) {
+        Throwable cause) {
         super(change, message, cause);
     }
 

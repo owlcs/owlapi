@@ -14,7 +14,7 @@ package com.clarkparsia.owlapi.explanation.util;
 
 /**
  * The Class SilentExplanationProgressMonitor.
- * 
+ *
  * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics Group
  * @since 2.2.0
  */

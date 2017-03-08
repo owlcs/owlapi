@@ -137,7 +137,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * A handler which knows about OWLXML.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -149,12 +149,12 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     private final List<OWLEH<?, ?>> handlerStack = new ArrayList<>();
     private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
-    @Nullable
-    private Locator locator;
     private final Deque<URI> bases = new LinkedList<>();
     private final OWLOntologyLoaderConfiguration configuration;
     private final Map<String, IRI> iriMap = new HashMap<>();
     private final RemappingIndividualProvider anonProvider;
+    @Nullable
+    private Locator locator;
 
     /**
      * @param ontology ontology to parse into
@@ -177,25 +177,25 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      */
     public OWLXMLPH(OWLOntology ontology, OWLEH<?, ?> topHandler) {
         this(ontology, topHandler,
-                        ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
+            ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     /**
      * Creates an OWLXML handler with the specified top level handler. This allows OWL/XML
      * representations of axioms to be embedded in abitrary XML documents e.g. DIG 2.0 documents.
      * (The default handler behaviour expects the top level element to be an Ontology element).
-     * 
+     *
      * @param ontology The ontology object that the XML representation should be parsed into.
      * @param topHandler top level handler
      * @param configuration load configuration
      */
     public OWLXMLPH(OWLOntology ontology, @Nullable OWLEH<?, ?> topHandler,
-                    OWLOntologyLoaderConfiguration configuration) {
+        OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
         anonProvider = new RemappingIndividualProvider(owlOntologyManager.getOntologyConfigurator(),
-                        owlOntologyManager.getOWLDataFactory());
+            owlOntologyManager.getOWLDataFactory());
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -295,6 +295,13 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         addFactory(PARSER_SAME_INDIVIDUAL_ATOM);
     }
 
+    private static String getNormalisedAbbreviatedIRI(String input) {
+        if (input.indexOf(':') != -1) {
+            return input;
+        }
+        return ':' + input;
+    }
+
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
         return anonProvider.getOWLAnonymousIndividual(nodeId);
@@ -323,9 +330,9 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     /**
      * Gets the line number that the parser is at.
-     * 
+     *
      * @return A positive integer that represents the line number or -1 if the line number is not
-     *         known.
+     * known.
      */
     public int getLineNumber() {
         if (locator != null) {
@@ -367,13 +374,6 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         } catch (URISyntaxException e) {
             throw new OWLParserException(e, getLineNumber(), getColumnNumber());
         }
-    }
-
-    private static String getNormalisedAbbreviatedIRI(String input) {
-        if (input.indexOf(':') != -1) {
-            return input;
-        }
-        return ':' + input;
     }
 
     /**
@@ -446,7 +446,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName,
-                    @Nullable String qName, @Nullable Attributes attributes) {
+        @Nullable String qName, @Nullable Attributes attributes) {
         if (localName == null || attributes == null) {
             // this should never happen, but DefaultHandler does not specify
             // these parameters as Nonnull
@@ -490,9 +490,9 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     /**
      * Return the base URI for resolution of relative URIs.
-     * 
+     *
      * @return base URI or null if unavailable (xml:base not present and the document locator does
-     *         not provide a URI)
+     * not provide a URI)
      */
     public URI getBase() {
         return bases.peek();
@@ -500,7 +500,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     @Override
     public void endElement(@Nullable String uri, @Nullable String localName,
-                    @Nullable String qName) {
+        @Nullable String qName) {
         if (PREFIX.getShortForm().equals(localName)) {
             return;
         }

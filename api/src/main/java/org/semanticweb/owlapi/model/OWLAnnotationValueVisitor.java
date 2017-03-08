@@ -15,16 +15,16 @@ package org.semanticweb.owlapi.model;
 /**
  * A visitor that visits values of {@link OWLAnnotation}s and
  * {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationValueVisitor
-                extends OWLAnonymousIndividualVisitorBase, OWLLiteralVisitorBase {
+    extends OWLAnonymousIndividualVisitorBase, OWLLiteralVisitorBase {
 
     /**
      * visit IRI type
-     * 
+     *
      * @param iri object to visit
      */
     default void visit(IRI iri) {

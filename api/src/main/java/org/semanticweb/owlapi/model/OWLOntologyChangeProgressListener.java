@@ -17,7 +17,7 @@ import java.io.Serializable;
 /**
  * Objects that want to listen to the progress of applying changes to an ontology should implement
  * this interface and add themselves as listener to a manager.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -33,6 +33,8 @@ public interface OWLOntologyChangeProgressListener extends Serializable {
      */
     void appliedChange(OWLOntologyChange change);
 
-    /** end of the progress. */
+    /**
+     * end of the progress.
+     */
     void end();
 }

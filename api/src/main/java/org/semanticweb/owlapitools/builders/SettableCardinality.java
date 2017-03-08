@@ -4,9 +4,9 @@ import org.semanticweb.owlapi.model.HasCardinality;
 
 /**
  * An object with a settable cardinality attribute.
- * 
- * @author ignazio
+ *
  * @param <B> returned type for builders
+ * @author ignazio
  */
 public interface SettableCardinality<B> extends HasCardinality {
 

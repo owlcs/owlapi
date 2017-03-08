@@ -13,17 +13,23 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
-/** Ontology based modularizer. */
+/**
+ * Ontology based modularizer.
+ */
 public class OntologyBasedModularizer {
 
-    /** ontology to work with */
+    /**
+     * ontology to work with
+     */
     OWLOntology ontology;
-    /** pointer to a modularizer */
+    /**
+     * pointer to a modularizer
+     */
     Modularizer modularizer;
 
     /**
      * init c'tor
-     * 
+     *
      * @param ontology ontology to modularise
      * @param moduleMethod modularisation method
      */
@@ -35,21 +41,21 @@ public class OntologyBasedModularizer {
 
     /**
      * Get module.
-     * 
+     *
      * @param from axioms to modularise
      * @param sig signature
      * @param type type of module
      * @return module
      */
     Collection<AxiomWrapper> getModule(Collection<AxiomWrapper> from, Signature sig,
-                    ModuleType type) {
+        ModuleType type) {
         modularizer.extract(from, sig, type);
         return modularizer.getModule();
     }
 
     /**
      * Get module.
-     * 
+     *
      * @param sig signature
      * @param type type of module
      * @return module
@@ -58,7 +64,9 @@ public class OntologyBasedModularizer {
         return getModule(asList(ontology.axioms().map(a -> new AxiomWrapper(a))), sig, type);
     }
 
-    /** @return the modularizer */
+    /**
+     * @return the modularizer
+     */
     Modularizer getModularizer() {
         return modularizer;
     }
@@ -70,6 +78,6 @@ public class OntologyBasedModularizer {
      */
     public Collection<OWLAxiom> getModule(Stream<OWLEntity> entities, ModuleType type) {
         return asList(getModule(new Signature(entities), type).stream().map(AxiomWrapper::getAxiom)
-                        .filter(a -> a != null));
+            .filter(a -> a != null));
     }
 }

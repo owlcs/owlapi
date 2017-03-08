@@ -21,5 +21,5 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 @Deprecated
 public class KRSSOntologyFormat extends org.semanticweb.owlapi.formats.KRSSDocumentFormat
-                implements OWLOntologyFormat {
+    implements OWLOntologyFormat {
 }

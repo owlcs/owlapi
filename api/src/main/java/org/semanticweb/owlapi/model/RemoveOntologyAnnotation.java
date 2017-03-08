@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
 /**
  * Represents an ontology change where an annotation is removed from an ontology.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -63,13 +63,13 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
         }
         RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
         return getAnnotation().equals(other.getAnnotation())
-                        && getOntology().equals(other.getOntology());
+            && getOntology().equals(other.getOntology());
     }
 
     @Override
     public String toString() {
         return String.format("RemoveOntologyAnnotation(%s OntologyID(%s))", getAnnotation(),
-                        getOntology().getOntologyID());
+            getOntology().getOntologyID());
     }
 
     @Override

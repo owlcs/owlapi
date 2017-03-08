@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * A weakly linked cache - elements in the cache can be garbage collected.
- * 
+ *
  * @param <K> cached type
  */
 public class WeakCache<K> implements Serializable {
@@ -52,7 +52,7 @@ public class WeakCache<K> implements Serializable {
     /**
      * @param k the key to check
      * @return true if the cache contains k as a key; note that, due to the nature of this cache, by
-     *         the time the method returns the key may no longer be in the map.
+     * the time the method returns the key may no longer be in the map.
      */
     public boolean contains(K k) {
         WeakReference<K> w = prefixCache.get(k);
@@ -65,7 +65,9 @@ public class WeakCache<K> implements Serializable {
         return false;
     }
 
-    /** empty the cache. */
+    /**
+     * empty the cache.
+     */
     public void clear() {
         prefixCache.clear();
     }

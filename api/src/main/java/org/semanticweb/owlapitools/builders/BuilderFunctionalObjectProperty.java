@@ -19,18 +19,20 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 
-/** Builder class for OWLFunctionalObjectPropertyAxiom. */
+/**
+ * Builder class for OWLFunctionalObjectPropertyAxiom.
+ */
 public class BuilderFunctionalObjectProperty extends
-                BaseObjectPropertyBuilder<OWLFunctionalObjectPropertyAxiom, BuilderFunctionalObjectProperty> {
+    BaseObjectPropertyBuilder<OWLFunctionalObjectPropertyAxiom, BuilderFunctionalObjectProperty> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderFunctionalObjectProperty(OWLFunctionalObjectPropertyAxiom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }

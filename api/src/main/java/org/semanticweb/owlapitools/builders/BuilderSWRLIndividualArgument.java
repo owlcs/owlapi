@@ -21,16 +21,18 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
-/** Builder class for SWRLIndividualArgument. */
+/**
+ * Builder class for SWRLIndividualArgument.
+ */
 public class BuilderSWRLIndividualArgument
-                extends BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
+    extends BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
 
     @Nullable
     private OWLIndividual individual;
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

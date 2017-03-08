@@ -17,7 +17,7 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLObjectVisitor extends OWLAxiomVisitor, OWLClassExpressionVisitor,
-                OWLDataVisitor, OWLPropertyExpressionVisitor, OWLEntityVisitor,
-                OWLAnnotationAxiomVisitor, OWLIndividualVisitor, OWLAnnotationValueVisitor,
-                OWLAnnotationObjectVisitor, SWRLObjectVisitor, OWLNamedObjectVisitor {
+    OWLDataVisitor, OWLPropertyExpressionVisitor, OWLEntityVisitor,
+    OWLAnnotationAxiomVisitor, OWLIndividualVisitor, OWLAnnotationValueVisitor,
+    OWLAnnotationObjectVisitor, SWRLObjectVisitor, OWLNamedObjectVisitor {
 }

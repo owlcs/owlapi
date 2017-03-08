@@ -20,7 +20,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * An ontology document target which can write to a GZIP stream. Notice that this works best when
  * the output stream is closed explicitly in the client code.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */

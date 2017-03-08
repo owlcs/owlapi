@@ -20,7 +20,7 @@ public interface OWLIndividualEntityVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLNamedIndividual type
-     * 
+     *
      * @param individual individual to visit
      */
     default void visit(OWLNamedIndividual individual) {

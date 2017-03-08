@@ -34,8 +34,8 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation {
      * @param rangeAxiom rangeAxiom
      */
     public LastPropertyInChainNotInImposedRange(OWLOntology ontology,
-                    @Nullable OWLSubPropertyChainOfAxiom axiom,
-                    OWLObjectPropertyRangeAxiom rangeAxiom) {
+        @Nullable OWLSubPropertyChainOfAxiom axiom,
+        OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom, rangeAxiom);
     }
 
@@ -57,6 +57,6 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation {
     @Override
     public String toString() {
         return toString("Last property in chain not in imposed data range for data range: %s",
-                        getExpression());
+            getExpression());
     }
 }

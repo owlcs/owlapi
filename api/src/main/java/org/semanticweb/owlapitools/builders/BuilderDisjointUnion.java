@@ -22,23 +22,25 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 
-/** Builder class for OWLDisjointUnionAxiom. */
+/**
+ * Builder class for OWLDisjointUnionAxiom.
+ */
 public class BuilderDisjointUnion extends
-                BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
+    BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
 
     @Nullable
     private OWLClass ce = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderDisjointUnion(OWLDisjointUnionAxiom expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getOWLClass()).withItems(expected.classExpressions())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

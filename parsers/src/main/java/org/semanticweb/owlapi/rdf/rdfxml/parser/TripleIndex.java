@@ -17,13 +17,22 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 class TripleIndex {
-    /** Subject, predicate, object */
+
+    /**
+     * Subject, predicate, object
+     */
     private final TripleMapCollection<IRI> resTriples = new TripleMapCollection<>();
-    /** Predicate, subject, object */
+    /**
+     * Predicate, subject, object
+     */
     private final TripleMap<IRI> singlePredicateResources = new TripleMap<>();
-    /** Literal triples */
+    /**
+     * Literal triples
+     */
     private final TripleMapCollection<OWLLiteral> litTriples = new TripleMapCollection<>();
-    /** Predicate, subject, object */
+    /**
+     * Predicate, subject, object
+     */
     private final TripleMap<OWLLiteral> singlePredicateLiterals = new TripleMap<>();
     private final TripleLogger tripleLogger;
 
@@ -81,30 +90,30 @@ class TripleIndex {
     protected Stream<OWLLiteral> getLiteralObjects(IRI subject, IRI predicate) {
         OWLLiteral obj = singlePredicateLiterals.get(subject, predicate, false);
         return Stream.concat(obj == null ? Stream.empty() : Stream.of(obj),
-                        litTriples.getAll(subject, predicate, false));
+            litTriples.getAll(subject, predicate, false));
     }
 
     protected Stream<IRI> getResourceObjects(IRI subject, IRI predicate) {
         IRI obj = singlePredicateResources.get(subject, predicate, false);
         return Stream.concat(obj == null ? Stream.empty() : Stream.of(obj),
-                        resTriples.getAll(subject, predicate, false));
+            resTriples.getAll(subject, predicate, false));
     }
 
     protected boolean consumeIfPresent(IRI subject, IRI predicate, IRI object) {
         return singlePredicateResources.consume(subject, predicate, object)
-                        || resTriples.consume(subject, predicate, object);
+            || resTriples.consume(subject, predicate, object);
     }
 
     protected boolean consumeIfPresent(IRI subject, IRI predicate, OWLLiteral object) {
         return singlePredicateLiterals.consume(subject, predicate, object)
-                        || litTriples.consume(subject, predicate, object);
+            || litTriples.consume(subject, predicate, object);
     }
 
     protected boolean hasPredicate(IRI subject, IRI predicate) {
         return singlePredicateResources.contains(subject, predicate)
-                        || singlePredicateLiterals.contains(subject, predicate)
-                        || resTriples.contains(subject, predicate)
-                        || litTriples.contains(subject, predicate);
+            || singlePredicateLiterals.contains(subject, predicate)
+            || resTriples.contains(subject, predicate)
+            || litTriples.contains(subject, predicate);
     }
 
     protected boolean consumeTriple(IRI subject, IRI predicate, IRI object) {
@@ -139,8 +148,8 @@ class TripleIndex {
             return false;
         }
         return OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.matches(literal.getDatatype())
-                        && OWL2Datatype.XSD_NON_NEGATIVE_INTEGER
-                                        .isInLexicalSpace(literal.getLiteral());
+            && OWL2Datatype.XSD_NON_NEGATIVE_INTEGER
+            .isInLexicalSpace(literal.getLiteral());
     }
 
     protected boolean isNonNegativeIntegerLax(IRI mainNode, OWLRDFVocabulary p) {
@@ -149,7 +158,7 @@ class TripleIndex {
             return false;
         }
         return OWL2Datatype.XSD_INTEGER
-                        .isInLexicalSpace(verifyNotNull(literal.getLiteral().trim()));
+            .isInLexicalSpace(verifyNotNull(literal.getLiteral().trim()));
     }
 
     protected int integer(IRI mainNode, OWLRDFVocabulary p) {
@@ -171,15 +180,15 @@ class TripleIndex {
     protected Set<RDFTriple> getRemainingTriples(Predicate<IRI> anon) {
         Set<RDFTriple> remaining = new HashSet<>();
         resTriples.iterate((s, p, o) -> remaining.add(new RDFTriple(s, anon.test(s), isAxiom(s), p,
-                        o, anon.test(o), isAxiom(o))));
+            o, anon.test(o), isAxiom(o))));
         litTriples.iterate((s, p, o) -> remaining
-                        .add(new RDFTriple(s, anon.test(s), isAxiom(s), p, o)));
+            .add(new RDFTriple(s, anon.test(s), isAxiom(s), p, o)));
         return remaining;
     }
 
     protected boolean isAxiom(IRI s) {
         return resTriples.contains(s, OWLRDFVocabulary.RDF_TYPE.getIRI(),
-                        OWLRDFVocabulary.OWL_AXIOM.getIRI());
+            OWLRDFVocabulary.OWL_AXIOM.getIRI());
     }
 
     public void iterate(TripleIterator<IRI> t1) {
@@ -188,8 +197,8 @@ class TripleIndex {
     }
 
     public void iterate(TripleIterator<IRI> t1, TripleIterator<IRI> t2,
-                    TripleIterator<OWLLiteral> t3, TripleIterator<IRI> t4, TripleIterator<IRI> t5,
-                    TripleIterator<OWLLiteral> t6) {
+        TripleIterator<OWLLiteral> t3, TripleIterator<IRI> t4, TripleIterator<IRI> t5,
+        TripleIterator<OWLLiteral> t6) {
         resTriples.iterate(t1);
         // Now handle non-reserved predicate triples
         resTriples.iterate(t2);

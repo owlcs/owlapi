@@ -35,7 +35,7 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
      * @param hasSelf hasSelf
      */
     public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLObjectHasSelf hasSelf) {
+        OWLObjectHasSelf hasSelf) {
         super(ontology, axiom, hasSelf);
     }
 
@@ -57,6 +57,6 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
     @Override
     public String toString() {
         return toString("Use of non-simple property in %s restriction: %s",
-                        ClassExpressionType.OBJECT_HAS_SELF.getName(), getExpression());
+            ClassExpressionType.OBJECT_HAS_SELF.getName(), getExpression());
     }
 }

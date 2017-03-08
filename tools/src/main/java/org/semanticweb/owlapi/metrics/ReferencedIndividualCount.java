@@ -25,7 +25,7 @@ public class ReferencedIndividualCount extends ObjectCountMetric<OWLNamedIndivid
 
     /**
      * Instantiates a new referenced individual count.
-     * 
+     *
      * @param o ontology to use
      */
     public ReferencedIndividualCount(OWLOntology o) {

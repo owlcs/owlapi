@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Sets;
 
-/** Clause. */
+/**
+ * Clause.
+ */
 public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
@@ -62,12 +64,35 @@ public class Clause {
 
     /**
      * Default constructor.
-     * 
+     *
      * @deprecated use Clause(String). Using this constructor makes the hashcode variable.
      */
     @Deprecated
     public Clause() {
         super();
+    }
+
+    private static boolean collectionsEquals(@Nullable Collection<?> c1,
+        @Nullable Collection<?> c2) {
+        if (c1 == null || c1.isEmpty()) {
+            return c2 == null || c2.isEmpty();
+        }
+        if (c2 == null || c1.size() != c2.size()) {
+            return false;
+        }
+        return checkContents(c1, c2);
+    }
+
+    protected static boolean checkContents(Collection<?> c1, Collection<?> c2) {
+        // xrefs are stored as lists to preserve order, but order is not
+        // important for comparisons
+        Set<?> s = new HashSet<>(c2);
+        for (Object x : c1) {
+            if (!s.contains(x)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -189,18 +214,6 @@ public class Clause {
     /**
      * @param v v
      */
-    public void setValue(Object v) {
-        if (values instanceof ArrayList) {
-            values.clear();// TODO: Remove this line after profile gathering
-            values.add(v);
-        } else {
-            values = Collections.singletonList(v);
-        }
-    }
-
-    /**
-     * @param v v
-     */
     public void addValue(@Nullable Object v) {
         if (!(values instanceof ArrayList)) {
             List<Object> newValues = new ArrayList<>(values.size() + 1);
@@ -225,6 +238,18 @@ public class Clause {
             throw new FrameStructureException("Clause value is null: " + this);
         }
         return value;
+    }
+
+    /**
+     * @param v v
+     */
+    public void setValue(Object v) {
+        if (values instanceof ArrayList) {
+            values.clear();// TODO: Remove this line after profile gathering
+            values.add(v);
+        } else {
+            values = Collections.singletonList(v);
+        }
     }
 
     /**
@@ -374,33 +399,10 @@ public class Clause {
         return sb.toString();
     }
 
-    private static boolean collectionsEquals(@Nullable Collection<?> c1,
-                    @Nullable Collection<?> c2) {
-        if (c1 == null || c1.isEmpty()) {
-            return c2 == null || c2.isEmpty();
-        }
-        if (c2 == null || c1.size() != c2.size()) {
-            return false;
-        }
-        return checkContents(c1, c2);
-    }
-
-    protected static boolean checkContents(Collection<?> c1, Collection<?> c2) {
-        // xrefs are stored as lists to preserve order, but order is not
-        // important for comparisons
-        Set<?> s = new HashSet<>(c2);
-        for (Object x : c1) {
-            if (!s.contains(x)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     public int hashCode() {
         return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode()
-                        + 31 * 31 * values.hashCode() + taghash();
+            + 31 * 31 * values.hashCode() + taghash();
     }
 
     private int taghash() {
@@ -456,7 +458,7 @@ public class Clause {
             Object v2 = other.getValue();
             if (v1 != v2 && !v1.equals(v2)) {
                 return trueValues.contains(v1) && trueValues.contains(v2)
-                                || falseValues.contains(v1) && falseValues.contains(v2);
+                    || falseValues.contains(v1) && falseValues.contains(v2);
             }
         } catch (FrameStructureException e) {
             // this cannot happen as it's already been tested

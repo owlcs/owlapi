@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.util.OntologyAxiomPair;
 /**
  * Interface for a parser able to parse Manchester OWL Syntax. This covers Protege use of the
  * parser.
- * 
+ *
  * @author ignazio
  */
 @ParametersAreNonnullByDefault
@@ -65,7 +65,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * Parsing "Inline" Axioms.
-     * 
+     *
      * @return axiom
      * @throws OWLParserException parsing error
      */
@@ -73,18 +73,18 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * Parsing "Inline" class Axioms.
-     * 
+     *
      * @return axiom
      * @throws OWLParserException parsing error
      * @deprecated use parseAxiom(). parseClassAxiom() only casts the result of parseAxiom() to
-     *             OWLClassAxiom.
+     * OWLClassAxiom.
      */
     @Deprecated
     OWLClassAxiom parseClassAxiom();
 
     /**
      * Parses an OWL class expression that is represented in Manchester OWL Syntax.
-     * 
+     *
      * @return The parsed class expression
      * @throws OWLParserException If a class expression could not be parsed.
      */
@@ -140,7 +140,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * @param datatype datatype to use, if one exists in the context. If null, the datatype will be
-     *        decided by the literal itself.
+     * decided by the literal itself.
      * @return parsed literal
      */
     OWLLiteral parseLiteral(@Nullable OWLDatatype datatype);
@@ -223,7 +223,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * Convenience method equivalent to {@code setStringToParse("string"}; parseClassexpression();}
-     * 
+     *
      * @param s String to parse
      * @return parsed class expression
      */

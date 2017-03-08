@@ -43,7 +43,9 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  */
 public class RDFaDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RDFaDocumentFormatFactory() {
         super(RDFFormat.RDFA);
     }

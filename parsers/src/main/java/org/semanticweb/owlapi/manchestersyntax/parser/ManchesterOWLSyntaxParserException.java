@@ -36,7 +36,7 @@ public class ManchesterOWLSyntaxParserException extends OWLParserException {
      * @param columnNumber columnNumber
      */
     public ManchesterOWLSyntaxParserException(String message, Throwable cause, int lineNumber,
-                    int columnNumber) {
+        int columnNumber) {
         super(message, cause, lineNumber, columnNumber);
     }
 }

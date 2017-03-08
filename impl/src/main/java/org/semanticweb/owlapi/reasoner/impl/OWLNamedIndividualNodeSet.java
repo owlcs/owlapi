@@ -24,7 +24,9 @@ import org.semanticweb.owlapi.reasoner.Node;
  */
 public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLNamedIndividualNodeSet() {
         super();
     }

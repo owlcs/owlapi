@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.IRI;
  * imports closure of the root ontology because the axioms fall outside of the "largest" OWL profile
  * (i.e. OWL2DL or OWL2EL or OWL2QL or OWL2RL) that the reasoner can handle. The reasoner will
  * indicate in this exception which profile it expects the axioms to be in.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -36,7 +36,7 @@ public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeExcep
 
     /**
      * Gets the profile which the reasoner can handle.
-     * 
+     *
      * @return The profile.
      */
     public IRI getProfile() {

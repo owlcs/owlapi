@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  * A configuration object that specifies options for output.
- * 
+ *
  * @author Ignazio
  * @since 5.0.0
  */
@@ -40,7 +40,9 @@ public class OWLOntologyWriterConfiguration implements Serializable {
         return toReturn;
     }
 
-    /** @return should output banners */
+    /**
+     * @return should output banners
+     */
     public boolean shouldUseBanners() {
         return bannersEnabled;
     }

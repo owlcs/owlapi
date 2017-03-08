@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * Test the generic factory and all the formats it can build.
- * 
+ *
  * @author ignazio
  */
 @SuppressWarnings("javadoc")

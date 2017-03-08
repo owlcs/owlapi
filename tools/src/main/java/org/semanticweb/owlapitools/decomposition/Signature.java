@@ -11,17 +11,27 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
-/** class to hold the signature of a module */
+/**
+ * class to hold the signature of a module
+ */
 public class Signature {
 
-    /** set to keep all the elements in signature */
+    /**
+     * set to keep all the elements in signature
+     */
     private final Set<OWLEntity> set = new HashSet<>();
-    /** true if concept TOP-locality; false if concept BOTTOM-locality */
+    /**
+     * true if concept TOP-locality; false if concept BOTTOM-locality
+     */
     private boolean topCLocality = false;
-    /** true if role TOP-locality; false if role BOTTOM-locality */
+    /**
+     * true if role TOP-locality; false if role BOTTOM-locality
+     */
     private boolean topRLocality = false;
 
-    /** empty signature */
+    /**
+     * empty signature
+     */
     public Signature() {
         super();
     }
@@ -91,17 +101,23 @@ public class Signature {
         return set.contains(p);
     }
 
-    /** @return the set of entities */
+    /**
+     * @return the set of entities
+     */
     public Set<OWLEntity> getSignature() {
         return set;
     }
 
-    /** @return true iff concepts are treated as TOPs */
+    /**
+     * @return true iff concepts are treated as TOPs
+     */
     public boolean topCLocal() {
         return topCLocality;
     }
 
-    /** @return true iff roles are treated as TOPs */
+    /**
+     * @return true iff roles are treated as TOPs
+     */
     public boolean topRLocal() {
         return topRLocality;
     }

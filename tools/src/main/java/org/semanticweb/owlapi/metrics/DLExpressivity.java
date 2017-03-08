@@ -28,7 +28,7 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
 
     /**
      * Instantiates a new dL expressivity.
-     * 
+     *
      * @param o ontology to use
      */
     public DLExpressivity(OWLOntology o) {

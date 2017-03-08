@@ -87,7 +87,9 @@ public class RDFXMLWriter {
         writer.writeAttribute(XML_LANG, lang);
     }
 
-    /** Write end element. */
+    /**
+     * Write end element.
+     */
     public void writeEndElement() {
         writer.writeEndElement();
     }
@@ -112,7 +114,7 @@ public class RDFXMLWriter {
      */
     public void writeAttribute(IRI attributeName, IRI value) {
         writer.writeAttribute(attributeName,
-                        checkNotNull(value, "value cannot be null").toString());
+            checkNotNull(value, "value cannot be null").toString());
     }
 
     /**

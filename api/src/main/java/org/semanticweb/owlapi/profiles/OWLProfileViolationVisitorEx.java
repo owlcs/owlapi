@@ -64,15 +64,15 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @param <T> return type
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 4.0.0
  */
 public interface OWLProfileViolationVisitorEx<T> {
 
     /**
      * Gets the default return value for this visitor.
-     * 
+     *
      * @param object The object that was visited.
      * @return The default return value
      */

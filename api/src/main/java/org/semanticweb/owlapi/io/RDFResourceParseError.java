@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * When these errors occur, the RDF parser generates an {@code OWLEntity} that represents the error
  * and inserts this where appropriate into the corresponding complete OWLObject (OWLAxiom) that
  * could not be parsed.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
@@ -41,7 +41,7 @@ public class RDFResourceParseError implements Serializable {
      * @param mainNodeTriples the main node triples
      */
     public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFNode mainNode,
-                    Set<RDFTriple> mainNodeTriples) {
+        Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
         this.mainNodeTriples.addAll(mainNodeTriples);

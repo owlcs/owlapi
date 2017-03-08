@@ -18,7 +18,7 @@ import java.util.Optional;
 
 /**
  * A marker interface for the values (objects) of annotations.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -26,7 +26,7 @@ public interface OWLAnnotationObject extends OWLObject {
 
     /**
      * @return if the value is an IRI, return an optional containing it. Return Optional.absent
-     *         otherwise.
+     * otherwise.
      */
     default Optional<IRI> asIRI() {
         return emptyOptional();
@@ -34,7 +34,7 @@ public interface OWLAnnotationObject extends OWLObject {
 
     /**
      * @return if the value is an anonymous, return an optional containing it. Return
-     *         Optional.absent otherwise.
+     * Optional.absent otherwise.
      */
     default Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return emptyOptional();

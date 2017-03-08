@@ -23,6 +23,6 @@ public class OWLOntologyFactoryNotFoundException extends OWLRuntimeException {
      */
     public OWLOntologyFactoryNotFoundException(IRI documentIRI) {
         super("Could not find an appropriate factory to load ontology from ontology document: "
-                        + documentIRI.toQuotedString());
+            + documentIRI.toQuotedString());
     }
 }

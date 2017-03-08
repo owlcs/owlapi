@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * Provides a set of entities to inputs that require this.
- * 
+ *
  * @param <E> the entity type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0

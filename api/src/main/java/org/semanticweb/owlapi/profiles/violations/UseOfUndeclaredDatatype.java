@@ -30,11 +30,11 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
  * Specifies that a datatype is not declared.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfUndeclaredDatatype extends OWLProfileViolation
-                implements UndeclaredEntityViolation {
+    implements UndeclaredEntityViolation {
 
     /**
      * @param ontology ontology
@@ -42,7 +42,7 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation
      * @param datatype datatype
      */
     public UseOfUndeclaredDatatype(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLDatatype datatype) {
+        OWLDatatype datatype) {
         super(ontology, axiom, checkNotNull(datatype));
     }
 

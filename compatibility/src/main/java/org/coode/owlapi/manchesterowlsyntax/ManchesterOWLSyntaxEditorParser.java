@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
  * property or an object property. If a complete ontology is being parsed, it is expected that
  * hasPart will have been defined at the top of the file before it is used in any class expressions
  * or property assertions (e.g. ObjectProperty: hasPart)
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
  *         10-Sep-2007
  * @deprecated use org.semanticweb.owlapi.apibinding.OWLManager# createManchesterParser
@@ -49,7 +49,7 @@ public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserIm
      * @param s s
      */
     public ManchesterOWLSyntaxEditorParser(OntologyConfigurator configuration,
-                    OWLDataFactory dataFactory, String s) {
+        OWLDataFactory dataFactory, String s) {
         super(configuration, dataFactory);
         setStringToParse(s);
     }

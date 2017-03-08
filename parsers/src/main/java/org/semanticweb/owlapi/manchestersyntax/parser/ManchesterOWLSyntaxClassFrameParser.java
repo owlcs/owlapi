@@ -26,12 +26,12 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 /**
  * An expression parser that parses a Manchester OWL Syntax Class Frame to produce a set of axioms
  * that represent the class frame.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxClassFrameParser
-                implements OWLExpressionParser<Set<OntologyAxiomPair>> {
+    implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     private final OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
@@ -41,7 +41,7 @@ public class ManchesterOWLSyntaxClassFrameParser
      * @param checker checker
      */
     public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory,
-                    OWLEntityChecker checker) {
+        OWLEntityChecker checker) {
         this.dataFactory = checkNotNull(dataFactory);
         this.checker = checkNotNull(checker);
     }
@@ -54,7 +54,7 @@ public class ManchesterOWLSyntaxClassFrameParser
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
         ManchesterOWLSyntaxParser parser =
-                        new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
+            new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseClassFrameEOF();

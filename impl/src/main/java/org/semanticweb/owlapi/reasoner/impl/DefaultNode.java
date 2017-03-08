@@ -36,22 +36,22 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
 /**
+ * @param <E> the type of entities in the node
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
- * @param <E> the type of entities in the node
  */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     protected static final OWLClassNode TOP_NODE = new OWLClassNode(OWL_THING);
     protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(OWL_NOTHING);
     protected static final OWLDataPropertyNode TOP_DATA_NODE =
-                    new OWLDataPropertyNode(OWL_TOP_DATA_PROPERTY);
+        new OWLDataPropertyNode(OWL_TOP_DATA_PROPERTY);
     protected static final OWLDataPropertyNode BOTTOM_DATA_NODE =
-                    new OWLDataPropertyNode(OWL_BOTTOM_DATA_PROPERTY);
+        new OWLDataPropertyNode(OWL_BOTTOM_DATA_PROPERTY);
     protected static final OWLObjectPropertyNode TOP_OBJECT_NODE =
-                    new OWLObjectPropertyNode(OWL_TOP_OBJECT_PROPERTY);
+        new OWLObjectPropertyNode(OWL_TOP_OBJECT_PROPERTY);
     protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE =
-                    new OWLObjectPropertyNode(OWL_BOTTOM_OBJECT_PROPERTY);
+        new OWLObjectPropertyNode(OWL_BOTTOM_OBJECT_PROPERTY);
     private final Set<E> entities = new HashSet<>(4);
 
     /**

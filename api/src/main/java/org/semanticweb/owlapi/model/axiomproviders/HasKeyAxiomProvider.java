@@ -23,7 +23,9 @@ import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** HasKey provider interface. */
+/**
+ * HasKey provider interface.
+ */
 @FunctionalInterface
 public interface HasKeyAxiomProvider {
 
@@ -33,7 +35,7 @@ public interface HasKeyAxiomProvider {
      * @return a hasKey axiom on given arguments
      */
     default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-                    Collection<? extends OWLPropertyExpression> properties) {
+        Collection<? extends OWLPropertyExpression> properties) {
         return getOWLHasKeyAxiom(ce, properties, Collections.emptySet());
     }
 
@@ -43,7 +45,7 @@ public interface HasKeyAxiomProvider {
      * @return a hasKey axiom on given arguments
      */
     default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-                    OWLPropertyExpression... properties) {
+        OWLPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
     }
@@ -55,6 +57,6 @@ public interface HasKeyAxiomProvider {
      * @return a hasKey axiom on given arguments and annotations
      */
     OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-                    Collection<? extends OWLPropertyExpression> objectProperties,
-                    Collection<OWLAnnotation> annotations);
+        Collection<? extends OWLPropertyExpression> objectProperties,
+        Collection<OWLAnnotation> annotations);
 }

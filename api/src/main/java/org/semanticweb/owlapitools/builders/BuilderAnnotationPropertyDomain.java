@@ -21,9 +21,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationPropertyDomainAxiom. */
+/**
+ * Builder class for OWLAnnotationPropertyDomainAxiom.
+ */
 public class BuilderAnnotationPropertyDomain extends
-                BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
+    BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
 
     @Nullable
     private IRI domain = null;
@@ -38,15 +40,15 @@ public class BuilderAnnotationPropertyDomain extends
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderAnnotationPropertyDomain(OWLAnnotationPropertyDomainAxiom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withDomain(expected.getDomain())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

@@ -31,7 +31,9 @@ public class OntologyIRIMappingNotFoundException extends OWLOntologyCreationExce
         this.ontologyIRI = ontologyIRI;
     }
 
-    /** @return the ontology IRI */
+    /**
+     * @return the ontology IRI
+     */
     public IRI getOntologyIRI() {
         return ontologyIRI;
     }

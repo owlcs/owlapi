@@ -36,7 +36,7 @@ public class RDFXMLStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try {
             RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
             Set<OWLEntity> entities = renderer.getUnserialisableEntities();
@@ -47,7 +47,7 @@ public class RDFXMLStorer extends AbstractOWLStorer {
                     sb.append('\n');
                 }
                 throw new OWLOntologyStorageException(sb.toString().trim(),
-                                new IllegalElementNameException(sb.toString().trim()));
+                    new IllegalElementNameException(sb.toString().trim()));
             }
             renderer.render();
         } catch (OWLRuntimeException e) {

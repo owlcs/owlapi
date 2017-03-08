@@ -42,8 +42,8 @@ public class ManchesterOWLSyntaxOntologyHeader {
      * @param importsDeclarations the imports declarations
      */
     public ManchesterOWLSyntaxOntologyHeader(@Nullable IRI ontologyIRI, @Nullable IRI versionIRI,
-                    Set<OWLAnnotation> annotations,
-                    Set<OWLImportsDeclaration> importsDeclarations) {
+        Set<OWLAnnotation> annotations,
+        Set<OWLImportsDeclaration> importsDeclarations) {
         ontologyID = new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);

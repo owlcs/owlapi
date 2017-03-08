@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.reasoner;
 
 /**
  * A simple configuration with the general options.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -25,7 +25,9 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
     private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
     private long timeOut = Long.MAX_VALUE;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public SimpleConfiguration() {
         super();
     }
@@ -53,8 +55,8 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
      * @param individualNodeSetPolicy the policy for individual nodes
      */
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor,
-                    FreshEntityPolicy freshEntityPolicy, long timeOut,
-                    IndividualNodeSetPolicy individualNodeSetPolicy) {
+        FreshEntityPolicy freshEntityPolicy, long timeOut,
+        IndividualNodeSetPolicy individualNodeSetPolicy) {
         this.progressMonitor = progressMonitor;
         this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;

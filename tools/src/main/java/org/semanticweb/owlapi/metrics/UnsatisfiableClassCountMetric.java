@@ -29,7 +29,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
     /**
      * Instantiates a new unsatisfiable class count metric.
-     * 
+     *
      * @param reasoner the reasoner
      */
     public UnsatisfiableClassCountMetric(OWLReasoner reasoner) {

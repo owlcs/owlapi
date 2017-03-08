@@ -5,10 +5,10 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * An object with a settable property attribute.
- * 
- * @author ignazio
+ *
  * @param <P> type of property
  * @param <B> type of builder
+ * @author ignazio
  */
 public interface SettableProperty<P extends OWLObject, B> extends HasProperty<P> {
 

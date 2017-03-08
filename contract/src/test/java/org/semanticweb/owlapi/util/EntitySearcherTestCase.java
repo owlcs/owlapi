@@ -41,14 +41,14 @@ public class EntitySearcherTestCase extends TestBase {
     @Test
     public void shouldReturnSuperProperty() {
         List<OWLProperty> supers =
-                        asList(EntitySearcher.getSuperProperties(subProperty, ontologies.stream()));
+            asList(EntitySearcher.getSuperProperties(subProperty, ontologies.stream()));
         assertTrue(supers.toString(), supers.contains(superProperty));
     }
 
     @Test
     public void shouldReturnSubProperty() {
         Stream<OWLProperty> subs =
-                        EntitySearcher.getSubProperties(superProperty, ontologies.stream());
+            EntitySearcher.getSubProperties(superProperty, ontologies.stream());
         assertTrue(contains(subs, subProperty));
     }
 }

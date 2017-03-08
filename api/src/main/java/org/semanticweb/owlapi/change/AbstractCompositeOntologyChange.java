@@ -27,14 +27,13 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  */
 public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
-    /** The data factory. */
     protected final OWLDataFactory df;
-    /** The changes. */
+
     private final List<OWLOntologyChange> changes = new ArrayList<>();
 
     /**
      * Instantiates a new abstract composite ontology change.
-     * 
+     *
      * @param dataFactory the data factory
      */
     protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
@@ -43,7 +42,7 @@ public abstract class AbstractCompositeOntologyChange implements OWLCompositeOnt
 
     /**
      * Adds the change.
-     * 
+     *
      * @param change the change
      */
     protected void addChange(OWLOntologyChange change) {
@@ -52,7 +51,7 @@ public abstract class AbstractCompositeOntologyChange implements OWLCompositeOnt
 
     /**
      * Adds the changes.
-     * 
+     *
      * @param c the changes
      */
     protected void addChanges(Collection<OWLOntologyChange> c) {

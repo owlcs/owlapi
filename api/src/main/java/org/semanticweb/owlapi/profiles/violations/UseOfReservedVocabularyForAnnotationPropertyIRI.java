@@ -34,7 +34,7 @@ public class UseOfReservedVocabularyForAnnotationPropertyIRI extends OWLProfileV
      * @param property property
      */
     public UseOfReservedVocabularyForAnnotationPropertyIRI(OWLOntology ontology,
-                    @Nullable OWLAxiom axiom, OWLAnnotationProperty property) {
+        @Nullable OWLAxiom axiom, OWLAnnotationProperty property) {
         super(ontology, axiom, property);
     }
 
@@ -56,6 +56,6 @@ public class UseOfReservedVocabularyForAnnotationPropertyIRI extends OWLProfileV
     @Override
     public String toString() {
         return toString("Use of reserved vocabulary for annotation property IRI: %s",
-                        getExpression());
+            getExpression());
     }
 }

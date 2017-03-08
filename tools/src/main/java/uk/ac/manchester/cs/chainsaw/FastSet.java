@@ -2,7 +2,7 @@ package uk.ac.manchester.cs.chainsaw;
 
 /**
  * sorted set of ints.
- * 
+ *
  * @author ignazio
  */
 public interface FastSet {
@@ -18,7 +18,9 @@ public interface FastSet {
      */
     void addAll(FastSet c);
 
-    /** clear the set */
+    /**
+     * clear the set
+     */
     void clear();
 
     /**
@@ -33,7 +35,9 @@ public interface FastSet {
      */
     boolean containsAll(FastSet c);
 
-    /** @return true if the set is empty */
+    /**
+     * @return true if the set is empty
+     */
     boolean isEmpty();
 
     /**
@@ -41,10 +45,14 @@ public interface FastSet {
      */
     void remove(int o);
 
-    /** @return size of the set */
+    /**
+     * @return size of the set
+     */
     int size();
 
-    /** @return this set as a int array */
+    /**
+     * @return this set as a int array
+     */
     int[] toIntArray();
 
     /**
@@ -66,7 +74,7 @@ public interface FastSet {
 
     /**
      * remove all elements between the two positions
-     * 
+     *
      * @param i beginning position
      * @param end end position
      */

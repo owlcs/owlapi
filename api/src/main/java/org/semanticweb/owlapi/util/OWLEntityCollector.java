@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * are referred to in those axioms, class expressions etc. For example, if the collector visited the
  * axiom (propP some C) subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */

@@ -22,7 +22,7 @@ public interface HasDataFactory {
     /**
      * Gets a data factory which can be used to create OWL API objects such as classes, properties,
      * individuals, axioms etc.
-     * 
+     *
      * @return A reference to a data factory for creating OWL API objects.
      */
     OWLDataFactory getOWLDataFactory();

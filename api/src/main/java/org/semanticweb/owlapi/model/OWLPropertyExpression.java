@@ -14,12 +14,12 @@ package org.semanticweb.owlapi.model;
 
 /**
  * Represents a property or possibly the inverse of a property.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLPropertyExpression
-                extends OWLObject, AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
+    extends OWLObject, AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
 
     /**
      * @param visitor visitor to accept
@@ -65,12 +65,12 @@ public interface OWLPropertyExpression
             return (OWLObjectPropertyExpression) this;
         }
         throw new ClassCastException(
-                        getClass().getName() + "is not an OWLObjectPropertyExpression");
+            getClass().getName() + "is not an OWLObjectPropertyExpression");
     }
 
     /**
      * Determines if this is the owl:topObjectProperty.
-     * 
+     *
      * @return {@code true} if this property is the owl:topObjectProperty otherwise {@code false}
      */
     default boolean isOWLTopObjectProperty() {
@@ -79,7 +79,7 @@ public interface OWLPropertyExpression
 
     /**
      * Determines if this is the owl:bottomObjectProperty.
-     * 
+     *
      * @return {@code true} if this property is the owl:bottomObjectProperty otherwise {@code false}
      */
     default boolean isOWLBottomObjectProperty() {
@@ -88,7 +88,7 @@ public interface OWLPropertyExpression
 
     /**
      * Determines if this is the owl:topDataProperty.
-     * 
+     *
      * @return {@code true} if this property is the owl:topDataProperty otherwise {@code false}
      */
     default boolean isOWLTopDataProperty() {
@@ -97,7 +97,7 @@ public interface OWLPropertyExpression
 
     /**
      * Determines if this is the owl:bottomDataProperty.
-     * 
+     *
      * @return {@code true} if this property is the owl:bottomDataProperty otherwise {@code false}
      */
     default boolean isOWLBottomDataProperty() {

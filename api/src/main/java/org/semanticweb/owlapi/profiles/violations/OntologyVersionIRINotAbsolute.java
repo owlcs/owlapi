@@ -62,7 +62,7 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
         return list(new SetOntologyID(ontology, new OWLOntologyID(
-                        optional(IRI.create("urn:profilesrepair:ontology#", "replaced")),
-                        optional(IRI.create("urn:profilesrepair:ontology#", "replaced1")))));
+            optional(IRI.create("urn:profilesrepair:ontology#", "replaced")),
+            optional(IRI.create("urn:profilesrepair:ontology#", "replaced1")))));
     }
 }

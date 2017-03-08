@@ -20,11 +20,11 @@ import java.util.List;
  * @since 3.1.0
  */
 public class DefaultImpendingChangeBroadcastStrategy
-                implements ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
+    implements ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
 
     @Override
     public void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
-                    List<? extends OWLOntologyChange> changes) {
+        List<? extends OWLOntologyChange> changes) {
         listener.handleImpendingOntologyChanges(changes);
     }
 }

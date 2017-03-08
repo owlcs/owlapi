@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Builder class for OWLSubAnnotationPropertyOfAxiom.
- * 
+ *
  * @param <T> type built
  * @param <B> builder type
  * @param <I> contained items type

@@ -26,14 +26,14 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  * objects. The idea is that this is pluggable. TODO this does not allow for independent rendering;
  * in a multithreaded situation, the rendere may change mid execution because of the static
  * singleton instance
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public final class ToStringRenderer {
 
     private static final AtomicReference<Provider<OWLObjectRenderer>> rendererProvider =
-                    new AtomicReference<>(SimpleRenderer::new);
+        new AtomicReference<>(SimpleRenderer::new);
 
     /**
      * @return the singleton instance

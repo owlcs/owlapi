@@ -114,7 +114,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /**
  * A simple renderer that can be used for debugging purposes and provide an implementation of the
  * toString method for different implementations.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -124,14 +124,18 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     private ShortFormProvider shortFormProvider;
     private IRIShortFormProvider iriShortFormProvider;
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     @SuppressWarnings("null")
     public SimpleRenderer() {
         sb = new StringBuilder();
         resetShortFormProvider();
     }
 
-    /** reset the renderer. */
+    /**
+     * reset the renderer.
+     */
     public void reset() {
         sb = new StringBuilder();
     }
@@ -157,16 +161,16 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      * Resets the short form provider and adds prefix name to prefix mappings based on the specified
      * ontology's format (if it is a prefix format) and possibly the ontologies in the imports
      * closure.
-     * 
+     *
      * @param ontology The ontology whose format will be used to obtain prefix mappings
      * @param processImportedOntologies Specifies whether or not the prefix mapping should be
-     *        obtained from imported ontologies.
+     * obtained from imported ontologies.
      */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology,
-                    boolean processImportedOntologies) {
+        boolean processImportedOntologies) {
         resetShortFormProvider();
         Imports.fromBoolean(processImportedOntologies).stream(ontology)
-                        .forEach(o -> copyPrefixes(o.getNonnullFormat()));
+            .forEach(o -> copyPrefixes(o.getNonnullFormat()));
     }
 
     private void copyPrefixes(OWLDocumentFormat ontologyFormat) {
@@ -178,12 +182,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             resetShortFormProvider();
         }
         ((DefaultPrefixManager) shortFormProvider)
-                        .copyPrefixesFrom(prefixFormat.getPrefixName2PrefixMap());
+            .copyPrefixesFrom(prefixFormat.getPrefixName2PrefixMap());
     }
 
     /**
      * Sets a prefix name for a given prefix. Note that prefix names MUST end with a colon.
-     * 
+     *
      * @param prefixName The prefix name (ending with a colon)
      * @param prefix The prefix that the prefix name maps to
      */
@@ -227,8 +231,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLOntology ontology) {
         sb.append("Ontology(").append(ontology.getOntologyID()).append(" [Axioms: ")
-                        .append(ontology.getAxiomCount()).append("] [Logical axioms: ")
-                        .append(ontology.getLogicalAxiomCount()).append("])");
+            .append(ontology.getAxiomCount()).append("] [Logical axioms: ")
+            .append(ontology.getLogicalAxiomCount()).append("])");
     }
 
     private void insertSpace() {
@@ -763,7 +767,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLLiteral node) {
         String literal = EscapeUtils.escapeString(node.getLiteral());
         if (node.isRDFPlainLiteral() || node.getDatatype().getIRI()
-                        .equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
+            .equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
             // We can use a syntactic shortcut
             sb.append('"').append(literal).append('"');
             if (node.hasLang()) {

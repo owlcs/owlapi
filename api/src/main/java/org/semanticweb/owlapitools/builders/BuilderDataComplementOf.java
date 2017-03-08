@@ -22,9 +22,11 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Builder class for OWLDataComplementOf. */
+/**
+ * Builder class for OWLDataComplementOf.
+ */
 public class BuilderDataComplementOf
-                extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
+    extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
 
     @Nullable
     private OWLDataRange dataRange = null;
@@ -39,7 +41,7 @@ public class BuilderDataComplementOf
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

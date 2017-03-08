@@ -20,11 +20,11 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
  * An abstract base class for RDF Document Formats that are not prefix aware.
- * 
+ *
  * @since 4.0.1
  */
 public abstract class AbstractRDFNonPrefixDocumentFormat extends OWLDocumentFormatImpl
-                implements RDFDocumentFormat {
+    implements RDFDocumentFormat {
 
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();

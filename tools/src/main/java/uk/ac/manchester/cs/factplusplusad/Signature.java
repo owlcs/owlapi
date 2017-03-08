@@ -10,19 +10,27 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
-/** class to hold the signature of a module */
+/**
+ * class to hold the signature of a module
+ */
 class Signature {
 
-    /** set to keep all the elements in signature */
+    /**
+     * set to keep all the elements in signature
+     */
     private final Set<OWLEntity> set = new HashSet<>();
-    /** true if concept TOP-locality; false if concept BOTTOM-locality */
+    /**
+     * true if concept TOP-locality; false if concept BOTTOM-locality
+     */
     private boolean topCLocality = false;
-    /** true if role TOP-locality; false if role BOTTOM-locality */
+    /**
+     * true if role TOP-locality; false if role BOTTOM-locality
+     */
     private boolean topRLocality = false;
 
     /**
      * copy c'tor
-     * 
+     *
      * @param copy signature to copy
      */
     Signature(Signature copy) {
@@ -59,7 +67,7 @@ class Signature {
 
     /**
      * Add set of named entities to signature.
-     * 
+     *
      * @param aSet set to add
      */
     void add(Set<OWLEntity> aSet) {
@@ -68,7 +76,7 @@ class Signature {
 
     /**
      * Add another signature to a given one.
-     * 
+     *
      * @param sig signature to add
      */
     void add(Signature sig) {
@@ -77,7 +85,7 @@ class Signature {
 
     /**
      * Remove given element from a signature.
-     * 
+     *
      * @param p element to remove
      */
     void remove(OWLEntity p) {
@@ -86,7 +94,7 @@ class Signature {
 
     /**
      * Set new locality polarity.
-     * 
+     *
      * @param top locality polarity
      */
     void setLocality(boolean top) {
@@ -108,12 +116,6 @@ class Signature {
         topRLocality = s.topRLocality;
     }
 
-    void setSignature(Stream<OWLEntity> s) {
-        set.clear();
-        addAll(s);
-    }
-    // comparison
-
     @Override
     public boolean equals(@Nullable Object obj) {
         if (obj == null) {
@@ -127,6 +129,7 @@ class Signature {
         }
         return false;
     }
+    // comparison
 
     /**
      * @param p element to check
@@ -144,37 +147,56 @@ class Signature {
         return set.contains(p.getNamedProperty());
     }
 
-    /** @return size of the signature */
+    /**
+     * @return size of the signature
+     */
     int size() {
         return set.size();
     }
 
-    /** clear the signature */
+    /**
+     * clear the signature
+     */
     void clear() {
         set.clear();
     }
 
-    /** @return elements of signature */
+    /**
+     * @return elements of signature
+     */
     Stream<OWLEntity> getSignature() {
         return set.stream();
     }
 
-    /** @return true iff concepts are treated as TOPs */
+    void setSignature(Stream<OWLEntity> s) {
+        set.clear();
+        addAll(s);
+    }
+
+    /**
+     * @return true iff concepts are treated as TOPs
+     */
     public boolean topCLocal() {
         return topCLocality;
     }
 
-    /** @return true iff concepts are treated as BOTTOMs */
+    /**
+     * @return true iff concepts are treated as BOTTOMs
+     */
     boolean botCLocal() {
         return !topCLocality;
     }
 
-    /** @return true iff roles are treated as TOPs */
+    /**
+     * @return true iff roles are treated as TOPs
+     */
     public boolean topRLocal() {
         return topRLocality;
     }
 
-    /** @return true iff roles are treated as BOTTOMs */
+    /**
+     * @return true iff roles are treated as BOTTOMs
+     */
     boolean botRLocal() {
         return !topRLocality;
     }

@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 /**
  * The vocabulary that the Manchester OWL Syntax uses.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
  *         25-Apr-2007
  * @deprecated use {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax}
@@ -109,13 +109,26 @@ public enum ManchesterOWLSyntax {
     /**SUB_PROPERTY_CHAIN          */    SUB_PROPERTY_CHAIN          (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.SUB_PROPERTY_CHAIN  ),
     /**HAS_KEY                     */    HAS_KEY                     (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.HAS_KEY             ),
     /**RULE                        */    RULE                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.RULE                );
-
     //@formatter:on
+
     org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy;
 
     private ManchesterOWLSyntax(
-                    org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy) {
+        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy) {
         this.legacy = legacy;
+    }
+
+    /**
+     * @param rendering rendering
+     * @return manchester owl syntax object
+     */
+    public static @Nullable ManchesterOWLSyntax parse(String rendering) {
+        for (ManchesterOWLSyntax m : values()) {
+            if (m.matches(rendering)) {
+                return m;
+            }
+        }
+        return null;
     }
 
     /**
@@ -183,25 +196,12 @@ public enum ManchesterOWLSyntax {
 
     /**
      * for keywords which match two tokens.
-     * 
+     *
      * @param s s
      * @param v v
      * @return true if matches
      */
     public boolean matches(String s, String v) {
         return legacy.matches(s, v);
-    }
-
-    /**
-     * @param rendering rendering
-     * @return manchester owl syntax object
-     */
-    public static @Nullable ManchesterOWLSyntax parse(String rendering) {
-        for (ManchesterOWLSyntax m : values()) {
-            if (m.matches(rendering)) {
-                return m;
-            }
-        }
-        return null;
     }
 }

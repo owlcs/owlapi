@@ -31,7 +31,7 @@ public class SetOntologyID extends OWLOntologyChange {
 
     /**
      * Creates a set ontology id change, which will set the ontology id to the new one.
-     * 
+     *
      * @param ont The ontology whose id is to be changed
      * @param ontologyID The ontology ID
      */
@@ -50,7 +50,7 @@ public class SetOntologyID extends OWLOntologyChange {
     /**
      * Creates a set ontology id change using the ontologyIRI, which will set the ontology id to the
      * new one.
-     * 
+     *
      * @param ont The ontology whose id is to be changed
      * @param ontologyIRI The ontology iri
      */
@@ -65,7 +65,7 @@ public class SetOntologyID extends OWLOntologyChange {
 
     /**
      * Gets the original ID of the ontology whose URI was changed.
-     * 
+     *
      * @return The original ID
      */
     public OWLOntologyID getOriginalOntologyID() {

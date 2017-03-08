@@ -16,7 +16,7 @@ package org.semanticweb.owlapi.util;
  * A simple utility class that describes the version of a piece of software e.g. reasoner version.
  * <br>
  * A version number is assumed to be the following format: <b>major.minor.patch.build</b>.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -40,22 +40,30 @@ public class Version {
         this.build = build;
     }
 
-    /** @return major version */
+    /**
+     * @return major version
+     */
     public int getMajor() {
         return major;
     }
 
-    /** @return minor version */
+    /**
+     * @return minor version
+     */
     public int getMinor() {
         return minor;
     }
 
-    /** @return patch version */
+    /**
+     * @return patch version
+     */
     public int getPatch() {
         return patch;
     }
 
-    /** @return build version */
+    /**
+     * @return build version
+     */
     public int getBuild() {
         return build;
     }

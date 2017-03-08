@@ -24,19 +24,19 @@ import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
  * Abstract builder for entities.
- * 
- * @author ignazio
+ *
  * @param <T> OWL type
  * @param <B> builder type
+ * @author ignazio
  */
 public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuilder<T, B> {
 
     @Nullable
-    private IRI iri = null;
-    @Nullable
     protected String string = null;
     @Nullable
     protected PrefixManager pm = null;
+    @Nullable
+    private IRI iri = null;
 
     /**
      * @param df data factory

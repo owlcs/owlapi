@@ -41,14 +41,14 @@ public class OWLXMLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             InputSource isrc = new InputSource(r);
             isrc.setSystemId(documentIRI.toString());
             OWLXMLPH handler = new OWLXMLPH(o, config);
             SAXParsers.initParserWithOWLAPIStandards(null, config.getEntityExpansionLimit())
-                            .parse(isrc, handler);
+                .parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;

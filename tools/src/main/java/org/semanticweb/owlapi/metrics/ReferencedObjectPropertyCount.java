@@ -25,7 +25,7 @@ public class ReferencedObjectPropertyCount extends ObjectCountMetric<OWLObjectPr
 
     /**
      * Instantiates a new referenced object property count.
-     * 
+     *
      * @param o ontology to use
      */
     public ReferencedObjectPropertyCount(OWLOntology o) {

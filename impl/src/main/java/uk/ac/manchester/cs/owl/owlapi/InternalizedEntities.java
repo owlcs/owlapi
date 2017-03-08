@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class InternalizedEntities {
 
-//@formatter:off
+    //@formatter:off
     /**owl:Thing.*/             public static final OWLClass                OWL_THING                   = new OWLClassImpl                  (OWLRDFVocabulary.OWL_THING.getIRI());
     /**owl:Nothing.*/           public static final OWLClass                OWL_NOTHING                 = new OWLClassImpl                  (OWLRDFVocabulary.OWL_NOTHING.getIRI());
     /**Top object propery.*/    public static final OWLObjectProperty       OWL_TOP_OBJECT_PROPERTY     = new OWLObjectPropertyImpl         (OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());

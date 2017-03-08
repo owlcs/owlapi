@@ -26,18 +26,18 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @since 2.1.0
  */
 public class InferredSubClassAxiomGenerator
-                extends InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
+    extends InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
 
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-                    Set<OWLSubClassOfAxiom> result) {
+        Set<OWLSubClassOfAxiom> result) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
         if (reasoner.isSatisfiable(entity)) {
             reasoner.getSuperClasses(entity, true).entities().forEach(
-                            sup -> result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup)));
+                sup -> result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup)));
         } else {
             result.add(dataFactory.getOWLSubClassOfAxiom(entity, dataFactory.getOWLNothing()));
         }

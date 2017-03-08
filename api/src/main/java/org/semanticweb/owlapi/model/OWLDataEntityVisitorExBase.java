@@ -13,15 +13,15 @@
 package org.semanticweb.owlapi.model;
 
 /**
+ * @param <O> return type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 3.0.0
- * @param <O> return type
  */
 public interface OWLDataEntityVisitorExBase<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLDatatype type
-     * 
+     *
      * @param node node to visit
      * @return visitor value
      */

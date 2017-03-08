@@ -22,9 +22,11 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Builder class for OWLClassAssertionAxiom. */
+/**
+ * Builder class for OWLClassAssertionAxiom.
+ */
 public class BuilderClassAssertion
-                extends BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
+    extends BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
     @Nullable
     private OWLIndividual i = null;
@@ -41,14 +43,14 @@ public class BuilderClassAssertion
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderClassAssertion(OWLClassAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getClassExpression()).withIndividual(expected.getIndividual())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

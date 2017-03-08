@@ -21,18 +21,18 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
  * Generates {@code OWLClassAssertionsAxiom}s for inferred individual types.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class InferredClassAssertionAxiomGenerator
-                extends InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
+    extends InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
 
     @Override
     protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
-                    OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
+        OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
         reasoner.getTypes(entity, false).entities()
-                        .forEach(t -> result.add(dataFactory.getOWLClassAssertionAxiom(t, entity)));
+            .forEach(t -> result.add(dataFactory.getOWLClassAssertionAxiom(t, entity)));
     }
 
     @Override

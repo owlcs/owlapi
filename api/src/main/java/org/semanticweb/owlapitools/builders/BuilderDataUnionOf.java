@@ -18,13 +18,15 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 
-/** Builder class for OWLDataUnionOf. */
+/**
+ * Builder class for OWLDataUnionOf.
+ */
 public class BuilderDataUnionOf
-                extends BaseSetBuilder<OWLDataUnionOf, BuilderDataUnionOf, OWLDataRange> {
+    extends BaseSetBuilder<OWLDataUnionOf, BuilderDataUnionOf, OWLDataRange> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

@@ -27,10 +27,10 @@ public interface HasIndividualsInSignature {
     /**
      * A convenience method that obtains the individuals that are in the signature of this object.
      * The default implementation of this method returns an empty, modifiable set.
-     * 
+     *
      * @return A set containing the individuals that are in the signature of this object.The set is
-     *         a subset of the signature, and is not backed by the signature; it is a modifiable
-     *         collection and changes are not reflected by the signature.
+     * a subset of the signature, and is not backed by the signature; it is a modifiable collection
+     * and changes are not reflected by the signature.
      * @deprecated use the stream method
      */
     @Deprecated

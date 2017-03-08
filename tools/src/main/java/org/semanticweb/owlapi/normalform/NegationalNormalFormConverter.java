@@ -27,7 +27,7 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
 
     /**
      * Instantiates a new negational normal form converter.
-     * 
+     *
      * @param dataFactory the factory
      */
     public NegationalNormalFormConverter(OWLDataFactory dataFactory) {
@@ -40,7 +40,7 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
         // only appear in front of named concepts
         extractor.getComplementedClassExpressions(c);
         return !extractor.getComplementedClassExpressions(c).stream()
-                        .anyMatch(OWLClassExpression::isAnonymous);
+            .anyMatch(OWLClassExpression::isAnonymous);
     }
 
     @Override

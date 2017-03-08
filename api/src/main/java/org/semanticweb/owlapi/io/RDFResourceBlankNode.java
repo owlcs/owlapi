@@ -22,28 +22,30 @@ import org.apache.commons.rdf.api.BlankNode;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
-/** Anonymous node implementation. */
+/**
+ * Anonymous node implementation.
+ */
 public class RDFResourceBlankNode extends RDFResource
-                implements org.apache.commons.rdf.api.BlankNode {
+    implements org.apache.commons.rdf.api.BlankNode {
 
-    private final IRI resource;
-    private final boolean isIndividual;
-    private final boolean isAxiom;
-    private final boolean forceIdOutput;
     /**
      * Random UUID, used by {@link #uniqueReference()}
      */
     private static final UUID UNIQUE_BASE = UUID.randomUUID();
+    private final IRI resource;
+    private final boolean isIndividual;
+    private final boolean isAxiom;
+    private final boolean forceIdOutput;
 
     /**
      * Create an RDFResource that is anonymous.
-     * 
+     *
      * @param resource The IRI of the resource
      * @param isIndividual true if the node represents an individual
      * @param forceId true if id should be outputted
      */
     public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId,
-                    boolean isAxiom) {
+        boolean isAxiom) {
         this.resource = checkNotNull(resource, "resource cannot be null");
         this.isIndividual = isIndividual;
         this.isAxiom = isAxiom;
@@ -52,19 +54,19 @@ public class RDFResourceBlankNode extends RDFResource
 
     /**
      * Create an RDFResource that is anonymous.
-     * 
+     *
      * @param anonId the number at the end of the anon IRI
      * @param isIndividual true if the node represents an individual
      * @param forceId true if id should be outputted
      */
     public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId,
-                    boolean isAxiom) {
+        boolean isAxiom) {
         this(NodeID.nodeId(anonId), isIndividual, forceId, isAxiom);
     }
 
     /**
      * Create an RDFResource that is anonymous
-     * 
+     *
      * @param isIndividual true if this is an individual
      * @param forceId true if the id should be outputted
      */

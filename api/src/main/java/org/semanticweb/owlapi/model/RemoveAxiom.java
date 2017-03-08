@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.change.RemoveAxiomData;
 /**
  * Represents an ontology change were an axiom will be removed from an ontology if the change is
  * applied to an ontology.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -68,7 +68,7 @@ public class RemoveAxiom extends OWLAxiomChange {
     @Override
     public String toString() {
         return String.format("RemoveAxiom(%s OntologyID(%s))", getAxiom(),
-                        getOntology().getOntologyID());
+            getOntology().getOntologyID());
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 /**
  * An interface to objects that provide an imports closure of themselves.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5.0
  */
@@ -32,11 +32,11 @@ public interface HasImportsClosure {
      * 3.4 of the OWL 2 Structural Specification. For example, if this ontology imports ontology B,
      * and ontology B imports ontology C, then this method will return the set consisting of this
      * ontology, ontology B and ontology C.
-     * 
+     *
      * @return The set of ontologies in the reflexive transitive closure of the directlyImports
-     *         relation.
+     * relation.
      * @throws UnknownOWLOntologyException If this ontology is no longer managed by its manager
-     *         because it was removed from the manager.
+     * because it was removed from the manager.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -46,9 +46,9 @@ public interface HasImportsClosure {
 
     /**
      * Gets the imports closure, including the root object.
-     * 
+     *
      * @return Stream of ontologies representing the imports closure of this object (includes this
-     *         object).
+     * object).
      */
     Stream<OWLOntology> importsClosure();
 }

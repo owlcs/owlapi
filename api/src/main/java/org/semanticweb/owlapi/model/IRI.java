@@ -36,16 +36,16 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * Represents International Resource Identifiers.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence,
-                OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
+    OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
 
     // Cache prefixes for memory gains.
     private static final LoadingCache<String, String> CACHE =
-                    Caffeine.newBuilder().maximumSize(2048).build(k -> k);
+        Caffeine.newBuilder().maximumSize(2048).build(k -> k);
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
     // public creation
@@ -54,7 +54,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /**
      * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
-     * 
+     *
      * @param prefix The prefix.
      * @param suffix The suffix.
      */
@@ -71,162 +71,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         this(checkNotNull(uri, "uri cannot be null").toString());
     }
 
-    @Override
-    public boolean isIRI() {
-        return true;
-    }
-
-    /**
-     * Obtains this IRI as a URI. Note that Java URIs handle unicode characters, so there is no loss
-     * during this translation.
-     * 
-     * @return The URI
-     */
-    public URI toURI() {
-        return URI.create(namespace + remainder);
-    }
-
-    /**
-     * Determines if this IRI is absolute.
-     * 
-     * @return {@code true} if this IRI is absolute or {@code false} if this IRI is not absolute
-     */
-    public boolean isAbsolute() {
-        int colonIndex = namespace.indexOf(':');
-        if (colonIndex == -1) {
-            return false;
-        }
-        for (int i = 0; i < colonIndex; i++) {
-            char ch = namespace.charAt(i);
-            if (disallowed(ch)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    protected boolean disallowed(char ch) {
-        return !Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+'
-                        && ch != '-';
-    }
-
-    /**
-     * @return the IRI scheme, e.g., http, urn
-     */
-    @Nullable
-    public String getScheme() {
-        int colonIndex = namespace.indexOf(':');
-        if (colonIndex == -1) {
-            return null;
-        }
-        return namespace.substring(0, colonIndex);
-    }
-
-    /**
-     * @return the prefix
-     */
-    public String getNamespace() {
-        return namespace;
-    }
-
-    /**
-     * @param s the IRI stirng to be resolved
-     * @return s resolved against this IRI (with the URI::resolve() method, unless this IRI is
-     *         opaque)
-     */
-    public IRI resolve(String s) {
-        // shortcut: checking absolute and opaque here saves the creation of an
-        // extra URI object
-        URI uri = URI.create(s);
-        if (uri.isAbsolute() || uri.isOpaque()) {
-            return create(uri);
-        }
-        return create(toURI().resolve(uri));
-    }
-
-    /**
-     * Determines if this IRI is in the reserved vocabulary. An IRI is in the reserved vocabulary if
-     * it starts with &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or
-     * &lt;http://www.w3.org/2000/01/rdf-schema#&gt; or &lt;http://www.w3.org/2001/XMLSchema#&gt; or
-     * &lt;http://www.w3.org/2002/07/owl#&gt;
-     * 
-     * @return {@code true} if the IRI is in the reserved vocabulary, otherwise {@code false}.
-     */
-    public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
-                        || Namespaces.RDFS.inNamespace(namespace)
-                        || Namespaces.XSD.inNamespace(namespace);
-    }
-
-    /**
-     * Determines if this IRI is equal to the IRI that {@code owl:Thing} is named with.
-     * 
-     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and
-     *         otherwise {@code false}
-     */
-    public boolean isThing() {
-        return equals(OWLRDFVocabulary.OWL_THING.getIRI());
-    }
-
-    /**
-     * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is named with.
-     * 
-     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
-     *         and otherwise {@code false}
-     */
-    public boolean isNothing() {
-        return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
-    }
-
-    /**
-     * Determines if this IRI is equal to the IRI that is named {@code rdf:PlainLiteral}.
-     * 
-     * @return {@code true} if this IRI is equal to
-     *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;, otherwise
-     *         {@code false}
-     */
-    public boolean isPlainLiteral() {
-        return "PlainLiteral".equals(remainder) && Namespaces.RDF.inNamespace(namespace);
-    }
-
-    /**
-     * Gets the fragment of the IRI.
-     * 
-     * @return The IRI fragment, or empty string if the IRI does not have a fragment. Note:
-     *         getFragment() does not return a real fragment. e.g., it does not allow / and () on
-     *         it.
-     */
-    public String getFragment() {
-        return remainder;
-    }
-
-    /**
-     * @return the remainder (coincident with NCName usually) for this IRI.
-     */
-    public Optional<String> getRemainder() {
-        if (remainder.isEmpty()) {
-            return emptyOptional();
-        }
-        return optional(remainder);
-    }
-
-    /** @return true if this IRI has a file: protocol */
-    public boolean isFileIRI() {
-        return namespace.startsWith("file:");
-    }
-
-    /**
-     * Obtained this IRI surrounded by angled brackets.
-     * 
-     * @return This IRI surrounded by &lt; and &gt;
-     */
-    public String toQuotedString() {
-        return ntriplesString();
-    }
-
     /**
      * Creates an IRI from the specified String.
-     * 
+     *
      * @param str The String that specifies the IRI
      * @return The IRI that has the specified string representation.
      */
@@ -243,7 +90,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /**
      * Creates an IRI by concatenating two strings. The full IRI is an IRI that contains the
      * characters in prefix + suffix.
-     * 
+     *
      * @param prefix The first string
      * @param suffix The second string
      * @return An IRI whose characters consist of prefix + suffix.
@@ -312,9 +159,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /**
      * Gets an auto-generated ontology document IRI.
-     * 
-     * @return An auto-generated ontology document IRI. The IRI has the form
-     *         {@code owlapi:ontologyNNNNNNNNNNN}
+     *
+     * @return An auto-generated ontology document IRI. The IRI has the form {@code
+     * owlapi:ontologyNNNNNNNNNNN}
      */
     public static IRI generateDocumentIRI() {
         return getNextDocumentIRI("owlapi:ontology");
@@ -326,6 +173,159 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      */
     public static IRI getNextDocumentIRI(String prefix) {
         return IRI.create(prefix + COUNTER.incrementAndGet());
+    }
+
+    @Override
+    public boolean isIRI() {
+        return true;
+    }
+
+    /**
+     * Obtains this IRI as a URI. Note that Java URIs handle unicode characters, so there is no loss
+     * during this translation.
+     *
+     * @return The URI
+     */
+    public URI toURI() {
+        return URI.create(namespace + remainder);
+    }
+
+    /**
+     * Determines if this IRI is absolute.
+     *
+     * @return {@code true} if this IRI is absolute or {@code false} if this IRI is not absolute
+     */
+    public boolean isAbsolute() {
+        int colonIndex = namespace.indexOf(':');
+        if (colonIndex == -1) {
+            return false;
+        }
+        for (int i = 0; i < colonIndex; i++) {
+            char ch = namespace.charAt(i);
+            if (disallowed(ch)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected boolean disallowed(char ch) {
+        return !Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+'
+            && ch != '-';
+    }
+
+    /**
+     * @return the IRI scheme, e.g., http, urn
+     */
+    @Nullable
+    public String getScheme() {
+        int colonIndex = namespace.indexOf(':');
+        if (colonIndex == -1) {
+            return null;
+        }
+        return namespace.substring(0, colonIndex);
+    }
+
+    /**
+     * @return the prefix
+     */
+    public String getNamespace() {
+        return namespace;
+    }
+
+    /**
+     * @param s the IRI stirng to be resolved
+     * @return s resolved against this IRI (with the URI::resolve() method, unless this IRI is
+     * opaque)
+     */
+    public IRI resolve(String s) {
+        // shortcut: checking absolute and opaque here saves the creation of an
+        // extra URI object
+        URI uri = URI.create(s);
+        if (uri.isAbsolute() || uri.isOpaque()) {
+            return create(uri);
+        }
+        return create(toURI().resolve(uri));
+    }
+
+    /**
+     * Determines if this IRI is in the reserved vocabulary. An IRI is in the reserved vocabulary if
+     * it starts with &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or
+     * &lt;http://www.w3.org/2000/01/rdf-schema#&gt; or &lt;http://www.w3.org/2001/XMLSchema#&gt; or
+     * &lt;http://www.w3.org/2002/07/owl#&gt;
+     *
+     * @return {@code true} if the IRI is in the reserved vocabulary, otherwise {@code false}.
+     */
+    public boolean isReservedVocabulary() {
+        return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
+            || Namespaces.RDFS.inNamespace(namespace)
+            || Namespaces.XSD.inNamespace(namespace);
+    }
+
+    /**
+     * Determines if this IRI is equal to the IRI that {@code owl:Thing} is named with.
+     *
+     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and
+     * otherwise {@code false}
+     */
+    public boolean isThing() {
+        return equals(OWLRDFVocabulary.OWL_THING.getIRI());
+    }
+
+    /**
+     * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is named with.
+     *
+     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
+     * and otherwise {@code false}
+     */
+    public boolean isNothing() {
+        return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+    }
+
+    /**
+     * Determines if this IRI is equal to the IRI that is named {@code rdf:PlainLiteral}.
+     *
+     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
+     * otherwise {@code false}
+     */
+    public boolean isPlainLiteral() {
+        return "PlainLiteral".equals(remainder) && Namespaces.RDF.inNamespace(namespace);
+    }
+
+    /**
+     * Gets the fragment of the IRI.
+     *
+     * @return The IRI fragment, or empty string if the IRI does not have a fragment. Note:
+     * getFragment() does not return a real fragment. e.g., it does not allow / and () on it.
+     */
+    public String getFragment() {
+        return remainder;
+    }
+
+    /**
+     * @return the remainder (coincident with NCName usually) for this IRI.
+     */
+    public Optional<String> getRemainder() {
+        if (remainder.isEmpty()) {
+            return emptyOptional();
+        }
+        return optional(remainder);
+    }
+
+    /**
+     * @return true if this IRI has a file: protocol
+     */
+    public boolean isFileIRI() {
+        return namespace.startsWith("file:");
+    }
+
+    /**
+     * Obtained this IRI surrounded by angled brackets.
+     *
+     * @return This IRI surrounded by &lt; and &gt;
+     */
+    public String toQuotedString() {
+        return ntriplesString();
     }
 
     /**

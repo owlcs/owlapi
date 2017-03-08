@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * A generic factory class for OWLDocumentFormats. This class can act as a factory for any
  * OWLDocumentFormat type that has a no argument constructor (the default type of
  * OWLDocumentFormat).
- * 
+ *
  * @author ignazio
  */
 public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatFactory {
@@ -52,7 +52,7 @@ public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatF
     }
 
     protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat,
-                    String key) {
+        String key) {
         this.mimeTypes = new ArrayList<>(mimeTypes);
         this.isTextualFormat = isTextualFormat;
         this.key = key;

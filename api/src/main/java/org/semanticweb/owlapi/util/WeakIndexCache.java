@@ -22,14 +22,14 @@ import javax.annotation.Nullable;
 
 /**
  * A weakly linked cache - elements in the cache can be garbage collected.
- * 
+ *
  * @param <K> key type
  * @param <V> value type
  */
 public class WeakIndexCache<K, V> implements Serializable {
 
     protected transient Map<K, WeakReference<V>> prefixCache =
-                    CollectionFactory.createSyncWeakMap();
+        CollectionFactory.createSyncWeakMap();
 
     /**
      * @param s the cache key
@@ -70,7 +70,7 @@ public class WeakIndexCache<K, V> implements Serializable {
     /**
      * @param k the key to check
      * @return true if the cache contains k as a key; note that, due to the nature of this cache, by
-     *         the time the method returns the key may no longer be in the map.
+     * the time the method returns the key may no longer be in the map.
      */
     public boolean contains(K k) {
         WeakReference<V> w = prefixCache.get(k);
@@ -83,7 +83,9 @@ public class WeakIndexCache<K, V> implements Serializable {
         return false;
     }
 
-    /** empty the cache. */
+    /**
+     * empty the cache.
+     */
     public void clear() {
         prefixCache.clear();
     }

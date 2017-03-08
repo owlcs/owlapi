@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLNaryBooleanClassExpression
-                extends OWLBooleanClassExpression, HasOperands<OWLClassExpression> {
+    extends OWLBooleanClassExpression, HasOperands<OWLClassExpression> {
 
     @Override
     default Stream<?> components() {
@@ -48,7 +48,7 @@ public interface OWLNaryBooleanClassExpression
 
     /**
      * Gets the class expressions returned by {@link #getOperands()} as a list of class expressions.
-     * 
+     *
      * @return The class expressions as a list.
      */
     default List<OWLClassExpression> getOperandsAsList() {

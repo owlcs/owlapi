@@ -2,7 +2,9 @@ package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nullable;
 
-/** Qualifier value. */
+/**
+ * Qualifier value.
+ */
 public class QualifierValue implements Comparable<QualifierValue> {
 
     protected String qualifier;

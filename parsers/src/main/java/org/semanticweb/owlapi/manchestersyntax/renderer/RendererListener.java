@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
  * a renderer event implements this interface, and the object created with that class is registered
  * with a component using the component's {@code addRendererListener} method. When the renderer
  * event occurs, that object's appropriate method is invoked.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -27,7 +27,7 @@ public interface RendererListener {
 
     /**
      * Frame rendering prepared.
-     * 
+     *
      * @param frameName the frame name
      * @param event the event
      */
@@ -35,7 +35,7 @@ public interface RendererListener {
 
     /**
      * Frame rendering started.
-     * 
+     *
      * @param frameName the frame name
      * @param event the event
      */
@@ -43,7 +43,7 @@ public interface RendererListener {
 
     /**
      * Frame rendering finished.
-     * 
+     *
      * @param frameName the frame name
      * @param event the event
      */
@@ -51,7 +51,7 @@ public interface RendererListener {
 
     /**
      * Section rendering prepared.
-     * 
+     *
      * @param sectionName the section name
      * @param event the event
      */
@@ -59,7 +59,7 @@ public interface RendererListener {
 
     /**
      * Section rendering started.
-     * 
+     *
      * @param sectionName the section name
      * @param event the event
      */
@@ -67,7 +67,7 @@ public interface RendererListener {
 
     /**
      * Section item prepared.
-     * 
+     *
      * @param sectionName the section name
      * @param event the event
      */
@@ -75,7 +75,7 @@ public interface RendererListener {
 
     /**
      * Section item finished.
-     * 
+     *
      * @param sectionName the section name
      * @param event the event
      */
@@ -83,7 +83,7 @@ public interface RendererListener {
 
     /**
      * Section rendering finished.
-     * 
+     *
      * @param sectionName the section name
      * @param event the event
      */

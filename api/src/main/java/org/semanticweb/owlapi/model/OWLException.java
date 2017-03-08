@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model;
 
 /**
  * The root of checked exceptions in the OWL API.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */

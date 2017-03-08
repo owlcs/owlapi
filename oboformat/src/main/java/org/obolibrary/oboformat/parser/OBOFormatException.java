@@ -2,17 +2,21 @@ package org.obolibrary.oboformat.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** The Class OBOFormatException. */
+/**
+ * The Class OBOFormatException.
+ */
 public class OBOFormatException extends OWLParserException {
 
-    /** Instantiates a new oBO format exception. */
+    /**
+     * Instantiates a new oBO format exception.
+     */
     public OBOFormatException() {
         super();
     }
 
     /**
      * Instantiates a new oBO format exception.
-     * 
+     *
      * @param message the message
      */
     public OBOFormatException(String message) {
@@ -21,7 +25,7 @@ public class OBOFormatException extends OWLParserException {
 
     /**
      * Instantiates a new oBO format exception.
-     * 
+     *
      * @param e the e
      */
     public OBOFormatException(Throwable e) {
@@ -30,7 +34,7 @@ public class OBOFormatException extends OWLParserException {
 
     /**
      * Instantiates a new oBO format exception.
-     * 
+     *
      * @param message the message
      * @param e the e
      */

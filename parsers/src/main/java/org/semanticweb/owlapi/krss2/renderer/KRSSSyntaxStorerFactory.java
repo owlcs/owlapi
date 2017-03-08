@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  */
 public class KRSSSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public KRSSSyntaxStorerFactory() {
         super(new KRSSDocumentFormatFactory());
     }

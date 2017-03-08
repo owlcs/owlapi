@@ -19,6 +19,23 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class RoundTripTestBasics extends OboFormatTestBasics {
 
+    private static boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2,
+        boolean isExpectRoundtrip,
+        @Nullable Collection<OWLAxiom> untranslatableAxioms) {
+        if (isExpectRoundtrip) {
+            int untranslatedSize = 0;
+            if (untranslatableAxioms != null) {
+                untranslatedSize = untranslatableAxioms.size();
+            }
+            long expectedSize = oo.axioms().count();
+            long foundSize = oo2.axioms().count();
+            assertEquals("Expected same number of axioms", expectedSize,
+                foundSize + untranslatedSize);
+            return false;
+        }
+        return true;
+    }
+
     public List<Diff> roundTripOBOFile(String fn, boolean isExpectRoundtrip) throws Exception {
         OBODoc obodoc = parseOBOFile(fn);
         return roundTripOBODoc(obodoc, isExpectRoundtrip);
@@ -37,13 +54,13 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
     }
 
     public boolean roundTripOWLFile(String fn, boolean isExpectRoundtrip)
-                    throws IOException, OWLOntologyCreationException {
+        throws IOException, OWLOntologyCreationException {
         OWLOntology oo = parseOWLFile(fn);
         return roundTripOWLOOntology(oo, isExpectRoundtrip);
     }
 
     public boolean roundTripOWLOOntology(OWLOntology oo, boolean isExpectRoundtrip)
-                    throws IOException {
+        throws IOException {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m1);
         OBODoc obodoc = bridge.convert(oo);
         writeOBO(obodoc);
@@ -51,24 +68,7 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
         OWLOntology oo2 = convert(obodoc);
         writeOWL(oo2);
         boolean ok = compareOWLOntologiesPartial(oo, oo2, isExpectRoundtrip,
-                        bridge.getUntranslatableAxioms());
+            bridge.getUntranslatableAxioms());
         return ok || !isExpectRoundtrip;
-    }
-
-    private static boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2,
-                    boolean isExpectRoundtrip,
-                    @Nullable Collection<OWLAxiom> untranslatableAxioms) {
-        if (isExpectRoundtrip) {
-            int untranslatedSize = 0;
-            if (untranslatableAxioms != null) {
-                untranslatedSize = untranslatableAxioms.size();
-            }
-            long expectedSize = oo.axioms().count();
-            long foundSize = oo2.axioms().count();
-            assertEquals("Expected same number of axioms", expectedSize,
-                            foundSize + untranslatedSize);
-            return false;
-        }
-        return true;
     }
 }

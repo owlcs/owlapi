@@ -61,7 +61,8 @@ public class OWLProfileReport {
         if (isInProfile()) {
             sb.append("[Ontology and imports closure in profile]\n");
         } else {
-            sb.append("Ontology and imports closure NOT in profile. The following violations are present:\n");
+            sb.append(
+                "Ontology and imports closure NOT in profile. The following violations are present:\n");
         }
         violations.forEach(v -> sb.append(v).append('\n'));
         return sb.toString();

@@ -62,26 +62,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 enum OBOIdType {
     //@formatter:off
     /** Any string with an http: or https: prefix. */
-    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), (ontologyID, idSpaceManager, id) -> IRI.create(id)), /**
-                                                                                                              * Any
-                                                                                                              * unprefixed
-                                                                                                              * ID.
-                                                                                                              * Does
-                                                                                                              * not
-                                                                                                              * contain
-                                                                                                              * a
-                                                                                                              * colon
-                                                                                                              * character.
-                                                                                                              * The
-                                                                                                              * spec
-                                                                                                              * implies
-                                                                                                              * the
-                                                                                                              * empty
-                                                                                                              * string
-                                                                                                              * matches
-                                                                                                              * this
-                                                                                                              * ID.
-                                                                                                              */
+    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), (ontologyID, idSpaceManager, id) -> IRI.create(id)), 
+    /** Any unprefixed ID. Does not contain a colon character. The spec implies the empty string matches this ID. */
     UNPREFIXED_ID(Pattern.compile("[^\\s:]*"), (ontologyID, idSpaceManager, id) -> {
         String ns;
         if (!ontologyID.isAnonymous()) {

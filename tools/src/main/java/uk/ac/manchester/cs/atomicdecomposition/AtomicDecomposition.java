@@ -12,7 +12,9 @@ import org.semanticweb.owlapitools.decomposition.AtomList;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
-/** The atomic decomposition graph */
+/**
+ * The atomic decomposition graph
+ */
 public interface AtomicDecomposition {
 
     /**
@@ -27,10 +29,14 @@ public interface AtomicDecomposition {
      */
     Set<Atom> getDependents(Atom atom);
 
-    /** @return all atoms */
+    /**
+     * @return all atoms
+     */
     Set<Atom> getAtoms();
 
-    /** @return all tautologies */
+    /**
+     * @return all tautologies
+     */
     Set<OWLAxiom> getTautologies();
 
     /**
@@ -40,7 +46,9 @@ public interface AtomicDecomposition {
     @Nullable
     Atom getAtomForAxiom(OWLAxiom axiom);
 
-    /** @return map between entities and atoms referencing them */
+    /**
+     * @return map between entities and atoms referencing them
+     */
     Map<OWLEntity, Set<Atom>> getTermBasedIndex();
 
     /**
@@ -61,10 +69,14 @@ public interface AtomicDecomposition {
      */
     Set<Atom> getRelatedAtoms(Atom atom);
 
-    /** @return the set of top atoms */
+    /**
+     * @return the set of top atoms
+     */
     Set<Atom> getTopAtoms();
 
-    /** @return the set of bottom atoms */
+    /**
+     * @return the set of bottom atoms
+     */
     Set<Atom> getBottomAtoms();
 
     /**
@@ -100,8 +112,10 @@ public interface AtomicDecomposition {
      * @return module stream
      */
     Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics,
-                    ModuleType moduletype);
+        ModuleType moduletype);
 
-    /** @return atom list */
+    /**
+     * @return atom list
+     */
     AtomList getAtomList();
 }

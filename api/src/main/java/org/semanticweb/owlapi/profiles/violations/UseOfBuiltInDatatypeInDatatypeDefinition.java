@@ -32,7 +32,7 @@ public class UseOfBuiltInDatatypeInDatatypeDefinition extends OWLProfileViolatio
      * @param axiom axiom
      */
     public UseOfBuiltInDatatypeInDatatypeDefinition(OWLOntology ontology,
-                    @Nullable OWLDatatypeDefinitionAxiom axiom) {
+        @Nullable OWLDatatypeDefinitionAxiom axiom) {
         super(ontology, axiom, null);
     }
 

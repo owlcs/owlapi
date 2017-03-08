@@ -38,7 +38,7 @@ public interface RangeAxiomProvider {
      * @return an object property range axiom
      */
     default OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
-                    OWLObjectPropertyExpression property, OWLClassExpression range) {
+        OWLObjectPropertyExpression property, OWLClassExpression range) {
         return getOWLObjectPropertyRangeAxiom(property, range, Collections.emptySet());
     }
 
@@ -49,7 +49,7 @@ public interface RangeAxiomProvider {
      * @return an object property range axiom with annotations
      */
     OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
-                    OWLClassExpression range, Collection<OWLAnnotation> annotations);
+        OWLClassExpression range, Collection<OWLAnnotation> annotations);
 
     /**
      * @param property property
@@ -57,7 +57,7 @@ public interface RangeAxiomProvider {
      * @return a data property range axiom
      */
     default OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
-                    OWLDataPropertyExpression property, OWLDataRange owlDataRange) {
+        OWLDataPropertyExpression property, OWLDataRange owlDataRange) {
         return getOWLDataPropertyRangeAxiom(property, owlDataRange, Collections.emptySet());
     }
 
@@ -68,7 +68,7 @@ public interface RangeAxiomProvider {
      * @return a data property range axiom with annotations
      */
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
-                    OWLDataRange owlDataRange, Collection<OWLAnnotation> annotations);
+        OWLDataRange owlDataRange, Collection<OWLAnnotation> annotations);
 
     /**
      * @param property property
@@ -76,7 +76,7 @@ public interface RangeAxiomProvider {
      * @return a data property range axiom
      */
     default OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
-                    OWLDataPropertyExpression property, OWL2Datatype owlDataRange) {
+        OWLDataPropertyExpression property, OWL2Datatype owlDataRange) {
         return getOWLDataPropertyRangeAxiom(property, owlDataRange, Collections.emptySet());
     }
 
@@ -87,7 +87,7 @@ public interface RangeAxiomProvider {
      * @return a data property range axiom with annotations
      */
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
-                    OWL2Datatype owlDataRange, Collection<OWLAnnotation> annotations);
+        OWL2Datatype owlDataRange, Collection<OWLAnnotation> annotations);
 
     /**
      * @param prop prop
@@ -95,7 +95,7 @@ public interface RangeAxiomProvider {
      * @return an annotation property range assertion
      */
     default OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
-                    OWLAnnotationProperty prop, IRI range) {
+        OWLAnnotationProperty prop, IRI range) {
         return getOWLAnnotationPropertyRangeAxiom(prop, range, Collections.emptySet());
     }
 
@@ -106,5 +106,5 @@ public interface RangeAxiomProvider {
      * @return an annotation property range assertion with annotations
      */
     OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop,
-                    IRI range, Collection<OWLAnnotation> annotations);
+        IRI range, Collection<OWLAnnotation> annotations);
 }

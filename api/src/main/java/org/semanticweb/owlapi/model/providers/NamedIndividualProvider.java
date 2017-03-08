@@ -33,7 +33,7 @@ public interface NamedIndividualProvider extends Serializable {
 
     /**
      * Gets an instance of {@link OWLNamedIndividual} that has the specified {@code IRI}.
-     * 
+     *
      * @param iri The IRI.
      * @return An {@link OWLNamedIndividual} that has the specified IRI.
      */
@@ -41,7 +41,7 @@ public interface NamedIndividualProvider extends Serializable {
 
     /**
      * Gets an instance of {@link OWLNamedIndividual} with the same IRI as the input.
-     * 
+     *
      * @param iri The HasIRI instance.
      * @return An {@link OWLNamedIndividual} that has iri.getIRI() as IRI.
      */
@@ -52,7 +52,7 @@ public interface NamedIndividualProvider extends Serializable {
     /**
      * Gets an instance of {@link OWLNamedIndividual} that has the specified {@code IRI}. This is
      * the same as {@code getOWLNamedIndividual(IRI.create(iri))}.
-     * 
+     *
      * @param iri The IRI string.
      * @return An {@link OWLNamedIndividual} that has the specified IRI.
      */
@@ -63,7 +63,7 @@ public interface NamedIndividualProvider extends Serializable {
     /**
      * Gets an instance of {@link OWLNamedIndividual} that has the specified {@code IRI}. This is
      * the same as {@code getOWLNamedIndividual(IRI.create(namespace, remainder))}.
-     * 
+     *
      * @param namespace The IRI namespace.
      * @param remainder optional remainder or local name
      * @return An {@link OWLNamedIndividual} that has the specified IRI.
@@ -77,23 +77,22 @@ public interface NamedIndividualProvider extends Serializable {
      * using an appropriate prefix mapping. See
      * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2 Structural
      * Specification</a> for more details.
-     * 
+     *
      * @param abbreviatedIRI The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs
-     *        always contain a colon as a delimiter, even if the prefix name is the empty string.
+     * PREFIX_NAME may be the empty string (the default prefix). Note that abbreviated IRIs always
+     * contain a colon as a delimiter, even if the prefix name is the empty string.
      * @param prefixManager The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
+     * prefix IRIs.
      * @return An OWLNamedIndividual that has the IRI obtained by expanding the specified
-     *         abbreviated IRI using the specified prefix manager. <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated IRI, the prefix manager
-     *         would be used to obtain the IRI prefix for the "m:" prefix name, this prefix would
-     *         then be concatenated with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLNamedIndividual obtained by this method.
+     * abbreviated IRI using the specified prefix manager. <br> For example, suppose "m:Cat" was
+     * specified as the abbreviated IRI, the prefix manager would be used to obtain the IRI prefix
+     * for the "m:" prefix name, this prefix would then be concatenated with "Cat" to obtain the
+     * full IRI which would be the IRI of the OWLNamedIndividual obtained by this method.
      * @throws OWLRuntimeException if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
+     * a mapping to a prefix in the specified prefix manager.
      */
     default OWLNamedIndividual getOWLNamedIndividual(String abbreviatedIRI,
-                    PrefixManager prefixManager) {
+        PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "curi canno be null");
         checkNotNull(prefixManager, "prefixManager cannot be null");
         return getOWLNamedIndividual(prefixManager.getIRI(abbreviatedIRI));

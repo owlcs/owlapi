@@ -34,7 +34,7 @@ public class UseOfObjectPropertyInverse extends OWLProfileViolation {
      * @param propertyExpression propertyExpression
      */
     public UseOfObjectPropertyInverse(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLObjectPropertyExpression propertyExpression) {
+        OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom, propertyExpression);
     }
 

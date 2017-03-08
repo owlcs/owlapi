@@ -25,7 +25,7 @@ public interface RDFConsumer {
 
     /**
      * Called when model parsing is started.
-     * 
+     *
      * @param physicalURI physical URI of the model
      * @throws OWLRuntimeException OWLRuntimeException
      */
@@ -33,14 +33,14 @@ public interface RDFConsumer {
 
     /**
      * Called when model parsing is finished.
-     * 
+     *
      * @throws OWLRuntimeException OWLRuntimeException
      */
     void endModel();
 
     /**
      * Called when a statement with resource value is added to the model.
-     * 
+     *
      * @param subject URI of the subject resource
      * @param predicate URI of the predicate resource
      * @param object URI of the object resource
@@ -50,7 +50,7 @@ public interface RDFConsumer {
 
     /**
      * Called when a statement with resource value is added to the model.
-     * 
+     *
      * @param subject URI of the subject resource
      * @param predicate URI of the predicate resource
      * @param object URI of the object resource
@@ -60,7 +60,7 @@ public interface RDFConsumer {
 
     /**
      * Called when a statement with literal value is added to the model.
-     * 
+     *
      * @param subject URI of the subject resource
      * @param predicate URI of the predicate resource
      * @param object literal object value
@@ -69,11 +69,11 @@ public interface RDFConsumer {
      * @throws OWLRuntimeException OWLRuntimeException
      */
     void statementWithLiteralValue(String subject, String predicate, String object,
-                    @Nullable String language, @Nullable String datatype);
+        @Nullable String language, @Nullable String datatype);
 
     /**
      * Called when a statement with literal value is added to the model.
-     * 
+     *
      * @param subject URI of the subject resource
      * @param predicate URI of the predicate resource
      * @param object literal object value
@@ -82,11 +82,11 @@ public interface RDFConsumer {
      * @throws OWLRuntimeException OWLRuntimeException
      */
     void statementWithLiteralValue(IRI subject, IRI predicate, String object,
-                    @Nullable String language, @Nullable IRI datatype);
+        @Nullable String language, @Nullable IRI datatype);
 
     /**
      * Receives the logical URI of the model.
-     * 
+     *
      * @param logicalURI logical URI of the model
      * @throws OWLRuntimeException OWLRuntimeException
      */
@@ -95,7 +95,7 @@ public interface RDFConsumer {
     /**
      * Receives the notification that the model being parsed includes another model with supplied
      * URIs.
-     * 
+     *
      * @param logicalURI logical URI of the model
      * @param physicalURI physical URI of the model
      * @throws OWLRuntimeException OWLRuntimeException
@@ -105,7 +105,7 @@ public interface RDFConsumer {
     /**
      * for iris that need to be mapped to blank nodes, e.g., SWRL rules with an IRI - the IRI should
      * be dropped for such constructs.
-     * 
+     *
      * @param i iri to remap if not blank
      * @return blank iri remapping i
      */
@@ -114,7 +114,7 @@ public interface RDFConsumer {
     /**
      * for iris that have been remapped to blank nodes, e.g., SWRL rules: the triple subject
      * swrl:body object, for example, needs the subject to be remapped consistently.
-     * 
+     *
      * @param i iri to remap if not blank
      * @return blank iri remapping i, or i if i has not been remapped earlier.
      */
@@ -122,7 +122,7 @@ public interface RDFConsumer {
 
     /**
      * Add a prefix to the underlying ontology format, if prefixes are supported.
-     * 
+     *
      * @param abbreviation short name for prefix
      * @param value replacement for short version
      */

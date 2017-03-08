@@ -17,7 +17,7 @@ import java.util.Comparator;
 
 /**
  * String comparator interface (allows to store comparators without serialization complaints).
- * 
+ *
  * @since 4.0.0
  */
 public interface StringComparator extends Comparator<String>, Serializable {

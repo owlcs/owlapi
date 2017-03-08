@@ -21,9 +21,11 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
-/** Builder class for OWLNegativeObjectPropertyAssertionAxiom. */
+/**
+ * Builder class for OWLNegativeObjectPropertyAssertionAxiom.
+ */
 public class BuilderNegativeObjectPropertyAssertion extends
-                BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
+    BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
 
     @Nullable
     private OWLIndividual subject = null;
@@ -32,15 +34,15 @@ public class BuilderNegativeObjectPropertyAssertion extends
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderNegativeObjectPropertyAssertion(OWLNegativeObjectPropertyAssertionAxiom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withSubject(expected.getSubject()).withProperty(expected.getProperty())
-                        .withValue(expected.getObject()).withAnnotations(expected.annotations());
+            .withValue(expected.getObject()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -72,7 +74,7 @@ public class BuilderNegativeObjectPropertyAssertion extends
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom buildObject() {
         return df.getOWLNegativeObjectPropertyAssertionAxiom(verifyNotNull(getProperty()),
-                        verifyNotNull(subject), verifyNotNull(value), annotations);
+            verifyNotNull(subject), verifyNotNull(value), annotations);
     }
 
     /**

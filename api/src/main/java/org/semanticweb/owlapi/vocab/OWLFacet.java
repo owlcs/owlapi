@@ -29,11 +29,11 @@ import org.semanticweb.owlapi.model.IRI;
 
 /**
  * Represents the facets that can be used for restricting a datatype.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
- * @since 2.0.0
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
+ * @since 2.0.0
  */
 public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
@@ -49,7 +49,9 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     /** FRACTION_DIGITS. */  FRACTION_DIGITS (Namespaces.XSD, "fractionDigits",  "fractionDigits"), 
     /** LANG_RANGE. */       LANG_RANGE      (Namespaces.RDF, "langRange",       "langRange");
 //@formatter:on
-    /** All facet iris. */
+    /**
+     * All facet iris.
+     */
     public static final Map<IRI, OWLFacet> FACET_IRIS = asMap(stream(), HasIRI::getIRI);
     private final IRI iri;
     private final String shortForm;
@@ -65,28 +67,6 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 
     private static Stream<OWLFacet> stream() {
         return Stream.of(values());
-    }
-
-    @Override
-    public String getShortForm() {
-        return shortForm;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
-
-    /**
-     * @return symbolic form
-     */
-    public String getSymbolicForm() {
-        return symbolicForm;
-    }
-
-    @Override
-    public String toString() {
-        return getShortForm();
     }
 
     /**
@@ -111,7 +91,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 
     /**
      * Gets a facet by its short name.
-     * 
+     *
      * @param shortName The short name of the facet.
      * @return The facet or {@code null} if not facet by the specified name exists.
      */
@@ -128,7 +108,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     @Nullable
     public static OWLFacet getFacetBySymbolicName(String symbolicName) {
         return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny()
-                        .orElse(null);
+            .orElse(null);
     }
 
     /**
@@ -136,6 +116,28 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<String> getFacets() {
         return asSet(stream().map(v -> v.getSymbolicForm()));
+    }
+
+    @Override
+    public String getShortForm() {
+        return shortForm;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
+    }
+
+    /**
+     * @return symbolic form
+     */
+    public String getSymbolicForm() {
+        return symbolicForm;
+    }
+
+    @Override
+    public String toString() {
+        return getShortForm();
     }
 
     @Override

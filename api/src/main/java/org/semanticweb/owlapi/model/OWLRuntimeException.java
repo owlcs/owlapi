@@ -18,13 +18,15 @@ import javax.annotation.Nullable;
 
 /**
  * The root of runtime exceptions in the OWL API.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLRuntimeException extends RuntimeException implements Serializable {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLRuntimeException() {
         super();
     }

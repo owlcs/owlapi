@@ -12,7 +12,9 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** An atom in the atomic decomposition */
+/**
+ * An atom in the atomic decomposition
+ */
 public class Atom {
 
     private final Collection<OWLAxiom> axioms;
@@ -46,18 +48,24 @@ public class Atom {
         }
     }
 
-    /** @return signature for the atom */
+    /**
+     * @return signature for the atom
+     */
     public Collection<OWLEntity> getSignature() {
         initSignature();
         return verifyNotNull(signature);
     }
 
-    /** @return axioms in the atom */
+    /**
+     * @return axioms in the atom
+     */
     public Collection<OWLAxiom> getAxioms() {
         return axioms;
     }
 
-    /** @return label for the atom */
+    /**
+     * @return label for the atom
+     */
     @Nullable
     public Collection<OWLEntity> getLabel() {
         return label;

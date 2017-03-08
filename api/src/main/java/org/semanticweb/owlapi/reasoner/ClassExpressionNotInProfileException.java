@@ -33,12 +33,16 @@ public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeExce
         this.profile = profile;
     }
 
-    /** @return wrong expression */
+    /**
+     * @return wrong expression
+     */
     public OWLClassExpression getClassExpression() {
         return classExpression;
     }
 
-    /** @return profile */
+    /**
+     * @return profile
+     */
     public IRI getProfile() {
         return profile;
     }

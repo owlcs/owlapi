@@ -3,7 +3,9 @@ package org.semanticweb.owlapitools.decomposition;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 
-/** helper class to set signature and locality class */
+/**
+ * helper class to set signature and locality class
+ */
 public class SigAccessor implements OWLObjectVisitor {
 
     LocalityChecker localityChecker;
@@ -23,7 +25,9 @@ public class SigAccessor implements OWLObjectVisitor {
         return expr.isTopDatatype() || expr.isOWLDatatype() && expr.asOWLDatatype().isBuiltIn();
     }
 
-    /** @return true iff roles are treated as TOPs */
+    /**
+     * @return true iff roles are treated as TOPs
+     */
     public boolean topRLocal() {
         return localityChecker.getSignature().topRLocal();
     }

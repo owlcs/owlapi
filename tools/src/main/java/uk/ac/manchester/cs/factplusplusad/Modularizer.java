@@ -18,29 +18,47 @@ import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
-/** class to create modules of an ontology wrt module type */
+/**
+ * class to create modules of an ontology wrt module type
+ */
 public class Modularizer {
 
-    /** shared signature signature */
-    private Signature sig = new Signature();
-    /** internal syntactic locality checker */
-    private LocalityChecker checker;
-    /** module as a list of axioms */
-    private List<AxiomWrapper> module = new ArrayList<>();
-    /** pointer to a sig index; if not NULL then use optimized algo */
+    /**
+     * pointer to a sig index; if not NULL then use optimized algo
+     */
     private final SigIndex sigIndex;
-    /** queue of unprocessed entities */
+    /**
+     * shared signature signature
+     */
+    private Signature sig = new Signature();
+    /**
+     * internal syntactic locality checker
+     */
+    private LocalityChecker checker;
+    /**
+     * module as a list of axioms
+     */
+    private List<AxiomWrapper> module = new ArrayList<>();
+    /**
+     * queue of unprocessed entities
+     */
     private Deque<OWLEntity> workQueue;
-    /** number of locality check calls */
+    /**
+     * number of locality check calls
+     */
     private long nChecks = 0;
-    /** number of non-local axioms */
+    /**
+     * number of non-local axioms
+     */
     private long nNonLocal = 0;
-    /** true if no atoms are processed ATM */
+    /**
+     * true if no atoms are processed ATM
+     */
     private boolean noAtomsProcessing = true;
 
     /**
      * init c'tor
-     * 
+     *
      * @param moduleMethod module method
      */
     Modularizer(ModuleMethod moduleMethod) {
@@ -51,7 +69,7 @@ public class Modularizer {
 
     /**
      * update SIG wrt the axiom signature
-     * 
+     *
      * @param axiomSig signature to add
      */
     void addAxiomSig(Stream<OWLEntity> axiomSig) {
@@ -64,7 +82,7 @@ public class Modularizer {
 
     /**
      * add an axiom to a module
-     * 
+     *
      * @param axiom axiom
      */
     private void addAxiomToModule(AxiomWrapper axiom) {
@@ -89,7 +107,7 @@ public class Modularizer {
 
     /**
      * add an axiom if it is non-local (or in noCheck is true)
-     * 
+     *
      * @param ax axiom to add
      * @param noCheck check or not
      */
@@ -106,7 +124,7 @@ public class Modularizer {
 
     /**
      * Add all the non-local axioms from given axiom-set AxSet.
-     * 
+     *
      * @param axSet axiom set
      * @param noCheck check or not
      */
@@ -118,7 +136,9 @@ public class Modularizer {
         }
     }
 
-    /** build a module traversing axioms by a signature */
+    /**
+     * build a module traversing axioms by a signature
+     */
     private void extractModuleQueue() {
         // init queue with a sig
         add(workQueue, sig.getSignature());
@@ -135,7 +155,7 @@ public class Modularizer {
 
     /**
      * extract module wrt presence of a sig index
-     * 
+     *
      * @param list axioms
      */
     private void extractModule(Collection<AxiomWrapper> list) {
@@ -153,7 +173,7 @@ public class Modularizer {
 
     /**
      * allow the checker to preprocess an ontology if necessary
-     * 
+     *
      * @param axioms list of wrapped axioms
      */
     public void preprocessOntology(Collection<AxiomWrapper> axioms) {
@@ -166,7 +186,7 @@ public class Modularizer {
 
     /**
      * extract module wrt SIGNATURE and TYPE from the set of axioms
-     * 
+     *
      * @param axioms axiom
      * @param signature signature
      * @param type type
@@ -212,22 +232,30 @@ public class Modularizer {
         return checker.local(ax);
     }
 
-    /** @return the Locality checker */
+    /**
+     * @return the Locality checker
+     */
     public LocalityChecker getLocalityChecker() {
         return checker;
     }
 
-    /** @return the last computed module */
+    /**
+     * @return the last computed module
+     */
     public Collection<AxiomWrapper> getModule() {
         return module;
     }
 
-    /** @return number of checks made */
+    /**
+     * @return number of checks made
+     */
     long getNChecks() {
         return nChecks;
     }
 
-    /** @return number of axioms that were local */
+    /**
+     * @return number of axioms that were local
+     */
     long getNNonLocal() {
         return nNonLocal;
     }

@@ -34,11 +34,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * associated with ontology A since A appears higher up the imports closure. An example of the use
  * of this class is to obtain a map of ontologies to sets of entities where each set of entities
  * contains entities that are first mentioned in the ontology that maps to them.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
- * @since 2.2.0
- * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
+ *
  * @param <O> the type
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
+ * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
+ * @since 2.2.0
  */
 public class ImportsStructureObjectSorter<O> {
 
@@ -49,10 +49,10 @@ public class ImportsStructureObjectSorter<O> {
      * Creates a sorter for the specified ontology, whose imports closure is obtained with the
      * specified manager, and for each ontology whose objects are selected using the specified
      * object selector.
-     * 
+     *
      * @param ontology The ontology
      * @param objectSelector The selector that will be used to select objects that are associated
-     *        with each ontology.
+     * with each ontology.
      */
     public ImportsStructureObjectSorter(OWLOntology ontology, ObjectSelector<O> objectSelector) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
@@ -62,7 +62,7 @@ public class ImportsStructureObjectSorter<O> {
     /**
      * Gets a map that maps ontologies to sets of associated objects. The ontologies will be the
      * ontologies that are contained in the imports closure of the original specified ontology.
-     * 
+     *
      * @return The map.
      */
     public Map<OWLOntology, Set<O>> getObjects() {
@@ -71,7 +71,7 @@ public class ImportsStructureObjectSorter<O> {
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<>();
         Set<O> processed = new HashSet<>();
         imports.forEach(ont -> ontology2EntityMap.put(ont,
-                        asSet(objectSelector.objects(ont).filter(processed::add))));
+            asSet(objectSelector.objects(ont).filter(processed::add))));
         return ontology2EntityMap;
     }
 

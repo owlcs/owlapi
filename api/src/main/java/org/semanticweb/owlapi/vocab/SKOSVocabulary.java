@@ -87,7 +87,9 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     @Deprecated
     COMMENT("comment", ANNOTATION_PROPERTY);
 //@formatter:on
-    /** All IRIs. */
+    /**
+     * All IRIs.
+     */
     public static final Set<IRI> ALL_IRIS = asSet(stream().map(v -> v.getIRI()));
     private final String localName;
     private final IRI iri;
@@ -103,6 +105,43 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
     private static Stream<SKOSVocabulary> stream() {
         return Stream.of(values());
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS annotation properties
+     */
+    public static Set<OWLAnnotationProperty> getAnnotationProperties(
+        AnnotationPropertyProvider dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY))
+            .map(v -> dataFactory.getOWLAnnotationProperty(v.iri)));
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS object properties
+     */
+    public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY))
+            .map(v -> dataFactory.getOWLObjectProperty(v.iri)));
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS data properties
+     */
+    public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY))
+            .map(v -> dataFactory.getOWLDataProperty(v.iri)));
+    }
+
+    /**
+     * @param dataFactory data factory to use
+     * @return set of SKOS classes
+     */
+    public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
+        return asSet(stream().filter(v -> v.entityType.equals(CLASS))
+            .map(v -> dataFactory.getOWLClass(v.iri)));
     }
 
     /**
@@ -122,43 +161,6 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    /**
-     * @param dataFactory data factory to use
-     * @return set of SKOS annotation properties
-     */
-    public static Set<OWLAnnotationProperty> getAnnotationProperties(
-                    AnnotationPropertyProvider dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY))
-                        .map(v -> dataFactory.getOWLAnnotationProperty(v.iri)));
-    }
-
-    /**
-     * @param dataFactory data factory to use
-     * @return set of SKOS object properties
-     */
-    public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY))
-                        .map(v -> dataFactory.getOWLObjectProperty(v.iri)));
-    }
-
-    /**
-     * @param dataFactory data factory to use
-     * @return set of SKOS data properties
-     */
-    public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY))
-                        .map(v -> dataFactory.getOWLDataProperty(v.iri)));
-    }
-
-    /**
-     * @param dataFactory data factory to use
-     * @return set of SKOS classes
-     */
-    public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
-        return asSet(stream().filter(v -> v.entityType.equals(CLASS))
-                        .map(v -> dataFactory.getOWLClass(v.iri)));
     }
 
     @Override

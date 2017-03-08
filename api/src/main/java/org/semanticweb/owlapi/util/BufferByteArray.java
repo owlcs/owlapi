@@ -22,7 +22,9 @@ import java.io.ByteArrayOutputStream;
  */
 public class BufferByteArray extends ByteArrayOutputStream {
 
-    /** Default constructor setting the array size to 16K */
+    /**
+     * Default constructor setting the array size to 16K
+     */
     public BufferByteArray() {
         super(16384);
     }
@@ -36,8 +38,8 @@ public class BufferByteArray extends ByteArrayOutputStream {
 
     /**
      * @return the baking byte array. Make sure that no more writes to the stream happen after the
-     *         array has been accessed - if the array is updated or extended after it has been
-     *         accessed, data will be lost.
+     * array has been accessed - if the array is updated or extended after it has been accessed,
+     * data will be lost.
      */
     public byte[] byteArray() {
         return buf;

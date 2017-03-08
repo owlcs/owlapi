@@ -52,30 +52,44 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** syntactic locality checker for DL axioms */
+/**
+ * syntactic locality checker for DL axioms
+ */
 public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecker {
 
-    private Signature sig = new Signature();
-    /** top evaluator */
+    /**
+     * top evaluator
+     */
     TopEquivalenceEvaluator topEval;
-    /** bottom evaluator */
+    /**
+     * bottom evaluator
+     */
     BotEquivalenceEvaluator botEval;
-    /** remember the axiom locality value here */
+    /**
+     * remember the axiom locality value here
+     */
     boolean isLocal;
+    private Signature sig = new Signature();
 
-    /** init c'tor */
+    /**
+     * init c'tor
+     */
     public SyntacticLocalityChecker() {
         topEval = new TopEquivalenceEvaluator(this);
         botEval = new BotEquivalenceEvaluator(this);
     }
 
-    /** @return true iff EXPR is top equivalent */
+    /**
+     * @return true iff EXPR is top equivalent
+     */
     @Override
     public boolean isTopEquivalent(OWLObject expr) {
         return topEval.isTopEquivalent(expr);
     }
 
-    /** @return true iff EXPR is bottom equivalent */
+    /**
+     * @return true iff EXPR is bottom equivalent
+     */
     @Override
     public boolean isBotEquivalent(OWLObject expr) {
         return botEval.isBotEquivalent(expr);
@@ -95,7 +109,10 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
     }
 
     // set fields
-    /** @return true iff an AXIOM is local wrt defined policy */
+
+    /**
+     * @return true iff an AXIOM is local wrt defined policy
+     */
     @Override
     public boolean local(OWLAxiom axiom) {
         axiom.accept(this);
@@ -133,7 +150,7 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
 
     /**
      * Processing method for all Disjoint axioms.
-     * 
+     *
      * @param axiom axiom
      * @return true if axiom is local
      */
@@ -248,19 +265,19 @@ public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecke
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
         isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
-                        || isTopEquivalent(p1) && isTopEquivalent(p2);
+            || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         isLocal = isTopEquivalent(axiom.getSuperProperty())
-                        || isBotEquivalent(axiom.getSubProperty());
+            || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         isLocal = isTopEquivalent(axiom.getSuperProperty())
-                        || isBotEquivalent(axiom.getSubProperty());
+            || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

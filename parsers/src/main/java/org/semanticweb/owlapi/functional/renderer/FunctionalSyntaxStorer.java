@@ -34,7 +34,7 @@ public class FunctionalSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try {
             ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));
             writer.flush();

@@ -20,7 +20,7 @@ public interface OWLAnonymousIndividualVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLAnonymousIndividual type
-     * 
+     *
      * @param individual object to visit
      */
     default void visit(OWLAnonymousIndividual individual) {

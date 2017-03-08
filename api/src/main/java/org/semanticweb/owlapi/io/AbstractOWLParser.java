@@ -18,7 +18,7 @@ import java.io.Serializable;
  * A convenience base class for parsers, which provides a mechanism to manage the setting and
  * getting of the {@code OWLOntologyManager} that should be associated with the parser. Note: all
  * current parser implementations are stateless.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */

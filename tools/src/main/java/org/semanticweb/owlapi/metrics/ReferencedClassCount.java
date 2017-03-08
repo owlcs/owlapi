@@ -25,7 +25,7 @@ public class ReferencedClassCount extends ObjectCountMetric<OWLClass> {
 
     /**
      * Instantiates a new referenced class count.
-     * 
+     *
      * @param o ontology to use
      */
     public ReferencedClassCount(OWLOntology o) {

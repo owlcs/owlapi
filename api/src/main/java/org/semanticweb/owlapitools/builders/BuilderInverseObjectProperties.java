@@ -21,24 +21,26 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLInverseObjectPropertiesAxiom. */
+/**
+ * Builder class for OWLInverseObjectPropertiesAxiom.
+ */
 public class BuilderInverseObjectProperties extends
-                BaseObjectPropertyBuilder<OWLInverseObjectPropertiesAxiom, BuilderInverseObjectProperties> {
+    BaseObjectPropertyBuilder<OWLInverseObjectPropertiesAxiom, BuilderInverseObjectProperties> {
 
     @Nullable
     private OWLObjectPropertyExpression inverseProperty = null;
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderInverseObjectProperties(OWLInverseObjectPropertiesAxiom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withProperty(expected.getFirstProperty()).withInverseProperty(expected.getSecondProperty())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**
@@ -61,7 +63,7 @@ public class BuilderInverseObjectProperties extends
     @Override
     public OWLInverseObjectPropertiesAxiom buildObject() {
         return df.getOWLInverseObjectPropertiesAxiom(verifyNotNull(getProperty()), getInverse(),
-                        annotations);
+            annotations);
     }
 
     /**

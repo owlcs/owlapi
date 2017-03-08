@@ -76,8 +76,8 @@ import org.slf4j.LoggerFactory;
 @HasPriority(7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
-    private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
     protected static final Logger LOGGER = LoggerFactory.getLogger(RioParserImpl.class);
+    private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
     private final RioRDFDocumentFormatFactory owlFormatFactory;
 
     /**
@@ -96,7 +96,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         String baseUri = "urn:default:baseUri:";
         // Override the default baseUri for non-anonymous ontologies
         if (!ontology.getOntologyID().isAnonymous()
-                        && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
+            && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
             baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
         }
         return baseUri;
@@ -104,7 +104,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     @Override
     public OWLDocumentFormat parse(RioMemoryTripleSource r, OWLOntology o,
-                    OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+        OWLOntologyLoaderConfiguration config, IRI documentIRI) {
         RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(o, CHECKER, config);
         consumer.setOntologyFormat(owlFormatFactory.createFormat());
         RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
@@ -120,18 +120,18 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI iri) {
+        IRI iri) {
         return parseStream(r, o, config);
     }
 
     @Override
     public OWLDocumentFormat parse(InputStream in, String cs, OWLOntology o,
-                    OWLOntologyLoaderConfiguration config, IRI iri) {
+        OWLOntologyLoaderConfiguration config, IRI iri) {
         return parseStream(in, o, config);
     }
 
     private OWLDocumentFormat parseStream(Object r, OWLOntology o,
-                    OWLOntologyLoaderConfiguration config) {
+        OWLOntologyLoaderConfiguration config) {
         long rioParseStart = System.currentTimeMillis();
         try {
             RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(o, CHECKER, config);
@@ -139,9 +139,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
             final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
             createParser.getParserConfig()
-                            .addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
+                .addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
             createParser.getParserConfig()
-                            .addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
+                .addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
             createParser.setRDFHandler(handler);
             if (r instanceof Reader) {
                 createParser.parse((Reader) r, baseIRI(o));
@@ -153,7 +153,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             // See sourceforge bug 3566820 for more information about this
             // branch
             if (e.getCause() != null && e.getCause().getCause() != null
-                            && e.getCause().getCause() instanceof UnloadableImportException) {
+                && e.getCause().getCause() instanceof UnloadableImportException) {
                 throw (UnloadableImportException) e.getCause().getCause();
             } else {
                 throw new OWLParserException(e);
@@ -163,7 +163,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         } finally {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("rioParse: timing={}",
-                                Long.valueOf(System.currentTimeMillis() - rioParseStart));
+                    Long.valueOf(System.currentTimeMillis() - rioParseStart));
             }
         }
     }
@@ -213,9 +213,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
         private static final Logger LOG = LoggerFactory.getLogger(RioParserRDFHandler.class);
         protected final RioOWLRDFConsumerAdapter consumer;
-        private long owlParseStart;
         private final Set<Resource> typedLists = new HashSet<>();
         private final ValueFactory vf = SimpleValueFactory.getInstance();
+        private long owlParseStart;
 
         RioParserRDFHandler(RioOWLRDFConsumerAdapter consumer) {
             this.consumer = consumer;
@@ -237,7 +237,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 consumer.endRDF();
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("owlParse: timing={}",
-                                    Long.valueOf(System.currentTimeMillis() - owlParseStart));
+                        Long.valueOf(System.currentTimeMillis() - owlParseStart));
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLParserException(e);
@@ -258,19 +258,19 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             checkNotNull(nextStatement);
             assert nextStatement != null;
             if (nextStatement.getPredicate().equals(RDF.FIRST)
-                            || nextStatement.getPredicate().equals(RDF.REST)) {
+                || nextStatement.getPredicate().equals(RDF.REST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
                     typedLists.add(nextStatement.getSubject());
                     try {
                         consumer.handleStatement(vf.createStatement(nextStatement.getSubject(),
-                                        RDF.TYPE, RDF.LIST));
+                            RDF.TYPE, RDF.LIST));
                     } catch (RDFHandlerException e) {
                         throw new OWLParserException(e);
                     }
                     LOG.debug("Implicitly typing list={}", nextStatement);
                 }
             } else if (nextStatement.getPredicate().equals(RDF.TYPE)
-                            && nextStatement.getObject().equals(RDF.LIST)) {
+                && nextStatement.getObject().equals(RDF.LIST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
                     LOG.debug("Explicit list type found={}", nextStatement);
                     typedLists.add(nextStatement.getSubject());

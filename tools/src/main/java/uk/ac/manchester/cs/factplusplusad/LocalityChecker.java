@@ -8,19 +8,41 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapitools.decomposition.AxiomWrapper;
 
-/** base class for checking locality of a DL axiom */
+/**
+ * base class for checking locality of a DL axiom
+ */
 class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
 
-    /** remember the axiom locality value here */
+    /**
+     * remember the axiom locality value here
+     */
     boolean isLocal = true;
 
     /**
      * init c'tor
-     * 
+     *
      * @param s signature
      */
     LocalityChecker(Signature s) {
         super(s);
+    }
+
+    /**
+     * @param moduleMethod modularisation method
+     * @param pSig signature
+     * @return locality checker by a method
+     */
+    static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
+        switch (moduleMethod) {
+            case SYNTACTIC_STANDARD:
+                return new SyntacticLocalityChecker(pSig);
+            case SYNTACTIC_COUNTING:
+                return new ExtendedSyntacticLocalityChecker(pSig);
+            case QUERY_ANSWERING:
+                // return new SemanticLocalityChecker(pSig);
+            default:
+                throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
+        }
     }
 
     public void preprocessOntology(@SuppressWarnings("unused") Collection<AxiomWrapper> axioms) {
@@ -41,23 +63,5 @@ class LocalityChecker extends SigAccessor implements OWLAxiomVisitor {
      */
     void setSignatureValue(Signature sig) {
         this.sig.setSignature(sig);
-    }
-
-    /**
-     * @param moduleMethod modularisation method
-     * @param pSig signature
-     * @return locality checker by a method
-     */
-    static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
-        switch (moduleMethod) {
-            case SYNTACTIC_STANDARD:
-                return new SyntacticLocalityChecker(pSig);
-            case SYNTACTIC_COUNTING:
-                return new ExtendedSyntacticLocalityChecker(pSig);
-            case QUERY_ANSWERING:
-                // return new SemanticLocalityChecker(pSig);
-            default:
-                throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
-        }
     }
 }

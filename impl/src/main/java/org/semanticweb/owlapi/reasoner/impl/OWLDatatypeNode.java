@@ -26,7 +26,9 @@ import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
  */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLDatatypeNode() {
         super();
     }

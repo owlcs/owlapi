@@ -55,7 +55,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     /**
      * returns a mutable set of values connected to the key; if no value is connected, returns an
      * immutable empty set
-     * 
+     *
      * @param key key
      * @return the set of values connected with the key
      */
@@ -67,12 +67,16 @@ public class IdentityMultiMap<K, V> implements Serializable {
         return Collections.emptyList();
     }
 
-    /** @return the set of keys */
+    /**
+     * @return the set of keys
+     */
     public Set<K> keySet() {
         return this.map.keySet();
     }
 
-    /** @return all values in the map */
+    /**
+     * @return all values in the map
+     */
     public Set<V> getAllValues() {
         Set<V> toReturn = CollectionFactory.createSet();
         for (Collection<V> s : this.map.values()) {
@@ -83,7 +87,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
 
     /**
      * removes the set of values connected to the key
-     * 
+     *
      * @param key key
      * @return true if changes made
      */
@@ -98,7 +102,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     /**
      * removes the value connected to the key; if there is more than one value connected to the key,
      * only one is removed
-     * 
+     *
      * @param key key
      * @param value value
      * @return true if changes made
@@ -120,7 +124,9 @@ public class IdentityMultiMap<K, V> implements Serializable {
         return false;
     }
 
-    /** @return the size of the multimap (sum of all the sizes of the sets) */
+    /**
+     * @return the size of the multimap (sum of all the sizes of the sets)
+     */
     public int size() {
         if (size < 0) {
             size = getAllValues().size();
@@ -163,7 +169,7 @@ public class IdentityMultiMap<K, V> implements Serializable {
     }
 
     /**
-     * 
+     *
      */
     public void clear() {
         this.map.clear();
@@ -198,7 +204,9 @@ public class IdentityMultiMap<K, V> implements Serializable {
         size = -1;
     }
 
-    /** @return true if duplicate value sets */
+    /**
+     * @return true if duplicate value sets
+     */
     public boolean isValueSetsEqual() {
         if (map.size() < 2) {
             return true;

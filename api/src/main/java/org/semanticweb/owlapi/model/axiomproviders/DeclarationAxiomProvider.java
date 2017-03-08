@@ -23,12 +23,14 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Declaration provider interface. */
+/**
+ * Declaration provider interface.
+ */
 public interface DeclarationAxiomProvider {
 
     /**
      * Gets a declaration for an entity
-     * 
+     *
      * @param owlEntity The declared entity.
      * @return The declaration axiom for the specified entity.
      */
@@ -38,14 +40,14 @@ public interface DeclarationAxiomProvider {
 
     /**
      * Gets a declaration with zero or more annotations for an entity
-     * 
+     *
      * @param owlEntity The declared entity.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return The declaration axiom for the specified entity which is annotated with the specified
-     *         annotations
+     * annotations
      */
     OWLDeclarationAxiom getOWLDeclarationAxiom(OWLEntity owlEntity,
-                    Collection<OWLAnnotation> annotations);
+        Collection<OWLAnnotation> annotations);
 
     /**
      * @param datatype data type
@@ -53,7 +55,7 @@ public interface DeclarationAxiomProvider {
      * @return a datatype definition axiom
      */
     default OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype,
-                    OWLDataRange dataRange) {
+        OWLDataRange dataRange) {
         return getOWLDatatypeDefinitionAxiom(datatype, dataRange, Collections.emptySet());
     }
 
@@ -64,7 +66,7 @@ public interface DeclarationAxiomProvider {
      * @return a datatype definition axiom with annotations
      */
     OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype,
-                    OWLDataRange dataRange, Collection<OWLAnnotation> annotations);
+        OWLDataRange dataRange, Collection<OWLAnnotation> annotations);
 
     /**
      * @param datatype data type
@@ -72,7 +74,7 @@ public interface DeclarationAxiomProvider {
      * @return a datatype definition axiom
      */
     default OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype,
-                    OWL2Datatype dataRange) {
+        OWL2Datatype dataRange) {
         return getOWLDatatypeDefinitionAxiom(datatype, dataRange, Collections.emptySet());
     }
 
@@ -83,5 +85,5 @@ public interface DeclarationAxiomProvider {
      * @return a datatype definition axiom with annotations
      */
     OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype,
-                    OWL2Datatype dataRange, Collection<OWLAnnotation> annotations);
+        OWL2Datatype dataRange, Collection<OWLAnnotation> annotations);
 }

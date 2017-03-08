@@ -22,17 +22,17 @@ public interface OWLProfile extends HasIRI {
 
     /**
      * Gets the name of the profile.
-     * 
+     *
      * @return A string that represents the name of the profile
      */
     String getName();
 
     /**
      * Checks an ontology and its import closure to see if it is within this profile.
-     * 
+     *
      * @param ontology The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the ontology is within this
-     *         profile.
+     * profile.
      */
     OWLProfileReport checkOntology(OWLOntology ontology);
 }

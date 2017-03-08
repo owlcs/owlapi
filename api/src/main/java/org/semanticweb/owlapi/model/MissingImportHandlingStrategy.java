@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model;
 
 /**
  * Specifies how missing imports should be treated during loading.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
  */
@@ -23,8 +23,7 @@ public enum MissingImportHandlingStrategy implements ByName<MissingImportHandlin
      * Specifies that an {@link org.semanticweb.owlapi.model.UnloadableImportException} will NOT be
      * thrown during ontology loading if an import cannot be loaded (for what ever reason). Instead,
      * any registered {@link org.semanticweb.owlapi.model.MissingImportListener}s will be informed
-     * of the problem via their
-     * {@link org.semanticweb.owlapi.model.MissingImportListener#importMissing(org.semanticweb.owlapi.model.MissingImportEvent)}
+     * of the problem via their {@link org.semanticweb.owlapi.model.MissingImportListener#importMissing(org.semanticweb.owlapi.model.MissingImportEvent)}
      * method.
      */
     SILENT,

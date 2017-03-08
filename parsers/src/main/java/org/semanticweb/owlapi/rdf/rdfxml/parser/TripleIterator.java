@@ -7,7 +7,7 @@ interface TripleIterator<T> {
 
     /**
      * Handle resource triple.
-     * 
+     *
      * @param subject the subject
      * @param predicate the predicate
      * @param object the object

@@ -76,20 +76,20 @@ public class RDFXMLRenderer extends RDFRendererBase {
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"),
-                        checkNotNull(format, "format cannot be null"),
-                        ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+            checkNotNull(format, "format cannot be null"),
+            ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
         writer = new RDFXMLWriter(new XMLWriterImpl(checkNotNull(w, "w cannot be null"),
-                        qnameManager, base,
-                        ontology.getOWLOntologyManager().getOntologyWriterConfiguration()));
+            qnameManager, base,
+            ontology.getOWLOntologyManager().getOntologyWriterConfiguration()));
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
         labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
-                        prefLangMap, manager);
+            prefLangMap, manager);
     }
 
     private static String base(String defaultNamespace) {
@@ -151,9 +151,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Override
     protected void writeBanner(String name) {
         writer.writeComment(
-                        "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
-                                        + checkNotNull(name, "name cannot be null")
-                                        + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
+            "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
+                + checkNotNull(name, "name cannot be null")
+                + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
     private void writeCommentForEntity(String msg, OWLEntity entity) {
@@ -187,8 +187,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
-                            && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
-                            && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+                && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
+                && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                 candidatePrettyPrintTypeTriple = triple;
             }
         }
@@ -204,7 +204,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         for (RDFTriple triple : triples) {
             if (candidatePrettyPrintTypeTriple != null
-                            && candidatePrettyPrintTypeTriple.equals(triple)) {
+                && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());

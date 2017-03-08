@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Indicates that a query whose signature contained fresh entities was posed to the reasoner. This
  * exception is only thrown if the fresh entity policy is set appropriately. (See
  * {@link FreshEntityPolicy} and {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -64,9 +64,9 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
 
     /**
      * Gets the entities.
-     * 
+     *
      * @return The entities, none of which are contained in the signature of the union of a set of
-     *         ontologies.
+     * ontologies.
      */
     public Collection<OWLEntity> getEntities() {
         return entities;

@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.reasoner;
 /**
  * An enumeration that denotes depth of inference: direct or indirect relations, e.g., all
  * subclasses or only direct subclasses.
- * 
+ *
  * @since 5.0.0
  */
 public enum InferenceDepth {

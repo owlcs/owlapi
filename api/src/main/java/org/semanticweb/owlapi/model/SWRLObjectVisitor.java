@@ -20,7 +20,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLClassAtom type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLClassAtom node) {
@@ -29,7 +29,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLDataRangeAtom type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLDataRangeAtom node) {
@@ -38,7 +38,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLObjectPropertyAtom type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLObjectPropertyAtom node) {
@@ -47,7 +47,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLDataPropertyAtom type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLDataPropertyAtom node) {
@@ -56,7 +56,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLBuiltInAtom type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLBuiltInAtom node) {
@@ -65,7 +65,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLVariable type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLVariable node) {
@@ -74,7 +74,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLIndividualArgument type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLIndividualArgument node) {
@@ -83,7 +83,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLLiteralArgument type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLLiteralArgument node) {
@@ -92,7 +92,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLSameIndividualAtom type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLSameIndividualAtom node) {
@@ -101,7 +101,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLDifferentIndividualsAtom type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(SWRLDifferentIndividualsAtom node) {

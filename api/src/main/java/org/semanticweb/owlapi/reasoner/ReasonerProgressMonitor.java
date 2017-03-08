@@ -24,7 +24,7 @@ import java.io.Serializable;
  * call either {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)} any
  * number of times and finally call {@link #reasonerTaskStopped()} when the task ends or has been
  * interupted. This cycle may then be repeated.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -59,7 +59,7 @@ public interface ReasonerProgressMonitor extends Serializable {
      * will not be called again unless the {@link #reasonerTaskStopped()} method has been called.
      * The notion of subtasks is not supported. <br>
      * Note that this method may be called from a thread that is not the event dispatch thread.
-     * 
+     *
      * @param taskName The name of the task
      */
     default void reasonerTaskStarted(String taskName) {}
@@ -78,7 +78,7 @@ public interface ReasonerProgressMonitor extends Serializable {
      * {@link #reasonerTaskStarted(String)} method has been called. It will not be called after the
      * {@link #reasonerTaskStopped()} method has been called. <br>
      * Note that this method may be called from a thread that is not the event dispatch thread.
-     * 
+     *
      * @param value The value or portion of the task completed
      * @param max The total size of the task
      */

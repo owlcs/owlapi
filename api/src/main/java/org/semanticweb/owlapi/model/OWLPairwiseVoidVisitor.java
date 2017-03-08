@@ -16,17 +16,17 @@ package org.semanticweb.owlapi.model;
  * Functional interface for a visitor that applies a function to two arguments, and returns a value.
  * This is used by OWLNaryAxiom to pass the elements in its collection in pairs, e.g., all pairwise
  * disjoint class expressions in a disjoint class axiom.
- * 
+ *
+ * @param <C> type of elements to accept
  * @author ignazio
  * @since 5.0.0
- * @param <C> type of elements to accept
  */
 @FunctionalInterface
 public interface OWLPairwiseVoidVisitor<C> {
 
     /**
      * The order of the arguments depend on the visited element.
-     * 
+     *
      * @param a first argument
      * @param b second argument
      */

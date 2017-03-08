@@ -19,9 +19,11 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** Builder class for OWLTransitiveObjectPropertyAxiom. */
+/**
+ * Builder class for OWLTransitiveObjectPropertyAxiom.
+ */
 public class BuilderTransitiveObjectProperty extends
-                BaseObjectPropertyBuilder<OWLTransitiveObjectPropertyAxiom, BuilderTransitiveObjectProperty> {
+    BaseObjectPropertyBuilder<OWLTransitiveObjectPropertyAxiom, BuilderTransitiveObjectProperty> {
 
     /**
      * @param df data factory
@@ -33,12 +35,12 @@ public class BuilderTransitiveObjectProperty extends
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderTransitiveObjectProperty(OWLTransitiveObjectPropertyAxiom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }

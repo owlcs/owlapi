@@ -22,11 +22,13 @@ import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** Builder class for OWLDataHasValue. */
+/**
+ * Builder class for OWLDataHasValue.
+ */
 public class BuilderDataHasValue
-                extends BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue>
-                implements SettableRange<OWLLiteral, BuilderDataHasValue>,
-                SettableProperty<OWLDataPropertyExpression, BuilderDataHasValue> {
+    extends BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue>
+    implements SettableRange<OWLLiteral, BuilderDataHasValue>,
+    SettableProperty<OWLDataPropertyExpression, BuilderDataHasValue> {
 
     @Nullable
     private OWLLiteral literal = null;
@@ -41,7 +43,7 @@ public class BuilderDataHasValue
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

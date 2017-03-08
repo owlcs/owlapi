@@ -58,7 +58,7 @@ public class MyBenchmark {
         uncompressedTaxonFile = File.createTempFile("taxons", "ofn");
         InputStream resourceAsStream = getClass().getResourceAsStream("/ncbitaxon.rdf.ofn.gz");
         try (GZIPInputStream in = new GZIPInputStream(resourceAsStream);
-                        FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
+            FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
             int n;
             byte[] buf = new byte[8192];
             while ((n = in.read(buf)) >= 0) {
@@ -79,9 +79,9 @@ public class MyBenchmark {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyDocumentSource ds = new FileDocumentSource(uncompressedTaxonFile);
         OWLOntologyLoaderConfiguration config =
-                        new OWLOntologyLoaderConfiguration().setStrict(false);
+            new OWLOntologyLoaderConfiguration().setStrict(false);
         OWLOntologyImpl ontology =
-                        (OWLOntologyImpl) manager.loadOntologyFromOntologyDocument(ds, config);
+            (OWLOntologyImpl) manager.loadOntologyFromOntologyDocument(ds, config);
         manager.removeOntology(ontology);
     }
 }

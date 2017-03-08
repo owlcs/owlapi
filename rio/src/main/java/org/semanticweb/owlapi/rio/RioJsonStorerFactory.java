@@ -44,7 +44,9 @@ import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
  */
 public class RioJsonStorerFactory extends AbstractRioStorerFactory implements RioRDFStorerFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioJsonStorerFactory() {
         super(new RDFJsonDocumentFormatFactory());
     }

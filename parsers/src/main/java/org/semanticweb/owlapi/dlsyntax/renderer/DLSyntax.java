@@ -54,7 +54,9 @@ public enum DLSyntax {
         return unicodeSymbol;
     }
 
-    /** @return HTML escaped version of the DLSyntax keyword */
+    /**
+     * @return HTML escaped version of the DLSyntax keyword
+     */
     public String toHTMLString() {
         return htmlEscape;
     }

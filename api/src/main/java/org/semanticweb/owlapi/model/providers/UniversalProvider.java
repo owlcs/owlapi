@@ -20,26 +20,28 @@ import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Universal provider interface. */
+/**
+ * Universal provider interface.
+ */
 public interface UniversalProvider {
 
     /**
      * @param property The property that the restriction acts along.
      * @param dataRange The data range that is the filler.
      * @return An OWLDataAllValuesFrom restriction that acts along the specified property and has
-     *         the specified filler
+     * the specified filler
      */
     OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
-                    OWLDataRange dataRange);
+        OWLDataRange dataRange);
 
     /**
      * @param property The property that the restriction acts along.
      * @param dataRange The data range that is the filler.
      * @return An OWLDataAllValuesFrom restriction that acts along the specified property and has
-     *         the specified filler
+     * the specified filler
      */
     OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property,
-                    OWL2Datatype dataRange);
+        OWL2Datatype dataRange);
 
     /**
      * @param property The property that the restriction acts along.
@@ -47,5 +49,5 @@ public interface UniversalProvider {
      * @return an AllValuesFrom on specified property and class expression
      */
     OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,
-                    OWLClassExpression classExpression);
+        OWLClassExpression classExpression);
 }

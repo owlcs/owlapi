@@ -6,7 +6,9 @@ import java.util.List;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
 
-/** a multimap for int to collection of int values. */
+/**
+ * a multimap for int to collection of int values.
+ */
 public class ArrayIntMap {
 
     private final List<FastSet> map = new ArrayList<>();
@@ -32,7 +34,7 @@ public class ArrayIntMap {
     /**
      * returns a mutable set of values connected to the key; if no value is connected, returns an
      * immutable empty set
-     * 
+     *
      * @param key key
      * @return the set of values connected with the key
      */
@@ -46,7 +48,9 @@ public class ArrayIntMap {
         return new FastSetSimple();
     }
 
-    /** @return the set of keys */
+    /**
+     * @return the set of keys
+     */
     public TIntList keySet() {
         TIntList toReturn = new TIntArrayList();
         for (int i = 0; i < map.size(); i++) {
@@ -57,7 +61,9 @@ public class ArrayIntMap {
         return toReturn;
     }
 
-    /** @return all values in the map */
+    /**
+     * @return all values in the map
+     */
     public TIntList getAllValues() {
         TIntList toReturn = new TIntArrayList();
         for (FastSet f : map) {
@@ -78,7 +84,9 @@ public class ArrayIntMap {
         return k < map.size() && map.get(k) != null;
     }
 
-    /** Clear the map */
+    /**
+     * Clear the map
+     */
     public void clear() {
         map.clear();
     }

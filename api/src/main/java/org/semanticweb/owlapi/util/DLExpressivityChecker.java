@@ -108,12 +108,12 @@ import com.google.common.base.Joiner;
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
     private static final List<Construct> order =
-                    Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
+        Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
     /**
      * A comparator that orders DL constucts to produce a traditional DL name.
      */
     private static final Comparator<Construct> constructComparator =
-                    Comparator.comparing(order::indexOf);
+        Comparator.comparing(order::indexOf);
     private final Set<Construct> constructs;
     private final List<OWLOntology> ontologies;
 
@@ -123,6 +123,10 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public DLExpressivityChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = new ArrayList<>(ontologies);
         constructs = new HashSet<>();
+    }
+
+    private static boolean isTop(OWLClassExpression classExpression) {
+        return classExpression.isOWLThing();
     }
 
     /**
@@ -231,16 +235,12 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         ce.operands().forEach(o -> o.accept(this));
     }
 
-    private static boolean isTop(OWLClassExpression classExpression) {
-        return classExpression.isOWLThing();
-    }
-
     private boolean isAtomic(OWLClassExpression classExpression) {
         if (classExpression.isAnonymous()) {
             return false;
         }
-        return !ontologies.stream().anyMatch(
-                        ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
+        return !ontologies.stream()
+            .anyMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
     }
 
     @Override
@@ -551,25 +551,27 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         constructs.add(I);
     }
 
-    /** Construct enum. */
+    /**
+     * Construct enum.
+     */
     public enum Construct {
         //@formatter:off
-        /** AL. */       AL("AL"),
-        /** U. */        U("U"),
-        /** C. */        C("C"),
-        /** E. */        E("E"),
-        /** N. */        N("N"),
-        /** Q. */        Q("Q"),
-        /** H. */        H("H"),
-        /** I. */        I("I"),
-        /** O. */        O("O"),
-        /** F. */        F("F"),
-        /** TRAN. */     TRAN("+"),
-        /** D. */        D("(D)"),
-        /** R. */        R("R"),
-        /** S. */        S("S"),
-        /** EL. */       EL("EL"),
-        /** EL++. */     ELPLUSPLUS("EL++");
+        /** AL.   */     AL         ("AL"),
+        /** U.    */     U          ("U"),
+        /** C.    */     C          ("C"),
+        /** E.    */     E          ("E"),
+        /** N.    */     N          ("N"),
+        /** Q.    */     Q          ("Q"),
+        /** H.    */     H          ("H"),
+        /** I.    */     I          ("I"),
+        /** O.    */     O          ("O"),
+        /** F.    */     F          ("F"),
+        /** TRAN. */     TRAN       ("+"),
+        /** D.    */     D          ("(D)"),
+        /** R.    */     R          ("R"),
+        /** S.    */     S          ("S"),
+        /** EL.   */     EL         ("EL"),
+        /** EL++. */     ELPLUSPLUS ("EL++");
         private final String s;
 
         //@formatter:on

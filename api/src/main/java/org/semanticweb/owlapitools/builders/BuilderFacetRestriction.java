@@ -22,9 +22,11 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Builder class for OWLFacetRestriction. */
+/**
+ * Builder class for OWLFacetRestriction.
+ */
 public class BuilderFacetRestriction
-                extends BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
+    extends BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
 
     @Nullable
     private OWLLiteral literal = null;
@@ -33,7 +35,7 @@ public class BuilderFacetRestriction
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

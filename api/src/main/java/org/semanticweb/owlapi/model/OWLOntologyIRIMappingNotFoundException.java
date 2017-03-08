@@ -16,7 +16,7 @@ package org.semanticweb.owlapi.model;
  * An exception which describes the situation where no ontology document IRI mapping could be found.
  * This is a runtime exception since clients should really ensure that a mapping exists before
  * attempting to load an ontology.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */

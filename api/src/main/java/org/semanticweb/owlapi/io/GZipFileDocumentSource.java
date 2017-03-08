@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * An ontology document source which can read from a GZIP File.
- * 
+ *
  * @author ignazio
  * @since 3.4.8
  */
@@ -32,7 +32,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * Constructs an input source which will read an ontology from a representation from the
      * specified file.
-     * 
+     *
      * @param input The file that the ontology representation will be read from.
      */
     public GZipFileDocumentSource(File input) {
@@ -42,14 +42,14 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * Constructs an input source which will read an ontology from a representation from the
      * specified file.
-     * 
+     *
      * @param input The file that the ontology representation will be read from.
      * @param documentIRI The document IRI
      * @param format ontology format
      * @param mime mime type
      */
     public GZipFileDocumentSource(File input, IRI documentIRI, @Nullable OWLDocumentFormat format,
-                    @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         inputStream = () -> new GZIPInputStream(new FileInputStream(input));
     }

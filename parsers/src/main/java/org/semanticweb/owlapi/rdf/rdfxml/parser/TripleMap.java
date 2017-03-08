@@ -28,7 +28,7 @@ class TripleMap<T> {
 
     public void setupSinglePredicateMaps() {
         Stream.of(OWL_ON_PROPERTY, OWL_SOME_VALUES_FROM, OWL_ALL_VALUES_FROM, OWL_ON_CLASS,
-                        OWL_ON_DATA_RANGE).forEach(v -> put(v.getIRI()));
+            OWL_ON_DATA_RANGE).forEach(v -> put(v.getIRI()));
     }
 
     public int size() {
@@ -39,13 +39,15 @@ class TripleMap<T> {
         map.clear();
     }
 
-    /** Dump remaining triples. */
+    /**
+     * Dump remaining triples.
+     */
     public void dumpRemainingTriples() {
         // if info logging is disabled or all collections are empty, do not
         // output anything
         if (LOGGER.isInfoEnabled() && size() > 0) {
             map.forEach((p, m) -> m.forEach(
-                            (s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
+                (s, o) -> LOGGER.info("Unparsed triple: {} -> {} -> {}", s, p, o)));
         }
     }
 

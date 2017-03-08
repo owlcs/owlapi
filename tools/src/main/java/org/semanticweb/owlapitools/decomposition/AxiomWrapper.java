@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /**
  * Wrapper around an OWLAxiom to hold attributes such as used, included in a module, included in
  * search space and atom which contains it.
- * 
+ *
  * @author ignazio
  */
 public class AxiomWrapper implements Serializable {
@@ -33,15 +33,17 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * @param id id for the wrapper
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /** @return id */
-    public int getId() {
-        return id;
     }
 
     /**
@@ -51,9 +53,18 @@ public class AxiomWrapper implements Serializable {
         return axiom.signature();
     }
 
-    /** @return wrapped axiom */
+    /**
+     * @return wrapped axiom
+     */
     public OWLAxiom getAxiom() {
         return axiom;
+    }
+
+    /**
+     * @return value for used
+     */
+    public boolean isUsed() {
+        return used;
     }
 
     /**
@@ -63,9 +74,11 @@ public class AxiomWrapper implements Serializable {
         used = b;
     }
 
-    /** @return value for used */
-    public boolean isUsed() {
-        return used;
+    /**
+     * @return true if in search space
+     */
+    public boolean isInSearchSpace() {
+        return searchspace;
     }
 
     /**
@@ -75,9 +88,11 @@ public class AxiomWrapper implements Serializable {
         searchspace = b;
     }
 
-    /** @return true if in search space */
-    public boolean isInSearchSpace() {
-        return searchspace;
+    /**
+     * @return true if in module
+     */
+    public boolean isInModule() {
+        return module;
     }
 
     /**
@@ -87,9 +102,11 @@ public class AxiomWrapper implements Serializable {
         module = b;
     }
 
-    /** @return true if in module */
-    public boolean isInModule() {
-        return module;
+    /**
+     * @return the including atom
+     */
+    public Optional<OntologyAtom> getAtom() {
+        return Optional.ofNullable(atom);
     }
 
     /**
@@ -97,10 +114,5 @@ public class AxiomWrapper implements Serializable {
      */
     public void setAtom(@Nullable OntologyAtom atom) {
         this.atom = atom;
-    }
-
-    /** @return the including atom */
-    public Optional<OntologyAtom> getAtom() {
-        return Optional.ofNullable(atom);
     }
 }

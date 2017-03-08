@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.model;
 /**
  * Represents a named object for example, class, property, ontology etc. - i.e. anything that has an
  * IRI as its name.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -23,14 +23,14 @@ public interface OWLNamedObject extends OWLObject, HasIRI {
 
     /**
      * Accepts a visitor.
-     * 
+     *
      * @param visitor The visitor
      */
     void accept(OWLNamedObjectVisitor visitor);
 
     /**
      * Accepts a visitor.
-     * 
+     *
      * @param <O> visitor return type
      * @param visitor The visitor
      * @return visitor return value

@@ -34,7 +34,7 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolati
      * @param restriction restriction
      */
     public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLDatatypeRestriction restriction) {
+        OWLDatatypeRestriction restriction) {
         super(ontology, axiom, restriction);
     }
 

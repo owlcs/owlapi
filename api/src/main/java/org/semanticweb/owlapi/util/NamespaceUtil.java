@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 /**
  * A utility class which can generate namespaces, local names and namespace prefixes in accordance
  * with the XML spec.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -38,7 +38,9 @@ public class NamespaceUtil implements Serializable {
     private final Map<String, String> standardNamespacePrefixMappings = new HashMap<>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public NamespaceUtil() {
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
@@ -51,7 +53,7 @@ public class NamespaceUtil implements Serializable {
     /**
      * Gets a prefix for the given namespace. If a mapping has not been specified then a prefix will
      * be computed and stored for the specified namespace.
-     * 
+     *
      * @param namespace The namespace whose prefix is to be retrieved.
      * @return The prefix for the specified namespace.
      */
@@ -76,12 +78,12 @@ public class NamespaceUtil implements Serializable {
 
     /**
      * Generates a candidate prefix for the specified namespace.
-     * 
+     *
      * @param namespace The namespace that a prefix should be generated for. The implementation
-     *        attempts to generate a prefix based on the namespace. If it cannot do this, a prefix
-     *        of the form pn is generated, where n is an integer.
+     * attempts to generate a prefix based on the namespace. If it cannot do this, a prefix of the
+     * form pn is generated, where n is an integer.
      * @return The generated prefix. Note that this method will not store the namespace to prefix
-     *         mapping.
+     * mapping.
      */
     private String generatePrefix(String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
@@ -105,7 +107,7 @@ public class NamespaceUtil implements Serializable {
         String computedPrefix = computePrefix(namespace, startIndex);
         String candidatePrefix = computedPrefix;
         while (namespace2PrefixMap.containsValue(candidatePrefix)
-                        || standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
+            || standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
             candidatePrefix = computedPrefix + candidateIndex.getAndIncrement();
         }
         return verifyNotNull(candidatePrefix);
@@ -133,7 +135,7 @@ public class NamespaceUtil implements Serializable {
     /**
      * Sets the prefix for the specified namespace. This will override any computed prefix and take
      * precedence over any computed prefix.
-     * 
+     *
      * @param namespace The namespace whose prefix is to be set.
      * @param prefix The prefix for the namespace
      */

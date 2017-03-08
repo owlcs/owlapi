@@ -20,7 +20,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class ReasonerInterruptedException extends OWLRuntimeException {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public ReasonerInterruptedException() {
         super();
     }

@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * Note that while an ontology document source may appear similar to a SAX input source, an
  * important difference is that the getReader and getInputStream methods return new instances each
  * time the method is called. This allows multiple attempts at loading an ontology.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -42,10 +42,10 @@ public interface OWLOntologyDocumentSource {
     /**
      * @param parsers parsers to filter
      * @return filtered parsers - parsers that are incompatible with the known format or MIME type
-     *         are skipped
+     * are skipped
      */
     default PriorityCollection<OWLParserFactory> filter(
-                    PriorityCollection<OWLParserFactory> parsers) {
+        PriorityCollection<OWLParserFactory> parsers) {
         return parsers;
     }
 
@@ -56,7 +56,7 @@ public interface OWLOntologyDocumentSource {
      * @return document format for loaded ontology
      */
     OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
-                    OWLOntologyLoaderConfiguration config);
+        OWLOntologyLoaderConfiguration config);
 
     /**
      * @param parsableSchemes schemes that can be parsed
@@ -66,7 +66,7 @@ public interface OWLOntologyDocumentSource {
 
     /**
      * Gets the IRI of the ontology document.
-     * 
+     *
      * @return An IRI which represents the ontology document IRI
      */
     IRI getDocumentIRI();

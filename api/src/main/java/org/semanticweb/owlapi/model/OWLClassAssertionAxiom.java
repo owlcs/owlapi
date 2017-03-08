@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Class_Assertions">ClassAssertion </a>
  * axioms in the OWL 2 Specification.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -49,14 +49,14 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
 
     /**
      * Gets the individual that is asserted to be an instance of a class expression by this axiom.
-     * 
+     *
      * @return The individual
      */
     OWLIndividual getIndividual();
 
     /**
      * Gets the class expression that is asserted to be a type for an individual by this axiom.
-     * 
+     *
      * @return The class expression
      */
     OWLClassExpression getClassExpression();

@@ -38,7 +38,7 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation {
      * @param facet facet
      */
     public UseOfIllegalFacetRestriction(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLDatatypeRestriction dtr, OWLFacet facet) {
+        OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom, facet);
         datatypeRestriction = dtr;
     }
@@ -60,7 +60,8 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Facet in datatype restriction does not belong to restricted datatype: %s in %s",
-                        getExpression(), datatypeRestriction);
+        return toString(
+            "Facet in datatype restriction does not belong to restricted datatype: %s in %s",
+            getExpression(), datatypeRestriction);
     }
 }

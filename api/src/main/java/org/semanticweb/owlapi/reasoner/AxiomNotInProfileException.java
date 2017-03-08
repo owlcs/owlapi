@@ -33,12 +33,16 @@ public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
         this.profile = profile;
     }
 
-    /** @return wrong axiom */
+    /**
+     * @return wrong axiom
+     */
     public OWLAxiom getAxiom() {
         return axiom;
     }
 
-    /** @return profile */
+    /**
+     * @return profile
+     */
     public IRI getProfile() {
         return profile;
     }

@@ -54,15 +54,15 @@ public class NodeIDTestCase {
     @Test
     public void shouldbuildNode() {
         assertTrue(NodeID.isAnonymousNodeIRI(
-                        NodeID.getNodeID("_:sometest_genid_something").getID()));
+            NodeID.getNodeID("_:sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(
-                        NodeID.getNodeID("http://sometest_genid_something").getID()));
+            NodeID.getNodeID("http://sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null).getID()));
         NodeID id = NodeID.getNodeID(null);
         assertEquals(id.getID(), id.toString());
         assertEquals(NodeID.getNodeID("somestring"), NodeID.getNodeID("somestring"));
         assertEquals(NodeID.getNodeID("somestring").compareTo(NodeID.getNodeID("someotherstring")),
-                        "somestring".compareTo("someotherstring"));
+            "somestring".compareTo("someotherstring"));
         assertEquals(id.hashCode(), id.toString().hashCode());
     }
 }

@@ -15,16 +15,16 @@ package org.semanticweb.owlapi.model;
 /**
  * An interface to objects that can visit {@link org.semanticweb.owlapi.model.OWLClassExpression}s.
  * (See the <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
- * 
+ *
+ * @param <O> visitor return type
  * @author Matthew Horridge, The University Of Manchester Bio-Health Informatics Group
  * @since 3.0.0
- * @param <O> visitor return type
  */
 public interface OWLClassVisitorExBase<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLClass type
-     * 
+     *
      * @param ce ce to visit
      * @return visitor value
      */

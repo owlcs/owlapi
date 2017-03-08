@@ -39,23 +39,23 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Instantiates a new default explanation generator.
-     * 
+     *
      * @param man manager
      * @param reasonerFactory reasoner factory
      * @param ontology ontology to reason on
      * @param progressMonitor progress monitor
      */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory,
-                    OWLOntology ontology, ExplanationProgressMonitor progressMonitor) {
+        OWLOntology ontology, ExplanationProgressMonitor progressMonitor) {
         this(man, reasonerFactory, ontology,
-                        checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
-                                        .createNonBufferingReasoner(ontology),
-                        progressMonitor);
+            checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
+                .createNonBufferingReasoner(ontology),
+            progressMonitor);
     }
 
     /**
      * Instantiates a new default explanation generator.
-     * 
+     *
      * @param man manager
      * @param reasonerFactory reasoner factory
      * @param ontology ontology to reason on
@@ -63,14 +63,14 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      * @param progressMonitor progress monitor
      */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory,
-                    OWLOntology ontology, OWLReasoner reasoner,
-                    @Nullable ExplanationProgressMonitor progressMonitor) {
+        OWLOntology ontology, OWLReasoner reasoner,
+        @Nullable ExplanationProgressMonitor progressMonitor) {
         dataFactory = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         BlackBoxExplanation singleGen =
-                        new BlackBoxExplanation(checkNotNull(ontology, "ontology cannot be null"),
-                                        checkNotNull(reasonerFactory,
-                                                        "reasonerFactory cannot be null"),
-                                        checkNotNull(reasoner, "reasoner cannot be null"));
+            new BlackBoxExplanation(checkNotNull(ontology, "ontology cannot be null"),
+                checkNotNull(reasonerFactory,
+                    "reasonerFactory cannot be null"),
+                checkNotNull(reasoner, "reasoner cannot be null"));
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
             gen.setProgressMonitor(progressMonitor);
@@ -84,7 +84,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Gets the explanation.
-     * 
+     *
      * @param axiom the axiom to explain
      * @return the explanation
      */
@@ -100,7 +100,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Gets the explanations.
-     * 
+     *
      * @param axiom the axiom to explain
      * @return the set of explanations
      */
@@ -116,7 +116,7 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
 
     /**
      * Gets the explanations.
-     * 
+     *
      * @param axiom the axiom to explain
      * @param maxExplanations max number of explanations
      * @return the set of explanations
@@ -124,6 +124,6 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(checkNotNull(axiom, "axiom cannot be null")),
-                        maxExplanations);
+            maxExplanations);
     }
 }

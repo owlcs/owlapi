@@ -24,7 +24,7 @@ public interface HasDirectRemoveAxiom {
     /**
      * A convenience method that removes a single axiom from this object. The appropriate
      * RemoveAxiom change object is automatically generated.
-     * 
+     *
      * @param axiom The axiom to be removed
      * @return A list of ontology changes that represent the changes that actually took place.
      * @throws OWLOntologyChangeException if there was a problem removing the axiom
@@ -34,7 +34,7 @@ public interface HasDirectRemoveAxiom {
     /**
      * A convenience method that removes a single axiom from this object. The appropriate
      * RemoveAxiom change object is automatically generated.
-     * 
+     *
      * @param axiom The axiom to be removed
      * @return A list of ontology changes that represent the changes that actually took place.
      * @throws OWLOntologyChangeException if there was a problem removing the axiom

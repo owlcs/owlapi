@@ -39,7 +39,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      * @throws OWLRendererException renderer error
      */
     public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-                    throws OWLRendererException {
+        throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
         checkNotNull(format, "format cannot be null");

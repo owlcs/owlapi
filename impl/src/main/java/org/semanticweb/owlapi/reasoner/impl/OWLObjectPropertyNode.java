@@ -26,7 +26,9 @@ import uk.ac.manchester.cs.owl.owlapi.InternalizedEntities;
  */
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLObjectPropertyNode() {
         super();
     }
@@ -52,16 +54,6 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
         super(entities);
     }
 
-    @Override
-    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
-        return Optional.of(InternalizedEntities.OWL_TOP_OBJECT_PROPERTY);
-    }
-
-    @Override
-    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
-        return Optional.of(InternalizedEntities.OWL_BOTTOM_OBJECT_PROPERTY);
-    }
-
     /**
      * @return top node
      */
@@ -74,5 +66,15 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
      */
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
+    }
+
+    @Override
+    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
+        return Optional.of(InternalizedEntities.OWL_TOP_OBJECT_PROPERTY);
+    }
+
+    @Override
+    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
+        return Optional.of(InternalizedEntities.OWL_BOTTOM_OBJECT_PROPERTY);
     }
 }

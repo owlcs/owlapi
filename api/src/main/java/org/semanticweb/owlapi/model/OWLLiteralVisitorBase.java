@@ -20,7 +20,7 @@ public interface OWLLiteralVisitorBase extends OWLVisitorBase {
 
     /**
      * visit OWLLiteral type
-     * 
+     *
      * @param node node to visit
      */
     default void visit(OWLLiteral node) {

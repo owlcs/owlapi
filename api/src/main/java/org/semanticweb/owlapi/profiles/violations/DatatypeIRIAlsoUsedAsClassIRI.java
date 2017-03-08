@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
  * Specifies that an IRI that is used for a datatype is also used for a class IRI.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {

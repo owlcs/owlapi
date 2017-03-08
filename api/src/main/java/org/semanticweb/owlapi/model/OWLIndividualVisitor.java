@@ -17,5 +17,5 @@ package org.semanticweb.owlapi.model;
  * @since 3.0.0
  */
 public interface OWLIndividualVisitor
-                extends OWLAnonymousIndividualVisitorBase, OWLIndividualEntityVisitorBase {
+    extends OWLAnonymousIndividualVisitorBase, OWLIndividualEntityVisitorBase {
 }

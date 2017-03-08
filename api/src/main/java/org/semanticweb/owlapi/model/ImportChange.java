@@ -33,7 +33,7 @@ public abstract class ImportChange extends OWLOntologyChange {
 
     /**
      * Gets the import declaration that the change pertains to.
-     * 
+     *
      * @return The import declaration
      */
     public OWLImportsDeclaration getImportDeclaration() {

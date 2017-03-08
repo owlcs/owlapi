@@ -27,7 +27,7 @@ public interface OWLDebugger {
 
     /**
      * Gets the oWL ontology.
-     * 
+     *
      * @return the {@code OWLOntology} that is being debugged.
      * @throws OWLException if there is any problem
      */
@@ -35,24 +35,26 @@ public interface OWLDebugger {
 
     /**
      * Gets the sOS for incosistent class.
-     * 
+     *
      * @param cls The class which is inconsistent
      * @return the first set of supporting (SOS) axioms that are responsible for the specified class
-     *         being inconsistent.
+     * being inconsistent.
      * @throws OWLException if there is any problem
      */
     Set<OWLAxiom> getSOSForInconsistentClass(OWLClassExpression cls) throws OWLException;
 
     /**
      * Gets the all sos for incosistent class.
-     * 
+     *
      * @param cls the inconsistent class
      * @return all sets of supporting axioms that are responsible for the specified class being
-     *         inconsistent
+     * inconsistent
      * @throws OWLException if there is any problem
      */
     Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(OWLClassExpression cls) throws OWLException;
 
-    /** dispose of resources locked such as reasoners. */
+    /**
+     * dispose of resources locked such as reasoners.
+     */
     void dispose();
 }

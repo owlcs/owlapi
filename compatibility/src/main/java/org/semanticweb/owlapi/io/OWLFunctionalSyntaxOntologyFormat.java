@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  */
 @Deprecated
 public class OWLFunctionalSyntaxOntologyFormat extends FunctionalSyntaxDocumentFormat
-                implements PrefixOWLOntologyFormat {
+    implements PrefixOWLOntologyFormat {
 
     @Override
     public String toString() {

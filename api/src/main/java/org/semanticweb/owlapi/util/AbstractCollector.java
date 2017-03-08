@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 /**
  * A utility class that visits all components of classes and axioms; this base class allows
  * subclasses to choose lements of interest and override handling of such elements.
- * 
+ *
  * @since 5.0.0
  */
 public abstract class AbstractCollector implements OWLObjectVisitor {

@@ -44,7 +44,9 @@ import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
  */
 public class RioN3StorerFactory extends AbstractRioStorerFactory implements RioRDFStorerFactory {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public RioN3StorerFactory() {
         super(new N3DocumentFormatFactory());
     }

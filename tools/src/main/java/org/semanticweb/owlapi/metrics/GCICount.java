@@ -25,7 +25,7 @@ public class GCICount extends AxiomCountMetric {
 
     /**
      * Instantiates a new gCI count.
-     * 
+     *
      * @param o ontology to use
      */
     public GCICount(OWLOntology o) {

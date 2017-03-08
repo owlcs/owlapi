@@ -25,7 +25,7 @@ public enum Extensions {
     /** OBO, common extensions: obo */                          OBO                 (OBODocumentFormat.class,               ".obo"), 
     /** Manchester OWL syntax, common extensions: omn, owl */   MANCHESTERSYNTAX    (ManchesterSyntaxDocumentFormat.class,  ".omn", ".owl"), 
     /** Functional sytax, common extensions: fss, owl */        FUNCTIONALSYNTAX    (FunctionalSyntaxDocumentFormat.class,  ".fss", ".owl");
-    //@formatter:off
+    //@formatter:on
 
     private List<String> extensions;
     private Class<? extends OWLDocumentFormat> documentFormat;
@@ -36,15 +36,7 @@ public enum Extensions {
     }
 
     /**
-     * @return common extensions for this type
-     */
-    public Iterable<String> getCommonExtensions() {
-        return extensions;
-    }
-
-    /**
-     * @param format
-     *        the format for which extensions are desired
+     * @param format the format for which extensions are desired
      * @return common extensions list. Empty list if no matching type is found.
      */
     public static Iterable<String> getCommonExtensions(Class<? extends OWLDocumentFormat> format) {
@@ -54,5 +46,12 @@ public enum Extensions {
             }
         }
         return Collections.emptyList();
+    }
+
+    /**
+     * @return common extensions for this type
+     */
+    public Iterable<String> getCommonExtensions() {
+        return extensions;
     }
 }

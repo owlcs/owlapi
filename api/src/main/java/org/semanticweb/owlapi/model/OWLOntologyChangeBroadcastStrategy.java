@@ -24,11 +24,11 @@ public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
 
     /**
      * Broadcasts the list of changes to the specified listeners.
-     * 
+     *
      * @param changes The changes to be broadcast.
      * @param listener The listeners that the changes should be broadcast to
      * @throws OWLException for any exception raised
      */
     void broadcastChanges(OWLOntologyChangeListener listener,
-                    List<? extends OWLOntologyChange> changes) throws OWLException;
+        List<? extends OWLOntologyChange> changes) throws OWLException;
 }

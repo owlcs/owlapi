@@ -17,13 +17,15 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** Builder class for OWLObjectProperty. */
+/**
+ * Builder class for OWLObjectProperty.
+ */
 public class BuilderObjectProperty
-                extends BaseEntityBuilder<OWLObjectProperty, BuilderObjectProperty> {
+    extends BaseEntityBuilder<OWLObjectProperty, BuilderObjectProperty> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

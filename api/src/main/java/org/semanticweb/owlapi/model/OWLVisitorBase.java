@@ -16,7 +16,7 @@ public interface OWLVisitorBase {
 
     /**
      * Default action for the visitor.
-     * 
+     *
      * @param object The object that was visited.
      */
     default void doDefault(@SuppressWarnings("unused") Object object) {}
@@ -24,7 +24,7 @@ public interface OWLVisitorBase {
     /**
      * default behaviour. Override this method to change the behaviour of all non overridden
      * methods.
-     * 
+     *
      * @param c default parameter
      * @deprecated use doDefault instead.
      */

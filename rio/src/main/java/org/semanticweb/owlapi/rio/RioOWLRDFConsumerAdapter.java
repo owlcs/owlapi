@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * An {@link OWLRDFConsumer} implementation that implements the Sesame {@link RDFHandler} interface.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
@@ -71,7 +71,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
      * @param configuration loading configuration
      */
     public RioOWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
-                    OWLOntologyLoaderConfiguration configuration) {
+        OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration, null);
     }
 
@@ -123,7 +123,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
         if (st.getObject() instanceof Resource) {
             LOGGER.trace("statement with resource value");
             statementWithResourceValue(subjectString, st.getPredicate().stringValue(),
-                            objectString);
+                objectString);
         } else {
             final Literal literalObject = (Literal) st.getObject();
             String literalDatatype = null;
@@ -133,7 +133,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
             }
             LOGGER.trace("statement with literal value");
             statementWithLiteralValue(subjectString, st.getPredicate().stringValue(), objectString,
-                            literalLanguage, literalDatatype);
+                literalLanguage, literalDatatype);
         }
     }
 

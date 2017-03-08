@@ -17,7 +17,7 @@ import java.io.Serializable;
 /**
  * Inputs to algorithms etc. can require a set of ontologies. This interface provides a convenient
  * lightweight access point for such a set.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */

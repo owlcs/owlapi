@@ -17,10 +17,16 @@ package org.semanticweb.owlapi.vocab;
  * @since 3.1.0
  */
 public enum BuiltInVocabulary {
-    /** Dublin core. */
+    /**
+     * Dublin core.
+     */
     DUBLIN_CORE,
-    /** SKOS. */
+    /**
+     * SKOS.
+     */
     SKOS,
-    /** SWRL. */
+    /**
+     * SWRL.
+     */
     SWRL
 }

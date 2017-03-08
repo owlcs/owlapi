@@ -74,7 +74,7 @@ public interface OWLProfileViolationVisitor {
 
     /**
      * Default action for the visitor.
-     * 
+     *
      * @param object The object that was visited.
      */
     default void doDefault(@SuppressWarnings("unused") OWLProfileViolation object) {

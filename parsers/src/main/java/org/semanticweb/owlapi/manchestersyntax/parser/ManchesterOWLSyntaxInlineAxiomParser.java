@@ -33,7 +33,7 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser
      * @param checker checker
      */
     public ManchesterOWLSyntaxInlineAxiomParser(OWLDataFactory dataFactory,
-                    OWLEntityChecker checker) {
+        OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
     }
@@ -46,7 +46,7 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser
     @Override
     public OWLAxiom parse(String expression) {
         ManchesterOWLSyntaxParser parser =
-                        new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
+            new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseAxiom();

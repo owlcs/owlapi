@@ -29,7 +29,9 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** OBOformat parser. */
+/**
+ * OBOformat parser.
+ */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final BiConsumer<OWLOntology, OBODoc> defaultBridge = (o, doc) -> bridge(o, doc);
@@ -68,19 +70,19 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         this(defaultBridge, t);
     }
 
-    @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
-        OBODoc obodoc = parse(r);
-        treatDocument.accept(obodoc);
-        bridge.accept(o, obodoc);
-        return new OBODocumentFormat();
-    }
-
     protected static void bridge(OWLOntology o, OBODoc obodoc) {
         // create a translator object and feed it the OBO Document
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(o.getOWLOntologyManager());
         bridge.convert(obodoc, o);
+    }
+
+    @Override
+    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
+        IRI documentIRI) {
+        OBODoc obodoc = parse(r);
+        treatDocument.accept(obodoc);
+        bridge.accept(o, obodoc);
+        return new OBODocumentFormat();
     }
 
     protected OBODoc parse(Reader r) {

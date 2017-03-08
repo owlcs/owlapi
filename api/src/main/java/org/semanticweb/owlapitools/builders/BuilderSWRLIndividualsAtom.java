@@ -21,12 +21,12 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /**
  * Builder class for SWRL Individuals Atom.
- * 
+ *
  * @param <X> type to build
  * @param <B> builder
  */
 abstract public class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument>, B extends Builder<X>>
-                extends BaseBuilder<X, B> {
+    extends BaseBuilder<X, B> {
 
     @Nullable
     private SWRLIArgument arg0;

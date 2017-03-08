@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * An ontology input source that wraps a string.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -60,27 +60,27 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /**
      * Specifies a string as an ontology document.
-     * 
+     *
      * @param string The string
      * @param prefix The document IRI prefix
      * @param f ontology format
      * @param mime mime type
      */
     public StringDocumentSource(String string, String prefix, @Nullable OWLDocumentFormat f,
-                    @Nullable String mime) {
+        @Nullable String mime) {
         this(string, IRI.getNextDocumentIRI(prefix), f, mime);
     }
 
     /**
      * Specifies a string as an ontology document.
-     * 
+     *
      * @param string The string
      * @param documentIRI The document IRI
      * @param f ontology format
      * @param mime mime type
      */
     public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f,
-                    @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, f, mime);
         checkNotNull(string, "string cannot be null");
         stringContent = string;

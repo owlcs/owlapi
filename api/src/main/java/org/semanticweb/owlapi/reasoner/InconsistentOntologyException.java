@@ -18,13 +18,15 @@ import javax.annotation.Nullable;
  * This type of exception is thrown by an {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to
  * indicate that the imports closure of the root ontology (returned by
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is inconsistent.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public InconsistentOntologyException() {
         super("Inconsistent ontology");
     }

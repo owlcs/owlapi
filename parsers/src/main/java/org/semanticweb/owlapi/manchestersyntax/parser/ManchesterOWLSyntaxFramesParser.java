@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  * @since 3.0.0
  */
 public class ManchesterOWLSyntaxFramesParser
-                implements OWLExpressionParser<Set<OntologyAxiomPair>> {
+    implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     private final OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
@@ -72,7 +72,7 @@ public class ManchesterOWLSyntaxFramesParser
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
         ManchesterOWLSyntaxParser parser =
-                        new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
+            new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         parser.setDefaultOntology(verifyNotNull(defaultOntology));

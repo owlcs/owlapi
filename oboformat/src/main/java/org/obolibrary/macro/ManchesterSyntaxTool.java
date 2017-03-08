@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * wrapper for parsing Manchester Syntax.
- * 
+ *
  * @author heiko
  */
 public class ManchesterSyntaxTool {
@@ -57,13 +57,13 @@ public class ManchesterSyntaxTool {
     private final OWLDataFactory dataFactory;
     private final AdvancedEntityChecker entityChecker;
     private final ShortFormProvider shortFormProvider =
-                    e -> iriShortFormProvider.getShortForm(e.getIRI());
+        e -> iriShortFormProvider.getShortForm(e.getIRI());
     private final AtomicBoolean disposed = new AtomicBoolean(false);
 
     /**
      * Create a new parser instance for the given ontology. By default, this parser will also try to
      * resolve OWLObjects via their identifier or rdfs:label.
-     * 
+     *
      * @param inputOntology inputOntology
      */
     public ManchesterSyntaxTool(OWLOntology inputOntology) {
@@ -73,12 +73,12 @@ public class ManchesterSyntaxTool {
     /**
      * Create a new parser instance for the given ontologies. By default, this parser will also try
      * to resolve OWLObjects via their identifier or rdfs:label.
-     * 
+     *
      * @param inputOntology inputOntology
      * @param auxiliaryOntologies set of additional ontologies or null
      */
     public ManchesterSyntaxTool(OWLOntology inputOntology,
-                    @Nullable Collection<OWLOntology> auxiliaryOntologies) {
+        @Nullable Collection<OWLOntology> auxiliaryOntologies) {
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
         Set<OWLOntology> ontologies = asUnorderedSet(inputOntology.importsClosure());
@@ -86,15 +86,15 @@ public class ManchesterSyntaxTool {
             auxiliaryOntologies.forEach(o -> add(ontologies, o.importsClosure()));
         }
         ShortFormEntityChecker defaultInstance =
-                        new ShortFormEntityChecker(new BidirectionalShortFormProviderAdapter(
-                                        manager, ontologies, shortFormProvider));
+            new ShortFormEntityChecker(new BidirectionalShortFormProviderAdapter(
+                manager, ontologies, shortFormProvider));
         entityChecker = new AdvancedEntityChecker(defaultInstance, ontologies,
-                        inputOntology.getOWLOntologyManager());
+            inputOntology.getOWLOntologyManager());
     }
 
     /**
      * Parse frame expressions in Manchester syntax.
-     * 
+     *
      * @param expression expression
      * @return set of {@link OntologyAxiomPair}
      * @throws ParserException parser exception
@@ -106,7 +106,7 @@ public class ManchesterSyntaxTool {
 
     /**
      * Parse a class expression in Manchester syntax.
-     * 
+     *
      * @param expression expression
      * @return {@link OWLClassExpression}
      * @throws ParserException parser exception
@@ -121,7 +121,7 @@ public class ManchesterSyntaxTool {
             throw new OWLRuntimeException("Illegal State: Trying to use an disposed instance.");
         }
         ManchesterOWLSyntaxParser parser =
-                        new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
+            new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(), dataFactory);
         parser.setStringToParse(expression);
         parser.setOWLEntityChecker(entityChecker);
         LOG.info("parsing: {}", expression);
@@ -130,7 +130,7 @@ public class ManchesterSyntaxTool {
 
     /**
      * Translate the {@link IRI} into the short form as expected by the parser.
-     * 
+     *
      * @param iri iri
      * @return short form
      */
@@ -143,7 +143,7 @@ public class ManchesterSyntaxTool {
 
     /**
      * Translate the {@link OWLEntity} identifier into the short form as expected by the parser.
-     * 
+     *
      * @param entity entity
      * @return short form
      */
@@ -152,6 +152,16 @@ public class ManchesterSyntaxTool {
             throw new OWLRuntimeException("Illegal State: Trying to use an disposed instance.");
         }
         return shortFormProvider.getShortForm(entity);
+    }
+
+    /**
+     * Call this method to dispose the internal data structures. This will remove also the listeners
+     * registered with the ontology manager.
+     */
+    public void dispose() {
+        if (!disposed.getAndSet(true)) {
+            shortFormProvider.dispose();
+        }
     }
 
     /**
@@ -174,10 +184,18 @@ public class ManchesterSyntaxTool {
          * @param manager manager
          */
         AdvancedEntityChecker(OWLEntityChecker defaultInstance, Set<OWLOntology> ontologies,
-                        OWLOntologyManager manager) {
+            OWLOntologyManager manager) {
             this.defaultInstance = defaultInstance;
             this.ontologies = ontologies;
             this.manager = manager;
+        }
+
+        private static boolean isQuoted(String s) {
+            int length = s.length();
+            if (length >= 2) {
+                return s.charAt(0) == '\'' && s.charAt(length - 1) == '\'';
+            }
+            return false;
         }
 
         @Override
@@ -244,19 +262,11 @@ public class ManchesterSyntaxTool {
                 return getIRIByLabel(name.substring(1, name.length() - 1));
             }
             if (name.length() > 2 && name.charAt(0) == '<'
-                            && name.charAt(name.length() - 1) == '>') {
+                && name.charAt(name.length() - 1) == '>') {
                 // anything between <...> brackets is a complete IRI
                 return IRI.create(name.substring(1, name.length() - 1));
             }
             return getIRIByIdentifier(name);
-        }
-
-        private static boolean isQuoted(String s) {
-            int length = s.length();
-            if (length >= 2) {
-                return s.charAt(0) == '\'' && s.charAt(length - 1) == '\'';
-            }
-            return false;
         }
 
         @Nullable
@@ -268,7 +278,7 @@ public class ManchesterSyntaxTool {
 
         /**
          * Retrieve an {@link IRI} by rdfs:label.
-         * 
+         *
          * @param label label
          * @return {@link IRI} or null
          */
@@ -276,10 +286,10 @@ public class ManchesterSyntaxTool {
         protected IRI getIRIByLabel(String label) {
             for (OWLOntology o : ontologies) {
                 Optional<OWLAnnotationAssertionAxiom> anyMatch = o
-                                .axioms(AxiomType.ANNOTATION_ASSERTION)
-                                .filter(aa -> isMatchingLabel(label, aa.getValue(),
-                                                aa.getProperty()) && aa.getSubject().isIRI())
-                                .findAny();
+                    .axioms(AxiomType.ANNOTATION_ASSERTION)
+                    .filter(aa -> isMatchingLabel(label, aa.getValue(),
+                        aa.getProperty()) && aa.getSubject().isIRI())
+                    .findAny();
                 if (anyMatch.isPresent()) {
                     return (IRI) anyMatch.get().getSubject();
                 }
@@ -294,15 +304,15 @@ public class ManchesterSyntaxTool {
          * @return true if property is a label, v is a literal and v matches label
          */
         protected boolean isMatchingLabel(String label, OWLAnnotationValue v,
-                        OWLAnnotationProperty property) {
+            OWLAnnotationProperty property) {
             return property.isLabel() && v instanceof OWLLiteral
-                            && label.equals(((OWLLiteral) v).getLiteral());
+                && label.equals(((OWLLiteral) v).getLiteral());
         }
 
         /**
          * Retrieve the {@link OWLClass} for a given {@link IRI}, if it has at least one
          * {@link OWLDeclarationAxiom}.
-         * 
+         *
          * @param iri iri
          * @return {@link OWLClass} or null
          */
@@ -323,7 +333,7 @@ public class ManchesterSyntaxTool {
         /**
          * Retrieve the {@link OWLNamedIndividual} for a given {@link IRI}, if it has at least one
          * corresponding {@link OWLDeclarationAxiom}.
-         * 
+         *
          * @param iri iri
          * @return {@link OWLNamedIndividual} or null
          */
@@ -331,9 +341,9 @@ public class ManchesterSyntaxTool {
         protected OWLNamedIndividual getOWLIndividual(IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLNamedIndividual c = o.getOWLOntologyManager().getOWLDataFactory()
-                                .getOWLNamedIndividual(iri);
+                    .getOWLNamedIndividual(iri);
                 Optional<OWLDeclarationAxiom> found = o.declarationAxioms(c)
-                                .filter(da -> da.getEntity().isOWLNamedIndividual()).findAny();
+                    .filter(da -> da.getEntity().isOWLNamedIndividual()).findAny();
                 if (found.isPresent()) {
                     return found.get().getEntity().asOWLNamedIndividual();
                 }
@@ -344,7 +354,7 @@ public class ManchesterSyntaxTool {
         /**
          * Retrieve the {@link OWLObjectProperty} for a given {@link IRI}, if it has at least one
          * {@link OWLDeclarationAxiom}.
-         * 
+         *
          * @param iri iri
          * @return {@link OWLObjectProperty} or null
          */
@@ -352,22 +362,12 @@ public class ManchesterSyntaxTool {
         protected OWLObjectProperty getOWLObjectProperty(IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLObjectProperty p = o.getOWLOntologyManager().getOWLDataFactory()
-                                .getOWLObjectProperty(iri);
+                    .getOWLObjectProperty(iri);
                 if (!asList(o.declarationAxioms(p)).isEmpty()) {
                     return p;
                 }
             }
             return null;
-        }
-    }
-
-    /**
-     * Call this method to dispose the internal data structures. This will remove also the listeners
-     * registered with the ontology manager.
-     */
-    public void dispose() {
-        if (!disposed.getAndSet(true)) {
-            shortFormProvider.dispose();
         }
     }
 }

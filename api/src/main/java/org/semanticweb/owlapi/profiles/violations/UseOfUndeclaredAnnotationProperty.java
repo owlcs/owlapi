@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  */
 public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation
-                implements UndeclaredEntityViolation {
+    implements UndeclaredEntityViolation {
 
     @Nullable
     private final OWLAnnotation annotation;
@@ -46,7 +46,7 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation
      * @param prop prop
      */
     public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    @Nullable OWLAnnotation annotation, OWLAnnotationProperty prop) {
+        @Nullable OWLAnnotation annotation, OWLAnnotationProperty prop) {
         super(ontology, axiom, checkNotNull(prop));
         this.annotation = annotation;
     }
@@ -74,7 +74,7 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation
     @Override
     public String toString() {
         return toString("Use of undeclared annotation property: %s in annotation", getExpression(),
-                        nullSafeAnnotation());
+            nullSafeAnnotation());
     }
 
     @SuppressWarnings("null")

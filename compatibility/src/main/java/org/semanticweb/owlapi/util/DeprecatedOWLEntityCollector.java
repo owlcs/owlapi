@@ -35,11 +35,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * are referred to in those axioms, class expressions etc. For example, if the collector visited the
  * axiom (propP some C) subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
  *         13-Nov-2006
  * @deprecated the old OWLEntityCollector is still used in non trivial ways in third party software.
- *             For new code, use OWLEntityCollector.
+ * For new code, use OWLEntityCollector.
  */
 @Deprecated
 public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
@@ -57,7 +57,7 @@ public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity>
      * @param anonsToReturn the set that will contain the anon individuals
      */
     public DeprecatedOWLEntityCollector(Set<OWLEntity> toReturn,
-                    @Nullable Collection<OWLAnonymousIndividual> anonsToReturn) {
+        @Nullable Collection<OWLAnonymousIndividual> anonsToReturn) {
         super(toReturn);
         anonymousIndividuals = anonsToReturn;
     }
@@ -81,7 +81,7 @@ public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity>
     /**
      * Clears all objects that have accumulated during the course of visiting axioms, class
      * expressions etc.
-     * 
+     *
      * @param toReturn the set that will contain the results
      */
     public void reset(Set<OWLEntity> toReturn) {
@@ -131,7 +131,7 @@ public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity>
      * this collector and stored in a separate set. This method returns collected individuals.
      * Deprecated: if the non deprecated constructors are used, this method is useless and
      * inefficient
-     * 
+     *
      * @return The set of anonymous individuals that were collected by the collector
      */
     @Deprecated

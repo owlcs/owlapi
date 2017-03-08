@@ -25,7 +25,7 @@ public class AxiomCount extends IntegerValuedMetric {
 
     /**
      * Instantiates a new axiom count.
-     * 
+     *
      * @param o ontology to use
      */
     public AxiomCount(OWLOntology o) {

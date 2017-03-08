@@ -18,22 +18,24 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLObjectPropertyDomainAxiom. */
+/**
+ * Builder class for OWLObjectPropertyDomainAxiom.
+ */
 public class BuilderObjectPropertyDomain extends
-                BaseDomainBuilder<OWLObjectPropertyDomainAxiom, BuilderObjectPropertyDomain, OWLObjectPropertyExpression>
-                implements
-                SettableProperty<OWLObjectPropertyExpression, BuilderObjectPropertyDomain> {
+    BaseDomainBuilder<OWLObjectPropertyDomainAxiom, BuilderObjectPropertyDomain, OWLObjectPropertyExpression>
+    implements
+    SettableProperty<OWLObjectPropertyExpression, BuilderObjectPropertyDomain> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderObjectPropertyDomain(OWLObjectPropertyDomainAxiom expected, OWLDataFactory df) {
         this(df);
         withDomain(expected.getDomain()).withProperty(expected.getProperty())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

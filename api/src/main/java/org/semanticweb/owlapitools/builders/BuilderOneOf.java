@@ -18,12 +18,14 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
-/** Builder class for OWLObjectOneOf. */
+/**
+ * Builder class for OWLObjectOneOf.
+ */
 public class BuilderOneOf extends BaseSetBuilder<OWLObjectOneOf, BuilderOneOf, OWLIndividual> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

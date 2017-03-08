@@ -21,11 +21,11 @@ import org.semanticweb.owlapi.model.HasIRI;
  * @since 3.2
  */
 public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasIRI,
-                org.apache.commons.rdf.api.RDFTerm {
+    org.apache.commons.rdf.api.RDFTerm {
 
     /**
      * Determines if this node is a literal node.
-     * 
+     *
      * @return {@code true} if this node is a literal, otherwise {@code false}.
      */
     public boolean isLiteral() {
@@ -34,7 +34,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasI
 
     /**
      * Determines if this node is an axiom.
-     * 
+     *
      * @return {@code true} if this node is a literal, otherwise {@code false}.
      */
     public boolean isAxiom() {
@@ -43,10 +43,10 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasI
 
     /**
      * Determines if this node is a resource and is anonymous.
-     * 
-     * @return {@code true} if this is a resource node (i.e. {@code isLiteral} returns
-     *         {@code false}) and the node is anonymous, or {@code false} if this is a resource node
-     *         and is not anonymous.
+     *
+     * @return {@code true} if this is a resource node (i.e. {@code isLiteral} returns {@code
+     * false}) and the node is anonymous, or {@code false} if this is a resource node and is not
+     * anonymous.
      */
     public boolean isAnonymous() {
         return false;
@@ -68,7 +68,7 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasI
 
     /**
      * @return true if an id is required for this node - only if this is an individual or an axiom
-     *         and id is required
+     * and id is required
      */
     public boolean idRequiredForIndividualOrAxiom() {
         return isAnonymous() && (isIndividual() || isAxiom()) && shouldOutputId();

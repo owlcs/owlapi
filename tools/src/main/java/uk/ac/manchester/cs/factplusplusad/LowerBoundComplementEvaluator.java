@@ -55,7 +55,7 @@ class LowerBoundComplementEvaluator extends CardinalityEvaluatorBase {
             return noLowerValue();
         }
         if ((entity.isOWLObjectProperty() || entity.isOWLDataProperty() || entity.isOWLDatatype())
-                        && entity.isBottomEntity()) {
+            && entity.isBottomEntity()) {
             return anyLowerValue();
         }
         if (entity.isBottomEntity()) {

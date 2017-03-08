@@ -101,14 +101,14 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
             });
         } catch (ServiceConfigurationError e) {
             throw new OWLRuntimeException(
-                            "Injection failed for factory: " + factory + " type: " + type, e);
+                "Injection failed for factory: " + factory + " type: " + type, e);
         }
     }
 
     protected void loadOntologyManagerFactory() {
         try {
             Multibinder<OWLOntologyManagerFactory> binder =
-                            Multibinder.newSetBinder(binder(), OWLOntologyManagerFactory.class);
+                Multibinder.newSetBinder(binder(), OWLOntologyManagerFactory.class);
             load(OWLOntologyManagerFactory.class).forEach(o -> binder.addBinding().toInstance(o));
         } catch (ServiceConfigurationError e) {
             throw new OWLRuntimeException("Injection failed for OWLOntologyManager factory", e);

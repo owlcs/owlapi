@@ -19,18 +19,20 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 
-/** Builder class for SWRLDifferentIndividualsAtom. */
+/**
+ * Builder class for SWRLDifferentIndividualsAtom.
+ */
 public class BuilderSWRLDifferentIndividualsAtom extends
-                BuilderSWRLIndividualsAtom<SWRLDifferentIndividualsAtom, BuilderSWRLDifferentIndividualsAtom> {
+    BuilderSWRLIndividualsAtom<SWRLDifferentIndividualsAtom, BuilderSWRLDifferentIndividualsAtom> {
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderSWRLDifferentIndividualsAtom(SWRLDifferentIndividualsAtom expected,
-                    OWLDataFactory df) {
+        OWLDataFactory df) {
         this(df);
         withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument());
     }
@@ -46,6 +48,6 @@ public class BuilderSWRLDifferentIndividualsAtom extends
     @Override
     public SWRLDifferentIndividualsAtom buildObject() {
         return df.getSWRLDifferentIndividualsAtom(verifyNotNull(getArg0()),
-                        verifyNotNull(getArg1()));
+            verifyNotNull(getArg1()));
     }
 }

@@ -34,7 +34,7 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViola
      * @param property property
      */
     public UseOfReservedVocabularyForObjectPropertyIRI(OWLOntology ontology,
-                    @Nullable OWLAxiom axiom, OWLObjectProperty property) {
+        @Nullable OWLAxiom axiom, OWLObjectProperty property) {
         super(ontology, axiom, property);
     }
 

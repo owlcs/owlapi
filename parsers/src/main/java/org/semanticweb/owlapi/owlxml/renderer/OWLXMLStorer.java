@@ -33,7 +33,7 @@ public class OWLXMLStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         OWLXMLRenderer.render(ontology, writer, format);
     }
 }

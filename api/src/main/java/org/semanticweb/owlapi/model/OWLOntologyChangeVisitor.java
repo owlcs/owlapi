@@ -21,49 +21,49 @@ public interface OWLOntologyChangeVisitor {
 
     /**
      * visit AddAxiom type
-     * 
+     *
      * @param change change to visit
      */
     default void visit(AddAxiom change) {}
 
     /**
      * visit RemoveAxiom type
-     * 
+     *
      * @param change change to visit
      */
     default void visit(RemoveAxiom change) {}
 
     /**
      * visit SetOntologyID type
-     * 
+     *
      * @param change change to visit
      */
     default void visit(SetOntologyID change) {}
 
     /**
      * visit AddImport type
-     * 
+     *
      * @param change change to visit
      */
     default void visit(AddImport change) {}
 
     /**
      * visit RemoveImport type
-     * 
+     *
      * @param change change to visit
      */
     default void visit(RemoveImport change) {}
 
     /**
      * visit AddOntologyAnnotation type
-     * 
+     *
      * @param change change to visit
      */
     default void visit(AddOntologyAnnotation change) {}
 
     /**
      * visit RemoveOntologyAnnotation type
-     * 
+     *
      * @param change change to visit
      */
     default void visit(RemoveOntologyAnnotation change) {}

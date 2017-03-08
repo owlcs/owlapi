@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 /**
  * An interface to an object that contains axioms.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.4.6
  */
@@ -28,9 +28,9 @@ public interface HasAxioms {
 
     /**
      * Gets the {@link OWLAxiom}s contained in this object.
-     * 
+     *
      * @return The set of {@link OWLAxiom}s contained in this object. Changes are not reflected
-     *         back.
+     * back.
      * @deprecated use the stream method
      */
     @Deprecated

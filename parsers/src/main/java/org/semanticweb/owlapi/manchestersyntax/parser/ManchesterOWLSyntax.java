@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 /**
  * The vocabulary that the Manchester OWL Syntax uses.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -110,8 +110,8 @@ public enum ManchesterOWLSyntax {
     /**SUB_PROPERTY_CHAIN.          */    SUB_PROPERTY_CHAIN          ("SubPropertyChain",          false, true,  true,  false, false),
     /**HAS_KEY.                     */    HAS_KEY                     ("HasKey",                    false, true,  false, false, false),
     /**RULE.                        */    RULE                        ("Rule",                      true,  true,  false, false, false);
-
     //@formatter:on
+
     private final boolean frameKeyword;
     private final boolean sectionKeyword;
     private final boolean axiomKeyword;
@@ -121,8 +121,8 @@ public enum ManchesterOWLSyntax {
     private final String keyword;
 
     ManchesterOWLSyntax(String rendering, boolean frameKeyword, boolean sectionKeyword,
-                    boolean axiomKeyword, boolean classExpressionQuantifierKeyword,
-                    boolean classExpressionConnectiveKeyword, String keyword) {
+        boolean axiomKeyword, boolean classExpressionQuantifierKeyword,
+        boolean classExpressionConnectiveKeyword, String keyword) {
         this.rendering = rendering;
         this.frameKeyword = frameKeyword;
         this.sectionKeyword = sectionKeyword;
@@ -133,11 +133,24 @@ public enum ManchesterOWLSyntax {
     }
 
     ManchesterOWLSyntax(String rendering, boolean frameKeyword, boolean sectionKeyword,
-                    boolean axiomKeyword, boolean classExpressionQuantifierKeyword,
-                    boolean classExpressionConnectiveKeyword) {
+        boolean axiomKeyword, boolean classExpressionQuantifierKeyword,
+        boolean classExpressionConnectiveKeyword) {
         this(rendering, frameKeyword, sectionKeyword, axiomKeyword,
-                        classExpressionQuantifierKeyword, classExpressionConnectiveKeyword,
-                        rendering + ':');
+            classExpressionQuantifierKeyword, classExpressionConnectiveKeyword, rendering + ':');
+    }
+
+    /**
+     * @param rendering rendering
+     * @return manchester owl syntax object
+     */
+    @Nullable
+    public static ManchesterOWLSyntax parse(String rendering) {
+        for (ManchesterOWLSyntax m : values()) {
+            if (m.matches(rendering)) {
+                return m;
+            }
+        }
+        return null;
     }
 
     /**
@@ -205,27 +218,13 @@ public enum ManchesterOWLSyntax {
 
     /**
      * for keywords which match two tokens.
-     * 
+     *
      * @param s s
      * @param v v
      * @return true if matches
      */
     public boolean matches(String s, String v) {
         return rendering.length() == s.length() + v.length() && rendering.startsWith(s)
-                        && rendering.endsWith(v);
-    }
-
-    /**
-     * @param rendering rendering
-     * @return manchester owl syntax object
-     */
-    @Nullable
-    public static ManchesterOWLSyntax parse(String rendering) {
-        for (ManchesterOWLSyntax m : values()) {
-            if (m.matches(rendering)) {
-                return m;
-            }
-        }
-        return null;
+            && rendering.endsWith(v);
     }
 }

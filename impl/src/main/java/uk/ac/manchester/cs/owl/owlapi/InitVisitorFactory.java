@@ -74,12 +74,12 @@ public class InitVisitorFactory {
     static final InitVisitor<OWLDataPropertyExpression>             DPSUPERNAMED       = new InitVisitor<>          (false, true);
     static final InitVisitor<OWLIndividual>                         INDIVIDUALSUBNAMED = new InitIndividualVisitor<>(true,  true);
     static final InitVisitor<OWLAnnotationSubject>                  ANNOTSUPERNAMED    = new InitVisitor<>          (true,  true);
+    //@formatter:on
     private InitVisitorFactory() {}
 
     /**
      * @author ignazio
-     * @param <K>
-     *        visitor return type
+     * @param <K> visitor return type
      */
     @SuppressWarnings("unchecked")
     public static class InitVisitor<K> implements OWLAxiomVisitorEx<K> {
@@ -88,10 +88,8 @@ public class InitVisitorFactory {
         private final boolean named;
 
         /**
-         * @param sub
-         *        true for subclasses
-         * @param named
-         *        true for named classes
+         * @param sub true for subclasses
+         * @param named true for named classes
          */
         public InitVisitor(boolean sub, boolean named) {
             this.sub = sub;
@@ -230,17 +228,14 @@ public class InitVisitorFactory {
 
     /**
      * @author ignazio
-     * @param <K>
-     *        visitor return type
+     * @param <K> visitor return type
      */
     @SuppressWarnings("unchecked")
     public static class InitIndividualVisitor<K extends OWLObject> extends InitVisitor<K> {
 
         /**
-         * @param sub
-         *        true for subclasses
-         * @param named
-         *        true for named classes
+         * @param sub true for subclasses
+         * @param named true for named classes
          */
         public InitIndividualVisitor(boolean sub, boolean named) {
             super(sub, named);
@@ -254,8 +249,7 @@ public class InitVisitorFactory {
 
     /**
      * @author ignazio
-     * @param <K>
-     *        collection type
+     * @param <K> collection type
      */
     @SuppressWarnings("unchecked")
     public static class InitCollectionVisitor<K> implements OWLAxiomVisitorEx<Stream<K>> {
@@ -263,8 +257,7 @@ public class InitVisitorFactory {
         private final boolean named;
 
         /**
-         * @param named
-         *        true for named classes
+         * @param named true for named classes
          */
         public InitCollectionVisitor(boolean named) {
             this.named = named;

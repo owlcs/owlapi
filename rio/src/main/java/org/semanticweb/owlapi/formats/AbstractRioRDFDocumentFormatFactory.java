@@ -45,15 +45,15 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 /**
  * An abstract implementation of the RioRDFOntologyFormatFactory interface that uses the Rio
  * RDFFormat class to provide information for common methods.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
 public abstract class AbstractRioRDFDocumentFormatFactory extends OWLDocumentFormatFactoryImpl
-                implements RioRDFDocumentFormatFactory {
+    implements RioRDFDocumentFormatFactory {
 
-    private transient RDFFormat rioFormat;
     private final String formatName;
+    private transient RDFFormat rioFormat;
 
     protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
         this(rioFormat, true);

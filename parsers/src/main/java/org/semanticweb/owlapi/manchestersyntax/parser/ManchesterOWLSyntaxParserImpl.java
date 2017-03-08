@@ -197,48 +197,48 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * property or an object property. If a complete ontology is being parsed, it is expected that
  * hasPart will have been defined at the top of the file before it is used in any class expressions
  * or property assertions (e.g. ObjectProperty: hasPart)
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser {
 
     private static final String INFINITY = "Infinity";
-    // This parser was built by hand! After struggling with terrible
-    // error messages produced by ANTLR (or JavaCC) I decides to construct
-    // this parser by hand. The error messages that this parser generates
-    // are specific to the Manchester OWL Syntax and are such that it should
-    // be easy to use this parser in tools such as editors.
-    private OWLOntologyLoaderConfiguration loaderConfig;
-    protected OWLDataFactory df;
-    private final List<Token> tokens = new ArrayList<>();
-    private int tokenIndex;
-    private OWLEntityChecker checker;
-    private OWLOntologyChecker owlOntologyChecker = name -> null;
-    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLClass, ?>> classFrameSections =
-                    new EnumMap<>(ManchesterOWLSyntax.class);
+    private static final boolean ALLOWEMPTYFRAMESECTIONS = false;
     protected final Set<String> classNames = new HashSet<>();
     protected final Set<String> objectPropertyNames = new HashSet<>();
     protected final Set<String> dataPropertyNames = new HashSet<>();
     protected final Set<String> individualNames = new HashSet<>();
     protected final Set<String> dataTypeNames = new HashSet<>();
     protected final Set<String> annotationPropertyNames = new HashSet<>();
-    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
     protected final DefaultPrefixManager pm = new DefaultPrefixManager();
     protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
+    private final List<Token> tokens = new ArrayList<>();
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLClass, ?>> classFrameSections =
+        new EnumMap<>(ManchesterOWLSyntax.class);
+    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLDataProperty, ?>> dataPropertyFrameSections =
+        new EnumMap<>(ManchesterOWLSyntax.class);
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLObjectProperty, ?>> objectPropertyFrameSections =
+        new EnumMap<>(ManchesterOWLSyntax.class);
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLAnnotationProperty, ?>> annotationPropertyFrameSections =
+        new EnumMap<>(ManchesterOWLSyntax.class);
+    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLIndividual, ?>> individualFrameSections =
+        new EnumMap<>(ManchesterOWLSyntax.class);
+    private final Map<String, IRI> nameIRIMap = new HashMap<>();
+    protected OWLDataFactory df;
+    protected RemappingIndividualProvider anonProvider;
+    // This parser was built by hand! After struggling with terrible
+    // error messages produced by ANTLR (or JavaCC) I decides to construct
+    // this parser by hand. The error messages that this parser generates
+    // are specific to the Manchester OWL Syntax and are such that it should
+    // be easy to use this parser in tools such as editors.
+    private OWLOntologyLoaderConfiguration loaderConfig;
+    private int tokenIndex;
+    private OWLEntityChecker checker;
+    private OWLOntologyChecker owlOntologyChecker = name -> null;
     @Nullable
     private OWLOntology defaultOntology;
-    private static final boolean ALLOWEMPTYFRAMESECTIONS = false;
-    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLDataProperty, ?>> dataPropertyFrameSections =
-                    new EnumMap<>(ManchesterOWLSyntax.class);
-    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLObjectProperty, ?>> objectPropertyFrameSections =
-                    new EnumMap<>(ManchesterOWLSyntax.class);
-    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLAnnotationProperty, ?>> annotationPropertyFrameSections =
-                    new EnumMap<>(ManchesterOWLSyntax.class);
-    private final Map<ManchesterOWLSyntax, AnnAxiom<OWLIndividual, ?>> individualFrameSections =
-                    new EnumMap<>(ManchesterOWLSyntax.class);
-    protected RemappingIndividualProvider anonProvider;
-    private final Map<String, IRI> nameIRIMap = new HashMap<>();
 
     /**
      * @param configurationProvider configuration provider
@@ -246,7 +246,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
      */
     @Inject
     public ManchesterOWLSyntaxParserImpl(OntologyConfigurator configurationProvider,
-                    OWLDataFactory dataFactory) {
+        OWLDataFactory dataFactory) {
         loaderConfig = configurationProvider.buildLoaderConfiguration();
         df = dataFactory;
         anonProvider = new RemappingIndividualProvider(configurationProvider, df);
@@ -286,6 +286,52 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
+    protected static ManchesterOWLSyntaxTokenizer getTokenizer(String s) {
+        return new ManchesterOWLSyntaxTokenizer(s);
+    }
+
+    private static String asFloat(float f) {
+        return Float.toString(f).replace(INFINITY, "INF");
+    }
+
+    private static <F> void initialiseSection(AnnAxiom<F, ?> parser,
+        Map<ManchesterOWLSyntax, AnnAxiom<F, ?>> map, ManchesterOWLSyntax... synonyms) {
+        map.put(parser.keyword, parser);
+        for (ManchesterOWLSyntax syn : synonyms) {
+            map.put(syn, parser);
+        }
+    }
+
+    private static void resetPossible(Set<ManchesterOWLSyntax> possible) {
+        possible.clear();
+        possible.add(ANNOTATIONS);
+        possible.add(ANNOTATION_PROPERTY);
+        possible.add(CLASS);
+        possible.add(OBJECT_PROPERTY);
+        possible.add(DATATYPE);
+        possible.add(DATA_PROPERTY);
+        possible.add(INDIVIDUAL);
+        possible.add(VALUE_PARTITION);
+        possible.add(RULE);
+    }
+
+    static OWLAxiom create(OWLDataFactory d, OWLIndividual s, Set<OWLIndividual> o,
+        Collection<OWLAnnotation> anns) {
+        Set<OWLIndividual> individuals = new HashSet<>();
+        individuals.add(s);
+        individuals.addAll(o);
+        return d.getOWLDifferentIndividualsAxiom(individuals, anns);
+    }
+
+    static OWLAxiom create(OWLDataFactory d, OWLIndividual s, OWLAnnotation o,
+        Collection<OWLAnnotation> anns) {
+        if (s.isAnonymous()) {
+            return d.getOWLAnnotationAssertionAxiom(s.asOWLAnonymousIndividual(), o, anns);
+        } else {
+            return d.getOWLAnnotationAssertionAxiom(s.asOWLNamedIndividual().getIRI(), o, anns);
+        }
+    }
+
     /** @return the prefix manager used by this parser */
     // XXX add this method to the interface in next release
     public PrefixManager getPrefixManager() {
@@ -309,10 +355,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         tokenIndex = 0;
     }
 
-    protected static ManchesterOWLSyntaxTokenizer getTokenizer(String s) {
-        return new ManchesterOWLSyntaxTokenizer(s);
-    }
-
     private void initialiseClassFrameSections() {
         //@formatter:off
         initialiseSection(new AnnAxiom<OWLClass, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), classFrameSections);
@@ -329,7 +371,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private void initialiseObjectPropertyFrameSections() {
-      //@formatter:off
+        //@formatter:off
         initialiseSection(new AnnAxiom<OWLObjectProperty, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> df.getOWLAnnotationAssertionAxiom(s.getIRI(), o, anns)), objectPropertyFrameSections);
         initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubObjectPropertyOfAxiom(s, o, anns)), objectPropertyFrameSections);
         initialiseSection(new AnnAxiom<OWLObjectProperty, OWLObjectPropertyExpression>(x -> parseObjectPropertyExpression(false), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentObjectPropertiesAxiom(s, o, anns)), objectPropertyFrameSections);
@@ -345,7 +387,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private void initialiseDataPropertyFrameSections() {
-      //@formatter:off
+        //@formatter:off
         initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubDataPropertyOfAxiom(s, o, anns)), dataPropertyFrameSections);
         initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), EQUIVALENT_TO, (s, o, anns) -> df.getOWLEquivalentDataPropertiesAxiom(s,o, anns)), dataPropertyFrameSections);
         initialiseSection(new AnnAxiom<OWLDataProperty, OWLDataPropertyExpression>(x -> parseDataProperty(), DISJOINT_WITH, (s, o, anns) -> df.getOWLDisjointDataPropertiesAxiom(s,o, anns)), dataPropertyFrameSections);
@@ -357,7 +399,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private void initialiseAnnotationPropertyFrameSections() {
-      //@formatter:off
+        //@formatter:off
         initialiseSection(new AnnAxiom<OWLAnnotationProperty, OWLAnnotationProperty>(x -> parseAnnotationProperty(), SUB_PROPERTY_OF, (s, o, anns) -> df.getOWLSubAnnotationPropertyOfAxiom(s, o, anns)), annotationPropertyFrameSections);
         initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), DOMAIN, (s, o, anns) -> df.getOWLAnnotationPropertyDomainAxiom(s, o, anns)), annotationPropertyFrameSections);
         initialiseSection(new AnnAxiom<OWLAnnotationProperty, IRI>(x -> parseIRI(), RANGE, (s, o, anns) -> df.getOWLAnnotationPropertyRangeAxiom(s, o, anns)), annotationPropertyFrameSections);
@@ -366,7 +408,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private void initialiseIndividualFrameSections() {
-      //@formatter:off
+        //@formatter:off
         initialiseSection(new AnnAxiom<OWLIndividual, OWLAnnotation>(x -> parseAnnotation(), ANNOTATIONS, (s, o, anns) -> create(df, s, o, anns)), individualFrameSections);
         initialiseSection(new AnnAxiom<OWLIndividual, OWLClassExpression>(x -> parseUnion(), TYPES, (s, o, anns) -> df.getOWLClassAssertionAxiom(o, s, anns)), individualFrameSections);
         initialiseSection(new AnnAxiom<>(this::parseFact, FACTS, (s, o, anns) -> o.getAnnotatedAxiom(anns)), individualFrameSections);
@@ -406,7 +448,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     private boolean isAnnotationPropertyName(String name) {
         return annotationPropertyNames.contains(name)
-                        || checker.getOWLAnnotationProperty(name) != null;
+            || checker.getOWLAnnotationProperty(name) != null;
     }
 
     private boolean isDataPropertyName(String name) {
@@ -599,8 +641,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
             if (prop.isAnonymous()) {
                 throw new ExceptionBuilder().withKeyword(
-                                "Inverse construct uses nested object property expression, but object property only is allowed")
-                                .build();
+                    "Inverse construct uses nested object property expression, but object property only is allowed")
+                    .build();
             }
             if (brackets) {
                 String close = consumeToken();
@@ -633,9 +675,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     /**
      * Parses all class expressions except ObjectIntersectionOf and ObjectUnionOf.
-     * 
+     *
      * @return The class expression which was parsed @ * if a non-nary class expression could not be
-     *         parsed
+     * parsed
      */
     private OWLClassExpression parseNonNaryClassExpression() {
         String tok = peekToken();
@@ -660,7 +702,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         else {
             consumeToken();
             throw new ExceptionBuilder().withClass().withObject().withData()
-                            .withKeyword(OPEN, OPENBRACE, NOT, INVERSE).build();
+                .withKeyword(OPEN, OPENBRACE, NOT, INVERSE).build();
         }
     }
 
@@ -726,7 +768,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         } else {
             // Error!
             throw new ExceptionBuilder().withKeyword(SOME, ONLY, VALUE, MIN, MAX, EXACTLY, SELF)
-                            .build();
+                .build();
         }
     }
 
@@ -955,7 +997,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 try {
                     // this extra F might qualify as Float a Double INF/-INF
                     float f = Float.parseFloat(
-                                    tok.replace("INF", INFINITY).replace("inf", INFINITY));
+                        tok.replace("INF", INFINITY).replace("inf", INFINITY));
                     return df.getOWLLiteral(asFloat(f), OWL2Datatype.XSD_FLOAT);
                 } catch (@SuppressWarnings("unused") NumberFormatException e) {
                     // Ignore - not interested
@@ -975,8 +1017,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
         }
         throw new ExceptionBuilder().withKeyword(LITERAL_TRUE, LITERAL_FALSE, LITERAL_INTEGER,
-                        LITERAL_FLOAT, LITERAL_DOUBLE, LITERAL_LITERAL, LITERAL_LIT_DATATYPE,
-                        LITERAL_LIT_LANG).build();
+            LITERAL_FLOAT, LITERAL_DOUBLE, LITERAL_LITERAL, LITERAL_LIT_DATATYPE,
+            LITERAL_LIT_LANG).build();
     }
 
     private String unquoteLiteral(String tok) {
@@ -989,10 +1031,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             lit = tok.substring(1, tok.length() - 1);
         }
         return verifyNotNull(lit);
-    }
-
-    private static String asFloat(float f) {
-        return Float.toString(f).replace(INFINITY, "INF");
     }
 
     private int parseInteger() {
@@ -1059,14 +1097,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             throw new ExceptionBuilder().withKeyword(CLOSEBRACE, COMMA).build();
         }
         return df.getOWLObjectOneOf(inds);
-    }
-
-    private static <F> void initialiseSection(AnnAxiom<F, ?> parser,
-                    Map<ManchesterOWLSyntax, AnnAxiom<F, ?>> map, ManchesterOWLSyntax... synonyms) {
-        map.put(parser.keyword, parser);
-        for (ManchesterOWLSyntax syn : synonyms) {
-            map.put(syn, parser);
-        }
     }
 
     @Override
@@ -1146,7 +1176,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 for (OWLOntology ont : onts) {
                     for (OWLDataRange dr : drs) {
                         axioms.add(new OntologyAxiomPair(ont,
-                                        df.getOWLDatatypeDefinitionAxiom(datatype, dr)));
+                            df.getOWLDatatypeDefinitionAxiom(datatype, dr)));
                     }
                 }
             } else if (ANNOTATIONS.matches(sect)) {
@@ -1157,19 +1187,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
         }
         return axioms;
-    }
-
-    private static void resetPossible(Set<ManchesterOWLSyntax> possible) {
-        possible.clear();
-        possible.add(ANNOTATIONS);
-        possible.add(ANNOTATION_PROPERTY);
-        possible.add(CLASS);
-        possible.add(OBJECT_PROPERTY);
-        possible.add(DATATYPE);
-        possible.add(DATA_PROPERTY);
-        possible.add(INDIVIDUAL);
-        possible.add(VALUE_PARTITION);
-        possible.add(RULE);
     }
 
     private Set<OntologyAxiomPair> parseNaryEquivalentClasses() {
@@ -1183,7 +1200,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             pairs.add(new OntologyAxiomPair(ont,
-                            df.getOWLEquivalentClassesAxiom(classExpressions, annotations)));
+                df.getOWLEquivalentClassesAxiom(classExpressions, annotations)));
         }
         return pairs;
     }
@@ -1235,7 +1252,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             for (OWLAnnotation anno : annos) {
                 if (getOntologyLoaderConfiguration().isLoadAnnotationAxioms()) {
                     pairs.add(new OntologyAxiomPair(ont,
-                                    df.getOWLAnnotationAssertionAxiom(s, anno)));
+                        df.getOWLAnnotationAssertionAxiom(s, anno)));
                 }
             }
         }
@@ -1263,7 +1280,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         OWLAnnotationProperty annoProp = parseAnnotationProperty();
         String obj = peekToken();
         if (isIndividualName(obj) || isClassName(obj) || isObjectPropertyName(obj)
-                        || isDataPropertyName(obj)) {
+            || isDataPropertyName(obj)) {
             consumeToken();
             OWLAnnotationValue value;
             if (obj.startsWith("_:")) {
@@ -1342,7 +1359,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     public void setDefaultOntology(OWLOntology defaultOntology) {
         this.defaultOntology = defaultOntology;
         defaultOntology.axioms(AxiomType.DECLARATION, Imports.INCLUDED)
-                        .forEach(this::processDeclaredEntities);
+            .forEach(this::processDeclaredEntities);
     }
 
     private boolean isEmptyFrameSection(Map<ManchesterOWLSyntax, ?> parsers) {
@@ -1354,7 +1371,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private <F> void parseFrameSections(boolean eof, Set<OntologyAxiomPair> axioms, F frameSubject,
-                    Map<ManchesterOWLSyntax, AnnAxiom<F, ?>> sectionParsers) {
+        Map<ManchesterOWLSyntax, AnnAxiom<F, ?>> sectionParsers) {
         while (true) {
             String sect = peekToken();
             AnnAxiom<F, ?> parser = sectionParsers.get(parse(sect));
@@ -1368,7 +1385,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 List<ManchesterOWLSyntax> expected = new ArrayList<>();
                 expected.addAll(sectionParsers.keySet());
                 if (frameSubject instanceof OWLAnnotationSubject
-                                || frameSubject instanceof OWLEntity) {
+                    || frameSubject instanceof OWLEntity) {
                     expected.add(ANNOTATIONS);
                 }
                 throw new ExceptionBuilder().withKeyword(expected).build();
@@ -1390,7 +1407,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         OWLObjectProperty prop = getOWLObjectProperty(token);
         if (!prop.isAnonymous()) {
             axioms.add(new OntologyAxiomPair(defaultOntology,
-                            df.getOWLDeclarationAxiom(prop.asOWLObjectProperty())));
+                df.getOWLDeclarationAxiom(prop.asOWLObjectProperty())));
         }
         parseFrameSections(eof, axioms, prop, objectPropertyFrameSections);
         return axioms;
@@ -1437,7 +1454,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!ind.isAnonymous()) {
             axioms.add(new OntologyAxiomPair(getOntology(null),
-                            df.getOWLDeclarationAxiom(ind.asOWLNamedIndividual())));
+                df.getOWLDeclarationAxiom(ind.asOWLNamedIndividual())));
         }
         parseFrameSections(false, axioms, ind, individualFrameSections);
         return axioms;
@@ -1494,7 +1511,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private Set<OntologyAxiomPair> parseValuePartitionValues(Set<OWLOntology> onts,
-                    OWLClass superclass) {
+        OWLClass superclass) {
         Set<OntologyAxiomPair> axioms = new HashSet<>();
         Set<OWLClass> siblings = new HashSet<>();
         consumeToken(OPENBRACKET.keyword());
@@ -1586,7 +1603,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             kw.add(DIFFERENT_FROM.toString());
             kw.add(SAME_AS.toString());
             throw new ExceptionBuilder().withKeyword(kw).withClass().withObject().withData()
-                            .build();
+                .build();
         }
     }
 
@@ -1765,7 +1782,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             pairs.add(new OntologyAxiomPair(ont,
-                            df.getOWLDisjointClassesAxiom(classExpressions, annotations)));
+                df.getOWLDisjointClassesAxiom(classExpressions, annotations)));
         }
         return pairs;
     }
@@ -1781,7 +1798,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             pairs.add(new OntologyAxiomPair(ont,
-                            df.getOWLSameIndividualAxiom(individuals, annotations)));
+                df.getOWLSameIndividualAxiom(individuals, annotations)));
         }
         return pairs;
     }
@@ -1822,13 +1839,13 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ontology : ontologies) {
             pairs.add(new OntologyAxiomPair(ontology,
-                            df.getOWLDifferentIndividualsAxiom(individuals, annotations)));
+                df.getOWLDifferentIndividualsAxiom(individuals, annotations)));
         }
         return pairs;
     }
 
     protected OWLObjectPropertyCharacteristicAxiom parseObjectPropertyCharacteristic(
-                    OWLObjectPropertyExpression prop) {
+        OWLObjectPropertyExpression prop) {
         String characteristic = consumeToken();
         if (FUNCTIONAL.matches(characteristic)) {
             return df.getOWLFunctionalObjectPropertyAxiom(prop);
@@ -1846,12 +1863,12 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return df.getOWLIrreflexiveObjectPropertyAxiom(prop);
         } else {
             throw new ExceptionBuilder().withKeyword(FUNCTIONAL, INVERSE_FUNCTIONAL, SYMMETRIC,
-                            ANTI_SYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE).build();
+                ANTI_SYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE).build();
         }
     }
 
     protected OWLDataPropertyCharacteristicAxiom parseDataPropertyCharacteristic(
-                    OWLDataPropertyExpression prop) {
+        OWLDataPropertyExpression prop) {
         String characteristic = consumeToken();
         if (FUNCTIONAL.matches(characteristic)) {
             return df.getOWLFunctionalDataPropertyAxiom(prop);
@@ -1877,7 +1894,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private Set<OWLClassExpression> parseClassExpressionList(ManchesterOWLSyntax expectedOpen,
-                    ManchesterOWLSyntax expectedClose) {
+        ManchesterOWLSyntax expectedClose) {
         String open = consumeToken();
         if (!expectedOpen.matches(open)) {
             throw new ExceptionBuilder().withKeyword(expectedOpen).build();
@@ -2123,7 +2140,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             } else if (IMPORT.matches(section)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration();
                 ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                                getOntologyLoaderConfiguration());
+                    getOntologyLoaderConfiguration());
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
                 if (imported != null) {
@@ -2138,9 +2155,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             } else {
                 consumeToken();
                 throw new ExceptionBuilder().withKeyword(CLASS, OBJECT_PROPERTY, DATA_PROPERTY,
-                                INDIVIDUAL, DATATYPE, ANNOTATION_PROPERTY, IMPORT, VALUE_PARTITION,
-                                PREFIX, EQUIVALENT_CLASSES, DISJOINT_CLASSES, DISJOINT_PROPERTIES,
-                                DIFFERENT_INDIVIDUALS, SAME_INDIVIDUAL).build();
+                    INDIVIDUAL, DATATYPE, ANNOTATION_PROPERTY, IMPORT, VALUE_PARTITION,
+                    PREFIX, EQUIVALENT_CLASSES, DISJOINT_CLASSES, DISJOINT_PROPERTIES,
+                    DIFFERENT_INDIVIDUALS, SAME_INDIVIDUAL).build();
             }
         }
         List<OWLOntologyChange> changes = new ArrayList<>(axioms.size());
@@ -2157,14 +2174,14 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     protected OWLOntologyID handleOntology(OWLOntology ont, Set<AddImport> imports,
-                    Set<AddOntologyAnnotation> ontologyAnnotations) {
+        Set<AddOntologyAnnotation> ontologyAnnotations) {
         OWLOntologyID ontologyID;
         ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
         for (OWLImportsDeclaration decl : header.getImportsDeclarations()) {
             assert decl != null;
             imports.add(new AddImport(ont, decl));
             ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                            getOntologyLoaderConfiguration());
+                getOntologyLoaderConfiguration());
             OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
             if (imported != null) {
                 imported.axioms(AxiomType.DECLARATION).forEach(this::processDeclaredEntities);
@@ -2232,6 +2249,349 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
         IRI importedOntologyIRI = importedIRI.get();
         imports.add(df.getOWLImportsDeclaration(importedOntologyIRI));
+    }
+
+    protected List<String> getTokenSequence() {
+        List<String> seq = new ArrayList<>();
+        int index = tokenIndex - 1;
+        if (index < 0) {
+            index = 0;
+        }
+        while (index < tokens.size() && seq.size() < 4 && !seq.contains(EOFTOKEN)) {
+            seq.add(tokens.get(index).getToken());
+            index++;
+        }
+        if (seq.isEmpty()) {
+            seq.add(EOFTOKEN);
+        }
+        return seq;
+    }
+
+    protected IRI getIRI(String inputName) {
+        String name = inputName;
+        boolean fullIRI = "<".equals(name);
+        if (fullIRI) {
+            name = consumeToken();
+            consumeToken();
+        }
+        IRI uri = nameIRIMap.get(name);
+        if (uri != null) {
+            return uri;
+        }
+        if (fullIRI) {
+            uri = IRI.create(name);
+        } else {
+            int colonIndex = name.indexOf(':');
+            if (colonIndex == -1) {
+                name = ":" + name;
+            }
+            uri = pm.getIRI(name);
+        }
+        nameIRIMap.put(name, uri);
+        return uri;
+    }
+
+    @Override
+    public OWLAxiom parseAxiom() {
+        String token = peekToken();
+        if (isClassName(token)) {
+            return parseAxiomWithClassExpressionStart();
+        } else if (isObjectPropertyName(token)) {
+            return parseAxiomWithObjectPropertyStart();
+        } else if (isDataPropertyName(token)) {
+            return parseAxiomWithDataPropertyStart();
+        } else if (isIndividualName(token)) {
+            return parseAxiomWithIndividualStart();
+        } else if (INV.matches(token)) {
+            return parseAxiomWithObjectPropertyStart();
+        } else if (OPEN.matches(token)) {
+            return parseAxiomWithClassExpressionStart();
+        } else if (OPENBRACE.matches(token)) {
+            return parseAxiomWithClassExpressionStart();
+        } else if (FUNCTIONAL.matches(token)) {
+            return parseFunctionPropertyAxiom();
+        } else if (INVERSE_FUNCTIONAL.matches(token)) {
+            return parseInverseFunctionalPropertyAxiom();
+        } else if (SYMMETRIC.matches(token)) {
+            return parseSymmetricPropertyAxiom();
+        } else if (ASYMMETRIC.matches(token)) {
+            return parseAsymmetricPropertyAxiom();
+        } else if (TRANSITIVE.matches(token)) {
+            return parseTransitivePropertyAxiom();
+        } else if (REFLEXIVE.matches(token)) {
+            return parseReflexivePropertyAxiom();
+        } else if (IRREFLEXIVE.matches(token)) {
+            return parseIrreflexivePropertyAxiom();
+        }
+        throw new ExceptionBuilder().withClass().withObject().withData()
+            .withKeyword(OPEN, OPENBRACE, INV, FUNCTIONAL, INVERSE_FUNCTIONAL,
+                SYMMETRIC, ASYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE)
+            .build();
+    }
+
+    @Override
+    public OWLClassAxiom parseClassAxiom() {
+        return (OWLClassAxiom) parseAxiom();
+    }
+
+    private OWLAxiom parseAxiomWithIndividualStart() {
+        OWLIndividual ind = parseIndividual();
+        String kw = consumeToken();
+        if (TYPE.matches(kw)) {
+            OWLClassExpression type = parseClassExpression();
+            return df.getOWLClassAssertionAxiom(type, ind);
+        }
+        throw new ExceptionBuilder().withKeyword(TYPE).build();
+    }
+
+    private OWLAxiom parseAxiomWithDataPropertyStart() {
+        OWLDataPropertyExpression prop = parseDataProperty();
+        String kw = consumeToken();
+        if (SOME.matches(kw)) {
+            OWLDataRange dataRange = parseDataIntersectionOf(false);
+            return parseClassAxiomRemainder(df.getOWLDataSomeValuesFrom(prop, dataRange));
+        } else if (ONLY.matches(kw)) {
+            OWLDataRange dataRange = parseDataIntersectionOf(false);
+            return parseClassAxiomRemainder(df.getOWLDataAllValuesFrom(prop, dataRange));
+        } else if (MIN.matches(kw)) {
+            int cardi = parseInteger();
+            OWLDataRange dataRange = parseDataIntersectionOf(true);
+            return parseClassAxiomRemainder(df.getOWLDataMinCardinality(cardi, prop, dataRange));
+        } else if (MAX.matches(kw)) {
+            int cardi = parseInteger();
+            OWLDataRange dataRange = parseDataIntersectionOf(true);
+            return parseClassAxiomRemainder(df.getOWLDataMaxCardinality(cardi, prop, dataRange));
+        } else if (EXACTLY.matches(kw)) {
+            int cardi = parseInteger();
+            OWLDataRange dataRange = parseDataIntersectionOf(true);
+            return parseClassAxiomRemainder(df.getOWLDataExactCardinality(cardi, prop, dataRange));
+        } else if (SUB_PROPERTY_OF.matches(kw)) {
+            OWLDataPropertyExpression superProperty = parseDataPropertyExpression();
+            return df.getOWLSubDataPropertyOfAxiom(prop, superProperty);
+        } else if (EQUIVALENT_TO.matches(kw)) {
+            OWLDataPropertyExpression equivProp = parseDataPropertyExpression();
+            return df.getOWLEquivalentDataPropertiesAxiom(prop, equivProp);
+        } else if (DISJOINT_WITH.matches(kw)) {
+            OWLDataPropertyExpression disjProp = parseDataPropertyExpression();
+            return df.getOWLDisjointDataPropertiesAxiom(prop, disjProp);
+        } else if (DOMAIN.matches(kw)) {
+            OWLClassExpression domain = parseClassExpression();
+            return df.getOWLDataPropertyDomainAxiom(prop, domain);
+        } else if (RANGE.matches(kw)) {
+            OWLDataRange range = parseDataIntersectionOf(true);
+            return df.getOWLDataPropertyRangeAxiom(prop, range);
+        } else {
+            throw new ExceptionBuilder().withKeyword(SOME, ONLY, MIN, MAX, EXACTLY, SUB_PROPERTY_OF,
+                EQUIVALENT_TO, DISJOINT_WITH, DOMAIN, RANGE).build();
+        }
+    }
+
+    private OWLDataPropertyExpression parseDataPropertyExpression() {
+        String tok = consumeToken();
+        if (!isDataPropertyName(tok)) {
+            throw new ExceptionBuilder().withData().build();
+        }
+        return getOWLDataProperty(tok);
+    }
+
+    private OWLAxiom parseAxiomWithClassExpressionStart() {
+        return parseClassAxiomRemainder(parseUnion());
+    }
+
+    private OWLAxiom parseClassAxiomRemainder(OWLClassExpression startExpression) {
+        String kw = consumeToken();
+        if (SUBCLASS_OF.matchesEitherForm(kw)) {
+            OWLClassExpression superClass = parseClassExpression();
+            return df.getOWLSubClassOfAxiom(startExpression, superClass);
+        } else if (DISJOINT_WITH.matchesEitherForm(kw)) {
+            OWLClassExpression disjointClass = parseClassExpression();
+            return df.getOWLDisjointClassesAxiom(startExpression, disjointClass);
+        } else if (EQUIVALENT_TO.matchesEitherForm(kw)) {
+            OWLClassExpression equivClass = parseClassExpression();
+            return df.getOWLEquivalentClassesAxiom(startExpression, equivClass);
+        } else if (AND.matchesEitherForm(kw)) {
+            OWLClassExpression conjunct = parseIntersection();
+            Set<OWLClassExpression> conjuncts = conjunct.asConjunctSet();
+            conjuncts.add(startExpression);
+            OWLClassExpression ce = df.getOWLObjectIntersectionOf(conjuncts);
+            return parseClassAxiomRemainder(ce);
+        } else if (OR.matchesEitherForm(kw)) {
+            OWLClassExpression disjunct = parseUnion();
+            Set<OWLClassExpression> disjuncts = disjunct.asDisjunctSet();
+            disjuncts.add(startExpression);
+            OWLClassExpression ce = df.getOWLObjectUnionOf(disjuncts);
+            return parseClassAxiomRemainder(ce);
+        } else {
+            throw new ExceptionBuilder()
+                .withKeyword(SUBCLASS_OF, DISJOINT_WITH, EQUIVALENT_TO, AND, OR)
+                .build();
+        }
+    }
+
+    private OWLAxiom parseAxiomWithObjectPropertyStart() {
+        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
+        String kw = consumeToken();
+        if (SOME.matches(kw)) {
+            OWLClassExpression filler = parseUnion();
+            return parseClassAxiomRemainder(df.getOWLObjectSomeValuesFrom(prop, filler));
+        } else if (ONLY.matches(kw)) {
+            OWLClassExpression filler = parseUnion();
+            return parseClassAxiomRemainder(df.getOWLObjectAllValuesFrom(prop, filler));
+        } else if (MIN.matches(kw)) {
+            int cardi = parseInteger();
+            OWLClassExpression filler = parseUnion();
+            return parseClassAxiomRemainder(df.getOWLObjectMinCardinality(cardi, prop, filler));
+        } else if (MAX.matches(kw)) {
+            int cardi = parseInteger();
+            OWLClassExpression filler = parseUnion();
+            return parseClassAxiomRemainder(df.getOWLObjectMaxCardinality(cardi, prop, filler));
+        } else if (EXACTLY.matches(kw)) {
+            int cardi = parseInteger();
+            OWLClassExpression filler = parseUnion();
+            return parseClassAxiomRemainder(df.getOWLObjectExactCardinality(cardi, prop, filler));
+        } else if (SUB_PROPERTY_OF.matches(kw)) {
+            OWLObjectPropertyExpression superProperty = parseObjectPropertyExpression(false);
+            return df.getOWLSubObjectPropertyOfAxiom(prop, superProperty);
+        } else if (EQUIVALENT_TO.matches(kw)) {
+            OWLObjectPropertyExpression equivProp = parseObjectPropertyExpression(false);
+            return df.getOWLEquivalentObjectPropertiesAxiom(prop, equivProp);
+        } else if (INVERSE_OF.matches(kw)) {
+            OWLObjectPropertyExpression invProp = parseObjectPropertyExpression(false);
+            return df.getOWLInverseObjectPropertiesAxiom(prop, invProp);
+        } else if (DISJOINT_WITH.matches(kw)) {
+            OWLObjectPropertyExpression disjProp = parseObjectPropertyExpression(false);
+            return df.getOWLDisjointObjectPropertiesAxiom(prop, disjProp);
+        } else if (DOMAIN.matches(kw)) {
+            OWLClassExpression domain = parseClassExpression();
+            return df.getOWLObjectPropertyDomainAxiom(prop, domain);
+        } else if (RANGE.matches(kw)) {
+            OWLClassExpression range = parseClassExpression();
+            return df.getOWLObjectPropertyRangeAxiom(prop, range);
+        } else if (CHAIN_CONNECT.matches(kw)) {
+            String sep = kw;
+            List<OWLObjectPropertyExpression> chain = new ArrayList<>();
+            chain.add(prop);
+            while ("o".equals(sep)) {
+                OWLObjectPropertyExpression chainProp = parseObjectPropertyExpression(false);
+                chain.add(chainProp);
+                sep = consumeToken();
+            }
+            if (!SUB_PROPERTY_OF.matches(sep)) {
+                throw new ExceptionBuilder().withKeyword(SUB_PROPERTY_OF).build();
+            }
+            OWLObjectPropertyExpression superProp = parseObjectPropertyExpression(false);
+            return df.getOWLSubPropertyChainOfAxiom(chain, superProp);
+        } else {
+            throw new ExceptionBuilder().withKeyword(SOME, ONLY, MIN, MAX, EXACTLY, SUB_PROPERTY_OF,
+                EQUIVALENT_TO, INVERSE_OF, DISJOINT_WITH, DOMAIN, RANGE, CHAIN_CONNECT)
+                .build();
+        }
+    }
+
+    private OWLAxiom parseInverseFunctionalPropertyAxiom() {
+        String kw = consumeToken();
+        if (!INVERSE_FUNCTIONAL.matches(kw)) {
+            throw new ExceptionBuilder().withKeyword(INVERSE_FUNCTIONAL).build();
+        }
+        return df.getOWLInverseFunctionalObjectPropertyAxiom(parseObjectPropertyExpression(false));
+    }
+
+    private OWLAxiom parseSymmetricPropertyAxiom() {
+        String kw = consumeToken();
+        if (!SYMMETRIC.matches(kw)) {
+            throw new ExceptionBuilder().withKeyword(SYMMETRIC).build();
+        }
+        return df.getOWLSymmetricObjectPropertyAxiom(parseObjectPropertyExpression(false));
+    }
+
+    private OWLAxiom parseAsymmetricPropertyAxiom() {
+        String kw = consumeToken();
+        if (!ASYMMETRIC.matches(kw)) {
+            throw new ExceptionBuilder().withKeyword(ASYMMETRIC).build();
+        }
+        return df.getOWLAsymmetricObjectPropertyAxiom(parseObjectPropertyExpression(false));
+    }
+
+    private OWLAxiom parseTransitivePropertyAxiom() {
+        String kw = consumeToken();
+        if (!TRANSITIVE.matches(kw)) {
+            throw new ExceptionBuilder().withKeyword(TRANSITIVE).build();
+        }
+        return df.getOWLTransitiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
+    }
+
+    private OWLAxiom parseReflexivePropertyAxiom() {
+        String kw = consumeToken();
+        if (!REFLEXIVE.matches(kw)) {
+            throw new ExceptionBuilder().withKeyword(REFLEXIVE).build();
+        }
+        return df.getOWLReflexiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
+    }
+
+    private OWLAxiom parseIrreflexivePropertyAxiom() {
+        String kw = consumeToken();
+        if (!IRREFLEXIVE.matches(kw)) {
+            throw new ExceptionBuilder().withKeyword(IRREFLEXIVE).build();
+        }
+        return df.getOWLIrreflexiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
+    }
+
+    private OWLAxiom parseFunctionPropertyAxiom() {
+        String kw = consumeToken();
+        if (!FUNCTIONAL.matches(kw)) {
+            throw new ExceptionBuilder().withKeyword(FUNCTIONAL).build();
+        }
+        String name = peekToken();
+        if (isObjectPropertyName(name)) {
+            return df.getOWLFunctionalObjectPropertyAxiom(parseObjectPropertyExpression(false));
+        } else if (isDataPropertyName(name)) {
+            return df.getOWLFunctionalDataPropertyAxiom(parseDataProperty());
+        } else {
+            consumeToken();
+            throw new ExceptionBuilder().withObject().withData().build();
+        }
+    }
+
+    private <F, O> Set<OntologyAxiomPair> parseAnnotatedListItems(F s, AnnAxiom<F, O> itemParser,
+        Set<OWLOntology> ontologies) {
+        Set<OntologyAxiomPair> result = new HashSet<>();
+        String sep = COMMA.keyword();
+        while (COMMA.matches(sep)) {
+            Set<OWLAnnotation> annotations = parseAnnotations();
+            O item = itemParser.parse.apply(s);
+            OWLAxiom axiom = itemParser.createAxiom(s, item, annotations);
+            for (OWLOntology ontology : ontologies) {
+                result.add(new OntologyAxiomPair(ontology, axiom));
+            }
+            sep = peekToken();
+            if (COMMA.matches(sep)) {
+                consumeToken();
+            }
+        }
+        return result;
+    }
+
+    @FunctionalInterface
+    interface Builder<F, O> {
+
+        OWLAxiom createAxiom(F s, O o, Collection<OWLAnnotation> anns);
+    }
+
+    static class AnnAxiom<F, O> {
+
+        Function<F, O> parse;
+        ManchesterOWLSyntax keyword;
+        Builder<F, O> builder;
+
+        AnnAxiom(Function<F, O> p, ManchesterOWLSyntax k, Builder<F, O> b) {
+            parse = p;
+            keyword = k;
+            builder = b;
+        }
+
+        final OWLAxiom createAxiom(F s, O o, Collection<OWLAnnotation> anns) {
+            return builder.createAxiom(s, o, anns);
+        }
     }
 
     class AddNames implements OWLEntityVisitor {
@@ -2390,26 +2750,10 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 column = lastToken.getCol();
             }
             return new ParserException(verifyNotNull(tokenSequence), start, line, column,
-                            ontologyNameExpected, classNameExpected, objectPropertyNameExpected,
-                            dataPropertyNameExpected, individualNameExpected, datatypeNameExpected,
-                            annotationPropertyNameExpected, integerExpected, keywords);
+                ontologyNameExpected, classNameExpected, objectPropertyNameExpected,
+                dataPropertyNameExpected, individualNameExpected, datatypeNameExpected,
+                annotationPropertyNameExpected, integerExpected, keywords);
         }
-    }
-
-    protected List<String> getTokenSequence() {
-        List<String> seq = new ArrayList<>();
-        int index = tokenIndex - 1;
-        if (index < 0) {
-            index = 0;
-        }
-        while (index < tokens.size() && seq.size() < 4 && !seq.contains(EOFTOKEN)) {
-            seq.add(tokens.get(index).getToken());
-            index++;
-        }
-        if (seq.isEmpty()) {
-            seq.add(EOFTOKEN);
-        }
-        return seq;
     }
 
     class DefaultEntityChecker implements OWLEntityChecker {
@@ -2471,349 +2815,5 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
             return null;
         }
-    }
-
-    protected IRI getIRI(String inputName) {
-        String name = inputName;
-        boolean fullIRI = "<".equals(name);
-        if (fullIRI) {
-            name = consumeToken();
-            consumeToken();
-        }
-        IRI uri = nameIRIMap.get(name);
-        if (uri != null) {
-            return uri;
-        }
-        if (fullIRI) {
-            uri = IRI.create(name);
-        } else {
-            int colonIndex = name.indexOf(':');
-            if (colonIndex == -1) {
-                name = ":" + name;
-            }
-            uri = pm.getIRI(name);
-        }
-        nameIRIMap.put(name, uri);
-        return uri;
-    }
-
-    @Override
-    public OWLAxiom parseAxiom() {
-        String token = peekToken();
-        if (isClassName(token)) {
-            return parseAxiomWithClassExpressionStart();
-        } else if (isObjectPropertyName(token)) {
-            return parseAxiomWithObjectPropertyStart();
-        } else if (isDataPropertyName(token)) {
-            return parseAxiomWithDataPropertyStart();
-        } else if (isIndividualName(token)) {
-            return parseAxiomWithIndividualStart();
-        } else if (INV.matches(token)) {
-            return parseAxiomWithObjectPropertyStart();
-        } else if (OPEN.matches(token)) {
-            return parseAxiomWithClassExpressionStart();
-        } else if (OPENBRACE.matches(token)) {
-            return parseAxiomWithClassExpressionStart();
-        } else if (FUNCTIONAL.matches(token)) {
-            return parseFunctionPropertyAxiom();
-        } else if (INVERSE_FUNCTIONAL.matches(token)) {
-            return parseInverseFunctionalPropertyAxiom();
-        } else if (SYMMETRIC.matches(token)) {
-            return parseSymmetricPropertyAxiom();
-        } else if (ASYMMETRIC.matches(token)) {
-            return parseAsymmetricPropertyAxiom();
-        } else if (TRANSITIVE.matches(token)) {
-            return parseTransitivePropertyAxiom();
-        } else if (REFLEXIVE.matches(token)) {
-            return parseReflexivePropertyAxiom();
-        } else if (IRREFLEXIVE.matches(token)) {
-            return parseIrreflexivePropertyAxiom();
-        }
-        throw new ExceptionBuilder().withClass().withObject().withData()
-                        .withKeyword(OPEN, OPENBRACE, INV, FUNCTIONAL, INVERSE_FUNCTIONAL,
-                                        SYMMETRIC, ASYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE)
-                        .build();
-    }
-
-    @Override
-    public OWLClassAxiom parseClassAxiom() {
-        return (OWLClassAxiom) parseAxiom();
-    }
-
-    private OWLAxiom parseAxiomWithIndividualStart() {
-        OWLIndividual ind = parseIndividual();
-        String kw = consumeToken();
-        if (TYPE.matches(kw)) {
-            OWLClassExpression type = parseClassExpression();
-            return df.getOWLClassAssertionAxiom(type, ind);
-        }
-        throw new ExceptionBuilder().withKeyword(TYPE).build();
-    }
-
-    private OWLAxiom parseAxiomWithDataPropertyStart() {
-        OWLDataPropertyExpression prop = parseDataProperty();
-        String kw = consumeToken();
-        if (SOME.matches(kw)) {
-            OWLDataRange dataRange = parseDataIntersectionOf(false);
-            return parseClassAxiomRemainder(df.getOWLDataSomeValuesFrom(prop, dataRange));
-        } else if (ONLY.matches(kw)) {
-            OWLDataRange dataRange = parseDataIntersectionOf(false);
-            return parseClassAxiomRemainder(df.getOWLDataAllValuesFrom(prop, dataRange));
-        } else if (MIN.matches(kw)) {
-            int cardi = parseInteger();
-            OWLDataRange dataRange = parseDataIntersectionOf(true);
-            return parseClassAxiomRemainder(df.getOWLDataMinCardinality(cardi, prop, dataRange));
-        } else if (MAX.matches(kw)) {
-            int cardi = parseInteger();
-            OWLDataRange dataRange = parseDataIntersectionOf(true);
-            return parseClassAxiomRemainder(df.getOWLDataMaxCardinality(cardi, prop, dataRange));
-        } else if (EXACTLY.matches(kw)) {
-            int cardi = parseInteger();
-            OWLDataRange dataRange = parseDataIntersectionOf(true);
-            return parseClassAxiomRemainder(df.getOWLDataExactCardinality(cardi, prop, dataRange));
-        } else if (SUB_PROPERTY_OF.matches(kw)) {
-            OWLDataPropertyExpression superProperty = parseDataPropertyExpression();
-            return df.getOWLSubDataPropertyOfAxiom(prop, superProperty);
-        } else if (EQUIVALENT_TO.matches(kw)) {
-            OWLDataPropertyExpression equivProp = parseDataPropertyExpression();
-            return df.getOWLEquivalentDataPropertiesAxiom(prop, equivProp);
-        } else if (DISJOINT_WITH.matches(kw)) {
-            OWLDataPropertyExpression disjProp = parseDataPropertyExpression();
-            return df.getOWLDisjointDataPropertiesAxiom(prop, disjProp);
-        } else if (DOMAIN.matches(kw)) {
-            OWLClassExpression domain = parseClassExpression();
-            return df.getOWLDataPropertyDomainAxiom(prop, domain);
-        } else if (RANGE.matches(kw)) {
-            OWLDataRange range = parseDataIntersectionOf(true);
-            return df.getOWLDataPropertyRangeAxiom(prop, range);
-        } else {
-            throw new ExceptionBuilder().withKeyword(SOME, ONLY, MIN, MAX, EXACTLY, SUB_PROPERTY_OF,
-                            EQUIVALENT_TO, DISJOINT_WITH, DOMAIN, RANGE).build();
-        }
-    }
-
-    private OWLDataPropertyExpression parseDataPropertyExpression() {
-        String tok = consumeToken();
-        if (!isDataPropertyName(tok)) {
-            throw new ExceptionBuilder().withData().build();
-        }
-        return getOWLDataProperty(tok);
-    }
-
-    private OWLAxiom parseAxiomWithClassExpressionStart() {
-        return parseClassAxiomRemainder(parseUnion());
-    }
-
-    private OWLAxiom parseClassAxiomRemainder(OWLClassExpression startExpression) {
-        String kw = consumeToken();
-        if (SUBCLASS_OF.matchesEitherForm(kw)) {
-            OWLClassExpression superClass = parseClassExpression();
-            return df.getOWLSubClassOfAxiom(startExpression, superClass);
-        } else if (DISJOINT_WITH.matchesEitherForm(kw)) {
-            OWLClassExpression disjointClass = parseClassExpression();
-            return df.getOWLDisjointClassesAxiom(startExpression, disjointClass);
-        } else if (EQUIVALENT_TO.matchesEitherForm(kw)) {
-            OWLClassExpression equivClass = parseClassExpression();
-            return df.getOWLEquivalentClassesAxiom(startExpression, equivClass);
-        } else if (AND.matchesEitherForm(kw)) {
-            OWLClassExpression conjunct = parseIntersection();
-            Set<OWLClassExpression> conjuncts = conjunct.asConjunctSet();
-            conjuncts.add(startExpression);
-            OWLClassExpression ce = df.getOWLObjectIntersectionOf(conjuncts);
-            return parseClassAxiomRemainder(ce);
-        } else if (OR.matchesEitherForm(kw)) {
-            OWLClassExpression disjunct = parseUnion();
-            Set<OWLClassExpression> disjuncts = disjunct.asDisjunctSet();
-            disjuncts.add(startExpression);
-            OWLClassExpression ce = df.getOWLObjectUnionOf(disjuncts);
-            return parseClassAxiomRemainder(ce);
-        } else {
-            throw new ExceptionBuilder()
-                            .withKeyword(SUBCLASS_OF, DISJOINT_WITH, EQUIVALENT_TO, AND, OR)
-                            .build();
-        }
-    }
-
-    private OWLAxiom parseAxiomWithObjectPropertyStart() {
-        OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
-        String kw = consumeToken();
-        if (SOME.matches(kw)) {
-            OWLClassExpression filler = parseUnion();
-            return parseClassAxiomRemainder(df.getOWLObjectSomeValuesFrom(prop, filler));
-        } else if (ONLY.matches(kw)) {
-            OWLClassExpression filler = parseUnion();
-            return parseClassAxiomRemainder(df.getOWLObjectAllValuesFrom(prop, filler));
-        } else if (MIN.matches(kw)) {
-            int cardi = parseInteger();
-            OWLClassExpression filler = parseUnion();
-            return parseClassAxiomRemainder(df.getOWLObjectMinCardinality(cardi, prop, filler));
-        } else if (MAX.matches(kw)) {
-            int cardi = parseInteger();
-            OWLClassExpression filler = parseUnion();
-            return parseClassAxiomRemainder(df.getOWLObjectMaxCardinality(cardi, prop, filler));
-        } else if (EXACTLY.matches(kw)) {
-            int cardi = parseInteger();
-            OWLClassExpression filler = parseUnion();
-            return parseClassAxiomRemainder(df.getOWLObjectExactCardinality(cardi, prop, filler));
-        } else if (SUB_PROPERTY_OF.matches(kw)) {
-            OWLObjectPropertyExpression superProperty = parseObjectPropertyExpression(false);
-            return df.getOWLSubObjectPropertyOfAxiom(prop, superProperty);
-        } else if (EQUIVALENT_TO.matches(kw)) {
-            OWLObjectPropertyExpression equivProp = parseObjectPropertyExpression(false);
-            return df.getOWLEquivalentObjectPropertiesAxiom(prop, equivProp);
-        } else if (INVERSE_OF.matches(kw)) {
-            OWLObjectPropertyExpression invProp = parseObjectPropertyExpression(false);
-            return df.getOWLInverseObjectPropertiesAxiom(prop, invProp);
-        } else if (DISJOINT_WITH.matches(kw)) {
-            OWLObjectPropertyExpression disjProp = parseObjectPropertyExpression(false);
-            return df.getOWLDisjointObjectPropertiesAxiom(prop, disjProp);
-        } else if (DOMAIN.matches(kw)) {
-            OWLClassExpression domain = parseClassExpression();
-            return df.getOWLObjectPropertyDomainAxiom(prop, domain);
-        } else if (RANGE.matches(kw)) {
-            OWLClassExpression range = parseClassExpression();
-            return df.getOWLObjectPropertyRangeAxiom(prop, range);
-        } else if (CHAIN_CONNECT.matches(kw)) {
-            String sep = kw;
-            List<OWLObjectPropertyExpression> chain = new ArrayList<>();
-            chain.add(prop);
-            while ("o".equals(sep)) {
-                OWLObjectPropertyExpression chainProp = parseObjectPropertyExpression(false);
-                chain.add(chainProp);
-                sep = consumeToken();
-            }
-            if (!SUB_PROPERTY_OF.matches(sep)) {
-                throw new ExceptionBuilder().withKeyword(SUB_PROPERTY_OF).build();
-            }
-            OWLObjectPropertyExpression superProp = parseObjectPropertyExpression(false);
-            return df.getOWLSubPropertyChainOfAxiom(chain, superProp);
-        } else {
-            throw new ExceptionBuilder().withKeyword(SOME, ONLY, MIN, MAX, EXACTLY, SUB_PROPERTY_OF,
-                            EQUIVALENT_TO, INVERSE_OF, DISJOINT_WITH, DOMAIN, RANGE, CHAIN_CONNECT)
-                            .build();
-        }
-    }
-
-    private OWLAxiom parseInverseFunctionalPropertyAxiom() {
-        String kw = consumeToken();
-        if (!INVERSE_FUNCTIONAL.matches(kw)) {
-            throw new ExceptionBuilder().withKeyword(INVERSE_FUNCTIONAL).build();
-        }
-        return df.getOWLInverseFunctionalObjectPropertyAxiom(parseObjectPropertyExpression(false));
-    }
-
-    private OWLAxiom parseSymmetricPropertyAxiom() {
-        String kw = consumeToken();
-        if (!SYMMETRIC.matches(kw)) {
-            throw new ExceptionBuilder().withKeyword(SYMMETRIC).build();
-        }
-        return df.getOWLSymmetricObjectPropertyAxiom(parseObjectPropertyExpression(false));
-    }
-
-    private OWLAxiom parseAsymmetricPropertyAxiom() {
-        String kw = consumeToken();
-        if (!ASYMMETRIC.matches(kw)) {
-            throw new ExceptionBuilder().withKeyword(ASYMMETRIC).build();
-        }
-        return df.getOWLAsymmetricObjectPropertyAxiom(parseObjectPropertyExpression(false));
-    }
-
-    private OWLAxiom parseTransitivePropertyAxiom() {
-        String kw = consumeToken();
-        if (!TRANSITIVE.matches(kw)) {
-            throw new ExceptionBuilder().withKeyword(TRANSITIVE).build();
-        }
-        return df.getOWLTransitiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
-    }
-
-    private OWLAxiom parseReflexivePropertyAxiom() {
-        String kw = consumeToken();
-        if (!REFLEXIVE.matches(kw)) {
-            throw new ExceptionBuilder().withKeyword(REFLEXIVE).build();
-        }
-        return df.getOWLReflexiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
-    }
-
-    private OWLAxiom parseIrreflexivePropertyAxiom() {
-        String kw = consumeToken();
-        if (!IRREFLEXIVE.matches(kw)) {
-            throw new ExceptionBuilder().withKeyword(IRREFLEXIVE).build();
-        }
-        return df.getOWLIrreflexiveObjectPropertyAxiom(parseObjectPropertyExpression(false));
-    }
-
-    private OWLAxiom parseFunctionPropertyAxiom() {
-        String kw = consumeToken();
-        if (!FUNCTIONAL.matches(kw)) {
-            throw new ExceptionBuilder().withKeyword(FUNCTIONAL).build();
-        }
-        String name = peekToken();
-        if (isObjectPropertyName(name)) {
-            return df.getOWLFunctionalObjectPropertyAxiom(parseObjectPropertyExpression(false));
-        } else if (isDataPropertyName(name)) {
-            return df.getOWLFunctionalDataPropertyAxiom(parseDataProperty());
-        } else {
-            consumeToken();
-            throw new ExceptionBuilder().withObject().withData().build();
-        }
-    }
-
-    private <F, O> Set<OntologyAxiomPair> parseAnnotatedListItems(F s, AnnAxiom<F, O> itemParser,
-                    Set<OWLOntology> ontologies) {
-        Set<OntologyAxiomPair> result = new HashSet<>();
-        String sep = COMMA.keyword();
-        while (COMMA.matches(sep)) {
-            Set<OWLAnnotation> annotations = parseAnnotations();
-            O item = itemParser.parse.apply(s);
-            OWLAxiom axiom = itemParser.createAxiom(s, item, annotations);
-            for (OWLOntology ontology : ontologies) {
-                result.add(new OntologyAxiomPair(ontology, axiom));
-            }
-            sep = peekToken();
-            if (COMMA.matches(sep)) {
-                consumeToken();
-            }
-        }
-        return result;
-    }
-
-    static OWLAxiom create(OWLDataFactory d, OWLIndividual s, Set<OWLIndividual> o,
-                    Collection<OWLAnnotation> anns) {
-        Set<OWLIndividual> individuals = new HashSet<>();
-        individuals.add(s);
-        individuals.addAll(o);
-        return d.getOWLDifferentIndividualsAxiom(individuals, anns);
-    }
-
-    static OWLAxiom create(OWLDataFactory d, OWLIndividual s, OWLAnnotation o,
-                    Collection<OWLAnnotation> anns) {
-        if (s.isAnonymous()) {
-            return d.getOWLAnnotationAssertionAxiom(s.asOWLAnonymousIndividual(), o, anns);
-        } else {
-            return d.getOWLAnnotationAssertionAxiom(s.asOWLNamedIndividual().getIRI(), o, anns);
-        }
-    }
-
-    static class AnnAxiom<F, O> {
-
-        Function<F, O> parse;
-        ManchesterOWLSyntax keyword;
-        Builder<F, O> builder;
-
-        AnnAxiom(Function<F, O> p, ManchesterOWLSyntax k, Builder<F, O> b) {
-            parse = p;
-            keyword = k;
-            builder = b;
-        }
-
-        final OWLAxiom createAxiom(F s, O o, Collection<OWLAnnotation> anns) {
-            return builder.createAxiom(s, o, anns);
-        }
-    }
-
-    @FunctionalInterface
-    interface Builder<F, O> {
-
-        OWLAxiom createAxiom(F s, O o, Collection<OWLAnnotation> anns);
     }
 }

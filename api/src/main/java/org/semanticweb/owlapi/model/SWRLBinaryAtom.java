@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 /**
  * Represents an atom with two ordered arguments.
- * 
+ *
  * @param <A> type of first argument
  * @param <B> type of second argument
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
@@ -31,14 +31,14 @@ public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> 
 
     /**
      * Gets the first argument.
-     * 
+     *
      * @return The second argument
      */
     A getFirstArgument();
 
     /**
      * Gets the second argument.
-     * 
+     *
      * @return The second argument
      */
     B getSecondArgument();

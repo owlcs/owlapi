@@ -17,5 +17,5 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLDataPropertyCharacteristicAxiom
-                extends OWLDataPropertyAxiom, OWLUnaryPropertyAxiom<OWLDataPropertyExpression> {
+    extends OWLDataPropertyAxiom, OWLUnaryPropertyAxiom<OWLDataPropertyExpression> {
 }

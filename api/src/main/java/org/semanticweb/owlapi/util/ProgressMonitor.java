@@ -14,14 +14,16 @@ package org.semanticweb.owlapi.util;
 
 /**
  * A general interface for things whose progress can be monitored.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 @SuppressWarnings("unused")
 public interface ProgressMonitor {
 
-    /** start of the process. */
+    /**
+     * start of the process.
+     */
     default void setStarted() {}
 
     /**
@@ -44,10 +46,14 @@ public interface ProgressMonitor {
      */
     default void setIndeterminate(boolean b) {}
 
-    /** progress completed. */
+    /**
+     * progress completed.
+     */
     default void setFinished() {}
 
-    /** @return true if the process has been cancelled */
+    /**
+     * @return true if the process has been cancelled
+     */
     default boolean isCancelled() {
         return false;
     }

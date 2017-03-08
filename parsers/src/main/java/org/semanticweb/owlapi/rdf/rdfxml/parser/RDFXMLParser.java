@@ -41,15 +41,15 @@ public class RDFXMLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
+        IRI documentIRI) {
         try {
             final RDFXMLDocumentFormat format =
-                            (RDFXMLDocumentFormat) getSupportedFormat().createFormat();
+                (RDFXMLDocumentFormat) getSupportedFormat().createFormat();
             RDFParser parser = new RDFParser() {
 
                 @Override
                 public void startPrefixMapping(@Nullable String prefix, @Nullable String uri)
-                                throws SAXException {
+                    throws SAXException {
                     super.startPrefixMapping(prefix, uri);
                     if (prefix != null && uri != null) {
                         format.setPrefix(prefix, uri);

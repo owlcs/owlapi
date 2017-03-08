@@ -36,7 +36,7 @@ public interface SubAxiomProvider {
      * @return a subclass axiom with no annotations
      */
     default OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass,
-                    OWLClassExpression superClass) {
+        OWLClassExpression superClass) {
         return getOWLSubClassOfAxiom(subClass, superClass, Collections.emptySet());
     }
 
@@ -47,7 +47,7 @@ public interface SubAxiomProvider {
      * @return a subclass axiom with specified annotations
      */
     OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass,
-                    OWLClassExpression superClass, Collection<OWLAnnotation> annotations);
+        OWLClassExpression superClass, Collection<OWLAnnotation> annotations);
 
     /**
      * @param subProperty sub property
@@ -55,8 +55,8 @@ public interface SubAxiomProvider {
      * @return a subproperty axiom
      */
     default OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
-                    OWLObjectPropertyExpression subProperty,
-                    OWLObjectPropertyExpression superProperty) {
+        OWLObjectPropertyExpression subProperty,
+        OWLObjectPropertyExpression superProperty) {
         return getOWLSubObjectPropertyOfAxiom(subProperty, superProperty, Collections.emptySet());
     }
 
@@ -67,9 +67,9 @@ public interface SubAxiomProvider {
      * @return a subproperty axiom with annotations
      */
     OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
-                    OWLObjectPropertyExpression subProperty,
-                    OWLObjectPropertyExpression superProperty,
-                    Collection<OWLAnnotation> annotations);
+        OWLObjectPropertyExpression subProperty,
+        OWLObjectPropertyExpression superProperty,
+        Collection<OWLAnnotation> annotations);
 
     /**
      * @param subProperty sub Property
@@ -77,8 +77,8 @@ public interface SubAxiomProvider {
      * @return a subproperty axiom
      */
     default OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
-                    OWLDataPropertyExpression subProperty,
-                    OWLDataPropertyExpression superProperty) {
+        OWLDataPropertyExpression subProperty,
+        OWLDataPropertyExpression superProperty) {
         return getOWLSubDataPropertyOfAxiom(subProperty, superProperty, Collections.emptySet());
     }
 
@@ -89,7 +89,7 @@ public interface SubAxiomProvider {
      * @return a subproperty axiom with annotations
      */
     OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(OWLDataPropertyExpression subProperty,
-                    OWLDataPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
+        OWLDataPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
 
     /**
      * @param sub sub property
@@ -97,7 +97,7 @@ public interface SubAxiomProvider {
      * @return a sub annotation property axiom with specified properties
      */
     default OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
-                    OWLAnnotationProperty sub, OWLAnnotationProperty sup) {
+        OWLAnnotationProperty sub, OWLAnnotationProperty sup) {
         return getOWLSubAnnotationPropertyOfAxiom(sub, sup, Collections.emptySet());
     }
 
@@ -108,5 +108,5 @@ public interface SubAxiomProvider {
      * @return a sub annotation property axiom with specified properties and annotations
      */
     OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
-                    OWLAnnotationProperty sup, Collection<OWLAnnotation> annotations);
+        OWLAnnotationProperty sup, Collection<OWLAnnotation> annotations);
 }

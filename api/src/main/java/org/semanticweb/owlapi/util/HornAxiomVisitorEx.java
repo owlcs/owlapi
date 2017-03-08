@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
+/**
+ * Returns true if the visited axioms are an ontology in Horn-SHIQ form.
+ */
 public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     private final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
@@ -82,7 +84,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
     @Override
     public Boolean visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return Boolean.valueOf(
-                        checkNegative(axiom.getSubClass()) && checkNegative(axiom.getSuperClass()));
+            checkNegative(axiom.getSubClass()) && checkNegative(axiom.getSuperClass()));
     }
 
     @Override
@@ -121,7 +123,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
             return Boolean.FALSE;
         }
         return Boolean.valueOf(
-                        !axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
+            !axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
     }
 
     protected Boolean neitherPositiveNorNegative(OWLClassExpression c1) {
@@ -146,7 +148,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
         return Boolean.valueOf(
-                        !axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
+            !axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
     }
 
     @Override
@@ -206,8 +208,8 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
         @Override
         public Boolean visit(OWLObjectExactCardinality ce) {
             return Boolean.valueOf(
-                            ce.getCardinality() <= 1 && ce.getFiller().accept(this).booleanValue()
-                                            && checkNegative(ce.getFiller()));
+                ce.getCardinality() <= 1 && ce.getFiller().accept(this).booleanValue()
+                    && checkNegative(ce.getFiller()));
         }
 
         @Override
@@ -248,7 +250,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
         @Override
         public Boolean visit(OWLObjectMinCardinality ce) {
             return Boolean.valueOf(
-                            ce.getCardinality() <= 1 && ce.getFiller().accept(this).booleanValue());
+                ce.getCardinality() <= 1 && ce.getFiller().accept(this).booleanValue());
         }
     }
 }

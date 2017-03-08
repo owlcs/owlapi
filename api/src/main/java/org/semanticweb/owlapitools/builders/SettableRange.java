@@ -5,10 +5,10 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * An interface for objects which have a settable range attribute.
- * 
- * @author ignazio
+ *
  * @param <B> type of builder
  * @param <R> type of range
+ * @author ignazio
  */
 public interface SettableRange<R extends OWLObject, B> extends HasRange<R> {
 

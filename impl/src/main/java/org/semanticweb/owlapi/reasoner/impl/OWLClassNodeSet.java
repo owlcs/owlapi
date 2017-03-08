@@ -20,13 +20,15 @@ import org.semanticweb.owlapi.reasoner.Node;
 
 /**
  * A node set of OWL classes.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     public OWLClassNodeSet() {
         super();
     }

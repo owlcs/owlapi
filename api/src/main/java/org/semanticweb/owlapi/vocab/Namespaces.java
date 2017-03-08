@@ -85,14 +85,16 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
-    private final String prefix;
-    private final String ns;
+    /**
+     * Ignored imports.
+     */
+    public static final EnumSet<Namespaces> defaultIgnoredImports =
+        EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
     final Status status;
     final BuiltIn builtIn;
     final String hashless;
-    /** Ignored imports. */
-    public static final EnumSet<Namespaces> defaultIgnoredImports =
-                    EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
+    private final String prefix;
+    private final String ns;
 
     Namespaces(String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
@@ -108,6 +110,34 @@ public enum Namespaces {
         this.status = status;
         this.builtIn = builtIn;
         hashless = hashless(prefix);
+    }
+
+    /**
+     * @param ns namespace
+     * @return this namespace without hash or slash at the end
+     */
+    private static String hashless(String ns) {
+        int index = ns.length() - 1;
+        if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
+            return ns.substring(0, index);
+        }
+        return ns;
+    }
+
+    /**
+     * @param i the iri to check
+     * @return true if the iri is for a namespace ignored by default
+     */
+    public static boolean isDefaultIgnoredImport(IRI i) {
+        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i.toString()));
+    }
+
+    /**
+     * @param i the string to check
+     * @return true if the string is for a namespace ignored by default
+     */
+    public static boolean isDefaultIgnoredImport(String i) {
+        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i));
     }
 
     /**
@@ -140,34 +170,6 @@ public enum Namespaces {
         return builtIn == BUILT_IN;
     }
 
-    /**
-     * @param ns namespace
-     * @return this namespace without hash or slash at the end
-     */
-    private static String hashless(String ns) {
-        int index = ns.length() - 1;
-        if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
-            return ns.substring(0, index);
-        }
-        return ns;
-    }
-
-    /**
-     * @param i the iri to check
-     * @return true if the iri is for a namespace ignored by default
-     */
-    public static boolean isDefaultIgnoredImport(IRI i) {
-        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i.toString()));
-    }
-
-    /**
-     * @param i the string to check
-     * @return true if the string is for a namespace ignored by default
-     */
-    public static boolean isDefaultIgnoredImport(String i) {
-        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i));
-    }
-
     @Override
     public String toString() {
         return ns;
@@ -193,17 +195,27 @@ public enum Namespaces {
      * Indicates that a prefix is builtin - i.e. that it is either owl, rdf, rdfs, or xsd
      */
     public enum BuiltIn {
-        /** built in flag. */
+        /**
+         * built in flag.
+         */
         BUILT_IN,
-        /** not built in flag. */
+        /**
+         * not built in flag.
+         */
         NOT_BUILT_IN
     }
 
-    /** Indicates whether a prefix is a legacy prefix or not. */
+    /**
+     * Indicates whether a prefix is a legacy prefix or not.
+     */
     public enum Status {
-        /** legacy flag. */
+        /**
+         * legacy flag.
+         */
         LEGACY,
-        /** in use flag. */
+        /**
+         * in use flag.
+         */
         IN_USE
     }
 }

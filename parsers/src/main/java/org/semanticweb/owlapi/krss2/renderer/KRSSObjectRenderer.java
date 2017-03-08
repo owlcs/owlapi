@@ -245,7 +245,7 @@ import org.semanticweb.owlapi.search.Filters;
  * </td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
 public class KRSSObjectRenderer implements OWLObjectVisitor {
@@ -339,7 +339,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void flattenProperties(List<OWLObjectPropertyExpression> props,
-                    @Nullable KRSSVocabulary junctor) {
+        @Nullable KRSSVocabulary junctor) {
         int size = props.size();
         if (size == 0) {
             return;
@@ -398,7 +398,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(eachClass);
                 writeSpace();
                 flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass),
-                                OWLClassExpression.class)));
+                    OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
             } else {
@@ -413,7 +413,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> pStream =
-                            equivalent(ontology.equivalentObjectPropertiesAxioms(property));
+                equivalent(ontology.equivalentObjectPropertiesAxioms(property));
             Collection<OWLObjectPropertyExpression> properties = asList(pStream);
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
@@ -429,9 +429,9 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(property);
                 writeSpace();
                 Iterator<OWLObjectPropertyExpression> i =
-                                sup(ontology.axioms(Filters.subObjectPropertyWithSub, property,
-                                                INCLUDED), OWLObjectPropertyExpression.class)
-                                                                .iterator();
+                    sup(ontology.axioms(Filters.subObjectPropertyWithSub, property,
+                        INCLUDED), OWLObjectPropertyExpression.class)
+                        .iterator();
                 if (i.hasNext()) {
                     write(i.next());
                 }

@@ -43,7 +43,7 @@ public class OWLAPIParsersModule extends AbstractModule {
      */
     @Provides
     public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df,
-                    OWLOntologyManager provider) {
+        OWLOntologyManager provider) {
         return new ManchesterOWLSyntaxParserImpl(provider.getOntologyConfigurator(), df);
     }
 }

@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * axioms with a common left hand side into one subclass axiom. For example, given A subClassOf B, A
  * subClassOf C, this change will remove these two axioms and replace them by adding one subclass
  * axiom, A subClassOf (B and C).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
@@ -41,12 +41,12 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
 
     /**
      * Instantiates a new amalgamate sub class axioms.
-     * 
+     *
      * @param dataFactory the data factory
      * @param ontologies the ontologies to use
      */
     public AmalgamateSubClassAxioms(OWLDataFactory dataFactory,
-                    Collection<OWLOntology> ontologies) {
+        Collection<OWLOntology> ontologies) {
         super(dataFactory);
         checkNotNull(ontologies, "ontologies cannot be null");
         ontologies.forEach(o -> o.classesInSignature().forEach(cls -> amalgamate(o, cls)));
@@ -59,7 +59,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
         }
         axioms.forEach(ax -> addChange(new RemoveAxiom(ont, ax)));
         Stream<OWLClassExpression> superclasses =
-                        axioms.stream().map(OWLSubClassOfAxiom::getSuperClass);
+            axioms.stream().map(OWLSubClassOfAxiom::getSuperClass);
         OWLObjectIntersectionOf intersection = df.getOWLObjectIntersectionOf(superclasses);
         addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls, intersection)));
     }

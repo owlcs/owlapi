@@ -33,7 +33,7 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
         try {
             PrintWriter writer = new PrintWriter(
-                            new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8)));
+                new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8)));
             render(ontology, writer);
             writer.flush();
         } catch (OWLRuntimeException e) {
@@ -43,13 +43,13 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
 
     /**
      * Renders the specified ontology using the specified writer.
-     * 
+     *
      * @param ontology the ontology to render
      * @param writer The writer that should be used to write the ontology. Note that this writer
-     *        need not be wrapped with a {@code BufferedWriter} because this is taken care of by
-     *        this abstract implementation.
+     * need not be wrapped with a {@code BufferedWriter} because this is taken care of by this
+     * abstract implementation.
      * @throws OWLRendererException if exceptions arise
      */
     public abstract void render(OWLOntology ontology, PrintWriter writer)
-                    throws OWLRendererException;
+        throws OWLRendererException;
 }

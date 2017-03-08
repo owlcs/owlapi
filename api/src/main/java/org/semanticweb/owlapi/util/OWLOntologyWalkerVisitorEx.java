@@ -23,9 +23,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
+ * @param <E> visitor type
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
- * @param <E> visitor type
  */
 public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
 
@@ -53,7 +53,7 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
         OWLOntology ontology = walker.getOntology();
         if (ontology == null) {
             throw new OWLRuntimeException(
-                            "No current ontology; is the walker being used outside of an ontology visit?");
+                "No current ontology; is the walker being used outside of an ontology visit?");
         }
         return ontology;
     }

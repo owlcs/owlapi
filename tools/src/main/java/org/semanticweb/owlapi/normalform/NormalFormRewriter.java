@@ -22,7 +22,7 @@ public interface NormalFormRewriter {
 
     /**
      * Checks if is in normal form.
-     * 
+     *
      * @param classExpression expression to check
      * @return true if classExpression is in normal form
      */
@@ -30,7 +30,7 @@ public interface NormalFormRewriter {
 
     /**
      * Convert to normal form.
-     * 
+     *
      * @param classExpression the expression to convert
      * @return the converted expression
      */

@@ -21,9 +21,11 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotation. */
+/**
+ * Builder class for OWLAnnotation.
+ */
 public class BuilderAnnotation
-                extends BaseAnnotationPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
+    extends BaseAnnotationPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
 
     @Nullable
     private OWLAnnotationValue value = null;
@@ -38,7 +40,7 @@ public class BuilderAnnotation
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

@@ -31,15 +31,19 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/** update the signature by adding all signature elements from the expression */
+/**
+ * update the signature by adding all signature elements from the expression
+ */
 class TExpressionSignatureUpdater implements OWLObjectVisitor {
 
-    /** Signature to be filled */
+    /**
+     * Signature to be filled
+     */
     Signature sig;
 
     /**
      * init c'tor
-     * 
+     *
      * @param s signature
      */
     TExpressionSignatureUpdater(Signature s) {

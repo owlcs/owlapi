@@ -21,6 +21,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 @Deprecated
 public class LatexAxiomsListOntologyFormat
-                extends org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat
-                implements OWLOntologyFormat {
+    extends org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat
+    implements OWLOntologyFormat {
 }

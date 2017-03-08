@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * and browsers. In these situations it is needed because not all "orphan" classes are asserted to
  * be subclasses of owl:Thing. For example, if the only referencing axiom of class A was
  * ObjectDomain(propP A) then A is a syntactic subclass of owl:Thing.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -71,9 +71,9 @@ public class SimpleRootClassChecker implements RootClassChecker {
     /**
      * Creates a root class checker, which examines axioms contained in ontologies from the
      * specified set in order to determine if a class is a syntactic subclass of owl:Thing.
-     * 
+     *
      * @param ontologies The ontologies whose axioms are to be taken into consideration when
-     *        determining if a class is a syntactic direct subclass of owl:Thing
+     * determining if a class is a syntactic direct subclass of owl:Thing
      */
     public SimpleRootClassChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
@@ -82,11 +82,17 @@ public class SimpleRootClassChecker implements RootClassChecker {
     @Override
     public boolean isRootClass(OWLClass cls) {
         return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls))
-                        .anyMatch(ax -> isRootClass(cls, ax));
+            .anyMatch(ax -> isRootClass(cls, ax));
     }
 
     private boolean isRootClass(OWLClass cls, OWLAxiom ax) {
         return !ax.accept(checker.setOWLClass(cls)).booleanValue();
+    }
+
+    protected boolean check(OWLClassExpression e) {
+        superChecker.reset();
+        e.accept(superChecker);
+        return !superChecker.namedSuper;
     }
 
     private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {
@@ -109,12 +115,6 @@ public class SimpleRootClassChecker implements RootClassChecker {
         public Boolean visit(OWLObjectIntersectionOf ce) {
             return Boolean.valueOf(ce.operands().anyMatch(op -> op.accept(this).booleanValue()));
         }
-    }
-
-    protected boolean check(OWLClassExpression e) {
-        superChecker.reset();
-        e.accept(superChecker);
-        return !superChecker.namedSuper;
     }
 
     /**
@@ -140,7 +140,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         private OWLClass cls() {
             return verifyNotNull(cls,
-                            "cls cannot be null. Has the helper been initialised with a valid value?");
+                "cls cannot be null. Has the helper been initialised with a valid value?");
         }
 
         @Override

@@ -22,9 +22,11 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** Builder class for OWLDataPropertyAssertionAxiom. */
+/**
+ * Builder class for OWLDataPropertyAssertionAxiom.
+ */
 public class BuilderDataPropertyAssertion extends
-                BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
+    BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
 
     @Nullable
     private OWLIndividual subject = null;
@@ -41,14 +43,14 @@ public class BuilderDataPropertyAssertion extends
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderDataPropertyAssertion(OWLDataPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withSubject(expected.getSubject())
-                        .withValue(expected.getObject()).withAnnotations(expected.annotations());
+            .withValue(expected.getObject()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -72,7 +74,7 @@ public class BuilderDataPropertyAssertion extends
     @Override
     public OWLDataPropertyAssertionAxiom buildObject() {
         return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(), getLiteral(),
-                        annotations);
+            annotations);
     }
 
     /**

@@ -40,12 +40,12 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         return asUnorderedSet(Stream.of(
-                        getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).flatMap(
-                                        ax -> ax.getProperty().objectPropertiesInSignature()),
-                        getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION)
-                                        .map(ax -> ax.getProperty().asOWLDataProperty()),
-                        getOntology().annotationPropertiesInSignature(Imports.INCLUDED))
-                        .flatMap(x -> x));
+            getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).flatMap(
+                ax -> ax.getProperty().objectPropertiesInSignature()),
+            getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION)
+                .map(ax -> ax.getProperty().asOWLDataProperty()),
+            getOntology().annotationPropertiesInSignature(Imports.INCLUDED))
+            .flatMap(x -> x));
     }
 
     /**
@@ -53,6 +53,6 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
      */
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
         return asUnorderedSet(getEntitiesThatRequireNamespaces().stream()
-                        .filter(e -> !e.getIRI().getRemainder().isPresent()));
+            .filter(e -> !e.getIRI().getRemainder().isPresent()));
     }
 }

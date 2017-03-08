@@ -23,10 +23,10 @@ public interface HasGetOntologyById {
 
     /**
      * Get the ontology with the specified Id.
-     * 
+     *
      * @param ontologyID The Id.
      * @return The ontology with the specified Id, or {@code null} if there is no ontology with the
-     *         specified Id.
+     * specified Id.
      */
     @Nullable
     OWLOntology getOntology(OWLOntologyID ontologyID);

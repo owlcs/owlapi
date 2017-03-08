@@ -38,10 +38,10 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
  * Transform axioms by rewriting parts of them.
- * 
+ *
+ * @param <T> type to transform
  * @author Ignazio
  * @since 4.1.4
- * @param <T> type to transform
  */
 public class OWLObjectTransformer<T> {
 
@@ -57,7 +57,7 @@ public class OWLObjectTransformer<T> {
      * @param witness witness class for the transformer
      */
     public OWLObjectTransformer(Predicate<Object> predicate, UnaryOperator<T> transformer,
-                    OWLDataFactory df, Class<T> witness) {
+        OWLDataFactory df, Class<T> witness) {
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.transformer = checkNotNull(transformer, "transformer cannot be null");
         this.df = checkNotNull(df, "df cannot be null");
@@ -68,9 +68,9 @@ public class OWLObjectTransformer<T> {
      * Create the required changes for this transformation to be applied to the input. Note: these
      * are AxiomChangeData changes, not ontology specific changes. There is no requirement for the
      * input to be an ontology or included in an ontology.
-     * 
+     *
      * @param o object to transform. Must be an axiom or an ontology for the change to be
-     *        meaningful.
+     * meaningful.
      * @return A list of axiom changes that should be applied.
      */
     public List<AxiomChangeData> change(OWLObject o) {
@@ -78,7 +78,7 @@ public class OWLObjectTransformer<T> {
         List<AxiomChangeData> changes = new ArrayList<>();
         // no ontology changes will be collected
         Visitor<T> v = new Visitor<>(new ArrayList<OWLOntologyChange>(), changes, predicate,
-                        transformer, df, witness);
+            transformer, df, witness);
         o.accept(v);
         return changes;
     }
@@ -86,7 +86,7 @@ public class OWLObjectTransformer<T> {
     /**
      * Create the required changes for this transformation to be applied to the input. These changes
      * are specific to the input ontology.
-     * 
+     *
      * @param ontology ontology to transform.
      * @return A list of changes that should be applied.
      */
@@ -108,8 +108,8 @@ public class OWLObjectTransformer<T> {
         private List<OWLOntologyChange> ontologyChanges;
 
         Visitor(List<OWLOntologyChange> ontologyChanges, List<AxiomChangeData> changes,
-                        Predicate<Object> predicate, UnaryOperator<T> transformer,
-                        OWLDataFactory df, Class<T> witness) {
+            Predicate<Object> predicate, UnaryOperator<T> transformer,
+            OWLDataFactory df, Class<T> witness) {
             super(predicate, transformer, df, witness);
             this.changes = changes;
             this.ontologyChanges = ontologyChanges;

@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 /**
  * A utility class that visits all components of classes and axioms; this base class allows
  * subclasses to choose elements of interest and override handling of such elements.
- * 
+ *
  * @param <E> type returned
  * @since 5.0.0
  */
@@ -59,7 +59,9 @@ public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Colle
         });
     }
 
-    /** @return collected objects */
+    /**
+     * @return collected objects
+     */
     public Collection<E> getObjects() {
         return objects;
     }

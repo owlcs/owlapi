@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 /**
  * Represents the concrete representation format of an ontology. The equality of an ontology format
  * is defined by the equals and hashCode method (not its identity).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */

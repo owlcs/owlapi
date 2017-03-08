@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.model.IRI;
 /**
  * This class will eventually replace the id to uri translation in Owl2Obo and OboO2Owl <br>
  * It is currently in-progress.
- * 
+ *
  * @author cjm
  */
 public class IdTranslator {
@@ -25,6 +25,20 @@ public class IdTranslator {
     @Nullable
     public static String translateIRI(@SuppressWarnings("unused") IRI iri) {
         return null;
+    }
+
+    /**
+     * True if id starts with a standard URI prefix (http, ftp, https) followed by a ":". Does not
+     * check if it actually conforms to URI syntax.
+     *
+     * @param id id
+     * @return boolean
+     */
+    public static boolean isURI(String id) {
+        if (id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:")) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -50,23 +64,9 @@ public class IdTranslator {
     }
 
     /**
-     * True if id starts with a standard URI prefix (http, ftp, https) followed by a ":". Does not
-     * check if it actually conforms to URI syntax.
-     * 
-     * @param id id
-     * @return boolean
-     */
-    public static boolean isURI(String id) {
-        if (id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:")) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Expands an OBO prefix such as "GO" to "http://purl.obolibrary.org/obo/GO_". By default a
      * prefix XX maps to http://purl.obolibrary.org/obo/XX_
-     * 
+     *
      * @param prefix prefix
      * @return expanded prefix
      */

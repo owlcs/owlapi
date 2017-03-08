@@ -32,7 +32,7 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation {
      * @param classExpression classExpression
      */
     public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom,
-                    OWLClassExpression classExpression) {
+        OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 
@@ -53,7 +53,8 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Use of non-equivalent class expression in position that requires an equivalent class expression: %s",
-                        getExpression());
+        return toString(
+            "Use of non-equivalent class expression in position that requires an equivalent class expression: %s",
+            getExpression());
     }
 }

@@ -75,14 +75,14 @@ public class JustificationMap {
     private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
     private final Multimap<OWLAxiom, OWLAxiom> map =
-                    MultimapBuilder.hashKeys().linkedHashSetValues().build();
+        MultimapBuilder.hashKeys().linkedHashSetValues().build();
     private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS =
-                    MultimapBuilder.hashKeys().linkedHashSetValues().build();
+        MultimapBuilder.hashKeys().linkedHashSetValues().build();
     private final OWLClassExpression desc;
 
     /**
      * Instantiates a new justification map.
-     * 
+     *
      * @param desc the class expression
      * @param axioms the axioms
      */
@@ -131,12 +131,12 @@ public class JustificationMap {
         OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
         parentAxiom.accept(extractor);
         return asUnorderedSet(extractor.getRHS().stream().flatMap(o -> o.signature())
-                        .flatMap(this::getAxiomsByLHS).filter(usedAxioms::add));
+            .flatMap(this::getAxiomsByLHS).filter(usedAxioms::add));
     }
 
     /**
      * Gets the root axioms.
-     * 
+     *
      * @return the root axioms
      */
     public Set<OWLAxiom> getRootAxioms() {
@@ -145,7 +145,7 @@ public class JustificationMap {
 
     /**
      * Gets the child axioms.
-     * 
+     *
      * @param ax the axiom whose children are to be retrieved
      * @return children of ax
      */
@@ -153,18 +153,22 @@ public class JustificationMap {
         return map.get(ax);
     }
 
-    /** The Class OWLAxiomPartExtractor. */
+    /**
+     * The Class OWLAxiomPartExtractor.
+     */
     private static class OWLAxiomPartExtractor implements OWLAxiomVisitor {
 
         private final Set<OWLObject> rhs = new HashSet<>();
         private final Set<OWLObject> lhs = new HashSet<>();
 
-        /** Instantiates a new oWL axiom part extractor. */
+        /**
+         * Instantiates a new oWL axiom part extractor.
+         */
         OWLAxiomPartExtractor() {}
 
         /**
          * Gets the rhs.
-         * 
+         *
          * @return the rhs
          */
         public Set<OWLObject> getRHS() {
@@ -173,7 +177,7 @@ public class JustificationMap {
 
         /**
          * Gets the lhs.
-         * 
+         *
          * @return the lhs
          */
         public Set<OWLObject> getLHS() {

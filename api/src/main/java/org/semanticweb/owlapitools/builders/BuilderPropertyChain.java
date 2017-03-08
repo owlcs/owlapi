@@ -24,22 +24,24 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/** Builder class for OWLSubPropertyChainOfAxiom. */
+/**
+ * Builder class for OWLSubPropertyChainOfAxiom.
+ */
 public class BuilderPropertyChain extends
-                BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
+    BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
 
     private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */
     public BuilderPropertyChain(OWLSubPropertyChainOfAxiom expected, OWLDataFactory df) {
         this(df);
         withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty())
-                        .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**
@@ -68,7 +70,9 @@ public class BuilderPropertyChain extends
         return this;
     }
 
-    /** @return size of the chain */
+    /**
+     * @return size of the chain
+     */
     public int chainSize() {
         return chain.size();
     }

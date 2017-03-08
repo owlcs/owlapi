@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /**
  * Represents an <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties" >
  * AnnotationProperty</a> in the OWL 2 specification.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
@@ -37,9 +37,9 @@ public interface OWLAnnotationProperty extends OWLProperty {
 
     /**
      * Determines if this annotation property has an IRI corresponding to {@code rdfs:comment}.
-     * 
+     *
      * @return {@code true} if the IRI of this annotation property is {@code rdfs:comment}, where
-     *         {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
+     * {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
      */
     default boolean isComment() {
         return getIRI().equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
@@ -47,9 +47,9 @@ public interface OWLAnnotationProperty extends OWLProperty {
 
     /**
      * Determines if this annotation property has an IRI corresponding to {@code rdfs:label}.
-     * 
+     *
      * @return {@code true} if the IRI of this annotation property is {@code rdfs:label}, where
-     *         {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
+     * {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
      */
     default boolean isLabel() {
         return getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
@@ -61,9 +61,9 @@ public interface OWLAnnotationProperty extends OWLProperty {
      * {@code "true"^^xsd:boolean} can be used to deprecate IRIs. (See
      * <a href ="http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"> Section 5.5 </a> of the
      * OWL 2 specification.
-     * 
+     *
      * @return {@code true} if the IRI of this annotation property is {@code owl:deprecated}, where
-     *         {@code owl:} expands to the usual prefix, otherwise {@code false}.
+     * {@code owl:} expands to the usual prefix, otherwise {@code false}.
      */
     default boolean isDeprecated() {
         return getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());

@@ -23,7 +23,7 @@ import org.tukaani.xz.XZInputStream;
 
 /**
  * An ontology document source which can read from a XZ (LZMA) compressed File.
- * 
+ *
  * @author ses
  * @since 4.0.2
  */
@@ -49,7 +49,7 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime mime type
      */
     public XZFileDocumentSource(File in, IRI documentIRI, @Nullable OWLDocumentFormat format,
-                    @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         inputStream = () -> new XZInputStream(new FileInputStream(in));
     }

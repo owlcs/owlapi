@@ -20,12 +20,12 @@ import java.util.Collection;
  * Represents a statement that two properties are the inverse of each other. This property axiom
  * contains a set of two properties. inverseOf(P, Q) is considered to be equal to inverseOf(Q, P) -
  * i.e. the order in which the properties are specified isn't important.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLInverseObjectPropertiesAxiom
-                extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+    extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
     @SuppressWarnings("unchecked")

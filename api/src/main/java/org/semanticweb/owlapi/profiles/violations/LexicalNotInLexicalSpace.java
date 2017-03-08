@@ -34,7 +34,7 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation {
      * @param literal literal
      */
     public LexicalNotInLexicalSpace(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLLiteral literal) {
+        OWLLiteral literal) {
         super(ontology, axiom, literal);
     }
 

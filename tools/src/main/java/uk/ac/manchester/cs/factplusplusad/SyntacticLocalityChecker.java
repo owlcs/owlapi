@@ -40,17 +40,23 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** syntactic locality checker for DL axioms */
+/**
+ * syntactic locality checker for DL axioms
+ */
 class SyntacticLocalityChecker extends LocalityChecker {
 
-    /** top evaluator */
+    /**
+     * top evaluator
+     */
     TopEquivalenceEvaluator topEval;
-    /** bottom evaluator */
+    /**
+     * bottom evaluator
+     */
     BotEquivalenceEvaluator botEval;
 
     /**
      * init c'tor
-     * 
+     *
      * @param s signature
      */
     SyntacticLocalityChecker(Signature s) {
@@ -79,7 +85,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
 
     /**
      * Processing method for all Equivalent axioms.
-     * 
+     *
      * @param axiom axiom
      * @return true if axiom is local
      */
@@ -117,7 +123,7 @@ class SyntacticLocalityChecker extends LocalityChecker {
 
     /**
      * Processing method for all Disjoint axioms.
-     * 
+     *
      * @param axiom axiom
      * @return true if axiom is local
      */
@@ -232,19 +238,19 @@ class SyntacticLocalityChecker extends LocalityChecker {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
         isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
-                        || isTopEquivalent(p1) && isTopEquivalent(p2);
+            || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         isLocal = isTopEquivalent(axiom.getSuperProperty())
-                        || isBotEquivalent(axiom.getSubProperty());
+            || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         isLocal = isTopEquivalent(axiom.getSuperProperty())
-                        || isBotEquivalent(axiom.getSubProperty());
+            || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

@@ -17,7 +17,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 /**
  * A high level exception interface that describes errors that occurred when applying changes to
  * ontologies.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
@@ -40,7 +40,7 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      * @param cause cause
      */
     public OWLOntologyChangeException(OWLOntologyChangeData change, String message,
-                    Throwable cause) {
+        Throwable cause) {
         super(message, cause);
         this.change = change;
     }
@@ -54,7 +54,9 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
         this.change = change;
     }
 
-    /** @return the ontology change that caused the exception. */
+    /**
+     * @return the ontology change that caused the exception.
+     */
     public OWLOntologyChangeData getChange() {
         return change;
     }

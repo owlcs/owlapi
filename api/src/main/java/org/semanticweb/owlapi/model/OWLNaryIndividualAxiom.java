@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>,
-                OWLSubClassOfAxiomSetShortCut, HasOperands<OWLIndividual> {
+    OWLSubClassOfAxiomSetShortCut, HasOperands<OWLIndividual> {
 
     @Override
     default Stream<?> components() {
@@ -62,7 +62,7 @@ public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom
 
     /**
      * Gets the individuals returned by {@link #getIndividuals()} as a list.
-     * 
+     *
      * @return The individuals in this axiom as a list
      */
     default List<OWLIndividual> getIndividualsAsList() {

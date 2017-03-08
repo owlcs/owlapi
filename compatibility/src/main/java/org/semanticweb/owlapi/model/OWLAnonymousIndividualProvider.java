@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.model.providers.AnonymousIndividualProvider;
 
 /**
  * An interface to an object that can provide instances if {@link OWLAnonymousIndividual}.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 4.0.0
  * @deprecated use AnonymousIndividualProvider

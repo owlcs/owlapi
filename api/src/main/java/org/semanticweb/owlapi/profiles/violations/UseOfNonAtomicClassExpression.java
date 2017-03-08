@@ -32,7 +32,7 @@ public class UseOfNonAtomicClassExpression extends OWLProfileViolation {
      * @param classExpression classExpression
      */
     public UseOfNonAtomicClassExpression(OWLOntology ontology, OWLAxiom axiom,
-                    OWLClassExpression classExpression) {
+        OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 

@@ -21,7 +21,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Builder class for OWLDeclarationAxiom. */
+/**
+ * Builder class for OWLDeclarationAxiom.
+ */
 public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, BuilderDeclaration> {
 
     @Nullable
@@ -29,7 +31,7 @@ public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, Builder
 
     /**
      * Builder initialized from an existing object.
-     * 
+     *
      * @param expected the existing object
      * @param df data factory
      */

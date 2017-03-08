@@ -24,7 +24,7 @@ import org.tukaani.xz.XZOutputStream;
 /**
  * An ontology document target which can write to a XZ stream. Notice that this works best when the
  * output stream is closed explicitly in the client code.
- * 
+ *
  * @author ses
  * @since 4.0.2
  */
@@ -33,7 +33,7 @@ public class XZStreamDocumentTarget extends OWLOntologyDocumentTargetBase {
     /**
      * @param os the actual output stream
      * @param filterOptions XZ filter options to use. If no options are supplied use default LZMA2
-     *        Options.
+     * Options.
      */
     public XZStreamDocumentTarget(OutputStream os, FilterOptions... filterOptions) {
         super(() -> new XZOutputStream(checkNotNull(os, "os cannot be null"), filterOptions), null);
@@ -45,7 +45,7 @@ public class XZStreamDocumentTarget extends OWLOntologyDocumentTargetBase {
      * @throws UnsupportedOptionsException if an unsupported preset level is supplied
      */
     public XZStreamDocumentTarget(OutputStream os, int presetLevel)
-                    throws UnsupportedOptionsException {
+        throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
 }

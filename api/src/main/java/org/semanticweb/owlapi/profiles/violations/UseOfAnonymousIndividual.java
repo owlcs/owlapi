@@ -34,7 +34,7 @@ public class UseOfAnonymousIndividual extends OWLProfileViolation {
      * @param individual individual
      */
     public UseOfAnonymousIndividual(OWLOntology ontology, @Nullable OWLAxiom axiom,
-                    OWLAnonymousIndividual individual) {
+        OWLAnonymousIndividual individual) {
         super(ontology, axiom, individual);
     }
 

@@ -50,7 +50,7 @@ public class OWLParserFactoryRegistryTestCase {
         factories.add(RioTrixParserFactory.class);
         factories.add(RioRDFaParserFactory.class);
         PriorityCollection<OWLParserFactory> ontologyParsers =
-                        OWLManager.createOWLOntologyManager().getOntologyParsers();
+            OWLManager.createOWLOntologyManager().getOntologyParsers();
         Set<Class<? extends OWLParserFactory>> found = new HashSet<>();
         for (OWLParserFactory p : ontologyParsers) {
             found.add(p.getClass());

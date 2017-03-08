@@ -19,7 +19,9 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Inverse axiom provider interface. */
+/**
+ * Inverse axiom provider interface.
+ */
 @FunctionalInterface
 public interface InverseAxiomProvider {
 
@@ -29,10 +31,10 @@ public interface InverseAxiomProvider {
      * @return an inverse object property axiom
      */
     default OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
-                    OWLObjectPropertyExpression forwardProperty,
-                    OWLObjectPropertyExpression inverseProperty) {
+        OWLObjectPropertyExpression forwardProperty,
+        OWLObjectPropertyExpression inverseProperty) {
         return getOWLInverseObjectPropertiesAxiom(forwardProperty, inverseProperty,
-                        Collections.emptySet());
+            Collections.emptySet());
     }
 
     /**
@@ -42,7 +44,7 @@ public interface InverseAxiomProvider {
      * @return an inverse object property axiom with annotations
      */
     OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
-                    OWLObjectPropertyExpression forwardProperty,
-                    OWLObjectPropertyExpression inverseProperty,
-                    Collection<OWLAnnotation> annotations);
+        OWLObjectPropertyExpression forwardProperty,
+        OWLObjectPropertyExpression inverseProperty,
+        Collection<OWLAnnotation> annotations);
 }

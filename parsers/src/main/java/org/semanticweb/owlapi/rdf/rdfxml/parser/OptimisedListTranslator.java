@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
  * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The type of list (i.e. the
  * type of objects in the list) are determined by a {@code ListItemTranslator}. The translator
  * consumes all triples which are used in the translation.
- * 
+ *
+ * @param <O> type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
- * @param <O> type
  */
 class OptimisedListTranslator<O extends OWLObject> {
 

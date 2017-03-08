@@ -20,7 +20,7 @@ package org.semanticweb.owlapi.reasoner;
  * silently this exception will not be thrown. <br>
  * Clients should dispose of the reasoner when an internal reasoner exception is thrown because the
  * error is unrecoverable and the internal state of the reasoner may be corrupt.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
