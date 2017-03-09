@@ -215,19 +215,19 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     int getUpperBoundDirect(OWLClassExpression expr) {
-        return getUpperBoundDirect(expr);
+        return ubd.getUpperBoundDirect(expr);
     }
 
     int getUpperBoundComplement(OWLClassExpression expr) {
-        return getUpperBoundComplement(expr);
+        return ubc.getUpperBoundComplement(expr);
     }
 
     int getLowerBoundDirect(OWLClassExpression expr) {
-        return getLowerBoundDirect(expr);
+        return lbd.getLowerBoundDirect(expr);
     }
 
     int getLowerBoundComplement(OWLClassExpression expr) {
-        return getLowerBoundComplement(expr);
+        return lbc.getLowerBoundComplement(expr);
     }
 
     // concept expressions
