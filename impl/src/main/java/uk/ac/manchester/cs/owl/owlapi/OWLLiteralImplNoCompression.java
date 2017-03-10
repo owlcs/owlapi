@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -77,6 +78,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     @Override
     public boolean isRDFPlainLiteral() {
         return getDatatype().isRDFPlainLiteral();
+    }
+    @Override
+    public boolean isSimpleLiteral() {
+        IRI iri = getDatatype().getIRI();
+        return iri.equals(RDF_LANG_STRING.getIRI()) || iri.equals(XSD_STRING.getIRI());
     }
 
     @Override

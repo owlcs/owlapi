@@ -161,6 +161,10 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
         return OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().equals(datatype);
     }
 
+    public boolean isSimpleLiteral() {
+        return datatype.equals( OWL2Datatype.RDF_LANG_STRING.getIRI()) ||
+                datatype.equals(OWL2Datatype.XSD_STRING.getIRI());
+    }
     @Override
     public int compareTo(@Nullable RDFNode o) {
         checkNotNull(o);

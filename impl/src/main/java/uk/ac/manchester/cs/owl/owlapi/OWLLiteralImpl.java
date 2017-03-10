@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import org.semanticweb.owlapi.model.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
@@ -101,6 +102,12 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Override
     public boolean isRDFPlainLiteral() {
         return getDatatype().isRDFPlainLiteral();
+    }
+
+    @Override
+    public boolean isSimpleLiteral() {
+        IRI iri = getDatatype().getIRI();
+        return iri.equals(RDF_LANG_STRING.getIRI()) || iri.equals(XSD_STRING.getIRI());
     }
 
     @Override

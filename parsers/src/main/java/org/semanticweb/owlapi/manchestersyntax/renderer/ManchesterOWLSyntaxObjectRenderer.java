@@ -515,7 +515,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             if (node.hasLang()) {
                 write("@");
                 write(node.getLang());
-            } else if (!node.isRDFPlainLiteral()) {
+            } else if (!node.isSimpleLiteral()) {
                 write("^^");
                 node.getDatatype().accept(this);
             }

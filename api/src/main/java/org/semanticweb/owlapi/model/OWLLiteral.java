@@ -71,6 +71,8 @@ public interface OWLLiteral
         return false;
     }
 
+    default boolean isSimpleLiteral() {return false;}
+
     /**
      * Gets the lexical value of this literal. Note that if the datatype is
      * {@code rdf:PlainLiteral} then the abbreviated lexical form will be

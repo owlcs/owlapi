@@ -222,7 +222,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private void write(RDFLiteral node) {
-        if (!node.isPlainLiteral()) {
+        if (!node.isSimpleLiteral()) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
                 write(node.getLexicalValue());
             } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {

@@ -12,19 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,21 +26,14 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -226,7 +211,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                 if (n.isLiteral()) {
                                     RDFLiteral litNode = (RDFLiteral) n;
                                     writer.writeStartElement(RDFS_LITERAL.getIRI());
-                                    if (!litNode.isPlainLiteral()) {
+                                    if (!litNode.isSimpleLiteral()) {
                                         writer.writeDatatypeAttribute(litNode.getDatatype());
                                     } else if (litNode.hasLang()) {
                                         writer.writeLangAttribute(litNode.getLang());
@@ -253,7 +238,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
                 if (rdfLiteralNode.hasLang()) {
                     writer.writeLangAttribute(rdfLiteralNode.getLang());
-                } else if (!rdfLiteralNode.isPlainLiteral()) {
+                } else if (!rdfLiteralNode.isSimpleLiteral()) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
                 }
                 writer.writeTextContent(rdfLiteralNode.getLexicalValue());

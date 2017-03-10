@@ -1130,7 +1130,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         if (node.hasLang()) {
             write("@");
             write(node.getLang());
-        } else if (!node.isRDFPlainLiteral()) {
+        } else if (!node.isSimpleLiteral()) {
             write("^^");
             write(node.getDatatype().getIRI());
         }
