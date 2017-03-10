@@ -71,6 +71,10 @@ public interface OWLLiteral
         return false;
     }
 
+    /**
+     *
+     * @return true if this literal is an RDF 1.1 Simple Literal
+     */
     default boolean isSimpleLiteral() {return false;}
 
     /**
