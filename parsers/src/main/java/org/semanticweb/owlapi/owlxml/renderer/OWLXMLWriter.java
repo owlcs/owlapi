@@ -27,6 +27,7 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.PREFIX;
 
 import java.io.PrintWriter;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -68,8 +69,9 @@ public class OWLXMLWriter {
     /**
      * @param writer writer
      * @param ontology ontology
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      */
-    public OWLXMLWriter(PrintWriter writer, OWLOntology ontology) {
+    public OWLXMLWriter(PrintWriter writer, OWLOntology ontology, Charset encoding) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
         nsm.setPrefix("rdf", Namespaces.RDF.toString());
@@ -81,6 +83,7 @@ public class OWLXMLWriter {
         }
         this.writer = new XMLWriterImpl(writer, nsm, base,
             ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+        this.writer.setEncoding(encoding);
     }
 
     /**
@@ -213,7 +216,7 @@ public class OWLXMLWriter {
      * Writes an IRI element for a given IRI.
      *
      * @param iri The IRI to be written as an element. If the IRI can be abbreviated then an
-     * AbbreviatedIRI element will be written
+     *        AbbreviatedIRI element will be written
      */
     public void writeIRIElement(IRI iri) {
         String iriString = iri.toString();

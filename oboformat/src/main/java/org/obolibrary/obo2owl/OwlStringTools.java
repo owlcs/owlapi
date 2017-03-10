@@ -5,6 +5,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -52,7 +53,7 @@ public class OwlStringTools {
             OWLFunctionalSyntaxRenderer r = new OWLFunctionalSyntaxRenderer();
             Writer writer = new StringWriter();
             PrintWriter w = new PrintWriter(writer);
-            r.render(ontology, w);
+            r.render(ontology, w, StandardCharsets.UTF_8);
             w.flush();
             return writer.toString();
         } catch (OWLRendererException | OWLOntologyCreationException | OWLRuntimeException e) {

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -30,7 +31,9 @@ public interface OWLRenderer {
      *
      * @param ontology The ontology
      * @param os The OutputStream
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     *        for XML formats
      * @throws OWLException for any exception raised
      */
-    void render(OWLOntology ontology, OutputStream os) throws OWLException;
+    void render(OWLOntology ontology, OutputStream os, Charset encoding) throws OWLException;
 }

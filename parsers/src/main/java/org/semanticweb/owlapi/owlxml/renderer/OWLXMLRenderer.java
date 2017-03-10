@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.owlxml.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
@@ -36,15 +37,16 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      * @param ontology ontology
      * @param writer writer
      * @param format format
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      * @throws OWLRendererException renderer error
      */
-    public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLRendererException {
+    public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
+        Charset encoding) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
         checkNotNull(format, "format cannot be null");
         try {
-            OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
+            OWLXMLWriter w = new OWLXMLWriter(writer, ontology, encoding);
             w.startDocument(ontology);
             if (format instanceof PrefixDocumentFormat) {
                 PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
@@ -82,9 +84,10 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
+        throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
-        render(ontology, writer, ontology.getNonnullFormat());
+        render(ontology, writer, ontology.getNonnullFormat(), encoding);
     }
 }

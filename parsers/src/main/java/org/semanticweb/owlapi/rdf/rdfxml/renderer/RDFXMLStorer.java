@@ -13,7 +13,9 @@
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -35,23 +37,25 @@ public class RDFXMLStorer extends AbstractOWLStorer {
     }
 
     @Override
-    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
+    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
+        Charset encoding) throws OWLOntologyStorageException {
         try {
-            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
-            Set<OWLEntity> entities = renderer.getUnserialisableEntities();
-            if (!entities.isEmpty()) {
-                StringBuilder sb = new StringBuilder();
-                for (OWLEntity entity : entities) {
-                    sb.append(entity.toStringID());
-                    sb.append('\n');
-                }
-                throw new OWLOntologyStorageException(sb.toString().trim(),
-                    new IllegalElementNameException(sb.toString().trim()));
-            }
+            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format, encoding);
+            checkUnserialisableEntities(renderer);
             renderer.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
+        }
+    }
+
+    protected void checkUnserialisableEntities(RDFXMLRenderer renderer)
+        throws OWLOntologyStorageException {
+        Set<OWLEntity> entities = renderer.getUnserialisableEntities();
+        if (!entities.isEmpty()) {
+            String errorMessage =
+                entities.stream().map(OWLEntity::toStringID).collect(Collectors.joining("\n"));
+            throw new OWLOntologyStorageException(errorMessage,
+                new IllegalElementNameException(errorMessage));
         }
     }
 }

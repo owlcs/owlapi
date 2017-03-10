@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
@@ -72,8 +73,8 @@ public class XMLWriterImpl implements XMLWriter {
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
         String xmlBase, OWLOntologyWriterConfiguration preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
-        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
-            "xmlWriterNamespaceManager cannot be null");
+        this.xmlWriterNamespaceManager =
+            checkNotNull(xmlWriterNamespaceManager, "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
         setupEntities();
@@ -129,8 +130,8 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
+    public void setEncoding(Charset encoding) {
+        this.encoding = encoding.name();
     }
 
     @Override
@@ -246,8 +247,8 @@ public class XMLWriterImpl implements XMLWriter {
         }
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
             if (!curPrefix.isEmpty()) {
-                writeAttribute("xmlns:" + curPrefix, verifyNotNull(
-                    xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
+                writeAttribute("xmlns:" + curPrefix,
+                    verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
             }
         }
     }
@@ -392,7 +393,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         private void writeAttributes() {
-            for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext(); ) {
+            for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext();) {
                 String attr = it.next();
                 String val = attributes.get(attr);
                 writer.write(' ');

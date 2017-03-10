@@ -20,6 +20,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -64,27 +65,31 @@ public class RDFXMLRenderer extends RDFRendererBase {
     /**
      * @param ontology ontology
      * @param w writer
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      */
-    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w) {
-        this(ontology, w, verifyNotNull(ontology.getFormat()));
+    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, Charset encoding) {
+        this(ontology, w, verifyNotNull(ontology.getFormat()), encoding);
     }
 
     /**
      * @param ontology ontology
      * @param w writer
      * @param format format
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      */
-    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
+    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format,
+        Charset encoding) {
         super(checkNotNull(ontology, "ontology cannot be null"),
             checkNotNull(format, "format cannot be null"),
             ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+        checkNotNull(w, "w cannot be null");
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(new XMLWriterImpl(checkNotNull(w, "w cannot be null"),
-            qnameManager, base,
-            ontology.getOWLOntologyManager().getOntologyWriterConfiguration()));
+        XMLWriter xmlWriter = new XMLWriterImpl(w, qnameManager, base, config);
+        xmlWriter.setEncoding(encoding);
+        writer = new RDFXMLWriter(xmlWriter);
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();

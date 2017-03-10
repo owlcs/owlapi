@@ -16,7 +16,7 @@ import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -30,11 +30,12 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     protected AbstractOWLRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
+    public void render(OWLOntology ontology, OutputStream os, Charset encoding)
+        throws OWLRendererException {
         try {
-            PrintWriter writer = new PrintWriter(
-                new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8)));
-            render(ontology, writer);
+            PrintWriter writer =
+                new PrintWriter(new BufferedWriter(new OutputStreamWriter(os, encoding)));
+            render(ontology, writer, encoding);
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLRendererIOException(e);
@@ -46,10 +47,11 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      *
      * @param ontology the ontology to render
      * @param writer The writer that should be used to write the ontology. Note that this writer
-     * need not be wrapped with a {@code BufferedWriter} because this is taken care of by this
-     * abstract implementation.
+     *        need not be wrapped with a {@code BufferedWriter} because this is taken care of by
+     *        this abstract implementation.
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      * @throws OWLRendererException if exceptions arise
      */
-    public abstract void render(OWLOntology ontology, PrintWriter writer)
+    public abstract void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
         throws OWLRendererException;
 }

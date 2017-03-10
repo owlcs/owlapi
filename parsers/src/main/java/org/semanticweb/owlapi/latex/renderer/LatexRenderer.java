@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Stream;
@@ -59,7 +60,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology o, PrintWriter _w) throws OWLRendererException {
+    public void render(OWLOntology o, PrintWriter _w, Charset encoding)
+        throws OWLRendererException {
         try {
             LatexWriter w = new LatexWriter(_w);
             w.write("\\documentclass{article}\n");
@@ -68,8 +70,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\oddsidemargin 0cm\n");
             w.write("\\textwidth 19cm\n");
             w.write("\\begin{document}\n\n");
-            LatexObjectVisitor renderer = new LatexObjectVisitor(w,
-                o.getOWLOntologyManager().getOWLDataFactory());
+            LatexObjectVisitor renderer =
+                new LatexObjectVisitor(w, o.getOWLOntologyManager().getOWLDataFactory());
             Collection<OWLClass> clses = sortEntities(o.classesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
@@ -81,14 +83,14 @@ public class LatexRenderer extends AbstractOWLRenderer {
             sortEntities(o.objectPropertiesInSignature())
                 .forEach(p -> writeEntity(w, renderer, p, sortAxioms(o.axioms(p))));
             w.write("\\section*{Data properties}");
-            o.dataPropertiesInSignature().sorted(entityComparator).forEach(
-                prop -> writeEntity(w, renderer, prop, sortAxioms(o.axioms(prop))));
+            o.dataPropertiesInSignature().sorted(entityComparator)
+                .forEach(prop -> writeEntity(w, renderer, prop, sortAxioms(o.axioms(prop))));
             w.write("\\section*{Individuals}");
             o.individualsInSignature().sorted(entityComparator)
                 .forEach(i -> writeEntity(w, renderer, i, sortAxioms(o.axioms(i))));
             w.write("\\section*{Datatypes}");
-            o.datatypesInSignature().sorted(entityComparator).forEach(type -> writeEntity(w,
-                renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
+            o.datatypesInSignature().sorted(entityComparator).forEach(
+                type -> writeEntity(w, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
             w.write("\\end{document}\n");
             w.flush();
         } catch (OWLRuntimeException e) {

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
+import java.nio.charset.Charset;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -28,7 +30,7 @@ public interface XMLWriter {
      *
      * @param encoding The encoding.
      */
-    void setEncoding(String encoding);
+    void setEncoding(Charset encoding);
 
     /**
      * Gets the Writer's namespace manager.
@@ -67,7 +69,7 @@ public interface XMLWriter {
      * Writes the start of an element.
      *
      * @param name The tag name of the element to be written. This must be a valid QName. @throws
-     * IllegalElementNameException if the specified name is not a valid QName
+     *        IllegalElementNameException if the specified name is not a valid QName
      */
     void writeStartElement(IRI name);
 

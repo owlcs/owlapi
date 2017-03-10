@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nullable;
 
@@ -57,8 +58,8 @@ public class OBOFormatRenderer implements OWLRenderer {
                 // if the ontology has imports
                 // use it as secondary lookup for labels
                 final NameProvider primary = new OBODocNameProvider(result);
-                final NameProvider secondary = new OWLOntologyNameProvider(ontology,
-                    primary.getDefaultOboNamespace());
+                final NameProvider secondary =
+                    new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace());
                 // combine primary and secondary name provider
                 nameProvider = new NameProvider() {
 
@@ -83,8 +84,7 @@ public class OBOFormatRenderer implements OWLRenderer {
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
             oboFormatWriter.setCheckStructure(
-                format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE)
-                    .booleanValue());
+                format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
             oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)),
                 nameProvider);
         } catch (IOException e) {
@@ -93,7 +93,8 @@ public class OBOFormatRenderer implements OWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os) throws OWLOntologyStorageException {
+    public void render(OWLOntology ontology, OutputStream os, Charset encoding)
+        throws OWLOntologyStorageException {
         render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
     }
 }

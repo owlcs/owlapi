@@ -13,6 +13,7 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
@@ -26,7 +27,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererIOException {
+    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
+        throws OWLRendererIOException {
         try {
             OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(writer);
             ontology.accept(ren);

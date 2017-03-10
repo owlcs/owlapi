@@ -42,6 +42,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nullable;
@@ -106,13 +107,13 @@ public class RioStorer extends AbstractOWLStorer {
      * {@link #setRioHandler(RDFHandler)} is not called with a non-null argument.
      *
      * @param format The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
-     * parameter is not null.
+     *        parameter is not null.
      * @param outputStream The {@link OutputStream} for the resulting RDFHandler, or null to create
-     * an in-memory collection.
+     *        an in-memory collection.
      * @return An implementation of the {@link RDFHandler} interface, based on the parameters given
-     * to this method.
+     *         to this method.
      * @throws OWLOntologyStorageException If the format does not have an {@link RDFWriter}
-     * implementation available on the classpath.
+     *         implementation available on the classpath.
      */
     protected static RDFHandler getRDFHandlerForOutputStream(@Nullable RDFFormat format,
         OutputStream outputStream) throws OWLOntologyStorageException {
@@ -139,13 +140,13 @@ public class RioStorer extends AbstractOWLStorer {
      * {@link #setRioHandler(RDFHandler)} is not called with a non-null argument.
      *
      * @param format The {@link RDFFormat} for the resulting {@link RDFHandler}, if the writer
-     * parameter is not null.
+     *        parameter is not null.
      * @param writer The {@link Writer} for the resulting RDFHandler, or null to create an in-memory
-     * collection.
+     *        collection.
      * @return An implementation of the {@link RDFHandler} interface, based on the parameters given
-     * to this method.
+     *         to this method.
      * @throws OWLOntologyStorageException If the format does not have an {@link RDFWriter}
-     * implementation available on the classpath.
+     *         implementation available on the classpath.
      */
     protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format, Writer writer)
         throws OWLOntologyStorageException {
@@ -177,8 +178,8 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     @Override
-    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
+    public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
+        Charset encoding) throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
         // example, it could store the triples in memory without serialising
@@ -209,7 +210,7 @@ public class RioStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, OutputStream outputStream,
-        OWLDocumentFormat format) throws OWLOntologyStorageException {
+        OWLDocumentFormat format, Charset encoding) throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
         // example, it could store the triples in memory without serialising

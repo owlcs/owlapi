@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -40,7 +41,8 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     private DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
 
     @Override
-    public void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format) {
+    public void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format,
+        Charset encoding) {
         checkNotNull(o, "ontology cannot be null");
         checkNotNull(printWriter, "writer cannot be null");
         Set<OWLAxiom> printed = new HashSet<>();
