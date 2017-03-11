@@ -42,14 +42,14 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     protected String getRendering(@Nullable final OWLEntity subject, OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
-
             @Override
-            protected String renderEntity(OWLEntity entity) {
+            protected void writeEntity(OWLEntity entity) {
                 String shortForm = sfp.getShortForm(checkNotNull(entity, "entity cannot be null"));
                 if (entity.equals(subject)) {
-                    return shortForm;
+                    write(shortForm);
+                } else {
+                    write("<a href=\"#" + shortForm + "\">" + shortForm + "</a>");
                 }
-                return "<a href=\"#" + shortForm + "\">" + shortForm + "</a>";
             }
 
             @Override
@@ -93,7 +93,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void endWritingAxiom(PrintWriter writer) {
-        checkNotNull(writer, "writer cannot be null").println(" </div>");
+        closeDiv(writer);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void endWritingAxioms(PrintWriter writer) {
-        writer.println("</div>");
+        closeDiv(writer);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void endWritingGeneralAxioms(PrintWriter writer) {
-        writer.println("</div>");
+        closeDiv(writer);
     }
 
     @Override
@@ -131,6 +131,10 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void endWritingUsage(PrintWriter writer) {
+        closeDiv(writer);
+    }
+
+    protected void closeDiv(PrintWriter writer) {
         writer.println("</div>");
     }
 }

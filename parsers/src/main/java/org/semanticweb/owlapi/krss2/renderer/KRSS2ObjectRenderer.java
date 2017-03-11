@@ -350,11 +350,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-    protected void write(KRSS2Vocabulary v) {
-        write(v.toString());
-    }
-
-    @Override
     public void visit(OWLOntology ontology) {
         reset();
         for (OWLClass eachClass : asList(ontology.classesInSignature())) {
@@ -392,9 +387,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> supclasses =
-                    asList(sup(ontology.subClassAxiomsForSubClass(eachClass),
-                        OWLClassExpression.class));
+                Collection<OWLClassExpression> supclasses = asList(
+                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class));
                 for (OWLClassExpression description : supclasses) {
                     writeOpenBracket();
                     write(eachClass);
@@ -418,10 +412,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
-                List<OWLObjectPropertyExpression> superProperties =
-                    sortOptionally(sup(
-                        ontology.axioms(Filters.subObjectPropertyWithSub,
-                            property, INCLUDED),
+                List<OWLObjectPropertyExpression> superProperties = sortOptionally(
+                    sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
                         OWLObjectPropertyExpression.class));
                 int superSize = superProperties.size();
                 if (superSize == 1) {
@@ -489,8 +481,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(TRUE);
             }
             Iterator<OWLObjectPropertyExpression> inverses =
-                inverse(ontology.inverseObjectPropertyAxioms(property), property)
-                    .iterator();
+                inverse(ontology.inverseObjectPropertyAxioms(property), property).iterator();
             if (!inverses.hasNext()) {
                 writeSpace();
                 write(INVERSE_ATTR);
@@ -558,26 +549,12 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        pairs(axiom.properties()).forEach(v -> {
-            writeOpenBracket();
-            write(ROLES_EQUIVALENT);
-            write(v.i);
-            write(v.j);
-            writeCloseBracket();
-            writeln();
-        });
+        pairs(axiom.properties()).forEach(v -> round(v, ROLES_EQUIVALENT));
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        pairs(axiom.properties()).forEach(v -> {
-            writeOpenBracket();
-            write(DISJOINT_ROLES);
-            write(v.i);
-            write(v.j);
-            writeCloseBracket();
-            writeln();
-        });
+        pairs(axiom.properties()).forEach(v -> round(v, DISJOINT_ROLES));
     }
 
     @Override
@@ -594,14 +571,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        pairs(axiom.classExpressions()).forEach(v -> {
-            writeOpenBracket();
-            write(EQUIVALENT);
-            write(v.i);
-            write(v.j);
-            writeCloseBracket();
-            writeln();
-        });
+        pairs(axiom.classExpressions()).forEach(v -> round(v, EQUIVALENT));
     }
 
     @Override

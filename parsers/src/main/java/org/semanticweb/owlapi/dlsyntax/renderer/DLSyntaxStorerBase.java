@@ -38,8 +38,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
 
-    private DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
-
     @Override
     public void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format,
         Charset encoding) {
@@ -103,7 +101,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
 
     @SuppressWarnings("unused")
     protected String getRendering(@Nullable OWLEntity subject, OWLAxiom axiom) {
-        return ren.render(axiom);
+        return new DLSyntaxObjectRenderer().render(axiom);
     }
 
     @SuppressWarnings("unused")

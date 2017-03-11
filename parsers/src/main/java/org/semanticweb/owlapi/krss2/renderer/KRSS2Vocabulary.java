@@ -17,7 +17,7 @@ package org.semanticweb.owlapi.krss2.renderer;
  *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-public enum KRSS2Vocabulary {
+public enum KRSS2Vocabulary implements KRSS {
     //@formatter:off
     /** ALL. */                      ALL("all"),
     /** AND. */                      AND("and"),

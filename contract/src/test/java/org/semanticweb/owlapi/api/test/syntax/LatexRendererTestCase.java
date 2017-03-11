@@ -51,8 +51,7 @@ public class LatexRendererTestCase extends TestBase {
         String expected = "\\documentclass{article}\n"
                         + "\\parskip 0pt\n\\parindent 0pt\n\\oddsidemargin 0cm\n\\textwidth 19cm\n\\begin{document}\n\n"
                         + "\\section*{Object properties}\\subsubsection*{buzz\\_of}\n\n"
-                        + "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n"
-                        + "\\subsubsection*{fizzle\\_of}\n\n"
+            + "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n" + "\\subsubsection*{fizzle\\_of}\n\n"
                         + "buzz\\_of~\\ensuremath{\\equiv}~fizzle\\_of\\ensuremath{^-}\n\n"
                         + "\\section*{Data properties}\\section*{Individuals}\\section*{Datatypes}\\end{document}\n";
         OWLOntology o = loadOntologyFromString(input, new LatexDocumentFormat());

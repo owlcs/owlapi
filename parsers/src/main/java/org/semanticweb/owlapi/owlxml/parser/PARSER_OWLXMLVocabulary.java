@@ -406,8 +406,8 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     /** OBJECT_PROPERTY_ATOM.               */  PARSER_OBJECT_PROPERTY_ATOM                (OBJECT_PROPERTY_ATOM                , ObjectPropertyAtomEH::new),
     /** DATA_PROPERTY_ATOM.                 */  PARSER_DATA_PROPERTY_ATOM                  (DATA_PROPERTY_ATOM                  , DataPropertyAtomEH::new),
     /** BUILT_IN_ATOM.                      */  PARSER_BUILT_IN_ATOM                       (BUILT_IN_ATOM                       , BuiltInAtomEH::new),
-    /** SAME_INDIVIDUAL_ATOM.               */  PARSER_SAME_INDIVIDUAL_ATOM                (SAME_INDIVIDUAL_ATOM                , ()->new IndividualsAtomEH<>(x -> new BuilderSWRLSameIndividualAtom(x))),
-    /** DIFFERENT_INDIVIDUALS_ATOM.         */  PARSER_DIFFERENT_INDIVIDUALS_ATOM          (DIFFERENT_INDIVIDUALS_ATOM          , ()->new IndividualsAtomEH<>(x -> new BuilderSWRLDifferentIndividualsAtom(x))),
+    /** SAME_INDIVIDUAL_ATOM.               */  PARSER_SAME_INDIVIDUAL_ATOM                (SAME_INDIVIDUAL_ATOM                , ()->new IndividualsAtomEH<>(BuilderSWRLSameIndividualAtom::new)),
+    /** DIFFERENT_INDIVIDUALS_ATOM.         */  PARSER_DIFFERENT_INDIVIDUALS_ATOM          (DIFFERENT_INDIVIDUALS_ATOM          , ()->new IndividualsAtomEH<>(BuilderSWRLDifferentIndividualsAtom::new)),
     /** VARIABLE.                           */  PARSER_VARIABLE                            (VARIABLE                            , VariableEH::new),
     /** DESCRIPTION_GRAPH_RULE.             */  PARSER_DESCRIPTION_GRAPH_RULE              (DESCRIPTION_GRAPH_RULE              );
 //@formatter:on
@@ -417,12 +417,10 @@ enum PARSER_OWLXMLVocabulary implements HasIRI {
     private final Provider<OWLEH<?, ?>> create;
 
     PARSER_OWLXMLVocabulary(OWLXMLVocabulary name) {
-        iri = IRI.create(Namespaces.OWL.toString(), name.getShortForm());
-        shortName = name.getShortForm();
-        create = () -> {
+        this(name, () -> {
             throw new OWLRuntimeException(
-                shortName + " vocabulary element does not have a handler");
-        };
+                name.getShortForm() + " vocabulary element does not have a handler");
+        });
     }
 
     PARSER_OWLXMLVocabulary(OWLXMLVocabulary name, Provider<OWLEH<?, ?>> create) {
@@ -461,6 +459,7 @@ interface ObjectPropertyEH {
 
     <T> T getOWLObject(Class<T> witness);
 }
+
 
 @SuppressWarnings({"unused", "null"})
 abstract class OWLEH<O, B extends Builder<O>> {
@@ -615,58 +614,45 @@ abstract class OWLEH<O, B extends Builder<O>> {
     }
 
     enum HandleChild {
-        AbstractOWLAxiomEH((parent, _this) -> parent
-            .handleChild((AxiomEH<?, ?>) _this)), AbstractClassExpressionEH(
-            (parent, _this) -> parent.handleChild(
-                (ClassEH<?, ?>) _this)), AbstractOWLDataRangeHandler(
-            (parent, _this) -> parent
-                .handleChild((DataRangeEH<?, ?>) _this)), ObjectPropertyEH(
-            (parent, _this) -> parent
-                .handleChild((ObjectPropertyEH) _this)), OWLDataPropertyEH(
-            (parent, _this) -> parent
-                .handleChild((DataPropertyEH) _this)), OWLIndividualEH(
-            (parent, _this) -> parent
-                .handleChild((IndividualEH) _this)), OWLLiteralEH(
-            (parent, _this) -> parent
-                .handleChild((LiteralEH) _this)), OWLAnnotationEH(
-            (parent, _this) -> parent
-                .handleChild((AnnEH) _this)), OWLSubObjectPropertyChainEH(
-            (parent, _this) -> parent
-                .handleChild((ChainEH) _this)), OWLDatatypeFacetRestrictionEH(
-            (parent, _this) -> parent
-                .handleChild((DatatypeFacetEH) _this)), OWLAnnotationPropertyEH(
-            (parent, _this) -> parent
-                .handleChild((AnnotationPropEH) _this)), OWLAnonymousIndividualEH(
-            (parent, _this) -> parent
-                .handleChild((AnonEH) _this)), AbstractIRIEH(
-            (parent, _this) -> parent
-                .handleChild((IRIEH) _this)), SWRLVariableEH(
-            (parent, _this) -> parent
-                .handleChild((VariableEH) _this)), SWRLAtomEH(
-            (parent, _this) -> parent
-                .handleChild((AtomEH<?, ?>) _this)), SWRLAtomListEH(
-            (parent, _this) -> parent
-                .handleChild((AtomListEH) _this));
-
+        //@formatter:off
+        /** AbstractOWLAxiomEH            */ ABSTRACTOWLAXIOMEH              ((parent, child) -> parent.handleChild((AxiomEH<?, ?>)     child)), 
+        /** AbstractClassExpressionEH     */ ABSTRACTCLASSEXPRESSIONEH       ((parent, child) -> parent.handleChild((ClassEH<?, ?>)     child)), 
+        /** AbstractOWLDataRangeHandler   */ ABSTRACTOWLDATARANGEHANDLER     ((parent, child) -> parent.handleChild((DataRangeEH<?, ?>) child)), 
+        /** ObjectPropertyEH              */ OBJECTPROPERTYEH                ((parent, child) -> parent.handleChild((ObjectPropertyEH)  child)), 
+        /** OWLDataPropertyEH             */ OWLDATAPROPERTYEH               ((parent, child) -> parent.handleChild((DataPropertyEH)    child)), 
+        /** OWLIndividualEH               */ OWLINDIVIDUALEH                 ((parent, child) -> parent.handleChild((IndividualEH)      child)), 
+        /** OWLLiteralEH                  */ OWLLITERALEH                    ((parent, child) -> parent.handleChild((LiteralEH)         child)), 
+        /** OWLAnnotationEH               */ OWLANNOTATIONEH                 ((parent, child) -> parent.handleChild((AnnEH)             child)), 
+        /** OWLSubObjectPropertyChainEH   */ OWLSUBOBJECTPROPERTYCHAINEH     ((parent, child) -> parent.handleChild((ChainEH)           child)),
+        /** OWLDatatypeFacetRestrictionEH */ OWLDATATYPEFACETRESTRICTIONEH   ((parent, child) -> parent.handleChild((DatatypeFacetEH)   child)),
+        /** OWLAnnotationPropertyEH       */ OWLANNOTATIONPROPERTYEH         ((parent, child) -> parent.handleChild((AnnotationPropEH)  child)),
+        /** OWLAnonymousIndividualEH      */ OWLANONYMOUSINDIVIDUALEH        ((parent, child) -> parent.handleChild((AnonEH)            child)),
+        /** AbstractIRIEH                 */ ABSTRACTIRIEH                   ((parent, child) -> parent.handleChild((IRIEH)             child)), 
+        /** SWRLVariableEH                */ SWRLVARIABLEEH                  ((parent, child) -> parent.handleChild((VariableEH)        child)),
+        /** SWRLAtomEH                    */ SWRLATOMEH                      ((parent, child) -> parent.handleChild((AtomEH<?, ?>)      child)), 
+        /** SWRLAtomListEH                */ SWRLATOMLISTEH                  ((parent, child) -> parent.handleChild((AtomListEH)        child));
+        //@formatter:on
         private BiConsumer<OWLEH<?, ?>, OWLEH<?, ?>> consumer;
 
         HandleChild(BiConsumer<OWLEH<?, ?>, OWLEH<?, ?>> c) {
             consumer = c;
         }
 
-        final void run(OWLEH<?, ?> parent, OWLEH<?, ?> _this) {
-            consumer.accept(parent, _this);
+        final void run(OWLEH<?, ?> parent, OWLEH<?, ?> child) {
+            consumer.accept(parent, child);
         }
     }
 }
+
 
 class ClassEH<X extends OWLClassExpression, B extends Builder<X>> extends OWLEH<X, B> {
 
     public ClassEH(Function<OWLDataFactory, B> b) {
         provider = b;
-        child = HandleChild.AbstractClassExpressionEH;
+        child = HandleChild.ABSTRACTCLASSEXPRESSIONEH;
     }
 }
+
 
 class DataCardEH<X extends OWLClassExpression, B extends Builder<X> & SettableCardinality<?> & SettableProperty<OWLDataPropertyExpression, ?> & SettableRange<OWLDataRange, ?>>
     extends DataREH<X, B> {
@@ -683,21 +669,24 @@ class DataCardEH<X extends OWLClassExpression, B extends Builder<X> & SettableCa
     }
 }
 
+
 class AxiomEH<X extends OWLAxiom, B extends Builder<X>> extends OWLEH<X, B> {
 
     AxiomEH(Function<OWLDataFactory, B> b) {
         provider = b;
-        child = HandleChild.AbstractOWLAxiomEH;
+        child = HandleChild.ABSTRACTOWLAXIOMEH;
     }
 }
+
 
 abstract class DataRangeEH<X extends OWLDataRange, B extends Builder<X>> extends OWLEH<X, B> {
 
     public DataRangeEH(Function<OWLDataFactory, B> b) {
         provider = b;
-        child = HandleChild.AbstractOWLDataRangeHandler;
+        child = HandleChild.ABSTRACTOWLDATARANGEHANDLER;
     }
 }
+
 
 class ObjectCardEH<X extends OWLClassExpression, B extends Builder<X> & SettableCardinality<?> & SettableProperty<OWLObjectPropertyExpression, ?> & SettableRange<OWLClassExpression, ?>>
     extends ObjectREH<X, B> {
@@ -714,12 +703,13 @@ class ObjectCardEH<X extends OWLClassExpression, B extends Builder<X> & Settable
     }
 }
 
+
 class ObjectPEH extends OWLEH<OWLObjectProperty, BuilderObjectProperty>
     implements ObjectPropertyEH {
 
     public ObjectPEH() {
         provider = BuilderObjectProperty::new;
-        child = HandleChild.ObjectPropertyEH;
+        child = HandleChild.OBJECTPROPERTYEH;
     }
 }
 
@@ -769,7 +759,7 @@ class IRIEH extends OWLEH<IRI, Builder<IRI>> {
     Provider<IRI> p;
 
     public IRIEH(boolean abbreviated) {
-        child = HandleChild.AbstractIRIEH;
+        child = HandleChild.ABSTRACTIRIEH;
         p = abbreviated ? this::shortIri : this::longIri;
     }
 
@@ -836,8 +826,8 @@ class LegacyEntityAnnEH extends AxiomEH<OWLAnnotationAssertionAxiom, BuilderAnno
 
     @Override
     void handleChild(ObjectPropertyEH h) {
-        builder.withSubject(
-            h.getOWLObject(OWLObjectPropertyExpression.class).asOWLObjectProperty());
+        builder
+            .withSubject(h.getOWLObject(OWLObjectPropertyExpression.class).asOWLObjectProperty());
     }
 
     @Override
@@ -886,8 +876,8 @@ class AnnotationAxiomEH extends AxiomEH<OWLAnnotationAssertionAxiom, BuilderAnno
 class AnnEH extends OWLEH<OWLAnnotation, BuilderAnnotation> {
 
     public AnnEH() {
-        provider = x -> new BuilderAnnotation(x);
-        child = HandleChild.OWLAnnotationEH;
+        provider = BuilderAnnotation::new;
+        child = HandleChild.OWLANNOTATIONEH;
     }
 
     @Override
@@ -933,8 +923,8 @@ class AnnDomainEH
 class AnnotationPropEH extends OWLEH<OWLAnnotationProperty, BuilderAnnotationProperty> {
 
     public AnnotationPropEH() {
-        provider = x -> new BuilderAnnotationProperty(x);
-        child = HandleChild.OWLAnnotationPropertyEH;
+        provider = BuilderAnnotationProperty::new;
+        child = HandleChild.OWLANNOTATIONPROPERTYEH;
     }
 
     @Override
@@ -966,7 +956,7 @@ class AnonEH extends OWLEH<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
 
     public AnonEH(Function<OWLDataFactory, BuilderAnonymousIndividual> b) {
         provider = b;
-        child = HandleChild.OWLAnonymousIndividualEH;
+        child = HandleChild.OWLANONYMOUSINDIVIDUALEH;
     }
 
     @Override
@@ -1108,8 +1098,8 @@ class DataPropertyDomainEH extends AxiomEH<OWLDataPropertyDomainAxiom, BuilderDa
 class DataPropertyEH extends OWLEH<OWLDataProperty, BuilderDataProperty> {
 
     public DataPropertyEH() {
-        provider = x -> new BuilderDataProperty(x);
-        child = HandleChild.OWLDataPropertyEH;
+        provider = BuilderDataProperty::new;
+        child = HandleChild.OWLDATAPROPERTYEH;
     }
 
     @Override
@@ -1220,7 +1210,7 @@ class DatatypeFacetEH extends OWLEH<OWLFacetRestriction, BuilderFacetRestriction
 
     public DatatypeFacetEH() {
         provider = BuilderFacetRestriction::new;
-        child = HandleChild.OWLDatatypeFacetRestrictionEH;
+        child = HandleChild.OWLDATATYPEFACETRESTRICTIONEH;
     }
 
     @Override
@@ -1401,8 +1391,8 @@ class EqDataPropertiesEH
 }
 
 
-class EqObjectPropertiesEH extends
-    AxiomEH<OWLEquivalentObjectPropertiesAxiom, BuilderEquivalentObjectProperties> {
+class EqObjectPropertiesEH
+    extends AxiomEH<OWLEquivalentObjectPropertiesAxiom, BuilderEquivalentObjectProperties> {
 
     EqObjectPropertiesEH() {
         super(BuilderEquivalentObjectProperties::new);
@@ -1442,7 +1432,7 @@ class IndividualEH extends OWLEH<OWLNamedIndividual, BuilderNamedIndividual> {
 
     public IndividualEH() {
         provider = BuilderNamedIndividual::new;
-        child = HandleChild.OWLIndividualEH;
+        child = HandleChild.OWLINDIVIDUALEH;
     }
 
     @Override
@@ -1475,7 +1465,7 @@ class InverseObjectEH extends OWLEH<OWLObjectInverseOf, BuilderObjectInverseOf>
 
     public InverseObjectEH() {
         provider = BuilderObjectInverseOf::new;
-        child = HandleChild.ObjectPropertyEH;
+        child = HandleChild.OBJECTPROPERTYEH;
     }
 }
 
@@ -1484,7 +1474,7 @@ class LiteralEH extends OWLEH<OWLLiteral, BuilderLiteral> {
 
     public LiteralEH() {
         provider = BuilderLiteral::new;
-        child = HandleChild.OWLLiteralEH;
+        child = HandleChild.OWLLITERALEH;
     }
 
     @Override
@@ -1517,8 +1507,8 @@ class LiteralEH extends OWLEH<OWLLiteral, BuilderLiteral> {
 }
 
 
-class NegDataPropertyAxiomEH extends
-    AxiomEH<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
+class NegDataPropertyAxiomEH
+    extends AxiomEH<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
 
     NegDataPropertyAxiomEH() {
         super(BuilderNegativeDataPropertyAssertion::new);
@@ -1774,13 +1764,13 @@ class SubDataPropertyOfEH extends AxiomEH<OWLSubDataPropertyOfAxiom, BuilderSubD
 }
 
 
-class ChainEH extends
-    OWLEH<List<OWLObjectPropertyExpression>, Builder<List<OWLObjectPropertyExpression>>> {
+class ChainEH
+    extends OWLEH<List<OWLObjectPropertyExpression>, Builder<List<OWLObjectPropertyExpression>>> {
 
     final List<OWLObjectPropertyExpression> propertyList = new ArrayList<>();
 
     public ChainEH() {
-        child = HandleChild.OWLSubObjectPropertyChainEH;
+        child = HandleChild.OWLSUBOBJECTPROPERTYCHAINEH;
     }
 
     @Override
@@ -1847,7 +1837,7 @@ class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, Builder
 abstract class AtomEH<X extends SWRLAtom, B extends Builder<X>> extends OWLEH<X, B> {
 
     public AtomEH() {
-        child = HandleChild.SWRLAtomEH;
+        child = HandleChild.SWRLATOMEH;
     }
 
     protected SWRLLiteralArgument swrlLit(OWLLiteral lit) {
@@ -1865,7 +1855,7 @@ class AtomListEH extends OWLEH<List<SWRLAtom>, Builder<List<SWRLAtom>>> {
     final List<SWRLAtom> atoms = new ArrayList<>();
 
     public AtomListEH() {
-        child = HandleChild.SWRLAtomListEH;
+        child = HandleChild.SWRLATOMLISTEH;
     }
 
     @Override
@@ -1883,7 +1873,7 @@ class AtomListEH extends OWLEH<List<SWRLAtom>, Builder<List<SWRLAtom>>> {
 class BuiltInAtomEH extends AtomEH<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 
     public BuiltInAtomEH() {
-        provider = x -> new BuilderSWRLBuiltInAtom(x);
+        provider = BuilderSWRLBuiltInAtom::new;
     }
 
     @Override
@@ -1906,7 +1896,7 @@ class BuiltInAtomEH extends AtomEH<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 class ClassAtomEH extends AtomEH<SWRLClassAtom, BuilderSWRLClassAtom> {
 
     public ClassAtomEH() {
-        provider = x -> new BuilderSWRLClassAtom(x);
+        provider = BuilderSWRLClassAtom::new;
     }
 
     @Override
@@ -1929,7 +1919,7 @@ class ClassAtomEH extends AtomEH<SWRLClassAtom, BuilderSWRLClassAtom> {
 class DataPropertyAtomEH extends AtomEH<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
 
     public DataPropertyAtomEH() {
-        provider = x -> new BuilderSWRLDataPropertyAtom(x);
+        provider = BuilderSWRLDataPropertyAtom::new;
     }
 
     @Override
@@ -1966,7 +1956,7 @@ class DataPropertyAtomEH extends AtomEH<SWRLDataPropertyAtom, BuilderSWRLDataPro
 class DataRangeAtomEH extends AtomEH<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
 
     public DataRangeAtomEH() {
-        provider = x -> new BuilderSWRLDataRangeAtom(x);
+        provider = BuilderSWRLDataRangeAtom::new;
     }
 
     @Override
@@ -2017,7 +2007,7 @@ class ObjectPropertyAtomEH
     extends IndividualsAtomEH<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
 
     public ObjectPropertyAtomEH() {
-        super(x -> new BuilderSWRLObjectPropertyAtom(x));
+        super(BuilderSWRLObjectPropertyAtom::new);
     }
 
     @Override
@@ -2047,7 +2037,7 @@ class SWRLRuleEH extends AxiomEH<SWRLRule, BuilderSWRLRule> {
 class VariableEH extends OWLEH<SWRLVariable, BuilderSWRLVariable> {
 
     public VariableEH() {
-        child = HandleChild.SWRLVariableEH;
+        child = HandleChild.SWRLVARIABLEEH;
         provider = BuilderSWRLVariable::new;
     }
 
@@ -2073,8 +2063,8 @@ class OntologyEH extends OWLEH<OWLOntology, Builder<OWLOntology>> {
     void attribute(String localName, String value) {
         OWLOntology o = handler.getOntology();
         if ("ontologyIRI".equals(localName)) {
-            o.applyChange(new SetOntologyID(o, new OWLOntologyID(optional(IRI.create(value)),
-                o.getOntologyID().getVersionIRI())));
+            o.applyChange(new SetOntologyID(o,
+                new OWLOntologyID(optional(IRI.create(value)), o.getOntologyID().getVersionIRI())));
         }
         if ("versionIRI".equals(localName)) {
             o.applyChange(new SetOntologyID(o, new OWLOntologyID(o.getOntologyID().getOntologyIRI(),

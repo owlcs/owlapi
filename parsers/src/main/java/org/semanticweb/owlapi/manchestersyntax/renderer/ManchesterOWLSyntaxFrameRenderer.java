@@ -140,6 +140,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      */
     @Nullable
     private RendererEvent event;
+
     /**
      * Instantiates a new manchester owl syntax frame renderer.
      *
@@ -267,28 +268,28 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         o.referencedAnonymousIndividuals().sorted(ooc).forEach(this::write);
         // Nary disjoint classes axioms
         event = new RendererEvent(this, o);
-        o.axioms(AxiomType.DISJOINT_CLASSES).sorted(ooc).forEach(
-            ax -> writeMoreThanTwo(ax, ax.classExpressions(), DISJOINT_CLASSES));
+        o.axioms(AxiomType.DISJOINT_CLASSES).sorted(ooc)
+            .forEach(ax -> writeMoreThanTwo(ax, ax.classExpressions(), DISJOINT_CLASSES));
         // Nary equivalent classes axioms
-        o.axioms(AxiomType.EQUIVALENT_CLASSES).sorted(ooc).forEach(
-            ax -> writeMoreThanTwo(ax, ax.classExpressions(), EQUIVALENT_CLASSES));
+        o.axioms(AxiomType.EQUIVALENT_CLASSES).sorted(ooc)
+            .forEach(ax -> writeMoreThanTwo(ax, ax.classExpressions(), EQUIVALENT_CLASSES));
         // Nary disjoint properties
         o.axioms(AxiomType.DISJOINT_OBJECT_PROPERTIES).sorted(ooc)
             .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), DISJOINT_PROPERTIES));
         // Nary equivalent properties
-        o.axioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES).sorted(ooc).forEach(
-            ax -> writeMoreThanTwo(ax, ax.properties(), EQUIVALENT_PROPERTIES));
+        o.axioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES).sorted(ooc)
+            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), EQUIVALENT_PROPERTIES));
         // Nary disjoint properties
         o.axioms(AxiomType.DISJOINT_DATA_PROPERTIES).sorted(ooc)
             .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), DISJOINT_PROPERTIES));
         // Nary equivalent properties
-        o.axioms(AxiomType.EQUIVALENT_DATA_PROPERTIES).sorted(ooc).forEach(
-            ax -> writeMoreThanTwo(ax, ax.properties(), EQUIVALENT_PROPERTIES));
+        o.axioms(AxiomType.EQUIVALENT_DATA_PROPERTIES).sorted(ooc)
+            .forEach(ax -> writeMoreThanTwo(ax, ax.properties(), EQUIVALENT_PROPERTIES));
         // Nary different individuals
-        o.axioms(AxiomType.DIFFERENT_INDIVIDUALS).sorted(ooc).forEach(
-            ax -> writeMoreThanTwo(ax, ax.individuals(), DIFFERENT_INDIVIDUALS));
-        o.axioms(AxiomType.SWRL_RULE).sorted(ooc).forEach(rule -> writeSection(RULE,
-            Collections.singleton(rule).iterator(), ", ", false));
+        o.axioms(AxiomType.DIFFERENT_INDIVIDUALS).sorted(ooc)
+            .forEach(ax -> writeMoreThanTwo(ax, ax.individuals(), DIFFERENT_INDIVIDUALS));
+        o.axioms(AxiomType.SWRL_RULE).sorted(ooc).forEach(
+            rule -> writeSection(RULE, Collections.singleton(rule).iterator(), ", ", false));
         flush();
     }
 
@@ -448,11 +449,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             SectionMap<Object, OWLAxiom> equivalentClasses = new SectionMap<>();
             filtersort(o.equivalentClassesAxioms(cls),
                 ax -> ((OWLEquivalentClassesAxiom) ax).classExpressions().count() == 2)
-                .forEach(ax -> {
-                    ax.getClassExpressionsMinus(cls).forEach(
-                        c -> equivalentClasses.put(c, ax));
-                    axioms.add(ax);
-                });
+                    .forEach(ax -> {
+                        ax.getClassExpressionsMinus(cls).forEach(c -> equivalentClasses.put(c, ax));
+                        axioms.add(ax);
+                    });
             equivalentClasses.remove(cls);
             writeSection(EQUIVALENT_TO, equivalentClasses, ",", true);
         }
@@ -511,8 +511,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         if (!isFiltered(AxiomType.CLASS_ASSERTION)) {
             SectionMap<Object, OWLAxiom> individuals = new SectionMap<>();
             filtersort(o.classAssertionAxioms(cls), ax -> renderExtensions
-                || ((OWLClassAssertionAxiom) ax).getIndividual().isAnonymous())
-                .forEach(ax -> {
+                || ((OWLClassAssertionAxiom) ax).getIndividual().isAnonymous()).forEach(ax -> {
                     individuals.put(ax.getIndividual(), ax);
                     axioms.add(ax);
                 });
@@ -586,14 +585,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         if (!isFiltered(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
             filtersort(o.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF),
-                ax -> ((OWLSubPropertyChainOfAxiom) ax).getSuperProperty()
-                    .equals(property)).forEach(ax -> {
-                SectionMap<Object, OWLAxiom> map =
-                    new SectionMap<>();
-                map.put(ax.getPropertyChain(), ax);
-                writeSection(SUB_PROPERTY_CHAIN, map, " o ", false);
-                axioms.add(ax);
-            });
+                ax -> ((OWLSubPropertyChainOfAxiom) ax).getSuperProperty().equals(property))
+                    .forEach(ax -> {
+                        SectionMap<Object, OWLAxiom> map = new SectionMap<>();
+                        map.put(ax.getPropertyChain(), ax);
+                        writeSection(SUB_PROPERTY_CHAIN, map, " o ", false);
+                        axioms.add(ax);
+                    });
         }
         SectionMap<Object, OWLAxiom> characteristics = new SectionMap<>();
         if (!isFiltered(AxiomType.FUNCTIONAL_OBJECT_PROPERTY)) {
@@ -818,7 +816,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         incrementTab(1);
         writeNewLine();
         fireSectionRenderingStarted(FACTS.toString());
-        for (Iterator<OWLPropertyAssertionAxiom<?, ?>> it = assertions.iterator(); it.hasNext(); ) {
+        for (Iterator<OWLPropertyAssertionAxiom<?, ?>> it = assertions.iterator(); it.hasNext();) {
             OWLPropertyAssertionAxiom<?, ?> ax = it.next();
             fireSectionItemPrepared(FACTS.toString());
             Iterator<OWLAnnotation> annos = ax.annotations().iterator();
@@ -968,7 +966,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     private void writeSection(ManchesterOWLSyntax keyword, SectionMap<Object, OWLAxiom> content,
-        String delimeter, boolean newline) {
+        String delimiter, boolean newline) {
         String sec = keyword.toString();
         if (content.isNotEmpty() || renderingDirector.renderEmptyFrameSection(keyword, o)) {
             fireSectionRenderingPrepared(sec);
@@ -977,73 +975,70 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             incrementTab(4);
             writeNewLine();
             fireSectionRenderingStarted(sec);
-            for (Iterator<Object> it = content.getSectionObjects().iterator(); it.hasNext(); ) {
-                Object obj = it.next();
-                Collection<Collection<OWLAnnotation>> annotationSets =
-                    content.getAnnotationsForSectionObject(obj);
-                for (Iterator<Collection<OWLAnnotation>> annosSetIt =
-                    annotationSets.iterator(); annosSetIt.hasNext(); ) {
-                    Collection<OWLAnnotation> annos = annosSetIt.next();
-                    fireSectionItemPrepared(sec);
-                    if (!annos.isEmpty()) {
-                        incrementTab(4);
-                        writeNewLine();
-                        write(ManchesterOWLSyntax.ANNOTATIONS.toString());
-                        write(": ");
-                        pushTab(getIndent() + 1);
-                        for (Iterator<OWLAnnotation> annoIt = annos.iterator();
-                            annoIt.hasNext(); ) {
-                            annoIt.next().accept(this);
-                            if (annoIt.hasNext()) {
-                                write(", ");
-                                writeNewLine();
-                            }
-                        }
-                        popTab();
-                        popTab();
-                        writeNewLine();
-                    }
-                    // Write actual object
-                    if (obj instanceof OWLObject) {
-                        ((OWLObject) obj).accept(this);
-                    } else if (obj instanceof Collection) {
-                        for (Iterator<?> listIt = ((Collection<?>) obj).iterator(); listIt
-                            .hasNext(); ) {
-                            Object object = listIt.next();
-                            if (object instanceof OWLObject) {
-                                ((OWLObject) object).accept(this);
-                            } else {
-                                write(object.toString());
-                            }
-                            if (listIt.hasNext()) {
-                                write(delimeter);
-                                if (newline) {
-                                    writeNewLine();
-                                }
-                            }
-                        }
-                    } else {
-                        write(obj.toString());
-                    }
-                    if (annosSetIt.hasNext()) {
-                        write(",");
-                        writeNewLine();
-                    }
-                }
-                if (it.hasNext()) {
-                    write(delimeter);
-                    fireSectionItemFinished(sec);
-                    if (newline) {
-                        writeNewLine();
-                    }
-                } else {
-                    fireSectionItemFinished(sec);
-                }
-            }
+            sectionObjects(content, delimiter, newline, sec);
             fireSectionRenderingFinished(sec);
             popTab();
             writeNewLine();
             writeNewLine();
+        }
+    }
+
+    protected void sectionObjects(SectionMap<Object, OWLAxiom> content, String delimiter,
+        boolean newline, String sec) {
+        for (Iterator<Object> it = content.getSectionObjects().iterator(); it.hasNext();) {
+            Object obj = it.next();
+            iterate(content.getAnnotationsForSectionObject(obj).iterator(),
+                x -> handleAnnotationSet(delimiter, newline, sec, obj, x), () -> write(",\n"));
+            if (it.hasNext()) {
+                write(delimiter);
+                fireSectionItemFinished(sec);
+                if (newline) {
+                    writeNewLine();
+                }
+            } else {
+                fireSectionItemFinished(sec);
+            }
+        }
+    }
+
+    protected void handleAnnotationSet(String delimiter, boolean newline, String sec, Object obj,
+        Collection<OWLAnnotation> annos) {
+        fireSectionItemPrepared(sec);
+        handleAnnotations(annos);
+        // Write actual object
+        handleObject(delimiter, newline, obj);
+    }
+
+    protected void handleAnnotations(Collection<OWLAnnotation> annos) {
+        if (!annos.isEmpty()) {
+            incrementTab(4);
+            writeNewLine();
+            write(ManchesterOWLSyntax.ANNOTATIONS.toString());
+            write(": ");
+            pushTab(getIndent() + 1);
+            iterate(annos.iterator());
+            popTab();
+            popTab();
+            writeNewLine();
+        }
+    }
+
+    protected void handleObject(String delimiter, boolean newline, Object obj) {
+        if (obj instanceof OWLObject) {
+            ((OWLObject) obj).accept(this);
+        } else if (obj instanceof Collection) {
+            iterate(((Collection<?>) obj).iterator(), this::handleCollectionElement,
+                () -> divider(delimiter, newline));
+        } else {
+            write(obj.toString());
+        }
+    }
+
+    protected void handleCollectionElement(Object o) {
+        if (o instanceof OWLObject) {
+            ((OWLObject) o).accept(this);
+        } else {
+            write(o.toString());
         }
     }
 
