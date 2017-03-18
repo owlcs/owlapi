@@ -352,8 +352,8 @@ public class TripleHandlers {
 
                 @Override
                 public void handleResourceTriple(IRI subject, IRI predicate, IRI object) {
-                    remainingTriples.add(new RDFTriple(subject, consumer.isAnonymousNode(subject), predicate, object,
-                        consumer.isAnonymousNode(object)));
+                    remainingTriples.add(new RDFTriple(subject, consumer.isAnonymousNode(subject), consumer.isAxiomIRI(subject), predicate, object,
+                        consumer.isAnonymousNode(object), consumer.isAxiomIRI(object)));
                 }
             });
             consumer.iterateLiteralTriples(new LiteralTripleIterator() {
@@ -361,7 +361,7 @@ public class TripleHandlers {
                 @Override
                 public void handleLiteralTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
                     @Nonnull OWLLiteral object) {
-                    remainingTriples.add(new RDFTriple(subject, consumer.isAnonymousNode(subject), predicate, object));
+                    remainingTriples.add(new RDFTriple(subject, consumer.isAnonymousNode(subject), consumer.isAxiomIRI(subject), predicate, object));
                 }
             });
             return remainingTriples;

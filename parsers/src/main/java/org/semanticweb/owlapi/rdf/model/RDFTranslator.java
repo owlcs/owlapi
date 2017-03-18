@@ -63,6 +63,7 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
         boolean isIndividual = key instanceof OWLAnonymousIndividual;
+        boolean isAxiom = false;
         boolean needId = false;
         if (isIndividual) {
             OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
@@ -70,15 +71,16 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
             key = anonymousIndividual.getID().getID();
         } else if (key instanceof OWLAxiom) {
             isIndividual = false;
+            isAxiom = true;
             needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
         }
-        return getBlankNodeFor(key, isIndividual, needId);
+        return getBlankNodeFor(key, isIndividual, needId, isAxiom);
     }
 
     @Override
-    protected RDFResource getAnonymousNodeForExpressions(Object key) {
+    protected RDFResource getAnonymousNodeForExpressions(Object key, boolean isAxiom) {
         checkNotNull(key, "key cannot be null");
-        return new RDFResourceBlankNode(false, false);
+        return new RDFResourceBlankNode(false, false, isAxiom);
     }
 
     @Override

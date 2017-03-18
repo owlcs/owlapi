@@ -110,7 +110,8 @@ public class RDFGraph implements Serializable {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = new HashMap<>();
         Map<RDFNode, List<RDFTriple>> sharers = new HashMap<>();
         for (RDFTriple t : triples) {
-            if (t.getObject().isAnonymous() && !t.getObject().isIndividual() && notInSkippedPredicates(t
+            if (t.getObject().isAnonymous() && !t.getObject().isAxiom() 
+                && !t.getObject().isIndividual() && notInSkippedPredicates(t
                 .getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
@@ -125,7 +126,7 @@ public class RDFGraph implements Serializable {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
                     RDFResourceBlankNode bnode = new RDFResourceBlankNode(IRI.create(NodeID.nextAnonymousIRI()), e
-                        .getKey().isIndividual(), e.getKey().shouldOutputId());
+                        .getKey().isIndividual(), e.getKey().shouldOutputId(), false);
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }

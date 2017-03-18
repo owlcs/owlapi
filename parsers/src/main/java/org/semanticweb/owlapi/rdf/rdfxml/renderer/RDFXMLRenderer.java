@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -59,7 +58,6 @@ import org.semanticweb.owlapi.util.VersionInfo;
 public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
-    @Nonnull private final Set<RDFResource> pending = new HashSet<>();
     @Nonnull private final RDFXMLNamespaceManager qnameManager;
     @Nonnull private final OWLDocumentFormat format;
     ShortFormProvider labelMaker;
@@ -191,7 +189,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    public void render(@Nonnull RDFResource node) throws IOException {
+    public void render(@Nonnull RDFResource node, boolean root) throws IOException {
         checkNotNull(node, "node cannot be null");
         if (pending.contains(node)) {
             return;
@@ -213,7 +211,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
-        } else if (node.isIndividual() && node.shouldOutputId()) {
+        } else if (node.idRequiredForIndividualOrAxiom()) {
             writer.writeNodeIDAttribute((RDFResourceBlankNode) node);
         }
         for (RDFTriple triple : triples) {
@@ -233,7 +231,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         toJavaList(objectRes, list);
                         for (RDFNode n : list) {
                             if (n.isAnonymous()) {
-                                render((RDFResourceBlankNode) n);
+                                render((RDFResourceBlankNode) n, false);
                             } else {
                                 if (n.isLiteral()) {
                                     RDFLiteral litNode = (RDFLiteral) n;
@@ -256,7 +254,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         // special case for triples with same object and subject
                         writer.writeNodeIDAttribute((RDFResourceBlankNode) objectRes);
                     } else {
-                        render(objectRes);
+                        render(objectRes, false);
                     }
                 } else {
                     writer.writeResourceAttribute(objectRes.getIRI());

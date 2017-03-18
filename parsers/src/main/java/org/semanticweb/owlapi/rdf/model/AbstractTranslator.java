@@ -98,13 +98,13 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     @Nonnull
-    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId, boolean isAxiom) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
             id = nextBlankNodeId.getAndIncrement();
             blankNodeMap.put(key, id);
         }
-        return new RDFResourceBlankNode(id, isIndividual, needId);
+        return new RDFResourceBlankNode(id, isIndividual, needId, isAxiom);
     }
 
     @Override
@@ -947,7 +947,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @return The resource
      */
     @Nonnull
-    protected abstract R getAnonymousNodeForExpressions(@Nonnull Object key);
+    protected abstract R getAnonymousNodeForExpressions(@Nonnull Object key, boolean isAxiom);
 
     @Nonnull
     protected abstract L getLiteralNode(@Nonnull OWLLiteral literal);

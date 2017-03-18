@@ -145,6 +145,6 @@ public class TripleComparatorTestCase {
 
     @Nonnull
     private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(s, false, false);
+        return new RDFResourceBlankNode(s, false, false, false);
     }
 }

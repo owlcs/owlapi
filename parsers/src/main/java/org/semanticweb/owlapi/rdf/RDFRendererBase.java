@@ -81,6 +81,7 @@ public abstract class RDFRendererBase {
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
     protected Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
+    protected final Set<RDFResource> pending = new HashSet<>();
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
@@ -286,7 +287,7 @@ public abstract class RDFRendererBase {
     private void renderEntity(@Nonnull OWLEntity entity) throws IOException {
         beginObject();
         writeEntityComment(entity);
-        render(new RDFResourceIRI(entity.getIRI()));
+        render(new RDFResourceIRI(entity.getIRI()), true);
         renderAnonRoots();
         endObject();
     }
@@ -332,7 +333,7 @@ public abstract class RDFRendererBase {
                 assert iri != null;
                 beginObject();
                 createGraph(ontology.getAnnotationAssertionAxioms(iri));
-                render(new RDFResourceIRI(iri));
+                render(new RDFResourceIRI(iri), true);
                 renderAnonRoots();
                 endObject();
             }
@@ -374,7 +375,7 @@ public abstract class RDFRendererBase {
                 rule.accept(variableExtractor);
             }
             for (SWRLVariable var : variableExtractor.getVariables()) {
-                render(new RDFResourceIRI(var.getIRI()));
+                render(new RDFResourceIRI(var.getIRI()), true);
             }
             renderAnonRoots();
         }
@@ -445,7 +446,7 @@ public abstract class RDFRendererBase {
         addImportsDeclarationsToOntologyHeader(ontologyHeaderNode, translator);
         addAnnotationsToOntologyHeader(ontologyHeaderNode, translator);
         if (!graph.isEmpty()) {
-            render(ontologyHeaderNode);
+            render(ontologyHeaderNode, true);
         }
         triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
     }
@@ -675,7 +676,7 @@ public abstract class RDFRendererBase {
         Set<RDFResourceBlankNode> rootAnonymousNodes = new TreeSet<>(graph.getRootAnonymousNodes());
         for (RDFResourceBlankNode node : rootAnonymousNodes) {
             assert node != null;
-            render(node);
+            render(node, true);
         }
     }
 
@@ -688,7 +689,7 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         If there was a problem rendering the triples.
      */
-    public abstract void render(@Nonnull RDFResource node) throws IOException;
+    public abstract void render(@Nonnull RDFResource node, boolean root) throws IOException;
 
     protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : graph.getTriplesForSubject(node)) {

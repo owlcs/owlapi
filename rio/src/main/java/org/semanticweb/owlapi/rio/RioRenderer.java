@@ -161,7 +161,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    public void render(final RDFResource node) throws IOException {
+    public void render(final RDFResource node, boolean root) throws IOException {
         if (pending.contains(node)) {
             return;
         }
@@ -183,7 +183,7 @@ public class RioRenderer extends RDFRendererBase {
                     for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
                         writer.handleStatement(statement);
                         if (tripleToRender.getObject() instanceof RDFResource) {
-                            render((RDFResource) tripleToRender.getObject());
+                            render((RDFResource) tripleToRender.getObject(), false);
                         }
                     }
                 } else if (logger.isTraceEnabled()) {

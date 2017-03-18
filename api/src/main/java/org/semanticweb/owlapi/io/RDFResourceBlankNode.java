@@ -25,6 +25,7 @@ public class RDFResourceBlankNode extends RDFResource {
     private static final long serialVersionUID = 40000L;
     @Nonnull private final IRI resource;
     private final boolean isIndividual;
+    private final boolean isAxiom;
     private final boolean forceIdOutput;
 
     /**
@@ -37,9 +38,11 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param forceId
      *        true if the id should be outputted
      */
-    public RDFResourceBlankNode(@Nonnull IRI resource, boolean isIndividual, boolean forceId) {
+    public RDFResourceBlankNode(@Nonnull IRI resource, boolean isIndividual, boolean forceId,
+        boolean isAxiom) {
         this.resource = checkNotNull(resource, "resource cannot be null");
         this.isIndividual = isIndividual;
+        this.isAxiom = isAxiom;
         forceIdOutput = forceId;
     }
 
@@ -53,8 +56,9 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param forceId
      *        true if the id should be outputted
      */
-    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId) {
-        this(NodeID.nodeId(anonId), isIndividual, forceId);
+    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId,
+        boolean isAxiom) {
+        this(NodeID.nodeId(anonId), isIndividual, forceId, isAxiom);
     }
 
     /**
@@ -65,13 +69,19 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param forceId
      *        true if the id should be outputted
      */
-    public RDFResourceBlankNode(boolean isIndividual, boolean forceId) {
-        this(NodeID.nextFreshNodeId(), isIndividual, forceId);
+    public RDFResourceBlankNode(boolean isIndividual, boolean forceId,
+        boolean isAxiom) {
+        this(NodeID.nextFreshNodeId(), isIndividual, forceId, isAxiom);
     }
 
     @Override
     public boolean isIndividual() {
         return isIndividual;
+    }
+
+    @Override
+    public boolean isAxiom() {
+        return isAxiom;
     }
 
     @Override
