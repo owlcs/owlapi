@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
@@ -31,7 +32,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @param <P> the property expression
  */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-                extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+    extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
     protected final List<P> properties;
 
@@ -40,8 +41,9 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      * @param annotations annotations
      */
     public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties,
-                    Collection<OWLAnnotation> annotations) {
-        this(checkNotNull(properties, "properties cannot be null").stream(), annotations);
+        Collection<OWLAnnotation> annotations) {
+        this(checkIterableNotNull(properties, "properties cannot be null", false).stream(),
+            annotations);
     }
 
     /**
@@ -50,7 +52,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      */
     @SuppressWarnings("unchecked")
     public OWLNaryPropertyAxiomImpl(Stream<? extends P> properties,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
         this.properties = (List<P>) CollectionFactory.sortOptionally(properties.distinct());

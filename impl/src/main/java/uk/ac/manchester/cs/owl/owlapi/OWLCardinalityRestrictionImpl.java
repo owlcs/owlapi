@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNegative;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
@@ -23,12 +24,13 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  * @param <F> filler type
  */
 public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
-                extends OWLAnonymousClassExpressionImpl implements OWLCardinalityRestriction<F> {
+    extends OWLAnonymousClassExpressionImpl implements OWLCardinalityRestriction<F> {
 
     private final int cardinality;
     private final F filler;
 
     protected OWLCardinalityRestrictionImpl(int cardinality, F filler) {
+        checkNotNegative(cardinality, "cardinality cannot be negative");
         this.cardinality = cardinality;
         this.filler = checkNotNull(filler, "filler cannot be null");
     }

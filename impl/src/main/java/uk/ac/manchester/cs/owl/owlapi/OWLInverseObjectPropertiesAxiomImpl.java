@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,8 +33,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLInverseObjectPropertiesAxiomImpl
-                extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
-                implements OWLInverseObjectPropertiesAxiom {
+    extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+    implements OWLInverseObjectPropertiesAxiom {
 
     private final OWLObjectPropertyExpression first;
     private final OWLObjectPropertyExpression second;
@@ -44,8 +45,9 @@ public class OWLInverseObjectPropertiesAxiomImpl
      * @param annotations annotations
      */
     public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,
-                    OWLObjectPropertyExpression second, Collection<OWLAnnotation> annotations) {
-        super(sortOptionally(Arrays.asList(first, second)), annotations);
+        OWLObjectPropertyExpression second, Collection<OWLAnnotation> annotations) {
+        super(sortOptionally(Arrays.asList(checkNotNull(first, "forwardProperty cannot be null"),
+            checkNotNull(second, "inverseProperty cannot be null"))), annotations);
         this.first = first;
         this.second = second;
     }
@@ -64,15 +66,15 @@ public class OWLInverseObjectPropertiesAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
-                                        getSecondProperty(), NO_ANNOTATIONS);
+            : new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(), getSecondProperty(),
-                        mergeAnnos(anns));
+            mergeAnnos(anns));
     }
 
     @Override
@@ -89,9 +91,9 @@ public class OWLInverseObjectPropertiesAxiomImpl
     public Collection<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(first,
-                        second.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+            second.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(second,
-                        first.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+            first.getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
     }
 }

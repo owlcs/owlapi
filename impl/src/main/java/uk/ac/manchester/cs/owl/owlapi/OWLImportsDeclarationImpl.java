@@ -33,7 +33,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Seriali
      * @param iri iri to import
      */
     public OWLImportsDeclarationImpl(IRI iri) {
-        this.iri = checkNotNull(iri, "iri cannot be null");
+        this.iri = checkNotNull(iri, "import iri cannot be null");
     }
 
     @Override

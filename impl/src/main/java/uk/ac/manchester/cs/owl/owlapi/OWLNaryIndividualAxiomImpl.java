@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
  * @since 2.0.0
  */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
-                implements OWLNaryIndividualAxiom {
+    implements OWLNaryIndividualAxiom {
 
     protected final List<OWLIndividual> individuals;
 
@@ -37,9 +37,9 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
      * @param annotations annotations on the axiom
      */
     public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
-        checkNotNull(individuals, "individuals cannot be null");
+        checkIterableNotNull(individuals, "individuals cannot be null", false);
         this.individuals = sortOptionally(individuals.stream().distinct(), OWLIndividual.class);
     }
 

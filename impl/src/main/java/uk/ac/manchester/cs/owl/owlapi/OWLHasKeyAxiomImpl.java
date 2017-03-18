@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
@@ -40,28 +41,27 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
      * @param annotations annotations on the axiom
      */
     public OWLHasKeyAxiomImpl(OWLClassExpression expression,
-                    Collection<? extends OWLPropertyExpression> propertyExpressions,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<? extends OWLPropertyExpression> propertyExpressions,
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
-        checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
-        this.propertyExpressions = sortOptionally(propertyExpressions.stream()
-                        .map(p -> (OWLPropertyExpression) p).distinct());
+        checkIterableNotNull(propertyExpressions, "propertyExpressions cannot be null", false);
+        this.propertyExpressions = sortOptionally(
+            propertyExpressions.stream().map(p -> (OWLPropertyExpression) p).distinct());
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-                        : new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions,
-                                        NO_ANNOTATIONS);
+            : new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions,
-                        mergeAnnos(anns));
+            mergeAnnos(anns));
     }
 
     @Override

@@ -189,26 +189,30 @@ public final class OWLAPIPreconditions {
      * @param o collection to check for nullness and null elements, and optionally for emptiness
      * @param name message for error
      * @param emptyAllowed true if the input can be empty
+     * @return validated input
      */
-    public static void checkIterableNotNull(@Nullable Collection<?> o, String name,
+    public static <T> Collection<T> checkIterableNotNull(@Nullable Collection<T> o, String name,
         boolean emptyAllowed) {
         checkNotNull(o, name);
         assert o != null;
         if (!emptyAllowed && o.isEmpty()) {
             throw new IllegalArgumentException(name + " or empty");
         }
+        return o;
     }
 
     /**
      * @param o array to check for nullness and null elements, and optionally for emptiness
      * @param name message for error
      * @param emptyAllowed true if the input can be empty
+     * @return validated input
      */
-    public static void checkIterableNotNull(Object[] o, String name, boolean emptyAllowed) {
+    public static <T> T[] checkIterableNotNull(T[] o, String name, boolean emptyAllowed) {
         checkNotNull(o, name);
         if (!emptyAllowed && o.length == 0) {
             throw new IllegalArgumentException(name + " or empty");
         }
+        return o;
     }
 
     /**

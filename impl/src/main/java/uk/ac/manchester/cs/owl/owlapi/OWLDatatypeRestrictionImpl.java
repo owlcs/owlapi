@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
@@ -37,11 +38,10 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
      * @param facetRestrictions facet restriction
      */
     public OWLDatatypeRestrictionImpl(OWLDatatype datatype,
-                    Collection<OWLFacetRestriction> facetRestrictions) {
+        Collection<OWLFacetRestriction> facetRestrictions) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        Collection<OWLFacetRestriction> facets =
-                        checkNotNull(facetRestrictions, "facetRestrictions cannot be null");
-        this.facetRestrictions = sortOptionally(facets.stream().distinct());
+        checkIterableNotNull(facetRestrictions, "facetRestrictions cannot be null", true);
+        this.facetRestrictions = sortOptionally(facetRestrictions.stream().distinct());
     }
 
     @Override

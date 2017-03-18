@@ -49,6 +49,8 @@ public class InternalizedEntities {
     protected static final OWLDatatype             XSDSTRING                   = new OWL2DatatypeImpl              (XSD_STRING);
     protected static final OWLLiteral              TRUELITERAL                 = new OWLLiteralImplBoolean         (true);
     protected static final OWLLiteral              FALSELITERAL                = new OWLLiteralImplBoolean         (false);
+    // according to some W3C test, this needs to be different from 0.0; Java floats disagree
+    protected static final OWLLiteral              negativeFloatZero           = new OWLLiteralImplNoCompression   ("-0.0", "", XSDFLOAT);
   //@formatter:on
 
     private InternalizedEntities() {}
