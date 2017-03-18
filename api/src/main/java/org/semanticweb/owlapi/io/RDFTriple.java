@@ -75,27 +75,29 @@ public class RDFTriple
     /**
      * @param subject the subject
      * @param subjectAnon whether the subject is anonymous
+     * @param subjectAxiom true if the subject is an axiom
      * @param predicate the predicate
      * @param object the object
      * @param objectAnon whether the object is anonymous
+     * @param objectAxiom true if the object is an axiom
      */
     public RDFTriple(IRI subject, boolean subjectAnon, boolean subjectAxiom, IRI predicate,
         IRI object, boolean objectAnon, boolean objectAxiom) {
         this(getResource(subject, subjectAnon, subjectAxiom),
             // Predicate is not allowed to be anonymous
-            new RDFResourceIRI(predicate),
-            getResource(object, objectAnon, objectAxiom));
+            new RDFResourceIRI(predicate), getResource(object, objectAnon, objectAxiom));
     }
 
     /**
      * @param subject the subject
      * @param subjectAnon whether the subject is anonymous
+     * @param subjectAxiom true if the subject is an axiom
      * @param predicate the predicate
      * @param object the object
      */
-    public RDFTriple(IRI subject, boolean subjectAnon, boolean axiom, IRI predicate,
+    public RDFTriple(IRI subject, boolean subjectAnon, boolean subjectAxiom, IRI predicate,
         OWLLiteral object) {
-        this(getResource(subject, subjectAnon, axiom), new RDFResourceIRI(predicate),
+        this(getResource(subject, subjectAnon, subjectAxiom), new RDFResourceIRI(predicate),
             new RDFLiteral(object));
     }
 
@@ -111,13 +113,12 @@ public class RDFTriple
         AtomicInteger nextId = new AtomicInteger(1);
         List<OWLRDFVocabulary> ORDERED_URIS = Arrays.asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED,
             RDFS_COMMENT, RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
-            OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF, RDFS_SUB_PROPERTY_OF,
-            RDFS_DOMAIN, RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY, OWL_DATA_RANGE,
-            OWL_ON_CLASS, OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY,
-            OWL_ANNOTATED_TARGET);
+            OWL_EQUIVALENT_PROPERTY, RDFS_SUBCLASS_OF, RDFS_SUB_PROPERTY_OF, RDFS_DOMAIN,
+            RDFS_RANGE, OWL_DISJOINT_WITH, OWL_ON_PROPERTY, OWL_DATA_RANGE, OWL_ON_CLASS,
+            OWL_ANNOTATED_SOURCE, OWL_ANNOTATED_PROPERTY, OWL_ANNOTATED_TARGET);
         ORDERED_URIS.forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
-        Stream.of(OWLRDFVocabulary.values()).forEach(
-            iri -> predicates.putIfAbsent(iri.getIRI(), nextId.getAndIncrement()));
+        Stream.of(OWLRDFVocabulary.values())
+            .forEach(iri -> predicates.putIfAbsent(iri.getIRI(), nextId.getAndIncrement()));
         return predicates;
     }
 

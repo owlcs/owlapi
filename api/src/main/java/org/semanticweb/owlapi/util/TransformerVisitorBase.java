@@ -103,6 +103,13 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+/**
+ * A base class for transformations.
+ * 
+ * @author ignazio
+ *
+ * @param <T> transformed type
+ */
 public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> {
 
     protected OWLDataFactory df;
