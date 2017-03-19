@@ -44,6 +44,7 @@ import javax.annotation.Nullable;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
+import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
  * This format is designed to encapsulate any Sesame Rio RDFFormat within RDFOntologyFormat, and
@@ -52,7 +53,7 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentFormat
+public class RioRDFDocumentFormatImpl extends OWLDocumentFormatImpl
     implements MIMETypeAware, RioRDFDocumentFormat {
 
     private final String formatName;
@@ -63,7 +64,7 @@ public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentF
      *
      * @param format The {@link RDFFormat} that this instance supports.
      */
-    public RioRDFNonPrefixDocumentFormat(RDFFormat format) {
+    public RioRDFDocumentFormatImpl(RDFFormat format) {
         this.format = format;
         formatName = this.format.getName();
     }

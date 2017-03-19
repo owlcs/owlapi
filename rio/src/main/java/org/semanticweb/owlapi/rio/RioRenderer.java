@@ -44,7 +44,6 @@ import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -56,9 +55,9 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.rio.utils.RioUtils;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +70,7 @@ public class RioRenderer extends RDFRendererBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
     private final RDFHandler writer;
-    private final DefaultPrefixManager pm;
+    private final PrefixManager pm;
     private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
 
@@ -87,7 +86,8 @@ public class RioRenderer extends RDFRendererBase {
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
         this.writer = writer;
-        pm = new DefaultPrefixManager();
+        // XXX maybe use the ontology prefix manager
+        pm = ontology.getPrefixManager();
         if (!ontology.isAnonymous()) {
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
@@ -95,13 +95,6 @@ public class RioRenderer extends RDFRendererBase {
                 defaultPrefix = ontologyIRIString + '#';
             }
             pm.setDefaultPrefix(defaultPrefix);
-        }
-        // copy prefixes out of the given format if it is a
-        // PrefixOWLDocumentFormat
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
-            pm.copyPrefixesFrom(prefixFormat);
-            pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }
     }
 

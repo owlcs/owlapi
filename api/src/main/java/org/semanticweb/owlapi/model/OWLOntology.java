@@ -598,4 +598,26 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
         }
         return illegals;
     }
+
+    /**
+     * @return the parameters to be passed to any ontology storer used with this ontology. An
+     *         ontology always has an OWLStorerParameters object.
+     */
+    OWLStorerParameters getStorerParameters();
+
+    /**
+     * @param storerParameters replacement OWLStorerParameters to be used for this ontology.
+     */
+    void setStorerParameters(OWLStorerParameters storerParameters);
+
+    /**
+     * @return prefix manager assocated with this ontology. An ontology always has a prefix manager
+     *         instance.
+     */
+    PrefixManager getPrefixManager();
+
+    /**
+     * @param prefixManager replacement PrefixManager instance to be used for this ontology.
+     */
+    void setPrefixManager(PrefixManager prefixManager);
 }

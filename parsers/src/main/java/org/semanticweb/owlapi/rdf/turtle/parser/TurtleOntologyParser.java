@@ -57,7 +57,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         consumer.startModel(documentIRI);
         TurtleParser parser = new TurtleParser(provider, consumer, documentIRI);
         parser.parseDocument();
-        format.copyPrefixesFrom(parser.getPrefixManager());
+        o.getPrefixManager().copyPrefixesFrom(parser.getPrefixManager());
         return format;
     }
 }

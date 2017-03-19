@@ -21,6 +21,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.util.IRIShortFormProvider;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.StringComparator;
 
 /**
@@ -29,7 +31,7 @@ import org.semanticweb.owlapi.util.StringComparator;
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public interface PrefixManager extends Serializable {
+public interface PrefixManager extends Serializable, ShortFormProvider, IRIShortFormProvider {
 
     /**
      * @return the prefix comparator currently used by the prefix manager
@@ -53,7 +55,7 @@ public interface PrefixManager extends Serializable {
      * Sets the default namespace. This will also bind the prefix name ":" to this prefix
      *
      * @param defaultPrefix The namespace to be used as the default namespace. Note that the value
-     * may be {@code null} in order to clear the default namespace.
+     *        may be {@code null} in order to clear the default namespace.
      */
     void setDefaultPrefix(@Nullable String defaultPrefix);
 
@@ -63,7 +65,7 @@ public interface PrefixManager extends Serializable {
      *
      * @param prefixName The prefix name to be tested for.
      * @return {@code true} if the manager knows about this prefix and there is a non-null mapping
-     * for this prefix.
+     *         for this prefix.
      */
     boolean containsPrefixMapping(String prefixName);
 
@@ -73,10 +75,10 @@ public interface PrefixManager extends Serializable {
      * {@code getDefaultPrefix()} method.
      *
      * @param prefixName The prefix name. A string that represents a prefix name of the prefix to be
-     * retrieved. Note that specifying ":" is the same as asking for the default prefix (see the
-     * getDefaultPrefix() method).
+     *        retrieved. Note that specifying ":" is the same as asking for the default prefix (see
+     *        the getDefaultPrefix() method).
      * @return The prefix, or {@code null} if there is no prefix name bound to this prefix, or the
-     * prefix name doesn't exist.
+     *         prefix name doesn't exist.
      */
     @Nullable
     String getPrefix(String prefixName);
@@ -85,7 +87,7 @@ public interface PrefixManager extends Serializable {
      * Gets a map that maps prefix names to prefixes.
      *
      * @return The map of prefix names to prefixes. Note that modifying the contents of this map
-     * will not change the prefix name - prefix mappings
+     *         will not change the prefix name - prefix mappings
      */
     Map<String, String> getPrefixName2PrefixMap();
 
@@ -96,7 +98,7 @@ public interface PrefixManager extends Serializable {
      * @param prefixIRI The Prefix IRI
      * @return The full IRI.
      * @throws OWLRuntimeException if the prefix name of the prefix IRI doesn't have a corresponding
-     * prefix managed by this manager.
+     *         prefix managed by this manager.
      */
     IRI getIRI(String prefixIRI);
 

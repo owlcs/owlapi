@@ -87,7 +87,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.AbstractRDFPrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.RDFLiteral;
@@ -119,7 +118,6 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -213,7 +211,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     /**
      * The ontology that the RDF will be parsed into.
      */
-    private final OWLOntology ontology;
+    protected final OWLOntology ontology;
     /**
      * The data factory.
      */
@@ -285,8 +283,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * @param configuration the configuration
      */
     public OWLRDFConsumer(OWLOntology ontology, AnonymousNodeChecker checker,
-        OWLOntologyLoaderConfiguration configuration,
-        @Nullable IRIProvider iriProvider) {
+        OWLOntologyLoaderConfiguration configuration, @Nullable IRIProvider iriProvider) {
         anon = checker;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
@@ -321,9 +318,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     @Override
     public void addPrefix(String abbreviation, String value) {
-        if (getOntologyFormat().isPrefixOWLDocumentFormat()) {
-            getOntologyFormat().asPrefixOWLDocumentFormat().setPrefix(abbreviation, value);
-        }
+        ontology.getPrefixManager().setPrefix(abbreviation, value);
     }
 
     /**
@@ -342,9 +337,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      */
     public void setOntologyFormat(RDFDocumentFormat format) {
         ontologyFormat = format;
-        if (getOntologyFormat().isPrefixOWLDocumentFormat()) {
-            tripleLogger.setPrefixManager(getOntologyFormat().asPrefixOWLDocumentFormat());
-        }
+        tripleLogger.setPrefixManager(ontology.getPrefixManager());
     }
 
     /**
@@ -493,23 +486,22 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected void handleImportingRDFGraphRatherThanOntology(OWLImportsDeclaration id,
         OWLOntologyManager man, @Nullable OWLOntology io) {
-        if (io != null) {
-            OWLDocumentFormat importedOntologyFormat = io.getFormat();
-            if (importedOntologyFormat instanceof AbstractRDFPrefixDocumentFormat
-                && io.isAnonymous() && getConfiguration()
-                .getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
-                // We should have just included the triples rather than imported
-                // them. So, we remove the imports statement, add the axioms
-                // from the imported ontology to out importing ontology and
-                // remove the imported ontology.
-                // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
-                man.applyChange(new RemoveImport(ontology, id));
-                io.importsDeclarations().forEach(d -> man.applyChange(new AddImport(ontology, d)));
-                io.annotations().forEach(
-                    ann -> man.applyChange(new AddOntologyAnnotation(ontology, ann)));
-                io.axioms().forEach(this::add);
-                man.removeOntology(io);
-            }
+        if (io == null) {
+            return;
+        }
+        if (io.isAnonymous()
+            && getConfiguration().getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
+            // We should have just included the triples rather than imported
+            // them. So, we remove the imports statement, add the axioms
+            // from the imported ontology to out importing ontology and
+            // remove the imported ontology.
+            // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
+            man.applyChange(new RemoveImport(ontology, id));
+            io.importsDeclarations().forEach(d -> man.applyChange(new AddImport(ontology, d)));
+            io.annotations()
+                .forEach(ann -> man.applyChange(new AddOntologyAnnotation(ontology, ann)));
+            io.axioms().forEach(this::add);
+            man.removeOntology(io);
         }
     }
 
@@ -580,9 +572,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected void setParserMetadata(Set<RDFTriple> triples) {
         if (ontologyFormat != null) {
-            getOntologyFormat().setOntologyLoaderMetaData(new RDFParserMetaData(
-                RDFOntologyHeaderStatus.PARSED_ONE_HEADER, tripleLogger.count(),
-                triples, iris.guessedDeclarations));
+            RDFParserMetaData loaderMetaData =
+                new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER,
+                    tripleLogger.count(), triples, iris.guessedDeclarations);
+            errors.forEach(loaderMetaData::addError);
+            getOntologyFormat().setOntologyLoaderMetaData(loaderMetaData);
         }
     }
 
@@ -645,8 +639,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean annotationToRemove(OWLAnnotationAxiom ax) {
-        return ax instanceof OWLAnnotationAssertionAxiom && ((OWLAnnotationAssertionAxiom) ax)
-            .getSubject().equals(iris.firstOntologyIRI);
+        return ax instanceof OWLAnnotationAssertionAxiom
+            && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(iris.firstOntologyIRI);
     }
 
     protected void removeUnnecessaryParsedAnnotations(OWLAnnotationAxiom ax) {
@@ -735,8 +729,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             if (handler != null) {
                 consumed = handleStreamConditionally(handler, subject, p, o);
             } else {
-                consumed = resources.stream()
-                    .anyMatch(x -> handleStreamConditionally(x, subject, p, o));
+                consumed =
+                    resources.stream().anyMatch(x -> handleStreamConditionally(x, subject, p, o));
             }
         }
         if (!consumed) {
@@ -768,7 +762,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      *
      * @param n The main node
      * @return The translated data range. If the data range could not be translated then an
-     * OWLDatatype with the given IRI is returned.
+     *         OWLDatatype with the given IRI is returned.
      */
     public OWLDataRange translateDataRange(IRI n) {
         if (!iris.isDataRange(n) && configuration.isStrict()) {
@@ -819,9 +813,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             } else if (!configuration.isStrict()) {
                 Collection<OWLFacetRestriction> restrictions = createLinkedSet();
                 // Try the legacy encoding
-                Stream.of(OWLFacet.values()).forEach(f -> consume(
-                    () -> tripleIndex.literal(n, f.getIRI(), true),
-                    val -> restrictions.add(df.getOWLFacetRestriction(f, val))));
+                Stream.of(OWLFacet.values())
+                    .forEach(f -> consume(() -> tripleIndex.literal(n, f.getIRI(), true),
+                        val -> restrictions.add(df.getOWLFacetRestriction(f, val))));
                 return df.getOWLDatatypeRestriction(dt, restrictions);
             }
         }
@@ -913,8 +907,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         consume(() -> tripleIndex.literal(n, p, true), l -> dest.add(df.getOWLAnnotation(ap, l,
             anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, l)))));
         consume(() -> tripleIndex.resource(n, p, true), r -> dest.add(df.getOWLAnnotation(ap,
-            getAnnotationValue(r),
-            anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, r)))));
+            getAnnotationValue(r), anns.get(getSubjectForAnnotatedPropertyAndObject(n, p, r)))));
     }
 
     @Nullable
@@ -983,8 +976,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         return triples;
     }
 
+    private List<RDFResourceParseError> errors = new ArrayList<>();
+
     private void logError(RDFResourceParseError error) {
-        getOntologyFormat().addError(error);
+        errors.add(error);
     }
 
     /**
@@ -1179,8 +1174,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             }
             return df.getSWRLIndividualArgument(individual(argIRI));
         }
-        throw new OWLRuntimeException("Cannot translate SWRL Atom I-Object for " + argPredicateIRI
-            + " Triple not found.");
+        throw new OWLRuntimeException(
+            "Cannot translate SWRL Atom I-Object for " + argPredicateIRI + " Triple not found.");
     }
 
     protected SWRLDArgument translateSWRLAtomDObject(IRI mainIRI, IRI argPredicateIRI) {
@@ -1423,8 +1418,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         if (!isStrict() && tripleIndex.hasPredicate(s, OWL_PROPERTY_CHAIN.getIRI())) {
             // Property chain
             IRI chainList = tripleIndex.resource(s, OWL_PROPERTY_CHAIN, true);
-            List<OWLObjectPropertyExpression> properties = translatorAccessor
-                .translateToObjectPropertyList(verifyNotNull(chainList));
+            List<OWLObjectPropertyExpression> properties =
+                translatorAccessor.translateToObjectPropertyList(verifyNotNull(chainList));
             add(df.getOWLSubPropertyChainOfAxiom(properties, translateOPE(o), pendingAnns()));
             return tripleIndex.consumeTriple(s, p, o);
         } else if (!isStrict() && tripleIndex.hasPredicate(s, RDF_FIRST.getIRI())) {
@@ -1834,8 +1829,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // Set IRI if it is not null before this point, and make sure to
             // preserve the version IRI if it also existed before this point
             if (!ontology.getOntologyID().getOntologyIRI().isPresent()) {
-                OWLOntologyID id = new OWLOntologyID(optional(s),
-                    ontology.getOntologyID().getVersionIRI());
+                OWLOntologyID id =
+                    new OWLOntologyID(optional(s), ontology.getOntologyID().getVersionIRI());
                 ontology.applyChange(new SetOntologyID(ontology, id));
             }
         }
@@ -2070,9 +2065,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      *
      * @param mainNode The main node
      * @return The object of the triple that has the specified mainNode as its s and the IRI
-     * returned by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method. For backwards
-     * compatibility, a search will also be performed for triples whose s is the specified mainNode
-     * and p rdf:object
+     *         returned by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method. For
+     *         backwards compatibility, a search will also be performed for triples whose s is the
+     *         specified mainNode and p rdf:object
      */
     @Nullable
     private IRI getObjectOfTargetTriple(IRI mainNode) {
@@ -2238,8 +2233,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         // assertions or annotationIRIs
         TriplePredicateHandler propertyRangeHandler = predicates.get(RDFS_RANGE.getIRI());
         tripleIndex.iterate((s, p, o) -> handleConditionally(propertyRangeHandler, s, p, o),
-            this::apply, this::apply,
-            (s, p, o) -> handleConditionally(axiomTypes.get(o), s, p, o),
+            this::apply, this::apply, (s, p, o) -> handleConditionally(axiomTypes.get(o), s, p, o),
             this::handleNonStream, this::handle);
 
         axiomParsingMode = true;

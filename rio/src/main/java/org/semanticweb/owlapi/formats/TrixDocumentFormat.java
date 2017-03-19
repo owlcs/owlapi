@@ -41,7 +41,7 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class TrixDocumentFormat extends RioRDFPrefixDocumentFormat {
+public class TrixDocumentFormat extends RioRDFDocumentFormatImpl {
 
     /**
      * RDF format for {@link RDFFormat#TRIX} documents.

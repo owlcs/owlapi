@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.Optional;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /**
@@ -26,47 +25,6 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
  * @since 2.0.0
  */
 public interface OWLDocumentFormat extends Serializable {
-
-    /**
-     * @param key key for the new entry
-     * @param value value for the new entry
-     */
-    void setParameter(Serializable key, Serializable value);
-
-    /**
-     * @param key key for the new entry
-     * @param defaultValue value for the new entry
-     * @param <T> type
-     * @return the value
-     */
-    <T> T getParameter(Serializable key, T defaultValue);
-
-    /**
-     * Determines if this format is an instance of a format that uses prefixes to shorted IRIs.
-     *
-     * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other wise {@code false}.
-     */
-    default boolean isPrefixOWLDocumentFormat() {
-        return false;
-    }
-
-    /**
-     * If this format is an instance of {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
-     * then this method will obtain it as a
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     *
-     * @return This format as a more specific
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException if this format is not an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
-     */
-    default PrefixDocumentFormat asPrefixOWLDocumentFormat() {
-        if (isPrefixOWLDocumentFormat()) {
-            return (PrefixDocumentFormat) this;
-        }
-        throw new ClassCastException(getClass().getName() + " is not a Prefix Document Format");
-    }
 
     /**
      * If this format describes an ontology that was loaded from some ontology document (rather than
@@ -98,4 +56,11 @@ public interface OWLDocumentFormat extends Serializable {
      *         Defaults to true if not overridden.
      */
     boolean isTextual();
+
+    /**
+     * @return true if this format supports prefixes in its output
+     */
+    default boolean hasPrefixes() {
+        return true;
+    }
 }

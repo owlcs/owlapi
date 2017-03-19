@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -63,6 +64,21 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
             } else {
                 delegate = new DefaultPrefixManager();
             }
+        }
+
+        @Override
+        public String getShortForm(IRI iri) {
+            String sf = getPrefixIRI(iri);
+            if (sf == null) {
+                return iri.toQuotedString();
+            } else {
+                return sf;
+            }
+        }
+
+        @Override
+        public String getShortForm(OWLEntity entity) {
+            return getShortForm(entity.getIRI());
         }
 
         @Override

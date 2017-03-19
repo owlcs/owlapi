@@ -106,13 +106,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
-import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import com.google.common.collect.Sets;
 
@@ -146,13 +146,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *
      * @param ontology the ontology
      * @param writer the writer
-     * @param entityShortFormProvider the entity short form provider
      */
-    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
-        ShortFormProvider entityShortFormProvider) {
-        super(writer, entityShortFormProvider);
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer) {
+        super(writer, ontology.getPrefixManager());
         o = ontology;
-        ooc = new OWLObjectComparator(entityShortFormProvider);
+        ooc = new OWLObjectComparator(ontology.getPrefixManager());
     }
 
     /**
@@ -163,7 +161,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * @param entityShortFormProvider the entity short form provider
      */
     public ManchesterOWLSyntaxFrameRenderer(Collection<OWLOntology> ontologies, Writer writer,
-        ShortFormProvider entityShortFormProvider) {
+        PrefixManager entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         if (ontologies.size() != 1) {
             throw new OWLRuntimeException("Can only render one ontology");
@@ -346,13 +344,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * Write prefix map.
      */
     public void writePrefixMap() {
-        ShortFormProvider sfp = getShortFormProvider();
-        if (!(sfp instanceof ManchesterOWLSyntaxPrefixNameShortFormProvider)) {
-            return;
-        }
-        ManchesterOWLSyntaxPrefixNameShortFormProvider prov =
-            (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
-        Map<String, String> prefixMap = prov.getPrefixName2PrefixMap();
+        Map<String, String> prefixMap = prefixManager.getPrefixName2PrefixMap();
         prefixMap.entrySet().stream().sorted((o1, o2) -> o1.getKey().compareTo(o2.getKey()))
             .forEach(value -> {
                 write(PREFIX.toString());

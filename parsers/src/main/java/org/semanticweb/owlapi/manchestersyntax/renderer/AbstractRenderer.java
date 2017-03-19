@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
@@ -33,7 +34,7 @@ public class AbstractRenderer {
 
     private final Writer writer;
     private final List<Integer> tabs = new ArrayList<>();
-    private ShortFormProvider shortFormProvider;
+    protected PrefixManager prefixManager;
     private int lastNewLinePos = -1;
     private int currentPos;
     private boolean useTabbing = true;
@@ -43,9 +44,9 @@ public class AbstractRenderer {
      * @param writer writer
      * @param shortFormProvider shortFormProvider
      */
-    protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
+    protected AbstractRenderer(Writer writer, PrefixManager shortFormProvider) {
         this.writer = writer;
-        this.shortFormProvider = shortFormProvider;
+        prefixManager = shortFormProvider;
         pushTab(0);
     }
 
@@ -167,10 +168,10 @@ public class AbstractRenderer {
     }
 
     protected ShortFormProvider getShortFormProvider() {
-        return shortFormProvider;
+        return prefixManager;
     }
 
-    protected void setShortFormProvider(ShortFormProvider p) {
-        shortFormProvider = p;
+    protected void setShortFormProvider(PrefixManager p) {
+        prefixManager = p;
     }
 }

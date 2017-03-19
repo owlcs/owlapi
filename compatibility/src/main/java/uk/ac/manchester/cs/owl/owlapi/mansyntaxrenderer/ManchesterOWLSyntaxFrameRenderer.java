@@ -4,14 +4,15 @@ import java.io.Writer;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
  * @deprecated use org.semanticweb.owlapi.mansyntax.renderer. ManchesterOWLSyntaxFrameRenderer
  */
 @Deprecated
-public class ManchesterOWLSyntaxFrameRenderer extends
-                org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxFrameRenderer {
+public class ManchesterOWLSyntaxFrameRenderer
+    extends org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxFrameRenderer {
 
     /**
      * @param ontology ontology
@@ -19,8 +20,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      * @param entityShortFormProvider provider
      */
     public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
-                    ShortFormProvider entityShortFormProvider) {
-        super(ontology, writer, entityShortFormProvider);
+        ShortFormProvider entityShortFormProvider) {
+        super(ontology, writer);
     }
 
     /**
@@ -31,7 +32,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      * @param entityShortFormProvider the entity short form provider
      */
     public ManchesterOWLSyntaxFrameRenderer(Collection<OWLOntology> ontologies, Writer writer,
-                    ShortFormProvider entityShortFormProvider) {
+        PrefixManager entityShortFormProvider) {
         super(ontologies, writer, entityShortFormProvider);
     }
 }

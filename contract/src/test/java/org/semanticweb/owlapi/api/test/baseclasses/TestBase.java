@@ -42,7 +42,6 @@ import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -443,13 +442,6 @@ public abstract class TestBase {
     public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format)
         throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
-        OWLDocumentFormat fromFormat = ont.getFormat();
-        if (fromFormat.isPrefixOWLDocumentFormat() && format.isPrefixOWLDocumentFormat()) {
-            PrefixDocumentFormat fromPrefixFormat = fromFormat.asPrefixOWLDocumentFormat();
-            PrefixDocumentFormat toPrefixFormat = format.asPrefixOWLDocumentFormat();
-            toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
-            toPrefixFormat.setDefaultPrefix(null);
-        }
         if (logger.isTraceEnabled()) {
             StringDocumentTarget targetForDebug = new StringDocumentTarget();
             ont.saveOntology(format, targetForDebug);

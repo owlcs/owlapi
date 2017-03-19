@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -51,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
@@ -96,6 +94,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
@@ -164,25 +163,20 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      *
      * @param ontology The ontology whose format will be used to obtain prefix mappings
      * @param processImportedOntologies Specifies whether or not the prefix mapping should be
-     * obtained from imported ontologies.
+     *        obtained from imported ontologies.
      */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology,
         boolean processImportedOntologies) {
         resetShortFormProvider();
         Imports.fromBoolean(processImportedOntologies).stream(ontology)
-            .forEach(o -> copyPrefixes(o.getNonnullFormat()));
+            .forEach(o -> copyPrefixes(o.getPrefixManager()));
     }
 
-    private void copyPrefixes(OWLDocumentFormat ontologyFormat) {
-        if (!(ontologyFormat instanceof PrefixDocumentFormat)) {
-            return;
-        }
-        PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) ontologyFormat;
+    private void copyPrefixes(PrefixManager ontologyPrefixes) {
         if (!isUsingDefaultShortFormProvider()) {
             resetShortFormProvider();
         }
-        ((DefaultPrefixManager) shortFormProvider)
-            .copyPrefixesFrom(prefixFormat.getPrefixName2PrefixMap());
+        ((DefaultPrefixManager) shortFormProvider).copyPrefixesFrom(ontologyPrefixes);
     }
 
     /**
@@ -766,8 +760,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLLiteral node) {
         String literal = EscapeUtils.escapeString(node.getLiteral());
-        if (node.isRDFPlainLiteral() || node.getDatatype().getIRI()
-            .equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
+        if (node.isRDFPlainLiteral()
+            || node.getDatatype().getIRI().equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
             // We can use a syntactic shortcut
             sb.append('"').append(literal).append('"');
             if (node.hasLang()) {

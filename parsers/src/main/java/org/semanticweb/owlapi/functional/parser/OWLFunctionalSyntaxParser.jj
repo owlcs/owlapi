@@ -241,11 +241,10 @@ public FunctionalSyntaxDocumentFormat parse() throws OWLParserException, Unloada
 { }
 {
     (Prefix())*Ontology()<EOF> {
-        FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         for(String pn : prefixMap.keySet()) {
-            format.setPrefix(pn, prefixMap.get(pn));
+            ontology.getPrefixManager().copyPrefixesFrom(prefixMap);
         }
-        return format;
+        return new FunctionalSyntaxDocumentFormat();
     }
 }
 

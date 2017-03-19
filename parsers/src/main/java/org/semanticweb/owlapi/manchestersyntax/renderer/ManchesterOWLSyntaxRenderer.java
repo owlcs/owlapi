@@ -28,8 +28,8 @@ public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
     @Override
     public void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
         throws OWLRendererException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(ontology,
-            writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(ontology.getFormat()));
+        ManchesterOWLSyntaxFrameRenderer ren =
+            new ManchesterOWLSyntaxFrameRenderer(ontology, writer);
         ren.writeOntology();
         ren.flush();
     }

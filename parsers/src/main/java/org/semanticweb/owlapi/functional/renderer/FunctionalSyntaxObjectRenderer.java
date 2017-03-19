@@ -114,7 +114,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -154,7 +153,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -250,16 +248,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         ont = ontology;
         this.writer = writer;
         defaultPrefixManager = new DefaultPrefixManager();
-        prefixManager = defaultPrefixManager;
-        OWLDocumentFormat ontologyFormat = ontology.getNonnullFormat();
-        // reuse the setting on the existing format
+        prefixManager = ontology.getPrefixManager();
         addMissingDeclarations = ontology.getOWLOntologyManager().getOntologyWriterConfiguration()
             .shouldAddMissingTypes();
-        if (ontologyFormat instanceof PrefixDocumentFormat) {
-            prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
-            prefixManager
-                .setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
-        }
         if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix() == null) {
             String existingDefault = prefixManager.getDefaultPrefix();
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();

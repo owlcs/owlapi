@@ -677,7 +677,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
      * Parses all class expressions except ObjectIntersectionOf and ObjectUnionOf.
      *
      * @return The class expression which was parsed @ * if a non-nary class expression could not be
-     * parsed
+     *         parsed
      */
     private OWLClassExpression parseNonNaryClassExpression() {
         String tok = peekToken();
@@ -996,8 +996,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (tok.endsWith("f") || tok.endsWith("F")) {
                 try {
                     // this extra F might qualify as Float a Double INF/-INF
-                    float f = Float.parseFloat(
-                        tok.replace("INF", INFINITY).replace("inf", INFINITY));
+                    float f =
+                        Float.parseFloat(tok.replace("INF", INFINITY).replace("inf", INFINITY));
                     return df.getOWLLiteral(asFloat(f), OWL2Datatype.XSD_FLOAT);
                 } catch (@SuppressWarnings("unused") NumberFormatException e) {
                     // Ignore - not interested
@@ -1017,8 +1017,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
         }
         throw new ExceptionBuilder().withKeyword(LITERAL_TRUE, LITERAL_FALSE, LITERAL_INTEGER,
-            LITERAL_FLOAT, LITERAL_DOUBLE, LITERAL_LITERAL, LITERAL_LIT_DATATYPE,
-            LITERAL_LIT_LANG).build();
+            LITERAL_FLOAT, LITERAL_DOUBLE, LITERAL_LITERAL, LITERAL_LIT_DATATYPE, LITERAL_LIT_LANG)
+            .build();
     }
 
     private String unquoteLiteral(String tok) {
@@ -1251,8 +1251,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         for (OWLOntology ont : onts) {
             for (OWLAnnotation anno : annos) {
                 if (getOntologyLoaderConfiguration().isLoadAnnotationAxioms()) {
-                    pairs.add(new OntologyAxiomPair(ont,
-                        df.getOWLAnnotationAssertionAxiom(s, anno)));
+                    pairs.add(
+                        new OntologyAxiomPair(ont, df.getOWLAnnotationAssertionAxiom(s, anno)));
                 }
             }
         }
@@ -1797,8 +1797,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLAnnotation> annotations = parseAnnotations();
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
-            pairs.add(new OntologyAxiomPair(ont,
-                df.getOWLSameIndividualAxiom(individuals, annotations)));
+            pairs.add(
+                new OntologyAxiomPair(ont, df.getOWLSameIndividualAxiom(individuals, annotations)));
         }
         return pairs;
     }
@@ -2155,8 +2155,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             } else {
                 consumeToken();
                 throw new ExceptionBuilder().withKeyword(CLASS, OBJECT_PROPERTY, DATA_PROPERTY,
-                    INDIVIDUAL, DATATYPE, ANNOTATION_PROPERTY, IMPORT, VALUE_PARTITION,
-                    PREFIX, EQUIVALENT_CLASSES, DISJOINT_CLASSES, DISJOINT_PROPERTIES,
+                    INDIVIDUAL, DATATYPE, ANNOTATION_PROPERTY, IMPORT, VALUE_PARTITION, PREFIX,
+                    EQUIVALENT_CLASSES, DISJOINT_CLASSES, DISJOINT_PROPERTIES,
                     DIFFERENT_INDIVIDUALS, SAME_INDIVIDUAL).build();
             }
         }
@@ -2169,7 +2169,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         changes.add(new SetOntologyID(ont, ontologyID));
         ont.getOWLOntologyManager().applyChanges(changes);
         ManchesterSyntaxDocumentFormat format = new ManchesterSyntaxDocumentFormat();
-        format.copyPrefixesFrom(pm);
+        ont.getPrefixManager().copyPrefixesFrom(pm);
         return format;
     }
 
@@ -2323,9 +2323,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         } else if (IRREFLEXIVE.matches(token)) {
             return parseIrreflexivePropertyAxiom();
         }
-        throw new ExceptionBuilder().withClass().withObject().withData()
-            .withKeyword(OPEN, OPENBRACE, INV, FUNCTIONAL, INVERSE_FUNCTIONAL,
-                SYMMETRIC, ASYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE)
+        throw new ExceptionBuilder()
+            .withClass().withObject().withData().withKeyword(OPEN, OPENBRACE, INV, FUNCTIONAL,
+                INVERSE_FUNCTIONAL, SYMMETRIC, ASYMMETRIC, TRANSITIVE, REFLEXIVE, IRREFLEXIVE)
             .build();
     }
 
@@ -2423,8 +2423,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return parseClassAxiomRemainder(ce);
         } else {
             throw new ExceptionBuilder()
-                .withKeyword(SUBCLASS_OF, DISJOINT_WITH, EQUIVALENT_TO, AND, OR)
-                .build();
+                .withKeyword(SUBCLASS_OF, DISJOINT_WITH, EQUIVALENT_TO, AND, OR).build();
         }
     }
 
@@ -2483,8 +2482,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return df.getOWLSubPropertyChainOfAxiom(chain, superProp);
         } else {
             throw new ExceptionBuilder().withKeyword(SOME, ONLY, MIN, MAX, EXACTLY, SUB_PROPERTY_OF,
-                EQUIVALENT_TO, INVERSE_OF, DISJOINT_WITH, DOMAIN, RANGE, CHAIN_CONNECT)
-                .build();
+                EQUIVALENT_TO, INVERSE_OF, DISJOINT_WITH, DOMAIN, RANGE, CHAIN_CONNECT).build();
         }
     }
 

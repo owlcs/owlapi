@@ -46,4 +46,9 @@ public interface OWLOntologyLoaderMetaData extends Serializable {
      * @return the guessed declarations, i.e., those not parsed from explicit declaration axioms
      */
     Multimap<IRI, Class<?>> getGuessedDeclarations();
+
+    /**
+     * @param error error to add to the error set
+     */
+    void addError(RDFResourceParseError error);
 }

@@ -22,7 +22,6 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -73,12 +72,9 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(format, "format cannot be null");
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixOWLDocumentFormat = (PrefixDocumentFormat) format;
-            String defaultPrefix = prefixOWLDocumentFormat.getDefaultPrefix();
-            if (defaultPrefix != null) {
-                return defaultPrefix;
-            }
+        String defaultPrefix = ontology.getPrefixManager().getDefaultPrefix();
+        if (defaultPrefix != null) {
+            return defaultPrefix;
         }
         if (ontology.getOntologyID().isAnonymous()) {
             // What do we return here? Just return the OWL namespace for now.
@@ -97,14 +93,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     }
 
     private final void processOntology() {
-        if (ontologyFormat instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat namespaceFormat = (PrefixDocumentFormat) ontologyFormat;
-            Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
-            for (Map.Entry<String, String> e : namespacesByPrefix.entrySet()) {
-                String xmlnsPrefixName = e.getKey().substring(0, e.getKey().length() - 1);
-                namespaceUtil.setPrefix(verifyNotNull(e.getValue()),
-                    verifyNotNull(xmlnsPrefixName));
-            }
+        Map<String, String> namespacesByPrefix =
+            ontology.getPrefixManager().getPrefixName2PrefixMap();
+        for (Map.Entry<String, String> e : namespacesByPrefix.entrySet()) {
+            String xmlnsPrefixName = e.getKey().substring(0, e.getKey().length() - 1);
+            namespaceUtil.setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
         }
         if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
             namespaceUtil.setPrefix(Namespaces.SWRL.toString(), "swrl");

@@ -45,8 +45,6 @@ import org.eclipse.rdf4j.model.Literal;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.rio.RDFHandler;
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -87,13 +85,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
 
     @Override
     public void handleNamespace(@Nullable String prefix, @Nullable String uri) {
-        RDFDocumentFormat format = getOntologyFormat();
-        // XXX this pattern might be cleaned up by making PrefixDocumentFormat
-        // methods default methods on OWLDocumentFormat
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixDocumentFormat = (PrefixDocumentFormat) format;
-            prefixDocumentFormat.setPrefix(prefix + ':', verifyNotNull(uri));
-        }
+        ontology.getPrefixManager().setPrefix(prefix + ':', verifyNotNull(uri));
     }
 
     @Override

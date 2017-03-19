@@ -35,8 +35,6 @@ public class ManchesterSyntaxStorer extends AbstractOWLStorer {
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         Charset encoding) throws OWLOntologyStorageException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(ontology,
-            writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
-        ren.writeOntology();
+        new ManchesterOWLSyntaxFrameRenderer(ontology, writer).writeOntology();
     }
 }

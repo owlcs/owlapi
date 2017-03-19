@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
@@ -30,24 +27,8 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
  */
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
-    private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
     @Nullable
     private OWLOntologyLoaderMetaData loaderMetaData = null;
-
-    @Override
-    public void setParameter(Serializable key, Serializable value) {
-        parameterMap.put(key, value);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> T getParameter(Serializable key, T defaultValue) {
-        Serializable val = parameterMap.get(key);
-        if (val == null) {
-            return defaultValue;
-        }
-        return (T) val;
-    }
 
     @Override
     public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {

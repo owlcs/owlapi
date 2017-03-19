@@ -30,7 +30,6 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -80,7 +79,7 @@ public class TurtleRenderer extends RDFRendererBase {
         super(ontology, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
-        pm = new DefaultPrefixManager();
+        pm = ontology.getPrefixManager();
         if (!ontology.isAnonymous()) {
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
@@ -88,11 +87,6 @@ public class TurtleRenderer extends RDFRendererBase {
                 defaultPrefix = ontologyIRIString + '#';
             }
             pm.setDefaultPrefix(defaultPrefix);
-        }
-        if (format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
-            pm.copyPrefixesFrom(prefixFormat);
-            pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }
         base = "";
     }

@@ -16,11 +16,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -31,7 +31,7 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getAnonymousOWLOntology();
-        PrefixDocumentFormat format = (PrefixDocumentFormat) ont.getNonnullFormat();
+        PrefixManager format = ont.getPrefixManager();
         format.setDefaultPrefix("http://default.com");
         format.setPrefix("a", "http://ontology.com/a#");
         format.setPrefix("b", "http://ontology.com/b#");
@@ -40,16 +40,15 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
 
     @Override
     public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException, OWLOntologyCreationException {
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology ont2 = super.roundTripOntology(ont, format);
-        OWLDocumentFormat ont2Format = ont2.getFormat();
-        if (format instanceof PrefixDocumentFormat && ont2Format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
-            PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
+        if (format.hasPrefixes()) {
+            PrefixManager prefixFormat = ont.getPrefixManager();
+            PrefixManager prefixFormat2 = ont2.getPrefixManager();
             prefixFormat.prefixNames().forEach(prefixName -> {
                 assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
                 assertEquals(prefixFormat.getPrefix(prefixName),
-                                prefixFormat2.getPrefix(prefixName));
+                    prefixFormat2.getPrefix(prefixName));
             });
         }
         return ont2;

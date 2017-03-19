@@ -49,8 +49,12 @@ public class OWLXMLParser extends AbstractOWLParser {
             OWLXMLPH handler = new OWLXMLPH(o, config);
             SAXParsers.initParserWithOWLAPIStandards(null, config.getEntityExpansionLimit())
                 .parse(isrc, handler);
-            format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
-            format.setDefaultPrefix(handler.getBase().toString());
+            o.getPrefixManager().copyPrefixesFrom(handler.getPrefixName2PrefixMap());
+            String base = handler.getBase().toString();
+            // do not override existing default prefix
+            if (o.getPrefixManager().getDefaultPrefix() == null) {
+                o.getPrefixManager().setDefaultPrefix(base);
+            }
             return format;
         } catch (SAXException | IOException | IllegalStateException e) {
             // General exception

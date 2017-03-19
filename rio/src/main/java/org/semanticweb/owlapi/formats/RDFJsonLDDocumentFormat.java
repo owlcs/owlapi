@@ -41,12 +41,17 @@ import org.eclipse.rdf4j.rio.RDFFormat;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RDFJsonLDDocumentFormat extends RioRDFNonPrefixDocumentFormat {
+public class RDFJsonLDDocumentFormat extends RioRDFDocumentFormatImpl {
 
     /**
      * RDF format for {@link RDFFormat#JSONLD} documents.
      */
     public RDFJsonLDDocumentFormat() {
         super(RDFFormat.JSONLD);
+    }
+
+    @Override
+    public boolean hasPrefixes() {
+        return false;
     }
 }

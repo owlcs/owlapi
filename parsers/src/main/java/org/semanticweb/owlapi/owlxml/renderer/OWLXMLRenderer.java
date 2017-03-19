@@ -18,13 +18,13 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.Map;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -48,38 +48,34 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
         try {
             OWLXMLWriter w = new OWLXMLWriter(writer, ontology, encoding);
             w.startDocument(ontology);
-            if (format instanceof PrefixDocumentFormat) {
-                PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
-                Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
-                for (Map.Entry<String, String> e : map.entrySet()) {
-                    if (e.getValue() != null && !e.getValue().isEmpty()) {
-                        w.writePrefix(e.getKey(), e.getValue());
-                    }
-                }
-                if (!map.containsKey("rdf:")) {
-                    w.writePrefix("rdf:", Namespaces.RDF.toString());
-                }
-                if (!map.containsKey("rdfs:")) {
-                    w.writePrefix("rdfs:", Namespaces.RDFS.toString());
-                }
-                if (!map.containsKey("xsd:")) {
-                    w.writePrefix("xsd:", Namespaces.XSD.toString());
-                }
-                if (!map.containsKey("owl:")) {
-                    w.writePrefix("owl:", Namespaces.OWL.toString());
-                }
-            } else {
-                w.writePrefix("rdf:", Namespaces.RDF.toString());
-                w.writePrefix("rdfs:", Namespaces.RDFS.toString());
-                w.writePrefix("xsd:", Namespaces.XSD.toString());
-                w.writePrefix("owl:", Namespaces.OWL.toString());
-            }
+            writePrefixes(ontology, w);
             OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
             ontology.accept(ren);
             w.endDocument();
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLRendererIOException(e);
+        }
+    }
+
+    protected static void writePrefixes(OWLOntology ontology, OWLXMLWriter w) {
+        PrefixManager fromPrefixFormat = ontology.getPrefixManager();
+        Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
+        for (Map.Entry<String, String> e : map.entrySet()) {
+            if (e.getValue() != null && !e.getValue().isEmpty()) {
+                w.writePrefix(e.getKey(), e.getValue());
+            }
+        }
+        writeDefaultPrefix(w, map, "rdf:", Namespaces.RDF);
+        writeDefaultPrefix(w, map, "rdfs:", Namespaces.RDFS);
+        writeDefaultPrefix(w, map, "xsd:", Namespaces.XSD);
+        writeDefaultPrefix(w, map, "owl:", Namespaces.OWL);
+    }
+
+    protected static void writeDefaultPrefix(OWLXMLWriter w, Map<String, String> map, String prefix,
+        Namespaces defaultValue) {
+        if (!map.containsKey(prefix)) {
+            w.writePrefix(prefix, defaultValue.toString());
         }
     }
 

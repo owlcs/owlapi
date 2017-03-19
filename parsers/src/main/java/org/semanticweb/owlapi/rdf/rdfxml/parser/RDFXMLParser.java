@@ -52,7 +52,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     throws SAXException {
                     super.startPrefixMapping(prefix, uri);
                     if (prefix != null && uri != null) {
-                        format.setPrefix(prefix, uri);
+                        o.getPrefixManager().setPrefix(prefix, uri);
                     }
                 }
             };
