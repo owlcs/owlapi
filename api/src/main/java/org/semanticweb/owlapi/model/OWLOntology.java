@@ -16,9 +16,14 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -45,9 +50,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  */
 public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports, HasImportsClosure,
     HasOntologyID, OWLAxiomCollection, OWLAxiomCollectionBooleanArgs, OWLSignature,
-    OWLSignatureBooleanArgs, OWLAxiomIndex, HasApplyChange, HasApplyChanges,
-    HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
-    HasApplyDirectChange {
+    OWLSignatureBooleanArgs, OWLAxiomIndex, HasApplyChange, HasApplyChanges, HasDirectAddAxiom,
+    HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms, HasApplyDirectChange {
 
     @Override
     default boolean isAxiom() {
@@ -172,8 +176,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
 
     /**
      * @return ontology format for this ontology; can be null if the ontology has been created
-     * programmatically and not loaded/saved, so it does not have any format information
-     * associated.
+     *         programmatically and not loaded/saved, so it does not have any format information
+     *         associated.
      */
     @Nullable
     default OWLDocumentFormat getFormat() {
@@ -189,8 +193,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      */
     default OWLDocumentFormat getNonnullFormat() {
         return verifyNotNull(getFormat(),
-            (Supplier<String>) () -> "There is no format specified for ontology "
-                + getOntologyID()
+            (Supplier<String>) () -> "There is no format specified for ontology " + getOntologyID()
                 + ", the ontology format needs to be set before saving or specified in the save call");
     }
 
@@ -204,11 +207,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * this method will return the set consisting of ontology B and ontology C.
      *
      * @return The set of ontologies that this ontology is related to via the transitive closure of
-     * the directlyImports relation. The set that is returned is a copy - it will not be updated if
-     * the ontology changes. It is therefore safe to apply changes to this ontology while iterating
-     * over this set.
+     *         the directlyImports relation. The set that is returned is a copy - it will not be
+     *         updated if the ontology changes. It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
      * @throws UnknownOWLOntologyException if this ontology is no longer managed by its manager
-     * because it was removed from the manager.
+     *         because it was removed from the manager.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -224,11 +227,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * this method will return the set consisting of ontology B and ontology C.
      *
      * @return The set of ontologies that this ontology is related to via the transitive closure of
-     * the directlyImports relation. The set that is returned is a copy - it will not be updated if
-     * the ontology changes. It is therefore safe to apply changes to this ontology while iterating
-     * over this set.
+     *         the directlyImports relation. The set that is returned is a copy - it will not be
+     *         updated if the ontology changes. It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
      * @throws UnknownOWLOntologyException if this ontology is no longer managed by its manager
-     * because it was removed from the manager.
+     *         because it was removed from the manager.
      */
     Stream<OWLOntology> imports();
 
@@ -238,9 +241,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * Section 3 in the OWL 2 structural specification).
      *
      * @return The set of imports declarations that correspond to the set of ontology document IRIs
-     * that are directly imported by this ontology. The set that is returned is a copy - it will not
-     * be updated if the ontology changes. It is therefore safe to apply changes to this ontology
-     * while iterating over this set.
+     *         that are directly imported by this ontology. The set that is returned is a copy - it
+     *         will not be updated if the ontology changes. It is therefore safe to apply changes to
+     *         this ontology while iterating over this set.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -254,9 +257,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * Section 3 in the OWL 2 structural specification).
      *
      * @return The set of imports declarations that correspond to the set of ontology document IRIs
-     * that are directly imported by this ontology. The set that is returned is a copy - it will not
-     * be updated if the ontology changes. It is therefore safe to apply changes to this ontology
-     * while iterating over this set.
+     *         that are directly imported by this ontology. The set that is returned is a copy - it
+     *         will not be updated if the ontology changes. It is therefore safe to apply changes to
+     *         this ontology while iterating over this set.
      */
     Stream<OWLImportsDeclaration> importsDeclarations();
 
@@ -277,8 +280,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     * is a copy of the axioms in the ontology (and its imports closure) - it will not be updated if
-     * the ontology changes.
+     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
+     *         updated if the ontology changes.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -292,8 +295,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     * is a copy of the axioms in the ontology (and its imports closure) - it will not be updated if
-     * the ontology changes.
+     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
+     *         updated if the ontology changes.
      */
     Stream<OWLAxiom> tboxAxioms(Imports includeImportsClosure);
 
@@ -303,8 +306,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     * is a copy of the axioms in the ontology (and its imports closure) - it will not be updated if
-     * the ontology changes.
+     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
+     *         updated if the ontology changes.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -318,8 +321,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     * is a copy of the axioms in the ontology (and its imports closure) - it will not be updated if
-     * the ontology changes.
+     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
+     *         updated if the ontology changes.
      */
     Stream<OWLAxiom> aboxAxioms(Imports includeImportsClosure);
 
@@ -329,8 +332,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     * is a copy of the axioms in the ontology (and its imports closure) - it will not be updated if
-     * the ontology changes.
+     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
+     *         updated if the ontology changes.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -344,8 +347,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param includeImportsClosure if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The set that is returned
-     * is a copy of the axioms in the ontology (and its imports closure) - it will not be updated if
-     * the ontology changes.
+     *         is a copy of the axioms in the ontology (and its imports closure) - it will not be
+     *         updated if the ontology changes.
      */
     Stream<OWLAxiom> rboxAxioms(Imports includeImportsClosure);
 
@@ -358,8 +361,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * </ul>
      *
      * @return The set that is returned is a copy of the axioms in the ontology - it will not be
-     * updated if the ontology changes. It is therefore safe to apply changes to this ontology while
-     * iterating over this set.
+     *         updated if the ontology changes. It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -376,8 +379,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * </ul>
      *
      * @return The set that is returned is a copy of the axioms in the ontology - it will not be
-     * updated if the ontology changes. It is therefore safe to apply changes to this ontology while
-     * iterating over this set.
+     *         updated if the ontology changes. It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
      */
     Stream<OWLClassAxiom> generalClassAxioms();
 
@@ -392,8 +395,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param imports if INCLUDED, the imports closure is included.
      * @return A set of {@code OWLEntity} objects. The set that is returned is a copy - it will not
-     * be updated if the ontology changes. It is therefore safe to apply changes to this ontology
-     * while iterating over this set.
+     *         be updated if the ontology changes. It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
      * @see #getClassesInSignature()
      * @see #getObjectPropertiesInSignature()
      * @see #getDataPropertiesInSignature()
@@ -414,8 +417,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param imports if INCLUDED, the imports closure is included.
      * @return A set of {@code OWLEntity} objects. The set that is returned is a copy - it will not
-     * be updated if the ontology changes. It is therefore safe to apply changes to this ontology
-     * while iterating over this set.
+     *         be updated if the ontology changes. It is therefore safe to apply changes to this
+     *         ontology while iterating over this set.
      * @see #classesInSignature()
      * @see #objectPropertiesInSignature()
      * @see #dataPropertiesInSignature()
@@ -431,7 +434,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param owlEntity The entity to be tested for
      * @return {@code true} if the ontology contains a declaration for the specified entity,
-     * otherwise {@code false}.
+     *         otherwise {@code false}.
      */
     boolean isDeclared(OWLEntity owlEntity);
 
@@ -442,7 +445,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @param owlEntity The entity to be tested for
      * @param imports if INCLUDED, the imports closure is included.
      * @return {@code true} if the ontology or its imports closure contains a declaration for the
-     * specified entity, otherwise {@code false}.
+     *         specified entity, otherwise {@code false}.
      */
     default boolean isDeclared(OWLEntity owlEntity, Imports imports) {
         return imports.stream(this).anyMatch(o -> o.isDeclared(owlEntity));
@@ -455,7 +458,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * loaded from, or the default ontology format if the ontology was created programmatically.
      *
      * @throws OWLOntologyStorageException An exception will be thrown if there is a problem with
-     * saving the ontology, or the ontology can't be saved in the format it was loaded from.
+     *         saving the ontology, or the ontology can't be saved in the format it was loaded from.
      */
     default void saveOntology() throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this);
@@ -477,7 +480,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *
      * @param outputStream The output stream where the ontology will be saved to
      * @throws OWLOntologyStorageException If there was a problem saving this ontology to the
-     * specified output stream
+     *         specified output stream
      */
     default void saveOntology(OutputStream outputStream) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, outputStream);
@@ -549,5 +552,50 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     @Override
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    /**
+     * @param add true if missing declarations should be added. If false, no declarations will be
+     *        added.
+     * @return collection of IRIS used in illegal punnings
+     */
+    default Collection<IRI> determineIllegalPunnings(boolean add) {
+        if (!add) {
+            return Collections.emptySet();
+        }
+        // determine what entities are illegally punned
+        Map<IRI, List<EntityType<?>>> punnings = new HashMap<>();
+        // disregard individuals as they do not give raise to illegal
+        // punnings; only keep track of punned entities, ignore the rest
+        Collection<IRI> punnedEntities = getPunnedIRIs(Imports.INCLUDED);
+        signature(Imports.INCLUDED)
+            .filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI()))
+            .forEach(e -> punnings.computeIfAbsent(e.getIRI(), x -> new ArrayList<>())
+                .add(e.getEntityType()));
+        return computeIllegals(punnings);
+    }
+
+    /**
+     * @param punnings input punnings
+     * @return illegal punnings
+     */
+    default Collection<IRI> computeIllegals(Map<IRI, List<EntityType<?>>> punnings) {
+        Collection<IRI> illegals = new HashSet<>();
+        for (IRI i : punnings.keySet()) {
+            Collection<EntityType<?>> puns = punnings.get(i);
+            if (puns.contains(EntityType.OBJECT_PROPERTY)
+                && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+                illegals.add(i);
+            } else if (puns.contains(EntityType.DATA_PROPERTY)
+                && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+                illegals.add(i);
+            } else if (puns.contains(EntityType.DATA_PROPERTY)
+                && puns.contains(EntityType.OBJECT_PROPERTY)) {
+                illegals.add(i);
+            } else if (puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
+                illegals.add(i);
+            }
+        }
+        return illegals;
     }
 }

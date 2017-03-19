@@ -151,7 +151,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
@@ -214,6 +213,7 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -1085,7 +1085,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * Gets an anonymous resource.
      *
      * @param key A key for the resource. For a given key identity, the resources that are returned
-     * should be equal and have the same hashcode.
+     *        should be equal and have the same hashcode.
      * @return The resource
      */
     protected abstract R getAnonymousNode(Object key);
@@ -1147,9 +1147,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private OWLLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i),
-            manager.getOWLDataFactory().getOWLDatatype(
-                XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
+        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i), manager
+            .getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
     private void processIfAnonymous(Stream<? extends OWLIndividual> inds, @Nullable OWLAxiom root) {
@@ -1161,8 +1160,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
                 sortOptionally(ont.axioms(ind)).stream()
-                    .filter(ax -> root == null || !root.equals(ax))
-                    .forEach(ax -> ax.accept(this));
+                    .filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax.accept(this));
                 sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
                     .forEach(ax -> ax.accept(this));
             }
@@ -1203,7 +1201,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!useStrongTyping) {
             return;
         }
-        if (!OWLDocumentFormat.isMissingType(entity, ont)) {
+        if (!RDFRendererBase.isMissingType(entity, ont)) {
             return;
         }
         addTriple(entity, RDF_TYPE.getIRI(), entity.getEntityType().getIRI());

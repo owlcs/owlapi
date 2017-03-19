@@ -96,11 +96,6 @@ public enum ConfigurationOptions {
 	 * renderer - the reference 
 	 * implementation will respect 
 	 * this).
-     *
-     * @return {@code true} if untyped 
- 	 * entities should automatically be 
-	 * typed during rendering, otherwise
-	 * {@code false}.
      */
     ADD_MISSING_TYPES                   (Boolean.TRUE);
     //@formatter:on

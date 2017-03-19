@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.functional.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
@@ -380,8 +379,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         List<OWLEntity> signature = sortOptionally(ontology.signature());
-        Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(
-            addMissingDeclarations, signature.stream(), ont.getPunnedIRIs(INCLUDED));
+        Collection<IRI> illegals = ont.determineIllegalPunnings(addMissingDeclarations);
         signature.forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
         writeSortedEntities("Annotation Properties", "Annotation Property",
             ontology.annotationPropertiesInSignature(EXCLUDED), writtenAxioms);

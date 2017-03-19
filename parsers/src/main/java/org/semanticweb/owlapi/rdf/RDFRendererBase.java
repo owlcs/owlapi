@@ -21,7 +21,6 @@ import static org.semanticweb.owlapi.model.AxiomType.HAS_KEY;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_PROPERTY_CHAIN_OF;
 import static org.semanticweb.owlapi.model.AxiomType.SWRL_RULE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
@@ -78,7 +77,6 @@ import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -91,6 +89,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.util.AxiomAppearance;
@@ -167,7 +166,45 @@ public abstract class RDFRendererBase {
         punned = ontology.getPunnedIRIs(EXCLUDED);
     }
 
-    /** Hooks for subclasses */
+    /**
+     * Determines if a declaration axiom (type triple) needs to be added to the specified ontology
+     * for the given entity.
+     *
+     * @param entity The entity
+     * @param ontology The ontology.
+     * @return {@code false} if the entity is built in. {@code false} if the ontology doesn't
+     *         contain the entity in its signature. {@code false} if the entity is already declared
+     *         in the imports closure of the ontology. {@code false} if the transitive imports does
+     *         not contain the ontology but the entity is contained in the signature of one of the
+     *         imported ontologies, {@code true} if none of the previous conditions are met.
+     */
+    public static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
+        // We don't need to declare built in entities
+        if (entity.isBuiltIn()) {
+            return false;
+        }
+        // If the ontology doesn't contain the entity in its signature then it
+        // shouldn't declare it
+        if (!ontology.containsEntityInSignature(entity)) {
+            return false;
+        }
+        if (ontology.isDeclared(entity, Imports.INCLUDED)) {
+            return false;
+        }
+        Set<OWLOntology> transitiveImports = asUnorderedSet(ontology.imports());
+        if (!transitiveImports.contains(ontology)) {
+            // See if the entity should be declared in an imported ontology
+            for (OWLOntology importedOntology : transitiveImports) {
+                if (importedOntology.containsEntityInSignature(entity)) {
+                    // Leave it for that ontology to declare the entity
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // Hooks for subclasses
     /**
      * Called before the ontology document is rendered.
      */
@@ -249,8 +286,8 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() {
-        renderInOntologySignatureEntities(OWLDocumentFormat.determineIllegalPunnings(
-            shouldInsertDeclarations(), ontology.signature(), ontology.getPunnedIRIs(INCLUDED)));
+        renderInOntologySignatureEntities(
+            ontology.determineIllegalPunnings(shouldInsertDeclarations()));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
@@ -477,7 +514,7 @@ public abstract class RDFRendererBase {
         add(axioms, ontology.declarationAxioms(entity));
         entity.accept(new GraphVisitor(ontology, axioms, this::createGraph));
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
-            && OWLDocumentFormat.isMissingType(entity, ontology)) {
+            && isMissingType(entity, ontology)) {
             axioms.add(df.getOWLDeclarationAxiom(entity));
         }
         // Don't write out duplicates for punned annotations!

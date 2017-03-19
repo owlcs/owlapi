@@ -12,22 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
-
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.model.parameters.Imports;
-
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of an ontology format
@@ -37,89 +26,6 @@ import com.google.common.collect.Multimap;
  * @since 2.0.0
  */
 public interface OWLDocumentFormat extends Serializable {
-
-    /**
-     * Determines if a declaration axiom (type triple) needs to be added to the specified ontology
-     * for the given entity.
-     *
-     * @param entity The entity
-     * @param ontology The ontology.
-     * @return {@code false} if the entity is built in. {@code false} if the ontology doesn't
-     *         contain the entity in its signature. {@code false} if the entity is already declared
-     *         in the imports closure of the ontology. {@code false} if the transitive imports does
-     *         not contain the ontology but the entity is contained in the signature of one of the
-     *         imported ontologies, {@code true} if none of the previous conditions are met.
-     */
-    static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
-        // We don't need to declare built in entities
-        if (entity.isBuiltIn()) {
-            return false;
-        }
-        // If the ontology doesn't contain the entity in its signature then it
-        // shouldn't declare it
-        if (!ontology.containsEntityInSignature(entity)) {
-            return false;
-        }
-        if (ontology.isDeclared(entity, Imports.INCLUDED)) {
-            return false;
-        }
-        Set<OWLOntology> transitiveImports = asUnorderedSet(ontology.imports());
-        if (!transitiveImports.contains(ontology)) {
-            // See if the entity should be declared in an imported ontology
-            for (OWLOntology importedOntology : transitiveImports) {
-                if (importedOntology.containsEntityInSignature(entity)) {
-                    // Leave it for that ontology to declare the entity
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @param signature signature for the ontology
-     * @param punnedEntities the set of entities that are known already to be punned
-     * @param add true if missing declarations should be added. If false, no declarations will be
-     *        added.
-     * @return collection of IRIS used in illegal punnings
-     */
-    static Collection<IRI> determineIllegalPunnings(boolean add, Stream<OWLEntity> signature,
-        Collection<IRI> punnedEntities) {
-        if (!add) {
-            return Collections.emptySet();
-        }
-        // determine what entities are illegally punned
-        Multimap<IRI, EntityType<?>> punnings = LinkedListMultimap.create();
-        // disregard individuals as they do not give raise to illegal
-        // punnings; only keep track of punned entities, ignore the rest
-        signature.filter(e -> !e.isOWLNamedIndividual() && punnedEntities.contains(e.getIRI()))
-            .forEach(e -> punnings.put(e.getIRI(), e.getEntityType()));
-        return computeIllegals(punnings);
-    }
-
-    /**
-     * @param punnings input punnings
-     * @return illegal punnings
-     */
-    static Collection<IRI> computeIllegals(Multimap<IRI, EntityType<?>> punnings) {
-        Collection<IRI> illegals = new HashSet<>();
-        for (IRI i : punnings.keySet()) {
-            Collection<EntityType<?>> puns = punnings.get(i);
-            if (puns.contains(EntityType.OBJECT_PROPERTY)
-                && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                && puns.contains(EntityType.OBJECT_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATATYPE) && puns.contains(EntityType.CLASS)) {
-                illegals.add(i);
-            }
-        }
-        return illegals;
-    }
 
     /**
      * @param key key for the new entry
