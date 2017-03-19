@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ADD_MISSING_TYPES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
@@ -274,7 +275,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param b True if ids for blank nodes should always be written (axioms and anonymous
-     * individuals only).
+     *        individuals only).
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
@@ -386,6 +387,29 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * Determines if untyped entities should automatically be typed (declared) during rendering.
+     * (This is a hint to an RDF renderer - the reference implementation will respect this).
+     *
+     * @return {@code true} if untyped entities should automatically be typed during rendering,
+     *         otherwise {@code false}.
+     */
+    public boolean shouldAddMissingTypes() {
+        return ADD_MISSING_TYPES.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param addMissing true if untyped entities should automatically be typed (declared) during
+     *        rendering. (This is a hint to an RDF renderer - the reference implementation will
+     *        respect this).
+     *
+     * @return new config object
+     */
+    public OntologyConfigurator withAddMissingTypes(boolean addMissing) {
+        overrides.put(ADD_MISSING_TYPES, Boolean.valueOf(addMissing));
+        return this;
+    }
+
+    /**
      * @return a new OWLOntologyWriterConfiguration from the builder current settings
      */
     public OWLOntologyWriterConfiguration buildWriterConfiguration() {
@@ -397,7 +421,8 @@ public class OntologyConfigurator implements Serializable {
             .withRemapAllAnonymousIndividualsIds(shouldRemapIds())
             .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds())
             .withUseNamespaceEntities(shouldUseNamespaceEntities())
-            .withBannersEnabled(shouldUseBanners());
+            .withBannersEnabled(shouldUseBanners())
+            .withAddMissingTypes(shouldAddMissingTypes());
         //@formatter:on
     }
 }

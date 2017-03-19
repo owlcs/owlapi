@@ -72,7 +72,6 @@ public class RioRenderer extends RDFRendererBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
-    private final Set<RDFResource> pending = new LinkedHashSet<>();
     private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
 
@@ -84,7 +83,7 @@ public class RioRenderer extends RDFRendererBase {
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
         final OWLDocumentFormat format, final Resource... contexts) {
-        super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+        super(ontology, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
         this.writer = writer;

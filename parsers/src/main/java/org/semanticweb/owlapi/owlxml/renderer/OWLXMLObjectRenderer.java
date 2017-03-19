@@ -232,12 +232,11 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         });
         // any undeclared entities?
         if (!declared.isEmpty()) {
-            OWLDocumentFormat format = ontology.getNonnullFormat();
-            boolean addMissing = format.isAddMissingTypes();
+            boolean addMissing = ontology.getOWLOntologyManager().getOntologyWriterConfiguration()
+                .shouldAddMissingTypes();
             if (addMissing) {
                 Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(
-                    addMissing, ontology.signature(),
-                    ontology.getPunnedIRIs(Imports.INCLUDED));
+                    addMissing, ontology.signature(), ontology.getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
                         && !ontology.isDeclared(e, Imports.INCLUDED)) {
@@ -247,8 +246,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 }
             }
         }
-        Stream<AxiomType<? extends OWLAxiom>> skipDeclarations = AxiomType.AXIOM_TYPES.stream()
-            .filter(t -> !t.equals(AxiomType.DECLARATION));
+        Stream<AxiomType<? extends OWLAxiom>> skipDeclarations =
+            AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION));
         Stream<? extends OWLAxiom> axioms = skipDeclarations.flatMap(t -> ontology.axioms(t));
         render(CollectionFactory.sortOptionally(axioms).stream());
     }

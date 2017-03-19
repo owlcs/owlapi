@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -120,19 +121,19 @@ public abstract class RDFRendererBase {
      * Rules banner.
      */
     private static final String RULES_BANNER_TEXT = "Rules";
+    protected static final Set<IRI> prettyPrintedTypes =
+        asUnorderedSet(Stream
+            .of(OWL_CLASS, OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY,
+                OWL_RESTRICTION, OWL_THING, OWL_NOTHING, OWL_ONTOLOGY, OWL_ANNOTATION_PROPERTY,
+                OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION)
+            .map(HasIRI::getIRI));
     protected final OWLOntology ontology;
     protected final OWLDataFactory df;
-    protected final Set<IRI> prettyPrintedTypes = asUnorderedSet(Stream.of(OWL_CLASS,
-        OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY,
-        OWL_RESTRICTION, OWL_THING, OWL_NOTHING, OWL_ONTOLOGY, OWL_ANNOTATION_PROPERTY,
-        OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION)
-        .map(a -> a.getIRI()));
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
     protected final OWLOntologyWriterConfiguration config;
     protected final Set<RDFResource> pending = new HashSet<>();
     @Nullable
-    private final OWLDocumentFormat format;
     private final Set<IRI> punned;
     @Nullable
     protected RDFGraph graph;
@@ -145,17 +146,14 @@ public abstract class RDFRendererBase {
      * @param ontology ontology
      */
     public RDFRendererBase(OWLOntology ontology) {
-        this(ontology, ontology.getFormat(),
-            ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+        this(ontology, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
     }
 
-    protected RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format,
-        OWLOntologyWriterConfiguration config) {
+    protected RDFRendererBase(OWLOntology ontology, OWLOntologyWriterConfiguration config) {
         this.ontology = ontology;
         this.config = config;
         OWLOntologyManager m = this.ontology.getOWLOntologyManager();
         df = m.getOWLDataFactory();
-        this.format = format;
         if (m.getOntologyWriterConfiguration().shouldSaveIdsForAllAnonymousIndividuals()) {
             occurrences = x -> true;
             axiomOccurrences = x -> true;
@@ -251,9 +249,8 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() {
-        renderInOntologySignatureEntities(
-            OWLDocumentFormat.determineIllegalPunnings(shouldInsertDeclarations(),
-                ontology.signature(), ontology.getPunnedIRIs(INCLUDED)));
+        renderInOntologySignatureEntities(OWLDocumentFormat.determineIllegalPunnings(
+            shouldInsertDeclarations(), ontology.signature(), ontology.getPunnedIRIs(INCLUDED)));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
@@ -277,7 +274,7 @@ public abstract class RDFRendererBase {
      *
      * @param entities The entities. Not null.
      * @param bannerText The banner text that will prefix the rendering of the entities if anything
-     * is rendered. Not null. May be empty, in which case no banner will be written.
+     *        is rendered. Not null. May be empty, in which case no banner will be written.
      * @param illegalPuns illegal puns
      */
     private void renderEntities(Stream<? extends OWLEntity> entities, String bannerText,
@@ -413,20 +410,20 @@ public abstract class RDFRendererBase {
      * and HasKey axioms where the class expression is anonymous.
      *
      * @return A set of axioms that are general axioms (and can't be written out in a frame-based
-     * style).
+     *         style).
      */
     private List<OWLAxiom> getGeneralAxioms() {
         List<OWLAxiom> generalAxioms = new ArrayList<>();
         add(generalAxioms, ontology.generalClassAxioms());
         add(generalAxioms, ontology.axioms(DIFFERENT_INDIVIDUALS));
-        add(generalAxioms, ontology.axioms(DISJOINT_CLASSES)
-            .filter(ax -> ax.classExpressions().count() > 2));
-        add(generalAxioms, ontology.axioms(DISJOINT_OBJECT_PROPERTIES)
-            .filter(ax -> ax.properties().count() > 2));
-        add(generalAxioms, ontology.axioms(DISJOINT_DATA_PROPERTIES)
-            .filter(ax -> ax.properties().count() > 2));
-        add(generalAxioms, ontology.axioms(HAS_KEY)
-            .filter(ax -> ax.getClassExpression().isAnonymous()));
+        add(generalAxioms,
+            ontology.axioms(DISJOINT_CLASSES).filter(ax -> ax.classExpressions().count() > 2));
+        add(generalAxioms,
+            ontology.axioms(DISJOINT_OBJECT_PROPERTIES).filter(ax -> ax.properties().count() > 2));
+        add(generalAxioms,
+            ontology.axioms(DISJOINT_DATA_PROPERTIES).filter(ax -> ax.properties().count() > 2));
+        add(generalAxioms,
+            ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().isAnonymous()));
         return sortOptionally(generalAxioms);
     }
 
@@ -460,8 +457,8 @@ public abstract class RDFRendererBase {
 
     private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode,
         RDFTranslator translator) {
-        ontology.importsDeclarations().forEach(decl -> translator.addTriple(ontologyHeaderNode,
-            OWL_IMPORTS.getIRI(), decl.getIRI()));
+        ontology.importsDeclarations().forEach(
+            decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(), decl.getIRI()));
     }
 
     private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode,
@@ -492,7 +489,7 @@ public abstract class RDFRendererBase {
     }
 
     protected boolean shouldInsertDeclarations() {
-        return format == null || verifyNotNull(format).isAddMissingTypes();
+        return config.shouldAddMissingTypes();
     }
 
     protected void createGraph(Stream<? extends OWLObject> objects) {
@@ -577,8 +574,9 @@ public abstract class RDFRendererBase {
 
     protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
         RDFTriple tripleToRender = triple;
-        RDFResourceBlankNode remappedNode = verifyNotNull(triplesWithRemappedNodes,
-            "triplesWithRemappedNodes not initialised yet").get(tripleToRender);
+        RDFResourceBlankNode remappedNode =
+            verifyNotNull(triplesWithRemappedNodes, "triplesWithRemappedNodes not initialised yet")
+                .get(tripleToRender);
         if (remappedNode != null) {
             tripleToRender = new RDFTriple(tripleToRender.getSubject(),
                 tripleToRender.getPredicate(), remappedNode);
@@ -587,8 +585,8 @@ public abstract class RDFRendererBase {
             // the node will not match the triple subject if the node itself
             // is a remapped blank node
             // in which case the triple subject needs remapping as well
-            tripleToRender = new RDFTriple(node, tripleToRender.getPredicate(),
-                tripleToRender.getObject());
+            tripleToRender =
+                new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
         }
         return tripleToRender;
     }
@@ -638,8 +636,8 @@ public abstract class RDFRendererBase {
             // As they will have subject and object inverted, we need to
             // collect them here, otherwise the triple will not be included
             // because the subject will not match
-            add(axioms, ontology.referencingAxioms(individual)
-                .filter(ax -> inverse(ax, individual)));
+            add(axioms,
+                ontology.referencingAxioms(individual).filter(ax -> inverse(ax, individual)));
         }
 
         @Override

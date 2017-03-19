@@ -22,22 +22,37 @@ import java.io.Serializable;
  */
 public class OWLOntologyWriterConfiguration implements Serializable {
 
-    private boolean saveIds = false;
-    private boolean remapIds = true;
-    private boolean useNamespaceEntities = false;
-    private boolean indenting = true;
-    private boolean labelsAsBanner = false;
+    private boolean addMissingTypes = true;
     private boolean bannersEnabled = true;
+    private boolean indenting = true;
     private int indentSize = 4;
+    private boolean labelsAsBanner = false;
+    private boolean remapIds = true;
+    private boolean saveIds = false;
+    private boolean useNamespaceEntities = false;
 
     private OWLOntologyWriterConfiguration copy() {
         OWLOntologyWriterConfiguration toReturn = new OWLOntologyWriterConfiguration();
+        toReturn.addMissingTypes = addMissingTypes;
+        toReturn.bannersEnabled = bannersEnabled;
         toReturn.indenting = indenting;
+        toReturn.indentSize = indentSize;
         toReturn.labelsAsBanner = labelsAsBanner;
-        toReturn.useNamespaceEntities = useNamespaceEntities;
         toReturn.remapIds = remapIds;
         toReturn.saveIds = saveIds;
+        toReturn.useNamespaceEntities = useNamespaceEntities;
         return toReturn;
+    }
+
+    /**
+     * Determines if untyped entities should automatically be typed (declared) during rendering.
+     * (This is a hint to an RDF renderer - the reference implementation will respect this).
+     *
+     * @return {@code true} if untyped entities should automatically be typed during rendering,
+     * otherwise {@code false}.
+     */
+    public boolean shouldAddMissingTypes() {
+        return addMissingTypes;
     }
 
     /**
@@ -177,6 +192,19 @@ public class OWLOntologyWriterConfiguration implements Serializable {
         }
         OWLOntologyWriterConfiguration copy = copy();
         copy.labelsAsBanner = label;
+        return copy;
+    }
+
+    /**
+     * @param addTypes true if missing type declarations should be added
+     * @return new config object
+     */
+    public OWLOntologyWriterConfiguration withAddMissingTypes(boolean addTypes) {
+        if (addMissingTypes == addTypes) {
+            return this;
+        }
+        OWLOntologyWriterConfiguration copy = copy();
+        copy.addMissingTypes = addTypes;
         return copy;
     }
 }

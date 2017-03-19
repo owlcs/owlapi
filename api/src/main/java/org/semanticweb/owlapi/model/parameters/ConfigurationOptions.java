@@ -87,7 +87,22 @@ public enum ConfigurationOptions {
     BANNED_PARSERS                      (""),
     /** Entity expansion limit for 
      * XML parsing. */
-    ENTITY_EXPANSION_LIMIT              ("100000000");
+    ENTITY_EXPANSION_LIMIT              ("100000000"),
+    /**
+     * Determines if untyped entities 
+	 * should automatically be typed 
+	 * (declared) during rendering.
+     * (This is a hint to an RDF 
+	 * renderer - the reference 
+	 * implementation will respect 
+	 * this).
+     *
+     * @return {@code true} if untyped 
+ 	 * entities should automatically be 
+	 * typed during rendering, otherwise
+	 * {@code false}.
+     */
+    ADD_MISSING_TYPES                   (Boolean.TRUE);
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
@@ -121,7 +136,7 @@ public enum ConfigurationOptions {
 
     /**
      * @param parameterName parameter name - by default the full name of this enumeration plus the
-     * enum member name
+     *        enum member name
      * @return , atching ConfigurationOptions member, or null if none found
      */
     @Nullable
@@ -157,9 +172,9 @@ public enum ConfigurationOptions {
      * @param type type for this value
      * @param overrides local overrides
      * @return value for this configuration option. Values are evaluated as follows: first, check
-     * overrides; if no overrides are present, check if a system property with the expected name is
-     * set; if not, check the config file; if no value is set in the config file, use the default
-     * defined in this enumeration.
+     *         overrides; if no overrides are present, check if a system property with the expected
+     *         name is set; if not, check the config file; if no value is set in the config file,
+     *         use the default defined in this enumeration.
      */
     public <T> T getValue(Class<T> type, Map<ConfigurationOptions, Object> overrides) {
         Object override = overrides.get(this);

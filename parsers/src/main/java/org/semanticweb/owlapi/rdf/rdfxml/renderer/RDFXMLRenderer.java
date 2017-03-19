@@ -59,7 +59,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
     private final RDFXMLNamespaceManager qnameManager;
-    private final OWLDocumentFormat format;
     private final ShortFormProvider labelMaker;
 
     /**
@@ -80,10 +79,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format,
         Charset encoding) {
         super(checkNotNull(ontology, "ontology cannot be null"),
-            checkNotNull(format, "format cannot be null"),
             ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         checkNotNull(w, "w cannot be null");
-        this.format = checkNotNull(format, "format cannot be null");
+        checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
@@ -116,7 +114,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     protected void endDocument() {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
-        if (!format.isAddMissingTypes()) {
+        if (!config.shouldAddMissingTypes()) {
             // missing type declarations could have been omitted, adding a
             // comment to document it
             writer.writeComment("Warning: type declarations were not added automatically.");

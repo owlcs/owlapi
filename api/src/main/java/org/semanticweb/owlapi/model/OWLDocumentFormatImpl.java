@@ -33,17 +33,6 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
     @Nullable
     private OWLOntologyLoaderMetaData loaderMetaData = null;
-    private boolean addMissingTypes = true;
-
-    @Override
-    public boolean isAddMissingTypes() {
-        return addMissingTypes;
-    }
-
-    @Override
-    public void setAddMissingTypes(boolean addMissingTypes) {
-        this.addMissingTypes = addMissingTypes;
-    }
 
     @Override
     public void setParameter(Serializable key, Serializable value) {

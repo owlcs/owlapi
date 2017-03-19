@@ -67,7 +67,6 @@ public class TurtleRenderer extends RDFRendererBase {
     private final Deque<RDFResourceBlankNode> nodesToRenderSeparately = new LinkedList<>();
     private final Set<RDFResourceBlankNode> renderedNodes = new HashSet<>();
     private final String base;
-    private final OWLDocumentFormat format;
     int bufferLength = 0;
     int lastNewLineIndex = 0;
     int level = 0;
@@ -78,8 +77,8 @@ public class TurtleRenderer extends RDFRendererBase {
      * @param format format
      */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
-        super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
-        this.format = checkNotNull(format, "format cannot be null");
+        super(ontology, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+        checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
@@ -276,7 +275,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 write("(");
                 writeSpace();
                 pushTab();
-                for (Iterator<RDFNode> it = list.iterator(); it.hasNext(); ) {
+                for (Iterator<RDFNode> it = list.iterator(); it.hasNext();) {
                     write(verifyNotNull(it.next()));
                     if (it.hasNext()) {
                         writeNewLine();
@@ -309,7 +308,7 @@ public class TurtleRenderer extends RDFRendererBase {
     @Override
     protected void endDocument() {
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
-        if (!format.isAddMissingTypes()) {
+        if (!config.shouldAddMissingTypes()) {
             // missing type declarations could have been omitted, adding a
             // comment to document it
             writeComment("Warning: type declarations were not added automatically.");

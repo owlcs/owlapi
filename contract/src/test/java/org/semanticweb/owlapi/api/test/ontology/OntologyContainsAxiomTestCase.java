@@ -78,7 +78,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
         assertTrue(ont.containsAxiom(axiom.getAxiomWithoutAnnotations(), EXCLUDED,
-                        IGNORE_AXIOM_ANNOTATIONS));
+            IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Test
@@ -88,13 +88,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     }
 
     private static RDFXMLDocumentFormat createRDFXMLFormat() {
-        RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
-        // This test case relies on certain declarations being in certain
-        // ontologies. The default
-        // behaviour is to add missing declarations. Therefore, this needs to be
-        // turned off.
-        format.setAddMissingTypes(false);
-        return format;
+        return new RDFXMLDocumentFormat();
     }
 
     @Test
@@ -114,13 +108,16 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     }
 
     private static TurtleDocumentFormat createTurtleOntologyFormat() {
-        TurtleDocumentFormat format = new TurtleDocumentFormat();
-        format.setAddMissingTypes(false);
-        return format;
+        return new TurtleDocumentFormat();
     }
 
     private void runTestOntologyContainsAxioms1(OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology();
+        // This test case relies on certain declarations being in certain
+        // ontologies. The default
+        // behaviour is to add missing declarations. Therefore, this needs to be
+        // turned off.
+        ont1.getOWLOntologyManager().getOntologyConfigurator().withAddMissingTypes(false);
         @Nonnull
         IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
         OWLOntology ont2 = getOWLOntology();
@@ -218,6 +215,11 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     private void runTestOntologyContainsAxioms2(OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology();
+        // This test case relies on certain declarations being in certain
+        // ontologies. The default
+        // behaviour is to add missing declarations. Therefore, this needs to be
+        // turned off.
+        ont1.getOWLOntologyManager().getOntologyConfigurator().withAddMissingTypes(false);
         IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
         OWLOntology ont2 = getOWLOntology();
         IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());

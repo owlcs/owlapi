@@ -35,12 +35,12 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
     @Test
     public void shouldFindOneAxiom() throws Exception {
         OWLAnnotationProperty p =
-                        AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#", "p"));
+            AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#", "p"));
         OWLOntology ontology = createOntology(p);
         assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
-        format.setAddMissingTypes(false);
+        ontology.getOWLOntologyManager().getOntologyConfigurator().withAddMissingTypes(false);
         ontology = loadOntologyStrict(saveOntology(ontology, format), format);
         assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(0, ontology.getAxiomCount());
