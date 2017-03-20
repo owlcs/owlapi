@@ -31,8 +31,8 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
     private static void addLabelAndId(OWLNamedObject obj, String label, String id, OWLOntology o) {
         OWLDataFactory f = o.getOWLOntologyManager().getOWLDataFactory();
         addAnnotation(obj, f.getRDFSLabel(), f.getOWLLiteral(label), o);
-        OWLAnnotationProperty idProp = f.getOWLAnnotationProperty(
-            OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_ID.getTag()));
+        OWLAnnotationProperty idProp =
+            f.getOWLAnnotationProperty(OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_ID.getTag()));
         addAnnotation(obj, idProp, f.getOWLLiteral(id), o);
     }
 
@@ -92,21 +92,21 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
     public void testOwl2OboAltIdClass() throws Exception {
         OWLOntology simple = getOWLOntology();
         // add class A
-        OWLClass classA = df
-            .getOWLClass(IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
+        OWLClass classA =
+            df.getOWLClass(IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
         simple.add(df.getOWLDeclarationAxiom(classA));
         // add a label and OBO style ID
         addLabelAndId(classA, "test1", "TEST:0001", simple);
         // add deprecated class B as an alternate ID for A
-        OWLClass classB = df
-            .getOWLClass(IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0002"));
+        OWLClass classB =
+            df.getOWLClass(IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0002"));
         simple.add(df.getOWLDeclarationAxiom(classB));
         setAltId(classB, simple);
         // add comment to alt_id class, which is not expressible in OBO
         addAnnotation(classB, df.getRDFSComment(), df.getOWLLiteral("Comment"), simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(simple.getOWLOntologyManager());
-        OBODoc oboDoc = owl2obo.convert(simple);
+        OBODoc oboDoc = owl2obo.convert(simple, storerParameters);
         // check result: expect only one term frame for class TEST:0001 with
         // alt_id Test:0002
         Collection<Frame> termFrames = oboDoc.getTermFrames();
@@ -138,21 +138,21 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
     public void testOwl2OboProperty() throws Exception {
         OWLOntology simple = getOWLOntology();
         // add prop1
-        OWLObjectProperty p1 = df.getOWLObjectProperty(
-            IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
+        OWLObjectProperty p1 =
+            df.getOWLObjectProperty(IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0001"));
         simple.add(df.getOWLDeclarationAxiom(p1));
         // add label and OBO style id for
         addLabelAndId(p1, "prop1", "TEST:0001", simple);
         // add deprecated prop 2 as an alternate ID for prop 1
-        OWLObjectProperty p2 = df.getOWLObjectProperty(
-            IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0002"));
+        OWLObjectProperty p2 =
+            df.getOWLObjectProperty(IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "TEST_0002"));
         simple.add(df.getOWLDeclarationAxiom(p2));
         setAltId(p2, simple);
         // add comment to alt_id class, which is not expressible in OBO
         addAnnotation(p2, df.getRDFSComment(), df.getOWLLiteral("Comment"), simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(simple.getOWLOntologyManager());
-        OBODoc oboDoc = owl2obo.convert(simple);
+        OBODoc oboDoc = owl2obo.convert(simple, storerParameters);
         // check result: expect only one typdef frame for prop TEST:0001 with
         // alt_id Test:0002
         Collection<Frame> termFrames = oboDoc.getTypedefFrames();

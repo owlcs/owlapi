@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
@@ -27,8 +28,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
-        throws OWLRendererIOException {
+    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLRendererIOException {
         try {
             OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(writer);
             ontology.accept(ren);

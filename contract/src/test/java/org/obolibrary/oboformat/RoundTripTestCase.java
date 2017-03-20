@@ -54,16 +54,15 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 public class RoundTripTestCase extends RoundTripTestBasics {
 
     private static void checkAsAltId(IRI iri, OWLOntology ont, String replacedBy) {
+        assertTrue(
+            ont.annotationAssertionAxioms(iri).anyMatch(ax -> ax.getProperty().isDeprecated()));
         assertTrue(ont.annotationAssertionAxioms(iri)
-            .anyMatch(ax -> ax.getProperty().isDeprecated()));
-        assertTrue(ont.annotationAssertionAxioms(iri)
-            .filter(ax -> ax.getProperty().getIRI()
-                .equals(Obo2OWLConstants.IRI_IAO_0000231))
+            .filter(ax -> ax.getProperty().getIRI().equals(Obo2OWLConstants.IRI_IAO_0000231))
             .map(ax -> ax.getValue().asIRI()).filter(Optional::isPresent)
             .anyMatch(p -> Obo2OWLConstants.IRI_IAO_0000227.equals(p.get())));
         String altId = ont.annotationAssertionAxioms(iri)
-            .filter(ax -> ax.getProperty().getIRI()
-                .equals(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()))
+            .filter(
+                ax -> ax.getProperty().getIRI().equals(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()))
             .map(ax -> ax.getValue().asIRI()).filter(Optional::isPresent)
             .map(p -> OWLAPIOwl2Obo.getIdentifier(p.get())).findAny().orElse(null);
         assertEquals(replacedBy, altId);
@@ -120,7 +119,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         assertTrue(foundRel2);
         // convert back to OBO
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
-        OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
+        OBODoc convertedOboDoc = owl2Obo.convert(owlOntology, storerParameters);
         Frame convertedFrame = convertedOboDoc.getTermFrame("PR:000027136");
         assert convertedFrame != null;
         Collection<Clause> clauses = convertedFrame.getClauses(OboFormatTag.TAG_RELATIONSHIP);
@@ -150,8 +149,8 @@ public class RoundTripTestCase extends RoundTripTestBasics {
 
     @Test
     public void testDefinitionsMultipleDefXref() {
-        OWLAnnotationProperty hasDbXref = df.getOWLAnnotationProperty(
-            "http://www.geneontology.org/formats/oboInOwl#", "hasDbXref");
+        OWLAnnotationProperty hasDbXref = df
+            .getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#", "hasDbXref");
         OWLOntology owlOnt = convertOBOFile("multiple_def_xref_test.obo");
         AtomicInteger n = new AtomicInteger(0);
         owlOnt.axioms().forEach(ax -> ax.annotations(hasDbXref).forEach(a -> {

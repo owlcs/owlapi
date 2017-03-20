@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
@@ -41,7 +42,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      * @throws OWLRendererException renderer error
      */
     public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding) throws OWLRendererException {
+        Charset encoding, OWLStorerParameters storerParameters) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
         checkNotNull(format, "format cannot be null");
@@ -80,10 +81,10 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
-        throws OWLRendererException {
+    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
-        render(ontology, writer, ontology.getNonnullFormat(), encoding);
+        render(ontology, writer, ontology.getNonnullFormat(), encoding, storerParameters);
     }
 }

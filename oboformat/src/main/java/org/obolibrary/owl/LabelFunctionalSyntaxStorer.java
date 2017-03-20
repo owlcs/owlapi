@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -39,7 +40,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding) throws OWLOntologyStorageException {
+        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer =
                 new FunctionalSyntaxObjectRenderer(ontology, writer);

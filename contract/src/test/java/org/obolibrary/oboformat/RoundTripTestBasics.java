@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 public class RoundTripTestBasics extends OboFormatTestBasics {
 
     private static boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2,
-        boolean isExpectRoundtrip,
-        @Nullable Collection<OWLAxiom> untranslatableAxioms) {
+        boolean isExpectRoundtrip, @Nullable Collection<OWLAxiom> untranslatableAxioms) {
         if (isExpectRoundtrip) {
             int untranslatedSize = 0;
             if (untranslatableAxioms != null) {
@@ -62,7 +61,7 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
     public boolean roundTripOWLOOntology(OWLOntology oo, boolean isExpectRoundtrip)
         throws IOException {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m1);
-        OBODoc obodoc = bridge.convert(oo);
+        OBODoc obodoc = bridge.convert(oo, storerParameters);
         writeOBO(obodoc);
         obodoc.check();
         OWLOntology oo2 = convert(obodoc);

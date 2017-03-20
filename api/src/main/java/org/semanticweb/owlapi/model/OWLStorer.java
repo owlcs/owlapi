@@ -41,10 +41,11 @@ public interface OWLStorer extends Serializable {
      * @param writer The writer where the ontology will be saved to
      * @param format The format that the ontology should be stored in
      * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param storerParameters storer parameters
      * @throws OWLOntologyStorageException if there was a problem storing the ontology
      */
     void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding) throws OWLOntologyStorageException;
+        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException;
 
     /**
      * Stores an ontology to the specified stream.
@@ -53,8 +54,9 @@ public interface OWLStorer extends Serializable {
      * @param outputStream Output stream where the ontology should be stored
      * @param format The format in which to store the ontology
      * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param storerParameters storer parameters
      * @throws OWLOntologyStorageException if there was a problem storing the ontology.
      */
     void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format,
-        Charset encoding) throws OWLOntologyStorageException;
+        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException;
 }

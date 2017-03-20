@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
@@ -40,7 +41,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format,
-        Charset encoding) {
+        Charset encoding, OWLStorerParameters storerParameters) {
         checkNotNull(o, "ontology cannot be null");
         checkNotNull(printWriter, "writer cannot be null");
         Set<OWLAxiom> printed = new HashSet<>();

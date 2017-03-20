@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
@@ -43,7 +44,7 @@ public class OwlStringTools {
      * @see #translate(String, OWLOntologyManager)
      */
     public static String translate(Collection<OWLAxiom> axioms,
-        OWLOntologyManager translationManager) {
+        OWLOntologyManager translationManager, OWLStorerParameters storerParameters) {
         if (axioms.isEmpty()) {
             return "";
         }
@@ -53,7 +54,7 @@ public class OwlStringTools {
             OWLFunctionalSyntaxRenderer r = new OWLFunctionalSyntaxRenderer();
             Writer writer = new StringWriter();
             PrintWriter w = new PrintWriter(writer);
-            r.render(ontology, w, StandardCharsets.UTF_8);
+            r.render(ontology, w, StandardCharsets.UTF_8, storerParameters);
             w.flush();
             return writer.toString();
         } catch (OWLRendererException | OWLOntologyCreationException | OWLRuntimeException e) {

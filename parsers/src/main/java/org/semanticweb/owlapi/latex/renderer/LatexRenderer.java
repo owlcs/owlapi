@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -60,8 +61,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology o, PrintWriter _w, Charset encoding)
-        throws OWLRendererException {
+    public void render(OWLOntology o, PrintWriter _w, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLRendererException {
         try {
             LatexWriter w = new LatexWriter(_w);
             w.write("\\documentclass{article}\n");

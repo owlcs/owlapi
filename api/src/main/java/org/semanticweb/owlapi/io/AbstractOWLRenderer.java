@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -30,12 +31,12 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     protected AbstractOWLRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os, Charset encoding)
-        throws OWLRendererException {
+    public void render(OWLOntology ontology, OutputStream os, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLRendererException {
         try {
             PrintWriter writer =
                 new PrintWriter(new BufferedWriter(new OutputStreamWriter(os, encoding)));
-            render(ontology, writer, encoding);
+            render(ontology, writer, encoding, storerParameters);
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLRendererIOException(e);
@@ -52,6 +53,6 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      * @throws OWLRendererException if exceptions arise
      */
-    public abstract void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
-        throws OWLRendererException;
+    public abstract void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLRendererException;
 }

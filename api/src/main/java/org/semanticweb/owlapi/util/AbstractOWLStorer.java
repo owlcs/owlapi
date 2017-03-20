@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,8 @@ public abstract class AbstractOWLStorer implements OWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, OutputStream outputStream,
-        OWLDocumentFormat format, Charset encoding) throws OWLOntologyStorageException {
+        OWLDocumentFormat format, Charset encoding, OWLStorerParameters storerParameters)
+        throws OWLOntologyStorageException {
         if (!format.isTextual()) {
             throw new OWLOntologyStorageException(
                 "This method must be overridden to support this binary format: " + format.getKey());
@@ -46,7 +48,7 @@ public abstract class AbstractOWLStorer implements OWLStorer {
         try {
             PrintWriter writer =
                 new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding)));
-            storeOntology(ontology, writer, format, encoding);
+            storeOntology(ontology, writer, format, encoding, storerParameters);
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);

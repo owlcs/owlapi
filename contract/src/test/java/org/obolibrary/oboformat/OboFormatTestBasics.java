@@ -37,9 +37,11 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 @SuppressWarnings({"javadoc"})
 public class OboFormatTestBasics extends TestBase {
+    protected OWLStorerParameters storerParameters = new OWLStorerParameters();
 
     protected static String renderOboToString(OBODoc oboDoc) throws IOException {
         OBOFormatWriter writer = new OBOFormatWriter();
@@ -129,7 +131,7 @@ public class OboFormatTestBasics extends TestBase {
     protected OBODoc convert(OWLOntology ontology, boolean strictness) {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(setupManager());
         bridge.setStrictConversion(strictness);
-        return bridge.convert(ontology);
+        return bridge.convert(ontology, storerParameters);
     }
 
     protected String writeOBO(OBODoc obodoc) throws IOException {
@@ -156,15 +158,12 @@ public class OboFormatTestBasics extends TestBase {
         return target;
     }
 
-    protected
-    @Nullable
-    IRI getIriByLabel(OWLOntology ontology, String label) {
-        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology
-            .axioms(AxiomType.ANNOTATION_ASSERTION)
-            .filter(aa -> aa.getProperty().isLabel()
-                && aa.getValue() instanceof OWLLiteral
-                && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
-            .filter(aa -> aa.getSubject().isIRI()).findAny();
+    protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
+        Optional<OWLAnnotationAssertionAxiom> anyMatch =
+            ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
+                .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral
+                    && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
+                .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }

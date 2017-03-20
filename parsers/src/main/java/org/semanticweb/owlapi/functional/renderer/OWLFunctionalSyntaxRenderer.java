@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -28,8 +29,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
-        throws OWLRendererException {
+    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLRendererException {
         try {
             ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));
             writer.flush();

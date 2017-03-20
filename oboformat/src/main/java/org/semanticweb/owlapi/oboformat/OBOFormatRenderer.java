@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * Renderer for obo.
@@ -47,11 +48,11 @@ public class OBOFormatRenderer implements OWLRenderer {
      * @param format format to render
      * @throws OWLOntologyStorageException OWLOntologyStorageException
      */
-    public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format)
-        throws OWLOntologyStorageException {
+    public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format,
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
-            final OBODoc result = translator.convert(ontology);
+            final OBODoc result = translator.convert(ontology, storerParameters);
             boolean hasImports = !asList(ontology.imports()).isEmpty();
             NameProvider nameProvider;
             if (hasImports) {
@@ -83,7 +84,7 @@ public class OBOFormatRenderer implements OWLRenderer {
                 nameProvider = new OBODocNameProvider(result);
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
-            oboFormatWriter.setCheckStructure(ontology.getStorerParameters()
+            oboFormatWriter.setCheckStructure(storerParameters
                 .getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
             oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)),
                 nameProvider);
@@ -93,8 +94,8 @@ public class OBOFormatRenderer implements OWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os, Charset encoding)
-        throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat());
+    public void render(OWLOntology ontology, OutputStream os, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat(), storerParameters);
     }
 }

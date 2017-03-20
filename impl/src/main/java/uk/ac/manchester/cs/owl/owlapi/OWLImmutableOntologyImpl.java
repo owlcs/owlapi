@@ -60,7 +60,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPrimitive;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -82,7 +81,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected OWLOntologyID ontologyID;
     private final OWLEntityReferenceChecker entityReferenceChecker =
         new OWLEntityReferenceChecker();
-    private OWLStorerParameters storerParameters = new OWLStorerParameters();
     private PrefixManager prefixManager = new PrefixManagerImpl();
 
     /**
@@ -93,16 +91,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
-    }
-
-    @Override
-    public OWLStorerParameters getStorerParameters() {
-        return storerParameters;
-    }
-
-    @Override
-    public void setStorerParameters(OWLStorerParameters storerParameters) {
-        this.storerParameters = verifyNotNull(storerParameters, "storerParameters cannot be null");
     }
 
     @Override

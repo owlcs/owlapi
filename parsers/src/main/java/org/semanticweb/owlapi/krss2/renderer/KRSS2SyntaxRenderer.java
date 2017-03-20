@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
@@ -26,8 +27,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding)
-        throws OWLRendererException {
+    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+        OWLStorerParameters storerParameters) throws OWLRendererException {
         try {
             ontology.accept(new KRSS2ObjectRenderer(ontology, writer));
             writer.flush();

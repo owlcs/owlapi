@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,12 +53,18 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     protected Streamer<OutputStream> baseStream;
     protected Streamer<OutputStream> stream;
     protected Streamer<PrintWriter> writer;
+    private final OWLStorerParameters storerParameters = new OWLStorerParameters();
 
     protected OWLOntologyDocumentTargetBase(Streamer<OutputStream> baseStream, @Nullable IRI iri) {
         this.baseStream = baseStream;
         stream = () -> stream(baseStream);
         writer = () -> writer(baseStream);
         this.iri = iri;
+    }
+
+    @Override
+    public OWLStorerParameters getStorerParameters() {
+        return storerParameters;
     }
 
     protected PrintWriter writer(Streamer<OutputStream> in) throws IOException {
@@ -71,7 +78,7 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     protected void storeOnWriter(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         try (PrintWriter w = writer.get()) {
-            storer.storeOntology(ontology, w, format, encoding);
+            storer.storeOntology(ontology, w, format, encoding, storerParameters);
             w.flush();
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
@@ -81,7 +88,7 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     protected void storeOnStream(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         try (OutputStream w = stream.get()) {
-            storer.storeOntology(ontology, w, format, encoding);
+            storer.storeOntology(ontology, w, format, encoding, storerParameters);
             w.flush();
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

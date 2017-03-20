@@ -3,6 +3,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * A wrapper for storer specific parameters.
@@ -35,5 +37,17 @@ public class OWLStorerParameters implements Serializable {
         return (T) val;
     }
 
+    /**
+     * @return all keys in the parameter map
+     */
+    public Set<Serializable> keys() {
+        return parameterMap.keySet();
+    }
 
+    /**
+     * @param c consumer to apply to all entries
+     */
+    public void stream(BiConsumer<Serializable, Serializable> c) {
+        parameterMap.forEach(c);
+    }
 }

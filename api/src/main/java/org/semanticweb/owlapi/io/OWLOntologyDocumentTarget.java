@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * Specifies an interface that provides output management when an ontology is saved.
@@ -33,4 +34,9 @@ public interface OWLOntologyDocumentTarget {
      */
     void store(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
         throws OWLOntologyStorageException;
+
+    /**
+     * @return the parameters to be passed to any ontology storer used with this target.
+     */
+    OWLStorerParameters getStorerParameters();
 }

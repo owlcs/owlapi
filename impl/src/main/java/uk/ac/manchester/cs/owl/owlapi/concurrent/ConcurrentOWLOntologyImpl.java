@@ -102,7 +102,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
@@ -3311,30 +3310,10 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
-    public OWLStorerParameters getStorerParameters() {
-        readLock.lock();
-        try {
-            return delegate.getStorerParameters();
-        } finally {
-            readLock.unlock();
-        }
-    }
-
-    @Override
     public void setPrefixManager(PrefixManager prefixManager) {
         writeLock.lock();
         try {
             delegate.setPrefixManager(prefixManager);
-        } finally {
-            writeLock.unlock();
-        }
-    }
-
-    @Override
-    public void setStorerParameters(OWLStorerParameters storerParameters) {
-        writeLock.lock();
-        try {
-            delegate.setStorerParameters(storerParameters);
         } finally {
             writeLock.unlock();
         }
