@@ -42,8 +42,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nullable;
 
@@ -188,7 +186,7 @@ public class RioStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         // XXX pass storer parameters down to RIO renderers
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
@@ -211,8 +209,7 @@ public class RioStorer extends AbstractOWLStorer {
             }
         }
         try {
-            final RioRenderer ren =
-                new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), contexts);
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
@@ -221,7 +218,7 @@ public class RioStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, OutputStream outputStream,
-        OWLDocumentFormat format, Charset encoding, OWLStorerParameters storerParameters)
+        OWLDocumentFormat format, OWLStorerParameters storerParameters)
         throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
@@ -236,7 +233,7 @@ public class RioStorer extends AbstractOWLStorer {
             final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
             if (format.isTextual()) {
                 Writer writer = new BufferedWriter(
-                    new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+                    new OutputStreamWriter(outputStream, storerParameters.getEncoding()));
                 rioHandler =
                     getRDFHandlerForWriter(rioFormat.getRioFormat(), writer, storerParameters);
             } else {
@@ -244,8 +241,7 @@ public class RioStorer extends AbstractOWLStorer {
             }
         }
         try {
-            final RioRenderer ren =
-                new RioRenderer(ontology, verifyNotNull(rioHandler), format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, verifyNotNull(rioHandler), contexts);
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);

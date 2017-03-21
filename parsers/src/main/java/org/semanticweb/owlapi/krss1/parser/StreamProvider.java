@@ -9,40 +9,40 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-@SuppressWarnings("all")
+ @SuppressWarnings("all")
 public class StreamProvider implements Provider {
 
-    Reader _reader;
+	Reader _reader;
 
-    public StreamProvider(Reader reader) {
-        _reader = reader;
-    }
+	public StreamProvider(Reader reader) {
+		_reader = reader;
+	}
+	
+	public StreamProvider(InputStream stream) throws IOException {
+		_reader = new BufferedReader(new InputStreamReader(stream));
+	}
+	
+	public StreamProvider(InputStream stream, String charsetName) throws IOException {
+		_reader = new BufferedReader(new InputStreamReader(stream, charsetName));
+	}
 
-    public StreamProvider(InputStream stream) throws IOException {
-        _reader = new BufferedReader(new InputStreamReader(stream));
-    }
+	@Override
+	public int read(char[] buffer, int off, int len) throws IOException {
+	   int result = _reader.read(buffer, off, len);
 
-    public StreamProvider(InputStream stream, String charsetName) throws IOException {
-        _reader = new BufferedReader(new InputStreamReader(stream, charsetName));
-    }
+	   if (result == 0) {
+	      if (off < buffer.length && len > 0) {
+	        result = -1;
+	      }
+	   }
+	   
+		return result;
+	}
 
-    @Override
-    public int read(char[] buffer, int off, int len) throws IOException {
-        int result = _reader.read(buffer, off, len);
-
-        if (result == 0) {
-            if (off < buffer.length && len > 0) {
-                result = -1;
-            }
-        }
-
-        return result;
-    }
-
-    @Override
-    public void close() throws IOException {
-        _reader.close();
-    }
+	@Override
+	public void close() throws IOException {
+		_reader.close();
+	}
 
 }
 

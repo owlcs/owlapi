@@ -8,15 +8,35 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
+
 /**
- * A wrapper for storer specific parameters.
+ * A wrapper for parser specific parameters.
  * 
  * @author ignazio
  * @since 6.0.0
  */
-public class OWLStorerParameters implements Serializable {
+public class OWLParserParameters {
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
+    private final OWLOntology ontology;
+    private final OWLOntologyLoaderConfiguration config;
+    private final IRI documentIRI;
     private Charset encoding = StandardCharsets.UTF_8;
+    @Nullable
+    private OWLOntologyLoaderMetaData loaderMetaData = null;
+
+    /**
+     * @param o ontology that will be populated with axioms
+     * @param c loading config
+     * @param iri document iri
+     */
+    public OWLParserParameters(OWLOntology o, OWLOntologyLoaderConfiguration c, IRI iri) {
+        ontology = o;
+        config = c;
+        documentIRI = iri;
+    }
 
     /**
      * @param key key for the new entry
@@ -32,6 +52,7 @@ public class OWLStorerParameters implements Serializable {
      * @param <T> type
      * @return the value
      */
+    @SuppressWarnings("unchecked")
     public <T> T getParameter(Serializable key, T defaultValue) {
         Serializable val = parameterMap.get(key);
         if (val == null) {
@@ -55,6 +76,44 @@ public class OWLStorerParameters implements Serializable {
     }
 
     /**
+     * @return the loaderMetaData
+     */
+    @Nullable
+    public OWLOntologyLoaderMetaData getLoaderMetaData() {
+        return loaderMetaData;
+    }
+
+    /**
+     * @param metadata the loaderMetaData to set
+     * @return this object
+     */
+    public OWLParserParameters withLoaderMetaData(OWLOntologyLoaderMetaData metadata) {
+        loaderMetaData = metadata;
+        return this;
+    }
+
+    /**
+     * @return the ontology
+     */
+    public OWLOntology getOntology() {
+        return ontology;
+    }
+
+    /**
+     * @return the config
+     */
+    public OWLOntologyLoaderConfiguration getConfig() {
+        return config;
+    }
+
+    /**
+     * @return the documentIRI
+     */
+    public IRI getDocumentIRI() {
+        return documentIRI;
+    }
+
+    /**
      * @return the encoding
      */
     public Charset getEncoding() {
@@ -65,7 +124,7 @@ public class OWLStorerParameters implements Serializable {
      * @param enc the encoding to set
      * @return this object
      */
-    public OWLStorerParameters withEncoding(Charset enc) {
+    public OWLParserParameters withEncoding(Charset enc) {
         encoding = enc;
         return this;
     }

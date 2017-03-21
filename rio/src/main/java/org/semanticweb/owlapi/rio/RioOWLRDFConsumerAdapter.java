@@ -46,8 +46,7 @@ import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.slf4j.Logger;
@@ -64,13 +63,11 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     private static final Logger LOGGER = LoggerFactory.getLogger(RioOWLRDFConsumerAdapter.class);
 
     /**
-     * @param ontology ontology to update
+     * @param p parsing parameters
      * @param checker node checker
-     * @param configuration loading configuration
      */
-    public RioOWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
-        OWLOntologyLoaderConfiguration configuration) {
-        super(ontology, checker, configuration, null);
+    public RioOWLRDFConsumerAdapter(OWLParserParameters p, AnonymousNodeChecker checker) {
+        super(p, checker, null);
     }
 
     @Override
@@ -85,7 +82,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
 
     @Override
     public void handleNamespace(@Nullable String prefix, @Nullable String uri) {
-        ontology.getPrefixManager().setPrefix(prefix + ':', verifyNotNull(uri));
+        parseParameters.getOntology().getPrefixManager().setPrefix(prefix + ':',
+            verifyNotNull(uri));
     }
 
     @Override

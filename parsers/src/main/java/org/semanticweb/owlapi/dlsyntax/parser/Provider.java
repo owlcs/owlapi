@@ -17,11 +17,10 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 
 
 import java.io.IOException;
-
 @SuppressWarnings("all")
 public interface Provider {
     int read(char buffer[], int offset, int length) throws IOException;
-
-    void close() throws IOException;
+    
+     void close() throws IOException;    
 }
 /* JavaCC - OriginalChecksum=36dc330a7bb2900aa788d0518c3f2b97 (do not edit this line) */

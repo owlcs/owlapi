@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,9 +38,10 @@ public class RDFXMLStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
-            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format, encoding);
+            RDFXMLRenderer renderer =
+                new RDFXMLRenderer(ontology, writer, format, storerParameters.getEncoding());
             checkUnserialisableEntities(renderer);
             renderer.render();
         } catch (OWLRuntimeException e) {

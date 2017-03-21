@@ -16,11 +16,11 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -34,15 +34,13 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
-        return parse(o, config, new StreamProvider(r));
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
+        return parse(p.getOntology(), p.getConfig(), new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
-        return parse(o, config, new StringProvider(s));
+    public OWLDocumentFormat parse(String s, OWLParserParameters p) {
+        return parse(p.getOntology(), p.getConfig(), new StringProvider(s));
     }
 
     protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config,

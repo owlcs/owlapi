@@ -16,7 +16,6 @@ import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -39,16 +38,16 @@ public abstract class AbstractOWLStorer implements OWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, OutputStream outputStream,
-        OWLDocumentFormat format, Charset encoding, OWLStorerParameters storerParameters)
+        OWLDocumentFormat format, OWLStorerParameters storerParameters)
         throws OWLOntologyStorageException {
         if (!format.isTextual()) {
             throw new OWLOntologyStorageException(
                 "This method must be overridden to support this binary format: " + format.getKey());
         }
         try {
-            PrintWriter writer =
-                new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding)));
-            storeOntology(ontology, writer, format, encoding, storerParameters);
+            PrintWriter writer = new PrintWriter(new BufferedWriter(
+                new OutputStreamWriter(outputStream, storerParameters.getEncoding())));
+            storeOntology(ontology, writer, format, storerParameters);
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);

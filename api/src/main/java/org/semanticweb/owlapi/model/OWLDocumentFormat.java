@@ -13,9 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-import java.util.Optional;
-
-import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of an ontology format
@@ -25,24 +22,6 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
  * @since 2.0.0
  */
 public interface OWLDocumentFormat extends Serializable {
-
-    /**
-     * If this format describes an ontology that was loaded from some ontology document (rather than
-     * created programmatically) there may be some meta data about the loading process. Subclasses
-     * of {@code OWLDocumentFormat} will provide accessors etc. to details pertaining to the meta
-     * data about loading.
-     *
-     * @return An object containing the meta data about loading. .
-     */
-    Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData();
-
-    /**
-     * Sets the meta data for the ontology loader.
-     *
-     * @param loaderMetaData The metadata.
-     * @throws NullPointerException if the {@code loaderMetaData} is {@code null}.
-     */
-    void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData);
 
     /**
      * @return A unique key for this format.

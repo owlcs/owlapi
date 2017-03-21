@@ -10,11 +10,9 @@ import java.io.StringWriter;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * Created by ses on 3/12/15.
@@ -60,8 +58,7 @@ public class XZStreamDocumentSourceTestCase {
         OWLParser mockParser = new OWLParser() {
 
             @Override
-            public OWLDocumentFormat parse(Reader r, OWLOntology o,
-                OWLOntologyLoaderConfiguration config, IRI documentIRI) {
+            public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
                 try {
                     IOUtils.copy(r, w);
                 } catch (IOException e) {

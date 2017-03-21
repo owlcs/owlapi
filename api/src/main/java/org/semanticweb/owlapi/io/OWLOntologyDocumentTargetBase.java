@@ -23,8 +23,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nullable;
 
@@ -49,7 +47,6 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
         LoggerFactory.getLogger(OWLOntologyDocumentTargetBase.class);
     @Nullable
     protected final IRI iri;
-    protected Charset encoding = StandardCharsets.UTF_8;
     protected Streamer<OutputStream> baseStream;
     protected Streamer<OutputStream> stream;
     protected Streamer<PrintWriter> writer;
@@ -68,7 +65,8 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     }
 
     protected PrintWriter writer(Streamer<OutputStream> in) throws IOException {
-        return new PrintWriter(new BufferedWriter(new OutputStreamWriter(in.get(), encoding)));
+        return new PrintWriter(
+            new BufferedWriter(new OutputStreamWriter(in.get(), storerParameters.getEncoding())));
     }
 
     protected OutputStream stream(Streamer<OutputStream> in) throws IOException {
@@ -78,7 +76,7 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     protected void storeOnWriter(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         try (PrintWriter w = writer.get()) {
-            storer.storeOntology(ontology, w, format, encoding, storerParameters);
+            storer.storeOntology(ontology, w, format, storerParameters);
             w.flush();
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
@@ -88,7 +86,7 @@ public class OWLOntologyDocumentTargetBase implements OWLOntologyDocumentTarget 
     protected void storeOnStream(OWLStorer storer, OWLOntology ontology, OWLDocumentFormat format)
         throws OWLOntologyStorageException {
         try (OutputStream w = stream.get()) {
-            storer.storeOntology(ontology, w, format, encoding, storerParameters);
+            storer.storeOntology(ontology, w, format, storerParameters);
             w.flush();
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

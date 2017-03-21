@@ -37,10 +37,8 @@ package org.semanticweb.owlapi.rio;
 
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * An {@link OWLParser} that knows which Sesame {@link RDFFormat} it maps to.
@@ -52,11 +50,9 @@ public interface RioParser extends OWLParser {
 
     /**
      * @param r Rio triple source
-     * @param o Ontology to load axioms in
-     * @param config loading config
-     * @param documentIRI document IRI
+     * @param parameters the combination of ontology, loading config, document IRI and other parser
+     *        parameters
      * @return Parsed document format
      */
-    OWLDocumentFormat parse(RioMemoryTripleSource r, OWLOntology o,
-        OWLOntologyLoaderConfiguration config, IRI documentIRI);
+    OWLDocumentFormat parse(RioMemoryTripleSource r, OWLParserParameters parameters);
 }

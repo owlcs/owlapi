@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.latex.renderer;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.formats.LatexDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -31,9 +30,9 @@ public class LatexStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
-            new LatexRenderer().render(ontology, writer, encoding, storerParameters);
+            new LatexRenderer().render(ontology, writer, storerParameters);
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new LatexRendererIOException(e);

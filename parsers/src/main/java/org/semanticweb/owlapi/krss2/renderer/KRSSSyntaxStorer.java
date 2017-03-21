@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -37,7 +36,7 @@ public class KRSSSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
-        new KRSSSyntaxRenderer().render(ontology, writer, encoding, storerParameters);
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        new KRSSSyntaxRenderer().render(ontology, writer, storerParameters);
     }
 }

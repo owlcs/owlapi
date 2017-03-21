@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.functional.renderer;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -29,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLStorerParameters;
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+    public void render(OWLOntology ontology, PrintWriter writer,
         OWLStorerParameters storerParameters) throws OWLRendererException {
         try {
             ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));

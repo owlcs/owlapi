@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Stream;
@@ -61,8 +60,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology o, PrintWriter _w, Charset encoding,
-        OWLStorerParameters storerParameters) throws OWLRendererException {
+    public void render(OWLOntology o, PrintWriter _w, OWLStorerParameters storerParameters)
+        throws OWLRendererException {
         try {
             LatexWriter w = new LatexWriter(_w);
             w.write("\\documentclass{article}\n");

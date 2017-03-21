@@ -121,7 +121,7 @@ public class RioOWLRDFParser extends AbstractRDFParser {
         try {
             for (OWLOntologyManagerFactory f : ontologyManagerFactories) {
                 OWLOntology ontology = f.get().loadOntologyFromOntologyDocument(source);
-                new RioRenderer(ontology, getRDFHandler(), getRDFFormat().getOWLFormat()).render();
+                new RioRenderer(ontology, getRDFHandler()).render();
                 return;
             }
         } catch (OWLOntologyCreationException e) {

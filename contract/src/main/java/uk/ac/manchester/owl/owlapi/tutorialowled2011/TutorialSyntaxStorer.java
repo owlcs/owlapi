@@ -13,7 +13,6 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -36,8 +35,8 @@ public class TutorialSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
-        renderer.render(ontology, writer, encoding, storerParameters);
+        renderer.render(ontology, writer, storerParameters);
     }
 }

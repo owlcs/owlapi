@@ -697,6 +697,7 @@ public class OWLAPIOwl2Obo {
      * Convert.
      *
      * @param ont the ont
+     * @param storerParameters storer parameters
      * @return the oBO doc
      */
     public OBODoc convert(OWLOntology ont, OWLStorerParameters storerParameters) {
@@ -721,7 +722,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     *
+     * 
+     * @param storerParameters storer parameters
      * @return the oBO doc
      */
     protected OBODoc tr(OWLStorerParameters storerParameters) {

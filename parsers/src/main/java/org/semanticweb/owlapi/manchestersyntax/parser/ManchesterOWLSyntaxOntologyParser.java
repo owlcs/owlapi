@@ -18,11 +18,9 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
@@ -45,8 +43,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
         try (BufferedReader reader = new BufferedReader(r)) {
             StringBuilder sb = new StringBuilder();
             String line;
@@ -72,8 +69,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                             int startCol = line.indexOf(trimmedLine) + 1;
                             String msg = String.format(
                                 "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
-                                trimmedLine, Integer.valueOf(lineCount),
-                                Integer.valueOf(startCol));
+                                trimmedLine, Integer.valueOf(lineCount), Integer.valueOf(startCol));
                             throw new ManchesterOWLSyntaxParserException(msg, lineCount, startCol);
                         }
                     }
@@ -83,10 +79,10 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             String s = sb.toString();
             ManchesterOWLSyntaxParser parser =
                 new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(),
-                    o.getOWLOntologyManager().getOWLDataFactory());
-            parser.setOntologyLoaderConfiguration(config);
+                    p.getOntology().getOWLOntologyManager().getOWLDataFactory());
+            parser.setOntologyLoaderConfiguration(p.getConfig());
             parser.setStringToParse(s);
-            return parser.parseOntology(o);
+            return parser.parseOntology(p.getOntology());
         } catch (IOException e) {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e, 1, 1);
         }

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -35,7 +34,7 @@ public class ManchesterSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         new ManchesterOWLSyntaxFrameRenderer(ontology, writer).writeOntology();
     }
 }

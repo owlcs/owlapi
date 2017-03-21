@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -77,11 +76,10 @@ public class RioRenderer extends RDFRendererBase {
     /**
      * @param ontology ontology
      * @param writer writer
-     * @param format format
      * @param contexts contexts
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
-        final OWLDocumentFormat format, final Resource... contexts) {
+        final Resource... contexts) {
         super(ontology, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;

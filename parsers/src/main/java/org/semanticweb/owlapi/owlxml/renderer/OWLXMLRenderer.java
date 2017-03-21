@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.owlxml.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
@@ -38,16 +37,16 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      * @param ontology ontology
      * @param writer writer
      * @param format format
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param storerParameters storer parameters
      * @throws OWLRendererException renderer error
      */
     public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLRendererException {
+        OWLStorerParameters storerParameters) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
         checkNotNull(format, "format cannot be null");
         try {
-            OWLXMLWriter w = new OWLXMLWriter(writer, ontology, encoding);
+            OWLXMLWriter w = new OWLXMLWriter(writer, ontology, storerParameters.getEncoding());
             w.startDocument(ontology);
             writePrefixes(ontology, w);
             OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
@@ -81,10 +80,10 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+    public void render(OWLOntology ontology, PrintWriter writer,
         OWLStorerParameters storerParameters) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
-        render(ontology, writer, ontology.getNonnullFormat(), encoding, storerParameters);
+        render(ontology, writer, ontology.getNonnullFormat(), storerParameters);
     }
 }

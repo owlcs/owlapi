@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.nio.charset.Charset;
 
 /**
  * An ontology storer stores an ontology in a particular format at a location specified by a
@@ -40,12 +39,11 @@ public interface OWLStorer extends Serializable {
      * @param ontology The ontology to be stored
      * @param writer The writer where the ontology will be saved to
      * @param format The format that the ontology should be stored in
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      * @param storerParameters storer parameters
      * @throws OWLOntologyStorageException if there was a problem storing the ontology
      */
     void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException;
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException;
 
     /**
      * Stores an ontology to the specified stream.
@@ -53,10 +51,9 @@ public interface OWLStorer extends Serializable {
      * @param ontology The ontology to be stored
      * @param outputStream Output stream where the ontology should be stored
      * @param format The format in which to store the ontology
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      * @param storerParameters storer parameters
      * @throws OWLOntologyStorageException if there was a problem storing the ontology.
      */
     void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException;
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException;
 }

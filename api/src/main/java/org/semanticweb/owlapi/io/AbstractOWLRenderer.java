@@ -16,7 +16,6 @@ import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -31,12 +30,12 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     protected AbstractOWLRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os, Charset encoding,
-        OWLStorerParameters storerParameters) throws OWLRendererException {
+    public void render(OWLOntology ontology, OutputStream os, OWLStorerParameters storerParameters)
+        throws OWLRendererException {
         try {
-            PrintWriter writer =
-                new PrintWriter(new BufferedWriter(new OutputStreamWriter(os, encoding)));
-            render(ontology, writer, encoding, storerParameters);
+            PrintWriter writer = new PrintWriter(
+                new BufferedWriter(new OutputStreamWriter(os, storerParameters.getEncoding())));
+            render(ontology, writer, storerParameters);
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLRendererIOException(e);
@@ -50,9 +49,9 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      * @param writer The writer that should be used to write the ontology. Note that this writer
      *        need not be wrapped with a {@code BufferedWriter} because this is taken care of by
      *        this abstract implementation.
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param storerParameters storer parameters
      * @throws OWLRendererException if exceptions arise
      */
-    public abstract void render(OWLOntology ontology, PrintWriter writer, Charset encoding,
+    public abstract void render(OWLOntology ontology, PrintWriter writer,
         OWLStorerParameters storerParameters) throws OWLRendererException;
 }

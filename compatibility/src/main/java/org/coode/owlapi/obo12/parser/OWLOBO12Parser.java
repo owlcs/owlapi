@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * Author: Matthew Horridge<br>
@@ -60,19 +61,17 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 class OWLOBO12Parser extends AbstractOWLParser {
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
-        return parse(o, config, documentIRI, new StreamProvider(r));
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
+        return parse(p.getOntology(), p.getConfig(), p.getDocumentIRI(), new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI) {
-        return parse(o, config, documentIRI, new StringProvider(s));
+    public OWLDocumentFormat parse(String s, OWLParserParameters p) {
+        return parse(p.getOntology(), p.getConfig(), p.getDocumentIRI(), new StringProvider(s));
     }
 
     protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config,
-                    IRI documentIRI, Provider provider) {
+        IRI documentIRI, Provider provider) {
         RawFrameHandler rawFrameHandler = new RawFrameHandler();
         OBOConsumer oboConsumer = new OBOConsumer(o, config, documentIRI);
         OBOParser parser = new OBOParser(provider);
@@ -111,7 +110,7 @@ class OWLOBO12Parser extends AbstractOWLParser {
     private static void parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
         for (OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
             oboConsumer.handleTagValue(tagValuePair.getTagName(), tagValuePair.getValue(),
-                            tagValuePair.getQualifier(), tagValuePair.getComment());
+                tagValuePair.getQualifier(), tagValuePair.getComment());
         }
     }
 

@@ -5,7 +5,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -40,6 +39,7 @@ public class OwlStringTools {
      *
      * @param axioms axioms
      * @param translationManager translationManager
+     * @param storerParameters storer parameters
      * @return string or null
      * @see #translate(String, OWLOntologyManager)
      */
@@ -54,7 +54,7 @@ public class OwlStringTools {
             OWLFunctionalSyntaxRenderer r = new OWLFunctionalSyntaxRenderer();
             Writer writer = new StringWriter();
             PrintWriter w = new PrintWriter(writer);
-            r.render(ontology, w, StandardCharsets.UTF_8, storerParameters);
+            r.render(ontology, w, storerParameters);
             w.flush();
             return writer.toString();
         } catch (OWLRendererException | OWLOntologyCreationException | OWLRuntimeException e) {
@@ -68,7 +68,6 @@ public class OwlStringTools {
      * @param axioms axioms
      * @param translationManager translationManager
      * @return set of axioms or null
-     * @see #translate(Collection, OWLOntologyManager)
      */
     public static Collection<OWLAxiom> translate(@Nullable String axioms,
         OWLOntologyManager translationManager) {

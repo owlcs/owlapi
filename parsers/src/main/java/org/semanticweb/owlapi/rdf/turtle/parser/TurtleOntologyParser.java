@@ -17,11 +17,9 @@ import java.io.Reader;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
 /**
@@ -38,26 +36,23 @@ public class TurtleOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
-        return parse(o, config, documentIRI, new StreamProvider(r));
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
+        return parse(p, new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
-        return parse(o, config, documentIRI, new StringProvider(s));
+    public OWLDocumentFormat parse(String s, OWLParserParameters p) {
+        return parse(p, new StringProvider(s));
     }
 
-    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI, Provider provider) {
-        OWLRDFConsumer consumer = new OWLRDFConsumer(o, config, null);
+    protected OWLDocumentFormat parse(OWLParserParameters p, Provider provider) {
+        OWLRDFConsumer consumer = new OWLRDFConsumer(p, null);
         TurtleDocumentFormat format = new TurtleDocumentFormat();
         consumer.setOntologyFormat(format);
-        consumer.startModel(documentIRI);
-        TurtleParser parser = new TurtleParser(provider, consumer, documentIRI);
+        consumer.startModel(p.getDocumentIRI());
+        TurtleParser parser = new TurtleParser(provider, consumer, p.getDocumentIRI());
         parser.parseDocument();
-        o.getPrefixManager().copyPrefixesFrom(parser.getPrefixManager());
+        p.getOntology().getPrefixManager().copyPrefixesFrom(parser.getPrefixManager());
         return format;
     }
 }

@@ -19,11 +19,9 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -40,20 +38,19 @@ public class OWLXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             InputSource isrc = new InputSource(r);
-            isrc.setSystemId(documentIRI.toString());
-            OWLXMLPH handler = new OWLXMLPH(o, config);
-            SAXParsers.initParserWithOWLAPIStandards(null, config.getEntityExpansionLimit())
+            isrc.setSystemId(p.getDocumentIRI().toString());
+            OWLXMLPH handler = new OWLXMLPH(p.getOntology(), p.getConfig());
+            SAXParsers.initParserWithOWLAPIStandards(null, p.getConfig().getEntityExpansionLimit())
                 .parse(isrc, handler);
-            o.getPrefixManager().copyPrefixesFrom(handler.getPrefixName2PrefixMap());
+            p.getOntology().getPrefixManager().copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             String base = handler.getBase().toString();
             // do not override existing default prefix
-            if (o.getPrefixManager().getDefaultPrefix() == null) {
-                o.getPrefixManager().setDefaultPrefix(base);
+            if (p.getOntology().getPrefixManager().getDefaultPrefix() == null) {
+                p.getOntology().getPrefixManager().setDefaultPrefix(base);
             }
             return format;
         } catch (SAXException | IOException | IllegalStateException e) {

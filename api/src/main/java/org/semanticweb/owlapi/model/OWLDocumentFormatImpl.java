@@ -12,11 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.Optional;
-
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of an ontology format
@@ -26,19 +22,6 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
  * @since 2.0.0
  */
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
-
-    @Nullable
-    private OWLOntologyLoaderMetaData loaderMetaData = null;
-
-    @Override
-    public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
-        return Optional.ofNullable(loaderMetaData);
-    }
-
-    @Override
-    public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
-        this.loaderMetaData = loaderMetaData;
-    }
 
     @Override
     public boolean isTextual() {

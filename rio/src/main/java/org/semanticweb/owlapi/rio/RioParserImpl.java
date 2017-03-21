@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.slf4j.Logger;
@@ -103,9 +103,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(RioMemoryTripleSource r, OWLOntology o,
-        OWLOntologyLoaderConfiguration config, IRI documentIRI) {
-        RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(o, CHECKER, config);
+    public OWLDocumentFormat parse(RioMemoryTripleSource r, OWLParserParameters p) {
+        RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(p, CHECKER);
         consumer.setOntologyFormat(owlFormatFactory.createFormat());
         RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
         Iterator<Statement> statementsIterator = r.getStatementIterator();
@@ -119,22 +118,19 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI iri) {
-        return parseStream(r, o, config);
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
+        return parseStream(r, p);
     }
 
     @Override
-    public OWLDocumentFormat parse(InputStream in, String cs, OWLOntology o,
-        OWLOntologyLoaderConfiguration config, IRI iri) {
-        return parseStream(in, o, config);
+    public OWLDocumentFormat parse(InputStream in, OWLParserParameters p) {
+        return parseStream(in, p);
     }
 
-    private OWLDocumentFormat parseStream(Object r, OWLOntology o,
-        OWLOntologyLoaderConfiguration config) {
+    private OWLDocumentFormat parseStream(Object r, OWLParserParameters p) {
         long rioParseStart = System.currentTimeMillis();
         try {
-            RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(o, CHECKER, config);
+            RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(p, CHECKER);
             consumer.setOntologyFormat(owlFormatFactory.createFormat());
             RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
             final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
@@ -144,9 +140,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 .addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
             createParser.setRDFHandler(handler);
             if (r instanceof Reader) {
-                createParser.parse((Reader) r, baseIRI(o));
+                createParser.parse((Reader) r, baseIRI(p.getOntology()));
             } else {
-                createParser.parse((InputStream) r, baseIRI(o));
+                createParser.parse((InputStream) r, baseIRI(p.getOntology()));
             }
             return consumer.getOntologyFormat();
         } catch (final RDFHandlerException e) {
@@ -262,8 +258,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 if (!typedLists.contains(nextStatement.getSubject())) {
                     typedLists.add(nextStatement.getSubject());
                     try {
-                        consumer.handleStatement(vf.createStatement(nextStatement.getSubject(),
-                            RDF.TYPE, RDF.LIST));
+                        consumer.handleStatement(
+                            vf.createStatement(nextStatement.getSubject(), RDF.TYPE, RDF.LIST));
                     } catch (RDFHandlerException e) {
                         throw new OWLParserException(e);
                     }

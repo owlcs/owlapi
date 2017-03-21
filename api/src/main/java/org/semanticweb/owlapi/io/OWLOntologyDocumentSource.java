@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -42,7 +43,7 @@ public interface OWLOntologyDocumentSource {
     /**
      * @param parsers parsers to filter
      * @return filtered parsers - parsers that are incompatible with the known format or MIME type
-     * are skipped
+     *         are skipped
      */
     default PriorityCollection<OWLParserFactory> filter(
         PriorityCollection<OWLParserFactory> parsers) {
@@ -70,4 +71,9 @@ public interface OWLOntologyDocumentSource {
      * @return An IRI which represents the ontology document IRI
      */
     IRI getDocumentIRI();
+
+    /**
+     * @return An object containing metadata about loading
+     */
+    Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData();
 }

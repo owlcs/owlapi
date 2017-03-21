@@ -23,11 +23,10 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * OBOformat parser.
@@ -77,11 +76,10 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
         OBODoc obodoc = parse(r);
         treatDocument.accept(obodoc);
-        bridge.accept(o, obodoc);
+        bridge.accept(p.getOntology(), obodoc);
         return new OBODocumentFormat();
     }
 

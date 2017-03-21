@@ -20,9 +20,11 @@ import java.util.stream.Stream;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -30,23 +32,24 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 @SuppressWarnings("javadoc")
 public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase
-                extends AbstractFileRoundTrippingTestCase {
+    extends AbstractFileRoundTrippingTestCase {
 
     public FileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
         super("SubClassOfUntypedOWLClass.rdf");
     }
 
     @Test
-    public void testAxioms() {
+    public void testAxioms() throws OWLOntologyCreationException {
         config = config.setStrict(true);
-        OWLOntology ont = createOntology();
+        StreamDocumentSource documentSource =
+            new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName));
+        OWLOntology ont = m1.loadOntologyFromOntologyDocument(documentSource, config);
         assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
         OWLDocumentFormat format = ont.getFormat();
         assertTrue(format instanceof RDFXMLDocumentFormat);
-        RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
-        assertTrue(rdfxmlFormat.getOntologyLoaderMetaData().isPresent());
+        assertTrue(documentSource.getOntologyLoaderMetaData().isPresent());
         Stream<RDFTriple> triples =
-                        rdfxmlFormat.getOntologyLoaderMetaData().get().getUnparsedTriples();
+            documentSource.getOntologyLoaderMetaData().get().getUnparsedTriples();
         assertEquals(1, triples.count());
     }
 }

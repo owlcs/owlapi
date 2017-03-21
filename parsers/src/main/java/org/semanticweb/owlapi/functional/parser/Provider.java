@@ -4,11 +4,10 @@ package org.semanticweb.owlapi.functional.parser;
 
 
 import java.io.IOException;
-
 @SuppressWarnings("all")
 public interface Provider {
     int read(char buffer[], int offset, int length) throws IOException;
-
-    void close() throws IOException;
+    
+     void close() throws IOException;    
 }
 /* JavaCC - OriginalChecksum=e36f2ccfb223f42975495cfb23c8a932 (do not edit this line) */

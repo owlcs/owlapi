@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.turtle.renderer;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -31,7 +30,7 @@ public class TurtleStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
             new TurtleRenderer(ontology, writer, format).render();
         } catch (OWLRuntimeException e) {

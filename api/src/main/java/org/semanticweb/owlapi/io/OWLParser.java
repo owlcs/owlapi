@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
@@ -50,16 +51,17 @@ public interface OWLParser extends Serializable {
     /**
      * Parses the ontology with a concrete representation available at {@code documentIRI} and adds
      * its axioms to {@code ontology}. Implementors of this method should load imported ontologies
-     * through {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration,
-     * OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
+     * through
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * makeLoadImportRequest()}.
      *
      * @param documentIRI the IRI of the document to parse
      * @param ontology the ontology to which the parsed axioms are added
      * @return the format of the parsed ontology
      * @throws OWLParserException if there was a parsing problem parsing the ontology.
      * @throws OWLOntologyChangeException if there was a problem updating {@code ontology}.
-     * Typically this depends on the document being parsed containing an ontology with an ontology
-     * IRI clashing with one already loaded.
+     *         Typically this depends on the document being parsed containing an ontology with an
+     *         ontology IRI clashing with one already loaded.
      * @throws UnloadableImportException if one or more imports could not be loaded.
      */
     default OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology) {
@@ -81,68 +83,61 @@ public interface OWLParser extends Serializable {
 
     /**
      * Parses the ontology with a concrete representation in {@code in} and adds its axioms to
-     * {@code ontology}. Implementors of this method should load imported ontologies through {@link
-     * OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration,
-     * OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
+     * {@code ontology}. Implementors of this method should load imported ontologies through
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * makeLoadImportRequest()}.
      *
      * @param in the source of a concrete representation of the document to parse
-     * @param o the ontology to which the parsed axioms are added
-     * @param config parsing options for the parser
-     * @param documentIRI IRI associated with the document
+     * @param parameters the combination of ontology, loading config, document IRI and other parser
+     *        parameters
      * @return the format of the parsed ontology
      * @throws OWLParserException if there was a parsing problem parsing the ontology. @throws
-     * OWLOntologyChangeException if there was a problem updating {@code ontology}. Typically this
-     * depends on the document being parsed containing an ontology with an ontology IRI clashing
-     * with one already loaded.
+     *         OWLOntologyChangeException if there was a problem updating {@code ontology}.
+     *         Typically this depends on the document being parsed containing an ontology with an
+     *         ontology IRI clashing with one already loaded.
      * @throws UnloadableImportException if one or more imports could not be loaded.
      */
-    default OWLDocumentFormat parse(String in, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
-        return parse(new StringReader(in), o, config, documentIRI);
+    default OWLDocumentFormat parse(String in, OWLParserParameters parameters) {
+        return parse(new StringReader(in), parameters);
     }
 
     /**
      * Parses the ontology with a concrete representation in {@code r} and adds its axioms to {@code
-     * ontology}. Implementors of this method should load imported ontologies through {@link
-     * OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration,
-     * OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
+     * ontology}. Implementors of this method should load imported ontologies through
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * makeLoadImportRequest()}.
      *
      * @param r the source of a concrete representation of the document to parse
-     * @param o the ontology to which the parsed axioms are added
-     * @param config parsing options for the parser
-     * @param documentIRI IRI associated with the document
+     * @param parameters the combination of ontology, loading config, document IRI and other parser
+     *        parameters
      * @return the format of the parsed ontology
      * @throws OWLParserException if there was a parsing problem parsing the ontology. @throws
-     * OWLOntologyChangeException if there was a problem updating {@code ontology}. Typically this
-     * depends on the document being parsed containing an ontology with an ontology IRI clashing
-     * with one already loaded.
+     *         OWLOntologyChangeException if there was a problem updating {@code ontology}.
+     *         Typically this depends on the document being parsed containing an ontology with an
+     *         ontology IRI clashing with one already loaded.
      * @throws UnloadableImportException if one or more imports could not be loaded.
      */
-    OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI);
+    OWLDocumentFormat parse(Reader r, OWLParserParameters parameters);
 
     /**
      * Parses the ontology with a concrete representation in {@code in} and adds its axioms to
-     * {@code ontology}. Implementors of this method should load imported ontologies through {@link
-     * OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration,
-     * OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
+     * {@code ontology}. Implementors of this method should load imported ontologies through
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * makeLoadImportRequest()}.
      *
      * @param in the source of a concrete representation of the document to parse
-     * @param charSet charset to use for reading from the stream
-     * @param o the ontology to which the parsed axioms are added
-     * @param config parsing options for the parser
-     * @param documentIRI IRI associated with the document
+     * @param parameters the combination of ontology, loading config, document IRI and other parser
+     *        parameters
      * @return the format of the parsed ontology
      * @throws OWLParserException if there was a parsing problem parsing the ontology. @throws
-     * OWLOntologyChangeException if there was a problem updating {@code ontology}. Typically this
-     * depends on the document being parsed containing an ontology with an ontology IRI clashing
-     * with one already loaded.
+     *         OWLOntologyChangeException if there was a problem updating {@code ontology}.
+     *         Typically this depends on the document being parsed containing an ontology with an
+     *         ontology IRI clashing with one already loaded.
      * @throws UnloadableImportException if one or more imports could not be loaded.
      */
-    default OWLDocumentFormat parse(InputStream in, String charSet, OWLOntology o,
-        OWLOntologyLoaderConfiguration config, IRI documentIRI) {
-        try (Reader r = new InputStreamReader(in, charSet)) {
-            return parse(r, o, config, documentIRI);
+    default OWLDocumentFormat parse(InputStream in, OWLParserParameters parameters) {
+        try (Reader r = new InputStreamReader(in, parameters.getEncoding())) {
+            return parse(r, parameters);
         } catch (IOException e) {
             throw new OWLParserException(e.getMessage(), e, 1, 1);
         }

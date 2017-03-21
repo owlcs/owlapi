@@ -33,16 +33,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings({"javadoc", "null"})
 public class RioRendererTestCase extends TestBase {
 
-    private final
-    @Nonnull
-    IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1", "");
+    private final @Nonnull IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
-    private
-    @Nonnull
-    OWLOntology testOntologyEmpty;
-    private
-    @Nonnull
-    OWLOntology testOntologyKoala;
+    private @Nonnull OWLOntology testOntologyEmpty;
+    private @Nonnull OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;
@@ -58,12 +52,12 @@ public class RioRendererTestCase extends TestBase {
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
         testOntologyEmpty = m.createOntology(testOntologyUri1);
-        testOntologyKoala = m.loadOntologyFromOntologyDocument(
-            getClass().getResourceAsStream("/koala.owl"));
+        testOntologyKoala =
+            m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
-        testOntologyEmptyStatement = vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"),
-            RDF.TYPE, OWL.ONTOLOGY);
+        testOntologyEmptyStatement =
+            vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE, OWL.ONTOLOGY);
         testRdfXmlStringWriter = new StringWriter();
         testRdfXmlRioWriter = Rio.createWriter(RDFFormat.RDFXML, testRdfXmlStringWriter);
         testTurtleStringWriter = new StringWriter();
@@ -79,7 +73,7 @@ public class RioRendererTestCase extends TestBase {
     @Test
     public void testRenderEmptyStatementCollector() {
         RioRenderer testRenderer =
-            new RioRenderer(testOntologyEmpty, testHandlerStatementCollector, null);
+            new RioRenderer(testOntologyEmpty, testHandlerStatementCollector);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(1, testHandlerStatementCollector.getStatements().size());
@@ -96,7 +90,7 @@ public class RioRendererTestCase extends TestBase {
      */
     @Test
     public void testRenderEmptyRdfXmlWriter() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testRdfXmlRioWriter, null);
+        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testRdfXmlRioWriter);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
@@ -110,7 +104,7 @@ public class RioRendererTestCase extends TestBase {
      */
     @Test
     public void testRenderEmptyTurtleWriter() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testTurtleRioWriter, null);
+        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testTurtleRioWriter);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
@@ -124,7 +118,7 @@ public class RioRendererTestCase extends TestBase {
      */
     @Test
     public void testRenderEmptyNTriplesWriter() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testNTriplesRioWriter, null);
+        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, testNTriplesRioWriter);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
@@ -139,7 +133,7 @@ public class RioRendererTestCase extends TestBase {
     @Test
     public void testRenderKoalaStatementCollector() {
         RioRenderer testRenderer =
-            new RioRenderer(testOntologyKoala, testHandlerStatementCollector, null);
+            new RioRenderer(testOntologyKoala, testHandlerStatementCollector);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
@@ -155,7 +149,7 @@ public class RioRendererTestCase extends TestBase {
      */
     @Test
     public void testRenderKoalaRdfXmlWriter() throws Exception {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testRdfXmlRioWriter, null);
+        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testRdfXmlRioWriter);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
@@ -187,7 +181,7 @@ public class RioRendererTestCase extends TestBase {
      */
     @Test
     public void testRenderKoalaTurtleWriter() throws Exception {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testTurtleRioWriter, null);
+        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testTurtleRioWriter);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
@@ -215,7 +209,7 @@ public class RioRendererTestCase extends TestBase {
      */
     @Test
     public void testRenderKoalaNTriplesWriter() throws Exception {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testNTriplesRioWriter, null);
+        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, testNTriplesRioWriter);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
@@ -248,8 +242,7 @@ public class RioRendererTestCase extends TestBase {
             + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
             + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
             + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
-            + "Datatype: xsd:decimal\n" + "Datatype: xsd:int\n"
-            + "Datatype: xsd:dateTime\n"
+            + "Datatype: xsd:decimal\n" + "Datatype: xsd:int\n" + "Datatype: xsd:dateTime\n"
             + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
             + "    Characteristics: \n" + "        Functional\n" + "    Range: \n"
             + "        xsd:int\n"
@@ -258,8 +251,7 @@ public class RioRendererTestCase extends TestBase {
             + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
             + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n"
             + "    Types: \n"
-            + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-            + "Rule: \n"
+            + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n" + "Rule: \n"
             + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(inputManSyntax),

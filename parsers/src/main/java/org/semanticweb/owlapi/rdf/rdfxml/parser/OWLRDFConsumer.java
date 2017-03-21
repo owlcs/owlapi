@@ -130,6 +130,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveImport;
@@ -193,7 +194,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     protected final List<ResourceTripleHandler> resources;
     final TripleLogger tripleLogger = new TripleLogger();
     final TranslatorAccessor translatorAccessor;
-    private final OWLOntologyLoaderConfiguration configuration;
     private final Set<IRI> axioms = createSet();
     /**
      * The shared anonymous nodes.
@@ -208,10 +208,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * The annotated anon source2 annotation map.
      */
     private final AnonMap anonWithAnnotations = new AnonMap();
-    /**
-     * The ontology that the RDF will be parsed into.
-     */
-    protected final OWLOntology ontology;
+    protected final OWLParserParameters parseParameters;
     /**
      * The data factory.
      */
@@ -269,29 +266,27 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     private RemappingIndividualProvider anonProvider;
 
     /**
-     * @param ontology the ontology
-     * @param configuration the configuration
+     * @param p parser parameters
+     * @param iriProvider iri provider
      */
-    public OWLRDFConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration,
-        @Nullable IRIProvider iriProvider) {
-        this(ontology, new AnonymousNodeCheckerImpl(), configuration, iriProvider);
+    public OWLRDFConsumer(OWLParserParameters p, @Nullable IRIProvider iriProvider) {
+        this(p, new AnonymousNodeCheckerImpl(), iriProvider);
     }
 
     /**
-     * @param ontology the ontology
+     * @param p parser parameters
      * @param checker anonymous node checker
-     * @param configuration the configuration
+     * @param iriProvider iri provider
      */
-    public OWLRDFConsumer(OWLOntology ontology, AnonymousNodeChecker checker,
-        OWLOntologyLoaderConfiguration configuration, @Nullable IRIProvider iriProvider) {
+    public OWLRDFConsumer(OWLParserParameters p, AnonymousNodeChecker checker,
+        @Nullable IRIProvider iriProvider) {
+        parseParameters = p;
         anon = checker;
-        this.ontology = ontology;
-        df = ontology.getOWLOntologyManager().getOWLDataFactory();
-        anonProvider = new RemappingIndividualProvider(
-            ontology.getOWLOntologyManager().getOntologyConfigurator(), df);
-        this.configuration = configuration;
-        iris = new FoundIRIs(configuration.isStrict());
-        builtInTypes = AbstractBuiltInTypeHandler.handlers(configuration.isStrict());
+        OWLOntologyManager m = ont().getOWLOntologyManager();
+        df = m.getOWLDataFactory();
+        anonProvider = new RemappingIndividualProvider(m.getOntologyConfigurator(), df);
+        iris = new FoundIRIs(strict());
+        builtInTypes = AbstractBuiltInTypeHandler.handlers(strict());
         axiomTypes = AbstractBuiltInTypeHandler.axioms();
         predicates = getPredicateHandlers();
         literals = getLiteralTripleHandlers();
@@ -303,12 +298,20 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         // statement will be translated as an annotation on a:A
         resources = Arrays.asList(ObjectPropertyAssertionHandler, AnnotationResourceTripleHandler);
         translatorAccessor = new TranslatorAccessor(this);
-        synonymMap = new SynonymMap(configuration.isStrict());
+        synonymMap = new SynonymMap(strict());
 
         // Cache anything in the existing imports closure
-        iris.importsClosureChanged(ontology);
-        this.ontology.getOntologyID().getOntologyIRI().ifPresent(iris::addOntology);
+        iris.importsClosureChanged(ont());
+        ont().getOntologyID().getOntologyIRI().ifPresent(iris::addOntology);
         this.iriProvider = iriProvider;
+    }
+
+    protected OWLOntology ont() {
+        return parseParameters.getOntology();
+    }
+
+    protected boolean strict() {
+        return parseParameters.getConfig().isStrict();
     }
 
     protected static boolean isGeneralPredicate(IRI predicate) {
@@ -318,7 +321,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     @Override
     public void addPrefix(String abbreviation, String value) {
-        ontology.getPrefixManager().setPrefix(abbreviation, value);
+        ont().getPrefixManager().setPrefix(abbreviation, value);
     }
 
     /**
@@ -337,7 +340,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      */
     public void setOntologyFormat(RDFDocumentFormat format) {
         ontologyFormat = format;
-        tripleLogger.setPrefixManager(ontology.getPrefixManager());
+        tripleLogger.setPrefixManager(ont().getPrefixManager());
     }
 
     /**
@@ -411,11 +414,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      */
     protected void add(OWLAxiom axiom) {
         if (axiom.isAnnotationAxiom()) {
-            if (configuration.isLoadAnnotationAxioms()) {
+            if (getConfiguration().isLoadAnnotationAxioms()) {
                 parsedAnnotationAxioms.add((OWLAnnotationAxiom) axiom);
             }
         } else {
-            ontology.add(axiom);
+            ont().add(axiom);
         }
         lastAddedAxiom = axiom;
     }
@@ -461,7 +464,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * @param ontologyID the new ontology id
      */
     protected void setOntologyID(OWLOntologyID ontologyID) {
-        ontology.applyChange(new SetOntologyID(ontology, ontologyID));
+        ont().applyChange(new SetOntologyID(ont(), ontologyID));
     }
 
     /**
@@ -470,17 +473,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * @param annotation the annotation
      */
     protected void addOntologyAnnotation(OWLAnnotation annotation) {
-        ontology.applyChange(new AddOntologyAnnotation(ontology, annotation));
+        ont().applyChange(new AddOntologyAnnotation(ont(), annotation));
     }
 
     protected void addImport(OWLImportsDeclaration declaration, IRI o) {
-        ontology.applyChange(new AddImport(ontology, declaration));
+        ont().applyChange(new AddImport(ont(), declaration));
         if (!getConfiguration().isIgnoredImport(o)) {
-            OWLOntologyManager man = ontology.getOWLOntologyManager();
+            OWLOntologyManager man = ont().getOWLOntologyManager();
             man.makeLoadImportRequest(declaration, getConfiguration());
             handleImportingRDFGraphRatherThanOntology(declaration, man,
                 man.getImportedOntology(declaration));
-            iris.importsClosureChanged(ontology);
+            iris.importsClosureChanged(ont());
         }
     }
 
@@ -496,10 +499,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // from the imported ontology to out importing ontology and
             // remove the imported ontology.
             // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
-            man.applyChange(new RemoveImport(ontology, id));
-            io.importsDeclarations().forEach(d -> man.applyChange(new AddImport(ontology, d)));
-            io.annotations()
-                .forEach(ann -> man.applyChange(new AddOntologyAnnotation(ontology, ann)));
+            man.applyChange(new RemoveImport(ont(), id));
+            io.importsDeclarations().forEach(d -> man.applyChange(new AddImport(ont(), d)));
+            io.annotations().forEach(ann -> man.applyChange(new AddOntologyAnnotation(ont(), ann)));
             io.axioms().forEach(this::add);
             man.removeOntology(io);
         }
@@ -563,7 +565,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         setParserMetadata(remainingTriples);
         // Do we need to change the ontology IRI?
         chooseAndSetOntologyIRI();
-        TripleLogger.logOntologyID(ontology.getOntologyID());
+        TripleLogger.logOntologyID(ont().getOntologyID());
         tripleIndex.dumpRemainingTriples();
         cleanup();
         addAnnotationAxioms();
@@ -576,16 +578,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
                 new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER,
                     tripleLogger.count(), triples, iris.guessedDeclarations);
             errors.forEach(loaderMetaData::addError);
-            getOntologyFormat().setOntologyLoaderMetaData(loaderMetaData);
+            parseParameters.withLoaderMetaData(loaderMetaData);
         }
     }
 
     private void addAnnotationAxioms() {
-        ontology.add(parsedAnnotationAxioms);
+        ont().add(parsedAnnotationAxioms);
     }
 
     private void removeAxiomsScheduledForRemoval() {
-        ontology.remove(axiomsToBeRemoved);
+        ont().remove(axiomsToBeRemoved);
     }
 
     /**
@@ -611,7 +613,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // We have multiple to choose from
             // Choose one that isn't the object of an annotation assertion
             Set<IRI> candidateIRIs = createSet(iris.ontologyIRIs);
-            ontology.annotations().forEach(a -> a.getValue().asIRI().ifPresent(iri -> {
+            ont().annotations().forEach(a -> a.getValue().asIRI().ifPresent(iri -> {
                 if (iris.ontologyIRIs.contains(iri)) {
                     candidateIRIs.remove(iri);
                 }
@@ -625,15 +627,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             }
         }
         if (ontologyIRIToSet.isPresent() && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
-            Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
+            Optional<IRI> versionIRI = ont().getOntologyID().getVersionIRI();
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet, versionIRI);
-            ontology.applyChange(new SetOntologyID(ontology, ontologyID));
+            ont().applyChange(new SetOntologyID(ont(), ontologyID));
         }
     }
 
     protected void removeUnnecessaryAxioms() {
         IRI iri = verifyNotNull(iris.firstOntologyIRI);
-        asList(ontology.annotationAssertionAxioms(iri)).forEach(this::removeUnnecessaryAxiom);
+        asList(ont().annotationAssertionAxioms(iri)).forEach(this::removeUnnecessaryAxiom);
         asList(parsedAnnotationAxioms.stream().filter(this::annotationToRemove))
             .forEach(this::removeUnnecessaryParsedAnnotations);
     }
@@ -661,7 +663,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             // axioms without annotations do not need to be preserved
             // (they exist because of triple ordering in ontology
             // declaration and annotation)
-            ontology.remove(ax);
+            ont().remove(ax);
         }
     }
 
@@ -765,7 +767,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      *         OWLDatatype with the given IRI is returned.
      */
     public OWLDataRange translateDataRange(IRI n) {
-        if (!iris.isDataRange(n) && configuration.isStrict()) {
+        if (!iris.isDataRange(n) && strict()) {
             // Can't translated ANY according to Table 12
             return generateAndLogParseError(EntityType.DATATYPE, n);
         }
@@ -783,7 +785,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         // The plain complement of triple predicate is in here for legacy
         // reasons
         IRI not = tripleIndex.resource(n, OWL_DATATYPE_COMPLEMENT_OF, true);
-        if (!configuration.isStrict() && not == null) {
+        if (!strict() && not == null) {
             not = tripleIndex.resource(n, OWL_COMPLEMENT_OF, true);
         }
         if (not != null) {
@@ -810,7 +812,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             if (facets != null) {
                 return df.getOWLDatatypeRestriction(dt,
                     translatorAccessor.translateToFacetRestrictionSet(facets));
-            } else if (!configuration.isStrict()) {
+            } else if (!strict()) {
                 Collection<OWLFacetRestriction> restrictions = createLinkedSet();
                 // Try the legacy encoding
                 Stream.of(OWLFacet.values())
@@ -945,7 +947,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         String message = "Entity not properly recognized, missing triples in input? " + iri
             + " for type " + type;
         LOGGER.error(message);
-        if (configuration.isStrict()) {
+        if (strict()) {
             throw new OWLParserException(message);
         }
         return df.getOWLEntity(type, iri);
@@ -1016,7 +1018,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     @Override
     public OWLOntologyLoaderConfiguration getConfiguration() {
-        return configuration;
+        return parseParameters.getConfig();
     }
 
     @Override
@@ -1371,8 +1373,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected boolean handleVersionTriple(IRI s, IRI p, IRI o) {
         // only setup the versionIRI if it is null before this point
-        if (!ontology.getOntologyID().getVersionIRI().isPresent()) {
-            Optional<IRI> ontologyIRI = ontology.getOntologyID().getOntologyIRI();
+        if (!ont().getOntologyID().getVersionIRI().isPresent()) {
+            Optional<IRI> ontologyIRI = ont().getOntologyID().getOntologyIRI();
             Optional<IRI> versionIRI = optional(o);
             // If there was no ontologyIRI before this point and the s
             // of this statement was not anonymous,
@@ -1828,10 +1830,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         if (!anon.isAnonymousNode(s) && iris.getOntologies().isEmpty()) {
             // Set IRI if it is not null before this point, and make sure to
             // preserve the version IRI if it also existed before this point
-            if (!ontology.getOntologyID().getOntologyIRI().isPresent()) {
+            if (!ont().getOntologyID().getOntologyIRI().isPresent()) {
                 OWLOntologyID id =
-                    new OWLOntologyID(optional(s), ontology.getOntologyID().getVersionIRI());
-                ontology.applyChange(new SetOntologyID(ontology, id));
+                    new OWLOntologyID(optional(s), ont().getOntologyID().getVersionIRI());
+                ont().applyChange(new SetOntologyID(ont(), id));
             }
         }
         iris.addOntology(s);

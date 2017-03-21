@@ -4,11 +4,10 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 
 import java.io.IOException;
-
 @SuppressWarnings("all")
 public interface Provider {
     int read(char buffer[], int offset, int length) throws IOException;
-
-    void close() throws IOException;
+    
+     void close() throws IOException;    
 }
 /* JavaCC - OriginalChecksum=096bff1d6cfdf09e578e8852d16b4a9f (do not edit this line) */

@@ -41,6 +41,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.rdf4j.RDF4JException;
@@ -50,11 +51,13 @@ import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not implement any of the
@@ -69,6 +72,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     private final Map<String, String> namespaces = new LinkedHashMap<>();
     private final Iterator<Statement> statementIterator;
     private final IRI documentIRI;
+    private OWLParserParameters parameters;
+
     /**
      * Creates a RioMemoryTripleSource using an {@link Iterable} of {@link Statement} objects.
      *
@@ -84,7 +89,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *
      * @param statements An {@link Iterator} of {@link Statement} objects that make up this source.
      * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
-     * source.
+     *        source.
      */
     public RioMemoryTripleSource(Iterator<Statement> statements, Map<String, String> namespaces) {
         this(statements);
@@ -96,7 +101,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * If the Iterable is an instance of {@link Model}, the namespaces from the model are also used.
      *
      * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
-     * source.
+     *        source.
      */
     public RioMemoryTripleSource(Iterable<Statement> statements) {
         documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
@@ -112,7 +117,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * closed automatically.
      *
      * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
-     * source.
+     *        source.
      */
     public RioMemoryTripleSource(
         final CloseableIteration<Statement, ? extends RDF4JException> statements) {
@@ -126,9 +131,9 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * closed automatically.
      *
      * @param statements A {@link CloseableIteration} of {@link Statement} objects that make up this
-     * source.
+     *        source.
      * @param namespaces A Map of namespaces from prefix to full URI which are to be used by this
-     * source.
+     *        source.
      */
     public RioMemoryTripleSource(
         final CloseableIteration<Statement, ? extends RDF4JException> statements,
@@ -138,9 +143,15 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
+    public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
+        return Optional.ofNullable(parameters == null ? null : parameters.getLoaderMetaData());
+    }
+
+    @Override
     public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
         OWLOntologyLoaderConfiguration config) {
-        return ((RioParser) parser).parse(this, o, config, documentIRI);
+        parameters = new OWLParserParameters(o, config, documentIRI);
+        return ((RioParser) parser).parse(this, parameters);
     }
 
     @Override

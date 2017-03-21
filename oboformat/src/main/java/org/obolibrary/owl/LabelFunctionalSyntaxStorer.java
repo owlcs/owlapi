@@ -3,7 +3,6 @@ package org.obolibrary.owl;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -40,7 +39,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
-        Charset encoding, OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer =
                 new FunctionalSyntaxObjectRenderer(ontology, writer);

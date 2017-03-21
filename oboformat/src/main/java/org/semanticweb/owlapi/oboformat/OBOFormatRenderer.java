@@ -20,7 +20,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.nio.charset.Charset;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +31,6 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter.OBODocNameProvider;
 import org.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.OWLRenderer;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
@@ -45,10 +43,10 @@ public class OBOFormatRenderer implements OWLRenderer {
     /**
      * @param ontology ontology
      * @param writer writer
-     * @param format format to render
+     * @param storerParameters storer parameters
      * @throws OWLOntologyStorageException OWLOntologyStorageException
      */
-    public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format,
+    public static void render(OWLOntology ontology, Writer writer,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
@@ -94,8 +92,8 @@ public class OBOFormatRenderer implements OWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os, Charset encoding,
-        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), ontology.getNonnullFormat(), storerParameters);
+    public void render(OWLOntology ontology, OutputStream os, OWLStorerParameters storerParameters)
+        throws OWLOntologyStorageException {
+        render(ontology, new OutputStreamWriter(os), storerParameters);
     }
 }

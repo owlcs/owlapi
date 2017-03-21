@@ -16,11 +16,10 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -34,15 +33,13 @@ public class KRSSOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI iri) {
-        return parse(o, new StreamProvider(r));
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
+        return parse(p.getOntology(), new StreamProvider(r));
     }
 
     @Override
-    public OWLDocumentFormat parse(String s, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
-        return parse(o, new StringProvider(s));
+    public OWLDocumentFormat parse(String s, OWLParserParameters p) {
+        return parse(p.getOntology(), new StringProvider(s));
     }
 
     protected OWLDocumentFormat parse(OWLOntology o, Provider provider) {

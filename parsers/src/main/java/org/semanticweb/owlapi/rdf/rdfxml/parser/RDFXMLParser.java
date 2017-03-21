@@ -20,11 +20,9 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -40,8 +38,7 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(Reader r, OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI) {
+    public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {
         try {
             final RDFXMLDocumentFormat format =
                 (RDFXMLDocumentFormat) getSupportedFormat().createFormat();
@@ -52,14 +49,14 @@ public class RDFXMLParser extends AbstractOWLParser {
                     throws SAXException {
                     super.startPrefixMapping(prefix, uri);
                     if (prefix != null && uri != null) {
-                        o.getPrefixManager().setPrefix(prefix, uri);
+                        p.getOntology().getPrefixManager().setPrefix(prefix, uri);
                     }
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(o, config, parser);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(p, parser);
             consumer.setOntologyFormat(format);
             InputSource is = new InputSource(r);
-            is.setSystemId(documentIRI.toString());
+            is.setSystemId(p.getDocumentIRI().toString());
             parser.parse(is, consumer);
             return format;
         } catch (RDFParserException | SAXException | IOException e) {
