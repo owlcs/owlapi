@@ -17,7 +17,19 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -26,24 +38,24 @@ import com.google.common.base.Optional;
 /**
  * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         26-Oct-2006
  */
-public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCaching
+    implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL =
+        new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final String literal;
     @Nonnull
     private final String lang;
 
     /**
-     * @param literal
-     *        the lexical form
-     * @param lang
-     *        the language; can be null or empty
+     * @param literal the lexical form
+     * @param lang the language; can be null or empty
      */
     public OWLLiteralImplPlain(@Nonnull String literal, @Nullable String lang) {
         this.literal = literal;
@@ -52,7 +64,7 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
         } else {
             this.lang = lang;
         }
-        hashCode = getHashCode();
+        hashCode = getHashCode(literal);
     }
 
     @Override
@@ -146,28 +158,10 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
         return hashCode;
     }
 
-    private final int getHashCode() {
+    private final int getHashCode(String lit) {
         int code = 277;
         code = code * 37 + getDatatype().hashCode();
-        code = code * 37;
-        try {
-            if (isInteger()) {
-                code += parseInteger() * 65536;
-            } else if (isDouble()) {
-                code += (int) parseDouble() * 65536;
-            } else if (isFloat()) {
-                code += (int) parseFloat() * 65536;
-            } else if (isBoolean()) {
-                code += parseBoolean() ? 65536 : 0;
-            } else {
-                code += getLiteral().hashCode() * 65536;
-            }
-        } catch (NumberFormatException e) {
-            // it is possible that a literal does not have a value that's valid
-            // for its datatype; not very useful for a consistent ontology but
-            // some W3C reasoner tests use them
-            code += getLiteral().hashCode() * 65536;
-        }
+        code = code * 37 + lit.hashCode() * 65536;
         if (hasLang()) {
             code = code * 37 + getLang().hashCode();
         }
@@ -187,10 +181,11 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
         }
         OWLLiteral other = (OWLLiteral) obj;
         if (other instanceof OWLLiteralImplPlain) {
-            return literal.equals(((OWLLiteralImplPlain) other).literal) && lang.equals(other.getLang());
+            return literal.equals(((OWLLiteralImplPlain) other).literal)
+                && lang.equals(other.getLang());
         }
-        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype()) && lang.equals(other
-            .getLang());
+        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
+            && lang.equals(other.getLang());
     }
 
     @Override
@@ -249,6 +244,6 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
 
     @Override
     public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
+        return Optional.<OWLLiteral>of(this);
     }
 }

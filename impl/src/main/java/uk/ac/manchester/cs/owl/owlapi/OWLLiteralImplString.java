@@ -17,7 +17,25 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -27,8 +45,8 @@ import com.google.common.base.Optional;
 /**
  * An OWLLiteral with xsd:string datatype and no language tag
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         26-Oct-2006
  */
 public class OWLLiteralImplString implements OWLLiteral {
 
@@ -37,13 +55,14 @@ public class OWLLiteralImplString implements OWLLiteral {
     private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     @Nonnull
     private final String literal;
+    private final int hashCode;
 
     /**
-     * @param literal
-     *        the lexical form
+     * @param literal the lexical form
      */
     public OWLLiteralImplString(@Nonnull String literal) {
         this.literal = literal;
+        hashCode = getHashCode(literal);
     }
 
     private static int index() {
@@ -122,7 +141,17 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     @Override
     public int hashCode() {
-        return literal.hashCode();
+        return hashCode;
+    }
+
+    private final int getHashCode(String lit) {
+        int code = 277;
+        code = code * 37 + getDatatype().hashCode();
+        code = code * 37 + lit.hashCode() * 65536;
+        if (hasLang()) {
+            code = code * 37 + getLang().hashCode();
+        }
+        return code;
     }
 
     @Override
@@ -137,8 +166,8 @@ public class OWLLiteralImplString implements OWLLiteral {
             return false;
         }
         OWLLiteral other = (OWLLiteral) obj;
-        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype()) && getLang().equals(
-            other.getLang());
+        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
+            && getLang().equals(other.getLang());
     }
 
     @Override
@@ -246,7 +275,8 @@ public class OWLLiteralImplString implements OWLLiteral {
         if (o instanceof OWLObjectImplWithEntityAndAnonCaching) {
             otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o).index();
         } else {
-            otherTypeIndex = OWLObjectImplWithEntityAndAnonCaching.OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
+            otherTypeIndex =
+                OWLObjectImplWithEntityAndAnonCaching.OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
         if (diff == 0) {
@@ -274,6 +304,6 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     @Override
     public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
+        return Optional.<OWLLiteral>of(this);
     }
 }
