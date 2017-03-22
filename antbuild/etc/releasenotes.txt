@@ -1,3 +1,18 @@
+4.3.0 22 Mar 2017
+Bug fixes:
+Fix OWLLiteral produce different hash codes in version 4 #645
+Multiple nested annotations fail in RDF/XML #470
+Parsing of nested anonymous nodes broken in 4.1.1 #478
+ensure ontology annotations are sorted
+Fix Turtle parser failure on some bioportal ontology #610
+Fix Manchester expression parser bug with data cardinalities #609
+
+Features:
+Implement HasApplyChanges.applyChanges returns ChangeApplied #544
+Implement Zip with dependencies included for non Maven users #584
+issue #612 : Add japicmp maven plugin to track API changes
+dependencies update
+
 4.2.8 4 Jan 2017
 Bug fixes:
 Fix Structural sharing in GCIs causes errors #564
