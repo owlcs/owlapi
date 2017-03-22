@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.functional.renderer;
 
 import java.io.PrintWriter;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLStorerParameters;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
+public class OWLFunctionalSyntaxRenderer implements OWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, PrintWriter writer,

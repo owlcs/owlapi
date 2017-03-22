@@ -16,10 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 import javax.annotation.Nullable;
 
@@ -31,8 +28,8 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter.OBODocNameProvider;
 import org.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.OWLRenderer;
+import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
@@ -40,14 +37,9 @@ import org.semanticweb.owlapi.model.OWLStorerParameters;
  */
 public class OBOFormatRenderer implements OWLRenderer {
 
-    /**
-     * @param ontology ontology
-     * @param writer writer
-     * @param storerParameters storer parameters
-     * @throws OWLOntologyStorageException OWLOntologyStorageException
-     */
-    public static void render(OWLOntology ontology, Writer writer,
-        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+    @Override
+    public void render(OWLOntology ontology, PrintWriter writer,
+        OWLStorerParameters storerParameters) throws OWLRendererException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology, storerParameters);
@@ -87,13 +79,7 @@ public class OBOFormatRenderer implements OWLRenderer {
             oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)),
                 nameProvider);
         } catch (IOException e) {
-            throw new OWLOntologyStorageException(e);
+            throw new OWLRendererException(e);
         }
-    }
-
-    @Override
-    public void render(OWLOntology ontology, OutputStream os, OWLStorerParameters storerParameters)
-        throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), storerParameters);
     }
 }

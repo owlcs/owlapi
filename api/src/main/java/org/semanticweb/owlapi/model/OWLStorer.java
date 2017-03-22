@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.io.BufferedWriter;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
@@ -54,6 +56,20 @@ public interface OWLStorer extends Serializable {
      * @param storerParameters storer parameters
      * @throws OWLOntologyStorageException if there was a problem storing the ontology.
      */
-    void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format,
-        OWLStorerParameters storerParameters) throws OWLOntologyStorageException;
+    default void storeOntology(OWLOntology ontology, OutputStream outputStream,
+        OWLDocumentFormat format, OWLStorerParameters storerParameters)
+        throws OWLOntologyStorageException {
+        if (!format.isTextual()) {
+            throw new OWLOntologyStorageException(
+                "This method must be overridden to support this binary format: " + format.getKey());
+        }
+        try {
+            PrintWriter writer = new PrintWriter(new BufferedWriter(
+                new OutputStreamWriter(outputStream, storerParameters.getEncoding())));
+            storeOntology(ontology, writer, format, storerParameters);
+            writer.flush();
+        } catch (OWLRuntimeException e) {
+            throw new OWLOntologyStorageException(e);
+        }
+    }
 }

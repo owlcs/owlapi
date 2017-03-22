@@ -18,13 +18,13 @@ import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
-import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
  * @author Olaf Noppens
  */
-public class KRSS2OWLSyntaxStorer extends AbstractOWLStorer {
+public class KRSS2OWLSyntaxStorer implements OWLStorer {
 
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {

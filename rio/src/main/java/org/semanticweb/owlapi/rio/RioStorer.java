@@ -63,7 +63,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
-import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
  * An implementation of {@link OWLStorer} that writes statements to Sesame {@link RDFHandler}s,
@@ -73,7 +72,7 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioStorer extends AbstractOWLStorer {
+public class RioStorer implements OWLStorer {
 
     private final OWLDocumentFormatFactory ontFormat;
     private final Resource[] contexts;

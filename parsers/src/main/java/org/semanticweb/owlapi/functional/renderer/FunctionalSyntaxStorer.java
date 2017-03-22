@@ -19,14 +19,14 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
-import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class FunctionalSyntaxStorer extends AbstractOWLStorer {
+public class FunctionalSyntaxStorer implements OWLStorer {
 
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {

@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.io.PrintWriter;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLStorerParameters;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
+public class ManchesterOWLSyntaxRenderer implements OWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, PrintWriter writer,

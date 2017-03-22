@@ -18,15 +18,15 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
-import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
 @HasPriority(-1)
-public class TutorialSyntaxStorer extends AbstractOWLStorer {
+public class TutorialSyntaxStorer implements OWLStorer {
 
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {

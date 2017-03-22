@@ -14,7 +14,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import java.io.PrintWriter;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLStorerParameters;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
+public class OWLTutorialSyntaxRenderer implements OWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, PrintWriter writer,

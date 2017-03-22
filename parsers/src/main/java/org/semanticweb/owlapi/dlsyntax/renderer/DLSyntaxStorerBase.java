@@ -29,14 +29,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
-import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
+public abstract class DLSyntaxStorerBase implements OWLStorer {
 
     @Override
     public void storeOntology(OWLOntology o, PrintWriter printWriter, OWLDocumentFormat format,

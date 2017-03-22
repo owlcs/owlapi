@@ -20,9 +20,9 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.AbstractOWLStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
 
@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.util.StringComparator;
  * Implement the writer for {@link LabelFunctionalDocumentFormat}.
  */
 @ParametersAreNonnullByDefault
-public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
+public class LabelFunctionalSyntaxStorer implements OWLStorer {
 
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {

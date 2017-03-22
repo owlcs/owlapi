@@ -12,10 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import java.io.BufferedWriter;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
@@ -32,8 +35,30 @@ public interface OWLRenderer {
      * @param ontology The ontology
      * @param os The OutputStream
      * @param storerParameters storer parameters
-     * @throws OWLException for any exception raised
+     * @throws OWLRendererException for any exception raised
      */
-    void render(OWLOntology ontology, OutputStream os, OWLStorerParameters storerParameters)
-        throws OWLException;
+    default void render(OWLOntology ontology, OutputStream os, OWLStorerParameters storerParameters)
+        throws OWLRendererException {
+        try {
+            PrintWriter writer = new PrintWriter(
+                new BufferedWriter(new OutputStreamWriter(os, storerParameters.getEncoding())));
+            render(ontology, writer, storerParameters);
+            writer.flush();
+        } catch (OWLRuntimeException e) {
+            throw new OWLRendererIOException(e);
+        }
+    }
+
+    /**
+     * Renders the specified ontology using the specified writer.
+     *
+     * @param ontology the ontology to render
+     * @param writer The writer that should be used to write the ontology. Note that this writer
+     *        need not be wrapped with a {@code BufferedWriter} because this is taken care of by
+     *        this abstract implementation.
+     * @param storerParameters storer parameters
+     * @throws OWLRendererException if exceptions arise
+     */
+    void render(OWLOntology ontology, PrintWriter writer, OWLStorerParameters storerParameters)
+        throws OWLRendererException;
 }

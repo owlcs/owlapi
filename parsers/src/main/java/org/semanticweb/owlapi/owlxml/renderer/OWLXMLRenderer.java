@@ -17,7 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLXMLRenderer extends AbstractOWLRenderer {
+public class OWLXMLRenderer implements OWLRenderer {
 
     /**
      * @param ontology ontology

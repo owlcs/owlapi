@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 import java.io.PrintWriter;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLStorerParameters;
 /**
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
+public class KRSSSyntaxRenderer implements OWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, PrintWriter writer,

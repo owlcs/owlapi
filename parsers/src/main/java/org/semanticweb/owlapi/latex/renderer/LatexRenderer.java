@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
+import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -40,7 +40,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
-public class LatexRenderer extends AbstractOWLRenderer {
+public class LatexRenderer implements OWLRenderer {
 
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
     private final OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
