@@ -35,8 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
 /**

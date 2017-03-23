@@ -15,11 +15,12 @@ package org.semanticweb.owlapi.krss2.renderer;
 import java.io.PrintWriter;
 
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
+import org.semanticweb.owlapi.io.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * See {@link org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer KRSS2ObjectRenderer} for
@@ -37,6 +38,11 @@ public class KRSS2SyntaxStorer implements OWLStorer {
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
-        new KRSS2SyntaxRenderer().render(ontology, writer, storerParameters);
+        try {
+            ontology.accept(new KRSS2ObjectRenderer(ontology, writer));
+            writer.flush();
+        } catch (OWLRuntimeException e) {
+            throw new OWLOntologyStorageException(e);
+        }
     }
 }

@@ -15,11 +15,12 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import java.io.PrintWriter;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.io.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
@@ -36,7 +37,12 @@ public class TutorialSyntaxStorer implements OWLStorer {
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
-        OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
-        renderer.render(ontology, writer, storerParameters);
+        try {
+            OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(writer);
+            ontology.accept(ren);
+            writer.flush();
+        } catch (OWLRuntimeException ex) {
+            throw new OWLOntologyStorageException(ex);
+        }
     }
 }

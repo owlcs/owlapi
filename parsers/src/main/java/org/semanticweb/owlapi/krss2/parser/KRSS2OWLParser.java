@@ -16,10 +16,10 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * The KRSS2OWLParser differs from the {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser

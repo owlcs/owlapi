@@ -25,12 +25,12 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

@@ -10,19 +10,20 @@ import java.util.Collections;
 
 import javax.annotation.Nullable;
 
+import org.obolibrary.oboformat.parser.OBOFormatException;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
-import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
+import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.io.OWLRendererException;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
@@ -51,14 +52,15 @@ public class OwlStringTools {
         try {
             OWLOntology ontology = translationManager.createOntology();
             ontology.add(axioms);
-            OWLFunctionalSyntaxRenderer r = new OWLFunctionalSyntaxRenderer();
+            FunctionalSyntaxStorer r = new FunctionalSyntaxStorer();
             Writer writer = new StringWriter();
             PrintWriter w = new PrintWriter(writer);
-            r.render(ontology, w, storerParameters);
+            r.storeOntology(ontology, w, new FunctionalSyntaxDocumentFormat(), storerParameters);
             w.flush();
             return writer.toString();
-        } catch (OWLRendererException | OWLOntologyCreationException | OWLRuntimeException e) {
-            throw new OwlStringException(e);
+        } catch (OWLOntologyStorageException | OWLOntologyCreationException
+            | OWLRuntimeException e) {
+            throw new OBOFormatException(e);
         }
     }
 
@@ -84,19 +86,6 @@ public class OwlStringTools {
             return asList(ontology.axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException | OWLParserException e) {
             throw new OWLRuntimeException(e);
-        }
-    }
-
-    /**
-     * Exception indicating an un-recoverable error during the handling of axiom strings.
-     */
-    public static class OwlStringException extends OWLRuntimeException {
-
-        /**
-         * @param cause cause
-         */
-        protected OwlStringException(Throwable cause) {
-            super(cause);
         }
     }
 }

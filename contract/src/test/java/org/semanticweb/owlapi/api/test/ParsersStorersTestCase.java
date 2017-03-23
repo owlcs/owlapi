@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFact
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.OWLStorerFactory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.krss1.parser.KRSSOWLParserFactory;
@@ -50,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory;

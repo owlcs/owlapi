@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.formats;
 
-import org.semanticweb.owlapi.model.OWLStorerFactory;
+import org.semanticweb.owlapi.io.OWLStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com

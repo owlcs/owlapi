@@ -19,9 +19,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -81,13 +80,13 @@ public class AbstractRenderer {
     /**
      * Flush.
      *
-     * @throws OWLRendererException renderer error
+     * @throws OWLOntologyStorageException renderer error
      */
-    protected void flush() throws OWLRendererException {
+    protected void flush() throws OWLOntologyStorageException {
         try {
             writer.flush();
         } catch (IOException e) {
-            throw new OWLRendererIOException(e);
+            throw new OWLOntologyStorageException(e);
         }
     }
 

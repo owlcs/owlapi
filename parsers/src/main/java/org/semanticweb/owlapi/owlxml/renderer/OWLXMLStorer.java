@@ -12,14 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.renderer;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.io.PrintWriter;
+import java.util.Map;
 
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.io.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -35,6 +41,52 @@ public class OWLXMLStorer implements OWLStorer {
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
-        OWLXMLRenderer.render(ontology, writer, format, storerParameters);
+        render(ontology, writer, format, storerParameters);
+    }
+
+    /**
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
+     * @param storerParameters storer parameters
+     * @throws OWLOntologyStorageException renderer error
+     */
+    public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
+        OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(writer, "writer cannot be null");
+        checkNotNull(format, "format cannot be null");
+        try {
+            OWLXMLWriter w = new OWLXMLWriter(writer, ontology, storerParameters.getEncoding());
+            w.startDocument(ontology);
+            writePrefixes(ontology, w);
+            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
+            ontology.accept(ren);
+            w.endDocument();
+            writer.flush();
+        } catch (OWLRuntimeException e) {
+            throw new OWLOntologyStorageException(e);
+        }
+    }
+
+    protected static void writePrefixes(OWLOntology ontology, OWLXMLWriter w) {
+        PrefixManager fromPrefixFormat = ontology.getPrefixManager();
+        Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
+        for (Map.Entry<String, String> e : map.entrySet()) {
+            if (e.getValue() != null && !e.getValue().isEmpty()) {
+                w.writePrefix(e.getKey(), e.getValue());
+            }
+        }
+        writeDefaultPrefix(w, map, "rdf:", Namespaces.RDF);
+        writeDefaultPrefix(w, map, "rdfs:", Namespaces.RDFS);
+        writeDefaultPrefix(w, map, "xsd:", Namespaces.XSD);
+        writeDefaultPrefix(w, map, "owl:", Namespaces.OWL);
+    }
+
+    protected static void writeDefaultPrefix(OWLXMLWriter w, Map<String, String> map, String prefix,
+        Namespaces defaultValue) {
+        if (!map.containsKey(prefix)) {
+            w.writePrefix(prefix, defaultValue.toString());
+        }
     }
 }

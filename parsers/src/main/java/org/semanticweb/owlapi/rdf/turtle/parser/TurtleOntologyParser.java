@@ -17,9 +17,9 @@ import java.io.Reader;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
 /**

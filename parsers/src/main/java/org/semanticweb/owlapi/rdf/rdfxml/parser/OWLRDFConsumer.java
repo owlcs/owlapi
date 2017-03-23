@@ -89,6 +89,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
 import org.semanticweb.owlapi.io.RDFParserMetaData;
@@ -130,7 +131,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveImport;

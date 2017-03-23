@@ -37,7 +37,7 @@ package org.semanticweb.owlapi.oboformat;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
 /**

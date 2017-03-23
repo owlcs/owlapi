@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
+import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.IMPLIES;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.ALL;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.AND;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.AT_LEAST;
@@ -86,6 +87,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils.Pair;
@@ -540,6 +542,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
         writeln();
     }
+    @Override
+    public void visit(OWLSubClassOfAxiom axiom) {
+        writeOpenBracket();
+        write(IMPLIES);
+        write(axiom.getSubClass());
+        write(axiom.getSuperClass());
+        writeCloseBracket();
+    }
 
     protected void write(int i) {
         write(" " + i);
@@ -631,4 +641,5 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     protected void writeSpace() {
         write(" ");
     }
+    
 }

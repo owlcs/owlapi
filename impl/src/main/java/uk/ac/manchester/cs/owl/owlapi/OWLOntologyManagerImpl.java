@@ -54,6 +54,8 @@ import org.semanticweb.owlapi.io.IRIDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorerFactory;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
@@ -102,9 +104,6 @@ import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerFactory;
-import org.semanticweb.owlapi.model.OWLStorerNotFoundException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -1321,7 +1320,8 @@ public class OWLOntologyManagerImpl
                     return;
                 }
             }
-            throw new OWLStorerNotFoundException(ontologyFormat);
+            throw new OWLOntologyStorageException(
+                "Could not find an ontology storer which can handle the format: " + ontologyFormat);
         } finally {
             readLock.unlock();
         }

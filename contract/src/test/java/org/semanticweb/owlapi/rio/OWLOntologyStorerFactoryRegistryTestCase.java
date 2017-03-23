@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLStorerFactory;
+import org.semanticweb.owlapi.io.OWLStorerFactory;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**

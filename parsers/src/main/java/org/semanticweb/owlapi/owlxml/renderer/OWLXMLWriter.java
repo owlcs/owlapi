@@ -32,12 +32,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriter;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl;
@@ -137,9 +136,9 @@ public class OWLXMLWriter {
 
     /**
      * @param ontology ontology
-     * @throws OWLRendererException renderer error
+     * @throws OWLOntologyStorageException renderer error
      */
-    public void startDocument(OWLOntology ontology) throws OWLRendererException {
+    public void startDocument(OWLOntology ontology) throws OWLOntologyStorageException {
         try {
             writer.startDocument(ONTOLOGY.getIRI());
             if (!ontology.isAnonymous()) {
@@ -151,7 +150,7 @@ public class OWLXMLWriter {
                 }
             }
         } catch (OWLRuntimeException e) {
-            throw new OWLRendererIOException(e);
+            throw new OWLOntologyStorageException(e);
         }
     }
 

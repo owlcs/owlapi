@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.model;
+package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -10,7 +10,9 @@ import java.util.function.BiConsumer;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * A wrapper for parser specific parameters.

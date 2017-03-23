@@ -23,10 +23,10 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * OBOformat parser.

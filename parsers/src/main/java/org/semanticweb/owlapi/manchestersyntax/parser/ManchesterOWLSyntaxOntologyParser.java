@@ -18,9 +18,9 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 

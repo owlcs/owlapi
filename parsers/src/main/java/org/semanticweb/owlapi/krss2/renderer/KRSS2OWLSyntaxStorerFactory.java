@@ -36,7 +36,7 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
 /**

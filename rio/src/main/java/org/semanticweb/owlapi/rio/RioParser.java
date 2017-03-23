@@ -37,8 +37,8 @@ package org.semanticweb.owlapi.rio;
 
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * An {@link OWLParser} that knows which Sesame {@link RDFFormat} it maps to.

@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 
 /**
  * Created by ses on 3/12/15.

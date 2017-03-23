@@ -16,7 +16,6 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 
 @SuppressWarnings("javadoc")
 public class StreamDocumentSourceBaseTestCase {

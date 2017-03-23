@@ -12,14 +12,26 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.Nullable;
+
+import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
+import org.obolibrary.oboformat.model.OBODoc;
+import org.obolibrary.oboformat.writer.OBOFormatWriter;
+import org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider;
+import org.obolibrary.oboformat.writer.OBOFormatWriter.OBODocNameProvider;
+import org.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
+import org.semanticweb.owlapi.io.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * @author Nick Drummond, The University Of Manchester, Bio Health Informatics Group
@@ -35,6 +47,46 @@ public class OBOFormatStorer implements OWLStorer {
     @Override
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
-        new OBOFormatRenderer().render(ontology, writer, storerParameters);
+        try {
+            OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
+            final OBODoc result = translator.convert(ontology, storerParameters);
+            boolean hasImports = !asList(ontology.imports()).isEmpty();
+            NameProvider nameProvider;
+            if (hasImports) {
+                // if the ontology has imports
+                // use it as secondary lookup for labels
+                final NameProvider primary = new OBODocNameProvider(result);
+                final NameProvider secondary =
+                    new OWLOntologyNameProvider(ontology, primary.getDefaultOboNamespace());
+                // combine primary and secondary name provider
+                nameProvider = new NameProvider() {
+
+                    @Override
+                    @Nullable
+                    public String getName(String id) {
+                        String name = primary.getName(id);
+                        if (name != null) {
+                            return name;
+                        }
+                        return secondary.getName(id);
+                    }
+
+                    @Override
+                    @Nullable
+                    public String getDefaultOboNamespace() {
+                        return primary.getDefaultOboNamespace();
+                    }
+                };
+            } else {
+                nameProvider = new OBODocNameProvider(result);
+            }
+            OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
+            oboFormatWriter.setCheckStructure(storerParameters
+                .getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE).booleanValue());
+            oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)),
+                nameProvider);
+        } catch (IOException e) {
+            throw new OWLOntologyStorageException(e);
+        }
     }
 }

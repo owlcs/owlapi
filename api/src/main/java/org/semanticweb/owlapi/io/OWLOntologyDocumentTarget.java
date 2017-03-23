@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * Specifies an interface that provides output management when an ontology is saved.

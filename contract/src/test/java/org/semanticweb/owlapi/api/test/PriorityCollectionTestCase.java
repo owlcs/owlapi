@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
+import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
 import org.semanticweb.owlapi.latex.renderer.LatexStorerFactory;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterSyntaxStorerFactory;
-import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.oboformat.OBOFormatStorerFactory;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory;

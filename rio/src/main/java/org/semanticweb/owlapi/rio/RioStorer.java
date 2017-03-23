@@ -56,13 +56,13 @@ import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
+import org.semanticweb.owlapi.io.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerParameters;
 
 /**
  * An implementation of {@link OWLStorer} that writes statements to Sesame {@link RDFHandler}s,

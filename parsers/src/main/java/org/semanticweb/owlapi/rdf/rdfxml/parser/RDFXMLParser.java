@@ -20,9 +20,9 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLParserParameters;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

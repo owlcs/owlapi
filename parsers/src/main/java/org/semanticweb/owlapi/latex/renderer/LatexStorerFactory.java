@@ -37,7 +37,7 @@ package org.semanticweb.owlapi.latex.renderer;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.LatexDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
 /**

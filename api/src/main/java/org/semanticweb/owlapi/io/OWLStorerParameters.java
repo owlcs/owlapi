@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.model;
+package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;

@@ -75,7 +75,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -103,6 +102,7 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -245,9 +245,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /**
      * Write ontology.
      *
-     * @throws OWLRendererException the oWL renderer exception
+     * @throws OWLOntologyStorageException the oWL renderer exception
      */
-    public void writeOntology() throws OWLRendererException {
+    public void writeOntology() throws OWLOntologyStorageException {
         writePrefixMap();
         writeNewLine();
         writeOntologyHeader();
