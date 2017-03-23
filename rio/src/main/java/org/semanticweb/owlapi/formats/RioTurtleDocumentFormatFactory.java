@@ -47,11 +47,6 @@ public class RioTurtleDocumentFormatFactory extends AbstractRioRDFDocumentFormat
      * Default constructor.
      */
     public RioTurtleDocumentFormatFactory() {
-        super(RDFFormat.TURTLE);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new RioTurtleDocumentFormat();
+        super(RDFFormat.TURTLE, new RioTurtleDocumentFormat());
     }
 }

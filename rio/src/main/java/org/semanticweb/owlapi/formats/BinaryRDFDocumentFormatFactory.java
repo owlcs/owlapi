@@ -47,11 +47,6 @@ public class BinaryRDFDocumentFormatFactory extends AbstractRioRDFDocumentFormat
      * Default constructor.
      */
     public BinaryRDFDocumentFormatFactory() {
-        super(RDFFormat.BINARY, false);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new BinaryRDFDocumentFormat();
+        super(RDFFormat.BINARY, false, new BinaryRDFDocumentFormat());
     }
 }

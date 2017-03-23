@@ -47,11 +47,6 @@ public class TrigDocumentFormatFactory extends AbstractRioRDFDocumentFormatFacto
      * Default constructor.
      */
     public TrigDocumentFormatFactory() {
-        super(RDFFormat.TRIG);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new TrigDocumentFormat();
+        super(RDFFormat.TRIG, new TrigDocumentFormat());
     }
 }

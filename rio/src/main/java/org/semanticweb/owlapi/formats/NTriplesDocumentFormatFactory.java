@@ -47,11 +47,6 @@ public class NTriplesDocumentFormatFactory extends AbstractRioRDFDocumentFormatF
      * Default constructor.
      */
     public NTriplesDocumentFormatFactory() {
-        super(RDFFormat.NTRIPLES);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new NTriplesDocumentFormat();
+        super(RDFFormat.NTRIPLES, new NTriplesDocumentFormat());
     }
 }

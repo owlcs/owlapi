@@ -15,11 +15,6 @@ public class NQuadsDocumentFormatFactory extends AbstractRioRDFDocumentFormatFac
      * Default constructor.
      */
     public NQuadsDocumentFormatFactory() {
-        super(RDFFormat.NQUADS);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new NQuadsDocumentFormat();
+        super(RDFFormat.NQUADS, new NQuadsDocumentFormat());
     }
 }

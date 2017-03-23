@@ -31,36 +31,32 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatFactory {
 
     private final List<String> mimeTypes;
-    private final String key;
     private final boolean isTextualFormat;
+    protected final OWLDocumentFormat instance;
 
     /**
      * Default, for a textual format with no mime types.
+     * 
+     * @param instance document format singleton instance
      */
-    protected OWLDocumentFormatFactoryImpl() {
-        this(new ArrayList<String>(0), true);
+    protected OWLDocumentFormatFactoryImpl(OWLDocumentFormat instance) {
+        this(Collections.emptyList(), true, instance);
     }
 
-    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes) {
-        this(mimeTypes, true);
-    }
-
-    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat) {
-        this.mimeTypes = new ArrayList<>(mimeTypes);
-        this.isTextualFormat = isTextualFormat;
-        key = this.getClass().getName();
+    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, OWLDocumentFormat instance) {
+        this(mimeTypes, true, instance);
     }
 
     protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat,
-        String key) {
+        OWLDocumentFormat instance) {
         this.mimeTypes = new ArrayList<>(mimeTypes);
         this.isTextualFormat = isTextualFormat;
-        this.key = key;
+        this.instance = instance;
     }
 
     @Override
     public String getKey() {
-        return key;
+        return instance.getKey();
     }
 
     @Override
@@ -128,5 +124,10 @@ public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatF
         }
         OWLDocumentFormatFactory otherFactory = (OWLDocumentFormatFactory) obj;
         return getKey().equals(otherFactory.getKey());
+    }
+
+    @Override
+    public OWLDocumentFormat createFormat() {
+        return instance;
     }
 }

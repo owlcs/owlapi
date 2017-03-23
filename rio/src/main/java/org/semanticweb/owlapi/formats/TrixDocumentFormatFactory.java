@@ -15,11 +15,6 @@ public class TrixDocumentFormatFactory extends AbstractRioRDFDocumentFormatFacto
      * Default constructor.
      */
     public TrixDocumentFormatFactory() {
-        super(RDFFormat.TRIX);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new TrixDocumentFormat();
+        super(RDFFormat.TRIX, new TrixDocumentFormat());
     }
 }

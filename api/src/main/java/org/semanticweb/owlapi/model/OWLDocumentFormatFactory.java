@@ -26,10 +26,8 @@ public interface OWLDocumentFormatFactory
     extends Serializable, Provider<OWLDocumentFormat>, MIMETypeAware {
 
     /**
-     * Create a new format. Note that ontology formats currently carry prefix information for the
-     * ontology, so an instance cannot, in general, be reused for multiple parsings.
-     *
-     * @return new storer
+     * @return format instance. OWLDocumentFormat instances are stateless, so the value returned can
+     *         be a singleton.
      */
     OWLDocumentFormat createFormat();
 

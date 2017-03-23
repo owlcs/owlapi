@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.formats;
 
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
@@ -21,13 +20,10 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
  */
 public class LabelFunctionalDocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
-    @Override
-    public String getKey() {
-        return "Label functional Syntax";
-    }
-
-    @Override
-    public OWLDocumentFormat createFormat() {
-        return new LabelFunctionalDocumentFormat();
+    /**
+     * Default constructor.
+     */
+    public LabelFunctionalDocumentFormatFactory() {
+        super(new LabelFunctionalDocumentFormat());
     }
 }

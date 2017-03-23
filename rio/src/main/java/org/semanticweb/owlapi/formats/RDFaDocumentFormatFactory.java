@@ -47,11 +47,6 @@ public class RDFaDocumentFormatFactory extends AbstractRioRDFDocumentFormatFacto
      * Default constructor.
      */
     public RDFaDocumentFormatFactory() {
-        super(RDFFormat.RDFA);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new RDFaDocumentFormat();
+        super(RDFFormat.RDFA, new RDFaDocumentFormat());
     }
 }

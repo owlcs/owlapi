@@ -40,6 +40,7 @@ import java.io.ObjectInputStream;
 
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
@@ -55,14 +56,20 @@ public abstract class AbstractRioRDFDocumentFormatFactory extends OWLDocumentFor
     private final String formatName;
     private transient RDFFormat rioFormat;
 
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
-        this(rioFormat, true);
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat, OWLDocumentFormat instance) {
+        this(rioFormat, true, instance);
     }
 
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat, boolean isTextual) {
-        super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat, boolean isTextual,
+        OWLDocumentFormat instance) {
+        super(rioFormat.getMIMETypes(), isTextual, instance);
         this.rioFormat = rioFormat;
         formatName = this.rioFormat.getName();
+    }
+
+    @Override
+    public String getKey() {
+        return formatName;
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -78,5 +85,10 @@ public abstract class AbstractRioRDFDocumentFormatFactory extends OWLDocumentFor
     @Override
     public RDFFormat getRioFormat() {
         return rioFormat;
+    }
+
+    @Override
+    public RioRDFDocumentFormat createFormat() {
+        return (RioRDFDocumentFormat) instance;
     }
 }

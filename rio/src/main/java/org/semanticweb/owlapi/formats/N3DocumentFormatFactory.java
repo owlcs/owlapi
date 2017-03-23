@@ -15,11 +15,6 @@ public class N3DocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory
      * Default constructor.
      */
     public N3DocumentFormatFactory() {
-        super(RDFFormat.N3);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new N3DocumentFormat();
+        super(RDFFormat.N3, new N3DocumentFormat());
     }
 }

@@ -47,11 +47,6 @@ public class RDFJsonLDDocumentFormatFactory extends AbstractRioRDFDocumentFormat
      * Default constructor.
      */
     public RDFJsonLDDocumentFormatFactory() {
-        super(RDFFormat.JSONLD);
-    }
-
-    @Override
-    public RioRDFDocumentFormat createFormat() {
-        return new RDFJsonLDDocumentFormat();
+        super(RDFFormat.JSONLD, new RDFJsonLDDocumentFormat());
     }
 }

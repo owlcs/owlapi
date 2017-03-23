@@ -15,11 +15,6 @@ public class RioRDFXMLDocumentFormatFactory extends AbstractRioRDFDocumentFormat
      * Default constructor.
      */
     public RioRDFXMLDocumentFormatFactory() {
-        super(RDFFormat.RDFXML);
-    }
-
-    @Override
-    public RioRDFXMLDocumentFormat createFormat() {
-        return new RioRDFXMLDocumentFormat();
+        super(RDFFormat.RDFXML, new RioRDFXMLDocumentFormat());
     }
 }
