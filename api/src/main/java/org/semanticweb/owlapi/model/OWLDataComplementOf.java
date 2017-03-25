@@ -54,24 +54,4 @@ public interface OWLDataComplementOf extends OWLDataRange {
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
-    @Override
-    default void accept(OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(OWLDataRangeVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
 }

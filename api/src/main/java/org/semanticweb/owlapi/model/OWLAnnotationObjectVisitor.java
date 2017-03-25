@@ -19,12 +19,8 @@ package org.semanticweb.owlapi.model;
 public interface OWLAnnotationObjectVisitor
     extends OWLAnnotationAxiomVisitor, OWLAnnotationValueVisitor {
 
-    /**
-     * visit OWLAnnotation type
-     *
-     * @param node object to visit
-     */
-    default void visit(OWLAnnotation node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitAnnotation(OWLAnnotation node) {
+        visit(node);
     }
 }

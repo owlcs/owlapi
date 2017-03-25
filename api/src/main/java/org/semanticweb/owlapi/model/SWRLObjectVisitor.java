@@ -16,95 +16,60 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
-public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
+public interface SWRLObjectVisitor extends OWLObjectVisitor {
 
-    /**
-     * visit SWRLClassAtom type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLClassAtom node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLClassAtom(SWRLClassAtom node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLDataRangeAtom type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLDataRangeAtom node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLDataRangeAtom(SWRLDataRangeAtom node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLObjectPropertyAtom type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLObjectPropertyAtom node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLObjectPropertyAtom(SWRLObjectPropertyAtom node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLDataPropertyAtom type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLDataPropertyAtom node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLDataPropertyAtom(SWRLDataPropertyAtom node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLBuiltInAtom type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLBuiltInAtom node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLBuiltInAtom(SWRLBuiltInAtom node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLVariable type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLVariable node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLVariable(SWRLVariable node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLIndividualArgument type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLIndividualArgument node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLIndividualArgument(SWRLIndividualArgument node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLLiteralArgument type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLLiteralArgument node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLLiteralArgument(SWRLLiteralArgument node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLSameIndividualAtom type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLSameIndividualAtom node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLSameIndividualAtom(SWRLSameIndividualAtom node) {
+        visit(node);
     }
 
-    /**
-     * visit SWRLDifferentIndividualsAtom type
-     *
-     * @param node node to visit
-     */
-    default void visit(SWRLDifferentIndividualsAtom node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitSWRLDifferentIndividualsAtom(SWRLDifferentIndividualsAtom node) {
+        visit(node);
+    }
+
+    /** @param node object to visit */
+    default void visitSWRLRule(SWRLRule node) {
+        visit(node);
     }
 }

@@ -18,41 +18,25 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
+public interface OWLAnnotationAxiomVisitor extends OWLObjectVisitor {
 
-    /**
-     * visit OWLAnnotationAssertionAxiom type
-     *
-     * @param axiom object to visit
-     */
-    default void visit(OWLAnnotationAssertionAxiom axiom) {
-        doDefault(axiom);
+    /** @param axiom object to visit */
+    default void visitAnnotationAssertionAxiom(OWLAnnotationAssertionAxiom axiom) {
+        visit(axiom);
     }
 
-    /**
-     * visit OWLSubAnnotationPropertyOfAxiom type
-     *
-     * @param axiom object to visit
-     */
-    default void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        doDefault(axiom);
+    /** @param axiom object to visit */
+    default void visitSubAnnotationPropertyOfAxiom(OWLSubAnnotationPropertyOfAxiom axiom) {
+        visit(axiom);
     }
 
-    /**
-     * visit OWLAnnotationPropertyDomainAxiom type
-     *
-     * @param axiom object to visit
-     */
-    default void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        doDefault(axiom);
+    /** @param axiom object to visit */
+    default void visitAnnotationPropertyDomainAxiom(OWLAnnotationPropertyDomainAxiom axiom) {
+        visit(axiom);
     }
 
-    /**
-     * visit OWLAnnotationPropertyRangeAxiom type
-     *
-     * @param axiom object to visit
-     */
-    default void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        doDefault(axiom);
+    /** @param axiom object to visit */
+    default void visitAnnotationPropertyRangeAxiom(OWLAnnotationPropertyRangeAxiom axiom) {
+        visit(axiom);
     }
 }

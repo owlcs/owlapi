@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObject;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -121,7 +122,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     }
 
     @Override
-    public OWLAxiom doDefault(Object o) {
+    public OWLAxiom doDefault(OWLObject o) {
         return (OWLAxiom) o;
     }
 
@@ -150,10 +151,10 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         OWLAnnotationProperty ap425 = df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI());
         getAnnotationObjects(p, o.importsClosure(), ap425).map(a -> a.getValue().asLiteral())
             .filter(v -> v.isPresent()).forEach(v -> {
-            String str = v.get().getLiteral();
-            LOG.info("assertion mapping {} to {}", p, str);
-            expandAssertionToMap.put(p.getIRI(), str);
-        });
+                String str = v.get().getLiteral();
+                LOG.info("assertion mapping {} to {}", p, str);
+                expandAssertionToMap.put(p.getIRI(), str);
+            });
     }
 
     @Nullable

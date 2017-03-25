@@ -23,8 +23,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 2.0.0
  */
 public interface OWLEntity
-    extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty,
-    AsOWLDatatype, AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
+    extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty, AsOWLDatatype,
+    AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
 
     /**
      * Gets the entity type for this entity.
@@ -69,7 +69,7 @@ public interface OWLEntity
      * </ul>
      *
      * @return {@code true} if this entity is a built in entity, or {@code false} if this entity is
-     * not a builtin entity.
+     *         not a builtin entity.
      */
     default boolean isBuiltIn() {
         return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(getIRI());
@@ -82,16 +82,4 @@ public interface OWLEntity
      * @return A string representing the toString of the IRI of this entity.
      */
     String toStringID();
-
-    /**
-     * @param visitor visitor
-     */
-    void accept(OWLEntityVisitor visitor);
-
-    /**
-     * @param visitor visitor
-     * @param <O> visitor return type
-     * @return visitor return value
-     */
-    <O> O accept(OWLEntityVisitorEx<O> visitor);
 }

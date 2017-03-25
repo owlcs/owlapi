@@ -18,14 +18,24 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyExpressionVisitor extends OWLPropertyEntityVisitorBase {
+public interface OWLPropertyExpressionVisitor extends OWLObjectVisitor {
+    /** @param property object to visit */
+    default void visitObjectInverseOf(OWLObjectInverseOf property) {
+        visit(property);
+    }
 
-    /**
-     * visit OWLObjectInverseOf type
-     *
-     * @param property property to visit
-     */
-    default void visit(OWLObjectInverseOf property) {
-        doDefault(property);
+    /** @param property object to visit */
+    default void visitObjectProperty(OWLObjectProperty property) {
+        visit(property);
+    }
+
+    /** @param property object to visit */
+    default void visitDataProperty(OWLDataProperty property) {
+        visit(property);
+    }
+
+    /** @param property object to visit */
+    default void visitAnnotationProperty(OWLAnnotationProperty property) {
+        visit(property);
     }
 }

@@ -28,10 +28,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 public abstract class AbstractCollector implements OWLObjectVisitor {
 
     @Override
-    public void doDefault(Object object) {
-        if (object instanceof HasComponents) {
-            processStream(((HasComponents) object).components());
-        }
+    public void doDefault(OWLObject object) {
+        processStream(((HasComponents) object).components());
     }
 
     protected void processStream(Stream<?> s) {

@@ -236,7 +236,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /**
      * @param s the IRI stirng to be resolved
      * @return s resolved against this IRI (with the URI::resolve() method, unless this IRI is
-     * opaque)
+     *         opaque)
      */
     public IRI resolve(String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
@@ -258,15 +258,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      */
     public boolean isReservedVocabulary() {
         return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
-            || Namespaces.RDFS.inNamespace(namespace)
-            || Namespaces.XSD.inNamespace(namespace);
+            || Namespaces.RDFS.inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**
      * Determines if this IRI is equal to the IRI that {@code owl:Thing} is named with.
      *
      * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and
-     * otherwise {@code false}
+     *         otherwise {@code false}
      */
     public boolean isThing() {
         return equals(OWLRDFVocabulary.OWL_THING.getIRI());
@@ -276,7 +275,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is named with.
      *
      * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
-     * and otherwise {@code false}
+     *         and otherwise {@code false}
      */
     public boolean isNothing() {
         return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
@@ -285,8 +284,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /**
      * Determines if this IRI is equal to the IRI that is named {@code rdf:PlainLiteral}.
      *
-     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
-     * otherwise {@code false}
+     * @return {@code true} if this IRI is equal to
+     *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;, otherwise
+     *         {@code false}
      */
     public boolean isPlainLiteral() {
         return "PlainLiteral".equals(remainder) && Namespaces.RDF.inNamespace(namespace);
@@ -296,7 +296,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * Gets the fragment of the IRI.
      *
      * @return The IRI fragment, or empty string if the IRI does not have a fragment. Note:
-     * getFragment() does not return a real fragment. e.g., it does not allow / and () on it.
+     *         getFragment() does not return a real fragment. e.g., it does not allow / and () on
+     *         it.
      */
     public String getFragment() {
         return remainder;
@@ -399,16 +400,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     @Override
-    public void accept(OWLAnnotationSubjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
     public int compareTo(@Nullable OWLObject o) {
         checkNotNull(o);
         assert o != null;
@@ -434,16 +425,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     @Override
     public int hashCode() {
         return namespace.hashCode() + remainder.hashCode();
-    }
-
-    @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

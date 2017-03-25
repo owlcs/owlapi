@@ -69,7 +69,7 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
      * annotation.
      *
      * @return {@code true} if this annotation assertion deprecates the subject IRI of the
-     * assertion, otherwise {@code false}.
+     *         assertion, otherwise {@code false}.
      * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
      */
     boolean isDeprecatedIRIAssertion();
@@ -85,16 +85,6 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
 
     @Override
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

@@ -50,10 +50,10 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *
      * @param axiom axiom to be copied
      * @param annotations The annotations that will be added to existing annotations to annotate the
-     * copy of this axiom
+     *        copy of this axiom
      * @param <T> type of axiom returned
      * @return A copy of this axiom that has the specified annotations plus any existing annotations
-     * returned by the {@code OWLAxiom#getAnnotations()} method.
+     *         returned by the {@code OWLAxiom#getAnnotations()} method.
      */
     @SuppressWarnings("unchecked")
     static <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> annotations, T axiom) {
@@ -67,10 +67,10 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *
      * @param axiom axiom to be copied
      * @param annotations The annotations that will be added to existing annotations to annotate the
-     * copy of this axiom
+     *        copy of this axiom
      * @param <T> type of axiom returned
      * @return A copy of this axiom that has the specified annotations plus any existing annotations
-     * returned by the {@code OWLAxiom#getAnnotations()} method.
+     *         returned by the {@code OWLAxiom#getAnnotations()} method.
      */
     static <T extends OWLAxiom> T getAnnotatedAxiom(Collection<OWLAnnotation> annotations,
         T axiom) {
@@ -91,18 +91,6 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
     default boolean isAxiom() {
         return true;
     }
-
-    /**
-     * @param visitor visitor to accept
-     */
-    void accept(OWLAxiomVisitor visitor);
-
-    /**
-     * @param visitor visitor to accept
-     * @param <O> visitor return type
-     * @return visitor value
-     */
-    <O> O accept(OWLAxiomVisitorEx<O> visitor);
 
     /**
      * Gets an axiom that is structurally equivalent to this axiom without annotations. This
@@ -140,9 +128,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *
      * @param witness Variable to ground the generic return type
      * @param annotations The annotations that will be added to existing annotations to annotate the
-     * copy of this axiom
+     *        copy of this axiom
      * @return A copy of this axiom that has the specified annotations plus any existing annotations
-     * returned by the {@code OWLAxiom#getAnnotations()} method.
+     *         returned by the {@code OWLAxiom#getAnnotations()} method.
      */
     @SuppressWarnings("unchecked")
     default <T extends OWLAxiom> T getAnnotatedAxiom(@SuppressWarnings("unused") Class<T> witness,
@@ -156,9 +144,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * this axiom will not be modified (or removed from any ontologies).
      *
      * @param annotations The annotations that will be added to existing annotations to annotate the
-     * copy of this axiom
+     *        copy of this axiom
      * @return A copy of this axiom that has the specified annotations plus any existing annotations
-     * returned by the {@code OWLAxiom#getAnnotations()} method.
+     *         returned by the {@code OWLAxiom#getAnnotations()} method.
      */
     <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> annotations);
 
@@ -168,9 +156,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * this axiom will not be modified (or removed from any ontologies).
      *
      * @param annotations The annotations that will be added to existing annotations to annotate the
-     * copy of this axiom
+     *        copy of this axiom
      * @return A copy of this axiom that has the specified annotations plus any existing annotations
-     * returned by the {@code OWLAxiom#getAnnotations()} method.
+     *         returned by the {@code OWLAxiom#getAnnotations()} method.
      */
     default <T extends OWLAxiom> T getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
         return getAnnotatedAxiom(annotations.stream());
@@ -182,7 +170,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *
      * @param axiom The axiom to test if equal
      * @return {@code true} if {@code axiom} without annotations is equal to this axiom without
-     * annotations otherwise {@code false}.
+     *         annotations otherwise {@code false}.
      */
     default boolean equalsIgnoreAnnotations(@Nullable OWLAxiom axiom) {
         if (axiom == null) {
@@ -202,7 +190,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * than both declaration axioms (including imports declarations) and annotation axioms.
      *
      * @return {@code true} if the axiom is a logical axiom, {@code false} if the axiom is not a
-     * logical axiom.
+     *         logical axiom.
      */
     default boolean isLogicalAxiom() {
         return false;
@@ -212,7 +200,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * Determines if this axioms in an annotation axiom (an instance of {@code OWLAnnotationAxiom})
      *
      * @return {@code true} if this axiom is an instance of {@code OWLAnnotationAxiom}, otherwise
-     * {@code false}.
+     *         {@code false}.
      * @since 3.2
      */
     default boolean isAnnotationAxiom() {

@@ -29,20 +29,8 @@ import java.util.Optional;
 public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
 
     /**
-     * @param visitor visitor to accept
-     */
-    void accept(OWLAnnotationValueVisitor visitor);
-
-    /**
-     * @param visitor visitor to accept
-     * @param <O> visitor return type
-     * @return visitor value
-     */
-    <O> O accept(OWLAnnotationValueVisitorEx<O> visitor);
-
-    /**
      * @return if the value is a literal, return an optional containing it. Return Optional.absent
-     * otherwise.
+     *         otherwise.
      */
     default Optional<OWLLiteral> asLiteral() {
         return emptyOptional();

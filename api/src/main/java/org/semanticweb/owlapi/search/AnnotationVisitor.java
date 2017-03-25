@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.HasAnnotations;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 @SuppressWarnings("unchecked")
@@ -20,7 +21,7 @@ class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
     }
 
     @Override
-    public Set<C> doDefault(Object object) {
+    public Set<C> doDefault(OWLObject object) {
         return asUnorderedSet(((HasAnnotations) object).annotations().map(this::get));
     }
 

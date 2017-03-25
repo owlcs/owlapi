@@ -264,7 +264,7 @@ public class InitVisitorFactory {
         }
 
         @Override
-        public Stream<K> doDefault(Object object) {
+        public Stream<K> doDefault(OWLObject object) {
             return Stream.empty();
         }
 

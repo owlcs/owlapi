@@ -2308,7 +2308,7 @@ public class OWLAPIOwl2Obo {
         }
 
         @Override
-        public void doDefault(Object o) {
+        public void doDefault(OWLObject o) {
             if (!(o instanceof OWLAnnotationAssertionAxiom)) {
                 error((OWLAxiom) o, false);
             }

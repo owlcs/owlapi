@@ -20,6 +20,7 @@ import java.util.Optional;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiomShortCut;
 
@@ -39,7 +40,7 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClas
     }
 
     @Override
-    public Optional<OWLClassExpression> doDefault(Object o) {
+    public Optional<OWLClassExpression> doDefault(OWLObject o) {
         if (o instanceof OWLSubClassOfAxiomShortCut) {
             return ((OWLSubClassOfAxiomShortCut) o).asOWLSubClassOfAxiom().accept(this);
         }

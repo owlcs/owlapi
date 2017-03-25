@@ -20,16 +20,4 @@ package org.semanticweb.owlapi.model;
  * @since 3.0.0
  */
 public interface OWLAnnotationSubject extends OWLAnnotationObject, OWLPrimitive {
-
-    /**
-     * @param visitor visitor to accept
-     */
-    void accept(OWLAnnotationSubjectVisitor visitor);
-
-    /**
-     * @param visitor visitor to accept
-     * @param <O> visitor return type
-     * @return visitor value
-     */
-    <O> O accept(OWLAnnotationSubjectVisitorEx<O> visitor);
 }

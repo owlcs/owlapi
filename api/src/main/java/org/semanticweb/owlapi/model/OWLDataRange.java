@@ -39,28 +39,4 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
      * @return The data range type
      */
     DataRangeType getDataRangeType();
-
-    /**
-     * @param visitor visitor
-     */
-    void accept(OWLDataVisitor visitor);
-
-    /**
-     * @param visitor visitor
-     * @param <O> visitor return type
-     * @return visitor return value
-     */
-    <O> O accept(OWLDataVisitorEx<O> visitor);
-
-    /**
-     * @param visitor visitor
-     */
-    void accept(OWLDataRangeVisitor visitor);
-
-    /**
-     * @param visitor visitor
-     * @param <O> visitor return type
-     * @return visitor return value
-     */
-    <O> O accept(OWLDataRangeVisitorEx<O> visitor);
 }

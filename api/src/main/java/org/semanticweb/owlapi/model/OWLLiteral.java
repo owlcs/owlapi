@@ -241,14 +241,4 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
-    @Override
-    default void accept(OWLAnnotationValueVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
 }

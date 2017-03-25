@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLObject;
@@ -140,7 +141,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
 
         @Override
-        public SWRLObject doDefault(Object o) {
+        public SWRLObject doDefault(OWLObject o) {
             return (SWRLObject) o;
         }
 

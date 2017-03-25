@@ -19,6 +19,34 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLEntityVisitor extends OWLIndividualEntityVisitorBase,
-    OWLPropertyEntityVisitorBase, OWLClassVisitorBase, OWLDataEntityVisitorBase {
+public interface OWLEntityVisitor extends OWLObjectVisitor {
+    /** @param ce object to visit */
+    default void visitClass(OWLClass ce) {
+        visit(ce);
+    }
+
+    /** @param node object to visit */
+    default void visitDatatype(OWLDatatype node) {
+        visit(node);
+    }
+
+    /** @param individual object to visit */
+    default void visitNamedIndividual(OWLNamedIndividual individual) {
+        visit(individual);
+    }
+
+    /** @param property object to visit */
+    default void visitObjectProperty(OWLObjectProperty property) {
+        visit(property);
+    }
+
+    /** @param property object to visit */
+    default void visitDataProperty(OWLDataProperty property) {
+        visit(property);
+    }
+
+    /** @param property object to visit */
+    default void visitAnnotationProperty(OWLAnnotationProperty property) {
+        visit(property);
+    }
 }

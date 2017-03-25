@@ -85,16 +85,6 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     }
 
     @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.SUB_PROPERTY_CHAIN_OF;
     }

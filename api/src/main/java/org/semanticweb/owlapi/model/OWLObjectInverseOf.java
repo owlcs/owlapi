@@ -64,14 +64,4 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
-    @Override
-    default void accept(OWLPropertyExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
 }

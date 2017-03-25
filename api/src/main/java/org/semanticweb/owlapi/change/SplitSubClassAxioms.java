@@ -66,8 +66,8 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         ConjunctSplitter() {}
 
         @Override
-        public void doDefault(Object object) {
-            result.add((OWLClassExpression) object);
+        public void doDefaultClassExpression(OWLClassExpression ce) {
+            result.add(ce);
         }
 
         @Override

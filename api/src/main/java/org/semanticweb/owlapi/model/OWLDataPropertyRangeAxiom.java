@@ -20,8 +20,7 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLDataPropertyRangeAxiom
-    extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>,
-    OWLDataPropertyAxiom {
+    extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>, OWLDataPropertyAxiom {
 
     @Override
     @SuppressWarnings("unchecked")
@@ -39,16 +38,6 @@ public interface OWLDataPropertyRangeAxiom
 
     @Override
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

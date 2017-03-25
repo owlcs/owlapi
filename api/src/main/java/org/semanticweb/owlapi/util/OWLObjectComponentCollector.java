@@ -58,10 +58,8 @@ public class OWLObjectComponentCollector extends AbstractCollectorEx<OWLObject> 
     }
 
     @Override
-    public Collection<OWLObject> doDefault(Object object) {
-        if (object instanceof OWLObject) {
-            objects.add((OWLObject) object);
-        }
+    public Collection<OWLObject> doDefault(OWLObject object) {
+        objects.add(object);
         return super.doDefault(object);
     }
 

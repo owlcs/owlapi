@@ -51,16 +51,6 @@ public interface OWLNegativeObjectPropertyAssertionAxiom
     }
 
     @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
     }

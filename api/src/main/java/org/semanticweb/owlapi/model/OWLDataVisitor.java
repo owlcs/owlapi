@@ -18,14 +18,15 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataVisitor extends OWLDataRangeVisitor, OWLLiteralVisitorBase {
+public interface OWLDataVisitor extends OWLDataRangeVisitor {
 
-    /**
-     * visit OWLFacetRestriction type
-     *
-     * @param node node to visit
-     */
-    default void visit(OWLFacetRestriction node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitFacetRestriction(OWLFacetRestriction node) {
+        visit(node);
+    }
+
+    /** @param node object to visit */
+    default void visitLiteral(OWLLiteral node) {
+        visit(node);
     }
 }

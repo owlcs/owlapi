@@ -46,7 +46,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * if the class is equivalent to owl:Thing.
      *
      * @return {@code true} if this expression is owl:Thing, or {@code false} if this expression is
-     * not owl:Thing
+     *         not owl:Thing
      */
     boolean isOWLThing();
 
@@ -55,7 +55,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * determine if the class is equivalent to owl:Nothing.
      *
      * @return {@code true} if this expression is owl:Nothing, or {@code false} if this expression
-     * is not owl:Nothing.
+     *         is not owl:Nothing.
      */
     boolean isOWLNothing();
 
@@ -85,8 +85,9 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * normalise the expression (full CNF is not computed).
      *
      * @return The conjucts of this expression if it is a conjunction (object intersection of), or
-     * otherwise a singleton set containing this expression. Note that nested conjunctions will be
-     * flattened, for example, calling this method on (A and B) and C will return the set {A, B, C}
+     *         otherwise a singleton set containing this expression. Note that nested conjunctions
+     *         will be flattened, for example, calling this method on (A and B) and C will return
+     *         the set {A, B, C}
      */
     default Stream<OWLClassExpression> conjunctSet() {
         return asConjunctSet().stream();
@@ -97,8 +98,9 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * normalise the expression (full CNF is not computed).
      *
      * @return The conjucts of this expression if it is a conjunction (object intersection of), or
-     * otherwise a singleton set containing this expression. Note that nested conjunctions will be
-     * flattened, for example, calling this method on (A and B) and C will return the set {A, B, C}
+     *         otherwise a singleton set containing this expression. Note that nested conjunctions
+     *         will be flattened, for example, calling this method on (A and B) and C will return
+     *         the set {A, B, C}
      */
     Set<OWLClassExpression> asConjunctSet();
 
@@ -108,7 +110,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *
      * @param ce The conjunct to test for
      * @return {@code true} if this class expression is equal to {@code ce} or if this class
-     * expression is an {@code ObjectIntersectionOf} (possibly nested withing another {@code
+     *         expression is an {@code ObjectIntersectionOf} (possibly nested withing another {@code
      * ObjectIntersectionOf}) that contains {@code ce}, otherwise {@code false}.
      */
     boolean containsConjunct(OWLClassExpression ce);
@@ -118,8 +120,9 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * normalise the expression (full DNF is not computed).
      *
      * @return The disjuncts of this expression if it is a disjunction (object union of), or
-     * otherwise a singleton set containing this expression. Note that nested disjunctions will be
-     * flattened, for example, calling this method on (A or B) or C will return the set {A, B, C}
+     *         otherwise a singleton set containing this expression. Note that nested disjunctions
+     *         will be flattened, for example, calling this method on (A or B) or C will return the
+     *         set {A, B, C}
      */
     default Stream<OWLClassExpression> disjunctSet() {
         return asDisjunctSet().stream();
@@ -130,22 +133,9 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * normalise the expression (full DNF is not computed).
      *
      * @return The disjuncts of this expression if it is a disjunction (object union of), or
-     * otherwise a singleton set containing this expression. Note that nested disjunctions will be
-     * flattened, for example, calling this method on (A or B) or C will return the set {A, B, C}
+     *         otherwise a singleton set containing this expression. Note that nested disjunctions
+     *         will be flattened, for example, calling this method on (A or B) or C will return the
+     *         set {A, B, C}
      */
     Set<OWLClassExpression> asDisjunctSet();
-
-    /**
-     * Accepts a visit from an {@code OWLExpressionVisitor}.
-     *
-     * @param visitor The visitor that wants to visit
-     */
-    void accept(OWLClassExpressionVisitor visitor);
-
-    /**
-     * @param visitor visitor
-     * @param <O> visitor return type
-     * @return visitor return value
-     */
-    <O> O accept(OWLClassExpressionVisitorEx<O> visitor);
 }

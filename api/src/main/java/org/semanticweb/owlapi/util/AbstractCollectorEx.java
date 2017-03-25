@@ -40,10 +40,8 @@ public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Colle
     }
 
     @Override
-    public Collection<E> doDefault(Object object) {
-        if (object instanceof HasComponents) {
-            processStream(((HasComponents) object).components());
-        }
+    public Collection<E> doDefault(OWLObject object) {
+        processStream(((HasComponents) object).components());
         return objects;
     }
 

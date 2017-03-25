@@ -21,17 +21,13 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor, OWLLogicalAxiomVisitor {
 
-    /**
-     * @param axiom axiom to visit
-     */
-    default void visit(OWLDeclarationAxiom axiom) {
-        doDefault(axiom);
+    /** @param axiom object to visit */
+    default void visitDeclarationAxiom(OWLDeclarationAxiom axiom) {
+        visit(axiom);
     }
 
-    /**
-     * @param axiom axiom to visit
-     */
-    default void visit(OWLDatatypeDefinitionAxiom axiom) {
-        doDefault(axiom);
+    /** @param axiom object to visit */
+    default void visitDatatypeDefinitionAxiom(OWLDatatypeDefinitionAxiom axiom) {
+        visit(axiom);
     }
 }

@@ -73,7 +73,7 @@ public interface OWLAnnotation
      * is {@code "true"^^xsd:boolean}
      *
      * @return {@code true} if this annotation is an annotation that can be used to deprecate an
-     * IRI, otherwise {@code false}.
+     *         IRI, otherwise {@code false}.
      */
     boolean isDeprecatedIRIAnnotation();
 
@@ -94,22 +94,6 @@ public interface OWLAnnotation
      * @return A copy of this annotation with the specified annotations annotating it
      */
     OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations);
-
-    /**
-     * @param visitor visitor to accept
-     */
-    default void accept(OWLAnnotationObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    /**
-     * @param visitor visitor to accept
-     * @param <O> visitor return type
-     * @return visitor value
-     */
-    default <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

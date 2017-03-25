@@ -19,15 +19,19 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface OWLAnnotationValueVisitor
-    extends OWLAnonymousIndividualVisitorBase, OWLLiteralVisitorBase {
+public interface OWLAnnotationValueVisitor extends OWLObjectVisitor {
+    /** @param iri object to visit */
+    default void visitIRI(IRI iri) {
+        visit(iri);
+    }
 
-    /**
-     * visit IRI type
-     *
-     * @param iri object to visit
-     */
-    default void visit(IRI iri) {
-        doDefault(iri);
+    /** @param individual object to visit */
+    default void visitAnonymousIndividual(OWLAnonymousIndividual individual) {
+        visit(individual);
+    }
+
+    /** @param node object to visit */
+    default void visitLiteral(OWLLiteral node) {
+        visit(node);
     }
 }

@@ -178,8 +178,8 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
     }
 
     @Override
-    public OWLObject doDefault(Object object) {
-        return visitGeneric((OWLObject) object);
+    public OWLObject doDefault(OWLObject object) {
+        return visitGeneric(object);
     }
 
     protected OWLAxiom update(OWLAxiom transform, OWLAxiom axiom) {

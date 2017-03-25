@@ -25,7 +25,7 @@ class EquivalentVisitor<C extends OWLObject> implements OWLAxiomVisitorEx<Stream
     }
 
     @Override
-    public Stream<C> doDefault(Object o) {
+    public Stream<C> doDefault(OWLObject o) {
         return empty();
     }
 

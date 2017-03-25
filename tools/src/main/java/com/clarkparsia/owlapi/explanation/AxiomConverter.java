@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
@@ -73,7 +74,7 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     }
 
     @Override
-    public OWLClassExpression doDefault(Object object) {
+    public OWLClassExpression doDefault(OWLObject object) {
         throw new OWLRuntimeException("Not implemented: Cannot generate explanation for " + object);
     }
 
@@ -94,8 +95,8 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     @Override
     public OWLClassExpression visit(OWLDataPropertyDomainAxiom axiom) {
-        OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
-            factory.getTopDatatype());
+        OWLClassExpression sub =
+            factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype());
         return and(sub, not(axiom.getDomain()));
     }
 

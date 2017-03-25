@@ -39,7 +39,7 @@ public interface OWLAnnotationProperty extends OWLProperty {
      * Determines if this annotation property has an IRI corresponding to {@code rdfs:comment}.
      *
      * @return {@code true} if the IRI of this annotation property is {@code rdfs:comment}, where
-     * {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
+     *         {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
      */
     default boolean isComment() {
         return getIRI().equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
@@ -49,7 +49,7 @@ public interface OWLAnnotationProperty extends OWLProperty {
      * Determines if this annotation property has an IRI corresponding to {@code rdfs:label}.
      *
      * @return {@code true} if the IRI of this annotation property is {@code rdfs:label}, where
-     * {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
+     *         {@code rdfs:} expands to the usual prefix, otherwise {@code false}.
      */
     default boolean isLabel() {
         return getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
@@ -63,7 +63,7 @@ public interface OWLAnnotationProperty extends OWLProperty {
      * OWL 2 specification.
      *
      * @return {@code true} if the IRI of this annotation property is {@code owl:deprecated}, where
-     * {@code owl:} expands to the usual prefix, otherwise {@code false}.
+     *         {@code owl:} expands to the usual prefix, otherwise {@code false}.
      */
     default boolean isDeprecated() {
         return getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
@@ -81,36 +81,6 @@ public interface OWLAnnotationProperty extends OWLProperty {
 
     @Override
     default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(@Nonnull OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

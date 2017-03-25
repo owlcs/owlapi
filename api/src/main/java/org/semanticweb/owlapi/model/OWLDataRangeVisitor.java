@@ -19,50 +19,35 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
+public interface OWLDataRangeVisitor extends OWLObjectVisitor {
 
-    /**
-     * visit OWLDataOneOf type
-     *
-     * @param node node to visit
-     */
-    default void visit(OWLDataOneOf node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitDataOneOf(OWLDataOneOf node) {
+        visit(node);
     }
 
-    /**
-     * visit OWLDataComplementOf type
-     *
-     * @param node node to visit
-     */
-    default void visit(OWLDataComplementOf node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitDataComplementOf(OWLDataComplementOf node) {
+        visit(node);
     }
 
-    /**
-     * visit OWLDataIntersectionOf type
-     *
-     * @param node node to visit
-     */
-    default void visit(OWLDataIntersectionOf node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitDataIntersectionOf(OWLDataIntersectionOf node) {
+        visit(node);
     }
 
-    /**
-     * visit OWLDataUnionOf type
-     *
-     * @param node node to visit
-     */
-    default void visit(OWLDataUnionOf node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitDataUnionOf(OWLDataUnionOf node) {
+        visit(node);
     }
 
-    /**
-     * visit OWLDatatypeRestriction type
-     *
-     * @param node node to visit
-     */
-    default void visit(OWLDatatypeRestriction node) {
-        doDefault(node);
+    /** @param node object to visit */
+    default void visitDatatypeRestriction(OWLDatatypeRestriction node) {
+        visit(node);
+    }
+
+    /** @param node object to visit */
+    default void visitDatatype(OWLDatatype node) {
+        visit(node);
     }
 }

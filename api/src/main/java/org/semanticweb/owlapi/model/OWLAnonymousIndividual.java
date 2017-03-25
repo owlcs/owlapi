@@ -55,34 +55,4 @@ public interface OWLAnonymousIndividual
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
-    @Override
-    default void accept(OWLIndividualVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLIndividualVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(OWLAnnotationValueVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(OWLAnnotationSubjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
-        return visitor.visit(this);
-    }
 }

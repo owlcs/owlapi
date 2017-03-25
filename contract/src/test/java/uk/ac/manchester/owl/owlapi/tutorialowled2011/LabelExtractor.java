@@ -3,6 +3,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 class LabelExtractor implements OWLObjectVisitorEx<String>, OWLAnnotationObjectVisitorEx<String> {
@@ -21,7 +22,7 @@ class LabelExtractor implements OWLObjectVisitorEx<String>, OWLAnnotationObjectV
     }
 
     @Override
-    public String doDefault(Object individual) {
+    public String doDefault(OWLObject individual) {
         return "";
     }
 }

@@ -17,16 +17,4 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface SWRLObject extends OWLObject {
-
-    /**
-     * @param visitor visitor to accept
-     */
-    void accept(SWRLObjectVisitor visitor);
-
-    /**
-     * @param visitor visitor to accept
-     * @param <O> visitor return type
-     * @return visitor value
-     */
-    <O> O accept(SWRLObjectVisitorEx<O> visitor);
 }

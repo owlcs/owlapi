@@ -21,12 +21,10 @@ public interface OWLAnnotationObjectVisitorEx<O>
     extends OWLAnnotationAxiomVisitorEx<O>, OWLAnnotationValueVisitorEx<O> {
 
     /**
-     * visit OWLAnnotation type
-     *
-     * @param node object to visit
+     * @param node OWLAnnotation to visit
      * @return visitor value
      */
-    default O visit(OWLAnnotation node) {
-        return doDefault(node);
+    default O visitAnnotation(OWLAnnotation node) {
+        return visit(node);
     }
 }

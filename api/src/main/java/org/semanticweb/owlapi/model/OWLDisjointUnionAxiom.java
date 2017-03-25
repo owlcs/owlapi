@@ -61,7 +61,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      * Gets the class expressions which are operands of the disjoint union.
      *
      * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
-     * not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
+     *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -73,7 +73,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      * Gets the class expressions which are operands of the disjoint union.
      *
      * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
-     * not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
+     *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
      */
     Stream<OWLClassExpression> classExpressions();
 
@@ -82,8 +82,8 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *
      * @return The equivalent classes axiom part of this axiom. This is essentially, {@code
      * EquivalentClasses(CE, CEUnion)} where {@code CEUnion} is the union of the classes returned by
-     * the {@link #getClassExpressions()} method and {@code CE} is the class returned by the {@link
-     * #getOWLClass()} method.
+     *         the {@link #getClassExpressions()} method and {@code CE} is the class returned by the
+     *         {@link #getOWLClass()} method.
      */
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
 
@@ -92,7 +92,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *
      * @return The disjoint classes axiom part of this axiom. This is essentially, {@code
      * DisjointClasses(CE1, ..., CEn)} where {@code CEi in (CE1, ..., CEn)} is contained in the
-     * classes returned by the {@link #getClassExpressions()} method.
+     *         classes returned by the {@link #getClassExpressions()} method.
      */
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
 
@@ -103,16 +103,6 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
 
     @Override
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

@@ -140,16 +140,6 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     }
 
     @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.HAS_KEY;
     }

@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -69,6 +70,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
         new ClassVisitor();
     protected final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor = new DataVisitor();
     protected boolean negated;
+
     /**
      * @param datafactory datafactory to use
      */
@@ -91,7 +93,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
     }
 
     @Override
-    public <T> OWLAxiom doDefault(T object) {
+    public OWLAxiom doDefault(OWLObject object) {
         return (OWLAxiom) object;
     }
 
@@ -104,8 +106,8 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
-        return df.getOWLDisjointClassesAxiom(
-            axiom.classExpressions().map(p -> p.accept(classVisitor)));
+        return df
+            .getOWLDisjointClassesAxiom(axiom.classExpressions().map(p -> p.accept(classVisitor)));
     }
 
     @Override

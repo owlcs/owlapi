@@ -58,16 +58,6 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
     }
 
     @Override
-    default void accept(OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.ASYMMETRIC_OBJECT_PROPERTY;
     }

@@ -20,12 +20,10 @@ package org.semanticweb.owlapi.model;
 public interface OWLNamedObjectVisitorEx<O> extends OWLEntityVisitorEx<O> {
 
     /**
-     * visit OWLOntology type
-     *
-     * @param ontology ontology to visit
+     * @param ontology OWLOntology to visit
      * @return visitor value
      */
-    default O visit(OWLOntology ontology) {
+    default O visitOntology(OWLOntology ontology) {
         return doDefault(ontology);
     }
 }

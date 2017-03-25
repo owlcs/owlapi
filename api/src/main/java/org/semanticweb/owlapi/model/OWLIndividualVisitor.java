@@ -16,6 +16,14 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface OWLIndividualVisitor
-    extends OWLAnonymousIndividualVisitorBase, OWLIndividualEntityVisitorBase {
+public interface OWLIndividualVisitor extends OWLObjectVisitor {
+    /** @param individual object to visit */
+    default void visitAnonymousIndividual(OWLAnonymousIndividual individual) {
+        visit(individual);
+    }
+
+    /** @param individual object to visit */
+    default void visitNamedIndividual(OWLNamedIndividual individual) {
+        visit(individual);
+    }
 }

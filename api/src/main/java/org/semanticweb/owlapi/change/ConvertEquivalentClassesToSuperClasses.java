@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -59,7 +60,7 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
             }
 
             @Override
-            public Stream<? extends OWLClassExpression> doDefault(Object o) {
+            public Stream<? extends OWLClassExpression> doDefault(OWLObject o) {
                 return empty();
             }
         };

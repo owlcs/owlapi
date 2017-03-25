@@ -49,7 +49,7 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     private static final Integer _0 = Integer.valueOf(0);
 
     @Override
-    public Integer doDefault(Object o) {
+    public Integer doDefault(OWLObject o) {
         return _0;
     }
 

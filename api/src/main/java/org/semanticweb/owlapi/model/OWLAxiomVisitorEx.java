@@ -24,22 +24,18 @@ public interface OWLAxiomVisitorEx<O>
     extends OWLAnnotationAxiomVisitorEx<O>, OWLLogicalAxiomVisitorEx<O> {
 
     /**
-     * visit OWLDeclarationAxiom type
-     *
-     * @param axiom axiom to visit
+     * @param axiom OWLDeclarationAxiom to visit
      * @return visitor value
      */
-    default O visit(OWLDeclarationAxiom axiom) {
-        return doDefault(axiom);
+    default O visitDeclarationAxiom(OWLDeclarationAxiom axiom) {
+        return visit(axiom);
     }
 
     /**
-     * visit OWLDatatypeDefinitionAxiom type
-     *
-     * @param axiom axiom to visit
+     * @param axiom OWLDatatypeDefinitionAxiom to visit
      * @return visitor value
      */
-    default O visit(OWLDatatypeDefinitionAxiom axiom) {
-        return doDefault(axiom);
+    default O visitDatatypeDefinitionAxiom(OWLDatatypeDefinitionAxiom axiom) {
+        return visit(axiom);
     }
 }

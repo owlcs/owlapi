@@ -61,16 +61,6 @@ public interface OWLAnnotationPropertyRangeAxiom
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_PROPERTY_RANGE;
     }

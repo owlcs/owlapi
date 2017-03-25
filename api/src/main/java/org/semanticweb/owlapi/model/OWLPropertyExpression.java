@@ -22,18 +22,6 @@ public interface OWLPropertyExpression
     extends OWLObject, AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
 
     /**
-     * @param visitor visitor to accept
-     */
-    void accept(OWLPropertyExpressionVisitor visitor);
-
-    /**
-     * @param visitor visitor to accept
-     * @param <O> visitor return type
-     * @return visitor value
-     */
-    <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
-
-    /**
      * @return true if this is a data property
      */
     default boolean isDataPropertyExpression() {

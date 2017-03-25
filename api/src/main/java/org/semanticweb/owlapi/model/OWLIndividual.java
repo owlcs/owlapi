@@ -25,8 +25,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this method is the dual of
      * {@link #isAnonymous()}.
      *
-     * @return {@code true} if this individual is an instance of {@link org.semanticweb.owlapi.model.OWLNamedIndividual}
-     * because it is a named individuals, otherwise {@code false}
+     * @return {@code true} if this individual is an instance of
+     *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because it is a named
+     *         individuals, otherwise {@code false}
      */
     default boolean isNamed() {
         return isOWLNamedIndividual();
@@ -52,16 +53,4 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
      * @return A string representing the toString of the node ID of this entity.
      */
     String toStringID();
-
-    /**
-     * @param visitor visitor
-     */
-    void accept(OWLIndividualVisitor visitor);
-
-    /**
-     * @param visitor visitor
-     * @param <O> visitor return type
-     * @return visitor ex type
-     */
-    <O> O accept(OWLIndividualVisitorEx<O> visitor);
 }
