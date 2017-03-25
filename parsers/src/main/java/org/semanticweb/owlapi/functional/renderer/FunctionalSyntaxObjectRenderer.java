@@ -249,8 +249,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         this.writer = writer;
         defaultPrefixManager = new DefaultPrefixManager();
         prefixManager = ontology.getPrefixManager();
-        addMissingDeclarations = ontology.getOWLOntologyManager().getOntologyWriterConfiguration()
-            .shouldAddMissingTypes();
+        addMissingDeclarations =
+            ontology.getOWLOntologyManager().getOntologyConfigurator().shouldAddMissingTypes();
         if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix() == null) {
             String existingDefault = prefixManager.getDefaultPrefix();
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();

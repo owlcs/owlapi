@@ -158,8 +158,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             inputConsumer.startModel(getBaseIRI());
             DeclHandler handler = new DeclarationHandler();
             SAXParsers.initParserWithOWLAPIStandards(handler,
-                inputConsumer.getConfiguration().getEntityExpansionLimit())
-                .parse(source, this);
+                inputConsumer.getConfiguration().getEntityExpansionLimit()).parse(source, this);
             inputConsumer.endModel();
         } catch (URISyntaxException e) {
             throw new SAXException(
@@ -375,7 +374,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param predicate IRI of the predicate resource
      * @param object IRI of the object resource
      * @param reificationID if not {@code null}, contains IRI of the resource that will wold the
-     * reified statement
+     *        reified statement
      */
     public void statementWithResourceValue(String subject, String predicate, String object,
         @Nullable String reificationID) {
@@ -398,7 +397,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param object literal object value
      * @param dataType the IRI of the literal's datatype (may be {@code null})
      * @param reificationID if not {@code null}, contains IRI of the resource that will wold the
-     * reified statement
+     *        reified statement
      */
     public void statementWithLiteralValue(String subject, String predicate, String object,
         @Nullable String dataType, @Nullable String reificationID) {

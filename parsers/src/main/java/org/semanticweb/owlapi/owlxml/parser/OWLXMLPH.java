@@ -122,9 +122,9 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -150,7 +150,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
     private final Deque<URI> bases = new LinkedList<>();
-    private final OWLOntologyLoaderConfiguration configuration;
+    private final OntologyConfigurator configuration;
     private final Map<String, IRI> iriMap = new HashMap<>();
     private final RemappingIndividualProvider anonProvider;
     @Nullable
@@ -160,14 +160,14 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * @param ontology ontology to parse into
      */
     public OWLXMLPH(OWLOntology ontology) {
-        this(ontology, null, ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
+        this(ontology, null, ontology.getOWLOntologyManager().getOntologyConfigurator());
     }
 
     /**
      * @param ontology ontology to add to
      * @param configuration load configuration
      */
-    public OWLXMLPH(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OWLXMLPH(OWLOntology ontology, OntologyConfigurator configuration) {
         this(ontology, null, configuration);
     }
 
@@ -176,8 +176,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * @param topHandler top level handler
      */
     public OWLXMLPH(OWLOntology ontology, OWLEH<?, ?> topHandler) {
-        this(ontology, topHandler,
-            ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
+        this(ontology, topHandler, ontology.getOWLOntologyManager().getOntologyConfigurator());
     }
 
     /**
@@ -190,7 +189,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * @param configuration load configuration
      */
     public OWLXMLPH(OWLOntology ontology, @Nullable OWLEH<?, ?> topHandler,
-        OWLOntologyLoaderConfiguration configuration) {
+        OntologyConfigurator configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
@@ -324,7 +323,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     /**
      * @return config
      */
-    public OWLOntologyLoaderConfiguration getConfiguration() {
+    public OntologyConfigurator getConfiguration() {
         return configuration;
     }
 
@@ -332,7 +331,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * Gets the line number that the parser is at.
      *
      * @return A positive integer that represents the line number or -1 if the line number is not
-     * known.
+     *         known.
      */
     public int getLineNumber() {
         if (locator != null) {
@@ -492,7 +491,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * Return the base URI for resolution of relative URIs.
      *
      * @return base URI or null if unavailable (xml:base not present and the document locator does
-     * not provide a URI)
+     *         not provide a URI)
      */
     public URI getBase() {
         return bases.peek();

@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * Created by ses on 3/10/14.
@@ -110,7 +110,7 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             + "                owl:minCardinality \"0\"^^xsd:nonNegativeInteger\n" + "   ] .";
         OWLOntology o =
             loadOntologyWithConfig(new StringDocumentSource(input, new TurtleDocumentFormat()),
-                new OWLOntologyLoaderConfiguration().setStrict(true));
+                new OntologyConfigurator().setStrict(true));
         assertEquals(0, o.getLogicalAxiomCount());
     }
 }

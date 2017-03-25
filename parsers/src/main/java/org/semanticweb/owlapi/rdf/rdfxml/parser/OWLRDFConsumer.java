@@ -129,10 +129,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -311,7 +311,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean strict() {
-        return parseParameters.getConfig().isStrict();
+        return parseParameters.getConfig().shouldParseWithStrictConfiguration();
     }
 
     protected static boolean isGeneralPredicate(IRI predicate) {
@@ -414,7 +414,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      */
     protected void add(OWLAxiom axiom) {
         if (axiom.isAnnotationAxiom()) {
-            if (getConfiguration().isLoadAnnotationAxioms()) {
+            if (getConfiguration().shouldLoadAnnotations()) {
                 parsedAnnotationAxioms.add((OWLAnnotationAxiom) axiom);
             }
         } else {
@@ -478,7 +478,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected void addImport(OWLImportsDeclaration declaration, IRI o) {
         ont().applyChange(new AddImport(ont(), declaration));
-        if (!getConfiguration().isIgnoredImport(o)) {
+        if (!getConfiguration().isImportIgnored(o)) {
             OWLOntologyManager man = ont().getOWLOntologyManager();
             man.makeLoadImportRequest(declaration, getConfiguration());
             handleImportingRDFGraphRatherThanOntology(declaration, man,
@@ -1017,7 +1017,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     @Override
-    public OWLOntologyLoaderConfiguration getConfiguration() {
+    public OntologyConfigurator getConfiguration() {
         return parseParameters.getConfig();
     }
 
@@ -1057,7 +1057,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean isStrict() {
-        return getConfiguration().isStrict();
+        return getConfiguration().shouldParseWithStrictConfiguration();
     }
 
     protected OWLClassExpression ce(IRI iri) {

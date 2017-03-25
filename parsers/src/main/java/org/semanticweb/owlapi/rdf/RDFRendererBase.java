@@ -87,7 +87,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
@@ -130,7 +130,7 @@ public abstract class RDFRendererBase {
     protected final OWLDataFactory df;
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
-    protected final OWLOntologyWriterConfiguration config;
+    protected final OntologyConfigurator config;
     protected final Set<RDFResource> pending = new HashSet<>();
     @Nullable
     private final Set<IRI> punned;
@@ -145,15 +145,15 @@ public abstract class RDFRendererBase {
      * @param ontology ontology
      */
     public RDFRendererBase(OWLOntology ontology) {
-        this(ontology, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+        this(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
     }
 
-    protected RDFRendererBase(OWLOntology ontology, OWLOntologyWriterConfiguration config) {
+    protected RDFRendererBase(OWLOntology ontology, OntologyConfigurator config) {
         this.ontology = ontology;
         this.config = config;
         OWLOntologyManager m = this.ontology.getOWLOntologyManager();
         df = m.getOWLDataFactory();
-        if (m.getOntologyWriterConfiguration().shouldSaveIdsForAllAnonymousIndividuals()) {
+        if (m.getOntologyConfigurator().shouldSaveIds()) {
             occurrences = x -> true;
             axiomOccurrences = x -> true;
         } else {

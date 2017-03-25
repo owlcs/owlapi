@@ -16,8 +16,8 @@ import org.semanticweb.owlapi.io.GZipFileDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,20 +68,19 @@ public class MemoryBenchmark {
         } else {
             ds = new FileDocumentSource(file);
         }
-        OWLOntologyLoaderConfiguration config =
-            new OWLOntologyLoaderConfiguration().setStrict(false);
+        OntologyConfigurator config = new OntologyConfigurator().setStrict(false);
         long start = System.currentTimeMillis();
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ds, config);
-        System.out.println("MemoryBenchmark.memoryProfile() elapsed: "
-            + (System.currentTimeMillis() - start));
+        System.out.println(
+            "MemoryBenchmark.memoryProfile() elapsed: " + (System.currentTimeMillis() - start));
         getDiagnostics().dumpHeap(hprofPath.toString(), true);
         manager.removeOntology(ontology);
     }
 
     protected static HotSpotDiagnosticMXBean getDiagnostics() throws IOException {
-        HotSpotDiagnosticMXBean hotSpotDiagnosticMXBean = newPlatformMXBeanProxy(
-            getPlatformMBeanServer(), "com.sun.management:type=HotSpotDiagnostic",
-            HotSpotDiagnosticMXBean.class);
+        HotSpotDiagnosticMXBean hotSpotDiagnosticMXBean =
+            newPlatformMXBeanProxy(getPlatformMBeanServer(),
+                "com.sun.management:type=HotSpotDiagnostic", HotSpotDiagnosticMXBean.class);
         for (VMOption vmOption : hotSpotDiagnosticMXBean.getDiagnosticOptions()) {
             logger.info("vmOption = {}", vmOption);
         }

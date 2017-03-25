@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 import com.google.common.collect.Sets;
@@ -69,7 +69,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     @Override
     public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
-                    IRI documentIRI, OWLOntologyCreationHandler handler) {
+        IRI documentIRI, OWLOntologyCreationHandler handler) {
         OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);
         handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
@@ -78,9 +78,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager manager,
-                    OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler,
-                    OWLOntologyLoaderConfiguration configuration)
-                    throws OWLOntologyCreationException {
+        OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler,
+        OntologyConfigurator configuration) throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
         // ontology is parsed successfully then we break out and return the
         // ontology.
@@ -99,8 +98,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
             existingOntology = manager.getOntology(iri);
         }
         OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(),
-                        handler);
+        OWLOntology ont =
+            createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
@@ -113,10 +112,10 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                         // Junk from a previous parse. We should clear the ont
                         manager.removeOntology(ont);
                         ont = createOWLOntology(manager, ontologyID,
-                                        documentSource.getDocumentIRI(), handler);
+                            documentSource.getDocumentIRI(), handler);
                     }
                     handler.setOntologyFormat(ont,
-                                    documentSource.acceptParser(parser, ont, configuration));
+                        documentSource.acceptParser(parser, ont, configuration));
                     return ont;
                 } catch (UnloadableImportException e) {
                     // If an import cannot be located, all parsers will fail.
@@ -127,7 +126,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                     throw e;
                 } catch (OWLParserException e) {
                     if (e.getCause() instanceof IOException
-                                    || e.getCause() instanceof OWLOntologyInputSourceException) {
+                        || e.getCause() instanceof OWLOntologyInputSourceException) {
                         // For input/output exceptions, we assume that it means
                         // the
                         // source cannot be read regardless of the parsers, so
@@ -157,6 +156,6 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // parsers
         // that we have tried.
         throw new UnparsableOntologyException(documentSource.getDocumentIRI(), exceptions,
-                        configuration);
+            configuration);
     }
 }

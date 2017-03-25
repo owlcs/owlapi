@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not implement any of the
@@ -149,7 +149,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     @Override
     public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
-        OWLOntologyLoaderConfiguration config) {
+        OntologyConfigurator config) {
         parameters = new OWLParserParameters(o, config, documentIRI);
         return ((RioParser) parser).parse(this, parameters);
     }

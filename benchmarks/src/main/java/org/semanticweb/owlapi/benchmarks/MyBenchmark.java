@@ -42,8 +42,8 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
@@ -78,8 +78,7 @@ public class MyBenchmark {
     public void testLoadTaxonFSS() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyDocumentSource ds = new FileDocumentSource(uncompressedTaxonFile);
-        OWLOntologyLoaderConfiguration config =
-            new OWLOntologyLoaderConfiguration().setStrict(false);
+        OntologyConfigurator config = new OntologyConfigurator().setStrict(false);
         OWLOntologyImpl ontology =
             (OWLOntologyImpl) manager.loadOntologyFromOntologyDocument(ds, config);
         manager.removeOntology(ontology);

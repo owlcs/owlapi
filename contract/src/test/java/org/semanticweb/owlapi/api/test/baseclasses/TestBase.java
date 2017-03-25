@@ -63,7 +63,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -99,7 +98,7 @@ public abstract class TestBase {
     }
 
     protected OWLOntology ontologyFromClasspathFile(String fileName,
-        OWLOntologyLoaderConfiguration configuration) {
+        OntologyConfigurator configuration) {
         try {
             return m1.loadOntologyFromOntologyDocument(
                 new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName)),
@@ -126,7 +125,7 @@ public abstract class TestBase {
     @Nonnull
     @Rule
     public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
-    protected @Nonnull OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+    protected @Nonnull OntologyConfigurator config = new OntologyConfigurator();
     protected static @Nonnull OWLDataFactory df;
     protected static @Nonnull Object masterInjector;
     protected static @Nonnull OntologyConfigurator masterConfigurator;
@@ -451,7 +450,7 @@ public abstract class TestBase {
         handleSaved(target, format);
         OWLOntology ont2 = setupManager().loadOntologyFromOntologyDocument(
             new StringDocumentSource(target.toString(), "string:ontology", format, null),
-            new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+            new OntologyConfigurator().setReportStackTraces(true));
         if (logger.isTraceEnabled()) {
             logger.trace("TestBase.roundTripOntology() ontology parsed");
             ont2.axioms().forEach(ax -> logger.trace(ax.toString()));
@@ -535,16 +534,16 @@ public abstract class TestBase {
 
     protected OWLOntology loadOntologyStrict(StringDocumentTarget o, OWLDocumentFormat f)
         throws OWLOntologyCreationException {
-        return loadOntologyWithConfig(o, f, new OWLOntologyLoaderConfiguration().setStrict(true));
+        return loadOntologyWithConfig(o, f, new OntologyConfigurator().setStrict(true));
     }
 
     protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o, OWLDocumentFormat f,
-        OWLOntologyLoaderConfiguration c) throws OWLOntologyCreationException {
+        OntologyConfigurator c) throws OWLOntologyCreationException {
         return loadOntologyWithConfig(new StringDocumentSource(o, f), c);
     }
 
-    protected OWLOntology loadOntologyWithConfig(StringDocumentSource o,
-        OWLOntologyLoaderConfiguration c) throws OWLOntologyCreationException {
+    protected OWLOntology loadOntologyWithConfig(StringDocumentSource o, OntologyConfigurator c)
+        throws OWLOntologyCreationException {
         return setupManager().loadOntologyFromOntologyDocument(o, c);
     }
 
@@ -563,8 +562,7 @@ public abstract class TestBase {
         return loadOntologyFromString(saveOntology(o, o.getNonnullFormat()), o.getNonnullFormat());
     }
 
-    protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat format,
-        OWLOntologyLoaderConfiguration c)
+    protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat format, OntologyConfigurator c)
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyWithConfig(saveOntology(o, format), format, c);
     }

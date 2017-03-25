@@ -158,7 +158,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
@@ -233,7 +232,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // this parser by hand. The error messages that this parser generates
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
-    private OWLOntologyLoaderConfiguration loaderConfig;
+    private OntologyConfigurator loaderConfig;
     private int tokenIndex;
     private OWLEntityChecker checker;
     private OWLOntologyChecker owlOntologyChecker = name -> null;
@@ -247,7 +246,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Inject
     public ManchesterOWLSyntaxParserImpl(OntologyConfigurator configurationProvider,
         OWLDataFactory dataFactory) {
-        loaderConfig = configurationProvider.buildLoaderConfiguration();
+        loaderConfig = configurationProvider;
         df = dataFactory;
         anonProvider = new RemappingIndividualProvider(configurationProvider, df);
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
@@ -336,16 +335,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // XXX add this method to the interface in next release
     public PrefixManager getPrefixManager() {
         return pm;
-    }
-
-    @Override
-    public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
-        return loaderConfig;
-    }
-
-    @Override
-    public void setOntologyLoaderConfiguration(OWLOntologyLoaderConfiguration conf) {
-        loaderConfig = conf;
     }
 
     @Override
@@ -1250,7 +1239,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLAnnotation> annos = parseAnnotationList();
         for (OWLOntology ont : onts) {
             for (OWLAnnotation anno : annos) {
-                if (getOntologyLoaderConfiguration().isLoadAnnotationAxioms()) {
+                if (loaderConfig.shouldLoadAnnotations()) {
                     pairs.add(
                         new OntologyAxiomPair(ont, df.getOWLAnnotationAssertionAxiom(s, anno)));
                 }
@@ -2139,8 +2128,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 axioms.addAll(parseValuePartitionFrame());
             } else if (IMPORT.matches(section)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration();
-                ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                    getOntologyLoaderConfiguration());
+                ont.getOWLOntologyManager().makeLoadImportRequest(decl, loaderConfig);
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
                 if (imported != null) {
@@ -2180,8 +2168,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         for (OWLImportsDeclaration decl : header.getImportsDeclarations()) {
             assert decl != null;
             imports.add(new AddImport(ont, decl));
-            ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                getOntologyLoaderConfiguration());
+            ont.getOWLOntologyManager().makeLoadImportRequest(decl, loaderConfig);
             OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
             if (imported != null) {
                 imported.axioms(AxiomType.DECLARATION).forEach(this::processDeclaredEntities);

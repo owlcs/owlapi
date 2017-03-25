@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ADD_M
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.CONNECTION_TIMEOUT;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ENTITY_EXPANSION_LIMIT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENTING;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.INDENT_SIZE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.LABELS_AS_BANNER;
@@ -54,6 +55,22 @@ public class OntologyConfigurator implements Serializable {
         new EnumMap<>(ConfigurationOptions.class);
 
     /**
+     * @param expansion entity expansion limit.
+     * @return An {@code OntologyConfigurator} with the new option set.
+     */
+    public OntologyConfigurator withEntityExpansionLimit(long expansion) {
+        overrides.put(ENTITY_EXPANSION_LIMIT, Long.valueOf(expansion));
+        return this;
+    }
+
+    /**
+     * @return entity expansion limit.
+     */
+    public String getEntityExpansionLimit() {
+        return ENTITY_EXPANSION_LIMIT.getValue(Long.class, overrides).toString();
+    }
+
+    /**
      * @param ban list of parser factory class names that should be skipped when attempting ontology
      *        parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
@@ -85,6 +102,14 @@ public class OntologyConfigurator implements Serializable {
     public OntologyConfigurator setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
         overrides.put(PRIORITY_COLLECTION_SORTING, sorting);
         return this;
+    }
+
+    /**
+     * @param iri import to check.
+     * @return true if the import is ignored.
+     */
+    public boolean isImportIgnored(IRI iri) {
+        return ignoredImports.contains(iri);
     }
 
     /**
@@ -255,25 +280,6 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * @return a new OWLOntologyLoaderConfiguration from the builder current settings
-     */
-    public OWLOntologyLoaderConfiguration buildLoaderConfiguration() {
-        //@formatter:off
-        return new OWLOntologyLoaderConfiguration()
-            .setConnectionTimeout(getConnectionTimeout())
-            .setLoadAnnotationAxioms(shouldLoadAnnotations())
-            .setMissingImportHandlingStrategy(getMissingImportHandlingStrategy())
-            .setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
-            .setPriorityCollectionSorting(getPriorityCollectionSorting())
-            .setReportStackTraces(shouldReportStackTraces())
-            .setRetriesToAttempt(getRetriesToAttempt())
-            .setStrict(shouldParseWithStrictConfiguration())
-            .setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin())
-            .setBannedParsers(getBannedParsers());
-        //@formatter:on
-    }
-
-    /**
      * @param b True if ids for blank nodes should always be written (axioms and anonymous
      *        individuals only).
      * @return new config object
@@ -407,22 +413,5 @@ public class OntologyConfigurator implements Serializable {
     public OntologyConfigurator withAddMissingTypes(boolean addMissing) {
         overrides.put(ADD_MISSING_TYPES, Boolean.valueOf(addMissing));
         return this;
-    }
-
-    /**
-     * @return a new OWLOntologyWriterConfiguration from the builder current settings
-     */
-    public OWLOntologyWriterConfiguration buildWriterConfiguration() {
-        //@formatter:off
-        return new OWLOntologyWriterConfiguration()
-            .withIndenting(shouldIndent())
-            .withIndentSize(getIndentSize())
-            .withLabelsAsBanner(shouldUseLabelsAsBanner())
-            .withRemapAllAnonymousIndividualsIds(shouldRemapIds())
-            .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds())
-            .withUseNamespaceEntities(shouldUseNamespaceEntities())
-            .withBannersEnabled(shouldUseBanners())
-            .withAddMissingTypes(shouldAddMissingTypes());
-        //@formatter:on
     }
 }

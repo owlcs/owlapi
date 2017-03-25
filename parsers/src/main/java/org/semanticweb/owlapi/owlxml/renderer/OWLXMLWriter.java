@@ -81,7 +81,7 @@ public class OWLXMLWriter {
             base = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
         this.writer = new XMLWriterImpl(writer, nsm, base,
-            ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+            ontology.getOWLOntologyManager().getOntologyConfigurator());
         this.writer.setEncoding(encoding);
     }
 

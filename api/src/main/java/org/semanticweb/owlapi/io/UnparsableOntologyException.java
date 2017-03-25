@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * A class that describes how ontology parsing failed. This class collects parse errors and the
@@ -40,10 +40,9 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @param config the configuration object
      */
     public UnparsableOntologyException(IRI documentIRI,
-        Map<OWLParser, OWLParserException> exceptions,
-        OWLOntologyLoaderConfiguration config) {
+        Map<OWLParser, OWLParserException> exceptions, OntologyConfigurator config) {
         super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
-        includeStackTraceInMessage = config.isReportStackTrace();
+        includeStackTraceInMessage = config.shouldReportStackTraces();
         this.documentIRI = documentIRI;
         this.exceptions = exceptions;
     }

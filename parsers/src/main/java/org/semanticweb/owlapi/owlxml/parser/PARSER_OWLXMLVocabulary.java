@@ -531,7 +531,7 @@ abstract class OWLEH<O, B extends Builder<O>> {
 
     void handleChild(AxiomEH<? extends OWLAxiom, ?> h) {
         OWLAxiom axiom = h.getOWLObject();
-        if (!axiom.isAnnotationAxiom() || handler.getConfiguration().isLoadAnnotationAxioms()) {
+        if (!axiom.isAnnotationAxiom() || handler.getConfiguration().shouldLoadAnnotations()) {
             handler.getOWLOntologyManager().applyChange(new AddAxiom(handler.getOntology(), axiom));
         }
     }

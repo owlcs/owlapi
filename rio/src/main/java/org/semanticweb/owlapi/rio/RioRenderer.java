@@ -80,7 +80,7 @@ public class RioRenderer extends RDFRendererBase {
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
         final Resource... contexts) {
-        super(ontology, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+        super(ontology, ontology.getOWLOntologyManager().getOntologyConfigurator());
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
         this.writer = writer;

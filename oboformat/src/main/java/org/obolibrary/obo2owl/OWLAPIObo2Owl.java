@@ -62,11 +62,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -98,9 +98,8 @@ public class OWLAPIObo2Owl {
      * The log.
      */
     private static final Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
-    private static final Set<String> SKIPPED_QUALIFIERS =
-        Sets.newHashSet("gci_relation", "gci_filler", "cardinality", "minCardinality",
-            "maxCardinality", "all_some", "all_only");
+    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation",
+        "gci_filler", "cardinality", "minCardinality", "maxCardinality", "all_some", "all_only");
     /**
      * The id space map.
      */
@@ -142,8 +141,8 @@ public class OWLAPIObo2Owl {
      * loading of keys is recursive, and a bug in ConcurrentHashMap implementation causes livelocks
      * for this particular situation.
      */
-    private final com.google.common.cache.LoadingCache<String, IRI> idToIRICache = CacheBuilder
-        .newBuilder().maximumSize(1024).build(new CacheLoader<String, IRI>() {
+    private final com.google.common.cache.LoadingCache<String, IRI> idToIRICache =
+        CacheBuilder.newBuilder().maximumSize(1024).build(new CacheLoader<String, IRI>() {
 
             @Override
             public IRI load(String key) {
@@ -181,7 +180,7 @@ public class OWLAPIObo2Owl {
         throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = manager.createOntology();
         new IRIDocumentSource(IRI.create(iri)).acceptParser(new OBOFormatOWLAPIParser(), o,
-            new OWLOntologyLoaderConfiguration());
+            new OntologyConfigurator());
         saveAsRDFXML(outFile, manager, o);
     }
 
@@ -191,22 +190,21 @@ public class OWLAPIObo2Owl {
      * @param iri the iri
      * @param outFile the out file
      * @param defaultOnt -- e.g. "go". If the obo file contains no "ontology:" header tag, this is
-     * added
+     *        added
      * @param manager the manager to be used
      * @throws IOException Signals that an I/O exception has occurred.
      * @throws OWLOntologyCreationException the oWL ontology creation exception
      * @throws OWLOntologyStorageException the oWL ontology storage exception
-     * @throws OBOFormatParserException the oBO format parser exception {@link #convertURL(String
-     * iri, String outFile, OWLOntologyManager manager)}
+     * @throws OBOFormatParserException the oBO format parser exception
+     *         {@link #convertURL(String iri, String outFile, OWLOntologyManager manager)}
      */
     public static void convertURL(String iri, String outFile, String defaultOnt,
         OWLOntologyManager manager)
         throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = manager.createOntology();
-        OBOFormatOWLAPIParser parser = new OBOFormatOWLAPIParser(
-            (obo) -> obo.addDefaultOntologyHeader(defaultOnt));
-        new IRIDocumentSource(IRI.create(iri)).acceptParser(parser, o,
-            new OWLOntologyLoaderConfiguration());
+        OBOFormatOWLAPIParser parser =
+            new OBOFormatOWLAPIParser((obo) -> obo.addDefaultOntologyHeader(defaultOnt));
+        new IRIDocumentSource(IRI.create(iri)).acceptParser(parser, o, new OntologyConfigurator());
         saveAsRDFXML(outFile, manager, o);
     }
 
@@ -439,7 +437,7 @@ public class OWLAPIObo2Owl {
     public OWLOntology convert(String oboFile) throws OWLOntologyCreationException {
         OWLOntology o = manager.createOntology();
         new IRIDocumentSource(IRI.create(oboFile)).acceptParser(new OBOFormatOWLAPIParser(), o,
-            manager.getOntologyLoaderConfiguration());
+            manager.getOntologyConfigurator());
         return o;
     }
 
@@ -491,8 +489,8 @@ public class OWLAPIObo2Owl {
             Clause dvclause = hf.getClause(OboFormatTag.TAG_DATA_VERSION);
             if (dvclause != null) {
                 String dv = dvclause.getValue().toString();
-                IRI vIRI = IRI.create(
-                    DEFAULT_IRI_PREFIX + ontOboId + '/' + dv + '/' + ontOboId + ".owl");
+                IRI vIRI =
+                    IRI.create(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv + '/' + ontOboId + ".owl");
                 OWLOntologyID oid = new OWLOntologyID(optional(ontIRI), optional(vIRI));
                 // if the ontology being read has a differet id from the one
                 // that was passed in, update it
@@ -513,10 +511,8 @@ public class OWLAPIObo2Owl {
             }
         } else {
             defaultIDSpace = "TEMP";
-            manager.applyChange(new SetOntologyID(in,
-                new OWLOntologyID(optional(
-                    IRI.create(DEFAULT_IRI_PREFIX, defaultIDSpace)),
-                    emptyOptional())));
+            manager.applyChange(new SetOntologyID(in, new OWLOntologyID(
+                optional(IRI.create(DEFAULT_IRI_PREFIX, defaultIDSpace)), emptyOptional())));
             // TODO - warn
         }
         trHeaderFrame(hf);
@@ -528,8 +524,7 @@ public class OWLAPIObo2Owl {
             String path = getURI(cl.getValue().toString());
             IRI importIRI = IRI.create(path);
             OWLImportsDeclaration owlImportsDeclaration = fac.getOWLImportsDeclaration(importIRI);
-            manager.makeLoadImportRequest(owlImportsDeclaration,
-                new OWLOntologyLoaderConfiguration());
+            manager.makeLoadImportRequest(owlImportsDeclaration, new OntologyConfigurator());
         }
         postProcess(in);
         return in;
@@ -542,8 +537,8 @@ public class OWLAPIObo2Owl {
      * @param ontology the ontology
      */
     protected void postProcess(OWLOntology ontology) {
-        OWLAnnotationProperty p = fac.getOWLAnnotationProperty(
-            Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation);
+        OWLAnnotationProperty p =
+            fac.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation);
         Optional<String> findAny = ontology.annotations().filter(a -> a.getProperty().equals(p))
             .map(a -> a.getValue().asLiteral()).filter(Optional::isPresent)
             .map(x -> x.get().getLiteral()).findAny();
@@ -634,8 +629,8 @@ public class OWLAPIObo2Owl {
             } else if (tag == OboFormatTag.TAG_OWL_AXIOMS) {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
-                headerFrame.getTagValues(tag, String.class).forEach(
-                    s -> getOwlOntology().add(OwlStringTools.translate(s, manager)));
+                headerFrame.getTagValues(tag, String.class)
+                    .forEach(s -> getOwlOntology().add(OwlStringTools.translate(s, manager)));
             } else {
                 headerFrame.getClauses(t)
                     .forEach(c -> addOntologyAnnotation(trTagToAnnotationProp(t),
@@ -732,9 +727,9 @@ public class OWLAPIObo2Owl {
         OWLClass cls = trClass(checkNotNull(termFrame.getId()));
         add(fac.getOWLDeclarationAxiom(cls));
         termFrame.getTags().stream().filter(OboFormatTag.TAG_ALT_ID.getTag()::equals).forEach(t ->
-            // Generate deprecated and replaced_by details for alternate
-            // identifier
-            add(translateAltIds(termFrame.getClauses(t), cls.getIRI(), true)));
+        // Generate deprecated and replaced_by details for alternate
+        // identifier
+        add(translateAltIds(termFrame.getClauses(t), cls.getIRI(), true)));
         termFrame.getTags().forEach(t -> add(trTermFrameClauses(cls, termFrame.getClauses(t), t)));
         return cls;
     }
@@ -768,15 +763,12 @@ public class OWLAPIObo2Owl {
             // annotate with replaced_by (IAO_0100001)
             axioms.add(fac.getOWLAnnotationAssertionAxiom(altIdEntity.getIRI(),
                 fac.getOWLAnnotation(
-                    fac.getOWLAnnotationProperty(
-                        Obo2OWLVocabulary.IRI_IAO_0100001.iri),
+                    fac.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.iri),
                     replacedBy)));
             // annotate with obo:IAO_0000231=obo:IAO_0000227
             // 'has obsolescence reason' 'terms merged'
             axioms.add(fac.getOWLAnnotationAssertionAxiom(altIdEntity.getIRI(),
-                fac.getOWLAnnotation(
-                    fac.getOWLAnnotationProperty(
-                        Obo2OWLConstants.IRI_IAO_0000231),
+                fac.getOWLAnnotation(fac.getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231),
                     Obo2OWLConstants.IRI_IAO_0000227)));
         }
         return axioms;
@@ -1097,8 +1089,7 @@ public class OWLAPIObo2Owl {
             || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
             if (tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
                 OWLAnnotation ann = fac.getOWLAnnotation(
-                    trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN),
-                    trLiteral("true"));
+                    trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN), trLiteral("true"));
                 annotations.add(ann);
             }
             List<OWLObjectPropertyExpression> chain = new ArrayList<>();
@@ -1202,8 +1193,7 @@ public class OWLAPIObo2Owl {
                 synType = values[1].toString();
                 if (values.length > 2) {
                     OWLAnnotation ann = fac.getOWLAnnotation(
-                        trTagToAnnotationProp(
-                            OboFormatTag.TAG_HAS_SYNONYM_TYPE.getTag()),
+                        trTagToAnnotationProp(OboFormatTag.TAG_HAS_SYNONYM_TYPE.getTag()),
                         trAnnotationProp(values[2].toString()).getIRI());
                     annotations.add(ann);
                 }
@@ -1344,8 +1334,8 @@ public class OWLAPIObo2Owl {
                 fac.getOWLObjectAllValuesFrom(pe, ce));
         } else if (allOnly) {
             ex = fac.getOWLObjectAllValuesFrom(pe, ce);
-        } else if (relFrame != null && Boolean.TRUE
-            .equals(relFrame.getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG))) {
+        } else if (relFrame != null
+            && Boolean.TRUE.equals(relFrame.getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG))) {
             // pun
             ex = fac.getOWLObjectHasValue(pe, trIndividual(classId));
         } else {

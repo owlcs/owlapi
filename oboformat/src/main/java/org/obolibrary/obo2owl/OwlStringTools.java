@@ -81,8 +81,7 @@ public class OwlStringTools {
             OWLOntologyDocumentSource documentSource =
                 new StringDocumentSource(axioms, new FunctionalSyntaxDocumentFormat());
             OWLOntology ontology = translationManager.createOntology();
-            documentSource.acceptParser(p, ontology,
-                translationManager.getOntologyLoaderConfiguration());
+            documentSource.acceptParser(p, ontology, translationManager.getOntologyConfigurator());
             return asList(ontology.axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException | OWLParserException e) {
             throw new OWLRuntimeException(e);

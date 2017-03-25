@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -46,7 +45,7 @@ import org.semanticweb.owlapi.util.OntologyAxiomPair;
  * @author ignazio
  */
 @ParametersAreNonnullByDefault
-public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguration {
+public interface ManchesterOWLSyntaxParser {
 
     /**
      * @param s String to parse
@@ -77,7 +76,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
      * @return axiom
      * @throws OWLParserException parsing error
      * @deprecated use parseAxiom(). parseClassAxiom() only casts the result of parseAxiom() to
-     * OWLClassAxiom.
+     *             OWLClassAxiom.
      */
     @Deprecated
     OWLClassAxiom parseClassAxiom();
@@ -140,7 +139,7 @@ public interface ManchesterOWLSyntaxParser extends HasOntologyLoaderConfiguratio
 
     /**
      * @param datatype datatype to use, if one exists in the context. If null, the datatype will be
-     * decided by the literal itself.
+     *        decided by the literal itself.
      * @return parsed literal
      */
     OWLLiteral parseLiteral(@Nullable OWLDatatype datatype);

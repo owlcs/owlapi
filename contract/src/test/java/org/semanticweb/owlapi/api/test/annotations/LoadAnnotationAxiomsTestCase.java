@@ -43,10 +43,10 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -67,14 +67,14 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment, clsA.getIRI(), lit);
         ont.add(annoAx1);
         OWLAnnotationPropertyDomainAxiom annoAx2 =
-                        df.getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
+            df.getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
         ont.add(annoAx2);
         OWLAnnotationPropertyRangeAxiom annoAx3 =
-                        df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
+            df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
         ont.add(annoAx3);
         OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#", "myComment"));
         OWLSubAnnotationPropertyOfAxiom annoAx4 =
-                        df.getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
+            df.getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
         ont.add(annoAx4);
         reload(ont, new RDFXMLDocumentFormat());
         reload(ont, new OWLXMLDocumentFormat());
@@ -83,29 +83,29 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     }
 
     private void reload(OWLOntology ontology, OWLDocumentFormat format)
-                    throws OWLOntologyStorageException, OWLOntologyCreationException {
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
         Set<OWLAxiom> axioms = asUnorderedSet(ontology.axioms());
         Set<OWLAxiom> annotationAxioms =
-                        asUnorderedSet(axioms.stream().filter(OWLAxiom::isAnnotationAxiom));
-        OWLOntologyLoaderConfiguration withAnnosConfig = new OWLOntologyLoaderConfiguration();
+            asUnorderedSet(axioms.stream().filter(OWLAxiom::isAnnotationAxiom));
+        OntologyConfigurator withAnnosConfig = new OntologyConfigurator();
         OWLOntology reloadedWithAnnoAxioms = reload(ontology, format, withAnnosConfig);
         Set<OWLAxiom> axioms2 = asUnorderedSet(reloadedWithAnnoAxioms.axioms());
         assertEquals(axioms, axioms2);
-        OWLOntologyLoaderConfiguration withoutAnnosConfig =
-                        new OWLOntologyLoaderConfiguration().setLoadAnnotationAxioms(false);
+        OntologyConfigurator withoutAnnosConfig =
+            new OntologyConfigurator().setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format, withoutAnnosConfig);
         assertFalse(axioms.equals(asUnorderedSet(reloadedWithoutAnnoAxioms.axioms())));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
         assertEquals(axiomsMinusAnnotationAxioms,
-                        asUnorderedSet(reloadedWithoutAnnoAxioms.axioms()));
+            asUnorderedSet(reloadedWithoutAnnoAxioms.axioms()));
     }
 
     private OWLOntology reload(OWLOntology ontology, OWLDocumentFormat format,
-                    OWLOntologyLoaderConfiguration configuration)
-                    throws OWLOntologyStorageException, OWLOntologyCreationException {
-        OWLOntology reloaded = loadOntologyWithConfig(saveOntology(ontology, format), format,
-                        configuration);
+        OntologyConfigurator configuration)
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
+        OWLOntology reloaded =
+            loadOntologyWithConfig(saveOntology(ontology, format), format, configuration);
         reloaded.remove(reloaded.axioms(AxiomType.DECLARATION));
         return reloaded;
     }

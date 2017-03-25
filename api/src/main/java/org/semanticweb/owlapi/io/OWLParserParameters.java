@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * A wrapper for parser specific parameters.
@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 public class OWLParserParameters {
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
     private final OWLOntology ontology;
-    private final OWLOntologyLoaderConfiguration config;
+    private final OntologyConfigurator config;
     private final IRI documentIRI;
     private Charset encoding = StandardCharsets.UTF_8;
     @Nullable
@@ -34,7 +34,7 @@ public class OWLParserParameters {
      * @param c loading config
      * @param iri document iri
      */
-    public OWLParserParameters(OWLOntology o, OWLOntologyLoaderConfiguration c, IRI iri) {
+    public OWLParserParameters(OWLOntology o, OntologyConfigurator c, IRI iri) {
         ontology = o;
         config = c;
         documentIRI = iri;
@@ -104,7 +104,7 @@ public class OWLParserParameters {
     /**
      * @return the config
      */
-    public OWLOntologyLoaderConfiguration getConfig() {
+    public OntologyConfigurator getConfig() {
         return config;
     }
 

@@ -18,7 +18,7 @@ import java.util.Optional;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
@@ -56,8 +56,7 @@ public interface OWLOntologyDocumentSource {
      * @param config configuration for loading
      * @return document format for loaded ontology
      */
-    OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
-        OWLOntologyLoaderConfiguration config);
+    OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o, OntologyConfigurator config);
 
     /**
      * @param parsableSchemes schemes that can be parsed

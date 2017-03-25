@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
@@ -77,10 +76,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 lineCount++;
             }
             String s = sb.toString();
-            ManchesterOWLSyntaxParser parser =
-                new ManchesterOWLSyntaxParserImpl(new OntologyConfigurator(),
-                    p.getOntology().getOWLOntologyManager().getOWLDataFactory());
-            parser.setOntologyLoaderConfiguration(p.getConfig());
+            ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(p.getConfig(),
+                p.getOntology().getOWLOntologyManager().getOWLDataFactory());
             parser.setStringToParse(s);
             return parser.parseOntology(p.getOntology());
         } catch (IOException e) {

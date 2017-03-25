@@ -79,7 +79,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format,
         Charset encoding) {
         super(checkNotNull(ontology, "ontology cannot be null"),
-            ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
+            ontology.getOWLOntologyManager().getOntologyConfigurator());
         checkNotNull(w, "w cannot be null");
         checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
@@ -163,7 +163,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         if (config.shouldUseBanners()) {
             checkNotNull(entity, msg);
             String iriString = entity.getIRI().toString();
-            if (config.isLabelsAsBanner()) {
+            if (config.shouldUseLabelsAsBanner()) {
                 String labelString = labelMaker.getShortForm(entity);
                 String commentString;
                 if (!iriString.equals(labelString)) {

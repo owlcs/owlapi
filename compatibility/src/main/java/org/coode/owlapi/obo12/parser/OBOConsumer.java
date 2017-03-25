@@ -71,9 +71,9 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -91,7 +91,7 @@ class OBOConsumer implements OBOParserHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OBOConsumer.class.getName());
     private static final String IMPORT_TAG_NAME = "import";
-    private final OWLOntologyLoaderConfiguration configuration;
+    private final OntologyConfigurator configuration;
     private final OWLOntologyManager owlOntologyManager;
     private final OWLOntology ontology;
     private boolean inHeader;
@@ -115,12 +115,11 @@ class OBOConsumer implements OBOParserHandler {
     private String ontologyTagValue = "";
     private String dataVersionTagValue = "";
     private static final Pattern XREF_PATTERN =
-                    Pattern.compile("([^\"]*)\\s*(\"((\\\"|[^\"])*)\")?");
+        Pattern.compile("([^\"]*)\\s*(\"((\\\"|[^\"])*)\")?");
     private static final int XREF_ID_GROUP = 1;
     private static final int XREF_QUOTED_STRING_GROUP = 3;
 
-    public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration,
-                    IRI baseIRI) {
+    public OBOConsumer(OWLOntology ontology, OntologyConfigurator configuration, IRI baseIRI) {
         this.configuration = configuration;
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
@@ -306,7 +305,7 @@ class OBOConsumer implements OBOParserHandler {
      */
     private void setOntologyId() {
         IRI ontologyIRI =
-                        IRI.create(idSpaceManager.getIRIPrefix(ontologyTagValue), ontologyTagValue);
+            IRI.create(idSpaceManager.getIRIPrefix(ontologyTagValue), ontologyTagValue);
         IRI versionIRI = null;
         if (dataVersionTagValue.length() > 0) {
             versionIRI = IRI.create(ontologyIRI + "/", dataVersionTagValue);
@@ -365,7 +364,7 @@ class OBOConsumer implements OBOParserHandler {
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
         OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(
-                        CollectionFactory.createSet(getCurrentClass(), classExpression));
+            CollectionFactory.createSet(getCurrentClass(), classExpression));
         getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
     }
 
@@ -379,32 +378,32 @@ class OBOConsumer implements OBOParserHandler {
                 if (tag.equals(IMPORT_TAG_NAME)) {
                     String trim = value.trim();
                     IRI uri = IRI.create(trim);
-                    OWLImportsDeclaration decl = owlOntologyManager.getOWLDataFactory()
-                                    .getOWLImportsDeclaration(uri);
+                    OWLImportsDeclaration decl =
+                        owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(uri);
                     owlOntologyManager.makeLoadImportRequest(decl, configuration);
                     owlOntologyManager.applyChange(new AddImport(ontology, decl));
                 } else {
                     // Ontology annotations
                     OWLLiteral con = getDataFactory().getOWLLiteral(unescapeTagValue(value));
-                    OWLAnnotationProperty property = getDataFactory()
-                                    .getOWLAnnotationProperty(getIRIFromTagName(tag));
+                    OWLAnnotationProperty property =
+                        getDataFactory().getOWLAnnotationProperty(getIRIFromTagName(tag));
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     owlOntologyManager.applyChange(new AddOntologyAnnotation(ontology, anno));
                 }
             } else if (currentId != null) {
                 // Add as annotation
-                if (configuration.isLoadAnnotationAxioms()) {
+                if (configuration.shouldLoadAnnotations()) {
                     IRI subject = getIRI(currentId);
                     OWLLiteral con = getDataFactory().getOWLLiteral(unescapeTagValue(value));
                     IRI annotationPropertyIRI = getIRIFromTagName(tag);
-                    OWLAnnotationProperty property = getDataFactory()
-                                    .getOWLAnnotationProperty(annotationPropertyIRI);
+                    OWLAnnotationProperty property =
+                        getDataFactory().getOWLAnnotationProperty(annotationPropertyIRI);
                     OWLAnnotation anno = getDataFactory().getOWLAnnotation(property, con);
                     OWLAnnotationAssertionAxiom ax =
-                                    getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
+                        getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
                     owlOntologyManager.addAxiom(ontology, ax);
                     OWLDeclarationAxiom annotationPropertyDeclaration =
-                                    getDataFactory().getOWLDeclarationAxiom(property);
+                        getDataFactory().getOWLDeclarationAxiom(property);
                     owlOntologyManager.addAxiom(ontology, annotationPropertyDeclaration);
                 }
             }
@@ -491,10 +490,10 @@ class OBOConsumer implements OBOParserHandler {
         OBOIdType idType = OBOIdType.getIdType(symbolicIdOrOBOId);
         if (idType == null) {
             throw new OWLRuntimeException(
-                            "Invalid ID: " + symbolicIdOrOBOId + " in frame " + currentId);
+                "Invalid ID: " + symbolicIdOrOBOId + " in frame " + currentId);
         } else {
             return idType.getIRIFromOBOId(ontology.getOntologyID(), idSpaceManager,
-                            symbolicIdOrOBOId);
+                symbolicIdOrOBOId);
         }
     }
 
@@ -536,12 +535,12 @@ class OBOConsumer implements OBOParserHandler {
                 annotationValue = getDataFactory().getOWLLiteral(xrefId);
             }
             OWLAnnotationProperty xrefProperty =
-                            df.getOWLAnnotationProperty(OBOVocabulary.XREF.getIRI());
+                df.getOWLAnnotationProperty(OBOVocabulary.XREF.getIRI());
             return df.getOWLAnnotation(xrefProperty, annotationValue, xrefDescriptions);
         } else {
             OWLDataFactory df = getDataFactory();
             OWLAnnotationProperty xrefProperty =
-                            df.getOWLAnnotationProperty(OBOVocabulary.XREF.getIRI());
+                df.getOWLAnnotationProperty(OBOVocabulary.XREF.getIRI());
             return df.getOWLAnnotation(xrefProperty, df.getOWLLiteral(xref));
         }
     }

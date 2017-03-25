@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * Receives notifications about triples generated during the parsing process.
@@ -131,5 +131,5 @@ public interface RDFConsumer {
     /**
      * @return the loader configuration
      */
-    OWLOntologyLoaderConfiguration getConfiguration();
+    OntologyConfigurator getConfiguration();
 }

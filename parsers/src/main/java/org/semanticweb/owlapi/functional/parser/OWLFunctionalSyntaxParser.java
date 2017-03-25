@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 @SuppressWarnings("all")
 public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private OWLOntologyManager man;
-    private OWLOntologyLoaderConfiguration configuration;
+    private OntologyConfigurator configuration;
     private OWLOntology ontology;
     private OWLDataFactory df;
     private Map<String, IRI> string2IRI;
@@ -24,7 +24,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     private Set<OWLAnnotation> currentAnnotations;
     protected RemappingIndividualProvider anonProvider;
 
-    public void setUp(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public void setUp(OWLOntology ontology, OntologyConfigurator configuration) {
         this.man = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
@@ -72,7 +72,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     protected void addAxiom(OWLAxiom ax) {
-        if (!(ax instanceof OWLAnnotationAxiom) || configuration.isLoadAnnotationAxioms()) {
+        if (!(ax instanceof OWLAnnotationAxiom) || configuration.shouldLoadAnnotations()) {
             ontology.addAxiom(ax);
         }
     }

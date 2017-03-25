@@ -32,39 +32,38 @@ public interface OWLOntologyFactory extends Serializable {
      * @param ontologyID The ID of the ontology to create. This MUST NOT BE {@code null}.
      * @param documentIRI The document IRI of the ontology
      * @param handler The ontology creation handler that will be notified when the ontology has been
-     * created.
+     *        created.
      * @return The newly created ontology
      * @throws OWLOntologyCreationException if the ontology could not be created.
      */
     OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
-        IRI documentIRI, OWLOntologyCreationHandler handler)
-        throws OWLOntologyCreationException;
+        IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
     /**
      * Creates and loads an {@code OWLOntology}.
      *
      * @param manager the ontology manager to set.
      * @param documentSource The document source that provides the means of getting a representation
-     * of a document.
+     *        of a document.
      * @param handler A pointer to an {@code OWLOntologyCreationHandler} which will be notified
-     * immediately after and empty ontology has been created, but before the source data is read and
-     * the ontology is loaded with axioms.
+     *        immediately after and empty ontology has been created, but before the source data is
+     *        read and the ontology is loaded with axioms.
      * @param configuration A configuration object which can be used to pass various options to the
-     * loader.
+     *        loader.
      * @return The newly created and loaded ontology.
      * @throws OWLOntologyCreationException if the ontology could not be created
      */
     OWLOntology loadOWLOntology(OWLOntologyManager manager,
         OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler,
-        OWLOntologyLoaderConfiguration configuration)
-        throws OWLOntologyCreationException;
+        OntologyConfigurator configuration) throws OWLOntologyCreationException;
 
     /**
      * Determines if the factory can create an ontology for the specified ontology document IRI.
      *
      * @param documentIRI The document IRI
      * @return {@code true} if the factory can create an ontology given the specified document IRI,
-     * or {@code false} if the factory cannot create an ontology given the specified document IRI.
+     *         or {@code false} if the factory cannot create an ontology given the specified
+     *         document IRI.
      */
     boolean canCreateFromDocumentIRI(IRI documentIRI);
 

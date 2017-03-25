@@ -32,8 +32,8 @@ import javax.xml.parsers.SAXParser;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.semanticweb.owlapi.util.StringLengthComparator;
@@ -55,7 +55,7 @@ public class XMLWriterImpl implements XMLWriter {
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private static final String PERCENT_ENTITY = "&#37;";
     protected final PrintWriter writer;
-    protected final OWLOntologyWriterConfiguration xmlPreferences;
+    protected final OntologyConfigurator xmlPreferences;
     private final Deque<XMLElement> elementStack = new LinkedList<>();
     private final String xmlBase;
     private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
@@ -71,7 +71,7 @@ public class XMLWriterImpl implements XMLWriter {
      */
     @SuppressWarnings("null")
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
-        String xmlBase, OWLOntologyWriterConfiguration preferences) {
+        String xmlBase, OntologyConfigurator preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.xmlWriterNamespaceManager =
             checkNotNull(xmlWriterNamespaceManager, "xmlWriterNamespaceManager cannot be null");
@@ -232,7 +232,7 @@ public class XMLWriterImpl implements XMLWriter {
             encodingString = " encoding=\"" + encoding + '"';
         }
         writer.write("<?xml version=\"1.0\"" + encodingString + "?>\n");
-        if (xmlPreferences.isUseNamespaceEntities()) {
+        if (xmlPreferences.shouldUseNamespaceEntities()) {
             writeEntities(rootElement);
         }
         preambleWritten = true;
@@ -384,7 +384,7 @@ public class XMLWriterImpl implements XMLWriter {
             writer.write(attr);
             writer.write('=');
             writer.write('"');
-            if (xmlPreferences.isUseNamespaceEntities()) {
+            if (xmlPreferences.shouldUseNamespaceEntities()) {
                 writer.write(swapForEntity(XMLUtils.escapeXML(val)));
             } else {
                 writer.write(XMLUtils.escapeXML(val));
@@ -438,7 +438,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         private void insertIndentation() {
-            if (xmlPreferences.isIndenting()) {
+            if (xmlPreferences.shouldIndent()) {
                 for (int i = 0; i < indentation * xmlPreferences.getIndentSize(); i++) {
                     writer.write(' ');
                 }

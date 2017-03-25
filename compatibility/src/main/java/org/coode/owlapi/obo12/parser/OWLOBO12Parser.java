@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * Author: Matthew Horridge<br>
@@ -70,8 +70,8 @@ class OWLOBO12Parser extends AbstractOWLParser {
         return parse(p.getOntology(), p.getConfig(), p.getDocumentIRI(), new StringProvider(s));
     }
 
-    protected OWLDocumentFormat parse(OWLOntology o, OWLOntologyLoaderConfiguration config,
-        IRI documentIRI, Provider provider) {
+    protected OWLDocumentFormat parse(OWLOntology o, OntologyConfigurator config, IRI documentIRI,
+        Provider provider) {
         RawFrameHandler rawFrameHandler = new RawFrameHandler();
         OBOConsumer oboConsumer = new OBOConsumer(o, config, documentIRI);
         OBOParser parser = new OBOParser(provider);

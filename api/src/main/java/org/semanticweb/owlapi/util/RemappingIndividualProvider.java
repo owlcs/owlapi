@@ -7,7 +7,6 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 
@@ -18,7 +17,7 @@ import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 public class RemappingIndividualProvider implements AnonymousIndividualByIdProvider {
 
     private OWLDataFactory df;
-    private OWLOntologyWriterConfiguration cf;
+    private OntologyConfigurator cf;
     private Map<String, OWLAnonymousIndividual> map;
 
     /**
@@ -27,8 +26,8 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
      */
     public RemappingIndividualProvider(OntologyConfigurator m, OWLDataFactory df) {
         this.df = df;
-        cf = m.buildWriterConfiguration();
-        if (cf.shouldRemapAllAnonymousIndividualsIds()) {
+        cf = m;
+        if (cf.shouldRemapIds()) {
             map = new HashMap<>();
         } else {
             map = Collections.emptyMap();
@@ -37,7 +36,7 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
 
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
-        if (!cf.shouldRemapAllAnonymousIndividualsIds()) {
+        if (!cf.shouldRemapIds()) {
             return df.getOWLAnonymousIndividual(nodeId);
         }
         OWLAnonymousIndividual toReturn = map.get(nodeId);

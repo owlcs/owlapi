@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -65,7 +64,7 @@ public interface OWLParser extends Serializable {
      */
     default OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology) {
         return new IRIDocumentSource(documentIRI, null, null).acceptParser(this, ontology,
-            ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
+            ontology.getOWLOntologyManager().getOntologyConfigurator());
     }
 
     /**

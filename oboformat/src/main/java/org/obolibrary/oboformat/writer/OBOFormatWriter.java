@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
 import org.slf4j.Logger;
@@ -84,8 +84,8 @@ public class OBOFormatWriter {
         Comparator.comparingInt(OBOFormatWriter::getPriority);
     private static Comparator<String> typeDefTagsComparator =
         Comparator.comparingInt(OBOFormatWriter::getTypedefPriority);
-    private static Comparator<Clause> clauseListComparator = Comparator
-        .comparing(Clause::getTag, termsTagsComparator).thenComparing(clauseComparator);
+    private static Comparator<Clause> clauseListComparator =
+        Comparator.comparing(Clause::getTag, termsTagsComparator).thenComparing(clauseComparator);
     private boolean isCheckStructure = true;
 
     private static int getHeaderPriority(String s) {
@@ -690,7 +690,7 @@ public class OBOFormatWriter {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OWLParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
         new IRIDocumentSource(IRI.create(fn)).acceptParser(parser, null,
-            new OWLOntologyLoaderConfiguration());
+            new OntologyConfigurator());
         write(doc.get(), writer);
     }
 
@@ -891,8 +891,7 @@ public class OBOFormatWriter {
                 } else if (OboFormatTag.TAG_PROPERTY_VALUE.getTag().equals(clauseTag)) {
                     writePropertyValue(clause, writer);
                 } else if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clauseTag)
-                    || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag()
-                    .equals(clauseTag)) {
+                    || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clauseTag)) {
                     writeClauseWithQuotedString(clause, writer);
                 } else if (OboFormatTag.TAG_XREF.getTag().equals(clauseTag)) {
                     writeXRefClause(clause, writer);
@@ -980,8 +979,8 @@ public class OBOFormatWriter {
             this.oboDoc = oboDoc;
             Frame headerFrame = oboDoc.getHeaderFrame();
             if (headerFrame != null) {
-                defaultOboNamespace = headerFrame.getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE,
-                    String.class);
+                defaultOboNamespace =
+                    headerFrame.getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
             } else {
                 defaultOboNamespace = null;
             }
@@ -1039,9 +1038,8 @@ public class OBOFormatWriter {
             IRI iri = obo2owl.oboIdToIRI(id);
             // look for label of entity
             List<OWLAnnotationAssertionAxiom> axioms =
-                asList(ont.axioms(OWLAnnotationAssertionAxiom.class,
-                    OWLAnnotationSubject.class, iri, Imports.INCLUDED,
-                    IN_SUB_POSITION));
+                asList(ont.axioms(OWLAnnotationAssertionAxiom.class, OWLAnnotationSubject.class,
+                    iri, Imports.INCLUDED, IN_SUB_POSITION));
             for (OWLAnnotationAssertionAxiom axiom : axioms) {
                 if (axiom.getProperty().isLabel()) {
                     OWLAnnotationValue value = axiom.getValue();

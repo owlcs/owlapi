@@ -31,7 +31,7 @@ import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -176,7 +176,7 @@ public class OBOFormatParser {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OBOFormatOWLAPIParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
         new IRIDocumentSource(IRI.create(urlstr)).acceptParser(parser, null,
-            new OWLOntologyLoaderConfiguration());
+            new OntologyConfigurator());
         return doc.get();
     }
 
@@ -466,9 +466,8 @@ public class OBOFormatParser {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException(
-                    "Could not add frame " + f
-                        + " to document, duplicate frame definition?",
-                    e, stream.lineNo, stream.line);
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e,
+                    stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Term] frame, but found unknown stanza type.");
@@ -594,9 +593,8 @@ public class OBOFormatParser {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException(
-                    "Could not add frame " + f
-                        + " to document, duplicate frame definition?",
-                    e, stream.lineNo, stream.line);
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e,
+                    stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Typedef] frame, but found unknown stanza type.");
@@ -1001,8 +999,7 @@ public class OBOFormatParser {
             }
         } else if (!optional) {
             error("Clause: " + cl.getTag()
-                + "; expected an xref list, or at least an empty list '[]' at pos: "
-                + stream.pos);
+                + "; expected an xref list, or at least an empty list '[]' at pos: " + stream.pos);
         }
     }
 

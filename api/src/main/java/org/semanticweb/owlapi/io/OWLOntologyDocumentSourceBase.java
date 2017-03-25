@@ -36,7 +36,7 @@ import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,7 +146,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         return handleZips(in, fileName);
     }
 
-    private static Response getResponse(IRI documentIRI, OWLOntologyLoaderConfiguration config)
+    private static Response getResponse(IRI documentIRI, OntologyConfigurator config)
         throws IOException, OWLOntologyInputSourceException {
         int count = 0;
         while (count < config.getRetriesToAttempt()) {
@@ -192,7 +192,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
 
     @Override
     public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
-        OWLOntologyLoaderConfiguration config) {
+        OntologyConfigurator config) {
         boolean textual = parser.getSupportedFormat().isTextual();
         parameters = new OWLParserParameters(o, config, documentIRI).withEncoding(encoding);
         // For document sources that are string based, this is a performance
