@@ -58,8 +58,8 @@ public class OntologyConfigurator implements Serializable {
      * @param expansion entity expansion limit.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
-    public OntologyConfigurator withEntityExpansionLimit(long expansion) {
-        overrides.put(ENTITY_EXPANSION_LIMIT, Long.valueOf(expansion));
+    public OntologyConfigurator withEntityExpansionLimit(String expansion) {
+        overrides.put(ENTITY_EXPANSION_LIMIT, expansion);
         return this;
     }
 
@@ -67,7 +67,7 @@ public class OntologyConfigurator implements Serializable {
      * @return entity expansion limit.
      */
     public String getEntityExpansionLimit() {
-        return ENTITY_EXPANSION_LIMIT.getValue(Long.class, overrides).toString();
+        return ENTITY_EXPANSION_LIMIT.getValue(String.class, overrides);
     }
 
     /**
