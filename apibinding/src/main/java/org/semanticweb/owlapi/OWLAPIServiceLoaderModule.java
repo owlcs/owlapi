@@ -19,7 +19,6 @@ import java.util.ServiceLoader;
 
 import javax.inject.Provider;
 
-import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OWLStorer;
@@ -40,7 +39,6 @@ import com.google.inject.multibindings.Multibinder;
  * OWLAPI module for dynamic loading - uses ServiceLoader to add extra bindings for OWLParser,
  * OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper.
  */
-@OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
 
     private static Logger logger = LoggerFactory.getLogger(OWLAPIServiceLoaderModule.class);

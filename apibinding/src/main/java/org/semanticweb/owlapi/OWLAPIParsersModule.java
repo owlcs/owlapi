@@ -14,7 +14,6 @@ package org.semanticweb.owlapi;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -28,7 +27,6 @@ import com.google.inject.Provides;
  * the configuration without having to rewrite all of it.
  */
 @ParametersAreNonnullByDefault
-@OwlapiModule
 public class OWLAPIParsersModule extends AbstractModule {
 
     @Override

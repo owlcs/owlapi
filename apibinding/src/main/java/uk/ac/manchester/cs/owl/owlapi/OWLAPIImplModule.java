@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
@@ -33,7 +32,6 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder
 /**
  * Impl module.
  */
-@OwlapiModule
 public class OWLAPIImplModule extends AbstractModule {
 
     private final Concurrency concurrency;
@@ -56,16 +54,16 @@ public class OWLAPIImplModule extends AbstractModule {
         bind(OWLDataFactory.class).to(OWLDataFactoryImpl.class).asEagerSingleton();
         bind(OWLOntologyManager.class).to(OWLOntologyManagerImpl.class);
         bind(OWLOntologyManager.class).annotatedWith(NonConcurrentDelegate.class)
-                        .to(OWLOntologyManagerImpl.class);
+            .to(OWLOntologyManagerImpl.class);
         bind(OWLOntologyBuilder.class).to(ConcurrentOWLOntologyBuilder.class);
         bind(OWLOntologyBuilder.class).annotatedWith(NonConcurrentDelegate.class)
-                        .to(NonConcurrentOWLOntologyBuilder.class);
+            .to(NonConcurrentOWLOntologyBuilder.class);
         multibind(OWLOntologyFactory.class, OWLOntologyFactoryImpl.class);
     }
 
     @SafeVarargs
     private final <T> Multibinder<T> multibind(Class<T> type,
-                    Class<? extends T>... implementations) {
+        Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {
             binder.addBinding().to(i);
