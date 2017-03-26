@@ -23,22 +23,20 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
-public class InferredInverseObjectPropertiesAxiomGenerator extends
-        InferredObjectPropertyAxiomGenerator<OWLInverseObjectPropertiesAxiom> {
+public class InferredInverseObjectPropertiesAxiomGenerator
+    extends InferredObjectPropertyAxiomGenerator<OWLInverseObjectPropertiesAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity,
-            @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLInverseObjectPropertiesAxiom> result) {
-        for (OWLObjectPropertyExpression prop : reasoner
-                .getInverseObjectProperties(entity)) {
+    protected void addAxioms(OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
+        OWLDataFactory dataFactory, Set<OWLInverseObjectPropertiesAxiom> result) {
+        for (OWLObjectPropertyExpression prop : reasoner.getInverseObjectProperties(entity)) {
             assert prop != null;
-            result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity,
-                    prop));
+            if (!prop.isAnonymous()) {
+                result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity, prop));
+            }
         }
     }
 
