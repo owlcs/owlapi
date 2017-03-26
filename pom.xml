@@ -16,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.3.0</version>
+	<version>4.3.1-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
@@ -26,7 +26,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sesame.version>2.7.16</sesame.version>
 		<!-- remove this line for releases, if the release process fails because of missing javadoc jars -->
-		<no-javadoc>false</no-javadoc>
+		<no-javadoc>true</no-javadoc>
 		<!-- 4.0.0 is the earliest release on Maven Central for this series -->
 		<last.japicmp.compare.version>4.0.0</last.japicmp.compare.version>
 	</properties>
