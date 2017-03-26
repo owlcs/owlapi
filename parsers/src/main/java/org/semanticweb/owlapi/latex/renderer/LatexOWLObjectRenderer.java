@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
@@ -50,6 +51,11 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
             verifyNotNull(shortFormProvider, "shortFormProvider not set yet"));
         object.accept(visitor);
         return writer.getBuffer().toString();
+    }
+
+    @Override
+    public void setPrefixManager(PrefixManager shortFormProvider) {
+        this.shortFormProvider = shortFormProvider;
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.1
  */
-public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
+public class ManchesterOWLSyntaxOntologyParser implements OWLParser {
 
     private static final String COMMENT_START_CHAR = "#";
 

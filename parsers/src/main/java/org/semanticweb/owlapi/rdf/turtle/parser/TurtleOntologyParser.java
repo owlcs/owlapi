@@ -16,7 +16,7 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class TurtleOntologyParser extends AbstractOWLParser {
+public class TurtleOntologyParser implements OWLParser {
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

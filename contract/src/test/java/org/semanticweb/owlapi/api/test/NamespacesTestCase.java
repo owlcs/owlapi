@@ -73,14 +73,14 @@ public class NamespacesTestCase extends TestBase {
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
         OWLOntology o1 = m.createOntology();
         FunctionalSyntaxDocumentFormat pm1 = new FunctionalSyntaxDocumentFormat();
-        o1.getPrefixManager().setPrefix(":", "http://test.owl/test#");
+        o1.getPrefixManager().withPrefix(":", "http://test.owl/test#");
         m.setOntologyFormat(o1, pm1);
         m.addAxiom(o1, declaration);
         StringDocumentTarget t1 = new StringDocumentTarget();
         m.saveOntology(o1, t1);
         OWLOntology o2 = m1.createOntology();
         FunctionalSyntaxDocumentFormat pm2 = new FunctionalSyntaxDocumentFormat();
-        o2.getPrefixManager().setPrefix(":", "http://test.owl/test#");
+        o2.getPrefixManager().withPrefix(":", "http://test.owl/test#");
         m1.addAxiom(o2, declaration);
         StringDocumentTarget t2 = new StringDocumentTarget();
         m1.saveOntology(o1, pm2, t2);

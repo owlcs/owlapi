@@ -23,7 +23,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.IRIShortFormProvider;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.StringComparator;
 
 /**
@@ -62,8 +64,20 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
             if (ontologyFormat instanceof PrefixManager) {
                 delegate = (PrefixManager) ontologyFormat;
             } else {
-                delegate = new DefaultPrefixManager();
+                delegate = new PrefixManagerImpl();
             }
+        }
+
+        @Override
+        public PrefixManager setIRIShortFormProvider(IRIShortFormProvider isfp) {
+            delegate.setIRIShortFormProvider(isfp);
+            return this;
+        }
+
+        @Override
+        public PrefixManager setShortFormProvider(ShortFormProvider sfp) {
+            delegate.setShortFormProvider(sfp);
+            return this;
         }
 
         @Override
@@ -103,9 +117,10 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         }
 
         @Override
-        public void setDefaultPrefix(@Nullable String defaultPrefix) {
+        public PrefixManager withDefaultPrefix(@Nullable String defaultPrefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
+            return this;
         }
 
         @Override
@@ -140,38 +155,43 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         }
 
         @Override
-        public void setPrefixComparator(StringComparator comparator) {
-            delegate.setPrefixComparator(comparator);
+        public PrefixManager withPrefixComparator(StringComparator comparator) {
+            return delegate.withPrefixComparator(comparator);
         }
 
         @Override
-        public void setPrefix(String prefixName, String prefix) {
+        public PrefixManager withPrefix(String prefixName, String prefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
+            return this;
         }
 
         @Override
-        public void copyPrefixesFrom(PrefixManager from) {
+        public PrefixManager copyPrefixesFrom(PrefixManager from) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
+            return this;
         }
 
         @Override
-        public void copyPrefixesFrom(Map<String, String> from) {
+        public PrefixManager copyPrefixesFrom(Map<String, String> from) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
+            return this;
         }
 
         @Override
-        public void unregisterNamespace(String namespace) {
+        public PrefixManager unregisterNamespace(String namespace) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
+            return this;
         }
 
         @Override
-        public void clear() {
+        public PrefixManager clear() {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
+            return this;
         }
     }
 }

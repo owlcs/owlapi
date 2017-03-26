@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.io.Serializable;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -24,14 +26,14 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface ShortFormProvider {
+public interface ShortFormProvider extends Serializable {
 
     /**
      * Gets the short form for the specified entity.
      *
      * @param entity The entity.
      * @return A string which represents a short rendering of the specified entity. The returned
-     * value will not be null but might be an empty string.
+     *         value will not be null but might be an empty string.
      */
     String getShortForm(OWLEntity entity);
 

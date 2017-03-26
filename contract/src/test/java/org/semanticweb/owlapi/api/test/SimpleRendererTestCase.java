@@ -25,7 +25,7 @@ public class SimpleRendererTestCase extends TestBase {
         RDFXMLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology o = getOWLOntology();
         o.getOWLOntologyManager().setOntologyFormat(o, f);
-        o.getPrefixManager().setPrefix("test", "urn:test#");
+        o.getPrefixManager().withPrefix("test", "urn:test#");
         testSubject.setPrefixesFromOntologyFormat(o, true);
         assertEquals("test:t", testSubject.getShortForm(IRI.create("urn:test#", "t")));
     }

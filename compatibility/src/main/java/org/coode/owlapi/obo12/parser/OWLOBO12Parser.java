@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.io.Reader;
 import java.util.List;
 
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
  * Date: 10-Jan-2007<br>
  * <br>
  */
-class OWLOBO12Parser extends AbstractOWLParser {
+class OWLOBO12Parser implements OWLParser {
 
     @Override
     public OWLDocumentFormat parse(Reader r, OWLParserParameters p) {

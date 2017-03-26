@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.krss1.parser;
 import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class KRSSOWLParser extends AbstractOWLParser {
+public class KRSSOWLParser implements OWLParser {
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

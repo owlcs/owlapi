@@ -32,9 +32,8 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
     protected OWLOntology createOntology() {
         OWLOntology ont = getAnonymousOWLOntology();
         PrefixManager format = ont.getPrefixManager();
-        format.setDefaultPrefix("http://default.com");
-        format.setPrefix("a", "http://ontology.com/a#");
-        format.setPrefix("b", "http://ontology.com/b#");
+        format.withDefaultPrefix("http://default.com").withPrefix("a", "http://ontology.com/a#")
+            .withPrefix("b", "http://ontology.com/b#");
         return ont;
     }
 

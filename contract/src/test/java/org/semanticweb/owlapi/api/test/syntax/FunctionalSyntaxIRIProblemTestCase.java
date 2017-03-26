@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
@@ -49,12 +49,12 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
             SubClassOf(b, df.getOWLObjectSomeValuesFrom(p, a)));
         OWLOntology loadOntology = roundTrip(ontology, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat functionalFormat = new FunctionalSyntaxDocumentFormat();
-        ontology.getPrefixManager().setPrefix("example", "http://example.org/");
+        ontology.getPrefixManager().withPrefix("example", "http://example.org/");
         OWLOntology loadOntology2 = roundTrip(ontology, functionalFormat);
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
         ManchesterSyntaxDocumentFormat manchesterFormat = new ManchesterSyntaxDocumentFormat();
-        ontology.getPrefixManager().setPrefix("example", "http://example.org/");
+        ontology.getPrefixManager().withPrefix("example", "http://example.org/");
         OWLOntology loadOntology3 = roundTrip(ontology, manchesterFormat);
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);
@@ -68,8 +68,8 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     public void shouldRespectDefaultPrefix()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ontology = m.createOntology(IRI.create("http://www.dis.uniroma1.it/example/"));
-        PrefixManager pm = new DefaultPrefixManager();
-        pm.setPrefix("example", "http://www.dis.uniroma1.it/example/");
+        PrefixManager pm =
+            new PrefixManagerImpl().withPrefix("example", "http://www.dis.uniroma1.it/example/");
         OWLClass pizza = df.getOWLClass("example:pizza", pm);
         OWLDeclarationAxiom declarationAxiom = df.getOWLDeclarationAxiom(pizza);
         m.addAxiom(ontology, declarationAxiom);
@@ -97,14 +97,13 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         String prefix = "http://www.dis.uniroma1.it/pizza";
         OWLOntology ontology = m.createOntology(IRI.create(prefix));
-        PrefixManager pm = new DefaultPrefixManager();
-        pm.setPrefix("pizza", prefix);
+        PrefixManager pm = new PrefixManagerImpl().withPrefix("pizza", prefix);
         OWLClass pizza = df.getOWLClass("pizza:PizzaBase", pm);
         assertEquals(prefix + "PizzaBase", pizza.getIRI().toString());
         OWLDeclarationAxiom declarationAxiom = df.getOWLDeclarationAxiom(pizza);
         m.addAxiom(ontology, declarationAxiom);
         FunctionalSyntaxDocumentFormat ontoFormat = new FunctionalSyntaxDocumentFormat();
-        ontology.getPrefixManager().setPrefix("pizza", prefix);
+        ontology.getPrefixManager().withPrefix("pizza", prefix);
         m.setOntologyFormat(ontology, ontoFormat);
         OWLOntologyDocumentTarget stream = new StringDocumentTarget();
         m.saveOntology(ontology, stream);

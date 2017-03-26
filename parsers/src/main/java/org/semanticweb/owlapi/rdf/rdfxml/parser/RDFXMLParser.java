@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFXMLParser extends AbstractOWLParser {
+public class RDFXMLParser implements OWLParser {
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
@@ -49,7 +49,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                     throws SAXException {
                     super.startPrefixMapping(prefix, uri);
                     if (prefix != null && uri != null) {
-                        p.getOntology().getPrefixManager().setPrefix(prefix, uri);
+                        p.getOntology().getPrefixManager().withPrefix(prefix, uri);
                     }
                 }
             };

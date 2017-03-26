@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.HasComponents;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
@@ -41,20 +40,18 @@ public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Colle
 
     @Override
     public Collection<E> doDefault(OWLObject object) {
-        processStream(((HasComponents) object).components());
+        object.components().forEach(this::processStream);
         return objects;
     }
 
-    protected void processStream(Stream<?> s) {
-        s.forEach(o -> {
-            if (o instanceof OWLObject) {
-                ((OWLObject) o).accept(this);
-            } else if (o instanceof Stream) {
-                processStream((Stream<?>) o);
-            } else if (o instanceof Collection) {
-                processStream(((Collection<?>) o).stream());
-            }
-        });
+    protected final void processStream(Object o) {
+        if (o instanceof OWLObject) {
+            ((OWLObject) o).accept(this);
+        } else if (o instanceof Stream) {
+            ((Stream<?>) o).forEach(this::processStream);
+        } else if (o instanceof Collection) {
+            ((Collection<?>) o).stream().forEach(this::processStream);
+        }
     }
 
     /**

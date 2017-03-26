@@ -47,7 +47,7 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
     public void shouldRoundTrip() throws Exception {
         OWLOntology ontology = buildOntology();
         OWLDocumentFormat format = new ManchesterSyntaxDocumentFormat();
-        ontology.getPrefixManager().setPrefix("piz", NS + '#');
+        ontology.getPrefixManager().withPrefix("piz", NS + '#');
         OWLOntology roundtripped = roundTrip(ontology, format);
         assertTrue(equalStreams(ontology.logicalAxioms(), roundtripped.logicalAxioms()));
     }

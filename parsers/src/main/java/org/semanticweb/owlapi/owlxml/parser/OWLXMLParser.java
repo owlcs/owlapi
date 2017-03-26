@@ -17,7 +17,7 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLXMLParser extends AbstractOWLParser {
+public class OWLXMLParser implements OWLParser {
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
@@ -50,7 +50,7 @@ public class OWLXMLParser extends AbstractOWLParser {
             String base = handler.getBase().toString();
             // do not override existing default prefix
             if (p.getOntology().getPrefixManager().getDefaultPrefix() == null) {
-                p.getOntology().getPrefixManager().setDefaultPrefix(base);
+                p.getOntology().getPrefixManager().withDefaultPrefix(base);
             }
             return format;
         } catch (SAXException | IOException | IllegalStateException e) {

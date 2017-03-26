@@ -30,8 +30,8 @@ public class EntitySearcherTestCase extends TestBase {
 
     @Before
     public void setUp() {
-        PrefixManager pm = new DefaultPrefixManager();
-        pm.setDefaultPrefix("http://www.ontologies.com/ontology");
+        PrefixManager pm =
+            new PrefixManagerImpl().withDefaultPrefix("http://www.ontologies.com/ontology");
         subProperty = ObjectProperty("subProperty", pm);
         superProperty = ObjectProperty("superProperty", pm);
         OWLOntology ontology = Ontology(m, SubObjectPropertyOf(subProperty, superProperty));

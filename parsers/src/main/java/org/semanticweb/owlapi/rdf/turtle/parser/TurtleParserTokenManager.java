@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -1581,9 +1581,7 @@ protected Token jjFillToken()
    beginColumn = input_stream.getBeginColumn();
    endLine = input_stream.getEndLine();
    endColumn = input_stream.getEndColumn();
-   t = Token.newToken(jjmatchedKind);
-   t.kind = jjmatchedKind;
-   t.image = curTokenImage;
+   t = Token.newToken(jjmatchedKind, curTokenImage);
 
    t.beginLine = beginLine;
    t.endLine = endLine;

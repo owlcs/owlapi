@@ -119,41 +119,14 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
-    private StringBuilder sb;
-    private ShortFormProvider shortFormProvider;
-    private IRIShortFormProvider iriShortFormProvider;
-
-    /**
-     * Default constructor.
-     */
-    @SuppressWarnings("null")
-    public SimpleRenderer() {
-        sb = new StringBuilder();
-        resetShortFormProvider();
-    }
+    private StringBuilder sb = new StringBuilder();
+    private PrefixManager shortFormProvider = new PrefixManagerImpl();
 
     /**
      * reset the renderer.
      */
     public void reset() {
         sb = new StringBuilder();
-    }
-
-    /**
-     * @return true if default is used
-     */
-    public boolean isUsingDefaultShortFormProvider() {
-        return shortFormProvider instanceof DefaultPrefixManager;
-    }
-
-    /**
-     * Resets the short form provider to the default short form provider, which is a PrefixManager
-     * with the default set of prefixes.
-     */
-    public final void resetShortFormProvider() {
-        DefaultPrefixManager defaultPrefixManager = new DefaultPrefixManager();
-        shortFormProvider = defaultPrefixManager;
-        iriShortFormProvider = defaultPrefixManager;
     }
 
     /**
@@ -167,16 +140,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology,
         boolean processImportedOntologies) {
-        resetShortFormProvider();
+        shortFormProvider = new PrefixManagerImpl();
         Imports.fromBoolean(processImportedOntologies).stream(ontology)
-            .forEach(o -> copyPrefixes(o.getPrefixManager()));
-    }
-
-    private void copyPrefixes(PrefixManager ontologyPrefixes) {
-        if (!isUsingDefaultShortFormProvider()) {
-            resetShortFormProvider();
-        }
-        ((DefaultPrefixManager) shortFormProvider).copyPrefixesFrom(ontologyPrefixes);
+            .forEach(o -> shortFormProvider.copyPrefixesFrom(o.getPrefixManager()));
     }
 
     /**
@@ -186,15 +152,17 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      * @param prefix The prefix that the prefix name maps to
      */
     public void setPrefix(String prefixName, String prefix) {
-        if (!isUsingDefaultShortFormProvider()) {
-            resetShortFormProvider();
-        }
-        ((DefaultPrefixManager) shortFormProvider).setPrefix(prefixName, prefix);
+        shortFormProvider.withPrefix(prefixName, prefix);
+    }
+
+    @Override
+    public void setPrefixManager(PrefixManager shortFormProvider) {
+        this.shortFormProvider = shortFormProvider;
     }
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = shortFormProvider;
+        this.shortFormProvider.setShortFormProvider(shortFormProvider);
     }
 
     /**
@@ -202,7 +170,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      * @return the short form
      */
     public String getShortForm(IRI iri) {
-        return iriShortFormProvider.getShortForm(iri);
+        return shortFormProvider.getShortForm(iri);
     }
 
     @Override

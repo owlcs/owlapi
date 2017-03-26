@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -68,7 +68,7 @@ public class SerializationTestCase extends TestBase {
     private final OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
     private final String string = "testString";
     private final OWLClassExpression c = df.getOWLClass("urn:test#", "classexpression");
-    private final PrefixManager prefixmanager = new DefaultPrefixManager();
+    private final PrefixManager prefixmanager = new PrefixManagerImpl();
     private final OWLIndividual ai = df.getOWLAnonymousIndividual();
     private final OWLAnnotationValue owlannotationvalue = owlliteral;
     private final Set<OWLObjectPropertyExpression> setop = new HashSet<>(Arrays.asList(op, op));

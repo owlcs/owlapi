@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
@@ -32,6 +33,13 @@ public interface OWLObjectRenderer {
      * @param shortFormProvider The short form provider to be used.
      */
     void setShortFormProvider(ShortFormProvider shortFormProvider);
+
+    /**
+     * Sets the prefix manager, which determines the short form that should be used for entities.
+     *
+     * @param shortFormProvider The short form provider to be used.
+     */
+    void setPrefixManager(PrefixManager shortFormProvider);
 
     /**
      * Renders the specified object.

@@ -66,6 +66,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**

@@ -32,6 +32,17 @@ import org.semanticweb.owlapi.util.StringComparator;
  * @since 2.2.0
  */
 public interface PrefixManager extends Serializable, ShortFormProvider, IRIShortFormProvider {
+    /**
+     * @param sfp short form provider to use
+     * @return updated object
+     */
+    PrefixManager setShortFormProvider(ShortFormProvider sfp);
+
+    /**
+     * @param isfp iri short form provider to use
+     * @return updated object
+     */
+    PrefixManager setIRIShortFormProvider(IRIShortFormProvider isfp);
 
     /**
      * @return the prefix comparator currently used by the prefix manager
@@ -40,8 +51,9 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
 
     /**
      * @param comparator the comparator to use
+     * @return updated object
      */
-    void setPrefixComparator(StringComparator comparator);
+    PrefixManager withPrefixComparator(StringComparator comparator);
 
     /**
      * Gets the default prefix. The default prefix is denoted by the prefix name ":"
@@ -56,8 +68,9 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
      *
      * @param defaultPrefix The namespace to be used as the default namespace. Note that the value
      *        may be {@code null} in order to clear the default namespace.
+     * @return updated object
      */
-    void setDefaultPrefix(@Nullable String defaultPrefix);
+    PrefixManager withDefaultPrefix(@Nullable String defaultPrefix);
 
     /**
      * Determines if this manager knows about a given prefix name and it contains a (non-null)
@@ -134,32 +147,38 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
      *
      * @param prefixName name The prefix name (must end with a colon)
      * @param prefix The prefix.
+     * @return updated object
      */
-    void setPrefix(String prefixName, String prefix);
+    PrefixManager withPrefix(String prefixName, String prefix);
 
     /**
      * Copies the prefix from another prefix manager into this one.
      *
      * @param from The manager that the prefixes should be copied from
+     * @return updated object
      */
-    void copyPrefixesFrom(PrefixManager from);
+    PrefixManager copyPrefixesFrom(PrefixManager from);
 
     /**
      * Copies the prefix from another prefix manager into this one.
      *
      * @param from The map containing the prefixes
+     * @return updated object
      */
-    void copyPrefixesFrom(Map<String, String> from);
+    PrefixManager copyPrefixesFrom(Map<String, String> from);
 
     /**
      * Removes a previously registerd prefix namespace mapping.
      *
      * @param namespace The namespace to be removed.
+     * @return updated object
      */
-    void unregisterNamespace(String namespace);
+    PrefixManager unregisterNamespace(String namespace);
 
     /**
      * Clear the map.
+     * 
+     * @return updated object
      */
-    void clear();
+    PrefixManager clear();
 }

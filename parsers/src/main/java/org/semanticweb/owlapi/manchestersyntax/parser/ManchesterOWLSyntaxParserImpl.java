@@ -175,9 +175,9 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
@@ -210,7 +210,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     protected final Set<String> individualNames = new HashSet<>();
     protected final Set<String> dataTypeNames = new HashSet<>();
     protected final Set<String> annotationPropertyNames = new HashSet<>();
-    protected final DefaultPrefixManager pm = new DefaultPrefixManager();
+    protected final PrefixManager pm = new PrefixManagerImpl();
     protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private final List<Token> tokens = new ArrayList<>();
     private final Map<ManchesterOWLSyntax, AnnAxiom<OWLClass, ?>> classFrameSections =
@@ -249,10 +249,10 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         loaderConfig = configurationProvider;
         df = dataFactory;
         anonProvider = new RemappingIndividualProvider(configurationProvider, df);
-        pm.setPrefix("rdf:", Namespaces.RDF.toString());
-        pm.setPrefix("rdfs:", Namespaces.RDFS.toString());
-        pm.setPrefix("owl:", Namespaces.OWL.toString());
-        pm.setPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
+        pm.withPrefix("rdf:", Namespaces.RDF.toString());
+        pm.withPrefix("rdfs:", Namespaces.RDFS.toString());
+        pm.withPrefix("owl:", Namespaces.OWL.toString());
+        pm.withPrefix("dc:", DublinCoreVocabulary.NAME_SPACE);
         NamespaceUtil u = new NamespaceUtil();
         initialiseClassFrameSections();
         initialiseObjectPropertyFrameSections();
@@ -2135,7 +2135,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                     imported.axioms(AxiomType.DECLARATION).forEach(this::processDeclaredEntities);
                 }
             } else if (PREFIX.matches(section)) {
-                parsePrefixDeclaration().forEach((k, v) -> pm.setPrefix(k, v.toString()));
+                parsePrefixDeclaration().forEach((k, v) -> pm.withPrefix(k, v.toString()));
             } else if (RULE.matches(section)) {
                 axioms.addAll(parseRuleFrame());
             } else if (eof(section)) {

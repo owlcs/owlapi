@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.functional.parser;
 import java.io.Reader;
 
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
+public class OWLFunctionalSyntaxOWLParser implements OWLParser {
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

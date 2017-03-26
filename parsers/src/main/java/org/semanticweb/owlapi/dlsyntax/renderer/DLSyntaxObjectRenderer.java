@@ -122,6 +122,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
@@ -146,20 +147,11 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
 
-    private final IRIShortFormProvider iriShortFormProvider;
-    private ShortFormProvider shortFormProvider;
-    private StringBuilder buffer;
+    private final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
+    private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
+    private StringBuilder buffer = new StringBuilder();
     @Nullable
     private OWLObject focusedObject;
-
-    /**
-     * Default constructor.
-     */
-    public DLSyntaxObjectRenderer() {
-        shortFormProvider = new SimpleShortFormProvider();
-        iriShortFormProvider = new SimpleIRIShortFormProvider();
-        buffer = new StringBuilder();
-    }
 
     protected static boolean isBracketedIfNested(OWLObject object) {
         checkNotNull(object, "object cannot be null");
@@ -182,6 +174,12 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
             return false;
         }
         return verifyNotNull(focusedObject).equals(obj);
+    }
+
+    @Override
+    public void setPrefixManager(PrefixManager shortFormProvider) {
+        this.shortFormProvider =
+            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override

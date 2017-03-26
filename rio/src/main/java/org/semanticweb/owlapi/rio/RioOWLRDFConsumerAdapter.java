@@ -82,7 +82,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
 
     @Override
     public void handleNamespace(@Nullable String prefix, @Nullable String uri) {
-        parseParameters.getOntology().getPrefixManager().setPrefix(prefix + ':',
+        parseParameters.getOntology().getPrefixManager().withPrefix(prefix + ':',
             verifyNotNull(uri));
     }
 

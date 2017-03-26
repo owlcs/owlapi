@@ -321,7 +321,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     @Override
     public void addPrefix(String abbreviation, String value) {
-        ont().getPrefixManager().setPrefix(abbreviation, value);
+        ont().getPrefixManager().withPrefix(abbreviation, value);
     }
 
     /**

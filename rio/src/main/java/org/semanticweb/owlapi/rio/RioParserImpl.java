@@ -60,7 +60,7 @@ import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserParameters;
 import org.semanticweb.owlapi.model.IRI;
@@ -74,7 +74,7 @@ import org.slf4j.LoggerFactory;
 /**
  */
 @HasPriority(7)
-public class RioParserImpl extends AbstractOWLParser implements RioParser {
+public class RioParserImpl implements OWLParser, RioParser {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(RioParserImpl.class);
     private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();

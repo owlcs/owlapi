@@ -37,7 +37,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 
 @SuppressWarnings("javadoc")
 public class PunRunner extends org.junit.runner.Runner {
@@ -73,7 +74,7 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     private void addAllTests() {
-        DefaultPrefixManager pm = new DefaultPrefixManager("http://localhost#");
+        PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix("http://localhost#");
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLDataFactory df = m.getOWLDataFactory();
         List<? extends OWLEntity> entities =
@@ -149,7 +150,7 @@ public class PunRunner extends org.junit.runner.Runner {
             df.getOWLAnnotationProperty("http://localhost#", ":ap");
         OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(annotationProperty,
             ontologyManager, entities);
-        o.getPrefixManager().setDefaultPrefix("http://localhost#");
+        o.getPrefixManager().withDefaultPrefix("http://localhost#");
         for (int i = 0; i < 10; i++) {
             OWLDocumentFormat format = formatClass.newInstance();
             StringDocumentTarget in = saveForRereading(o, format, ontologyManager);

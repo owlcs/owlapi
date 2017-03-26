@@ -219,7 +219,6 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
@@ -235,7 +234,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private final Writer writer;
     @Nullable
     protected AnnotationValueShortFormProvider labelMaker = null;
-    private DefaultPrefixManager defaultPrefixManager;
     private PrefixManager prefixManager;
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
@@ -247,7 +245,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     public FunctionalSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
         ont = ontology;
         this.writer = writer;
-        defaultPrefixManager = new DefaultPrefixManager();
         prefixManager = ontology.getPrefixManager();
         addMissingDeclarations =
             ontology.getOWLOntologyManager().getOntologyConfigurator().shouldAddMissingTypes();
@@ -259,7 +256,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                 if (!ontologyIRIString.endsWith("/")) {
                     defaultPrefix = ontologyIRIString + '#';
                 }
-                prefixManager.setDefaultPrefix(defaultPrefix);
+                prefixManager.withDefaultPrefix(defaultPrefix);
             }
         }
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
@@ -267,7 +264,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         OWLDataFactory df = manager.getOWLDataFactory();
         OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
         labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
-            prefLangMap, manager, defaultPrefixManager);
+            prefLangMap, manager, prefixManager);
     }
 
     /**
@@ -284,9 +281,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      */
     public void setPrefixManager(PrefixManager prefixManager) {
         this.prefixManager = prefixManager;
-        if (prefixManager instanceof DefaultPrefixManager) {
-            defaultPrefixManager = (DefaultPrefixManager) prefixManager;
-        }
     }
 
     protected void writePrefix(String prefix, String namespace) {
@@ -488,7 +482,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private String getIRIString(OWLEntity entity) {
-        return defaultPrefixManager.getShortForm(entity);
+        return prefixManager.getShortForm(entity);
     }
 
     private String getEntityLabel(OWLEntity entity) {

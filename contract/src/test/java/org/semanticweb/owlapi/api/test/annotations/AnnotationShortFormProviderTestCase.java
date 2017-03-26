@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.util.StringAnnotationVisitor;
@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.util.StringAnnotationVisitor;
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
     protected PrefixManager pm =
-                    new DefaultPrefixManager(null, null, "http://org.semanticweb.owlapi/ont#");
+        new PrefixManagerImpl().withDefaultPrefix("http://org.semanticweb.owlapi/ont#");
     protected OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
     protected List<OWLAnnotationProperty> props = CollectionFactory.list(prop);
     protected Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<>();
@@ -57,7 +57,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         String shortForm = "MyLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
         AnnotationValueShortFormProvider sfp =
-                        new AnnotationValueShortFormProvider(props, langMap, m);
+            new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals(sfp.getShortForm(root), shortForm);
     }
 
@@ -67,15 +67,15 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         String label1 = "MyLabel";
         String label2 = "OtherLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(label1, "ab")),
-                        AnnotationAssertion(prop, root.getIRI(), Literal(label2, "xy")));
+            AnnotationAssertion(prop, root.getIRI(), Literal(label2, "xy")));
         langMap.put(prop, Arrays.asList("ab", "xy"));
         AnnotationValueShortFormProvider sfp =
-                        new AnnotationValueShortFormProvider(props, langMap, m);
+            new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals(sfp.getShortForm(root), label1);
         Map<OWLAnnotationProperty, List<String>> langMap2 = new HashMap<>();
         langMap2.put(prop, Arrays.asList("xy", "ab"));
         AnnotationValueShortFormProvider sfp2 =
-                        new AnnotationValueShortFormProvider(props, langMap2, m);
+            new AnnotationValueShortFormProvider(props, langMap2, m);
         assertEquals(sfp2.getShortForm(root), label2);
     }
 
@@ -83,9 +83,9 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     public void testIRIValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         Ontology(m, AnnotationAssertion(prop, root.getIRI(),
-                        IRI("http://org.semanticweb.owlapi/ont#", "myIRI")));
+            IRI("http://org.semanticweb.owlapi/ont#", "myIRI")));
         AnnotationValueShortFormProvider sfp =
-                        new AnnotationValueShortFormProvider(props, langMap, m);
+            new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals("myIRI", sfp.getShortForm(root));
     }
 
@@ -94,9 +94,8 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
         Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
-        AnnotationValueShortFormProvider sfp =
-                        new AnnotationValueShortFormProvider(m, new SimpleShortFormProvider(),
-                                        new SimpleIRIShortFormProvider(), props, langMap);
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(m,
+            new SimpleShortFormProvider(), new SimpleIRIShortFormProvider(), props, langMap);
         sfp.setLiteralRenderer(new StringAnnotationVisitor() {
 
             @Override

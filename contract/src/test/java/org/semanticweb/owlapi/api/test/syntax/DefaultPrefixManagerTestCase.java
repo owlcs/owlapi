@@ -22,7 +22,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -34,14 +34,14 @@ public class DefaultPrefixManagerTestCase {
 
     @Test
     public void getPrefixIRIEmpty() {
-        DefaultPrefixManager pm = new DefaultPrefixManager();
-        pm.setPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
+        PrefixManager pm =
+            new PrefixManagerImpl().withPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
         assertEquals("foaf:", pm.getPrefixIRI(IRI("http://xmlns.com/foaf/0.1/", "")));
     }
 
     @Test
     public void testContainsDefaultPrefixNames() {
-        PrefixManager pm = new DefaultPrefixManager();
+        PrefixManager pm = new PrefixManagerImpl();
         assertTrue(pm.containsPrefixMapping("owl:"));
         assertTrue(pm.containsPrefixMapping("rdf:"));
         assertTrue(pm.containsPrefixMapping("rdfs:"));
@@ -53,7 +53,7 @@ public class DefaultPrefixManagerTestCase {
 
     @Test
     public void testPrefixIRIExpansion() {
-        PrefixManager pm = new DefaultPrefixManager();
+        PrefixManager pm = new PrefixManagerImpl();
         IRI iri = pm.getIRI("rdfs:comment");
         assertEquals(iri, OWLRDFVocabulary.RDFS_COMMENT.getIRI());
     }
@@ -61,8 +61,7 @@ public class DefaultPrefixManagerTestCase {
     @Test
     public void testDefaultPrefixExpansion() {
         String defaultPrefix = "http://www.semanticweb.org/test/ont";
-        PrefixManager pm = new DefaultPrefixManager();
-        pm.setDefaultPrefix(defaultPrefix);
+        PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix(defaultPrefix);
         assertTrue(pm.containsPrefixMapping(":"));
         assertNotNull(pm.getDefaultPrefix());
         assertEquals(pm.getDefaultPrefix(), pm.getPrefix(":"));

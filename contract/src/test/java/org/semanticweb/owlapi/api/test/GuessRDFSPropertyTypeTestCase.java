@@ -55,7 +55,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         assertNotNull(cidocOntology);
         OWLDocumentFormat format = cidocOntology.getFormat();
         assertNotNull(format);
-        cidocOntology.getPrefixManager().setDefaultPrefix(CIDOC_PREFIX);
+        cidocOntology.getPrefixManager().withDefaultPrefix(CIDOC_PREFIX);
     }
 
     @Test

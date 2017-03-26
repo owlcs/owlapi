@@ -381,7 +381,7 @@ public class TurtleTestCase extends TestBase {
         m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test1)));
         m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(test2)));
         TurtleDocumentFormat format = new TurtleDocumentFormat();
-        o.getPrefixManager().setDefaultPrefix("http://www.semanticweb.org/ontology#");
+        o.getPrefixManager().withDefaultPrefix("http://www.semanticweb.org/ontology#");
         roundTrip(o, format);
     }
 
@@ -398,7 +398,7 @@ public class TurtleTestCase extends TestBase {
             + "OBO:TEST_1 rdf:type owl:Class ;\n    rdfs:label \"foo\"@en .";
         OWLOntology ont = loadOntologyFromString(in, new TurtleDocumentFormat());
         OWLDocumentFormat ofmt = new TurtleDocumentFormat();
-        ont.getPrefixManager().setPrefix("OBO", "http://purl.obolibrary.org/obo/");
+        ont.getPrefixManager().withPrefix("OBO", "http://purl.obolibrary.org/obo/");
         StringDocumentTarget result = saveOntology(ont, ofmt);
         OWLOntology o1 = loadOntologyFromString(result, new TurtleDocumentFormat());
         equal(ont, o1);
@@ -417,7 +417,7 @@ public class TurtleTestCase extends TestBase {
             + "OBO:TEST_1 rdf:type owl:Class ;\n    rdfs:label \"foo\"@en .";
         OWLOntology ont = loadOntologyFromString(in, new TurtleDocumentFormat());
         OWLDocumentFormat ofmt = new TurtleDocumentFormat();
-        ont.getPrefixManager().setPrefix("OBO", "http://purl.obolibrary.org/obo/");
+        ont.getPrefixManager().withPrefix("OBO", "http://purl.obolibrary.org/obo/");
         StringDocumentTarget result = saveOntology(ont, ofmt);
         OWLOntology o1 = loadOntologyFromString(result, new TurtleDocumentFormat());
         equal(ont, o1);

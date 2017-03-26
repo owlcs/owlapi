@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -23,7 +23,7 @@ public class TurtleParser implements TurtleParserConstants {
     private Map<String, IRI> string2IRI;
     private IRI base;
     private OWLRDFConsumer handler;
-    private PrefixManager pm = new DefaultPrefixManager();
+    private PrefixManager pm = new PrefixManagerImpl();
 
     /** Instantiates a new turtle parser.
      * 
@@ -38,7 +38,7 @@ public class TurtleParser implements TurtleParserConstants {
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
+        pm.withDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
     /** Gets the prefix manager.
@@ -186,7 +186,7 @@ handler.endModel();
     jj_consume_token(PREFIX);
     t = jj_consume_token(PNAME_NS);
     ns = parseIRI();
-pm.setPrefix(t.image, ns.toString());
+pm.withPrefix(t.image, ns.toString());
 }
 
   final public void parseBaseDirective() throws ParseException {Token t;

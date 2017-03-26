@@ -1,15 +1,3 @@
-/* This file is part of the OWL API.
- * The contents of this file are subject to the LGPL License, Version 3.0.
- * Copyright 2014, The University of Manchester
- * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
- *
- * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
@@ -31,48 +19,63 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
+ * Copied from DefaultPrefixManager.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
- * @since 2.2.0
+ * @since 6.0.0
  */
-public class DefaultPrefixManager
-    implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
+public class PrefixManagerImpl implements PrefixManager {
 
     private final Map<String, String> reverseprefix2NamespaceMap;
-    // XXX config
     private Map<String, String> prefix2NamespaceMap;
     private StringComparator comparator;
+    IRIShortFormProvider isfp = new ISFP();
 
-    /**
-     * @param defaultPrefix default prefix
-     */
-    public DefaultPrefixManager(@Nullable String defaultPrefix) {
-        this(null, null, defaultPrefix);
+    class ISFP implements IRIShortFormProvider {
+        @Override
+        public String getShortForm(IRI iri) {
+            String sf = getPrefixIRI(iri);
+            if (sf == null) {
+                return iri.toQuotedString();
+            } else {
+                return sf;
+            }
+        }
+    }
+    class SFP implements ShortFormProvider {
+        @Override
+        public String getShortForm(OWLEntity entity) {
+            return isfp.getShortForm(entity.getIRI());
+        }
     }
 
-    /**
-     * @param pm the prefix manager to copy
-     * @param c comparator to sort prefixes
-     * @param defaultPrefix default prefix
-     */
-    public DefaultPrefixManager(@Nullable PrefixManager pm, @Nullable StringComparator c,
-        @Nullable String defaultPrefix) {
-        comparator = c == null ? new StringLengthComparator() : c;
-        prefix2NamespaceMap = new TreeMap<>(comparator);
-        reverseprefix2NamespaceMap = new TreeMap<>(comparator);
-        setupDefaultPrefixes();
-        if (pm != null) {
-            copyPrefixesFrom(pm);
-        }
-        if (defaultPrefix != null) {
-            setDefaultPrefix(defaultPrefix);
-        }
+    private ShortFormProvider sfp = s -> getShortForm(s.getIRI());
+
+    @Override
+    public PrefixManager setIRIShortFormProvider(IRIShortFormProvider isfp) {
+        this.isfp = isfp;
+        return this;
+    }
+
+    @Override
+    public PrefixManager setShortFormProvider(ShortFormProvider sfp) {
+        this.sfp = sfp;
+        return this;
     }
 
     /**
      * Default constructor setting the comparator to string lenght comparator.
      */
-    public DefaultPrefixManager() {
-        this(null, null, null);
+    public PrefixManagerImpl() {
+        comparator = new StringLengthComparator();
+        prefix2NamespaceMap = new TreeMap<>(comparator);
+        reverseprefix2NamespaceMap = new TreeMap<>(comparator);
+        setupDefaultPrefixes();
+    }
+
+    @Override
+    public String toString() {
+        return prefix2NamespaceMap.toString().replace(",", ",\n");
     }
 
     private static boolean noSplits(String s, int index) {
@@ -85,18 +88,20 @@ public class DefaultPrefixManager
     }
 
     @Override
-    public void setPrefixComparator(StringComparator comparator) {
-        checkNotNull(comparator, "comparator cannot be null");
-        this.comparator = comparator;
+    public PrefixManager withPrefixComparator(StringComparator c) {
+        checkNotNull(c, "comparator cannot be null");
+        comparator = c;
         Map<String, String> p = prefix2NamespaceMap;
-        prefix2NamespaceMap = new TreeMap<>(comparator);
+        prefix2NamespaceMap = new TreeMap<>(c);
         prefix2NamespaceMap.putAll(p);
+        return this;
     }
 
     @Override
-    public void clear() {
+    public PrefixManager clear() {
         prefix2NamespaceMap.clear();
         reverseprefix2NamespaceMap.clear();
+        return this;
     }
 
     @Override
@@ -105,11 +110,11 @@ public class DefaultPrefixManager
     }
 
     private void setupDefaultPrefixes() {
-        setPrefix("owl:", Namespaces.OWL.toString());
-        setPrefix("rdfs:", Namespaces.RDFS.toString());
-        setPrefix("rdf:", Namespaces.RDF.toString());
-        setPrefix("xsd:", Namespaces.XSD.toString());
-        setPrefix("xml:", Namespaces.XML.toString());
+        withPrefix("owl:", Namespaces.OWL.toString());
+        withPrefix("rdfs:", Namespaces.RDFS.toString());
+        withPrefix("rdf:", Namespaces.RDF.toString());
+        withPrefix("xsd:", Namespaces.XSD.toString());
+        withPrefix("xml:", Namespaces.XML.toString());
     }
 
     @Override
@@ -142,19 +147,20 @@ public class DefaultPrefixManager
     }
 
     @Override
-    public void setDefaultPrefix(@Nullable String defaultPrefix) {
+    public PrefixManager withDefaultPrefix(@Nullable String defaultPrefix) {
         String prefixToUnregister = prefix2NamespaceMap.get(":");
         if (prefixToUnregister != null) {
             prefix2NamespaceMap.remove(":");
             reverseprefix2NamespaceMap.remove(prefixToUnregister, ":");
         }
         if (defaultPrefix == null) {
-            return;
+            return this;
         }
         prefix2NamespaceMap.put(":", defaultPrefix);
         if (!reverseprefix2NamespaceMap.containsKey(defaultPrefix)) {
             reverseprefix2NamespaceMap.put(defaultPrefix, ":");
         }
+        return this;
     }
 
     @Override
@@ -163,13 +169,15 @@ public class DefaultPrefixManager
     }
 
     @Override
-    public void copyPrefixesFrom(PrefixManager from) {
+    public PrefixManager copyPrefixesFrom(PrefixManager from) {
         copyPrefixesFrom(from.getPrefixName2PrefixMap());
+        return this;
     }
 
     @Override
-    public void copyPrefixesFrom(Map<String, String> from) {
-        from.forEach(this::setPrefix);
+    public PrefixManager copyPrefixesFrom(Map<String, String> from) {
+        from.forEach(this::withPrefix);
+        return this;
     }
 
     @Override
@@ -207,7 +215,7 @@ public class DefaultPrefixManager
     }
 
     @Override
-    public void setPrefix(String inputPrefixName, String prefix) {
+    public PrefixManager withPrefix(String inputPrefixName, String prefix) {
         checkNotNull(inputPrefixName, "prefixName cannot be null");
         checkNotNull(prefix, "prefix cannot be null");
         String _prefixName = inputPrefixName;
@@ -216,10 +224,11 @@ public class DefaultPrefixManager
         }
         prefix2NamespaceMap.put(_prefixName, prefix);
         reverseprefix2NamespaceMap.put(prefix, _prefixName);
+        return this;
     }
 
     @Override
-    public void unregisterNamespace(String namespace) {
+    public PrefixManager unregisterNamespace(String namespace) {
         List<String> toRemove = new ArrayList<>();
         prefix2NamespaceMap.forEach((k, v) -> {
             if (v.equals(namespace)) {
@@ -228,20 +237,16 @@ public class DefaultPrefixManager
         });
         reverseprefix2NamespaceMap.remove(namespace);
         prefix2NamespaceMap.keySet().removeAll(toRemove);
+        return this;
     }
 
     @Override
     public String getShortForm(IRI iri) {
-        String sf = getPrefixIRI(iri);
-        if (sf == null) {
-            return iri.toQuotedString();
-        } else {
-            return sf;
-        }
+        return isfp.getShortForm(iri);
     }
 
     @Override
     public String getShortForm(OWLEntity entity) {
-        return getShortForm(entity.getIRI());
+        return sfp.getShortForm(entity);
     }
 }
