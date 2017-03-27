@@ -267,6 +267,10 @@ public interface OWLReasoner {
      * imports closure of the root ontology.
      */
     List<OWLOntologyChange> getPendingChanges();
+    
+    default Stream<OWLOntologyChange> pendingChanges(){
+    	return getPendingChanges().stream();
+    }
 
     /**
      * Gets the axioms that as a result of ontology changes need to be added to
@@ -279,6 +283,10 @@ public interface OWLReasoner {
      * it with the root ontology imports closure.
      */
     Set<OWLAxiom> getPendingAxiomAdditions();
+    
+    default Stream<OWLAxiom> pendingAxiomAdditions(){
+    	return getPendingAxiomAdditions().stream();
+    }
 
     /**
      * Gets the axioms that as a result of ontology changes need to removed to
@@ -292,6 +300,10 @@ public interface OWLReasoner {
      */
     Set<OWLAxiom> getPendingAxiomRemovals();
 
+    default Stream<OWLAxiom> pendingAxiomRemovals(){
+    	return getPendingAxiomRemovals().stream();
+    }
+    
     /**
      * Gets the "root" ontology that is loaded into this reasoner. The reasoner
      * takes into account the axioms in this ontology and its imports closure,
@@ -366,6 +378,10 @@ public interface OWLReasoner {
      */
     Set<InferenceType> getPrecomputableInferenceTypes();
 
+    default Stream<InferenceType> precomputableInferenceTypes(){
+    	return getPrecomputableInferenceTypes().stream();
+    }
+    
     /**
      * Determines if the set of reasoner axioms is consistent. Note that this
      * method will NOT throw an
@@ -414,6 +430,10 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException if the set of reasoner axioms is inconsistent
      */
     Node<OWLClass> getUnsatisfiableClasses();
+    
+    default Stream<OWLClass> unsatisfiableClasses(){
+    	return getUnsatisfiableClasses().entities();
+    }
 
     /**
      * A convenience method that determines if the specified axiom is entailed
@@ -506,6 +526,10 @@ public interface OWLReasoner {
      * parameter of {@code owl:Thing}.
      */
     Node<OWLClass> getTopClassNode();
+    
+    default Stream<OWLClass> topClassNode(){
+    	return getTopClassNode().entities();
+    }
 
     /**
      * Gets the {@code Node} corresponding to the bottom node (containing
@@ -518,6 +542,10 @@ public interface OWLReasoner {
      */
     Node<OWLClass> getBottomClassNode();
 
+    default Stream<OWLClass> bottomClassNode(){
+    	return getBottomClassNode().entities();
+    }
+    
     /**
      * Gets the set of named classes that are the strict (potentially direct)
      * subclasses of the specified class expression with respect to the reasoner
@@ -547,6 +575,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
 
+    default Stream<OWLClass> subClasses(OWLClassExpression ce, boolean direct){
+    	return getSubClasses(ce, direct).entities();
+    }
+    
     /**
      * @param ce The class expression whose strict (direct) subclasses are to be retrieved.
      * @param depth use {@code DIRECT} for direct subclasses only, {@code ALL} for all subclasses
@@ -560,6 +592,10 @@ public interface OWLReasoner {
     default NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, InferenceDepth depth) {
         return getSubClasses(ce, depth.isDirectOnly());
     }
+    
+    default Stream<OWLClass> subClasses(OWLClassExpression ce, InferenceDepth depth){
+    	return getSubClasses(ce, depth).entities();
+    }
 
     /**
      * Returns all subclasses.
@@ -572,6 +608,10 @@ public interface OWLReasoner {
      */
     default NodeSet<OWLClass> getSubClasses(OWLClassExpression ce) {
         return getSubClasses(ce, false);
+    }
+    
+    default Stream<OWLClass> subClasses(OWLClassExpression ce){
+    	return getSubClasses(ce).entities();
     }
 
     /**
@@ -603,6 +643,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct);
 
+    default Stream<OWLClass> superClasses(OWLClassExpression ce, boolean direct){
+    	return getSuperClasses(ce, direct).entities();
+    }
+    
     /**
      * @param ce The class expression whose strict (direct) super classes are to be retrieved.
      * @param depth Specifies if the direct super classes should be retrived ( {@code DIRECT}) or if
@@ -618,6 +662,10 @@ public interface OWLReasoner {
     default NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, InferenceDepth depth) {
         return getSuperClasses(ce, depth.isDirectOnly());
     }
+    
+    default Stream<OWLClass> superClasses(OWLClassExpression ce, InferenceDepth depth){
+    	return getSuperClasses(ce, depth).entities();
+    }
 
     /**
      * @param ce The class expression whose strict (direct) super classes are to be retrieved.
@@ -630,6 +678,10 @@ public interface OWLReasoner {
         return getSuperClasses(ce, false);
     }
 
+    default Stream<OWLClass> superClasses(OWLClassExpression ce){
+    	return getSuperClasses(ce).entities();
+    }
+    
     /**
      * Gets the set of named classes that are equivalent to the specified class
      * expression with respect to the set of reasoner axioms. The classes are
@@ -659,6 +711,10 @@ public interface OWLReasoner {
      */
     Node<OWLClass> getEquivalentClasses(OWLClassExpression ce);
 
+    default Stream<OWLClass> equivalentClasses(OWLClassExpression ce){
+    	return getEquivalentClasses(ce).entities();
+    }
+    
     /**
      * Gets the classes that are disjoint with the specified class expression
      * {@code ce}. The classes are returned as a
@@ -681,6 +737,10 @@ public interface OWLReasoner {
      * {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce);
+    
+    default Stream<OWLClass> disjointClasses(OWLClassExpression ce){
+    	return getDisjointClasses(ce).entities();
+    }
 
     // Methods for dealing with the object property hierarchy
 
@@ -695,6 +755,10 @@ public interface OWLReasoner {
      */
     Node<OWLObjectPropertyExpression> getTopObjectPropertyNode();
 
+    default Stream<OWLObjectPropertyExpression> topObjectPropertyNode(){
+    	return getTopObjectPropertyNode().entities();
+    }
+    
     /**
      * Gets the {@code Node} corresponding to the bottom node (containing
      * {@code owl:bottomObjectProperty}) in the object property hierarchy.
@@ -706,6 +770,10 @@ public interface OWLReasoner {
      */
     Node<OWLObjectPropertyExpression> getBottomObjectPropertyNode();
 
+    default Stream<OWLObjectPropertyExpression> bottomObjectPropertyNode(){
+    	return getBottomObjectPropertyNode().entities();
+    }
+    
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
      * that are the strict (potentially direct) subproperties of the specified
@@ -739,6 +807,11 @@ public interface OWLReasoner {
     NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe,
         boolean direct);
 
+    default Stream<OWLObjectPropertyExpression> subObjectProperties(OWLObjectPropertyExpression pe,
+    boolean direct){
+    	return getSubObjectProperties(pe, direct).entities();
+    }
+    
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      * retrieved.
@@ -764,6 +837,12 @@ public interface OWLReasoner {
         InferenceDepth depth) {
         return getSubObjectProperties(pe, depth.isDirectOnly());
     }
+    
+    default Stream<OWLObjectPropertyExpression> subObjectProperties(
+    OWLObjectPropertyExpression pe,
+    InferenceDepth depth) {
+    	return getSubObjectProperties(pe, depth).entities();
+    }
 
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
@@ -784,6 +863,11 @@ public interface OWLReasoner {
         return getSubObjectProperties(pe, false);
     }
 
+    default Stream<OWLObjectPropertyExpression> subObjectProperties(
+    OWLObjectPropertyExpression pe) {
+    	return getSubObjectProperties(pe, false).entities();
+    }
+    
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
      * that are the strict (potentially direct) super properties of the
@@ -817,6 +901,11 @@ public interface OWLReasoner {
     NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe,
         boolean direct);
 
+    default Stream<OWLObjectPropertyExpression> superObjectProperties(OWLObjectPropertyExpression pe,
+    	boolean direct) {
+    	return getSuperObjectProperties(pe, direct).entities();
+    }
+    
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      * retrieved.
@@ -842,6 +931,12 @@ public interface OWLReasoner {
         InferenceDepth depth) {
         return getSuperObjectProperties(pe, depth.isDirectOnly());
     }
+    
+    default Stream<OWLObjectPropertyExpression> superObjectProperties(
+    	OWLObjectPropertyExpression pe,
+    	InferenceDepth depth) {
+    	return getSuperObjectProperties(pe, depth).entities();
+    }
 
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
@@ -862,6 +957,11 @@ public interface OWLReasoner {
         return getSuperObjectProperties(pe, false);
     }
 
+    default Stream<OWLObjectPropertyExpression> superObjectProperties(
+		OWLObjectPropertyExpression pe) {
+		return getSuperObjectProperties(pe, false).entities();
+	}
+    
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
      * that are equivalent to the specified object property expression with
@@ -890,6 +990,11 @@ public interface OWLReasoner {
      */
     Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe);
 
+    default Stream<OWLObjectPropertyExpression> equivalentObjectProperties(
+    	OWLObjectPropertyExpression pe) {
+		return getEquivalentObjectProperties(pe).entities();
+	}
+    
     /**
      * Gets the <a href="#spe">simplified object property expressions</a> that
      * are disjoint with the specified object property expression {@code pe}.
@@ -918,6 +1023,11 @@ public interface OWLReasoner {
      */
     NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
         OWLObjectPropertyExpression pe);
+    
+    default Stream<OWLObjectPropertyExpression> disjointObjectProperties(
+		OWLObjectPropertyExpression pe) {
+		return getDisjointObjectProperties(pe).entities();
+	}
 
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
@@ -941,6 +1051,11 @@ public interface OWLReasoner {
      */
     Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe);
 
+    default Stream<OWLObjectPropertyExpression> inverseObjectProperties(
+		OWLObjectPropertyExpression pe) {
+		return getInverseObjectProperties(pe).entities();
+	}
+    
     /**
      * Gets the named classes that are the direct or indirect domains of this
      * property with respect to the imports closure of the root ontology. The
@@ -968,6 +1083,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct);
 
+    default Stream<OWLClass> objectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct) {
+		return getObjectPropertyDomains(pe, direct).entities();
+	}
+    
     /**
      * @param pe The property expression whose domains are to be retrieved.
      * @param depth Specifies if the direct domains should be retrieved ( {@code DIRECT} ), or if
@@ -988,6 +1107,11 @@ public interface OWLReasoner {
         return getObjectPropertyDomains(pe, depth.isDirectOnly());
     }
 
+    default Stream<OWLClass> objectPropertyDomains(OWLObjectPropertyExpression pe,
+    	InferenceDepth depth) {
+		return getObjectPropertyDomains(pe, depth).entities();
+	}
+    
     /**
      * @param pe The property expression whose domains are to be retrieved.
      * @return Let {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))} . <br>
@@ -1001,6 +1125,10 @@ public interface OWLReasoner {
     default NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe) {
         return getObjectPropertyDomains(pe, false);
     }
+    
+    default Stream<OWLClass> objectPropertyDomains(OWLObjectPropertyExpression pe) {
+		return getObjectPropertyDomains(pe).entities();
+	}
 
     /**
      * Gets the named classes that are the direct or indirect ranges of this
@@ -1029,6 +1157,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct);
 
+    default Stream<OWLClass> objectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct) {
+		return getObjectPropertyRanges(pe, direct).entities();
+	}
+    
     /**
      * @param pe The property expression whose ranges are to be retrieved.
      * @param depth Specifies if the direct ranges should be retrieved ( {@code DIRECT} ), or if all
@@ -1048,6 +1180,11 @@ public interface OWLReasoner {
         InferenceDepth depth) {
         return getObjectPropertyRanges(pe, depth.isDirectOnly());
     }
+    
+    default Stream<OWLClass> objectPropertyRanges(OWLObjectPropertyExpression pe,
+    InferenceDepth depth) {
+		return getObjectPropertyRanges(pe, depth).entities();
+	}
 
     /**
      * @param pe The property expression whose ranges are to be retrieved.
@@ -1071,6 +1208,10 @@ public interface OWLReasoner {
     default NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe) {
         return getObjectPropertyRanges(pe, false);
     }
+    
+    default Stream<OWLClass> objectPropertyRanges(OWLObjectPropertyExpression pe) {
+		return getObjectPropertyRanges(pe, false).entities();
+	}
 
     // Methods for dealing with the data property hierarchy
 
@@ -1084,6 +1225,10 @@ public interface OWLReasoner {
      * with a parameter of {@code owl:topDataProperty}.
      */
     Node<OWLDataProperty> getTopDataPropertyNode();
+    
+    default Stream<OWLDataProperty> topDataPropertyNode() {
+		return getTopDataPropertyNode().entities();
+	}
 
     /**
      * Gets the {@code Node} corresponding to the bottom node (containing
@@ -1095,6 +1240,10 @@ public interface OWLReasoner {
      * with a parameter of {@code owl:bottomDataProperty}.
      */
     Node<OWLDataProperty> getBottomDataPropertyNode();
+    
+    default Stream<OWLDataProperty> bottomDataPropertyNode() {
+		return getBottomDataPropertyNode().entities();
+	}
 
     /**
      * Gets the set of named data properties that are the strict (potentially
@@ -1124,6 +1273,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct);
 
+    default Stream<OWLDataProperty> subDataProperties(OWLDataProperty pe, boolean direct) {
+		return getSubDataProperties(pe, direct).entities();
+	}
+    
     /**
      * @param pe The data property whose strict (direct) subproperties are to be retrieved.
      * @param depth Specifies if the direct subproperties should be retrived ( {@code DIRECT}) or if
@@ -1143,6 +1296,11 @@ public interface OWLReasoner {
         InferenceDepth depth) {
         return getSubDataProperties(pe, depth.isDirectOnly());
     }
+    
+    default Stream<OWLDataProperty> subDataProperties(OWLDataProperty pe,
+    	InferenceDepth depth) {
+		return getSubDataProperties(pe, depth).entities();
+	}
 
     /**
      * @param pe The data property whose strict (direct) subproperties are to be retrieved.
@@ -1158,6 +1316,10 @@ public interface OWLReasoner {
     default NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe) {
         return getSubDataProperties(pe, false);
     }
+    
+    default Stream<OWLDataProperty> subDataProperties(OWLDataProperty pe) {
+		return getSubDataProperties(pe).entities();
+	}
 
     /**
      * Gets the set of named data properties that are the strict (potentially
@@ -1186,6 +1348,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, boolean direct);
 
+    default Stream<OWLDataProperty> superDataProperties(OWLDataProperty pe, boolean direct) {
+		return getSuperDataProperties(pe, direct).entities();
+	}
+    
     /**
      * @param pe The data property whose strict (direct) super properties are to be retrieved.
      * @param depth Specifies if the direct super properties should be retrived ( {@code DIRECT}) or
@@ -1205,6 +1371,11 @@ public interface OWLReasoner {
         InferenceDepth depth) {
         return getSuperDataProperties(pe, depth.isDirectOnly());
     }
+    
+    default Stream<OWLDataProperty> superDataProperties(OWLDataProperty pe,
+    	InferenceDepth depth) {
+		return getSuperDataProperties(pe, depth).entities();
+	}
 
     /**
      * @param pe The data property whose strict (direct) super properties are to be retrieved.
@@ -1220,6 +1391,10 @@ public interface OWLReasoner {
         return getSuperDataProperties(pe, false);
     }
 
+    default Stream<OWLDataProperty> superDataProperties(OWLDataProperty pe) {
+		return getSuperDataProperties(pe, false).entities();
+	}
+    
     /**
      * Gets the set of named data properties that are equivalent to the
      * specified data property expression with respect to the imports closure of
@@ -1247,6 +1422,10 @@ public interface OWLReasoner {
      */
     Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe);
 
+    default Stream<OWLDataProperty> equivalentDataProperties(OWLDataProperty pe) {
+		return getEquivalentDataProperties(pe).entities();
+	}
+    
     /**
      * Gets the data properties that are disjoint with the specified data
      * property expression {@code pe}. The data properties are returned as a
@@ -1271,6 +1450,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLDataProperty> getDisjointDataProperties(OWLDataPropertyExpression pe);
 
+    default Stream<OWLDataProperty> disjointDataProperties(OWLDataProperty pe) {
+		return getDisjointDataProperties(pe).entities();
+	}
+    
     /**
      * Gets the named classes that are the direct or indirect domains of this
      * property with respect to the imports closure of the root ontology. The
@@ -1298,6 +1481,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct);
 
+    default Stream<OWLClass> dataPropertyDomains(OWLDataProperty pe, boolean direct) {
+		return getDataPropertyDomains(pe, direct).entities();
+	}
+    
     /**
      * @param pe The property expression whose domains are to be retrieved.
      * @param depth Specifies if the direct domains should be retrieved ( {@code DIRECT} ), or if
@@ -1317,6 +1504,10 @@ public interface OWLReasoner {
         return getDataPropertyDomains(pe, depth.isDirectOnly());
     }
 
+    default Stream<OWLClass> dataPropertyDomains(OWLDataProperty pe, InferenceDepth depth) {
+		return getDataPropertyDomains(pe, depth.isDirectOnly()).entities();
+	}
+    
     /**
      * @param pe The property expression whose domains are to be retrieved.
      * @return Let {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))} . <br>
@@ -1332,6 +1523,10 @@ public interface OWLReasoner {
         return getDataPropertyDomains(pe, false);
     }
 
+    default Stream<OWLClass> dataPropertyDomains(OWLDataProperty pe) {
+		return getDataPropertyDomains(pe, false).entities();
+	}
+    
     // Methods for dealing with individuals and their types
 
     /**
@@ -1359,6 +1554,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct);
 
+    default Stream<OWLClass> types(OWLNamedIndividual ind, boolean direct) {
+		return getTypes(ind, direct).entities();
+	}
+    
     /**
      * @param ind The individual whose types are to be retrieved.
      * @param depth Specifies if the direct types should be retrieved ( {@code DIRECT} ), or if all
@@ -1376,6 +1575,10 @@ public interface OWLReasoner {
         return getTypes(ind, depth.isDirectOnly());
     }
 
+    default Stream<OWLClass> types(OWLNamedIndividual ind, InferenceDepth depth) {
+		return getTypes(ind, depth).entities();
+	}
+    
     /**
      * @param ind The individual whose types are to be retrieved.
      * @return a {@code NodeSet} containing named classes such that for each named class {@code C}
@@ -1388,6 +1591,10 @@ public interface OWLReasoner {
         return getTypes(ind, false);
     }
 
+    default Stream<OWLClass> types(OWLNamedIndividual ind) {
+		return getTypes(ind, false).entities();
+	}
+    
     /**
      * Gets the individuals which are instances of the specified class
      * expression. The individuals are returned a a
@@ -1418,6 +1625,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct);
 
+    default Stream<OWLNamedIndividual> instances(OWLClassExpression ce, boolean direct) {
+		return getInstances(ce, direct).entities();
+	}
+    
     /**
      * @param ce The class expression whose instances are to be retrieved.
      * @param depth Specifies if the direct instances should be retrieved ( {@code DIRECT}), or if
@@ -1436,6 +1647,10 @@ public interface OWLReasoner {
     default NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, InferenceDepth depth) {
         return getInstances(ce, depth.isDirectOnly());
     }
+    
+    default Stream<OWLNamedIndividual> instances(OWLClassExpression ce, InferenceDepth depth) {
+		return getInstances(ce, depth).entities();
+	}
 
     /**
      * @param ce The class expression whose instances are to be retrieved.
@@ -1451,6 +1666,10 @@ public interface OWLReasoner {
         return getInstances(ce, false);
     }
 
+    default Stream<OWLNamedIndividual> instances(OWLClassExpression ce) {
+		return getInstances(ce, false).entities();
+	}
+    
     /**
      * Gets the object property values for the specified individual and object
      * property expression. The individuals are returned as a
@@ -1476,6 +1695,11 @@ public interface OWLReasoner {
     NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind,
         OWLObjectPropertyExpression pe);
 
+    default Stream<OWLNamedIndividual> objectPropertyValues(OWLNamedIndividual ind,
+    	OWLObjectPropertyExpression pe) {
+		return getObjectPropertyValues(ind, pe).entities();
+	}
+    
     /**
      * Gets the data property values for the specified individual and data
      * property expression. The values are a set of literals. Note that the
@@ -1502,6 +1726,10 @@ public interface OWLReasoner {
      */
     Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe);
 
+    default Stream<OWLLiteral> dataPropertyValues(OWLNamedIndividual ind, OWLDataProperty pe) {
+		return getDataPropertyValues(ind, pe).stream();
+	}
+    
     /**
      * Gets the individuals that are the same as the specified individual.
      *
@@ -1521,6 +1749,10 @@ public interface OWLReasoner {
      */
     Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind);
 
+    default Stream<OWLNamedIndividual> sameIndividuals(OWLNamedIndividual ind) {
+		return getSameIndividuals(ind).entities();
+	}
+    
     /**
      * Gets the individuals which are entailed to be different from the
      * specified individual. The individuals are returned as a
@@ -1542,6 +1774,10 @@ public interface OWLReasoner {
      */
     NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind);
 
+    default Stream<OWLNamedIndividual> differentIndividuals(OWLNamedIndividual ind) {
+		return getDifferentIndividuals(ind).entities();
+	}
+    
     /**
      * Gets the time out (in milliseconds) for the most basic reasoning
      * operations. That is the maximum time for a satisfiability test,
