@@ -48,11 +48,11 @@ public class InferredSubObjectPropertyAxiomGenerator
             if (!simple(nonSimpleProperties, entity)) {
                 nonSimple = true;
             }
-            if (prop.isAnonymous()
-                && EntitySearcher.isTransitive(entity, reasoner.getRootOntology())) {
+            if (prop.isAnonymous() && EntitySearcher.isTransitive(prop.getInverseProperty(),
+                reasoner.getRootOntology())) {
                 inverse = true;
             }
-            if (!nonSimple && !inverse) {
+            if (!(nonSimple && inverse)) {
                 // having both non simple properties and inverses in an subproperty axiom may cause
                 // exceptions later on
                 result.add(dataFactory.getOWLSubObjectPropertyOfAxiom(entity, prop));
