@@ -23,27 +23,40 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.search.EntitySearcher;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
-public class InferredSubObjectPropertyAxiomGenerator extends
-        InferredObjectPropertyAxiomGenerator<OWLSubObjectPropertyOfAxiom> {
+public class InferredSubObjectPropertyAxiomGenerator
+    extends InferredObjectPropertyAxiomGenerator<OWLSubObjectPropertyOfAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity,
-            @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLSubObjectPropertyOfAxiom> result) {
+    protected void addAxioms(OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
+        OWLDataFactory dataFactory, Set<OWLSubObjectPropertyOfAxiom> result,
+        Set<OWLObjectPropertyExpression> nonSimpleProperties) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
-        for (OWLObjectPropertyExpression prop : reasoner
-                .getSuperObjectProperties(entity, true).getFlattened()) {
+        for (OWLObjectPropertyExpression prop : reasoner.getSuperObjectProperties(entity, true)
+            .getFlattened()) {
             assert prop != null;
-            result.add(dataFactory.getOWLSubObjectPropertyOfAxiom(entity, prop));
+            boolean nonSimple = false;
+            boolean inverse = false;
+            if (!simple(nonSimpleProperties, entity)) {
+                nonSimple = true;
+            }
+            if (prop.isAnonymous()
+                && EntitySearcher.isTransitive(entity, reasoner.getRootOntology())) {
+                inverse = true;
+            }
+            if (!nonSimple && !inverse) {
+                // having both non simple properties and inverses in an subproperty axiom may cause
+                // exceptions later on
+                result.add(dataFactory.getOWLSubObjectPropertyOfAxiom(entity, prop));
+            }
         }
     }
 

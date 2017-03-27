@@ -19,8 +19,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
@@ -33,23 +33,17 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
 
     @Override
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-        @Nonnull OWLDataFactory df, Set<OWLObjectPropertyCharacteristicAxiom> result) {
+        @Nonnull OWLDataFactory df, Set<OWLObjectPropertyCharacteristicAxiom> result,
+        Set<OWLObjectPropertyExpression> nonSimpleProperties) {
         addIfEntailed(df.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
         addIfEntailed(df.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
-        if (simple(entity, reasoner)) {
+        if (simple(nonSimpleProperties, entity)) {
             addIfEntailed(df.getOWLFunctionalObjectPropertyAxiom(entity), reasoner, result);
             addIfEntailed(df.getOWLInverseFunctionalObjectPropertyAxiom(entity), reasoner, result);
             addIfEntailed(df.getOWLAsymmetricObjectPropertyAxiom(entity), reasoner, result);
             addTransitiveAxiomIfEntailed(entity, reasoner, df, result);
             addIfEntailed(df.getOWLIrreflexiveObjectPropertyAxiom(entity), reasoner, result);
         }
-    }
-
-    protected boolean simple(OWLObjectProperty entity, OWLReasoner reasoner) {
-        OWLOntology current = reasoner.getRootOntology();
-        OWLObjectPropertyManager objectPropertyManager =
-            new OWLObjectPropertyManager(current.getOWLOntologyManager(), current);
-        return !objectPropertyManager.isNonSimple(entity);
     }
 
     protected static void addTransitiveAxiomIfEntailed(@Nonnull OWLObjectProperty p, OWLReasoner r,
