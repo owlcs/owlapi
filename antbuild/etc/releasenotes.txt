@@ -1,3 +1,12 @@
+4.3.1 27 Mar 2017
+Bug fixes:
+Fix Relating to inferred axiom generators #646
+Fix duplication and inverseOf properties in generators #646
+
+Features:
+Allow SyntacticLocalityModuleExtractor to exclude assertions. #462
+Explanations: do not fail hard for profile violations
+
 4.3.0 22 Mar 2017
 Bug fixes:
 Fix OWLLiteral produce different hash codes in version 4 #645

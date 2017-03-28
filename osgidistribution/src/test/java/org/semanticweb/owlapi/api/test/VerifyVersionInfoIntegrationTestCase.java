@@ -31,6 +31,6 @@ public class VerifyVersionInfoIntegrationTestCase {
         VersionInfo info = VersionInfo.getVersionInfo();
         assertNotNull("info is null??!!?", info);
         String version = info.getVersion();
-        assertTrue(version.startsWith("4.3.0"));
+        assertTrue(version.startsWith("4.3.1"));
     }
 }
