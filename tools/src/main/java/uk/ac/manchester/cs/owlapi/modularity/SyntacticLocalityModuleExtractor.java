@@ -16,16 +16,17 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import com.clarkparsia.owlapi.modularity.locality.LocalityClass;
-import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -46,6 +47,9 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.clarkparsia.owlapi.modularity.locality.LocalityClass;
+import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
+
 /**
  * Implementation of module extraction based on syntactic locality.
  *
@@ -53,8 +57,8 @@ import org.slf4j.LoggerFactory;
  */
 public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(SyntacticLocalityModuleExtractor.class);
+    private static final Logger LOGGER =
+        LoggerFactory.getLogger(SyntacticLocalityModuleExtractor.class);
     /**
      * Represents the associated ontology.
      */
@@ -68,9 +72,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * Type of module.
      */
     private ModuleType moduleType;
+
     /**
-     * Creates a new module extractor for a subset of a given ontology, its
-     * manager, and a specified type of locality.
+     * Creates a new module extractor for a subset of a given ontology, its manager, and a specified
+     * type of locality.
      *
      * @param man the manager for the associated ontology
      * @param axs the subset of the ontology as a set of axioms
@@ -78,9 +83,25 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     public SyntacticLocalityModuleExtractor(OWLOntologyManager man, Stream<OWLAxiom> axs,
         ModuleType moduleType) {
+        this(man, axs, moduleType, false);
+    }
+
+    /**
+     * Creates a new module extractor for a subset of a given ontology, its manager, and a specified
+     * type of locality.
+     *
+     * @param man the manager for the associated ontology
+     * @param axs the subset of the ontology as a set of axioms
+     * @param moduleType the type of module this extractor will construct
+     * @param excludeAssertions true if assertions should be excluded
+     */
+    public SyntacticLocalityModuleExtractor(OWLOntologyManager man, Stream<OWLAxiom> axs,
+        ModuleType moduleType, boolean excludeAssertions) {
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
-        List<OWLAxiom> collect = asList(axs);
+        Predicate<OWLAxiom> filter =
+            ax -> excludeAssertions ? !AxiomType.ABoxAxiomTypes.contains(ax.getAxiomType()) : true;
+        List<OWLAxiom> collect = asList(axs.filter(filter));
         ontologyAxiomSet = new OntologyAxiomSet(collect);
         try {
             ontology = checkNotNull(man.createOntology(collect));
@@ -90,8 +111,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * Creates a new module extractor for a given ontology, its manager, and a
-     * specified type of locality.
+     * Creates a new module extractor for a given ontology, its manager, and a specified type of
+     * locality.
      *
      * @param man the manager for the associated ontology
      * @param ont the associated ontology
@@ -116,8 +137,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @return the sets the
      */
     static Set<OWLClass> superOrSubClasses(int superOrSubClassLevel, boolean superVsSub,
-        @Nullable OWLReasoner reasoner,
-        Set<OWLClass> classesInSig) {
+        @Nullable OWLReasoner reasoner, Set<OWLClass> classesInSig) {
         checkNotNull(reasoner);
         assert reasoner != null;
         Set<OWLClass> superOrSubClasses = new HashSet<>();
@@ -131,8 +151,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     protected static void positiveLevel(int superOrSubClassLevel, boolean superVsSub,
-        OWLReasoner reasoner,
-        Set<OWLClass> classesInSig, Set<OWLClass> superOrSubClasses) {
+        OWLReasoner reasoner, Set<OWLClass> classesInSig, Set<OWLClass> superOrSubClasses) {
         Queue<OWLClass> toBeSuClassedNow;
         Queue<OWLClass> toBeSuClassedNext = new LinkedList<>(classesInSig);
         Queue<OWLClass> suClassesToBeAdded = new LinkedList<>();
@@ -146,9 +165,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     protected static void processLayer(boolean superVsSub, OWLReasoner reasoner,
-        Set<OWLClass> classesInSig,
-        Queue<OWLClass> toBeSuClassedNow, Queue<OWLClass> toBeSuClassedNext,
-        Queue<OWLClass> suClassesToBeAdded) {
+        Set<OWLClass> classesInSig, Queue<OWLClass> toBeSuClassedNow,
+        Queue<OWLClass> toBeSuClassedNext, Queue<OWLClass> suClassesToBeAdded) {
         for (OWLClassExpression ce : toBeSuClassedNow) {
             Stream<OWLClass> suClasses;
             if (superVsSub) {
@@ -156,14 +174,13 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             } else {
                 suClasses = reasoner.getSubClasses(ce, true).entities();
             }
-            suClasses.filter(c -> !classesInSig.contains(c) && suClassesToBeAdded.add(c)).forEach(
-                toBeSuClassedNext::add);
+            suClasses.filter(c -> !classesInSig.contains(c) && suClassesToBeAdded.add(c))
+                .forEach(toBeSuClassedNext::add);
         }
     }
 
     protected static void negativeLevel(boolean superVsSub, OWLReasoner reasoner,
-        Set<OWLClass> classesInSig,
-        Set<OWLClass> superOrSubClasses) {
+        Set<OWLClass> classesInSig, Set<OWLClass> superOrSubClasses) {
         for (OWLClassExpression ent : classesInSig) {
             NodeSet<OWLClass> nodes;
             if (superVsSub) {
@@ -185,8 +202,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * Changes the module type for this extractor without deleting the stored
-     * referenced entities.
+     * Changes the module type for this extractor without deleting the stored referenced entities.
      *
      * @param moduleType the new type of module
      */
@@ -195,17 +211,16 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * This auxiliary method extracts a module from a given sub-ontology of the
-     * associated ontology for a given signature and locality type. The module
-     * will contain only logical axioms, no annotation or declaration axioms.
-     * The sub-ontology and module are represented as arrays of Booleans.
+     * This auxiliary method extracts a module from a given sub-ontology of the associated ontology
+     * for a given signature and locality type. The module will contain only logical axioms, no
+     * annotation or declaration axioms. The sub-ontology and module are represented as arrays of
+     * Booleans.
      * <p/>
-     * This method is (if necessary, iteratively) called by the public method
-     * extract.
+     * This method is (if necessary, iteratively) called by the public method extract.
      *
      * @param subOnt an array of Booleans representing the sub-ontology
      * @param signature the seed signature (set of entities) for the module; on return of the
-     * method, this will contain the signature of the module
+     *        method, this will contain the signature of the module
      * @param localityClass the type of locality
      * @return an array of Booleans representing the module
      */
@@ -245,14 +260,13 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * This method extracts a module from a given sub-ontology of the associated
-     * ontology for a given signature and locality type. The module will only
-     * contain logical axioms, no annotation or declaration axioms. The
-     * sub-ontology and module are represented as sets of axioms.
+     * This method extracts a module from a given sub-ontology of the associated ontology for a
+     * given signature and locality type. The module will only contain logical axioms, no annotation
+     * or declaration axioms. The sub-ontology and module are represented as sets of axioms.
      *
      * @param subOnt a set of axioms representing the sub-ontology
      * @param signature the seed signature (set of entities) for the module; on return of the
-     * method, this will contain the signature of the module
+     *        method, this will contain the signature of the module
      * @param localityClass the type of locality
      * @return a set of axioms representing the module
      */
@@ -291,10 +305,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * This method enriches a module that contains only logical axioms with all
-     * necessary entity declaration axioms, entity annotation axioms, and axiom
-     * annotation axioms. The module and enriched module are represented as sets
-     * of axioms.
+     * This method enriches a module that contains only logical axioms with all necessary entity
+     * declaration axioms, entity annotation axioms, and axiom annotation axioms. The module and
+     * enriched module are represented as sets of axioms.
      *
      * @param module a set of axioms representing the original module
      * @param sig a set of entities representing the signature of the original module
@@ -307,8 +320,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
         for (OWLEntity entity : sig) {
-            List<OWLDeclarationAxiom> declarationAxioms = asList(
-                ontology.declarationAxioms(entity));
+            List<OWLDeclarationAxiom> declarationAxioms =
+                asList(ontology.declarationAxioms(entity));
             enrichedModule.addAll(declarationAxioms);
             if (LOGGER.isInfoEnabled()) {
                 declarationAxioms
@@ -329,16 +342,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all different-individuals axioms
         for (OWLEntity entity : sig) {
             if (entity.isOWLNamedIndividual()) {
-                List<OWLSameIndividualAxiom> sameIndividualAxioms = asList(
-                    ontology.sameIndividualAxioms(entity
-                        .asOWLNamedIndividual()));
+                List<OWLSameIndividualAxiom> sameIndividualAxioms =
+                    asList(ontology.sameIndividualAxioms(entity.asOWLNamedIndividual()));
                 enrichedModule.addAll(sameIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
                     sameIndividualAxioms
                         .forEach(i -> LOGGER.info("  Added same individual axiom:   {}", i));
                 }
-                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms = asList(ontology
-                    .differentIndividualAxioms(entity.asOWLNamedIndividual()));
+                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms =
+                    asList(ontology.differentIndividualAxioms(entity.asOWLNamedIndividual()));
                 enrichedModule.addAll(differentIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
                     differentIndividualAxioms
@@ -412,27 +424,30 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /**
-     * Extracts a module from the associated ontology for a given signature and
-     * the associated module type, and returns the module as a set of axioms.
-     * The seed signature (set of entities) which determines the module is the
-     * specified signature plus possibly all superclasses and/or subclasses of
-     * the classes therein. Sub-/superclasses are determined using the specified
-     * reasoner. The module will include annotation and declaration axioms for
-     * all entities and axioms in it.
+     * Extracts a module from the associated ontology for a given signature and the associated
+     * module type, and returns the module as a set of axioms. The seed signature (set of entities)
+     * which determines the module is the specified signature plus possibly all superclasses and/or
+     * subclasses of the classes therein. Sub-/superclasses are determined using the specified
+     * reasoner. The module will include annotation and declaration axioms for all entities and
+     * axioms in it.
      *
      * @param sig the seed signature (set of entities) for the module
      * @param superClassLevel determines whether superclasses are added to the signature before
-     * segment extraction, see below for admissible values
+     *        segment extraction, see below for admissible values
      * @param subClassLevel determines whether subclasses are added to the signature before segment
-     * extraction<br> Admissible values for superClassLevel (analogously for subClassLevel): <ul>
-     * <li>If superClassLevel greater than 0, then all classes C are included for which the class
-     * hierarchy computed by the reasoner contains a path of length at most superClassLevel
-     * downwards from C to some class from the signature.</li> <li>If superClassLevel = 0, then no
-     * super-/subclasses are added. </li> <li>If superClassLevel lesser than 0, then all direct and
-     * indirect super-/subclasses of any class in the signature are added.</li> </ul>
+     *        extraction<br>
+     *        Admissible values for superClassLevel (analogously for subClassLevel):
+     *        <ul>
+     *        <li>If superClassLevel greater than 0, then all classes C are included for which the
+     *        class hierarchy computed by the reasoner contains a path of length at most
+     *        superClassLevel downwards from C to some class from the signature.</li>
+     *        <li>If superClassLevel = 0, then no super-/subclasses are added.</li>
+     *        <li>If superClassLevel lesser than 0, then all direct and indirect super-/subclasses
+     *        of any class in the signature are added.</li>
+     *        </ul>
      * @param reasoner the reasoner to determine super-/subclasses. This can be an arbitrary
-     * reasoner, including a ToldClassHierarchyReasoner. It must have loaded the ontology. Can be
-     * null if superClassLevel and subClassLevel are 0.
+     *        reasoner, including a ToldClassHierarchyReasoner. It must have loaded the ontology.
+     *        Can be null if superClassLevel and subClassLevel are 0.
      * @return the module
      */
     @Override
@@ -486,17 +501,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
     @Override
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, int superClassLevel,
-        int subClassLevel,
-        @Nullable OWLReasoner reasoner) throws OWLOntologyCreationException {
-        return manager
-            .createOntology(extract(signature, superClassLevel, subClassLevel, reasoner), iri);
+        int subClassLevel, @Nullable OWLReasoner reasoner) throws OWLOntologyCreationException {
+        return manager.createOntology(extract(signature, superClassLevel, subClassLevel, reasoner),
+            iri);
     }
 
     /**
-     * Auxiliary inner class for the representation of the associated ontology
-     * and all its sub-ontologies as arrays of axioms. Advantages: (1) quicker
-     * set manipulation operations; (2) storage of all referenced entities of an
-     * axiom once this axiom is dealt with.
+     * Auxiliary inner class for the representation of the associated ontology and all its
+     * sub-ontologies as arrays of axioms. Advantages: (1) quicker set manipulation operations; (2)
+     * storage of all referenced entities of an axiom once this axiom is dealt with.
      *
      * @author Thomas Schneider
      * @author School of Computer Science
@@ -510,8 +523,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         final OWLAxiom[] ax;
 
         /**
-         * Creates a new OntologyAxiomSet from a given set of axioms without
-         * looking up the referenced entities.
+         * Creates a new OntologyAxiomSet from a given set of axioms without looking up the
+         * referenced entities.
          *
          * @param axs the set of axioms representing the ontology
          */
@@ -539,9 +552,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
 
         /**
-         * Constructs an array of Booleans that represents a subset of this set.
-         * The subset either equals this set (if init==true) or is the empty set
-         * (if init==false).
+         * Constructs an array of Booleans that represents a subset of this set. The subset either
+         * equals this set (if init==true) or is the empty set (if init==false).
          *
          * @param init determines the initial value of the subset
          * @return array of Booleans representing the specified subset
@@ -581,8 +593,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
 
         /**
-         * Transforms a subset of this set (represented by an array of Booleans)
-         * into a set of axioms.
+         * Transforms a subset of this set (represented by an array of Booleans) into a set of
+         * axioms.
          *
          * @param subset an array representing the subset
          * @return a set of axioms
