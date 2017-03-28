@@ -31,7 +31,8 @@ public class InferredEquivalentObjectPropertyAxiomGenerator extends
     @Override
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
         OWLDataFactory dataFactory,
-        Set<OWLEquivalentObjectPropertiesAxiom> result) {
+        Set<OWLEquivalentObjectPropertiesAxiom> result,
+        Set<OWLObjectPropertyExpression> nonSimpleProperties) {
         Set<OWLObjectPropertyExpression> equivProps = asUnorderedSet(
             reasoner.getEquivalentObjectProperties(entity)
                 .entities());

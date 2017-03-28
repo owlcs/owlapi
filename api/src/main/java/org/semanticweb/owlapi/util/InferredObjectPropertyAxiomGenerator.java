@@ -12,10 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.util.Set;
 import java.util.stream.Stream;
+
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
  * @param <A> the axiom type
@@ -29,4 +35,22 @@ public abstract class InferredObjectPropertyAxiomGenerator<A extends OWLObjectPr
     protected Stream<OWLObjectProperty> getEntities(OWLOntology ont) {
         return ont.objectPropertiesInSignature();
     }
+
+    @Override
+    protected final void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
+        OWLDataFactory dataFactory, Set<A> result) {
+        OWLOntology current = reasoner.getRootOntology();
+        OWLObjectPropertyManager objectPropertyManager = new OWLObjectPropertyManager(current);
+        addAxioms(entity, reasoner, dataFactory, result,
+            objectPropertyManager.getNonSimpleProperties());
+    }
+
+    protected abstract void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
+        OWLDataFactory dataFactory, Set<A> result,
+        Set<OWLObjectPropertyExpression> nonSimpleProperties);
+
+    protected boolean simple(Set<OWLObjectPropertyExpression> nonSimpleProperties, OWLObject e) {
+        return nonSimpleProperties.contains(e);
+    }
+
 }

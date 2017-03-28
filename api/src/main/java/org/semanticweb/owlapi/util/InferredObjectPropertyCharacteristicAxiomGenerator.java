@@ -17,6 +17,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -58,7 +59,8 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
 
     @Override
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory df,
-        Set<OWLObjectPropertyCharacteristicAxiom> result) {
+        Set<OWLObjectPropertyCharacteristicAxiom> result,
+        Set<OWLObjectPropertyExpression> nonSimpleProperties) {
         addIfEntailed(df.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
         addIfEntailed(df.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
         if (simple(entity, reasoner)) {
