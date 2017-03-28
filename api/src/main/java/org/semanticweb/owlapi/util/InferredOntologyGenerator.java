@@ -12,12 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.model.parameters.AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,18 +30,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Generates an ontology based on inferred axioms which are essentially supplied
- * by a reasoner. The generator can be configured with
- * {@code InferredAxiomGenerator}s which generate specific kinds of axioms e.g.
- * subclass axioms.
+ * Generates an ontology based on inferred axioms which are essentially supplied by a reasoner. The
+ * generator can be configured with {@code InferredAxiomGenerator}s which generate specific kinds of
+ * axioms e.g. subclass axioms.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class InferredOntologyGenerator {
 
-    private static Logger logger = LoggerFactory
-        .getLogger(InferredOntologyGenerator.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(InferredOntologyGenerator.class);
     // The reasoner which is used to compute the inferred axioms
     private final OWLReasoner reasoner;
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators;
@@ -70,8 +71,8 @@ public class InferredOntologyGenerator {
             new InferredEquivalentObjectPropertyAxiomGenerator(),
             new InferredInverseObjectPropertiesAxiomGenerator(),
             new InferredObjectPropertyCharacteristicAxiomGenerator(),
-            new InferredPropertyAssertionGenerator(),
-            new InferredSubClassAxiomGenerator(), new InferredSubDataPropertyAxiomGenerator(),
+            new InferredPropertyAssertionGenerator(), new InferredSubClassAxiomGenerator(),
+            new InferredSubDataPropertyAxiomGenerator(),
             new InferredSubObjectPropertyAxiomGenerator());
     }
 
@@ -105,18 +106,20 @@ public class InferredOntologyGenerator {
     }
 
     /**
-     * Adds 'inferred axioms' to an ontology using the generators that have been
-     * registered with this {@code InferredAxiomGenerator}.
+     * Adds 'inferred axioms' to an ontology using the generators that have been registered with
+     * this {@code InferredAxiomGenerator}.
      *
      * @param df data factory.
      * @param ontology The ontology which the inferred axioms will be added to
      * @throws OWLOntologyChangeException If there was a problem adding the inferred axioms to the
-     * specified ontology.
+     *         specified ontology.
      */
     public void fillOntology(OWLDataFactory df, OWLOntology ontology) {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
-        axiomGenerators.stream().flatMap(g -> generate(df, g)).forEach(ontology::add);
+        axiomGenerators.stream().flatMap(g -> generate(df, g))
+            .filter(ax -> !ontology.containsAxiom(ax, INCLUDED, IGNORE_AXIOM_ANNOTATIONS))
+            .forEach(ontology::add);
     }
 
     protected Stream<OWLAxiom> generate(OWLDataFactory df,
@@ -125,8 +128,7 @@ public class InferredOntologyGenerator {
             return g.createAxioms(df, reasoner).stream().map(x -> x);
         } catch (Exception e) {
             logger.warn("Error generating {} axioms using {}, version {}", g.getLabel(),
-                reasoner.getReasonerName(),
-                reasoner.getReasonerVersion(), e);
+                reasoner.getReasonerName(), reasoner.getReasonerVersion(), e);
             return empty();
         }
     }
