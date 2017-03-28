@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -67,16 +68,16 @@ public class StructuralTransformationTestCase {
             "[SubClassOf(owl:Thing DataMaxCardinality(1 <urn:test#dp> rdfs:Literal))]");
         map.put(b.fop(), "[SubClassOf(owl:Thing ObjectMaxCardinality(1 <urn:test#op> owl:Thing))]");
         map.put(b.ifp(),
-            "[SubClassOf(owl:Thing ObjectMaxCardinality(1 InverseOf(<urn:test#op>) owl:Thing))]");
-        map.put(b.iop(), "[SubObjectPropertyOf(<urn:test#op> InverseOf(<urn:test#op>))]");
+            "[SubClassOf(owl:Thing ObjectMaxCardinality(1 ObjectInverseOf(<urn:test#op>) owl:Thing))]");
+        map.put(b.iop(), "[SubObjectPropertyOf(<urn:test#op> ObjectInverseOf(<urn:test#op>))]");
         map.put(b.irr(),
             "[IrreflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)]");
         map.put(b.opa(),
             "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)]");
         map.put(b.opaInv(),
-            "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)]");
+            "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)]");
         map.put(b.opaInvj(),
-            "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)]");
+            "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)]");
         map.put(b.oDom(),
             "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test#c>), SubClassOf(<http://www.semanticweb.org/ontology#X1> ObjectAllValuesFrom(<urn:test#op> owl:Nothing)), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
         map.put(b.oRange(),
@@ -132,14 +133,14 @@ public class StructuralTransformationTestCase {
         map.put(b.ec(),
             "[SubClassOf(owl:Thing <urn:test#c>), SubClassOf(owl:Thing <urn:test#iri>)]");
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
+        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
     }
 
     @Test
     public void testAssertion() {
-        StructuralTransformation testsubject = new StructuralTransformation(
-            OWLManager.getOWLDataFactory());
+        StructuralTransformation testsubject =
+            new StructuralTransformation(OWLManager.getOWLDataFactory());
         Set<OWLAxiom> singleton = Collections.singleton(object);
         String result = testsubject.getTransformedAxioms(singleton).toString();
         assertEquals(expected, result);

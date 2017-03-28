@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -85,9 +86,9 @@ public class NNFTestCase {
         map.put(b.opa(),
             "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)");
         map.put(b.opaInv(),
-            "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)");
+            "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)");
         map.put(b.opaInvj(),
-            "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)");
+            "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)");
         map.put(b.oDom(), "ObjectPropertyDomain(<urn:test#op> <urn:test#c>)");
         map.put(b.oRange(), "ObjectPropertyRange(<urn:test#op> <urn:test#c>)");
         map.put(b.chain(),
@@ -167,7 +168,7 @@ public class NNFTestCase {
             "DataPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#i> \"string\"@en)");
         map.put(b.dDom(), "DataPropertyDomain(<urn:test#dp> <urn:test#c>)");
         Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[]{k, v}));
+        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
         return toReturn;
     }
 
