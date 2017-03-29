@@ -1,5 +1,26 @@
+5.1.0 30 Mar 2017
+Bug fixes:
+Fix Relating to inferred axiom generators #646
+Fix duplication and inverseOf properties in generators #646
+Fix SimpleRenderer writes InverseOf instead of ObjectInverseOf #647
+Fix nested annotation bug
+Fix Turtle parser failure on some bioportal ontology #610
+Fix Manchester expression parser bug with data cardinalities #609
+
+Features:
+Add stream support on reasoning interface.
+Allow SyntacticLocalityModuleExtractor to exclude assertions. #462
+Explanations: do not fail hard for profile violations
+Latex formatting improvements
+ensure ontology annotations are sorted
+Implement HasApplyChanges.applyChanges returns ChangeApplied #544
+recompile parsers with javacc 7
+issue #612 : Add japicmp maven plugin to track API changes
+Implement Zip with dependencies included for non Maven users #584
+Dependencies update, move to rdf4j
+
 5.0.5 4 Jan 2017
-Bug fix:
+Bug fixes:
 Allow supplier for null error messages
 IsAnonymous, isIndividual, isAxiom, isAnonymousExpression on OWLObject
 Performance improved in creating OWLOntologyManager
@@ -18,7 +39,7 @@ Fix Unqualified data restriction considered qualified #576
 
 
 5.0.4 16 October 2016
-Bug fix:
+Bug fixes:
 Serializability issues
 
 5.0.3 10 Sep 2016

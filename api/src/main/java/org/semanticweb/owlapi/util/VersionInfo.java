@@ -28,7 +28,7 @@ public class VersionInfo {
         if (v != null) {
             version = v;
         } else {
-            version = "5.0.5";
+            version = "5.1.0";
         }
     }
 
@@ -40,8 +40,8 @@ public class VersionInfo {
     }
 
     /**
-     * Gets a string that contains the version of this build. This is generated
-     * from the manifest of the jar that this class is packaged in.
+     * Gets a string that contains the version of this build. This is generated from the manifest of
+     * the jar that this class is packaged in.
      *
      * @return The version info string (if available).
      */
