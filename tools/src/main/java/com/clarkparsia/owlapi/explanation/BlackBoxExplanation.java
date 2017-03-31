@@ -345,18 +345,24 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * @throws OWLException the oWL exception
      */
     private boolean isSatisfiable(OWLClassExpression unsatClass) throws OWLException {
-        createDebuggingOntology();
-        OWLReasoner reasoner = getReasonerFactory()
-            .createNonBufferingReasoner(verifyNotNull(debuggingOntology));
-        if (OntologyUtils.containsUnreferencedEntity(verifyNotNull(debuggingOntology),
-            unsatClass)) {
+        try {
+            createDebuggingOntology();
+            OWLReasoner reasoner = getReasonerFactory()
+                .createNonBufferingReasoner(verifyNotNull(debuggingOntology));
+            if (OntologyUtils.containsUnreferencedEntity(verifyNotNull(debuggingOntology), unsatClass)) {
+                reasoner.dispose();
+                return true;
+            }
+            satTestCount++;
+            boolean sat = reasoner.isSatisfiable(unsatClass);
             reasoner.dispose();
-            return true;
+            return sat;
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(
+                "Illegal argument found - satisfiability cannot be checked for {} because of {}",
+                unsatClass, e);
+            return false;
         }
-        satTestCount++;
-        boolean sat = reasoner.isSatisfiable(unsatClass);
-        reasoner.dispose();
-        return sat;
     }
 
     private void createDebuggingOntology() throws OWLException {
