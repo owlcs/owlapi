@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
@@ -69,16 +70,23 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
     }
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-        OWLDataFactory dataFactory, Set<OWLObjectPropertyCharacteristicAxiom> result) {
-        addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity), reasoner, result);
-        addIfEntailed(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity), reasoner,
-            result);
-        addIfEntailed(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
-        addIfEntailed(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity), reasoner, result);
-        addTransitiveAxiomIfEntailed(entity, reasoner, dataFactory, result);
-        addIfEntailed(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
-        addIfEntailed(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity), reasoner, result);
+    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory df,
+        Set<OWLObjectPropertyCharacteristicAxiom> result) {
+        addIfEntailed(df.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(df.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
+        if (simple(entity, reasoner)) {
+            addIfEntailed(df.getOWLFunctionalObjectPropertyAxiom(entity), reasoner, result);
+            addIfEntailed(df.getOWLInverseFunctionalObjectPropertyAxiom(entity), reasoner, result);
+            addIfEntailed(df.getOWLAsymmetricObjectPropertyAxiom(entity), reasoner, result);
+            addTransitiveAxiomIfEntailed(entity, reasoner, df, result);
+            addIfEntailed(df.getOWLIrreflexiveObjectPropertyAxiom(entity), reasoner, result);
+        }
+    }
+
+    protected boolean simple(OWLObjectProperty entity, OWLReasoner reasoner) {
+        OWLOntology current = reasoner.getRootOntology();
+        OWLObjectPropertyManager objectPropertyManager = new OWLObjectPropertyManager(current);
+        return !objectPropertyManager.isNonSimple(entity);
     }
 
     @Override

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.model.parameters.AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
@@ -117,7 +119,9 @@ public class InferredOntologyGenerator {
     public void fillOntology(OWLDataFactory df, OWLOntology ontology) {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
-        axiomGenerators.stream().flatMap(g -> generate(df, g)).forEach(ontology::add);
+        axiomGenerators.stream().flatMap(g -> generate(df, g))
+            .filter(ax -> !ontology.containsAxiom(ax, INCLUDED, IGNORE_AXIOM_ANNOTATIONS))
+            .forEach(ontology::add);
     }
 
     protected Stream<OWLAxiom> generate(OWLDataFactory df,
