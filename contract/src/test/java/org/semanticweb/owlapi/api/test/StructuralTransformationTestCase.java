@@ -66,14 +66,14 @@ public class StructuralTransformationTestCase {
         map.put(b.eOp(), "[EquivalentObjectProperties(<urn:test#iri> <urn:test#op> )]");
         map.put(b.fdp(), "[SubClassOf(owl:Thing DataMaxCardinality(1 <urn:test#dp> rdfs:Literal))]");
         map.put(b.fop(), "[SubClassOf(owl:Thing ObjectMaxCardinality(1 <urn:test#op> owl:Thing))]");
-        map.put(b.ifp(), "[SubClassOf(owl:Thing ObjectMaxCardinality(1 InverseOf(<urn:test#op>) owl:Thing))]");
-        map.put(b.iop(), "[SubObjectPropertyOf(<urn:test#op> InverseOf(<urn:test#op>))]");
+        map.put(b.ifp(), "[SubClassOf(owl:Thing ObjectMaxCardinality(1 ObjectInverseOf(<urn:test#op>) owl:Thing))]");
+        map.put(b.iop(), "[SubObjectPropertyOf(<urn:test#op> ObjectInverseOf(<urn:test#op>))]");
         map.put(b.irr(), "[IrreflexiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)]");
         map.put(b.opa(), "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)]");
         map.put(b.opaInv(),
-                        "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)]");
+                        "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)]");
         map.put(b.opaInvj(),
-                        "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)]");
+                        "[ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)]");
         map.put(b.oDom(),
                         "[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test#c>), SubClassOf(<http://www.semanticweb.org/ontology#X1> ObjectAllValuesFrom(<urn:test#op> owl:Nothing)), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]");
         map.put(b.oRange(),

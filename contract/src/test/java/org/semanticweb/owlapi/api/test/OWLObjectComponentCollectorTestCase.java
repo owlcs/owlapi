@@ -209,13 +209,13 @@ public class OWLObjectComponentCollectorTestCase {
                     "NegativeObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)";
     private static final String AOP =
                     "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)";
-    private static final String INVERSE = "InverseOf(<urn:test#op>)";
+    private static final String INVERSE = "ObjectInverseOf(<urn:test#op>)";
     private static final String AOINV =
-                    "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)";
+                    "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)";
     private static final String JI = "<urn:test#j>";
     private static final String J = "urn:test#j";
     private static final String AOPJ =
-                    "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)";
+                    "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)";
     private static final String OPD =
                     "ObjectPropertyDomain(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#c>)";
     private static final String OPR =

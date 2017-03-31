@@ -74,9 +74,9 @@ public class NNFTestCase {
         map.put(b.nop(), "NegativeObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)");
         map.put(b.opa(), "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)");
         map.put(b.opaInv(),
-                        "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)");
+            "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)");
         map.put(b.opaInvj(),
-                        "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)");
+            "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) ObjectInverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)");
         map.put(b.oDom(), "ObjectPropertyDomain(<urn:test#op> <urn:test#c>)");
         map.put(b.oRange(), "ObjectPropertyRange(<urn:test#op> <urn:test#c>)");
         map.put(b.chain(),
