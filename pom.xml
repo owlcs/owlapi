@@ -34,8 +34,8 @@
 
 	<modules>
 		<module>api</module>
-		<module>impl</module>
 		<module>tools</module>
+		<module>impl</module>
 		<module>parsers</module>
 		<module>oboformat</module>
 		<module>rio</module>

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model.providers;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -21,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Object and datatype intersection provider.
@@ -50,7 +50,7 @@ public interface IntersectionProvider {
      */
     default OWLDataIntersectionOf getOWLDataIntersectionOf(OWLDataRange... dataRanges) {
         checkIterableNotNull(dataRanges, "dataRange cannot be nulls", true);
-        return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
+        return getOWLDataIntersectionOf(asUnorderedSet(dataRanges));
     }
 
     /**
@@ -75,6 +75,6 @@ public interface IntersectionProvider {
      */
     default OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands) {
         checkIterableNotNull(operands, "operands cannot be null", true);
-        return getOWLObjectIntersectionOf(CollectionFactory.createList(operands));
+        return getOWLObjectIntersectionOf(asUnorderedSet(operands));
     }
 }

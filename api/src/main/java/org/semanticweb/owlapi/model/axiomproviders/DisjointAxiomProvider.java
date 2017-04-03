@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model.axiomproviders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Disjoint classes and properties provider.
@@ -50,7 +50,7 @@ public interface DisjointAxiomProvider {
     default OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
         OWLClassExpression... classExpressions) {
         checkIterableNotNull(classExpressions, "classExpressions cannot be null", true);
-        return getOWLDisjointClassesAxiom(CollectionFactory.createSet(classExpressions));
+        return getOWLDisjointClassesAxiom(asUnorderedSet(classExpressions));
     }
 
     /**
@@ -109,7 +109,7 @@ public interface DisjointAxiomProvider {
     default OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
         OWLObjectPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
-        return getOWLDisjointObjectPropertiesAxiom(CollectionFactory.createSet(properties));
+        return getOWLDisjointObjectPropertiesAxiom(asUnorderedSet(properties));
     }
 
     /**
@@ -140,7 +140,7 @@ public interface DisjointAxiomProvider {
     default OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
         OWLDataPropertyExpression... dataProperties) {
         checkIterableNotNull(dataProperties, "properties cannot be null", true);
-        return getOWLDisjointDataPropertiesAxiom(CollectionFactory.createSet(dataProperties));
+        return getOWLDisjointDataPropertiesAxiom(asUnorderedSet(dataProperties));
     }
 
     /**

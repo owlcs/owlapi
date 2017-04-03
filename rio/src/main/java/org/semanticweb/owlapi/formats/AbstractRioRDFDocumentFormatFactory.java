@@ -41,7 +41,6 @@ import java.io.ObjectInputStream;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
  * An abstract implementation of the RioRDFOntologyFormatFactory interface that uses the Rio

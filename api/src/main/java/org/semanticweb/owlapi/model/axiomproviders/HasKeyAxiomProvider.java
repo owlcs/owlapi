@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model.axiomproviders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -21,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * HasKey provider interface.
@@ -47,7 +47,7 @@ public interface HasKeyAxiomProvider {
     default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
         OWLPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
-        return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
+        return getOWLHasKeyAxiom(ce, asUnorderedSet(properties));
     }
 
     /**

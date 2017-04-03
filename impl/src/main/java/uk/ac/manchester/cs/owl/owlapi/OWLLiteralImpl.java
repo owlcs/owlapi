@@ -31,11 +31,11 @@ import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.BufferByteArray;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.util.BufferByteArray;
 
 /**
  * Implementation of {@link OWLLiteral} that uses compression of strings. See also
@@ -63,18 +63,18 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null || datatype.equals(InternalizedEntities.PLAIN)
-                            || datatype.equals(InternalizedEntities.XSDSTRING)) {
+                || datatype.equals(InternalizedEntities.XSDSTRING)) {
                 this.datatype = InternalizedEntities.XSDSTRING;
             } else {
                 this.datatype = datatype;
             }
         } else {
             if (datatype != null && !(datatype.equals(InternalizedEntities.LANGSTRING)
-                            || datatype.equals(InternalizedEntities.PLAIN))) {
+                || datatype.equals(InternalizedEntities.PLAIN))) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal or lang string
                 throw new OWLRuntimeException("Error: cannot build a literal with type: "
-                                + datatype.getIRI() + " and language: " + lang);
+                    + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = InternalizedEntities.LANGSTRING;
@@ -161,7 +161,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Override
     protected int hashCode(OWLObject object) {
         return hash(object.hashIndex(),
-                        Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
+            Stream.of(getDatatype(), Integer.valueOf(specificHash()), getLang()));
     }
 
     private int specificHash() {
@@ -205,8 +205,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
         static byte[] compress(String s) {
             try (BufferByteArray out = new BufferByteArray(32);
-                            GZIPOutputStream zipout = new GZIPOutputStream(out);
-                            Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING)) {
+                GZIPOutputStream zipout = new GZIPOutputStream(out);
+                Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING)) {
                 writer.write(s);
                 writer.flush();
                 zipout.finish();
@@ -219,8 +219,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
         static String decompress(byte[] result) {
             try (ByteArrayInputStream in = new ByteArrayInputStream(result);
-                            GZIPInputStream zipin = new GZIPInputStream(in);
-                            Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING)) {
+                GZIPInputStream zipin = new GZIPInputStream(in);
+                Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING)) {
                 StringBuilder b = new StringBuilder();
                 int c = reader.read();
                 while (c > -1) {

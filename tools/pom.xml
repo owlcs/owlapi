@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-tools</artifactId>
-	<name>OWLAPI :: Atomic Decomposition and Explanation</name>
+	<name>OWLAPI :: Tools</name>
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
@@ -15,4 +15,5 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+	<description>Module containing Atomic Decomposition, modularisation, explanation, builders, profile checkers and fixers, a number of utility classes</description>
 </project>

@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Describes why an RDF resource could not be parsed into an {@code OWLObject}. For example, why an
@@ -65,6 +64,6 @@ public class RDFResourceParseError implements Serializable {
      * @return the main node triples
      */
     public Set<RDFTriple> getMainNodeTriples() {
-        return CollectionFactory.copyMutable(mainNodeTriples);
+        return mainNodeTriples;
     }
 }

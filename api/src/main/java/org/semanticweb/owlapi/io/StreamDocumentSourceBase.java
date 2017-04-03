@@ -30,14 +30,13 @@ import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.util.BufferByteArray;
 
 /**
  * Base class for common utilities among stream, reader and file input sources.
  *
  * @since 4.0.0 TODO both stream and reader sources copy the input in memory in case reloading is
- * needed. This can be bad for memory. Remote loading will download the ontologies multiple times
- * too, until parsing fails. Both issues could be addressed with a local file copy.
+ *        needed. This can be bad for memory. Remote loading will download the ontologies multiple
+ *        times too, until parsing fails. Both issues could be addressed with a local file copy.
  */
 public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSourceBase {
 

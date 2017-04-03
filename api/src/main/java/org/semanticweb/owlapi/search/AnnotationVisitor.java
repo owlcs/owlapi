@@ -9,7 +9,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 @SuppressWarnings("unchecked")
 class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
@@ -35,8 +34,8 @@ class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
     @Override
     public Set<C> visit(OWLAnnotationAssertionAxiom axiom) {
         if (value) {
-            return CollectionFactory.createSet((C) axiom.getValue());
+            return asUnorderedSet((C) axiom.getValue());
         }
-        return CollectionFactory.createSet((C) axiom.getAnnotation());
+        return asUnorderedSet((C) axiom.getAnnotation());
     }
 }
