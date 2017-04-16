@@ -93,8 +93,7 @@ public class DLQueryExample {
 
     public static void main(String[] args) {
         try {
-            // Load an example ontology. In this case, we'll just load the pizza
-            // ontology.
+            // Load the KOALA example ontology defined before as a constant.
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
             OWLOntology ontology = manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
