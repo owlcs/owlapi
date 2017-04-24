@@ -1154,7 +1154,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 // because it will be added
                 // when the ontology is created.
                 OWLOntology ontology = factory.loadOWLOntology(this, documentSource, this, configuration);
-                fixIllegalPunnings(ontology);
+                if(configuration.shouldRepairIllegalPunnings()) {
+                    fixIllegalPunnings(ontology);
+                }
                 // Store the ontology to the document IRI mapping
                 documentIRIsByID.put(ontology.getOntologyID(), documentSource.getDocumentIRI());
                 ontologyConfigurationsByOntologyID.put(ontology.getOntologyID(), configuration);
