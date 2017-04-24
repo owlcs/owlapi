@@ -26,6 +26,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSI
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PARSE_WITH_STRICT_CONFIGURATION;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIORITY_COLLECTION_SORTING;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REMAP_IDS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAIR_ILLEGAL_PUNNINGS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SAVE_IDS;
@@ -412,6 +413,22 @@ public class OntologyConfigurator implements Serializable {
      */
     public OntologyConfigurator withAddMissingTypes(boolean addMissing) {
         overrides.put(ADD_MISSING_TYPES, Boolean.valueOf(addMissing));
+        return this;
+    }
+
+    /**
+     * @return true if illegal punnings should be repaired
+     */
+    public boolean shouldRepairIllegalPunnings() {
+        return REPAIR_ILLEGAL_PUNNINGS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param b if illegal punnings should be repaired
+     * @return A {@code OWLOntologyLoaderConfiguration} with the repair flag set to the new value.
+     */
+    public OntologyConfigurator withRepairIllegalPunnings(boolean b) {
+        overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
         return this;
     }
 }

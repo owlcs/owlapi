@@ -97,7 +97,10 @@ public enum ConfigurationOptions {
 	 * implementation will respect 
 	 * this).
      */
-    ADD_MISSING_TYPES                   (Boolean.TRUE);
+    ADD_MISSING_TYPES                   (Boolean.TRUE),
+    /** Repair illegal punnings 
+     * automatically. */
+    REPAIR_ILLEGAL_PUNNINGS             (Boolean.TRUE);
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
