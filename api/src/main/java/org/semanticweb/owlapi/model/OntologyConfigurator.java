@@ -26,6 +26,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSI
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PARSE_WITH_STRICT_CONFIGURATION;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIORITY_COLLECTION_SORTING;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REMAP_IDS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAIR_ILLEGAL_PUNNINGS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPORT_STACK_TRACES;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SAVE_IDS;
@@ -36,12 +37,12 @@ import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 
 /**
- * A configuration builder that specifies all available options in the OWL API.
- * Can be used to build OWLOntologyLoaderConfiguration and
- * OWLOntologyWriterConfiguration objects
+ * A configuration builder that specifies all available options in the OWL API. Can be used to build
+ * OWLOntologyLoaderConfiguration and OWLOntologyWriterConfiguration objects
  *
  * @author Ignazio
  * @since 5.0.0
@@ -55,12 +56,12 @@ public class OntologyConfigurator implements Serializable {
     /**
      * Local override map.
      */
-    private EnumMap<ConfigurationOptions, Object> overrides = new EnumMap<>(
-        ConfigurationOptions.class);
+    private EnumMap<ConfigurationOptions, Object> overrides =
+        new EnumMap<>(ConfigurationOptions.class);
 
     /**
      * @param ban list of parser factory class names that should be skipped when attempting ontology
-     * parsing. The list is space separated.
+     *        parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OntologyConfigurator withBannedParsers(String ban) {
@@ -70,7 +71,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @return list of parser factory class names that should be skipped when attempting ontology
-     * parsing. The list is space separated.
+     *         parsing. The list is space separated.
      */
     public String getBannedParsers() {
         return BANNED_PARSERS.getValue(String.class, overrides);
@@ -95,11 +96,11 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Adds an ontology document IRI to the list of ontology imports that will
-     * be ignored during ontology loading.
+     * Adds an ontology document IRI to the list of ontology imports that will be ignored during
+     * ontology loading.
      *
      * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
-     * encountered as an imported ontology during loading.
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
      */
     public OntologyConfigurator addIgnoredImport(IRI ontologyDocumentIRI) {
@@ -108,11 +109,10 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Clears all ontology document IRIs from the list of ignored ontology
-     * document IRIs.
+     * Clears all ontology document IRIs from the list of ignored ontology document IRIs.
      *
      * @return An {@code OWLOntologyLoaderConfiguration} with the list of ignored ontology document
-     * IRIs set to be empty.
+     *         IRIs set to be empty.
      */
     public OntologyConfigurator clearIgnoredImports() {
         ignoredImports.clear();
@@ -120,13 +120,13 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Removes an ontology document IRI from the list of ontology imports that
-     * will be ignored during ontology loading.
+     * Removes an ontology document IRI from the list of ontology imports that will be ignored
+     * during ontology loading.
      *
      * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
-     * encountered as an imported ontology during loading.
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
-     * removed.
+     *         removed.
      */
     public OntologyConfigurator removeIgnoredImport(IRI ontologyDocumentIRI) {
         ignoredImports.remove(ontologyDocumentIRI);
@@ -158,9 +158,9 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param l new timeout Note: the timeout is an int and represents milliseconds. This is
-     * necessary for use in {@code URLConnection}
+     *        necessary for use in {@code URLConnection}
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection timeout set to the new
-     * value.
+     *         value.
      */
     public OntologyConfigurator setConnectionTimeout(int l) {
         overrides.put(CONNECTION_TIMEOUT, Integer.valueOf(l));
@@ -184,13 +184,12 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Specifies whether or not annotation axioms (instances of
-     * {@code OWLAnnotationAxiom}) should be loaded or whether they should be
-     * discarded on loading. By default, the loading of annotation axioms is
-     * enabled.
+     * Specifies whether or not annotation axioms (instances of {@code OWLAnnotationAxiom}) should
+     * be loaded or whether they should be discarded on loading. By default, the loading of
+     * annotation axioms is enabled.
      *
      * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
-     * axioms should not be loaded and should be discarded on loading.
+     *        axioms should not be loaded and should be discarded on loading.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
      */
     public OntologyConfigurator setLoadAnnotationAxioms(boolean b) {
@@ -209,14 +208,13 @@ public class OntologyConfigurator implements Serializable {
      * @return missing import handling strategy
      */
     public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
-        return MISSING_IMPORT_HANDLING_STRATEGY
-            .getValue(MissingImportHandlingStrategy.class, overrides);
+        return MISSING_IMPORT_HANDLING_STRATEGY.getValue(MissingImportHandlingStrategy.class,
+            overrides);
     }
 
     /**
      * Sets the strategy that is used for missing imports handling. See
-     * {@link MissingImportHandlingStrategy} for the strategies and their
-     * descriptions.
+     * {@link MissingImportHandlingStrategy} for the strategies and their descriptions.
      *
      * @param strategy The strategy to be used.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the strategy set.
@@ -232,8 +230,8 @@ public class OntologyConfigurator implements Serializable {
      * @return missing ontology header strategy
      */
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
-        return MISSING_ONTOLOGY_HEADER_STRATEGY
-            .getValue(MissingOntologyHeaderStrategy.class, overrides);
+        return MISSING_ONTOLOGY_HEADER_STRATEGY.getValue(MissingOntologyHeaderStrategy.class,
+            overrides);
     }
 
     /**
@@ -247,9 +245,8 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
-     * Set the value for the report stack traces flag. If true, parsing
-     * exceptions will have the full stack trace for the source exceptions.
-     * Default is false.
+     * Set the value for the report stack traces flag. If true, parsing exceptions will have the
+     * full stack trace for the source exceptions. Default is false.
      *
      * @param b the new value for the flag
      * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set to the new value.
@@ -315,6 +312,22 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * @return true if illegal punnings should be repaired
+     */
+    public boolean shouldRepairIllegalPunnings() {
+        return REPAIR_ILLEGAL_PUNNINGS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param b if illegal punnings should be repaired
+     * @return A {@code OWLOntologyLoaderConfiguration} with the repair flag set to the new value.
+     */
+    public OntologyConfigurator withRepairIllegalPunnings(boolean b) {
+        overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
+        return this;
+    }
+
+    /**
      * @return a new OWLOntologyLoaderConfiguration from the builder current settings
      */
     public OWLOntologyLoaderConfiguration buildLoaderConfiguration() {
@@ -322,19 +335,21 @@ public class OntologyConfigurator implements Serializable {
             .setAcceptingHTTPCompression(shouldAcceptHTTPCompression())
             .setConnectionTimeout(getConnectionTimeout())
             .setFollowRedirects(shouldFollowRedirects())
-            .setLoadAnnotationAxioms(shouldLoadAnnotations()).setMissingImportHandlingStrategy(
-                getMissingImportHandlingStrategy())
+            .setLoadAnnotationAxioms(shouldLoadAnnotations())
+            .setMissingImportHandlingStrategy(getMissingImportHandlingStrategy())
             .setMissingOntologyHeaderStrategy(getMissingOntologyHeaderStrategy())
-            .setPriorityCollectionSorting(getPriorityCollectionSorting()).setReportStackTraces(
-                shouldReportStackTraces()).setRetriesToAttempt(getRetriesToAttempt()).setStrict(
-                shouldParseWithStrictConfiguration())
+            .setPriorityCollectionSorting(getPriorityCollectionSorting())
+            .setReportStackTraces(shouldReportStackTraces())
+            .setRetriesToAttempt(getRetriesToAttempt())
+            .setStrict(shouldParseWithStrictConfiguration())
             .setTreatDublinCoreAsBuiltIn(shouldTreatDublinCoreAsBuiltin())
-            .setBannedParsers(getBannedParsers());
+            .setBannedParsers(getBannedParsers())
+            .setRepairIllegalPunnings(shouldRepairIllegalPunnings());
     }
 
     /**
      * @param b True if ids for blank nodes should always be written (axioms and anonymous
-     * individuals only).
+     *        individuals only).
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
@@ -450,10 +465,10 @@ public class OntologyConfigurator implements Serializable {
      */
     public OWLOntologyWriterConfiguration buildWriterConfiguration() {
         return new OWLOntologyWriterConfiguration().withIndenting(shouldIndent())
-            .withIndentSize(getIndentSize())
-            .withLabelsAsBanner(shouldUseLabelsAsBanner())
+            .withIndentSize(getIndentSize()).withLabelsAsBanner(shouldUseLabelsAsBanner())
             .withRemapAllAnonymousIndividualsIds(shouldRemapIds())
-            .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds()).withUseNamespaceEntities(
-                shouldUseNamespaceEntities()).withBannersEnabled(shouldUseBanners());
+            .withSaveIdsForAllAnonymousIndividuals(shouldSaveIds())
+            .withUseNamespaceEntities(shouldUseNamespaceEntities())
+            .withBannersEnabled(shouldUseBanners());
     }
 }

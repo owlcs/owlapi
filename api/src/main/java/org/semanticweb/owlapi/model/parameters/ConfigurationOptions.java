@@ -62,7 +62,10 @@ public enum ConfigurationOptions {
     /** List of banned parsers keys. */
     BANNED_PARSERS(""),
     /** Entity expansion limit for XML parsing. */
-    ENTITY_EXPANSION_LIMIT("100000000");
+    ENTITY_EXPANSION_LIMIT("100000000"),
+    /** Repair illegal punnings 
+     * automatically. */
+    REPAIR_ILLEGAL_PUNNINGS(Boolean.TRUE);
     //@formatter:on
     private static final String PREFIX = "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationOptions.class);
