@@ -1058,11 +1058,10 @@ public class OWLOntologyManagerImpl
                     replacementMap.put(wrongProperty, entity);
                 }
             } else {
-                // Multiple declarations: bad data. Cannot be repaired
-                // automatically.
-                LOGGER.error(
-                    "Illegal redeclarations of entities: reuse of entity {} in punning not allowed {}",
-                    e.getKey(), e.getValue());
+                // Multiple declarations: bad data. Cannot be repaired automatically.
+                String errorMessage =
+                    "Illegal redeclarations of entities: reuse of entity {} in punning not allowed {}";
+                LOGGER.warn(errorMessage, e.getKey(), e.getValue());
             }
         }
         OWLAnnotationPropertyTransformer changer =
