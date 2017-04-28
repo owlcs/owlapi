@@ -32,6 +32,7 @@ public class OWLStorerParameters implements Serializable {
      * @param <T> type
      * @return the value
      */
+    @SuppressWarnings("unchecked")
     public <T> T getParameter(Serializable key, T defaultValue) {
         Serializable val = parameterMap.get(key);
         if (val == null) {

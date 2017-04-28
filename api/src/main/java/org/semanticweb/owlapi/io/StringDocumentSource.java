@@ -27,12 +27,14 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
+    private static final String STRING_ONTOLOGY = "string:ontology";
+
     /**
      * @param target a document target
      * @param f format
      */
     public StringDocumentSource(StringDocumentTarget target, OWLDocumentFormat f) {
-        this(target.toString(), "string:ontology", f, null);
+        this(target.toString(), STRING_ONTOLOGY, f, null);
     }
 
     /**
@@ -40,14 +42,14 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param f format
      */
     public StringDocumentSource(String string, OWLDocumentFormat f) {
-        this(string, "string:ontology", f, null);
+        this(string, STRING_ONTOLOGY, f, null);
     }
 
     /**
      * @param string the source string
      */
     public StringDocumentSource(String string) {
-        this(string, "string:ontology", null, null);
+        this(string, STRING_ONTOLOGY, null, null);
     }
 
     /**
@@ -81,7 +83,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f,
         @Nullable String mime) {
-        super(documentIRI, f, mime);
+        super(documentIRI, () -> null, f, mime);
         checkNotNull(string, "string cannot be null");
         stringContent = string;
         // avoid attempting IRI resolution if it is known to be failed

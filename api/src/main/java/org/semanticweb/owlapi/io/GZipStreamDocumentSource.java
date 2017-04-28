@@ -12,13 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.apache.commons.io.IOUtils.toByteArray;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
@@ -45,17 +46,12 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * specified stream.
      *
      * @param stream The stream that the ontology representation will be read from.
-     * @param documentIRI The document IRI
-     * @param format ontology format
-     * @param mime mime type
+     * @param iri The document IRI
+     * @param f ontology format
+     * @param m mime type
      */
-    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        super(documentIRI, format, mime);
-        readIntoBuffer(stream);
-    }
-
-    private void readIntoBuffer(InputStream in) {
-        inputStream = () -> new GZIPInputStream(new ByteArrayInputStream(IOUtils.toByteArray(in)));
+    public GZipStreamDocumentSource(InputStream stream, IRI iri, @Nullable OWLDocumentFormat f,
+        @Nullable String m) {
+        super(iri, () -> new GZIPInputStream(new ByteArrayInputStream(toByteArray(stream))), f, m);
     }
 }

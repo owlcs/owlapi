@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -12,6 +13,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
  * Created by ses on 3/12/15.
@@ -72,7 +75,7 @@ public class XZStreamDocumentSourceTestCase {
                 return new RDFXMLDocumentFormatFactory();
             }
         };
-        source.acceptParser(mockParser, null, null);
+        source.acceptParser(mockParser, mock(OWLOntology.class), mock(OntologyConfigurator.class));
         assertEquals(input, w.toString());
     }
 }

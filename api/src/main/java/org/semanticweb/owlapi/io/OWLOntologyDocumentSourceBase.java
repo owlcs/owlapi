@@ -77,44 +77,50 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     @Nullable
     private final String mimeType;
     protected Charset encoding = StandardCharsets.UTF_8;
-    protected final StreamerWrapper<Reader, InputStream> defaultReader =
+    private final StreamerWrapper<Reader, InputStream> defaultReader =
         (i) -> new InputStreamReader(new BOMInputStream(new BufferedInputStream(i), UTF_8, UTF_16BE,
             UTF_16LE, UTF_32BE, UTF_32LE), encoding);
-    protected Streamer<InputStream> inputStream;
-    protected Streamer<Reader> reader = () -> defaultReader.get(inputStream.get());
+    private Streamer<InputStream> inputStream;
+    private Streamer<Reader> reader = () -> defaultReader.get(inputStream.get());
     protected String stringContent = "";
-    protected @Nullable OWLParserParameters parameters;
+    @Nullable
+    protected OWLParserParameters parametersAtLoading;
 
 
     /**
      * Constructs an ontology input source using the specified file.
      *
      * @param iri document IRI
+     * @param in input stream
      * @param format ontology format. If null, it is considered unspecified
      * @param mime mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(IRI iri, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
+    protected OWLOntologyDocumentSourceBase(IRI iri, Streamer<InputStream> in,
+        @Nullable OWLDocumentFormat format, @Nullable String mime) {
         this.format = format;
         mimeType = mime;
         documentIRI = checkNotNull(iri, "document iri cannot be null");
+        inputStream = in;
     }
 
     /**
      * Constructs an ontology input source using the specified file.
      *
      * @param iriPrefix document IRI prefix - used to generate a new IRI
+     * @param in input stream
      * @param format ontology format. If null, it is considered unspecified
      * @param mime mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(String iriPrefix, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
-        this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
+    protected OWLOntologyDocumentSourceBase(String iriPrefix, Streamer<InputStream> in,
+        @Nullable OWLDocumentFormat format, @Nullable String mime) {
+        this(IRI.getNextDocumentIRI(iriPrefix), in, format, mime);
     }
 
     @Override
+    @SuppressWarnings("null")
     public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
-        return Optional.ofNullable(parameters == null ? null : parameters.getLoaderMetaData());
+        return Optional.ofNullable(
+            parametersAtLoading == null ? null : parametersAtLoading.getLoaderMetaData());
     }
 
     private static InputStream getInputStreamFromContentEncoding(IRI iri, Response response)
@@ -194,7 +200,9 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     public OWLDocumentFormat acceptParser(OWLParser parser, OWLOntology o,
         OntologyConfigurator config) {
         boolean textual = parser.getSupportedFormat().isTextual();
-        parameters = new OWLParserParameters(o, config, documentIRI).withEncoding(encoding);
+        OWLParserParameters parameters =
+            new OWLParserParameters(o, config, documentIRI).withEncoding(encoding);
+        parametersAtLoading = parameters;
         // For document sources that are string based, this is a performance
         // shortcut: no streams, no buffers, no IOExceptions
         if (!stringContent.isEmpty() && textual) {

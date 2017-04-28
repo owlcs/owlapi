@@ -50,7 +50,6 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public XZFileDocumentSource(File in, IRI documentIRI, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
-        super(documentIRI, format, mime);
-        inputStream = () -> new XZInputStream(new FileInputStream(in));
+        super(documentIRI, () -> new XZInputStream(new FileInputStream(in)), format, mime);
     }
 }

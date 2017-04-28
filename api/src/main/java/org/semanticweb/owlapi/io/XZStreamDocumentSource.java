@@ -12,12 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.apache.commons.io.IOUtils.toByteArray;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.tukaani.xz.XZInputStream;
@@ -51,8 +52,7 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public XZStreamDocumentSource(InputStream stream, IRI documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        super(documentIRI, format, mime);
-        inputStream = () -> new XZInputStream(
-            new ByteArrayInputStream(IOUtils.toByteArray(stream)));
+        super(documentIRI, () -> new XZInputStream(new ByteArrayInputStream(toByteArray(stream))),
+            format, mime);
     }
 }

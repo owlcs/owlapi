@@ -31,65 +31,41 @@ class EquivalentVisitor<C extends OWLObject> implements OWLAxiomVisitorEx<Stream
 
     @Override
     public Stream<C> visit(OWLEquivalentClassesAxiom axiom) {
-        if (equiv) {
-            return (Stream<C>) axiom.classExpressions();
-        }
-        return doDefault(axiom);
+        return equiv ? (Stream<C>) axiom.classExpressions() : doDefault(axiom);
     }
 
     @Override
     public Stream<C> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        if (equiv) {
-            return (Stream<C>) axiom.properties();
-        }
-        return doDefault(axiom);
+        return equiv ? (Stream<C>) axiom.properties() : doDefault(axiom);
     }
 
     @Override
     public Stream<C> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        if (equiv) {
-            return (Stream<C>) axiom.properties();
-        }
-        return doDefault(axiom);
+        return equiv ? (Stream<C>) axiom.properties() : doDefault(axiom);
     }
 
     @Override
     public Stream<C> visit(OWLDifferentIndividualsAxiom axiom) {
-        if (!equiv) {
-            return (Stream<C>) axiom.individuals();
-        }
-        return doDefault(axiom);
+        return equiv ? doDefault(axiom) : (Stream<C>) axiom.individuals();
     }
 
     @Override
     public Stream<C> visit(OWLSameIndividualAxiom axiom) {
-        if (equiv) {
-            return (Stream<C>) axiom.individuals();
-        }
-        return doDefault(axiom);
+        return equiv ? (Stream<C>) axiom.individuals() : doDefault(axiom);
     }
 
     @Override
     public Stream<C> visit(OWLDisjointClassesAxiom axiom) {
-        if (!equiv) {
-            return (Stream<C>) axiom.classExpressions();
-        }
-        return doDefault(axiom);
+        return equiv ? doDefault(axiom) : (Stream<C>) axiom.classExpressions();
     }
 
     @Override
     public Stream<C> visit(OWLDisjointDataPropertiesAxiom axiom) {
-        if (!equiv) {
-            return (Stream<C>) axiom.properties();
-        }
-        return doDefault(axiom);
+        return equiv ? doDefault(axiom) : (Stream<C>) axiom.properties();
     }
 
     @Override
     public Stream<C> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        if (!equiv) {
-            return (Stream<C>) axiom.properties();
-        }
-        return doDefault(axiom);
+        return equiv ? doDefault(axiom) : (Stream<C>) axiom.properties();
     }
 }

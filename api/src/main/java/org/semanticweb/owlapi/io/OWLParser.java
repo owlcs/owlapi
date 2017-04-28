@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
@@ -50,7 +51,7 @@ public interface OWLParser extends Serializable {
      * Parses the ontology with a concrete representation available at {@code documentIRI} and adds
      * its axioms to {@code ontology}. Implementors of this method should load imported ontologies
      * through
-     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OntologyConfigurator)
      * makeLoadImportRequest()}.
      *
      * @param documentIRI the IRI of the document to parse
@@ -82,7 +83,7 @@ public interface OWLParser extends Serializable {
     /**
      * Parses the ontology with a concrete representation in {@code in} and adds its axioms to
      * {@code ontology}. Implementors of this method should load imported ontologies through
-     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OntologyConfigurator)
      * makeLoadImportRequest()}.
      *
      * @param in the source of a concrete representation of the document to parse
@@ -102,7 +103,7 @@ public interface OWLParser extends Serializable {
     /**
      * Parses the ontology with a concrete representation in {@code r} and adds its axioms to {@code
      * ontology}. Implementors of this method should load imported ontologies through
-     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OntologyConfigurator)
      * makeLoadImportRequest()}.
      *
      * @param r the source of a concrete representation of the document to parse
@@ -120,7 +121,7 @@ public interface OWLParser extends Serializable {
     /**
      * Parses the ontology with a concrete representation in {@code in} and adds its axioms to
      * {@code ontology}. Implementors of this method should load imported ontologies through
-     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration)
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OntologyConfigurator)
      * makeLoadImportRequest()}.
      *
      * @param in the source of a concrete representation of the document to parse

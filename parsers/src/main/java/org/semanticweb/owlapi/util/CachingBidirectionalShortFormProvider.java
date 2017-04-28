@@ -70,7 +70,7 @@ public abstract class CachingBidirectionalShortFormProvider
      * Adds an entity to the cache.
      *
      * @param entity The entity to be added to the cache - the short form will automatically be
-     * generated and added to the cache.
+     *        generated and added to the cache.
      */
     public void add(OWLEntity entity) {
         String shortForm = generateShortForm(entity);

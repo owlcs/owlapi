@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -51,8 +52,8 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      */
     public StreamDocumentSourceBase(InputStream stream, IRI documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        super(documentIRI, format, mime);
-        readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
+        super(documentIRI, readIntoBuffer(checkNotNull(stream, "stream cannot be null")), format,
+            mime);
     }
 
     /**
@@ -80,14 +81,13 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      */
     public StreamDocumentSourceBase(Reader stream, IRI documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        super(documentIRI, format, mime);
-        checkNotNull(stream, "stream cannot be null");
+        super(documentIRI, readIntoBuffer(checkNotNull(stream, "stream cannot be null")), format,
+            mime);
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         if (stream instanceof InputStreamReader) {
             encoding = Charset.forName(((InputStreamReader) stream).getEncoding());
         }
-        readIntoBuffer(stream);
     }
 
     /**
@@ -110,28 +110,36 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      * caches the input stream.
      *
      * @param in The stream to be "cached"
+     * @return streamer
      */
-    private void readIntoBuffer(InputStream in) {
+    private static Streamer<InputStream> readIntoBuffer(InputStream in) {
         try (BufferByteArray bos = new BufferByteArray();
             GZIPOutputStream out = new GZIPOutputStream(bos)) {
             IOUtils.copy(in, out);
             out.finish();
             out.flush();
-            inputStream = () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
+            return () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-    private void readIntoBuffer(Reader in) {
+    private static Streamer<InputStream> readIntoBuffer(Reader in) {
+        // if the input stream carries encoding information, use it; else leave
+        // the default as UTF-8
+        Charset enc = StandardCharsets.UTF_8;
+        if (in instanceof InputStreamReader) {
+            enc = Charset.forName(((InputStreamReader) in).getEncoding());
+        }
+
         try (BufferByteArray bos = new BufferByteArray();
             GZIPOutputStream out = new GZIPOutputStream(bos)) {
-            OutputStreamWriter writer = new OutputStreamWriter(out, encoding);
+            OutputStreamWriter writer = new OutputStreamWriter(out, enc);
             IOUtils.copy(in, writer);
             writer.flush();
             out.finish();
             out.flush();
-            inputStream = () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
+            return () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }

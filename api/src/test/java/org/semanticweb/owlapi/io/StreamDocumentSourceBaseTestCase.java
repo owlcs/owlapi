@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 @SuppressWarnings("javadoc")
 public class StreamDocumentSourceBaseTestCase {
@@ -52,7 +55,7 @@ public class StreamDocumentSourceBaseTestCase {
                 return new RDFXMLDocumentFormatFactory();
             }
         };
-        source.acceptParser(mockParser, null, null);
+        source.acceptParser(mockParser, mock(OWLOntology.class), mock(OntologyConfigurator.class));
         assertEquals(input, w.toString());
     }
 }

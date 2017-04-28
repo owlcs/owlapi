@@ -25,17 +25,11 @@ class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
     }
 
     private C get(OWLAnnotation a) {
-        if (value) {
-            return (C) a.getValue();
-        }
-        return (C) a;
+        return (C) (value ? a.getValue() : a);
     }
 
     @Override
     public Set<C> visit(OWLAnnotationAssertionAxiom axiom) {
-        if (value) {
-            return asUnorderedSet((C) axiom.getValue());
-        }
-        return asUnorderedSet((C) axiom.getAnnotation());
+        return asUnorderedSet((C) (value ? axiom.getValue() : axiom.getAnnotation()));
     }
 }

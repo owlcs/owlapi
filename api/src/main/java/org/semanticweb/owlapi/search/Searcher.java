@@ -246,6 +246,7 @@ public final class Searcher {
      * @param p optional annotation property to filter. Null means all.
      * @return annotations
      */
+    @SuppressWarnings("resource")
     public static Stream<OWLAnnotation> annotations(OWLAxiom axiom,
         @Nullable OWLAnnotationProperty p) {
         Stream<OWLAnnotation> stream = empty();

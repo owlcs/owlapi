@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 
 /**
  * A provider for anonymous individuals that remaps input ids consistently across all requests. This
- * class obeys the preferences set in {@link OWLOntologyManager#getOntologyWriterConfiguration()}.
+ * class obeys the preferences set in {@link OWLOntologyManager#getOntologyConfigurator()}.
  */
 public class RemappingIndividualProvider implements AnonymousIndividualByIdProvider {
 

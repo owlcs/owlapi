@@ -18,6 +18,8 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -194,13 +196,14 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     private final Namespaces namespace;
     private final String shortName;
     private final String prefixedName;
+    @Nullable
     private final String damlName;
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this(namespace, shortName, null);
     }
 
-    OWLRDFVocabulary(Namespaces namespace, String shortName, String damlName) {
+    OWLRDFVocabulary(Namespaces namespace, String shortName, @Nullable String damlName) {
         this.namespace = namespace;
         this.shortName = shortName;
         this.damlName = damlName;

@@ -58,7 +58,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public FileDocumentSource(File file, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
-        super(IRI.create(file), format, mime);
-        inputStream = () -> new FileInputStream(checkNotNull(file, "file cannot be null"));
+        super(IRI.create(file),
+            () -> new FileInputStream(checkNotNull(file, "file cannot be null")), format, mime);
     }
 }

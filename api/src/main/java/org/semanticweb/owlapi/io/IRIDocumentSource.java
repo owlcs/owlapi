@@ -37,7 +37,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public IRIDocumentSource(IRI documentIRI, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
-        super(documentIRI, format, mime);
+        super(documentIRI, () -> null, format, mime);
         failedOnStreams.set(true);
     }
 }

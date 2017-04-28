@@ -10,46 +10,8 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.io;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.zip.GZIPInputStream;
-
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-
 /**
- * An ontology document source which can read from a GZIP File.
- *
- * @author ignazio
- * @since 3.4.8
+ * Utilities package.
  */
-public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
-
-    /**
-     * Constructs an input source which will read an ontology from a representation from the
-     * specified file.
-     *
-     * @param input The file that the ontology representation will be read from.
-     */
-    public GZipFileDocumentSource(File input) {
-        this(input, IRI.getNextDocumentIRI("file:ontology"), null, null);
-    }
-
-    /**
-     * Constructs an input source which will read an ontology from a representation from the
-     * specified file.
-     *
-     * @param input The file that the ontology representation will be read from.
-     * @param documentIRI The document IRI
-     * @param format ontology format
-     * @param mime mime type
-     */
-    public GZipFileDocumentSource(File input, IRI documentIRI, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
-        super(documentIRI, () -> new GZIPInputStream(new FileInputStream(input)), format, mime);
-    }
-}
+@javax.annotation.ParametersAreNonnullByDefault
+package org.semanticweb.owlapi.util;
