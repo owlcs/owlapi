@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import org.apache.commons.rdf.api.Literal;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -45,8 +44,8 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
     public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang;
-        OWL2Datatype defaultType = this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL
-            : OWL2Datatype.RDF_LANG_STRING;
+        OWL2Datatype defaultType =
+            this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
         this.datatype = datatype == null ? defaultType.getIRI() : datatype;
     }
 
@@ -186,15 +185,30 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
 
     @Override
     public String ntriplesString() {
-        String escaped = '"' + EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n")
-            .replace("\r", "\\r") + '"';
+        StringBuilder esc = new StringBuilder();
+        esc.append('"');
+        for (int i = 0; i < lexicalValue.length(); i++) {
+            char ch = lexicalValue.charAt(i);
+            if (ch == '\\') {
+                esc.append("\\\\");
+            } else if (ch == '\"') {
+                esc.append("\\\"");
+            } else if (ch == '\n') {
+                esc.append("\\n");
+            } else if (ch == '\r') {
+                esc.append("\\r");
+            } else {
+                esc.append(ch);
+            }
+        }
+        esc.append('"');
         if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI())
             || datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
-            return escaped;
+            return esc.toString();
         } else if (hasLang()) {
-            return escaped + "@" + getLang();
+            return esc.append('@').append(lang).toString();
         } else {
-            return escaped + "^^" + getDatatype().ntriplesString();
+            return esc.append("^^").append(datatype.ntriplesString()).toString();
         }
     }
 }

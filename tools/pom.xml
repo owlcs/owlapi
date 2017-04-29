@@ -14,6 +14,12 @@
 			<artifactId>owlapi-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-rdf-api</artifactId>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<description>Module containing Atomic Decomposition, modularisation, explanation, builders, profile checkers and fixers, a number of utility classes</description>
 </project>
