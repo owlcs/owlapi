@@ -91,6 +91,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -161,24 +162,22 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings({"javadoc", "rawtypes", "null"})
 public class OWLProfileTestCase extends TestBase {
 
-    protected static final Comparator<Class> comp = (o1, o2) -> o1.getSimpleName()
-        .compareTo(o2.getSimpleName());
+    protected static final Comparator<Class> comp =
+        (o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName());
     private static final String START = OWLThing().getIRI().getNamespace();
     private static final OWLClass CL = Class(IRI("urn:test#", "fakeclass"));
-    private static final OWLDataProperty DATAP = DataProperty(
-        IRI("urn:datatype#", "fakedatatypeproperty"));
+    private static final OWLDataProperty DATAP =
+        DataProperty(IRI("urn:datatype#", "fakedatatypeproperty"));
     private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE2 = DataPropertyRange(DATAP,
-        DatatypeRestriction(
-            Integer(), FacetRestriction(OWLFacet.LANG_RANGE, Literal(1))));
+        DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.LANG_RANGE, Literal(1))));
     private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE = DataPropertyRange(DATAP,
-        DatatypeRestriction(
-            Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1))));
-    private static final OWLObjectProperty OP = ObjectProperty(
-        IRI("urn:datatype#", "fakeobjectproperty"));
-    private static final OWLDatatype UNKNOWNFAKEDATATYPE = Datatype(
-        IRI(START, "unknownfakedatatype"));
-    private static final OWLDatatype FAKEUNDECLAREDDATATYPE = Datatype(
-        IRI("urn:datatype#", "fakeundeclareddatatype"));
+        DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1))));
+    private static final OWLObjectProperty OP =
+        ObjectProperty(IRI("urn:datatype#", "fakeobjectproperty"));
+    private static final OWLDatatype UNKNOWNFAKEDATATYPE =
+        Datatype(IRI(START, "unknownfakedatatype"));
+    private static final OWLDatatype FAKEUNDECLAREDDATATYPE =
+        Datatype(IRI("urn:datatype#", "fakeundeclareddatatype"));
     private static final OWLDatatype FAKEDATATYPE = Datatype(IRI("urn:datatype#", "fakedatatype"));
     private static final IRI onto = IRI.create("urn:test#", "ontology");
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
@@ -218,8 +217,7 @@ public class OWLProfileTestCase extends TestBase {
         checkInCollection(violations, expectedViolations);
         for (OWLProfileViolation violation : violations) {
             ontology.getOWLOntologyManager().applyChanges(violation.repair());
-            violation.accept(new OWLProfileViolationVisitor() {
-            });
+            violation.accept(new OWLProfileViolationVisitor() {});
             violation.accept(new OWLProfileViolationVisitorEx<String>() {
 
                 @Override
@@ -247,12 +245,10 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2DLProfile() {
         declare(o, Integer(), Boolean(), FAKEDATATYPE);
         o.add(DatatypeDefinition(Boolean(), Integer()), DatatypeDefinition(FAKEDATATYPE, Integer()),
-            DatatypeDefinition(
-                Integer(), FAKEDATATYPE));
+            DatatypeDefinition(Integer(), FAKEDATATYPE));
         int expected = 4;
         Class[] expectedViolations = {CycleInDatatypeDefinition.class,
-            CycleInDatatypeDefinition.class,
-            UseOfBuiltInDatatypeInDatatypeDefinition.class,
+            CycleInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class,
             UseOfBuiltInDatatypeInDatatypeDefinition.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
     }
@@ -263,13 +259,12 @@ public class OWLProfileTestCase extends TestBase {
         OWLDatatype d = Datatype(IRI(START, "test"));
         declare(o, d, Integer(), Boolean(), FAKEDATATYPE);
         o.add(DatatypeDefinition(d, Boolean()), DatatypeDefinition(Boolean(), d),
-            DatatypeDefinition(FAKEDATATYPE,
-                Integer()), DatatypeDefinition(Integer(), FAKEDATATYPE));
+            DatatypeDefinition(FAKEDATATYPE, Integer()),
+            DatatypeDefinition(Integer(), FAKEDATATYPE));
         int expected = 9;
         Class[] expectedViolations = {CycleInDatatypeDefinition.class,
-            CycleInDatatypeDefinition.class,
             CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class,
-            UseOfBuiltInDatatypeInDatatypeDefinition.class,
+            CycleInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class,
             UseOfBuiltInDatatypeInDatatypeDefinition.class,
             UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfUnknownDatatype.class,
             UseOfUnknownDatatype.class};
@@ -355,8 +350,8 @@ public class OWLProfileTestCase extends TestBase {
         declare(o, Class(IRI(START, "test")), FAKEDATATYPE);
         o.add(ClassAssertion(Class(FAKEDATATYPE.getIRI()), AnonymousIndividual()));
         int expected = 2;
-        Class[] expectedViolations = {UseOfUndeclaredClass.class,
-            DatatypeIRIAlsoUsedAsClassIRI.class};
+        Class[] expectedViolations =
+            {UseOfUndeclaredClass.class, DatatypeIRIAlsoUsedAsClassIRI.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
     }
 
@@ -585,8 +580,8 @@ public class OWLProfileTestCase extends TestBase {
         declare(o, OP);
         o.add(TransitiveObjectProperty(OP), InverseFunctionalObjectProperty(OP));
         int expected = 1;
-        Class[] expectedViolations = {
-            UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom.class};
+        Class[] expectedViolations =
+            {UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
     }
 
@@ -631,9 +626,9 @@ public class OWLProfileTestCase extends TestBase {
             SubPropertyChainOf(Arrays.asList(OP, op1), OP),
             SubPropertyChainOf(Arrays.asList(op1, OP, op1, OP), OP));
         int expected = 4;
-        Class[] expectedViolations = {InsufficientPropertyExpressions.class,
-            UseOfPropertyInChainCausesCycle.class,
-            UseOfPropertyInChainCausesCycle.class, UseOfPropertyInChainCausesCycle.class};
+        Class[] expectedViolations =
+            {InsufficientPropertyExpressions.class, UseOfPropertyInChainCausesCycle.class,
+                UseOfPropertyInChainCausesCycle.class, UseOfPropertyInChainCausesCycle.class};
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
     }
 
@@ -644,8 +639,8 @@ public class OWLProfileTestCase extends TestBase {
         o = m.createOntology(
             new OWLOntologyID(optional(IRI("test", "")), optional(IRI("test1", ""))));
         int expected = 2;
-        Class[] expectedViolations = {OntologyIRINotAbsolute.class,
-            OntologyVersionIRINotAbsolute.class};
+        Class[] expectedViolations =
+            {OntologyIRINotAbsolute.class, OntologyVersionIRINotAbsolute.class};
         runAssert(o, Profiles.OWL2_FULL, expected, expectedViolations);
     }
 
@@ -674,10 +669,9 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLDatatypeRestrictionInOWL2Profile() {
         declare(o, DATAP);
         o.add(DatatypeDefinition(Integer(), Boolean()), DATA_PROPERTY_RANGE2);
-        int expected = 4;
-        Class[] expectedViolations = {UseOfBuiltInDatatypeInDatatypeDefinition.class,
-            UseOfDefinedDatatypeInDatatypeRestriction.class, UseOfIllegalFacetRestriction.class,
-            UseOfUndeclaredDatatype.class};
+        int expected = 3;
+        Class[] expectedViolations = {UseOfDefinedDatatypeInDatatypeRestriction.class,
+            UseOfIllegalFacetRestriction.class, UseOfUndeclaredDatatype.class};
         runAssert(o, Profiles.OWL2_FULL, expected, expectedViolations);
     }
 
@@ -685,8 +679,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLDatatypeDefinitionAxiom axiom)")
     public void shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2Profile() {
         o.add(DatatypeDefinition(FAKEDATATYPE, Boolean()));
-        int expected = 2;
-        Class[] expectedViolations = {UseOfUndeclaredDatatype.class, UseOfUndeclaredDatatype.class};
+        int expected = 1;
+        Class[] expectedViolations = {UseOfUndeclaredDatatype.class};
         runAssert(o, Profiles.OWL2_FULL, expected, expectedViolations);
     }
 
@@ -812,9 +806,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLObjectOneOf desc)")
     public void shouldCreateViolationForOWLObjectOneOfInOWL2ELProfile() {
         declare(o, OP);
-        o.add(ObjectPropertyRange(OP,
-            ObjectOneOf(NamedIndividual(IRI("urn:test#", "i1")), NamedIndividual(IRI(
-                "urn:test#", "i2")))));
+        o.add(ObjectPropertyRange(OP, ObjectOneOf(NamedIndividual(IRI("urn:test#", "i1")),
+            NamedIndividual(IRI("urn:test#", "i2")))));
         int expected = 1;
         Class[] expectedViolations = {UseOfObjectOneOfWithMultipleIndividuals.class};
         runAssert(o, Profiles.OWL2_EL, expected, expectedViolations);
@@ -1032,8 +1025,8 @@ public class OWLProfileTestCase extends TestBase {
         o.add(
             SubClassOf(ObjectComplementOf(OWLNothing()), ObjectUnionOf(OWLThing(), OWLNothing())));
         int expected = 2;
-        Class[] expectedViolations = {UseOfNonSubClassExpression.class,
-            UseOfNonSuperClassExpression.class};
+        Class[] expectedViolations =
+            {UseOfNonSubClassExpression.class, UseOfNonSuperClassExpression.class};
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
     }
 
@@ -1151,8 +1144,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLSameIndividualAxiom axiom)")
     public void shouldCreateViolationForOWLSameIndividualAxiomInOWL2QLProfile() {
         o.add(SameIndividual(NamedIndividual(IRI("urn:test#", "individual1")),
-            NamedIndividual(IRI("urn:test#",
-                "individual2"))));
+            NamedIndividual(IRI("urn:test#", "individual2"))));
         int expected = 1;
         Class[] expectedViolations = {UseOfIllegalAxiom.class};
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
@@ -1278,8 +1270,8 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLDisjointClassesAxiomInOWL2RLProfile() {
         o.add(DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
         int expected = 2;
-        Class[] expectedViolations = {UseOfNonSubClassExpression.class,
-            UseOfNonSubClassExpression.class};
+        Class[] expectedViolations =
+            {UseOfNonSubClassExpression.class, UseOfNonSubClassExpression.class};
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
     }
 
@@ -1370,8 +1362,8 @@ public class OWLProfileTestCase extends TestBase {
         o.add(SubClassOf(ObjectComplementOf(OWLThing()),
             ObjectOneOf(NamedIndividual(IRI("urn:test#", "test")))));
         int expected = 2;
-        Class[] expectedViolations = {UseOfNonSubClassExpression.class,
-            UseOfNonSuperClassExpression.class};
+        Class[] expectedViolations =
+            {UseOfNonSubClassExpression.class, UseOfNonSuperClassExpression.class};
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
     }
 
