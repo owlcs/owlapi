@@ -673,10 +673,9 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLDatatypeRestrictionInOWL2Profile() {
         declare(o, DATAP);
         o.add(DatatypeDefinition(Integer(), Boolean()), DATA_PROPERTY_RANGE2);
-        int expected = 4;
-        Class[] expectedViolations = {UseOfBuiltInDatatypeInDatatypeDefinition.class,
-            UseOfDefinedDatatypeInDatatypeRestriction.class, UseOfIllegalFacetRestriction.class,
-            UseOfUndeclaredDatatype.class};
+        int expected = 3;
+        Class[] expectedViolations = {UseOfDefinedDatatypeInDatatypeRestriction.class,
+            UseOfIllegalFacetRestriction.class, UseOfUndeclaredDatatype.class};
         runAssert(o, Profiles.OWL2_FULL, expected, expectedViolations);
     }
 
@@ -684,8 +683,8 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLDatatypeDefinitionAxiom axiom)")
     public void shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2Profile() {
         o.add(DatatypeDefinition(FAKEDATATYPE, Boolean()));
-        int expected = 2;
-        Class[] expectedViolations = {UseOfUndeclaredDatatype.class, UseOfUndeclaredDatatype.class};
+        int expected = 1;
+        Class[] expectedViolations = {UseOfUndeclaredDatatype.class};
         runAssert(o, Profiles.OWL2_FULL, expected, expectedViolations);
     }
 
