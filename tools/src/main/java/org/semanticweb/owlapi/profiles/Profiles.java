@@ -45,7 +45,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
     /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2QLProfile();} },
     /** http://www.w3.org/ns/owl-profile/EL. **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2ELProfile();} },
     /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2RLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2DLProfile();} };
+    /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile get() { return new OWL2Profile();  } };
     //@formatter:on
     private final IRI iri;
     private final List<String> supportingFactories;
@@ -58,7 +58,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
     /**
      * @param factoryClassName class name to instantiate
      * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
-     * implementation available on the classpath. Any exception raised by {@code
+     *         implementation available on the classpath. Any exception raised by {@code
      * Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
      */
     public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
@@ -100,11 +100,12 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
 
     /**
      * @return collection of OWLReasonerFactory class names known to support the expressivity of
-     * this profile. The factories can be instantiated through {@code instantiateFactory()} if the
-     * reasoner classes are on the classpath. Note that this list is provided for information only,
-     * and might be incorrect or incomplete due to changes in the reasoner implementations.<br>
-     * Should you know of a reasoner not mentioned here, or find an error in the reported supported
-     * profiles, please raise a bug about it.
+     *         this profile. The factories can be instantiated through {@code instantiateFactory()}
+     *         if the reasoner classes are on the classpath. Note that this list is provided for
+     *         information only, and might be incorrect or incomplete due to changes in the reasoner
+     *         implementations.<br>
+     *         Should you know of a reasoner not mentioned here, or find an error in the reported
+     *         supported profiles, please raise a bug about it.
      */
     public Collection<String> supportingReasoners() {
         return supportingFactories;
@@ -113,9 +114,8 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile, Supplier<OWL
 
 
 /*
- * Not a pretty pattern but I didn't want to have long strings repeated across
- * constructors, and no static constants are allowed before members declaration
- * in an enum.
+ * Not a pretty pattern but I didn't want to have long strings repeated across constructors, and no
+ * static constants are allowed before members declaration in an enum.
  */
 interface KnownFactories {
 
