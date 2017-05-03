@@ -43,19 +43,19 @@ interface KnownFactories {
     String Snorocket = "au.csiro.snorocket.owlapi.SnorocketReasonerFactory";
 }
 
+
 /**
- * This enumeration includes all currently implemented profile checkers and
- * known information about available reasoners for those profiles. Note that
- * reasoner capabilities might be out of date, since they are independent
- * projects. Therefore, ther emight be reasoners not listed here and the
+ * This enumeration includes all currently implemented profile checkers and known information about
+ * available reasoners for those profiles. Note that reasoner capabilities might be out of date,
+ * since they are independent projects. Therefore, ther emight be reasoners not listed here and the
  * reasoners listed might have changed.<br>
- * The use case for this class was suggested by Peter Ansell, see <a href=
- * "https://github.com/ansell/owlapi/commit/fa88c8139fe3d59ea46d363a9c9a36f6ddf05119"
- * >patch set 1</a> and <a href=
- * "https://github.com/ansell/owlapi/commit/354885abd0f581942a1ac1d64ae8de4b85cbec7f"
+ * The use case for this class was suggested by Peter Ansell, see
+ * <a href= "https://github.com/ansell/owlapi/commit/fa88c8139fe3d59ea46d363a9c9a36f6ddf05119"
+ * >patch set 1</a> and
+ * <a href= "https://github.com/ansell/owlapi/commit/354885abd0f581942a1ac1d64ae8de4b85cbec7f"
  * >patch set 2</a>.<br>
- * Notice that the OWLProfiles referred here are stateless, therefore only one
- * instance needs to be created and can be reused across threads.
+ * Notice that the OWLProfiles referred here are stateless, therefore only one instance needs to be
+ * created and can be reused across threads.
  * 
  * @author ignazio
  */
@@ -65,7 +65,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile();} },
     /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2ELProfile();} },
     /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
-    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} };
+    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2Profile();  } };
     //@formatter:on
     @Nonnull
     private final IRI iri;
@@ -101,56 +101,46 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     public abstract OWLProfile getOWLProfile();
 
     /**
-     * @return collection of OWLReasonerFactory class names known to support the
-     *         expressivity of this profile. The factories can be instantiated
-     *         through {@code instantiateFactory()} if the reasoner classes are
-     *         on the classpath. Note that this list is provided for information
-     *         only, and might be incorrect or incomplete due to changes in the
-     *         reasoner implementations.<br>
-     *         Should you know of a reasoner not mentioned here, or find an
-     *         error in the reported supported profiles, please raise a bug
-     *         about it.
+     * @return collection of OWLReasonerFactory class names known to support the expressivity of
+     *         this profile. The factories can be instantiated through {@code instantiateFactory()}
+     *         if the reasoner classes are on the classpath. Note that this list is provided for
+     *         information only, and might be incorrect or incomplete due to changes in the reasoner
+     *         implementations.<br>
+     *         Should you know of a reasoner not mentioned here, or find an error in the reported
+     *         supported profiles, please raise a bug about it.
      */
     public Collection<String> supportingReasoners() {
         return supportingFactories;
     }
 
     /**
-     * @param factoryClassName
-     *        class name to instantiate
-     * @return an OWLReasonerFactory if the class name represents an
-     *         OWLReasonerFactory implementation available on the classpath. Any
-     *         exception raised by {@code Class.forName(factoryClassName)} is
-     *         wrapped by an OWLRuntimeException.
+     * @param factoryClassName class name to instantiate
+     * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
+     *         implementation available on the classpath. Any exception raised by
+     *         {@code Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
      */
-    public static OWLReasonerFactory
-            instantiateFactory(String factoryClassName) {
+    public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
         try {
             Class<?> c = Class.forName(factoryClassName);
             if (OWLReasonerFactory.class.isAssignableFrom(c)) {
                 return (OWLReasonerFactory) c.newInstance();
             }
             throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName);
+                "Reasoner factory cannot be instantiated: " + factoryClassName);
         } catch (ClassNotFoundException e) {
             throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName, e);
+                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
         } catch (InstantiationException e) {
             throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName, e);
+                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
         } catch (IllegalAccessException e) {
             throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName, e);
+                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
         }
     }
 
     /**
-     * @param i
-     *        IRI to match
+     * @param i IRI to match
      * @return Profiles with matching IRI, or null if none is found
      */
     public static Profiles valueForIRI(IRI i) {
