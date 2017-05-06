@@ -205,6 +205,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
@@ -237,6 +238,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private PrefixManager prefixManager;
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
+    private boolean prettyPrint = false;
+    private int tabIndex = 0;
 
     /**
      * @param ontology the ontology
@@ -246,8 +249,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         ont = ontology;
         this.writer = writer;
         prefixManager = ontology.getPrefixManager();
-        addMissingDeclarations =
-            ontology.getOWLOntologyManager().getOntologyConfigurator().shouldAddMissingTypes();
+        OntologyConfigurator config = ontology.getOWLOntologyManager().getOntologyConfigurator();
+        addMissingDeclarations = config.shouldAddMissingTypes();
+        prettyPrint = config.shouldPrettyPrintFunctionalSyntax();
         if (!ontology.isAnonymous() && prefixManager.getDefaultPrefix() == null) {
             String existingDefault = prefixManager.getDefaultPrefix();
             String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
@@ -300,6 +304,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(OWLXMLVocabulary v) {
+        if (prettyPrint && tabIndex > 0) {
+            space();
+        }
         write(v.getShortForm());
     }
 
@@ -583,11 +590,24 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(List<? extends OWLObject> objects) {
+        tabIndex++;
         for (int i = 0; i < objects.size(); i++) {
             if (i > 0) {
-                writeSpace();
+                space();
             }
             objects.get(i).accept(this);
+        }
+        tabIndex--;
+    }
+
+    protected void space() {
+        if (prettyPrint) {
+            writeReturn();
+            for (int j = 0; j < tabIndex * 4; j++) {
+                writeSpace();
+            }
+        } else {
+            writeSpace();
         }
     }
 
@@ -608,7 +628,16 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writeAnnotations(OWLAxiom ax) {
-        ax.annotations().forEach(this::acceptAndSpace);
+        List<OWLAnnotation> anns = asList(ax.annotations());
+        if (anns.isEmpty()) {
+            return;
+        }
+        tabIndex++;
+        for (OWLAnnotation a : anns) {
+            acceptAndSpace(a);
+            space();
+        }
+        tabIndex--;
     }
 
     protected void writeAxiomStart(OWLXMLVocabulary v, OWLAxiom axiom) {

@@ -24,6 +24,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.LOAD_
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSING_IMPORT_HANDLING_STRATEGY;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSING_ONTOLOGY_HEADER_STRATEGY;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PARSE_WITH_STRICT_CONFIGURATION;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRETTY_PRINT_FUNCTIONAL_SYNTAX;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIORITY_COLLECTION_SORTING;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REMAP_IDS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPAIR_ILLEGAL_PUNNINGS;
@@ -429,6 +430,23 @@ public class OntologyConfigurator implements Serializable {
      */
     public OntologyConfigurator withRepairIllegalPunnings(boolean b) {
         overrides.put(REPAIR_ILLEGAL_PUNNINGS, Boolean.valueOf(b));
+        return this;
+    }
+
+    /**
+     * @return true if functional syntax output should be pretty printed
+     */
+    public boolean shouldPrettyPrintFunctionalSyntax() {
+        return PRETTY_PRINT_FUNCTIONAL_SYNTAX.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param b if functional syntax output should be pretty printed
+     * @return A {@code OWLOntologyLoaderConfiguration} with the pretty print functional syntax flag
+     *         set to the new value.
+     */
+    public OntologyConfigurator withPrettyPrintFunctionalSyntax(boolean b) {
+        overrides.put(PRETTY_PRINT_FUNCTIONAL_SYNTAX, Boolean.valueOf(b));
         return this;
     }
 }

@@ -100,7 +100,10 @@ public enum ConfigurationOptions {
     ADD_MISSING_TYPES                   (Boolean.TRUE),
     /** Repair illegal punnings 
      * automatically. */
-    REPAIR_ILLEGAL_PUNNINGS             (Boolean.TRUE);
+    REPAIR_ILLEGAL_PUNNINGS             (Boolean.TRUE),
+    /** Pretty print functional 
+     * syntax. */
+    PRETTY_PRINT_FUNCTIONAL_SYNTAX      (Boolean.FALSE);
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
