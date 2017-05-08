@@ -40,13 +40,13 @@ import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.TRANSITIVE_A
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.TRUE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
-import static org.semanticweb.owlapi.search.EntitySearcher.isReflexive;
-import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
 import static org.semanticweb.owlapi.search.Searcher.domain;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
+import static org.semanticweb.owlapi.search.Searcher.isDefined;
+import static org.semanticweb.owlapi.search.Searcher.isReflexive;
+import static org.semanticweb.owlapi.search.Searcher.isSymmetric;
+import static org.semanticweb.owlapi.search.Searcher.isTransitive;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;

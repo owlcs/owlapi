@@ -24,11 +24,11 @@ import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.SYMMETRIC_AT
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.TRANSITIVE_ATTR;
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.TRUE;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
-import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
 import static org.semanticweb.owlapi.search.Searcher.domain;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
+import static org.semanticweb.owlapi.search.Searcher.isDefined;
+import static org.semanticweb.owlapi.search.Searcher.isSymmetric;
+import static org.semanticweb.owlapi.search.Searcher.isTransitive;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
@@ -80,8 +80,8 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass),
-                    OWLClassExpression.class)));
+                flatten(asList(
+                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
                 Collection<OWLClassExpression> classes =
@@ -155,9 +155,9 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
-            Stream<OWLObjectPropertyExpression> superProperties = sup(
-                ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
-                OWLObjectPropertyExpression.class);
+            Stream<OWLObjectPropertyExpression> superProperties =
+                sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                    OWLObjectPropertyExpression.class);
             Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
             if (it.hasNext()) {
                 writeAttribute(PARENTS_ATTR);

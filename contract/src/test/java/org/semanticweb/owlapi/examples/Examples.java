@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.examples;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
+import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;

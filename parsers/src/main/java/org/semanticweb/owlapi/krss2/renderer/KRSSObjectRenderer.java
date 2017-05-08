@@ -35,8 +35,8 @@ import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.RELATED;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.SOME;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.TRANSITIVE;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
+import static org.semanticweb.owlapi.search.Searcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
@@ -542,6 +542,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
         writeln();
     }
+
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         writeOpenBracket();
@@ -641,5 +642,5 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     protected void writeSpace() {
         write(" ");
     }
-    
+
 }

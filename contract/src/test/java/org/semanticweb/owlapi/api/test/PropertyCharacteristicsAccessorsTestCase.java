@@ -24,13 +24,13 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Objec
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
-import static org.semanticweb.owlapi.search.EntitySearcher.isAsymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isFunctional;
-import static org.semanticweb.owlapi.search.EntitySearcher.isInverseFunctional;
-import static org.semanticweb.owlapi.search.EntitySearcher.isIrreflexive;
-import static org.semanticweb.owlapi.search.EntitySearcher.isReflexive;
-import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
+import static org.semanticweb.owlapi.search.Searcher.isAsymmetric;
+import static org.semanticweb.owlapi.search.Searcher.isFunctional;
+import static org.semanticweb.owlapi.search.Searcher.isInverseFunctional;
+import static org.semanticweb.owlapi.search.Searcher.isIrreflexive;
+import static org.semanticweb.owlapi.search.Searcher.isReflexive;
+import static org.semanticweb.owlapi.search.Searcher.isSymmetric;
+import static org.semanticweb.owlapi.search.Searcher.isTransitive;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;

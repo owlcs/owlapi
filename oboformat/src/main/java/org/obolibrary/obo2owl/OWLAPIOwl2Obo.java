@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
+import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;

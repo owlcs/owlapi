@@ -50,19 +50,19 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SubOb
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.EntitySearcher.isAsymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isFunctional;
-import static org.semanticweb.owlapi.search.EntitySearcher.isInverseFunctional;
-import static org.semanticweb.owlapi.search.EntitySearcher.isIrreflexive;
-import static org.semanticweb.owlapi.search.EntitySearcher.isReflexive;
-import static org.semanticweb.owlapi.search.EntitySearcher.isSymmetric;
-import static org.semanticweb.owlapi.search.EntitySearcher.isTransitive;
 import static org.semanticweb.owlapi.search.Filters.subClassWithSub;
 import static org.semanticweb.owlapi.search.Filters.subClassWithSuper;
 import static org.semanticweb.owlapi.search.Searcher.different;
 import static org.semanticweb.owlapi.search.Searcher.domain;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.instances;
+import static org.semanticweb.owlapi.search.Searcher.isAsymmetric;
+import static org.semanticweb.owlapi.search.Searcher.isFunctional;
+import static org.semanticweb.owlapi.search.Searcher.isInverseFunctional;
+import static org.semanticweb.owlapi.search.Searcher.isIrreflexive;
+import static org.semanticweb.owlapi.search.Searcher.isReflexive;
+import static org.semanticweb.owlapi.search.Searcher.isSymmetric;
+import static org.semanticweb.owlapi.search.Searcher.isTransitive;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.search.Searcher.sup;
@@ -170,7 +170,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
         OWLEquivalentClassesAxiom ax =
-                        EquivalentClasses(clsA, clsB, clsC, ObjectSomeValuesFrom(prop, clsD));
+            EquivalentClasses(clsA, clsB, clsC, ObjectSomeValuesFrom(prop, clsD));
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.equivalentClassesAxioms(clsA), ax));
@@ -191,7 +191,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
         OWLDisjointClassesAxiom ax =
-                        DisjointClasses(clsA, clsB, clsC, ObjectSomeValuesFrom(prop, clsD));
+            DisjointClasses(clsA, clsB, clsC, ObjectSomeValuesFrom(prop, clsD));
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.disjointClassesAxioms(clsA), ax));
@@ -500,7 +500,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         OWLNamedIndividual indB = NamedIndividual(iri("indB"));
         OWLOntologyManager man = ont.getOWLOntologyManager();
         OWLNegativeObjectPropertyAssertionAxiom ax =
-                        NegativeObjectPropertyAssertion(prop, indA, indB);
+            NegativeObjectPropertyAssertion(prop, indA, indB);
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(contains(ont.negativeObjectPropertyAssertionAxioms(indA), ax));
@@ -550,7 +550,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.sameIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
         Collection<OWLObject> equivalent =
-                        asUnorderedSet(equivalent(ont.sameIndividualAxioms(indA)));
+            asUnorderedSet(equivalent(ont.sameIndividualAxioms(indA)));
         assertTrue(equivalent.contains(indB));
         assertTrue(equivalent.contains(indC));
     }
@@ -570,7 +570,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.differentIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
         Collection<OWLObject> different =
-                        asUnorderedSet(different(ont.differentIndividualAxioms(indA)));
+            asUnorderedSet(different(ont.differentIndividualAxioms(indA)));
         assertTrue(different.contains(indB));
         assertTrue(different.contains(indC));
     }

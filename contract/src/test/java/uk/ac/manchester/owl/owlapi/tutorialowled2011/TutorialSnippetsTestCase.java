@@ -15,7 +15,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
+import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.ByteArrayOutputStream;

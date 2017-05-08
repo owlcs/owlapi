@@ -22,7 +22,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Datat
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
+import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Arrays;
@@ -50,13 +50,13 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 public class AnnotationAccessorsTestCase extends TestBase {
 
     private static final IRI SUBJECT =
-                    IRI.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
+        IRI.create("http://owlapi.sourceforge.net/ontologies/test#", "X");
 
     @Parameters
     public static Collection<OWLPrimitive> getData() {
         return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT),
-                        ObjectProperty(SUBJECT), Datatype(SUBJECT), AnnotationProperty(SUBJECT),
-                        AnonymousIndividual());
+            ObjectProperty(SUBJECT), Datatype(SUBJECT), AnnotationProperty(SUBJECT),
+            AnonymousIndividual());
     }
 
     private final OWLPrimitive e;
@@ -79,7 +79,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
         assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
             assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
-                            .anyMatch(a -> a.equals(ax)));
+                .anyMatch(a -> a.equals(ax)));
             assertTrue(contains(getAnnotationObjects((OWLEntity) e, ont), ax.getAnnotation()));
         }
     }

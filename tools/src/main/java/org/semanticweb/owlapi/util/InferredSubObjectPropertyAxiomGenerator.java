@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.search.EntitySearcher;
+import org.semanticweb.owlapi.search.Searcher;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -51,7 +51,7 @@ public class InferredSubObjectPropertyAxiomGenerator
             nonSimple = true;
         }
         if (p.isAnonymous()
-            && EntitySearcher.isTransitive(p.getInverseProperty(), reasoner.getRootOntology())) {
+            && Searcher.isTransitive(p.getInverseProperty(), reasoner.getRootOntology())) {
             inverse = true;
         }
         if (!(nonSimple && inverse)) {

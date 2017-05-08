@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
-import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
+import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 
 import java.io.PrintStream;
 
@@ -59,7 +59,7 @@ public final class SimpleHierarchyExample {
         printHierarchy(reasoner, clazz, 0);
         /* Now print out any unsatisfiable classes */
         ontology.classesInSignature().filter(c -> !reasoner.isSatisfiable(c))
-                        .forEach(c -> out.println("XXX: " + labelFor(c)));
+            .forEach(c -> out.println("XXX: " + labelFor(c)));
         reasoner.dispose();
     }
 
@@ -92,12 +92,12 @@ public final class SimpleHierarchyExample {
             out.println(labelFor(clazz));
             /* Find the children and recurse */
             reasoner.getSubClasses(clazz, true).entities().filter(c -> !c.equals(clazz))
-                            .forEach(c -> printHierarchy(reasoner, c, level + 1));
+                .forEach(c -> printHierarchy(reasoner, c, level + 1));
         }
     }
 
     public static void main(String[] args) throws OWLException, InstantiationException,
-                    IllegalAccessException, ClassNotFoundException {
+        IllegalAccessException, ClassNotFoundException {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an
         // OWLOntologyManager, which, as the name
@@ -118,8 +118,7 @@ public final class SimpleHierarchyExample {
         System.out.println("Format      : " + ontology.getFormat());
         // / Create a new SimpleHierarchy object with the given reasoner.
         SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
-                        (OWLReasonerFactory) Class.forName(reasonerFactoryClassName).newInstance(),
-                        ontology);
+            (OWLReasonerFactory) Class.forName(reasonerFactoryClassName).newInstance(), ontology);
         // Get Thing
         OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
         System.out.println("Class       : " + clazz);

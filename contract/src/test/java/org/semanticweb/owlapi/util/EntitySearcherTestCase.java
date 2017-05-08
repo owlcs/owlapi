@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.search.EntitySearcher;
+import org.semanticweb.owlapi.search.Searcher;
 
 @SuppressWarnings({"javadoc", "null"})
 public class EntitySearcherTestCase extends TestBase {
@@ -41,14 +41,13 @@ public class EntitySearcherTestCase extends TestBase {
     @Test
     public void shouldReturnSuperProperty() {
         List<OWLProperty> supers =
-            asList(EntitySearcher.getSuperProperties(subProperty, ontologies.stream()));
+            asList(Searcher.getSuperProperties(subProperty, ontologies.stream()));
         assertTrue(supers.toString(), supers.contains(superProperty));
     }
 
     @Test
     public void shouldReturnSubProperty() {
-        Stream<OWLProperty> subs =
-            EntitySearcher.getSubProperties(superProperty, ontologies.stream());
+        Stream<OWLProperty> subs = Searcher.getSubProperties(superProperty, ontologies.stream());
         assertTrue(contains(subs, subProperty));
     }
 }
