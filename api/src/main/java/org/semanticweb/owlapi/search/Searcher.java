@@ -928,7 +928,8 @@ public final class Searcher {
      *         of this class, that have been asserted in the specified ontology.
      */
     public static Stream<OWLClassExpression> getEquivalentClasses(OWLClass e, OWLOntology o) {
-        return equivalent(o.equivalentClassesAxioms(e));
+        return equivalent(o.equivalentClassesAxioms(e)).filter(c -> !c.equals(e))
+            .map(c -> (OWLClassExpression) c);
     }
 
     /**
@@ -1003,7 +1004,8 @@ public final class Searcher {
      * @return A {@code Stream} of same {@code OWLIndividual}s.
      */
     public static Stream<OWLIndividual> getSameIndividuals(OWLIndividual e, OWLOntology o) {
-        return equivalent(o.sameIndividualAxioms(e));
+        return equivalent(o.sameIndividualAxioms(e)).filter(c -> !c.equals(e))
+            .map(c -> (OWLIndividual) c);
     }
 
     /**
@@ -1029,7 +1031,8 @@ public final class Searcher {
      */
     public static Stream<OWLDataPropertyExpression> getEquivalentProperties(OWLDataProperty e,
         OWLOntology o) {
-        return equivalent(o.equivalentDataPropertiesAxioms(e));
+        return equivalent(o.equivalentDataPropertiesAxioms(e)).filter(c -> !c.equals(e))
+            .map(c -> (OWLDataPropertyExpression) c);
     }
 
     /**
@@ -1043,7 +1046,7 @@ public final class Searcher {
      */
     public static Stream<OWLDataPropertyExpression> getEquivalentProperties(OWLDataProperty e,
         Stream<OWLOntology> onts) {
-        return onts.flatMap(o -> getEquivalentProperties(e, o));
+        return onts.flatMap(o -> getEquivalentProperties(e, o)).filter(c -> !c.equals(e));
     }
 
     /**
@@ -1092,7 +1095,8 @@ public final class Searcher {
      */
     public static Stream<OWLObjectPropertyExpression> getEquivalentProperties(
         OWLObjectPropertyExpression e, OWLOntology o) {
-        return equivalent(o.equivalentObjectPropertiesAxioms(e));
+        return equivalent(o.equivalentObjectPropertiesAxioms(e)).filter(c -> !c.equals(e))
+            .map(c -> (OWLObjectPropertyExpression) c);
     }
 
     /**
