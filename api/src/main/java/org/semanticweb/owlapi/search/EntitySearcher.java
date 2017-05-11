@@ -26,11 +26,11 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -50,6 +50,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
+
 /**
  * Convenience methods moved from OWLEntity and its subinterfaces.
  *
@@ -57,34 +60,33 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  */
 public class EntitySearcher {
 
-    private EntitySearcher() {
-    }
+    private EntitySearcher() {}
 
     /**
-     * Gets the annotations for this entity. These are deemed to be annotations
-     * in annotation assertion axioms that have a subject that is an IRI that is
-     * equal to the IRI of this entity, and it also includes annotations on the
-     * annotation assertion axioms whose annotation property matches
+     * Gets the annotations for this entity. These are deemed to be annotations in annotation
+     * assertion axioms that have a subject that is an IRI that is equal to the IRI of this entity,
+     * and it also includes annotations on the annotation assertion axioms whose annotation property
+     * matches
      *
      * @param e entity
      * @param ontology The ontology to be examined for annotation assertion axioms
      * @return The annotations that participate directly in an annotation assertion whose subject is
-     * an IRI corresponding to the IRI of this entity.
+     *         an IRI corresponding to the IRI of this entity.
      */
     public static Stream<OWLAnnotation> getAnnotations(OWLEntity e, OWLOntology ontology) {
         return getAnnotations(e.getIRI(), ontology);
     }
 
     /**
-     * Gets the annotations for this entity. These are deemed to be annotations
-     * in annotation assertion axioms that have a subject that is an IRI that is
-     * equal to the IRI of this entity, and it also includes annotations on the
-     * annotation assertion axioms whose annotation property matches.
+     * Gets the annotations for this entity. These are deemed to be annotations in annotation
+     * assertion axioms that have a subject that is an IRI that is equal to the IRI of this entity,
+     * and it also includes annotations on the annotation assertion axioms whose annotation property
+     * matches.
      *
      * @param e entity
      * @param ontology The ontology to be examined for annotation assertion axioms
      * @return The annotations that participate directly in an annotation assertion whose subject is
-     * an IRI corresponding to the IRI of this entity.
+     *         an IRI corresponding to the IRI of this entity.
      */
     public static Stream<OWLAnnotation> getAnnotations(OWLAnnotationSubject e,
         OWLOntology ontology) {
@@ -92,9 +94,9 @@ public class EntitySearcher {
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property. This includes the annotations on
-     * annotation assertion axioms with matching annotation property.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property. This includes the annotations on annotation assertion axioms with matching
+     * annotation property.
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
@@ -107,9 +109,8 @@ public class EntitySearcher {
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property; this is restricted to the object of
-     * annotation assertion axioms.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property; this is restricted to the object of annotation assertion axioms.
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
@@ -122,9 +123,8 @@ public class EntitySearcher {
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property; this is restricted to the object of
-     * annotation assertion axioms.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property; this is restricted to the object of annotation assertion axioms.
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
@@ -135,9 +135,8 @@ public class EntitySearcher {
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property; this is restricted to the object of
-     * annotation assertion axioms.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property; this is restricted to the object of annotation assertion axioms.
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
@@ -145,16 +144,14 @@ public class EntitySearcher {
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotationObjects(OWLAnnotationSubject e,
-        OWLOntology ontology,
-        @Nullable OWLAnnotationProperty annotationProperty) {
-        return Searcher
-            .annotationObjects(ontology.annotationAssertionAxioms(e), annotationProperty);
+        OWLOntology ontology, @Nullable OWLAnnotationProperty annotationProperty) {
+        return Searcher.annotationObjects(ontology.annotationAssertionAxioms(e),
+            annotationProperty);
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property; this is restricted to the object of
-     * annotation assertion axioms.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property; this is restricted to the object of annotation assertion axioms.
      *
      * @param e entity
      * @param ontologies The ontologies to examine for annotation axioms
@@ -162,15 +159,13 @@ public class EntitySearcher {
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotationObjects(OWLAnnotationSubject e,
-        Stream<OWLOntology> ontologies,
-        @Nullable OWLAnnotationProperty annotationProperty) {
+        Stream<OWLOntology> ontologies, @Nullable OWLAnnotationProperty annotationProperty) {
         return ontologies.flatMap(o -> getAnnotationObjects(e, o, annotationProperty));
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property; this is restricted to the object of
-     * annotation assertion axioms.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property; this is restricted to the object of annotation assertion axioms.
      *
      * @param e entity
      * @param ontologies The ontologies to examine for annotation axioms
@@ -178,15 +173,14 @@ public class EntitySearcher {
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotationObjects(OWLEntity e,
-        Stream<OWLOntology> ontologies,
-        @Nullable OWLAnnotationProperty annotationProperty) {
+        Stream<OWLOntology> ontologies, @Nullable OWLAnnotationProperty annotationProperty) {
         return ontologies.flatMap(o -> getAnnotationObjects(e, o, annotationProperty));
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property. This includes the annotations on
-     * annotation assertion axioms with matching annotation property.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property. This includes the annotations on annotation assertion axioms with matching
+     * annotation property.
      *
      * @param e entity
      * @param ontology The ontology to examine for annotation axioms
@@ -199,9 +193,9 @@ public class EntitySearcher {
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property. This includes the annotations on
-     * annotation assertion axioms with matching annotation property.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property. This includes the annotations on annotation assertion axioms with matching
+     * annotation property.
      *
      * @param e entity
      * @param ontologies The ontologies to examine for annotation axioms
@@ -209,15 +203,14 @@ public class EntitySearcher {
      * @return A set of {@code OWLAnnotation} objects that have the specified URI.
      */
     public static Stream<OWLAnnotation> getAnnotations(OWLAnnotationSubject e,
-        Stream<OWLOntology> ontologies,
-        OWLAnnotationProperty annotationProperty) {
+        Stream<OWLOntology> ontologies, OWLAnnotationProperty annotationProperty) {
         return ontologies.flatMap(o -> getAnnotations(e, o, annotationProperty));
     }
 
     /**
-     * Obtains the annotations on this entity where the annotation has the
-     * specified annotation property. This includes the annotations on
-     * annotation assertion axioms with matching annotation property.
+     * Obtains the annotations on this entity where the annotation has the specified annotation
+     * property. This includes the annotations on annotation assertion axioms with matching
+     * annotation property.
      *
      * @param e entity
      * @param ontologies The ontologies to examine for annotation axioms
@@ -245,20 +238,19 @@ public class EntitySearcher {
      * @return the annotation assertion axioms about this entity in the provided ontology
      */
     public static Stream<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
-        OWLAnnotationSubject e,
-        OWLOntology ontology) {
+        OWLAnnotationSubject e, OWLOntology ontology) {
         return ontology.annotationAssertionAxioms(e);
     }
 
     /**
-     * Gets the properties which are asserted to be sub-properties of this
-     * property in the specified ontology.
+     * Gets the properties which are asserted to be sub-properties of this property in the specified
+     * ontology.
      *
      * @param e entity
      * @param ontology The ontology to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
-     * that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where {@code this}
-     * refers to this property.
+     *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
+     *         {@code this} refers to this property.
      * @since 3.2
      */
     public static <P extends OWLPropertyExpression> Stream<P> getSubProperties(P e,
@@ -273,14 +265,14 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the properties which are asserted to be sub-properties of this
-     * property in the specified ontology.
+     * Gets the properties which are asserted to be sub-properties of this property in the specified
+     * ontology.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
-     * that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where {@code this}
-     * refers to this property.
+     *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
+     *         {@code this} refers to this property.
      * @since 3.2
      */
     public static <P extends OWLPropertyExpression> Stream<P> getSubProperties(P e,
@@ -289,14 +281,14 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the properties which are asserted to be sub-properties of this
-     * property in the specified ontology.
+     * Gets the properties which are asserted to be sub-properties of this property in the specified
+     * ontology.
      *
      * @param e entity
      * @param ontology The ontology to be examined for SubProperty axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
-     * that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where {@code this}
-     * refers to this property.
+     *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
+     *         {@code this} refers to this property.
      * @since 3.2
      */
     public static <P extends OWLPropertyExpression> Stream<P> getSuperProperties(P e,
@@ -311,14 +303,14 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the properties which are asserted to be sub-properties of this
-     * property in the specified ontology.
+     * Gets the properties which are asserted to be sub-properties of this property in the specified
+     * ontology.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for SubPropertyOf axioms.
      * @return A set of properties such that for each property {@code p} in the set, it is the case
-     * that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where {@code this}
-     * refers to this property.
+     *         that {@code ontology} contains an {@code SubPropertyOf(p, this)} axiom where
+     *         {@code this} refers to this property.
      * @since 3.2
      */
     public static <P extends OWLPropertyExpression> Stream<P> getSuperProperties(P e,
@@ -327,23 +319,21 @@ public class EntitySearcher {
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontology
-     * and return the class expressions corresponding to super classes of this
-     * class.
+     * A convenience method that examines the axioms in the specified ontology and return the class
+     * expressions corresponding to super classes of this class.
      *
      * @param e entity
      * @param ontology The ontology to be examined
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the superclasses of this
-     * class, which have been asserted in the specified ontology.
+     *         class, which have been asserted in the specified ontology.
      */
     public static Stream<OWLClassExpression> getSuperClasses(OWLClass e, OWLOntology ontology) {
         return Searcher.sup(ontology.subClassAxiomsForSubClass(e));
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontologies
-     * and returns the class expression corresponding to the asserted super
-     * classes of this class.
+     * A convenience method that examines the axioms in the specified ontologies and returns the
+     * class expression corresponding to the asserted super classes of this class.
      *
      * @param e entity
      * @param ontologies The set of ontologies to be examined.
@@ -355,26 +345,26 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the classes which have been <i>asserted</i> to be subclasses of this
-     * class in the specified ontology.
+     * Gets the classes which have been <i>asserted</i> to be subclasses of this class in the
+     * specified ontology.
      *
      * @param e entity
      * @param ontology The ontology which should be examined for subclass axioms.
      * @return A {@code Set} of {@code OWLClassExpression}s that represet the asserted subclasses of
-     * this class.
+     *         this class.
      */
     public static Stream<OWLClassExpression> getSubClasses(OWLClass e, OWLOntology ontology) {
         return Searcher.sub(ontology.subClassAxiomsForSuperClass(e));
     }
 
     /**
-     * Gets the classes which have been <i>asserted</i> to be subclasses of this
-     * class in the specified ontologies.
+     * Gets the classes which have been <i>asserted</i> to be subclasses of this class in the
+     * specified ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies which should be examined for subclass axioms.
      * @return A {@code Set} of {@code OWLClassExpression}s that represet the asserted subclasses of
-     * this class.
+     *         this class.
      */
     public static Stream<OWLClassExpression> getSubClasses(OWLClass e,
         Stream<OWLOntology> ontologies) {
@@ -382,29 +372,28 @@ public class EntitySearcher {
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontology
-     * and returns the class expressions corresponding to equivalent classes of
-     * this class.
+     * A convenience method that examines the axioms in the specified ontology and returns the class
+     * expressions corresponding to equivalent classes of this class.
      *
      * @param e entity
      * @param ontology The ontology to be examined for axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the equivalent classes of
-     * this class, that have been asserted in the specified ontology.
+     *         this class, that have been asserted in the specified ontology.
      */
     public static Stream<OWLClassExpression> getEquivalentClasses(OWLClass e,
         OWLOntology ontology) {
-        return Searcher.equivalent(ontology.equivalentClassesAxioms(e));
+        return Searcher.equivalent(ontology.equivalentClassesAxioms(e)).filter(c -> !c.equals(e))
+            .map(c -> (OWLClassExpression) c);
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontologies
-     * and returns the class expressions corresponding to equivalent classes of
-     * this class.
+     * A convenience method that examines the axioms in the specified ontologies and returns the
+     * class expressions corresponding to equivalent classes of this class.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the equivalent classes of
-     * this class, that have been asserted in the specified ontologies.
+     *         this class, that have been asserted in the specified ontologies.
      */
     public static Stream<OWLClassExpression> getEquivalentClasses(OWLClass e,
         Stream<OWLOntology> ontologies) {
@@ -412,26 +401,26 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the classes which have been asserted to be disjoint with this class
-     * by axioms in the specified ontology.
+     * Gets the classes which have been asserted to be disjoint with this class by axioms in the
+     * specified ontology.
      *
      * @param e entity
      * @param ontology The ontology to search for disjoint class axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the disjoint classes of
-     * this class.
+     *         this class.
      */
     public static Stream<OWLClassExpression> getDisjointClasses(OWLClass e, OWLOntology ontology) {
         return Searcher.different(ontology.disjointClassesAxioms(e));
     }
 
     /**
-     * Gets the classes which have been asserted to be disjoint with this class
-     * by axioms in the specified ontologies.
+     * Gets the classes which have been asserted to be disjoint with this class by axioms in the
+     * specified ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to search for disjoint class axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the disjoint classes of
-     * this class.
+     *         this class.
      */
     public static Stream<OWLClassExpression> getDisjointClasses(OWLClass e,
         Stream<OWLOntology> ontologies) {
@@ -470,7 +459,8 @@ public class EntitySearcher {
      * @return A {@code Set} of same {@code OWLIndividual}s.
      */
     public static Stream<OWLIndividual> getSameIndividuals(OWLIndividual e, OWLOntology ontology) {
-        return Searcher.equivalent(ontology.sameIndividualAxioms(e));
+        return Searcher.equivalent(ontology.sameIndividualAxioms(e)).filter(c -> !c.equals(e))
+            .map(c -> (OWLIndividual) c);
     }
 
     /**
@@ -486,29 +476,28 @@ public class EntitySearcher {
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontology
-     * and returns the class expressions corresponding to equivalent classes of
-     * this class.
+     * A convenience method that examines the axioms in the specified ontology and returns the class
+     * expressions corresponding to equivalent classes of this class.
      *
      * @param e entity
      * @param ontology The ontology to be examined for axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the equivalent classes of
-     * this class, that have been asserted in the specified ontology.
+     *         this class, that have been asserted in the specified ontology.
      */
     public static Stream<OWLDataPropertyExpression> getEquivalentProperties(OWLDataProperty e,
         OWLOntology ontology) {
-        return Searcher.equivalent(ontology.equivalentDataPropertiesAxioms(e));
+        return Searcher.equivalent(ontology.equivalentDataPropertiesAxioms(e))
+            .filter(c -> !c.equals(e)).map(c -> (OWLDataProperty) c);
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontologies
-     * and returns the class expressions corresponding to equivalent classes of
-     * this class.
+     * A convenience method that examines the axioms in the specified ontologies and returns the
+     * class expressions corresponding to equivalent classes of this class.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the equivalent classes of
-     * this class, that have been asserted in the specified ontologies.
+     *         this class, that have been asserted in the specified ontologies.
      */
     public static Stream<OWLDataPropertyExpression> getEquivalentProperties(OWLDataProperty e,
         Stream<OWLOntology> ontologies) {
@@ -516,13 +505,13 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the classes which have been asserted to be disjoint with this class
-     * by axioms in the specified ontology.
+     * Gets the classes which have been asserted to be disjoint with this class by axioms in the
+     * specified ontology.
      *
      * @param e entity
      * @param ontology The ontology to search for disjoint class axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the disjoint classes of
-     * this class.
+     *         this class.
      */
     public static <P extends OWLPropertyExpression> Stream<P> getDisjointProperties(P e,
         OWLOntology ontology) {
@@ -538,13 +527,13 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the classes which have been asserted to be disjoint with this class
-     * by axioms in the specified ontologies.
+     * Gets the classes which have been asserted to be disjoint with this class by axioms in the
+     * specified ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to search for disjoint class axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the disjoint classes of
-     * this class.
+     *         this class.
      */
     public static <P extends OWLPropertyExpression> Stream<P> getDisjointProperties(P e,
         Stream<OWLOntology> ontologies) {
@@ -552,68 +541,64 @@ public class EntitySearcher {
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontology
-     * and returns the class expressions corresponding to equivalent classes of
-     * this class.
+     * A convenience method that examines the axioms in the specified ontology and returns the class
+     * expressions corresponding to equivalent classes of this class.
      *
      * @param e entity
      * @param ontology The ontology to be examined for axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the equivalent classes of
-     * this class, that have been asserted in the specified ontology.
+     *         this class, that have been asserted in the specified ontology.
      */
     public static Stream<OWLObjectPropertyExpression> getEquivalentProperties(
-        OWLObjectPropertyExpression e,
-        OWLOntology ontology) {
-        return Searcher.equivalent(ontology.equivalentObjectPropertiesAxioms(e));
+        OWLObjectPropertyExpression e, OWLOntology ontology) {
+        return Searcher.equivalent(ontology.equivalentObjectPropertiesAxioms(e))
+            .filter(c -> !c.equals(e)).map(c -> (OWLObjectPropertyExpression) c);
     }
 
     /**
-     * A convenience method that examines the axioms in the specified ontologies
-     * and returns the class expressions corresponding to equivalent classes of
-     * this class.
+     * A convenience method that examines the axioms in the specified ontologies and returns the
+     * class expressions corresponding to equivalent classes of this class.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for axioms
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the equivalent classes of
-     * this class, that have been asserted in the specified ontologies.
+     *         this class, that have been asserted in the specified ontologies.
      */
     public static Stream<OWLObjectPropertyExpression> getEquivalentProperties(
-        OWLObjectPropertyExpression e,
-        Stream<OWLOntology> ontologies) {
+        OWLObjectPropertyExpression e, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getEquivalentProperties(e, o));
     }
 
     /**
-     * Gets the individuals that have been asserted to be an instance of this
-     * class by axioms in the specified ontology.
+     * Gets the individuals that have been asserted to be an instance of this class by axioms in the
+     * specified ontology.
      *
      * @param e entity
      * @param ontology The ontology to be examined for class assertion axioms that assert an
-     * individual to be an instance of this class.
+     *        individual to be an instance of this class.
      * @return A {@code Set} of {@code OWLIndividual}s that represent the individual that have been
-     * asserted to be an instance of this class.
+     *         asserted to be an instance of this class.
      */
     public static Stream<OWLIndividual> getIndividuals(OWLClass e, OWLOntology ontology) {
         return Searcher.instances(ontology.classAssertionAxioms(e));
     }
 
     /**
-     * Gets the individuals that have been asserted to be an instance of this
-     * class by axioms in the speficied ontologies.
+     * Gets the individuals that have been asserted to be an instance of this class by axioms in the
+     * speficied ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for class assertion axioms that assert an
-     * individual to be an instance of this class.
+     *        individual to be an instance of this class.
      * @return A {@code Set} of {@code OWLIndividual}s that represent the individual that have been
-     * asserted to be an instance of this class.
+     *         asserted to be an instance of this class.
      */
     public static Stream<OWLIndividual> getIndividuals(OWLClass e, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getIndividuals(e, o));
     }
 
     /**
-     * Gets the axioms in the specified ontology that contain this entity in
-     * their signature.
+     * Gets the axioms in the specified ontology that contain this entity in their signature.
      *
      * @param e entity
      * @param ontology The ontology that will be searched for axioms
@@ -624,13 +609,14 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the axioms in the specified ontology and possibly its imports
-     * closure that contain this entity in their signature.
+     * Gets the axioms in the specified ontology and possibly its imports closure that contain this
+     * entity in their signature.
      *
      * @param e entity
      * @param ontology The ontology that will be searched for axioms
      * @param includeImports If {@code true} then axioms in the imports closure will also be
-     * returned, if {@code false} then only the axioms in the specified ontology will be returned.
+     *        returned, if {@code false} then only the axioms in the specified ontology will be
+     *        returned.
      * @return The axioms in the specified ontology whose signature contains this entity.
      */
     public static Stream<OWLAxiom> getReferencingAxioms(OWLEntity e, OWLOntology ontology,
@@ -643,22 +629,23 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontology The ontology that should be examined for axioms which assert a domain of this
-     * property
+     *        property
      * @return A set of {@code OWLClassExpression}s corresponding to the domains of this property
-     * (the domain of the property is essentially the intersection of these class expressions).
+     *         (the domain of the property is essentially the intersection of these class
+     *         expressions).
      */
     public static Stream<OWLClassExpression> getDomains(OWLDataProperty e, OWLOntology ontology) {
         return Searcher.domain(ontology.dataPropertyDomainAxioms(e));
     }
 
     /**
-     * Gets the asserted domains of this property by examining the axioms in the
-     * specified ontologies.
+     * Gets the asserted domains of this property by examining the axioms in the specified
+     * ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined.
      * @return A set of {@code OWLClassExpression}s that represent the asserted domains of this
-     * property.
+     *         property.
      */
     public static Stream<OWLClassExpression> getDomains(OWLDataProperty e,
         Stream<OWLOntology> ontologies) {
@@ -670,9 +657,10 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontology The ontology that should be examined for axioms which assert a domain of this
-     * property
+     *        property
      * @return A set of {@code OWLClassExpression}s corresponding to the domains of this property
-     * (the domain of the property is essentially the intersection of these class expressions).
+     *         (the domain of the property is essentially the intersection of these class
+     *         expressions).
      */
     public static Stream<OWLClassExpression> getDomains(OWLObjectPropertyExpression e,
         OWLOntology ontology) {
@@ -680,12 +668,11 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the ranges of this property that have been asserted in the specified
-     * ontology.
+     * Gets the ranges of this property that have been asserted in the specified ontology.
      *
      * @param e entity
      * @param ontology The ontology to be searched for axioms which assert a range for this
-     * property.
+     *        property.
      * @return A set of ranges for this property.
      */
     public static Stream<OWLDataRange> getRanges(OWLDataProperty e, OWLOntology ontology) {
@@ -693,13 +680,13 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the asserted ranges of this property by examining the axioms in the
-     * specified ontologies.
+     * Gets the asserted ranges of this property by examining the axioms in the specified
+     * ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for range axioms.
      * @return A set of ranges for this property, which have been asserted by axioms in the
-     * specified ontologies.
+     *         specified ontologies.
      */
     public static Stream<OWLDataRange> getRanges(OWLDataProperty e,
         Stream<OWLOntology> ontologies) {
@@ -707,13 +694,13 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the asserted domains of this property by examining the axioms in the
-     * specified ontologies.
+     * Gets the asserted domains of this property by examining the axioms in the specified
+     * ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined.
      * @return A set of {@code OWLClassExpression}s that represent the asserted domains of this
-     * property.
+     *         property.
      */
     public static Stream<OWLClassExpression> getDomains(OWLObjectPropertyExpression e,
         Stream<OWLOntology> ontologies) {
@@ -721,12 +708,11 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the ranges of this property that have been asserted in the specified
-     * ontology.
+     * Gets the ranges of this property that have been asserted in the specified ontology.
      *
      * @param e entity
      * @param ontology The ontology to be searched for axioms which assert a range for this
-     * property.
+     *        property.
      * @return A set of ranges for this property.
      */
     public static Stream<OWLClassExpression> getRanges(OWLObjectPropertyExpression e,
@@ -735,13 +721,13 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the asserted ranges of this property by examining the axioms in the
-     * specified ontologies.
+     * Gets the asserted ranges of this property by examining the axioms in the specified
+     * ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for range axioms.
      * @return A set of ranges for this property, which have been asserted by axioms in the
-     * specified ontologies.
+     *         specified ontologies.
      */
     public static Stream<OWLClassExpression> getRanges(OWLObjectPropertyExpression e,
         Stream<OWLOntology> ontologies) {
@@ -753,34 +739,34 @@ public class EntitySearcher {
      *
      * @param e entity
      * @param ontology The ontology that should be examined for axioms which assert a domain of this
-     * property
+     *        property
      * @return A set of {@code OWLClassExpression}s corresponding to the domains of this property
-     * (the domain of the property is essentially the intersection of these class expressions).
+     *         (the domain of the property is essentially the intersection of these class
+     *         expressions).
      */
     public static Stream<IRI> getDomains(OWLAnnotationProperty e, OWLOntology ontology) {
         return Searcher.domain(ontology.annotationPropertyDomainAxioms(e));
     }
 
     /**
-     * Gets the asserted domains of this property by examining the axioms in the
-     * specified ontologies.
+     * Gets the asserted domains of this property by examining the axioms in the specified
+     * ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined.
      * @return A set of {@code OWLClassExpression}s that represent the asserted domains of this
-     * property.
+     *         property.
      */
     public static Stream<IRI> getDomains(OWLAnnotationProperty e, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getDomains(e, o));
     }
 
     /**
-     * Gets the ranges of this property that have been asserted in the specified
-     * ontology.
+     * Gets the ranges of this property that have been asserted in the specified ontology.
      *
      * @param e entity
      * @param ontology The ontology to be searched for axioms which assert a range for this
-     * property.
+     *        property.
      * @return A set of ranges for this property.
      */
     public static Stream<IRI> getRanges(OWLAnnotationProperty e, OWLOntology ontology) {
@@ -788,13 +774,13 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the asserted ranges of this property by examining the axioms in the
-     * specified ontologies.
+     * Gets the asserted ranges of this property by examining the axioms in the specified
+     * ontologies.
      *
      * @param e entity
      * @param ontologies The ontologies to be examined for range axioms.
      * @return A set of ranges for this property, which have been asserted by axioms in the
-     * specified ontologies.
+     *         specified ontologies.
      */
     public static Stream<IRI> getRanges(OWLAnnotationProperty e, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getRanges(e, o));
@@ -995,8 +981,7 @@ public class EntitySearcher {
     }
 
     /**
-     * Checks if c is defined (is included in equivalent axioms) in a collection
-     * of ontologies.
+     * Checks if c is defined (is included in equivalent axioms) in a collection of ontologies.
      *
      * @param ontologies ontologies
      * @param c class
@@ -1019,8 +1004,7 @@ public class EntitySearcher {
     }
 
     /**
-     * Checks if any of the ontologies contains axiom a, with or without imports
-     * closure.
+     * Checks if any of the ontologies contains axiom a, with or without imports closure.
      *
      * @param ontologies ontologies
      * @param a axiom
@@ -1033,8 +1017,7 @@ public class EntitySearcher {
     }
 
     /**
-     * Checks if o contains axiom a, with or without imports closure, ignoring
-     * annotations.
+     * Checks if o contains axiom a, with or without imports closure, ignoring annotations.
      *
      * @param o ontology
      * @param a axiom
@@ -1047,8 +1030,7 @@ public class EntitySearcher {
     }
 
     /**
-     * Checks if any of the ontologies contains axiom a, with or without imports
-     * closure.
+     * Checks if any of the ontologies contains axiom a, with or without imports closure.
      *
      * @param ontologies ontologies
      * @param a axiom
@@ -1093,8 +1075,7 @@ public class EntitySearcher {
      * @return literal values
      */
     public static Stream<OWLLiteral> getDataPropertyValues(OWLIndividual i,
-        OWLDataPropertyExpression p,
-        OWLOntology ontology) {
+        OWLDataPropertyExpression p, OWLOntology ontology) {
         return Searcher.values(ontology.dataPropertyAssertionAxioms(i), p);
     }
 
@@ -1105,8 +1086,7 @@ public class EntitySearcher {
      * @return literal values
      */
     public static Stream<OWLLiteral> getDataPropertyValues(OWLIndividual i,
-        OWLDataPropertyExpression p,
-        Stream<OWLOntology> ontologies) {
+        OWLDataPropertyExpression p, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getDataPropertyValues(i, p, o));
     }
 
@@ -1117,8 +1097,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Stream<OWLIndividual> getObjectPropertyValues(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        OWLOntology ontology) {
+        OWLObjectPropertyExpression p, OWLOntology ontology) {
         return Searcher.values(ontology.objectPropertyAssertionAxioms(i), p);
     }
 
@@ -1129,8 +1108,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Stream<OWLIndividual> getObjectPropertyValues(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        Stream<OWLOntology> ontologies) {
+        OWLObjectPropertyExpression p, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getObjectPropertyValues(i, p, o));
     }
 
@@ -1141,8 +1119,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Stream<OWLLiteral> getNegativeDataPropertyValues(OWLIndividual i,
-        OWLDataPropertyExpression p,
-        OWLOntology ontology) {
+        OWLDataPropertyExpression p, OWLOntology ontology) {
         return Searcher.negValues(ontology.negativeDataPropertyAssertionAxioms(i), p);
     }
 
@@ -1153,8 +1130,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Stream<OWLLiteral> getNegativeDataPropertyValues(OWLIndividual i,
-        OWLDataPropertyExpression p,
-        Stream<OWLOntology> ontologies) {
+        OWLDataPropertyExpression p, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getNegativeDataPropertyValues(i, p, o));
     }
 
@@ -1165,8 +1141,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Stream<OWLIndividual> getNegativeObjectPropertyValues(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        OWLOntology ontology) {
+        OWLObjectPropertyExpression p, OWLOntology ontology) {
         return Searcher.negValues(ontology.negativeObjectPropertyAssertionAxioms(i), p);
     }
 
@@ -1177,8 +1152,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Stream<OWLIndividual> getNegativeObjectPropertyValues(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        Stream<OWLOntology> ontologies) {
+        OWLObjectPropertyExpression p, Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getNegativeObjectPropertyValues(i, p, o));
     }
 
@@ -1233,8 +1207,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeDataPropertyValues(OWLIndividual i,
-        OWLDataPropertyExpression p,
-        OWLOntology ontology) {
+        OWLDataPropertyExpression p, OWLOntology ontology) {
         return Searcher.negValues(ontology.negativeDataPropertyAssertionAxioms(i), p).findAny()
             .isPresent();
     }
@@ -1246,8 +1219,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeDataPropertyValues(OWLIndividual i,
-        OWLDataPropertyExpression p,
-        Stream<OWLOntology> ontologies) {
+        OWLDataPropertyExpression p, Stream<OWLOntology> ontologies) {
         return ontologies.anyMatch(o -> hasNegativeDataPropertyValues(i, p, o));
     }
 
@@ -1258,8 +1230,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeObjectPropertyValues(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        OWLOntology ontology) {
+        OWLObjectPropertyExpression p, OWLOntology ontology) {
         return Searcher.negValues(ontology.negativeObjectPropertyAssertionAxioms(i), p).findAny()
             .isPresent();
     }
@@ -1271,8 +1242,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeObjectPropertyValues(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        Stream<OWLOntology> ontologies) {
+        OWLObjectPropertyExpression p, Stream<OWLOntology> ontologies) {
         return ontologies.anyMatch(o -> hasNegativeObjectPropertyValues(i, p, o));
     }
 
@@ -1284,8 +1254,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasDataPropertyValue(OWLIndividual i, OWLDataPropertyExpression p,
-        OWLLiteral lit,
-        OWLOntology ontology) {
+        OWLLiteral lit, OWLOntology ontology) {
         return contains(Searcher.values(ontology.dataPropertyAssertionAxioms(i), p), lit);
     }
 
@@ -1297,8 +1266,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasDataPropertyValue(OWLIndividual i, OWLDataPropertyExpression p,
-        OWLLiteral lit,
-        Stream<OWLOntology> ontologies) {
+        OWLLiteral lit, Stream<OWLOntology> ontologies) {
         return ontologies.anyMatch(o -> hasDataPropertyValue(i, p, lit, o));
     }
 
@@ -1310,8 +1278,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasObjectPropertyValue(OWLIndividual i, OWLObjectPropertyExpression p,
-        OWLIndividual j,
-        OWLOntology ontology) {
+        OWLIndividual j, OWLOntology ontology) {
         return contains(Searcher.values(ontology.objectPropertyAssertionAxioms(i), p), j);
     }
 
@@ -1323,8 +1290,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasObjectPropertyValue(OWLIndividual i, OWLObjectPropertyExpression p,
-        OWLIndividual j,
-        Stream<OWLOntology> ontologies) {
+        OWLIndividual j, Stream<OWLOntology> ontologies) {
         return ontologies.anyMatch(o -> hasObjectPropertyValue(i, p, j, o));
     }
 
@@ -1336,8 +1302,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeDataPropertyValue(OWLIndividual i, OWLDataPropertyExpression p,
-        OWLLiteral lit,
-        OWLOntology ontology) {
+        OWLLiteral lit, OWLOntology ontology) {
         return contains(Searcher.negValues(ontology.negativeDataPropertyAssertionAxioms(i), p),
             lit);
     }
@@ -1350,8 +1315,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeDataPropertyValue(OWLIndividual i, OWLDataPropertyExpression p,
-        OWLLiteral lit,
-        Stream<OWLOntology> ontologies) {
+        OWLLiteral lit, Stream<OWLOntology> ontologies) {
         return ontologies.anyMatch(o -> hasNegativeDataPropertyValue(i, p, lit, o));
     }
 
@@ -1363,8 +1327,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeObjectPropertyValue(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        OWLIndividual j, OWLOntology ontology) {
+        OWLObjectPropertyExpression p, OWLIndividual j, OWLOntology ontology) {
         return contains(Searcher.negValues(ontology.negativeObjectPropertyAssertionAxioms(i), p),
             j);
     }
@@ -1377,8 +1340,7 @@ public class EntitySearcher {
      * @return true if value present
      */
     public static boolean hasNegativeObjectPropertyValue(OWLIndividual i,
-        OWLObjectPropertyExpression p,
-        OWLIndividual j, Stream<OWLOntology> ontologies) {
+        OWLObjectPropertyExpression p, OWLIndividual j, Stream<OWLOntology> ontologies) {
         return ontologies.anyMatch(o -> hasNegativeObjectPropertyValue(i, p, j, o));
     }
 
@@ -1388,8 +1350,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getDataPropertyValues(
-        OWLIndividual i,
-        OWLOntology ontology) {
+        OWLIndividual i, OWLOntology ontology) {
         Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
         ontology.dataPropertyAssertionAxioms(i)
             .forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
@@ -1402,8 +1363,7 @@ public class EntitySearcher {
      * @return literal values
      */
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getDataPropertyValues(
-        OWLIndividual i,
-        Stream<OWLOntology> ontologies) {
+        OWLIndividual i, Stream<OWLOntology> ontologies) {
         Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
         ontologies.forEach(o -> map.putAll(getDataPropertyValues(i, o)));
         return map;
@@ -1415,8 +1375,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getObjectPropertyValues(
-        OWLIndividual i,
-        OWLOntology ontology) {
+        OWLIndividual i, OWLOntology ontology) {
         Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
         ontology.objectPropertyAssertionAxioms(i)
             .forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
@@ -1429,8 +1388,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getObjectPropertyValues(
-        OWLIndividual i,
-        Stream<OWLOntology> ontologies) {
+        OWLIndividual i, Stream<OWLOntology> ontologies) {
         Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
         ontologies.forEach(o -> map.putAll(getObjectPropertyValues(i, o)));
         return map;
@@ -1442,8 +1400,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getNegativeObjectPropertyValues(
-        OWLIndividual i,
-        OWLOntology ontology) {
+        OWLIndividual i, OWLOntology ontology) {
         Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
         ontology.negativeObjectPropertyAssertionAxioms(i)
             .forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
@@ -1456,8 +1413,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getNegativeDataPropertyValues(
-        OWLIndividual i,
-        OWLOntology ontology) {
+        OWLIndividual i, OWLOntology ontology) {
         Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
         ontology.negativeDataPropertyAssertionAxioms(i)
             .forEach(ax -> map.put(ax.getProperty(), ax.getObject()));
@@ -1470,8 +1426,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getNegativeObjectPropertyValues(
-        OWLIndividual i,
-        Stream<OWLOntology> ontologies) {
+        OWLIndividual i, Stream<OWLOntology> ontologies) {
         Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap.create();
         ontologies.forEach(o -> map.putAll(getNegativeObjectPropertyValues(i, o)));
         return map;
@@ -1483,8 +1438,7 @@ public class EntitySearcher {
      * @return property values
      */
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getNegativeDataPropertyValues(
-        OWLIndividual i,
-        Stream<OWLOntology> ontologies) {
+        OWLIndividual i, Stream<OWLOntology> ontologies) {
         Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
         ontologies.forEach(o -> map.putAll(getNegativeDataPropertyValues(i, o)));
         return map;
