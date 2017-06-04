@@ -171,7 +171,12 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         if (typeIndex() != other.typeIndex()) {
             return false;
         }
-        return equalStreams(components(), other.components());
+        if (this instanceof SWRLRule) {// Casts allow because index are the sames
+            return ((SWRLRule) this).equalsRules((SWRLRule)other);
+        }
+        else {
+            return equalStreams(components(), other.components());
+        }
     }
 
     @Override

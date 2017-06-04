@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -175,5 +176,18 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.SWRL_RULE;
+    }
+
+    default boolean equalsRules(final SWRLRule other)
+    {
+    	if (other == this){
+    		return true;
+    	}
+    	if (other == null){
+    		return false;
+    	}
+    	return equalStreams(body().sorted(), other.body().sorted()) &&//
+    	equalStreams(head().sorted(), other.head().sorted()) &&//
+    	equalStreams(annotations(), other.annotations());
     }
 }
