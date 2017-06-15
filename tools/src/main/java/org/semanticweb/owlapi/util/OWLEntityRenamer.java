@@ -22,13 +22,16 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 
 /**
  * Renames entities that have a particular IRI. Entities with the specified IRI are renamed
@@ -63,7 +66,8 @@ public class OWLEntityRenamer {
      * duplicated/transformed axioms.
      *
      * @param changes A list that will be filled with ontology changes which will remove the
-     * specified axioms from the specified ontology, and add the duplicated/transformed version
+     *        specified axioms from the specified ontology, and add the duplicated/transformed
+     *        version
      * @param axioms The axioms to be duplicated/transformed
      * @param ont The ontology to which the changed should be applied
      * @param duplicator The duplicator that will do the duplicating
@@ -74,6 +78,27 @@ public class OWLEntityRenamer {
             changes.add(new RemoveAxiom(ont, ax));
             OWLAxiom dupAx = duplicator.duplicateObject(ax);
             changes.add(new AddAxiom(ont, dupAx));
+        });
+        fillListWithOntologyAnnotationTransformChanges(changes, ont, duplicator);
+    }
+
+    /**
+     * Fills a list with ontology annotaton changes which will replace ontology annotations.
+     *
+     * @param changes A list that will be filled with ontology changes which will remove the
+     *        specified axioms from the specified ontology, and add the duplicated/transformed
+     *        version
+     * @param ont The ontology to which the changed should be applied
+     * @param duplicator The duplicator that will do the duplicating
+     */
+    private static void fillListWithOntologyAnnotationTransformChanges(
+        List<OWLOntologyChange> changes, OWLOntology ont, OWLObjectDuplicator duplicator) {
+        ont.annotations().forEach(ax -> {
+            OWLAnnotation dupAx = duplicator.duplicateObject(ax);
+            if (!dupAx.equals(ax)) {
+                changes.add(new RemoveOntologyAnnotation(ont, ax));
+                changes.add(new AddOntologyAnnotation(ont, dupAx));
+            }
         });
     }
 
@@ -92,8 +117,8 @@ public class OWLEntityRenamer {
         uriMap.put(iri, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(m, uriMap);
-        ontologies.forEach(o -> fillListWithTransformChanges(changes, o.referencingAxioms(iri), o,
-            dup));
+        ontologies
+            .forEach(o -> fillListWithTransformChanges(changes, o.referencingAxioms(iri), o, dup));
         return changes;
     }
 
@@ -109,8 +134,8 @@ public class OWLEntityRenamer {
         iriMap.put(entity, newIRI);
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap, m);
-        ontologies.forEach(o -> fillListWithTransformChanges(changes, getAxioms(o, entity), o,
-            duplicator));
+        ontologies.forEach(
+            o -> fillListWithTransformChanges(changes, getAxioms(o, entity), o, duplicator));
         return changes;
     }
 
@@ -122,8 +147,8 @@ public class OWLEntityRenamer {
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, m);
         for (OWLOntology ont : ontologies) {
-            entity2IRIMap.keySet().forEach(e -> fillListWithTransformChanges(changes,
-                getAxioms(ont, e), ont, duplicator));
+            entity2IRIMap.keySet().forEach(
+                e -> fillListWithTransformChanges(changes, getAxioms(ont, e), ont, duplicator));
         }
         return changes;
     }
