@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
@@ -59,12 +60,14 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Trans
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
-import com.google.common.collect.Sets;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -78,7 +81,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -117,13 +123,13 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(DataPropertyDomain(propB, clsAIRI2));
         axioms2.add(ClassAssertion(clsAIRI2, indA));
         axioms2.add(AnnotationAssertion(annoProp, clsAIRI2.getIRI(), Literal("X")));
-        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(ont.getOWLOntologyManager(),
-            singleton(ont));
+        OWLEntityRenamer entityRenamer =
+            new OWLEntityRenamer(ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(clsAIRI1, clsAIRI2.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer
-            .changeIRI(clsAIRI2.getIRI(), clsAIRI1.getIRI());
+        List<OWLOntologyChange> changes2 =
+            entityRenamer.changeIRI(clsAIRI2.getIRI(), clsAIRI1.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertEquals(asUnorderedSet(ont.axioms()), axioms1);
     }
@@ -171,8 +177,8 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(ObjectPropertyAssertion(propA2, indA, indB));
         axioms2.add(NegativeObjectPropertyAssertion(propA2, indA, indB));
         axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
-        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(ont.getOWLOntologyManager(),
-            singleton(ont));
+        OWLEntityRenamer entityRenamer =
+            new OWLEntityRenamer(ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA, propA2.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
@@ -211,8 +217,8 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(DataPropertyAssertion(propA2, indA, Literal(33)));
         axioms2.add(NegativeDataPropertyAssertion(propA2, indA, Literal(44)));
         axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
-        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(ont.getOWLOntologyManager(),
-            singleton(ont));
+        OWLEntityRenamer entityRenamer =
+            new OWLEntityRenamer(ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA, propA2.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
@@ -243,8 +249,8 @@ public class RenameEntityTestCase extends TestBase {
             AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")),
             ObjectPropertyAssertion(propB, indB, indB),
             NegativeObjectPropertyAssertion(propB, indB, indB));
-        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(ont.getOWLOntologyManager(),
-            singleton(ont));
+        OWLEntityRenamer entityRenamer =
+            new OWLEntityRenamer(ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(indA, indB.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
@@ -275,8 +281,8 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(DataPropertyRange(propB, rng1R));
         axioms2.add(DataPropertyRange(propB, rng2R));
         axioms2.add(DataPropertyRange(propB, rng3R));
-        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(ont.getOWLOntologyManager(),
-            singleton(ont));
+        OWLEntityRenamer entityRenamer =
+            new OWLEntityRenamer(ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(dtA, dtC.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
@@ -306,14 +312,60 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(SubAnnotationPropertyOf(annoPropR, annoProp2));
         axioms2.add(AnnotationPropertyRange(annoPropR, indA.getIRI()));
         axioms2.add(AnnotationPropertyDomain(annoPropR, indA.getIRI()));
-        OWLEntityRenamer entityRenamer = new OWLEntityRenamer(ont.getOWLOntologyManager(),
-            singleton(ont));
+        OWLEntityRenamer entityRenamer =
+            new OWLEntityRenamer(ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(annoProp, annoPropR.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer
-            .changeIRI(annoPropR.getIRI(), annoProp.getIRI());
+        List<OWLOntologyChange> changes2 =
+            entityRenamer.changeIRI(annoPropR.getIRI(), annoProp.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertEquals(asUnorderedSet(ont.axioms()), axioms1);
+    }
+
+    @Test
+    public void shouldRenameAnnotationPropertyUsages() throws OWLOntologyCreationException {
+        //@formatter:off
+        String input="<?xml version=\"1.0\"?>\n" + 
+            "<rdf:RDF xmlns=\"urn:test:ann#\" xml:base=\"urn:test:ann\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:annotations=\"urn:test:ann#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n" + 
+            "    <owl:Ontology rdf:about=\"urn:test:ann\">\n" + 
+            "        <testAnnotProp6>Ontology annotation</testAnnotProp6>\n" + 
+            "    </owl:Ontology>\n" + 
+            "    <owl:AnnotationProperty rdf:about=\"urn:test:ann#testAnnotProp1\"/>\n" + 
+            "    <owl:AnnotationProperty rdf:about=\"urn:test:ann#testAnnotProp2\"/>\n" + 
+            "    <owl:AnnotationProperty rdf:about=\"urn:test:ann#testAnnotProp3\"/>\n" + 
+            "    <owl:AnnotationProperty rdf:about=\"urn:test:ann#testAnnotProp4\">\n" + 
+            "        <testAnnotProp5>annotation on annotation property</testAnnotProp5>\n" + 
+            "    </owl:AnnotationProperty>\n" + 
+            "    <owl:AnnotationProperty rdf:about=\"urn:test:ann#testAnnotProp5\"/>\n" + 
+            "    <owl:AnnotationProperty rdf:about=\"urn:test:ann#testAnnotProp7\"/>\n" + 
+            "    <owl:Class rdf:about=\"urn:test:ann#Class1\">\n" + 
+            "        <testAnnotProp1>test entity annotation</testAnnotProp1>\n" + 
+            "        <testAnnotProp7>simple entity annotation (no annotations on this annotation)</testAnnotProp7>\n" + 
+            "        <testAnnotProp8>annotation with externally declared annotation property</testAnnotProp8>\n" + 
+            "    </owl:Class>\n" + 
+            "    <owl:Axiom>\n" + 
+            "        <owl:annotatedSource rdf:resource=\"urn:test:ann#Class1\"/>\n" + 
+            "        <owl:annotatedProperty rdf:resource=\"urn:test:ann#testAnnotProp1\"/>\n" + 
+            "        <owl:annotatedTarget>test entity annotation</owl:annotatedTarget>\n" + 
+            "        <testAnnotProp2>test annotation on annotation</testAnnotProp2>\n" + 
+            "    </owl:Axiom>\n" + 
+            "    <owl:Class rdf:about=\"urn:test:ann#Class2\">\n" + 
+            "        <rdfs:subClassOf rdf:resource=\"urn:test:ann#Class1\"/>\n" + 
+            "    </owl:Class>\n" + 
+            "    <owl:Axiom>\n" + 
+            "        <owl:annotatedSource rdf:resource=\"urn:test:ann#Class2\"/>\n" + 
+            "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2000/01/rdf-schema#subClassOf\"/>\n" + 
+            "        <owl:annotatedTarget rdf:resource=\"urn:test:ann#Class1\"/>\n" + 
+            "        <testAnnotProp3>test axiom annotation</testAnnotProp3>\n" + 
+            "    </owl:Axiom>\n" + 
+            "</rdf:RDF>";
+        //@formatter:on
+        OWLOntology o1 = loadOntologyFromString(input);
+        OWLEntityRenamer renamer =
+            new OWLEntityRenamer(o1.getOWLOntologyManager(), Arrays.asList(o1));
+        o1.annotationPropertiesInSignature()
+            .map(x -> renamer.changeIRI(x.getIRI(), IRI.create("urn:test:attempt")))
+            .forEach(list -> assertFalse(list.isEmpty()));
     }
 }
