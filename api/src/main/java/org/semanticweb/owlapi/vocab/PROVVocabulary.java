@@ -5,78 +5,170 @@ import org.semanticweb.owlapi.model.*;
 import static org.semanticweb.owlapi.model.EntityType.*;
 
 /**
- * @author Alex To, The University Of Sydney, School of Engineering & Information Technologies
+ * @author Alex To, The University Of Sydney, Falcuty of Engineering & Information Technologies
  * @since 5.1.0
  */
 public enum PROVVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
     // Prov Vocab http://www.w3.org/ns/prov#
 
-    PROV_ACTIVITY(Namespaces.PROV, "Activity", CLASS),
+    ACTIVITY_CLASS(Namespaces.PROV, "Activity", CLASS),
 
-    PROV_AGENT(Namespaces.PROV, "Agent", CLASS),
+    AGENT_CLASS(Namespaces.PROV, "Agent", CLASS),
 
-    PROV_ORGANIZATION(Namespaces.PROV, "Organization", CLASS),
+    ORGANIZATION(Namespaces.PROV, "Organization", CLASS),
 
-    PROV_PERSON(Namespaces.PROV, "Person", CLASS),
+    PERSON(Namespaces.PROV, "Person", CLASS),
 
-    PROV_SOFTWARE_AGENT(Namespaces.PROV, "SoftwareAgent", CLASS),
+    SOFTWARE_AGENT(Namespaces.PROV, "SoftwareAgent", CLASS),
 
-    PROV_ENTITY(Namespaces.PROV, "Entity", CLASS),
+    ENTITY_CLASS(Namespaces.PROV, "Entity", CLASS),
 
-    PROV_BUNDLE(Namespaces.PROV, "Bundle", CLASS),
+    BUNDLE(Namespaces.PROV, "Bundle", CLASS),
 
-    PROV_COLLECTION(Namespaces.PROV, "Collection", CLASS),
+    COLLECTION(Namespaces.PROV, "Collection", CLASS),
 
-    PROV_EMPTY_COLLECTION(Namespaces.PROV, "EmptyCollection", CLASS),
+    EMPTY_COLLECTION(Namespaces.PROV, "EmptyCollection", CLASS),
 
-    PROV_PLAN(Namespaces.PROV, "Plan", CLASS),
+    PLAN(Namespaces.PROV, "Plan", CLASS),
 
-    PROV_INFLUENCE(Namespaces.PROV, "Influence", CLASS),
+    INFLUENCE(Namespaces.PROV, "Influence", CLASS),
 
-    PROV_ACTIVITY_INFLUENCE(Namespaces.PROV, "ActivityInfluence", CLASS),
+    ACTIVITY_INFLUENCE(Namespaces.PROV, "ActivityInfluence", CLASS),
 
-    PROV_COMMUNICATION(Namespaces.PROV, "Communication", CLASS),
+    COMMUNICATION(Namespaces.PROV, "Communication", CLASS),
 
-    PROV_GENERATION(Namespaces.PROV, "Generation", CLASS),
+    GENERATION(Namespaces.PROV, "Generation", CLASS),
 
-    PROV_INVALIDATION(Namespaces.PROV, "Invalidation", CLASS),
+    INVALIDATION(Namespaces.PROV, "Invalidation", CLASS),
 
-    PROV_AGENT_INFLUENCE(Namespaces.PROV, "AgentInfluence", CLASS),
+    AGENT_INFLUENCE(Namespaces.PROV, "AgentInfluence", CLASS),
 
-    PROV_ASSOCIATION(Namespaces.PROV, "Association", CLASS),
+    ASSOCIATION(Namespaces.PROV, "Association", CLASS),
 
-    PROV_ATTRIBUTION(Namespaces.PROV, "Attribution", CLASS),
+    ATTRIBUTION(Namespaces.PROV, "Attribution", CLASS),
 
-    PROV_DELEGATION(Namespaces.PROV, "Delegation", CLASS),
+    DELEGATION(Namespaces.PROV, "Delegation", CLASS),
 
-    PROV_ENTITY_INFLUENCE(Namespaces.PROV, "EntityInfluence", CLASS),
+    ENTITY_INFLUENCE(Namespaces.PROV, "EntityInfluence", CLASS),
 
-    PROV_DERIVATION(Namespaces.PROV, "Derivation", CLASS),
+    DERIVATION(Namespaces.PROV, "Derivation", CLASS),
 
-    PROV_PRIMARY_SOURCE(Namespaces.PROV, "PrimarySource", CLASS),
+    PRIMARY_SOURCE(Namespaces.PROV, "PrimarySource", CLASS),
 
-    PROV_QUOTATION(Namespaces.PROV, "Quotation", CLASS),
+    QUOTATION(Namespaces.PROV, "Quotation", CLASS),
 
-    PROV_REVISION(Namespaces.PROV, "Revision", CLASS),
+    REVISION(Namespaces.PROV, "Revision", CLASS),
 
-    PROV_END(Namespaces.PROV, "End", CLASS),
+    END(Namespaces.PROV, "End", CLASS),
 
-    PROV_START(Namespaces.PROV, "Start", CLASS),
+    START(Namespaces.PROV, "Start", CLASS),
 
-    PROV_USAGE(Namespaces.PROV, "Usage", CLASS),
+    USAGE(Namespaces.PROV, "Usage", CLASS),
 
-    PROV_INSTANTANEOUS_EVENT(Namespaces.PROV, "InstantaneousEvent", CLASS),
+    INSTANTANEOUS_EVENT(Namespaces.PROV, "InstantaneousEvent", CLASS),
 
-    PROV_LOCATION(Namespaces.PROV, "Location", CLASS),
+    LOCATION(Namespaces.PROV, "Location", CLASS),
 
-    PROV_ROLE(Namespaces.PROV, "Role", CLASS),
+    ROLE(Namespaces.PROV, "Role", CLASS),
 
-    PROV_ALTERNATE_OF(Namespaces.PROV, "alternateOf", OBJECT_PROPERTY),
+    ALTERNATE_OF(Namespaces.PROV, "alternateOf", OBJECT_PROPERTY),
 
-    PROV_AT_LOCATION(Namespaces.PROV, "atLocation", OBJECT_PROPERTY);
+    AT_LOCATION(Namespaces.PROV, "atLocation", OBJECT_PROPERTY),
 
+    HAD_ACTIVITY(Namespaces.PROV, "hadActivity", OBJECT_PROPERTY),
 
+    HAD_GENERATION(Namespaces.PROV, "hadGeneration", OBJECT_PROPERTY),
+
+    HAD_PLAN(Namespaces.PROV, "hadPlan", OBJECT_PROPERTY),
+
+    HAD_ROLE(Namespaces.PROV, "hadRole", OBJECT_PROPERTY),
+
+    HAD_USAGE(Namespaces.PROV, "hadUsage", OBJECT_PROPERTY),
+
+    INFLUENCED(Namespaces.PROV, "influenced", OBJECT_PROPERTY),
+
+    GENERATED(Namespaces.PROV, "generated", OBJECT_PROPERTY),
+
+    INVALIDATED(Namespaces.PROV, "invalidated", OBJECT_PROPERTY),
+
+    INFLUENCER(Namespaces.PROV, "influencer", OBJECT_PROPERTY),
+
+    ACTIVITY_PROPERTY(Namespaces.PROV, "activity", OBJECT_PROPERTY),
+
+    AGENT_PROPERTY(Namespaces.PROV, "agent", OBJECT_PROPERTY),
+
+    ENTITY_PROPERTY(Namespaces.PROV, "entity", OBJECT_PROPERTY),
+
+    QUALIFIED_INFLUENCE(Namespaces.PROV, "qualifiedInfluence", OBJECT_PROPERTY),
+
+    QUALIFIED_ASSOCIATION(Namespaces.PROV, "qualifiedAssociation", OBJECT_PROPERTY),
+
+    QUALIFIED_ATTRIBUTION(Namespaces.PROV, "qualifiedAttribution", OBJECT_PROPERTY),
+
+    QUALIFIED_COMMUNICATION(Namespaces.PROV, "qualifiedCommunication", OBJECT_PROPERTY),
+
+    QUALIFIED_DELEGATION(Namespaces.PROV, "qualifiedDelegation", OBJECT_PROPERTY),
+
+    QUALIFIED_DERIVATION(Namespaces.PROV, "qualifiedDerivation", OBJECT_PROPERTY),
+
+    QUALIFIED_END(Namespaces.PROV, "qualifiedEnd", OBJECT_PROPERTY),
+
+    QUALIFIED_GENERATION(Namespaces.PROV, "qualifiedGeneration", OBJECT_PROPERTY),
+
+    QUALIFIED_INVALIDATION(Namespaces.PROV, "qualifiedInvalidation", OBJECT_PROPERTY),
+
+    QUALIFIED_PRIMARY_SOURCE(Namespaces.PROV, "qualifiedPrimarySource", OBJECT_PROPERTY),
+
+    QUALIFIED_QUOTATION(Namespaces.PROV, "qualifiedQuotation", OBJECT_PROPERTY),
+
+    QUALIFIED_REVISION(Namespaces.PROV, "qualifiedRevision", OBJECT_PROPERTY),
+
+    QUALIFIED_START(Namespaces.PROV, "qualifiedStart", OBJECT_PROPERTY),
+
+    QUALIFIED_USAGE(Namespaces.PROV, "qualifiedUsage", OBJECT_PROPERTY),
+
+    WAS_INFLUENCED_BY(Namespaces.PROV, "wasInfluencedBy", OBJECT_PROPERTY),
+
+    ACTED_ON_BEHALF_OF(Namespaces.PROV, "actedOnBehalfOf", OBJECT_PROPERTY),
+
+    HAD_MEMBER(Namespaces.PROV, "hadMember", OBJECT_PROPERTY),
+
+    USED(Namespaces.PROV, "used", OBJECT_PROPERTY),
+
+    WAS_ASSOCIATED_WITH(Namespaces.PROV, "wasAssociatedWith", OBJECT_PROPERTY),
+
+    WAS_ATTRIBUTED_TO(Namespaces.PROV, "wasAttributedTo", OBJECT_PROPERTY),
+
+    WAS_DERIVED_FROM(Namespaces.PROV, "wasDerivedFrom", OBJECT_PROPERTY),
+
+    HAD_PRIMARY_SOURCE(Namespaces.PROV, "hadPrimarySource", OBJECT_PROPERTY),
+
+    WAS_QUOTED_FROM(Namespaces.PROV, "wasQuotedFrom", OBJECT_PROPERTY),
+
+    WAS_REVISION_OF(Namespaces.PROV, "wasRevisionOf", OBJECT_PROPERTY),
+
+    WAS_ENDED_BY(Namespaces.PROV, "wasEndedBy", OBJECT_PROPERTY),
+
+    WAS_GENERATED_BY(Namespaces.PROV, "wasGeneratedBy", OBJECT_PROPERTY),
+
+    WAS_INFORMED_BY(Namespaces.PROV, "wasInformedBy", OBJECT_PROPERTY),
+
+    WAS_INVALIDATED_BY(Namespaces.PROV, "wasInvalidatedBy", OBJECT_PROPERTY),
+
+    WAS_STARTED_BY(Namespaces.PROV, "wasStartedBy", OBJECT_PROPERTY),
+
+    AT_TIME(Namespaces.PROV, "atTime", DATA_PROPERTY),
+
+    ENDED_AT_TIME(Namespaces.PROV, "endedAtTime", DATA_PROPERTY),
+
+    GENERATED_AT_TIME(Namespaces.PROV, "generatedAtTime", DATA_PROPERTY),
+
+    INVALIDATED_AT_TIME(Namespaces.PROV, "invalidatedAtTime", DATA_PROPERTY),
+
+    STARTED_AT_TIME(Namespaces.PROV, "startedAtTime", DATA_PROPERTY),
+
+    VALUE(Namespaces.PROV, "value", DATA_PROPERTY);
 
     private final IRI iri;
     private final Namespaces namespace;
