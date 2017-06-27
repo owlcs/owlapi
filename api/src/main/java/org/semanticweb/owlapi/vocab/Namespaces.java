@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.IRI;
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
+
     /** The OWL 2 namespace. */    OWL2        ("owl2",     "http://www.w3.org/2006/12/owl2#",      Status.LEGACY),
     /** Status.LEGACY. */          OWL11XML    ("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", Status.LEGACY),
     /** The OWL 1.1 namespace. */  OWL11       ("owl11",    "http://www.w3.org/2006/12/owl11#",     Status.LEGACY),
@@ -37,6 +38,7 @@ public enum Namespaces {
     /** The SWRL namespace. */     SWRL        ("swrl",     "http://www.w3.org/2003/11/swrl#"),
     /** The SWRLB namespace. */    SWRLB       ("swrlb",    "http://www.w3.org/2003/11/swrlb#"),
     /** The SKOS namespace. */     SKOS        ("skos",     "http://www.w3.org/2004/02/skos/core#"),
+    /** The Time namespace */      TIME        ("time",     "http://www.w3.org/2006/time#", IN_USE),
 
     // Further namespaces from the RDFa Core Initial Context
     // http://www.w3.org/2011/rdfa-context/rdfa-1.1
