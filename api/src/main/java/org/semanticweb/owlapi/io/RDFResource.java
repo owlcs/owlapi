@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.io;
 import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -117,6 +118,15 @@ public class RDFResource extends RDFNode implements Serializable {
         } else {
             return "_:" + resource;
         }
+    }
+
+    @Override
+    public String getNodeIDValue() {
+        if(!anonymous) {
+            throw new UnsupportedOperationException(
+                "RDFResource " + toString() + " is not a blank node; nodeId not defined.");
+        }
+        return NodeID.stripArtifacts(resource);
     }
 
     @Override

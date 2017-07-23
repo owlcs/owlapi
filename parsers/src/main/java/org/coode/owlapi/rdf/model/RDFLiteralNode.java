@@ -41,8 +41,8 @@ package org.coode.owlapi.rdf.model;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         06-Dec-2006
  */
 public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
 
@@ -62,10 +62,8 @@ public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
     }
 
     /**
-     * @param literal
-     *        lexical form
-     * @param datatype
-     *        type
+     * @param literal lexical form
+     * @param datatype type
      */
     public RDFLiteralNode(String literal, IRI datatype) {
         this.literal = literal;
@@ -73,10 +71,8 @@ public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
     }
 
     /**
-     * @param literal
-     *        lexical form
-     * @param lang
-     *        language tag
+     * @param literal lexical form
+     * @param lang language tag
      */
     public RDFLiteralNode(String literal, String lang) {
         this.literal = literal;
@@ -170,6 +166,12 @@ public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
             }
         }
         return hashCode;
+    }
+
+    @Override
+    public String getNodeIDValue() {
+        throw new UnsupportedOperationException(
+            "RDFResource " + toString() + " is not a blank node; nodeId not defined.");
     }
 
     @Override

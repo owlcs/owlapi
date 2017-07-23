@@ -43,8 +43,8 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 21/12/2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group, Date:
+ *         21/12/2010
  * @since 3.2
  */
 public class RDFLiteral extends RDFNode implements Serializable {
@@ -53,8 +53,7 @@ public class RDFLiteral extends RDFNode implements Serializable {
     private final OWLLiteral literal;
 
     /**
-     * @param literal
-     *        the wrapped literal
+     * @param literal the wrapped literal
      */
     public RDFLiteral(OWLLiteral literal) {
         this.literal = literal;
@@ -92,6 +91,12 @@ public class RDFLiteral extends RDFNode implements Serializable {
     @Override
     public String toString() {
         return literal.toString();
+    }
+
+    @Override
+    public String getNodeIDValue() {
+        throw new UnsupportedOperationException(
+            "RDFResource " + toString() + " is not a blank node; nodeId not defined.");
     }
 
     @Override

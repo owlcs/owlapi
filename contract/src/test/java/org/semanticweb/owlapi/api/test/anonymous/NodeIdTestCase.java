@@ -36,27 +36,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
+package org.semanticweb.owlapi.api.test.anonymous;
+
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group, Date:
- *         21/12/2010
- * @since 3.2
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group, Date:
+ *         30-Jul-2008
  */
-public abstract class RDFNode implements Comparable<RDFNode> {
+public class NodeIdTestCase extends AbstractFileRoundTrippingTestCase {
 
-    /**
-     * Determines if this node is a literal node.
-     * 
-     * @return {@code true} if this node is a literal, otherwise {@code false}.
-     */
-    public abstract boolean isLiteral();
+    @Override
+    protected String getFileName() {
+        return "nodeid.rdf";
+    }
 
-    /**
-     * For blank nodes, return a valid value for thr rdf/xml nodeId attribute. For non blank nodes,
-     * an exception should be thrown. The method must only be called on blank nodes.
-     * 
-     * @return a valid value for thr rdf/xml nodeId attribute
+    /*
+     * XXX Manchester syntax and functional syntax are commented out. This isn't supported in the
+     * Manchester syntax (current spec) and the functional syntax parser needs fixing once the OWL 2
+     * spec has stabilised.
      */
-    public abstract String getNodeIDValue();
+    @Override
+    @Test
+    public void testManchesterOWLSyntax() throws Exception {
+        // super.testManchesterOWLSyntax();
+    }
 }

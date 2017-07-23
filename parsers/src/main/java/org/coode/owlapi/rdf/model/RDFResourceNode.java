@@ -42,8 +42,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 06-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group, Date:
+ *         06-Dec-2006
  */
 public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
 
@@ -55,8 +55,7 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
     /**
      * Constructs a named resource (i.e. a resource with a IRI).
      * 
-     * @param iri
-     *        the IRI
+     * @param iri the IRI
      */
     public RDFResourceNode(IRI iri) {
         this.iri = iri;
@@ -68,8 +67,7 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
     /**
      * Constructs an anonymous node, which has the specified ID.
      * 
-     * @param anonId
-     *        The id of the node
+     * @param anonId The id of the node
      */
     public RDFResourceNode(int anonId, boolean isIndividual, boolean forceId) {
         this.anonId = anonId;
@@ -134,8 +132,7 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
 
     @Override
     public String toString() {
-        return iri != null ? "<" + iri.toString() + ">" : NodeID
-            .nodeString(anonId);
+        return iri != null ? "<" + iri.toString() + ">" : NodeID.nodeString(anonId);
     }
 
     /**
@@ -143,6 +140,18 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
      */
     protected Comparable id() {
         return iri != null ? iri : anonId;
+    }
+
+    @Override
+    public String getNodeIDValue() {
+        if (!isAnonymous()) {
+            throw new UnsupportedOperationException(
+                "RDFResource " + toString() + " is not a blank node; nodeId not defined.");
+        }
+        if (iri == null) {
+            return "genid" + anonId;
+        }
+        return NodeID.stripArtifacts(iri);
     }
 
     @Override

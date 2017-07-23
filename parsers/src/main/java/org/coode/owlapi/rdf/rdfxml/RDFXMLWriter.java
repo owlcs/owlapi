@@ -145,7 +145,7 @@ public class RDFXMLWriter {
      *         io exception
      */
     public void writeNodeIDAttribute(RDFResourceNode node) throws IOException {
-        writer.writeAttribute(RDF_NODEID, Integer.toString(node.getId()));
+        writer.writeAttribute(RDF_NODEID, node.getNodeIDValue());
     }
 
     private void writeAttribute(IRI attributeName, IRI value)

@@ -7,53 +7,58 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.Set;
 
-import org.coode.owlapi.rdf.model.*;
+import org.coode.owlapi.rdf.model.AbstractTranslator;
+import org.coode.owlapi.rdf.model.RDFGraph;
+import org.coode.owlapi.rdf.model.RDFLiteralNode;
+import org.coode.owlapi.rdf.model.RDFNode;
+import org.coode.owlapi.rdf.model.RDFResourceNode;
+import org.coode.owlapi.rdf.model.RDFTranslator;
+import org.coode.owlapi.rdf.model.RDFTriple;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({"unused", "javadoc"})
 public class ContractRdfModelTest {
 
     @Test
     public void shouldTestAbstractTranslator() throws Exception {
         @SuppressWarnings("rawtypes")
-        AbstractTranslator testSubject0 = new AbstractTranslator(
-            Utils.getMockManager(), Utils.getMockOntology(), false, null) {
+        AbstractTranslator testSubject0 =
+            new AbstractTranslator(Utils.getMockManager(), Utils.getMockOntology(), false, null) {
 
-            @Override
-            protected Object getResourceNode(IRI IRI) {
-                return null;
-            }
+                @Override
+                protected Object getResourceNode(IRI IRI) {
+                    return null;
+                }
 
-            @Override
-            protected Object getPredicateNode(IRI IRI) {
-                return null;
-            }
+                @Override
+                protected Object getPredicateNode(IRI IRI) {
+                    return null;
+                }
 
-            @Override
-            protected Object getAnonymousNode(Object key) {
-                return null;
-            }
+                @Override
+                protected Object getAnonymousNode(Object key) {
+                    return null;
+                }
 
-            @Override
-            protected Object getLiteralNode(OWLLiteral literal) {
-                return null;
-            }
+                @Override
+                protected Object getLiteralNode(OWLLiteral literal) {
+                    return null;
+                }
 
-            @Override
-            protected void addTriple(Object subject, Object pred, Object object) {}
-        };
+                @Override
+                protected void addTriple(Object subject, Object pred, Object object) {}
+            };
         String result0 = testSubject0.toString();
     }
 
     public void shouldTestRDFGraph() throws Exception {
         RDFGraph testSubject0 = new RDFGraph();
         testSubject0.addTriple(mock(RDFTriple.class));
-        Collection<RDFTriple> result1 = testSubject0.getTriplesForSubject(
-            mock(RDFNode.class), false);
-        boolean result2 = testSubject0
-            .isAnonymousNodeSharedSubject(mock(RDFResourceNode.class));
+        Collection<RDFTriple> result1 =
+            testSubject0.getTriplesForSubject(mock(RDFNode.class), false);
+        boolean result2 = testSubject0.isAnonymousNodeSharedSubject(mock(RDFResourceNode.class));
         Set<RDFResourceNode> result3 = testSubject0.getRootAnonymousNodes();
         testSubject0.dumpTriples(mock(Writer.class));
         String result4 = testSubject0.toString();
@@ -96,6 +101,11 @@ public class ContractRdfModelTest {
             public int compareTo(RDFNode o) {
                 return 0;
             }
+
+            @Override
+            public String getNodeIDValue() {
+                return null;
+            }
         };
         boolean result0 = testSubject0.isAnonymous();
         IRI result1 = testSubject0.getIRI();
@@ -114,12 +124,11 @@ public class ContractRdfModelTest {
     }
 
     public void shouldTestRDFTranslator() throws Exception {
-        RDFTranslator testSubject0 = new RDFTranslator(Utils.getMockManager(),
-            Utils.getMockOntology(), false, null);
+        RDFTranslator testSubject0 =
+            new RDFTranslator(Utils.getMockManager(), Utils.getMockOntology(), false, null);
         testSubject0.reset();
         RDFGraph result0 = testSubject0.getGraph();
-        RDFLiteralNode result1 = RDFTranslator
-            .translateLiteralNode(mock(OWLLiteral.class));
+        RDFLiteralNode result1 = RDFTranslator.translateLiteralNode(mock(OWLLiteral.class));
         String result2 = testSubject0.toString();
     }
 
