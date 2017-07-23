@@ -73,4 +73,10 @@ public class RDFResourceIRI extends RDFResource implements org.apache.commons.rd
     public String getIRIString() {
         return resource.getIRIString();
     }
+
+    @Override
+    public String getNodeIDValue() {
+        throw new UnsupportedOperationException(
+            "RDFResource " + toString() + " is not a blank node; nodeId not defined.");
+    }
 }

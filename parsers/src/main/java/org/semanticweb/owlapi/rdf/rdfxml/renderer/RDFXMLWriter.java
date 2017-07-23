@@ -105,7 +105,8 @@ public class RDFXMLWriter {
      * @param node node
      */
     public void writeNodeIDAttribute(RDFResource node) {
-        writer.writeAttribute(RDF_NODEID, node.toString());
+        assert node.isAnonymous();
+        writer.writeAttribute(RDF_NODEID, node.getNodeIDValue());
     }
 
     /**

@@ -144,4 +144,9 @@ public class RDFResourceBlankNode extends RDFResource
         String nodeId = resource.getIRIString().replace("_:", "");
         return UNIQUE_BASE + ":" + nodeId;
     }
+
+    @Override
+    public String getNodeIDValue() {
+        return NodeID.stripArtifacts(resource);
+    }
 }

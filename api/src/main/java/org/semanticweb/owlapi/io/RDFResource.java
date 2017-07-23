@@ -32,6 +32,14 @@ public abstract class RDFResource extends RDFNode
      */
     public abstract IRI getResource();
 
+    /**
+     * For blank nodes, return a valid value for thr rdf/xml nodeId attribute. For non blank nodes,
+     * an exception should be thrown. The method must only be called on blank nodes.
+     * 
+     * @return a valid value for thr rdf/xml nodeId attribute
+     */
+    public abstract String getNodeIDValue();
+
     @Override
     public int compareTo(@Nullable RDFNode o) {
         checkNotNull(o);

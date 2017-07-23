@@ -34,11 +34,7 @@ public class FileRoundTripNoManSyntaxTestCase extends AbstractFileRoundTrippingT
 
     @Parameters
     public static List<String> getData() {
-        return Arrays.asList(
-                        // AnonymousInverses
-                        "AnonymousInverses.rdf",
-                        // TestParser08
-                        "TestParser08.rdf");
+        return Arrays.asList("AnonymousInverses.rdf", "TestParser08.rdf", "nodeid.rdf");
     }
 
     @Override
