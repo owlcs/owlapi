@@ -358,9 +358,9 @@ public abstract class TestBase {
         m.addAxiom(ont, ax);
     }
 
-    public void roundTripOntology(@Nonnull OWLOntology ont) throws OWLOntologyStorageException,
-        OWLOntologyCreationException {
-        roundTripOntology(ont, new RDFXMLDocumentFormat());
+    public OWLOntology roundTripOntology(OWLOntology ont)
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
+        return roundTripOntology(ont, new RDFXMLDocumentFormat());
     }
 
     /**

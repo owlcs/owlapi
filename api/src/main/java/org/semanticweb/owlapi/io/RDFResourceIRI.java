@@ -74,4 +74,10 @@ public class RDFResourceIRI extends RDFResource {
     public String toString() {
         return resource.toQuotedString();
     }
+
+    @Override
+    public String getNodeIDValue() {
+        throw new UnsupportedOperationException(
+            "RDFResource " + toString() + " is not a blank node; nodeId not defined.");
+    }
 }

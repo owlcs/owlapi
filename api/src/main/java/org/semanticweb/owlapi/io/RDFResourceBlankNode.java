@@ -131,4 +131,9 @@ public class RDFResourceBlankNode extends RDFResource {
     public IRI getResource() {
         return resource;
     }
+
+    @Override
+    public String getNodeIDValue() {
+        return NodeID.stripArtifacts(resource);
+    }
 }
