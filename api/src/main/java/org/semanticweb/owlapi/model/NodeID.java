@@ -18,6 +18,8 @@ import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.XMLUtils;
+
 /**
  * Represents the Node ID for anonymous individuals.
  *
@@ -175,5 +177,36 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      */
     public String getID() {
         return id;
+    }
+
+    /**
+     * @param resource nodeid IRI to strip of prefixes
+     * @return id string compatible with RDF/XML
+     */
+    public static String stripArtifacts(CharSequence resource) {
+        StringBuilder b = new StringBuilder(resource);
+        int toDelete = b.indexOf(SHARED_NODE_ID_PREFIX);
+        if (toDelete > -1) {
+            b.delete(toDelete, toDelete + SHARED_NODE_ID_PREFIX.length());
+        }
+        toDelete = b.indexOf(NODE_ID_PREFIX);
+        if (toDelete > -1) {
+            b.delete(toDelete, toDelete + NODE_ID_PREFIX.length());
+        }
+        toDelete = b.indexOf(PREFIX);
+        if (toDelete > -1) {
+            b.delete(toDelete, toDelete + PREFIX.length());
+        }
+        for (int i = b.length() - 1; i > -1; i--) {
+            if (!XMLUtils.isNCNameChar(b.charAt(i))) {
+                b.deleteCharAt(i);
+            }
+        }
+        if (!XMLUtils.isNCNameStartChar(b.charAt(0))) {
+            // if the first character is not suitable as the start of an NCName, prefix it with the
+            // mildest of the prefixes
+            b.insert(0, NODE_ID_PREFIX);
+        }
+        return b.toString();
     }
 }

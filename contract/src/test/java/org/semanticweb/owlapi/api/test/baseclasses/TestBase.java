@@ -428,9 +428,9 @@ public abstract class TestBase {
         }
     }
 
-    public void roundTripOntology(OWLOntology ont)
+    public OWLOntology roundTripOntology(OWLOntology ont)
         throws OWLOntologyStorageException, OWLOntologyCreationException {
-        roundTripOntology(ont, new RDFXMLDocumentFormat());
+        return roundTripOntology(ont, new RDFXMLDocumentFormat());
     }
 
     /**
