@@ -32,7 +32,7 @@ public class VersionInfo {
         if (v != null) {
             version = v;
         } else {
-            version = "4.3.1";
+            version = "4.3.2";
         }
     }
 
