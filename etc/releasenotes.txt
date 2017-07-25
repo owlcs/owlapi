@@ -1,3 +1,14 @@
+5.1.1 25 July 2017
+Features:
+Add REPAIR_ILLEGAL_PUNNINGS property to disable fix of illegal punnings
+Move punning log to warning
+
+Bug fixes:
+Fix Profiles.OWL2_FULL returns Profiles.OWL2_DL #667
+Fix EntitySearcher.getEquivalentClasses incorrectly returns itself #663
+OWLEntityRenamer should rename annotation props in ontology annotations
+Fix blank node ids should be NCNames in the RDF/XML output #689
+
 5.1.0 30 Mar 2017
 Bug fixes:
 Fix Relating to inferred axiom generators #646
