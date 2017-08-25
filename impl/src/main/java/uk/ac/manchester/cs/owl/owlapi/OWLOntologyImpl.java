@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -93,6 +94,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         public ChangeApplied visit(SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
+                // force hashcode recomputation
+                hashCode = 0;
                 ontologyID = id;
                 return SUCCESSFULLY;
             }
