@@ -12,3 +12,4 @@ bin/
 felix-cache
 dependency-reduced-pom.xml
 /reports/
+pom.xml.versionsBackup
