@@ -128,7 +128,6 @@ public class OWLOntologyManager_Concurrent_TestCase {
         when(storer.canStoreOntology(any(OWLDocumentFormat.class))).thenReturn(Boolean.TRUE);
         OWLStorerFactory storerFactory = mock(OWLStorerFactory.class);
         when(storerFactory.createStorer()).thenReturn(storer);
-        when(storerFactory.getFormatFactory()).thenReturn(mock(OWLDocumentFormatFactory.class));
         manager.setOntologyStorers(Collections.singleton(storerFactory));
     }
 
