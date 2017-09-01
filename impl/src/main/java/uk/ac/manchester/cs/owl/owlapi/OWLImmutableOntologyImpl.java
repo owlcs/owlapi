@@ -12,9 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,7 +34,46 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLPrimitive;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
@@ -44,15 +86,17 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
+public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
+    implements OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nullable protected OWLOntologyManager manager;
-    @Nonnull protected OWLOntologyID ontologyID;
+    @Nullable
+    protected OWLOntologyManager manager;
+    @Nonnull
+    protected OWLOntologyID ontologyID;
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.writeObject(ontologyID);
@@ -70,12 +114,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     /**
-     * @param manager
-     *        ontology manager
-     * @param ontologyID
-     *        ontology id
+     * @param manager ontology manager
+     * @param ontologyID ontology id
      */
-    public OWLImmutableOntologyImpl(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntologyID ontologyID) {
+    public OWLImmutableOntologyImpl(@Nonnull OWLOntologyManager manager,
+        @Nonnull OWLOntologyID ontologyID) {
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
     }
@@ -100,8 +143,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
-        return verifyNotNull(manager, "Manager on ontology " + getOntologyID()
-            + " is null; the ontology is no longer associated to a manager. Ensure the ontology is not being used after being removed from its manager.");
+        OWLOntologyManager m = manager;
+        if (m == null) {
+            throw new IllegalStateException("Manager on ontology " + getOntologyID()
+                + " is null; the ontology is no longer associated to a manager. Ensure the ontology is not being used after being removed from its manager.");
+        }
+        return verifyNotNull(m, "manager cannot be null at this stage");
     }
 
     @Override
@@ -134,7 +181,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, boolean includeImportsClosure) {
+    public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType,
+        boolean includeImportsClosure) {
         return getAxiomCount(axiomType, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -144,7 +192,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, Imports includeImportsClosure) {
+    public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return getAxiomCount(axiomType);
         }
@@ -207,12 +256,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure) {
+    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
+        boolean includeImportsClosure) {
         return getAxioms(axiomType, Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, Imports includeImportsClosure) {
+    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return getAxioms(axiomType);
         }
@@ -351,8 +402,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom, boolean importsIncluded) {
-        return containsAxiom(axiom, Imports.fromBoolean(importsIncluded), AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
+    public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
+        boolean importsIncluded) {
+        return containsAxiom(axiom, Imports.fromBoolean(importsIncluded),
+            AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
     }
 
     @Override
@@ -371,12 +424,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom, boolean includeImportsClosure) {
+    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
+        boolean includeImportsClosure) {
         return getAxiomsIgnoreAnnotations(axiom, Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom, Imports includeImportsClosure) {
+    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return getAxiomsIgnoreAnnotations(axiom);
         }
@@ -401,7 +456,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI, Imports includeImportsClosure) {
+    public boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return ints.containsObjectPropertyInSignature(owlObjectPropertyIRI);
         }
@@ -414,7 +470,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI, Imports includeImportsClosure) {
+    public boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return ints.containsDataPropertyInSignature(owlDataPropertyIRI);
         }
@@ -427,9 +484,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI, Imports includeImportsClosure) {
-        OWLAnnotationProperty p = getOWLOntologyManager().getOWLDataFactory().getOWLAnnotationProperty(
-            owlAnnotationPropertyIRI);
+    public boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI,
+        Imports includeImportsClosure) {
+        OWLAnnotationProperty p = getOWLOntologyManager().getOWLDataFactory()
+            .getOWLAnnotationProperty(owlAnnotationPropertyIRI);
         if (includeImportsClosure == INCLUDED) {
             for (OWLOntology o : getImportsClosure()) {
                 if (o.containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI, EXCLUDED)) {
@@ -454,7 +512,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public boolean containsIndividualInSignature(IRI owlIndividualIRI, Imports includeImportsClosure) {
+    public boolean containsIndividualInSignature(IRI owlIndividualIRI,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return ints.containsIndividualInSignature(owlIndividualIRI);
         }
@@ -623,10 +682,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         return containsEntityInSignature(owlEntity, EXCLUDED);
     }
 
-    private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
+    private final OWLEntityReferenceChecker entityReferenceChecker =
+        new OWLEntityReferenceChecker();
 
     @Override
-    public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity, Imports includeImportsClosure) {
+    public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
+        Imports includeImportsClosure) {
         if (includeImportsClosure != INCLUDED) {
             return entityReferenceChecker.containsReference(owlEntity);
         }
@@ -788,7 +849,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(Imports includeImportsClosure) {
+    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet());
         }
@@ -812,11 +874,13 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(Imports includeImportsClosure) {
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
+        Imports includeImportsClosure) {
         Set<OWLAnnotationProperty> props = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
-            Iterables.addAll(props, ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
-                .get().keySet());
+            Iterables.addAll(props,
+                ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
+                    .get().keySet());
             for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
                 props.add(anno.getProperty());
             }
@@ -939,7 +1003,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
         @Override
         public void visit(@Nonnull OWLAnnotationProperty property) {
-            ref = OWLImmutableOntologyImpl.this.ints.containsAnnotationPropertyInSignature(property);
+            ref =
+                OWLImmutableOntologyImpl.this.ints.containsAnnotationPropertyInSignature(property);
         }
     }
 
@@ -956,7 +1021,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property, Imports includeImportsClosure) {
+    public Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property,
+        Imports includeImportsClosure) {
         Set<OWLObjectPropertyAxiom> result = createSet(50);
         if (includeImportsClosure == EXCLUDED) {
             result.addAll(getAsymmetricObjectPropertyAxioms(property));
@@ -981,20 +1047,24 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property, Imports includeImportsClosure) {
+    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property,
+        Imports includeImportsClosure) {
         Set<OWLAnnotationAxiom> result = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
-            for (OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+            for (OWLSubAnnotationPropertyOfAxiom ax : getAxioms(
+                AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
                 if (ax.getSubProperty().equals(property)) {
                     result.add(ax);
                 }
             }
-            for (OWLAnnotationPropertyRangeAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
+            for (OWLAnnotationPropertyRangeAxiom ax : getAxioms(
+                AxiomType.ANNOTATION_PROPERTY_RANGE)) {
                 if (ax.getProperty().equals(property)) {
                     result.add(ax);
                 }
             }
-            for (OWLAnnotationPropertyDomainAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
+            for (OWLAnnotationPropertyDomainAxiom ax : getAxioms(
+                AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
                 if (ax.getProperty().equals(property)) {
                     result.add(ax);
                 }
@@ -1008,7 +1078,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property, Imports includeImportsClosure) {
+    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property,
+        Imports includeImportsClosure) {
         Set<OWLDataPropertyAxiom> result = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
             result.addAll(getDataPropertyDomainAxioms(property));
@@ -1026,7 +1097,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual, Imports includeImportsClosure) {
+    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
+        Imports includeImportsClosure) {
         Set<OWLIndividualAxiom> result = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
             result.addAll(getClassAssertionAxioms(individual));
@@ -1045,7 +1117,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype, Imports includeImportsClosure) {
+    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return getDatatypeDefinitions(datatype);
         }
@@ -1067,7 +1140,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity, Imports includeImportsClosure) {
+    public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
+        Imports includeImportsClosure) {
         if (owlEntity instanceof OWLEntity) {
             if (includeImportsClosure == EXCLUDED) {
                 return asSet(ints.getReferencingAxioms((OWLEntity) owlEntity));
@@ -1078,19 +1152,21 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             }
             return result;
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
-            return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().getValues(
-                (OWLAnonymousIndividual) owlEntity));
+            return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
+                .getValues((OWLAnonymousIndividual) owlEntity));
         } else if (owlEntity instanceof IRI) {
             Set<OWLAxiom> axioms = new HashSet<>();
             // axioms referring entities with this IRI, data property assertions
             // with IRI as subject, annotations with IRI as subject or object.
-            Set<OWLEntity> entities = getEntitiesInSignature((IRI) owlEntity, includeImportsClosure);
+            Set<OWLEntity> entities =
+                getEntitiesInSignature((IRI) owlEntity, includeImportsClosure);
             for (OWLEntity e : entities) {
                 assert e != null;
                 axioms.addAll(getReferencingAxioms(e, includeImportsClosure));
             }
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (ax.getObject().getDatatype().getIRI().equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                if (ax.getObject().getDatatype().getIRI()
+                    .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
                     if (ax.getObject().getLiteral().equals(owlEntity.toString())) {
                         axioms.add(ax);
                     }
@@ -1101,7 +1177,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
                     axioms.add(ax);
                 } else if (ax.getValue().asLiteral().isPresent()) {
                     Optional<OWLLiteral> lit = ax.getValue().asLiteral();
-                    if (lit.get().getDatatype().getIRI().equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                    if (lit.get().getDatatype().getIRI()
+                        .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
                         if (lit.get().getLiteral().equals(owlEntity.toString())) {
                             axioms.add(ax);
                         }
@@ -1159,11 +1236,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     @SuppressWarnings("unchecked")
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
-        @Nonnull Class<? extends OWLObject> explicitClass, @Nonnull OWLObject entity, @Nonnull Imports includeImports,
-        @Nonnull Navigation forSubPosition) {
+        @Nonnull Class<? extends OWLObject> explicitClass, @Nonnull OWLObject entity,
+        @Nonnull Imports includeImports, @Nonnull Navigation forSubPosition) {
         if (includeImports == EXCLUDED) {
-            Optional<MapPointer<OWLObject, A>> optional = ints.get((Class<OWLObject>) explicitClass, type,
-                forSubPosition);
+            Optional<MapPointer<OWLObject, A>> optional =
+                ints.get((Class<OWLObject>) explicitClass, type, forSubPosition);
             if (optional.isPresent()) {
                 return asSet(optional.get().getValues(entity));
             }
@@ -1185,8 +1262,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Nonnull
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends OWLAxiom> Collection<T> filterAxioms(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
-        Imports includeImportsClosure) {
+    public <T extends OWLAxiom> Collection<T> filterAxioms(@Nonnull OWLAxiomSearchFilter filter,
+        @Nonnull Object key, Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return (Collection<T>) ints.filterAxioms(filter, key);
         }
@@ -1200,7 +1277,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key, Imports includeImportsClosure) {
+    public boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return ints.contains(filter, key);
         }
@@ -1248,27 +1326,32 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property, boolean includeImportsClosure) {
+    public Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property,
+        boolean includeImportsClosure) {
         return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property, boolean includeImportsClosure) {
+    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property,
+        boolean includeImportsClosure) {
         return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual, boolean includeImportsClosure) {
+    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
+        boolean includeImportsClosure) {
         return getAxioms(individual, Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property, boolean includeImportsClosure) {
+    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property,
+        boolean includeImportsClosure) {
         return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype, boolean includeImportsClosure) {
+    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype,
+        boolean includeImportsClosure) {
         return getAxioms(datatype, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -1293,7 +1376,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public void saveOntology(OWLDocumentFormat ontologyFormat, IRI documentIRI) throws OWLOntologyStorageException {
+    public void saveOntology(OWLDocumentFormat ontologyFormat, IRI documentIRI)
+        throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, documentIRI);
     }
 
@@ -1304,13 +1388,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public void saveOntology(OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
+    public void saveOntology(OWLOntologyDocumentTarget documentTarget)
+        throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, documentTarget);
     }
 
     @Override
-    public void saveOntology(OWLDocumentFormat ontologyFormat, OWLOntologyDocumentTarget documentTarget)
-        throws OWLOntologyStorageException {
+    public void saveOntology(OWLDocumentFormat ontologyFormat,
+        OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, documentTarget);
     }
 
@@ -1375,7 +1460,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(boolean includeImportsClosure) {
+    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
+        boolean includeImportsClosure) {
         return getReferencedAnonymousIndividuals(Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -1385,7 +1471,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(boolean includeImportsClosure) {
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
+        boolean includeImportsClosure) {
         return getAnnotationPropertiesInSignature(Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -1405,29 +1492,37 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI, boolean includeImportsClosure) {
-        return containsObjectPropertyInSignature(owlObjectPropertyIRI, Imports.fromBoolean(includeImportsClosure));
+    public boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI,
+        boolean includeImportsClosure) {
+        return containsObjectPropertyInSignature(owlObjectPropertyIRI,
+            Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI, boolean includeImportsClosure) {
-        return containsDataPropertyInSignature(owlDataPropertyIRI, Imports.fromBoolean(includeImportsClosure));
+    public boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI,
+        boolean includeImportsClosure) {
+        return containsDataPropertyInSignature(owlDataPropertyIRI,
+            Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI, boolean includeImportsClosure) {
-        return containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI, Imports.fromBoolean(
-            includeImportsClosure));
+    public boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI,
+        boolean includeImportsClosure) {
+        return containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI,
+            Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
     public boolean containsDatatypeInSignature(IRI owlDatatypeIRI, boolean includeImportsClosure) {
-        return containsDatatypeInSignature(owlDatatypeIRI, Imports.fromBoolean(includeImportsClosure));
+        return containsDatatypeInSignature(owlDatatypeIRI,
+            Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
-    public boolean containsIndividualInSignature(IRI owlIndividualIRI, boolean includeImportsClosure) {
-        return containsIndividualInSignature(owlIndividualIRI, Imports.fromBoolean(includeImportsClosure));
+    public boolean containsIndividualInSignature(IRI owlIndividualIRI,
+        boolean includeImportsClosure) {
+        return containsIndividualInSignature(owlIndividualIRI,
+            Imports.fromBoolean(includeImportsClosure));
     }
 
     @Override
