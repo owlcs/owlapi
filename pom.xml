@@ -16,7 +16,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.3.2</version>
+	<version>4.5.0-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
@@ -272,8 +272,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.6.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -343,7 +343,7 @@
 				<ignores><ignore>com.sun.management.*</ignore></ignores>
 					<signature>
 						<groupId>org.codehaus.mojo.signature</groupId>
-						<artifactId>java17</artifactId>
+						<artifactId>java18</artifactId>
 						<version>1.0</version>
 					</signature>
 				</configuration>
@@ -362,7 +362,7 @@
 						<configuration>
 							<rules>
 								<enforceBytecodeVersion>
-									<maxJdkVersion>1.7</maxJdkVersion>
+									<maxJdkVersion>1.8</maxJdkVersion>
 								</enforceBytecodeVersion>
 							</rules>
 							<fail>true</fail>

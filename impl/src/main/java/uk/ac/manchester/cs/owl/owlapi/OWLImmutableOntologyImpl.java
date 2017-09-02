@@ -35,6 +35,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -1397,6 +1398,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     public void saveOntology(OWLDocumentFormat ontologyFormat,
         OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, documentTarget);
+    }
+
+    @Override
+    public boolean containsEntitiesOfTypeInSignature(EntityType<?> type) {
+        return ints.anyEntities(type);
     }
 
     @Override
