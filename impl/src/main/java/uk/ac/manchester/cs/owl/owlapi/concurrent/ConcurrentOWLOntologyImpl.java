@@ -22,11 +22,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ChangeDetails;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -105,6 +108,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+
 import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 
 /**
@@ -124,12 +128,12 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     private final Lock writeLock;
 
     /**
-     * Constructs a ConcurrentOWLOntology that provides concurrent access to a
-     * delegate {@link OWLOntology}.
+     * Constructs a ConcurrentOWLOntology that provides concurrent access to a delegate
+     * {@link OWLOntology}.
      *
      * @param delegate The delegate {@link OWLOntology}.
      * @param readWriteLock The {@link java.util.concurrent.locks.ReadWriteLock} that will provide
-     * the locking.
+     *        the locking.
      * @throws java.lang.NullPointerException if any parameters are {@code null}.
      */
     @Inject
@@ -553,8 +557,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public void saveOntology(OWLDocumentFormat owlDocumentFormat,
-        OWLOntologyDocumentTarget owlOntologyDocumentTarget)
-        throws OWLOntologyStorageException {
+        OWLOntologyDocumentTarget owlOntologyDocumentTarget) throws OWLOntologyStorageException {
         readLock.lock();
         try {
             delegate.saveOntology(owlDocumentFormat, owlOntologyDocumentTarget);
@@ -628,6 +631,27 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
         readLock.lock();
         try {
             return delegate.containsEntityInSignature(owlEntity);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public boolean containsEntitiesOfTypeInSignature(EntityType<?> type) {
+        readLock.lock();
+        try {
+            return delegate.containsEntitiesOfTypeInSignature(type);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public boolean containsEntitiesOfTypeInSignature(EntityType<?> type,
+        Imports includeImportsClosure) {
+        readLock.lock();
+        try {
+            return delegate.containsEntitiesOfTypeInSignature(type, includeImportsClosure);
         } finally {
             readLock.unlock();
         }
@@ -836,8 +860,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public Set<OWLObjectPropertyAxiom> getAxioms(
-        OWLObjectPropertyExpression owlObjectPropertyExpression,
-        Imports imports) {
+        OWLObjectPropertyExpression owlObjectPropertyExpression, Imports imports) {
         readLock.lock();
         try {
             return delegate.getAxioms(owlObjectPropertyExpression, imports);
@@ -1794,8 +1817,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass, OWLObject owlObject,
-        Imports imports,
-        Navigation navigation) {
+        Imports imports, Navigation navigation) {
         readLock.lock();
         try {
             return delegate.getAxioms(aClass, owlObject, imports, navigation);
@@ -1806,8 +1828,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public <T extends OWLAxiom> Stream<T> axioms(Class<T> aClass, OWLObject owlObject,
-        Imports imports,
-        Navigation navigation) {
+        Imports imports, Navigation navigation) {
         readLock.lock();
         try {
             return delegate.axioms(aClass, owlObject, imports, navigation);
@@ -1818,8 +1839,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public <T extends OWLAxiom> Collection<T> filterAxioms(
-        OWLAxiomSearchFilter owlAxiomSearchFilter, Object o,
-        Imports imports) {
+        OWLAxiomSearchFilter owlAxiomSearchFilter, Object o, Imports imports) {
         readLock.lock();
         try {
             return delegate.filterAxioms(owlAxiomSearchFilter, o, imports);
@@ -1850,8 +1870,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public <T extends OWLAxiom> Set<T> getAxioms(Class<T> aClass,
-        Class<? extends OWLObject> aClass1,
-        OWLObject owlObject, Imports imports, Navigation navigation) {
+        Class<? extends OWLObject> aClass1, OWLObject owlObject, Imports imports,
+        Navigation navigation) {
         readLock.lock();
         try {
             return delegate.getAxioms(aClass, aClass1, owlObject, imports, navigation);
@@ -1862,8 +1882,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public <T extends OWLAxiom> Stream<T> axioms(Class<T> aClass,
-        Class<? extends OWLObject> aClass1,
-        OWLObject owlObject, Imports imports, Navigation navigation) {
+        Class<? extends OWLObject> aClass1, OWLObject owlObject, Imports imports,
+        Navigation navigation) {
         readLock.lock();
         try {
             return delegate.axioms(aClass, aClass1, owlObject, imports, navigation);
@@ -2452,8 +2472,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public <T extends OWLAxiom> Stream<T> axioms(Class<T> type,
-        Class<? extends OWLObject> explicitClass,
-        OWLObject entity, Navigation forSubPosition) {
+        Class<? extends OWLObject> explicitClass, OWLObject entity, Navigation forSubPosition) {
         readLock.lock();
         try {
             return delegate.axioms(type, explicitClass, entity, forSubPosition);
@@ -3032,8 +3051,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
 
     @Override
     public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
-        Class<? extends OWLObject> explicitClass,
-        OWLObject entity, Navigation forSubPosition) {
+        Class<? extends OWLObject> explicitClass, OWLObject entity, Navigation forSubPosition) {
         readLock.lock();
         try {
             return delegate.getAxioms(type, explicitClass, entity, forSubPosition);

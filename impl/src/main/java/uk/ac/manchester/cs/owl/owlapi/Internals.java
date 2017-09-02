@@ -75,8 +75,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -289,8 +292,34 @@ public class Internals implements Serializable {
     }
 
     /**
-     * Trims the capacity of the axiom indexes . An application can use this
-     * operation to minimize the storage of the internals instance.
+     * @param type entity type
+     * @return true if there are entities of the specified type referred
+     */
+    public boolean anyEntities(EntityType<?> type) {
+        if (EntityType.CLASS.equals(type)) {
+            return !owlClassReferences.isEmpty();
+        }
+        if (EntityType.DATA_PROPERTY.equals(type)) {
+            return !owlDataPropertyReferences.isEmpty();
+        }
+        if (EntityType.OBJECT_PROPERTY.equals(type)) {
+            return !owlObjectPropertyReferences.isEmpty();
+        }
+        if (EntityType.ANNOTATION_PROPERTY.equals(type)) {
+            return !owlAnnotationPropertyReferences.isEmpty();
+        }
+        if (EntityType.DATATYPE.equals(type)) {
+            return !owlDatatypeReferences.isEmpty();
+        }
+        if (EntityType.NAMED_INDIVIDUAL.equals(type)) {
+            return !owlIndividualReferences.isEmpty();
+        }
+        return false;
+    }
+
+    /**
+     * Trims the capacity of the axiom indexes . An application can use this operation to minimize
+     * the storage of the internals instance.
      */
     public void trimToSize() {
         axiomsByType.trimToSize();
