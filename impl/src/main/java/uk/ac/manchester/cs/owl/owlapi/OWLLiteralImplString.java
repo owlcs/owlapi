@@ -50,4 +50,9 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
             Stream.of(getDatatype(), Integer.valueOf(getLiteral().hashCode() * 65536),
                 getLang()));
     }
+
+    @Override
+    public boolean isSimpleLiteral() {
+        return true;
+    }
 }

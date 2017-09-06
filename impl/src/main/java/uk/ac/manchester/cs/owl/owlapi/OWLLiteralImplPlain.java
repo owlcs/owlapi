@@ -61,6 +61,11 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
+    public boolean isSimpleLiteral() {
+        return true;
+    }
+
+    @Override
     public String getLang() {
         return lang;
     }

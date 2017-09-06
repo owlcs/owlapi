@@ -64,10 +64,17 @@ public class LiteralTestCase extends TestBase {
     }
 
     @Test
+    public void testStringIsSimple() {
+        OWLLiteral literal = Literal("hello world");
+        assertEquals(literal.getDatatype(),OWL2Datatype.XSD_STRING.getDatatype(df));
+        assertTrue(literal.isSimpleLiteral());
+    }
+    @Test
     public void testPlainLiteralWithLang() {
         OWLLiteral literalWithLang = Literal("abc", "en");
         assertFalse(literalWithLang.getDatatype().getIRI().isPlainLiteral());
         assertFalse(literalWithLang.isRDFPlainLiteral());
+        assertTrue(literalWithLang.isSimpleLiteral());
         assertTrue(literalWithLang.hasLang());
         assertEquals("en", literalWithLang.getLang());
         assertEquals(literalWithLang.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
@@ -78,6 +85,8 @@ public class LiteralTestCase extends TestBase {
         OWLLiteral literal = Literal("abc@en", PlainLiteral());
         assertTrue(literal.hasLang());
         assertFalse(literal.isRDFPlainLiteral());
+        assertTrue(literal.isSimpleLiteral());
+
         assertEquals("en", literal.getLang());
         assertEquals("abc", literal.getLiteral());
         assertEquals(literal.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));

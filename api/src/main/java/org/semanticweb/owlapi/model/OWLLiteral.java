@@ -72,6 +72,12 @@ public interface OWLLiteral
     }
 
     /**
+     *
+     * @return true if this literal is an RDF 1.1 Simple Literal
+     */
+    default boolean isSimpleLiteral() {return false;}
+
+    /**
      * Gets the lexical value of this literal. Note that if the datatype is
      * {@code rdf:PlainLiteral} then the abbreviated lexical form will be
      * returned. That is, the language tag is not included.
