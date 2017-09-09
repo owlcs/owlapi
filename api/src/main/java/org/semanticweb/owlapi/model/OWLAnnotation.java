@@ -13,19 +13,23 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * Annotations are used in the various types of annotation axioms, which bind
- * annotations to their subjects (i.e. axioms or declarations).<br>
- * An annotation is equal to another annotation if both objects have equal
- * annotation URIs and have equal annotation values.
+ * Annotations are used in the various types of annotation axioms, which bind annotations to their
+ * subjects (i.e. axioms or declarations).<br>
+ * An annotation is equal to another annotation if both objects have equal annotation URIs and have
+ * equal annotation values.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnnotation extends OWLObject, HasAnnotations,
-    HasProperty<OWLAnnotationProperty> {
+public interface OWLAnnotation
+    extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty>, HasAnnotationValue {
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
@@ -61,9 +65,8 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
     OWLAnnotationProperty getProperty();
 
     /**
-     * Gets the annotation value. The type of value will depend upon the type of
-     * the annotation e.g. whether the annotation is an
-     * {@link org.semanticweb.owlapi.model.OWLLiteral}, an
+     * Gets the annotation value. The type of value will depend upon the type of the annotation e.g.
+     * whether the annotation is an {@link org.semanticweb.owlapi.model.OWLLiteral}, an
      * {@link org.semanticweb.owlapi.model.IRI} or an
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
      *
@@ -74,19 +77,18 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
     OWLAnnotationValue getValue();
 
     /**
-     * Determines if this annotation is an annotation used to deprecate an IRI.
-     * This is the case if the annotation property has an IRI of
-     * {@code owl:deprecated} and the value of the annotation is
-     * {@code "true"^^xsd:boolean}
+     * Determines if this annotation is an annotation used to deprecate an IRI. This is the case if
+     * the annotation property has an IRI of {@code owl:deprecated} and the value of the annotation
+     * is {@code "true"^^xsd:boolean}
      *
      * @return {@code true} if this annotation is an annotation that can be used to deprecate an
-     * IRI, otherwise {@code false}.
+     *         IRI, otherwise {@code false}.
      */
     boolean isDeprecatedIRIAnnotation();
 
     /**
-     * Gets an OWLAnnotation which is a copy of this annotation but which has
-     * the specified annotations.
+     * Gets an OWLAnnotation which is a copy of this annotation but which has the specified
+     * annotations.
      *
      * @param annotations The annotations
      * @return A copy of this annotation with the specified annotations annotating it
@@ -94,8 +96,8 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
     OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations);
 
     /**
-     * Gets an OWLAnnotation which is a copy of this annotation but which has
-     * the specified annotations.
+     * Gets an OWLAnnotation which is a copy of this annotation but which has the specified
+     * annotations.
      *
      * @param annotations The annotations
      * @return A copy of this annotation with the specified annotations annotating it
@@ -126,5 +128,116 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
     @Override
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default OWLAnnotationValue annotationValue() {
+        return getValue();
+    }
+
+    @Override
+    default Optional<IRI> iriValue() {
+        return getValue().asIRI();
+    }
+
+    @Override
+    default Optional<OWLLiteral> literalValue() {
+        return getValue().asLiteral();
+    }
+
+    @Override
+    default Optional<OWLAnonymousIndividual> anonymousIndividualValue() {
+        return getValue().asAnonymousIndividual();
+    }
+
+    @Override
+    default void ifLiteral(Consumer<OWLLiteral> literalConsumer) {
+        getValue().ifLiteral(literalConsumer);
+    }
+
+    @Override
+    default void ifLiteralOrElse(Consumer<OWLLiteral> literalConsumer, Runnable alternativeAction) {
+        getValue().ifLiteralOrElse(literalConsumer, alternativeAction);
+    }
+
+    @Override
+    default void ifIri(Consumer<IRI> iriConsumer) {
+        getValue().ifIri(iriConsumer);
+    }
+
+    @Override
+    default void ifIriOrElse(Consumer<IRI> iriConsumer, Runnable alternativeAction) {
+        getValue().ifIriOrElse(iriConsumer, alternativeAction);
+    }
+
+    @Override
+    default void ifAnonymousIndividual(Consumer<OWLAnonymousIndividual> individualConsumer) {
+        getValue().ifAnonymousIndividual(individualConsumer);
+    }
+
+    @Override
+    default void ifAnonymousIndividualOrElse(Consumer<OWLAnonymousIndividual> individualConsumer,
+        Runnable alternativeAction) {
+        getValue().ifAnonymousIndividualOrElse(individualConsumer, alternativeAction);
+    }
+
+    @Override
+    default <T> Optional<T> mapLiteral(Function<OWLLiteral, T> function) {
+        return getValue().mapLiteral(function);
+    }
+
+    @Override
+    default <T> T mapLiteralOrElse(Function<OWLLiteral, T> function, T defaultValue) {
+        return getValue().mapLiteralOrElse(function, defaultValue);
+    }
+
+    @Override
+    default <T> T mapLiteralOrElseGet(Function<OWLLiteral, T> function, Supplier<T> defaultValue) {
+        return getValue().mapLiteralOrElseGet(function, defaultValue);
+    }
+
+    @Override
+    default <T> Optional<T> mapIri(Function<IRI, T> function) {
+        return getValue().mapIri(function);
+    }
+
+    @Override
+    default <T> T mapIriOrElse(Function<IRI, T> function, T defaultValue) {
+        return getValue().mapIriOrElse(function, defaultValue);
+    }
+
+    @Override
+    default <T> T mapIriOrElseGet(Function<IRI, T> function, Supplier<T> defaultValue) {
+        return getValue().mapIriOrElseGet(function, defaultValue);
+    }
+
+    @Override
+    default <T> Optional<T> mapAnonymousIndividual(Function<OWLAnonymousIndividual, T> function) {
+        return getValue().mapAnonymousIndividual(function);
+    }
+
+    @Override
+    default <T> T mapAnonymousIndividualOrElse(Function<OWLAnonymousIndividual, T> function,
+        T defaultValue) {
+        return getValue().mapAnonymousIndividualOrElse(function, defaultValue);
+    }
+
+    @Override
+    default <T> T mapAnonymousIndividualOrElseGet(Function<OWLAnonymousIndividual, T> function,
+        Supplier<T> defaultValue) {
+        return getValue().mapAnonymousIndividualOrElseGet(function, defaultValue);
+    }
+
+    @Override
+    default void ifValue(Consumer<OWLLiteral> literalFunction, Consumer<IRI> iriFunction,
+        Consumer<OWLAnonymousIndividual> anonymousIndividualFunction) {
+        getValue().ifValue(literalFunction, iriFunction, anonymousIndividualFunction);
+    }
+
+    @Override
+    default <T> Optional<T> mapValue(Function<OWLLiteral, T> literalFunction,
+        Function<IRI, T> iriFunction,
+        Function<OWLAnonymousIndividual, T> anonymousIndividualFunction) {
+        return getValue().mapValue(literalFunction, iriFunction, anonymousIndividualFunction);
     }
 }

@@ -15,10 +15,13 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
- * A marker interface for annotation values, which can either be an IRI (URI),
- * Literal or Anonymous Individual, with visitor methods.
+ * A marker interface for annotation values, which can either be an IRI (URI), Literal or Anonymous
+ * Individual, with visitor methods.
  *
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @see org.semanticweb.owlapi.model.IRI
@@ -26,7 +29,7 @@ import java.util.Optional;
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @since 3.0.0
  */
-public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
+public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive, HasAnnotationValue {
 
     /**
      * @param visitor visitor to accept
@@ -42,9 +45,187 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
 
     /**
      * @return if the value is a literal, return an optional containing it. Return Optional.absent
-     * otherwise.
+     *         otherwise.
      */
     default Optional<OWLLiteral> asLiteral() {
         return emptyOptional();
+    }
+
+    default boolean isLiteral() {
+        return false;
+    }
+
+    @Override
+    default OWLAnnotationValue annotationValue() {
+        return this;
+    }
+
+    /** @deprecated Use {@code asIRI()} instead */
+    @Override
+    @Deprecated
+    default Optional<IRI> iriValue() {
+        return asIRI();
+    }
+
+    /** @deprecated Use {@code asLiteral()} instead */
+    @Override
+    @Deprecated
+    default Optional<OWLLiteral> literalValue() {
+        return asLiteral();
+    }
+
+    /** @deprecated Use {@code asAnonymousIndividual()} instead */
+    @Override
+    @Deprecated
+    default Optional<OWLAnonymousIndividual> anonymousIndividualValue() {
+        return asAnonymousIndividual();
+    }
+
+    @Override
+    default void ifLiteral(Consumer<OWLLiteral> literalConsumer) {
+        if (isLiteral()) {
+            literalConsumer.accept((OWLLiteral) this);
+        }
+    }
+
+    @Override
+    default void ifLiteralOrElse(Consumer<OWLLiteral> literalConsumer, Runnable alternativeAction) {
+        if (isLiteral()) {
+            literalConsumer.accept((OWLLiteral) this);
+        } else {
+            alternativeAction.run();
+        }
+    }
+
+    @Override
+    default void ifIri(Consumer<IRI> iriConsumer) {
+        if (isIRI()) {
+            iriConsumer.accept((IRI) this);
+        }
+    }
+
+    @Override
+    default void ifIriOrElse(Consumer<IRI> iriConsumer, Runnable alternativeAction) {
+        if (isIRI()) {
+            iriConsumer.accept((IRI) this);
+        } else {
+            alternativeAction.run();
+        }
+    }
+
+    @Override
+    default void ifAnonymousIndividual(Consumer<OWLAnonymousIndividual> individualConsumer) {
+        if (isIndividual()) {
+            individualConsumer.accept((OWLAnonymousIndividual) this);
+        }
+    }
+
+    @Override
+    default void ifAnonymousIndividualOrElse(Consumer<OWLAnonymousIndividual> individualConsumer,
+        Runnable alternativeAction) {
+        if (isIndividual()) {
+            individualConsumer.accept((OWLAnonymousIndividual) this);
+        } else {
+            alternativeAction.run();
+        }
+    }
+
+    @Override
+    default <T> Optional<T> mapLiteral(Function<OWLLiteral, T> function) {
+        if (isLiteral()) {
+            return Optional.ofNullable(function.apply((OWLLiteral) this));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    default <T> T mapLiteralOrElse(Function<OWLLiteral, T> function, T defaultValue) {
+        if (isLiteral()) {
+            return function.apply((OWLLiteral) this);
+        }
+        return defaultValue;
+    }
+
+    @Override
+    default <T> T mapLiteralOrElseGet(Function<OWLLiteral, T> function, Supplier<T> defaultValue) {
+        if (isLiteral()) {
+            return function.apply((OWLLiteral) this);
+        }
+        return defaultValue.get();
+    }
+
+    @Override
+    default <T> Optional<T> mapIri(Function<IRI, T> function) {
+        if (isIRI()) {
+            return Optional.ofNullable(function.apply((IRI) this));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    default <T> T mapIriOrElse(Function<IRI, T> function, T defaultValue) {
+        if (isIRI()) {
+            return function.apply((IRI) this);
+        }
+        return defaultValue;
+    }
+
+    @Override
+    default <T> T mapIriOrElseGet(Function<IRI, T> function, Supplier<T> defaultValue) {
+        if (isIRI()) {
+            return function.apply((IRI) this);
+        }
+        return defaultValue.get();
+    }
+
+    @Override
+    default <T> Optional<T> mapAnonymousIndividual(Function<OWLAnonymousIndividual, T> function) {
+        if (isIRI()) {
+            return Optional.ofNullable(function.apply((OWLAnonymousIndividual) this));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    default <T> T mapAnonymousIndividualOrElse(Function<OWLAnonymousIndividual, T> function,
+        T defaultValue) {
+        if (isAnonymous()) {
+            return function.apply((OWLAnonymousIndividual) this);
+        }
+        return defaultValue;
+    }
+
+    @Override
+    default <T> T mapAnonymousIndividualOrElseGet(Function<OWLAnonymousIndividual, T> function,
+        Supplier<T> defaultValue) {
+        if (isAnonymous()) {
+            return function.apply((OWLAnonymousIndividual) this);
+        }
+        return defaultValue.get();
+    }
+
+    @Override
+    default void ifValue(Consumer<OWLLiteral> literalFunction, Consumer<IRI> iriFunction,
+        Consumer<OWLAnonymousIndividual> anonymousIndividualFunction) {
+        if (isLiteral()) {
+            ifLiteral(literalFunction);
+        } else if (isIRI()) {
+            ifIri(iriFunction);
+        } else {
+            ifAnonymousIndividual(anonymousIndividualFunction);
+        }
+    }
+
+    @Override
+    default <T> Optional<T> mapValue(Function<OWLLiteral, T> literalFunction,
+        Function<IRI, T> iriFunction,
+        Function<OWLAnonymousIndividual, T> anonymousIndividualFunction) {
+        if (isLiteral()) {
+            return mapLiteral(literalFunction);
+        } else if (isIRI()) {
+            return mapIri(iriFunction);
+        } else {
+            return mapAnonymousIndividual(anonymousIndividualFunction);
+        }
     }
 }
