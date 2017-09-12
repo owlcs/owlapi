@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -24,8 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
 /**
- * A very very simple merger, which just creates an ontology which contains the
- * union of axioms from a set of ontologies.
+ * A very very simple merger, which just creates an ontology which contains the union of axioms from
+ * a set of ontologies.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -72,8 +74,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      * @throws OWLOntologyCreationException if any creation exception arises
      */
     public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager,
-        @Nullable IRI ontologyIRI)
-        throws OWLOntologyCreationException {
+        @Nullable IRI ontologyIRI) throws OWLOntologyCreationException {
         OWLOntology ontology;
         if (ontologyIRI != null) {
             ontology = ontologyManager.createOntology(ontologyIRI);
@@ -81,6 +82,9 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
             ontology = ontologyManager.createOntology();
         }
         setProvider.ontologies()
+            // avoid including the merge ontology in the list of ontologies to merge, if the
+            // ontology manager is the same as the set provider
+            .filter(o -> o != ontology)
             .flatMap(this::getAxioms)
             .filter(axiomFilter::passes)
             .forEach(ontology::add);
