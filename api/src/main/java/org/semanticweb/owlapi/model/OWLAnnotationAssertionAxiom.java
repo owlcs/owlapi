@@ -12,10 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -109,114 +105,5 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
     @Override
     default OWLAnnotationValue annotationValue() {
         return getAnnotation().getValue();
-    }
-
-    @Override
-    default Optional<IRI> iriValue() {
-        return getAnnotation().getValue().asIRI();
-    }
-
-    @Override
-    default Optional<OWLLiteral> literalValue() {
-        return getAnnotation().getValue().asLiteral();
-    }
-
-    @Override
-    default Optional<OWLAnonymousIndividual> anonymousIndividualValue() {
-        return getAnnotation().getValue().asAnonymousIndividual();
-    }
-
-    @Override
-    default void ifLiteral(Consumer<OWLLiteral> literalConsumer) {
-        getAnnotation().getValue().ifLiteral(literalConsumer);
-    }
-
-    @Override
-    default void ifLiteralOrElse(Consumer<OWLLiteral> literalConsumer, Runnable alternativeAction) {
-        getAnnotation().getValue().ifLiteralOrElse(literalConsumer, alternativeAction);
-    }
-
-    @Override
-    default void ifIri(Consumer<IRI> iriConsumer) {
-        getAnnotation().getValue().ifIri(iriConsumer);
-    }
-
-    @Override
-    default void ifIriOrElse(Consumer<IRI> iriConsumer, Runnable alternativeAction) {
-        getAnnotation().getValue().ifIriOrElse(iriConsumer, alternativeAction);
-    }
-
-    @Override
-    default void ifAnonymousIndividual(Consumer<OWLAnonymousIndividual> individualConsumer) {
-        getAnnotation().getValue().ifAnonymousIndividual(individualConsumer);
-    }
-
-    @Override
-    default void ifAnonymousIndividualOrElse(Consumer<OWLAnonymousIndividual> individualConsumer,
-        Runnable alternativeAction) {
-        getAnnotation().getValue().ifAnonymousIndividualOrElse(individualConsumer,
-            alternativeAction);
-    }
-
-    @Override
-    default <T> Optional<T> mapLiteral(Function<OWLLiteral, T> function) {
-        return getAnnotation().getValue().mapLiteral(function);
-    }
-
-    @Override
-    default <T> T mapLiteralOrElse(Function<OWLLiteral, T> function, T defaultValue) {
-        return getAnnotation().getValue().mapLiteralOrElse(function, defaultValue);
-    }
-
-    @Override
-    default <T> T mapLiteralOrElseGet(Function<OWLLiteral, T> function, Supplier<T> defaultValue) {
-        return getAnnotation().getValue().mapLiteralOrElseGet(function, defaultValue);
-    }
-
-    @Override
-    default <T> Optional<T> mapIri(Function<IRI, T> function) {
-        return getAnnotation().getValue().mapIri(function);
-    }
-
-    @Override
-    default <T> T mapIriOrElse(Function<IRI, T> function, T defaultValue) {
-        return getAnnotation().getValue().mapIriOrElse(function, defaultValue);
-    }
-
-    @Override
-    default <T> T mapIriOrElseGet(Function<IRI, T> function, Supplier<T> defaultValue) {
-        return getAnnotation().getValue().mapIriOrElseGet(function, defaultValue);
-    }
-
-    @Override
-    default <T> Optional<T> mapAnonymousIndividual(Function<OWLAnonymousIndividual, T> function) {
-        return getAnnotation().getValue().mapAnonymousIndividual(function);
-    }
-
-    @Override
-    default <T> T mapAnonymousIndividualOrElse(Function<OWLAnonymousIndividual, T> function,
-        T defaultValue) {
-        return getAnnotation().getValue().mapAnonymousIndividualOrElse(function, defaultValue);
-    }
-
-    @Override
-    default <T> T mapAnonymousIndividualOrElseGet(Function<OWLAnonymousIndividual, T> function,
-        Supplier<T> defaultValue) {
-        return getAnnotation().getValue().mapAnonymousIndividualOrElseGet(function, defaultValue);
-    }
-
-    @Override
-    default void ifValue(Consumer<OWLLiteral> literalFunction, Consumer<IRI> iriFunction,
-        Consumer<OWLAnonymousIndividual> anonymousIndividualFunction) {
-        getAnnotation().getValue().ifValue(literalFunction, iriFunction,
-            anonymousIndividualFunction);
-    }
-
-    @Override
-    default <T> Optional<T> mapValue(Function<OWLLiteral, T> literalFunction,
-        Function<IRI, T> iriFunction,
-        Function<OWLAnonymousIndividual, T> anonymousIndividualFunction) {
-        return getAnnotation().getValue().mapValue(literalFunction, iriFunction,
-            anonymousIndividualFunction);
     }
 }

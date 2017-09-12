@@ -6,15 +6,42 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-
+/**
+ * Convenience interface for classes that have an annotation value referred - i.e., annotation
+ * assertion axioms, annotations and annotation values. The annotation value referred is the main
+ * annotation value, nested annotations or annotations on axioms are excluded.
+ * 
+ * The purpose of these methods is providing stream friendly shortcuts to operate on literals, iris
+ * and anonymous individuals used as values for annotations.
+ */
 public interface HasAnnotationValue {
 
-    Optional<IRI> iriValue();
+    /**
+     * @return for IRI values, the IRI, else an empty Optional
+     */
+    default Optional<IRI> iriValue() {
+        return annotationValue().asIRI();
+    }
 
-    Optional<OWLLiteral> literalValue();
+    /**
+     * @return for literal values, the literal, else an empty Optional
+     */
+    default Optional<OWLLiteral> literalValue() {
+        return annotationValue().asLiteral();
+    }
 
-    Optional<OWLAnonymousIndividual> anonymousIndividualValue();
+    /**
+     * @return for anonymous individual values, the individual, else an empty Optional
+     */
+    default Optional<OWLAnonymousIndividual> anonymousIndividualValue() {
+        return annotationValue().asAnonymousIndividual();
+    }
 
+    /**
+     * @return the annotation value itself; this method allows OWLAnnotationAssertionAxiom and
+     *         OWLAnnotation to use the default methods rather than replicate the methods. For
+     *         OWLAnnotationValue instances, the value eturned is the object itself.
+     */
     OWLAnnotationValue annotationValue();
 
     /**
@@ -35,12 +62,12 @@ public interface HasAnnotationValue {
             T av = witness.cast(t);
             if (p.test(av)) {
                 c.accept(av);
-                return;
+            } else {
+                r.run();
             }
+        } else {
             r.run();
-            return;
         }
-        r.run();
     }
 
     /**
@@ -99,41 +126,237 @@ public interface HasAnnotationValue {
         return defaultValue;
     }
 
-    void ifLiteral(Consumer<OWLLiteral> iri);
+    /**
+     * @param literalConsumer consumer to run if the value is a literal
+     */
+    default void ifLiteral(Consumer<OWLLiteral> literalConsumer) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isLiteral()) {
+            literalConsumer.accept((OWLLiteral) value);
+        }
+    }
 
-    void ifLiteralOrElse(Consumer<OWLLiteral> iri, Runnable emptyAction);
 
-    void ifIri(Consumer<IRI> iri);
+    /**
+     * @param literalConsumer consumer to run if the value is a literal
+     * @param elseAction runnable to run if the value iS not a literal
+     */
+    default void ifLiteralOrElse(Consumer<OWLLiteral> literalConsumer, Runnable elseAction) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isLiteral()) {
+            literalConsumer.accept((OWLLiteral) value);
+        } else {
+            elseAction.run();
+        }
+    }
 
-    void ifIriOrElse(Consumer<IRI> iri, Runnable emptyAction);
+    /**
+     * @param iriConsumer consumer to run if the value is an IRI
+     */
+    default void ifIri(Consumer<IRI> iriConsumer) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIRI()) {
+            iriConsumer.accept((IRI) value);
+        }
+    }
 
-    void ifAnonymousIndividual(Consumer<OWLAnonymousIndividual> iri);
+    /**
+     * @param iriConsumer consumer to run if the value is an IRI
+     * @param elseAction runnable to run if the value is not an IRI
+     */
+    default void ifIriOrElse(Consumer<IRI> iriConsumer, Runnable elseAction) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIRI()) {
+            iriConsumer.accept((IRI) value);
+        } else {
+            elseAction.run();
+        }
+    }
 
-    void ifAnonymousIndividualOrElse(Consumer<OWLAnonymousIndividual> iri, Runnable emptyAction);
+    /**
+     * @param anonConsumer consumer to run if the value is an anonymous individual
+     */
+    default void ifAnonymousIndividual(Consumer<OWLAnonymousIndividual> anonConsumer) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIndividual()) {
+            anonConsumer.accept((OWLAnonymousIndividual) value);
+        }
+    }
 
-    <T> Optional<T> mapLiteral(Function<OWLLiteral, T> function);
+    /**
+     * @param anonConsumer consumer to run if the value is an anonymous individual
+     * @param elseAction runnable to run if the value is not an anonymous individual
+     */
+    default void ifAnonymousIndividualOrElse(Consumer<OWLAnonymousIndividual> anonConsumer,
+        Runnable elseAction) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIndividual()) {
+            anonConsumer.accept((OWLAnonymousIndividual) value);
+        } else {
+            elseAction.run();
+        }
+    }
 
-    <T> T mapLiteralOrElse(Function<OWLLiteral, T> function, T defaultValue);
+    /**
+     * @param function function to run if the value is a literal
+     * @param <T> returned type
+     * @return mapped value for literals, empty otherwise
+     */
+    default <T> Optional<T> mapLiteral(Function<OWLLiteral, T> function) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isLiteral()) {
+            return Optional.ofNullable(function.apply((OWLLiteral) value));
+        }
+        return Optional.empty();
+    }
 
-    <T> T mapLiteralOrElseGet(Function<OWLLiteral, T> function, Supplier<T> defaultValue);
+    /**
+     * @param function function to run if the value is a literal
+     * @param defaultValue value returned if the value if not a literal
+     * @param <T> returned type
+     * @return mapped value for literals, default value for non literals
+     */
+    default <T> T mapLiteralOrElse(Function<OWLLiteral, T> function, T defaultValue) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isLiteral()) {
+            return function.apply((OWLLiteral) value);
+        }
+        return defaultValue;
+    }
 
-    <T> Optional<T> mapIri(Function<IRI, T> function);
+    /**
+     * @param function function to run if the value is a literal
+     * @param defaultValue supplier to run if the value is not a literal
+     * @param <T> returned type
+     * @return mapped value for literals, supplier result for non literals
+     */
+    default <T> T mapLiteralOrElseGet(Function<OWLLiteral, T> function, Supplier<T> defaultValue) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isLiteral()) {
+            return function.apply((OWLLiteral) value);
+        }
+        return defaultValue.get();
+    }
 
-    <T> T mapIriOrElse(Function<IRI, T> function, T defaultValue);
+    /**
+     * @param function function to run if the value is an IRI
+     * @param <T> returned type
+     * @return mapped value for IRIs, empty for non IRIs
+     */
+    default <T> Optional<T> mapIri(Function<IRI, T> function) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIRI()) {
+            return Optional.ofNullable(function.apply((IRI) value));
+        }
+        return Optional.empty();
+    }
 
-    <T> T mapIriOrElseGet(Function<IRI, T> function, Supplier<T> defaultValue);
+    /**
+     * @param function function to run if the value is an IRI
+     * @param defaultValue default value to return if the value is not an IRI
+     * @param <T> return type
+     * @return mapped value for IRIs, default value for non IRIs
+     */
+    default <T> T mapIriOrElse(Function<IRI, T> function, T defaultValue) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIRI()) {
+            return function.apply((IRI) value);
+        }
+        return defaultValue;
+    }
 
-    <T> Optional<T> mapAnonymousIndividual(Function<OWLAnonymousIndividual, T> function);
+    /**
+     * @param function function to run if the value is an IRI
+     * @param defaultValue supplier to run if the value is not an IRI
+     * @param <T> returned type
+     * @return mapped value for IRIs, supplier result for non IRIs
+     */
+    default <T> T mapIriOrElseGet(Function<IRI, T> function, Supplier<T> defaultValue) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIRI()) {
+            return function.apply((IRI) value);
+        }
+        return defaultValue.get();
+    }
 
-    <T> T mapAnonymousIndividualOrElse(Function<OWLAnonymousIndividual, T> function,
-        T defaultValue);
+    /**
+     * @param function function to run if the value is an anonymous individual
+     * @param <T> returned type
+     * @return mapped value for anonymous individuals, empty for non individuals
+     */
+    default <T> Optional<T> mapAnonymousIndividual(Function<OWLAnonymousIndividual, T> function) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isIRI()) {
+            return Optional.ofNullable(function.apply((OWLAnonymousIndividual) value));
+        }
+        return Optional.empty();
+    }
 
-    <T> T mapAnonymousIndividualOrElseGet(Function<OWLAnonymousIndividual, T> function,
-        Supplier<T> defaultValue);
+    /**
+     * @param function function to run if the value is an anonymous individual
+     * @param defaultValue default value to if the value is not an anonymous individual
+     * @param <T> returned type
+     * @return mapped value for anonymous individuals, default value for non individuals
+     */
+    default <T> T mapAnonymousIndividualOrElse(Function<OWLAnonymousIndividual, T> function,
+        T defaultValue) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isAnonymous()) {
+            return function.apply((OWLAnonymousIndividual) value);
+        }
+        return defaultValue;
+    }
 
-    void ifValue(Consumer<OWLLiteral> literalFunction, Consumer<IRI> iriFunction,
-        Consumer<OWLAnonymousIndividual> anonymousIndividualFunction);
+    /**
+     * @param function function to run if the value is an anonymous individual
+     * @param defaultValue supplier to run if the value is not an anonymous individual
+     * @param <T> returned type
+     * @return mapped value for anonymous individuals, supplier result for non individuals
+     */
+    default <T> T mapAnonymousIndividualOrElseGet(Function<OWLAnonymousIndividual, T> function,
+        Supplier<T> defaultValue) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isAnonymous()) {
+            return function.apply((OWLAnonymousIndividual) value);
+        }
+        return defaultValue.get();
+    }
 
-    <T> Optional<T> mapValue(Function<OWLLiteral, T> literalFunction, Function<IRI, T> iriFunction,
-        Function<OWLAnonymousIndividual, T> anonymousIndividualFunction);
+    /**
+     * @param literalConsumer consumer to run for literals
+     * @param iriConsumer consumer to run for IRIs
+     * @param anonConsumer consumer to run for anonymous individuals
+     */
+    default void ifValue(Consumer<OWLLiteral> literalConsumer, Consumer<IRI> iriConsumer,
+        Consumer<OWLAnonymousIndividual> anonConsumer) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isLiteral()) {
+            ifLiteral(literalConsumer);
+        } else if (value.isIRI()) {
+            ifIri(iriConsumer);
+        } else {
+            ifAnonymousIndividual(anonConsumer);
+        }
+    }
+
+    /**
+     * @param literalFunction function to run for literals
+     * @param iriFunction function to run for IRIs
+     * @param anonFunction function to run for anonymous individuals
+     * @param <T> returned type
+     * @return mapped value, or empty if none matches (currently there will be always one matching
+     *         function, but the creation of a new OWLAnnotationValue subinterface would change
+     *         that)
+     */
+    default <T> Optional<T> mapValue(Function<OWLLiteral, T> literalFunction,
+        Function<IRI, T> iriFunction, Function<OWLAnonymousIndividual, T> anonFunction) {
+        OWLAnnotationValue value = annotationValue();
+        if (value.isLiteral()) {
+            return mapLiteral(literalFunction);
+        } else if (value.isIRI()) {
+            return mapIri(iriFunction);
+        } else {
+            return mapAnonymousIndividual(anonFunction);
+        }
+    }
 }
