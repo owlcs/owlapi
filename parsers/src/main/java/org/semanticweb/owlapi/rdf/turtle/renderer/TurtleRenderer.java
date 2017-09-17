@@ -366,13 +366,15 @@ public class TurtleRenderer extends RDFRendererBase {
     @Override
     protected void render(RDFResource node, boolean root) {
         level++;
-        Collection<RDFTriple> triples;
+        List<RDFTriple> triples;
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any
             // cycles therefore indicate a bug!
             triples = Collections.emptyList();
         } else {
-            triples = getRDFGraph().getTriplesForSubject(node);
+            triples = new ArrayList<RDFTriple>();
+            triples.addAll(getRDFGraph().getTriplesForSubject(node));
+            triples.sort(null);
         }
         pending.add(node);
         RDFResource lastSubject = null;

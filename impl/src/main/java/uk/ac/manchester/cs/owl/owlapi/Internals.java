@@ -787,7 +787,7 @@ public class Internals implements Serializable {
      * @param filter filter to satisfy
      * @param <K> key type
      * @param key key
-     * @return sorted set of values
+     * @return set of values
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
         if (filter == Filters.annotations) {
@@ -817,7 +817,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return sorted stream of imports declaration
+     * @return stream of imports declaration
      */
     public Stream<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations.stream();
@@ -840,7 +840,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return iterable of sorted annotations
+     * @return iterable of annotations
      */
     Stream<OWLAnnotation> getOntologyAnnotations() {
         return ontologyAnnotations.stream();
@@ -872,7 +872,7 @@ public class Internals implements Serializable {
     /**
      * Gets the axioms by type.
      *
-     * @return the sorted axioms by type
+     * @return the axioms by type
      */
     public Stream<OWLAxiom> getAxioms() {
         return axiomsByType.getAllValues();
@@ -891,7 +891,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return logical axioms, sorted
+     * @return logical axioms
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
         return LOGICAL_AXIOM_TYPES.stream()
@@ -911,7 +911,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return copy of GCI axioms, sorted
+     * @return copy of GCI axioms
      */
     public Stream<OWLClassAxiom> getGeneralClassAxioms() {
         return generalClassAxioms.stream();
@@ -974,7 +974,7 @@ public class Internals implements Serializable {
 
     /**
      * @param owlEntity entity to describe
-     * @return referencing axioms, sorted
+     * @return referencing axioms
      */
     public Stream<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
@@ -1033,6 +1033,10 @@ public class Internals implements Serializable {
             return set.remove(k);
         }
 
+        /**
+         *
+         * @return A sorted stream
+         */
         public Stream<K> stream() {
             if (set.isEmpty()) {
                 return Stream.empty();

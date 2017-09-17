@@ -641,7 +641,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.classExpressions(), DISJOINT_CLASSES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.classExpressions().sorted(), DISJOINT_CLASSES);
         restore();
     }
 
@@ -666,7 +666,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.properties(), EQUIVALENT_PROPERTIES);
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.properties().sorted(), EQUIVALENT_PROPERTIES);
         restore();
     }
 
@@ -687,21 +687,21 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DIFFERENT_FROM, axiom.individuals(), DIFFERENT_INDIVIDUALS);
+        writeBinaryOrNaryList(DIFFERENT_FROM, axiom.individuals().sorted(), DIFFERENT_INDIVIDUALS);
         restore();
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.properties(), DISJOINT_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.properties().sorted(), DISJOINT_PROPERTIES);
         restore();
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.properties(), DISJOINT_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.properties().sorted(), DISJOINT_PROPERTIES);
         restore();
     }
 
@@ -862,7 +862,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.classExpressions(), EQUIVALENT_CLASSES);
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.classExpressions().sorted(), EQUIVALENT_CLASSES);
         restore();
     }
 
@@ -913,7 +913,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(SAME_AS, axiom.individuals(), SAME_INDIVIDUAL);
+        writeBinaryOrNaryList(SAME_AS, axiom.individuals().sorted(), SAME_INDIVIDUAL);
         restore();
     }
 

@@ -42,13 +42,13 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         checkNotNull(printWriter, "writer cannot be null");
         Set<OWLAxiom> printed = new HashSet<>();
         beginWritingOntology(o, printWriter);
-        o.objectPropertiesInSignature()
+        o.objectPropertiesInSignature().sorted()
             .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
-        o.dataPropertiesInSignature()
+        o.dataPropertiesInSignature().sorted()
             .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
-        o.classesInSignature()
+        o.classesInSignature().sorted()
             .forEach(c -> write(o, c, o.axioms(c), printWriter, printed));
-        o.individualsInSignature()
+        o.individualsInSignature().sorted()
             .forEach(i -> write(o, i, o.axioms(i), printWriter, printed));
         beginWritingGeneralAxioms(printWriter);
         o.generalClassAxioms().forEach(ax -> {
@@ -74,7 +74,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
                 endWritingAxiom(writer);
             }
         }
-        List<OWLAxiom> usages = asList(ont.referencingAxioms(entity));
+        List<OWLAxiom> usages = asList(ont.referencingAxioms(entity).sorted());
         usages.removeAll(axioms);
         beginWritingUsage(usages.size(), writer);
         for (OWLAxiom usage : usages) {

@@ -261,15 +261,15 @@ public abstract class RDFRendererBase {
     }
 
     private void renderInOntologySignatureEntities(Collection<IRI> illegalPuns) {
-        renderEntities(ontology.annotationPropertiesInSignature(),
+        renderEntities(ontology.annotationPropertiesInSignature().sorted(),
             ANNOTATION_PROPERTIES_BANNER_TEXT, illegalPuns);
-        renderEntities(ontology.datatypesInSignature(), DATATYPES_BANNER_TEXT, illegalPuns);
-        renderEntities(ontology.objectPropertiesInSignature(), OBJECT_PROPERTIES_BANNER_TEXT,
+        renderEntities(ontology.datatypesInSignature().sorted(), DATATYPES_BANNER_TEXT, illegalPuns);
+        renderEntities(ontology.objectPropertiesInSignature().sorted(), OBJECT_PROPERTIES_BANNER_TEXT,
             illegalPuns);
-        renderEntities(ontology.dataPropertiesInSignature(), DATA_PROPERTIES_BANNER_TEXT,
+        renderEntities(ontology.dataPropertiesInSignature().sorted(), DATA_PROPERTIES_BANNER_TEXT,
             illegalPuns);
-        renderEntities(ontology.classesInSignature(), CLASSES_BANNER_TEXT, illegalPuns);
-        renderEntities(ontology.individualsInSignature(), INDIVIDUALS_BANNER_TEXT, illegalPuns);
+        renderEntities(ontology.classesInSignature().sorted(), CLASSES_BANNER_TEXT, illegalPuns);
+        renderEntities(ontology.individualsInSignature().sorted(), INDIVIDUALS_BANNER_TEXT, illegalPuns);
     }
 
     /**
@@ -344,14 +344,14 @@ public abstract class RDFRendererBase {
 
     protected void renderIRI(IRI iri) {
         beginObject();
-        createGraph(ontology.annotationAssertionAxioms(iri));
+        createGraph(ontology.annotationAssertionAxioms(iri).sorted());
         render(new RDFResourceIRI(iri), true);
         renderAnonRoots();
         endObject();
     }
 
     private void renderAnonymousIndividuals() {
-        ontology.referencedAnonymousIndividuals().forEach(this::renderAnon);
+        ontology.referencedAnonymousIndividuals().sorted().forEach(this::renderAnon);
     }
 
     protected void renderAnon(OWLAnonymousIndividual anonInd) {
@@ -359,6 +359,7 @@ public abstract class RDFRendererBase {
         if (ontology.referencingAxioms(anonInd)
             .filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom)).noneMatch(
                 ax -> shouldNotRender(anonInd, axioms, ax))) {
+            axioms.sort(null);
             createGraph(axioms.stream());
             renderAnonRoots();
         }
@@ -374,7 +375,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() {
-        List<SWRLRule> ruleAxioms = asList(ontology.axioms(SWRL_RULE));
+        List<SWRLRule> ruleAxioms = asList(ontology.axioms(SWRL_RULE).sorted());
         createGraph(ruleAxioms.stream());
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);
@@ -464,7 +465,7 @@ public abstract class RDFRendererBase {
 
     private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode,
         RDFTranslator translator) {
-        ontology.importsDeclarations()
+        ontology.importsDeclarations().sorted()
             .forEach(decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(),
                 decl.getIRI()));
     }
@@ -557,12 +558,15 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
-            for (RDFTriple triple : getRDFGraph().getTriplesForSubject(currentNode)) {
+            List<RDFTriple> triples = new ArrayList<RDFTriple>();
+            triples.addAll(getRDFGraph().getTriplesForSubject(currentNode));
+            triples.sort(null);
+            for (RDFTriple triple : triples) {
                 if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
-            for (RDFTriple triple : getRDFGraph().getTriplesForSubject(currentNode)) {
+            for (RDFTriple triple : triples) {
                 if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {

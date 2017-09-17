@@ -473,11 +473,6 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    /**
-     *
-     * @param ontology The ontology whose direct imports are to be retrieved.
-     * @return Sorted stream
-     */
     @Override
     public Stream<OWLOntology> directImports(OWLOntology ontology) {
         readLock.lock();
@@ -492,16 +487,11 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    /**
-     *
-     * @param ontology The ontology whose imports are to be retrieved.
-     * @return Sorted stream
-     */
     @Override
     public Stream<OWLOntology> imports(OWLOntology ontology) {
         readLock.lock();
         try {
-            return getImports(ontology, new LinkedHashSet<>()).stream().sorted();
+            return getImports(ontology, new LinkedHashSet<>()).stream();
         } finally {
             readLock.unlock();
         }
@@ -525,11 +515,6 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    /**
-     *
-     * @param ontology The ontology whose imports closure is to be retrieved.
-     * @return Sorted stream of imported ontologies
-     */
     @Override
     public Stream<OWLOntology> importsClosure(OWLOntology ontology) {
         readLock.lock();
@@ -537,7 +522,7 @@ public class OWLOntologyManagerImpl
             OWLOntologyID id = ontology.getOntologyID();
             return importsClosureCache
                 .computeIfAbsent(id, i -> getImportsClosure(ontology, new LinkedHashSet<>()))
-                .stream().sorted();
+                .stream();
         } finally {
             readLock.unlock();
         }

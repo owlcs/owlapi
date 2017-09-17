@@ -127,7 +127,7 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
             }
         }
         ontology.generalClassAxioms().forEach(a -> a.accept(this));
-        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature().sorted())) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
@@ -142,13 +142,13 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 write(TRUE);
             }
             List<OWLClassExpression> domains = asList(
-                domain(ontology.objectPropertyDomainAxioms(property)));
+                domain(ontology.objectPropertyDomainAxioms(property).sorted()));
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
             List<OWLClassExpression> ranges = asList(
-                range(ontology.objectPropertyRangeAxioms(property)));
+                range(ontology.objectPropertyRangeAxioms(property).sorted()));
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);

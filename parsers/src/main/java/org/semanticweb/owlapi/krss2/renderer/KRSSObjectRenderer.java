@@ -408,7 +408,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 writeln();
             }
         }
-        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature().sorted())) {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> pStream = equivalent(
                 ontology.equivalentObjectPropertiesAxioms(
@@ -443,7 +443,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        pairs(axiom.classExpressions()).forEach(v -> {
+        pairs(axiom.classExpressions().sorted()).forEach(v -> {
             writeOpenBracket();
             write(DISJOINT);
             write(v.i);

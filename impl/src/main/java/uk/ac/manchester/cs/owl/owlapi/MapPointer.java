@@ -201,9 +201,9 @@ public class MapPointer<K, V extends OWLAxiom> {
             return Stream.empty();
         }
         if (t.size() < 3) {
-            return t.stream().sorted();
+            return t.stream();
         }
-        return new ArrayList<>(t).stream().sorted();
+        return new ArrayList<>(t).stream();
     }
 
     /**
@@ -262,7 +262,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     /**
      * @param key key to look up
      * @param classType type of the returned values
-     * @return sorted collection of values
+     * @return value
      */
     @SuppressWarnings("unchecked")
     public synchronized <O extends V> Stream<O> values(K key,
@@ -272,14 +272,14 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return empty();
         }
-        return ((Collection<O>) t).stream().sorted();
+        return ((Collection<O>) t).stream();
     }
 
     /**
      * @param <T> type of key
      * @param filter filter to satisfy
      * @param key key
-     * @return sorted set of values
+     * @return set of values
      */
     public synchronized <T> Collection<OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, T key) {
         init();
@@ -287,7 +287,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             Collection<V> collection = map.get(at);
             if (collection != null) {
-                collection.stream().filter(x -> filter.pass(x, key)).sorted().forEach(toReturn::add);
+                collection.stream().filter(x -> filter.pass(x, key)).forEach(toReturn::add);
             }
         }
         return toReturn;
@@ -349,7 +349,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /**
-     * @return sorted stream of all values contained
+     * @return all values contained
      */
     public synchronized Stream<V> getAllValues() {
         init();
@@ -456,7 +456,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private Stream<V> values() {
-        return map.values().stream().flatMap(Collection::stream).sorted();
+        return map.values().stream().flatMap(Collection::stream);
     }
 
     private Stream<V> get(K k) {
@@ -464,7 +464,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return Stream.empty();
         }
-        return t.stream().sorted();
+        return t.stream();
     }
 
     /**
