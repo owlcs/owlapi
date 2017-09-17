@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +35,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
      */
     public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
         checkNotNull(values, "values cannot be null");
-        this.values = sortOptionally(values.map(l -> (OWLLiteral) l).distinct());
+        this.values = asList(values.map(l -> (OWLLiteral) l).distinct().sorted());
     }
 
     /**

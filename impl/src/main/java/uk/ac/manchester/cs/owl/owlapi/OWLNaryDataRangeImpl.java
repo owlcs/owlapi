@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,12 +31,12 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
 
     protected OWLNaryDataRangeImpl(Collection<OWLDataRange> operands) {
         Collection<OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
-        this.operands = sortOptionally(ops.stream().distinct());
+        this.operands = asList(ops.stream().distinct().sorted());
     }
 
     protected OWLNaryDataRangeImpl(Stream<OWLDataRange> operands) {
         Stream<OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
-        this.operands = sortOptionally(ops.distinct());
+        this.operands = asList(ops.distinct().sorted());
     }
 
     @Override

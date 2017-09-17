@@ -45,7 +45,7 @@ public interface HasAnnotations {
      * purpose.
      */
     default Stream<OWLAnnotation> annotations(Predicate<OWLAnnotation> p) {
-        return annotations().filter(p);
+        return annotations().filter(p).sorted();
     }
 
     /**
@@ -56,7 +56,7 @@ public interface HasAnnotations {
      * purpose.
      */
     default Stream<OWLAnnotation> annotations(OWLAnnotationProperty p) {
-        return annotations().filter(a -> a.getProperty().equals(p));
+        return annotations().filter(a -> a.getProperty().equals(p)).sorted();
     }
 
     /**

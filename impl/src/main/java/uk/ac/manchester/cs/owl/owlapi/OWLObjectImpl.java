@@ -13,8 +13,8 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.Collections.emptyList;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareIterators;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
@@ -82,6 +82,11 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         return o.hashCode();
     }
 
+    /**
+     *
+     * @param anns
+     * @return Sorted set of annotations
+     */
     protected static List<OWLAnnotation> asAnnotations(Collection<OWLAnnotation> anns) {
         if (anns.isEmpty()) {
             return emptyList();
@@ -89,7 +94,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         if (anns.size() == 1) {
             return Collections.singletonList(anns.iterator().next());
         }
-        return sortOptionally(anns.stream().distinct());
+        return asList(anns.stream().distinct().sorted());
     }
 
     /**

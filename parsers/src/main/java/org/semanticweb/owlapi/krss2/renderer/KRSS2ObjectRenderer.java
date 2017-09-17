@@ -49,7 +49,6 @@ import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
 
@@ -374,9 +373,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(sortOptionally(
-                    sup(ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED),
-                        OWLClassExpression.class)));
+                flatten(
+                    asList(sup(ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED),
+                            OWLClassExpression.class).sorted()));
                 writeCloseBracket();
                 writeln();
                 Collection<OWLClassExpression> classes = asList(
@@ -394,8 +393,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                flatten(sortOptionally(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                    OWLClassExpression.class)));
+                flatten(asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
+                    OWLClassExpression.class).sorted()));
                 writeCloseBracket();
                 writeln();
                 Collection<OWLClassExpression> supclasses = asList(
@@ -411,7 +410,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
         }
-        for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature().sorted())) {
             if (ignoreDeclarations && ontology.axioms(property, EXCLUDED).count() == 1
                 && ontology.declarationAxioms(
                 property).count() == 1) {
@@ -426,10 +425,10 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
-                List<OWLObjectPropertyExpression> superProperties = sortOptionally(
-                    sup(ontology.axioms(
+                List<OWLObjectPropertyExpression> superProperties =
+                    asList(sup(ontology.axioms(
                         Filters.subObjectPropertyWithSub, property, INCLUDED),
-                        OWLObjectPropertyExpression.class));
+                        OWLObjectPropertyExpression.class).sorted());
                 int superSize = superProperties.size();
                 if (superSize == 1) {
                     writeSpace();
@@ -503,14 +502,24 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(INVERSE_ATTR);
                 write(inverses.next());
             }
-            List<OWLClassExpression> stream = sortOptionally(
-                domain(ontology.objectPropertyDomainAxioms(property)));
+            List<OWLClassExpression> stream =
+                asList(domain(ontology.objectPropertyDomainAxioms(property)).flatMap(obj -> {
+                    if (obj instanceof OWLClassExpression)
+                        return Stream.of((OWLClassExpression) obj);
+                    else
+                        return Stream.empty();
+                }).sorted());
             if (!stream.isEmpty()) {
                 writeSpace();
                 write(DOMAIN_ATTR);
                 flatten(stream);
             }
-            stream = sortOptionally(range(ontology.objectPropertyRangeAxioms(property)));
+            stream = asList(range(ontology.objectPropertyRangeAxioms(property)).flatMap(obj -> {
+                if (obj instanceof OWLClassExpression)
+                    return Stream.of((OWLClassExpression) obj);
+                else
+                    return Stream.empty();
+            }).sorted());
             if (!stream.isEmpty()) {
                 writeSpace();
                 write(RANGE_ATTR);
@@ -535,7 +544,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeln();
             }
         }
-        for (OWLNamedIndividual individual : sortOptionally(ontology.individualsInSignature())) {
+        for (OWLNamedIndividual individual : asList(ontology.individualsInSignature())) {
             if (ignoreDeclarations && ontology.axioms(individual, EXCLUDED).count() == 1
                 && ontology.declarationAxioms(
                 individual).count() == 1) {

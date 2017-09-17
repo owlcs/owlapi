@@ -39,7 +39,7 @@ public interface HasLogicalAxioms {
     }
 
     /**
-     * @return Stream of {@link OWLLogicalAxiom}s that are contained within this object.
+     * @return Sorted stream of {@link OWLLogicalAxiom}s that are contained within this object.
      */
     Stream<OWLLogicalAxiom> logicalAxioms();
 }

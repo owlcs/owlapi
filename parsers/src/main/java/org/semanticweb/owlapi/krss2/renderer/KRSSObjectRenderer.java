@@ -37,7 +37,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
@@ -386,10 +385,9 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLOntology ontology) {
-        List<OWLClass> classes = asList(ontology.classesInSignature());
+        List<OWLClass> classes = asList(ontology.classesInSignature().sorted());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
-        sortOptionally(classes);
         for (OWLClass eachClass : classes) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
@@ -410,7 +408,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 writeln();
             }
         }
-        for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature())) {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> pStream = equivalent(
                 ontology.equivalentObjectPropertiesAxioms(

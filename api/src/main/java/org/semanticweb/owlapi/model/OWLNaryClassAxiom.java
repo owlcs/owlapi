@@ -28,12 +28,12 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
 
     @Override
     default Stream<?> components() {
-        return Stream.of(classExpressions(), annotations());
+        return Stream.of(classExpressions().sorted(), annotations());
     }
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
-        return Stream.of(classExpressions());
+        return Stream.of(classExpressions().sorted());
     }
 
     @Override
@@ -61,7 +61,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
 
     @Override
     default Stream<OWLClassExpression> operands() {
-        return classExpressions();
+        return classExpressions().sorted();
     }
 
     /**

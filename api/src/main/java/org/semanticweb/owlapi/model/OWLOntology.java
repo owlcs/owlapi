@@ -267,7 +267,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * ontology's directlyImportsDocuments (see Section 3 in the OWL 2
      * structural specification).
      *
-     * @return The set of imports declarations that correspond to the set of ontology document IRIs
+     * @return Sorted stream of imports declarations that correspond to the set of ontology document IRIs
      * that are directly imported by this ontology. The set that is returned is a copy - it will not
      * be updated if the ontology changes. It is therefore safe to apply changes to this ontology
      * while iterating over this set.
@@ -393,7 +393,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * {@code OWLClass}es)</li>
      * </ul>
      *
-     * @return The set that is returned is a copy of the axioms in the ontology - it will not be
+     * @return The sorted set that is returned is a copy of the axioms in the ontology - it will not be
      * updated if the ontology changes. It is therefore safe to apply changes to this ontology while
      * iterating over this set.
      */

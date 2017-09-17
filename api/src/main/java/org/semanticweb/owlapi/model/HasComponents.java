@@ -29,6 +29,6 @@ public interface HasComponents {
      * annotations on nested objects are not affected.
      */
     default Stream<?> componentsWithoutAnnotations() {
-        return components();
+        return components().sorted();
     }
 }

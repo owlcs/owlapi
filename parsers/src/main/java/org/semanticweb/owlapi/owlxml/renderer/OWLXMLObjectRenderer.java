@@ -251,7 +251,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             .filter(t -> !t.equals(
                 AxiomType.DECLARATION));
         Stream<? extends OWLAxiom> axioms = skipDeclarations.flatMap(t -> ontology.axioms(t));
-        render(CollectionFactory.sortOptionally(axioms).stream());
+        render(axioms.sorted());
     }
 
     @Override

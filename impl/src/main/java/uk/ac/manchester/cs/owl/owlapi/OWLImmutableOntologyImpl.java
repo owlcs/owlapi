@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
@@ -154,17 +153,31 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         return Internals.contains(ints.getAxiomsByType(), axiom.getAxiomType(), axiom);
     }
 
+    /**
+     *
+     * @return Sorted axioms
+     */
     @Override
     public Stream<OWLAxiom> axioms() {
         return ints.getAxioms();
     }
 
+    /**
+     *
+     * @param axiomType The type of axioms to be retrieved.
+     * @param <T>
+     * @return Sorted axioms
+     */
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType) {
         return (Stream<T>) ints.getAxiomsByType().getValues(axiomType);
     }
 
+    /**
+     *
+     * @return Sorted axioms
+     */
     @Override
     public Stream<OWLLogicalAxiom> logicalAxioms() {
         return ints.getLogicalAxioms();
@@ -353,37 +366,37 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
-        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream();
+        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream().sorted();
     }
 
     @Override
     public Stream<OWLClass> classesInSignature() {
-        return ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream();
+        return ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream().sorted();
     }
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream();
+        return ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream().sorted();
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().stream();
+        return ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().stream().sorted();
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().stream();
+        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().stream().sorted();
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().stream();
+        return ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().stream().sorted();
     }
 
     @Override
     public Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals() {
-        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream();
+        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream().sorted();
     }
 
     @Override
@@ -391,36 +404,61 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         return Stream
             .concat(
                 ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
-                    .get().keySet().stream(),
+                    .get().keySet().stream().sorted(),
                 ints.getOntologyAnnotations().map(a -> a.getProperty()))
             .distinct().sorted();
     }
 
+    /**
+     *
+     * @return Sorted stream
+     */
     @Override
     public Stream<OWLImportsDeclaration> importsDeclarations() {
         return ints.getImportsDeclarations();
     }
 
+    /**
+     *
+     * @return Sorted stream
+     */
     @Override
     public Stream<IRI> directImportsDocuments() {
         return ints.getImportsDeclarations().map(OWLImportsDeclaration::getIRI);
     }
 
+    /**
+     *
+     * @return Sorted stream
+     */
     @Override
     public Stream<OWLOntology> imports() {
         return getOWLOntologyManager().imports(this);
     }
 
+    /**
+     *
+     * @return Sorted stream
+     */
     @Override
     public Stream<OWLOntology> directImports() {
         return getOWLOntologyManager().directImports(this);
     }
 
+    /**
+     *
+     * @return Sorted stream
+     */
     @Override
     public Stream<OWLOntology> importsClosure() {
         return getOWLOntologyManager().importsClosure(this);
     }
 
+    /**
+     *
+     * @param cls The class whose describing axioms are to be retrieved.
+     * @return Sorted stream
+     */
     @Override
     public Stream<OWLClassAxiom> axioms(OWLClass cls) {
         return ints.get(OWLClass.class, OWLClassAxiom.class).get().values(cls, OWLClassAxiom.class);
@@ -448,22 +486,32 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLIndividualAxiom> axioms(OWLIndividual individual) {
-        return sortOptionally(
+        return
             Stream
                 .of(classAssertionAxioms(individual), objectPropertyAssertionAxioms(individual),
                     dataPropertyAssertionAxioms(individual),
                     negativeObjectPropertyAssertionAxioms(individual),
                     negativeDataPropertyAssertionAxioms(individual),
                     sameIndividualAxioms(individual), differentIndividualAxioms(individual))
-                .flatMap(x -> x),
-            OWLIndividualAxiom.class).stream();
+                .flatMap(x -> x);
     }
 
+    /**
+     *
+     * @param datatype The datatype
+     * @return Sorted stream of axioms
+     */
     @Override
     public Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype) {
         return datatypeDefinitions(datatype);
     }
 
+    /**
+     *
+     * @param owlEntity The entity that should be directly referred to by all axioms in the results
+     * set.
+     * @return sorted stream of axioms
+     */
     @Override
     public Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity) {
         if (owlEntity instanceof OWLEntity) {
@@ -483,7 +531,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
                 .filter(ax -> ax.getObject().getLiteral().equals(iriString)).forEach(axioms::add);
             axioms(AxiomType.ANNOTATION_ASSERTION)
                 .forEach(ax -> examineAssertion(owlEntity, axioms, ax));
-            return axioms.stream();
+            return axioms.stream().sorted();
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
             axioms(AxiomType.DATA_PROPERTY_ASSERTION).filter(ax -> ax.getObject().equals(owlEntity))
@@ -493,7 +541,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
                 .forEach(axioms::add);
             AxiomType.AXIOM_TYPES.stream().flatMap(t -> axioms(t))
                 .filter(ax -> hasLiteralInAnnotations(owlEntity, ax)).forEach(axioms::add);
-            return axioms.stream();
+            return axioms.stream().sorted();
         }
         return empty();
     }

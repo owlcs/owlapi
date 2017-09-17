@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +54,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
-        this.properties = (List<P>) CollectionFactory.sortOptionally(properties.distinct());
+        this.properties = (List<P>) asList(properties.distinct().sorted());
     }
 
     @SafeVarargs

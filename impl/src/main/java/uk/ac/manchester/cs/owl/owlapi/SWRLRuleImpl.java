@@ -95,9 +95,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Stream<OWLClassExpression> classAtomPredicates() {
-        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom)
+        return Stream.concat(head(), body()).filter(c -> c instanceof SWRLClassAtom)
             .map(
-                c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
+                c -> ((SWRLClassAtom) c).getPredicate()).distinct();
     }
 
     @Override
@@ -107,8 +107,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Stream<SWRLAtom> head() {
-        return head.stream();
-    }
+        return head.stream(); }
 
     @Override
     public SWRLRule getSimplified() {
@@ -127,14 +126,15 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             return false;
         }
         if (obj instanceof SWRLRuleImpl) {
-            return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head)
-                && equalStreams(
-                annotations(), ((SWRLRuleImpl) obj).annotations());
+            SWRLRuleImpl robj = (SWRLRuleImpl) obj;
+            return equalStreams(body().sorted(), robj.body().sorted()) &&
+                    equalStreams(head().sorted(), robj.head().sorted()) &&
+                    equalStreams(annotations(), robj.annotations());
         }
         SWRLRule other = (SWRLRule) obj;
-        return body.equals(asSet(other.body())) && head.equals(asSet(other.head())) && equalStreams(
-            annotations(), other
-                .annotations());
+        return equalStreams(body().sorted(), other.body().sorted()) &&
+                equalStreams(head().sorted(), other.head().sorted()) &&
+                equalStreams(annotations(), other.annotations());
     }
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {

@@ -288,7 +288,7 @@ public class RenameEntityTestCase extends TestBase {
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
         List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(dtC.getIRI(), dtA.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
-        assertTrue(equalStreams(ont.axioms(), axioms1.stream()));
+        assertTrue(equalStreams(ont.axioms().sorted(), axioms1.stream().sorted()));
     }
 
     @Test

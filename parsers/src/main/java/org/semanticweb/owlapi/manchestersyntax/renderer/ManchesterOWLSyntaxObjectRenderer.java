@@ -61,8 +61,10 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.IRI;
@@ -164,6 +166,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -177,6 +180,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     private boolean wrapSave;
     private boolean tabSave;
+    protected final OWLObjectComparator ooc;
 
     /**
      * @param writer writer
@@ -185,8 +189,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
         ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
+        ooc = new OWLObjectComparator(entityShortFormProvider);
     }
 
+    /**
+     * @param objects Must be sorted!
+     * @param delimeter
+     * @param newline
+     */
     protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimeter,
         boolean newline) {
         int tab = getIndent();
@@ -204,6 +214,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         popTab();
     }
 
+    /**
+     * @param objects Must be sorted!
+     */
     protected void writeCommaSeparatedList(List<? extends OWLObject> objects) {
         for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext(); ) {
             it.next().accept(this);
@@ -213,6 +226,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         }
     }
 
+    /**
+     * @param objects Must be sorted!
+     */
     protected void writeCommaSeparatedList(Stream<? extends OWLObject> objects) {
         for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext(); ) {
             it.next().accept(this);
@@ -284,7 +300,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
         boolean first = true;
-        Iterator<? extends OWLObject> it = ce.operands().iterator();
+        Iterator<? extends OWLObject> it = ce.operands().sorted(ooc).iterator();
         while (it.hasNext()) {
             OWLObject desc = it.next();
             if (!first) {
@@ -307,7 +323,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLObjectUnionOf ce) {
         boolean first = true;
-        Iterator<? extends OWLClassExpression> it = ce.operands().iterator();
+        Iterator<? extends OWLClassExpression> it = ce.operands().sorted(ooc).iterator();
         while (it.hasNext()) {
             OWLClassExpression op = it.next();
             if (!first) {
@@ -376,7 +392,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLObjectOneOf ce) {
         write("{");
-        write(ce.individuals(), ONE_OF_DELIMETER, false);
+        write(ce.individuals().sorted(ooc), ONE_OF_DELIMETER, false);
         write("}");
     }
 
@@ -448,7 +464,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     @Override
     public void visit(OWLAnnotation node) {
-        writeAnnotations(node.annotations().iterator());
+        writeAnnotations(node.annotations().sorted(ooc).iterator());
         node.getProperty().accept(this);
         writeSpace();
         node.getValue().accept(this);
@@ -470,21 +486,21 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLDataOneOf node) {
         write("{");
-        write(node.values(), ONE_OF_DELIMETER, false);
+        write(node.values().sorted(ooc), ONE_OF_DELIMETER, false);
         write("}");
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
         write("(");
-        write(node.operands(), AND, false);
+        write(node.operands().sorted(ooc), AND, false);
         write(")");
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
         write("(");
-        write(node.operands(), OR, false);
+        write(node.operands().sorted(ooc), OR, false);
         write(")");
     }
 
@@ -492,7 +508,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
         write("[");
-        write(node.facetRestrictions(), FACET_RESTRICTION_SEPARATOR, false);
+        write(node.facetRestrictions().sorted(ooc), FACET_RESTRICTION_SEPARATOR, false);
         write("]");
     }
 
@@ -610,7 +626,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword,
         Stream<? extends OWLObject> stream,
         ManchesterOWLSyntax naryKeyword) {
-        List<? extends OWLObject> objects = asList(stream);
+        List<? extends OWLObject> objects = asList(stream.sorted(ooc));
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             it.next().accept(this);
@@ -731,7 +747,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         setAxiomWriting();
         axiom.getOWLClass().accept(this);
         write(DISJOINT_UNION_OF);
-        writeCommaSeparatedList(axiom.classExpressions());
+        writeCommaSeparatedList(axiom.classExpressions().sorted(ooc));
         restore();
     }
 
@@ -830,7 +846,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         setAxiomWriting();
         writeFrameKeyword(EQUIVALENT_PROPERTIES);
-        writeCommaSeparatedList(axiom.properties());
+        writeCommaSeparatedList(axiom.properties().sorted(ooc));
         restore();
     }
 
@@ -904,7 +920,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         setAxiomWriting();
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator();
+        Collection<OWLObjectPropertyExpression> exprs = sortedCollection();
+        exprs.addAll(axiom.getPropertyChain());
+        for (Iterator<OWLObjectPropertyExpression> it = exprs.iterator();
             it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -949,8 +967,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         setAxiomWriting();
         axiom.getClassExpression().accept(this);
         write(HAS_KEY);
-        write(axiom.objectPropertyExpressions(), COMMA, false);
-        write(axiom.dataPropertyExpressions(), COMMA, false);
+        write(axiom.objectPropertyExpressions().sorted(ooc), COMMA, false);
+        write(axiom.dataPropertyExpressions().sorted(ooc), COMMA, false);
     }
 
     // SWRL
@@ -1005,7 +1023,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             write(node.getPredicate().toQuotedString());
         }
         write("(");
-        for (Iterator<SWRLDArgument> it = node.arguments().iterator(); it.hasNext(); ) {
+        for (Iterator<SWRLDArgument> it = node.arguments().sorted(ooc).iterator(); it.hasNext(); ) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -1060,6 +1078,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         // XXX unsupported
     }
 
+    /**
+     * @param annoIt Must be sorted!
+     */
     protected void writeAnnotations(Iterator<OWLAnnotation> annoIt) {
         if (!annoIt.hasNext()) {
             return;
@@ -1086,4 +1107,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     public void visit(OWLOntology ontology) {
         // nothing to do here
     }
+
+    <E extends OWLObject> Collection<E> sortedCollection() {
+        return new TreeSet<>(ooc);
+    }
+
 }

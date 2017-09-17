@@ -31,7 +31,6 @@ import static org.semanticweb.owlapi.search.Searcher.domain;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
@@ -71,7 +70,7 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
         List<OWLClass> classes1 = asList(ontology.classesInSignature());
         classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
         classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
-        sortOptionally(classes1);
+        classes1.sort(null);
         for (OWLClass eachClass : classes1) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {

@@ -40,7 +40,7 @@ public interface HasDataPropertiesInSignature {
     }
 
     /**
-     * @return Stream of data properties that are in the signature of this object.
+     * @return Sorted stream of data properties that are in the signature of this object.
      */
     default Stream<OWLDataProperty> dataPropertiesInSignature() {
         return empty();

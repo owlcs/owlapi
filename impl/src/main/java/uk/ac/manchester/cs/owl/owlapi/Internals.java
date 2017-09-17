@@ -787,7 +787,7 @@ public class Internals implements Serializable {
      * @param filter filter to satisfy
      * @param <K> key type
      * @param key key
-     * @return set of values
+     * @return sorted set of values
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
         if (filter == Filters.annotations) {
@@ -817,7 +817,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return stream of imports declaration
+     * @return sorted stream of imports declaration
      */
     public Stream<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations.stream();
@@ -840,7 +840,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return iterable of annotations
+     * @return iterable of sorted annotations
      */
     Stream<OWLAnnotation> getOntologyAnnotations() {
         return ontologyAnnotations.stream();
@@ -872,7 +872,7 @@ public class Internals implements Serializable {
     /**
      * Gets the axioms by type.
      *
-     * @return the axioms by type
+     * @return the sorted axioms by type
      */
     public Stream<OWLAxiom> getAxioms() {
         return axiomsByType.getAllValues();
@@ -891,7 +891,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return logical axioms
+     * @return logical axioms, sorted
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
         return LOGICAL_AXIOM_TYPES.stream()
@@ -911,7 +911,7 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @return copy of GCI axioms
+     * @return copy of GCI axioms, sorted
      */
     public Stream<OWLClassAxiom> getGeneralClassAxioms() {
         return generalClassAxioms.stream();
@@ -974,7 +974,7 @@ public class Internals implements Serializable {
 
     /**
      * @param owlEntity entity to describe
-     * @return referencing axioms
+     * @return referencing axioms, sorted
      */
     public Stream<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);

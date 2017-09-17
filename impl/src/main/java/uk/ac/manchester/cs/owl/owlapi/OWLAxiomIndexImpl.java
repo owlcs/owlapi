@@ -24,6 +24,11 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements OWLAxio
         ints.trimToSize();
     }
 
+    /**
+     *
+     * @param datatype The datatype for which the returned axioms provide a definition.
+     * @return Sorted stream of axioms
+     */
     @Override
     public Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(OWLDatatype datatype) {
         // XXX stream better?
@@ -31,6 +36,11 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements OWLAxio
             ax -> (OWLDatatypeDefinitionAxiom) ax);
     }
 
+    /**
+     *
+     * @param subProperty The sub-property of the axioms to be retrieved.
+     * @return Sorted stream of axioms
+     */
     @Override
     public Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(
         OWLAnnotationProperty subProperty) {
@@ -38,6 +48,11 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements OWLAxio
             ax -> (OWLSubAnnotationPropertyOfAxiom) ax);
     }
 
+    /**
+     *
+     * @param property The property that the axiom specifies a domain for.
+     * @return Sorted stream of axioms
+     */
     @Override
     public Stream<OWLAnnotationPropertyDomainAxiom> annotationPropertyDomainAxioms(
         OWLAnnotationProperty property) {
@@ -45,6 +60,11 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements OWLAxio
             ax -> (OWLAnnotationPropertyDomainAxiom) ax);
     }
 
+    /**
+     *
+     * @param property The property that the axiom specifies a range for.
+     * @return Sorted stream of axioms
+     */
     @Override
     public Stream<OWLAnnotationPropertyRangeAxiom> annotationPropertyRangeAxioms(
         OWLAnnotationProperty property) {
