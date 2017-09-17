@@ -311,7 +311,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property is the sub-property.
      *
      * @param subProperty The sub-property of the axioms to be retrieved.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return Sorted set of axioms matching the search. The set is a copy of the data.
      */
     Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(
         OWLAnnotationProperty subProperty);
@@ -335,7 +335,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property is the property in the domain axiom.
      *
      * @param property The property that the axiom specifies a domain for.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return Sorted set of axioms matching the search. The set is a copy of the data.
      */
     Stream<OWLAnnotationPropertyDomainAxiom> annotationPropertyDomainAxioms(
         OWLAnnotationProperty property);
@@ -359,7 +359,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * property is the property in the range axiom.
      *
      * @param property The property that the axiom specifies a range for.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return Sorted set of axioms matching the search. The set is a copy of the data.
      */
     Stream<OWLAnnotationPropertyRangeAxiom> annotationPropertyRangeAxioms(
         OWLAnnotationProperty property);
@@ -1427,7 +1427,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *
      * @param individual The individual that the returned axioms make the different as some other
      * individual.
-     * @return the axioms matching the search. The set is a copy of the data.
+     * @return Sorted set of axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLDifferentIndividualsAxiom> differentIndividualAxioms(
         OWLIndividual individual) {
