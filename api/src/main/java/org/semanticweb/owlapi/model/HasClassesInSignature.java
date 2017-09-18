@@ -41,7 +41,7 @@ public interface HasClassesInSignature {
     }
 
     /**
-     * @return Stream of classes in the signature of this object.
+     * @return Sorted stream of classes in the signature of this object.
      */
     default Stream<OWLClass> classesInSignature() {
         return empty();

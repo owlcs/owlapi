@@ -91,7 +91,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * flattened, for example, calling this method on (A and B) and C will return the set {A, B, C}
      */
     default Stream<OWLClassExpression> conjunctSet() {
-        return asConjunctSet().stream();
+        return asConjunctSet().stream().sorted();
     }
 
     /**
@@ -124,7 +124,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * flattened, for example, calling this method on (A or B) or C will return the set {A, B, C}
      */
     default Stream<OWLClassExpression> disjunctSet() {
-        return asDisjunctSet().stream();
+        return asDisjunctSet().stream().sorted();
     }
 
     /**

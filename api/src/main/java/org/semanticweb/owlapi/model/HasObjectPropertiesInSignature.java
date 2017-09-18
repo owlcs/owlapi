@@ -43,7 +43,7 @@ public interface HasObjectPropertiesInSignature {
     }
 
     /**
-     * @return Stream of object properties that are in the signature of this object.
+     * @return Sorted stream of object properties that are in the signature of this object.
      */
     default Stream<OWLObjectProperty> objectPropertiesInSignature() {
         return empty();

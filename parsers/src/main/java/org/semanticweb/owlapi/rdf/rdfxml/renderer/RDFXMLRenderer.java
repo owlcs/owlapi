@@ -183,7 +183,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
+        List<RDFTriple> triples = new ArrayList<RDFTriple>();
+        triples.addAll(getRDFGraph().getTriplesForSubject(node));
+        triples.sort(null);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()

@@ -40,7 +40,7 @@ public interface HasIndividualsInSignature {
     }
 
     /**
-     * @return Stream containing the individuals that are in the signature of this object.
+     * @return Sorted stream containing the individuals that are in the signature of this object.
      */
     default Stream<OWLNamedIndividual> individualsInSignature() {
         return empty();

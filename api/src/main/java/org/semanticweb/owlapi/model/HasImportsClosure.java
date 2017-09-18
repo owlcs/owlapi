@@ -48,7 +48,7 @@ public interface HasImportsClosure {
     /**
      * Gets the imports closure, including the root object.
      *
-     * @return Stream of ontologies representing the imports closure of this object (includes this
+     * @return Sorted stream of ontologies representing the imports closure of this object (includes this
      * object).
      */
     Stream<OWLOntology> importsClosure();

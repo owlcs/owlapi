@@ -20,13 +20,7 @@ import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.annotation.Nullable;
 import javax.xml.parsers.SAXParser;
 import org.semanticweb.owlapi.io.XMLUtils;
@@ -242,7 +236,10 @@ public class XMLWriterImpl implements XMLWriter {
         if (!xmlBase.isEmpty()) {
             writeAttribute("xml:base", xmlBase);
         }
-        for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
+        List<String> prefixes = new ArrayList<String>();
+        xmlWriterNamespaceManager.getPrefixes().forEach(prefix -> prefixes.add(prefix));
+        prefixes.sort(null);
+        for (String curPrefix : prefixes) {
             if (!curPrefix.isEmpty()) {
                 writeAttribute("xmlns:" + curPrefix,
                     verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(

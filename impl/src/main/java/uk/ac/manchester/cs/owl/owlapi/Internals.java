@@ -1033,6 +1033,10 @@ public class Internals implements Serializable {
             return set.remove(k);
         }
 
+        /**
+         *
+         * @return A sorted stream
+         */
         public Stream<K> stream() {
             if (set.isEmpty()) {
                 return Stream.empty();

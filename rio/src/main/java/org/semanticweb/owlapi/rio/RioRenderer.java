@@ -35,9 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
+
 import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
@@ -216,7 +215,9 @@ public class RioRenderer extends RDFRendererBase {
             return;
         }
         pending.add(node);
-        final Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
+        final List<RDFTriple> triples = new ArrayList<RDFTriple>();
+        triples.addAll(getRDFGraph().getTriplesForSubject(node));
+        triples.sort(null);
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("triples.size()={}", Integer.valueOf(triples.size()));
             if (!triples.isEmpty()) {

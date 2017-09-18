@@ -63,7 +63,7 @@ public interface HasAxiomsByType {
      *
      * @param axiomType The type of axioms to be retrieved.
      * @param <T> axiom type
-     * @return Stream of axioms of the specified type.
+     * @return Sorted stream of axioms of the specified type.
      */
     <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType);
 }

@@ -52,7 +52,7 @@ public interface OWLNaryIndividualAxiom
     }
 
     /**
-     * @return the individuals
+     * @return the sorted individuals
      */
     Stream<OWLIndividual> individuals();
 
@@ -64,7 +64,7 @@ public interface OWLNaryIndividualAxiom
     /**
      * Gets the individuals returned by {@link #getIndividuals()} as a list.
      *
-     * @return The individuals in this axiom as a list
+     * @return The sorted individuals in this axiom as a list
      */
     default List<OWLIndividual> getIndividualsAsList() {
         return asList(individuals());

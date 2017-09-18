@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
@@ -393,7 +392,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
                 ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
                     .get().keySet().stream(),
                 ints.getOntologyAnnotations().map(a -> a.getProperty()))
-            .distinct().sorted();
+            .distinct();
     }
 
     @Override
@@ -448,15 +447,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLIndividualAxiom> axioms(OWLIndividual individual) {
-        return sortOptionally(
+        return
             Stream
                 .of(classAssertionAxioms(individual), objectPropertyAssertionAxioms(individual),
                     dataPropertyAssertionAxioms(individual),
                     negativeObjectPropertyAssertionAxioms(individual),
                     negativeDataPropertyAssertionAxioms(individual),
                     sameIndividualAxioms(individual), differentIndividualAxioms(individual))
-                .flatMap(x -> x),
-            OWLIndividualAxiom.class).stream();
+                .flatMap(x -> x);
     }
 
     @Override
