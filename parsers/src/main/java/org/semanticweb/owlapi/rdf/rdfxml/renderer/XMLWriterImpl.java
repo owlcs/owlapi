@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -25,20 +23,22 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Nullable;
 import javax.xml.parsers.SAXParser;
+
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyWriterConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.SAXParsers;
-import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.google.common.base.Splitter;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
@@ -67,21 +67,18 @@ public class XMLWriterImpl implements XMLWriter {
      */
     @SuppressWarnings("null")
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
-        String xmlBase,
-        OWLOntologyWriterConfiguration preferences) {
+        String xmlBase, OWLOntologyWriterConfiguration preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
-        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
-            "xmlWriterNamespaceManager cannot be null");
+        this.xmlWriterNamespaceManager =
+            checkNotNull(xmlWriterNamespaceManager, "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
         setupEntities();
     }
 
     private void setupEntities() {
-        List<String> namespaces = Lists.newArrayList(xmlWriterNamespaceManager.getNamespaces());
-        Collections.sort(namespaces, new StringLengthComparator());
         entities = new LinkedHashMap<>();
-        for (String curNamespace : namespaces) {
+        for (String curNamespace : xmlWriterNamespaceManager.getNamespaces()) {
             String curPrefix = getCurrentPrefix(curNamespace);
             if (curPrefix != null && !curPrefix.isEmpty()) {
                 entities.put(curNamespace, '&' + curPrefix + ';');
@@ -245,8 +242,7 @@ public class XMLWriterImpl implements XMLWriter {
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
             if (!curPrefix.isEmpty()) {
                 writeAttribute("xmlns:" + curPrefix,
-                    verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(
-                        curPrefix)));
+                    verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
             }
         }
     }
@@ -391,7 +387,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         private void writeAttributes() {
-            for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext(); ) {
+            for (Iterator<String> it = attributes.keySet().iterator(); it.hasNext();) {
                 String attr = it.next();
                 String val = attributes.get(attr);
                 writer.write(' ');
@@ -426,8 +422,7 @@ public class XMLWriterImpl implements XMLWriter {
         private void checkProperXMLLiteral(String text) {
             try {
                 String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT
-                    .getValue(String.class, Collections
-                        .emptyMap());
+                    .getValue(String.class, Collections.emptyMap());
                 SAXParser parser = SAXParsers.initParserWithOWLAPIStandards(null, expansions);
                 parser.parse(new InputSource(new StringReader(text)), new DefaultHandler());
             } catch (SAXException | IOException e) {

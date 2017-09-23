@@ -14,10 +14,13 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.util.StringLengthComparator;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
@@ -27,9 +30,12 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class XMLWriterNamespaceManager {
 
-    private final Map<String, String> prefixNamespaceMap = new HashMap<>();
-    private final Map<String, String> namespacePrefixMap = new HashMap<>();
-    private final Map<String, String> wellknownNamespaces = new HashMap<>();
+    private final Map<String, String> prefixNamespaceMap =
+        new TreeMap<>(new StringLengthComparator());
+    private final Map<String, String> namespacePrefixMap =
+        new TreeMap<>(new StringLengthComparator());
+    private final Map<String, String> wellknownNamespaces =
+        new TreeMap<>(new StringLengthComparator());
     private String defaultNamespace;
 
     /**
@@ -44,9 +50,8 @@ public class XMLWriterNamespaceManager {
      * @param namespace namespace
      */
     public void addWellKnownNamespace(String prefix, String namespace) {
-        wellknownNamespaces
-            .put(checkNotNull(prefix, "prefix cannot be null"), checkNotNull(namespace,
-                "namespace cannot be null"));
+        wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
+            checkNotNull(namespace, "namespace cannot be null"));
     }
 
     /**
@@ -152,14 +157,14 @@ public class XMLWriterNamespaceManager {
     }
 
     /**
-     * @return iterable on prefixes
+     * @return iterable on prefixes, sorted by StringLengthComparator
      */
     public Iterable<String> getPrefixes() {
         return prefixNamespaceMap.keySet();
     }
 
     /**
-     * @return iterable of namespaces
+     * @return iterable of namespaces, sorted by StringLengthComparator
      */
     public Iterable<String> getNamespaces() {
         return namespacePrefixMap.keySet();
