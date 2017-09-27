@@ -31,12 +31,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -491,7 +491,8 @@ public class OWLOntologyManagerImpl
     public Stream<OWLOntology> imports(OWLOntology ontology) {
         readLock.lock();
         try {
-            return getImports(ontology, new LinkedHashSet<>()).stream();
+            // XXX caches for imports and imports closure sets with Caffeine
+            return getImports(ontology, new TreeSet<>()).stream();
         } finally {
             readLock.unlock();
         }
@@ -521,8 +522,7 @@ public class OWLOntologyManagerImpl
         try {
             OWLOntologyID id = ontology.getOntologyID();
             return importsClosureCache
-                .computeIfAbsent(id, i -> getImportsClosure(ontology, new LinkedHashSet<>()))
-                .stream();
+                .computeIfAbsent(id, i -> getImportsClosure(ontology, new TreeSet<>())).stream();
         } finally {
             readLock.unlock();
         }
