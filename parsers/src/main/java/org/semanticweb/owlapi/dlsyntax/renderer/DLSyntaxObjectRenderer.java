@@ -33,7 +33,6 @@ import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.SELF;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.SUBCLASS;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.TOP;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.WEDGE;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
@@ -197,7 +196,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     @Override
     public void visit(OWLOntology ontology) {
         checkNotNull(ontology, "ontology cannot be null");
-        sortOptionally(ontology.logicalAxioms()).forEach(ax -> {
+        ontology.logicalAxioms().sorted().forEach(ax -> {
             ax.accept(this);
             write("\n");
         });

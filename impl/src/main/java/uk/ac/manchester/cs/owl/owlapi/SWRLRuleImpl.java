@@ -21,7 +21,9 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -95,9 +97,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Stream<OWLClassExpression> classAtomPredicates() {
-        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom)
-            .map(
-                c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
+        return Stream.concat(head(), body()).filter(c -> c instanceof SWRLClassAtom)
+            .map(c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
     }
 
     @Override
@@ -126,15 +127,15 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         if (!(obj instanceof SWRLRule)) {
             return false;
         }
+        // For same implementation instances, no need to create or sort sets
         if (obj instanceof SWRLRuleImpl) {
             return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head)
-                && equalStreams(
-                annotations(), ((SWRLRuleImpl) obj).annotations());
+                && equalStreams(annotations(), ((SWRLRuleImpl) obj).annotations());
         }
+        // For different implementations, just use sets, do not sort
         SWRLRule other = (SWRLRule) obj;
-        return body.equals(asSet(other.body())) && head.equals(asSet(other.head())) && equalStreams(
-            annotations(), other
-                .annotations());
+        return body.equals(asSet(other.body())) && head.equals(asSet(other.head()))
+            && equalStreams(annotations(), other.annotations());
     }
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {

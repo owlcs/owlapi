@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -27,8 +28,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements
-    OWLClassAssertionAxiom {
+public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
+    implements OWLClassAssertionAxiom {
 
     private final OWLIndividual individual;
     private final OWLClassExpression classExpression;
@@ -50,8 +51,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
-            NO_ANNOTATIONS);
+        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -73,7 +73,6 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getIndividual()),
-            getClassExpression(),
-            NO_ANNOTATIONS);
+            getClassExpression(), NO_ANNOTATIONS);
     }
 }

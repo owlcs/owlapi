@@ -12,12 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -39,12 +41,12 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
         Stream<OWLAnnotation> annotations) {
         super(property, value);
         checkNotNull(annotations, "annotations cannot be null");
-        anns = sortOptionally(annotations.distinct());
+        anns = sorted(OWLAnnotation.class, annotations);
     }
 
     @Override
     public Stream<OWLAnnotation> annotations() {
-        return anns.stream();
+        return streamFromSorted(anns);
     }
 
     @Override
@@ -58,6 +60,6 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     @Override
     public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
         return new OWLAnnotationImpl(getProperty(), getValue(),
-            Stream.concat(anns.stream(), annotations));
+            Stream.concat(annotations(), annotations));
     }
 }

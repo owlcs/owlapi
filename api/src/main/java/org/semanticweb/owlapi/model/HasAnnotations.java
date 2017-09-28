@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 public interface HasAnnotations {
 
     /**
-     * @return a stream of OWLAnnotations on this object. This will only include the annotations
+     * @return a sorted stream of OWLAnnotations on this object. This will only include the annotations
      * contained in this object, not the value of annotation assertion axioms in an ontology or in
      * other ontologies. Use the EntitySearcher methods for that purpose.
      */
@@ -45,7 +45,8 @@ public interface HasAnnotations {
      * purpose.
      */
     default Stream<OWLAnnotation> annotations(Predicate<OWLAnnotation> p) {
-        return annotations().filter(p);
+        // Default implementation returns a sorted stream already.
+        return annotations().filter(p).sorted();
     }
 
     /**
@@ -56,7 +57,8 @@ public interface HasAnnotations {
      * purpose.
      */
     default Stream<OWLAnnotation> annotations(OWLAnnotationProperty p) {
-        return annotations().filter(a -> a.getProperty().equals(p));
+        // Default implementation returns a sorted stream already.
+        return annotations().filter(a -> a.getProperty().equals(p)).sorted();
     }
 
     /**

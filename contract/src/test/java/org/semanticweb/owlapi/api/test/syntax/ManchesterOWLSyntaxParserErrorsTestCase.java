@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -24,11 +24,12 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
- * Some tests that ensure the correct token and token position are returned when
- * errors are encountered.
+ * Some tests that ensure the correct token and token position are returned when errors are
+ * encountered.
  *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
  *         01/04/2014
@@ -38,21 +39,20 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class ManchesterOWLSyntaxParserErrorsTestCase {
 
     @Mock
-    protected @Nonnull
-    OWLEntityChecker entityChecker;
+    protected @Nonnull OWLEntityChecker entityChecker;
     private ParserWrapper parser;
 
     @Before
     public void setUp() {
         OWLDataFactory dataFactory = new OWLDataFactoryImpl();
         OWLClass cls = mock(OWLClass.class);
-//        when(cls.getIRI()).thenReturn(mock(IRI.class));
+        // when(cls.getIRI()).thenReturn(mock(IRI.class));
         when(entityChecker.getOWLClass("C")).thenReturn(cls);
         OWLClass clsC1 = mock(OWLClass.class);
-//        when(clsC1.getIRI()).thenReturn(mock(IRI.class));
+        // when(clsC1.getIRI()).thenReturn(mock(IRI.class));
         when(entityChecker.getOWLClass("C1")).thenReturn(clsC1);
         OWLObjectProperty oP = mock(OWLObjectProperty.class);
-//        when(oP.getIRI()).thenReturn(mock(IRI.class));
+        // when(oP.getIRI()).thenReturn(mock(IRI.class));
         when(oP.asOWLObjectProperty()).thenReturn(oP);
         when(entityChecker.getOWLObjectProperty("oP")).thenReturn(oP);
         when(entityChecker.getOWLDataProperty("dP")).thenReturn(mock(OWLDataProperty.class));
@@ -502,8 +502,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
 
     private class ParserWrapper {
 
-        ParserWrapper() {
-        }
+        ParserWrapper() {}
 
         public void parse(String input) {
             ManchesterOWLSyntaxParser actualParser = OWLManager.createManchesterParser();

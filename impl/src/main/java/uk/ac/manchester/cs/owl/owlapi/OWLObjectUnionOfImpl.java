@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
@@ -35,6 +36,11 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
 
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
-        return asSet(operands().flatMap(OWLClassExpression::disjunctSet));
+        return asSet(disjunctSet());
+    }
+
+    @Override
+    public Stream<OWLClassExpression> disjunctSet() {
+        return operands().flatMap(OWLClassExpression::disjunctSet).distinct().sorted();
     }
 }

@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -76,15 +76,14 @@ public class RDFXMLRenderer extends RDFRendererBase {
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"),
-            checkNotNull(format, "format cannot be null"), ontology
-                .getOWLOntologyManager().getOntologyWriterConfiguration());
+            checkNotNull(format, "format cannot be null"),
+            ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(
-            new XMLWriterImpl(checkNotNull(w, "w cannot be null"), qnameManager, base, ontology
-                .getOWLOntologyManager().getOntologyWriterConfiguration()));
+        writer = new RDFXMLWriter(new XMLWriterImpl(checkNotNull(w, "w cannot be null"),
+            qnameManager, base, ontology.getOWLOntologyManager().getOntologyWriterConfiguration()));
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
@@ -187,9 +186,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
-                && BUILT_IN_VOCABULARY_IRIS
-                .contains(triple.getObject().getIRI()) && prettyPrintedTypes
-                .contains(triple.getObject().getIRI())) {
+                && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
+                && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                 candidatePrettyPrintTypeTriple = triple;
             }
         }
@@ -204,8 +202,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
             writer.writeNodeIDAttribute(node);
         }
         for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple
-                .equals(triple)) {
+            if (candidatePrettyPrintTypeTriple != null
+                && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());

@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -45,8 +46,7 @@ public class OWLDataPropertyAssertionAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
-            new OWLDataHasValueImpl(getProperty(),
-                getObject()), NO_ANNOTATIONS);
+            new OWLDataHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override
@@ -54,8 +54,7 @@ public class OWLDataPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
-            NO_ANNOTATIONS);
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
     @Override

@@ -15,10 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.parameters.ChangeApplied.NO_OPERATION;
 import static org.semanticweb.owlapi.model.parameters.ChangeApplied.SUCCESSFULLY;
 
-import com.google.inject.assistedinject.Assisted;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -36,12 +36,14 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
+import com.google.inject.assistedinject.Assisted;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology,
-    Serializable {
+public class OWLOntologyImpl extends OWLImmutableOntologyImpl
+    implements OWLMutableOntology, Serializable {
 
     /**
      * @param manager ontology manager
@@ -79,12 +81,13 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         return new ChangeDetails(appliedChanges, enactedChanges);
     }
 
-    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>,
-        Serializable {
+    protected class OWLOntologyChangeFilter
+        implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
 
         @Override
         public ChangeApplied visit(RemoveAxiom change) {
             if (ints.removeAxiom(change.getAxiom())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -97,6 +100,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
                 // force hashcode recomputation
                 hashCode = 0;
                 ontologyID = id;
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -105,6 +109,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(AddAxiom change) {
             if (ints.addAxiom(change.getAxiom())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -113,6 +118,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(AddImport change) {
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -121,6 +127,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(RemoveImport change) {
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -129,6 +136,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(AddOntologyAnnotation change) {
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -137,6 +145,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         @Override
         public ChangeApplied visit(RemoveOntologyAnnotation change) {
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;

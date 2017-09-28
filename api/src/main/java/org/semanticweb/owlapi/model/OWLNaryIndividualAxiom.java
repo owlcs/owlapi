@@ -23,9 +23,8 @@ import java.util.stream.Stream;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryIndividualAxiom
-    extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut,
-    HasOperands<OWLIndividual> {
+public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>,
+    OWLSubClassOfAxiomSetShortCut, HasOperands<OWLIndividual> {
 
     @Override
     default Stream<?> components() {
@@ -52,7 +51,7 @@ public interface OWLNaryIndividualAxiom
     }
 
     /**
-     * @return the individuals
+     * @return the sorted individuals
      */
     Stream<OWLIndividual> individuals();
 
@@ -64,7 +63,7 @@ public interface OWLNaryIndividualAxiom
     /**
      * Gets the individuals returned by {@link #getIndividuals()} as a list.
      *
-     * @return The individuals in this axiom as a list
+     * @return The sorted individuals in this axiom as a list
      */
     default List<OWLIndividual> getIndividualsAsList() {
         return asList(individuals());

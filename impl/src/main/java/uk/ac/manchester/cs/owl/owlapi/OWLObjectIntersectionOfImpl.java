@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
@@ -43,6 +44,11 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
         return asSet(operands().flatMap(OWLClassExpression::conjunctSet));
+    }
+
+    @Override
+    public Stream<OWLClassExpression> conjunctSet() {
+        return operands().flatMap(OWLClassExpression::conjunctSet).distinct().sorted();
     }
 
     @Override

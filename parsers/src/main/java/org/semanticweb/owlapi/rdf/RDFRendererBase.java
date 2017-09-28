@@ -22,9 +22,9 @@ import static org.semanticweb.owlapi.model.AxiomType.SUB_PROPERTY_CHAIN_OF;
 import static org.semanticweb.owlapi.model.AxiomType.SWRL_RULE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
@@ -56,7 +56,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -120,11 +122,11 @@ public abstract class RDFRendererBase {
     private static final String RULES_BANNER_TEXT = "Rules";
     protected final OWLOntology ontology;
     protected final OWLDataFactory df;
-    protected final Set<IRI> prettyPrintedTypes = asUnorderedSet(
-        Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
-            OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY, OWL_RESTRICTION, OWL_THING, OWL_NOTHING,
-            OWL_ONTOLOGY,
-            OWL_ANNOTATION_PROPERTY, OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION)
+    protected final Set<IRI> prettyPrintedTypes =
+        asUnorderedSet(Stream
+            .of(OWL_CLASS, OWL_OBJECT_PROPERTY, OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY,
+                OWL_RESTRICTION, OWL_THING, OWL_NOTHING, OWL_ONTOLOGY, OWL_ANNOTATION_PROPERTY,
+                OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION)
             .map(a -> a.getIRI()));
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
@@ -158,7 +160,8 @@ public abstract class RDFRendererBase {
             occurrences = x -> true;
             axiomOccurrences = x -> true;
         } else {
-            OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
+            OWLAnonymousIndividualsWithMultipleOccurrences visitor =
+                new OWLAnonymousIndividualsWithMultipleOccurrences();
             occurrences = visitor;
             ontology.accept(visitor);
             axiomOccurrences = x -> x.annotations().anyMatch(a -> a.annotations().count() > 0);
@@ -178,30 +181,27 @@ public abstract class RDFRendererBase {
     protected abstract void endDocument();
 
     /**
-     * Called before an OWLObject such as an entity, anonymous individual, rule
-     * etc. is rendered.
+     * Called before an OWLObject such as an entity, anonymous individual, rule etc. is rendered.
      */
-    protected void beginObject() {
-    }
+    protected void beginObject() {}
 
     /**
-     * Called after an OWLObject such as an entity, anonymous individual, rule
-     * etc. has been rendered.
+     * Called after an OWLObject such as an entity, anonymous individual, rule etc. has been
+     * rendered.
      */
-    protected void endObject() {
-    }
+    protected void endObject() {}
 
     /**
-     * Called before an annotation property is rendered to give subclasses the
-     * chance to prefix the rendering with comments etc.
+     * Called before an annotation property is rendered to give subclasses the chance to prefix the
+     * rendering with comments etc.
      *
      * @param prop The property being rendered
      */
     protected abstract void writeAnnotationPropertyComment(OWLAnnotationProperty prop);
 
     /**
-     * Called before a data property is rendered to give subclasses the chance
-     * to prefix the rendering with comments etc.
+     * Called before a data property is rendered to give subclasses the chance to prefix the
+     * rendering with comments etc.
      *
      * @param prop The property being rendered
      */
@@ -215,24 +215,24 @@ public abstract class RDFRendererBase {
     protected abstract void writeObjectPropertyComment(OWLObjectProperty prop);
 
     /**
-     * Called before a class is rendered to give subclasses the chance to prefix
-     * the rendering with comments etc.
+     * Called before a class is rendered to give subclasses the chance to prefix the rendering with
+     * comments etc.
      *
      * @param cls The class being rendered
      */
     protected abstract void writeClassComment(OWLClass cls);
 
     /**
-     * Called before a datatype is rendered to give subclasses the chance to
-     * prefix the rendering with comments etc.
+     * Called before a datatype is rendered to give subclasses the chance to prefix the rendering
+     * with comments etc.
      *
      * @param datatype The datatype being rendered
      */
     protected abstract void writeDatatypeComment(OWLDatatype datatype);
 
     /**
-     * Called before an individual is rendered to give subclasses the chance to
-     * prefix the rendering with comments etc.
+     * Called before an individual is rendered to give subclasses the chance to prefix the rendering
+     * with comments etc.
      *
      * @param ind The individual being rendered
      */
@@ -251,9 +251,8 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() {
-        renderInOntologySignatureEntities(
-            OWLDocumentFormat.determineIllegalPunnings(shouldInsertDeclarations(),
-                ontology.signature(), ontology.getPunnedIRIs(INCLUDED)));
+        renderInOntologySignatureEntities(OWLDocumentFormat.determineIllegalPunnings(
+            shouldInsertDeclarations(), ontology.signature(), ontology.getPunnedIRIs(INCLUDED)));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
@@ -277,15 +276,14 @@ public abstract class RDFRendererBase {
      *
      * @param entities The entities. Not null.
      * @param bannerText The banner text that will prefix the rendering of the entities if anything
-     * is rendered. Not null. May be empty, in which case no banner will be written.
+     *        is rendered. Not null. May be empty, in which case no banner will be written.
      * @param illegalPuns illegal puns
      */
     private void renderEntities(Stream<? extends OWLEntity> entities, String bannerText,
         Collection<IRI> illegalPuns) {
         AtomicBoolean firstRendering = new AtomicBoolean(true);
-        sortOptionally(entities).stream().filter(e -> createGraph(e, illegalPuns))
-            .forEach(e -> render(e,
-                firstRendering, bannerText));
+        entities.sorted().filter(e -> createGraph(e, illegalPuns))
+            .forEach(e -> render(e, firstRendering, bannerText));
     }
 
     private void render(OWLEntity entity, AtomicBoolean firstRendering, String bannerText) {
@@ -334,11 +332,10 @@ public abstract class RDFRendererBase {
     private void renderUntypedIRIAnnotationAssertions() {
         Collection<IRI> annotatedIRIs = new HashSet<>();
         ontology.axioms(ANNOTATION_ASSERTION).filter(ax -> ax.getSubject().isIRI())
-            .forEach(ax -> addIfUntyped(ax
-                .getSubject(), annotatedIRIs));
+            .forEach(ax -> addIfUntyped(ax.getSubject(), annotatedIRIs));
         if (!annotatedIRIs.isEmpty()) {
             writeBanner(ANNOTATED_IRIS_BANNER_TEXT);
-            sortOptionally(annotatedIRIs).forEach(this::renderIRI);
+            annotatedIRIs.stream().sorted().forEach(this::renderIRI);
         }
     }
 
@@ -351,14 +348,14 @@ public abstract class RDFRendererBase {
     }
 
     private void renderAnonymousIndividuals() {
-        sortOptionally(ontology.referencedAnonymousIndividuals()).forEach(this::renderAnon);
+        ontology.referencedAnonymousIndividuals().forEach(this::renderAnon);
     }
 
     protected void renderAnon(OWLAnonymousIndividual anonInd) {
         List<OWLAxiom> axioms = new ArrayList<>();
         if (ontology.referencingAxioms(anonInd)
-            .filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom)).noneMatch(
-                ax -> shouldNotRender(anonInd, axioms, ax))) {
+            .filter(ax -> !(ax instanceof OWLDifferentIndividualsAxiom))
+            .noneMatch(ax -> shouldNotRender(anonInd, axioms, ax))) {
             createGraph(axioms.stream());
             renderAnonRoots();
         }
@@ -374,7 +371,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() {
-        List<SWRLRule> ruleAxioms = sortOptionally(ontology.axioms(SWRL_RULE));
+        List<SWRLRule> ruleAxioms = asList(ontology.axioms(SWRL_RULE).sorted());
         createGraph(ruleAxioms.stream());
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);
@@ -409,14 +406,13 @@ public abstract class RDFRendererBase {
     }
 
     /**
-     * Gets the general axioms in the ontology. These are axioms such as
-     * DifferentIndividuals, General Class axioms which do not describe or
-     * define a named class and so can't be written out as a frame, nary
-     * disjoint classes, disjoint object properties, disjoint data properties
+     * Gets the general axioms in the ontology. These are axioms such as DifferentIndividuals,
+     * General Class axioms which do not describe or define a named class and so can't be written
+     * out as a frame, nary disjoint classes, disjoint object properties, disjoint data properties
      * and HasKey axioms where the class expression is anonymous.
      *
      * @return A set of axioms that are general axioms (and can't be written out in a frame-based
-     * style).
+     *         style).
      */
     private List<OWLAxiom> getGeneralAxioms() {
         List<OWLAxiom> generalAxioms = new ArrayList<>();
@@ -430,7 +426,8 @@ public abstract class RDFRendererBase {
             ontology.axioms(DISJOINT_DATA_PROPERTIES).filter(ax -> ax.properties().count() > 2));
         add(generalAxioms,
             ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().isAnonymous()));
-        return sortOptionally(generalAxioms);
+        generalAxioms.sort(null);
+        return generalAxioms;
     }
 
     protected void renderOntologyHeader() {
@@ -463,19 +460,16 @@ public abstract class RDFRendererBase {
 
     private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode,
         RDFTranslator translator) {
-        ontology.importsDeclarations()
-            .forEach(decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(),
-                decl.getIRI()));
+        ontology.importsDeclarations().forEach(
+            decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(), decl.getIRI()));
     }
 
     private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode,
         RDFTranslator translator) {
         ontology.annotations().forEach(a -> {
             translator.addTriple(ontologyHeaderNode, a.getProperty().getIRI(), a.getValue());
-            if (a.getValue() instanceof OWLAnonymousIndividual) {
-                OWLAnonymousIndividual i = (OWLAnonymousIndividual) a.getValue();
-                sortOptionally(ontology.referencingAxioms(i)).forEach(ax -> ax.accept(translator));
-            }
+            a.ifAnonymousIndividual(
+                i -> ontology.referencingAxioms(i).sorted().forEach(ax -> ax.accept(translator)));
         });
     }
 
@@ -502,7 +496,7 @@ public abstract class RDFRendererBase {
     protected void createGraph(Stream<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
-        sortOptionally(objects).forEach(obj -> deshare(obj).accept(translator));
+        objects.sorted().forEach(obj -> deshare(obj).accept(translator));
         graph = translator.getGraph();
         triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }
@@ -532,8 +526,8 @@ public abstract class RDFRendererBase {
     }
 
     /**
-     * Renders the triples in the current graph into a concrete format.
-     * Subclasses of this class decide upon how the triples get rendered.
+     * Renders the triples in the current graph into a concrete format. Subclasses of this class
+     * decide upon how the triples get rendered.
      *
      * @param node The main node to be rendered
      * @param root true if this is the root call to render, false otherwise
@@ -542,9 +536,9 @@ public abstract class RDFRendererBase {
 
     protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : getRDFGraph().getTriplesForSubject(node)) {
-            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject()
-                .isAnonymous() && triple
-                .getObject().getIRI().equals(RDF_LIST.getIRI())) {
+            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI())
+                && !triple.getObject().isAnonymous()
+                && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
                 toJavaList(node, items);
                 return items.stream().noneMatch(RDFNode::isLiteral);
@@ -581,8 +575,9 @@ public abstract class RDFRendererBase {
 
     protected RDFTriple remapNodesIfNecessary(final RDFResource node, final RDFTriple triple) {
         RDFTriple tripleToRender = triple;
-        RDFResourceBlankNode remappedNode = verifyNotNull(triplesWithRemappedNodes,
-            "triplesWithRemappedNodes not initialised yet").get(tripleToRender);
+        RDFResourceBlankNode remappedNode =
+            verifyNotNull(triplesWithRemappedNodes, "triplesWithRemappedNodes not initialised yet")
+                .get(tripleToRender);
         if (remappedNode != null) {
             tripleToRender = new RDFTriple(tripleToRender.getSubject(),
                 tripleToRender.getPredicate(), remappedNode);
@@ -591,8 +586,8 @@ public abstract class RDFRendererBase {
             // the node will not match the triple subject if the node itself
             // is a remapped blank node
             // in which case the triple subject needs remapping as well
-            tripleToRender = new RDFTriple(node, tripleToRender.getPredicate(),
-                tripleToRender.getObject());
+            tripleToRender =
+                new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
         }
         return tripleToRender;
     }
@@ -657,8 +652,7 @@ public abstract class RDFRendererBase {
             add(axioms, ontology.axioms(SUB_PROPERTY_CHAIN_OF)
                 .filter(ax -> ax.getSuperProperty().equals(property)));
             OWLObjectInverseOf inverse = ontology.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLObjectInverseOf(
-                    property);
+                .getOWLObjectInverseOf(property);
             add(axioms, ontology.axioms(inverse));
         }
 
@@ -679,14 +673,12 @@ public abstract class RDFRendererBase {
 
         boolean threewayDisjointData(OWLAxiom ax) {
             return !(ax instanceof OWLDisjointDataPropertiesAxiom
-                && ((OWLDisjointDataPropertiesAxiom) ax).properties()
-                .count() > 2);
+                && ((OWLDisjointDataPropertiesAxiom) ax).properties().count() > 2);
         }
 
         boolean threewayDisjointObject(OWLAxiom ax) {
             return !(ax instanceof OWLDisjointObjectPropertiesAxiom
-                && ((OWLDisjointObjectPropertiesAxiom) ax)
-                .properties().count() > 2);
+                && ((OWLDisjointObjectPropertiesAxiom) ax).properties().count() > 2);
         }
     }
 }

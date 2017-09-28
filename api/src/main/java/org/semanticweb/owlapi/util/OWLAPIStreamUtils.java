@@ -1,5 +1,10 @@
 package org.semanticweb.owlapi.util;
 
+import static java.util.Spliterator.DISTINCT;
+import static java.util.Spliterator.IMMUTABLE;
+import static java.util.Spliterator.NONNULL;
+import static java.util.Spliterator.SIZED;
+import static java.util.Spliterator.SORTED;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.ArrayList;
@@ -8,12 +13,16 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.Spliterators;
 import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 import org.semanticweb.owlapi.model.HasComponents;
 import org.semanticweb.owlapi.model.OWLObject;
 
@@ -22,7 +31,58 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLAPIStreamUtils {
 
-    private OWLAPIStreamUtils() {
+    private static final int CHARACTERISTICS = DISTINCT | IMMUTABLE | NONNULL | SORTED | SIZED;
+
+    private OWLAPIStreamUtils() {}
+
+    /**
+     * @param type type of the returned array
+     * @param s stream to turn to array
+     * @return sorted array containing all elements in the stream, minus nulls and duplicates
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> sorted(Class<T> type, Stream<? extends T> s) {
+        // skip nulls, skip duplicates, ensure sorted
+        return asList(s.filter(Objects::nonNull).distinct().sorted(), type);
+    }
+
+    /**
+     * @param type type of the returned array
+     * @param c collection to turn to array
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     */
+    public static <T> List<T> sorted(Class<T> type, Collection<? extends T> c) {
+        return sorted(type, c.stream());
+    }
+
+    /**
+     * @param type type of the returned array
+     * @param c array to sort
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     */
+    @SafeVarargs
+    public static <T> List<T> sorted(Class<T> type, T... c) {
+        return sorted(type, Stream.of(c));
+    }
+
+    /**
+     * A method to be used on collections that are sorted, immutable and do not contain nulls.
+     * 
+     * @param c sorted collection of distinct, nonnull elements; the collection must be immutable
+     * @return stream that won't cause sorted() calls to sort the collection again
+     */
+    public static <T> Stream<T> streamFromSorted(Collection<T> c) {
+        return StreamSupport.stream(Spliterators.spliterator(c, CHARACTERISTICS), false);
+    }
+
+    /**
+     * A method to be used on arrays that are sorted and do not contain nulls.
+     * 
+     * @param c sorted aray of distinct, nonnull elements
+     * @return stream that won't cause sorted() calls to sort the array again
+     */
+    public static <T> Stream<T> streamFromSorted(T[] c) {
+        return StreamSupport.stream(Spliterators.spliterator(c, CHARACTERISTICS), false);
     }
 
     /**
@@ -123,7 +183,7 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param s stream to check for containment. The stream is consumed at least partially by this
-     * operation
+     *        operation
      * @param o object to search
      * @return true if the stream contains the object
      */
@@ -146,7 +206,7 @@ public class OWLAPIStreamUtils {
      * @param set1 collection to compare
      * @param set2 collection to compare
      * @return negative value if set1 comes before set2, positive value if set2 comes before set1, 0
-     * if the two sets are equal or incomparable.
+     *         if the two sets are equal or incomparable.
      */
     public static int compareCollections(Collection<? extends OWLObject> set1,
         Collection<? extends OWLObject> set2) {
@@ -171,7 +231,7 @@ public class OWLAPIStreamUtils {
      * @param set1 stream to compare
      * @param set2 stream to compare
      * @return negative value if set1 comes before set2, positive value if set2 comes before set1, 0
-     * if the two sets are equal or incomparable.
+     *         if the two sets are equal or incomparable.
      */
     public static int compareStreams(Stream<?> set1, Stream<?> set2) {
         return compareIterators(set1.sorted().iterator(), set2.sorted().iterator());
@@ -183,7 +243,7 @@ public class OWLAPIStreamUtils {
      * @param set1 iterator to compare
      * @param set2 iterator to compare
      * @return negative value if set1 comes before set2, positive value if set2 comes before set1, 0
-     * if the two sets are equal or incomparable.
+     *         if the two sets are equal or incomparable.
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static int compareIterators(Iterator<?> set1, Iterator<?> set2) {
@@ -200,9 +260,8 @@ public class OWLAPIStreamUtils {
                 diff = ((Comparable) o1).compareTo(o2);
             } else {
                 throw new IllegalArgumentException(
-                    "Incomparable types: '" + o1 + "' with class " + o1.getClass()
-                        + ", '" + o2 + "' with class " + o2.getClass()
-                        + " found while comparing iterators");
+                    "Incomparable types: '" + o1 + "' with class " + o1.getClass() + ", '" + o2
+                        + "' with class " + o2.getClass() + " found while comparing iterators");
             }
             if (diff != 0) {
                 return diff;
@@ -269,8 +328,9 @@ public class OWLAPIStreamUtils {
     /**
      * @param root the root for the invisit
      * @return recursive invisit of all components included in the root component; includes the root
-     * and all intermediate nodes. Annotations and other groups of elements will be represented as
-     * streams or collections, same as if the accessor method on the object was used.
+     *         and all intermediate nodes. Annotations and other groups of elements will be
+     *         represented as streams or collections, same as if the accessor method on the object
+     *         was used.
      */
     public static Stream<?> allComponents(HasComponents root) {
         List<Stream<?>> streams = new ArrayList<>();
@@ -290,7 +350,7 @@ public class OWLAPIStreamUtils {
     /**
      * @param root the root for the invisit
      * @return recursive invisit of all components included in the root component; includes the root
-     * and all intermediate nodes. Streams will be flattened.
+     *         and all intermediate nodes. Streams will be flattened.
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static Stream<?> flatComponents(HasComponents root) {
@@ -317,13 +377,13 @@ public class OWLAPIStreamUtils {
     /**
      * @param size size of matrix
      * @return a stream of coordinates for a triangular matrix of size {@code size}. For input 3,
-     * the values are (1,2), (1,3), (2,3)
+     *         the values are (1,2), (1,3), (2,3)
      */
     public static Stream<int[]> pairs(int size) {
         List<int[]> values = new ArrayList<>((size * size - size) / 2);
         for (int i = 0; i < size - 1; i++) {
             for (int j = i + 1; j < size; j++) {
-                values.add(new int[]{i, j});
+                values.add(new int[] {i, j});
             }
         }
         return values.stream();
@@ -332,14 +392,14 @@ public class OWLAPIStreamUtils {
     /**
      * @param size size of matrix
      * @return a stream of coordinates for a symmetric matrix of size {@code size}, excluding main
-     * diagonal. For input 3, the values are (1,2), (1,3), (2,3), (2,1),(3,1), (3,2)
+     *         diagonal. For input 3, the values are (1,2), (1,3), (2,3), (2,1),(3,1), (3,2)
      */
     public static Stream<int[]> allPairs(int size) {
         List<int[]> values = new ArrayList<>(size * size - size);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (i != j) {
-                    values.add(new int[]{i, j});
+                    values.add(new int[] {i, j});
                 }
             }
         }
@@ -349,8 +409,8 @@ public class OWLAPIStreamUtils {
     /**
      * @param input collection to partition
      * @return a stream of elements for a triangular matrix of size {@code l.size()}, where l is the
-     * list corresponding to the input collection. For input of length 3, the values are
-     * (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3))
+     *         list corresponding to the input collection. For input of length 3, the values are
+     *         (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3))
      */
     public static <T> Stream<Pair<T>> pairs(Collection<T> input) {
         List<T> l;
@@ -372,9 +432,9 @@ public class OWLAPIStreamUtils {
     /**
      * @param input collection to partition
      * @return a stream of coordinates for a symmetric matrix of size {@code l.size()}, where l is
-     * the list corresponding to the input collection, excluding main diagonal. For input 3, the
-     * values are (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3)),
-     * (l.get(2),l.get(1)),(l.get(3),l.get(1)), (l.get(3),l.get(2))
+     *         the list corresponding to the input collection, excluding main diagonal. For input 3,
+     *         the values are (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3)),
+     *         (l.get(2),l.get(1)),(l.get(3),l.get(1)), (l.get(3),l.get(2))
      */
     public static <T> Stream<Pair<T>> allPairs(Collection<T> input) {
         List<T> l;
@@ -398,8 +458,8 @@ public class OWLAPIStreamUtils {
     /**
      * @param input collection to partition
      * @return a stream of elements for a triangular matrix of size {@code l.size()}, where l is the
-     * list corresponding to the input collection. For input of length 3, the values are
-     * (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3))
+     *         list corresponding to the input collection. For input of length 3, the values are
+     *         (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3))
      */
     public static <T> Stream<Pair<T>> pairs(Stream<T> input) {
         return pairs(asList(input));
@@ -408,9 +468,9 @@ public class OWLAPIStreamUtils {
     /**
      * @param input collection to partition
      * @return a stream of coordinates for a symmetric matrix of size {@code l.size()}, where l is
-     * the list corresponding to the input collection, excluding main diagonal. For input 3, the
-     * values are (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3)),
-     * (l.get(2),l.get(1)),(l.get(3),l.get(1)), (l.get(3),l.get(2))
+     *         the list corresponding to the input collection, excluding main diagonal. For input 3,
+     *         the values are (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3)),
+     *         (l.get(2),l.get(1)),(l.get(3),l.get(1)), (l.get(3),l.get(2))
      */
     public static <T> Stream<Pair<T>> allPairs(Stream<T> input) {
         return allPairs(asList(input));

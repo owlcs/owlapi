@@ -914,7 +914,8 @@ public class Internals implements Serializable {
      * @return copy of GCI axioms
      */
     public Stream<OWLClassAxiom> getGeneralClassAxioms() {
-        return generalClassAxioms.stream();
+        // XXX watch out for performance issues
+        return generalClassAxioms.stream().sorted();
     }
 
     /**
@@ -983,8 +984,7 @@ public class Internals implements Serializable {
     //@formatter:on
     private class ReferenceChecker implements OWLEntityVisitorEx<Boolean>, Serializable {
 
-        ReferenceChecker() {
-        }
+        ReferenceChecker() {}
 
         @Override
         public Boolean visit(OWLClass cls) {
@@ -1475,11 +1475,10 @@ public class Internals implements Serializable {
         }
     }
 
-    private class ReferencedAxiomsCollector implements OWLEntityVisitorEx<Stream<OWLAxiom>>,
-        Serializable {
+    private class ReferencedAxiomsCollector
+        implements OWLEntityVisitorEx<Stream<OWLAxiom>>, Serializable {
 
-        ReferencedAxiomsCollector() {
-        }
+        ReferencedAxiomsCollector() {}
 
         @Override
         public Stream<OWLAxiom> visit(OWLClass cls) {

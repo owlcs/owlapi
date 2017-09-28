@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
@@ -22,7 +21,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -43,16 +44,14 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         checkNotNull(printWriter, "writer cannot be null");
         Set<OWLAxiom> printed = new HashSet<>();
         beginWritingOntology(o, printWriter);
-        sortOptionally(o.objectPropertiesInSignature())
+        o.objectPropertiesInSignature()
             .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
-        sortOptionally(o.dataPropertiesInSignature())
-            .forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
-        sortOptionally(o.classesInSignature())
-            .forEach(c -> write(o, c, o.axioms(c), printWriter, printed));
-        sortOptionally(o.individualsInSignature())
-            .forEach(i -> write(o, i, o.axioms(i), printWriter, printed));
+        o.dataPropertiesInSignature().forEach(p -> write(o, p, o.axioms(p), printWriter, printed));
+        o.classesInSignature().forEach(c -> write(o, c, o.axioms(c), printWriter, printed));
+        o.individualsInSignature()
+            .forEach(i -> write(o, i, o.axioms(i).sorted(), printWriter, printed));
         beginWritingGeneralAxioms(printWriter);
-        sortOptionally(o.generalClassAxioms()).forEach(ax -> {
+        o.generalClassAxioms().sorted().forEach(ax -> {
             if (printed.add(ax)) {
                 beginWritingAxiom(printWriter);
                 writeAxiom(null, ax, printWriter);
@@ -65,8 +64,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     private void write(OWLOntology ont, OWLEntity entity, Collection<? extends OWLAxiom> axioms,
-        PrintWriter writer,
-        Set<OWLAxiom> printed) {
+        PrintWriter writer, Set<OWLAxiom> printed) {
         beginWritingAxioms(entity, writer);
         for (OWLAxiom ax : axioms) {
             if (printed.add(ax)) {
@@ -75,7 +73,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
                 endWritingAxiom(writer);
             }
         }
-        List<OWLAxiom> usages = sortOptionally(ont.referencingAxioms(entity));
+        List<OWLAxiom> usages = asList(ont.referencingAxioms(entity).sorted());
         usages.removeAll(axioms);
         beginWritingUsage(usages.size(), writer);
         for (OWLAxiom usage : usages) {
@@ -90,8 +88,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     private void write(OWLOntology ont, OWLEntity entity, Stream<? extends OWLAxiom> axioms,
-        PrintWriter writer,
-        Set<OWLAxiom> printed) {
+        PrintWriter writer, Set<OWLAxiom> printed) {
         write(ont, entity, asList(axioms), writer, printed);
     }
 
@@ -105,42 +102,32 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     }
 
     @SuppressWarnings("unused")
-    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
-    }
+    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
-    }
+    protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void beginWritingAxiom(PrintWriter writer) {
-    }
+    protected void beginWritingAxiom(PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void endWritingAxiom(PrintWriter writer) {
-    }
+    protected void endWritingAxiom(PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
-    }
+    protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void endWritingAxioms(PrintWriter writer) {
-    }
+    protected void endWritingAxioms(PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void beginWritingUsage(int size, PrintWriter writer) {
-    }
+    protected void beginWritingUsage(int size, PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void endWritingUsage(PrintWriter writer) {
-    }
+    protected void endWritingUsage(PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void beginWritingGeneralAxioms(PrintWriter writer) {
-    }
+    protected void beginWritingGeneralAxioms(PrintWriter writer) {}
 
     @SuppressWarnings("unused")
-    protected void endWritingGeneralAxioms(PrintWriter writer) {
-    }
+    protected void endWritingGeneralAxioms(PrintWriter writer) {}
 }

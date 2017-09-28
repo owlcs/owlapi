@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -63,7 +64,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
      * subject of the annotation.
      *
      * @return {@code true} if this annotation assertion deprecates the subject IRI of the
-     * assertion, otherwise {@code false}.
+     *         assertion, otherwise {@code false}.
      * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
      */
     @Override

@@ -169,7 +169,7 @@ public interface OWLSignature
     /**
      * Gets the referenced anonymous individuals.
      *
-     * @return The set of referenced anonymous individuals
+     * @return Sorted stream of referenced anonymous individuals
      */
     Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals();
 
@@ -423,8 +423,10 @@ public interface OWLSignature
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if entities of the specified type are in the signature
      */
-    default boolean containsEntitiesOfTypeInSignature(EntityType<?> type, Imports includeImportsClosure) {
-        return includeImportsClosure.stream(this).anyMatch(o -> o.containsEntitiesOfTypeInSignature(type));
+    default boolean containsEntitiesOfTypeInSignature(EntityType<?> type,
+        Imports includeImportsClosure) {
+        return includeImportsClosure.stream(this)
+            .anyMatch(o -> o.containsEntitiesOfTypeInSignature(type));
     }
 
     /**

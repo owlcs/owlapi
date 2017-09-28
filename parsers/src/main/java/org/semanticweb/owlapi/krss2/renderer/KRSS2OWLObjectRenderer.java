@@ -31,7 +31,6 @@ import static org.semanticweb.owlapi.search.Searcher.domain;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
@@ -39,6 +38,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -71,7 +71,7 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
         List<OWLClass> classes1 = asList(ontology.classesInSignature());
         classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
         classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
-        sortOptionally(classes1);
+        classes1.sort(null);
         for (OWLClass eachClass : classes1) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
@@ -83,8 +83,8 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                     sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
                 writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> classes = asList(
-                    equivalent(ontology.equivalentClassesAxioms(eachClass),
+                Collection<OWLClassExpression> classes =
+                    asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
                         OWLClassExpression.class));
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
@@ -99,8 +99,8 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Collection<OWLClassExpression> classes = asList(
-                    equivalent(ontology.equivalentClassesAxioms(eachClass),
+                Collection<OWLClassExpression> classes =
+                    asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
                         OWLClassExpression.class));
                 if (classes.isEmpty()) {
                     // ?
@@ -142,21 +142,21 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 writeSpace();
                 write(TRUE);
             }
-            List<OWLClassExpression> domains = asList(
-                domain(ontology.objectPropertyDomainAxioms(property)));
+            List<OWLClassExpression> domains =
+                asList(domain(ontology.objectPropertyDomainAxioms(property)));
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            List<OWLClassExpression> ranges = asList(
-                range(ontology.objectPropertyRangeAxioms(property)));
+            List<OWLClassExpression> ranges =
+                asList(range(ontology.objectPropertyRangeAxioms(property)));
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
-            Stream<OWLObjectPropertyExpression> superProperties = sup(
-                ontology.axioms(Filters.subObjectPropertyWithSub,
-                    property, INCLUDED), OWLObjectPropertyExpression.class);
+            Stream<OWLObjectPropertyExpression> superProperties =
+                sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                    OWLObjectPropertyExpression.class);
             Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
             if (it.hasNext()) {
                 writeAttribute(PARENTS_ATTR);

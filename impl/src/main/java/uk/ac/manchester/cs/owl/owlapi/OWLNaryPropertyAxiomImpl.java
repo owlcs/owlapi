@@ -13,25 +13,26 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Stream;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @param <P> the property expression
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
-    OWLPropertyAxiomImpl implements
-    OWLNaryPropertyAxiom<P> {
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
+    extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
     protected final List<P> properties;
 
@@ -53,7 +54,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
-        this.properties = (List<P>) CollectionFactory.sortOptionally(properties.distinct());
+        this.properties = (List<P>) sorted(OWLPropertyExpression.class, properties);
     }
 
     @SafeVarargs
@@ -63,12 +64,12 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
 
     @Override
     public Stream<P> properties() {
-        return properties.stream();
+        return streamFromSorted(properties);
     }
 
     @Override
     public Set<P> getPropertiesMinus(P property) {
-        Set<P> props = new TreeSet<>(properties);
+        Set<P> props = new LinkedHashSet<>(properties);
         props.remove(property);
         return props;
     }
