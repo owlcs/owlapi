@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,10 +24,15 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * Represents International Resource Identifiers.
@@ -38,12 +41,11 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence,
-    OWLPrimitive,
-    HasShortForm, org.apache.commons.rdf.api.IRI {
+    OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
 
     // Cache prefixes for memory gains.
-    private static final LoadingCache<String, String> CACHE = Caffeine.newBuilder()
-        .maximumSize(2048).build(k -> k);
+    private static final LoadingCache<String, String> CACHE =
+        Caffeine.newBuilder().maximumSize(2048).build(k -> k);
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
     // public creation
@@ -51,8 +53,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     private final String namespace;
 
     /**
-     * Constructs an IRI which is built from the concatenation of the specified
-     * prefix and suffix.
+     * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
      *
      * @param prefix The prefix.
      * @param suffix The suffix.
@@ -87,8 +88,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * Creates an IRI by concatenating two strings. The full IRI is an IRI that
-     * contains the characters in prefix + suffix.
+     * Creates an IRI by concatenating two strings. The full IRI is an IRI that contains the
+     * characters in prefix + suffix.
      *
      * @param prefix The first string
      * @param suffix The second string
@@ -185,8 +186,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
-     * so there is no loss during this translation.
+     * Obtains this IRI as a URI. Note that Java URIs handle unicode characters, so there is no loss
+     * during this translation.
      *
      * @return The URI
      */
@@ -240,7 +241,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /**
      * @param s the IRI stirng to be resolved
      * @return s resolved against this IRI (with the URI::resolve() method, unless this IRI is
-     * opaque)
+     *         opaque)
      */
     public IRI resolve(String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
@@ -253,62 +254,55 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * Determines if this IRI is in the reserved vocabulary. An IRI is in the
-     * reserved vocabulary if it starts with
-     * &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or
-     * &lt;http://www.w3.org/2000/01/rdf-schema#&gt; or
-     * &lt;http://www.w3.org/2001/XMLSchema#&gt; or
+     * Determines if this IRI is in the reserved vocabulary. An IRI is in the reserved vocabulary if
+     * it starts with &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or
+     * &lt;http://www.w3.org/2000/01/rdf-schema#&gt; or &lt;http://www.w3.org/2001/XMLSchema#&gt; or
      * &lt;http://www.w3.org/2002/07/owl#&gt;
      *
      * @return {@code true} if the IRI is in the reserved vocabulary, otherwise {@code false}.
      */
     public boolean isReservedVocabulary() {
         return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
-            || Namespaces.RDFS
-            .inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
+            || Namespaces.RDFS.inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**
-     * Determines if this IRI is equal to the IRI that {@code owl:Thing} is
-     * named with.
+     * Determines if this IRI is equal to the IRI that {@code owl:Thing} is named with.
      *
      * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and
-     * otherwise {@code false}
+     *         otherwise {@code false}
      */
     public boolean isThing() {
         return equals(OWLRDFVocabulary.OWL_THING.getIRI());
     }
 
     /**
-     * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is
-     * named with.
+     * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is named with.
      *
      * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
-     * and otherwise {@code false}
+     *         and otherwise {@code false}
      */
     public boolean isNothing() {
         return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
     /**
-     * Determines if this IRI is equal to the IRI that is named
-     * {@code rdf:PlainLiteral}.
+     * Determines if this IRI is equal to the IRI that is named {@code rdf:PlainLiteral}.
      *
-     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
-     * otherwise {@code false}
+     * @return {@code true} if this IRI is equal to
+     *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;, otherwise
+     *         {@code false}
      */
     public boolean isPlainLiteral() {
         return "PlainLiteral".equals(remainder) && Namespaces.RDF.inNamespace(namespace);
     }
 
     /**
-     * Gets the fragment of the IRI.
+     * Gets the last part of the IRI that is a valid NCName; note that for some IRIs this can be
+     * empty.
      *
      * @return The IRI fragment, or empty string if the IRI does not have a fragment
-     * @deprecated use getNCName() - getFragment() does not return a real fragment. e.g., it does
-     * not allow / and () on it
      */
-    @Deprecated
     public String getFragment() {
         return remainder;
     }
