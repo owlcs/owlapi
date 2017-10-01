@@ -14,13 +14,14 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import com.google.common.collect.Sets;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
 import javax.inject.Inject;
+
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -42,6 +43,10 @@ import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
+import com.google.common.collect.Sets;
+
+import uk.ac.manchester.cs.AcceptHeaderBuilder;
+
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
@@ -59,17 +64,15 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     }
 
     /**
-     * Select parsers by MIME type and format of the input source, if known. If
-     * format and MIME type are not known or not matched by any parser, return
-     * all known parsers.
+     * Select parsers by MIME type and format of the input source, if known. If format and MIME type
+     * are not known or not matched by any parser, return all known parsers.
      *
      * @param documentSource document source
      * @param parsers parsers
      * @return selected parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsers(
-        OWLOntologyDocumentSource documentSource,
-        PriorityCollection<OWLParserFactory> parsers) {
+        OWLOntologyDocumentSource documentSource, PriorityCollection<OWLParserFactory> parsers) {
         if (parsers.isEmpty()) {
             return parsers;
         }
@@ -100,8 +103,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
      */
     private static PriorityCollection<OWLParserFactory> getParsersByFormat(OWLDocumentFormat format,
         PriorityCollection<OWLParserFactory> parsers) {
-        PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>(
-            PriorityCollectionSorting.NEVER);
+        PriorityCollection<OWLParserFactory> candidateParsers =
+            new PriorityCollection<>(PriorityCollectionSorting.NEVER);
         for (OWLParserFactory parser : parsers) {
             if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
                 candidateParsers.add(parser);
@@ -129,15 +132,13 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     @Override
     public boolean canAttemptLoading(OWLOntologyDocumentSource source) {
-        return !source.hasAlredyFailedOnStreams()
-            || !source.hasAlredyFailedOnIRIResolution() && parsableSchemes
-            .contains(source.getDocumentIRI().getScheme());
+        return !source.hasAlredyFailedOnStreams() || !source.hasAlredyFailedOnIRIResolution()
+            && parsableSchemes.contains(source.getDocumentIRI().getScheme());
     }
 
     @Override
     public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID,
-        IRI documentIRI,
-        OWLOntologyCreationHandler handler) {
+        IRI documentIRI, OWLOntologyCreationHandler handler) {
         OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);
         handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
@@ -146,9 +147,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager manager,
-        OWLOntologyDocumentSource documentSource,
-        OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
-        throws OWLOntologyCreationException {
+        OWLOntologyDocumentSource documentSource, OWLOntologyCreationHandler handler,
+        OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
         // ontology is parsed successfully then we break out and return the
         // ontology.
@@ -167,14 +167,16 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
             existingOntology = manager.getOntology(iri);
         }
         OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(),
-            handler);
+        OWLOntology ont =
+            createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
         Set<String> bannedParsers = Sets.newHashSet(configuration.getBannedParsers().split(" "));
-        PriorityCollection<OWLParserFactory> parsers = getParsers(documentSource,
-            manager.getOntologyParsers());
+        PriorityCollection<OWLParserFactory> parsers =
+            getParsers(documentSource, manager.getOntologyParsers());
+        // use the selection of parsers to set the accept headers explicitly, including weights
+        documentSource.setAcceptHeaders(AcceptHeaderBuilder.headersFromParsers(parsers));
         for (OWLParserFactory parserFactory : parsers) {
             if (!bannedParsers.contains(parserFactory.getClass().getName())) {
                 OWLParser parser = parserFactory.createParser();
@@ -196,8 +198,8 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                     manager.removeOntology(ont);
                     throw e;
                 } catch (OWLParserException e) {
-                    if (e.getCause() instanceof IOException || e
-                        .getCause() instanceof OWLOntologyInputSourceException) {
+                    if (e.getCause() instanceof IOException
+                        || e.getCause() instanceof OWLOntologyInputSourceException) {
                         // For input/output exceptions, we assume that it means
                         // the
                         // source cannot be read regardless of the parsers, so

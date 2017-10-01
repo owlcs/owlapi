@@ -5,7 +5,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
@@ -22,6 +24,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     private final IRI documentIRI;
     private final Optional<OWLDocumentFormat> format;
     private final Optional<String> mimeType;
+    private String acceptHeaders = null;
 
     /**
      * Constructs an ontology input source using the specified file.
@@ -47,6 +50,16 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     public OWLOntologyDocumentSourceBase(String iriPrefix, @Nullable OWLDocumentFormat format,
         @Nullable String mime) {
         this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
+    }
+
+    @Override
+    public Optional<String> getAcceptHeaders() {
+        return Optional.ofNullable(acceptHeaders);
+    }
+
+    @Override
+    public void setAcceptHeaders(String headers) {
+        acceptHeaders = headers;
     }
 
     @Override

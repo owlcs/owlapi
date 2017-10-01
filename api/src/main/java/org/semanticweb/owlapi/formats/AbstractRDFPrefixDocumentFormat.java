@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.formats;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 
 /**
