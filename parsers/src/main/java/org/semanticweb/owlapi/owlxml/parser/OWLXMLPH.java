@@ -114,7 +114,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -153,6 +155,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     private final RemappingIndividualProvider anonProvider;
     @Nullable
     private Locator locator;
+    private boolean atLeastOneValidTagFound = false;
 
     /**
      * @param ontology ontology to parse into
@@ -332,7 +335,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * Gets the line number that the parser is at.
      *
      * @return A positive integer that represents the line number or -1 if the line number is not
-     * known.
+     *         known.
      */
     public int getLineNumber() {
         if (locator != null) {
@@ -468,6 +471,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         }
         PARSER_OWLXMLVocabulary handlerFactory = handlerMap.get(localName);
         if (handlerFactory != null) {
+            atLeastOneValidTagFound = true;
             OWLEH<?, ?> handler = handlerFactory.createHandler(this);
             if (!handlerStack.isEmpty()) {
                 handler.setParentHandler(handlerStack.get(0));
@@ -493,7 +497,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      * Return the base URI for resolution of relative URIs.
      *
      * @return base URI or null if unavailable (xml:base not present and the document locator does
-     * not provide a URI)
+     *         not provide a URI)
      */
     public URI getBase() {
         return bases.peek();
@@ -521,5 +525,12 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      */
     public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
+    }
+
+    /**
+     * @return true if the parser found at least one tag belonging to OWL/XML
+     */
+    public boolean atLeastOneTagFound() {
+        return atLeastOneValidTagFound;
     }
 }

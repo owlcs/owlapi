@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
+
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -47,10 +48,15 @@ public class OWLXMLParser extends AbstractOWLParser {
             OWLXMLPH handler = new OWLXMLPH(ontology, configuration);
             SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit())
                 .parse(isrc, handler);
+            if (!handler.atLeastOneTagFound()) {
+                throw new OWLXMLParserException(handler,
+                    "No known tags in the input: is the file an OWL/XML ontology?");
+            }
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;
-        } catch (SAXException | IOException | OWLOntologyInputSourceException | IllegalStateException e) {
+        } catch (SAXException | IOException | OWLOntologyInputSourceException
+            | IllegalStateException e) {
             // General exception
             throw new OWLParserException(e);
         }
