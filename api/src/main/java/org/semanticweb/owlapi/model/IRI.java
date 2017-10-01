@@ -293,11 +293,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /**
-     * Gets the fragment of the IRI.
+     * Gets the last part of the IRI that is a valid NCName; note that for some IRIs this can be
+     * empty.
      *
-     * @return The IRI fragment, or empty string if the IRI does not have a fragment. Note:
-     *         getFragment() does not return a real fragment. e.g., it does not allow / and () on
-     *         it.
+     * @return The IRI fragment, or empty string if the IRI does not have a fragment
      */
     public String getFragment() {
         return remainder;
