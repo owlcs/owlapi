@@ -28,7 +28,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -521,7 +520,7 @@ public class OWLOntologyManagerImpl
             if (!contains(ontology)) {
                 throw new UnknownOWLOntologyException(ontology.getOntologyID());
             }
-            Set<OWLOntology> result = new HashSet<>();
+            Set<OWLOntology> result = new TreeSet<>();
             getImports(ontology, result);
             return result;
         } finally {
@@ -556,7 +555,7 @@ public class OWLOntologyManagerImpl
         try {
             Set<OWLOntology> ontologies = importsClosureCache.get(ontology.getOntologyID());
             if (ontologies == null) {
-                ontologies = new LinkedHashSet<>();
+                ontologies = new TreeSet<>();
                 getImportsClosure(ontology, ontologies);
                 // store the wrapped set
                 importsClosureCache.put(ontology.getOntologyID(), ontologies);

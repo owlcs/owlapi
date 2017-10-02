@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -896,12 +897,16 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     @Nonnull
     @Override
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return (Set<OWLImportsDeclaration>) ints.getImportsDeclarations(true);
+        Set<OWLImportsDeclaration> result = new TreeSet<>();
+        for (OWLImportsDeclaration importsDeclaration : ints.getImportsDeclarations(false)) {
+            result.add(importsDeclaration);
+        }
+        return result;
     }
 
     @Override
     public Set<IRI> getDirectImportsDocuments() {
-        Set<IRI> result = createLinkedSet();
+        Set<IRI> result = new TreeSet<>();
         for (OWLImportsDeclaration importsDeclaration : ints.getImportsDeclarations(false)) {
             result.add(importsDeclaration.getIRI());
         }
