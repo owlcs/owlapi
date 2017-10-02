@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
-        HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
+        HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty>, HasAnnotationValue {
 
     /**
      * Gets the subject of the annotation assertion. This is either an
@@ -82,4 +82,9 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
     @Nonnull
     @Override
     OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default OWLAnnotationValue annotationValue() {
+        return getAnnotation().getValue();
+    }
 }

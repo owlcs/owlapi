@@ -18,22 +18,33 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObject extends Comparable<OWLObject>, Serializable,
-        HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
-        HasClassesInSignature, HasObjectPropertiesInSignature,
-        HasDataPropertiesInSignature, HasIndividualsInSignature,
-        HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
+public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature,
+    HasContainsEntityInSignature, HasAnonymousIndividuals, HasClassesInSignature,
+    HasObjectPropertiesInSignature, HasDataPropertiesInSignature, HasIndividualsInSignature,
+    HasDatatypesInSignature, HasAnnotationPropertiesInSignature, IsAnonymous {
+    /**
+     * @return true if this object is an IRI.
+     */
+    default boolean isIRI() {
+        return false;
+    }
 
     /**
-     * Gets all of the nested (includes top level) class expressions that are
-     * used in this object
+     * @return true if this object is an individual.
+     */
+    default boolean isIndividual() {
+        return false;
+    }
+
+
+    /**
+     * Gets all of the nested (includes top level) class expressions that are used in this object
      * 
-     * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s
-     *         that represent the nested class expressions used in this object.
+     * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s that represent the
+     *         nested class expressions used in this object.
      */
     @Nonnull
     Set<OWLClassExpression> getNestedClassExpressions();
@@ -41,40 +52,34 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
     /**
      * Accepts a visitor
      * 
-     * @param visitor
-     *        The visitor
+     * @param visitor The visitor
      */
     void accept(@Nonnull OWLObjectVisitor visitor);
 
     /**
      * Accepts a visitor
      * 
-     * @param visitor
-     *        The visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor The visitor
+     * @param <O> visitor return type
      * @return visitor value
      */
     @Nonnull
     <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor);
 
     /**
-     * Determines if this object is either, owl:Thing (the top class),
-     * owl:topObjectProperty (the top object property) , owl:topDataProperty
-     * (the top data property) or rdfs:Literal (the top datatype).
+     * Determines if this object is either, owl:Thing (the top class), owl:topObjectProperty (the
+     * top object property) , owl:topDataProperty (the top data property) or rdfs:Literal (the top
+     * datatype).
      * 
-     * @return {@code true} if this object corresponds to one of the above
-     *         entities.
+     * @return {@code true} if this object corresponds to one of the above entities.
      */
     boolean isTopEntity();
 
     /**
-     * Determines if this object is either, owl:Nothing (the bottom class),
-     * owl:bottomObjectProperty (the bottom object property) ,
-     * owl:bottomDataProperty (the bottom data property).
+     * Determines if this object is either, owl:Nothing (the bottom class), owl:bottomObjectProperty
+     * (the bottom object property) , owl:bottomDataProperty (the bottom data property).
      * 
-     * @return {@code true} if this object corresponds to one of the above
-     *         entities.
+     * @return {@code true} if this object corresponds to one of the above entities.
      */
     boolean isBottomEntity();
 
