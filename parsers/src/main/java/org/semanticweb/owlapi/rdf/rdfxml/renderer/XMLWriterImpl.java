@@ -18,11 +18,11 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.Writer;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
@@ -33,12 +33,9 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.util.SAXParsers;
-import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import com.google.common.collect.Lists;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org
@@ -49,7 +46,7 @@ import com.google.common.collect.Lists;
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    @Nonnull private final Stack<XMLElement> elementStack;
+    @Nonnull private final Deque<XMLElement> elementStack;
     @Nonnull protected final Writer writer;
     private String encoding = "";
     @Nonnull private final String xmlBase;
@@ -77,19 +74,13 @@ public class XMLWriterImpl implements XMLWriter {
             "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
-        // no need to set it to UTF-8: it's supposed to be the default encoding
-        // for XML.
-        // Must be set correctly for the Writer anyway, or bugs will ensue.
-        // this.encoding = "UTF-8";
-        elementStack = new Stack<>();
+        elementStack = new LinkedList<>();
         setupEntities();
     }
 
     private void setupEntities() {
-        List<String> namespaces = Lists.newArrayList(xmlWriterNamespaceManager.getNamespaces());
-        Collections.sort(namespaces, new StringLengthComparator());
         entities = new LinkedHashMap<>();
-        for (String curNamespace : namespaces) {
+        for (String curNamespace : xmlWriterNamespaceManager.getNamespaces()) {
             assert curNamespace != null;
             String curPrefix = "";
             if (xmlWriterNamespaceManager.getDefaultNamespace().equals(curNamespace)) {
