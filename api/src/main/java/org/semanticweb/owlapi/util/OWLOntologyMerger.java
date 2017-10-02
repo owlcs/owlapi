@@ -101,10 +101,14 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         }
         List<AddAxiom> changes = new ArrayList<>();
         for (OWLOntology ont : setProvider.getOntologies()) {
-            for (OWLAxiom ax : getAxioms(ont)) {
-                assert ax != null;
-                if (axiomFilter.passes(ax)) {
-                    changes.add(new AddAxiom(ontology, ax));
+            // do not attempt to add its own axioms to the ontology, 
+            // if the manager and the provider are the same object
+            if(ont!=ontology) {
+                for (OWLAxiom ax : getAxioms(ont)) {
+                    assert ax != null;
+                    if (axiomFilter.passes(ax)) {
+                        changes.add(new AddAxiom(ontology, ax));
+                    }
                 }
             }
         }
