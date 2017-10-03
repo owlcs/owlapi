@@ -30,8 +30,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLParser extends AbstractOWLParser {
@@ -57,7 +56,12 @@ public class OWLXMLParser extends AbstractOWLParser {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
-            SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit()).parse(isrc, handler);
+            SAXParsers.initParserWithOWLAPIStandards(null, configuration.getEntityExpansionLimit())
+                .parse(isrc, handler);
+            if (!handler.atLeastOneTagFound()) {
+                throw new OWLXMLParserException(handler,
+                    "No known tags in the input: is the file an OWL/XML ontology?");
+            }
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             format.setDefaultPrefix(handler.getBase().toString());
             return format;
