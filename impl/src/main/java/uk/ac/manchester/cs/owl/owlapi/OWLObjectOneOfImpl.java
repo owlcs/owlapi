@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -34,12 +35,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
-        implements OWLObjectOneOf {
+public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -51,12 +50,10 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     }
 
     /**
-     * @param values
-     *        values for oneof
+     * @param values values for oneof
      */
     public OWLObjectOneOfImpl(@Nonnull Set<? extends OWLIndividual> values) {
-        this.values = new HashSet<>(checkNotNull(values,
-                "values cannot be null"));
+        this.values = new TreeSet<>(checkNotNull(values, "values cannot be null"));
     }
 
     @Override
@@ -84,8 +81,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(values);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(values);
     }
 
     @Override

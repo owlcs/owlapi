@@ -12,9 +12,28 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_AXIOM;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_DATA_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_IMPORTS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_NOTHING;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ONTOLOGY;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_RESTRICTION;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_THING;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_VERSION_IRI;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_LIST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_NIL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +56,38 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLPrimitive;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences;
@@ -55,27 +105,39 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 import org.semanticweb.owlapi.util.StructureWalker.AnnotationWalkingControl;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public abstract class RDFRendererBase {
 
-    @Nonnull private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
-    @Nonnull private static final String DATATYPES_BANNER_TEXT = "Datatypes";
-    @Nonnull private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
-    @Nonnull private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
-    @Nonnull private static final String CLASSES_BANNER_TEXT = "Classes";
-    @Nonnull private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
-    @Nonnull private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
+    @Nonnull
+    private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
+    @Nonnull
+    private static final String DATATYPES_BANNER_TEXT = "Datatypes";
+    @Nonnull
+    private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
+    @Nonnull
+    private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
+    @Nonnull
+    private static final String CLASSES_BANNER_TEXT = "Classes";
+    @Nonnull
+    private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
+    @Nonnull
+    private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
     /** general axioms */
-    @Nonnull private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    @Nonnull
+    private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
     /** rules banner */
-    @Nonnull private static final String RULES_BANNER_TEXT = "Rules";
-    @Nonnull private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
-    @Nonnull protected final OWLOntology ontology;
+    @Nonnull
+    private static final String RULES_BANNER_TEXT = "Rules";
+    @Nonnull
+    private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR =
+        new OWLEntityIRIComparator();
+    @Nonnull
+    protected final OWLOntology ontology;
     protected RDFGraph graph;
-    @Nonnull protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
+    @Nonnull
+    protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
     protected final IndividualAppearance occurrences;
@@ -85,15 +147,15 @@ public abstract class RDFRendererBase {
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
-        return new HashSet<>(Arrays.asList(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(), OWL_DATA_PROPERTY.getIRI(),
-            OWL_ANNOTATION_PROPERTY.getIRI(), OWL_RESTRICTION.getIRI(), OWL_THING.getIRI(), OWL_NOTHING.getIRI(),
-            OWL_ONTOLOGY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI(), RDFS_DATATYPE
-                .getIRI(), OWL_AXIOM.getIRI(), OWL_ANNOTATION.getIRI()));
+        return new HashSet<>(Arrays.asList(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
+            OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), OWL_RESTRICTION.getIRI(),
+            OWL_THING.getIRI(), OWL_NOTHING.getIRI(), OWL_ONTOLOGY.getIRI(),
+            OWL_ANNOTATION_PROPERTY.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI(), RDFS_DATATYPE.getIRI(),
+            OWL_AXIOM.getIRI(), OWL_ANNOTATION.getIRI()));
     }
 
     /**
-     * @param ontology
-     *        ontology
+     * @param ontology ontology
      */
     public RDFRendererBase(@Nonnull OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
@@ -106,7 +168,8 @@ public abstract class RDFRendererBase {
             occurrences = new AlwaysOutputId();
             axiomOccurrences = new AlwaysOutputId();
         } else {
-            OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
+            OWLAnonymousIndividualsWithMultipleOccurrences visitor =
+                new OWLAnonymousIndividualsWithMultipleOccurrences();
             occurrences = visitor;
             ontology.accept(visitor);
             axiomOccurrences = new OWLAxiomsWithNestedAnnotations();
@@ -117,107 +180,93 @@ public abstract class RDFRendererBase {
     /**
      * Called before the ontology document is rendered.
      * 
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @throws IOException if there was a problem writing to the output stream
      */
     protected abstract void beginDocument() throws IOException;
 
     /**
      * Called after the ontology document has been rendered.
      * 
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @throws IOException if there was a problem writing to the output stream
      */
     protected abstract void endDocument() throws IOException;
 
     /**
-     * Called before an OWLObject such as an entity, anonymous individual, rule
-     * etc. is rendered.
+     * Called before an OWLObject such as an entity, anonymous individual, rule etc. is rendered.
      * 
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @throws IOException if there was a problem writing to the output stream
      */
     @SuppressWarnings("unused")
     protected void beginObject() throws IOException {}
 
     /**
-     * Called after an OWLObject such as an entity, anonymous individual, rule
-     * etc. has been rendered.
+     * Called after an OWLObject such as an entity, anonymous individual, rule etc. has been
+     * rendered.
      * 
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @throws IOException if there was a problem writing to the output stream
      */
     @SuppressWarnings("unused")
     protected void endObject() throws IOException {}
 
     /**
-     * Called before an annotation property is rendered to give subclasses the
-     * chance to prefix the rendering with comments etc.
+     * Called before an annotation property is rendered to give subclasses the chance to prefix the
+     * rendering with comments etc.
      * 
-     * @param prop
-     *        The property being rendered
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @param prop The property being rendered
+     * @throws IOException if there was a problem writing to the output stream
      */
-    protected abstract void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop) throws IOException;
+    protected abstract void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop)
+        throws IOException;
 
     /**
-     * Called before a data property is rendered to give subclasses the chance
-     * to prefix the rendering with comments etc.
+     * Called before a data property is rendered to give subclasses the chance to prefix the
+     * rendering with comments etc.
      * 
-     * @param prop
-     *        The property being rendered
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @param prop The property being rendered
+     * @throws IOException if there was a problem writing to the output stream
      */
-    protected abstract void writeDataPropertyComment(@Nonnull OWLDataProperty prop) throws IOException;
+    protected abstract void writeDataPropertyComment(@Nonnull OWLDataProperty prop)
+        throws IOException;
 
     /**
      * Called before an object property is rendered.
      * 
-     * @param prop
-     *        The property being rendered
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @param prop The property being rendered
+     * @throws IOException if there was a problem writing to the output stream
      */
-    protected abstract void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop) throws IOException;
+    protected abstract void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop)
+        throws IOException;
 
     /**
-     * Called before a class is rendered to give subclasses the chance to prefix
-     * the rendering with comments etc.
+     * Called before a class is rendered to give subclasses the chance to prefix the rendering with
+     * comments etc.
      * 
-     * @param cls
-     *        The class being rendered
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @param cls The class being rendered
+     * @throws IOException if there was a problem writing to the output stream
      */
     protected abstract void writeClassComment(@Nonnull OWLClass cls) throws IOException;
 
     /**
-     * Called before a datatype is rendered to give subclasses the chance to
-     * prefix the rendering with comments etc.
+     * Called before a datatype is rendered to give subclasses the chance to prefix the rendering
+     * with comments etc.
      * 
-     * @param datatype
-     *        The datatype being rendered
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @param datatype The datatype being rendered
+     * @throws IOException if there was a problem writing to the output stream
      */
     protected abstract void writeDatatypeComment(@Nonnull OWLDatatype datatype) throws IOException;
 
     /**
-     * Called before an individual is rendered to give subclasses the chance to
-     * prefix the rendering with comments etc.
+     * Called before an individual is rendered to give subclasses the chance to prefix the rendering
+     * with comments etc.
      * 
-     * @param ind
-     *        The individual being rendered
-     * @throws IOException
-     *         if there was a problem writing to the output stream
+     * @param ind The individual being rendered
+     * @throws IOException if there was a problem writing to the output stream
      */
-    protected abstract void writeIndividualComments(@Nonnull OWLNamedIndividual ind) throws IOException;
+    protected abstract void writeIndividualComments(@Nonnull OWLNamedIndividual ind)
+        throws IOException;
 
     /**
-     * @throws IOException
-     *         io error
+     * @throws IOException io error
      */
     public void render() throws IOException {
         graph = new RDFGraph();
@@ -230,8 +279,8 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() throws IOException {
-        renderInOntologySignatureEntities(OWLDocumentFormatImpl.determineIllegalPunnings(shouldInsertDeclarations(),
-            ontology.getSignature(), ontology.getPunnedIRIs(INCLUDED)));
+        renderInOntologySignatureEntities(OWLDocumentFormatImpl.determineIllegalPunnings(
+            shouldInsertDeclarations(), ontology.getSignature(), ontology.getPunnedIRIs(INCLUDED)));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
@@ -239,7 +288,8 @@ public abstract class RDFRendererBase {
     }
 
     private void renderInOntologySignatureEntities(Collection<IRI> illegalPuns) throws IOException {
-        Set<OWLAnnotationProperty> annotationProperties = ontology.getAnnotationPropertiesInSignature(EXCLUDED);
+        Set<OWLAnnotationProperty> annotationProperties =
+            ontology.getAnnotationPropertiesInSignature(EXCLUDED);
         renderEntities(annotationProperties, ANNOTATION_PROPERTIES_BANNER_TEXT, illegalPuns);
         Set<OWLDatatype> datatypes = ontology.getDatatypesInSignature();
         renderEntities(datatypes, DATATYPES_BANNER_TEXT, illegalPuns);
@@ -256,19 +306,14 @@ public abstract class RDFRendererBase {
     /**
      * Renders a set of entities.
      * 
-     * @param entities
-     *        The entities. Not null.
-     * @param bannerText
-     *        The banner text that will prefix the rendering of the entities if
-     *        anything is rendered. Not null. May be empty, in which case no
-     *        banner will be written.
-     * @param illegalPuns
-     *        illegal puns
-     * @throws IOException
-     *         If there was a problem writing the rendering
+     * @param entities The entities. Not null.
+     * @param bannerText The banner text that will prefix the rendering of the entities if anything
+     *        is rendered. Not null. May be empty, in which case no banner will be written.
+     * @param illegalPuns illegal puns
+     * @throws IOException If there was a problem writing the rendering
      */
-    private void renderEntities(@Nonnull Set<? extends OWLEntity> entities, @Nonnull String bannerText,
-        Collection<IRI> illegalPuns) throws IOException {
+    private void renderEntities(@Nonnull Set<? extends OWLEntity> entities,
+        @Nonnull String bannerText, Collection<IRI> illegalPuns) throws IOException {
         boolean firstRendering = true && XMLWriterPreferences.getInstance().isBannersEnabled();
         for (OWLEntity entity : toSortedSet(entities)) {
             assert entity != null;
@@ -295,10 +340,8 @@ public abstract class RDFRendererBase {
     /**
      * Calls the appropriate hook method to write the comments for an entity.
      * 
-     * @param entity
-     *        The entity for which comments should be written.
-     * @throws IOException
-     *         if there was a problem writing the comment
+     * @param entity The entity for which comments should be written.
+     * @throws IOException if there was a problem writing the comment
      */
     private void writeEntityComment(@Nonnull OWLEntity entity) throws IOException {
         if (entity.isOWLClass()) {
@@ -341,7 +384,8 @@ public abstract class RDFRendererBase {
     }
 
     private void renderAnonymousIndividuals() throws IOException {
-        for (OWLAnonymousIndividual anonInd : sortOptionally(ontology.getReferencedAnonymousIndividuals(EXCLUDED))) {
+        for (OWLAnonymousIndividual anonInd : sortOptionally(
+            ontology.getReferencedAnonymousIndividuals(EXCLUDED))) {
             assert anonInd != null;
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new TreeSet<>();
@@ -400,14 +444,13 @@ public abstract class RDFRendererBase {
     }
 
     /**
-     * Gets the general axioms in the ontology. These are axioms such as
-     * DifferentIndividuals, General Class axioms which do not describe or
-     * define a named class and so can't be written out as a frame, nary
-     * disjoint classes, disjoint object properties, disjoint data properties
+     * Gets the general axioms in the ontology. These are axioms such as DifferentIndividuals,
+     * General Class axioms which do not describe or define a named class and so can't be written
+     * out as a frame, nary disjoint classes, disjoint object properties, disjoint data properties
      * and HasKey axioms where the class expression is anonymous.
      * 
-     * @return A set of axioms that are general axioms (and can't be written out
-     *         in a frame-based style).
+     * @return A set of axioms that are general axioms (and can't be written out in a frame-based
+     *         style).
      */
     @Nonnull
     private Set<OWLAxiom> getGeneralAxioms() {
@@ -419,12 +462,14 @@ public abstract class RDFRendererBase {
                 generalAxioms.add(ax);
             }
         }
-        for (OWLDisjointObjectPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
+        for (OWLDisjointObjectPropertiesAxiom ax : ontology
+            .getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
                 generalAxioms.add(ax);
             }
         }
-        for (OWLDisjointDataPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
+        for (OWLDisjointDataPropertiesAxiom ax : ontology
+            .getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
                 generalAxioms.add(ax);
             }
@@ -457,22 +502,24 @@ public abstract class RDFRendererBase {
         return translator.getMappedNode(ontology);
     }
 
-    private void addVersionIRIToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode, RDFTranslator translator) {
+    private void addVersionIRIToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode,
+        RDFTranslator translator) {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI().isPresent()) {
-            translator.addTriple(ontologyHeaderNode, OWL_VERSION_IRI.getIRI(), ontID.getVersionIRI().get());
+            translator.addTriple(ontologyHeaderNode, OWL_VERSION_IRI.getIRI(),
+                ontID.getVersionIRI().get());
         }
     }
 
     private void addImportsDeclarationsToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode,
         RDFTranslator translator) {
-        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(), decl.getIRI());
-        }
+        ontology.getImportsDeclarations().stream().sorted().forEach(
+            decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(), decl.getIRI()));
     }
 
-    private void addAnnotationsToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode, RDFTranslator translator) {
-        for (OWLAnnotation anno : ontology.getAnnotations()) {
+    private void addAnnotationsToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode,
+        RDFTranslator translator) {
+        for (OWLAnnotation anno : sortOptionally(ontology.getAnnotations())) {
             translator.addTriple(ontologyHeaderNode, anno.getProperty().getIRI(), anno.getValue());
             if (anno.getValue() instanceof OWLAnonymousIndividual) {
                 OWLAnonymousIndividual i = (OWLAnonymousIndividual) anno.getValue();
@@ -528,8 +575,10 @@ public abstract class RDFRendererBase {
                 // because the subject will not match
                 for (OWLAxiom ax : ontology.getReferencingAxioms(individual)) {
                     if (ax instanceof OWLObjectPropertyAssertionAxiom) {
-                        OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
-                        if (candidate.getProperty().isAnonymous() && candidate.getObject().equals(individual)) {
+                        OWLObjectPropertyAssertionAxiom candidate =
+                            (OWLObjectPropertyAssertionAxiom) ax;
+                        if (candidate.getProperty().isAnonymous()
+                            && candidate.getObject().equals(individual)) {
                             axioms.add(candidate);
                         }
                     }
@@ -539,8 +588,8 @@ public abstract class RDFRendererBase {
             @Override
             public void visit(OWLDataProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
-                    if (ax instanceof OWLDisjointDataPropertiesAxiom && ((OWLDisjointDataPropertiesAxiom) ax)
-                        .getProperties().size() > 2) {
+                    if (ax instanceof OWLDisjointDataPropertiesAxiom
+                        && ((OWLDisjointDataPropertiesAxiom) ax).getProperties().size() > 2) {
                         continue;
                     }
                     axioms.add(ax);
@@ -550,19 +599,20 @@ public abstract class RDFRendererBase {
             @Override
             public void visit(OWLObjectProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
-                    if (ax instanceof OWLDisjointObjectPropertiesAxiom && ((OWLDisjointObjectPropertiesAxiom) ax)
-                        .getProperties().size() > 2) {
+                    if (ax instanceof OWLDisjointObjectPropertiesAxiom
+                        && ((OWLDisjointObjectPropertiesAxiom) ax).getProperties().size() > 2) {
                         continue;
                     }
                     axioms.add(ax);
                 }
-                for (OWLSubPropertyChainOfAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
+                for (OWLSubPropertyChainOfAxiom ax : ontology
+                    .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     if (ax.getSuperProperty().equals(property)) {
                         axioms.add(ax);
                     }
                 }
-                axioms.addAll(ontology.getAxioms(ontology.getOWLOntologyManager().getOWLDataFactory()
-                    .getOWLObjectInverseOf(property), EXCLUDED));
+                axioms.addAll(ontology.getAxioms(ontology.getOWLOntologyManager()
+                    .getOWLDataFactory().getOWLObjectInverseOf(property), EXCLUDED));
             }
 
             @Override
@@ -572,7 +622,8 @@ public abstract class RDFRendererBase {
         });
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
             && OWLDocumentFormatImpl.isMissingType(entity, ontology)) {
-            axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
+            axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
+                .getOWLDeclarationAxiom(entity));
         }
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
@@ -606,9 +657,8 @@ public abstract class RDFRendererBase {
     }
 
     /**
-     * @return true if this object contains anonymous expressions referred
-     *         multiple times. This is called structure sharing. An example can
-     *         be:<br>
+     * @return true if this object contains anonymous expressions referred multiple times. This is
+     *         called structure sharing. An example can be:<br>
      * 
      *         <pre>
      * some P C subClassOf some Q (some P C)
@@ -669,8 +719,7 @@ public abstract class RDFRendererBase {
     }
 
     /**
-     * @throws IOException
-     *         io error
+     * @throws IOException io error
      */
     public void renderAnonRoots() throws IOException {
         Set<RDFResourceBlankNode> rootAnonymousNodes = new TreeSet<>(graph.getRootAnonymousNodes());
@@ -681,20 +730,19 @@ public abstract class RDFRendererBase {
     }
 
     /**
-     * Renders the triples in the current graph into a concrete format.
-     * Subclasses of this class decide upon how the triples get rendered.
+     * Renders the triples in the current graph into a concrete format. Subclasses of this class
+     * decide upon how the triples get rendered.
      * 
-     * @param node
-     *        The main node to be rendered
-     * @throws IOException
-     *         If there was a problem rendering the triples.
+     * @param node The main node to be rendered
+     * @throws IOException If there was a problem rendering the triples.
      */
     public abstract void render(@Nonnull RDFResource node, boolean root) throws IOException;
 
     protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : graph.getTriplesForSubject(node)) {
-            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && triple
-                .getObject().getIRI().equals(RDF_LIST.getIRI())) {
+            if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI())
+                && !triple.getObject().isAnonymous()
+                && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
                 toJavaList(node, items);
                 for (RDFNode n : items) {
@@ -739,13 +787,15 @@ public abstract class RDFRendererBase {
         RDFTriple tripleToRender = triple;
         RDFResourceBlankNode remappedNode = triplesWithRemappedNodes.get(tripleToRender);
         if (remappedNode != null) {
-            tripleToRender = new RDFTriple(tripleToRender.getSubject(), tripleToRender.getPredicate(), remappedNode);
+            tripleToRender = new RDFTriple(tripleToRender.getSubject(),
+                tripleToRender.getPredicate(), remappedNode);
         }
         if (!node.equals(tripleToRender.getSubject())) {
             // the node will not match the triple subject if the node itself
             // is a remapped blank node
             // in which case the triple subject needs remapping as well
-            tripleToRender = new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
+            tripleToRender =
+                new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
         }
         return tripleToRender;
     }

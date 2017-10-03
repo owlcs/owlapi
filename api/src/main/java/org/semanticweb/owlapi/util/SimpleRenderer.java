@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -20,14 +22,106 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLArgument;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * A simple renderer that can be used for debugging purposes and provide an
- * implementation of the toString method for different implementations.
+ * A simple renderer that can be used for debugging purposes and provide an implementation of the
+ * toString method for different implementations.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
@@ -55,8 +149,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * Resets the short form provider to the default short form provider, which
-     * is a PrefixManager with the default set of prefixes.
+     * Resets the short form provider to the default short form provider, which is a PrefixManager
+     * with the default set of prefixes.
      */
     public final void resetShortFormProvider() {
         DefaultPrefixManager defaultPrefixManager = new DefaultPrefixManager();
@@ -65,21 +159,18 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * Resets the short form provider and adds prefix name to prefix mappings
-     * based on the specified ontology's format (if it is a prefix format) and
-     * possibly the ontologies in the imports closure.
+     * Resets the short form provider and adds prefix name to prefix mappings based on the specified
+     * ontology's format (if it is a prefix format) and possibly the ontologies in the imports
+     * closure.
      * 
-     * @param ontology
-     *        The ontology whose format will be used to obtain prefix mappings
-     * @param manager
-     *        A manager which can be used to obtain the format of the specified
-     *        ontology (and possibly ontologies in its imports closure)
-     * @param processImportedOntologies
-     *        Specifies whether or not the prefix mapping should be obtained
-     *        from imported ontologies.
+     * @param ontology The ontology whose format will be used to obtain prefix mappings
+     * @param manager A manager which can be used to obtain the format of the specified ontology
+     *        (and possibly ontologies in its imports closure)
+     * @param processImportedOntologies Specifies whether or not the prefix mapping should be
+     *        obtained from imported ontologies.
      */
-    public void setPrefixesFromOntologyFormat(@Nonnull OWLOntology ontology, @Nonnull OWLOntologyManager manager,
-        boolean processImportedOntologies) {
+    public void setPrefixesFromOntologyFormat(@Nonnull OWLOntology ontology,
+        @Nonnull OWLOntologyManager manager, boolean processImportedOntologies) {
         resetShortFormProvider();
         if (processImportedOntologies) {
             for (OWLOntology importedOntology : manager.getImportsClosure(ontology)) {
@@ -103,13 +194,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * Sets a prefix name for a given prefix. Note that prefix names MUST end
-     * with a colon.
+     * Sets a prefix name for a given prefix. Note that prefix names MUST end with a colon.
      * 
-     * @param prefixName
-     *        The prefix name (ending with a colon)
-     * @param prefix
-     *        The prefix that the prefix name maps to
+     * @param prefixName The prefix name (ending with a colon)
+     * @param prefix The prefix that the prefix name maps to
      */
     public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
         if (!isUsingDefaultShortFormProvider()) {
@@ -124,8 +212,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * @param iri
-     *        the iri to shorten
+     * @param iri the iri to shorten
      * @return the short form
      */
     public String getShortForm(@Nonnull IRI iri) {
@@ -140,7 +227,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Set<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = CollectionFactory.sortOptionally(objects).iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it =
+            CollectionFactory.sortOptionally(objects).iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 sb.append(' ');
@@ -150,8 +238,9 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLOntology ontology) {
-        sb.append("Ontology(").append(ontology.getOntologyID()).append(" [Axioms: ").append(ontology.getAxiomCount())
-            .append("] [Logical axioms: ").append(ontology.getLogicalAxiomCount()).append("])");
+        sb.append("Ontology(").append(ontology.getOntologyID()).append(" [Axioms: ")
+            .append(ontology.getAxiomCount()).append("] [Logical axioms: ")
+            .append(ontology.getLogicalAxiomCount()).append("])");
     }
 
     private void insertSpace() {
@@ -159,11 +248,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     /**
-     * @param axiom
-     *        the axiom whose annotations should be written
+     * @param axiom the axiom whose annotations should be written
      */
     public void writeAnnotations(OWLAxiom axiom) {
-        for (OWLAnnotation anno : axiom.getAnnotations()) {
+        for (OWLAnnotation anno : sortOptionally(axiom.getAnnotations())) {
             anno.accept(this);
             insertSpace();
         }
@@ -817,8 +905,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLAnnotation node) {
         sb.append("Annotation(");
-        Set<OWLAnnotation> annos = node.getAnnotations();
-        for (OWLAnnotation anno : annos) {
+        for (OWLAnnotation anno : sortOptionally(node.getAnnotations())) {
             anno.accept(this);
             sb.append(' ');
         }
