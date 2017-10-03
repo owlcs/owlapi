@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
@@ -23,7 +24,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
         OWLOntologyDocumentSource {
 
     private static final AtomicLong COUNTER = new AtomicLong();
-
+    private String acceptHeaders = null;
     /**
      * @param prefix
      *        prefix for result
@@ -84,5 +85,15 @@ public abstract class OWLOntologyDocumentSourceBase implements
     @Override
     public boolean isMIMETypeKnown() {
         return mimeType != null && !mimeType.isEmpty();
+    }
+
+    @Override
+    public Optional<String> getAcceptHeaders() {
+        return Optional.ofNullable(acceptHeaders);
+    }
+
+    @Override
+    public void setAcceptHeaders(String headers) {
+        acceptHeaders = headers;
     }
 }

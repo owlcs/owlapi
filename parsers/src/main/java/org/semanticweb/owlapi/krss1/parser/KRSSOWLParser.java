@@ -13,6 +13,8 @@
 package org.semanticweb.owlapi.krss1.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -26,8 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class KRSSOWLParser extends AbstractOWLParser {
@@ -46,9 +47,8 @@ public class KRSSOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) throws IOException {
         try {
             KRSSDocumentFormat format = new KRSSDocumentFormat();
             KRSSParser parser;
@@ -57,11 +57,19 @@ public class KRSSOWLParser extends AbstractOWLParser {
             } else if (documentSource.isInputStreamAvailable()) {
                 parser = new KRSSParser(documentSource.getInputStream());
             } else {
-                parser = new KRSSParser(getInputStream(
-                        documentSource.getDocumentIRI(), configuration));
+                Optional<String> headers = documentSource.getAcceptHeaders();
+                InputStream is = null;
+                if (headers.isPresent()) {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        headers.get());
+                } else {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        DEFAULT_REQUEST);
+                }
+
+                parser = new KRSSParser(is);
             }
-            parser.setOntology(ontology, ontology.getOWLOntologyManager()
-                    .getOWLDataFactory());
+            parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
             return format;
         } catch (ParseException e) {

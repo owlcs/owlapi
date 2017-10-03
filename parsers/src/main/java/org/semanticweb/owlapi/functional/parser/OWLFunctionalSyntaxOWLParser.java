@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -29,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
@@ -51,27 +51,32 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     @Nonnull
     @Override
-    public OWLDocumentFormat parse(
-            @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) throws IOException {
+    public OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+        @Nonnull OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+        throws IOException {
         Reader reader = null;
         InputStream is = null;
         try {
             OWLFunctionalSyntaxParser parser;
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
-                        reader));
+                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(reader));
             } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
-                        new InputStreamReader(is, "UTF-8")));
+                parser = new OWLFunctionalSyntaxParser(
+                    new CustomTokenizer(new InputStreamReader(is, "UTF-8")));
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(),
-                        configuration);
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
-                        new InputStreamReader(is, "UTF-8")));
+                Optional<String> headers = documentSource.getAcceptHeaders();
+                if (headers.isPresent()) {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        headers.get());
+                } else {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        DEFAULT_REQUEST);
+                }
+
+                parser = new OWLFunctionalSyntaxParser(
+                    new CustomTokenizer(new InputStreamReader(is, "UTF-8")));
             }
             parser.setUp(ontology, configuration);
             return parser.parse();

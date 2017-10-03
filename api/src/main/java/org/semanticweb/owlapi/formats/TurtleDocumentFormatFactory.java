@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.formats;
 
+import java.util.Arrays;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -25,6 +26,11 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 public class TurtleDocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
+
+    /** MIME types are text/turtle, application/x-turtle */
+    public TurtleDocumentFormatFactory() {
+        super(Arrays.asList("text/turtle", "application/x-turtle"));
+    }
 
     @Nonnull
     @Override

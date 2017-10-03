@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.krss2.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -28,12 +29,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * The KRSS2OWLParser differs from the
- * {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser KRSSOWLParser} that
- * it supports an extended KRSS vocabulary available in many reasoning systems.
- * For instance, CGIs can be added with help of (implies subclass superclass),
- * range, domain, inverse, functinal attribute can be provided for roles. Note
- * that DatatypeProperties are not supported within KRSS2. <br>
+ * The KRSS2OWLParser differs from the {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser
+ * KRSSOWLParser} that it supports an extended KRSS vocabulary available in many reasoning systems.
+ * For instance, CGIs can be added with help of (implies subclass superclass), range, domain,
+ * inverse, functinal attribute can be provided for roles. Note that DatatypeProperties are not
+ * supported within KRSS2. <br>
  * <b>Abbreviations</b>
  * <table summary="Abbreviations">
  * <tr>
@@ -165,11 +165,11 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * <td></td>
  * </tr>
  * <tr>
- * <td>(define-primitive-role RN :domain (C D ...E) :range (C D ...E)
- * :transitive t :symmetric t :reflexive t :inverse RN1)</td>
+ * <td>(define-primitive-role RN :domain (C D ...E) :range (C D ...E) :transitive t :symmetric t
+ * :reflexive t :inverse RN1)</td>
  * <td></td>
- * <td>Corresponding axioms for domain and range as well as transitive,
- * symmetric, reflexive and inverse will be added.</td>
+ * <td>Corresponding axioms for domain and range as well as transitive, symmetric, reflexive and
+ * inverse will be added.</td>
  * </tr>
  * <tr>
  * <td>(disjoint-roles R R1)</td>
@@ -246,9 +246,8 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) throws IOException {
         Reader reader = null;
         InputStream is = null;
         try {
@@ -261,12 +260,18 @@ public class KRSS2OWLParser extends AbstractOWLParser {
                 is = documentSource.getInputStream();
                 parser = new KRSS2Parser(is);
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(),
-                        configuration);
+                Optional<String> headers = documentSource.getAcceptHeaders();
+                if (headers.isPresent()) {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        headers.get());
+                } else {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        DEFAULT_REQUEST);
+                }
+
                 parser = new KRSS2Parser(is);
             }
-            parser.setOntology(ontology, ontology.getOWLOntologyManager()
-                    .getOWLDataFactory());
+            parser.setOntology(ontology, ontology.getOWLOntologyManager().getOWLDataFactory());
             parser.parse();
             return format;
         } catch (ParseException e) {

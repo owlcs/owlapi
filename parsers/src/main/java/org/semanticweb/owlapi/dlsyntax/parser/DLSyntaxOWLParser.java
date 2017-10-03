@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -31,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 4.0.0
  */
 public class DLSyntaxOWLParser extends AbstractOWLParser {
@@ -51,9 +51,8 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) throws IOException {
         Reader reader = null;
         InputStream is = null;
         try {
@@ -65,16 +64,22 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
                 is = documentSource.getInputStream();
                 parser = new DLSyntaxParser(is);
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(),
-                        configuration);
+                Optional<String> headers = documentSource.getAcceptHeaders();
+                if (headers.isPresent()) {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        headers.get());
+                } else {
+                    is = getInputStream(documentSource.getDocumentIRI(), configuration,
+                        DEFAULT_REQUEST);
+                }
                 parser = new DLSyntaxParser(is);
             }
             Set<OWLAxiom> set = parser.parseAxioms();
             ontology.getOWLOntologyManager().addAxioms(ontology, set);
             return new DLSyntaxHTMLDocumentFormat();
         } catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e,
-                    e.currentToken.beginLine, e.currentToken.beginColumn);
+            throw new OWLParserException(e.getMessage(), e, e.currentToken.beginLine,
+                e.currentToken.beginColumn);
         } finally {
             if (is != null) {
                 is.close();
