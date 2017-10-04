@@ -157,7 +157,7 @@ public class RioRendererTestCase extends TestBase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-            result.length() > 24000);
+            result.length() > 23500);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
             result.length() < 26000);
         RDFParser parser = Rio.createParser(RDFFormat.RDFXML, vf);

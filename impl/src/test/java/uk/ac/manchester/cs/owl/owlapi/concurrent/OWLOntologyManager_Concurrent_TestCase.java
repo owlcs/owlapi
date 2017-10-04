@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -40,7 +40,6 @@ import org.semanticweb.owlapi.model.MissingImportListener;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -69,7 +68,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({"javadoc", "deprecation", "null"})
+@SuppressWarnings({"javadoc", "deprecation", "resource", "null"})
 public class OWLOntologyManager_Concurrent_TestCase {
 
     private OWLOntologyManager manager;
@@ -123,7 +122,6 @@ public class OWLOntologyManager_Concurrent_TestCase {
         when(storer.canStoreOntology(any(OWLDocumentFormat.class))).thenReturn(Boolean.TRUE);
         OWLStorerFactory storerFactory = mock(OWLStorerFactory.class);
         when(storerFactory.createStorer()).thenReturn(storer);
-        when(storerFactory.getFormatFactory()).thenReturn(mock(OWLDocumentFormatFactory.class));
         manager.setOntologyStorers(Collections.singleton(storerFactory));
     }
 

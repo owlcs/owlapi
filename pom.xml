@@ -24,7 +24,7 @@
 	<properties>
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<rdf4j.version>2.1.4</rdf4j.version>
+		<rdf4j.version>2.2.2</rdf4j.version>
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
 		<no-javadoc>true</no-javadoc>
@@ -89,8 +89,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>2.0.2-beta</version>
+			<artifactId>mockito-core</artifactId>
+			<version>2.8.47</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -121,12 +121,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.22</version>
+			<version>1.7.25</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.22</version>
+			<version>1.7.25</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -157,17 +157,17 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-core</artifactId>
-				<version>2.8.5</version>
+				<version>2.9.0</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
-				<version>2.8.5</version>
+				<version>2.9.0</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>2.8.5</version>
+				<version>2.9.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
@@ -177,7 +177,7 @@
 			<dependency>
 				<groupId>com.github.jsonld-java</groupId>
 				<artifactId>jsonld-java</artifactId>
-				<version>0.9.0</version>
+				<version>0.11.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -238,7 +238,7 @@
 					<plugin>
 						<groupId>org.apache.felix</groupId>
 						<artifactId>maven-bundle-plugin</artifactId>
-						<version>3.2.0</version>
+						<version>3.3.0</version>
 						<extensions>true</extensions>
 						<configuration>
 							<instructions>
@@ -268,7 +268,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.10.4</version>
+						<version>3.0.0-M1</version>
 						<configuration>
 							<show>public</show>
 						</configuration>
@@ -297,7 +297,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
+				<version>3.6.2</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -324,7 +324,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
+				<version>3.0.0-M1</version>
 				<configuration>
 					<show>public</show>
 				</configuration>
@@ -344,7 +344,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19.1</version>
+				<version>2.20</version>
 				<configuration>
 					<includes>
 						<include>**/*TestCase.java, **/*Test.java</include>
@@ -359,7 +359,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.19.1</version>
+				<version>2.20</version>
 				<configuration>
 					<includes>
 						<include>**/*IntegrationTestCase.java</include>
@@ -377,7 +377,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
+				<version>1.6.8</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
@@ -388,7 +388,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.3.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -406,7 +406,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>3.0.4</version>
+					<version>3.0.5</version>
 					<executions>
 						<execution>
 							<id>findbugs-check</id>

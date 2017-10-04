@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer;
@@ -47,13 +47,10 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     public void setUp() {
         OWLDataFactory dataFactory = new OWLDataFactoryImpl();
         OWLClass cls = mock(OWLClass.class);
-        when(cls.getIRI()).thenReturn(mock(IRI.class));
         when(entityChecker.getOWLClass("C")).thenReturn(cls);
         OWLClass clsC1 = mock(OWLClass.class);
-        when(clsC1.getIRI()).thenReturn(mock(IRI.class));
         when(entityChecker.getOWLClass("C1")).thenReturn(clsC1);
         OWLObjectProperty oP = mock(OWLObjectProperty.class);
-        when(oP.getIRI()).thenReturn(mock(IRI.class));
         when(oP.asOWLObjectProperty()).thenReturn(oP);
         when(entityChecker.getOWLObjectProperty("oP")).thenReturn(oP);
         when(entityChecker.getOWLDataProperty("dP")).thenReturn(mock(OWLDataProperty.class));
