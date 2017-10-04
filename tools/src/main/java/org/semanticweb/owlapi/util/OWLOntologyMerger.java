@@ -81,7 +81,10 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         } else {
             ontology = ontologyManager.createOntology();
         }
-        setProvider.ontologies().flatMap(this::getAxioms).filter(axiomFilter::passes)
+        setProvider.ontologies()
+            // avoid including the merge ontology in the list of ontologies to merge, if the
+            // ontology manager is the same as the set provider
+            .filter(o -> o != ontology).flatMap(this::getAxioms).filter(axiomFilter::passes)
             .forEach(ontology::add);
         return ontology;
     }
