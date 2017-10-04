@@ -35,8 +35,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -430,7 +432,7 @@ public class OWLOntologyManagerImpl
                 throw new UnknownOWLOntologyException(ontology.getOntologyID());
             }
             return ontology.importsDeclarations().map(this::getImportedOntology)
-                .filter(o -> o != null);
+                .filter(Objects::nonNull);
         } finally {
             readLock.unlock();
         }
@@ -440,7 +442,7 @@ public class OWLOntologyManagerImpl
     public Stream<OWLOntology> imports(OWLOntology ontology) {
         readLock.lock();
         try {
-            return getImports(ontology, new LinkedHashSet<>()).stream();
+            return getImports(ontology, new TreeSet<>()).stream();
         } finally {
             readLock.unlock();
         }

@@ -242,14 +242,15 @@ public interface OWLOntologyManager
     }
 
     /**
-     * Gets the set of ontologies that are in the transitive closure of the directly imports
+     * Gets the stream of ontologies that are in the transitive closure of the directly imports
      * relation.
      *
      * @param ontology The ontology whose imports are to be retrieved.
-     * @return A set of {@code OWLOntology}ies that are in the transitive closure of the directly
-     *         imports relation of this ontology. If, for what ever reason, an imported ontology
-     *         could not be loaded, then it will not be contained in the returned set of ontologies.
-     *         If the ontology is not managed by this manager then the empty set will be returned.
+     * @return Sorted stream of {@code OWLOntology}ies that are in the transitive closure of the
+     *         directly imports relation of this ontology. If, for what ever reason, an imported
+     *         ontology could not be loaded, then it will not be contained in the returned set of
+     *         ontologies. If the ontology is not managed by this manager then the empty set will be
+     *         returned.
      */
     Stream<OWLOntology> imports(OWLOntology ontology);
 
@@ -274,8 +275,8 @@ public interface OWLOntologyManager
      * Imports closure stream for the specified ontology.
      *
      * @param ontology The ontology whose imports closure is to be retrieved.
-     * @return Stream of ontologies that contains the imports closure for the specified ontology. It
-     *         includes the specified ontology.
+     * @return Sorted stream of ontologies that contains the imports closure for the specified
+     *         ontology. It includes the specified ontology.
      */
     Stream<OWLOntology> importsClosure(OWLOntology ontology);
 
