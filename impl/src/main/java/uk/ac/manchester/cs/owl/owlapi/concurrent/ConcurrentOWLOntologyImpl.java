@@ -35,6 +35,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ChangeDetails;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -626,6 +627,27 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
         readLock.lock();
         try {
             return delegate.containsEntityInSignature(owlEntity);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public boolean containsEntitiesOfTypeInSignature(EntityType<?> type) {
+        readLock.lock();
+        try {
+            return delegate.containsEntitiesOfTypeInSignature(type);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public boolean containsEntitiesOfTypeInSignature(EntityType<?> type,
+        Imports includeImportsClosure) {
+        readLock.lock();
+        try {
+            return delegate.containsEntitiesOfTypeInSignature(type, includeImportsClosure);
         } finally {
             readLock.unlock();
         }

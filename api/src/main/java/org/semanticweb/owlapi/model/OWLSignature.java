@@ -25,17 +25,17 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSignature,
-    HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
-    HasDatatypesInSignature, HasIndividualsInSignature, HasContainsEntityInSignature,
-    HasImportsClosure {
+public interface OWLSignature
+    extends HasGetEntitiesInSignature, HasClassesInSignature, HasObjectPropertiesInSignature,
+    HasDataPropertiesInSignature, HasAnnotationPropertiesInSignature, HasDatatypesInSignature,
+    HasIndividualsInSignature, HasContainsEntityInSignature, HasImportsClosure {
 
     /**
      * Gets the classes in the signature and optionally the imports closure.
      *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of classes in the signature, optionally including the import closure. The set
-     * that is returned is a copy of the data.
+     *         that is returned is a copy of the data.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -48,7 +48,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of classes in the signature, optionally including the import closure. The set
-     * that is returned is a copy of the data.
+     *         that is returned is a copy of the data.
      */
     default Stream<OWLClass> classesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::classesInSignature).distinct().sorted();
@@ -59,7 +59,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return the set of object properties in the signature, optionally including the import
-     * closure. The set that is returned is a copy of the data.
+     *         closure. The set that is returned is a copy of the data.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -72,7 +72,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of object properties in the signature, optionally including the import
-     * closure. The set that is returned is a copy of the data.
+     *         closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLObjectProperty> objectPropertiesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::objectPropertiesInSignature).distinct()
@@ -84,7 +84,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return the set of data properties in the signature, optionally including the import closure.
-     * The set that is returned is a copy of the data.
+     *         The set that is returned is a copy of the data.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -97,7 +97,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of data properties in the signature, optionally including the import closure.
-     * The set that is returned is a copy of the data.
+     *         The set that is returned is a copy of the data.
      */
     default Stream<OWLDataProperty> dataPropertiesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::dataPropertiesInSignature).distinct()
@@ -109,7 +109,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return the set of individuals in the signature, optionally including the import closure. The
-     * set that is returned is a copy of the data.
+     *         set that is returned is a copy of the data.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -122,7 +122,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of individuals in the signature, optionally including the import closure. The
-     * set that is returned is a copy of the data.
+     *         set that is returned is a copy of the data.
      */
     default Stream<OWLNamedIndividual> individualsInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::individualsInSignature).distinct()
@@ -178,7 +178,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return the set of datatypes in the signature of this ontology, optionally including the
-     * import closure. The set that is returned is a copy of the data.
+     *         import closure. The set that is returned is a copy of the data.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -191,7 +191,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of datatypes in the signature of this ontology, optionally including the
-     * import closure. The set that is returned is a copy of the data.
+     *         import closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLDatatype> datatypesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::datatypesInSignature).distinct().sorted();
@@ -202,7 +202,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return the set of annotation properties in the signature, optionally including the import
-     * closure. The set that is returned is a copy of the data.
+     *         closure. The set that is returned is a copy of the data.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -216,7 +216,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param imports if INCLUDED, include imports closure.
      * @return the set of annotation properties in the signature, optionally including the import
-     * closure. The set that is returned is a copy of the data.
+     *         closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLAnnotationProperty> annotationPropertiesInSignature(Imports imports) {
         return imports.stream(this).flatMap(OWLOntology::annotationPropertiesInSignature).distinct()
@@ -229,7 +229,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param owlEntity The entity
      * @param imports if INCLUDED, include imports closure.
      * @return {@code true} if the signature or the import closure contains a reference to the
-     * specified entity.
+     *         specified entity.
      */
     default boolean containsEntityInSignature(OWLEntity owlEntity, Imports imports) {
         return imports.stream(this).anyMatch(o -> o.containsEntityInSignature(owlEntity));
@@ -241,7 +241,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param entityIRI The IRI to test for.
      * @param imports if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an entity with the specified
-     * IRI.
+     *         IRI.
      */
     default boolean containsEntityInSignature(IRI entityIRI, Imports imports) {
         return imports.stream(this).anyMatch(o -> o.containsEntityInSignature(entityIRI));
@@ -255,7 +255,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param owlClassIRI The IRI of the class to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an entity with the specified
-     * IRI.
+     *         IRI.
      */
     boolean containsClassInSignature(IRI owlClassIRI, Imports includeImportsClosure);
 
@@ -265,7 +265,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param owlObjectPropertyIRI The IRI of the OWLObjectProperty to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an object property with the
-     * specified IRI.
+     *         specified IRI.
      */
     boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI,
         Imports includeImportsClosure);
@@ -276,7 +276,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param owlDataPropertyIRI The IRI of the OWLDataProperty to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains a data property with the
-     * specified IRI.
+     *         specified IRI.
      */
     boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI, Imports includeImportsClosure);
 
@@ -286,7 +286,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param owlAnnotationPropertyIRI The IRI of the OWLAnnotationProperty to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an annotation property with the
-     * specified IRI.
+     *         specified IRI.
      */
     boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI,
         Imports includeImportsClosure);
@@ -297,7 +297,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param owlDatatypeIRI The IRI of the OWLDatatype to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains a datatype with the specified
-     * IRI.
+     *         IRI.
      */
     boolean containsDatatypeInSignature(IRI owlDatatypeIRI, Imports includeImportsClosure);
 
@@ -307,7 +307,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param owlIndividualIRI The IRI of the OWLNamedIndividual to check for
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an individual with the specified
-     * IRI.
+     *         IRI.
      */
     boolean containsIndividualInSignature(IRI owlIndividualIRI, Imports includeImportsClosure);
 
@@ -316,7 +316,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param owlDatatypeIRI The IRI of the OWLDatatype to check for
      * @return true if the signature or the import closure contains a datatype with the specified
-     * IRI.
+     *         IRI.
      */
     boolean containsDatatypeInSignature(IRI owlDatatypeIRI);
 
@@ -325,13 +325,12 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param entityIRI The IRI to test for.
      * @return true if the signature or the import closure contains an entity with the specified
-     * IRI.
+     *         IRI.
      */
     default boolean containsEntityInSignature(IRI entityIRI) {
         return containsClassInSignature(entityIRI) || containsObjectPropertyInSignature(entityIRI)
             || containsDataPropertyInSignature(entityIRI)
-            || containsIndividualInSignature(entityIRI)
-            || containsDatatypeInSignature(entityIRI)
+            || containsIndividualInSignature(entityIRI) || containsDatatypeInSignature(entityIRI)
             || containsAnnotationPropertyInSignature(entityIRI);
     }
 
@@ -342,7 +341,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param owlClassIRI The IRI of the class to check for
      * @return true if the signature or the import closure contains an entity with the specified
-     * IRI.
+     *         IRI.
      */
     boolean containsClassInSignature(IRI owlClassIRI);
 
@@ -351,7 +350,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param owlObjectPropertyIRI The IRI of the OWLObjectProperty to check for
      * @return true if the signature or the import closure contains an object property with the
-     * specified IRI.
+     *         specified IRI.
      */
     boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI);
 
@@ -360,7 +359,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param owlDataPropertyIRI The IRI of the OWLDataProperty to check for
      * @return true if the signature or the import closure contains a data property with the
-     * specified IRI.
+     *         specified IRI.
      */
     boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI);
 
@@ -369,7 +368,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param owlAnnotationPropertyIRI The IRI of the OWLAnnotationProperty to check for
      * @return true if the signature or the import closure contains an annotation property with the
-     * specified IRI.
+     *         specified IRI.
      */
     boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI);
 
@@ -378,9 +377,57 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *
      * @param owlIndividualIRI The IRI of the OWLNamedIndividual to check for
      * @return true if the signature or the import closure contains an individual with the specified
-     * IRI.
+     *         IRI.
      */
     boolean containsIndividualInSignature(IRI owlIndividualIRI);
+
+    /**
+     * Determine whether the instance has entities of the specified type in its signature - e.g.,
+     * whether an ontology has classes, object propertyies, or named individuals in its signature.
+     * Anonymous individuals are not included.
+     * 
+     * @param type type of entity to check
+     * @return true if entities of the specified type are in the signature
+     */
+    default boolean containsEntitiesOfTypeInSignature(EntityType<?> type) {
+        // default implementation - inefficient but avoids backwards compatibility issues with other
+        // implementations
+        if (EntityType.CLASS.equals(type)) {
+            return classesInSignature().count() > 0;
+        }
+        if (EntityType.DATA_PROPERTY.equals(type)) {
+            return dataPropertiesInSignature().count() > 0;
+        }
+        if (EntityType.OBJECT_PROPERTY.equals(type)) {
+            return objectPropertiesInSignature().count() > 0;
+        }
+        if (EntityType.ANNOTATION_PROPERTY.equals(type)) {
+            return annotationPropertiesInSignature().count() > 0;
+        }
+        if (EntityType.DATATYPE.equals(type)) {
+            return datatypesInSignature().count() > 0;
+        }
+        if (EntityType.NAMED_INDIVIDUAL.equals(type)) {
+            return individualsInSignature().count() > 0;
+        }
+        throw new IllegalArgumentException(
+            "Entity type " + type + " is not valid for entity presence check");
+    }
+
+    /**
+     * Determine whether the instance has entities of the specified type in its signature or in its
+     * import closure - e.g., whether an ontology has classes, object propertyies, or named
+     * individuals in its signature. Anonymous individuals are not included.
+     * 
+     * @param type type of entity to check
+     * @param includeImportsClosure if INCLUDED, include imports closure.
+     * @return true if entities of the specified type are in the signature
+     */
+    default boolean containsEntitiesOfTypeInSignature(EntityType<?> type,
+        Imports includeImportsClosure) {
+        return includeImportsClosure.stream(this)
+            .anyMatch(o -> o.containsEntitiesOfTypeInSignature(type));
+    }
 
     /**
      * Gets the entities in the signature that have the specified IRI.
@@ -388,7 +435,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param iri The IRI of the entitied to be retrieved.
      * @param includeImportsClosure if INCLUDED, include imports closure.
      * @return the set of entities with the specified IRI, optionally including the ones in the
-     * import closure.
+     *         import closure.
      * @deprecated use the stream method
      */
     @Deprecated
@@ -402,7 +449,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param iri The IRI of the entitied to be retrieved.
      * @param imports if INCLUDED, include imports closure.
      * @return the set of entities with the specified IRI, optionally including the ones in the
-     * import closure.
+     *         import closure.
      */
     default Stream<OWLEntity> entitiesInSignature(IRI iri, Imports imports) {
         return imports.stream(this).flatMap(o -> o.entitiesInSignature(iri)).distinct().sorted();

@@ -79,6 +79,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -341,6 +342,32 @@ protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarations
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS);
         axiomsForSerialization.forEach(this::addAxiom);
         axiomsForSerialization = null;
+    }
+
+    /**
+     * @param type entity type
+     * @return true if there are entities of the specified type referred
+     */
+    public boolean anyEntities(EntityType<?> type) {
+        if (EntityType.CLASS.equals(type)) {
+            return !owlClassReferences.isEmpty();
+        }
+        if (EntityType.DATA_PROPERTY.equals(type)) {
+            return !owlDataPropertyReferences.isEmpty();
+        }
+        if (EntityType.OBJECT_PROPERTY.equals(type)) {
+            return !owlObjectPropertyReferences.isEmpty();
+        }
+        if (EntityType.ANNOTATION_PROPERTY.equals(type)) {
+            return !owlAnnotationPropertyReferences.isEmpty();
+        }
+        if (EntityType.DATATYPE.equals(type)) {
+            return !owlDatatypeReferences.isEmpty();
+        }
+        if (EntityType.NAMED_INDIVIDUAL.equals(type)) {
+            return !owlIndividualReferences.isEmpty();
+        }
+        return false;
     }
 
     /**
