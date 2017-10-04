@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
@@ -32,6 +33,36 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      */
     public OWLOntologyChange(OWLOntology ont) {
         this.ont = checkNotNull(ont, "ontology must not be null");
+    }
+
+    /**
+     * @return for axiom changes, the axiom added or removed; empty optional otherwise. Same as
+     *         {@code getAxiom()}, but it never throws an exception or returns null.
+     */
+    public Optional<OWLAxiom> getAddedOrRemovedAxiom() {
+        return Optional.empty();
+    }
+
+    /**
+     * @return for add axiom changes, the axiom added; empty optional otherwise
+     */
+    public Optional<OWLAxiom> getAddedAxiom() {
+        return Optional.empty();
+    }
+
+    /**
+     * @return for remove axiom changes, the axiom removed; empty optional otherwise
+     */
+    public Optional<OWLAxiom> getRemovedAxiom() {
+        return Optional.empty();
+    }
+
+    /**
+     * @param type axiom type to check
+     * @return true if this is an axiom change and the axiom type is the specified type
+     */
+    public boolean isAxiomChange(AxiomType<?> type) {
+        return getAddedOrRemovedAxiom().filter(ax -> ax.getAxiomType().equals(type)).isPresent();
     }
 
     /**
