@@ -3,6 +3,7 @@
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
 /** Token Manager Error. */
+@SuppressWarnings("all")
 public class TokenMgrError extends Error
 {
 

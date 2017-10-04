@@ -657,6 +657,7 @@ public abstract class RDFRendererBase {
     }
 
     /**
+     * @param o object to check
      * @return true if this object contains anonymous expressions referred multiple times. This is
      *         called structure sharing. An example can be:<br>
      * 
@@ -673,7 +674,7 @@ public abstract class RDFRendererBase {
      * 
      *         <br>
      */
-    private boolean hasSharedStructure(OWLObject o) {
+    private static boolean hasSharedStructure(OWLObject o) {
         final Map<OWLObject, AtomicInteger> counters = new HashMap<>();
         OWLObjectWalker<OWLObject> walker = new OWLObjectWalker<>(Collections.singleton(o), true,
             AnnotationWalkingControl.DONT_WALK_ANNOTATIONS);
@@ -700,6 +701,10 @@ public abstract class RDFRendererBase {
         return false;
     }
 
+    /**
+     * @param o expression to check
+     * @return true if not anonymous
+     */
     public static boolean isNotAnonymousExpression(OWLObject o) {
         boolean b = o instanceof OWLAxiom || o instanceof OWLOntology || o instanceof OWLPrimitive
             || o instanceof HasIRI;
@@ -734,6 +739,7 @@ public abstract class RDFRendererBase {
      * decide upon how the triples get rendered.
      * 
      * @param node The main node to be rendered
+     * @param root true if root
      * @throws IOException If there was a problem rendering the triples.
      */
     public abstract void render(@Nonnull RDFResource node, boolean root) throws IOException;

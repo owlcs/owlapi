@@ -20,8 +20,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class ManchesterOWLSyntaxTokenizer {
@@ -31,8 +30,7 @@ public class ManchesterOWLSyntaxTokenizer {
     public static final String EOF = "|EOF|";
 
     /**
-     * @param s
-     *        string to check
+     * @param s string to check
      * @return true if EOF
      */
     public static boolean eof(String s) {
@@ -55,30 +53,29 @@ public class ManchesterOWLSyntaxTokenizer {
     private static final char ESCAPE_CHAR = '\\';
 
     /**
-     * @param buffer
-     *        buffer
+     * @param buffer buffer
      */
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
-        skip.add(' ');
-        skip.add('\n');
-        skip.add('\r');
-        skip.add('\t');
-        commentDelimiters.add('#');
-        commentDelimiters.add('*');
-        delims.add('(');
-        delims.add(')');
-        delims.add('[');
-        delims.add(']');
-        delims.add(',');
-        delims.add('{');
-        delims.add('}');
-        delims.add('^');
-        delims.add('@');
-        delims.add('<');
-        delims.add('>');
-        delims.add('=');
-        delims.add('?');
+        skip.add(Character.valueOf(' '));
+        skip.add(Character.valueOf('\n'));
+        skip.add(Character.valueOf('\r'));
+        skip.add(Character.valueOf('\t'));
+        commentDelimiters.add(Character.valueOf('#'));
+        commentDelimiters.add(Character.valueOf('*'));
+        delims.add(Character.valueOf('('));
+        delims.add(Character.valueOf(')'));
+        delims.add(Character.valueOf('['));
+        delims.add(Character.valueOf(']'));
+        delims.add(Character.valueOf(','));
+        delims.add(Character.valueOf('{'));
+        delims.add(Character.valueOf('}'));
+        delims.add(Character.valueOf('^'));
+        delims.add(Character.valueOf('@'));
+        delims.add(Character.valueOf('<'));
+        delims.add(Character.valueOf('>'));
+        delims.add(Character.valueOf('='));
+        delims.add(Character.valueOf('?'));
     }
 
     private void reset() {
@@ -110,12 +107,12 @@ public class ManchesterOWLSyntaxTokenizer {
             } else if (ch == '<') {
                 // Potentially the start of an IRI
                 readIRI();
-            } else if (skip.contains(ch)) {
+            } else if (skip.contains(Character.valueOf(ch))) {
                 consumeToken();
-            } else if (commentDelimiters.contains(ch)) {
+            } else if (commentDelimiters.contains(Character.valueOf(ch))) {
                 consumeToken();
                 readComment();
-            } else if (delims.contains(ch)) {
+            } else if (delims.contains(Character.valueOf(ch))) {
                 consumeToken();
                 sb.append(ch);
                 if (ch != '@') {
@@ -161,8 +158,7 @@ public class ManchesterOWLSyntaxTokenizer {
                 int j = pos + 1;
                 if (j < buffer.length()) {
                     char escapedChar = readChar();
-                    if (escapedChar == '\"' || escapedChar == '\''
-                            || escapedChar == '\\') {
+                    if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
                         sb.append(escapedChar);
                     } else {
                         sb.append(ch);
@@ -226,14 +222,10 @@ public class ManchesterOWLSyntaxTokenizer {
         private final int row;
 
         /**
-         * @param token
-         *        token
-         * @param pos
-         *        pos
-         * @param col
-         *        col
-         * @param row
-         *        row
+         * @param token token
+         * @param pos pos
+         * @param col col
+         * @param row row
          */
         public Token(@Nonnull String token, int pos, int col, int row) {
             this.token = token;

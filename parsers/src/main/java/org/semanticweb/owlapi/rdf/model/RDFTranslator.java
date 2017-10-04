@@ -34,29 +34,32 @@ import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator
+    extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
     /**
-     * @param manager
-     *        the manager
-     * @param ontology
-     *        the ontology
-     * @param useStrongTyping
-     *        true if strong typing is required
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param useStrongTyping true if strong typing is required
+     * @param occurrences multiple individuals appearance
+     * @param axiomOccurrences axiom appearance
+     * @param nextNode next blank id counter
      */
-    public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology, boolean useStrongTyping,
-        IndividualAppearance occurrences, AxiomAppearance axiomOccurrences, AtomicInteger nextNode) {
+    public RDFTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
+        boolean useStrongTyping, IndividualAppearance occurrences, AxiomAppearance axiomOccurrences,
+        AtomicInteger nextNode) {
         super(manager, ontology, useStrongTyping, occurrences, axiomOccurrences, nextNode);
     }
 
     @Override
-    protected void addTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI pred, @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"), checkNotNull(pred,
-            "pred cannot be null"), checkNotNull(object, "object cannot be null")));
+    protected void addTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI pred,
+        @Nonnull RDFNode object) {
+        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"),
+            checkNotNull(pred, "pred cannot be null"),
+            checkNotNull(object, "object cannot be null")));
     }
 
     @Override

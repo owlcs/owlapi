@@ -103,7 +103,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                                 int startCol = line.indexOf(trimmedLine) + 1;
                                 String msg = String.format(
                                     "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
-                                    trimmedLine, lineCount, startCol);
+                                    trimmedLine, Integer.valueOf(lineCount),
+                                    Integer.valueOf(startCol));
                                 throw new ManchesterOWLSyntaxParserException(msg, lineCount,
                                     startCol);
                             }

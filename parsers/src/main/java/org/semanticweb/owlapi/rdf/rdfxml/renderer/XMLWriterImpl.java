@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -40,17 +41,20 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org
  * 
- * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    @Nonnull private final Deque<XMLElement> elementStack;
-    @Nonnull protected final Writer writer;
+    @Nonnull
+    private final Deque<XMLElement> elementStack;
+    @Nonnull
+    protected final Writer writer;
     private String encoding = "";
-    @Nonnull private final String xmlBase;
-    @Nonnull private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    @Nonnull
+    private final String xmlBase;
+    @Nonnull
+    private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
@@ -58,20 +62,17 @@ public class XMLWriterImpl implements XMLWriter {
     protected final XMLWriterPreferences xmlPreferences;
 
     /**
-     * @param writer
-     *        writer
-     * @param xmlWriterNamespaceManager
-     *        xmlWriterNamespaceManager
-     * @param xmlBase
-     *        xmlBase
-     * @param preferences
-     *        xml writer preferences instance
+     * @param writer writer
+     * @param xmlWriterNamespaceManager xmlWriterNamespaceManager
+     * @param xmlBase xmlBase
+     * @param preferences xml writer preferences instance
      */
-    public XMLWriterImpl(@Nonnull Writer writer, @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
-        @Nonnull String xmlBase, @Nonnull XMLWriterPreferences preferences) {
+    public XMLWriterImpl(@Nonnull Writer writer,
+        @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager, @Nonnull String xmlBase,
+        @Nonnull XMLWriterPreferences preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
-        this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
-            "xmlWriterNamespaceManager cannot be null");
+        this.xmlWriterNamespaceManager =
+            checkNotNull(xmlWriterNamespaceManager, "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
         elementStack = new LinkedList<>();
@@ -178,7 +179,7 @@ public class XMLWriterImpl implements XMLWriter {
     public void writeAttribute(@Nonnull IRI attr, String val) {
         XMLElement element = elementStack.peek();
         String qName = xmlWriterNamespaceManager.getQName(attr);
-        if (qName != null) {
+        if (!qName.isEmpty()) {
             element.setAttribute(qName, val);
         }
     }
@@ -208,8 +209,9 @@ public class XMLWriterImpl implements XMLWriter {
 
     private void writeEntities(@Nonnull IRI rootName) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
-        if (qName == null) {
-            throw new IOException("Cannot create valid XML: qname for " + rootName + " is null");
+        if (qName.isEmpty()) {
+            throw new IOException(
+                "Cannot create valid XML: qname for " + rootName + " is null or empty");
         }
         writer.write("\n\n<!DOCTYPE " + qName + " [\n");
         for (String entityVal : entities.keySet()) {
@@ -248,8 +250,8 @@ public class XMLWriterImpl implements XMLWriter {
         }
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
             if (!curPrefix.isEmpty()) {
-                writeAttribute("xmlns:" + curPrefix, verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(
-                    curPrefix)));
+                writeAttribute("xmlns:" + curPrefix,
+                    verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
             }
         }
     }
@@ -268,16 +270,15 @@ public class XMLWriterImpl implements XMLWriter {
 
         private final String name;
         private final Map<String, String> attributes;
-        @Nullable String textContent;
+        @Nullable
+        String textContent;
         private boolean startWritten;
         private int indentation;
         private boolean wrapAttributes;
 
         /**
-         * @param name
-         *        name
-         * @param indentation
-         *        indentation
+         * @param name name
+         * @param indentation indentation
          */
         public XMLElement(String name, int indentation) {
             this.name = name;
@@ -288,36 +289,30 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         /**
-         * @param b
-         *        b
+         * @param b b
          */
         public void setWrapAttributes(boolean b) {
             wrapAttributes = b;
         }
 
         /**
-         * @param attribute
-         *        attribute
-         * @param value
-         *        value
+         * @param attribute attribute
+         * @param value value
          */
         public void setAttribute(String attribute, String value) {
             attributes.put(attribute, value);
         }
 
         /**
-         * @param content
-         *        content
+         * @param content content
          */
         public void setText(String content) {
             textContent = content;
         }
 
         /**
-         * @param close
-         *        close
-         * @throws IOException
-         *         io error
+         * @param close close
+         * @throws IOException io error
          */
         public void writeElementStart(boolean close) throws IOException {
             if (!startWritten) {
@@ -374,8 +369,7 @@ public class XMLWriterImpl implements XMLWriter {
         /**
          * write end element
          * 
-         * @throws IOException
-         *         io error
+         * @throws IOException io error
          */
         public void writeElementEnd() throws IOException {
             if (name != null) {
@@ -433,13 +427,15 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         private boolean isRDFXMLLiteral() {
-            return "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral".equals(attributes.get("rdf:datatype"))
+            return "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"
+                .equals(attributes.get("rdf:datatype"))
                 || "Literal".equals(attributes.get("rdf:parseType"));
         }
 
         private void checkProperXMLLiteral(String text) throws IOException {
             try {
-                String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT.getValue(String.class, Collections.<ConfigurationOptions, Object>emptyMap());
+                String expansions = ConfigurationOptions.ENTITY_EXPANSION_LIMIT
+                    .getValue(String.class, Collections.<ConfigurationOptions, Object>emptyMap());
                 SAXParser parser = SAXParsers.initParserWithOWLAPIStandards(null, expansions);
                 parser.parse(new InputSource(new StringReader(text)), new DefaultHandler());
             } catch (SAXException e) {

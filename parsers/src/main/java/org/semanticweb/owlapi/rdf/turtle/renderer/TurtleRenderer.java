@@ -12,21 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -57,8 +56,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleRenderer extends RDFRendererBase {
@@ -71,16 +69,14 @@ public class TurtleRenderer extends RDFRendererBase {
     private final OWLDocumentFormat format;
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    @Nonnull protected final Deque<Integer> tabs = new LinkedList<>();
+    @Nonnull
+    protected final Deque<Integer> tabs = new LinkedList<>();
     int level = 0;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
      */
     public TurtleRenderer(@Nonnull OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
         super(ontology, format);
@@ -188,16 +184,11 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private String forceSplitIfPrefixExists(IRI iri) {
-        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+        List<Map.Entry<String, String>> prefixName2PrefixMap =
+            new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
         // sort the entries in reverse lexicographic order by value (longest
         // prefix first)
-        Collections.sort(prefixName2PrefixMap, new Comparator<Map.Entry<String, String>>() {
-
-            @Override
-            public int compare(Entry<String, String> o1, Entry<String, String> o2) {
-                return o2.getValue().compareTo(o1.getValue());
-            }
-        });
+        Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
         String actualIRI = iri.toString();
         for (Map.Entry<String, String> e : prefixName2PrefixMap) {
             if (actualIRI.startsWith(e.getValue()) && noSplits(actualIRI, e.getValue().length())) {
@@ -206,9 +197,9 @@ public class TurtleRenderer extends RDFRendererBase {
         }
         return null;
     }
-    
-    private boolean noSplits(String s, int index) {
-        return s.indexOf('#', index)<0 && s.indexOf('/', index)<0; 
+
+    private static boolean noSplits(String s, int index) {
+        return s.indexOf('#', index) < 0 && s.indexOf('/', index) < 0;
     }
 
     private void writeNewLine() {
