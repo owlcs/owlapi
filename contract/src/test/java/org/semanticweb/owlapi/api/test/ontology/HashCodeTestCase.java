@@ -13,13 +13,21 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
@@ -34,7 +42,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
-public class HashCodeTestCase {
+public class HashCodeTestCase extends TestBase {
 
     @Test
     public void testSetContainsInt() {
@@ -86,5 +94,25 @@ public class HashCodeTestCase {
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));
         assertTrue(lncset.contains(litIntImpl));
+    }
+
+    @Test
+    public void shouldHaveSameHashCodeForOntologies() throws OWLOntologyCreationException {
+        final OWLOntology ontology = m.createOntology();
+        int hash = ontology.hashCode();
+        IRI iri = IRI.create("urn:test:ontology");
+        ontology.applyChange(new SetOntologyID(ontology, iri));
+        int otherHash = ontology.hashCode();
+        assertNotEquals(hash, otherHash);
+        assertNotNull(m.getOntology(iri));
+        assertNotNull(m.getOntology(ontology.getOntologyID()));
+    }
+
+    @Test
+    public void shouldHaveSameHashCodeForOntologies1() {
+        OWLOntologyID id1 = new OWLOntologyID(IRI.create("http://purl.org/dc/elements/1.1/"));
+        OWLOntologyID id2 = new OWLOntologyID(IRI.create("http://purl.org/dc/elements/1.1/"));
+        assertEquals(id1, id2);
+        assertEquals(id1.hashCode(), id2.hashCode());
     }
 }

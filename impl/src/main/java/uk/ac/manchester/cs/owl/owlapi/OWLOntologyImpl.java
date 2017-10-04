@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  * @since 2.0.0
  */
 public class OWLOntologyImpl extends OWLImmutableOntologyImpl
-                implements OWLMutableOntology, Serializable {
+    implements OWLMutableOntology, Serializable {
 
     /**
      * @param manager ontology manager
@@ -79,7 +79,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
     }
 
     protected class OWLOntologyChangeFilter
-                    implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
+        implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
 
         @Override
         public ChangeApplied visit(RemoveAxiom change) {
@@ -93,6 +93,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
         public ChangeApplied visit(SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
+                // force hashcode recomputation
+                hashCode = 0;
                 ontologyID = id;
                 return SUCCESSFULLY;
             }
