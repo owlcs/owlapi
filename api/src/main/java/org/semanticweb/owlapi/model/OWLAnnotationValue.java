@@ -26,7 +26,7 @@ import java.util.Optional;
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @since 3.0.0
  */
-public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
+public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive, HasAnnotationValue {
 
     /**
      * @return if the value is a literal, return an optional containing it. Return Optional.absent
@@ -34,5 +34,17 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     default Optional<OWLLiteral> asLiteral() {
         return emptyOptional();
+    }
+
+    /**
+     * @return true if the annotation value is a literal
+     */
+    default boolean isLiteral() {
+        return false;
+    }
+
+    @Override
+    default OWLAnnotationValue annotationValue() {
+        return this;
     }
 }

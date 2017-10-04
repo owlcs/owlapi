@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLAnnotation
-    extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty> {
+    extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty>, HasAnnotationValue {
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
@@ -103,5 +103,10 @@ public interface OWLAnnotation
     @Override
     default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default OWLAnnotationValue annotationValue() {
+        return getValue();
     }
 }

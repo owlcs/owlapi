@@ -22,7 +22,7 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
-    HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
+    HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty>, HasAnnotationValue {
 
     @Override
     default Stream<?> componentsWithoutAnnotations() {
@@ -91,5 +91,10 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
     @Override
     default AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;
+    }
+
+    @Override
+    default OWLAnnotationValue annotationValue() {
+        return getAnnotation().getValue();
     }
 }
