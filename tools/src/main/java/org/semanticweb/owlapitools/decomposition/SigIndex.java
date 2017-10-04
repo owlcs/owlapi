@@ -78,10 +78,14 @@ public class SigIndex {
      * given an entity, return a set of all axioms that contain this entity in a signature
      *
      * @param entity the entity
-     * @return collection of axioms referring the entity
+     * @return collection of axioms referring the entity; empty for unknown entities.
      */
     public Collection<AxiomWrapper> getAxioms(OWLEntity entity) {
-        return base.get(entity);
+        Collection<AxiomWrapper> collection = base.get(entity);
+        if (collection == null) {
+            return Collections.emptyList();
+        }
+        return collection;
     }
 
     /**
