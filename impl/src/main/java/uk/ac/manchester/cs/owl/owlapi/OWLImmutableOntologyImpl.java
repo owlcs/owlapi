@@ -117,8 +117,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
-        return verifyNotNull(manager, () -> "Manager on ontology " + getOntologyID()
+        OWLOntologyManager m = manager;
+        if (m == null) {
+            throw new IllegalStateException("Manager on ontology " + getOntologyID()
             + " is null; the ontology is no longer associated to a manager. Ensure the ontology is not being used after being removed from its manager.");
+        }
+        return verifyNotNull(m, "manager cannot be null at this stage");
     }
 
     @Override
