@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,13 +27,8 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.OWLObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -46,110 +39,9 @@ import com.google.common.collect.Sets;
  */
 public class CollectionFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CollectionFactory.class.getName());
     private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
 
     private CollectionFactory() {}
-
-    /**
-     * Sort the input collection; if the ordering is unstable and an error is thrown (due to the use
-     * of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted. NOTE: use this
-     * method if ordering is desirable but not necessary.
-     *
-     * @param <T> list type
-     * @param toReturn list to sort
-     * @return sorted input, if no errors are raised. Original otherwise.
-     */
-    public static <T extends OWLObject> List<T> sortOptionallyComparables(List<T> toReturn) {
-        try {
-            toReturn.sort(null);
-        } catch (IllegalArgumentException e) {
-            // print a warning and leave the list unsorted
-            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
-        }
-        return toReturn;
-    }
-
-    /**
-     * Sort the input collection; if the ordering is unstable and an error is thrown (due to the use
-     * of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted. NOTE: use this
-     * method if ordering is desirable but not necessary.
-     *
-     * @param toReturn list to sort
-     * @return sorted input list
-     */
-    public static <T extends OWLObject> List<T> sortOptionally(List<T> toReturn) {
-        return sortOptionallyComparables(toReturn);
-    }
-
-    /**
-     * Sort the input collection; if the ordering is unstable and an error is thrown (due to the use
-     * of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted. NOTE: use this
-     * method if ordering is desirable but not necessary.
-     *
-     * @param toReturn list to sort
-     * @param desiredType witness for return type
-     * @return sorted input list
-     */
-    @SuppressWarnings({"unchecked"})
-    public static <T extends OWLObject> List<T> sortOptionally(List<? extends T> toReturn,
-        @SuppressWarnings("unused") Class<T> desiredType) {
-        return (List<T>) sortOptionallyComparables(toReturn);
-    }
-
-    /**
-     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
-     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
-     * NOTE: use this method if ordering is desirable but not necessary.
-     *
-     * @param toReturn collection to sort
-     * @param <T> list type
-     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
-     */
-    public static <T extends OWLObject> List<T> sortOptionallyComparables(Collection<T> toReturn) {
-        return sortOptionallyComparables(new ArrayList<>(toReturn));
-    }
-
-    /**
-     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
-     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
-     * NOTE: use this method if ordering is desirable but not necessary.
-     *
-     * @param toReturn collection to sort
-     * @param <T> list type
-     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
-     */
-    public static <T extends OWLObject> List<T> sortOptionally(Collection<T> toReturn) {
-        return sortOptionally(new ArrayList<>(toReturn));
-    }
-
-    /**
-     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
-     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
-     * NOTE: use this method if ordering is desirable but not necessary.
-     *
-     * @param toReturn collection to sort
-     * @param <T> list type
-     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
-     */
-    public static <T extends OWLObject> List<T> sortOptionally(Stream<T> toReturn) {
-        return sortOptionally(asList(toReturn));
-    }
-
-    /**
-     * Sort a copy of the input collection; if the ordering is unstable and an error is thrown (due
-     * to the use of TimSort in JDK 1.7 and newer), catch it and leave the collection unsorted.
-     * NOTE: use this method if ordering is desirable but not necessary.
-     *
-     * @param toReturn collection to sort
-     * @param <T> list type
-     * @param desiredType witness for return type
-     * @return sorted copy of the input, if no errors are raised. Copy of the original otherwise.
-     */
-    public static <T extends OWLObject> List<T> sortOptionally(Stream<? extends T> toReturn,
-        Class<T> desiredType) {
-        return sortOptionally(asList(toReturn), desiredType);
-    }
 
     /**
      * @return The current number of expected threads.
@@ -160,7 +52,7 @@ public class CollectionFactory {
 
     /**
      * @param value the number of expected threads that will access threadsafe collections; useful
-     * for increasing the concurrency in ConcurrentHashMaps
+     *        for increasing the concurrency in ConcurrentHashMaps
      */
     public static void setExpectedThreads(int value) {
         EXPECTEDTHREADS.set(value);
@@ -315,7 +207,7 @@ public class CollectionFactory {
      * @param source the collection to lazily copy
      * @param <T> axiom type
      * @return a lazy defensive copy for source; the source collection will not be copied until a
-     * method that modifies the collection gets called, e.g., add(), addAll()
+     *         method that modifies the collection gets called, e.g., add(), addAll()
      */
     public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
@@ -345,7 +237,7 @@ public class CollectionFactory {
 
     /**
      * @param source the source collection, expected to be mutable; the backing list is created
-     * immediately
+     *        immediately
      * @param <T> axiom type
      * @return copy on request that builds a list immediately
      */

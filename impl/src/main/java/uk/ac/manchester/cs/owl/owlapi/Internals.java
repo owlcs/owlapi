@@ -976,7 +976,8 @@ protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarations
      * @return copy of GCI axioms
      */
     public Stream<OWLClassAxiom> getGeneralClassAxioms() {
-        return generalClassAxioms.stream();
+        // XXX watch out for performance issues
+        return generalClassAxioms.stream().sorted();
     }
 
     /**

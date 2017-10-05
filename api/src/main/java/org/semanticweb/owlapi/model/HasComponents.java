@@ -10,13 +10,17 @@ import java.util.stream.Stream;
 public interface HasComponents {
 
     /**
-     * @return components as a stream
+     * @return components as a stream.
+     * The stream is ordered (by visit order) but not sorted. Implementations that override 
+     * components() must ensure the order is compatible with equals() and hashCode().
      */
     Stream<?> components();
 
     /**
      * @return components as a stream; for objects that can have annotations on them, annotation
      * streams appear first. This is useful in renderers.
+     * The stream is ordered (by visit order) but not sorted. Implementations that override 
+     * components() must ensure the order is compatible with equals() and hashCode().
      */
     default Stream<?> componentsAnnotationsFirst() {
         return components();
@@ -26,6 +30,8 @@ public interface HasComponents {
      * @return components as a stream; for objects that can have annotations on them, these are
      * skipped. This is useful for comparing axioms without taking annotations into account. Note:
      * annotations on nested objects are not affected.
+     * The stream is ordered (by visit order) but not sorted. Implementations that override 
+     * components() must ensure the order is compatible with equals() and hashCode().
      */
     default Stream<?> componentsWithoutAnnotations() {
         return components();

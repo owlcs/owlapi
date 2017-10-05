@@ -21,9 +21,10 @@ import static org.semanticweb.owlapi.model.AxiomType.HAS_KEY;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_PROPERTY_CHAIN_OF;
 import static org.semanticweb.owlapi.model.AxiomType.SWRL_RULE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
@@ -317,7 +318,7 @@ public abstract class RDFRendererBase {
     private void renderEntities(Stream<? extends OWLEntity> entities, String bannerText,
         Collection<IRI> illegalPuns) {
         AtomicBoolean firstRendering = new AtomicBoolean(true);
-        sortOptionally(entities).stream().filter(e -> createGraph(e, illegalPuns))
+        entities.sorted().filter(e -> createGraph(e, illegalPuns))
             .forEach(e -> render(e, firstRendering, bannerText));
     }
 
@@ -370,7 +371,7 @@ public abstract class RDFRendererBase {
             .forEach(ax -> addIfUntyped(ax.getSubject(), annotatedIRIs));
         if (!annotatedIRIs.isEmpty()) {
             writeBanner(ANNOTATED_IRIS_BANNER_TEXT);
-            sortOptionally(annotatedIRIs).forEach(this::renderIRI);
+            annotatedIRIs.stream().sorted().forEach(this::renderIRI);
         }
     }
 
@@ -383,7 +384,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderAnonymousIndividuals() {
-        sortOptionally(ontology.referencedAnonymousIndividuals()).forEach(this::renderAnon);
+        ontology.referencedAnonymousIndividuals().forEach(this::renderAnon);
     }
 
     protected void renderAnon(OWLAnonymousIndividual anonInd) {
@@ -406,7 +407,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() {
-        List<SWRLRule> ruleAxioms = sortOptionally(ontology.axioms(SWRL_RULE));
+        List<SWRLRule> ruleAxioms = asList(ontology.axioms(SWRL_RULE).sorted());
         createGraph(ruleAxioms.stream());
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);
@@ -461,7 +462,8 @@ public abstract class RDFRendererBase {
             ontology.axioms(DISJOINT_DATA_PROPERTIES).filter(ax -> ax.properties().count() > 2));
         add(generalAxioms,
             ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().isAnonymous()));
-        return sortOptionally(generalAxioms);
+        generalAxioms.sort(null);
+        return generalAxioms;
     }
 
     protected void renderOntologyHeader() {
@@ -502,10 +504,8 @@ public abstract class RDFRendererBase {
         RDFTranslator translator) {
         ontology.annotations().forEach(a -> {
             translator.addTriple(ontologyHeaderNode, a.getProperty().getIRI(), a.getValue());
-            if (a.getValue() instanceof OWLAnonymousIndividual) {
-                OWLAnonymousIndividual i = (OWLAnonymousIndividual) a.getValue();
-                sortOptionally(ontology.referencingAxioms(i)).forEach(ax -> ax.accept(translator));
-            }
+            a.ifAnonymousIndividual(
+                i -> ontology.referencingAxioms(i).sorted().forEach(ax -> ax.accept(translator)));
         });
     }
 
@@ -532,7 +532,7 @@ public abstract class RDFRendererBase {
     protected void createGraph(Stream<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId);
-        sortOptionally(objects).forEach(obj -> deshare(obj).accept(translator));
+        objects.sorted().forEach(obj -> deshare(obj).accept(translator));
         graph = translator.getGraph();
         triplesWithRemappedNodes = getRDFGraph().computeRemappingForSharedNodes();
     }

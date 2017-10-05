@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Arrays;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+
 import java.util.Collection;
 import java.util.stream.Stream;
 
@@ -27,27 +28,27 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
-                implements OWLDifferentIndividualsAxiom {
+public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl implements
+    OWLDifferentIndividualsAxiom {
 
     /**
      * @param individuals individuals
      * @param annotations annotations on the axiom
      */
     public OWLDifferentIndividualsAxiomImpl(Collection<? extends OWLIndividual> individuals,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations() {
-        return !isAnnotated() ? this
-                        : new OWLDifferentIndividualsAxiomImpl(individuals, NO_ANNOTATIONS);
+        if (!isAnnotated()) {
+            return this;
+        }
+        return new OWLDifferentIndividualsAxiomImpl(individuals, NO_ANNOTATIONS);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return (T) new OWLDifferentIndividualsAxiomImpl(individuals, mergeAnnos(anns));
     }
@@ -57,8 +58,8 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         if (individuals.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b),
-                        NO_ANNOTATIONS));
+        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(
+            sorted(OWLIndividual.class, a, b), NO_ANNOTATIONS));
     }
 
     @Override
@@ -66,18 +67,18 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         if (individuals.size() == 2) {
             return CollectionFactory.createSet(this);
         }
-        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(Arrays.asList(a, b),
-                        annotations));
+        return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(
+            sorted(OWLIndividual.class, a, b), annotations));
     }
 
     @Override
     public boolean containsAnonymousIndividuals() {
-        return individuals().anyMatch(i -> i.isAnonymous());
+        return individuals().anyMatch(OWLIndividual::isAnonymous);
     }
 
     @Override
     public Collection<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         return walkAllPairwise((a, b) -> new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(a),
-                        new OWLObjectOneOfImpl(b).getObjectComplementOf(), NO_ANNOTATIONS));
+            new OWLObjectOneOfImpl(b).getObjectComplementOf(), NO_ANNOTATIONS));
     }
 }

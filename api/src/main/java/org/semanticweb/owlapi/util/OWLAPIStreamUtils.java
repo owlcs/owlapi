@@ -1,5 +1,10 @@
 package org.semanticweb.owlapi.util;
 
+import static java.util.Spliterator.DISTINCT;
+import static java.util.Spliterator.IMMUTABLE;
+import static java.util.Spliterator.NONNULL;
+import static java.util.Spliterator.SIZED;
+import static java.util.Spliterator.SORTED;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.ArrayList;
@@ -8,12 +13,15 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.Spliterators;
 import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.semanticweb.owlapi.model.HasComponents;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -23,7 +31,59 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLAPIStreamUtils {
 
+    private static final int CHARACTERISTICS = DISTINCT | IMMUTABLE | NONNULL | SORTED | SIZED;
+
     private OWLAPIStreamUtils() {}
+
+    /**
+     * @param type type of the returned array
+     * @param s stream to turn to array
+     * @return sorted array containing all elements in the stream, minus nulls and duplicates
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> sorted(Class<T> type, Stream<? extends T> s) {
+        // skip nulls, skip duplicates, ensure sorted
+        return asList(s.filter(Objects::nonNull).distinct().sorted(), type);
+    }
+
+    /**
+     * @param type type of the returned array
+     * @param c collection to turn to array
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     */
+    public static <T> List<T> sorted(Class<T> type, Collection<? extends T> c) {
+        return sorted(type, c.stream());
+    }
+
+    /**
+     * @param type type of the returned array
+     * @param c array to sort
+     * @return sorted array containing all elements in the collection, minus nulls and duplicates
+     */
+    @SafeVarargs
+    public static <T> List<T> sorted(Class<T> type, T... c) {
+        return sorted(type, Stream.of(c));
+    }
+
+    /**
+     * A method to be used on collections that are sorted, immutable and do not contain nulls.
+     * 
+     * @param c sorted collection of distinct, nonnull elements; the collection must be immutable
+     * @return stream that won't cause sorted() calls to sort the collection again
+     */
+    public static <T> Stream<T> streamFromSorted(Collection<T> c) {
+        return StreamSupport.stream(Spliterators.spliterator(c, CHARACTERISTICS), false);
+    }
+
+    /**
+     * A method to be used on arrays that are sorted and do not contain nulls.
+     * 
+     * @param c sorted aray of distinct, nonnull elements
+     * @return stream that won't cause sorted() calls to sort the array again
+     */
+    public static <T> Stream<T> streamFromSorted(T[] c) {
+        return StreamSupport.stream(Spliterators.spliterator(c, CHARACTERISTICS), false);
+    }
 
     /**
      * @param s stream to turn to set. The stream is consumed by this operation.

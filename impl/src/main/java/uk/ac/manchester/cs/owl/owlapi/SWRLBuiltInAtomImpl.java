@@ -39,6 +39,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
         super(predicate);
         this.args = new ArrayList<>(checkNotNull(args, "args cannot be null"));
+        // Do not sort these. They are arguments for builtins and they are order sensitive.
     }
 
     @Override

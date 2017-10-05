@@ -72,7 +72,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
     /**
      * Gets the class expressions which are operands of the disjoint union.
      *
-     * @return A {@code Set} containing the operands of the disjoint union, note that this <b>does
+     * @return Sorted stream containing the operands of the disjoint union, note that this <b>does
      *         not</b> include the {@code OWLClass} that is equivalent to the disjoint union.
      */
     Stream<OWLClassExpression> classExpressions();

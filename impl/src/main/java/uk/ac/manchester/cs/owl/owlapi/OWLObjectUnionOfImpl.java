@@ -36,6 +36,11 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
 
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
-        return asSet(operands().flatMap(OWLClassExpression::disjunctSet));
+        return asSet(disjunctSet());
+    }
+
+    @Override
+    public Stream<OWLClassExpression> disjunctSet() {
+        return operands().flatMap(OWLClassExpression::disjunctSet).distinct().sorted();
     }
 }

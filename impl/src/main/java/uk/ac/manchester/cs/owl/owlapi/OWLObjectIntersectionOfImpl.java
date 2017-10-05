@@ -47,6 +47,11 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
     }
 
     @Override
+    public Stream<OWLClassExpression> conjunctSet() {
+        return operands().flatMap(OWLClassExpression::conjunctSet).distinct().sorted();
+    }
+
+    @Override
     public boolean containsConjunct(OWLClassExpression ce) {
         if (ce.equals(this)) {
             return true;

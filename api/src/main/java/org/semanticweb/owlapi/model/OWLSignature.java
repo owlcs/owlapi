@@ -169,7 +169,7 @@ public interface OWLSignature
     /**
      * Gets the referenced anonymous individuals.
      *
-     * @return The set of referenced anonymous individuals
+     * @return Sorted stream of referenced anonymous individuals
      */
     Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals();
 

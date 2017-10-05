@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -41,13 +42,12 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
                     Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(classExpressions, "classExpressions cannot be null");
-        this.classExpressions = sortOptionally(classExpressions.stream().distinct(),
-                        OWLClassExpression.class);
+        this.classExpressions = sorted(OWLClassExpression.class, classExpressions);
     }
 
     @Override
     public Stream<OWLClassExpression> classExpressions() {
-        return classExpressions.stream();
+        return streamFromSorted(classExpressions);
     }
 
     @Override
@@ -57,7 +57,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
-        Set<OWLClassExpression> result = new HashSet<>(classExpressions);
+        // classExpressions is sorted, use a linked set so there is no need to sort again
+        Set<OWLClassExpression> result = new LinkedHashSet<>(classExpressions);
         for (OWLClassExpression d : desc) {
             result.remove(d);
         }

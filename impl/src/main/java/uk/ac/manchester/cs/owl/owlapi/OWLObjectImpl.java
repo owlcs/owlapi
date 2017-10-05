@@ -12,20 +12,21 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.Collections.emptyList;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareIterators;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -44,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
+import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
@@ -52,18 +54,30 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @since 2.0.0
  */
 public abstract class OWLObjectImpl
-                implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
+    implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
-    /** a convenience reference for an empty annotation set, saves on typing. */
+    /**
+     * a convenience reference for an empty annotation set, saves on typing.
+     */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
-    protected int hashCode = 0;
-    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures =
-                    Caffeine.newBuilder().weakKeys().softValues()
-                                    .build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
-    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches =
-                    Caffeine.newBuilder().weakKeys().softValues().build(
-                                    key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
     protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
+    // @formatter:off
+    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>>              signatures =                      build(key -> key.addSignatureEntitiesToSet(new TreeSet<>()));
+    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches =                      build(key -> key.addAnonymousIndividualsToSet(new TreeSet<>()));
+    protected static LoadingCache<OWLObjectImpl, List<OWLClass>>              classesSignatures =               build(key -> cacheSig(key, OWLEntity::isOWLClass,               OWLEntity::asOWLClass));
+    protected static LoadingCache<OWLObjectImpl, List<OWLDataProperty>>       dataPropertySignatures =          build(key -> cacheSig(key, OWLEntity::isOWLDataProperty,        OWLEntity::asOWLDataProperty));
+    protected static LoadingCache<OWLObjectImpl, List<OWLObjectProperty>>     objectPropertySignatures =        build(key -> cacheSig(key, OWLEntity::isOWLObjectProperty,      OWLEntity::asOWLObjectProperty));
+    protected static LoadingCache<OWLObjectImpl, List<OWLDatatype>>           datatypeSignatures =              build(key -> cacheSig(key, OWLEntity::isOWLDatatype,            OWLEntity::asOWLDatatype));
+    protected static LoadingCache<OWLObjectImpl, List<OWLNamedIndividual>>    individualSignatures =            build(key -> cacheSig(key, OWLEntity::isOWLNamedIndividual,     OWLEntity::asOWLNamedIndividual));
+    protected static LoadingCache<OWLObjectImpl, List<OWLAnnotationProperty>> annotationPropertiesSignatures =  build(key -> cacheSig(key, OWLEntity::isOWLAnnotationProperty,  OWLEntity::asOWLAnnotationProperty));
+    // @formatter:on
+    static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
+        return Caffeine.newBuilder().weakKeys().softValues().build(c);
+    }
+
+    static <T> List<T> cacheSig(OWLObject o, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
+        return asList(o.signature().filter(p).map(f));
+    }
 
     /**
      * Override point to change hashing strategy if needed - only used in OWLLiteral implementations
@@ -75,6 +89,8 @@ public abstract class OWLObjectImpl
     protected int hashCode(OWLObject object) {
         return hash(object.hashIndex(), object.components());
     }
+
+    protected int hashCode = 0;
 
     /**
      * Streams from components need a start point and the order of the components is important.
@@ -104,52 +120,39 @@ public abstract class OWLObjectImpl
         return verifyNotNull(signatures.get(this)).stream();
     }
 
-    protected static List<OWLAnnotation> asAnnotations(Collection<OWLAnnotation> anns) {
-        if (anns.isEmpty()) {
-            return emptyList();
-        }
-        if (anns.size() == 1) {
-            return Collections.singletonList(anns.iterator().next());
-        }
-        return sortOptionally(anns.stream().distinct());
-    }
-
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return signature().anyMatch(e -> e.equals(owlEntity));
+        return signatures.get(this).contains(owlEntity);
     }
 
     @Override
     public Stream<OWLClass> classesInSignature() {
-        return signature().filter(OWLEntity::isOWLClass).map(OWLEntity::asOWLClass);
+        return streamFromSorted(classesSignatures.get(this));
     }
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return signature().filter(OWLEntity::isOWLDataProperty).map(OWLEntity::asOWLDataProperty);
+        return streamFromSorted(dataPropertySignatures.get(this));
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return signature().filter(OWLEntity::isOWLObjectProperty)
-                        .map(OWLEntity::asOWLObjectProperty);
+        return streamFromSorted(objectPropertySignatures.get(this));
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return signature().filter(OWLEntity::isOWLNamedIndividual)
-                        .map(OWLEntity::asOWLNamedIndividual);
+        return streamFromSorted(individualSignatures.get(this));
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return signature().filter(OWLEntity::isOWLDatatype).map(OWLEntity::asOWLDatatype);
+        return streamFromSorted(datatypeSignatures.get(this));
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return signature().filter(OWLEntity::isOWLAnnotationProperty)
-                        .map(OWLEntity::asOWLAnnotationProperty);
+        return streamFromSorted(annotationPropertiesSignatures.get(this));
     }
 
     @Override

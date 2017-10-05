@@ -14,15 +14,18 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -70,12 +73,45 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+import com.github.benmanes.caffeine.cache.LoadingCache;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     implements OWLOntology, Serializable {
+    // @formatter:off
+    protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                      
+        build(OWLImmutableOntologyImpl::build);
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asList(key.ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().stream().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(Stream.concat(key.ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION).get().keySet().stream(),key.ints.getOntologyAnnotations().map(OWLAnnotation::getProperty)).distinct().sorted()));
+    // @formatter:on
+    protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
+        ontsignatures.invalidate(o);
+        ontanonCaches.invalidate(o);
+        ontclassesSignatures.invalidate(o);
+        ontdataPropertySignatures.invalidate(o);
+        ontobjectPropertySignatures.invalidate(o);
+        ontdatatypeSignatures.invalidate(o);
+        ontindividualSignatures.invalidate(o);
+        ontannotationPropertiesSignatures.invalidate(o);
+    }
+
+    private static Set<OWLEntity> build(OWLImmutableOntologyImpl key) {
+        Stream<OWLEntity> stream =
+            Stream
+                .of(key.classesInSignature(), key.objectPropertiesInSignature(),
+                    key.dataPropertiesInSignature(), key.individualsInSignature(),
+                    key.datatypesInSignature(), key.annotationPropertiesInSignature())
+                .flatMap(x -> x);
+        return asSet(stream.distinct().sorted());
+    }
 
     @Nullable
     protected OWLOntologyManager manager;
@@ -214,7 +250,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLAnnotation> annotations() {
-        return ints.getOntologyAnnotations();
+        return ints.getOntologyAnnotations().sorted();
     }
 
     @Override
@@ -293,12 +329,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLEntity> entitiesInSignature(IRI iri) {
-        Predicate<? super OWLEntity> matchIRI = c -> c.getIRI().equals(iri);
-        return Stream.of(classesInSignature().filter(matchIRI),
-            objectPropertiesInSignature().filter(matchIRI),
-            dataPropertiesInSignature().filter(matchIRI), individualsInSignature().filter(matchIRI),
-            datatypesInSignature().filter(matchIRI),
-            annotationPropertiesInSignature().filter(matchIRI)).flatMap(x -> x);
+        return signature().filter((Predicate<? super OWLEntity>) c -> c.getIRI().equals(iri));
     }
 
     private static void add(Set<IRI> punned, Set<IRI> test, OWLEntity e) {
@@ -358,55 +389,47 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLEntity> signature() {
-        return Stream
-            .of(classesInSignature(), objectPropertiesInSignature(), dataPropertiesInSignature(),
-                individualsInSignature(), datatypesInSignature(), annotationPropertiesInSignature())
-            .flatMap(x -> x);
+        return streamFromSorted(ontsignatures.get(this));
     }
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
-        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream();
+        return streamFromSorted(ontanonCaches.get(this));
     }
 
     @Override
     public Stream<OWLClass> classesInSignature() {
-        return ints.get(OWLClass.class, OWLAxiom.class).get().keySet().stream();
+        return streamFromSorted(ontclassesSignatures.get(this));
     }
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet().stream();
+        return streamFromSorted(ontdataPropertySignatures.get(this));
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet().stream();
+        return streamFromSorted(ontobjectPropertySignatures.get(this));
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet().stream();
+        return streamFromSorted(ontindividualSignatures.get(this));
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet().stream();
+        return streamFromSorted(ontdatatypeSignatures.get(this));
     }
 
     @Override
     public Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals() {
-        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet().stream();
+        return anonymousIndividuals();
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return Stream
-            .concat(
-                ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
-                    .get().keySet().stream(),
-                ints.getOntologyAnnotations().map(a -> a.getProperty()))
-            .distinct().sorted();
+        return streamFromSorted(ontannotationPropertiesSignatures.get(this));
     }
 
     @Override
@@ -505,15 +528,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLIndividualAxiom> axioms(OWLIndividual individual) {
-        return sortOptionally(
-            Stream
-                .of(classAssertionAxioms(individual), objectPropertyAssertionAxioms(individual),
-                    dataPropertyAssertionAxioms(individual),
-                    negativeObjectPropertyAssertionAxioms(individual),
-                    negativeDataPropertyAssertionAxioms(individual),
-                    sameIndividualAxioms(individual), differentIndividualAxioms(individual))
-                .flatMap(x -> x),
-            OWLIndividualAxiom.class).stream();
+        return Stream.of(classAssertionAxioms(individual),
+            objectPropertyAssertionAxioms(individual), dataPropertyAssertionAxioms(individual),
+            negativeObjectPropertyAssertionAxioms(individual),
+            negativeDataPropertyAssertionAxioms(individual), sameIndividualAxioms(individual),
+            differentIndividualAxioms(individual)).flatMap(x -> x);
     }
 
     @Override

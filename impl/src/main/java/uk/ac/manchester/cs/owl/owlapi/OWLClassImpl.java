@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -82,6 +83,11 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
     }
 
     @Override
+    public Stream<OWLClassExpression> conjunctSet() {
+        return Stream.of((OWLClassExpression) this);
+    }
+
+    @Override
     public boolean containsConjunct(OWLClassExpression ce) {
         return ce.equals(this);
     }
@@ -94,5 +100,10 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
     @Override
     public OWLClassExpression getComplementNNF() {
         return new OWLObjectComplementOfImpl(this);
+    }
+
+    @Override
+    public Stream<OWLClassExpression> disjunctSet() {
+        return Stream.of((OWLClassExpression) this);
     }
 }

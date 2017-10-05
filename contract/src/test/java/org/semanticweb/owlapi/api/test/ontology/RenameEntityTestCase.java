@@ -64,6 +64,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -82,6 +83,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
 
 import com.google.common.collect.Sets;
@@ -272,7 +274,7 @@ public class RenameEntityTestCase extends TestBase {
         OWLDataRange rng3 = DataComplementOf(dtA);
         OWLDataRange rng3R = DataComplementOf(dtC);
         OWLDataPropertyExpression propB = DataProperty(iri("propA"));
-        Set<OWLAxiom> axioms1 = new HashSet<>();
+        Set<OWLAxiom> axioms1 = new TreeSet<>();
         axioms1.add(DataPropertyRange(propB, rng1));
         axioms1.add(DataPropertyRange(propB, rng2));
         axioms1.add(DataPropertyRange(propB, rng3));
@@ -288,7 +290,7 @@ public class RenameEntityTestCase extends TestBase {
         assertEquals(asUnorderedSet(ont.axioms()), axioms2);
         List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(dtC.getIRI(), dtA.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
-        assertTrue(equalStreams(ont.axioms(), axioms1.stream()));
+        assertTrue(equalStreams(ont.axioms().sorted(), axioms1.stream()));
     }
 
     @Test

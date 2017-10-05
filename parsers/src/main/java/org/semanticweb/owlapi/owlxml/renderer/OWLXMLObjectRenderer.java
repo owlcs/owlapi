@@ -192,7 +192,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -246,8 +245,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         }
         Stream<AxiomType<? extends OWLAxiom>> skipDeclarations =
             AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION));
-        Stream<? extends OWLAxiom> axioms = skipDeclarations.flatMap(t -> ontology.axioms(t));
-        render(CollectionFactory.sortOptionally(axioms).stream());
+        render(skipDeclarations.flatMap(ontology::axioms).distinct().sorted());
     }
 
     @Override

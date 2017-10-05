@@ -38,7 +38,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.pairs;
@@ -254,13 +253,13 @@ import org.semanticweb.owlapi.util.OWLAPIStreamUtils.Pair;
  */
 public class KRSSObjectRenderer implements OWLObjectVisitor {
 
+    protected static final String OPEN_BRACKET = "(";
     protected static final String CLOSE_BRACKET = ")";
     protected static final String NEWLINE = "\n";
-    protected static final String OPEN_BRACKET = "(";
-    private int lastNewLinePos = 0;
     protected final OWLOntology ont;
-    private int pos = 0;
     protected final PrintWriter writer;
+    private int pos = 0;
+    private int lastNewLinePos = 0;
 
     /**
      * @param ontology ontology
@@ -476,7 +475,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         List<OWLClass> classes = asList(ontology.classesInSignature());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
-        sortOptionally(classes);
+        classes.sort(null);
         for (OWLClass eachClass : classes) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
@@ -497,7 +496,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 writeln();
             }
         }
-        for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
+        ontology.objectPropertiesInSignature().forEach(property -> {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> pStream =
                 equivalent(ontology.equivalentObjectPropertiesAxioms(property));
@@ -524,7 +523,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             }
             writeCloseBracket();
             writeln();
-        }
+        });
         ontology.axioms().forEach(a -> a.accept(this));
         writer.flush();
     }

@@ -84,6 +84,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
         @Override
         public ChangeApplied visit(RemoveAxiom change) {
             if (ints.removeAxiom(change.getAxiom())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -96,6 +97,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
                 // force hashcode recomputation
                 hashCode = 0;
                 ontologyID = id;
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -104,6 +106,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
         @Override
         public ChangeApplied visit(AddAxiom change) {
             if (ints.addAxiom(change.getAxiom())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -112,6 +115,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
         @Override
         public ChangeApplied visit(AddImport change) {
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -120,6 +124,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
         @Override
         public ChangeApplied visit(RemoveImport change) {
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -128,6 +133,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
         @Override
         public ChangeApplied visit(AddOntologyAnnotation change) {
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;
@@ -136,6 +142,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
         @Override
         public ChangeApplied visit(RemoveOntologyAnnotation change) {
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
+                invalidateOntologyCaches(OWLOntologyImpl.this);
                 return SUCCESSFULLY;
             }
             return NO_OPERATION;

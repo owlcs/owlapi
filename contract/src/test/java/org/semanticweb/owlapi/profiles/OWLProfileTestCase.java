@@ -480,13 +480,14 @@ public class OWLProfileTestCase extends TestBase {
         runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Tests(method = "public Object visit(OWLHasKeyAxiom node)")
     public void shouldCreateViolationForOWLHasKeyAxiomInOWL2DLProfile() {
         declare(o, CL);
         o.add(HasKey(CL));
-        // hasKey axiom must have one or more properties; OWLDataFactory implementations should not
-        // allow its creation
+        int expected = 1;
+        Class[] expectedViolations = { InsufficientPropertyExpressions.class };
+        runAssert(o, Profiles.OWL2_DL, expected, expectedViolations);
     }
 
     @Test

@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -59,6 +60,11 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpression
     }
 
     @Override
+    public Stream<OWLClassExpression> conjunctSet() {
+        return Stream.of((OWLClassExpression) this);
+    }
+
+    @Override
     public boolean containsConjunct(OWLClassExpression ce) {
         return ce.equals(this);
     }
@@ -66,5 +72,10 @@ public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpression
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         return CollectionFactory.createSet((OWLClassExpression) this);
+    }
+
+    @Override
+    public Stream<OWLClassExpression> disjunctSet() {
+        return Stream.of((OWLClassExpression) this);
     }
 }

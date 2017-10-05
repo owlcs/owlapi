@@ -13,7 +13,8 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
 import java.util.List;
@@ -36,12 +37,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
      */
     public OWLAxiomImpl(Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(annotations, "annotations cannot be null", true);
-        this.annotations = asAnnotations(annotations);
+        this.annotations = sorted(OWLAnnotation.class, annotations);
     }
 
     @Override
     public Stream<OWLAnnotation> annotations() {
-        return annotations.stream();
+        return streamFromSorted(annotations);
     }
 
     @Override
@@ -57,7 +58,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
      * @return The annotations
      */
     protected Collection<OWLAnnotation> mergeAnnos(Stream<OWLAnnotation> annos) {
-        return asList(Stream.concat(annos, annotations.stream()).distinct().sorted());
+        return sorted(OWLAnnotation.class, Stream.concat(annos, annotations()));
     }
 
     @Override

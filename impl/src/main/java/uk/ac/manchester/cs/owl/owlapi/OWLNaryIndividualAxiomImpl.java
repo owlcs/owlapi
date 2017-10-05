@@ -12,9 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.streamFromSorted;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,8 +30,8 @@ import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
-    implements OWLNaryIndividualAxiom {
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
+    OWLNaryIndividualAxiom {
 
     protected final List<OWLIndividual> individuals;
 
@@ -39,12 +42,17 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
-        checkIterableNotNull(individuals, "individuals cannot be null", false);
-        this.individuals = sortOptionally(individuals.stream().distinct(), OWLIndividual.class);
+        checkNotNull(individuals, "individuals cannot be null");
+        this.individuals = sorted(OWLIndividual.class, individuals);
     }
 
     @Override
     public Stream<OWLIndividual> individuals() {
-        return individuals.stream();
+        return streamFromSorted(individuals);
+    }
+
+    @Override
+    public List<OWLIndividual> getIndividualsAsList() {
+        return new ArrayList<>(individuals);
     }
 }

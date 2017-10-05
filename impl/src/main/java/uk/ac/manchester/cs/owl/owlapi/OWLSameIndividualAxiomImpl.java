@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.sorted;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -57,28 +58,21 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     @Override
-    public Set<OWLSameIndividualAxiom> asPairwiseAxioms() {
-        Set<OWLSameIndividualAxiom> result = new HashSet<>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            OWLIndividual indI = individuals.get(i);
-            OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), NO_ANNOTATIONS));
+    public Collection<OWLSameIndividualAxiom> asPairwiseAxioms() {
+        if (individuals.size() == 2) {
+            return CollectionFactory.createSet(this);
         }
-        return result;
+        return walkPairwise((a, b) -> new OWLSameIndividualAxiomImpl(
+            sorted(OWLIndividual.class, a, b), NO_ANNOTATIONS));
     }
 
     @Override
-    public Set<OWLSameIndividualAxiom> splitToAnnotatedPairs() {
+    public Collection<OWLSameIndividualAxiom> splitToAnnotatedPairs() {
         if (individuals.size() == 2) {
-            return Collections.singleton(this);
+            return CollectionFactory.createSet(this);
         }
-        Set<OWLSameIndividualAxiom> result = new HashSet<>();
-        for (int i = 0; i < individuals.size() - 1; i++) {
-            OWLIndividual indI = individuals.get(i);
-            OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), annotations));
-        }
-        return result;
+        return walkPairwise((a,
+            b) -> new OWLSameIndividualAxiomImpl(sorted(OWLIndividual.class, a, b), annotations));
     }
 
     @Override

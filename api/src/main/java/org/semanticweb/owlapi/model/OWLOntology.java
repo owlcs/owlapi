@@ -256,10 +256,10 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * of IRIs that correspond to the set of IRIs in an ontology's directlyImportsDocuments (see
      * Section 3 in the OWL 2 structural specification).
      *
-     * @return The set of imports declarations that correspond to the set of ontology document IRIs
-     *         that are directly imported by this ontology. The set that is returned is a copy - it
-     *         will not be updated if the ontology changes. It is therefore safe to apply changes to
-     *         this ontology while iterating over this set.
+     * @return Sorted stream of imports declarations that correspond to the set of ontology document IRIs
+     * that are directly imported by this ontology. The set that is returned is a copy - it will not
+     * be updated if the ontology changes. It is therefore safe to apply changes to this ontology
+     * while iterating over this set.
      */
     Stream<OWLImportsDeclaration> importsDeclarations();
 
@@ -378,9 +378,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * <li>Disjoint class axioms that don't contain any named classes ( {@code OWLClass}es)</li>
      * </ul>
      *
-     * @return The set that is returned is a copy of the axioms in the ontology - it will not be
-     *         updated if the ontology changes. It is therefore safe to apply changes to this
-     *         ontology while iterating over this set.
+     * @return The sorted set that is returned is a copy of the axioms in the ontology - it will not be
+     * updated if the ontology changes. It is therefore safe to apply changes to this ontology while
+     * iterating over this set.
      */
     Stream<OWLClassAxiom> generalClassAxioms();
 

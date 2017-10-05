@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DIFFERENT;
@@ -1137,7 +1136,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void addListTriples(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects) {
-        addTriple(getNode(subject), getPredicateNode(pred), translateList(sortOptionally(objects)));
+        addTriple(getNode(subject), getPredicateNode(pred),
+            translateList(asList(objects.sorted())));
     }
 
     private void addTriple(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects,
@@ -1152,16 +1152,16 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void processIfAnonymous(Stream<? extends OWLIndividual> inds, @Nullable OWLAxiom root) {
-        sortOptionally(inds).forEach(i -> processIfAnonymous(i, root));
+        inds.sorted().forEach(i -> processIfAnonymous(i, root));
     }
 
     private void processIfAnonymous(OWLIndividual ind, @Nullable OWLAxiom root) {
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                sortOptionally(ont.axioms(ind)).stream()
-                    .filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax.accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
+                ont.axioms(ind).sorted().filter(ax -> root == null || !root.equals(ax))
+                    .forEach(ax -> ax.accept(this));
+                ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()).sorted()
                     .forEach(ax -> ax.accept(this));
             }
             currentIndividuals.remove(ind);
@@ -1172,8 +1172,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                sortOptionally(ont.axioms(ind)).forEach(ax -> ax.accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
+                ont.axioms(ind).sorted().forEach(ax -> ax.accept(this));
+                ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()).sorted()
                     .forEach(ax -> ax.accept(this));
             }
             currentIndividuals.remove(ind);
@@ -1181,7 +1181,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void addPairwise(OWLAxiom axiom, Stream<? extends OWLObject> objects, IRI iri) {
-        List<? extends OWLObject> objectList = sortOptionally(objects);
+        List<? extends OWLObject> objectList = asList(objects.sorted());
         for (int i = 0; i < objectList.size(); i++) {
             for (int j = i; j < objectList.size(); j++) {
                 if (i != j) {

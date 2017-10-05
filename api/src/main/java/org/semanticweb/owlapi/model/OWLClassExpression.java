@@ -90,17 +90,17 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *         the set {A, B, C}
      */
     default Stream<OWLClassExpression> conjunctSet() {
-        return asConjunctSet().stream();
+        return asConjunctSet().stream().sorted();
     }
 
     /**
      * Interprets this expression as a conjunction and returns the conjuncts. This method does not
      * normalise the expression (full CNF is not computed).
      *
-     * @return The conjucts of this expression if it is a conjunction (object intersection of), or
-     *         otherwise a singleton set containing this expression. Note that nested conjunctions
-     *         will be flattened, for example, calling this method on (A and B) and C will return
-     *         the set {A, B, C}
+     * @return The sorted stream of conjucts of this expression if it is a conjunction (object
+     *         intersection of), or otherwise a singleton set containing this expression. Note that
+     *         nested conjunctions will be flattened, for example, calling this method on (A and B)
+     *         and C will return the set {A, B, C}
      */
     Set<OWLClassExpression> asConjunctSet();
 
@@ -119,13 +119,13 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * Interprets this expression as a disjunction and returns the disjuncts. This method does not
      * normalise the expression (full DNF is not computed).
      *
-     * @return The disjuncts of this expression if it is a disjunction (object union of), or
-     *         otherwise a singleton set containing this expression. Note that nested disjunctions
-     *         will be flattened, for example, calling this method on (A or B) or C will return the
-     *         set {A, B, C}
+     * @return The sorted stream of disjuncts of this expression if it is a disjunction (object
+     *         union of), or otherwise a singleton set containing this expression. Note that nested
+     *         disjunctions will be flattened, for example, calling this method on (A or B) or C
+     *         will return the set {A, B, C}
      */
     default Stream<OWLClassExpression> disjunctSet() {
-        return asDisjunctSet().stream();
+        return asDisjunctSet().stream().sorted();
     }
 
     /**

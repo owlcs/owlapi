@@ -254,8 +254,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     }
 
     /**
-     * Generic search method: resutns all axioms which refer entity, are instances of type,
-     * optionally including the imports closure in the results.
+     * Generic search method: returns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
      *
      * @param <T> type of returned axioms
      * @param type type of axioms

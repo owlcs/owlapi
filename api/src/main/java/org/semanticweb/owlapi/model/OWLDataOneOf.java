@@ -53,7 +53,7 @@ public interface OWLDataOneOf extends OWLDataRange {
     }
 
     /**
-     * Gets the values ({@link OWLLiteral}s) that this data range consists of.
+     * Gets the sorted values ({@link OWLLiteral}s) that this data range consists of.
      *
      * @return The values that this data range consists of.
      */

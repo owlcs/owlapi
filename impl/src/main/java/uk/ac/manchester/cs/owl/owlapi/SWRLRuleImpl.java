@@ -99,7 +99,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Stream<OWLClassExpression> classAtomPredicates() {
-        return Stream.concat(head.stream(), body.stream()).filter(c -> c instanceof SWRLClassAtom)
+        return Stream.concat(head(), body()).filter(c -> c instanceof SWRLClassAtom)
             .map(c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
     }
 
@@ -129,10 +129,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         if (!(obj instanceof SWRLRule)) {
             return false;
         }
+        // For same implementation instances, no need to create or sort sets
         if (obj instanceof SWRLRuleImpl) {
             return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head)
                 && equalStreams(annotations(), ((SWRLRuleImpl) obj).annotations());
         }
+        // For different implementations, just use sets, do not sort
         SWRLRule other = (SWRLRule) obj;
         return body.equals(asSet(other.body())) && head.equals(asSet(other.head()))
             && equalStreams(annotations(), other.annotations());

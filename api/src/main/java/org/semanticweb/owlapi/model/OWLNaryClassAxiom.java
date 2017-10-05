@@ -55,7 +55,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom<OWLClassE
     /**
      * Gets all of the top level class expressions that appear in this axiom.
      *
-     * @return A {@code Set} of class expressions that appear in the axiom.
+     * @return Sorted stream of class expressions that appear in the axiom.
      */
     Stream<OWLClassExpression> classExpressions();
 
