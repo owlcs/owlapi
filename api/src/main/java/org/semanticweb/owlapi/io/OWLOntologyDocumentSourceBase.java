@@ -63,6 +63,11 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         LoggerFactory.getLogger(OWLOntologyDocumentSourceBase.class);
     private static final Pattern CONTENT_DISPOSITION_FILE =
         Pattern.compile(".*filename=\"([^\\s;]*)\".*");
+    private static final String TEXTPLAIN_REQUEST_TYPE = ", text/plain; q=0.1";
+    private static final String LAST_REQUEST_TYPE = ", */*; q=0.09";
+    private static final String DEFAULT_REQUEST =
+        "application/rdf+xml, application/xml; q=0.7, text/xml; q=0.6" + TEXTPLAIN_REQUEST_TYPE
+            + LAST_REQUEST_TYPE;
     private static final LoadingCache<Integer, OkHttpClient> CACHE =
         Caffeine.newBuilder().maximumSize(16)
             .build((timeout) -> new OkHttpClient.Builder()
@@ -85,7 +90,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     protected String stringContent = "";
     @Nullable
     protected OWLParserParameters parametersAtLoading;
-
+    private String acceptHeaders = null;
 
     /**
      * Constructs an ontology input source using the specified file.
@@ -114,6 +119,16 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     protected OWLOntologyDocumentSourceBase(String iriPrefix, Streamer<InputStream> in,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
         this(IRI.getNextDocumentIRI(iriPrefix), in, format, mime);
+    }
+
+    @Override
+    public Optional<String> getAcceptHeaders() {
+        return Optional.ofNullable(acceptHeaders);
+    }
+
+    @Override
+    public void setAcceptHeaders(String headers) {
+        acceptHeaders = headers;
     }
 
     @Override
@@ -152,14 +167,22 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         return handleZips(in, fileName);
     }
 
-    private static Response getResponse(IRI documentIRI, OntologyConfigurator config)
-        throws IOException, OWLOntologyInputSourceException {
+    private static Response getResponse(IRI documentIRI, OntologyConfigurator config,
+        String acceptHeaders) throws IOException, OWLOntologyInputSourceException {
+        String actualAcceptHeaders = acceptHeaders;
+        if (!acceptHeaders.contains("text/plain")) {
+            actualAcceptHeaders += TEXTPLAIN_REQUEST_TYPE;
+        }
+        if (!acceptHeaders.contains("*/*")) {
+            actualAcceptHeaders += LAST_REQUEST_TYPE;
+        }
         int count = 0;
         while (count < config.getRetriesToAttempt()) {
             try {
                 count++;
                 int timeout = count * config.getConnectionTimeout();
-                return getResponse(documentIRI, timeout);
+
+                return getResponse(documentIRI, timeout, actualAcceptHeaders);
             } catch (SocketTimeoutException e) {
                 LOGGER.warn("Connection to " + documentIRI + " failed, attempt " + count + " of "
                     + config.getRetriesToAttempt(), e);
@@ -172,14 +195,14 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     /**
      * @param documentIRI iri to connect to
      * @param timeout connection timeout
+     * @param acceptHeaders accept headers for the connection
      * @return Response for connection
      * @throws IOException if the connection fails
      */
-    private static Response getResponse(IRI documentIRI, int timeout) throws IOException {
+    private static Response getResponse(IRI documentIRI, int timeout, String acceptHeaders)
+        throws IOException {
         Builder builder = new Request.Builder().url(documentIRI.toString())
-            .addHeader("Accept",
-                "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2")
-            .addHeader("Accept-Encoding", "xz,gzip,deflate");
+            .addHeader("Accept", acceptHeaders).addHeader("Accept-Encoding", "xz,gzip,deflate");
         Request request = builder.build();
         Call newCall = verifyNotNull(CACHE.get(Integer.valueOf(timeout))).newCall(request);
         return newCall.execute();
@@ -240,7 +263,9 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                     throw new OWLParserException(e);
                 }
             }
-            try (Response response = getResponse(documentIRI, config);
+            try (
+                Response response =
+                    getResponse(documentIRI, config, getAcceptHeaders().orElse(DEFAULT_REQUEST));
                 InputStream is = getInputStreamFromContentEncoding(documentIRI, response);
                 InputStream in = new BufferedInputStream(is)) {
                 if (textual) {

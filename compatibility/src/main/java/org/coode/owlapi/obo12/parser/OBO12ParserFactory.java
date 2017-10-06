@@ -38,9 +38,6 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParser;
@@ -63,17 +60,7 @@ public class OBO12ParserFactory implements OWLParserFactory {
 
     @Override
     public @Nullable String getDefaultMIMEType() {
-        return null;
-    }
-
-    @Override
-    public List<String> getMIMETypes() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public boolean handlesMimeType(String mimeType) {
-        return false;
+        return new OBO12DocumentFormatFactory().getDefaultMIMEType();
     }
 
     @Override

@@ -75,4 +75,15 @@ public interface OWLOntologyDocumentSource {
      * @return An object containing metadata about loading
      */
     Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData();
+
+    /**
+     * @param headers accept headers; if not set, the mime type will be used; if that is also
+     *        missing, the available parsers will contribute the headers
+     */
+    default void setAcceptHeaders(String headers) {}
+
+    /** @return currently set accept headers */
+    default Optional<String> getAcceptHeaders() {
+        return Optional.empty();
+    }
 }

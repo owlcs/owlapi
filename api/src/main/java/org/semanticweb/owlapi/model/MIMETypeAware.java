@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -30,7 +31,13 @@ public interface MIMETypeAware {
      *
      * @return A list of strings containing the known MIME types for this format.
      */
-    List<String> getMIMETypes();
+    default List<String> getMIMETypes() {
+        String defaultMIMEType = getDefaultMIMEType();
+        if (defaultMIMEType == null || defaultMIMEType.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return Collections.singletonList(getDefaultMIMEType());
+    }
 
     /**
      * Determines whether either getDefaultMIMEType() equals the given mimeType or getMIMETypes()
@@ -39,5 +46,23 @@ public interface MIMETypeAware {
      * @param mimeType The MIME type to match against.
      * @return True if the given MIME type matches this format.
      */
-    boolean handlesMimeType(String mimeType);
+    default boolean handlesMimeType(String mimeType) {
+        String type = stripWeight(mimeType);
+        return getMIMETypes().stream().map(MIMETypeAware::stripWeight)
+            .anyMatch(m -> m.equals(type));
+    }
+
+    /**
+     * Utility to reduce a mime format like "text/plain; q=0.1" to "text/plain"
+     * 
+     * @param mime input
+     * @return mime type without weight
+     */
+    static String stripWeight(String mime) {
+        int semiColon = mime.indexOf(';');
+        if (semiColon > -1) {
+            return mime.substring(0, semiColon).trim();
+        }
+        return mime.trim();
+    }
 }

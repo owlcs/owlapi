@@ -38,8 +38,11 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.PriorityCollection;
 
 import com.google.common.collect.Sets;
+
+import uk.ac.manchester.cs.AcceptHeaderBuilder;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
@@ -104,7 +107,13 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         // select a parser if the input source has format information and MIME
         // information
         Set<String> bannedParsers = Sets.newHashSet(configuration.getBannedParsers().split(" "));
-        for (OWLParserFactory parserFactory : documentSource.filter(manager.getOntologyParsers())) {
+        PriorityCollection<OWLParserFactory> parsers =
+            documentSource.filter(manager.getOntologyParsers());
+        // use the selection of parsers to set the accept headers explicitly, including weights
+        if (!documentSource.getAcceptHeaders().isPresent()) {
+            documentSource.setAcceptHeaders(AcceptHeaderBuilder.headersFromParsers(parsers));
+        }
+        for (OWLParserFactory parserFactory : parsers) {
             if (!bannedParsers.contains(parserFactory.getClass().getName())) {
                 OWLParser parser = parserFactory.createParser();
                 try {
