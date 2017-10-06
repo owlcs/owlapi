@@ -201,7 +201,9 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
         PriorityCollection<OWLParserFactory> parsers =
             getParsers(documentSource, manager.getOntologyParsers());
         // use the selection of parsers to set the accept headers explicitly, including weights
-        documentSource.setAcceptHeaders(AcceptHeaderBuilder.headersFromParsers(parsers));
+        if (documentSource.getAcceptHeaders().isPresent()) {
+            documentSource.setAcceptHeaders(AcceptHeaderBuilder.headersFromParsers(parsers));
+        }
         for (OWLParserFactory parserFactory : parsers) {
             if (!bannedParsers.contains(parserFactory.getClass().getName())) {
                 OWLParser parser = parserFactory.createParser();
