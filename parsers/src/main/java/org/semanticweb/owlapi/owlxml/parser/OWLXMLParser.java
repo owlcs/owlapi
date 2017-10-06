@@ -46,6 +46,10 @@ public class OWLXMLParser implements OWLParser {
             OWLXMLPH handler = new OWLXMLPH(p.getOntology(), p.getConfig());
             SAXParsers.initParserWithOWLAPIStandards(null, p.getConfig().getEntityExpansionLimit())
                 .parse(isrc, handler);
+            if (!handler.atLeastOneTagFound()) {
+                throw new OWLXMLParserException(handler,
+                    "No known tags in the input: is the file an OWL/XML ontology?");
+            }
             p.getOntology().getPrefixManager().copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             String base = handler.getBase().toString();
             // do not override existing default prefix

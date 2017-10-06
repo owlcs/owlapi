@@ -155,6 +155,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
     private final RemappingIndividualProvider anonProvider;
     @Nullable
     private Locator locator;
+    private boolean atLeastOneValidTagFound = false;
 
     /**
      * @param ontology ontology to parse into
@@ -466,6 +467,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
         }
         PARSER_OWLXMLVocabulary handlerFactory = handlerMap.get(localName);
         if (handlerFactory != null) {
+            atLeastOneValidTagFound = true;
             OWLEH<?, ?> handler = handlerFactory.createHandler(this);
             if (!handlerStack.isEmpty()) {
                 handler.setParentHandler(handlerStack.get(0));
@@ -519,5 +521,12 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
      */
     public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
+    }
+
+    /**
+     * @return true if the parser found at least one tag belonging to OWL/XML
+     */
+    public boolean atLeastOneTagFound() {
+        return atLeastOneValidTagFound;
     }
 }
