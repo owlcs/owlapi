@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -118,7 +117,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
             IOUtils.copy(in, out);
             out.finish();
             out.flush();
-            return () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
+            return () -> new GZIPInputStream(new BufferByteArrayInput(bos));
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
@@ -139,7 +138,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
             writer.flush();
             out.finish();
             out.flush();
-            return () -> new GZIPInputStream(new ByteArrayInputStream(bos.byteArray()));
+            return () -> new GZIPInputStream(new BufferByteArrayInput(bos));
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }

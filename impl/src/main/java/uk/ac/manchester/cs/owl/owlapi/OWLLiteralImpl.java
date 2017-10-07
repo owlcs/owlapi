@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -24,7 +23,6 @@ import java.io.Serializable;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -32,6 +30,7 @@ import java.util.zip.GZIPOutputStream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.BufferByteArray;
+import org.semanticweb.owlapi.io.BufferByteArrayInput;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -168,7 +167,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (literal.l != null) {
             return literal.l.hashCode();
         }
-        return Arrays.hashCode(literal.bytes);
+        return literal.bytes == null ? 0 : literal.bytes.hashCode();
     }
 
     // Literal Wrapper
@@ -178,7 +177,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         @Nullable
         String l;
         @Nullable
-        byte[] bytes;
+        BufferByteArrayInput bytes;
 
         LiteralWrapper(String s) {
             if (s.length() > COMPRESSION_LIMIT) {
@@ -203,7 +202,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return decompress(verifyNotNull(bytes));
         }
 
-        static byte[] compress(String s) {
+        static BufferByteArrayInput compress(String s) {
             try (BufferByteArray out = new BufferByteArray(32);
                 GZIPOutputStream zipout = new GZIPOutputStream(out);
                 Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING)) {
@@ -211,15 +210,14 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 writer.flush();
                 zipout.finish();
                 zipout.flush();
-                return out.toByteArray();
+                return new BufferByteArrayInput(out);
             } catch (IOException e) {
                 throw new OWLRuntimeException(e);
             }
         }
 
-        static String decompress(byte[] result) {
-            try (ByteArrayInputStream in = new ByteArrayInputStream(result);
-                GZIPInputStream zipin = new GZIPInputStream(in);
+        static String decompress(BufferByteArrayInput in) {
+            try (GZIPInputStream zipin = new GZIPInputStream(in);
                 Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING)) {
                 StringBuilder b = new StringBuilder();
                 int c = reader.read();

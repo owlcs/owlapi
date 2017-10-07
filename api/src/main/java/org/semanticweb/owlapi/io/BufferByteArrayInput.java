@@ -12,8 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * A ByteArrayOutputStream that allows access to the underlying byte array without a copy. To be
@@ -21,28 +22,18 @@ import java.io.Serializable;
  * being read again. Make sure that no more writes to the stream happen after the array has been
  * accessed - if the array is updated or extended after it has been accessed, data will be lost.
  */
-public class BufferByteArray extends ByteArrayOutputStream implements Serializable {
+public class BufferByteArrayInput extends ByteArrayInputStream implements Serializable {
 
     /**
-     * Default constructor setting the array size to 16K
+     * @param in byte array to read (without copy). ensure no further writes are made to in.
      */
-    public BufferByteArray() {
-        super(16384);
+    public BufferByteArrayInput(BufferByteArray in) {
+        super(in.byteArray());
+        count = in.size();
     }
 
-    /**
-     * @param size initial size
-     */
-    public BufferByteArray(int size) {
-        super(size);
-    }
-
-    /**
-     * @return the baking byte array. Make sure that no more writes to the stream happen after the
-     *         array has been accessed - if the array is updated or extended after it has been
-     *         accessed, data will be lost.
-     */
-    public byte[] byteArray() {
-        return buf;
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(buf);
     }
 }
