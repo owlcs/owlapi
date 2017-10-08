@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
@@ -228,7 +229,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                 if (n.isLiteral()) {
                                     RDFLiteral litNode = (RDFLiteral) n;
                                     writer.writeStartElement(RDFS_LITERAL.getIRI());
-                                    if (!litNode.isPlainLiteral()) {
+                                    if (!litNode.isPlainLiteral() && !OWL2Datatype.XSD_STRING
+                                        .getIRI().equals(litNode.getDatatype())) {
                                         writer.writeDatatypeAttribute(litNode.getDatatype());
                                     } else if (litNode.hasLang()) {
                                         writer.writeLangAttribute(litNode.getLang());
@@ -255,7 +257,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
                 if (rdfLiteralNode.hasLang()) {
                     writer.writeLangAttribute(rdfLiteralNode.getLang());
-                } else if (!rdfLiteralNode.isPlainLiteral()) {
+                } else if (!rdfLiteralNode.isPlainLiteral()
+                    && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
                 }
                 writer.writeTextContent(rdfLiteralNode.getLexicalValue());

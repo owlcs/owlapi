@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
@@ -226,7 +227,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (node.hasLang()) {
                     writeAt();
                     write(node.getLang());
-                } else {
+                } else if (!OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
                     write("^^");
                     write(node.getDatatype());
                 }
