@@ -27,7 +27,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
@@ -51,6 +53,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
@@ -176,8 +179,8 @@ public class TurtleRenderer extends RDFRendererBase {
     // TODO move to PrefixManager
     @Nullable
     private String forceSplitIfPrefixExists(IRI iri) {
-        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(
-            pm.getPrefixName2PrefixMap().entrySet());
+        List<Map.Entry<String, String>> prefixName2PrefixMap =
+            new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
         // sort the entries in reverse lexicographic order by value (longest
         // prefix first)
         Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
@@ -232,7 +235,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (node.hasLang()) {
                     writeAt();
                     write(node.getLang());
-                } else {
+                } else if (!OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
                     write("^^");
                     write(node.getDatatype());
                 }
@@ -274,7 +277,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 write("(");
                 writeSpace();
                 pushTab();
-                for (Iterator<RDFNode> it = list.iterator(); it.hasNext(); ) {
+                for (Iterator<RDFNode> it = list.iterator(); it.hasNext();) {
                     write(verifyNotNull(it.next()));
                     if (it.hasNext()) {
                         writeNewLine();
@@ -389,7 +392,7 @@ public class TurtleRenderer extends RDFRendererBase {
                     write(" ,");
                     writeNewLine();
                     renderObject(object);
-                    } else {
+                } else {
                     // The predicate, object differ from previous triple
                     // Just write the predicate and object
                     write(" ;");
@@ -423,7 +426,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 writeSpace();
                 pushTab();
                 renderObject(object);
-                    }
+            }
             lastSubject = subj;
             lastPredicate = pred;
             first = false;
@@ -450,7 +453,7 @@ public class TurtleRenderer extends RDFRendererBase {
         writer.flush();
         level--;
         if (root) {
-        while (!nodesToRenderSeparately.isEmpty()) {
+            while (!nodesToRenderSeparately.isEmpty()) {
                 RDFResourceBlankNode polled = nodesToRenderSeparately.poll();
                 if (renderedNodes.add(polled)) {
                     render(polled, false);

@@ -223,6 +223,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
@@ -1115,7 +1116,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         if (node.hasLang()) {
             write("@");
             write(node.getLang());
-        } else if (!node.isRDFPlainLiteral()) {
+        } else if (!node.isRDFPlainLiteral()
+            && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
             write("^^");
             write(node.getDatatype().getIRI());
         }
