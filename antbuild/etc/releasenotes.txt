@@ -1,3 +1,24 @@
+4.5.0 13 Oct 2017
+
+Features:
+
+*    Accept Headers to include all MIME types with supporting parsers #705
+*    Add HasAnnotationValue interface with methods for mapping
+*    Optional methods for OWLOntologyChange
+*    Implement efficient way to test if an ontology refers entity type #698
+
+Bug fixes:
+
+*    OWL/XML should reject XML files that are not valid OWL/XML #657
+*    OWLObject immutable collections sorted #702
+*    Sort imports and imports closure #702
+*    Sort namespace prefixes for XML serialization #702
+*    OWLOntologyMerger fails with ConcurrentModificationException #673
+*    getFragment advices an non existent replacement #684
+*    Fix Poor performance in OWLImmutableOntologyImpl.getImportsClosure #696
+
+
+
 4.3.2 25 July 2017
 
 Features:
