@@ -128,8 +128,6 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
 
     /**
      * Instantiates a new explanation orderer impl.
-     *
-     * @param m the manager to use
      */
     public ExplanationOrdererImplNoManager() {
         currentExplanation = Collections.emptySet();
